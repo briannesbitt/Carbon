@@ -32,11 +32,12 @@ class Carbon extends \DateTime
          return $object;
       }
 
-      $tz = @timezone_open((string)$object);
+      $tz = @timezone_open((string) $object);
 
       if ($tz === false) {
          throw new \InvalidArgumentException('Unknown or bad timezone ('.$object.')');
       }
+
       return $tz;
    }
 
@@ -142,53 +143,61 @@ class Carbon extends \DateTime
    }
    public function __set($name, $value)
    {
-      switch($name)
-      {
+      $handled = true;
+
+      switch ($name) {
          case 'year':
             parent::setDate($value, $this->month, $this->day);
-            return;
+            break;
          case 'month':
             parent::setDate($this->year, $value, $this->day);
-            return;
+            break;
          case 'day':
             parent::setDate($this->year, $this->month, $value);
-            return;
+            break;
          case 'hour':
             parent::setTime($value, $this->minute, $this->second);
-            return;
+            break;
          case 'minute':
             parent::setTime($this->hour, $value, $this->second);
-            return;
+            break;
          case 'second':
             parent::setTime($this->hour, $this->minute, $value);
-            return;
+            break;
          case 'timestamp':
             parent::setTimestamp($value);
-            return;
+            break;
          case 'timezone':
             $this->setTimezone($value);
-            return;
+            break;
          case 'tz':
             $this->setTimezone($value);
-            return;
+            break;
+         default:
+            $handled = false;
+            break;
       }
 
-      throw new \InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
-
+      if (!$handled) {
+        throw new \InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+      }
    }
    public function year($value)
    {
       $this->year = $value;
+
       return $this;
    }
    public function month($value)
    {
       $this->month = $value;
+
       return $this;
    }
    public function day($value)
    {
       $this->day = $value;
+
       return $this;
    }
    public function setDate($year, $month, $day)
@@ -198,16 +207,19 @@ class Carbon extends \DateTime
    public function hour($value)
    {
       $this->hour = $value;
+
       return $this;
    }
    public function minute($value)
    {
       $this->minute = $value;
+
       return $this;
    }
    public function second($value)
    {
       $this->second = $value;
+
       return $this;
    }
    public function setTime($hour, $minute, $second = 0)
@@ -221,6 +233,7 @@ class Carbon extends \DateTime
    public function timestamp($value)
    {
       $this->timestamp = $value;
+
       return $this;
    }
    public function timezone($value)
@@ -234,6 +247,7 @@ class Carbon extends \DateTime
    public function setTimezone($value)
    {
       parent::setTimezone(self::safeCreateDateTimeZone($value));
+
       return $this;
    }
 
@@ -368,10 +382,10 @@ class Carbon extends \DateTime
       $interval = new \DateInterval(sprintf("P%dY", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
-      }
-      else {
+      } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addYear()
@@ -394,6 +408,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addMonth()
@@ -416,6 +431,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addDay()
@@ -435,12 +451,10 @@ class Carbon extends \DateTime
       $absValue = abs($value);
       $direction = $value < 0 ? -1 : 1;
 
-      while ($absValue > 0)
-      {
+      while ($absValue > 0) {
          $this->addDays($direction);
 
-         while($this->isWeekend())
-         {
+         while ($this->isWeekend()) {
             $this->addDays($direction);
          }
 
@@ -469,6 +483,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addWeek()
@@ -491,6 +506,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addHour()
@@ -513,6 +529,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addMinute()
@@ -535,6 +552,7 @@ class Carbon extends \DateTime
       } else {
          $this->sub($interval);
       }
+
       return $this;
    }
    public function addSecond()
@@ -571,6 +589,7 @@ class Carbon extends \DateTime
    {
       $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
       $sign = ($abs) ? '' : '%r';
+
       return intval($this->diff($dt)->format($sign.'%y'));
    }
    public function diffInMonths(Carbon $dt = null, $abs = true)
@@ -589,16 +608,19 @@ class Carbon extends \DateTime
    {
       $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
       $sign = ($abs) ? '' : '%r';
+
       return intval($this->diff($dt)->format($sign.'%a'));
    }
    public function diffInHours(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+
       return intval($this->diffInMinutes($dt, $abs) / self::MINUTES_PER_HOUR);
    }
    public function diffInMinutes(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+
       return intval($this->diffInSeconds($dt, $abs) / self::SECONDS_PER_MINUTE);
    }
    public function diffInSeconds(Carbon $dt = null, $abs = true)

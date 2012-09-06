@@ -65,7 +65,7 @@ class ComparisonTest extends TestFixture
       $dt2 = Carbon::create(2000, 1, 1, 9, 0, 1, 'America/Vancouver');
       $this->assertFalse($dt1->gt($dt2));
    }
-   
+
    public function testGreaterThanOrEqualTrue()
    {
       $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->gte(Carbon::createFromDate(1999, 12, 31)));
@@ -87,7 +87,7 @@ class ComparisonTest extends TestFixture
    {
       $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->lt(Carbon::createFromDate(1999, 12, 31)));
    }
-   
+
    public function testLessThanOrEqualTrue()
    {
       $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->lte(Carbon::createFromDate(2000, 1, 2)));

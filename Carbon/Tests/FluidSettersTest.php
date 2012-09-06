@@ -101,7 +101,6 @@ class FluidSettersTest extends TestFixture
       $this->assertCarbon($d, 2000, 1, 2, 2, 2, 1);
    }
 
-
    public function testFluidTimestampSetter()
    {
       $d = Carbon::now();

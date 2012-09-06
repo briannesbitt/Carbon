@@ -175,7 +175,6 @@ class DiffTest extends TestFixture
       $this->assertSame(1, $dt->diffInSeconds($dt->copy()->addSeconds(1.9)));
    }
 
-
    public function testDiffInSecondsWithTimezones()
    {
       $dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');

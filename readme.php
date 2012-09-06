@@ -21,7 +21,7 @@ $pre_src = 'use Carbon\Carbon; ';
 //   {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}}
 preg_match_all('@{{(\w*)::(\w+)\((.+)\)}}@sU', $readme, $matches, PREG_SET_ORDER);
 
-foreach($matches as $match) {
+foreach ($matches as $match) {
 
     list($orig, $name, $cmd, $src) = $match;
 
