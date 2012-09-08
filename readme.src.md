@@ -169,7 +169,7 @@ Most of the static `create` functions allow you to provide as many or as few arg
     Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
     ```
 
-`createFromDate()` will default the time to now.  `createFromTime()` will default the date to today. `create()` will default any null parameter to the current respective value. As before, the `$tz` defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case to default values occurs when an hour value is specifed the default values for minutes and seconds will be 0.
+`createFromDate()` will default the time to now.  `createFromTime()` will default the date to today. `create()` will default any null parameter to the current respective value. As before, the `$tz` defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case for default values (implemented like the underlying PHP library) occurs when an hour value is specifed but no minutes or seconds, they will get defaulted to 0.
 
     ```php
 {{::lint(
@@ -226,7 +226,7 @@ Finally, if you find yourself inherting a `\Datetime` instance from another libr
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
 
     ```php
-    {{::lint($dt = Carbon::now();)}}
+    {{::lint($dt = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
 
     // These getters specifically return integers, ie intval()
     {{getyear::exec(var_dump($dt->year);/*pad(65)*/)}} // {{getyear_eval}}
@@ -353,8 +353,8 @@ The following are wrappers for the common formats provided in the [DateTime clas
 Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.
 
     ```php
-    {{::lint($first = Carbon::now();)}}
-    {{::lint($second = Carbon::now('America/Vancouver');)}}
+    {{::lint($first = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
+    {{::lint($second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');)}}
 
     {{compare1::exec(echo $first->toDateTimeString();/*pad(65)*/)}} // {{compare1_eval}}
     {{compare2::exec(echo $second->toDateTimeString();/*pad(65)*/)}} // {{compare2_eval}}
@@ -367,7 +367,7 @@ Simple comparison is offered up via the following functions.  Remember that the 
     {{compare8::exec(var_dump($first->lte($second));/*pad(65)*/)}} // {{compare8_eval}}
 
     {{::lint($first->setDateTime(2012, 1, 1, 0, 0, 0);)}}
-    {{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);)}}
+    {{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(65)*/)}} // Remember tz is 'America/Vancouver'
 
     {{compare9::exec(var_dump($first->eq($second));/*pad(65)*/)}} // {{compare9_eval}}
     {{compare10::exec(var_dump($first->ne($second));/*pad(65)*/)}} // {{compare10_eval}}
@@ -567,20 +567,26 @@ I hate reading a readme.md file that has code errors and/or sample output that i
 
 > Don't make changes to the `readme.md` directly.
 
-Change the `readme.src.md` and then use the `readme.php` to generate the new `readme.md` file.  It can be run at the command line using `php readme.php` from the project root.  Maybe someday I'll extract this out to another project or manage it better with a post receive hook, but for now its just a local tool.
+Change the `readme.src.md` and then use the `readme.php` to generate the new `readme.md` file.  It can be run at the command line using `php readme.php` from the project root.  Maybe someday I'll extract this out to another project or at least run it with a post receive hook, but for now its just a local tool, deal with it.
 
 Apart from the readme the typical steps can be used to contribute your own improvements.
 
 * Fork
+* Clone
+* phpunit
+* Branch
+* phpunit
 * Code
-* Test
+* phpunit
 * Commit
+* Push
 * Pull request
+* Relax and play Castle Crashers
 
 <a name="about-author"/>
 ## Author
 
-Brian Nesbitt - <brian@nesbot.com> - <http://twitter.com/NesbittBrian><br />
+Brian Nesbitt - <brian@nesbot.com> - <http://twitter.com/NesbittBrian>
 
 <a name="about-license"/>
 ## License
