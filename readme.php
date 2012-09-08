@@ -60,8 +60,8 @@ foreach ($matches as $match) {
 
     // Add any necessary padding to lineup comments
     if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $src, $matches)) {
-        $src = str_pad($src, intval($matches[1]));
         $src = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $src);
+        $src = str_pad($src, intval($matches[1]));
     }
 
     // Inject the source code
