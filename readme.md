@@ -433,7 +433,7 @@ $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfDay();                  // 2012-01-31 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->endOfDay(); // 2012-01-31 23:59:59
+echo $dt->endOfDay();                    // 2012-01-31 23:59:59
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfMonth();                // 2012-01-01 00:00:00
@@ -536,9 +536,9 @@ The following constants are defined in the Carbon class.
 * SECONDS_PER_MINUTE = 60
 
 ```php
-$dt = Carbon::date(2012, 10, 6);
+$dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
-    betOnOttawaSenatorsWinning();
+    echo 'Place bets on Ottawa Senators Winning!';
 }
 ```
 

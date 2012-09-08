@@ -447,7 +447,7 @@ The default DateTime provides a couple of different methods for easily adding an
 {{addsub35::exec(echo $dt->startOfDay();/*pad(40)*/)}} // {{addsub35_eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{addsub37::exec(echo $dt->endOfDay();)}} // {{addsub37_eval}}
+{{addsub37::exec(echo $dt->endOfDay();/*pad(40)*/)}} // {{addsub37_eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{addsub39::exec(echo $dt->startOfMonth();/*pad(40)*/)}} // {{addsub39_eval}}
@@ -550,10 +550,12 @@ The following constants are defined in the Carbon class.
 * SECONDS_PER_MINUTE = 60
 
 ```php
-$dt = Carbon::date(2012, 10, 6);
+{{::lint(
+$dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
-    betOnOttawaSenatorsWinning();
+    echo 'Place bets on Ottawa Senators Winning!';
 }
+)}}
 ```
 
 <a name="about"/>
