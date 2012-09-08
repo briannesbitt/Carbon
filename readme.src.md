@@ -2,7 +2,7 @@
 
 # Carbon
 
-A simple and convenient API extension for DateTime with PHP 5.3+
+A simple API extension for DateTime with PHP 5.3+
 
     ```php
 {{::lint(

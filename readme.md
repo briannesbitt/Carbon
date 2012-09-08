@@ -2,7 +2,7 @@
 
 # Carbon
 
-A simple and convenient API extension for DateTime with PHP 5.3+
+A simple API extension for DateTime with PHP 5.3+
 
     ```php
     printf("Right now is %s", Carbon::now()->toDateTimeString());
@@ -184,7 +184,7 @@ Unexpected data found.
 
     ```php
     echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString(); // 1975-05-21 22:00:00
-    echo Carbon::createFromFormat('Y-m-d', '1975-05-21')->toDateTimeString();      // 1975-05-21 20:45:38
+    echo Carbon::createFromFormat('Y-m-d', '1975-05-21')->toDateTimeString();      // 1975-05-21 20:48:47
     ```
 
 The final two create functions are for working with [unix timestamps](http://en.wikipedia.org/wiki/Unix_time).  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, `createFromTimestampUTC()`, is different in that the timezone will remain UTC (GMT).  The second acts the same as `Carbon::createFromFormat('@'.$timestamp)` but I have just made it a little more explicit.  Negative timestamps are also allowed.
