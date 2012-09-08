@@ -187,11 +187,10 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 Carbon::createFromFormat($format, $time, $tz);
 ```
 
-`createFromFormat()` is mostly a wrapper for the base php function [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php).  The difference being again the `$tz` argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the `DateTime::getLastErrors()` method and then throw a `InvalidArgumentException` with the errors as the message.  If you look at the source for the `createX()` functions above, they all make a call to `createFromFormat()`.
+`createFromFormat()` is mostly a wrapper for the base php function [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php).  The difference being again the `$tz` argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the `DateTime::getLastErrors()` method and then throw a `InvalidArgumentException` with the errors as the message.  If you look at the source for the `createXX()` functions above, they all make a call to `createFromFormat()`.
 
 ```php
-{{createFromFormat1::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();/*pad(80)*/)}} // {{createFromFormat1_eval}}
-{{createFromFormat2::exec(echo Carbon::createFromFormat('Y-m-d', '1975-05-21')->toDateTimeString();/*pad(80)*/)}} // {{createFromFormat2_eval}}
+{{createFromFormat1::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{createFromFormat1_eval}}
 ```
 
 The final two create functions are for working with [unix timestamps](http://en.wikipedia.org/wiki/Unix_time).  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, `createFromTimestampUTC()`, is different in that the timezone will remain UTC (GMT).  The second acts the same as `Carbon::createFromFormat('@'.$timestamp)` but I have just made it a little more explicit.  Negative timestamps are also allowed.
@@ -211,7 +210,7 @@ You can also create a `copy()` of an existing Carbon instance.  As expected the 
 // $dt was unchanged and still holds the value of Carbon:now()
 ```
 
-Finally, if you find yourself inherting a `\Datetime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
+Finally, if you find yourself inherting a `\DateTime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
 
 ```php
 {{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API

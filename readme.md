@@ -179,11 +179,10 @@ try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $
 Carbon::createFromFormat($format, $time, $tz);
 ```
 
-`createFromFormat()` is mostly a wrapper for the base php function [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php).  The difference being again the `$tz` argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the `DateTime::getLastErrors()` method and then throw a `InvalidArgumentException` with the errors as the message.  If you look at the source for the `createX()` functions above, they all make a call to `createFromFormat()`.
+`createFromFormat()` is mostly a wrapper for the base php function [DateTime::createFromFormat](http://php.net/manual/en/datetime.createfromformat.php).  The difference being again the `$tz` argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the `DateTime::getLastErrors()` method and then throw a `InvalidArgumentException` with the errors as the message.  If you look at the source for the `createXX()` functions above, they all make a call to `createFromFormat()`.
 
 ```php
-echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();   // 1975-05-21 22:00:00
-echo Carbon::createFromFormat('Y-m-d', '1975-05-21')->toDateTimeString();        // 1975-05-21 00:10:06
+echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString(); // 1975-05-21 22:00:00
 ```
 
 The final two create functions are for working with [unix timestamps](http://en.wikipedia.org/wiki/Unix_time).  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, `createFromTimestampUTC()`, is different in that the timezone will remain UTC (GMT).  The second acts the same as `Carbon::createFromFormat('@'.$timestamp)` but I have just made it a little more explicit.  Negative timestamps are also allowed.
@@ -203,7 +202,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // $dt was unchanged and still holds the value of Carbon:now()
 ```
 
-Finally, if you find yourself inherting a `\Datetime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
+Finally, if you find yourself inherting a `\DateTime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
 
 ```php
 $dt = new \DateTime('first day of January 2008'); // <== instance from another API
