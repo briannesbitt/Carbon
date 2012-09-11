@@ -132,8 +132,9 @@ class Carbon extends \DateTime
       }
 
       try {
-         $callback();
+         $return = $callback();
          static::restorePreviousTime();
+         return $return;
       } catch (\Exception $e) {
          static::restorePreviousTime();
          throw $e;

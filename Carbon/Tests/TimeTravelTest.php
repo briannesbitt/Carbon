@@ -58,6 +58,14 @@ class TimeTravelTest extends TestFixture
         $this->assertSame(intval(date("Y")), Carbon::now()->year);
     }
 
+    public function testTimeTravelToWithClosureGetsReturnValue()
+    {
+        $ret = Carbon::timeTravelTo("1999-10-10", function() {
+            return 123;
+        });
+        $this->assertSame(123, $ret);
+    }
+
     public function testTimeTravelToWithClosureRestoresDespiteException()
     {
         try {
