@@ -26,6 +26,8 @@ class Carbon extends \DateTime
    const MINUTES_PER_HOUR = 60;
    const SECONDS_PER_MINUTE = 60;
 
+   protected static $timeTravelOffsets = array();
+
    protected static function safeCreateDateTimeZone($object)
    {
       if ($object instanceof \DateTimeZone) {
@@ -58,11 +60,18 @@ class Carbon extends \DateTime
    public static function now($tz = null)
    {
       if ($tz !== null) {
-         return new self(null, self::safeCreateDateTimeZone($tz));
+         $now = new self("now", self::safeCreateDateTimeZone($tz));
       } else {
-         return new self();
+         $now = new self("now");
       }
+
+      foreach (static::$timeTravelOffsets as $offset) {
+         $now->addSeconds($offset);
+      }
+
+      return $now;
    }
+
    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
    {
       $year = ($year === null) ? date('Y') : $year;
@@ -110,6 +119,49 @@ class Carbon extends \DateTime
    public static function createFromTimestampUTC($timestamp)
    {
       return new self('@'.$timestamp);
+   }
+
+   public static function timeTravelTo($time, \Closure $callback = null)
+   {
+      $now = static::now();
+      $then = new self($time);
+      static::$timeTravelOffsets[] = $then->getTimestamp() - $now->getTimestamp(); 
+
+      if (null === $callback) {
+         return;
+      }
+
+      try {
+         $callback();
+         static::restorePreviousTime();
+      } catch (\Exception $e) {
+         static::restorePreviousTime();
+         throw $e;
+      } 
+   }
+
+   public static function jump($seconds, \Closure $callback = null)
+   {
+      return static::timeTravelTo($seconds . "seconds", $callback);
+   }
+
+   public static function backToThePresent()
+   {
+      static::$timeTravelOffsets = array();
+   }
+
+   public static function nowWithoutTimeTravel($tz = null)
+   {
+      $offsets = static::$timeTravelOffsets;
+      static::$timeTravelOffsets = array();
+      $now = static::now($tz);
+      static::$timeTravelOffsets = $offsets;
+      return $now;
+   }
+
+   public static function restorePreviousTime()
+   {
+      array_pop(static::$timeTravelOffsets);
    }
 
    public function copy()
