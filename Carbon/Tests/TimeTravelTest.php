@@ -32,11 +32,11 @@ class TimeTravelTest extends TestFixture
         $this->assertSame(1999, Carbon::now()->year);
     }
 
-    public function testConsecutiveTimeTravellingIsRelativeToThePresent()
+    public function testConsecutiveTimeTravellingIsRelativeToTimeTravelTime()
     {
         Carbon::timeTravelTo("2 years ago");
         Carbon::timeTravelTo("+5 years");
-        $this->assertSame(date("Y") + 5, Carbon::now()->year);
+        $this->assertSame(date("Y") + 3, Carbon::now()->year);
     }
 
     public function testRestorePreviousTime()

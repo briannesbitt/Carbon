@@ -124,8 +124,10 @@ class Carbon extends \DateTime
    public static function timeTravelTo($time, \Closure $callback = null)
    {
       $now = static::now();
-      $then = new self($time);
-      static::$timeTravelOffsets[] = $then->getTimestamp() - $now->getTimestamp(); 
+      if (!($time instanceof \DateTime)) {
+          $time = static::now()->modify($time);
+      }
+      static::$timeTravelOffsets[] = $time->getTimestamp() - $now->getTimestamp(); 
 
       if (null === $callback) {
          return;
@@ -143,7 +145,8 @@ class Carbon extends \DateTime
 
    public static function jump($seconds, \Closure $callback = null)
    {
-      return static::timeTravelTo($seconds . "seconds", $callback);
+      $then = static::now()->addSeconds($seconds);
+      return static::timeTravelTo($then, $callback);
    }
 
    public static function backToThePresent()
