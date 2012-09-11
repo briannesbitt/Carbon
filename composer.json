@@ -1,7 +1,7 @@
 {
     "name": "nesbot/carbon",
     "type": "library",
-    "description": "Simple and convenient API extension for DateTime.",
+    "description": "A simple API extension for DateTime.",
     "keywords": ["date", "time", "DateTime"],
     "homepage": "https://github.com/briannesbitt/Carbon",
     "license": "MIT",
