@@ -11,7 +11,7 @@
 
 namespace Carbon\Tests;
 
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__.'/../Carbon.php';
 
 use Carbon\Carbon;
 
