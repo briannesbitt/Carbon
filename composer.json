@@ -17,5 +17,6 @@
     },
     "autoload": {
         "psr-0": { "Carbon": "." }
-    }
+    },
+    "minimum-stability": "dev"
 }

@@ -461,7 +461,7 @@ For fun you can also pass negative values to `addXXX()`, in fact thats how `subX
 <a name="api-difference"/>
 ### Difference
 
-These functions always return the **toal difference** expressed in the specified time requested.  This differs from the base class `diff()` function where an interval of 61 seconds would be returned as 1 minute and 1 second via a `DateInterval` instance.  The `diffInMinutes()` function would simply return 1.  All values are truncated and not rouned.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use `now()`.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a `-` (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.
+These functions always return the **total difference** expressed in the specified time requested.  This differs from the base class `diff()` function where an interval of 61 seconds would be returned as 1 minute and 1 second via a `DateInterval` instance.  The `diffInMinutes()` function would simply return 1.  All values are truncated and not rouned.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use `now()`.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a `-` (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.
 
 ```php
 // Carbon::diffInYears(Carbon $dt = null, $abs = true)
