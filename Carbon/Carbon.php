@@ -45,10 +45,29 @@ class Carbon extends \DateTime
 
    public function __construct($time = null, $tz = null)
    {
+      $datetime = count(static::$timeTravelOffsets) ? "now" : $time;
       if ($tz !== null) {
-         parent::__construct($time, self::safeCreateDateTimeZone($tz));
+         parent::__construct($datetime, self::safeCreateDateTimeZone($tz));
       } else {
-         parent::__construct($time);
+         parent::__construct($datetime);
+      }
+
+      if (!count(static::$timeTravelOffsets)) {
+          return;
+      }
+
+      foreach (static::$timeTravelOffsets as $offset) {
+         $this->addSeconds($offset);
+      }
+
+      $this->modify($time);
+
+      /**
+       * Hack for the "first day of january 2008"
+       */
+      $dt = new \DateTime($time);
+      if ("00:00:00" === $dt->format("H:i:s")) {
+         $this->setTime(0, 0, 0);
       }
    }
 
@@ -60,16 +79,10 @@ class Carbon extends \DateTime
    public static function now($tz = null)
    {
       if ($tz !== null) {
-         $now = new self("now", self::safeCreateDateTimeZone($tz));
+         return new self("now", self::safeCreateDateTimeZone($tz));
       } else {
-         $now = new self("now");
+         return new self("now");
       }
-
-      foreach (static::$timeTravelOffsets as $offset) {
-         $now->addSeconds($offset);
-      }
-
-      return $now;
    }
 
    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)

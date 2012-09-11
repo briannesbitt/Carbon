@@ -32,11 +32,53 @@ class TimeTravelTest extends TestFixture
         $this->assertSame(1999, Carbon::now()->year);
     }
 
-    public function testConsecutiveTimeTravellingIsRelativeToTimeTravelTime()
+    public function testConsecutiveTimeTravellingWithRelativeToTimeTravelTime()
     {
         Carbon::timeTravelTo("2 years ago");
         Carbon::timeTravelTo("+5 years");
         $this->assertSame(date("Y") + 3, Carbon::now()->year);
+    }
+
+    public function testTimeTravelWithConstructorAndNow()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("now");
+        $this->assertSame(date("Y") - 2, $c->year);
+    }
+
+    public function testTimeTravelWithConstructorAndAbsolute()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("1999/12/12");
+        $this->assertSame(1999, $c->year);
+    }
+
+    public function testTimeTravelWithConstructorAndRelative()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("2 years ago");
+        $this->assertSame(date("Y") - 4, $c->year);
+    }
+
+    public function testTimeTravelWithConstructorAndComplex()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("first day of january 2008");
+        $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
+    }
+
+    public function testTimeTravelWithConstructorAndComplexToday()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("today");
+        $this->assertCarbon($c, $c->year, $c->month, $c->day, 0, 0, 0);
+    }
+
+    public function testTimeTravelWithConstructorAndComplexNoon()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        $c = new Carbon("noon");
+        $this->assertCarbon($c, $c->year, $c->month, $c->day, 12, 0, 0);
     }
 
     public function testRestorePreviousTime()
