@@ -60,6 +60,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Difference](#api-difference)
     * [Difference for Humans](#api-humandiff)
     * [Constants](#api-constants)
+    * [Time Travel](#time-travel)
 * [About](#about)
     * [Contributing](#about-contributing)
     * [Author](#about-author)
@@ -558,6 +559,62 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
     echo 'Place bets on Ottawa Senators Winning!';
 }
 )}}
+```
+
+<a name="time-travel"/>
+### Time Travel
+
+There's an experimental time travelling feature for testing purposes, ala [ruby's delorean](https://github.com/bebanjo/delorean)
+
+```php
+{{::lint(
+
+class SeasonalProduct
+{ 
+    protected $price;
+
+    public function __construct($price)
+    {
+        $this->price = $price;
+    }
+
+    public function getPrice() {
+        $multiplier = 1;
+        if (Carbon::now()->month == 12) {
+            $multiplier = 2;
+        }
+
+        return $this->price * $multiplier;
+    }
+}
+)}}
+
+{{::lint(
+$product = new SeasonalProduct(100);
+Carbon::timeTravelTo("november");
+)}}
+{{november::exec(echo $product->getPrice();/*pad(50)*/)}} // {{november_eval}}
+{{::lint(Carbon::timeTravelTo("december"); )}}
+{{december::exec(echo $product->getPrice();/*pad(50)*/)}} // {{december_eval}}
+{{::lint(Carbon::restorePreviousTime(); )}}
+{{backInNovember::exec(echo $product->getPrice();/*pad(50)*/)}} // {{backInNovember_eval}}
+
+{{::lint(
+// reset 
+Carbon::timeTravelTo("december");
+Carbon::backToThePresent();
+)}}
+{{present::exec(echo $product->getPrice();/*pad(50)*/)}} // {{present_eval}}
+
+{{::lint(
+// with a callback
+$callback = Carbon::timeTravelTo("december", function() use ($product) {
+    return $product->getPrice();/*pad(50)*/
+});
+)}}
+{{callback::exec(echo $callback;/*pad(50)*/)}} // {{callback_eval}}
+{{previous::exec(echo $product->getPrice();/*pad(50)*/)}} // {{previous_eval}}
+
 ```
 
 <a name="about"/>

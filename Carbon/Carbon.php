@@ -26,6 +26,8 @@ class Carbon extends \DateTime
    const MINUTES_PER_HOUR = 60;
    const SECONDS_PER_MINUTE = 60;
 
+   protected static $timeTravelOffsets = array();
+
    protected static function safeCreateDateTimeZone($object)
    {
       if ($object instanceof \DateTimeZone) {
@@ -43,10 +45,29 @@ class Carbon extends \DateTime
 
    public function __construct($time = null, $tz = null)
    {
+      $datetime = count(static::$timeTravelOffsets) ? "now" : $time;
       if ($tz !== null) {
-         parent::__construct($time, self::safeCreateDateTimeZone($tz));
+         parent::__construct($datetime, self::safeCreateDateTimeZone($tz));
       } else {
-         parent::__construct($time);
+         parent::__construct($datetime);
+      }
+
+      if (!count(static::$timeTravelOffsets)) {
+          return;
+      }
+
+      foreach (static::$timeTravelOffsets as $offset) {
+         $this->addSeconds($offset);
+      }
+
+      $this->modify($time);
+
+      /**
+       * Hack for the "first day of january 2008"
+       */
+      $dt = new \DateTime($time);
+      if ("00:00:00" === $dt->format("H:i:s")) {
+         $this->setTime(0, 0, 0);
       }
    }
 
@@ -58,11 +79,12 @@ class Carbon extends \DateTime
    public static function now($tz = null)
    {
       if ($tz !== null) {
-         return new self(null, self::safeCreateDateTimeZone($tz));
+         return new self("now", self::safeCreateDateTimeZone($tz));
       } else {
-         return new self();
+         return new self("now");
       }
    }
+
    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
    {
       $year = ($year === null) ? date('Y') : $year;
@@ -110,6 +132,47 @@ class Carbon extends \DateTime
    public static function createFromTimestampUTC($timestamp)
    {
       return new self('@'.$timestamp);
+   }
+
+   public static function timeTravelTo($time, \Closure $callback = null)
+   {
+      $now = static::now();
+      if (!($time instanceof \DateTime)) {
+          $time = static::now()->modify($time);
+      }
+      static::$timeTravelOffsets[] = $time->getTimestamp() - $now->getTimestamp(); 
+
+      if (null === $callback) {
+         return;
+      }
+
+      try {
+         $return = $callback();
+         static::restorePreviousTime();
+         return $return;
+      } catch (\Exception $e) {
+         static::restorePreviousTime();
+         throw $e;
+      } 
+   }
+
+   public static function backToThePresent()
+   {
+      static::$timeTravelOffsets = array();
+   }
+
+   public static function nowWithoutTimeTravel($tz = null)
+   {
+      $offsets = static::$timeTravelOffsets;
+      static::$timeTravelOffsets = array();
+      $now = static::now($tz);
+      static::$timeTravelOffsets = $offsets;
+      return $now;
+   }
+
+   public static function restorePreviousTime()
+   {
+      array_pop(static::$timeTravelOffsets);
    }
 
    public function copy()
