@@ -622,6 +622,35 @@ I hate reading a readme.md file that has code errors and/or sample output that i
 
 Change the `readme.src.md` and then use the `readme.php` to generate the new `readme.md` file.  It can be run at the command line using `php readme.php` from the project root.  Maybe someday I'll extract this out to another project or at least run it with a post receive hook, but for now its just a local tool, deal with it.
 
+The commands are quickly explained below.  To see some examples you can view the raw `readme.src.md` file in this repo.
+
+`\{\{::lint()}}`
+
+The `lint` command is meant for confirming the code is valid and will `eval()` the code passed into the function.  Assuming there were no errors, the executed source code will then be injected back into the text replacing out the `\{\{::lint()}}`.  When you look at the raw `readme.src.md` you will see that the code can span several lines.  Remember the code is executed in the context of the running script so any variables will be availalbe for the rest of the file.
+
+    \{\{::lint($var = 'brian nesbitt';)}} => {{::lint($var = 'brian nesbitt';)}}
+
+> As mentioned the `$var` can later be echo'd and you would get 'brian nesbitt' as all of the source is executed in the same scope.
+
+`\{\{varName::exec()}}` and `{{varName_eval}}`
+
+The `exec` command begins by performing an `eval()` on the code passed into the function.  The executed source code will then be injected back into the text replacing out the `\{\{varName::exec()}}`.  This will also create a variable named `varName_eval` that you can then place anywhere in the file and it will get replaced with the output of the `eval()`.  You can use any type of output (`echo`, `printf`, `var_dump` etc) statement to return the result value as an output buffer is setup to capture the output.
+
+    \{\{exVarName::exec(echo $var;)}} => {{exVarName::exec(echo $var;)}}
+    \{\{exVarName_eval}} => {{exVarName_eval}}  // $var is still set from above
+
+`/*pad()*/`
+
+The `pad()` is a special source modifier.  This will pad the code block to the indicated number of characters using spaces.  Its particularly handy for aligning `//` comments when showing results.
+
+    \{\{exVarName1::exec(echo 12345;/*pad(20)*/)}} // \{\{exVarName1_eval}}
+    \{\{exVarName2::exec(echo 6;/*pad(20)*/)}} // \{\{exVarName2_eval}}
+
+... would generate to:
+
+    {{exVarName1::exec(echo 12345;/*pad(20)*/)}} // {{exVarName1_eval}}
+    {{exVarName2::exec(echo 6;/*pad(20)*/)}} // {{exVarName2_eval}}
+
 Apart from the readme the typical steps can be used to contribute your own improvements.
 
 * Fork
