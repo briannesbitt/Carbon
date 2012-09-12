@@ -78,7 +78,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
 <a name="install-composer"/>
 ### With Composer
 
-The easist way to install Carbon is via [composer](http://getcomposer.org/). Create the following `composer.json` file and run the `php composer.phar install` command to install it.
+The easiest way to install Carbon is via [composer](http://getcomposer.org/). Create the following `composer.json` file and run the `php composer.phar install` command to install it.
 
 ```json
 {
@@ -126,7 +126,7 @@ class Carbon extends \DateTime
 
 Carbon has all of the functions inherited from the base DateTime class.  This approach allows you to access the base functionality if you see anything missing in Carbon but is there in DateTime.
 
-> **Note: I live in Ottawa, Ontario, Canada and if the timezone is not specifed in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.**
+> **Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.**
 
 Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.
 
@@ -171,7 +171,7 @@ Carbon::createFromTime($hour, $minute, $second, $tz);
 Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
 ```
 
-`createFromDate()` will default the time to now.  `createFromTime()` will default the date to today. `create()` will default any null parameter to the current respective value. As before, the `$tz` defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case for default values (mimicking the underlying PHP library) occurs when an hour value is specifed but no minutes or seconds, they will get defaulted to 0.
+`createFromDate()` will default the time to now.  `createFromTime()` will default the date to today. `create()` will default any null parameter to the current respective value. As before, the `$tz` defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case for default values (mimicking the underlying PHP library) occurs when an hour value is specified but no minutes or seconds, they will get defaulted to 0.
 
 ```php
 {{::lint(
@@ -212,7 +212,7 @@ You can also create a `copy()` of an existing Carbon instance.  As expected the 
 // $dt was unchanged and still holds the value of Carbon:now()
 ```
 
-Finally, if you find yourself inherting a `\DateTime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
+Finally, if you find yourself inheriting a `\DateTime` instance from another library, fear not!  You can create a `Carbon` instance via a friendly `instance()` function.
 
 ```php
 {{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
@@ -292,7 +292,7 @@ $dt->tz = 'Europe/London';
 <a name="api-settersfluent"/>
 ### Fluent Setters
 
-No arguments are optional for the setters, but there are enough variety in the function defintions that you shouldn't need them anyway.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.
+No arguments are optional for the setters, but there are enough variety in the function definitions that you shouldn't need them anyway.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.
 
 ```php
 {{::lint(
@@ -458,12 +458,12 @@ The default DateTime provides a couple of different methods for easily adding an
 {{addsub41::exec(echo $dt->endOfMonth();/*pad(40)*/)}} // {{addsub41_eval}}
 ```
 
-For fun you can also pass negative values to `addXXX()`, in fact thats how `subXXX()` is implemented.
+For fun you can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
 
 <a name="api-difference"/>
 ### Difference
 
-These functions always return the **total difference** expressed in the specified time requested.  This differs from the base class `diff()` function where an interval of 61 seconds would be returned as 1 minute and 1 second via a `DateInterval` instance.  The `diffInMinutes()` function would simply return 1.  All values are truncated and not rouned.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use `now()`.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a `-` (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.
+These functions always return the **total difference** expressed in the specified time requested.  This differs from the base class `diff()` function where an interval of 61 seconds would be returned as 1 minute and 1 second via a `DateInterval` instance.  The `diffInMinutes()` function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use `now()`.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a `-` (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.
 
 ```php
 // Carbon::diffInYears(Carbon $dt = null, $abs = true)
@@ -501,7 +501,7 @@ These functions always return the **total difference** expressed in the specifie
 
 It is easier for humans to read `1 month ago` compared to 30 days ago.  This is a common function seen in most date libraries so I thought I would add it here as well.  It uses approximations for month being 30 days which then equates a year to 360 days.  The lone argument for the function is the other Carbon instance to diff against, and of course it defaults to `now()` if not specified.
 
-This method will add a phrase after the difference value relative to the instance and the passed in instance.  There are 4 possiblities:
+This method will add a phrase after the difference value relative to the instance and the passed in instance.  There are 4 possibilities:
 
 * When comparing a value in the past to default now:
     * 1 hour ago
@@ -576,7 +576,7 @@ The commands are quickly explained below.  To see some examples you can view the
 
 `\{\{::lint()}}`
 
-The `lint` command is meant for confirming the code is valid and will `eval()` the code passed into the function.  Assuming there were no errors, the executed source code will then be injected back into the text replacing out the `\{\{::lint()}}`.  When you look at the raw `readme.src.md` you will see that the code can span several lines.  Remember the code is executed in the context of the running script so any variables will be availalbe for the rest of the file.
+The `lint` command is meant for confirming the code is valid and will `eval()` the code passed into the function.  Assuming there were no errors, the executed source code will then be injected back into the text replacing out the `\{\{::lint()}}`.  When you look at the raw `readme.src.md` you will see that the code can span several lines.  Remember the code is executed in the context of the running script so any variables will be available for the rest of the file.
 
     \{\{::lint($var = 'brian nesbitt';)}} => {{::lint($var = 'brian nesbitt';)}}
 
