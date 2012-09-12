@@ -120,4 +120,26 @@ class TimeTravelTest extends TestFixture
         $this->assertSame(intval(date("Y")), Carbon::now()->year);
     }
 
+    public function testBackToThePresent()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        Carbon::backToThePresent();
+        $this->assertSame(intval(date("Y")), Carbon::now()->year);
+    }
+
+    public function testBackToThePresentAfterNoJumps()
+    {
+        Carbon::backToThePresent();
+        $this->assertSame(intval(date("Y")), Carbon::now()->year);
+    }
+
+    public function testBackToThePresentAfterSeveralJumps()
+    {
+        Carbon::timeTravelTo("2 years ago");
+        Carbon::timeTravelTo("+5 years");
+        Carbon::timeTravelTo("+7 years");
+        Carbon::backToThePresent();
+        $this->assertSame(intval(date("Y")), Carbon::now()->year);
+    }
+
 }
