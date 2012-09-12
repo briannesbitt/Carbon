@@ -60,6 +60,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Difference](#api-difference)
     * [Difference for Humans](#api-humandiff)
     * [Constants](#api-constants)
+    * [Time Travel](#time-travel)
 * [About](#about)
     * [Contributing](#about-contributing)
     * [Author](#about-author)
@@ -557,6 +558,55 @@ $dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
     echo 'Place bets on Ottawa Senators Winning!';
 }
+)}}
+```
+
+<a name="time-travel"/>
+### Time Travel
+
+There's an experimental time travelling feature for testing purposes, ala [ruby's delorean](https://github.com/bebanjo/delorean)
+
+```php
+{{::lint(
+
+class SeasonalProduct
+{ 
+    protected $price;
+
+    public function __construct($price)
+    {
+        $this->price = $price;
+    }
+
+    public function getPrice() {
+        $multiplier = 1;
+        if (Carbon::now()->month == 12) {
+            $multiplier = 2;
+        }
+
+        return $this->price * $multiplier;
+    }
+}
+
+$product = new SeasonalProduct(100);
+Carbon::timeTravelTo("november");
+echo $product->getPrice(); // 100
+Carbon::timeTravelTo("december");
+echo $product->getPrice(); // 200
+Carbon::restorePreviousTime(); 
+echo $product->getPrice(); // 100
+
+// reset 
+Carbon::timeTravelTo("december");
+Carbon::backToThePresent();
+echo $product->getPrice(); // 100 ( or 200 if it's actually december)
+
+// with a callback
+Carbon::timeTravelTo("december", function() use ($product) {
+    echo $product->getPrice(); // 200
+});
+echo $product->getPrice(); // 100
+
 )}}
 ```
 
