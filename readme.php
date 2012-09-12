@@ -32,25 +32,21 @@ foreach ($matches as $match) {
     $ob = ob_get_clean();
 
     if ($result === false) {
-        echo "Failed lint check.";
-
-        echo $src;
+        echo "Failed lint check.". PHP_EOL . PHP_EOL;
 
         $error = error_get_last();
         if ($error != null) {
-            var_dump($error);
+            echo $error['message'] . ' on line ' . $error['line'] . PHP_EOL . PHP_EOL;
+        }
+
+        echo "---- eval'd source ---- " . PHP_EOL . PHP_EOL;
+
+        $i = 1;
+        foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
+            printf('%3s : %s%s', $i++, $ln, PHP_EOL);
         }
 
         exit(1);
-    }
-
-    // If something was just returned get that and remove the 'return' statement
-    //  since its probably not relevant to the sample
-    if ($result !== null) {
-        $ob .= $result;
-        if (strpos($src, 'return ') === 0) {
-            $src = str_replace('return ', '', $src);
-        }
     }
 
     // remove the extra newline from a var_dump
@@ -72,5 +68,8 @@ foreach ($matches as $match) {
         $readme = str_replace('{{'.$name.'_eval}}', $ob, $readme);
     }
 }
+
+// allow for escaping a command
+$readme = str_replace('\{\{', '{{', $readme);
 
 file_put_contents('readme.md', $readme);
