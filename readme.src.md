@@ -587,27 +587,34 @@ class SeasonalProduct
         return $this->price * $multiplier;
     }
 }
+)}}
 
+{{::lint(
 $product = new SeasonalProduct(100);
 Carbon::timeTravelTo("november");
-echo $product->getPrice(); // 100
-Carbon::timeTravelTo("december");
-echo $product->getPrice(); // 200
-Carbon::restorePreviousTime(); 
-echo $product->getPrice(); // 100
+)}}
+{{november::exec(echo $product->getPrice();/*pad(50)*/)}} // {{november_eval}}
+{{::lint(Carbon::timeTravelTo("december"); )}}
+{{december::exec(echo $product->getPrice();/*pad(50)*/)}} // {{december_eval}}
+{{::lint(Carbon::restorePreviousTime(); )}}
+{{backInNovember::exec(echo $product->getPrice();/*pad(50)*/)}} // {{backInNovember_eval}}
 
+{{::lint(
 // reset 
 Carbon::timeTravelTo("december");
 Carbon::backToThePresent();
-echo $product->getPrice(); // 100 ( or 200 if it's actually december)
-
-// with a callback
-Carbon::timeTravelTo("december", function() use ($product) {
-    echo $product->getPrice(); // 200
-});
-echo $product->getPrice(); // 100
-
 )}}
+{{present::exec(echo $product->getPrice();/*pad(50)*/)}} // {{present_eval}}
+
+{{::lint(
+// with a callback
+$callback = Carbon::timeTravelTo("december", function() use ($product) {
+    return $product->getPrice();/*pad(50)*/
+});
+)}}
+{{callback::exec(echo $callback;/*pad(50)*/)}} // {{callback_eval}}
+{{previous::exec(echo $product->getPrice();/*pad(50)*/)}} // {{previous_eval}}
+
 ```
 
 <a name="about"/>

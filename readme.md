@@ -572,22 +572,24 @@ class SeasonalProduct
 
 $product = new SeasonalProduct(100);
 Carbon::timeTravelTo("november");
-echo $product->getPrice(); // 100
-Carbon::timeTravelTo("december");
-echo $product->getPrice(); // 200
+echo $product->getPrice();                         // 100
+Carbon::timeTravelTo("december"); 
+echo $product->getPrice();                         // 200
 Carbon::restorePreviousTime(); 
-echo $product->getPrice(); // 100
+echo $product->getPrice();                         // 100
 
 // reset 
 Carbon::timeTravelTo("december");
 Carbon::backToThePresent();
-echo $product->getPrice(); // 100 ( or 200 if it's actually december)
+echo $product->getPrice();                         // 100
 
 // with a callback
-Carbon::timeTravelTo("december", function() use ($product) {
-    echo $product->getPrice(); // 200
+$callback = Carbon::timeTravelTo("december", function() use ($product) {
+    return $product->getPrice();
 });
-echo $product->getPrice(); // 100
+echo $callback;                                    // 200
+echo $product->getPrice();                         // 100
+
 ```
 
 <a name="about"/>
