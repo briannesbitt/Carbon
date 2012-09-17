@@ -15,9 +15,10 @@ use Carbon\Carbon;
 
 class TimeTravelTest extends TestFixture
 {
-    public function teardown()
+    public function tearDown()
     {
         Carbon::backToThePresent();
+        parent::tearDown();
     }
 
     public function testTimeTravel()
