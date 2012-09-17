@@ -57,11 +57,7 @@ class Carbon extends \DateTime
 
    public static function now($tz = null)
    {
-      if ($tz !== null) {
-         return new self(null, self::safeCreateDateTimeZone($tz));
-      } else {
-         return new self();
-      }
+      return new self(null, $tz);
    }
    public static function today($tz = null)
    {
