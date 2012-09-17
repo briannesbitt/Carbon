@@ -146,7 +146,7 @@ $carbon = new Carbon('first day of January 2008', 'America/Vancouver');
 echo get_class($carbon);                 // 'Carbon\Carbon'
 ```
 
-You'll the notice above that the timezone (2nd) parameter was passed as a string rather than a `\DateTimeZone` instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the `now()` function.
+You'll notice above that the timezone (2nd) parameter was passed as a string rather than a `\DateTimeZone` instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the `now()` function.
 
 ```php
 $now = Carbon::now();
@@ -157,7 +157,20 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 $nowInLondonTz = Carbon::now('Europe/London');
 ```
 
-Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
+To accompany `now()`, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that `today()`, `tomorrow()` and `yesterday()`, besides behaving as expected, all accept a timezone parameter and each has their time value set to `00:00:00`.
+
+```php
+$now = Carbon::now();
+echo $now;                               // 2012-09-16 21:58:04
+$today = Carbon::today();
+echo $today;                             // 2012-09-16 00:00:00
+$tomorrow = Carbon::tomorrow('Europe/London');
+echo $tomorrow;                          // 2012-09-18 00:00:00
+$yesterday = Carbon::yesterday();
+echo $yesterday;                         // 2012-09-15 00:00:00
+```
+
+The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
 
 ```php
 Carbon::createFromDate($year, $month, $day, $tz);

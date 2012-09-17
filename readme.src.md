@@ -150,7 +150,7 @@ There are several different methods available to create a new instance of Carbon
 {{ctorType::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{ctorType_eval}}'
 ```
 
-You'll the notice above that the timezone (2nd) parameter was passed as a string rather than a `\DateTimeZone` instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the `now()` function.
+You'll notice above that the timezone (2nd) parameter was passed as a string rather than a `\DateTimeZone` instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the `now()` function.
 
 ```php
 {{::lint(
@@ -163,7 +163,20 @@ $nowInLondonTz = Carbon::now('Europe/London');
 )}}
 ```
 
-Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
+To accompany `now()`, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that `today()`, `tomorrow()` and `yesterday()`, besides behaving as expected, all accept a timezone parameter and each has their time value set to `00:00:00`.
+
+```php
+{{::lint($now = Carbon::now();)}}
+{{now::exec(echo $now;/*pad(40)*/)}} // {{now_eval}}
+{{::lint($today = Carbon::today();)}}
+{{today::exec(echo $today;/*pad(40)*/)}} // {{today_eval}}
+{{::lint($tomorrow = Carbon::tomorrow('Europe/London');)}}
+{{tomorrow::exec(echo $tomorrow;/*pad(40)*/)}} // {{tomorrow_eval}}
+{{::lint($yesterday = Carbon::yesterday();)}}
+{{yesterday::exec(echo $yesterday;/*pad(40)*/)}} // {{yesterday_eval}}
+```
+
+The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
 
 ```php
 Carbon::createFromDate($year, $month, $day, $tz);
