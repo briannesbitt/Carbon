@@ -49,6 +49,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Getters](#api-getters)
     * [Setters](#api-setters)
     * [Fluent Setters](#api-settersfluent)
+    * [IsSet](#api-isset)
     * [Formatting and Strings](#api-formatting)
     * [Common Formats](#api-commonformats)
     * [Comparison](#api-comparison)
@@ -161,13 +162,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2012-09-16 21:58:04
+echo $now;                               // 2012-10-14 15:36:24
 $today = Carbon::today();
-echo $today;                             // 2012-09-16 00:00:00
+echo $today;                             // 2012-10-14 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2012-09-18 00:00:00
+echo $tomorrow;                          // 2012-10-15 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2012-09-15 00:00:00
+echo $yesterday;                         // 2012-10-13 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -226,7 +227,7 @@ echo get_class($carbon);                               // 'Carbon\Carbon'
 echo $carbon->toDateTimeString();                      // '2008-01-01 00:00:00'
 ```
 
-<a name="api-getter"/>
+<a name="api-getters"/>
 ### Getters
 
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
@@ -307,6 +308,18 @@ $dt->setDateTime(1975, 5, 21, 22, 32, 5)->toDateTimeString();
 $dt->timestamp(169957925)->timezone('Europe/London');
 
 $dt->tz('America/Toronto')->setTimezone('America/Vancouver');
+```
+
+<a name="api-isset"/>
+### IsSet
+
+The PHP function `__isset()` is implemented.  This was done as some external systems (ex. [Twig](http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties)) validate the existence of a property before using it.  This is done using the `isset()` or `empty()` method.  You can read more about these on the PHP site: [__isset()](http://www.php.net/manual/en/language.oop5.overloading.php#object.isset), [isset()](http://www.php.net/manual/en/function.isset.php), [empty()](http://www.php.net/manual/en/function.empty.php).
+
+```php
+var_dump(isset(Carbon::now()->iDoNotExist));       // bool(false)
+var_dump(isset(Carbon::now()->hour));              // bool(true)
+var_dump(empty(Carbon::now()->iDoNotExist));       // bool(true)
+var_dump(empty(Carbon::now()->year));              // bool(false)
 ```
 
 <a name="api-formatting"/>

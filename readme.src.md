@@ -53,6 +53,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Getters](#api-getters)
     * [Setters](#api-setters)
     * [Fluent Setters](#api-settersfluent)
+    * [IsSet](#api-isset)
     * [Formatting and Strings](#api-formatting)
     * [Common Formats](#api-commonformats)
     * [Comparison](#api-comparison)
@@ -234,7 +235,7 @@ Finally, if you find yourself inheriting a `\DateTime` instance from another lib
 {{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // '{{ctorType2_eval}}'
 ```
 
-<a name="api-getter"/>
+<a name="api-getters"/>
 ### Getters
 
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
@@ -319,6 +320,18 @@ $dt->timestamp(169957925)->timezone('Europe/London');
 
 $dt->tz('America/Toronto')->setTimezone('America/Vancouver');
 )}}
+```
+
+<a name="api-isset"/>
+### IsSet
+
+The PHP function `__isset()` is implemented.  This was done as some external systems (ex. [Twig](http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties)) validate the existence of a property before using it.  This is done using the `isset()` or `empty()` method.  You can read more about these on the PHP site: [__isset()](http://www.php.net/manual/en/language.oop5.overloading.php#object.isset), [isset()](http://www.php.net/manual/en/function.isset.php), [empty()](http://www.php.net/manual/en/function.empty.php).
+
+```php
+{{isset1::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{isset1_eval}}
+{{isset2::exec(var_dump(isset(Carbon::now()->hour));/*pad(50)*/)}} // {{isset2_eval}}
+{{isset3::exec(var_dump(empty(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{isset3_eval}}
+{{isset4::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{isset4_eval}}
 ```
 
 <a name="api-formatting"/>
