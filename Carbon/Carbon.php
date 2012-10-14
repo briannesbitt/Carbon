@@ -149,6 +149,15 @@ class Carbon extends \DateTime
       if ($name == 'tzName') return $this->timezoneName;
       throw new \InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
    }
+   public function __isset($name)
+   {
+      try {
+         $this->__get($name);
+      } catch (\InvalidArgumentException $e) {
+         return false;
+      }
+      return true;
+   }
    public function __set($name, $value)
    {
       $handled = true;
