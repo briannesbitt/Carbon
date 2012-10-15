@@ -160,8 +160,6 @@ class Carbon extends \DateTime
    }
    public function __set($name, $value)
    {
-      $handled = true;
-
       switch ($name) {
          case 'year':
             parent::setDate($value, $this->month, $this->day);
@@ -191,12 +189,7 @@ class Carbon extends \DateTime
             $this->setTimezone($value);
             break;
          default:
-            $handled = false;
-            break;
-      }
-
-      if (!$handled) {
-        throw new \InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+            throw new \InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
       }
    }
    public function year($value)
