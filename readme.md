@@ -61,6 +61,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Contributing](#about-contributing)
     * [Author](#about-author)
     * [License](#about-license)
+    * [History](#about-history)
     * [Why the name Carbon?](#about-whyname)
 
 <a name="install"/>
@@ -162,11 +163,11 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2012-10-14 15:36:24
+echo $now;                               // 2012-10-14 20:40:20
 $today = Carbon::today();
 echo $today;                             // 2012-10-14 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2012-10-15 00:00:00
+echo $tomorrow;                          // 2012-10-16 00:00:00
 $yesterday = Carbon::yesterday();
 echo $yesterday;                         // 2012-10-13 00:00:00
 ```
@@ -634,6 +635,11 @@ Brian Nesbitt - <brian@nesbot.com> - <http://twitter.com/NesbittBrian>
 ### License
 
 Carbon is licensed under the MIT License - see the `LICENSE` file for details
+
+<a name="about-history"/>
+### History
+
+You can view the history of the Carbon project in the [history file](https://github.com/briannesbitt/Carbon/blob/master/history.md).
 
 <a name="about-whyname"/>
 ### Why the name Carbon?

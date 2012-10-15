@@ -65,6 +65,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Contributing](#about-contributing)
     * [Author](#about-author)
     * [License](#about-license)
+    * [History](#about-history)
     * [Why the name Carbon?](#about-whyname)
 
 <a name="install"/>
@@ -650,6 +651,11 @@ Brian Nesbitt - <brian@nesbot.com> - <http://twitter.com/NesbittBrian>
 ### License
 
 Carbon is licensed under the MIT License - see the `LICENSE` file for details
+
+<a name="about-history"/>
+### History
+
+You can view the history of the Carbon project in the [history file](https://github.com/briannesbitt/Carbon/blob/master/history.md).
 
 <a name="about-whyname"/>
 ### Why the name Carbon?

@@ -1,8 +1,11 @@
-X.X / not released
+1.2.0 / 2012-10-14
 ==================
 
-  * added history.md
-
+  * Added history.md
+  * Implemented __isset() (thanks @flevour)
+  * Simplified tomorrow()/yesterday() to rely on today()... more DRY
+  * Simplified __set() and fixed exception text
+  * Updated readme
 
 1.1.0 / 2012-09-16
 ==================
