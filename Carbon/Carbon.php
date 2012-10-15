@@ -65,11 +65,11 @@ class Carbon extends \DateTime
    }
    public static function tomorrow($tz = null)
    {
-      return Carbon::now($tz)->startOfDay()->addDay();
+      return Carbon::today($tz)->addDay();
    }
    public static function yesterday($tz = null)
    {
-      return Carbon::now($tz)->startOfDay()->subDay();
+      return Carbon::today($tz)->subDay();
    }
    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
    {
