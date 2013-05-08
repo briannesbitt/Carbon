@@ -38,17 +38,59 @@ namespace Carbon;
  */
 class Carbon extends \DateTime
 {
+    /**
+     * Sunday
+     */
     const SUNDAY = 0;
+
+    /**
+     * Monday
+     */
     const MONDAY = 1;
+
+    /**
+     * Tuesday
+     */
     const TUESDAY = 2;
+
+    /**
+     * Wednesday
+     */
     const WEDNESDAY = 3;
+
+    /**
+     * Thursday
+     */
     const THURSDAY = 4;
+
+    /**
+     * Friday
+     */
     const FRIDAY = 5;
+
+    /**
+     * Saturday
+     */
     const SATURDAY = 6;
 
+    /**
+     * Months per year
+     */
     const MONTHS_PER_YEAR = 12;
+
+    /**
+     * Hours per day
+     */
     const HOURS_PER_DAY = 24;
+
+    /**
+     * Minutes per hour
+     */
     const MINUTES_PER_HOUR = 60;
+
+    /**
+     * Seconds per minute
+     */
     const SECONDS_PER_MINUTE = 60;
 
     /**
@@ -215,7 +257,7 @@ class Carbon extends \DateTime
     }
 
     /**
-     * @param $timestamp
+     * @param int $timestamp
      * @return Carbon
      */
     public static function createFromTimestampUTC($timestamp)
@@ -238,9 +280,7 @@ class Carbon extends \DateTime
      */
     public function __get($name)
     {
-        if ($name == 'year') {
-            return intval($this->format('Y'));
-        }
+        if ($name == 'year') return intval($this->format('Y'));
         if ($name == 'month') return intval($this->format('n'));
         if ($name == 'day') return intval($this->format('j'));
         if ($name == 'hour') return intval($this->format('G'));
@@ -1187,8 +1227,6 @@ class Carbon extends \DateTime
      */
     public function diffForHumans(Carbon $other = null)
     {
-        $txt = '';
-
         $isNow = $other === null;
 
         if ($isNow) {
