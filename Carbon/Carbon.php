@@ -725,18 +725,16 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current month. If no dayOfWeek is provided or the given
-   * ordinal is outside the scope of the current month,
-   * then return false and no modifications are made.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * in the current month. If the calculated occurance is outside the scope
+   * of the current month, then return false and no modifications are made.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfMonth($nth, $dayOfWeek = null)
+   public function nthOfMonth($nth, $dayOfWeek)
    {
-      if (!is_int($nth)) return false;
       $dt = $this->copy();
       $dt->firstOfMonth();
       $month = $dt->month;
@@ -778,18 +776,16 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current quarter. If no dayOfWeek is provided or the given
-   * ordinal is outside the scope of the current quarter,
-   * then return false and no modifications are made.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * in the current quarter. If the calculated occurance is outside the scope
+   * of the current quarter, then return false and no modifications are made.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfQuarter($nth, $dayOfWeek = null)
+   public function nthOfQuarter($nth, $dayOfWeek)
    {
-      if (!is_int($nth)) return false;
       $dt = $this->copy();
       $dt->month(($this->quarter * 3));
       $last_month = $dt->month;
@@ -832,19 +828,16 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current year. If no dayOfWeek is provided or the given
-   * ordinal is outside the scope of the current year,
-   * then return false and no modifications are made.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * in the current year. If the calculated occurance is outside the scope
+   * of the current year, then return false and no modifications are made.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfYear($nth, $dayOfWeek = null)
+   public function nthOfYear($nth, $dayOfWeek)
    {
-      if (!is_int($nth)) return false;
-      if ($dayOfWeek === null) return false;
       $dt = $this->copy();
       $year = $dt->year;
       $dt->firstOfYear();
