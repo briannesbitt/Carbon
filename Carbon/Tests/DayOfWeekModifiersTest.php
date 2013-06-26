@@ -169,7 +169,7 @@ class DayOfWeekModifiersTest extends TestFixture
 
    public function test2ndMondayOfQuarter()
    {
-      $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY, 2);
+      $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY);
       $this->assertCarbon($d, 1975, 7, 14, 0, 0, 0);
    }
 
