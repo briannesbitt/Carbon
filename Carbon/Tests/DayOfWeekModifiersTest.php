@@ -99,24 +99,19 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1975, 12, 26, 0, 0, 0);
    }
 
-   public function testEmptyNthOfMonth()
-   {
-      $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth());
-   }
-
    public function testNthOfMonthOutsideScope()
    {
-      $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(Carbon::MONDAY, 6));
+      $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(6, Carbon::MONDAY));
    }
 
    public function testNthOfMonthOutsideYear()
    {
-      $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(Carbon::MONDAY, 55));
+      $this->assertFalse(Carbon::createFromDate(1975, 12, 5)->nthOfMonth(55, Carbon::MONDAY));
    }
 
    public function test2ndMondayOfMonth()
    {
-      $d = Carbon::createFromDate(1975, 12, 5)->nthOfMonth(Carbon::MONDAY, 2);
+      $d = Carbon::createFromDate(1975, 12, 5)->nthOfMonth(2, Carbon::MONDAY);
       $this->assertCarbon($d, 1975, 12, 8, 0, 0, 0);
    }
 
@@ -162,24 +157,19 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1975, 9, 26, 0, 0, 0);
    }
 
-   public function testEmptyNthOfQuarter()
-   {
-      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter());
-   }
-
    public function testNthOfQuarterOutsideScope()
    {
-      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(Carbon::MONDAY, 20));
+      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(20, Carbon::MONDAY));
    }
 
    public function testNthOfQuarterOutsideYear()
    {
-      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(Carbon::MONDAY, 55));
+      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(55, Carbon::MONDAY));
    }
 
    public function test2ndMondayOfQuarter()
    {
-      $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(Carbon::MONDAY, 2);
+      $d = Carbon::createFromDate(1975, 8, 5)->nthOfQuarter(2, Carbon::MONDAY, 2);
       $this->assertCarbon($d, 1975, 7, 14, 0, 0, 0);
    }
 
@@ -225,19 +215,14 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1975, 12, 26, 0, 0, 0);
    }
 
-   public function testEmptyNthOfYear()
-   {
-      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfYear());
-   }
-
    public function testNthOfYearOutsideScope()
    {
-      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfYear(Carbon::MONDAY, 55));
+      $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfYear(55, Carbon::MONDAY));
    }
 
    public function test2ndMondayOfYear()
    {
-      $d = Carbon::createFromDate(1975, 8, 5)->nthOfYear(Carbon::MONDAY, 2);
+      $d = Carbon::createFromDate(1975, 8, 5)->nthOfYear(2, Carbon::MONDAY);
       $this->assertCarbon($d, 1975, 1, 13, 0, 0, 0);
    }
 

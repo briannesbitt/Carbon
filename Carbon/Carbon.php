@@ -661,7 +661,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the next occurance of a given day of the week.
-   * If no day is provided, modify to the next occurance
+   * If no dayOfWeek is provided, modify to the next occurance
    * of the current day of the week.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -677,7 +677,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the last occurance of a given day of the week.
-   * If no day is provided, modify to the last occurance
+   * If no dayOfWeek is provided, modify to the last occurance
    * of the current day of the week.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -693,7 +693,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the first occurance of a given day of the week
-   * in the current month. If no day is provided, modify to the
+   * in the current month. If no dayOfWeek is provided, modify to the
    * first day of the current month.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -709,7 +709,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the last occurance of a given day of the week
-   * in the current month. If no day is provided, modify to the
+   * in the current month. If no dayOfWeek is provided, modify to the
    * last day of the current month.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -725,18 +725,18 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current month. If no day is provided or the given
+   * in the current month. If no dayOfWeek is provided or the given
    * ordinal is outside the scope of the current month,
-   * then return false.  Use the supplied consts
+   * then return false and no modifications are made.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
-   * @param  int  $dayOfWeek
    * @param  int  $nth
+   * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfMonth($dayOfWeek = null, $nth = null)
+   public function nthOfMonth($nth, $dayOfWeek = null)
    {
-      if ($nth === null) return false;
+      if (!is_int($nth)) return false;
       $dt = $this->copy();
       $dt->firstOfMonth();
       $month = $dt->month;
@@ -748,7 +748,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the first occurance of a given day of the week
-   * in the current quarter. If no day is provided, modify to the
+   * in the current quarter. If no dayOfWeek is provided, modify to the
    * first day of the current quarter.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -763,7 +763,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the last occurance of a given day of the week
-   * in the current quarter. If no day is provided, modify to the
+   * in the current quarter. If no dayOfWeek is provided, modify to the
    * last day of the current quarter.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -778,18 +778,18 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current quarter. If no day is provided or the given
+   * in the current quarter. If no dayOfWeek is provided or the given
    * ordinal is outside the scope of the current quarter,
-   * then return false.  Use the supplied consts
+   * then return false and no modifications are made.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
-   * @param  int  $dayOfWeek
    * @param  int  $nth
+   * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfQuarter($dayOfWeek = null, $nth = null)
+   public function nthOfQuarter($nth, $dayOfWeek = null)
    {
-      if ($nth === null) return false;
+      if (!is_int($nth)) return false;
       $dt = $this->copy();
       $dt->month(($this->quarter * 3));
       $last_month = $dt->month;
@@ -802,7 +802,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the first occurance of a given day of the week
-   * in the current year. If no day is provided, modify to the
+   * in the current year. If no dayOfWeek is provided, modify to the
    * first day of the current year.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -817,7 +817,7 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the last occurance of a given day of the week
-   * in the current year. If no day is provided, modify to the
+   * in the current year. If no dayOfWeek is provided, modify to the
    * last day of the current year.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
@@ -832,18 +832,19 @@ class Carbon extends \DateTime
 
    /**
    * Modify to the given occurance of a given day of the week
-   * in the current year. If no day is provided or the given
+   * in the current year. If no dayOfWeek is provided or the given
    * ordinal is outside the scope of the current year,
-   * then return false.  Use the supplied consts
+   * then return false and no modifications are made.  Use the supplied consts
    * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
    *
-   * @param  int  $dayOfWeek
    * @param  int  $nth
+   * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function nthOfYear($dayOfWeek = null, $nth = null)
+   public function nthOfYear($nth, $dayOfWeek = null)
    {
-      if ($nth === null) return false;
+      if (!is_int($nth)) return false;
+      if ($dayOfWeek === null) return false;
       $dt = $this->copy();
       $year = $dt->year;
       $dt->firstOfYear();
