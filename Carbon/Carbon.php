@@ -21,17 +21,20 @@ class Carbon extends \DateTime
    const FRIDAY = 5;
    const SATURDAY = 6;
 
+   /**
+   * Names of days of the week.
+   *
+   * @var array
+   */
+   private static $days = array(self::SUNDAY => 'Sunday', self::MONDAY => 'Monday',
+                                self::TUESDAY => 'Tuesday', self::WEDNESDAY => 'Wednesday',
+                                self::THURSDAY => 'Thursday', self::FRIDAY => 'Friday',
+                                self::SATURDAY => 'Saturday');
+
    const MONTHS_PER_YEAR = 12;
    const HOURS_PER_DAY = 24;
    const MINUTES_PER_HOUR = 60;
    const SECONDS_PER_MINUTE = 60;
-
-   /**
- 	* Names of days of the week.
- 	*
- 	* @var array
- 	*/    
-   private static $days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'); 
 
    protected static function safeCreateDateTimeZone($object)
    {
@@ -657,126 +660,134 @@ class Carbon extends \DateTime
    }
 
    /**
-	* Modify to the next occurance of a given day of the week. 
-	* If no day is provided, modify to the next occurance
-	* of the current day of the week.
-	*
-	* @param  int  $day
-	* @return string
-	*/   
-   public function next($day = null)
-   {
-   	  $this->startOfDay();
-   	  if ($day === null) $day = $this->dayOfWeek;
-   	  return $this->modify('next ' . self::$days[$day]);
-   }
-   
-   /**
-	* Modify to the last occurance of a given day of the week. 
-	* If no day is provided, modify to the last occurance
-	* of the current day of the week.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function last($day = null)
-   {
-   	  $this->startOfDay();
-   	  if ($day === null) $day = $this->dayOfWeek;
-   	  return $this->modify('last ' . self::$days[$day]);
-   }   
-   
-   /**
-	* Modify to the first occurance of a given day of the week 
-	* in the current month. If no day is provided, modify to the 
-	* first day of the current month.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function firstOfMonth($day = null)
+   * Modify to the next occurance of a given day of the week.
+   * If no day is provided, modify to the next occurance
+   * of the current day of the week.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function next($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($day === null) return $this->day(1);
-      return $this->modify('first ' . self::$days[$day] . ' of ' . $this->format('F') . ' ' . $this->year);
+      if ($dayOfWeek === null) $dayOfWeek = $this->dayOfWeek;
+      return $this->modify('next ' . self::$days[$dayOfWeek]);
    }
 
    /**
-	* Modify to the last occurance of a given day of the week 
-	* in the current month. If no day is provided, modify to the 
-	* last day of the current month.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function lastOfMonth($day = null)
+   * Modify to the last occurance of a given day of the week.
+   * If no day is provided, modify to the last occurance
+   * of the current day of the week.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function last($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($day === null) return $this->day($this->daysInMonth);
-      return $this->modify('last ' . self::$days[$day] . ' of ' . $this->format('F') . ' ' . $this->year);
-   } 
-   
+      if ($dayOfWeek === null) $dayOfWeek = $this->dayOfWeek;
+      return $this->modify('last ' . self::$days[$dayOfWeek]);
+   }
+
    /**
-	* Modify to the given occurance of a given day of the week 
-	* in the current month. If no day is provided or the given 
-	* ordinal is outside the scope of the current month, 
-	* then return false.
-	*
-	* @param  int  $day
-	* @param  int  $nth
-	* @return mixed
-	*/
-   public function nthOfMonth($day = null, $nth = null)
+   * Modify to the first occurance of a given day of the week
+   * in the current month. If no day is provided, modify to the
+   * first day of the current month.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function firstOfMonth($dayOfWeek = null)
+   {
+      $this->startOfDay();
+      if ($dayOfWeek === null) return $this->day(1);
+      return $this->modify('first ' . self::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
+   }
+
+   /**
+   * Modify to the last occurance of a given day of the week
+   * in the current month. If no day is provided, modify to the
+   * last day of the current month.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function lastOfMonth($dayOfWeek = null)
+   {
+      $this->startOfDay();
+      if ($dayOfWeek === null) return $this->day($this->daysInMonth);
+      return $this->modify('last ' . self::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
+   }
+
+   /**
+   * Modify to the given occurance of a given day of the week
+   * in the current month. If no day is provided or the given
+   * ordinal is outside the scope of the current month,
+   * then return false.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @param  int  $nth
+   * @return mixed
+   */
+   public function nthOfMonth($dayOfWeek = null, $nth = null)
    {
       if ($nth === null) return false;
       $dt = $this->copy();
       $dt->firstOfMonth();
       $month = $dt->month;
       $year = $dt->year;
-      $dt->modify('+' . $nth . ' ' . self::$days[$day]);
+      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
       if ($month !== $dt->month || $year !== $dt->year) return false;
       return $this->modify($dt);
-   }  
-
-   /**
-	* Modify to the first occurance of a given day of the week 
-	* in the current quarter. If no day is provided, modify to the f
-	* first day of the current quarter.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function firstOfQuarter($day = null)
-   {
-   	  $this->month(($this->quarter * 3) - 2);
-      return $this->firstOfMonth($day);
    }
 
    /**
-	* Modify to the last occurance of a given day of the week 
-	* in the current quarter. If no day is provided, modify to the
-	* last day of the current quarter.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function lastOfQuarter($day = null)
+   * Modify to the first occurance of a given day of the week
+   * in the current quarter. If no day is provided, modify to the
+   * first day of the current quarter.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function firstOfQuarter($dayOfWeek = null)
    {
-   	  $this->month(($this->quarter * 3));
-      return $this->lastOfMonth($day);
+      $this->month(($this->quarter * 3) - 2);
+      return $this->firstOfMonth($dayOfWeek);
    }
-   
+
    /**
-	* Modify to the given occurance of a given day of the week 
-	* in the current quarter. If no day is provided or the given 
-	* ordinal is outside the scope of the current quarter,
-	* then return false.
-	*
-	* @param  int  $day
-	* @param  int  $nth
-	* @return mixed
-	*/   
-   public function nthOfQuarter($day = null, $nth = null)
+   * Modify to the last occurance of a given day of the week
+   * in the current quarter. If no day is provided, modify to the
+   * last day of the current quarter.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function lastOfQuarter($dayOfWeek = null)
+   {
+      $this->month(($this->quarter * 3));
+      return $this->lastOfMonth($dayOfWeek);
+   }
+
+   /**
+   * Modify to the given occurance of a given day of the week
+   * in the current quarter. If no day is provided or the given
+   * ordinal is outside the scope of the current quarter,
+   * then return false.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @param  int  $nth
+   * @return mixed
+   */
+   public function nthOfQuarter($dayOfWeek = null, $nth = null)
    {
       if ($nth === null) return false;
       $dt = $this->copy();
@@ -784,60 +795,63 @@ class Carbon extends \DateTime
       $last_month = $dt->month;
       $year = $dt->year;
       $dt->firstOfQuarter();
-      $dt->modify('+' . $nth . ' ' . self::$days[$day]);
+      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
       if ($last_month < $dt->month || $year !== $dt->year) return false;
       return $this->modify($dt);
-   }        
-
-   /**
-	* Modify to the first occurance of a given day of the week 
-	* in the current year. If no day is provided, modify to the 
-	* first day of the current year.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function firstOfYear($day = null)
-   {
-   	  $this->month(1);
-      return $this->firstOfMonth($day);
    }
 
    /**
-	* Modify to the last occurance of a given day of the week 
-	* in the current year. If no day is provided, modify to the 
-	* last day of the current year.
-	*
-	* @param  int  $day
-	* @return string
-	*/
-   public function lastOfYear($day = null)
+   * Modify to the first occurance of a given day of the week
+   * in the current year. If no day is provided, modify to the
+   * first day of the current year.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function firstOfYear($dayOfWeek = null)
    {
-   	  $this->month(12);
-      return $this->lastOfMonth($day);
+      $this->month(1);
+      return $this->firstOfMonth($dayOfWeek);
    }
-   
+
    /**
-	* Modify to the given occurance of a given day of the week 
-	* in the current year. If no day is provided or the given 
-	* ordinal is outside the scope of the current year, 
-	* then return false.
-	*
-	* @param  int  $day
-	* @param  int  $nth
-	* @return mixed
-	*/   
-   public function nthOfYear($day = null, $nth = null)
+   * Modify to the last occurance of a given day of the week
+   * in the current year. If no day is provided, modify to the
+   * last day of the current year.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @return mixed
+   */
+   public function lastOfYear($dayOfWeek = null)
+   {
+      $this->month(12);
+      return $this->lastOfMonth($dayOfWeek);
+   }
+
+   /**
+   * Modify to the given occurance of a given day of the week
+   * in the current year. If no day is provided or the given
+   * ordinal is outside the scope of the current year,
+   * then return false.  Use the supplied consts
+   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   *
+   * @param  int  $dayOfWeek
+   * @param  int  $nth
+   * @return mixed
+   */
+   public function nthOfYear($dayOfWeek = null, $nth = null)
    {
       if ($nth === null) return false;
       $dt = $this->copy();
       $year = $dt->year;
       $dt->firstOfYear();
-      $dt->modify('+' . $nth . ' ' . self::$days[$day]);
+      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
       if ($year !== $dt->year) return false;
       return $this->modify($dt);
-   }   
-   
+   }
+
    /**
     * When comparing a value in the past to default now:
     * 1 hour ago
