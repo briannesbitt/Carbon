@@ -39,27 +39,27 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1975, 11, 21, 0, 0, 0);
    }
 
-   public function testLast()
+   public function testPrevious()
    {
-      $d = Carbon::createFromDate(1975, 5, 21)->last();
+      $d = Carbon::createFromDate(1975, 5, 21)->previous();
       $this->assertCarbon($d, 1975, 5, 14, 0, 0, 0);
    }
 
-   public function testLastMonday()
+   public function testPreviousMonday()
    {
-      $d = Carbon::createFromDate(1975, 5, 21)->last(Carbon::MONDAY);
+      $d = Carbon::createFromDate(1975, 5, 21)->previous(Carbon::MONDAY);
       $this->assertCarbon($d, 1975, 5, 19, 0, 0, 0);
    }
 
-   public function testLastSaturday()
+   public function testPreviousSaturday()
    {
-      $d = Carbon::createFromDate(1975, 5, 21)->last(6);
+      $d = Carbon::createFromDate(1975, 5, 21)->previous(6);
       $this->assertCarbon($d, 1975, 5, 17, 0, 0, 0);
    }
 
-   public function testLastTimestamp()
+   public function testPreviousTimestamp()
    {
-      $d = Carbon::createFromDate(1975, 11, 28)->last();
+      $d = Carbon::createFromDate(1975, 11, 28)->previous();
       $this->assertCarbon($d, 1975, 11, 21, 0, 0, 0);
    }
 

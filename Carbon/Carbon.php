@@ -684,7 +684,7 @@ class Carbon extends \DateTime
    * @param  int  $dayOfWeek
    * @return mixed
    */
-   public function last($dayOfWeek = null)
+   public function previous($dayOfWeek = null)
    {
       $this->startOfDay();
       if ($dayOfWeek === null) $dayOfWeek = $this->dayOfWeek;
