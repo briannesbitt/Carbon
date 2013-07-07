@@ -364,6 +364,7 @@ class Carbon extends DateTime
       } catch (\InvalidArgumentException $e) {
          return false;
       }
+
       return true;
    }
 
@@ -1668,6 +1669,7 @@ class Carbon extends DateTime
    public function firstOfQuarter($dayOfWeek = null)
    {
       $this->month(($this->quarter * 3) - 2);
+
       return $this->firstOfMonth($dayOfWeek);
    }
 
@@ -1684,6 +1686,7 @@ class Carbon extends DateTime
    public function lastOfQuarter($dayOfWeek = null)
    {
       $this->month(($this->quarter * 3));
+
       return $this->lastOfMonth($dayOfWeek);
    }
 
@@ -1723,6 +1726,7 @@ class Carbon extends DateTime
    public function firstOfYear($dayOfWeek = null)
    {
       $this->month(1);
+
       return $this->firstOfMonth($dayOfWeek);
    }
 
@@ -1739,6 +1743,7 @@ class Carbon extends DateTime
    public function lastOfYear($dayOfWeek = null)
    {
       $this->month(12);
+
       return $this->lastOfMonth($dayOfWeek);
    }
 
