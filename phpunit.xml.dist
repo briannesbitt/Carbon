@@ -11,6 +11,12 @@
 		 syntaxCheck="false"
 >
 
+  <filter>
+    <whitelist>
+      <directory>src/Carbon</directory>
+    </whitelist>
+  </filter>
+
    <testsuites>
       <testsuite name="Carbon Test Suite">
          <directory>tests</directory>
