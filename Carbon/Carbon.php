@@ -11,34 +11,47 @@
 
 namespace Carbon;
 
-class Carbon extends \DateTime
+use DateTime;
+
+class Carbon extends DateTime
 {
-   const SUNDAY = 0;
-   const MONDAY = 1;
-   const TUESDAY = 2;
+   /**
+    * The day constants
+    */
+   const SUNDAY    = 0;
+   const MONDAY    = 1;
+   const TUESDAY   = 2;
    const WEDNESDAY = 3;
-   const THURSDAY = 4;
-   const FRIDAY = 5;
-   const SATURDAY = 6;
+   const THURSDAY  = 4;
+   const FRIDAY    = 5;
+   const SATURDAY  = 6;
 
    /**
    * Names of days of the week.
    *
    * @var array
    */
-   private static $days = array(self::SUNDAY => 'Sunday', self::MONDAY => 'Monday',
-                                self::TUESDAY => 'Tuesday', self::WEDNESDAY => 'Wednesday',
-                                self::THURSDAY => 'Thursday', self::FRIDAY => 'Friday',
-                                self::SATURDAY => 'Saturday');
+   private static $days = array(
+      self::SUNDAY    => 'Sunday',
+      self::MONDAY    => 'Monday',
+      self::TUESDAY   => 'Tuesday',
+      self::WEDNESDAY => 'Wednesday',
+      self::THURSDAY  => 'Thursday',
+      self::FRIDAY    => 'Friday',
+      self::SATURDAY  => 'Saturday'
+   );
 
-   const MONTHS_PER_YEAR = 12;
-   const HOURS_PER_DAY = 24;
-   const MINUTES_PER_HOUR = 60;
+   /**
+    * Number of X in Y
+    */
+   const MONTHS_PER_YEAR    = 12;
+   const HOURS_PER_DAY      = 24;
+   const MINUTES_PER_HOUR   = 60;
    const SECONDS_PER_MINUTE = 60;
 
    protected static function safeCreateDateTimeZone($object)
    {
-      if ($object instanceof \DateTimeZone) {
+      if ($object instanceof DateTimeZone) {
          return $object;
       }
 
@@ -60,7 +73,7 @@ class Carbon extends \DateTime
       }
    }
 
-   public static function instance(\DateTime $dt)
+   public static function instance(DateTime $dt)
    {
       return new self($dt->format('Y-m-d H:i:s'), $dt->getTimeZone());
    }
@@ -114,11 +127,11 @@ class Carbon extends \DateTime
          $dt = parent::createFromFormat($format, $time);
       }
 
-      if ($dt instanceof \DateTime) {
+      if ($dt instanceof DateTime) {
          return self::instance($dt);
       }
 
-      $errors = \DateTime::getLastErrors();
+      $errors = DateTime::getLastErrors();
       throw new \InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
    }
    public static function createFromTimestamp($timestamp, $tz = null)
@@ -297,47 +310,47 @@ class Carbon extends \DateTime
    }
    public function toATOMString()
    {
-      return $this->format(\DateTime::ATOM);
+      return $this->format(DateTime::ATOM);
    }
    public function toCOOKIEString()
    {
-      return $this->format(\DateTime::COOKIE);
+      return $this->format(DateTime::COOKIE);
    }
    public function toISO8601String()
    {
-      return $this->format(\DateTime::ISO8601);
+      return $this->format(DateTime::ISO8601);
    }
    public function toRFC822String()
    {
-      return $this->format(\DateTime::RFC822);
+      return $this->format(DateTime::RFC822);
    }
    public function toRFC850String()
    {
-      return $this->format(\DateTime::RFC850);
+      return $this->format(DateTime::RFC850);
    }
    public function toRFC1036String()
    {
-      return $this->format(\DateTime::RFC1036);
+      return $this->format(DateTime::RFC1036);
    }
    public function toRFC1123String()
    {
-      return $this->format(\DateTime::RFC1123);
+      return $this->format(DateTime::RFC1123);
    }
    public function toRFC2822String()
    {
-      return $this->format(\DateTime::RFC2822);
+      return $this->format(DateTime::RFC2822);
    }
    public function toRFC3339String()
    {
-      return $this->format(\DateTime::RFC3339);
+      return $this->format(DateTime::RFC3339);
    }
    public function toRSSString()
    {
-      return $this->format(\DateTime::RSS);
+      return $this->format(DateTime::RSS);
    }
    public function toW3CString()
    {
-      return $this->format(\DateTime::W3C);
+      return $this->format(DateTime::W3C);
    }
 
    public function eq(Carbon $dt)
