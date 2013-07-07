@@ -102,7 +102,7 @@ class Carbon extends DateTime
     */
    public static function instance(DateTime $dt)
    {
-      return new self($dt->format('Y-m-d H:i:s'), $dt->getTimeZone());
+      return new static($dt->format('Y-m-d H:i:s'), $dt->getTimeZone());
    }
 
    /**
@@ -114,7 +114,7 @@ class Carbon extends DateTime
     */
    public static function now($tz = null)
    {
-      return new self(null, $tz);
+      return new static(null, $tz);
    }
 
    /**
@@ -126,7 +126,7 @@ class Carbon extends DateTime
     */
    public static function today($tz = null)
    {
-      return Carbon::now($tz)->startOfDay();
+      return static::now($tz)->startOfDay();
    }
 
    /**
@@ -138,7 +138,7 @@ class Carbon extends DateTime
     */
    public static function tomorrow($tz = null)
    {
-      return Carbon::today($tz)->addDay();
+      return static::today($tz)->addDay();
    }
 
    /**
@@ -150,7 +150,7 @@ class Carbon extends DateTime
     */
    public static function yesterday($tz = null)
    {
-      return Carbon::today($tz)->subDay();
+      return static::today($tz)->subDay();
    }
 
    /**
@@ -261,7 +261,7 @@ class Carbon extends DateTime
     */
    public static function createFromTimestampUTC($timestamp)
    {
-      return new self('@'.$timestamp);
+      return new static('@'.$timestamp);
    }
 
    /**
@@ -1395,7 +1395,7 @@ class Carbon extends DateTime
     */
    public function diffInYears(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
       $sign = ($abs) ? '' : '%r';
 
       return intval($this->diff($dt)->format($sign.'%y'));
@@ -1411,7 +1411,7 @@ class Carbon extends DateTime
     */
    public function diffInMonths(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
       list($sign, $years, $months) = explode(':', $this->diff($dt)->format('%r:%y:%m'));
       $value = ($years * self::MONTHS_PER_YEAR) + $months;
 
@@ -1432,7 +1432,7 @@ class Carbon extends DateTime
     */
    public function diffInDays(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
       $sign = ($abs) ? '' : '%r';
 
       return intval($this->diff($dt)->format($sign.'%a'));
@@ -1448,7 +1448,7 @@ class Carbon extends DateTime
     */
    public function diffInHours(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
       return intval($this->diffInMinutes($dt, $abs) / self::MINUTES_PER_HOUR);
    }
@@ -1463,7 +1463,7 @@ class Carbon extends DateTime
     */
    public function diffInMinutes(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
       return intval($this->diffInSeconds($dt, $abs) / self::SECONDS_PER_MINUTE);
    }
@@ -1478,7 +1478,7 @@ class Carbon extends DateTime
     */
    public function diffInSeconds(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? Carbon::now($this->tz) : $dt;
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
       list($sign, $days, $hours, $minutes, $seconds) = explode(':', $this->diff($dt)->format('%r:%a:%h:%i:%s'));
       $value = ($days * self::HOURS_PER_DAY * self::MINUTES_PER_HOUR * self::SECONDS_PER_MINUTE) +
                ($hours * self::MINUTES_PER_HOUR * self::SECONDS_PER_MINUTE) +
@@ -1573,7 +1573,7 @@ class Carbon extends DateTime
    * Modify to the next occurance of a given day of the week.
    * If no dayOfWeek is provided, modify to the next occurance
    * of the current day of the week.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1593,7 +1593,7 @@ class Carbon extends DateTime
    * Modify to the last occurance of a given day of the week.
    * If no dayOfWeek is provided, modify to the last occurance
    * of the current day of the week.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1613,7 +1613,7 @@ class Carbon extends DateTime
    * Modify to the first occurance of a given day of the week
    * in the current month. If no dayOfWeek is provided, modify to the
    * first day of the current month.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1633,7 +1633,7 @@ class Carbon extends DateTime
    * Modify to the last occurance of a given day of the week
    * in the current month. If no dayOfWeek is provided, modify to the
    * last day of the current month.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1653,7 +1653,7 @@ class Carbon extends DateTime
    * Modify to the given occurance of a given day of the week
    * in the current month. If the calculated occurance is outside the scope
    * of the current month, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
@@ -1675,7 +1675,7 @@ class Carbon extends DateTime
    * Modify to the first occurance of a given day of the week
    * in the current quarter. If no dayOfWeek is provided, modify to the
    * first day of the current quarter.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1692,7 +1692,7 @@ class Carbon extends DateTime
    * Modify to the last occurance of a given day of the week
    * in the current quarter. If no dayOfWeek is provided, modify to the
    * last day of the current quarter.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1709,7 +1709,7 @@ class Carbon extends DateTime
    * Modify to the given occurance of a given day of the week
    * in the current quarter. If the calculated occurance is outside the scope
    * of the current quarter, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
@@ -1732,7 +1732,7 @@ class Carbon extends DateTime
    * Modify to the first occurance of a given day of the week
    * in the current year. If no dayOfWeek is provided, modify to the
    * first day of the current year.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1749,7 +1749,7 @@ class Carbon extends DateTime
    * Modify to the last occurance of a given day of the week
    * in the current year. If no dayOfWeek is provided, modify to the
    * last day of the current year.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $dayOfWeek
    *
@@ -1766,7 +1766,7 @@ class Carbon extends DateTime
    * Modify to the given occurance of a given day of the week
    * in the current year. If the calculated occurance is outside the scope
    * of the current year, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. Carbon::MONDAY.
+   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
    *
    * @param  int  $nth
    * @param  int  $dayOfWeek
