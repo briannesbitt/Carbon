@@ -16,6 +16,9 @@ use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
 
+/**
+ * A simple API extension for DateTime
+ */
 class Carbon extends DateTime
 {
    /**
