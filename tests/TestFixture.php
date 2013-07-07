@@ -9,9 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Carbon\Tests;
-
-require __DIR__.'/../Carbon.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Carbon\Carbon;
 

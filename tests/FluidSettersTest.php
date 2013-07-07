@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-namespace Carbon\Tests;
-
 use Carbon\Carbon;
 
 class FluidSettersTest extends TestFixture
