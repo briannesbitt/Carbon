@@ -11,7 +11,10 @@
 
 namespace Carbon;
 
+use DateInterval;
 use DateTime;
+use DateTimeZone;
+use InvalidArgumentException;
 
 class Carbon extends DateTime
 {
@@ -65,7 +68,7 @@ class Carbon extends DateTime
       $tz = @timezone_open((string) $object);
 
       if ($tz === false) {
-         throw new \InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+         throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
       }
 
       return $tz;
@@ -233,7 +236,7 @@ class Carbon extends DateTime
       }
 
       $errors = DateTime::getLastErrors();
-      throw new \InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
+      throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
    }
 
    /**
@@ -346,7 +349,7 @@ class Carbon extends DateTime
             return $this->timezoneName;
 
          default:
-            throw new \InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+            throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
       }
    }
 
@@ -361,7 +364,7 @@ class Carbon extends DateTime
    {
       try {
          $this->__get($name);
-      } catch (\InvalidArgumentException $e) {
+      } catch (InvalidArgumentException $e) {
          return false;
       }
 
@@ -405,7 +408,7 @@ class Carbon extends DateTime
             $this->setTimezone($value);
             break;
          default:
-            throw new \InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+            throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
       }
    }
 
@@ -933,7 +936,7 @@ class Carbon extends DateTime
     */
    public function addYears($value)
    {
-      $interval = new \DateInterval(sprintf("P%dY", abs($value)));
+      $interval = new DateInterval(sprintf("P%dY", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -984,7 +987,7 @@ class Carbon extends DateTime
     */
    public function addMonths($value)
    {
-      $interval = new \DateInterval(sprintf("P%dM", abs($value)));
+      $interval = new DateInterval(sprintf("P%dM", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -1035,7 +1038,7 @@ class Carbon extends DateTime
     */
    public function addDays($value)
    {
-      $interval = new \DateInterval(sprintf("P%dD", abs($value)));
+      $interval = new DateInterval(sprintf("P%dD", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -1143,7 +1146,7 @@ class Carbon extends DateTime
     */
    public function addWeeks($value)
    {
-      $interval = new \DateInterval(sprintf("P%dW", abs($value)));
+      $interval = new DateInterval(sprintf("P%dW", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -1194,7 +1197,7 @@ class Carbon extends DateTime
     */
    public function addHours($value)
    {
-      $interval = new \DateInterval(sprintf("PT%dH", abs($value)));
+      $interval = new DateInterval(sprintf("PT%dH", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -1245,7 +1248,7 @@ class Carbon extends DateTime
     */
    public function addMinutes($value)
    {
-      $interval = new \DateInterval(sprintf("PT%dM", abs($value)));
+      $interval = new DateInterval(sprintf("PT%dM", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
@@ -1296,7 +1299,7 @@ class Carbon extends DateTime
     */
    public function addSeconds($value)
    {
-      $interval = new \DateInterval(sprintf("PT%dS", abs($value)));
+      $interval = new DateInterval(sprintf("PT%dS", abs($value)));
       if ($value >= 0) {
          $this->add($interval);
       } else {
