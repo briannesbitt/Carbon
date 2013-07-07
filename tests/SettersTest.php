@@ -118,6 +118,14 @@ class SettersTest extends TestFixture
       $d = Carbon::now();
       $d->setTimezone('America/Toronto');
       $this->assertSame('America/Toronto', $d->tzName);
+
+      $d = Carbon::now();
+      $d->timezone('America/Toronto');
+      $this->assertSame('America/Toronto', $d->tzName);
+
+      $d = Carbon::now();
+      $d->tz('America/Toronto');
+      $this->assertSame('America/Toronto', $d->tzName);
    }
    public function testTimezoneUsingString()
    {
