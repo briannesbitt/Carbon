@@ -1527,9 +1527,9 @@ class Carbon extends DateTime
       $divs = array(
          'second' => self::SECONDS_PER_MINUTE,
          'minute' => self::MINUTES_PER_HOUR,
-         'hour' => self::HOURS_PER_DAY,
-         'day' => 30,
-         'month' => 12
+         'hour'   => self::HOURS_PER_DAY,
+         'day'    => 30,
+         'month'  => 12
       );
 
       $unit = 'year';
@@ -1582,7 +1582,10 @@ class Carbon extends DateTime
    public function next($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($dayOfWeek === null) $dayOfWeek = $this->dayOfWeek;
+      if ($dayOfWeek === null) {
+         $dayOfWeek = $this->dayOfWeek;
+      }
+
       return $this->modify('next ' . self::$days[$dayOfWeek]);
    }
 
@@ -1599,7 +1602,10 @@ class Carbon extends DateTime
    public function previous($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($dayOfWeek === null) $dayOfWeek = $this->dayOfWeek;
+      if ($dayOfWeek === null) {
+         $dayOfWeek = $this->dayOfWeek;
+      }
+
       return $this->modify('last ' . self::$days[$dayOfWeek]);
    }
 
@@ -1616,7 +1622,10 @@ class Carbon extends DateTime
    public function firstOfMonth($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($dayOfWeek === null) return $this->day(1);
+      if ($dayOfWeek === null) {
+         return $this->day(1);
+      }
+
       return $this->modify('first ' . self::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
    }
 
@@ -1633,7 +1642,10 @@ class Carbon extends DateTime
    public function lastOfMonth($dayOfWeek = null)
    {
       $this->startOfDay();
-      if ($dayOfWeek === null) return $this->day($this->daysInMonth);
+      if ($dayOfWeek === null) {
+         return $this->day($this->daysInMonth);
+      }
+
       return $this->modify('last ' . self::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
    }
 
