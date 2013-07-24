@@ -36,6 +36,8 @@ class Carbon extends \DateTime
    const MINUTES_PER_HOUR = 60;
    const SECONDS_PER_MINUTE = 60;
 
+   protected static $offset;
+
    protected static function safeCreateDateTimeZone($object)
    {
       if ($object instanceof \DateTimeZone) {
@@ -67,7 +69,15 @@ class Carbon extends \DateTime
 
    public static function now($tz = null)
    {
-      return new self(null, $tz);
+      $self = new self(null, $tz);
+      if (self::$offset) {
+         $diff = $self->diff(self::$offset);
+         $self->add($diff);
+      }
+      return $self;
+   }
+   public static function offset(\DateTime $offset = null) {
+      self::$offset = $offset;
    }
    public static function today($tz = null)
    {
