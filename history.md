@@ -1,3 +1,10 @@
+1.3.0 / X-X-X (not released)
+==================
+
+  * Added modifier methods. Including firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
+  * Docblocks everywhere ;(
+  * General Code cleanup
+
 1.2.0 / 2012-10-14
 ==================
 
