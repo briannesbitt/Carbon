@@ -18,6 +18,30 @@ use InvalidArgumentException;
 
 /**
  * A simple API extension for DateTime
+ *
+ * @property int $year
+ * @property int $month
+ * @property int $day
+ * @property int $hour
+ * @property int $minute
+ * @property int $second
+ * @property int $timestamp seconds since the Unix Epoch (January 1 1970 00:00:00 GMT)
+ * @property-read DateTimeZone $timezone the current timezone
+ * @property-read DateTimeZone $tz alias of timezone
+ * @property-write DateTimeZone|string $timezone the current timezone
+ * @property-write DateTimeZone|string $tz alias of timezone
+ * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
+ * @property-read int $dayOfYear 0 through 365
+ * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
+ * @property-read int $daysInMonth number of days in the given month
+ * @property-read int $age does a diffInYears() with default parameters
+ * @property-read int $quarter the quarter of this instance, 1 - 4
+ * @property-read int $offset the timezone offset in seconds from UTC
+ * @property-read int $offsetHours the timezone offset in hours from UTC
+ * @property-read int $dst daylight savings time indicator, 1 if DST, 0 otherwise
+ * @property-read string $timezoneName
+ * @property-read string $tzName
+ *
  */
 class Carbon extends DateTime
 {
