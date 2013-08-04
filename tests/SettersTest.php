@@ -103,28 +103,36 @@ class SettersTest extends TestFixture
    }
    public function testTimezoneWithInvalidTimezone()
    {
-      $this->setExpectedException('InvalidArgumentException');
       $d = Carbon::now();
-      $d->timezone = 'sdf';
+
+      try {
+         $d->timezone = 'sdf';
+         $this->fail('InvalidArgumentException was not been raised.');
+      } catch (InvalidArgumentException $expected) {}
+
+      try {
+         $d->timezone('sdf');
+         $this->fail('InvalidArgumentException was not been raised.');
+      } catch (InvalidArgumentException $expected) {}
    }
    public function testTzWithInvalidTimezone()
    {
-      $this->setExpectedException('InvalidArgumentException');
       $d = Carbon::now();
-      $d->tz = 'sdf';
+
+      try {
+         $d->tz = 'sdf';
+         $this->fail('InvalidArgumentException was not been raised.');
+      } catch (InvalidArgumentException $expected) {}
+
+      try {
+         $d->tz('sdf');
+         $this->fail('InvalidArgumentException was not been raised.');
+      } catch (InvalidArgumentException $expected) {}
    }
    public function testSetTimezoneUsingString()
    {
       $d = Carbon::now();
       $d->setTimezone('America/Toronto');
-      $this->assertSame('America/Toronto', $d->tzName);
-
-      $d = Carbon::now();
-      $d->timezone('America/Toronto');
-      $this->assertSame('America/Toronto', $d->tzName);
-
-      $d = Carbon::now();
-      $d->tz('America/Toronto');
       $this->assertSame('America/Toronto', $d->tzName);
    }
    public function testTimezoneUsingString()
@@ -132,12 +140,18 @@ class SettersTest extends TestFixture
       $d = Carbon::now();
       $d->timezone = 'America/Toronto';
       $this->assertSame('America/Toronto', $d->tzName);
+
+      $d->timezone('America/Vancouver');
+      $this->assertSame('America/Vancouver', $d->tzName);
    }
    public function testTzUsingString()
    {
       $d = Carbon::now();
       $d->tz = 'America/Toronto';
       $this->assertSame('America/Toronto', $d->tzName);
+
+      $d->tz('America/Vancouver');
+      $this->assertSame('America/Vancouver', $d->tzName);
    }
    public function testSetTimezoneUsingDateTimeZone()
    {
@@ -150,12 +164,18 @@ class SettersTest extends TestFixture
       $d = Carbon::now();
       $d->timezone = new \DateTimeZone('America/Toronto');
       $this->assertSame('America/Toronto', $d->tzName);
+
+      $d->timezone(new \DateTimeZone('America/Vancouver'));
+      $this->assertSame('America/Vancouver', $d->tzName);
    }
    public function testTzUsingDateTimeZone()
    {
       $d = Carbon::now();
       $d->tz = new \DateTimeZone('America/Toronto');
       $this->assertSame('America/Toronto', $d->tzName);
+
+      $d->tz(new \DateTimeZone('America/Vancouver'));
+      $this->assertSame('America/Vancouver', $d->tzName);
    }
 
    public function testInvalidSetter()
