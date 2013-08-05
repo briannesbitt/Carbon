@@ -81,6 +81,13 @@ class Carbon extends DateTime
    const SECONDS_PER_MINUTE = 60;
 
    /**
+    * A test Carbon instance to be returned when now instances are created
+    *
+    * @var Carbon
+    */
+   protected static $testNow;
+
+   /**
     * Creates a DateTimeZone from a string or a DateTimeZone
     *
     * @param  DateTimeZone|string $object
@@ -109,11 +116,21 @@ class Carbon extends DateTime
    /**
     * Create a new Carbon instance.
     *
+    * Please see the testing aids section (specifically static::setTestNow())
+    * for more on the possibility of this constructor returning a test instance.
+    *
     * @param string              $time
     * @param DateTimeZone|string $tz
     */
    public function __construct($time = null, $tz = null)
    {
+      // If the class has a test now set and we are trying to create a now()
+      // instance then override as required
+      if (static::hasTestNow() && ($time === null || $time === 'now')) {
+         $time = static::getTestNow()->toDateTimeString();
+         $tz = static::getTestNow()->tz;
+      }
+
       if ($tz !== null) {
          parent::__construct($time, self::safeCreateDateTimeZone($tz));
       } else {
@@ -625,6 +642,50 @@ class Carbon extends DateTime
       parent::setTimezone(self::safeCreateDateTimeZone($value));
 
       return $this;
+   }
+
+   ///////////////////////////////////////////////////////////////////
+   ///////////////////////// TESTING AIDS ////////////////////////////
+   ///////////////////////////////////////////////////////////////////
+
+   /**
+    * Set a Carbon instance (real or mock) to be returned when a "now"
+    * instance is created.  The provided instance will be returned
+    * specifically under the following conditions:
+    *   - A call to the static now() method, ex. Carbon::now()
+    *   - When a null is passed to the constructor, ex. new Carbon(null)
+    *   - When the string "now" is passed to the constructor, ex. new Carbon('now')
+    *
+    * Note the timezone parameter was left out of the examples above and
+    * has no affect as the mock value will be returned regardless of its value.
+    *
+    * To clear the test instance call this method using the default
+    * parameter of null.
+    *
+    * @param Carbon $testNow
+    */
+   public static function setTestNow(Carbon $testNow = null) {
+      static::$testNow = $testNow;
+   }
+
+   /**
+    * Get the Carbon instance (real or mock) to be returned when a "now"
+    * instance is created.
+    *
+    * @return Carbon the current instance used for testing
+    */
+   public static function getTestNow() {
+      return static::$testNow;
+   }
+
+   /**
+    * Determine if there is a valid test instance set. A valid test instance
+    * is anything that is not null.
+    *
+    * @return boolean true if there is a test instance, otherwise false
+    */
+   public static function hasTestNow() {
+      return static::getTestNow() !== null;
    }
 
    ///////////////////////////////////////////////////////////////////
