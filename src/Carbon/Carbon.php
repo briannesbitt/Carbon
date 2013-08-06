@@ -1582,17 +1582,9 @@ class Carbon extends DateTime
    public function diffInSeconds(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
-      list($sign, $days, $hours, $minutes, $seconds) = explode(':', $this->diff($dt)->format('%r:%a:%h:%i:%s'));
-      $value = ($days * self::HOURS_PER_DAY * self::MINUTES_PER_HOUR * self::SECONDS_PER_MINUTE) +
-               ($hours * self::MINUTES_PER_HOUR * self::SECONDS_PER_MINUTE) +
-               ($minutes * self::SECONDS_PER_MINUTE) +
-               $seconds;
-
-      if ($sign === '-' && !$abs) {
-         $value = $value * -1;
-      }
-
-      return intval($value);
+      $value = $dt->getTimestamp() - $this->getTimestamp();
+      
+      return $abs ? abs($value) : $value;
    }
 
    /**
