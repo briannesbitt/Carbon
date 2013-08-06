@@ -401,6 +401,9 @@ class Carbon extends DateTime
          case 'tzName':
             return $this->timezoneName;
 
+         case 'beats':
+            return $this->diffInSeconds($this->copy()->startOfDay()) / 86400 * 1000;
+
          default:
             throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
       }
