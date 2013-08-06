@@ -1071,7 +1071,7 @@ class Carbon extends DateTime
     */
    public function subYears($value)
    {
-      return $this->addYears(-1 * $value);
+      return $this->addYears(-$value);
    }
 
    /**
@@ -1123,7 +1123,7 @@ class Carbon extends DateTime
     */
    public function subMonths($value)
    {
-      return $this->addMonths(-1 * $value);
+      return $this->addMonths(-$value);
    }
 
    /**
@@ -1233,7 +1233,7 @@ class Carbon extends DateTime
     */
    public function subWeekdays($value)
    {
-      return $this->addWeekdays(-1 * $value);
+      return $this->addWeekdays(-$value);
    }
 
    /**
@@ -1285,7 +1285,7 @@ class Carbon extends DateTime
     */
    public function subWeeks($value)
    {
-      return $this->addWeeks(-1 * $value);
+      return $this->addWeeks(-$value);
    }
 
    /**
@@ -1337,7 +1337,7 @@ class Carbon extends DateTime
     */
    public function subHours($value)
    {
-      return $this->addHours(-1 * $value);
+      return $this->addHours(-$value);
    }
 
    /**
@@ -1389,7 +1389,7 @@ class Carbon extends DateTime
     */
    public function subMinutes($value)
    {
-      return $this->addMinutes(-1 * $value);
+      return $this->addMinutes(-$value);
    }
 
    /**
@@ -1441,7 +1441,7 @@ class Carbon extends DateTime
     */
    public function subSeconds($value)
    {
-      return $this->addSeconds(-1 * $value);
+      return $this->addSeconds(-$value);
    }
 
    /**
