@@ -1484,11 +1484,32 @@ class Carbon extends DateTime
       return $this->day($this->daysInMonth)->endOfDay();
    }
 
-   ///////////////////////////////////////////////////////////////////
-   /////////////////////////// DIFFERENCES ///////////////////////////
-   ///////////////////////////////////////////////////////////////////
+    /**
+     * Resets the date to the first day of the ISO-8601 week and the time to 00:00:00
+     *
+     * @return self
+     */
+    public function startOfWeek()
+    {
+        return $this->setISODate($this->year, $this->weekOfYear, 1)->startOfDay();
+    }
 
-   /**
+
+    /**
+     * Resets the date to end of the ISO-8601 week and time to 23:59:59
+     *
+     * @return self
+     */
+    public function endOfWeek()
+    {
+        return $this->setISODate($this->year, $this->weekOfYear, 7)->endOfDay();
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    /////////////////////////// DIFFERENCES ///////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    /**
     * Get the difference in years
     *
     * @param  Carbon  $dt
