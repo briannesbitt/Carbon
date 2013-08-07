@@ -1485,23 +1485,24 @@ class Carbon extends DateTime
    }
 
     /**
-     * Resets the date to the first day of the week and the time to 00:00:00
+     * Resets the date to the first day of the ISO-8601 week and the time to 00:00:00
      *
      * @return self
      */
     public function startOfWeek()
     {
-        return $this->subDays($this->dayOfWeek)->startOfDay();
+        return $this->setISODate($this->year, $this->weekOfYear, 1)->startOfDay();
     }
 
+
     /**
-     * Resets the date to end of the week and time to 23:59:59
+     * Resets the date to end of the ISO-8601 week and time to 23:59:59
      *
      * @return self
      */
     public function endOfWeek()
     {
-        return $this->addDays(6 - $this->dayOfWeek)->endOfDay();
+        return $this->setISODate($this->year, $this->weekOfYear, 7)->endOfDay();
     }
 
     ///////////////////////////////////////////////////////////////////
