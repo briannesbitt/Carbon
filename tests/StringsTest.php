@@ -29,6 +29,12 @@ class StringsTest extends TestFixture
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
       $this->assertSame('Dec 25, 1975', $d->toFormattedDateString());
    }
+   public function testToLocalizedFormattedDateString()
+   {
+      setlocale(LC_ALL, 'fr_FR');
+      $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+      $this->assertSame('Jeudi 25 décembre 1975', $d->formatLocalized('%A %d %B %Y'));
+   }
    public function testToTimeString()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
