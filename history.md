@@ -3,6 +3,7 @@
 
   * Added modifier methods. Including firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
   * Added testing helpers to allow mocking of new Carbon(), new Carbon('now') and Carbon::now()
+  * Improved diffInSeconds()
   * Docblocks everywhere ;(
   * General Code cleanup
 
