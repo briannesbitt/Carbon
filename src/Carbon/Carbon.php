@@ -1583,7 +1583,7 @@ class Carbon extends DateTime
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
       $value = $dt->getTimestamp() - $this->getTimestamp();
-      
+
       return $abs ? abs($value) : $value;
    }
 
@@ -1630,7 +1630,7 @@ class Carbon extends DateTime
          'minute' => self::MINUTES_PER_HOUR,
          'hour'   => self::HOURS_PER_DAY,
          'day'    => 30,
-         'month'  => 12
+         'month'  => self::MONTHS_PER_YEAR
       );
 
       $unit = 'year';
