@@ -1484,11 +1484,31 @@ class Carbon extends DateTime
       return $this->day($this->daysInMonth)->endOfDay();
    }
 
-   ///////////////////////////////////////////////////////////////////
-   /////////////////////////// DIFFERENCES ///////////////////////////
-   ///////////////////////////////////////////////////////////////////
+    /**
+     * Resets the date to the first day of the week and the time to 00:00:00
+     *
+     * @return self
+     */
+    public function startOfWeek()
+    {
+        return $this->subDays($this->dayOfWeek)->startOfDay();
+    }
 
-   /**
+    /**
+     * Resets the date to end of the week and time to 23:59:59
+     *
+     * @return self
+     */
+    public function endOfWeek()
+    {
+        return $this->addDays(6 - $this->dayOfWeek)->endOfDay();
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    /////////////////////////// DIFFERENCES ///////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    /**
     * Get the difference in years
     *
     * @param  Carbon  $dt
