@@ -19,9 +19,21 @@ class DayOfWeekModifiersTest extends TestFixture
        $this->assertCarbon($d, 1980, 8, 3, 0, 0, 0);
    }
 
+   public function testStartOfWeekFromWeekStart()
+   {
+       $d = Carbon::createFromDate(1980, 8, 3)->startOfWeek();
+       $this->assertCarbon($d, 1980, 8, 3, 0, 0, 0);
+   }
+
    public function testEndOfWeek()
    {
        $d = Carbon::createFromDate(1980, 8, 7)->endOfWeek();
+       $this->assertCarbon($d, 1980, 8, 9, 23, 59, 59);
+   }
+
+   public function testEndOfWeekFromWeekEnd()
+   {
+       $d = Carbon::createFromDate(1980, 8, 9)->endOfWeek();
        $this->assertCarbon($d, 1980, 8, 9, 23, 59, 59);
    }
 
