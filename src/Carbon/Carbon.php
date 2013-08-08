@@ -1671,7 +1671,7 @@ class Carbon extends DateTime
    }
 
    /**
-    * Resets the date to the first day of the ISO-8601 week and the time to 00:00:00
+    * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
     *
     * @return self
     */
@@ -1681,7 +1681,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Resets the date to end of the ISO-8601 week and time to 23:59:59
+     * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
      *
      * @return self
      */
