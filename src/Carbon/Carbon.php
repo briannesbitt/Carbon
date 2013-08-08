@@ -954,6 +954,27 @@ class Carbon extends DateTime
       return $this <= $dt;
    }
 
+  /**
+   * Determines if the instance is between two others
+   *
+   * @param  Carbon $dt1
+   * @param  Carbon $dt2
+   *
+   * @return boolean
+   */
+   public function between(Carbon $dt1, Carbon $dt2, $equal = true) 
+   {
+      if ($dt1->gt($dt2)) {
+         list($dt1, $dt2) = array($dt2, $dt1);
+      }
+
+      if ($equal) {
+         return $this->gte($dt1) && $this->lte($dt2);
+      }else{
+         return $this->gt($dt1) && $this->lt($dt2);
+      }
+   }
+
    /**
     * Determines if the instance is a weekday
     *
