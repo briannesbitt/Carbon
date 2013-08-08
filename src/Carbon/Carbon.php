@@ -693,6 +693,18 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
+    * Format the instance with the current locale
+    *
+    * @param  string $format
+    *
+    * @return string
+    */
+   public function formatLocalized($format)
+   {
+     return strftime($format, $this->timestamp);
+   }
+
+   /**
     * Format the instance with date and time
     *
     * @return string
