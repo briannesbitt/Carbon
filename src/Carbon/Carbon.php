@@ -664,7 +664,8 @@ class Carbon extends DateTime
     *
     * @param Carbon $testNow
     */
-   public static function setTestNow(Carbon $testNow = null) {
+   public static function setTestNow(Carbon $testNow = null)
+   {
       static::$testNow = $testNow;
    }
 
@@ -674,7 +675,8 @@ class Carbon extends DateTime
     *
     * @return Carbon the current instance used for testing
     */
-   public static function getTestNow() {
+   public static function getTestNow()
+   {
       return static::$testNow;
    }
 
@@ -684,7 +686,8 @@ class Carbon extends DateTime
     *
     * @return boolean true if there is a test instance, otherwise false
     */
-   public static function hasTestNow() {
+   public static function hasTestNow()
+   {
       return static::getTestNow() !== null;
    }
 
