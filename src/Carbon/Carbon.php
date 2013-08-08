@@ -28,6 +28,7 @@ use InvalidArgumentException;
  * @property      integer $timestamp seconds since the Unix Epoch
  * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
+ * @property-read integer $weekOfMonth the week number of month
  * @property-read integer $weekOfYear ISO-8601 week number of year, weeks starting on Monday
  * @property-read integer $daysInMonth number of days in the given month
  * @property-read integer $age does a diffInYears() with default parameters
@@ -366,7 +367,7 @@ class Carbon extends DateTime
             return intval($this->format('z'));
 
          case 'weekOfMonth':
-            return $this->weekOfYear - $this->copy()->startOfMonth()->weekOfYear + 1;
+            return ($this->weekOfYear - $this->copy()->startOfMonth()->weekOfYear + 53) % 52;
 
          case 'weekOfYear':
             return intval($this->format('W'));
