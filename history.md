@@ -1,7 +1,8 @@
 1.3.0 / X-X-X (not released)
 ==================
 
-  * Added modifier methods. Including firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
+  * Added modifier methods firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
+  * Added modifiers startOfWeek() and endOfWeek()
   * Added testing helpers to allow mocking of new Carbon(), new Carbon('now') and Carbon::now()
   * Improved diffInSeconds()
   * Docblocks everywhere ;(
