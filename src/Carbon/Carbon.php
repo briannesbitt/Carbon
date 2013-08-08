@@ -1039,6 +1039,27 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
+    * Add or remove interval to the instance. Positive $value travel 
+    * forward while negative $value travel into the past.
+    *
+    * @param string $interval
+    * @param integer $value
+    *
+    * @return self
+    */
+   private function processInterval($interval, $value)
+   {
+      $interval = new DateInterval(sprintf($interval, abs($value)));
+      if ($value >= 0) {
+         $this->add($interval);
+      } else {
+         $this->sub($interval);
+      }
+
+      return $this;
+   }
+
+   /**
     * Add years to the instance. Positive $value travel forward while
     * negative $value travel into the past.
     *
@@ -1048,14 +1069,7 @@ class Carbon extends DateTime
     */
    public function addYears($value)
    {
-      $interval = new DateInterval(sprintf("P%dY", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("P%dY", $value);
    }
 
    /**
@@ -1100,14 +1114,7 @@ class Carbon extends DateTime
     */
    public function addMonths($value)
    {
-      $interval = new DateInterval(sprintf("P%dM", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("P%dM", $value);
    }
 
    /**
@@ -1152,14 +1159,7 @@ class Carbon extends DateTime
     */
    public function addDays($value)
    {
-      $interval = new DateInterval(sprintf("P%dD", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("P%dD", $value);
    }
 
    /**
@@ -1262,14 +1262,7 @@ class Carbon extends DateTime
     */
    public function addWeeks($value)
    {
-      $interval = new DateInterval(sprintf("P%dW", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("P%dW", $value);
    }
 
    /**
@@ -1314,14 +1307,7 @@ class Carbon extends DateTime
     */
    public function addHours($value)
    {
-      $interval = new DateInterval(sprintf("PT%dH", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("PT%dH", $value);
    }
 
    /**
@@ -1366,14 +1352,7 @@ class Carbon extends DateTime
     */
    public function addMinutes($value)
    {
-      $interval = new DateInterval(sprintf("PT%dM", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("PT%dM", $value);
    }
 
    /**
@@ -1418,14 +1397,7 @@ class Carbon extends DateTime
     */
    public function addSeconds($value)
    {
-      $interval = new DateInterval(sprintf("PT%dS", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->processInterval("PT%dS", $value);
    }
 
    /**
