@@ -693,7 +693,8 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
-    * Format the instance with the current locale
+    * Format the instance with the current locale.  You can set the current
+    * locale using setlocale() http://php.net/setlocale.
     *
     * @param  string $format
     *

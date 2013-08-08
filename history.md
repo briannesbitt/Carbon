@@ -4,6 +4,7 @@
   * Added modifier methods firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
   * Added modifiers startOfWeek() and endOfWeek()
   * Added testing helpers to allow mocking of new Carbon(), new Carbon('now') and Carbon::now()
+  * Added formatLocalized() to format a string using strftime() with the current locale
   * Improved diffInSeconds()
   * Docblocks everywhere ;(
   * General Code cleanup
