@@ -108,11 +108,11 @@ class ComparisonTest extends TestFixture
    }
    public function testBetweenEqualFalse()
    {
-      $this->assertTrue(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)), true);
+      $this->assertFalse(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)), true);
    }
    public function testBetweenNotEqualFalse()
    {
-      $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)), false);
+      $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)), false);
    }
    public function testBetweenEqualSwitchTrue()
    {
@@ -124,10 +124,10 @@ class ComparisonTest extends TestFixture
    }
    public function testBetweenEqualSwitchFalse()
    {
-      $this->assertTrue(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1)), true);
+      $this->assertFalse(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1)), true);
    }
    public function testBetweenNotEqualSwitchFalse()
    {
-      $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1)), false);
+      $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1)), false);
    }
 }
