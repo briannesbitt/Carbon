@@ -1047,7 +1047,7 @@ class Carbon extends DateTime
     */
    public function addYears($value)
    {
-      return $this->modify($value . ' year');
+      return $this->modify(intval($value) . ' year');
    }
 
    /**
@@ -1092,7 +1092,7 @@ class Carbon extends DateTime
     */
    public function addMonths($value)
    {
-      return $this->modify($value . ' month');
+      return $this->modify(intval($value) . ' month');
    }
 
    /**
@@ -1137,7 +1137,7 @@ class Carbon extends DateTime
     */
    public function addDays($value)
    {
-      return $this->modify($value . ' day');
+      return $this->modify(intval($value) . ' day');
    }
 
    /**
@@ -1240,7 +1240,7 @@ class Carbon extends DateTime
     */
    public function addWeeks($value)
    {
-      return $this->modify($value . ' week');
+      return $this->modify(intval($value) . ' week');
    }
 
    /**
@@ -1285,7 +1285,7 @@ class Carbon extends DateTime
     */
    public function addHours($value)
    {
-      return $this->modify($value . ' hour');
+      return $this->modify(intval($value) . ' hour');
    }
 
    /**
@@ -1330,7 +1330,7 @@ class Carbon extends DateTime
     */
    public function addMinutes($value)
    {
-      return $this->modify($value . ' minute');
+      return $this->modify(intval($value) . ' minute');
    }
 
    /**
@@ -1375,7 +1375,7 @@ class Carbon extends DateTime
     */
    public function addSeconds($value)
    {
-      return $this->modify($value . ' second');
+      return $this->modify(intval($value) . ' second');
    }
 
    /**
