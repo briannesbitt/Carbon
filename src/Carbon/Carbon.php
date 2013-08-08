@@ -11,7 +11,6 @@
 
 namespace Carbon;
 
-use DateInterval;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -1039,27 +1038,6 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
-    * Add or remove interval to the instance. Positive $value travel 
-    * forward while negative $value travel into the past.
-    *
-    * @param string $interval
-    * @param integer $value
-    *
-    * @return self
-    */
-   private function processInterval($interval, $value)
-   {
-      $interval = new DateInterval(sprintf($interval, abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
-   }
-
-   /**
     * Add years to the instance. Positive $value travel forward while
     * negative $value travel into the past.
     *
@@ -1069,7 +1047,7 @@ class Carbon extends DateTime
     */
    public function addYears($value)
    {
-      return $this->processInterval("P%dY", $value);
+      return $this->modify($value . ' year');
    }
 
    /**
@@ -1114,7 +1092,7 @@ class Carbon extends DateTime
     */
    public function addMonths($value)
    {
-      return $this->processInterval("P%dM", $value);
+      return $this->modify($value . ' month');
    }
 
    /**
@@ -1159,7 +1137,7 @@ class Carbon extends DateTime
     */
    public function addDays($value)
    {
-      return $this->processInterval("P%dD", $value);
+      return $this->modify($value . ' day');
    }
 
    /**
@@ -1262,7 +1240,7 @@ class Carbon extends DateTime
     */
    public function addWeeks($value)
    {
-      return $this->processInterval("P%dW", $value);
+      return $this->modify($value . ' week');
    }
 
    /**
@@ -1307,7 +1285,7 @@ class Carbon extends DateTime
     */
    public function addHours($value)
    {
-      return $this->processInterval("PT%dH", $value);
+      return $this->modify($value . ' hour');
    }
 
    /**
@@ -1352,7 +1330,7 @@ class Carbon extends DateTime
     */
    public function addMinutes($value)
    {
-      return $this->processInterval("PT%dM", $value);
+      return $this->modify($value . ' minute');
    }
 
    /**
@@ -1397,7 +1375,7 @@ class Carbon extends DateTime
     */
    public function addSeconds($value)
    {
-      return $this->processInterval("PT%dS", $value);
+      return $this->modify($value . ' second');
    }
 
    /**
