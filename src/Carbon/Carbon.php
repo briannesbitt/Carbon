@@ -11,7 +11,6 @@
 
 namespace Carbon;
 
-use DateInterval;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -1048,14 +1047,7 @@ class Carbon extends DateTime
     */
    public function addYears($value)
    {
-      $interval = new DateInterval(sprintf("P%dY", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' year');
    }
 
    /**
@@ -1100,14 +1092,7 @@ class Carbon extends DateTime
     */
    public function addMonths($value)
    {
-      $interval = new DateInterval(sprintf("P%dM", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' month');
    }
 
    /**
@@ -1152,14 +1137,7 @@ class Carbon extends DateTime
     */
    public function addDays($value)
    {
-      $interval = new DateInterval(sprintf("P%dD", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' day');
    }
 
    /**
@@ -1262,14 +1240,7 @@ class Carbon extends DateTime
     */
    public function addWeeks($value)
    {
-      $interval = new DateInterval(sprintf("P%dW", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' week');
    }
 
    /**
@@ -1314,14 +1285,7 @@ class Carbon extends DateTime
     */
    public function addHours($value)
    {
-      $interval = new DateInterval(sprintf("PT%dH", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' hour');
    }
 
    /**
@@ -1366,14 +1330,7 @@ class Carbon extends DateTime
     */
    public function addMinutes($value)
    {
-      $interval = new DateInterval(sprintf("PT%dM", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' minute');
    }
 
    /**
@@ -1418,14 +1375,7 @@ class Carbon extends DateTime
     */
    public function addSeconds($value)
    {
-      $interval = new DateInterval(sprintf("PT%dS", abs($value)));
-      if ($value >= 0) {
-         $this->add($interval);
-      } else {
-         $this->sub($interval);
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' second');
    }
 
    /**
