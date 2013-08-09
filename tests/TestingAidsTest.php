@@ -53,4 +53,19 @@ class TestingAidsTest extends TestFixture
 
       $this->assertEquals($notNow, Carbon::now());
    }
+
+   public function testParseWithDefaultsAndTestNowSet()
+   {
+      $notNow = Carbon::yesterday();
+      Carbon::setTestNow($notNow);
+
+      $this->assertEquals($notNow, Carbon::parse(null));
+   }
+   public function testParseWithNowStringAndTestNowSet()
+   {
+      $notNow = Carbon::yesterday();
+      Carbon::setTestNow($notNow);
+
+      $this->assertEquals($notNow, Carbon::parse('now'));
+   }
 }

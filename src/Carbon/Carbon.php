@@ -150,6 +150,20 @@ class Carbon extends DateTime
    }
 
    /**
+    * Create a carbon instance from a string.  This is an alias for the
+    * constructor that allows better fluent syntax as it allows you to do
+    * Carbon::parse('Monday next week')->fn() rather than
+    * (new Carbon('Monday next week'))->fn()
+    *
+    * @param string              $time
+    * @param DateTimeZone|string $tz
+    */
+   public static function parse($time, $tz = null)
+   {
+      return new static($time, $tz);
+   }
+
+   /**
     * Get a Carbon instance for the current date and time
     *
     * @param  DateTimeZone|string $tz
@@ -652,8 +666,8 @@ class Carbon extends DateTime
     * instance is created.  The provided instance will be returned
     * specifically under the following conditions:
     *   - A call to the static now() method, ex. Carbon::now()
-    *   - When a null is passed to the constructor, ex. new Carbon(null)
-    *   - When the string "now" is passed to the constructor, ex. new Carbon('now')
+    *   - When a null is passed to the constructor or parse(), ex. new Carbon(null)
+    *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
     *
     * Note the timezone parameter was left out of the examples above and
     * has no affect as the mock value will be returned regardless of its value.
