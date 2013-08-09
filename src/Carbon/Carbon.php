@@ -1548,7 +1548,7 @@ class Carbon extends DateTime
 
       $isFuture = $this->gt($other);
 
-      $delta = abs($other->diffInSeconds($this));
+      $delta = $other->diffInSeconds($this);
 
       // 30 days per month, 365 days per year... good enough!!
       $divs = array(
