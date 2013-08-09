@@ -29,24 +29,18 @@ class TestingAidsTest extends TestFixture
       $this->assertSame($notNow, Carbon::getTestNow());
    }
 
-   public function testConstructorWithDefaultsAndTestNowSet()
+   public function testConstructorWithTestValueSet()
    {
       $notNow = Carbon::yesterday();
       Carbon::setTestNow($notNow);
 
       $this->assertEquals($notNow, new Carbon());
       $this->assertEquals($notNow, new Carbon(null));
-   }
-
-   public function testConstructorWithNowStringAndTestNowSet()
-   {
-      $notNow = Carbon::yesterday();
-      Carbon::setTestNow($notNow);
-
+      $this->assertEquals($notNow, new Carbon(''));
       $this->assertEquals($notNow, new Carbon('now'));
    }
 
-   public function testNowWithNowStringAndTestNowSet()
+   public function testNowWithTestValueSet()
    {
       $notNow = Carbon::yesterday();
       Carbon::setTestNow($notNow);
@@ -54,18 +48,13 @@ class TestingAidsTest extends TestFixture
       $this->assertEquals($notNow, Carbon::now());
    }
 
-   public function testParseWithDefaultsAndTestNowSet()
+   public function testParseWithTestValueSet()
    {
       $notNow = Carbon::yesterday();
       Carbon::setTestNow($notNow);
 
       $this->assertEquals($notNow, Carbon::parse(null));
-   }
-   public function testParseWithNowStringAndTestNowSet()
-   {
-      $notNow = Carbon::yesterday();
-      Carbon::setTestNow($notNow);
-
+      $this->assertEquals($notNow, Carbon::parse(''));
       $this->assertEquals($notNow, Carbon::parse('now'));
    }
 }

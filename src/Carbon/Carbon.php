@@ -125,7 +125,7 @@ class Carbon extends DateTime
    {
       // If the class has a test now set and we are trying to create a now()
       // instance then override as required
-      if (static::hasTestNow() && ($time === null || $time === 'now')) {
+      if (static::hasTestNow() && (empty($time) || $time === 'now')) {
          $time = static::getTestNow()->toDateTimeString();
          $tz = static::getTestNow()->tz;
       }
