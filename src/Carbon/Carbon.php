@@ -1182,20 +1182,7 @@ class Carbon extends DateTime
     */
    public function addWeekdays($value)
    {
-      $absValue = abs($value);
-      $direction = $value < 0 ? -1 : 1;
-
-      while ($absValue > 0) {
-         $this->addDays($direction);
-
-         while ($this->isWeekend()) {
-            $this->addDays($direction);
-         }
-
-         $absValue--;
-      }
-
-      return $this;
+      return $this->modify(intval($value) . ' weekday');
    }
 
    /**

@@ -6,6 +6,7 @@
   * Added testing helpers to allow mocking of new Carbon(), new Carbon('now') and Carbon::now()
   * Added formatLocalized() to format a string using strftime() with the current locale
   * Improved diffInSeconds()
+  * Improved [add|sub][Years|Months|Days|Hours|Minutes|Seconds|Weeks]
   * Docblocks everywhere ;(
   * General Code cleanup
 
