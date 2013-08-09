@@ -956,20 +956,23 @@ class Carbon extends DateTime
   /**
    * Determines if the instance is between two others
    *
-   * @param  Carbon $dt1
-   * @param  Carbon $dt2
+   * @param  Carbon  $dt1
+   * @param  Carbon  $dt2
+   * @param  boolean $equal  Indicates if a > and < comparison should be used or <= or >=
    *
    * @return boolean
    */
-   public function between(Carbon $dt1, Carbon $dt2, $equal = true) 
+   public function between(Carbon $dt1, Carbon $dt2, $equal = true)
    {
       if ($dt1->gt($dt2)) {
-         list($dt1, $dt2) = array($dt2, $dt1);
+         $temp = $dt1;
+         $dt1 = $dt2;
+         $dt2 = $temp;
       }
 
       if ($equal) {
          return $this->gte($dt1) && $this->lte($dt2);
-      }else{
+      } else {
          return $this->gt($dt1) && $this->lt($dt2);
       }
    }
