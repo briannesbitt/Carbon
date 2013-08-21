@@ -22,16 +22,21 @@ $noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 $worldWillEnd = Carbon::createFromDate(2012, 12, 21, 'GMT');
 
+// Don't really want to die so mock now
+Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
+
 // comparisons are always done in UTC
 if (Carbon::now()->gte($worldWillEnd)) {
    die();
 }
 
+// Phew! Return to normal behaviour
+Carbon::setTestNow();
+
 if (Carbon::now()->isWeekend()) {
    echo 'Party!';
 }
 )}}
-
 {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}} // '{{intro_eval}}'
 
 // ... but also does 'from now', 'after' and 'before'
@@ -50,16 +55,18 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
     * [Without composer](#install-nocomposer)
 * [API](#api)
     * [Instantiation](#api-instantiation)
+    * [Testing Aids](#api-testing)
     * [Getters](#api-getters)
     * [Setters](#api-setters)
     * [Fluent Setters](#api-settersfluent)
     * [IsSet](#api-isset)
-    * [Formatting and Strings](#api-formatting)
+    * [String Formatting and Localization](#api-formatting)
     * [Common Formats](#api-commonformats)
     * [Comparison](#api-comparison)
     * [Addition and Subtraction](#api-addsub)
     * [Difference](#api-difference)
     * [Difference for Humans](#api-humandiff)
+    * [Modifiers](#api-modifiers)
     * [Constants](#api-constants)
 * [About](#about)
     * [Contributing](#about-contributing)
@@ -165,6 +172,13 @@ $nowInLondonTz = Carbon::now('Europe/London');
 )}}
 ```
 
+If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets necessary when using the constructor you'll enjoy the `parse` method.
+
+```php
+{{parse1::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{parse1_eval}}
+{{parse2::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{parse2_eval}}
+```
+
 To accompany `now()`, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that `today()`, `tomorrow()` and `yesterday()`, besides behaving as expected, all accept a timezone parameter and each has their time value set to `00:00:00`.
 
 ```php
@@ -233,7 +247,63 @@ Finally, if you find yourself inheriting a `\DateTime` instance from another lib
 {{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
 {{::lint($carbon = Carbon::instance($dt);)}}
 {{ctorType1::exec(echo get_class($carbon);/*pad(54)*/)}} // '{{ctorType1_eval}}'
-{{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // '{{ctorType2_eval}}'
+{{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
+```
+
+<a name="api-testing"/>
+### Testing Aids
+
+The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:
+- A call to the static now() method, ex. Carbon::now()
+- When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+- When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+
+```php
+{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+{{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock (of course this could be a real mock object)
+{{testaid1::exec(echo Carbon::now();/*pad(54)*/)}} // {{testaid1_eval}}
+{{testaid2::exec(echo new Carbon();/*pad(54)*/)}} // {{testaid2_eval}}
+{{testaid3::exec(echo Carbon::parse();/*pad(54)*/)}} // {{testaid3_eval}}
+{{testaid4::exec(echo new Carbon('now');/*pad(54)*/)}} // {{testaid4_eval}}
+{{testaid5::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{testaid5_eval}}
+{{hasTestNow::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNow_eval}}
+{{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
+{{hasTestNowNo::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNowNo_eval}}
+{{backToNormal::exec(echo Carbon::now();/*pad(54)*/)}} // {{backToNormal_eval}}
+```
+
+A more meaning full example:
+
+```php
+{{::lint(
+class SeasonalProduct
+{
+    protected $price;
+
+    public function __construct($price)
+    {
+        $this->price = $price;
+    }
+
+    public function getPrice() {
+        $multiplier = 1;
+        if (Carbon::now()->month == 12) {
+            $multiplier = 2;
+        }
+
+        return $this->price * $multiplier;
+    }
+}
+
+$product = new SeasonalProduct(100);
+)}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of March 2000'));/*pad(40)*/)}}
+{{product1::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product1_eval}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of December 2000'));/*pad(40)*/)}}
+{{product2::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product2_eval}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of May 2000'));/*pad(40)*/)}}
+{{product3::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product3_eval}}
+{{::lint(Carbon::setTestNow();)}}
 ```
 
 <a name="api-getters"/>
@@ -336,7 +406,7 @@ The PHP function `__isset()` is implemented.  This was done as some external sys
 ```
 
 <a name="api-formatting"/>
-### Formatting and Strings
+### String Formatting and Localization
 
 All of the available `toXXXString()` methods rely on the base class method [DateTime::format()](http://php.net/manual/en/datetime.format.php).  You'll notice the `__toString()` method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a string context.
 
@@ -352,6 +422,15 @@ All of the available `toXXXString()` methods rely on the base class method [Date
 
 // ... of course format() is still available
 {{format7::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{format7_eval}}
+```
+
+Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
+
+```php
+{{::lint(setlocale(LC_TIME, 'German');/*pad(50)*/)}}
+{{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
+{{::lint(setlocale(LC_TIME, '');/*pad(50)*/)}}
+{{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
 ```
 
 <a name="api-commonformats"/>
@@ -403,6 +482,16 @@ Simple comparison is offered up via the following functions.  Remember that the 
 {{compare12::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare12_eval}}
 {{compare13::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare13_eval}}
 {{compare14::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare14_eval}}
+```
+
+To determine if the current instance is between two other instances you can use the aptly named `between()` method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.
+
+```php
+{{::lint($first = Carbon::create(2012, 9, 5, 1);)}}
+{{::lint($second = Carbon::create(2012, 9, 5, 5);)}}
+{{between1::exec(var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));/*pad(75)*/)}} // {{between1_eval}}
+{{between2::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{between2_eval}}
+{{between3::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{between3_eval}}
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -471,18 +560,6 @@ The default DateTime provides a couple of different methods for easily adding an
 {{addsub31::exec(echo $dt->addSecond();/*pad(40)*/)}} // {{addsub31_eval}}
 {{addsub32::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{addsub32_eval}}
 {{addsub33::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{addsub33_eval}}
-
-{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);/*pad(40)*/)}}
-{{addsub35::exec(echo $dt->startOfDay();/*pad(40)*/)}} // {{addsub35_eval}}
-
-{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{addsub37::exec(echo $dt->endOfDay();/*pad(40)*/)}} // {{addsub37_eval}}
-
-{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{addsub39::exec(echo $dt->startOfMonth();/*pad(40)*/)}} // {{addsub39_eval}}
-
-{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{addsub41::exec(echo $dt->endOfMonth();/*pad(40)*/)}} // {{addsub41_eval}}
 ```
 
 For fun you can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
@@ -559,6 +636,52 @@ This method will add a phrase after the difference value relative to the instanc
 {{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(62)*/)}} // {{humandiff5_eval}}
 
 {{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(62)*/)}} // {{humandiff6_eval}}
+```
+
+<a name="api-modifiers"/>
+### Modifiers
+
+These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
+
+```php
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);/*pad(40)*/)}}
+{{modifier1::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{modifier1_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier2::exec(echo $dt->endOfDay();/*pad(50)*/)}} // {{modifier2_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier3::exec(echo $dt->startOfMonth();/*pad(50)*/)}} // {{modifier3_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier4::exec(echo $dt->endOfMonth();/*pad(50)*/)}} // {{modifier4_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier5::exec(echo $dt->startOfWeek();/*pad(50)*/)}} // {{modifier5_eval}}
+{{modifier6::exec(var_dump($dt->dayOfWeek == Carbon::MONDAY);/*pad(50)*/)}} // {{modifier6_eval}} : ISO8601 week starts on Monday
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier7::exec(echo $dt->endOfWeek();/*pad(50)*/)}} // {{modifier7_eval}}
+{{modifier8::exec(var_dump($dt->dayOfWeek == Carbon::SUNDAY);/*pad(50)*/)}} // {{modifier8_eval}} : ISO8601 week ends on Sunday
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier9::exec(echo $dt->next(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier9_eval}}
+{{modifier10::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier10_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
+{{modifier11::exec(echo $dt->next();/*pad(50)*/)}} // {{modifier11_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier12::exec(echo $dt->previous(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier12_eval}}
+{{modifier13::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier13_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
+{{modifier14::exec(echo $dt->previous();/*pad(50)*/)}} // {{modifier14_eval}}
+
+// others that are defined that are similar
+//   firstOfMonth(), lastOfMonth(), nthOfMonth()
+//   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
+//   firstOfYear(), lastOfYear(), nthOfYear()
 ```
 
 <a name="api-constants"/>

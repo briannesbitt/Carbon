@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-require 'Carbon/Carbon.php';
+require 'src/Carbon/Carbon.php';
 
 use Carbon\Carbon;
 
@@ -29,6 +29,7 @@ foreach ($matches as $match) {
 
     ob_start();
     $result = eval($pre_src . $src);
+
     $ob = ob_get_clean();
 
     if ($result === false) {

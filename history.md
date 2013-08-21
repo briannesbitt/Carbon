@@ -8,6 +8,8 @@
   * Improved diffInSeconds()
   * Improved [add|sub][Years|Months|Days|Hours|Minutes|Seconds|Weeks]
   * Docblocks everywhere ;(
+  * Magic class properties
+  * Added PHP 5.5 to travis test coverage
   * General Code cleanup
 
 1.2.0 / 2012-10-14
