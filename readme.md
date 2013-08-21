@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-08-21 00:29:22
+echo $now;                               // 2013-08-21 00:33:54
 $today = Carbon::today();
 echo $today;                             // 2013-08-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-08-21 00:29:22
+echo Carbon::now();                                    // 2013-08-21 00:33:54
 ```
 
 A more meaning full example:
