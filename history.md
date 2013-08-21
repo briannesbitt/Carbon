@@ -1,4 +1,4 @@
-1.3.0 / X-X-X (not released)
+1.3.0 / 2013-08-21
 ==================
 
   * Added modifier methods firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on
