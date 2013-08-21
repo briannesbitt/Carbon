@@ -21,6 +21,14 @@ class ConstructTest extends TestFixture
       $this->assertEquals($now->tzName, $c->tzName);
       $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
    }
+   public function testParseCreatesAnInstanceDefaultToNow()
+   {
+      $c = Carbon::parse();
+      $now = Carbon::now();
+      $this->assertEquals('Carbon\Carbon', get_class($c));
+      $this->assertEquals($now->tzName, $c->tzName);
+      $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+   }
 
    public function testWithFancyString()
    {

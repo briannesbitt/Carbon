@@ -158,7 +158,7 @@ class Carbon extends DateTime
     * @param string              $time
     * @param DateTimeZone|string $tz
     */
-   public static function parse($time, $tz = null)
+   public static function parse($time = null, $tz = null)
    {
       return new static($time, $tz);
    }
