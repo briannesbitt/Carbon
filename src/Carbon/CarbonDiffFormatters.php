@@ -47,4 +47,41 @@ class CarbonDiffFormatters
          return $txt;
       };
    }
+   
+   public static function nl()
+   {
+      return function ($isNow, $isFuture, $delta, $unit) {
+         switch($unit) {
+            case 'second':
+               $unit = $delta == 1 ? 'seconde' : 'seconden';
+               break;
+            case 'minute':
+               $unit = $delta == 1 ? 'minuut' : 'minuten';
+               break;
+            case 'hour':
+               $unit = 'uur';
+               break;
+            case 'day':
+               $unit = $delta == 1 ? 'dag' : 'dagen';
+               break;
+            case 'month':
+               $unit = $delta == 1 ? 'maand' : 'maanden';
+               break;
+            case 'year':
+               $unit = 'jaar';
+               break;
+         }
+         
+         $txt = $delta . ' ' . $unit;
+         
+         if ($isNow) {
+            $txt = ($isFuture) ? 'over ' . $txt : $txt . ' geleden';
+            return $txt;
+         }
+
+         $txt .= ($isFuture) ? ' erna' : ' ervoor';
+         
+         return $txt;
+      };
+   }
 }
