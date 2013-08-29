@@ -75,6 +75,8 @@ class Carbon extends DateTime
     * Number of X in Y
     */
    const MONTHS_PER_YEAR    = 12;
+   const WEEKS_PER_YEAR     = 52;
+   const DAYS_PER_WEEK      = 7;
    const HOURS_PER_DAY      = 24;
    const MINUTES_PER_HOUR   = 60;
    const SECONDS_PER_MINUTE = 60;
@@ -1590,7 +1592,8 @@ class Carbon extends DateTime
          'second' => self::SECONDS_PER_MINUTE,
          'minute' => self::MINUTES_PER_HOUR,
          'hour'   => self::HOURS_PER_DAY,
-         'day'    => 30,
+         'day'    => self::DAYS_PER_WEEK,
+         'week'   => self::WEEKS_PER_YEAR / self::MONTHS_PER_YEAR, // 4.333
          'month'  => self::MONTHS_PER_YEAR
       );
 
