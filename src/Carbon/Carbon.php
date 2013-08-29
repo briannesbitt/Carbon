@@ -722,12 +722,12 @@ class Carbon extends DateTime
     */
    public function formatLocalized($format)
    {
-      // Check for Windows to find and replace the %e 
+      // Check for Windows to find and replace the %e
       // modifier correctly
       if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
           $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
       }
-      
+
       return strftime($format, $this->timestamp);
    }
 
@@ -1567,11 +1567,16 @@ class Carbon extends DateTime
     * 1 hour after
     * 5 months after
     *
+    * For customizing the formatting to a different language specify your own
+    * formatter as the 2nd parameter.  See CarbonDiffFormatters for some default
+    * implementations.
+    *
     * @param  Carbon  $other
+    * @param  Closure $formatter The formatter to use to perform translations
     *
     * @return string
     */
-   public function diffForHumans(Carbon $other = null)
+   public function diffForHumans(Carbon $other = null, Closure $formatter = null)
    {
       $txt = '';
 
@@ -1609,22 +1614,11 @@ class Carbon extends DateTime
          $delta = 1;
       }
 
-      $txt = $delta . ' ' . $unit;
-      $txt .= $delta == 1 ? '' : 's';
-
-      if ($isNow) {
-         if ($isFuture) {
-            return $txt . ' from now';
-         }
-
-         return $txt . ' ago';
+      if ($formatter == null) {
+        $formatter = CarbonDiffFormatters::en();
       }
 
-      if ($isFuture) {
-         return $txt . ' after';
-      }
-
-      return $txt . ' before';
+      return $formatter($isNow, $isFuture, $delta, $unit);
    }
 
    ///////////////////////////////////////////////////////////////////
