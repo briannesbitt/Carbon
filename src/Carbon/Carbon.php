@@ -157,7 +157,7 @@ class Carbon extends DateTime
     *
     * @param string              $time
     * @param DateTimeZone|string $tz
-    * 
+    *
     * @return Carbon
     */
    public static function parse($time = null, $tz = null)
@@ -651,6 +651,8 @@ class Carbon extends DateTime
     * Set the instance's timezone from a string or object
     *
     * @param DateTimeZone|string $value
+    *
+    * @return self
     */
    public function setTimezone($value)
    {
