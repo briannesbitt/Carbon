@@ -64,6 +64,9 @@ class CarbonDiffFormatters
             case 'day':
                $unit = $delta == 1 ? 'dag' : 'dagen';
                break;
+            case 'week':
+               $unit = $delta == 1 ? 'week' : 'weken';
+               break;
             case 'month':
                $unit = $delta == 1 ? 'maand' : 'maanden';
                break;
