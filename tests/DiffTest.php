@@ -200,6 +200,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subSeconds(2);
       $this->assertSame('2 seconds ago', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyMinute()
+   {
+      $d = Carbon::now()->subSeconds(59);
+      $this->assertSame('59 seconds ago', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndMinute()
    {
       $d = Carbon::now()->subMinute();
@@ -209,6 +214,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->subMinutes(2);
       $this->assertSame('2 minutes ago', $d->diffForHumans());
+   }
+   public function testDiffForHumansNowAndNearlyHour()
+   {
+      $d = Carbon::now()->subMinutes(59);
+      $this->assertSame('59 minutes ago', $d->diffForHumans());
    }
    public function testDiffForHumansNowAndHour()
    {
@@ -220,6 +230,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subHours(2);
       $this->assertSame('2 hours ago', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyDay()
+   {
+      $d = Carbon::now()->subHours(23);
+      $this->assertSame('23 hours ago', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndDay()
    {
       $d = Carbon::now()->subDay();
@@ -230,8 +245,15 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subDays(2);
       $this->assertSame('2 days ago', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyMonth()
+   {
+      $d = Carbon::now()->subDays(29);
+      $this->assertSame('29 days ago', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndMonth()
    {
+      $d = Carbon::now()->subDays(30);
+      $this->assertSame('1 month ago', $d->diffForHumans());
       $d = Carbon::now()->subMonth();
       $this->assertSame('1 month ago', $d->diffForHumans());
    }
@@ -239,6 +261,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->subMonths(2);
       $this->assertSame('2 months ago', $d->diffForHumans());
+   }
+   public function testDiffForHumansNowAndNearlyYear()
+   {
+       $d = Carbon::now()->subMonths(11);
+       $this->assertSame('11 months ago', $d->diffForHumans());
    }
    public function testDiffForHumansNowAndYear()
    {
@@ -261,6 +288,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addSeconds(2);
       $this->assertSame('2 seconds from now', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyFutureMinute()
+   {
+      $d = Carbon::now()->addSeconds(59);
+      $this->assertSame('59 seconds from now', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndFutureMinute()
    {
       $d = Carbon::now()->addMinute();
@@ -270,6 +302,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->addMinutes(2);
       $this->assertSame('2 minutes from now', $d->diffForHumans());
+   }
+   public function testDiffForHumansNowAndNearlyFutureHour()
+   {
+      $d = Carbon::now()->addMinutes(59);
+      $this->assertSame('59 minutes from now', $d->diffForHumans());
    }
    public function testDiffForHumansNowAndFutureHour()
    {
@@ -281,6 +318,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addHours(2);
       $this->assertSame('2 hours from now', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyFutureDay()
+   {
+      $d = Carbon::now()->addHours(23);
+      $this->assertSame('23 hours from now', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndFutureDay()
    {
       $d = Carbon::now()->addDay();
@@ -291,8 +333,15 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addDays(2);
       $this->assertSame('2 days from now', $d->diffForHumans());
    }
+   public function testDiffForHumansNowAndNearlyFutureMonth()
+   {
+      $d = Carbon::now()->addDays(29);
+      $this->assertSame('29 days from now', $d->diffForHumans());
+   }
    public function testDiffForHumansNowAndFutureMonth()
    {
+      $d = Carbon::now()->addDays(30);
+      $this->assertSame('1 month from now', $d->diffForHumans());
       $d = Carbon::now()->addMonth();
       $this->assertSame('1 month from now', $d->diffForHumans());
    }
@@ -300,6 +349,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->addMonths(2);
       $this->assertSame('2 months from now', $d->diffForHumans());
+   }
+   public function testDiffForHumansNowAndNearlyFutureYear()
+   {
+      $d = Carbon::now()->addMonths(11);
+      $this->assertSame('11 months from now', $d->diffForHumans());
    }
    public function testDiffForHumansNowAndFutureYear()
    {
@@ -322,6 +376,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addSeconds(2);
       $this->assertSame('2 seconds before', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyMinute()
+   {
+      $d = Carbon::now()->addSeconds(59);
+      $this->assertSame('59 seconds before', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndMinute()
    {
       $d = Carbon::now()->addMinute();
@@ -331,6 +390,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->addMinutes(2);
       $this->assertSame('2 minutes before', Carbon::now()->diffForHumans($d));
+   }
+   public function testDiffForHumansOtherAndNearlyHour()
+   {
+      $d = Carbon::now()->addMinutes(59);
+      $this->assertSame('59 minutes before', Carbon::now()->diffForHumans($d));
    }
    public function testDiffForHumansOtherAndHour()
    {
@@ -342,6 +406,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addHours(2);
       $this->assertSame('2 hours before', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyDay()
+   {
+      $d = Carbon::now()->addHours(23);
+      $this->assertSame('23 hours before', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndDay()
    {
       $d = Carbon::now()->addDay();
@@ -352,8 +421,15 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->addDays(2);
       $this->assertSame('2 days before', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyMonth()
+   {
+      $d = Carbon::now()->addDays(29);
+      $this->assertSame('29 days before', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndMonth()
    {
+      $d = Carbon::now()->addDays(30);
+      $this->assertSame('1 month before', Carbon::now()->diffForHumans($d));
       $d = Carbon::now()->addMonth();
       $this->assertSame('1 month before', Carbon::now()->diffForHumans($d));
    }
@@ -361,6 +437,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->addMonths(2);
       $this->assertSame('2 months before', Carbon::now()->diffForHumans($d));
+   }
+   public function testDiffForHumansOtherAndNearlyYear()
+   {
+      $d = Carbon::now()->addMonths(11);
+      $this->assertSame('11 months before', Carbon::now()->diffForHumans($d));
    }
    public function testDiffForHumansOtherAndYear()
    {
@@ -383,6 +464,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subSeconds(2);
       $this->assertSame('2 seconds after', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyFutureMinute()
+   {
+      $d = Carbon::now()->subSeconds(59);
+      $this->assertSame('59 seconds after', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndFutureMinute()
    {
       $d = Carbon::now()->subMinute();
@@ -392,6 +478,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->subMinutes(2);
       $this->assertSame('2 minutes after', Carbon::now()->diffForHumans($d));
+   }
+   public function testDiffForHumansOtherAndNearlyFutureHour()
+   {
+      $d = Carbon::now()->subMinutes(59);
+      $this->assertSame('59 minutes after', Carbon::now()->diffForHumans($d));
    }
    public function testDiffForHumansOtherAndFutureHour()
    {
@@ -403,6 +494,11 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subHours(2);
       $this->assertSame('2 hours after', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyFutureDay()
+   {
+      $d = Carbon::now()->subHours(23);
+      $this->assertSame('23 hours after', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndFutureDay()
    {
       $d = Carbon::now()->subDay();
@@ -413,8 +509,15 @@ class DiffTest extends TestFixture
       $d = Carbon::now()->subDays(2);
       $this->assertSame('2 days after', Carbon::now()->diffForHumans($d));
    }
+   public function testDiffForHumansOtherAndNearlyFutureMonth()
+   {
+      $d = Carbon::now()->subDays(29);
+      $this->assertSame('29 days after', Carbon::now()->diffForHumans($d));
+   }
    public function testDiffForHumansOtherAndFutureMonth()
    {
+      $d = Carbon::now()->subDays(30);
+      $this->assertSame('1 month after', Carbon::now()->diffForHumans($d));
       $d = Carbon::now()->subMonth();
       $this->assertSame('1 month after', Carbon::now()->diffForHumans($d));
    }
@@ -422,6 +525,11 @@ class DiffTest extends TestFixture
    {
       $d = Carbon::now()->subMonths(2);
       $this->assertSame('2 months after', Carbon::now()->diffForHumans($d));
+   }
+   public function testDiffForHumansOtherAndNearlyFutureYear()
+   {
+      $d = Carbon::now()->subMonths(11);
+      $this->assertSame('11 months after', Carbon::now()->diffForHumans($d));
    }
    public function testDiffForHumansOtherAndFutureYear()
    {
