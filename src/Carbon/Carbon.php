@@ -1587,13 +1587,13 @@ class Carbon extends DateTime
 
       $delta = $other->diffInSeconds($this);
 
-      // 30 days per month, 365 days per year... good enough!!
+      // 4 weeks per month, 365 days per year... good enough!!
       $divs = array(
          'second' => self::SECONDS_PER_MINUTE,
          'minute' => self::MINUTES_PER_HOUR,
          'hour'   => self::HOURS_PER_DAY,
          'day'    => self::DAYS_PER_WEEK,
-         'week'   => self::WEEKS_PER_YEAR / self::MONTHS_PER_YEAR, // 4.333
+         'week'   => 4,
          'month'  => self::MONTHS_PER_YEAR
       );
 
