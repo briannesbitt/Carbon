@@ -30,7 +30,7 @@ class CarbonDiffFormatters
    /*
     * English - the default
     *
-    * @return Closure The formatter to use
+    * @return \Closure The formatter to use
     */
    public static function en()
    {
