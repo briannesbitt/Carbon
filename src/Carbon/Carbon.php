@@ -71,13 +71,13 @@ class Carbon extends DateTime
       self::SATURDAY  => 'Saturday'
    );
 
-	private static $relativeKeywords = array() {
+	private static $relativeKeywords = array(
 		'this',
 		'next',
 		'last',
 		'tomorrow',
 		'yesterday'
-	};
+	);
 
    /**
     * Number of X in Y
@@ -743,9 +743,12 @@ class Carbon extends DateTime
 	 */
 	public static function getRelativeTest($time) {
 		$testNow = static::getTestNow();
-		$relativeDate = new static($testNow->toDateString() . ' ' . $time)->setTime($testNow->format('h'), $testNow->format('i'), $testNow->format('s'));
+		
+		$instance = new static($testNow->toDateString() . ' ' . $time);
+		$instance->setTime($testNow->format('h'), $testNow->format('i'), $testNow->format('s'));
+		$relativeDate = $instance;
 	}
-}
+
    ///////////////////////////////////////////////////////////////////
    /////////////////////// STRING FORMATTING /////////////////////////
    ///////////////////////////////////////////////////////////////////
