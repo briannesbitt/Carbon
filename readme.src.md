@@ -311,11 +311,11 @@ Relative phrases are also mocked according to the given "now" instance.
 ```php
 {{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
-{{testaid1::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid1_eval}}
-{{testaid2::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid2_eval}}
-{{testaid3::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid3_eval}}
-{{testaid4::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid4_eval}}
-{{testaid5::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid5_eval}}
+{{testaid6::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid6_eval}}
+{{testaid7::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid7_eval}}
+{{testaid8::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid8_eval}}
+{{testaid9::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid9_eval}}
+{{testaid10::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid10_eval}}
 ```
 
 <a name="api-getters"/>

@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-09-05 23:34:13
+echo $now;                               // 2013-09-05 23:38:31
 $today = Carbon::today();
 echo $today;                             // 2013-09-05 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-09-05 23:34:13
+echo Carbon::now();                                    // 2013-09-05 23:38:31
 ```
 
 A more meaning full example:
@@ -301,11 +301,11 @@ Relative phrases are also mocked according to the given "now" instance.
 ```php
 $knownDate = Carbon::create(2001, 5, 21, 12);          // create testing date
 Carbon::setTestNow($knownDate);                        // set the mock
-echo new Carbon('tomorrow');                           // 2001-05-21 12:00:00
-echo new Carbon('yesterday');                          // 2001-05-21 12:00:00
-echo new Carbon('next wednesday');                     // 2001-05-21 12:00:00
-echo new Carbon('last friday');                        // 2001-05-21 12:00:00
-echo new Carbon('this thursday');                      // 2001-05-21 12:00:00
+echo new Carbon('tomorrow');                           // 2001-05-22 12:00:00
+echo new Carbon('yesterday');                          // 2001-05-20 12:00:00
+echo new Carbon('next wednesday');                     // 2001-05-23 12:00:00
+echo new Carbon('last friday');                        // 2001-05-18 12:00:00
+echo new Carbon('this thursday');                      // 2001-05-24 12:00:00
 ```
 
 <a name="api-getters"/>
