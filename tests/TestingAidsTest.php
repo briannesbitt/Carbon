@@ -61,8 +61,10 @@ class TestingAidsTest extends TestFixture
    
    public function testParseRelativeWithTestValueSet() 
    {
-	  $notNow = Carbon::parse('2013-09-01');
+	  $notNow = Carbon::parse('2013-09-01 05:30:15');
       Carbon::setTestNow($notNow);
+	  
+	  $this->assertEquals('05:30:15', Carbon::parse('tomorrow')->toTimeString());
 	  
 	  $this->assertEquals('2013-09-02', Carbon::parse('tomorrow')->toDateString());
 	  $this->assertEquals('2013-08-31', Carbon::parse('yesterday')->toDateString());
@@ -82,6 +84,7 @@ class TestingAidsTest extends TestFixture
 	  $this->assertEquals('2013-08-30', Carbon::parse('last friday')->toDateString());
 	  $this->assertEquals('2013-08-31', Carbon::parse('last saturday')->toDateString());
 	  $this->assertEquals('2013-08-25', Carbon::parse('last sunday')->toDateString());
+	  
 	  
 	  
    }
