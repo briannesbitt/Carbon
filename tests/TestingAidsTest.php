@@ -85,6 +85,14 @@ class TestingAidsTest extends TestFixture
 	  $this->assertEquals('2013-08-31', Carbon::parse('last saturday')->toDateString());
 	  $this->assertEquals('2013-08-25', Carbon::parse('last sunday')->toDateString());
 	  
+	  $this->assertEquals('2013-09-02', Carbon::parse('this monday')->toDateString());
+	  $this->assertEquals('2013-09-03', Carbon::parse('this tuesday')->toDateString());
+	  $this->assertEquals('2013-09-04', Carbon::parse('this wednesday')->toDateString());
+	  $this->assertEquals('2013-09-05', Carbon::parse('this thursday')->toDateString());
+	  $this->assertEquals('2013-09-06', Carbon::parse('this friday')->toDateString());
+	  $this->assertEquals('2013-09-07', Carbon::parse('this saturday')->toDateString());
+	  $this->assertEquals('2013-09-01', Carbon::parse('this sunday')->toDateString());
+	  
 	  
 	  
    }
