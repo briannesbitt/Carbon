@@ -732,12 +732,13 @@ class Carbon extends DateTime
 	/**
 	 * Determine if there is a relative keyword in the time string, this is to
 	 * create dates relative to now for test instances. e.g.: next tuesday
+	 * TODO: add support for 'ago' which would typically be at the end of a phrase
 	 *
 	 * @return boolean true if there is a keyword, otherwise false
 	 */
 	public static function hasRelativeKeywords($time) {
 		foreach(self::$relativeKeywords as $keyword) {
-			if (stripos($time, $keyword) === 0) {
+			if (stripos(trim($time), $keyword) === 0) {
 				return true;
 			}
 		}
