@@ -738,7 +738,7 @@ class Carbon extends DateTime
 	 */
 	public static function hasRelativeKeywords($time) {
 		foreach(self::$relativeKeywords as $keyword) {
-			if (stripos(trim($time), $keyword) !== false) {
+			if (stripos($time, $keyword) !== false) {
 				return true;
 			}
 		}
