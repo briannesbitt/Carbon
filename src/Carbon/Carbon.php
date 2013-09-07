@@ -71,13 +71,22 @@ class Carbon extends DateTime
       self::SATURDAY  => 'Saturday'
    );
 
-	private static $relativeKeywords = array(
-		'this',
-		'next',
-		'last',
-		'tomorrow',
-		'yesterday'
-	);
+    /**
+    * Terms used to detect if a time passed is a relative date for testing purposes
+    *
+    * @var array
+    */
+    private static $relativeKeywords = array(
+	    'this',
+	    'next',
+	    'last',
+	    'tomorrow',
+	    'yesterday',
+	    '+',
+	    '-',
+	    'first',
+	    'last'
+    );
 
    /**
     * Number of X in Y
@@ -743,9 +752,8 @@ class Carbon extends DateTime
 	 */
 	public static function getRelativeTest($time) {
 		$testNow = static::getTestNow();
-		
-		$instance = new static($testNow->toDateString() . ' ' . $time);
-		$instance->setTime($testNow->format('h'), $testNow->format('i'), $testNow->format('s'));
+		$instance = new static();
+		$instance->modify($time);
 		return $instance;
 	}
 
