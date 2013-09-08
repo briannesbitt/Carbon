@@ -303,7 +303,7 @@ class Carbon extends DateTime
          return self::instance($dt);
       }
 
-      $errors = DateTime::getLastErrors();
+      $errors = static::getLastErrors();
       throw new InvalidArgumentException(implode(PHP_EOL, $errors['errors']));
    }
 
@@ -798,7 +798,7 @@ class Carbon extends DateTime
     */
    public function toATOMString()
    {
-      return $this->format(DateTime::ATOM);
+      return $this->format(self::ATOM);
    }
 
    /**
@@ -808,7 +808,7 @@ class Carbon extends DateTime
     */
    public function toCOOKIEString()
    {
-      return $this->format(DateTime::COOKIE);
+      return $this->format(self::COOKIE);
    }
 
    /**
@@ -818,7 +818,7 @@ class Carbon extends DateTime
     */
    public function toISO8601String()
    {
-      return $this->format(DateTime::ISO8601);
+      return $this->format(self::ISO8601);
    }
 
    /**
@@ -828,7 +828,7 @@ class Carbon extends DateTime
     */
    public function toRFC822String()
    {
-      return $this->format(DateTime::RFC822);
+      return $this->format(self::RFC822);
    }
 
    /**
@@ -838,7 +838,7 @@ class Carbon extends DateTime
     */
    public function toRFC850String()
    {
-      return $this->format(DateTime::RFC850);
+      return $this->format(self::RFC850);
    }
 
    /**
@@ -848,7 +848,7 @@ class Carbon extends DateTime
     */
    public function toRFC1036String()
    {
-      return $this->format(DateTime::RFC1036);
+      return $this->format(self::RFC1036);
    }
 
    /**
@@ -858,7 +858,7 @@ class Carbon extends DateTime
     */
    public function toRFC1123String()
    {
-      return $this->format(DateTime::RFC1123);
+      return $this->format(self::RFC1123);
    }
 
    /**
@@ -868,7 +868,7 @@ class Carbon extends DateTime
     */
    public function toRFC2822String()
    {
-      return $this->format(DateTime::RFC2822);
+      return $this->format(self::RFC2822);
    }
 
    /**
@@ -878,7 +878,7 @@ class Carbon extends DateTime
     */
    public function toRFC3339String()
    {
-      return $this->format(DateTime::RFC3339);
+      return $this->format(self::RFC3339);
    }
 
    /**
@@ -888,7 +888,7 @@ class Carbon extends DateTime
     */
    public function toRSSString()
    {
-      return $this->format(DateTime::RSS);
+      return $this->format(self::RSS);
    }
 
    /**
@@ -898,7 +898,7 @@ class Carbon extends DateTime
     */
    public function toW3CString()
    {
-      return $this->format(DateTime::W3C);
+      return $this->format(self::W3C);
    }
 
    ///////////////////////////////////////////////////////////////////
