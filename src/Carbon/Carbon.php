@@ -1460,9 +1460,8 @@ class Carbon extends DateTime
    public function diffInYears(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
-      $sign = ($abs) ? '' : '%r';
 
-      return intval($this->diff($dt)->format($sign.'%y'));
+      return intval($this->diff($dt, $abs)->format('%r%y'));
    }
 
    /**
@@ -1476,14 +1475,8 @@ class Carbon extends DateTime
    public function diffInMonths(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
-      list($sign, $years, $months) = explode(':', $this->diff($dt)->format('%r:%y:%m'));
-      $value = ($years * self::MONTHS_PER_YEAR) + $months;
 
-      if ($sign === '-' && !$abs) {
-         $value = $value * -1;
-      }
-
-      return $value;
+      return $this->diffInYears($dt, $abs) * self::MONTHS_PER_YEAR + $this->diff($dt, $abs)->format('%r%m');
    }
 
    /**
@@ -1497,9 +1490,8 @@ class Carbon extends DateTime
    public function diffInDays(Carbon $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
-      $sign = ($abs) ? '' : '%r';
 
-      return intval($this->diff($dt)->format($sign.'%a'));
+      return intval($this->diff($dt, $abs)->format('%r%a'));
    }
 
    /**
