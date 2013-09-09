@@ -306,6 +306,18 @@ $product = new SeasonalProduct(100);
 {{::lint(Carbon::setTestNow();)}}
 ```
 
+Relative phrases are also mocked according to the given "now" instance.
+
+```php
+{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+{{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
+{{testaid6::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid6_eval}}
+{{testaid7::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid7_eval}}
+{{testaid8::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid8_eval}}
+{{testaid9::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid9_eval}}
+{{testaid10::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid10_eval}}
+```
+
 <a name="api-getters"/>
 ### Getters
 
