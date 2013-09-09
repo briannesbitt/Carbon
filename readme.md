@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-09-05 23:38:31
+echo $now;                               // 2013-09-08 22:36:32
 $today = Carbon::today();
-echo $today;                             // 2013-09-05 00:00:00
+echo $today;                             // 2013-09-08 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2013-09-07 00:00:00
+echo $tomorrow;                          // 2013-09-10 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2013-09-04 00:00:00
+echo $yesterday;                         // 2013-09-07 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-09-05 23:38:31
+echo Carbon::now();                                    // 2013-09-08 22:36:32
 ```
 
 A more meaning full example:
@@ -301,12 +301,27 @@ Relative phrases are also mocked according to the given "now" instance.
 ```php
 $knownDate = Carbon::create(2001, 5, 21, 12);          // create testing date
 Carbon::setTestNow($knownDate);                        // set the mock
-echo new Carbon('tomorrow');                           // 2001-05-22 12:00:00
-echo new Carbon('yesterday');                          // 2001-05-20 12:00:00
-echo new Carbon('next wednesday');                     // 2001-05-23 12:00:00
-echo new Carbon('last friday');                        // 2001-05-18 12:00:00
-echo new Carbon('this thursday');                      // 2001-05-24 12:00:00
+echo new Carbon('tomorrow');                           // 2001-05-22 00:00:00
+echo new Carbon('yesterday');                          // 2001-05-20 00:00:00
+echo new Carbon('next wednesday');                     // 2001-05-23 00:00:00
+echo new Carbon('last friday');                        // 2001-05-18 00:00:00
+echo new Carbon('this thursday');                      // 2001-05-24 00:00:00
+Carbon::setTestNow();                                  // always clear it !
 ```
+
+The list of words that are considered to be relative modifiers are:
+- this
+- next
+- last
+- tomorrow
+- yesterday
+- +
+- -
+- first
+- last
+- ago
+
+Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.
 
 <a name="api-getters"/>
 ### Getters
@@ -328,7 +343,7 @@ var_dump($dt->dayOfYear);                              // int(248)
 var_dump($dt->weekOfYear);                             // int(36)
 var_dump($dt->daysInMonth);                            // int(30)
 var_dump($dt->timestamp);                              // int(1346901971)
-var_dump(Carbon::createFromDate(1975, 5, 21)->age);    // int(25) calculated vs now in the same tz
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);    // int(38) calculated vs now in the same tz
 var_dump($dt->quarter);                                // int(3)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
@@ -426,7 +441,7 @@ Unfortunately the base class DateTime does not have any localization support.  T
 
 ```php
 setlocale(LC_TIME, 'German');                     
-echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
+echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
 setlocale(LC_TIME, '');                           
 echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 ```
@@ -458,11 +473,14 @@ echo $dt->toW3CString();
 Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.
 
 ```php
+echo Carbon::now()->tzName;                        // America/Toronto
 $first = Carbon::create(2012, 9, 5, 23, 26, 11);
 $second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');
 
 echo $first->toDateTimeString();                   // 2012-09-05 23:26:11
+echo $first->tzName;                               // America/Toronto
 echo $second->toDateTimeString();                  // 2012-09-05 20:26:11
+echo $second->tzName;                              // America/Vancouver
 
 var_dump($first->eq($second));                     // bool(true)
 var_dump($first->ne($second));                     // bool(false)
@@ -637,7 +655,7 @@ echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from
 <a name="api-modifiers"/>
 ### Modifiers
 
-These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
+These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
 
 ```php
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);

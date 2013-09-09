@@ -58,47 +58,47 @@ class TestingAidsTest extends TestFixture
       $this->assertEquals($notNow, Carbon::parse(''));
       $this->assertEquals($notNow, Carbon::parse('now'));
    }
-   
-   public function testParseRelativeWithTestValueSet() 
+
+   public function testParseRelativeWithTestValueSet()
    {
 	  $notNow = Carbon::parse('2013-09-01 05:15:05');
 	  Carbon::setTestNow($notNow);
-	  
+
 	  $this->assertEquals('2013-09-01 05:10:05', Carbon::parse('5 minutes ago')->toDateTimeString());
-	  
+
 	  $this->assertEquals('2013-08-25 05:15:05', Carbon::parse('1 week ago')->toDateTimeString());
-	  
-	  $this->assertEquals('2013-09-02', Carbon::parse('tomorrow')->toDateString());
-	  $this->assertEquals('2013-08-31', Carbon::parse('yesterday')->toDateString());
-	  
-	  $this->assertEquals('2013-09-02', Carbon::parse('+1 day')->toDateString());
-	  $this->assertEquals('2013-08-31', Carbon::parse('-1 day')->toDateString());
-	  
-	  $this->assertEquals('2013-09-02', Carbon::parse('next monday')->toDateString());
-	  $this->assertEquals('2013-09-03', Carbon::parse('next tuesday')->toDateString());
-	  $this->assertEquals('2013-09-04', Carbon::parse('next wednesday')->toDateString());
-	  $this->assertEquals('2013-09-05', Carbon::parse('next thursday')->toDateString());
-	  $this->assertEquals('2013-09-06', Carbon::parse('next friday')->toDateString());
-	  $this->assertEquals('2013-09-07', Carbon::parse('next saturday')->toDateString());
-	  $this->assertEquals('2013-09-08', Carbon::parse('next sunday')->toDateString());
-	  
-	  $this->assertEquals('2013-08-26', Carbon::parse('last monday')->toDateString());
-	  $this->assertEquals('2013-08-27', Carbon::parse('last tuesday')->toDateString());
-	  $this->assertEquals('2013-08-28', Carbon::parse('last wednesday')->toDateString());
-	  $this->assertEquals('2013-08-29', Carbon::parse('last thursday')->toDateString());
-	  $this->assertEquals('2013-08-30', Carbon::parse('last friday')->toDateString());
-	  $this->assertEquals('2013-08-31', Carbon::parse('last saturday')->toDateString());
-	  $this->assertEquals('2013-08-25', Carbon::parse('last sunday')->toDateString());
-	  
-	  $this->assertEquals('2013-09-02', Carbon::parse('this monday')->toDateString());
-	  $this->assertEquals('2013-09-03', Carbon::parse('this tuesday')->toDateString());
-	  $this->assertEquals('2013-09-04', Carbon::parse('this wednesday')->toDateString());
-	  $this->assertEquals('2013-09-05', Carbon::parse('this thursday')->toDateString());
-	  $this->assertEquals('2013-09-06', Carbon::parse('this friday')->toDateString());
-	  $this->assertEquals('2013-09-07', Carbon::parse('this saturday')->toDateString());
-	  $this->assertEquals('2013-09-01', Carbon::parse('this sunday')->toDateString());
-	  
-	  $this->assertEquals('2013-10-01', Carbon::parse('first day of next month')->toDateString());
-	  $this->assertEquals('2013-09-30', Carbon::parse('last day of this month')->toDateString());
+
+	  $this->assertEquals('2013-09-02 00:00:00', Carbon::parse('tomorrow')->toDateTimeString());
+	  $this->assertEquals('2013-08-31 00:00:00', Carbon::parse('yesterday')->toDateTimeString());
+
+	  $this->assertEquals('2013-09-02 05:15:05', Carbon::parse('+1 day')->toDateTimeString());
+	  $this->assertEquals('2013-08-31 05:15:05', Carbon::parse('-1 day')->toDateTimeString());
+
+	  $this->assertEquals('2013-09-02 00:00:00', Carbon::parse('next monday')->toDateTimeString());
+	  $this->assertEquals('2013-09-03 00:00:00', Carbon::parse('next tuesday')->toDateTimeString());
+	  $this->assertEquals('2013-09-04 00:00:00', Carbon::parse('next wednesday')->toDateTimeString());
+	  $this->assertEquals('2013-09-05 00:00:00', Carbon::parse('next thursday')->toDateTimeString());
+	  $this->assertEquals('2013-09-06 00:00:00', Carbon::parse('next friday')->toDateTimeString());
+	  $this->assertEquals('2013-09-07 00:00:00', Carbon::parse('next saturday')->toDateTimeString());
+	  $this->assertEquals('2013-09-08 00:00:00', Carbon::parse('next sunday')->toDateTimeString());
+
+	  $this->assertEquals('2013-08-26 00:00:00', Carbon::parse('last monday')->toDateTimeString());
+	  $this->assertEquals('2013-08-27 00:00:00', Carbon::parse('last tuesday')->toDateTimeString());
+	  $this->assertEquals('2013-08-28 00:00:00', Carbon::parse('last wednesday')->toDateTimeString());
+	  $this->assertEquals('2013-08-29 00:00:00', Carbon::parse('last thursday')->toDateTimeString());
+	  $this->assertEquals('2013-08-30 00:00:00', Carbon::parse('last friday')->toDateTimeString());
+	  $this->assertEquals('2013-08-31 00:00:00', Carbon::parse('last saturday')->toDateTimeString());
+	  $this->assertEquals('2013-08-25 00:00:00', Carbon::parse('last sunday')->toDateTimeString());
+
+	  $this->assertEquals('2013-09-02 00:00:00', Carbon::parse('this monday')->toDateTimeString());
+	  $this->assertEquals('2013-09-03 00:00:00', Carbon::parse('this tuesday')->toDateTimeString());
+	  $this->assertEquals('2013-09-04 00:00:00', Carbon::parse('this wednesday')->toDateTimeString());
+	  $this->assertEquals('2013-09-05 00:00:00', Carbon::parse('this thursday')->toDateTimeString());
+	  $this->assertEquals('2013-09-06 00:00:00', Carbon::parse('this friday')->toDateTimeString());
+	  $this->assertEquals('2013-09-07 00:00:00', Carbon::parse('this saturday')->toDateTimeString());
+	  $this->assertEquals('2013-09-01 00:00:00', Carbon::parse('this sunday')->toDateTimeString());
+
+	  $this->assertEquals('2013-10-01 05:15:05', Carbon::parse('first day of next month')->toDateTimeString());
+	  $this->assertEquals('2013-09-30 05:15:05', Carbon::parse('last day of this month')->toDateTimeString());
    }
 }

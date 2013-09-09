@@ -77,16 +77,16 @@ class Carbon extends DateTime
     * @var array
     */
     private static $relativeKeywords = array(
-	    'this',
-	    'next',
-	    'last',
-	    'tomorrow',
-	    'yesterday',
-	    '+',
-	    '-',
-	    'first',
-	    'last',
-	    'ago'
+      'this',
+      'next',
+      'last',
+      'tomorrow',
+      'yesterday',
+      '+',
+      '-',
+      'first',
+      'last',
+      'ago'
     );
 
    /**
@@ -146,11 +146,11 @@ class Carbon extends DateTime
       // If the class has a test now set and we are trying to create a now()
       // instance then override as required
       if (static::hasTestNow() && (empty($time) || $time === 'now' || self::hasRelativeKeywords($time))) {
-	     if (self::hasRelativeKeywords($time)) {
-		     $time = static::getRelativeTest($time)->toDateTimeString();
-	     } else {
-		     $time = static::getTestNow()->toDateTimeString();
-	     }
+         if (self::hasRelativeKeywords($time)) {
+            $time = static::getRelativeTest($time)->toDateTimeString();
+         } else {
+            $time = static::getTestNow()->toDateTimeString();
+         }
          $tz = static::getTestNow()->tz;
       }
 
@@ -736,33 +736,32 @@ class Carbon extends DateTime
       return static::getTestNow() !== null;
    }
 
-	/**
-	 * Determine if there is a relative keyword in the time string, this is to
-	 * create dates relative to now for test instances. e.g.: next tuesday
-	 *
-	 * @return boolean true if there is a keyword, otherwise false
-	 */
-	public static function hasRelativeKeywords($time) {
-		foreach(self::$relativeKeywords as $keyword) {
-			if (stripos($time, $keyword) !== false) {
-				return true;
-			}
-		}
-		return false;
-	}
+   /**
+    * Determine if there is a relative keyword in the time string, this is to
+    * create dates relative to now for test instances. e.g.: next tuesday
+    *
+    * @return boolean true if there is a keyword, otherwise false
+    */
+   public static function hasRelativeKeywords($time) {
+      foreach(self::$relativeKeywords as $keyword) {
+         if (stripos($time, $keyword) !== false) {
+            return true;
+        }
+      }
+      return false;
+   }
 
-	/**
-	 * Gets a Carbon instance relative to the current test instance.
-	 * e.g.: last thursday, tomorrow
-	 *
-	 * @return Carbon relative to the current instance used for testing
-	 */
-	public static function getRelativeTest($time) {
-		$testNow = static::getTestNow();
-		$instance = new static();
-		$instance->modify($time);
-		return $instance;
-	}
+   /**
+    * Gets a Carbon instance relative to the current test instance.
+    * e.g.: last thursday, tomorrow
+    *
+    * @return Carbon relative to the current instance used for testing
+    */
+   public static function getRelativeTest($time) {
+      $instance = new static();
+      $instance->modify($time);
+      return $instance;
+   }
 
    ///////////////////////////////////////////////////////////////////
    /////////////////////// STRING FORMATTING /////////////////////////
@@ -778,12 +777,12 @@ class Carbon extends DateTime
     */
    public function formatLocalized($format)
    {
-      // Check for Windows to find and replace the %e 
+      // Check for Windows to find and replace the %e
       // modifier correctly
       if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
           $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
       }
-      
+
       return strftime($format, $this->timestamp);
    }
 

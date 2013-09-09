@@ -1,3 +1,10 @@
+1.4.0 / 2013-09-08
+==================
+* Corrected various PHPdocs
+* formatLocalized() is now more OS independent
+* Improved diff methods
+* Test now can be mocked using a relative term
+
 1.3.0 / 2013-08-21
 ==================
 

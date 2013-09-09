@@ -316,7 +316,22 @@ Relative phrases are also mocked according to the given "now" instance.
 {{testaid8::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid8_eval}}
 {{testaid9::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid9_eval}}
 {{testaid10::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid10_eval}}
+{{::exec(Carbon::setTestNow();/*pad(54)*/)}} // always clear it !
 ```
+
+The list of words that are considered to be relative modifiers are:
+- this
+- next
+- last
+- tomorrow
+- yesterday
+- +
+- -
+- first
+- last
+- ago
+
+Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.
 
 <a name="api-getters"/>
 ### Getters
@@ -472,11 +487,14 @@ echo $dt->toW3CString();
 Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.
 
 ```php
+{{comparetz::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{comparetz_eval}}
 {{::lint($first = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
 {{::lint($second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');)}}
 
 {{compare1::exec(echo $first->toDateTimeString();/*pad(50)*/)}} // {{compare1_eval}}
+{{compare1tz::exec(echo $first->tzName;/*pad(50)*/)}} // {{compare1tz_eval}}
 {{compare2::exec(echo $second->toDateTimeString();/*pad(50)*/)}} // {{compare2_eval}}
+{{compare2tz::exec(echo $second->tzName;/*pad(50)*/)}} // {{compare2tz_eval}}
 
 {{compare3::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{compare3_eval}}
 {{compare4::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{compare4_eval}}
@@ -653,7 +671,7 @@ This method will add a phrase after the difference value relative to the instanc
 <a name="api-modifiers"/>
 ### Modifiers
 
-These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
+These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
 
 ```php
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);/*pad(40)*/)}}
