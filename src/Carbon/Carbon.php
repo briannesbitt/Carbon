@@ -92,6 +92,8 @@ class Carbon extends DateTime
     * @param  DateTimeZone|string $object
     *
     * @return DateTimeZone
+    *
+    * @throws InvalidArgumentException
     */
    protected static function safeCreateDateTimeZone($object)
    {
@@ -290,6 +292,8 @@ class Carbon extends DateTime
     * @param  DateTimeZone|string $tz
     *
     * @return Carbon
+    *
+    * @throws InvalidArgumentException
     */
    public static function createFromFormat($format, $time, $tz = null)
    {
@@ -444,6 +448,8 @@ class Carbon extends DateTime
     *
     * @param string                      $name
     * @param string|integer|DateTimeZone $value
+    *
+    * @throws InvalidArgumentException
     */
    public function __set($name, $value)
    {
