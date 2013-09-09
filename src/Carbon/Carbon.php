@@ -146,12 +146,19 @@ class Carbon extends DateTime
       // If the class has a test now set and we are trying to create a now()
       // instance then override as required
       if (static::hasTestNow() && (empty($time) || $time === 'now' || self::hasRelativeKeywords($time))) {
-         if (self::hasRelativeKeywords($time)) {
-            $time = static::getRelativeTest($time)->toDateTimeString();
-         } else {
-            $time = static::getTestNow()->toDateTimeString();
-         }
-         $tz = static::getTestNow()->tz;
+	 $testInstance = clone static::getTestNow();
+	 if (self::hasRelativeKeywords($time)) {
+	     $testInstance->modify($time);
+	 }
+
+	 //shift the time according to the given time zone
+	 if ($tz !== NULL && $tz != static::getTestNow()->tz) {
+	     $testInstance->setTimezone($tz);
+	 } else {
+	     $tz = $testInstance->tz;
+	 }
+
+         $time = $testInstance->toDateTimeString();
       }
 
       if ($tz !== null) {
@@ -749,18 +756,6 @@ class Carbon extends DateTime
         }
       }
       return false;
-   }
-
-   /**
-    * Gets a Carbon instance relative to the current test instance.
-    * e.g.: last thursday, tomorrow
-    *
-    * @return Carbon relative to the current instance used for testing
-    */
-   public static function getRelativeTest($time) {
-      $instance = new static();
-      $instance->modify($time);
-      return $instance;
    }
 
    ///////////////////////////////////////////////////////////////////
