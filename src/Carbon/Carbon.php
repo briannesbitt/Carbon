@@ -432,7 +432,7 @@ class Carbon extends DateTime
             return $this->format('I') == '1';
             
          case 'local':
-            return $this->timezoneName == date_default_timezone_get();
+            return $this->format('Z') == $this->copy()->setTimezone(date_default_timezone_get())->format('Z');
 
          case 'timezone':
             return $this->getTimezone();
