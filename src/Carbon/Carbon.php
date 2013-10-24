@@ -432,7 +432,7 @@ class Carbon extends DateTime
             return $this->format('I') == '1';
          
          case 'utc':
-            return $this->timezoneName == 'UTC';
+            return $this->format('Z') == 0;
 
          case 'timezone':
             return $this->getTimezone();
