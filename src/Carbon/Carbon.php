@@ -33,7 +33,7 @@ use InvalidArgumentException;
  * @property-read integer $quarter the quarter of this instance, 1 - 4
  * @property-read integer $offset the timezone offset in seconds from UTC
  * @property-read integer $offsetHours the timezone offset in hours from UTC
- * @property-read integer $dst daylight savings time indicator, 1 if DST, 0 otherwise
+ * @property-read boolean $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read string  $timezoneName
  * @property-read string  $tzName
  *
