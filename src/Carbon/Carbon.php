@@ -34,6 +34,7 @@ use InvalidArgumentException;
  * @property-read integer $offset the timezone offset in seconds from UTC
  * @property-read integer $offsetHours the timezone offset in hours from UTC
  * @property-read integer $dst daylight savings time indicator, 1 if DST, 0 otherwise
+ * @property-read boolean $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string  $timezoneName
  * @property-read string  $tzName
  *
@@ -429,6 +430,9 @@ class Carbon extends DateTime
 
          case 'dst':
             return $this->format('I') == '1';
+         
+         case 'utc':
+            return $this->timezoneName == 'UTC';
 
          case 'timezone':
             return $this->getTimezone();
