@@ -114,6 +114,20 @@ class GettersTest extends TestFixture
       $this->assertSame(4, $d->quarter);
    }
 
+   public function testGetLocalTrue()
+   {
+     // Default timezone has been set to America/Toronto in TestFixture.php
+     // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
+     $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->local);
+     $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->local);
+   }
+   public function testGetLocalFalse()
+   {
+     $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'UTC')->local);
+     $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->local);
+   }
+
+
    public function testGetDstFalse()
    {
       $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
