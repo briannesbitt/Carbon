@@ -767,7 +767,232 @@ class Carbon extends DateTime
       return $instance;
    }
 
-   ///////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////
+	/////////////////// INSTANCIATION FROM STRING /////////////////////
+	///////////////////////////////////////////////////////////////////
+
+	/**
+	 * Create a Carbon instance from a datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 * 
+	 * @return Carbon
+	 */
+	public static function fromString($datetime, $tz = null)
+	{
+		return self::fromDateTimeString($datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a date string
+	 *
+	 * @param   string            $date
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromDateString($date, $tz = null)
+	{
+		return self::createFromFormat('Y-m-d', $date, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a formatted date string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromFormattedDateString($datetime, $tz = null)
+	{
+		return self::createFromFormat('M j, Y', $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a time string
+	 *
+	 * @param   string            $time
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromTimeString($time, $tz = null)
+	{
+		return self::createFromFormat('H:i:s', $time, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromDateTimeString($datetime, $tz = null)
+	{
+		return self::createFromFormat('Y-m-d H:i:s', $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a day datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromDayDateTimeString($datetime, $tz = null)
+	{
+		return self::createFromFormat('D, M j, Y g:i A', $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from an ATOM datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromATOMString($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::ATOM, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a COOKIE datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromCOOKIEString($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::COOKIE, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a ISO8601 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromISO8601String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::ISO8601, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC822 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC822String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC822, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC850 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC850String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC850, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC1036 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC1036String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC1036, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC1123 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC1123String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC1123, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC2822 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC2822String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC2822, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RFC3339 datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRFC3339String($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RFC3339, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a RSS datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromRSSString($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::RSS, $datetime, $tz);
+	}
+
+	/**
+	 * Create a Carbon instance from a W3C datetime string
+	 *
+	 * @param   string            $datetime
+	 * @param DateTimeZone|string $tz
+	 *
+	 * @return Carbon
+	 */
+	public static function fromW3CString($datetime, $tz = null)
+	{
+		return self::createFromFormat(self::W3C, $datetime, $tz);
+	}
+
+	///////////////////////////////////////////////////////////////////
    /////////////////////// STRING FORMATTING /////////////////////////
    ///////////////////////////////////////////////////////////////////
 
