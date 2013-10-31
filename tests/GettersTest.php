@@ -127,6 +127,22 @@ class GettersTest extends TestFixture
      $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->local);
    }
 
+   public function testGetUtcFalse()
+   {
+      $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
+      $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
+   }
+   public function testGetUtcTrue()
+   {
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/London')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'UTC')->utc);
+      $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'GMT')->utc);
+   }
 
    public function testGetDstFalse()
    {
