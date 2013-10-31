@@ -2,7 +2,7 @@
 
 # Carbon
 
-[![Build Status](https://secure.travis-ci.org/briannesbitt/Carbon.png)](http://travis-ci.org/briannesbitt/Carbon)
+[![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon) [![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon) [![Build Status](https://secure.travis-ci.org/briannesbitt/Carbon.png)](http://travis-ci.org/briannesbitt/Carbon)
 
 A simple API extension for DateTime with PHP 5.3+
 
@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-09-08 22:36:32
+echo $now;                               // 2013-10-30 23:33:00
 $today = Carbon::today();
-echo $today;                             // 2013-09-08 00:00:00
+echo $today;                             // 2013-10-30 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2013-09-10 00:00:00
+echo $tomorrow;                          // 2013-11-01 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2013-09-07 00:00:00
+echo $yesterday;                         // 2013-10-29 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-09-08 22:36:32
+echo Carbon::now();                                    // 2013-10-30 23:33:00
 ```
 
 A more meaning full example:
@@ -332,37 +332,47 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 $dt = Carbon::create(2012, 9, 5, 23, 26, 11);
 
 // These getters specifically return integers, ie intval()
-var_dump($dt->year);                                   // int(2012)
-var_dump($dt->month);                                  // int(9)
-var_dump($dt->day);                                    // int(5)
-var_dump($dt->hour);                                   // int(23)
-var_dump($dt->minute);                                 // int(26)
-var_dump($dt->second);                                 // int(11)
-var_dump($dt->dayOfWeek);                              // int(3)
-var_dump($dt->dayOfYear);                              // int(248)
-var_dump($dt->weekOfYear);                             // int(36)
-var_dump($dt->daysInMonth);                            // int(30)
-var_dump($dt->timestamp);                              // int(1346901971)
-var_dump(Carbon::createFromDate(1975, 5, 21)->age);    // int(38) calculated vs now in the same tz
-var_dump($dt->quarter);                                // int(3)
+var_dump($dt->year);                                         // int(2012)
+var_dump($dt->month);                                        // int(9)
+var_dump($dt->day);                                          // int(5)
+var_dump($dt->hour);                                         // int(23)
+var_dump($dt->minute);                                       // int(26)
+var_dump($dt->second);                                       // int(11)
+var_dump($dt->dayOfWeek);                                    // int(3)
+var_dump($dt->dayOfYear);                                    // int(248)
+var_dump($dt->weekOfYear);                                   // int(36)
+var_dump($dt->daysInMonth);                                  // int(30)
+var_dump($dt->timestamp);                                    // int(1346901971)
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(38) calculated vs now in the same tz
+var_dump($dt->quarter);                                      // int(3)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
-var_dump(Carbon::createFromTimestampUTC(0)->offset);   // int(0)
-var_dump(Carbon::createFromTimestamp(0)->offset);      // int(-18000)
+var_dump(Carbon::createFromTimestampUTC(0)->offset);         // int(0)
+var_dump(Carbon::createFromTimestamp(0)->offset);            // int(-18000)
 
 // Returns an int of hours difference from UTC (+/- sign included)
-var_dump(Carbon::createFromTimestamp(0)->offsetHours); // int(-5)
+var_dump(Carbon::createFromTimestamp(0)->offsetHours);       // int(-5)
 
 // Indicates if day light savings time is on
-var_dump(Carbon::createFromDate(2012, 1, 1)->dst);     // bool(false)
+var_dump(Carbon::createFromDate(2012, 1, 1)->dst);           // bool(false)
+var_dump(Carbon::createFromDate(2012, 9, 1)->dst);           // bool(true)
+
+// Indicates if the instance is in the same timezone as the local timzezone
+var_dump(Carbon::now()->local);                              // bool(true)
+var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
+
+// Indicates if the instance is in the UTC timezone
+var_dump(Carbon::now()->utc);                                // bool(false)
+var_dump(Carbon::now('Europe/London')->utc);                 // bool(true)
+var_dump(Carbon::createFromTimestampUTC(0)->utc);            // bool(true)
 
 // Gets the DateTimeZone instance
-echo get_class(Carbon::now()->timezone);               // DateTimeZone
-echo get_class(Carbon::now()->tz);                     // DateTimeZone
+echo get_class(Carbon::now()->timezone);                     // DateTimeZone
+echo get_class(Carbon::now()->tz);                           // DateTimeZone
 
 // Gets the DateTimeZone instance name, shortcut for ->timezone->getName()
-echo Carbon::now()->timezoneName;                      // America/Toronto
-echo Carbon::now()->tzName;                            // America/Toronto
+echo Carbon::now()->timezoneName;                            // America/Toronto
+echo Carbon::now()->tzName;                                  // America/Toronto
 ```
 
 <a name="api-setters"/>
@@ -617,7 +627,7 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 <a name="api-humandiff"/>
 ### Difference for Humans
 
-It is easier for humans to read `1 month ago` compared to 30 days ago.  This is a common function seen in most date libraries so I thought I would add it here as well.  It uses approximations for month being 30 days which then equates a year to 360 days.  The lone argument for the function is the other Carbon instance to diff against, and of course it defaults to `now()` if not specified.
+It is easier for humans to read `1 month ago` compared to 30 days ago.  This is a common function seen in most date libraries so I thought I would add it here as well.  It uses approximations for a month being 4 weeks. The lone argument for the function is the other Carbon instance to diff against, and of course it defaults to `now()` if not specified.
 
 This method will add a phrase after the difference value relative to the instance and the passed in instance.  There are 4 possibilities:
 
@@ -646,10 +656,12 @@ echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
 $dt = Carbon::createFromDate(2011, 2, 1);
 
-echo $dt->diffForHumans($dt->copy()->addMonth());              // 28 days before
+echo $dt->diffForHumans($dt->copy()->addMonth());              // 1 month before
 echo $dt->diffForHumans($dt->copy()->subMonth());              // 1 month after
 
 echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from now
+
+echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
 ```
 
 <a name="api-modifiers"/>
