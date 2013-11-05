@@ -219,6 +219,24 @@ class GettersTest extends TestFixture
       $this->assertSame('America/Toronto', $dt->tzName);
    }
 
+	 public function testGetTimezoneType()
+	 {
+			$dt = new DateTime("1 January 2013 -0300");
+			$c  = Carbon::instance($dt);
+			$this->assertSame(1, $c->timezoneType);
+			$this->assertSame(1, $c->tzType);
+
+			$dt = new DateTime("1 January 2013 GMT");
+			$c  = Carbon::instance($dt);
+			$this->assertSame(2, $c->timezoneType);
+			$this->assertSame(2, $c->tzType);
+
+			$dt = new DateTime("1 January 2013 America/Toronto");
+			$c  = Carbon::instance($dt);
+			$this->assertSame(3, $c->timezoneType);
+			$this->assertSame(3, $c->tzType);
+	 }
+
    public function testInvalidGetter()
    {
       $this->setExpectedException('InvalidArgumentException');
