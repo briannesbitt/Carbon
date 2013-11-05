@@ -459,6 +459,11 @@ class Carbon extends DateTime
          case 'tzName':
             return $this->timezoneName;
 
+	       case 'timezoneType':
+	       case 'tzType':
+		        $timezone = (array) $this->timezone;
+		        return $timezone['timezone_type'];
+
          default:
             throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
       }
