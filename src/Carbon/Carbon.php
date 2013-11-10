@@ -780,7 +780,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function formatLocalized($format, $buddh = null)
+   public function formatLocalized($format, $buddh = null) // add Buddhist boolean check point.
    {
       // Check for Windows to find and replace the %e
       // modifier correctly
@@ -788,7 +788,7 @@ class Carbon extends DateTime
           $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
       }
       
-      // Check boolean if true then use this route to make B.E. 
+      // Check boolean if 'true' then use this route to make B.E. 
       if ($buddh) {
           if (preg_match('/\%y/', $format)) 
           {  
@@ -803,7 +803,7 @@ class Carbon extends DateTime
             return strftime($format, $this->timestamp) . (strftime('%Y', $this->timestamp) + 543);
           }
       } 
-      else // if not set use normal
+      else // if not 'true' use normal one.
       {
           return strftime($format, $this->timestamp);   
       }
