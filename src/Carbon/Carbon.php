@@ -786,27 +786,28 @@ class Carbon extends DateTime
       // modifier correctly
       if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
           $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
-          
-          // Check boolean if true then use this route to make B.E. 
-          if ($buddh) {
-              if (preg_match('/\%y/', $format)) 
-              {  
-                $format = preg_replace('/\%y/', '', $format);
-
-                return strftime($format, $this->timestamp) . (strftime('%Y', $this->timestamp) + 543)%100;
-              } 
-              else if (preg_match('/\%Y/', $format)) 
-              {
-                $format = preg_replace('/\%Y/', '', $format);
-
-                return strftime($format, $this->timestamp) . (strftime('%Y', $this->timestamp) + 543);
-              }
-          } 
-          else // if no use normal route.
-          {
-             return strftime($format, $this->timestamp);
-          }
       }
+      
+      // Check boolean if true then use this route to make B.E. 
+      if ($buddh) {
+          if (preg_match('/\%y/', $format)) 
+          {  
+            $format = preg_replace('/\%y/', '', $format);
+
+            return strftime($format, $this->timestamp) . (strftime('%Y', $this->timestamp) + 543)%100;
+          } 
+          else if (preg_match('/\%Y/', $format)) 
+          {
+            $format = preg_replace('/\%Y/', '', $format);
+
+            return strftime($format, $this->timestamp) . (strftime('%Y', $this->timestamp) + 543);
+          }
+      } 
+      else // if not set use normal
+      {
+          return strftime($format, $this->timestamp);   
+      }
+
    }
 
    /**
