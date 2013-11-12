@@ -774,7 +774,7 @@ class Carbon extends DateTime
 
 	 public function toArray()
 	 {
-			$timezone = (array)$this->timezone;
+			$timezone = (array) $this->timezone;
 
 			return array(
 					'datetime' => array(
