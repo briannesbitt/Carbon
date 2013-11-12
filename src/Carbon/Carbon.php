@@ -768,6 +768,30 @@ class Carbon extends DateTime
       return false;
    }
 
+	 ///////////////////////////////////////////////////////////////////
+	 /////////////////////// ARRAY FORMATTING //////////////////////////
+	 ///////////////////////////////////////////////////////////////////
+
+	 public function toArray()
+	 {
+			$timezone = (array) $this->timezone;
+
+			return array(
+					'datetime' => array(
+					'year' => $this->year,
+					'month' => $this->month,
+					'day' => $this->day,
+					'hour' => $this->hour,
+					'minute' => $this->minute,
+					'second' => $this->second,
+				),
+				'timezone' => array(
+					'type' => $timezone['timezone_type'],
+					'name' => $this->timezoneName,
+				),
+			);
+	 }
+
    ///////////////////////////////////////////////////////////////////
    /////////////////////// STRING FORMATTING /////////////////////////
    ///////////////////////////////////////////////////////////////////
