@@ -448,16 +448,12 @@ class Carbon extends DateTime
             return $this->offset == 0;
 
          case 'timezone':
+         case 'tz':
             return $this->getTimezone();
 
          case 'timezoneName':
-            return $this->getTimezone()->getName();
-
-         case 'tz':
-            return $this->timezone;
-
          case 'tzName':
-            return $this->timezoneName;
+            return $this->getTimezone()->getName();
 
          default:
             throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
