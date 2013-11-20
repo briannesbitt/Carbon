@@ -765,6 +765,32 @@ class Carbon extends DateTime
    }
 
    ///////////////////////////////////////////////////////////////////
+   /////////////////////// ARRAY FORMATTING //////////////////////////
+   ///////////////////////////////////////////////////////////////////
+
+   /**
+    * Return the instance as an array
+    *
+    * @return array
+    */
+   public function toArray()
+   {
+      return array(
+         'date' => array(
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+         ),
+         'timezone' => array(
+            'name' => $this->timezoneName,
+         ),
+      );
+   }
+
+   ///////////////////////////////////////////////////////////////////
    /////////////////////// STRING FORMATTING /////////////////////////
    ///////////////////////////////////////////////////////////////////
 
