@@ -4,6 +4,7 @@
 * Added a local getter to test if the instance is in the local timezone
 * Added a utc getter to check if the instance is in UTC timezone
 * Fixed dst comment / phpdoc
+* Optimize timezone getters
 
 1.4.0 / 2013-09-08
 ==================
