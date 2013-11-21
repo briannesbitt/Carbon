@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-11-20 18:52:27
+echo $now;                               // 2013-11-21 16:05:46
 $today = Carbon::today();
-echo $today;                             // 2013-11-20 00:00:00
+echo $today;                             // 2013-11-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2013-11-21 00:00:00
+echo $tomorrow;                          // 2013-11-22 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2013-11-19 00:00:00
+echo $yesterday;                         // 2013-11-20 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-11-20 18:52:27
+echo Carbon::now();                                    // 2013-11-21 16:05:46
 ```
 
 A more meaning full example:
@@ -447,19 +447,20 @@ echo $dt->toDayDateTimeString();                   // Thu, Dec 25, 1975 2:15 PM
 echo $dt->format('l jS \\of F Y h:i:s A');         // Thursday 25th of December 1975 02:15:16 PM
 ```
 
-You can also set the default __toString() format (which defaults to `Y-m-d H:i:s`).
+You can also set the default __toString() format (which defaults to `Y-m-d H:i:s`) thats used when [type juggling](http://php.net/manual/en/language.types.type-juggling.php) occurs.
 
 ```php
-Carbon::setDefaultFormat('jS \o\f F, Y g:i:s a');
-$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
+Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
 echo $dt;                                          // 25th of December, 1975 2:15:16 pm
+Carbon::resetToStringFormat();
+echo $dt;                                          // 1975-12-25 14:15:16
 ```
 
 Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
 setlocale(LC_TIME, 'German');                     
-echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
+echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
 setlocale(LC_TIME, '');                           
 echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 ```
@@ -553,45 +554,45 @@ $dt = Carbon::create(2012, 1, 31, 0);
 
 echo $dt->toDateTimeString();            // 2012-01-31 00:00:00
 
-echo $dt->addYears(5);                   // 31st of January, 2017 12:00:00 am
-echo $dt->addYear();                     // 31st of January, 2018 12:00:00 am
-echo $dt->subYear();                     // 31st of January, 2017 12:00:00 am
-echo $dt->subYears(5);                   // 31st of January, 2012 12:00:00 am
+echo $dt->addYears(5);                   // 2017-01-31 00:00:00
+echo $dt->addYear();                     // 2018-01-31 00:00:00
+echo $dt->subYear();                     // 2017-01-31 00:00:00
+echo $dt->subYears(5);                   // 2012-01-31 00:00:00
 
-echo $dt->addMonths(60);                 // 31st of January, 2017 12:00:00 am
-echo $dt->addMonth();                    // 3rd of March, 2017 12:00:00 am equivalent of $dt->month($dt->month + 1); so it wraps
-echo $dt->subMonth();                    // 3rd of February, 2017 12:00:00 am
-echo $dt->subMonths(60);                 // 3rd of February, 2012 12:00:00 am
+echo $dt->addMonths(60);                 // 2017-01-31 00:00:00
+echo $dt->addMonth();                    // 2017-03-03 00:00:00 equivalent of $dt->month($dt->month + 1); so it wraps
+echo $dt->subMonth();                    // 2017-02-03 00:00:00
+echo $dt->subMonths(60);                 // 2012-02-03 00:00:00
 
-echo $dt->addDays(29);                   // 3rd of March, 2012 12:00:00 am
-echo $dt->addDay();                      // 4th of March, 2012 12:00:00 am
-echo $dt->subDay();                      // 3rd of March, 2012 12:00:00 am
-echo $dt->subDays(29);                   // 3rd of February, 2012 12:00:00 am
+echo $dt->addDays(29);                   // 2012-03-03 00:00:00
+echo $dt->addDay();                      // 2012-03-04 00:00:00
+echo $dt->subDay();                      // 2012-03-03 00:00:00
+echo $dt->subDays(29);                   // 2012-02-03 00:00:00
 
-echo $dt->addWeekdays(4);                // 9th of February, 2012 12:00:00 am
-echo $dt->addWeekday();                  // 10th of February, 2012 12:00:00 am
-echo $dt->subWeekday();                  // 9th of February, 2012 12:00:00 am
-echo $dt->subWeekdays(4);                // 3rd of February, 2012 12:00:00 am
+echo $dt->addWeekdays(4);                // 2012-02-09 00:00:00
+echo $dt->addWeekday();                  // 2012-02-10 00:00:00
+echo $dt->subWeekday();                  // 2012-02-09 00:00:00
+echo $dt->subWeekdays(4);                // 2012-02-03 00:00:00
 
-echo $dt->addWeeks(3);                   // 24th of February, 2012 12:00:00 am
-echo $dt->addWeek();                     // 2nd of March, 2012 12:00:00 am
-echo $dt->subWeek();                     // 24th of February, 2012 12:00:00 am
-echo $dt->subWeeks(3);                   // 3rd of February, 2012 12:00:00 am
+echo $dt->addWeeks(3);                   // 2012-02-24 00:00:00
+echo $dt->addWeek();                     // 2012-03-02 00:00:00
+echo $dt->subWeek();                     // 2012-02-24 00:00:00
+echo $dt->subWeeks(3);                   // 2012-02-03 00:00:00
 
-echo $dt->addHours(24);                  // 4th of February, 2012 12:00:00 am
-echo $dt->addHour();                     // 4th of February, 2012 1:00:00 am
-echo $dt->subHour();                     // 4th of February, 2012 12:00:00 am
-echo $dt->subHours(24);                  // 3rd of February, 2012 12:00:00 am
+echo $dt->addHours(24);                  // 2012-02-04 00:00:00
+echo $dt->addHour();                     // 2012-02-04 01:00:00
+echo $dt->subHour();                     // 2012-02-04 00:00:00
+echo $dt->subHours(24);                  // 2012-02-03 00:00:00
 
-echo $dt->addMinutes(61);                // 3rd of February, 2012 1:01:00 am
-echo $dt->addMinute();                   // 3rd of February, 2012 1:02:00 am
-echo $dt->subMinute();                   // 3rd of February, 2012 1:01:00 am
-echo $dt->subMinutes(61);                // 3rd of February, 2012 12:00:00 am
+echo $dt->addMinutes(61);                // 2012-02-03 01:01:00
+echo $dt->addMinute();                   // 2012-02-03 01:02:00
+echo $dt->subMinute();                   // 2012-02-03 01:01:00
+echo $dt->subMinutes(61);                // 2012-02-03 00:00:00
 
-echo $dt->addSeconds(61);                // 3rd of February, 2012 12:01:01 am
-echo $dt->addSecond();                   // 3rd of February, 2012 12:01:02 am
-echo $dt->subSecond();                   // 3rd of February, 2012 12:01:01 am
-echo $dt->subSeconds(61);                // 3rd of February, 2012 12:00:00 am
+echo $dt->addSeconds(61);                // 2012-02-03 00:01:01
+echo $dt->addSecond();                   // 2012-02-03 00:01:02
+echo $dt->subSecond();                   // 2012-02-03 00:01:01
+echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
 ```
 
 For fun you can also pass negative values to `addXXX()`, in fact that's how `subXXX()` is implemented.
@@ -679,38 +680,38 @@ These group of methods perform helpful modifications to the current instance.  M
 
 ```php
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->startOfDay();                            // 31st of January, 2012 12:00:00 am
+echo $dt->startOfDay();                            // 2012-01-31 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->endOfDay();                              // 31st of January, 2012 11:59:59 pm
+echo $dt->endOfDay();                              // 2012-01-31 23:59:59
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->startOfMonth();                          // 1st of January, 2012 12:00:00 am
+echo $dt->startOfMonth();                          // 2012-01-01 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->endOfMonth();                            // 31st of January, 2012 11:59:59 pm
+echo $dt->endOfMonth();                            // 2012-01-31 23:59:59
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->startOfWeek();                           // 30th of January, 2012 12:00:00 am
+echo $dt->startOfWeek();                           // 2012-01-30 00:00:00
 var_dump($dt->dayOfWeek == Carbon::MONDAY);        // bool(true) : ISO8601 week starts on Monday
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->endOfWeek();                             // 5th of February, 2012 11:59:59 pm
+echo $dt->endOfWeek();                             // 2012-02-05 23:59:59
 var_dump($dt->dayOfWeek == Carbon::SUNDAY);        // bool(true) : ISO8601 week ends on Sunday
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->next(Carbon::WEDNESDAY);                 // 1st of February, 2012 12:00:00 am
+echo $dt->next(Carbon::WEDNESDAY);                 // 2012-02-01 00:00:00
 var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
 
 $dt = Carbon::create(2012, 1, 1, 12, 0, 0);
-echo $dt->next();                                  // 8th of January, 2012 12:00:00 am
+echo $dt->next();                                  // 2012-01-08 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
-echo $dt->previous(Carbon::WEDNESDAY);             // 25th of January, 2012 12:00:00 am
+echo $dt->previous(Carbon::WEDNESDAY);             // 2012-01-25 00:00:00
 var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
 
 $dt = Carbon::create(2012, 1, 1, 12, 0, 0);
-echo $dt->previous();                              // 25th of December, 2011 12:00:00 am
+echo $dt->previous();                              // 2011-12-25 00:00:00
 
 // others that are defined that are similar
 //   firstOfMonth(), lastOfMonth(), nthOfMonth()
