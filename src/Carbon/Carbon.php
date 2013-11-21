@@ -803,7 +803,7 @@ class Carbon extends DateTime
     */
    public static function setDefaultFormat($format)
    {
-      self::$defaultFormat = $format;
+      static::$defaultFormat = $format;
    }
 
    /**
@@ -813,7 +813,7 @@ class Carbon extends DateTime
     */
    public function __toString()
    {
-      return $this->format(self::$defaultFormat);
+      return $this->format(static::$defaultFormat);
    }
 
    /**
