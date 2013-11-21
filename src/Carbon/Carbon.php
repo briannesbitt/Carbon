@@ -102,6 +102,13 @@ class Carbon extends DateTime
    const SECONDS_PER_MINUTE = 60;
 
    /**
+    * Format to use for __toString method
+    *
+    * @var string
+    */
+   private static $defaultFormat = 'Y-m-d H:i:s';
+
+   /**
     * A test Carbon instance to be returned when now instances are created
     *
     * @var Carbon
@@ -788,13 +795,25 @@ class Carbon extends DateTime
    }
 
    /**
+    * Set the default format when casting an object to string.
+    *
+    * @param  string $format
+    *
+    * @return string
+    */
+   public static function setDefaultFormat($format)
+   {
+      static::$defaultFormat = $format;
+   }
+
+   /**
     * Format the instance with date and time
     *
     * @return string
     */
    public function __toString()
    {
-      return $this->toDateTimeString();
+      return $this->format(static::$defaultFormat);
    }
 
    /**
