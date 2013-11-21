@@ -1,10 +1,11 @@
-1.5.0 / Unreleased
+1.5.0 / 2013-11-21
 ==================
 * Diff for humans now shows 2 weeks ago instead of 14 days ago
 * Added a local getter to test if the instance is in the local timezone
 * Added a utc getter to check if the instance is in UTC timezone
-* Fixed dst comment / phpdoc
-* Optimize timezone getters
+* Fixed dst comment / phpdoc and psr issues
+* Optimize timezone getters, thanks (@semalead)
+* Added static __toString formatting, thanks (@cviebrock and @anlutro)
 
 1.4.0 / 2013-09-08
 ==================

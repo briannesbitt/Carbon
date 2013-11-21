@@ -102,11 +102,18 @@ class Carbon extends DateTime
    const SECONDS_PER_MINUTE = 60;
 
    /**
-    * Format to use for __toString method
+    * Default format to use for __toString method when type juggling occurs.
     *
     * @var string
     */
-   private static $defaultFormat = 'Y-m-d H:i:s';
+   const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
+
+   /**
+    * Format to use for __toString method when type juggling occurs.
+    *
+    * @var string
+    */
+   private static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
    /**
     * A test Carbon instance to be returned when now instances are created
@@ -394,6 +401,8 @@ class Carbon extends DateTime
     * Get a part of the Carbon object
     *
     * @param  string $name
+    *
+    * @throws InvalidArgumentException
     *
     * @return string|integer|DateTimeZone
     */
@@ -807,25 +816,32 @@ class Carbon extends DateTime
    }
 
    /**
-    * Set the default format when casting an object to string.
+    * Reset the format used to the default when type juggling a Carbon instance to a string
     *
-    * @param  string $format
-    *
-    * @return string
     */
-   public static function setDefaultFormat($format)
+   public static function resetToStringFormat()
    {
-      static::$defaultFormat = $format;
+      static::setToStringFormat(self::DEFAULT_TO_STRING_FORMAT);
    }
 
    /**
-    * Format the instance with date and time
+    * Set the default format used when type juggling a Carbon instance to a string
+    *
+    * @param  string $format
+    */
+   public static function setToStringFormat($format)
+   {
+      static::$toStringFormat = $format;
+   }
+
+   /**
+    * Format the instance as a string using the set format
     *
     * @return string
     */
    public function __toString()
    {
-      return $this->format(static::$defaultFormat);
+      return $this->format(static::$toStringFormat);
    }
 
    /**
@@ -1873,7 +1889,9 @@ class Carbon extends DateTime
       $year = $dt->year;
       $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
-      if ($month !== $dt->month || $year !== $dt->year) return false;
+      if ($month !== $dt->month || $year !== $dt->year) {
+         return false;
+      }
 
       return $this->modify($dt);
    }
@@ -1932,7 +1950,9 @@ class Carbon extends DateTime
       $dt->firstOfQuarter();
       $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
-      if ($last_month < $dt->month || $year !== $dt->year) return false;
+      if ($last_month < $dt->month || $year !== $dt->year) {
+         return false;
+      }
 
       return $this->modify($dt);
    }
@@ -1989,7 +2009,9 @@ class Carbon extends DateTime
       $dt->firstOfYear();
       $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
-      if ($year !== $dt->year) return false;
+      if ($year !== $dt->year) {
+         return false;
+      }
 
       return $this->modify($dt);
    }

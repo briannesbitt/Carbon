@@ -18,6 +18,19 @@ class StringsTest extends TestFixture
       $d = Carbon::now();
       $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
    }
+   public function testSetToStringFormat()
+   {
+      Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+      $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+      $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
+   }
+   public function testResetToStringFormat()
+   {
+      $d = Carbon::now();
+      Carbon::setToStringFormat('123');
+      Carbon::resetToStringFormat();
+      $this->assertSame($d->toDateTimeString(), ''.$d);
+   }
 
    public function testToDateString()
    {
@@ -121,11 +134,4 @@ class StringsTest extends TestFixture
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
       $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3CString());
    }
-   public function testChangeDefaultFormat()
-   {
-      Carbon::setDefaultFormat('jS \o\f F, Y g:i:s a');
-      $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
-   }
-
 }

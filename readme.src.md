@@ -461,14 +461,17 @@ All of the available `toXXXString()` methods rely on the base class method [Date
 {{format7::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{format7_eval}}
 ```
 
-You can also set the default __toString() format (which defaults to `Y-m-d H:i:s`).
+You can also set the default __toString() format (which defaults to `Y-m-d H:i:s`) thats used when [type juggling](http://php.net/manual/en/language.types.type-juggling.php) occurs.
 
 ```php
 {{::lint(
-Carbon::setDefaultFormat('jS \o\f F, Y g:i:s a');
-$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
+Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
 )}}
 {{format8::exec(echo $dt;/*pad(50)*/)}} // {{format8_eval}}
+{{::lint(
+Carbon::resetToStringFormat();
+)}}
+{{format9::exec(echo $dt;/*pad(50)*/)}} // {{format9_eval}}
 ```
 
 Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
