@@ -63,7 +63,7 @@ class Carbon extends DateTime
    *
    * @var array
    */
-   private static $days = array(
+   protected static $days = array(
       self::SUNDAY    => 'Sunday',
       self::MONDAY    => 'Monday',
       self::TUESDAY   => 'Tuesday',
@@ -78,7 +78,7 @@ class Carbon extends DateTime
     *
     * @var array
     */
-    private static $relativeKeywords = array(
+    protected static $relativeKeywords = array(
       'this',
       'next',
       'last',
@@ -113,7 +113,7 @@ class Carbon extends DateTime
     *
     * @var string
     */
-   private static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+   protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
    /**
     * A test Carbon instance to be returned when now instances are created
