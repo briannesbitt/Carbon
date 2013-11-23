@@ -11,6 +11,8 @@
 
 use Carbon\Carbon;
 
+class MyCarbon extends Carbon {}
+
 class StringsTest extends TestFixture
 {
    public function testToString()
@@ -29,6 +31,10 @@ class StringsTest extends TestFixture
       $d = Carbon::now();
       Carbon::setToStringFormat('123');
       Carbon::resetToStringFormat();
+      $this->assertSame($d->toDateTimeString(), ''.$d);
+   }
+   public function testExtendedClassToString() {
+      $d = MyCarbon::now();
       $this->assertSame($d->toDateTimeString(), ''.$d);
    }
 

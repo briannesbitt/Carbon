@@ -63,7 +63,7 @@ class Carbon extends DateTime
    *
    * @var array
    */
-   private static $days = array(
+   protected static $days = array(
       self::SUNDAY    => 'Sunday',
       self::MONDAY    => 'Monday',
       self::TUESDAY   => 'Tuesday',
@@ -78,7 +78,7 @@ class Carbon extends DateTime
     *
     * @var array
     */
-    private static $relativeKeywords = array(
+    protected static $relativeKeywords = array(
       'this',
       'next',
       'last',
@@ -113,7 +113,7 @@ class Carbon extends DateTime
     *
     * @var string
     */
-   private static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+   protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
    /**
     * A test Carbon instance to be returned when now instances are created
@@ -164,17 +164,17 @@ class Carbon extends DateTime
       // If the class has a test now set and we are trying to create a now()
       // instance then override as required
       if (static::hasTestNow() && (empty($time) || $time === 'now' || self::hasRelativeKeywords($time))) {
-	 $testInstance = clone static::getTestNow();
-	 if (self::hasRelativeKeywords($time)) {
-	     $testInstance->modify($time);
-	 }
+         $testInstance = clone static::getTestNow();
+         if (self::hasRelativeKeywords($time)) {
+   	     $testInstance->modify($time);
+         }
 
-	 //shift the time according to the given time zone
-	 if ($tz !== NULL && $tz != static::getTestNow()->tz) {
-	     $testInstance->setTimezone($tz);
-	 } else {
-	     $tz = $testInstance->tz;
-	 }
+         //shift the time according to the given time zone
+         if ($tz !== NULL && $tz != static::getTestNow()->tz) {
+            $testInstance->setTimezone($tz);
+         } else {
+            $tz = $testInstance->tz;
+         }
 
          $time = $testInstance->toDateTimeString();
       }

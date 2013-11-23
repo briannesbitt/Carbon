@@ -1,3 +1,7 @@
+1.6.0 / 2013-11-23
+==================
+* Fixed "Cannot access property ::$toStringFormat" when extending Carbon and type juggling to a string occurs
+
 1.5.0 / 2013-11-21
 ==================
 * Diff for humans now shows 2 weeks ago instead of 14 days ago
