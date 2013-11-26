@@ -42,6 +42,27 @@ class StartEndOfTest extends TestFixture
       $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
    }
 
+	public function testStartOfYearIsFluid()
+	{
+		$dt = Carbon::now();
+		$this->assertTrue($dt->startOfYear() instanceof Carbon);
+	}
+	public function testStartOfYearFromNow()
+	{
+		$dt = Carbon::now()->startOfYear();
+		$this->assertCarbon($dt, $dt->year, 1, 1, 0, 0, 0);
+	}
+	public function testStartOfYearFromFirstDay()
+	{
+		$dt = Carbon::create(2000, 1, 1, 1, 1, 1)->startOfYear();
+		$this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+	}
+	public function testStartOfYearFromLastDay()
+	{
+		$dt = Carbon::create(2000, 12, 31, 23, 59, 59)->startOfYear();
+		$this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+	}
+
    public function testEndOfMonthIsFluid()
    {
       $dt = Carbon::now();
@@ -57,4 +78,25 @@ class StartEndOfTest extends TestFixture
       $dt = Carbon::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
       $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59);
    }
+
+	public function testEndOfYearIsFluid()
+	{
+		$dt = Carbon::now();
+		$this->assertTrue($dt->endOfYear() instanceof Carbon);
+	}
+	public function testEndOfYearFromNow()
+	{
+		$dt = Carbon::now()->endOfYear();
+		$this->assertCarbon($dt, $dt->year, 12, 31, 23, 59, 59);
+	}
+	public function testEndOfYearFromFirstDay()
+	{
+		$dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfYear();
+		$this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+	}
+	public function testEndOfYearFromLastDay()
+	{
+		$dt = Carbon::create(2000, 12, 31, 23, 59, 59)->endOfYear();
+		$this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+	}
 }

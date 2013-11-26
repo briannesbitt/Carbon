@@ -1766,6 +1766,26 @@ class Carbon extends DateTime
       return $this->day($this->daysInMonth)->endOfDay();
    }
 
+	/**
+	 * Resets the date to the first day of the year and the time to 00:00:00
+	 *
+	 * @return Carbon
+	 */
+   public function startOfYear()
+   {
+	   return $this->month(1)->startOfMonth();
+	}
+
+	/**
+	 * Resets the date to end of the year and time to 23:59:59
+	 *
+	 * @return Carbon
+	 */
+	public function endOfYear()
+	{
+		return $this->month(12)->endOfMonth();
+	}
+
    /**
     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
     *
