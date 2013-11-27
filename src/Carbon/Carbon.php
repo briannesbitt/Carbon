@@ -1786,6 +1786,47 @@ class Carbon extends DateTime
 		return $this->month(12)->endOfMonth();
 	}
 
+	/**
+	 * Resets the date to the first day of the decade and the time to 00:00:00
+	 *
+	 * @return Carbon
+	 */
+	public function startOfDecade()
+	{
+		return $this->startOfYear()->year($this->year - $this->year % 10);
+	}
+
+	/**
+	 * Resets the date to end of the decade and time to 23:59:59
+	 *
+	 * @return Carbon
+	 */
+	public function endOfDecade()
+	{
+		return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
+	}
+
+
+	/**
+	 * Resets the date to the first day of the century and the time to 00:00:00
+	 *
+	 * @return Carbon
+	 */
+	public function startOfCentury()
+	{
+		return $this->startOfYear()->year($this->year - $this->year % 100);
+	}
+
+	/**
+	 * Resets the date to end of the century and time to 23:59:59
+	 *
+	 * @return Carbon
+	 */
+	public function endOfCentury()
+	{
+		return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
+	}
+
    /**
     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
     *
