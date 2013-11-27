@@ -718,6 +718,18 @@ These group of methods perform helpful modifications to the current instance.  M
 {{modifier16::exec(echo $dt->endOfYear();/*pad(50)*/)}} // {{modifier16_eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier17::exec(echo $dt->startOfDecade();/*pad(50)*/)}} // {{modifier17_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier18::exec(echo $dt->endOfDecade();/*pad(50)*/)}} // {{modifier18_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier19::exec(echo $dt->startOfCentury();/*pad(50)*/)}} // {{modifier19_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
+{{modifier20::exec(echo $dt->endOfCentury();/*pad(50)*/)}} // {{modifier20_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{modifier5::exec(echo $dt->startOfWeek();/*pad(50)*/)}} // {{modifier5_eval}}
 {{modifier6::exec(var_dump($dt->dayOfWeek == Carbon::MONDAY);/*pad(50)*/)}} // {{modifier6_eval}} : ISO8601 week starts on Monday
 
