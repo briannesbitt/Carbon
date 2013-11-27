@@ -1722,6 +1722,20 @@ class Carbon extends DateTime
       return $txt . ' before';
    }
 
+	/**
+	 * Get the average of two dates
+	 *
+	 * @param  Carbon  $dt
+	 *
+	 * @return Carbon
+	 */
+	public function average(Carbon $dt = null)
+	{
+		$dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+		return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
+	}
+
    ///////////////////////////////////////////////////////////////////
    //////////////////////////// MODIFIERS ////////////////////////////
    ///////////////////////////////////////////////////////////////////

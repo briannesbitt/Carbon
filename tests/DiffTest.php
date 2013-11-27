@@ -396,6 +396,30 @@ class DiffTest extends TestFixture
         $this->assertSame('2 years from now', $d->diffForHumans());
     }
 
+	public function testAverageIsFluid()
+	{
+		$dt = Carbon::now()->average();
+		$this->assertTrue($dt instanceof Carbon);
+	}
+	public function testAverageFromSame()
+	{
+		$dt1 = Carbon::create(2000, 1, 31, 2, 3, 4);
+		$dt2 = Carbon::create(2000, 1, 31, 2, 3, 4)->average($dt1);
+		$this->assertCarbon($dt2, 2000, 1, 31, 2, 3, 4);
+	}
+	public function testAverageFromGreater()
+	{
+		$dt1 = Carbon::create(2000, 1, 1, 1, 1, 1);
+		$dt2 = Carbon::create(2009, 12, 31, 23, 59, 59)->average($dt1);
+		$this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
+	}
+	public function testAverageFromLower()
+	{
+		$dt1 = Carbon::create(2009, 12, 31, 23, 59, 59);
+		$dt2 = Carbon::create(2000, 1, 1, 1, 1, 1)->average($dt1);
+		$this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
+	}
+
     public function testDiffForHumansOtherAndSecond()
     {
         $d = Carbon::now()->addSecond();
