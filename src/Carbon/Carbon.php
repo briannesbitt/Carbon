@@ -125,14 +125,18 @@ class Carbon extends DateTime
    /**
     * Creates a DateTimeZone from a string or a DateTimeZone
     *
-    * @param  DateTimeZone|string $object
+    * @param  DateTimeZone|string|null $object
     *
     * @return DateTimeZone
     *
     * @throws InvalidArgumentException
     */
-   protected static function safeCreateDateTimeZone($object)
+   protected static function safeCreateDateTimeZone($object = null)
    {
+      if ($object === null) {
+         $object = date_default_timezone_get();
+      }
+
       if ($object instanceof DateTimeZone) {
          return $object;
       }
@@ -179,11 +183,7 @@ class Carbon extends DateTime
          $time = $testInstance->toDateTimeString();
       }
 
-      if ($tz !== null) {
-         parent::__construct($time, self::safeCreateDateTimeZone($tz));
-      } else {
-         parent::__construct($time);
-      }
+      parent::__construct($time, self::safeCreateDateTimeZone($tz));
    }
 
    /**
@@ -344,11 +344,7 @@ class Carbon extends DateTime
     */
    public static function createFromFormat($format, $time, $tz = null)
    {
-      if ($tz !== null) {
-         $dt = parent::createFromFormat($format, $time, self::safeCreateDateTimeZone($tz));
-      } else {
-         $dt = parent::createFromFormat($format, $time);
-      }
+      $dt = parent::createFromFormat($format, $time, self::safeCreateDateTimeZone($tz));
 
       if ($dt instanceof DateTime) {
          return self::instance($dt);
@@ -716,15 +712,13 @@ class Carbon extends DateTime
    /**
     * Set the instance's timezone from a string or object
     *
-    * @param DateTimeZone|string $value
+    * @param DateTimeZone|string|null $value
     *
     * @return Carbon
     */
    public function setTimezone($value)
    {
-      parent::setTimezone(self::safeCreateDateTimeZone($value));
-
-      return $this;
+      return parent::setTimezone(self::safeCreateDateTimeZone($value));
    }
 
    ///////////////////////////////////////////////////////////////////
