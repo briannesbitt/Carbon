@@ -1,3 +1,8 @@
+1.7.0 / 2013-12-04
+==================
+* Added startOfYear() / endOfYear() (thanks @semalead)
+* Added average() (thanks @semalead)
+
 1.6.0 / 2013-11-23
 ==================
 * Fixed "Cannot access property ::$toStringFormat" when extending Carbon and type juggling to a string occurs

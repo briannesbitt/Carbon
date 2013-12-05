@@ -652,6 +652,9 @@ These functions always return the **total difference** expressed in the specifie
 // diffInYears(), diffInMonths(), diffInDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
+```php
+// Carbon::average(Carbon $dt = null)
+```
 
 <a name="api-humandiff"/>
 ### Difference for Humans
@@ -697,6 +700,8 @@ This method will add a phrase after the difference value relative to the instanc
 ### Modifiers
 
 These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
+
+The only one slightly different is the `average()` function.  It moves your instance to the middle date between itself and the provided Carbon argument.
 
 ```php
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);/*pad(40)*/)}}
@@ -751,10 +756,15 @@ These group of methods perform helpful modifications to the current instance.  M
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
 {{modifier14::exec(echo $dt->previous();/*pad(50)*/)}} // {{modifier14_eval}}
 
+{{::lint($start = Carbon::create(2014, 1, 1, 0, 0, 0);)}}
+{{::lint($end = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{modifierAverage::exec(echo $start->average($end);/*pad(50)*/)}} // {{modifierAverage_eval}}
+
 // others that are defined that are similar
 //   firstOfMonth(), lastOfMonth(), nthOfMonth()
 //   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
 //   firstOfYear(), lastOfYear(), nthOfYear()
+
 ```
 
 <a name="api-constants"/>
@@ -857,3 +867,5 @@ You can view the history of the Carbon project in the [history file](https://git
 ### Why the name Carbon?
 
 Read about [Carbon Dating](http://en.wikipedia.org/wiki/Radiocarbon_dating)
+
+![](https://cruel-carlota.pagodabox.com/55ce479cc1edc5e0cc5b4b6f9a7a9200)

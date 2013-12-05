@@ -1672,7 +1672,7 @@ class Carbon extends DateTime
       $isNow = $other === null;
 
       if ($isNow) {
-         $other = self::now();
+         $other = static::now($this->tz);
       }
 
       $isFuture = $this->gt($other);
@@ -1721,20 +1721,6 @@ class Carbon extends DateTime
 
       return $txt . ' before';
    }
-
-	/**
-	 * Get the average of two dates
-	 *
-	 * @param  Carbon  $dt
-	 *
-	 * @return Carbon
-	 */
-	public function average(Carbon $dt = null)
-	{
-		$dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-		return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
-	}
 
    ///////////////////////////////////////////////////////////////////
    //////////////////////////// MODIFIERS ////////////////////////////
@@ -2089,5 +2075,19 @@ class Carbon extends DateTime
       }
 
       return $this->modify($dt);
+   }
+
+   /**
+   * Modify the current instance to the average of a given instance (default now) and the current instance.
+   *
+   * @param  Carbon  $dt
+   *
+   * @return Carbon
+   */
+   public function average(Carbon $dt = null)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
    }
 }

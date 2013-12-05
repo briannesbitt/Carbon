@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2013-11-21 16:05:46
+echo $now;                               // 2013-12-04 23:07:48
 $today = Carbon::today();
-echo $today;                             // 2013-11-21 00:00:00
+echo $today;                             // 2013-12-04 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2013-11-22 00:00:00
+echo $tomorrow;                          // 2013-12-06 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2013-11-20 00:00:00
+echo $yesterday;                         // 2013-12-03 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2013-11-21 16:05:46
+echo Carbon::now();                                    // 2013-12-04 23:07:48
 ```
 
 A more meaning full example:
@@ -632,6 +632,9 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 // diffInYears(), diffInMonths(), diffInDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
+```php
+// Carbon::average(Carbon $dt = null)
+```
 
 <a name="api-humandiff"/>
 ### Difference for Humans
@@ -678,6 +681,8 @@ echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
 
 These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.
 
+The only one slightly different is the `average()` function.  It moves your instance to the middle date between itself and the provided Carbon argument.
+
 ```php
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfDay();                            // 2012-01-31 00:00:00
@@ -690,6 +695,24 @@ echo $dt->startOfMonth();                          // 2012-01-01 00:00:00
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->endOfMonth();                            // 2012-01-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfYear();                           // 2012-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfYear();                             // 2012-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfDecade();                         // 2010-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfDecade();                           // 2019-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfCentury();                        // 2000-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfCentury();                          // 2099-12-31 23:59:59
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfWeek();                           // 2012-01-30 00:00:00
@@ -713,10 +736,15 @@ var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
 $dt = Carbon::create(2012, 1, 1, 12, 0, 0);
 echo $dt->previous();                              // 2011-12-25 00:00:00
 
+$start = Carbon::create(2014, 1, 1, 0, 0, 0);
+$end = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $start->average($end);                        // 2014-01-15 12:00:00
+
 // others that are defined that are similar
 //   firstOfMonth(), lastOfMonth(), nthOfMonth()
 //   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
 //   firstOfYear(), lastOfYear(), nthOfYear()
+
 ```
 
 <a name="api-constants"/>
@@ -817,3 +845,5 @@ You can view the history of the Carbon project in the [history file](https://git
 ### Why the name Carbon?
 
 Read about [Carbon Dating](http://en.wikipedia.org/wiki/Radiocarbon_dating)
+
+![](https://cruel-carlota.pagodabox.com/55ce479cc1edc5e0cc5b4b6f9a7a9200)
