@@ -165,7 +165,7 @@ class Carbon extends DateTime
       // instance then override as required
       if (static::hasTestNow() && (empty($time) || $time === 'now' || self::hasRelativeKeywords($time))) {
          $testInstance = clone static::getTestNow();
-         if (self::hasRelativeKeywords($time)) {
+         if (static::hasRelativeKeywords($time)) {
    	     $testInstance->modify($time);
          }
 
@@ -180,7 +180,7 @@ class Carbon extends DateTime
       }
 
       if ($tz !== null) {
-         parent::__construct($time, self::safeCreateDateTimeZone($tz));
+         parent::__construct($time, static::safeCreateDateTimeZone($tz));
       } else {
          parent::__construct($time);
       }
@@ -298,7 +298,7 @@ class Carbon extends DateTime
          $second = ($second === null) ? 0 : $second;
       }
 
-      return self::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+      return static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
    }
 
    /**
@@ -313,7 +313,7 @@ class Carbon extends DateTime
     */
    public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
    {
-      return self::create($year, $month, $day, null, null, null, $tz);
+      return static::create($year, $month, $day, null, null, null, $tz);
    }
 
    /**
@@ -328,7 +328,7 @@ class Carbon extends DateTime
     */
    public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
    {
-      return self::create(null, null, null, $hour, $minute, $second, $tz);
+      return static::create(null, null, null, $hour, $minute, $second, $tz);
    }
 
    /**
@@ -345,13 +345,13 @@ class Carbon extends DateTime
    public static function createFromFormat($format, $time, $tz = null)
    {
       if ($tz !== null) {
-         $dt = parent::createFromFormat($format, $time, self::safeCreateDateTimeZone($tz));
+         $dt = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
       } else {
          $dt = parent::createFromFormat($format, $time);
       }
 
       if ($dt instanceof DateTime) {
-         return self::instance($dt);
+         return static::instance($dt);
       }
 
       $errors = static::getLastErrors();
@@ -368,7 +368,7 @@ class Carbon extends DateTime
     */
    public static function createFromTimestamp($timestamp, $tz = null)
    {
-      return self::now($tz)->setTimestamp($timestamp);
+      return static::now($tz)->setTimestamp($timestamp);
    }
 
    /**
@@ -390,7 +390,7 @@ class Carbon extends DateTime
     */
    public function copy()
    {
-      return self::instance($this);
+      return static::instance($this);
    }
 
    ///////////////////////////////////////////////////////////////////
@@ -722,7 +722,7 @@ class Carbon extends DateTime
     */
    public function setTimezone($value)
    {
-      parent::setTimezone(self::safeCreateDateTimeZone($value));
+      parent::setTimezone(static::safeCreateDateTimeZone($value));
 
       return $this;
    }
@@ -1131,7 +1131,7 @@ class Carbon extends DateTime
     */
    public function isYesterday()
    {
-      return $this->toDateString() === self::now($this->tz)->subDay()->toDateString();
+      return $this->toDateString() === static::now($this->tz)->subDay()->toDateString();
    }
 
    /**
@@ -1141,7 +1141,7 @@ class Carbon extends DateTime
     */
    public function isToday()
    {
-      return $this->toDateString() === self::now($this->tz)->toDateString();
+      return $this->toDateString() === static::now($this->tz)->toDateString();
    }
 
    /**
@@ -1151,7 +1151,7 @@ class Carbon extends DateTime
     */
    public function isTomorrow()
    {
-      return $this->toDateString() === self::now($this->tz)->addDay()->toDateString();
+      return $this->toDateString() === static::now($this->tz)->addDay()->toDateString();
    }
 
    /**
@@ -1161,7 +1161,7 @@ class Carbon extends DateTime
     */
    public function isFuture()
    {
-      return $this->gt(self::now($this->tz));
+      return $this->gt(static::now($this->tz));
    }
 
    /**
@@ -1944,8 +1944,7 @@ class Carbon extends DateTime
    */
    public function nthOfMonth($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $dt->firstOfMonth();
+      $dt = $this->copy()->firstOfMonth();
       $month = $dt->month;
       $year = $dt->year;
       $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
@@ -1969,9 +1968,7 @@ class Carbon extends DateTime
    */
    public function firstOfQuarter($dayOfWeek = null)
    {
-      $this->month(($this->quarter * 3) - 2);
-
-      return $this->firstOfMonth($dayOfWeek);
+      return $this->month(($this->quarter * 3) - 2)->firstOfMonth($dayOfWeek);
    }
 
    /**
@@ -1986,9 +1983,7 @@ class Carbon extends DateTime
    */
    public function lastOfQuarter($dayOfWeek = null)
    {
-      $this->month(($this->quarter * 3));
-
-      return $this->lastOfMonth($dayOfWeek);
+      return $this->month(($this->quarter * 3))->lastOfMonth($dayOfWeek);
    }
 
    /**
@@ -2004,12 +1999,10 @@ class Carbon extends DateTime
    */
    public function nthOfQuarter($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $dt->month(($this->quarter * 3));
+      $dt = $this->copy()->month(($this->quarter * 3));
       $last_month = $dt->month;
       $year = $dt->year;
-      $dt->firstOfQuarter();
-      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
+      $dt->firstOfQuarter()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
       if ($last_month < $dt->month || $year !== $dt->year) {
          return false;
@@ -2030,9 +2023,7 @@ class Carbon extends DateTime
    */
    public function firstOfYear($dayOfWeek = null)
    {
-      $this->month(1);
-
-      return $this->firstOfMonth($dayOfWeek);
+      return $this->month(1)->firstOfMonth($dayOfWeek);
    }
 
    /**
@@ -2047,9 +2038,7 @@ class Carbon extends DateTime
    */
    public function lastOfYear($dayOfWeek = null)
    {
-      $this->month(self::MONTHS_PER_YEAR);
-
-      return $this->lastOfMonth($dayOfWeek);
+      return $this->month(self::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
    }
 
    /**
@@ -2067,8 +2056,7 @@ class Carbon extends DateTime
    {
       $dt = $this->copy();
       $year = $dt->year;
-      $dt->firstOfYear();
-      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
+      $dt->firstOfYear()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
       if ($year !== $dt->year) {
          return false;
