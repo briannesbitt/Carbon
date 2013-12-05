@@ -756,6 +756,14 @@ The only one slightly different is the `average()` function.  It moves your inst
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
 {{modifier14::exec(echo $dt->previous();/*pad(50)*/)}} // {{modifier14_eval}}
 
+{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
+{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{modifierMin::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{modifierMin_eval}}
+
+{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
+{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{modifierMax::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{modifierMax_eval}}
+
 {{::lint($start = Carbon::create(2014, 1, 1, 0, 0, 0);)}}
 {{::lint($end = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
 {{modifierAverage::exec(echo $start->average($end);/*pad(50)*/)}} // {{modifierAverage_eval}}
