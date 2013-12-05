@@ -1797,7 +1797,7 @@ class Carbon extends DateTime
 	 */
 	public function endOfYear()
 	{
-		return $this->month(12)->endOfMonth();
+		return $this->month(self::MONTHS_PER_YEAR)->endOfMonth();
 	}
 
 	/**
@@ -2061,7 +2061,7 @@ class Carbon extends DateTime
    */
    public function lastOfYear($dayOfWeek = null)
    {
-      $this->month(12);
+      $this->month(self::MONTHS_PER_YEAR);
 
       return $this->lastOfMonth($dayOfWeek);
    }
