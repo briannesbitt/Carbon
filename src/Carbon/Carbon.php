@@ -1186,14 +1186,12 @@ class Carbon extends DateTime
    
    /**
      * Checks if the passed days is the same as current day.
-     * @param DyngDate $date
+     * @param Carbon $date
      * @return boolean
      */
     public function isSameDay($date)
     {
-        return  $this->year == $date->year && 
-                $this->month == $date->month &&
-                $this->day == $date->day;
+    	return $this->toDateString() == $date->toDateString();
     }
 
    ///////////////////////////////////////////////////////////////////
