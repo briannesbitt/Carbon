@@ -2054,11 +2054,9 @@ class Carbon extends DateTime
    */
    public function nthOfYear($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $year = $dt->year;
-      $dt->firstOfYear()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
+      $dt = $this->copy()->firstOfYear()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
-      if ($year !== $dt->year) {
+      if ($this->year !== $dt->year) {
          return false;
       }
 
