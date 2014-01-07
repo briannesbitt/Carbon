@@ -506,41 +506,32 @@ class Carbon extends DateTime
    {
       switch ($name) {
          case 'year':
-            parent::setDate($value, $this->month, $this->day);
-            break;
+            return parent::setDate($value, $this->month, $this->day);
 
          case 'month':
-            parent::setDate($this->year, $value, $this->day);
-            break;
+            return parent::setDate($this->year, $value, $this->day);
 
          case 'day':
-            parent::setDate($this->year, $this->month, $value);
-            break;
+            return parent::setDate($this->year, $this->month, $value);
 
          case 'hour':
-            parent::setTime($value, $this->minute, $this->second);
-            break;
+            return parent::setTime($value, $this->minute, $this->second);
 
          case 'minute':
-            parent::setTime($this->hour, $value, $this->second);
-            break;
+            return parent::setTime($this->hour, $value, $this->second);
 
          case 'second':
-            parent::setTime($this->hour, $this->minute, $value);
-            break;
+            return parent::setTime($this->hour, $this->minute, $value);
 
          case 'timestamp':
-            parent::setTimestamp($value);
-            break;
+            return parent::setTimestamp($value);
 
          case 'timezone':
          case 'tz':
-            $this->setTimezone($value);
-            break;
-
-         default:
-            throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+            return $this->setTimezone($value);
       }
+
+      throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
    }
 
    /**
@@ -719,9 +710,7 @@ class Carbon extends DateTime
     */
    public function setTimezone($value)
    {
-      parent::setTimezone(self::safeCreateDateTimeZone($value));
-
-      return $this;
+      return parent::setTimezone(static::safeCreateDateTimeZone($value));
    }
 
    ///////////////////////////////////////////////////////////////////
