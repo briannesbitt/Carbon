@@ -102,11 +102,20 @@ class TestingAidsTest extends TestFixture
 	  $this->assertEquals('2013-09-30 05:15:05', Carbon::parse('last day of this month')->toDateTimeString());
    }
 
+   public function testParseRelativeWithMinusSignsInDate()
+   {
+     $notNow = Carbon::parse('2013-09-01 05:15:05');
+     Carbon::setTestNow($notNow);
+
+     $this->assertEquals('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
+     $this->assertEquals('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
+  }
+
    public function testTimeZoneWithTestValueSet()
    {
       $notNow = Carbon::parse('2013-07-01 12:00:00', 'America/New_York');
       Carbon::setTestNow($notNow);
-      
+
       $this->assertEquals('2013-07-01T12:00:00-0400', Carbon::parse('now')->toISO8601String());
       $this->assertEquals('2013-07-01T11:00:00-0500', Carbon::parse('now', 'America/Mexico_City')->toISO8601String());
       $this->assertEquals('2013-07-01T09:00:00-0700', Carbon::parse('now', 'America/Vancouver')->toISO8601String());
