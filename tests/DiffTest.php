@@ -88,6 +88,31 @@ class DiffTest extends TestFixture
         $this->assertSame(1, $dt->diffInDays($dt->copy()->addDay()->addHours(13)));
     }
 
+    public function testDiffInWeeksPositive()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->addYear()));
+    }
+    public function testDiffInWeeksNegativeWithSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(-52, $dt->diffInWeeks($dt->copy()->subYear(), false));
+    }
+    public function testDiffInWeeksNegativeNoSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(52, $dt->diffInWeeks($dt->copy()->subYear()));
+    }
+    public function testDiffInWeeksVsDefaultNow()
+    {
+        $this->assertSame(1, Carbon::now()->subWeek()->diffInWeeks());
+    }
+    public function testDiffInWeeksEnsureIsTruncated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(0, $dt->diffInWeeks($dt->copy()->addWeek()->subDay()));
+    }
+   
     public function testDiffInHoursPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);

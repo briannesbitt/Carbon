@@ -1617,6 +1617,21 @@ class Carbon extends DateTime
    }
 
    /**
+    * Get the difference in weeks
+    *
+    * @param  Carbon  $dt
+    * @param  boolean $abs Get the absolute of the difference
+    *
+    * @return integer
+    */
+   public function diffInWeeks(Carbon $dt = null, $abs = true)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return intval($this->diffInDays($dt, $abs) / self::DAYS_PER_WEEK);
+   }
+
+   /**
     * Get the difference in days
     *
     * @param  Carbon  $dt
