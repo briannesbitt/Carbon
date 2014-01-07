@@ -547,6 +547,22 @@ To determine if the current instance is between two other instances you can use 
 {{between3::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{between3_eval}}
 ```
 
+Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named `min()` and `max()` methods.  As usual the default parameter is now if null is specified.
+
+```php
+{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
+{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{min::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{min_eval}}
+
+{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
+{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{max::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{max_eval}}
+
+// now is the default param
+{{::lint($dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);)}}
+{{max2::exec(echo $dt1->max();/*pad(50)*/)}} // {{max2_eval}}
+```
+
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
 
 ```php
@@ -755,14 +771,6 @@ The only one slightly different is the `average()` function.  It moves your inst
 
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
 {{modifier14::exec(echo $dt->previous();/*pad(50)*/)}} // {{modifier14_eval}}
-
-{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
-{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
-{{modifierMin::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{modifierMin_eval}}
-
-{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
-{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
-{{modifierMax::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{modifierMax_eval}}
 
 {{::lint($start = Carbon::create(2014, 1, 1, 0, 0, 0);)}}
 {{::lint($end = Carbon::create(2014, 1, 30, 0, 0, 0);)}}

@@ -1,7 +1,8 @@
 1.8.0 / 2014-xx-xx
 ==================
-* Added .gitattributes file to to ignore some files on export
+* Added .gitattributes file to to ignore some files on export (thanks @lucasmichot)
 * Removed unnecessary __set tz/timezone switch
+* Added min() / max() (thanks @lucasmichot)
 
 1.7.0 / 2013-12-04
 ==================

@@ -131,4 +131,38 @@ class ComparisonTest extends TestFixture
    {
       $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->between(Carbon::createFromDate(2000, 1, 31), Carbon::createFromDate(2000, 1, 1), false));
    }
+
+   public function testMinIsFluid()
+   {
+      $dt = Carbon::now();
+      $this->assertTrue($dt->min() instanceof Carbon);
+   }
+   public function testMinWithNow()
+   {
+      $dt = Carbon::create(2012, 1, 1, 0, 0, 0)->min();
+      $this->assertCarbon($dt, 2012, 1, 1, 0, 0, 0);
+   }
+   public function testMinWithInstance()
+   {
+      $dt1 = Carbon::create(2013, 12, 31, 23, 59, 59);
+      $dt2 = Carbon::create(2012, 1, 1, 0, 0, 0)->min($dt1);
+      $this->assertCarbon($dt2, 2012, 1, 1, 0, 0, 0);
+   }
+
+   public function testMaxIsFluid()
+   {
+      $dt = Carbon::now();
+      $this->assertTrue($dt->max() instanceof Carbon);
+   }
+   public function testMaxWithNow()
+   {
+      $dt = Carbon::create(2099, 12, 31, 23, 59, 59)->max();
+      $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+   }
+   public function testMaxWithInstance()
+   {
+      $dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
+      $dt2 = Carbon::create(2099, 12, 31, 23, 59, 59)->max($dt1);
+      $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
+   }
 }

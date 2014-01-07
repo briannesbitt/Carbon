@@ -1102,6 +1102,34 @@ class Carbon extends DateTime
    }
 
    /**
+    * Get the minimum instance between a given instance (default now) and the current instance.
+    *
+    * @param  Carbon $dt
+    *
+    * @return Carbon
+    */
+   public function min(Carbon $dt = null)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return $this->lt($dt) ? $this : $dt;
+   }
+
+   /**
+    * Get the maximum instance between a given instance (default now) and the current instance.
+    *
+    * @param  Carbon $dt
+    *
+    * @return Carbon
+    */
+   public function max(Carbon $dt = null)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return $this->gt($dt) ? $this : $dt;
+   }
+
+   /**
     * Determines if the instance is a weekday
     *
     * @return boolean
@@ -2086,33 +2114,5 @@ class Carbon extends DateTime
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
       return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
-   }
-
-   /**
-    * Get the minimum instance between a given instance (default now) and the current instance.
-    *
-    * @param  Carbon $dt
-    *
-    * @return Carbon
-    */
-   public function min(Carbon $dt = null)
-   {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-      return $this->lt($dt) ? $this : $dt;
-   }
-
-   /**
-    * Get the maximum instance between a given instance (default now) and the current instance.
-    *
-    * @param  Carbon $dt
-    *
-    * @return Carbon
-    */
-   public function max(Carbon $dt = null)
-   {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
-      return $this->gt($dt) ? $this : $dt;
    }
 }
