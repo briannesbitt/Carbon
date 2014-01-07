@@ -13,6 +13,40 @@ use Carbon\Carbon;
 
 class AddTest extends TestFixture
 {
+   public function testAddCenturiesPositive()
+   {
+      $this->assertSame(20, Carbon::createFromDate(1975)->addCenturies(1)->century);
+   }
+   public function testAddCenturiesZero()
+   {
+      $this->assertSame(19, Carbon::createFromDate(1975)->addCenturies(0)->century);
+   }
+   public function testAddCenturiesNegative()
+   {
+      $this->assertSame(18, Carbon::createFromDate(1975)->addCenturies(-1)->century);
+   }
+   public function testAddCentury()
+   {
+      $this->assertSame(20, Carbon::createFromDate(1975)->addCentury()->century);
+   }
+   
+   public function testAddDecadesPositive()
+   {
+      $this->assertSame(198, Carbon::createFromDate(1975)->addDecades(1)->decade);
+   }
+   public function testAddDecadesZero()
+   {
+      $this->assertSame(197, Carbon::createFromDate(1975)->addDecades(0)->decade);
+   }
+   public function testAddDecadesNegative()
+   {
+      $this->assertSame(196, Carbon::createFromDate(1975)->addDecades(-1)->decade);
+   }
+   public function testAddDecade()
+   {
+      $this->assertSame(198, Carbon::createFromDate(1975)->addDecade()->decade);
+   }
+
    public function testAddYearsPositive()
    {
       $this->assertSame(1976, Carbon::createFromDate(1975)->addYears(1)->year);
