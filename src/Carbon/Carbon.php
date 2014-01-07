@@ -1859,7 +1859,9 @@ class Carbon extends DateTime
     */
     public function startOfWeek()
     {
-        return $this->setISODate($this->year, $this->weekOfYear, 1)->startOfDay();
+        if ($this->dayOfWeek != self::MONDAY) $this->previous(self::MONDAY);
+
+        return $this->startOfDay();
     }
 
     /**
@@ -1869,7 +1871,9 @@ class Carbon extends DateTime
      */
     public function endOfWeek()
     {
-        return $this->setISODate($this->year, $this->weekOfYear, 7)->endOfDay();
+        if ($this->dayOfWeek != self::SUNDAY) $this->next(self::SUNDAY);
+
+        return $this->endOfDay();
     }
 
    /**

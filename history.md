@@ -3,6 +3,7 @@
 * Added .gitattributes file to to ignore some files on export (thanks @lucasmichot)
 * Removed unnecessary __set tz/timezone switch
 * Added min() / max() (thanks @lucasmichot)
+* Fixed startOfWeek() / endOfWeek() when crossing year boundary.
 
 1.7.0 / 2013-12-04
 ==================
