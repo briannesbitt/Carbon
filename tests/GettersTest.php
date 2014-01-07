@@ -114,6 +114,27 @@ class GettersTest extends TestFixture
       $this->assertSame(4, $d->quarter);
    }
 
+	public function testGetSemesterFirst()
+	{
+		$d = Carbon::createFromDate(2012, 1, 1);
+		$this->assertSame(1, $d->semester);
+	}
+	public function testGetSemesterFirstEnd()
+	{
+		$d = Carbon::createFromDate(2012, 6, 30);
+		$this->assertSame(1, $d->semester);
+	}
+	public function testGetSemesterSecond()
+	{
+		$d = Carbon::createFromDate(2012, 7, 1);
+		$this->assertSame(2, $d->semester);
+	}
+	public function testGetSemesterSecondEnd()
+	{
+		$d = Carbon::createFromDate(2012, 12, 31);
+		$this->assertSame(2, $d->semester);
+	}
+
    public function testGetLocalTrue()
    {
      // Default timezone has been set to America/Toronto in TestFixture.php

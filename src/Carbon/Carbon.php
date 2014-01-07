@@ -31,6 +31,7 @@ use InvalidArgumentException;
  * @property-read integer $daysInMonth number of days in the given month
  * @property-read integer $age does a diffInYears() with default parameters
  * @property-read integer $quarter the quarter of this instance, 1 - 4
+ * @property-read integer $semester the semester of this instance, 1 - 2
  * @property-read integer $offset the timezone offset in seconds from UTC
  * @property-read integer $offsetHours the timezone offset in hours from UTC
  * @property-read boolean $dst daylight savings time indicator, true if DST, false otherwise
@@ -447,6 +448,9 @@ class Carbon extends DateTime
 
          case 'quarter':
             return intval(($this->month - 1) / 3) + 1;
+
+	      case 'semester':
+		      return intval(($this->month - 1) / 6) + 1;
 
          case 'offset':
             return $this->getOffset();
