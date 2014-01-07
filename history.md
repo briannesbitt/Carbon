@@ -1,3 +1,8 @@
+1.8.0 / 2014-xx-xx
+==================
+* Added .gitattributes file to to ignore some files on export
+* Removed unnecessary __set tz/timezone switch
+
 1.7.0 / 2013-12-04
 ==================
 * Added startOfYear() / endOfYear() (thanks @semalead)

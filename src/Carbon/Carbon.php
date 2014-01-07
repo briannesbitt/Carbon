@@ -534,9 +534,6 @@ class Carbon extends DateTime
             break;
 
          case 'timezone':
-            $this->setTimezone($value);
-            break;
-
          case 'tz':
             $this->setTimezone($value);
             break;
