@@ -96,6 +96,7 @@ class Carbon extends DateTime
     */
    const MONTHS_PER_YEAR    = 12;
    const WEEKS_PER_YEAR     = 52;
+   const WEEK_PER_MONTH     = 4;
    const DAYS_PER_WEEK      = 7;
    const HOURS_PER_DAY      = 24;
    const MINUTES_PER_HOUR   = 60;
@@ -107,6 +108,20 @@ class Carbon extends DateTime
     * @var string
     */
    const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
+
+   /**
+    * List of available languages
+    *
+    * @var array
+    */
+   protected static $availableLanguages = array('en', 'fr');
+
+   /**
+    * Default language
+    *
+    * @var string
+    */
+   const DEFAULT_LANGUAGE = 'en';
 
    /**
     * Format to use for __toString method when type juggling occurs.
@@ -121,6 +136,13 @@ class Carbon extends DateTime
     * @var Carbon
     */
    protected static $testNow;
+
+   /**
+    * Storage of translated words
+    *
+    * @var array
+    */
+   protected static $lang = array();
 
    /**
     * Creates a DateTimeZone from a string or a DateTimeZone
@@ -184,6 +206,58 @@ class Carbon extends DateTime
       } else {
          parent::__construct($time);
       }
+   }
+
+   /**
+    * Return the most appropriate language among the availables ones
+    *
+    * @return string $langugae
+    */
+   public static function getLanguage($language = null)
+   {
+      if(is_null($language)) {
+        $language = setlocale(LC_TIME, "0");
+      }
+      if(empty($language) || $language === 'C') {
+        $language = getenv('LANG') ?: getenv('LANGUAGE');
+      }
+      // if it's available, just return
+      if(in_array($language, static::$availableLanguages)) {
+        return $language;
+      }
+      // else try to find a similar language by cutting some parts of the locale
+      // . to substr en_US.UTF-8 to en_US
+      // @ to substr fr_FR@euro to fr_FR
+      // _ to substr en_US to en
+      foreach(array('.', '@', '_') as $cutChar) {
+        $cutLanguage = substr($language, 0, strpos($language, $cutChar));
+        if(in_array($cutLanguage, static::$availableLanguages)) {
+          return $cutLanguage;
+        }
+      }
+
+      return static::DEFAULT_LANGUAGE;
+   }
+
+   /**
+    * Creates a DateTimeZone from a string or a DateTimeZone
+    *
+    * @param  DateTimeZone|string $object
+    *
+    * @return DateTimeZone
+    *
+    * @throws InvalidArgumentException
+    */
+   public static function getTranslated($pattern, $language = null)
+   {
+      $language = static::getLanguage($language);
+
+      if(!isset(static::$lang[$language]))
+      {
+        static::$lang[$language] = include(__DIR__ . '/Lang/' . $language . '.php');
+      }
+
+      return isset(static::$lang[$language][$pattern]) ? static::$lang[$language][$pattern] : false;
    }
 
    /**
@@ -863,7 +937,7 @@ class Carbon extends DateTime
     */
    public function toFormattedDateString()
    {
-      return $this->format('M j, Y');
+      return $this->format(self::getTranslated('formattedDate'));
    }
 
    /**
@@ -893,7 +967,7 @@ class Carbon extends DateTime
     */
    public function toDayDateTimeString()
    {
-      return $this->format('D, M j, Y g:i A');
+      return $this->format(self::getTranslated('dayDateTimeFormat'));
    }
 
    /**
@@ -1693,11 +1767,14 @@ class Carbon extends DateTime
     * 1 hour after
     * 5 months after
     *
+    * Language can be forced with the second parameter
+    *
     * @param  Carbon  $other
+    * @param  string  $language
     *
     * @return string
     */
-   public function diffForHumans(Carbon $other = null)
+   public function diffForHumans(Carbon $other = null, $language = null)
    {
       $isNow = $other === null;
 
@@ -1709,13 +1786,12 @@ class Carbon extends DateTime
 
       $delta = $other->diffInSeconds($this);
 
-      // 4 weeks per month, 365 days per year... good enough!!
       $divs = array(
          'second' => self::SECONDS_PER_MINUTE,
          'minute' => self::MINUTES_PER_HOUR,
          'hour'   => self::HOURS_PER_DAY,
          'day'    => self::DAYS_PER_WEEK,
-         'week'   => 4,
+         'week'   => self::WEEK_PER_MONTH,
          'month'  => self::MONTHS_PER_YEAR
       );
 
@@ -1734,22 +1810,42 @@ class Carbon extends DateTime
          $delta = 1;
       }
 
-      $txt = $delta . ' ' . $unit;
-      $txt .= $delta == 1 ? '' : 's';
+      $txt = $delta . ' ' . ($delta == 1 ? static::getTranslated($unit, $language) : static::getTranslated($unit . '-pl', $language));
 
       if ($isNow) {
          if ($isFuture) {
-            return $txt . ' from now';
+            return strtr(
+              static::getTranslated('fromNow', $language),
+              array(
+                '{diff}' => $txt
+              )
+            );
          }
 
-         return $txt . ' ago';
+         return strtr(
+            static::getTranslated('ago', $language),
+            array(
+              '{diff}' => $txt
+            )
+         );
       }
 
       if ($isFuture) {
+         return strtr(
+            static::getTranslated('after', $language),
+            array(
+              '{diff}' => $txt
+            )
+         );
          return $txt . ' after';
       }
 
-      return $txt . ' before';
+      return strtr(
+         static::getTranslated('before', $language),
+         array(
+           '{diff}' => $txt
+         )
+      );
    }
 
    ///////////////////////////////////////////////////////////////////
