@@ -933,11 +933,15 @@ class Carbon extends DateTime
    /**
     * Format the instance as a readable date
     *
+    * Language can be forced with the second parameter
+    *
+    * @param  string  $language
+    *
     * @return string
     */
-   public function toFormattedDateString()
+   public function toFormattedDateString($language = null)
    {
-      return $this->format(self::getTranslated('formattedDate'));
+      return $this->format(self::getTranslated('formattedDate', $language));
    }
 
    /**
@@ -963,11 +967,15 @@ class Carbon extends DateTime
    /**
     * Format the instance with day, date and time
     *
+    * Language can be forced with the second parameter
+    *
+    * @param  string  $language
+    *
     * @return string
     */
-   public function toDayDateTimeString()
+   public function toDayDateTimeString($language = null)
    {
-      return $this->format(self::getTranslated('dayDateTimeFormat'));
+      return $this->format(self::getTranslated('dayDateTimeFormat', $language));
    }
 
    /**
