@@ -4,14 +4,6 @@ return array(
 	'dayDateTimeFormat'	=> 'D, M j, Y g:i A',
 	'formattedDate'		=> 'M j, Y',
 
-	'sunday'	=> 'sunday',
-	'monday'	=> 'monday',
-	'tuesday'	=> 'tuesday',
-	'wednesday'	=> 'wednesday',
-	'thursday'	=> 'thursday',
-	'friday'	=> 'friday',
-	'saturday'	=> 'saturday',
-
 	'second'	=> 'second',
 	'minute'	=> 'minute',
 	'hour'		=> 'hour',
