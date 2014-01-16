@@ -3,13 +3,6 @@
 return array(
 	'dayDateTimeFormat'	=> 'D j M Y à H:i',
 	'formattedDate'		=> 'j M Y',
-	'sunday'	=> 'dimanche',
-	'monday'	=> 'lundi',
-	'tuesday'	=> 'mardi',
-	'wednesday'	=> 'mercredi',
-	'thursday'	=> 'jeudi',
-	'friday'	=> 'vendredi',
-	'saturday'	=> 'samedi',
 
 	'second'	=> 'secondes',
 	'minute'	=> 'minutes',
