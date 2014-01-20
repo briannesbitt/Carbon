@@ -4,8 +4,8 @@ return array(
 	'dayDateTimeFormat'	=> 'D j M Y à H:i',
 	'formattedDate'		=> 'j M Y',
 
-	'second'	=> 'secondes',
-	'minute'	=> 'minutes',
+	'second'	=> 'seconde',
+	'minute'	=> 'minute',
 	'hour'		=> 'heure',
 	'day'		=> 'jour',
 	'week'		=> 'semaine',
