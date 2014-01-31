@@ -2124,4 +2124,19 @@ class Carbon extends DateTime
 
       return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
    }
+
+   /**
+   * Consider the timezone when modify, addMonths, addHours, etc.
+   *
+   * @param  string  $modify
+   *
+   * @return Carbon
+   */
+   public function modify($modify)
+   {
+      $tz = $this->getTimezone();
+      $this->setTimezone('UTC');
+      parent::modify($modify);
+      return $this->setTimezone($tz);
+   }
 }
