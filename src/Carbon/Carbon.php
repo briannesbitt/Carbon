@@ -1775,7 +1775,7 @@ class Carbon extends DateTime
 
      $delta = $other->diffInSeconds($this);
 
-     $years = intval(intval($delta) / SECONDS_PER_YEAR);
+     $years = intval(intval($delta) / self::SECONDS_PER_YEAR);
      if ($years > 0) {
       if ($years == 1) {
         $times[] = "{$years} year, ";
@@ -1784,7 +1784,7 @@ class Carbon extends DateTime
       }
      }
 
-     $weeks = bcmod((intval($delta) / SECONDS_PER_WEEK), WEEKS_PER_YEAR);
+     $weeks = bcmod((intval($delta) / self::SECONDS_PER_WEEK), self::WEEKS_PER_YEAR);
      if ($weeks > 0) {
        if ($weeks == 1) {
         $times[] = "{$weeks} week";
@@ -1793,7 +1793,7 @@ class Carbon extends DateTime
        }
      }
 
-     $days = bcmod((intval($delta) / SECONDS_PER_DAY), DAYS_PER_WEEK);
+     $days = bcmod((intval($delta) / self::SECONDS_PER_DAY), self::DAYS_PER_WEEK);
      if ($days > 0) {
        if ($days == 1) {
         $times[] = "{$days} day";
@@ -1802,7 +1802,7 @@ class Carbon extends DateTime
        }
      }
 
-     $hours = bcmod((intval($delta) / SECONDS_PER_HOUR), HOURS_PER_DAY);
+     $hours = bcmod((intval($delta) / self::SECONDS_PER_HOUR), self::HOURS_PER_DAY);
      if ($hours > 0) {
        if ($hours == 1) {
         $times[] = "{$hours} hour";
@@ -1811,7 +1811,7 @@ class Carbon extends DateTime
        }
      }
 
-     $minutes = bcmod((intval($delta) / SECONDS_PER_MINUTE), MINUTES_PER_HOUR);
+     $minutes = bcmod((intval($delta) / self::SECONDS_PER_MINUTE), self::MINUTES_PER_HOUR);
      if ($minutes > 0) {
        if ($minutes == 1) {
         $times[] = "{$minutes} minute";
@@ -1820,7 +1820,7 @@ class Carbon extends DateTime
        }
      }
 
-     $seconds = bcmod(intval($delta), SECONDS_PER_MINUTE);
+     $seconds = bcmod(intval($delta), self::SECONDS_PER_MINUTE);
      if ($seconds > 0) {
        if ($seconds == 1) {
         $times[] = "{$seconds} second";
