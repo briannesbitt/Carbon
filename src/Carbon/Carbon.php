@@ -1780,9 +1780,9 @@ class Carbon extends DateTime
      $years = intval(intval($delta) / self::SECONDS_PER_YEAR);
      if ($years > 0) {
       if ($years == 1) {
-        $times[] = "{$years} year, ";
+        $times[] = "{$years} year";
       } else {
-        $times[] = "{$years} years, ";
+        $times[] = "{$years} years";
       }
      }
 
