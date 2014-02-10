@@ -1756,7 +1756,16 @@ class Carbon extends DateTime
       return $txt . ' before';
    }
 
-   public function elapsedForHumans(Carbon $other)
+   /**
+    * Prints out time difference in a human readable format
+    *
+    * example output: 1 hour, 10 minutes, 3 seconds
+    *
+    * @param  Carbon $other
+    *
+    * @return string
+    */
+   public function elapsedForHumans(Carbon $other = null)
    {
      $isNow = $other === null;
 
