@@ -1775,6 +1775,8 @@ class Carbon extends DateTime
 
      $delta = $other->diffInSeconds($this);
 
+     $times = array();
+
      $years = intval(intval($delta) / self::SECONDS_PER_YEAR);
      if ($years > 0) {
       if ($years == 1) {
