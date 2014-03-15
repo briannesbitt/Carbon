@@ -456,12 +456,14 @@ Carbon::resetToStringFormat();
 echo $dt;                                          // 1975-12-25 14:15:16
 ```
 
-Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
+Unfortunately the base class DateTime does not have any localization support. To begin localization support a `formatLocalized($format)` and `toLocalizedDateString` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
 setlocale(LC_TIME, 'German');                     
+echo $dt->toLocalizedDateString();                 // 25 Dezember 1975
 echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
 setlocale(LC_TIME, '');                           
+echo $dt->toLocalizedDateString();                 // 25 December 1975
 echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 ```
 
