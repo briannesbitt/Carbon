@@ -867,6 +867,16 @@ class Carbon extends DateTime
    }
 
    /**
+    * Format the instance as a localized readable date
+    *
+    * @return string
+    */
+   public function toLocalizedDateString()
+   {
+      return $this->formatLocalized('%e %B %Y');
+   }
+
+   /**
     * Format the instance as time
     *
     * @return string
