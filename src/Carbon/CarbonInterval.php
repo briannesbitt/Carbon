@@ -95,4 +95,76 @@ class CarbonInterval extends DateInterval
        return implode('', $parts);
    }
 
+   public function years()
+   {
+       return (int) $this->format('%y');
+   }
+
+   public function months()
+   {
+       return (int) $this->format('%m');
+   }
+
+   public function days($excludeWeeks = false)
+   {
+       $days = (int) $this->format('%d');
+       if ( ! $excludeWeeks) {
+          return $days;
+       }
+
+       return $days % Carbon::DAYS_PER_WEEK;
+   }
+
+   public function weeks()
+   {
+       return $this->days() >= Carbon::DAYS_PER_WEEK ? floor($this->days() / Carbon::DAYS_PER_WEEK) : 0;
+   }
+
+   public function totalDays()
+   {
+       return ($this->years() * 365) + ($this->months() * 4 * Carbon::DAYS_PER_WEEK) + $this->days();
+   }
+
+   public function hours()
+   {
+       return (int) $this->format('%h');
+   }
+
+   public function minutes()
+   {
+       return (int) $this->format('%i');
+   }
+
+   public function seconds()
+   {
+       return (int) $this->format('%s');
+   }
+
+   public function totalSeconds()
+   {
+       $daysInSeconds = $this->totalDays() * Carbon::HOURS_PER_DAY * Carbon::MINUTES_PER_HOUR * Carbon::SECONDS_PER_MINUTE;
+       $hoursInSeconds = $this->hours() * Carbon::MINUTES_PER_HOUR * Carbon::SECONDS_PER_MINUTE;
+
+       return $this->seconds() + $daysInSeconds + $hoursInSeconds;
+   }
+
+   public function intervalForHumans()
+   {
+       $periods = array_filter(array(
+          'year' => $this->years(),
+          'month' => $this->months(),
+          'week' => $this->weeks() ?: null,
+          'day' => $this->weeks() ? $this->days(true) : $this->days(),
+          'hour' => $this->hours(),
+          'minute' => $this->minutes(),
+          'second' => $this->seconds(),
+       ));
+
+       $parts = array();
+       foreach ($periods as $label => $value) {
+           array_push($parts, $value, $value > 1 ? $label.'s' : $label);
+       }
+
+       return implode(' ', $parts);
+    }
 }
