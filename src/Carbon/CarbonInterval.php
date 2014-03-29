@@ -29,7 +29,7 @@ class CarbonInterval extends DateInterval
    ///////////////////////////////////////////////////////////////////
 
    /**
-    * Create a new CarbonInterval instance from specific interval components (days, months, years, etc.)
+    * Create a new CarbonInterval instance from periods (days, months, years, etc.)
     *
     * @param  integer             $years
     * @param  integer             $months
@@ -46,6 +46,20 @@ class CarbonInterval extends DateInterval
        return new static(static::buildIntervalSpec($years, $months, $weeks, $days, $hours, $minutes, $seconds));
    }
 
+   /**
+    * Build an interval spec string from periods (days, months, years, etc.)
+    * @link http://www.php.net/manual/en/dateinterval.construct.php DateInterval interval_spec documentation
+    *
+    * @param  integer             $years
+    * @param  integer             $months
+    * @param  integer             $weeks
+    * @param  integer             $days
+    * @param  integer             $hours
+    * @param  integer             $minutes
+    * @param  integer             $seconds
+    *
+    * @return string The interval spec
+    */
    public static function buildIntervalSpec($years = null, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
    {
        $datePeriods = array_filter(array(
