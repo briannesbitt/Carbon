@@ -1590,7 +1590,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInYears(Carbon $dt = null, $abs = true)
+   public function diffInYears(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1605,7 +1605,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInMonths(Carbon $dt = null, $abs = true)
+   public function diffInMonths(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1620,7 +1620,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInDays(Carbon $dt = null, $abs = true)
+   public function diffInDays(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1635,7 +1635,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInHours(Carbon $dt = null, $abs = true)
+   public function diffInHours(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1650,7 +1650,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInMinutes(Carbon $dt = null, $abs = true)
+   public function diffInMinutes(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1665,7 +1665,7 @@ class Carbon extends DateTime
     *
     * @return integer
     */
-   public function diffInSeconds(Carbon $dt = null, $abs = true)
+   public function diffInSeconds(DateTime $dt = null, $abs = true)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
@@ -1697,7 +1697,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function diffForHumans(Carbon $other = null)
+   public function diffForHumans(DateTime $other = null)
    {
       $isNow = $other === null;
 
