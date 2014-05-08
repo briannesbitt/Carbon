@@ -93,10 +93,10 @@ class StringsTest extends TestFixture
    public function testToCOOKIEString()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      if( \DateTime::COOKIE === 'd-M-y H:i:s T' )
-         $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
+      if( \DateTime::COOKIE === 'l, d-M-y H:i:s T' )
+          $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
       else
-         $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';
+          $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';
 
       $this->assertSame($cookieString, $d->toCOOKIEString());
    }
