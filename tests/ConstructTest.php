@@ -54,27 +54,47 @@ class ConstructTest extends TestFixture
 
    public function testSettingTimezone()
    {
-      $c = new Carbon('now', new \DateTimeZone('Europe/London'));
-      $this->assertSame('Europe/London', $c->tzName);
-      $this->assertSame(0, $c->offsetHours);
+      $timezone = 'Europe/London';
+      $dtz = new \DateTimeZone($timezone);
+      $dt = new \DateTime('now', $dtz);
+      $dayLightSavingTimeOffset = $dt->format('I');
+
+      $c = new Carbon('now', $dtz);
+      $this->assertSame($timezone, $c->tzName);
+      $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
    }
    public function testParseSettingTimezone()
    {
-      $c = Carbon::parse('now', new \DateTimeZone('Europe/London'));
-      $this->assertSame('Europe/London', $c->tzName);
-      $this->assertSame(0, $c->offsetHours);
+      $timezone = 'Europe/London';
+      $dtz = new \DateTimeZone($timezone);
+      $dt = new \DateTime('now', $dtz);
+      $dayLightSavingTimeOffset = $dt->format('I');
+
+      $c = Carbon::parse('now', $dtz);
+      $this->assertSame($timezone, $c->tzName);
+      $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
    }
 
    public function testSettingTimezoneWithString()
    {
-      $c = new Carbon('now', 'Asia/Tokyo');
-      $this->assertSame('Asia/Tokyo', $c->tzName);
-      $this->assertSame(9, $c->offsetHours);
+      $timezone = 'Asia/Tokyo';
+      $dtz = new \DateTimeZone($timezone);
+      $dt = new \DateTime('now', $dtz);
+      $dayLightSavingTimeOffset = $dt->format('I');
+
+      $c = new Carbon('now', $timezone);
+      $this->assertSame($timezone, $c->tzName);
+      $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
    }
    public function testParseSettingTimezoneWithString()
    {
-      $c = Carbon::parse('now', 'Asia/Tokyo');
-      $this->assertSame('Asia/Tokyo', $c->tzName);
-      $this->assertSame(9, $c->offsetHours);
+      $timezone = 'Asia/Tokyo';
+      $dtz = new \DateTimeZone($timezone);
+      $dt = new \DateTime('now', $dtz);
+      $dayLightSavingTimeOffset = $dt->format('I');
+
+      $c = Carbon::parse('now', $timezone);
+      $this->assertSame($timezone, $c->tzName);
+      $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
    }
 }
