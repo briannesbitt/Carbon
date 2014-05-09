@@ -1115,7 +1115,7 @@ class Carbon extends DateTime
     */
    public function min(Carbon $dt = null)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return $this->lt($dt) ? $this : $dt;
    }
@@ -1129,7 +1129,7 @@ class Carbon extends DateTime
     */
    public function max(Carbon $dt = null)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return $this->gt($dt) ? $this : $dt;
    }
@@ -1592,7 +1592,7 @@ class Carbon extends DateTime
     */
    public function diffInYears(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return intval($this->diff($dt, $abs)->format('%r%y'));
    }
@@ -1607,7 +1607,7 @@ class Carbon extends DateTime
     */
    public function diffInMonths(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return $this->diffInYears($dt, $abs) * self::MONTHS_PER_YEAR + $this->diff($dt, $abs)->format('%r%m');
    }
@@ -1622,7 +1622,7 @@ class Carbon extends DateTime
     */
    public function diffInDays(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return intval($this->diff($dt, $abs)->format('%r%a'));
    }
@@ -1637,7 +1637,7 @@ class Carbon extends DateTime
     */
    public function diffInHours(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return intval($this->diffInMinutes($dt, $abs) / self::MINUTES_PER_HOUR);
    }
@@ -1652,7 +1652,7 @@ class Carbon extends DateTime
     */
    public function diffInMinutes(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return intval($this->diffInSeconds($dt, $abs) / self::SECONDS_PER_MINUTE);
    }
@@ -1667,7 +1667,7 @@ class Carbon extends DateTime
     */
    public function diffInSeconds(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       $value = $dt->getTimestamp() - $this->getTimestamp();
 
@@ -2120,7 +2120,7 @@ class Carbon extends DateTime
    */
    public function average(Carbon $dt = null)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+      if ($dt === null) $dt = static::now($this->tz);
 
       return $this->addSeconds(intval($this->diffInSeconds($dt, false) / 2));
    }
