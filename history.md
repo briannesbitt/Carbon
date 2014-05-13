@@ -1,3 +1,9 @@
+1.9.0 / 2014-05-12
+==================
+* Changed self references to static to allow for easier child classes
+* Fixed a couple of tests to account for London DST
+* Fixed a test that failed due to inconsistent DateTime COOKIE strings
+
 1.8.0 / 2014-01-06
 ==================
 * Added .gitattributes file to to ignore some files on export (thanks @lucasmichot)
