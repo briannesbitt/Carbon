@@ -59,10 +59,10 @@ class Carbon extends DateTime
    const SATURDAY  = 6;
 
    /**
-   * Names of days of the week.
-   *
-   * @var array
-   */
+    * Names of days of the week.
+    *
+    * @var array
+    */
    protected static $days = array(
       self::SUNDAY    => 'Sunday',
       self::MONDAY    => 'Monday',
@@ -73,12 +73,12 @@ class Carbon extends DateTime
       self::SATURDAY  => 'Saturday'
    );
 
-    /**
+   /**
     * Terms used to detect if a time passed is a relative date for testing purposes
     *
     * @var array
     */
-    protected static $relativeKeywords = array(
+   protected static $relativeKeywords = array(
       'this',
       'next',
       'last',
@@ -166,11 +166,11 @@ class Carbon extends DateTime
       if (static::hasTestNow() && (empty($time) || $time === 'now' || self::hasRelativeKeywords($time))) {
          $testInstance = clone static::getTestNow();
          if (self::hasRelativeKeywords($time)) {
-   	     $testInstance->modify($time);
+            $testInstance->modify($time);
          }
 
          //shift the time according to the given time zone
-         if ($tz !== NULL && $tz != static::getTestNow()->tz) {
+         if ($tz !== null && $tz != static::getTestNow()->tz) {
             $testInstance->setTimezone($tz);
          } else {
             $tz = $testInstance->tz;
@@ -779,16 +779,17 @@ class Carbon extends DateTime
     *
     * @return boolean true if there is a keyword, otherwise false
     */
-   public static function hasRelativeKeywords($time) {
+   public static function hasRelativeKeywords($time)
+   {
       // skip common format with a '-' in it
       if (preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) === 1) {
          return false;
       }
 
-      foreach(self::$relativeKeywords as $keyword) {
+      foreach (self::$relativeKeywords as $keyword) {
          if (stripos($time, $keyword) !== false) {
             return true;
-        }
+         }
       }
 
       return false;
@@ -811,7 +812,7 @@ class Carbon extends DateTime
       // Check for Windows to find and replace the %e
       // modifier correctly
       if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-          $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
+         $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
       }
 
       return strftime($format, $this->timestamp);
@@ -1082,15 +1083,15 @@ class Carbon extends DateTime
       return $this <= $dt;
    }
 
-  /**
-   * Determines if the instance is between two others
-   *
-   * @param  Carbon  $dt1
-   * @param  Carbon  $dt2
-   * @param  boolean $equal  Indicates if a > and < comparison should be used or <= or >=
-   *
-   * @return boolean
-   */
+   /**
+    * Determines if the instance is between two others
+    *
+    * @param  Carbon  $dt1
+    * @param  Carbon  $dt2
+    * @param  boolean $equal Indicates if a > and < comparison should be used or <= or >=
+    *
+    * @return boolean
+    */
    public function between(Carbon $dt1, Carbon $dt2, $equal = true)
    {
       if ($dt1->gt($dt2)) {
@@ -1796,101 +1797,103 @@ class Carbon extends DateTime
       return $this->day($this->daysInMonth)->endOfDay();
    }
 
-	/**
-	 * Resets the date to the first day of the year and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
+   /**
+    * Resets the date to the first day of the year and the time to 00:00:00
+    *
+    * @return Carbon
+    */
    public function startOfYear()
    {
-	   return $this->month(1)->startOfMonth();
-	}
+      return $this->month(1)->startOfMonth();
+   }
 
-	/**
-	 * Resets the date to end of the year and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfYear()
-	{
-		return $this->month(self::MONTHS_PER_YEAR)->endOfMonth();
-	}
+   /**
+    * Resets the date to end of the year and time to 23:59:59
+    *
+    * @return Carbon
+    */
+   public function endOfYear()
+   {
+      return $this->month(self::MONTHS_PER_YEAR)->endOfMonth();
+   }
 
-	/**
-	 * Resets the date to the first day of the decade and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
-	public function startOfDecade()
-	{
-		return $this->startOfYear()->year($this->year - $this->year % 10);
-	}
+   /**
+    * Resets the date to the first day of the decade and the time to 00:00:00
+    *
+    * @return Carbon
+    */
+   public function startOfDecade()
+   {
+      return $this->startOfYear()->year($this->year - $this->year % 10);
+   }
 
-	/**
-	 * Resets the date to end of the decade and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfDecade()
-	{
-		return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
-	}
+   /**
+    * Resets the date to end of the decade and time to 23:59:59
+    *
+    * @return Carbon
+    */
+   public function endOfDecade()
+   {
+      return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
+   }
 
 
-	/**
-	 * Resets the date to the first day of the century and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
-	public function startOfCentury()
-	{
-		return $this->startOfYear()->year($this->year - $this->year % 100);
-	}
+   /**
+    * Resets the date to the first day of the century and the time to 00:00:00
+    *
+    * @return Carbon
+    */
+   public function startOfCentury()
+   {
+      return $this->startOfYear()->year($this->year - $this->year % 100);
+   }
 
-	/**
-	 * Resets the date to end of the century and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfCentury()
-	{
-		return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
-	}
+   /**
+    * Resets the date to end of the century and time to 23:59:59
+    *
+    * @return Carbon
+    */
+   public function endOfCentury()
+   {
+      return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
+   }
 
    /**
     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
     *
     * @return Carbon
     */
-    public function startOfWeek()
-    {
-        if ($this->dayOfWeek != self::MONDAY) $this->previous(self::MONDAY);
+   public function startOfWeek()
+   {
+      if ($this->dayOfWeek != self::MONDAY) {
+         $this->previous(self::MONDAY);
+      }
 
-        return $this->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
-     *
-     * @return Carbon
-     */
-    public function endOfWeek()
-    {
-        if ($this->dayOfWeek != self::SUNDAY) $this->next(self::SUNDAY);
-
-        return $this->endOfDay();
-    }
+      return $this->startOfDay();
+   }
 
    /**
-   * Modify to the next occurance of a given day of the week.
-   * If no dayOfWeek is provided, modify to the next occurance
-   * of the current day of the week.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
+    *
+    * @return Carbon
+    */
+   public function endOfWeek()
+   {
+      if ($this->dayOfWeek != self::SUNDAY) $this->next(self::SUNDAY);
+
+      return $this->endOfDay();
+   }
+
+   /**
+    * Modify to the next occurance of a given day of the week.
+    * If no dayOfWeek is provided, modify to the next occurance
+    * of the current day of the week.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function next($dayOfWeek = null)
    {
       $this->startOfDay();
@@ -1903,15 +1906,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the previous occurance of a given day of the week.
-   * If no dayOfWeek is provided, modify to the previous occurance
-   * of the current day of the week.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the previous occurance of a given day of the week.
+    * If no dayOfWeek is provided, modify to the previous occurance
+    * of the current day of the week.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function previous($dayOfWeek = null)
    {
       $this->startOfDay();
@@ -1924,15 +1927,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the first occurance of a given day of the week
-   * in the current month. If no dayOfWeek is provided, modify to the
-   * first day of the current month.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the first occurance of a given day of the week
+    * in the current month. If no dayOfWeek is provided, modify to the
+    * first day of the current month.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function firstOfMonth($dayOfWeek = null)
    {
       $this->startOfDay();
@@ -1945,15 +1948,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the last occurance of a given day of the week
-   * in the current month. If no dayOfWeek is provided, modify to the
-   * last day of the current month.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the last occurance of a given day of the week
+    * in the current month. If no dayOfWeek is provided, modify to the
+    * last day of the current month.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function lastOfMonth($dayOfWeek = null)
    {
       $this->startOfDay();
@@ -1966,16 +1969,16 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the given occurance of a given day of the week
-   * in the current month. If the calculated occurance is outside the scope
-   * of the current month, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $nth
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the given occurance of a given day of the week
+    * in the current month. If the calculated occurance is outside the scope
+    * of the current month, then return false and no modifications are made.
+    * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $nth
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function nthOfMonth($nth, $dayOfWeek)
    {
       $dt = $this->copy();
@@ -1992,15 +1995,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the first occurance of a given day of the week
-   * in the current quarter. If no dayOfWeek is provided, modify to the
-   * first day of the current quarter.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the first occurance of a given day of the week
+    * in the current quarter. If no dayOfWeek is provided, modify to the
+    * first day of the current quarter.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function firstOfQuarter($dayOfWeek = null)
    {
       $this->month(($this->quarter * 3) - 2);
@@ -2009,15 +2012,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the last occurance of a given day of the week
-   * in the current quarter. If no dayOfWeek is provided, modify to the
-   * last day of the current quarter.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the last occurance of a given day of the week
+    * in the current quarter. If no dayOfWeek is provided, modify to the
+    * last day of the current quarter.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function lastOfQuarter($dayOfWeek = null)
    {
       $this->month(($this->quarter * 3));
@@ -2026,16 +2029,16 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the given occurance of a given day of the week
-   * in the current quarter. If the calculated occurance is outside the scope
-   * of the current quarter, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $nth
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the given occurance of a given day of the week
+    * in the current quarter. If the calculated occurance is outside the scope
+    * of the current quarter, then return false and no modifications are made.
+    * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $nth
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function nthOfQuarter($nth, $dayOfWeek)
    {
       $dt = $this->copy();
@@ -2053,15 +2056,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the first occurance of a given day of the week
-   * in the current year. If no dayOfWeek is provided, modify to the
-   * first day of the current year.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the first occurance of a given day of the week
+    * in the current year. If no dayOfWeek is provided, modify to the
+    * first day of the current year.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function firstOfYear($dayOfWeek = null)
    {
       $this->month(1);
@@ -2070,15 +2073,15 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the last occurance of a given day of the week
-   * in the current year. If no dayOfWeek is provided, modify to the
-   * last day of the current year.  Use the supplied consts
-   * to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the last occurance of a given day of the week
+    * in the current year. If no dayOfWeek is provided, modify to the
+    * last day of the current year.  Use the supplied consts
+    * to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function lastOfYear($dayOfWeek = null)
    {
       $this->month(self::MONTHS_PER_YEAR);
@@ -2087,16 +2090,16 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify to the given occurance of a given day of the week
-   * in the current year. If the calculated occurance is outside the scope
-   * of the current year, then return false and no modifications are made.
-   * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-   *
-   * @param  int  $nth
-   * @param  int  $dayOfWeek
-   *
-   * @return mixed
-   */
+    * Modify to the given occurance of a given day of the week
+    * in the current year. If the calculated occurance is outside the scope
+    * of the current year, then return false and no modifications are made.
+    * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+    *
+    * @param  int $nth
+    * @param  int $dayOfWeek
+    *
+    * @return mixed
+    */
    public function nthOfYear($nth, $dayOfWeek)
    {
       $dt = $this->copy();
@@ -2112,12 +2115,12 @@ class Carbon extends DateTime
    }
 
    /**
-   * Modify the current instance to the average of a given instance (default now) and the current instance.
-   *
-   * @param  Carbon  $dt
-   *
-   * @return Carbon
-   */
+    * Modify the current instance to the average of a given instance (default now) and the current instance.
+    *
+    * @param  Carbon $dt
+    *
+    * @return Carbon
+    */
    public function average(Carbon $dt = null)
    {
       $dt = ($dt === null) ? static::now($this->tz) : $dt;
