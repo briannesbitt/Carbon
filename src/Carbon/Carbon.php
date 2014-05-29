@@ -1707,31 +1707,42 @@ class Carbon extends DateTime
 
       $isFuture = $this->gt($other);
 
-      $delta = $other->diffInSeconds($this);
+      $diffInterval = $this->diff($other);
 
-      // 4 weeks per month, 365 days per year... good enough!!
-      $divs = array(
-         'second' => self::SECONDS_PER_MINUTE,
-         'minute' => self::MINUTES_PER_HOUR,
-         'hour'   => self::HOURS_PER_DAY,
-         'day'    => self::DAYS_PER_WEEK,
-         'week'   => 4,
-         'month'  => self::MONTHS_PER_YEAR
-      );
-
-      $unit = 'year';
-
-      foreach ($divs as $divUnit => $divValue) {
-         if ($delta < $divValue) {
-            $unit = $divUnit;
+      switch (true) {
+        case ($diffInterval->y > 0):
+            $unit = 'year';
+            $delta = $diffInterval->y;
             break;
-         }
 
-         $delta = floor($delta / $divValue);
-      }
+        case ($diffInterval->m > 0):
+            $unit = 'month';
+            $delta = $diffInterval->m;
+            break;
 
-      if ($delta == 0) {
-         $delta = 1;
+        case ($diffInterval->d > 0):
+            $unit = 'day';
+            $delta = $diffInterval->d;
+            if ($delta >= self::DAYS_PER_WEEK) {
+                $unit = 'week';
+                $delta = floor($delta / self::DAYS_PER_WEEK);
+            }
+            break;
+
+        case ($diffInterval->h > 0):
+            $unit = 'hour';
+            $delta = $diffInterval->h;
+            break;
+
+        case ($diffInterval->i > 0):
+            $unit = 'minute';
+            $delta = $diffInterval->i;
+            break;
+
+        default:
+            $delta = $diffInterval->s;
+            $unit = 'second';
+            break;
       }
 
       $txt = $delta . ' ' . $unit;
