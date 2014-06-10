@@ -1978,8 +1978,7 @@ class Carbon extends DateTime
    */
    public function nthOfMonth($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $dt->firstOfMonth();
+      $dt = $this->copy()->firstOfMonth();
       $month = $dt->month;
       $year = $dt->year;
       $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
@@ -2003,9 +2002,7 @@ class Carbon extends DateTime
    */
    public function firstOfQuarter($dayOfWeek = null)
    {
-      $this->month(($this->quarter * 3) - 2);
-
-      return $this->firstOfMonth($dayOfWeek);
+      return $this->month(($this->quarter * 3) - 2)->firstOfMonth($dayOfWeek);
    }
 
    /**
@@ -2020,9 +2017,7 @@ class Carbon extends DateTime
    */
    public function lastOfQuarter($dayOfWeek = null)
    {
-      $this->month(($this->quarter * 3));
-
-      return $this->lastOfMonth($dayOfWeek);
+      return $this->month(($this->quarter * 3))->lastOfMonth($dayOfWeek);
    }
 
    /**
@@ -2038,12 +2033,10 @@ class Carbon extends DateTime
    */
    public function nthOfQuarter($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $dt->month(($this->quarter * 3));
+      $dt = $this->copy()->month(($this->quarter * 3));
       $last_month = $dt->month;
       $year = $dt->year;
-      $dt->firstOfQuarter();
-      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
+      $dt->firstOfQuarter()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
       if ($last_month < $dt->month || $year !== $dt->year) {
          return false;
@@ -2064,9 +2057,7 @@ class Carbon extends DateTime
    */
    public function firstOfYear($dayOfWeek = null)
    {
-      $this->month(1);
-
-      return $this->firstOfMonth($dayOfWeek);
+      return $this->month(1)->firstOfMonth($dayOfWeek);
    }
 
    /**
@@ -2081,9 +2072,7 @@ class Carbon extends DateTime
    */
    public function lastOfYear($dayOfWeek = null)
    {
-      $this->month(self::MONTHS_PER_YEAR);
-
-      return $this->lastOfMonth($dayOfWeek);
+      return $this->month(self::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
    }
 
    /**
@@ -2099,12 +2088,9 @@ class Carbon extends DateTime
    */
    public function nthOfYear($nth, $dayOfWeek)
    {
-      $dt = $this->copy();
-      $year = $dt->year;
-      $dt->firstOfYear();
-      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
+      $dt = $this->copy()->firstOfYear()->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
-      if ($year !== $dt->year) {
+      if ($this->year !== $dt->year) {
          return false;
       }
 
