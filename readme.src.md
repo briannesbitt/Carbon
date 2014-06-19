@@ -474,13 +474,15 @@ Carbon::resetToStringFormat();
 {{format9::exec(echo $dt;/*pad(50)*/)}} // {{format9_eval}}
 ```
 
-Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
+Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` and `toLocalizedDateString()` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
 {{::lint(setlocale(LC_TIME, 'German');/*pad(50)*/)}}
-{{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
-{{::lint(setlocale(LC_TIME, '');/*pad(50)*/)}}
+{{format20::exec(echo $dt->toLocalizedDateString();/*pad(50)*/)}} // {{format20_eval}}
 {{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
+{{::lint(setlocale(LC_TIME, '');/*pad(50)*/)}}
+{{format22::exec(echo $dt->toLocalizedDateString();/*pad(50)*/)}} // {{format22_eval}}
+{{format23::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format23_eval}}
 ```
 
 <a name="api-commonformats"/>
