@@ -18,6 +18,8 @@ use InvalidArgumentException;
 /**
  * A simple API extension for DateTime
  *
+ * @property      integer $century
+ * @property      integer $decade
  * @property      integer $year
  * @property      integer $month
  * @property      integer $day
@@ -94,6 +96,8 @@ class Carbon extends DateTime
    /**
     * Number of X in Y
     */
+   const YEARS_PER_CENTURY  = 100;
+   const YEARS_PER_DECADE   = 10;
    const MONTHS_PER_YEAR    = 12;
    const WEEKS_PER_YEAR     = 52;
    const DAYS_PER_WEEK      = 7;
@@ -409,6 +413,12 @@ class Carbon extends DateTime
    public function __get($name)
    {
       switch ($name) {
+         case 'century':
+            return intval($this->year / self::YEARS_PER_CENTURY);
+
+         case 'decade':
+            return intval($this->year / self::YEARS_PER_DECADE);
+
          case 'year':
             return intval($this->format('Y'));
 
@@ -1219,6 +1229,96 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
+    * Add centuries to the instance. Positive $value travel forward while
+    * negative $value travel into the past.
+    *
+    * @param integer $value
+    *
+    * @return Carbon
+    */
+   public function addCenturies($value)
+   {
+      return $this->addYears($value * self::YEARS_PER_CENTURY);
+   }
+
+   /**
+    * Add a century to the instance
+    *
+    * @return Carbon
+    */
+   public function addCentury()
+   {
+      return $this->addCenturies(1);
+   }
+
+   /**
+    * Remove a century from the instance
+    *
+    * @return Carbon
+    */
+   public function subCentury()
+   {
+      return $this->addCenturies(-1);
+   }
+
+   /**
+    * Remove centuries from the instance.
+    *
+    * @param integer $value
+    *
+    * @return Carbon
+    */
+   public function subCenturies($value)
+   {
+      return $this->addCenturies(-1 * $value);
+   }
+   
+   /**
+    * Add decades to the instance. Positive $value travel forward while
+    * negative $value travel into the past.
+    *
+    * @param integer $value
+    *
+    * @return Carbon
+    */
+   public function addDecades($value)
+   {
+      return $this->addYears($value * self::YEARS_PER_DECADE);
+   }
+
+   /**
+    * Add a decade to the instance
+    *
+    * @return Carbon
+    */
+   public function addDecade()
+   {
+      return $this->addDecades(1);
+   }
+
+   /**
+    * Remove a decade from the instance
+    *
+    * @return Carbon
+    */
+   public function subDecade()
+   {
+      return $this->addDecades(-1);
+   }
+
+   /**
+    * Remove decades from the instance.
+    *
+    * @param integer $value
+    *
+    * @return Carbon
+    */
+   public function subDecades($value)
+   {
+      return $this->addDecades(-1 * $value);
+   }
+   
+   /**
     * Add years to the instance. Positive $value travel forward while
     * negative $value travel into the past.
     *
@@ -1583,6 +1683,36 @@ class Carbon extends DateTime
    ///////////////////////////////////////////////////////////////////
 
    /**
+    * Get the difference in centuries
+    *
+    * @param  Carbon  $dt
+    * @param  boolean $abs Get the absolute of the difference
+    *
+    * @return integer
+    */
+   public function diffInCenturies(Carbon $dt = null, $abs = true)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return intval($this->diffInYears($dt, $abs) / self::YEARS_PER_CENTURY);
+   }
+
+   /**
+    * Get the difference in decades
+    *
+    * @param  Carbon  $dt
+    * @param  boolean $abs Get the absolute of the difference
+    *
+    * @return integer
+    */
+   public function diffInDecades(Carbon $dt = null, $abs = true)
+   {
+      $dt = ($dt === null) ? static::now($this->tz) : $dt;
+
+      return intval($this->diffInYears($dt, $abs) / self::YEARS_PER_DECADE);
+   }
+
+   /**
     * Get the difference in years
     *
     * @param  Carbon  $dt
@@ -1823,7 +1953,7 @@ class Carbon extends DateTime
 	 */
 	public function startOfDecade()
 	{
-		return $this->startOfYear()->year($this->year - $this->year % 10);
+		return $this->startOfYear()->year($this->year - $this->year % self::YEARS_PER_DECADE);
 	}
 
 	/**
@@ -1833,7 +1963,7 @@ class Carbon extends DateTime
 	 */
 	public function endOfDecade()
 	{
-		return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
+		return $this->endOfYear()->year($this->year - $this->year % self::YEARS_PER_DECADE + self::YEARS_PER_DECADE - 1);
 	}
 
 
@@ -1844,7 +1974,7 @@ class Carbon extends DateTime
 	 */
 	public function startOfCentury()
 	{
-		return $this->startOfYear()->year($this->year - $this->year % 100);
+		return $this->startOfYear()->year($this->year - $this->year % self::YEARS_PER_CENTURY);
 	}
 
 	/**
@@ -1854,7 +1984,7 @@ class Carbon extends DateTime
 	 */
 	public function endOfCentury()
 	{
-		return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
+		return $this->endOfYear()->year($this->year - $this->year % self::YEARS_PER_CENTURY + self::YEARS_PER_CENTURY - 1);
 	}
 
    /**
