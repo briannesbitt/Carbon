@@ -1577,6 +1577,48 @@ class Carbon extends DateTime
    {
       return $this->addSeconds(-1 * $value);
    }
+   
+   /**
+     * Adds an amount of days, months, years, hours, minutes and seconds to a Date object.
+     *
+     * @param string|DateInterval $interval
+     * @return Carbon
+     */
+    public function add($interval)
+    {
+        if (is_string($interval)) {
+            // Check for ISO 8601
+            if (strtoupper(substr($interval, 0, 1)) == 'P') {
+                $interval = new DateInterval($interval);
+            }
+            else {
+                $interval = DateInterval::createFromDateString($interval);
+            }
+        }
+
+        return parent::add($interval);
+    }
+
+    /**
+     * Subtracts an amount of days, months, years, hours, minutes and seconds from a DateTime object.
+     *
+     * @param string|DateInterval $interval
+     * @return Carbon
+     */
+    public function sub($interval)
+    {
+        if (is_string($interval)) {
+            // Check for ISO 8601
+            if (strtoupper(substr($interval, 0, 1)) == 'P') {
+                $interval = new DateInterval($interval);
+            }
+            else {
+                $interval = DateInterval::createFromDateString($interval);
+            }
+        }
+
+        return parent::sub($interval);
+    }
 
    ///////////////////////////////////////////////////////////////////
    /////////////////////////// DIFFERENCES ///////////////////////////
