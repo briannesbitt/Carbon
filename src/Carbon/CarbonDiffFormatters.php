@@ -47,4 +47,46 @@ class CarbonDiffFormatters
          return $txt;
       };
    }
+   
+   /*
+    * French
+    * 
+    * @return Closure The formatter to use
+    */
+   public static function fr() 
+   {
+      return function ($isNow, $isFuture, $delta, $unit) {
+
+         switch($unit) {
+   		    case 'second':
+               $unit = $delta == 1 ? 'seconde' : 'secondes';
+               break;
+            case 'minute':
+   		    	$unit = $delta == 1 ? 'minute' : 'minutes';
+   		    	break;
+            case 'day':
+            	$unit = $delta == 1 ? 'jour' : 'jours';
+            	break;
+   		    case 'hour':
+   		    	$unit = $delta == 1 ? 'heure' : 'heures';
+   		    	break;
+   		    case 'week':
+   		    	$unit = $delta == 1 ? 'semaine' : 'semaines';
+   		    	break;
+   		    case 'month':
+   		    	$unit = 'mois';
+   		    	break;
+   		    case 'year':
+   		    	$unit = $delta == 1 ? 'an' : 'ans';
+   		    	break;
+   		 }
+
+   		 $txt = 'Il y a ' . $delta . ' ' . $unit;
+
+         return $txt;
+
+      };
+
+   }
+
 }
