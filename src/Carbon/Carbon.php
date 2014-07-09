@@ -166,7 +166,7 @@ class Carbon extends DateTime
       if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
          $testInstance = clone static::getTestNow();
          if (static::hasRelativeKeywords($time)) {
-   	     $testInstance->modify($time);
+            $testInstance->modify($time);
          }
 
          //shift the time according to the given time zone
@@ -1796,66 +1796,66 @@ class Carbon extends DateTime
       return $this->day($this->daysInMonth)->endOfDay();
    }
 
-	/**
-	 * Resets the date to the first day of the year and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
+    /**
+     * Resets the date to the first day of the year and the time to 00:00:00
+     *
+     * @return Carbon
+     */
    public function startOfYear()
    {
-	   return $this->month(1)->startOfMonth();
-	}
+       return $this->month(1)->startOfMonth();
+    }
 
-	/**
-	 * Resets the date to end of the year and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfYear()
-	{
-		return $this->month(self::MONTHS_PER_YEAR)->endOfMonth();
-	}
+    /**
+     * Resets the date to end of the year and time to 23:59:59
+     *
+     * @return Carbon
+     */
+    public function endOfYear()
+    {
+        return $this->month(self::MONTHS_PER_YEAR)->endOfMonth();
+    }
 
-	/**
-	 * Resets the date to the first day of the decade and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
-	public function startOfDecade()
-	{
-		return $this->startOfYear()->year($this->year - $this->year % 10);
-	}
+    /**
+     * Resets the date to the first day of the decade and the time to 00:00:00
+     *
+     * @return Carbon
+     */
+    public function startOfDecade()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % 10);
+    }
 
-	/**
-	 * Resets the date to end of the decade and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfDecade()
-	{
-		return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
-	}
+    /**
+     * Resets the date to end of the decade and time to 23:59:59
+     *
+     * @return Carbon
+     */
+    public function endOfDecade()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
+    }
 
 
-	/**
-	 * Resets the date to the first day of the century and the time to 00:00:00
-	 *
-	 * @return Carbon
-	 */
-	public function startOfCentury()
-	{
-		return $this->startOfYear()->year($this->year - $this->year % 100);
-	}
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return Carbon
+     */
+    public function startOfCentury()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % 100);
+    }
 
-	/**
-	 * Resets the date to end of the century and time to 23:59:59
-	 *
-	 * @return Carbon
-	 */
-	public function endOfCentury()
-	{
-		return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
-	}
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return Carbon
+     */
+    public function endOfCentury()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
+    }
 
    /**
     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
