@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-07-17 23:09:20
+echo $now;                               // 2014-07-17 23:36:17
 $today = Carbon::today();
 echo $today;                             // 2014-07-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-07-17 23:09:20
+echo Carbon::now();                                    // 2014-07-17 23:36:17
 ```
 
 A more meaning full example:
@@ -340,6 +340,7 @@ var_dump($dt->minute);                                       // int(26)
 var_dump($dt->second);                                       // int(11)
 var_dump($dt->dayOfWeek);                                    // int(3)
 var_dump($dt->dayOfYear);                                    // int(248)
+var_dump($dt->weekOfMonth);                                  // int(1)
 var_dump($dt->weekOfYear);                                   // int(36)
 var_dump($dt->daysInMonth);                                  // int(30)
 var_dump($dt->timestamp);                                    // int(1346901971)
@@ -542,7 +543,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-07-17 23:09:20
+echo $dt1->max();                                  // 2014-07-17 23:36:17
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
