@@ -411,40 +411,34 @@ class Carbon extends DateTime
    {
       switch ($name) {
          case 'year':
-            return intval($this->format('Y'));
-
          case 'month':
-            return intval($this->format('n'));
-
          case 'day':
-            return intval($this->format('j'));
-
          case 'hour':
-            return intval($this->format('G'));
-
          case 'minute':
-            return intval($this->format('i'));
-
          case 'second':
-            return intval($this->format('s'));
-
          case 'dayOfWeek':
-            return intval($this->format('w'));
-
          case 'dayOfYear':
-            return intval($this->format('z'));
+         case 'weekOfYear':
+         case 'daysInMonth':
+         case 'timestamp':
+            $formats = array(
+               'year'        => 'Y',
+               'month'       => 'n',
+               'day'         => 'j',
+               'hour'        => 'G',
+               'minute'      => 'i',
+               'second'      => 's',
+               'dayOfWeek'   => 'w',
+               'dayOfYear'   => 'z',
+               'weekOfYear'  => 'W',
+               'daysInMonth' => 't',
+               'timestamp'   => 'U',
+            );
+
+            return intval($this->format($formats[$name]));
 
          case 'weekOfMonth':
             return intval(floor(($this->day - 1) / 7)) + 1;
-
-         case 'weekOfYear':
-            return intval($this->format('W'));
-
-         case 'daysInMonth':
-            return intval($this->format('t'));
-
-         case 'timestamp':
-            return intval($this->format('U'));
 
          case 'age':
             return intval($this->diffInYears());
