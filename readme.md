@@ -105,7 +105,7 @@ printf("Now: %s", Carbon::now());
 <a name="install-nocomposer"/>
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
 
 ```php
 <?php
@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-01-06 22:52:03
+echo $now;                               // 2014-07-17 23:09:20
 $today = Carbon::today();
-echo $today;                             // 2014-01-06 00:00:00
+echo $today;                             // 2014-07-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-01-08 00:00:00
+echo $tomorrow;                          // 2014-07-19 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2014-01-05 00:00:00
+echo $yesterday;                         // 2014-07-16 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -261,7 +261,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-01-06 22:52:03
+echo Carbon::now();                                    // 2014-07-17 23:09:20
 ```
 
 A more meaning full example:
@@ -343,7 +343,7 @@ var_dump($dt->dayOfYear);                                    // int(248)
 var_dump($dt->weekOfYear);                                   // int(36)
 var_dump($dt->daysInMonth);                                  // int(30)
 var_dump($dt->timestamp);                                    // int(1346901971)
-var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(38) calculated vs now in the same tz
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(39) calculated vs now in the same tz
 var_dump($dt->quarter);                                      // int(3)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
@@ -363,7 +363,7 @@ var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
 
 // Indicates if the instance is in the UTC timezone
 var_dump(Carbon::now()->utc);                                // bool(false)
-var_dump(Carbon::now('Europe/London')->utc);                 // bool(true)
+var_dump(Carbon::now('Europe/London')->utc);                 // bool(false)
 var_dump(Carbon::createFromTimestampUTC(0)->utc);            // bool(true)
 
 // Gets the DateTimeZone instance
@@ -542,7 +542,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-01-06 22:52:03
+echo $dt1->max();                                  // 2014-07-17 23:09:20
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.

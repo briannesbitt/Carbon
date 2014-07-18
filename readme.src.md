@@ -109,7 +109,7 @@ use Carbon\Carbon;
 <a name="install-nocomposer"/>
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
 
 ```php
 <?php
@@ -477,9 +477,9 @@ Carbon::resetToStringFormat();
 Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
-{{::lint(setlocale(LC_TIME, 'German');/*pad(50)*/)}}
+{{::lint(setlocale(LC_TIME, 'German');)}}
 {{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
-{{::lint(setlocale(LC_TIME, '');/*pad(50)*/)}}
+{{::lint(setlocale(LC_TIME, '');)}}
 {{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
 ```
 
