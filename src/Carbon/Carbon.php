@@ -191,7 +191,7 @@ class Carbon extends DateTime
     *
     * @param  DateTime $dt
     *
-    * @return Carbon
+    * @return static
     */
    public static function instance(DateTime $dt)
    {
@@ -207,7 +207,7 @@ class Carbon extends DateTime
     * @param string              $time
     * @param DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function parse($time = null, $tz = null)
    {
@@ -219,7 +219,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function now($tz = null)
    {
@@ -231,7 +231,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function today($tz = null)
    {
@@ -243,7 +243,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function tomorrow($tz = null)
    {
@@ -255,7 +255,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function yesterday($tz = null)
    {
@@ -281,7 +281,7 @@ class Carbon extends DateTime
     * @param  integer             $second
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
    {
@@ -309,7 +309,7 @@ class Carbon extends DateTime
     * @param  integer             $day
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
    {
@@ -324,7 +324,7 @@ class Carbon extends DateTime
     * @param  integer             $second
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
    {
@@ -338,7 +338,7 @@ class Carbon extends DateTime
     * @param  string              $time
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     *
     * @throws InvalidArgumentException
     */
@@ -364,7 +364,7 @@ class Carbon extends DateTime
     * @param  integer             $timestamp
     * @param  DateTimeZone|string $tz
     *
-    * @return Carbon
+    * @return static
     */
    public static function createFromTimestamp($timestamp, $tz = null)
    {
@@ -376,7 +376,7 @@ class Carbon extends DateTime
     *
     * @param  integer $timestamp
     *
-    * @return Carbon
+    * @return static
     */
    public static function createFromTimestampUTC($timestamp)
    {
@@ -386,7 +386,7 @@ class Carbon extends DateTime
    /**
     * Get a copy of the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function copy()
    {
@@ -548,7 +548,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function year($value)
    {
@@ -562,7 +562,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function month($value)
    {
@@ -576,7 +576,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function day($value)
    {
@@ -592,7 +592,7 @@ class Carbon extends DateTime
     * @param  integer $month
     * @param  integer $day
     *
-    * @return Carbon
+    * @return static
     */
    public function setDate($year, $month, $day)
    {
@@ -604,7 +604,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function hour($value)
    {
@@ -618,7 +618,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function minute($value)
    {
@@ -632,7 +632,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function second($value)
    {
@@ -648,7 +648,7 @@ class Carbon extends DateTime
     * @param  integer  $minute
     * @param  integer  $second
     *
-    * @return Carbon
+    * @return static
     */
    public function setTime($hour, $minute, $second = 0)
    {
@@ -665,7 +665,7 @@ class Carbon extends DateTime
     * @param  integer $minute
     * @param  integer $second
     *
-    * @return Carbon
+    * @return static
     */
    public function setDateTime($year, $month, $day, $hour, $minute, $second)
    {
@@ -677,7 +677,7 @@ class Carbon extends DateTime
     *
     * @param  integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function timestamp($value)
    {
@@ -691,7 +691,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $value
     *
-    * @return Carbon
+    * @return static
     */
    public function timezone($value)
    {
@@ -703,7 +703,7 @@ class Carbon extends DateTime
     *
     * @param  DateTimeZone|string $value
     *
-    * @return Carbon
+    * @return static
     */
    public function tz($value)
    {
@@ -715,7 +715,7 @@ class Carbon extends DateTime
     *
     * @param DateTimeZone|string $value
     *
-    * @return Carbon
+    * @return static
     */
    public function setTimezone($value)
    {
@@ -753,7 +753,7 @@ class Carbon extends DateTime
     * Get the Carbon instance (real or mock) to be returned when a "now"
     * instance is created.
     *
-    * @return Carbon the current instance used for testing
+    * @return static the current instance used for testing
     */
    public static function getTestNow()
    {
@@ -1111,7 +1111,7 @@ class Carbon extends DateTime
     *
     * @param  Carbon $dt
     *
-    * @return Carbon
+    * @return static
     */
    public function min(Carbon $dt = null)
    {
@@ -1125,7 +1125,7 @@ class Carbon extends DateTime
     *
     * @param  Carbon $dt
     *
-    * @return Carbon
+    * @return static
     */
    public function max(Carbon $dt = null)
    {
@@ -1224,7 +1224,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addYears($value)
    {
@@ -1234,7 +1234,7 @@ class Carbon extends DateTime
    /**
     * Add a year to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addYear()
    {
@@ -1244,7 +1244,7 @@ class Carbon extends DateTime
    /**
     * Remove a year from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subYear()
    {
@@ -1256,7 +1256,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subYears($value)
    {
@@ -1269,7 +1269,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addMonths($value)
    {
@@ -1279,7 +1279,7 @@ class Carbon extends DateTime
    /**
     * Add a month to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addMonth()
    {
@@ -1289,7 +1289,7 @@ class Carbon extends DateTime
    /**
     * Remove a month from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subMonth()
    {
@@ -1301,7 +1301,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subMonths($value)
    {
@@ -1314,7 +1314,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addDays($value)
    {
@@ -1324,7 +1324,7 @@ class Carbon extends DateTime
    /**
     * Add a day to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addDay()
    {
@@ -1334,7 +1334,7 @@ class Carbon extends DateTime
    /**
     * Remove a day from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subDay()
    {
@@ -1346,7 +1346,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subDays($value)
    {
@@ -1359,7 +1359,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addWeekdays($value)
    {
@@ -1369,7 +1369,7 @@ class Carbon extends DateTime
    /**
     * Add a weekday to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addWeekday()
    {
@@ -1379,7 +1379,7 @@ class Carbon extends DateTime
    /**
     * Remove a weekday from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subWeekday()
    {
@@ -1391,7 +1391,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subWeekdays($value)
    {
@@ -1404,7 +1404,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addWeeks($value)
    {
@@ -1414,7 +1414,7 @@ class Carbon extends DateTime
    /**
     * Add a week to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addWeek()
    {
@@ -1424,7 +1424,7 @@ class Carbon extends DateTime
    /**
     * Remove a week from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subWeek()
    {
@@ -1436,7 +1436,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subWeeks($value)
    {
@@ -1449,7 +1449,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addHours($value)
    {
@@ -1459,7 +1459,7 @@ class Carbon extends DateTime
    /**
     * Add an hour to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addHour()
    {
@@ -1469,7 +1469,7 @@ class Carbon extends DateTime
    /**
     * Remove an hour from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subHour()
    {
@@ -1481,7 +1481,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subHours($value)
    {
@@ -1494,7 +1494,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addMinutes($value)
    {
@@ -1504,7 +1504,7 @@ class Carbon extends DateTime
    /**
     * Add a minute to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addMinute()
    {
@@ -1514,7 +1514,7 @@ class Carbon extends DateTime
    /**
     * Remove a minute from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subMinute()
    {
@@ -1526,7 +1526,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subMinutes($value)
    {
@@ -1539,7 +1539,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function addSeconds($value)
    {
@@ -1549,7 +1549,7 @@ class Carbon extends DateTime
    /**
     * Add a second to the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function addSecond()
    {
@@ -1559,7 +1559,7 @@ class Carbon extends DateTime
    /**
     * Remove a second from the instance
     *
-    * @return Carbon
+    * @return static
     */
    public function subSecond()
    {
@@ -1571,7 +1571,7 @@ class Carbon extends DateTime
     *
     * @param integer $value
     *
-    * @return Carbon
+    * @return static
     */
    public function subSeconds($value)
    {
@@ -1759,7 +1759,7 @@ class Carbon extends DateTime
    /**
     * Resets the time to 00:00:00
     *
-    * @return Carbon
+    * @return static
     */
    public function startOfDay()
    {
@@ -1769,7 +1769,7 @@ class Carbon extends DateTime
    /**
     * Resets the time to 23:59:59
     *
-    * @return Carbon
+    * @return static
     */
    public function endOfDay()
    {
@@ -1779,7 +1779,7 @@ class Carbon extends DateTime
    /**
     * Resets the date to the first day of the month and the time to 00:00:00
     *
-    * @return Carbon
+    * @return static
     */
    public function startOfMonth()
    {
@@ -1789,7 +1789,7 @@ class Carbon extends DateTime
    /**
     * Resets the date to end of the month and time to 23:59:59
     *
-    * @return Carbon
+    * @return static
     */
    public function endOfMonth()
    {
@@ -1799,7 +1799,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
      *
-     * @return Carbon
+     * @return static
      */
    public function startOfYear()
    {
@@ -1809,7 +1809,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to end of the year and time to 23:59:59
      *
-     * @return Carbon
+     * @return static
      */
     public function endOfYear()
     {
@@ -1819,7 +1819,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
      *
-     * @return Carbon
+     * @return static
      */
     public function startOfDecade()
     {
@@ -1829,7 +1829,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to end of the decade and time to 23:59:59
      *
-     * @return Carbon
+     * @return static
      */
     public function endOfDecade()
     {
@@ -1840,7 +1840,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
-     * @return Carbon
+     * @return static
      */
     public function startOfCentury()
     {
@@ -1850,7 +1850,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to end of the century and time to 23:59:59
      *
-     * @return Carbon
+     * @return static
      */
     public function endOfCentury()
     {
@@ -1860,7 +1860,7 @@ class Carbon extends DateTime
    /**
     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
     *
-    * @return Carbon
+    * @return static
     */
     public function startOfWeek()
     {
@@ -1872,7 +1872,7 @@ class Carbon extends DateTime
     /**
      * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
      *
-     * @return Carbon
+     * @return static
      */
     public function endOfWeek()
     {
@@ -2116,7 +2116,7 @@ class Carbon extends DateTime
    *
    * @param  Carbon  $dt
    *
-   * @return Carbon
+   * @return static
    */
    public function average(Carbon $dt = null)
    {
