@@ -186,6 +186,15 @@ class GettersTest extends TestFixture
    {
       $this->assertFalse(Carbon::createFromDate(2011, 1, 1)->isLeapYear());
    }
+   
+   public function testWeekOfMonth()
+   {
+      $this->assertSame(5, Carbon::createFromDate(2012, 9, 30)->weekOfMonth);
+      $this->assertSame(4, Carbon::createFromDate(2012, 9, 28)->weekOfMonth);
+      $this->assertSame(3, Carbon::createFromDate(2012, 9, 20)->weekOfMonth);
+      $this->assertSame(2, Carbon::createFromDate(2012, 9, 8)->weekOfMonth);
+      $this->assertSame(1, Carbon::createFromDate(2012, 9, 1)->weekOfMonth);
+   }
 
    public function testWeekOfYearFirstWeek()
    {

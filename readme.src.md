@@ -350,6 +350,7 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 {{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
+{{getwom::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{getwom_eval}}
 {{getwoy::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{getwoy_eval}}
 {{getdnm::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{getdnm_eval}}
 {{getts::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{getts_eval}}
