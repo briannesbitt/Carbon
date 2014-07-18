@@ -1201,7 +1201,7 @@ class Carbon extends DateTime
     */
    public function isPast()
    {
-      return $this->lt(self::now($this->tz));
+      return $this->lt(static::now($this->tz));
    }
 
    /**
