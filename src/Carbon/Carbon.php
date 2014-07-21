@@ -1978,9 +1978,9 @@ class Carbon extends DateTime
    */
    public function nthOfMonth($nth, $dayOfWeek)
    {
-      $dt    = $this->copy()->firstOfMonth();
+      $dt = $this->copy()->firstOfMonth();
       $check = $dt->format('Y-m');
-      $dt->modify('+'.$nth.' '.self::$days[$dayOfWeek]);
+      $dt->modify('+' . $nth . ' ' . self::$days[$dayOfWeek]);
 
       return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
    }
