@@ -1165,7 +1165,7 @@ class Carbon extends DateTime
     */
    public function isYesterday()
    {
-      return $this->toDateString() === static::now($this->tz)->subDay()->toDateString();
+      return $this->toDateString() === static::yesterday($this->tz)->toDateString();
    }
 
    /**
@@ -1185,7 +1185,7 @@ class Carbon extends DateTime
     */
    public function isTomorrow()
    {
-      return $this->toDateString() === static::now($this->tz)->addDay()->toDateString();
+      return $this->toDateString() === static::tomorrow($this->tz)->toDateString();
    }
 
    /**
