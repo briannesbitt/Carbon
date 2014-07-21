@@ -1719,7 +1719,7 @@ class Carbon extends DateTime
          'minute' => self::MINUTES_PER_HOUR,
          'hour'   => self::HOURS_PER_DAY,
          'day'    => self::DAYS_PER_WEEK,
-         'week'   => 4,
+         'week'   => 4.35,
          'month'  => self::MONTHS_PER_YEAR
       );
 
