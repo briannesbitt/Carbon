@@ -358,7 +358,7 @@ var_dump(Carbon::createFromTimestamp(0)->offsetHours);       // int(-5)
 var_dump(Carbon::createFromDate(2012, 1, 1)->dst);           // bool(false)
 var_dump(Carbon::createFromDate(2012, 9, 1)->dst);           // bool(true)
 
-// Indicates if the instance is in the same timezone as the local timzezone
+// Indicates if the instance is in the same timezone as the local timezone
 var_dump(Carbon::now()->local);                              // bool(true)
 var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
 
