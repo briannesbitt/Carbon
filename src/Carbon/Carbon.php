@@ -164,8 +164,9 @@ class Carbon extends DateTime
    {
       // If the class has a test now set and we are trying to create a now()
       // instance then override as required
-      if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
-         $testInstance = clone static::getTestNow();
+      $testNow = static::getTestNow();
+      if ($testNow && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
+         $testInstance = clone $testNow;
          if (static::hasRelativeKeywords($time)) {
             $testInstance->modify($time);
          }
