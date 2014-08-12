@@ -474,17 +474,17 @@ The following are wrappers for the common formats provided in the [DateTime clas
 ```php
 $dt = Carbon::now();
 
-echo $dt->toATOMString();        // same as $dt->format(DateTime::ATOM);
-echo $dt->toCOOKIEString();
-echo $dt->toISO8601String();
-echo $dt->toRFC822String();
-echo $dt->toRFC850String();
-echo $dt->toRFC1036String();
-echo $dt->toRFC1123String();
-echo $dt->toRFC2822String();
-echo $dt->toRFC3339String();
-echo $dt->toRSSString();
-echo $dt->toW3CString();
+echo $dt->toATOMString();        // 2014-08-12T17:12:30+00:00
+echo $dt->toCOOKIEString();      // Tuesday, 12-Aug-2014 17:12:30 UTC
+echo $dt->toISO8601String();     // 2014-08-12T17:12:30+0000
+echo $dt->toRFC822String();      // Tue, 12 Aug 14 17:12:30 +0000
+echo $dt->toRFC850String();      // Tuesday, 12-Aug-14 17:12:30 UTC
+echo $dt->toRFC1036String();     // Tue, 12 Aug 14 17:12:30 +0000
+echo $dt->toRFC1123String();     // Tue, 12 Aug 2014 17:12:30 +0000
+echo $dt->toRFC2822String();     // Tue, 12 Aug 2014 17:12:30 +0000
+echo $dt->toRFC3339String();     // 2014-08-12T17:12:30+00:00
+echo $dt->toRSSString();         // Tue, 12 Aug 2014 17:12:30 +0000
+echo $dt->toW3CString();         // 2014-08-12T17:12:30+00:00
 ```
 
 <a name="api-comparison"/>
