@@ -704,7 +704,7 @@ This method will add a phrase after the difference value relative to the instanc
 
 {{humandiff2::exec(echo Carbon::now()->diffForHumans(Carbon::now()->subYear());/*pad(62)*/)}} // {{humandiff2_eval}}
 
-{{::lint($dt = Carbon::createFromDate(2011, 2, 1);)}}
+{{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
 
 {{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(62)*/)}} // {{humandiff4_eval}}
 {{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(62)*/)}} // {{humandiff5_eval}}
