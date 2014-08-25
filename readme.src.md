@@ -368,7 +368,7 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 {{getdst::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{getdst_eval}}
 {{getdst2::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{getdst2_eval}}
 
-// Indicates if the instance is in the same timezone as the local timzezone
+// Indicates if the instance is in the same timezone as the local timezone
 {{getLocal::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{getLocal_eval}}
 {{getLocal2::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{getLocal2_eval}}
 
