@@ -264,6 +264,26 @@ class Carbon extends DateTime
    }
 
    /**
+    * Create a Carbon instance for the greatest supported date.
+    *
+    * @return Carbon
+    */
+   public static function maximal()
+   {
+      return static::createFromTimestamp(PHP_INT_MAX);
+   }
+
+   /**
+    * Create a Carbon instance for the lowest supported date.
+    *
+    * @return Carbon
+    */
+   public static function minimal()
+   {
+      return static::createFromTimestamp(~PHP_INT_MAX);
+   }
+
+   /**
     * Create a new Carbon instance from a specific date and time.
     *
     * If any of $year, $month or $day are set to null their now() values
