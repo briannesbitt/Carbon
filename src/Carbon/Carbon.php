@@ -458,7 +458,7 @@ class Carbon extends DateTime
             return intval($this->format($formats[$name]));
 
          case 'weekOfMonth':
-            return intval(floor(($this->day - 1) / 7)) + 1;
+            return intval(($this->day - 1) / self::DAYS_PER_WEEK) + 1;
 
          case 'age':
             return intval($this->diffInYears());
