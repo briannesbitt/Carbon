@@ -95,6 +95,8 @@ class Carbon extends DateTime
    /**
     * Number of X in Y
     */
+   const YEARS_PER_CENTURY  = 100;
+   const YEARS_PER_DECADE   = 10;
    const MONTHS_PER_YEAR    = 12;
    const WEEKS_PER_YEAR     = 52;
    const DAYS_PER_WEEK      = 7;
@@ -1865,7 +1867,7 @@ class Carbon extends DateTime
      */
     public function startOfDecade()
     {
-        return $this->startOfYear()->year($this->year - $this->year % 10);
+        return $this->startOfYear()->year($this->year - $this->year % self::YEARS_PER_DECADE);
     }
 
     /**
@@ -1875,7 +1877,7 @@ class Carbon extends DateTime
      */
     public function endOfDecade()
     {
-        return $this->endOfYear()->year($this->year - $this->year % 10 + 9);
+        return $this->endOfYear()->year($this->year - $this->year % self::YEARS_PER_DECADE + self::YEARS_PER_DECADE - 1);
     }
 
 
@@ -1886,7 +1888,7 @@ class Carbon extends DateTime
      */
     public function startOfCentury()
     {
-        return $this->startOfYear()->year($this->year - $this->year % 100);
+        return $this->startOfYear()->year($this->year - $this->year % self::YEARS_PER_CENTURY);
     }
 
     /**
@@ -1896,7 +1898,7 @@ class Carbon extends DateTime
      */
     public function endOfCentury()
     {
-        return $this->endOfYear()->year($this->year - $this->year % 100 + 99);
+        return $this->endOfYear()->year($this->year - $this->year % self::YEARS_PER_CENTURY + self::YEARS_PER_CENTURY - 1);
     }
 
    /**
