@@ -32,6 +32,8 @@ class TestFixture extends \PHPUnit_Framework_TestCase
 
    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
    {
+      $this->assertInstanceOf('Carbon\Carbon', $d);
+
       $this->assertSame($year, $d->year, 'Carbon->year');
       $this->assertSame($month, $d->month, 'Carbon->month');
       $this->assertSame($day, $d->day, 'Carbon->day');
