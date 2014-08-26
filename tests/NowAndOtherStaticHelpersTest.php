@@ -63,13 +63,12 @@ class NowAndOtherStaticHelpersTest extends TestFixture
       $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
    }
 
-   public function testMinimal()
+   public function testMinValue()
    {
-      $this->assertLessThanOrEqual(- 2147483647, Carbon::minimal()->getTimestamp());
+      $this->assertLessThanOrEqual(- 2147483647, Carbon::minValue()->getTimestamp());
    }
-
-   public function testMaximal()
+   public function testMaxValue()
    {
-      $this->assertGreaterThanOrEqual(2147483647, Carbon::maximal()->getTimestamp());
+      $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
    }
 }

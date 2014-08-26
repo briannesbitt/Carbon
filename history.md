@@ -1,6 +1,7 @@
-1.11.0 / 2014-08-XX
+1.11.0 / 2014-08-25
 ===================
 * Added isSameDay() (thanks @enkelmedia)
+* Added diffInWeeks(), maxValue() and minValue() (thanks @lucasmichot)
 * Improved accuracy of diffForHumans() by using 30/7 for weeks and moving the floor() call to outside the loop.  Fixed tests that just look better now as a result.
 * Improved readme with common formats example output (thanks @troyharvey)
 * Various internal refactors (thanks @lucasmichot)

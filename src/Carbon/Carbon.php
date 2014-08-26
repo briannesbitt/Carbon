@@ -268,7 +268,7 @@ class Carbon extends DateTime
     *
     * @return Carbon
     */
-   public static function maximal()
+   public static function maxValue()
    {
       return static::createFromTimestamp(PHP_INT_MAX);
    }
@@ -278,7 +278,7 @@ class Carbon extends DateTime
     *
     * @return Carbon
     */
-   public static function minimal()
+   public static function minValue()
    {
       return static::createFromTimestamp(~PHP_INT_MAX);
    }
