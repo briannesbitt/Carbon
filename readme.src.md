@@ -250,7 +250,7 @@ Finally, if you find yourself inheriting a `\DateTime` instance from another lib
 {{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
 ```
 
-Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make you decision simple:
+Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:
 
 ```php
 {{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
