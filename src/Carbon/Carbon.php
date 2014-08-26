@@ -1211,6 +1211,16 @@ class Carbon extends DateTime
    {
       return $this->format('L') == '1';
    }
+   
+   /**
+     * Checks if the passed days is the same as current day.
+     * @param Carbon $date
+     * @return boolean
+     */
+    public function isSameDay($date)
+    {
+    	return $this->toDateString() == $date->toDateString();
+    }
 
    ///////////////////////////////////////////////////////////////////
    /////////////////// ADDITIONS AND SUBSTRACTIONS ///////////////////
