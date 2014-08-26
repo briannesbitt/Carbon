@@ -1635,8 +1635,6 @@ class Carbon extends DateTime
     */
    public function diffInHours(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
       return intval($this->diffInMinutes($dt, $abs) / self::MINUTES_PER_HOUR);
    }
 
@@ -1650,8 +1648,6 @@ class Carbon extends DateTime
     */
    public function diffInMinutes(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
       return intval($this->diffInSeconds($dt, $abs) / self::SECONDS_PER_MINUTE);
    }
 
