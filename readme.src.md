@@ -579,6 +579,7 @@ $dt->isTomorrow();
 $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
+$dt->isSameDay(Carbon::now());
 )}}
 ```
 

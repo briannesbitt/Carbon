@@ -90,9 +90,29 @@ class IsTest extends TestFixture
    {
       $this->assertTrue(Carbon::now()->subSecond()->isPast());
    }
-   public function testIsPast()
+   public function testIsPastFalse()
    {
       $this->assertFalse(Carbon::now()->addSecond()->isPast());
       $this->assertFalse(Carbon::now()->isPast());
+   }
+
+   public function testIsLeapYearTrue()
+   {
+      $this->assertTrue(Carbon::createFromDate(2016, 1, 1)->isLeapYear());
+   }
+   public function testIsLeapYearFalse()
+   {
+      $this->assertFalse(Carbon::createFromDate(2014, 1, 1)->isLeapYear());
+   }
+
+   public function testIsSameDayTrue()
+   {
+      $current = Carbon::createFromDate(2012, 1, 2);
+      $this->assertTrue($current->isSameDay(Carbon::createFromDate(2012, 1, 2)));
+   }
+   public function testIsSameDayFalse()
+   {
+      $current = Carbon::createFromDate(2012, 1, 2);
+      $this->assertFalse($current->isSameDay(Carbon::createFromDate(2012, 1, 3)));
    }
 }
