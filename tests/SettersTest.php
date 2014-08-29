@@ -84,7 +84,6 @@ class SettersTest extends TestFixture
       $d = Carbon::now();
       $d->setTime(1, 1, 1);
       $this->assertSame(1, $d->second);
-
       $d->setTime(1, 1);
       $this->assertSame(0, $d->second);
    }
