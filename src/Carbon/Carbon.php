@@ -11,8 +11,11 @@
 
 namespace Carbon;
 
+use Closure;
 use DateTime;
 use DateTimeZone;
+use DateInterval;
+use DatePeriod;
 use InvalidArgumentException;
 
 /**
@@ -1670,6 +1673,69 @@ class Carbon extends DateTime
 
       return intval($this->diff($dt, $abs)->format('%r%a'));
    }
+
+    /**
+     * Get the difference in days using a filter closure
+     *
+     * @param  Closure  $callback
+     * @param  Carbon   $dt
+     * @param  boolean $abs Get the absolute of the difference
+     *
+     * @return  int
+     */
+    public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    {
+        $start = $this;
+        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $inverse = false;
+
+        if ($end < $start) {
+            $start = $end;
+            $end = $this;
+            $inverse = true;
+        }
+
+        $end->endOfDay(); // DatePeriod does not include the end date otherwise
+
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $days = array_filter(iterator_to_array($period), function(DateTime $date) use ($callback) {
+            return call_user_func($callback, Carbon::instance($date));
+        });
+
+        $diff = count($days);
+
+        return $inverse && !$abs ? -$diff : $diff;
+    }
+
+    /**
+     * Get the difference in weekdays
+     *
+     * @param   Carbon $dt
+     * @param  boolean $abs Get the absolute of the difference
+     *
+     * @return  int
+     */
+    public function diffInWeekdays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function(Carbon $date) {
+            return $date->isWeekday();
+        }, $dt, $abs);
+    }
+
+    /**
+     * Get the difference in weekend days using a filter
+     *
+     * @param   Carbon $dt
+     * @param  boolean $abs Get the absolute of the difference
+     *
+     * @return  int
+     */
+    public function diffInWeekendDays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function(Carbon $date) {
+            return $date->isWeekend();
+        }, $dt, $abs);
+    }
 
    /**
     * Get the difference in hours
