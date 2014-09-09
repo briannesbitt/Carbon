@@ -1,3 +1,7 @@
+1.12.0 / 2014-X-X
+===================
+* Fixed XofQuarter methods when moving to a month that doesn't have that day it jumps forward #168
+
 1.11.0 / 2014-08-25
 ===================
 * Added isSameDay() (thanks @enkelmedia)
