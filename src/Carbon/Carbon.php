@@ -693,7 +693,7 @@ class Carbon extends DateTime
     *
     * @return static
     */
-   public function setDateTime($year, $month, $day, $hour, $minute, $second)
+   public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
    {
       return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
    }
