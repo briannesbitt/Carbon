@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-09 21:28:36
+echo $now;                               // 2014-09-09 21:31:25
 $today = Carbon::today();
 echo $today;                             // 2014-09-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-09 21:28:36
+echo Carbon::now();                                    // 2014-09-09 21:31:25
 ```
 
 A more meaning full example:
@@ -560,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-09 21:28:36
+echo $dt1->max();                                  // 2014-09-09 21:31:25
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -662,6 +662,7 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(59));                  // 0
 echo $dt->diffInMinutes($dt->copy()->addSeconds(60));                  // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(119));                 // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
+```
 
 There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
 
