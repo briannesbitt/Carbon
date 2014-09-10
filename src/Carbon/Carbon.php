@@ -185,6 +185,11 @@ class Carbon extends DateTime
 
          $time = $testInstance->toDateTimeString();
       }
+      
+      // Allow timestamps
+      if (is_int($time)) {
+      	$time = "@$time";
+      }
 
       if ($tz !== null) {
          parent::__construct($time, static::safeCreateDateTimeZone($tz));
