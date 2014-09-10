@@ -696,7 +696,6 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 )}}
 
 {{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
-```
 
 // others that are defined
 // diffInYears(), diffInMonths(), diffInWeeks(), diffInDays(), diffInWeekdays(), diffInWeekendDays() 
