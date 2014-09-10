@@ -1660,8 +1660,6 @@ class Carbon extends DateTime
     */
    public function diffInWeeks(Carbon $dt = null, $abs = true)
    {
-      $dt = ($dt === null) ? static::now($this->tz) : $dt;
-
       return (int) ($this->diffInDays($dt, $abs) / self::DAYS_PER_WEEK);
    }
 
