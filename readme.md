@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-09 21:32:32
+echo $now;                               // 2014-09-09 21:33:29
 $today = Carbon::today();
 echo $today;                             // 2014-09-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-09 21:32:32
+echo Carbon::now();                                    // 2014-09-09 21:33:29
 ```
 
 A more meaning full example:
@@ -560,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-09 21:32:32
+echo $dt1->max();                                  // 2014-09-09 21:33:29
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -676,7 +676,8 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 echo $daysForExtraCoding;      // 104
 
 // others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks(), diffInDays(), diffInWeekdays(), diffInWeekendDays() 
+// diffInYears(), diffInMonths(), diffInWeeks()
+// diffInDays(), diffInWeekdays(), diffInWeekendDays() 
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
 
