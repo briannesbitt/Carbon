@@ -683,12 +683,23 @@ These functions always return the **total difference** expressed in the specifie
 {{diff16::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{diff16_eval}}
 {{diff17::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{diff17_eval}}
 
-// others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks(), diffInDays()
-// diffInHours(), diffInMinutes(), diffInSeconds()
-```
+There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
+
 ```php
-// Carbon::average(Carbon $dt = null)
+{{::lint(
+$dt = Carbon::create(2014, 1, 1);
+$dt2 = Carbon::create(2014, 12, 31);
+$daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
+   return $date->isWeekend();
+}, $dt2);
+)}}
+
+{{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
+```
+
+// others that are defined
+// diffInYears(), diffInMonths(), diffInWeeks(), diffInDays(), diffInWeekdays(), diffInWeekendDays() 
+// diffInHours(), diffInMinutes(), diffInSeconds()
 ```
 
 <a name="api-humandiff"/>
@@ -807,17 +818,23 @@ The only one slightly different is the `average()` function.  It moves your inst
 
 The following constants are defined in the Carbon class.
 
-* SUNDAY = 0
-* MONDAY = 1
-* TUESDAY = 2
-* WEDNESDAY = 3
-* THURSDAY = 4
-* FRIDAY = 5
-* SATURDAY = 6
-* MONTHS_PER_YEAR = 12
-* HOURS_PER_DAY = 24
-* MINUTES_PER_HOUR = 60
-* SECONDS_PER_MINUTE = 60
+// These getters specifically return integers, ie intval()
+{{constSunday::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{constSunday_eval}}
+{{constMonday::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{constMonday_eval}}
+{{constTuesday::exec(var_dump(Carbon::TUESDAY);/*pad(50)*/)}} // {{constTuesday_eval}}
+{{constWednesday::exec(var_dump(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{constWednesday_eval}}
+{{constThursday::exec(var_dump(Carbon::THURSDAY);/*pad(50)*/)}} // {{constThursday_eval}}
+{{constFriday::exec(var_dump(Carbon::FRIDAY);/*pad(50)*/)}} // {{constFriday_eval}}
+{{constSaturday::exec(var_dump(Carbon::SATURDAY);/*pad(50)*/)}} // {{constSaturday_eval}}
+
+{{constYearsPerCentury::exec(var_dump(Carbon::YEARS_PER_CENTURY);/*pad(50)*/)}} // {{constYearsPerCentury_eval}}
+{{constYearsPerDecade::exec(var_dump(Carbon::YEARS_PER_DECADE);/*pad(50)*/)}} // {{constYearsPerDecade_eval}}
+{{constMonthsPerYear::exec(var_dump(Carbon::MONTHS_PER_YEAR);/*pad(50)*/)}} // {{constMonthsPerYear_eval}}
+{{constWeeksPerYear::exec(var_dump(Carbon::WEEKS_PER_YEAR);/*pad(50)*/)}} // {{constWeeksPerYear_eval}}
+{{constDaysPerWeek::exec(var_dump(Carbon::DAYS_PER_WEEK);/*pad(50)*/)}} // {{constDaysPerWeek_eval}}
+{{constHoursPerDay::exec(var_dump(Carbon::HOURS_PER_DAY);/*pad(50)*/)}} // {{constHoursPerDay_eval}}
+{{constMinutesPerHour::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{constMinutesPerHour_eval}}
+{{constSecondsPerMinute::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{constSecondsPerMinute_eval}}
 
 ```php
 {{::lint(

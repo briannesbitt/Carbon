@@ -1684,7 +1684,7 @@ class Carbon extends DateTime
      *
      * @param  Closure  $callback
      * @param  Carbon   $dt
-     * @param  boolean $abs Get the absolute of the difference
+     * @param  boolean  $abs Get the absolute of the difference
      *
      * @return  int
      */
@@ -1715,7 +1715,7 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekdays
      *
-     * @param   Carbon $dt
+     * @param  Carbon  $dt
      * @param  boolean $abs Get the absolute of the difference
      *
      * @return  int
@@ -1730,7 +1730,7 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param   Carbon $dt
+     * @param  Carbon  $dt
      * @param  boolean $abs Get the absolute of the difference
      *
      * @return  int

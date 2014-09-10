@@ -177,11 +177,11 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-09 15:08:29
+echo $now;                               // 2014-09-09 21:28:36
 $today = Carbon::today();
 echo $today;                             // 2014-09-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-09-10 00:00:00
+echo $tomorrow;                          // 2014-09-11 00:00:00
 $yesterday = Carbon::yesterday();
 echo $yesterday;                         // 2014-09-08 00:00:00
 ```
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-09 15:08:29
+echo Carbon::now();                                    // 2014-09-09 21:28:36
 ```
 
 A more meaning full example:
@@ -560,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-09 15:08:29
+echo $dt1->max();                                  // 2014-09-09 21:28:36
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -663,12 +663,21 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(60));                  // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(119));                 // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 
-// others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks(), diffInDays()
-// diffInHours(), diffInMinutes(), diffInSeconds()
-```
+There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
+
 ```php
-// Carbon::average(Carbon $dt = null)
+$dt = Carbon::create(2014, 1, 1);
+$dt2 = Carbon::create(2014, 12, 31);
+$daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
+   return $date->isWeekend();
+}, $dt2);
+
+echo $daysForExtraCoding;      // 104
+```
+
+// others that are defined
+// diffInYears(), diffInMonths(), diffInWeeks(), diffInDays(), diffInWeekdays(), diffInWeekendDays() 
+// diffInHours(), diffInMinutes(), diffInSeconds()
 ```
 
 <a name="api-humandiff"/>
@@ -787,17 +796,23 @@ echo $start->average($end);                        // 2014-01-15 12:00:00
 
 The following constants are defined in the Carbon class.
 
-* SUNDAY = 0
-* MONDAY = 1
-* TUESDAY = 2
-* WEDNESDAY = 3
-* THURSDAY = 4
-* FRIDAY = 5
-* SATURDAY = 6
-* MONTHS_PER_YEAR = 12
-* HOURS_PER_DAY = 24
-* MINUTES_PER_HOUR = 60
-* SECONDS_PER_MINUTE = 60
+// These getters specifically return integers, ie intval()
+var_dump(Carbon::SUNDAY);                          // int(0)
+var_dump(Carbon::MONDAY);                          // int(1)
+var_dump(Carbon::TUESDAY);                         // int(2)
+var_dump(Carbon::WEDNESDAY);                       // int(3)
+var_dump(Carbon::THURSDAY);                        // int(4)
+var_dump(Carbon::FRIDAY);                          // int(5)
+var_dump(Carbon::SATURDAY);                        // int(6)
+
+var_dump(Carbon::YEARS_PER_CENTURY);               // int(100)
+var_dump(Carbon::YEARS_PER_DECADE);                // int(10)
+var_dump(Carbon::MONTHS_PER_YEAR);                 // int(12)
+var_dump(Carbon::WEEKS_PER_YEAR);                  // int(52)
+var_dump(Carbon::DAYS_PER_WEEK);                   // int(7)
+var_dump(Carbon::HOURS_PER_DAY);                   // int(24)
+var_dump(Carbon::MINUTES_PER_HOUR);                // int(60)
+var_dump(Carbon::SECONDS_PER_MINUTE);              // int(60)
 
 ```php
 $dt = Carbon::createFromDate(2012, 10, 6);
