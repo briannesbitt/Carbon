@@ -622,7 +622,8 @@ class Carbon extends DateTime
     */
    public function setDate($year, $month, $day)
    {
-      return $this->year($year)->month($month)->day($day);
+      parent::setDate($year, $month, $day);
+      return $this;
    }
 
    /**
@@ -678,7 +679,8 @@ class Carbon extends DateTime
     */
    public function setTime($hour, $minute, $second = 0)
    {
-      return $this->hour($hour)->minute($minute)->second($second);
+      parent::setTime($hour, $minute, $second);
+      return $this;
    }
 
    /**
