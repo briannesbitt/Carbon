@@ -193,7 +193,7 @@ class DiffTest extends TestFixture
         $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(0, $dt->diffInWeeks($dt->copy()->addWeek()->subDay()));
     }
-   
+
     public function testDiffInHoursPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);

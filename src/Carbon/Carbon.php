@@ -805,7 +805,8 @@ class Carbon extends DateTime
     *
     * @return boolean true if there is a keyword, otherwise false
     */
-   public static function hasRelativeKeywords($time) {
+   public static function hasRelativeKeywords($time)
+   {
       // skip common format with a '-' in it
       if (preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) === 1) {
          return false;
@@ -1239,7 +1240,7 @@ class Carbon extends DateTime
    {
       return $this->format('L') == '1';
    }
-   
+
    /**
     * Checks if the passed in date is the same day as the instance current day.
     *
