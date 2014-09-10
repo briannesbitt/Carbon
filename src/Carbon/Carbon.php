@@ -28,6 +28,7 @@ use InvalidArgumentException;
  * @property      integer $minute
  * @property      integer $second
  * @property      integer $timestamp seconds since the Unix Epoch
+ * @property-read integer $micro
  * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
  * @property-read integer $weekOfMonth 1 through 6
@@ -199,7 +200,7 @@ class Carbon extends DateTime
     */
    public static function instance(DateTime $dt)
    {
-      return new static($dt->format('Y-m-d H:i:s'), $dt->getTimeZone());
+      return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
    }
 
    /**
@@ -439,6 +440,7 @@ class Carbon extends DateTime
          case 'hour':
          case 'minute':
          case 'second':
+         case 'micro':
          case 'dayOfWeek':
          case 'dayOfYear':
          case 'weekOfYear':
@@ -451,6 +453,7 @@ class Carbon extends DateTime
                'hour'        => 'G',
                'minute'      => 'i',
                'second'      => 's',
+               'micro'       => 'u',
                'dayOfWeek'   => 'w',
                'dayOfYear'   => 'z',
                'weekOfYear'  => 'W',

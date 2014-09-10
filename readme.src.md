@@ -250,6 +250,14 @@ Finally, if you find yourself inheriting a `\DateTime` instance from another lib
 {{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
 ```
 
+A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the `format()` method.
+
+```php
+{{::lint($dt = Carbon::parse('1975-05-21 22:23:00.123456');)}}
+{{micro1::exec(echo $dt->micro;/*pad(54)*/)}} // {{micro1_eval}}
+{{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
+```
+
 Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:
 
 ```php
@@ -346,7 +354,7 @@ Be aware that similar to the next(), previous() and modify() methods some of the
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
 
 ```php
-{{::lint($dt = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
+{{::lint($dt = Carbon::parse('2012-9-5 23:26:11.123789');)}}
 
 // These getters specifically return integers, ie intval()
 {{getyear::exec(var_dump($dt->year);/*pad(60)*/)}} // {{getyear_eval}}
@@ -355,6 +363,7 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 {{gethour::exec(var_dump($dt->hour);/*pad(60)*/)}} // {{gethour_eval}}
 {{getminute::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{getminute_eval}}
 {{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
+{{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
 {{getwom::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{getwom_eval}}

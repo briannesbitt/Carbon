@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-08-25 23:18:33
+echo $now;                               // 2014-09-09 15:08:29
 $today = Carbon::today();
-echo $today;                             // 2014-08-25 00:00:00
+echo $today;                             // 2014-09-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-08-27 00:00:00
+echo $tomorrow;                          // 2014-09-10 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2014-08-24 00:00:00
+echo $yesterday;                         // 2014-09-08 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -242,6 +242,14 @@ echo get_class($carbon);                               // 'Carbon\Carbon'
 echo $carbon->toDateTimeString();                      // 2008-01-01 00:00:00
 ```
 
+A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the `format()` method.
+
+```php
+$dt = Carbon::parse('1975-05-21 22:23:00.123456');
+echo $dt->micro;                                       // 123456
+echo $dt->copy()->micro;                               // 123456
+```
+
 Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:
 
 ```php
@@ -268,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-08-25 23:18:33
+echo Carbon::now();                                    // 2014-09-09 15:08:29
 ```
 
 A more meaning full example:
@@ -336,7 +344,7 @@ Be aware that similar to the next(), previous() and modify() methods some of the
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
 
 ```php
-$dt = Carbon::create(2012, 9, 5, 23, 26, 11);
+$dt = Carbon::parse('2012-9-5 23:26:11.123789');
 
 // These getters specifically return integers, ie intval()
 var_dump($dt->year);                                         // int(2012)
@@ -345,6 +353,7 @@ var_dump($dt->day);                                          // int(5)
 var_dump($dt->hour);                                         // int(23)
 var_dump($dt->minute);                                       // int(26)
 var_dump($dt->second);                                       // int(11)
+var_dump($dt->micro);                                        // int(123789)
 var_dump($dt->dayOfWeek);                                    // int(3)
 var_dump($dt->dayOfYear);                                    // int(248)
 var_dump($dt->weekOfMonth);                                  // int(1)
@@ -551,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-08-25 23:18:33
+echo $dt1->max();                                  // 2014-09-09 15:08:29
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.

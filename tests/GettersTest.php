@@ -48,6 +48,17 @@ class GettersTest extends TestFixture
       $d = Carbon::create(1234, 5, 6, 7, 8, 9);
       $this->assertSame(9, $d->second);
    }
+   public function testMicroGetter()
+   {
+      $micro = 345678;
+      $d = Carbon::parse('2014-01-05 12:34:11.'.$micro);
+      $this->assertSame($micro, $d->micro);
+   }
+   public function testMicroGetterWithDefaultNow()
+   {
+      $d = Carbon::now();
+      $this->assertSame(0, $d->micro);
+   }
    public function testDayOfWeeGetter()
    {
       $d = Carbon::create(2012, 5, 7, 7, 8, 9);

@@ -1,6 +1,8 @@
 1.12.0 / 2014-X-X
 ===================
 * Fixed XofQuarter methods when moving to a month that doesn't have that day it jumps forward #168
+* Support for microseconds during instantiation and copy.  Be aware that microseconds are ignored for doing any of the math.
+* Microsecond getter.
 
 1.11.0 / 2014-08-25
 ===================
