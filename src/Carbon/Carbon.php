@@ -835,7 +835,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function formatLocalized($format = self::COOKIE)
+   public function formatLocalized($format)
    {
       // Check for Windows to find and replace the %e
       // modifier correctly
