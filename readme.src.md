@@ -109,7 +109,7 @@ use Carbon\Carbon;
 <a name="install-nocomposer"/>
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
 
 ```php
 <?php
@@ -250,6 +250,21 @@ Finally, if you find yourself inheriting a `\DateTime` instance from another lib
 {{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
 ```
 
+A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the `format()` method.
+
+```php
+{{::lint($dt = Carbon::parse('1975-05-21 22:23:00.123456');)}}
+{{micro1::exec(echo $dt->micro;/*pad(54)*/)}} // {{micro1_eval}}
+{{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
+```
+
+Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:
+
+```php
+{{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
+{{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
+```
+
 <a name="api-testing"/>
 ### Testing Aids
 
@@ -339,7 +354,7 @@ Be aware that similar to the next(), previous() and modify() methods some of the
 The getters are implemented via PHP's `__get()` method.  This enables you to access the value as if it was a property rather than a function call.
 
 ```php
-{{::lint($dt = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
+{{::lint($dt = Carbon::parse('2012-9-5 23:26:11.123789');)}}
 
 // These getters specifically return integers, ie intval()
 {{getyear::exec(var_dump($dt->year);/*pad(60)*/)}} // {{getyear_eval}}
@@ -348,8 +363,10 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 {{gethour::exec(var_dump($dt->hour);/*pad(60)*/)}} // {{gethour_eval}}
 {{getminute::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{getminute_eval}}
 {{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
+{{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
+{{getwom::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{getwom_eval}}
 {{getwoy::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{getwoy_eval}}
 {{getdnm::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{getdnm_eval}}
 {{getts::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{getts_eval}}
@@ -367,7 +384,7 @@ The getters are implemented via PHP's `__get()` method.  This enables you to acc
 {{getdst::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{getdst_eval}}
 {{getdst2::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{getdst2_eval}}
 
-// Indicates if the instance is in the same timezone as the local timzezone
+// Indicates if the instance is in the same timezone as the local timezone
 {{getLocal::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{getLocal_eval}}
 {{getLocal2::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{getLocal2_eval}}
 
@@ -477,9 +494,9 @@ Carbon::resetToStringFormat();
 Unfortunately the base class DateTime does not have any localization support.  To begin localization support a `formatLocalized($format)` method has been added.  The implementation makes a call to [strftime](http://www.php.net/strftime) using the current instance timestamp.  If you first set the current locale with [setlocale()](http://www.php.net/setlocale) then the string returned will be formatted in the correct locale.
 
 ```php
-{{::lint(setlocale(LC_TIME, 'German');/*pad(50)*/)}}
+{{::lint(setlocale(LC_TIME, 'German');)}}
 {{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
-{{::lint(setlocale(LC_TIME, '');/*pad(50)*/)}}
+{{::lint(setlocale(LC_TIME, '');)}}
 {{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
 ```
 
@@ -491,17 +508,18 @@ The following are wrappers for the common formats provided in the [DateTime clas
 ```php
 $dt = Carbon::now();
 
-echo $dt->toATOMString();        // same as $dt->format(DateTime::ATOM);
-echo $dt->toCOOKIEString();
-echo $dt->toISO8601String();
-echo $dt->toRFC822String();
-echo $dt->toRFC850String();
-echo $dt->toRFC1036String();
-echo $dt->toRFC1123String();
-echo $dt->toRFC2822String();
-echo $dt->toRFC3339String();
-echo $dt->toRSSString();
-echo $dt->toW3CString();
+// $dt->toATOMString() is the same as $dt->format(DateTime::ATOM);
+{{format22::exec(echo $dt->toATOMString();/*pad(30)*/)}} // {{format22_eval}}
+{{format23::exec(echo $dt->toCOOKIEString();/*pad(30)*/)}} // {{format23_eval}}
+{{format24::exec(echo $dt->toISO8601String();/*pad(30)*/)}} // {{format24_eval}}
+{{format25::exec(echo $dt->toRFC822String();/*pad(30)*/)}} // {{format25_eval}}
+{{format26::exec(echo $dt->toRFC850String();/*pad(30)*/)}} // {{format26_eval}}
+{{format27::exec(echo $dt->toRFC1036String();/*pad(30)*/)}} // {{format27_eval}}
+{{format28::exec(echo $dt->toRFC1123String();/*pad(30)*/)}} // {{format28_eval}}
+{{format29::exec(echo $dt->toRFC2822String();/*pad(30)*/)}} // {{format29_eval}}
+{{format30::exec(echo $dt->toRFC3339String();/*pad(30)*/)}} // {{format30_eval}}
+{{format31::exec(echo $dt->toRSSString();/*pad(30)*/)}} // {{format31_eval}}
+{{format32::exec(echo $dt->toW3CString();/*pad(30)*/)}} // {{format32_eval}}
 ```
 
 <a name="api-comparison"/>
@@ -577,6 +595,7 @@ $dt->isTomorrow();
 $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
+$dt->isSameDay(Carbon::now());
 )}}
 ```
 
@@ -663,13 +682,25 @@ These functions always return the **total difference** expressed in the specifie
 {{diff15::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(60));/*pad(70)*/)}} // {{diff15_eval}}
 {{diff16::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{diff16_eval}}
 {{diff17::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{diff17_eval}}
+```
+
+There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
+
+```php
+{{::lint(
+$dt = Carbon::create(2014, 1, 1);
+$dt2 = Carbon::create(2014, 12, 31);
+$daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
+   return $date->isWeekend();
+}, $dt2);
+)}}
+
+{{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
 
 // others that are defined
-// diffInYears(), diffInMonths(), diffInDays()
+// diffInYears(), diffInMonths(), diffInWeeks()
+// diffInDays(), diffInWeekdays(), diffInWeekendDays() 
 // diffInHours(), diffInMinutes(), diffInSeconds()
-```
-```php
-// Carbon::average(Carbon $dt = null)
 ```
 
 <a name="api-humandiff"/>
@@ -702,7 +733,7 @@ This method will add a phrase after the difference value relative to the instanc
 
 {{humandiff2::exec(echo Carbon::now()->diffForHumans(Carbon::now()->subYear());/*pad(62)*/)}} // {{humandiff2_eval}}
 
-{{::lint($dt = Carbon::createFromDate(2011, 2, 1);)}}
+{{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
 
 {{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(62)*/)}} // {{humandiff4_eval}}
 {{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(62)*/)}} // {{humandiff5_eval}}
@@ -788,17 +819,23 @@ The only one slightly different is the `average()` function.  It moves your inst
 
 The following constants are defined in the Carbon class.
 
-* SUNDAY = 0
-* MONDAY = 1
-* TUESDAY = 2
-* WEDNESDAY = 3
-* THURSDAY = 4
-* FRIDAY = 5
-* SATURDAY = 6
-* MONTHS_PER_YEAR = 12
-* HOURS_PER_DAY = 24
-* MINUTES_PER_HOUR = 60
-* SECONDS_PER_MINUTE = 60
+// These getters specifically return integers, ie intval()
+{{constSunday::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{constSunday_eval}}
+{{constMonday::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{constMonday_eval}}
+{{constTuesday::exec(var_dump(Carbon::TUESDAY);/*pad(50)*/)}} // {{constTuesday_eval}}
+{{constWednesday::exec(var_dump(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{constWednesday_eval}}
+{{constThursday::exec(var_dump(Carbon::THURSDAY);/*pad(50)*/)}} // {{constThursday_eval}}
+{{constFriday::exec(var_dump(Carbon::FRIDAY);/*pad(50)*/)}} // {{constFriday_eval}}
+{{constSaturday::exec(var_dump(Carbon::SATURDAY);/*pad(50)*/)}} // {{constSaturday_eval}}
+
+{{constYearsPerCentury::exec(var_dump(Carbon::YEARS_PER_CENTURY);/*pad(50)*/)}} // {{constYearsPerCentury_eval}}
+{{constYearsPerDecade::exec(var_dump(Carbon::YEARS_PER_DECADE);/*pad(50)*/)}} // {{constYearsPerDecade_eval}}
+{{constMonthsPerYear::exec(var_dump(Carbon::MONTHS_PER_YEAR);/*pad(50)*/)}} // {{constMonthsPerYear_eval}}
+{{constWeeksPerYear::exec(var_dump(Carbon::WEEKS_PER_YEAR);/*pad(50)*/)}} // {{constWeeksPerYear_eval}}
+{{constDaysPerWeek::exec(var_dump(Carbon::DAYS_PER_WEEK);/*pad(50)*/)}} // {{constDaysPerWeek_eval}}
+{{constHoursPerDay::exec(var_dump(Carbon::HOURS_PER_DAY);/*pad(50)*/)}} // {{constHoursPerDay_eval}}
+{{constMinutesPerHour::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{constMinutesPerHour_eval}}
+{{constSecondsPerMinute::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{constSecondsPerMinute_eval}}
 
 ```php
 {{::lint(
