@@ -25,7 +25,8 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1980, 8, 4, 0, 0, 0);
    }
 
-   public function testStartOfWeekCrossingYearBoundary() {
+   public function testStartOfWeekCrossingYearBoundary()
+   {
       $d = Carbon::createFromDate(2013, 12, 31, 'GMT');
       $d->startOfWeek();
       $this->assertCarbon($d, 2013, 12, 30, 0, 0, 0);
@@ -43,7 +44,8 @@ class DayOfWeekModifiersTest extends TestFixture
        $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
    }
 
-   public function testEndOfWeekCrossingYearBoundary() {
+   public function testEndOfWeekCrossingYearBoundary()
+   {
       $d = Carbon::createFromDate(2013, 12, 31, 'GMT');
       $d->endOfWeek();
       $this->assertCarbon($d, 2014, 1, 5, 23, 59, 59);
@@ -166,11 +168,17 @@ class DayOfWeekModifiersTest extends TestFixture
       $d = Carbon::createFromDate(1975, 11, 21)->firstOfQuarter(Carbon::WEDNESDAY);
       $this->assertCarbon($d, 1975, 10, 1, 0, 0, 0);
    }
-
+   
    public function testFirstFridayOfQuarter()
    {
       $d = Carbon::createFromDate(1975, 11, 21)->firstOfQuarter(5);
       $this->assertCarbon($d, 1975, 10, 3, 0, 0, 0);
+   }
+   
+   public function testFirstOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+   {
+      $d = Carbon::createFromDate(2014, 5, 31)->firstOfQuarter();
+      $this->assertCarbon($d, 2014, 4, 1, 0, 0, 0);
    }
 
    public function testLastDayOfQuarter()
@@ -191,6 +199,12 @@ class DayOfWeekModifiersTest extends TestFixture
       $this->assertCarbon($d, 1975, 9, 26, 0, 0, 0);
    }
 
+   public function testLastOfQuarterFromADayThatWillNotExistIntheLastMonth()
+   {
+      $d = Carbon::createFromDate(2014, 5, 31)->lastOfQuarter();
+      $this->assertCarbon($d, 2014, 6, 30, 0, 0, 0);
+   }
+
    public function testNthOfQuarterOutsideScope()
    {
       $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(20, Carbon::MONDAY));
@@ -199,6 +213,12 @@ class DayOfWeekModifiersTest extends TestFixture
    public function testNthOfQuarterOutsideYear()
    {
       $this->assertFalse(Carbon::createFromDate(1975, 1, 5)->nthOfQuarter(55, Carbon::MONDAY));
+   }
+
+   public function testNthOfQuarterFromADayThatWillNotExistIntheFirstMonth()
+   {
+      $d = Carbon::createFromDate(2014, 5, 31)->nthOfQuarter(2, Carbon::MONDAY);
+      $this->assertCarbon($d, 2014, 4, 14, 0, 0, 0);
    }
 
    public function test2ndMondayOfQuarter()
