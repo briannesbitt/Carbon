@@ -1804,10 +1804,11 @@ class Carbon extends DateTime
     * 5 months after
     *
     * @param  Carbon  $other
+    * @param  boolean $suffix Include the suffix ('ago', 'from now', 'before', 'after')
     *
     * @return string
     */
-   public function diffForHumans(Carbon $other = null)
+   public function diffForHumans(Carbon $other = null, $suffix = true)
    {
       $isNow = $other === null;
 
@@ -1848,6 +1849,10 @@ class Carbon extends DateTime
 
       $txt = $delta . ' ' . $unit;
       $txt .= $delta == 1 ? '' : 's';
+
+      if(!$suffix) {
+      	return $txt;
+      }
 
       if ($isNow) {
          if ($isFuture) {
