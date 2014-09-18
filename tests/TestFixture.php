@@ -15,37 +15,37 @@ use Carbon\Carbon;
 
 class TestFixture extends \PHPUnit_Framework_TestCase
 {
-   private $saveTz;
+    private $saveTz;
 
-   protected function setUp()
-   {
-      //save current timezone
-      $this->saveTz = date_default_timezone_get();
+    protected function setUp()
+    {
+        //save current timezone
+        $this->saveTz = date_default_timezone_get();
 
-      date_default_timezone_set('America/Toronto');
-   }
+        date_default_timezone_set('America/Toronto');
+    }
 
-   protected function tearDown()
-   {
-      date_default_timezone_set($this->saveTz);
-   }
+    protected function tearDown()
+    {
+        date_default_timezone_set($this->saveTz);
+    }
 
-   protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
-   {
-      $this->assertSame($year, $d->year, 'Carbon->year');
-      $this->assertSame($month, $d->month, 'Carbon->month');
-      $this->assertSame($day, $d->day, 'Carbon->day');
+    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    {
+        $this->assertSame($year, $d->year, 'Carbon->year');
+        $this->assertSame($month, $d->month, 'Carbon->month');
+        $this->assertSame($day, $d->day, 'Carbon->day');
 
-      if ($hour !== null) {
-         $this->assertSame($hour, $d->hour, 'Carbon->hour');
-      }
+        if ($hour !== null) {
+            $this->assertSame($hour, $d->hour, 'Carbon->hour');
+        }
 
-      if ($minute !== null) {
-         $this->assertSame($minute, $d->minute, 'Carbon->minute');
-      }
+        if ($minute !== null) {
+            $this->assertSame($minute, $d->minute, 'Carbon->minute');
+        }
 
-      if ($second !== null) {
-         $this->assertSame($second, $d->second, 'Carbon->second');
-      }
-   }
+        if ($second !== null) {
+            $this->assertSame($second, $d->second, 'Carbon->second');
+        }
+    }
 }
