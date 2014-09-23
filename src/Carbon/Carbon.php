@@ -811,11 +811,11 @@ class Carbon extends DateTime
    {
       // skip common format with a '-' in it
       if (preg_match('/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/', $time) !== 1) {
-	     foreach(static::$relativeKeywords as $keyword) {
-		    if (stripos($time, $keyword) !== false) {
-			   return true;
-		    }
-	     }
+         foreach (static::$relativeKeywords as $keyword) {
+            if (stripos($time, $keyword) !== false) {
+               return true;
+            }
+         }
       }
 
       return false;
