@@ -1691,26 +1691,17 @@ class Carbon extends DateTime
      */
     public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
     {
-        $start = $this;
-        $end = ($dt === null) ? static::now($this->tz) : $dt;
-        $inverse = false;
+        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $start = $this->copy();
 
-        if ($end < $start) {
-            $start = $end;
-            $end = $this;
-            $inverse = true;
-        }
+        if ($inverse = $start->gt($dt) && $start = $dt) $dt = $this->copy();
 
-        $end->endOfDay(); // DatePeriod does not include the end date otherwise
+        // DatePeriod does not include the end date if it's not set to end of day
+        $period = new DatePeriod($start, new DateInterval('P1D'), $dt->endOfDay());
 
-        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-        $days = array_filter(iterator_to_array($period), function(DateTime $date) use ($callback) {
+        return count(array_filter(iterator_to_array($period), function(DateTime $date) use ($callback) {
             return call_user_func($callback, Carbon::instance($date));
-        });
-
-        $diff = count($days);
-
-        return $inverse && !$abs ? -$diff : $diff;
+        })) * ($inverse && !$abs ? -1 : 1);
     }
 
     /**
