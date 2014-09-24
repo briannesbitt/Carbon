@@ -86,10 +86,10 @@ class StringsTest extends TestFixture
       $this->assertSame('Thu, Dec 25, 1975 2:15 PM', $d->toDayDateTimeString());
    }
 
-   public function testToATOMString()
+   public function testToAtomString()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toATOMString());
+      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toAtomString());
    }
    public function testToCOOKIEString()
    {
@@ -101,49 +101,49 @@ class StringsTest extends TestFixture
 
       $this->assertSame($cookieString, $d->toCOOKIEString());
    }
-   public function testToISO8601String()
+   public function testToIso8601String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('1975-12-25T14:15:16-0500', $d->toISO8601String());
+      $this->assertSame('1975-12-25T14:15:16-0500', $d->toIso8601String());
    }
    public function testToRC822String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRFC822String());
+      $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc822String());
    }
-   public function testToRFC850String()
+   public function testToRfc850String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toRFC850String());
+      $this->assertSame('Thursday, 25-Dec-75 14:15:16 EST', $d->toRfc850String());
    }
-   public function testToRFC1036String()
+   public function testToRfc1036String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRFC1036String());
+      $this->assertSame('Thu, 25 Dec 75 14:15:16 -0500', $d->toRfc1036String());
    }
-   public function testToRFC1123String()
+   public function testToRfc1123String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRFC1123String());
+      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
    }
-   public function testToRFC2822String()
+   public function testToRfc2822String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRFC2822String());
+      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc2822String());
    }
-   public function testToRFC3339String()
+   public function testToRfc3339String()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRFC3339String());
+      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toRfc3339String());
    }
-   public function testToRSSString()
+   public function testToRssString()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRSSString());
+      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRssString());
    }
-   public function testToW3CString()
+   public function testToW3cString()
    {
       $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3CString());
+      $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
    }
 }
