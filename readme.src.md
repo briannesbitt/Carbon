@@ -14,7 +14,7 @@ $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
 $nextSummerOlympics = Carbon::createFromDate(2012)->addYears(4);
 
-$officialDate = Carbon::now()->toRFC2822String();
+$officialDate = Carbon::now()->toRfc2822String();
 
 $howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
 
@@ -508,18 +508,18 @@ The following are wrappers for the common formats provided in the [DateTime clas
 ```php
 $dt = Carbon::now();
 
-// $dt->toATOMString() is the same as $dt->format(DateTime::ATOM);
-{{format22::exec(echo $dt->toATOMString();/*pad(30)*/)}} // {{format22_eval}}
-{{format23::exec(echo $dt->toCOOKIEString();/*pad(30)*/)}} // {{format23_eval}}
-{{format24::exec(echo $dt->toISO8601String();/*pad(30)*/)}} // {{format24_eval}}
-{{format25::exec(echo $dt->toRFC822String();/*pad(30)*/)}} // {{format25_eval}}
-{{format26::exec(echo $dt->toRFC850String();/*pad(30)*/)}} // {{format26_eval}}
-{{format27::exec(echo $dt->toRFC1036String();/*pad(30)*/)}} // {{format27_eval}}
-{{format28::exec(echo $dt->toRFC1123String();/*pad(30)*/)}} // {{format28_eval}}
-{{format29::exec(echo $dt->toRFC2822String();/*pad(30)*/)}} // {{format29_eval}}
-{{format30::exec(echo $dt->toRFC3339String();/*pad(30)*/)}} // {{format30_eval}}
-{{format31::exec(echo $dt->toRSSString();/*pad(30)*/)}} // {{format31_eval}}
-{{format32::exec(echo $dt->toW3CString();/*pad(30)*/)}} // {{format32_eval}}
+// $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
+{{format22::exec(echo $dt->toAtomString();/*pad(30)*/)}} // {{format22_eval}}
+{{format23::exec(echo $dt->toCookieString();/*pad(30)*/)}} // {{format23_eval}}
+{{format24::exec(echo $dt->toIso8601String();/*pad(30)*/)}} // {{format24_eval}}
+{{format25::exec(echo $dt->toRfc822String();/*pad(30)*/)}} // {{format25_eval}}
+{{format26::exec(echo $dt->toRfc850String();/*pad(30)*/)}} // {{format26_eval}}
+{{format27::exec(echo $dt->toRfc1036String();/*pad(30)*/)}} // {{format27_eval}}
+{{format28::exec(echo $dt->toRfc1123String();/*pad(30)*/)}} // {{format28_eval}}
+{{format29::exec(echo $dt->toRfc2822String();/*pad(30)*/)}} // {{format29_eval}}
+{{format30::exec(echo $dt->toRfc3339String();/*pad(30)*/)}} // {{format30_eval}}
+{{format31::exec(echo $dt->toRssString();/*pad(30)*/)}} // {{format31_eval}}
+{{format32::exec(echo $dt->toW3cString();/*pad(30)*/)}} // {{format32_eval}}
 ```
 
 <a name="api-comparison"/>
@@ -699,7 +699,7 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 
 // others that are defined
 // diffInYears(), diffInMonths(), diffInWeeks()
-// diffInDays(), diffInWeekdays(), diffInWeekendDays() 
+// diffInDays(), diffInWeekdays(), diffInWeekendDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
 

@@ -928,7 +928,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toATOMString()
+   public function toAtomString()
    {
       return $this->format(self::ATOM);
    }
@@ -938,7 +938,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toCOOKIEString()
+   public function toCookieString()
    {
       return $this->format(self::COOKIE);
    }
@@ -948,7 +948,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toISO8601String()
+   public function toIso8601String()
    {
       return $this->format(self::ISO8601);
    }
@@ -958,7 +958,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC822String()
+   public function toRfc822String()
    {
       return $this->format(self::RFC822);
    }
@@ -968,7 +968,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC850String()
+   public function toRfc850String()
    {
       return $this->format(self::RFC850);
    }
@@ -978,7 +978,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC1036String()
+   public function toRfc1036String()
    {
       return $this->format(self::RFC1036);
    }
@@ -988,7 +988,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC1123String()
+   public function toRfc1123String()
    {
       return $this->format(self::RFC1123);
    }
@@ -998,7 +998,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC2822String()
+   public function toRfc2822String()
    {
       return $this->format(self::RFC2822);
    }
@@ -1008,7 +1008,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRFC3339String()
+   public function toRfc3339String()
    {
       return $this->format(self::RFC3339);
    }
@@ -1018,7 +1018,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toRSSString()
+   public function toRssString()
    {
       return $this->format(self::RSS);
    }
@@ -1028,7 +1028,7 @@ class Carbon extends DateTime
     *
     * @return string
     */
-   public function toW3CString()
+   public function toW3cString()
    {
       return $this->format(self::W3C);
    }
