@@ -276,4 +276,11 @@ class GettersTest extends TestFixture
         $d = Carbon::now();
         $bb = $d->doesNotExit;
     }
+
+    public function testJsonSerialize()
+    {
+        $dt = Carbon::create(2000, 1, 1, 12, 59, 59, 'America/Toronto');
+        $json = '{"year":2000,"month":1,"day":1,"hour":12,"minute":59,"second":59,"tz":"America\/Toronto"}';
+        $this->assertSame($json, json_encode($dt));
+    }
 }

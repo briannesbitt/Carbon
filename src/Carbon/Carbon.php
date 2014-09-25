@@ -16,6 +16,7 @@ use DateTime;
 use DateTimeZone;
 use DateInterval;
 use DatePeriod;
+use JsonSerializable;
 use InvalidArgumentException;
 
 /**
@@ -50,7 +51,7 @@ use InvalidArgumentException;
  * @property-write DateTimeZone|string $tz alias of timezone
  *
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements JsonSerializable
 {
     /**
      * The day constants
@@ -2208,6 +2209,24 @@ class Carbon extends DateTime
      */
     public function isBirthday(Carbon $dt)
     {
-        return $this->month === $dt->month && $this->day === $dt->day;
+	    return $this->month === $dt->month && $this->day === $dt->day;
+    }
+
+    /**
+     * Serialize the current instance to JSON.
+     *
+     * @return string
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'tz' => $this->tzName,
+        );
     }
 }
