@@ -13,7 +13,7 @@ $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
 $nextSummerOlympics = Carbon::createFromDate(2012)->addYears(4);
 
-$officialDate = Carbon::now()->toRFC2822String();
+$officialDate = Carbon::now()->toRfc2822String();
 
 $howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
 
@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-09 21:33:29
+echo $now;                               // 2014-09-24 23:55:55
 $today = Carbon::today();
-echo $today;                             // 2014-09-09 00:00:00
+echo $today;                             // 2014-09-24 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-09-11 00:00:00
+echo $tomorrow;                          // 2014-09-26 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2014-09-08 00:00:00
+echo $yesterday;                         // 2014-09-23 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-09 21:33:29
+echo Carbon::now();                                    // 2014-09-24 23:55:55
 ```
 
 A more meaning full example:
@@ -490,18 +490,18 @@ The following are wrappers for the common formats provided in the [DateTime clas
 ```php
 $dt = Carbon::now();
 
-// $dt->toATOMString() is the same as $dt->format(DateTime::ATOM);
-echo $dt->toATOMString();      // 1975-12-25T14:15:16-05:00
-echo $dt->toCOOKIEString();    // Thursday, 25-Dec-75 14:15:16 EST
-echo $dt->toISO8601String();   // 1975-12-25T14:15:16-0500
-echo $dt->toRFC822String();    // Thu, 25 Dec 75 14:15:16 -0500
-echo $dt->toRFC850String();    // Thursday, 25-Dec-75 14:15:16 EST
-echo $dt->toRFC1036String();   // Thu, 25 Dec 75 14:15:16 -0500
-echo $dt->toRFC1123String();   // Thu, 25 Dec 1975 14:15:16 -0500
-echo $dt->toRFC2822String();   // Thu, 25 Dec 1975 14:15:16 -0500
-echo $dt->toRFC3339String();   // 1975-12-25T14:15:16-05:00
-echo $dt->toRSSString();       // Thu, 25 Dec 1975 14:15:16 -0500
-echo $dt->toW3CString();       // 1975-12-25T14:15:16-05:00
+// $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
+echo $dt->toAtomString();      // 1975-12-25T14:15:16-05:00
+echo $dt->toCookieString();    // Thursday, 25-Dec-1975 14:15:16 EST
+echo $dt->toIso8601String();   // 1975-12-25T14:15:16-0500
+echo $dt->toRfc822String();    // Thu, 25 Dec 75 14:15:16 -0500
+echo $dt->toRfc850String();    // Thursday, 25-Dec-75 14:15:16 EST
+echo $dt->toRfc1036String();   // Thu, 25 Dec 75 14:15:16 -0500
+echo $dt->toRfc1123String();   // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toRfc2822String();   // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toRfc3339String();   // 1975-12-25T14:15:16-05:00
+echo $dt->toRssString();       // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toW3cString();       // 1975-12-25T14:15:16-05:00
 ```
 
 <a name="api-comparison"/>
@@ -560,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-09 21:33:29
+echo $dt1->max();                                  // 2014-09-24 23:55:55
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -677,7 +677,7 @@ echo $daysForExtraCoding;      // 104
 
 // others that are defined
 // diffInYears(), diffInMonths(), diffInWeeks()
-// diffInDays(), diffInWeekdays(), diffInWeekendDays() 
+// diffInDays(), diffInWeekdays(), diffInWeekendDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
 ```
 

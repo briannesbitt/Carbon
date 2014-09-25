@@ -1,3 +1,8 @@
+1.13.0 / 2014-XX-XX
+===================
+* Removed default param from formatLocalized() (thanks @vlakoff)
+* Various refactorings (thanks @lucasmichot @euromark)
+
 1.12.0 / 2014-09-09
 ===================
 * Add new functions diffInDaysFiltered(), diffInWeekdays() and diffInWeekendDays() (thanks @m4tthumphrey)
