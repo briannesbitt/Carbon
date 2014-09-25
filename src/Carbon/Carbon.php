@@ -1807,15 +1807,11 @@ class Carbon extends DateTime
     */
    public function diffForHumans(Carbon $other = null)
    {
-      $isNow = $other === null;
-
-      if ($isNow) {
-         $other = static::now($this->tz);
-      }
+      if ($isNow = $other === null) $other = static::now($this->tz);
 
       $isFuture = $this->gt($other);
 
-      $delta = $other->diffInSeconds($this);
+      $delta = $this->diffInSeconds($other);
 
       // a little weeks per month, 365 days per year... good enough!!
       $divs = array(
@@ -1830,34 +1826,22 @@ class Carbon extends DateTime
       $unit = 'year';
 
       foreach ($divs as $divUnit => $divValue) {
-         if ($delta < $divValue) {
-            $unit = $divUnit;
+         if ($delta < $divValue && $unit = $divUnit) {
             break;
          }
 
-         $delta = $delta / $divValue;
+         $delta /= $divValue;
       }
 
-      $delta = (int) $delta;
-
-      if ($delta == 0) {
-         $delta = 1;
-      }
-
-      $txt = $delta . ' ' . $unit;
-      $txt .= $delta == 1 ? '' : 's';
+      $txt = ($delta = (int) max($delta, 1)) . ' ' . $unit . ($delta == 1 ? '' : 's');
 
       if ($isNow) {
-         if ($isFuture) {
-            return $txt . ' from now';
-         }
+         if ($isFuture) return $txt . ' from now';
 
          return $txt . ' ago';
       }
 
-      if ($isFuture) {
-         return $txt . ' after';
-      }
+      if ($isFuture)  return $txt . ' after';
 
       return $txt . ' before';
    }
