@@ -707,4 +707,100 @@ class DiffTest extends TestFixture
         $d = Carbon::now()->subYears(2);
         $this->assertSame('2 years after', Carbon::now()->diffForHumans($d));
     }
+
+    public function testElapsedForHumansNowAndSecond()
+    {
+        $d = Carbon::now();
+        $this->assertSame('1 second', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndSecondWithTimezone()
+    {
+        $d = Carbon::now('America/Vancouver');
+        $this->assertSame('1 second', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndSeconds()
+    {
+        $d = Carbon::now()->subSeconds(2);
+        $this->assertSame('2 seconds', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndNearlyMinute()
+    {
+        $d = Carbon::now()->subSeconds(59);
+        $this->assertSame('59 seconds', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndMinute()
+    {
+        $d = Carbon::now()->subMinute();
+        $this->assertSame('1 minute', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndMinutes()
+    {
+        $d = Carbon::now()->subMinutes(2);
+        $this->assertSame('2 minutes', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndNearlyHour()
+    {
+        $d = Carbon::now()->subMinutes(59);
+        $this->assertSame('59 minutes', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndHour()
+    {
+        $d = Carbon::now()->subHour();
+        $this->assertSame('1 hour', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndHours()
+    {
+        $d = Carbon::now()->subHours(2);
+        $this->assertSame('2 hours', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndNearlyDay()
+    {
+        $d = Carbon::now()->subHours(23);
+        $this->assertSame('23 hours', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndDay()
+    {
+        $d = Carbon::now()->subDay();
+        $this->assertSame('1 day', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndDays()
+    {
+        $d = Carbon::now()->subDays(2);
+        $this->assertSame('2 days', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndNearlyWeek()
+    {
+        $d = Carbon::now()->subDays(6);
+        $this->assertSame('6 days', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndWeek()
+    {
+        $d = Carbon::now()->subWeek();
+        $this->assertSame('1 week', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndWeeks()
+    {
+        $d = Carbon::now()->subWeeks(2);
+        $this->assertSame('2 weeks', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndNearlyMonth()
+    {
+        $d = Carbon::now()->subWeeks(3);
+        $this->assertSame('3 weeks', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndYear()
+    {
+        $d = Carbon::now()->subYear();
+        $this->assertSame('1 year', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndYears()
+    {
+        $d = Carbon::now()->subYears(2);
+        $this->assertSame('2 years', $d->elapsedForHumans());
+    }
+    public function testElapsedForHumansNowAndMultiple($value='')
+    {
+        $d = Carbon::now()->subYears(1)->subWeeks(2)->subDays(5)->subHours(4)->subMinutes(23)->subSeconds(10);
+        $this->assertSame('1 year, 2 weeks, 5 days, 4 hours, 23 minutes, 10 seconds', $d->elapsedForHumans());
+    }
 }

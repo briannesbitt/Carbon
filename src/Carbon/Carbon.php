@@ -107,6 +107,10 @@ class Carbon extends DateTime
    const HOURS_PER_DAY      = 24;
    const MINUTES_PER_HOUR   = 60;
    const SECONDS_PER_MINUTE = 60;
+   const SECONDS_PER_HOUR   = 3600;      // added for elapsedForHumans
+   const SECONDS_PER_DAY    = 86400;     // added for elapsedForHumans
+   const SECONDS_PER_WEEK   = 604800;    // added for elapsedForHumans
+   const SECONDS_PER_YEAR   = 31449600;  // added for elapsedForHumans
 
    /**
     * Default format to use for __toString method when type juggling occurs.
@@ -1860,6 +1864,95 @@ class Carbon extends DateTime
       }
 
       return $txt . ' before';
+   }
+
+   /**
+    * Prints out time difference in a human readable format
+    *
+    * example output: 1 hour, 10 minutes, 3 seconds
+    *
+    * @param  Carbon $other
+    *
+    * @return string
+    */
+   public function elapsedForHumans(Carbon $other = null)
+   {
+     $isNow = $other === null;
+
+     if ($isNow) {
+       $other = static::now($this->tz);
+     }
+
+     $delta = $other->diffInSeconds($this);
+
+     $times = array();
+
+     $years = intval(intval($delta) / self::SECONDS_PER_YEAR);
+     if ($years > 0) {
+      if ($years == 1) {
+        $times[] = "{$years} year";
+      } else {
+        $times[] = "{$years} years";
+      }
+     }
+
+     $weeks = bcmod((intval($delta) / self::SECONDS_PER_WEEK), self::WEEKS_PER_YEAR);
+     if ($weeks > 0) {
+       if ($weeks == 1) {
+        $times[] = "{$weeks} week";
+       } else {
+        $times[] = "{$weeks} weeks";
+       }
+     }
+
+     $days = bcmod((intval($delta) / self::SECONDS_PER_DAY), self::DAYS_PER_WEEK);
+     if ($days > 0) {
+       if ($days == 1) {
+        $times[] = "{$days} day";
+       } else {
+        $times[] = "{$days} days";
+       }
+     }
+
+     $hours = bcmod((intval($delta) / self::SECONDS_PER_HOUR), self::HOURS_PER_DAY);
+     if ($hours > 0) {
+       if ($hours == 1) {
+        $times[] = "{$hours} hour";
+       } else {
+        $times[] = "{$hours} hours";
+       }
+     }
+
+     $minutes = bcmod((intval($delta) / self::SECONDS_PER_MINUTE), self::MINUTES_PER_HOUR);
+     if ($minutes > 0) {
+       if ($minutes == 1) {
+        $times[] = "{$minutes} minute";
+       } else {
+        $times[] = "{$minutes} minutes";
+       }
+     }
+
+     $seconds = bcmod(intval($delta), self::SECONDS_PER_MINUTE);
+     if ($seconds > 0) {
+       if ($seconds == 1) {
+        $times[] = "{$seconds} second";
+       } else {
+        $times[] = "{$seconds} seconds";
+       }
+     }
+
+     // create elapsed string
+     $elapsed = '';
+     foreach ($times as $time) {
+       $elapsed .= "{$time}, ";
+     }
+
+     if ($elapsed == '') {
+       return "0 seconds";
+     }
+
+     return substr($elapsed, 0, -2);
+
    }
 
    ///////////////////////////////////////////////////////////////////
