@@ -26,6 +26,7 @@ class SettersTest extends TestFixture
         $d->month = 3;
         $this->assertSame(3, $d->month);
     }
+
     public function testMonthSetterWithWrap()
     {
         $d = Carbon::now();
@@ -39,6 +40,7 @@ class SettersTest extends TestFixture
         $d->day = 2;
         $this->assertSame(2, $d->day);
     }
+
     public function testDaySetterWithWrap()
     {
         $d = Carbon::createFromDate(2012, 8, 5);
@@ -52,6 +54,7 @@ class SettersTest extends TestFixture
         $d->hour = 2;
         $this->assertSame(2, $d->hour);
     }
+
     public function testHourSetterWithWrap()
     {
         $d = Carbon::now();
@@ -65,6 +68,7 @@ class SettersTest extends TestFixture
         $d->minute = 2;
         $this->assertSame(2, $d->minute);
     }
+
     public function testMinuteSetterWithWrap()
     {
         $d = Carbon::now();
@@ -132,6 +136,7 @@ class SettersTest extends TestFixture
         $d = Carbon::now();
         $d->setTimezone('sdf');
     }
+
     public function testTimezoneWithInvalidTimezone()
     {
         $d = Carbon::now();
@@ -166,6 +171,7 @@ class SettersTest extends TestFixture
         $d->setTimezone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
     }
+
     public function testTimezoneUsingString()
     {
         $d = Carbon::now();
@@ -175,6 +181,7 @@ class SettersTest extends TestFixture
         $d->timezone('America/Vancouver');
         $this->assertSame('America/Vancouver', $d->tzName);
     }
+
     public function testTzUsingString()
     {
         $d = Carbon::now();
@@ -184,12 +191,14 @@ class SettersTest extends TestFixture
         $d->tz('America/Vancouver');
         $this->assertSame('America/Vancouver', $d->tzName);
     }
+
     public function testSetTimezoneUsingDateTimeZone()
     {
         $d = Carbon::now();
         $d->setTimezone(new \DateTimeZone('America/Toronto'));
         $this->assertSame('America/Toronto', $d->tzName);
     }
+
     public function testTimezoneUsingDateTimeZone()
     {
         $d = Carbon::now();
@@ -199,6 +208,7 @@ class SettersTest extends TestFixture
         $d->timezone(new \DateTimeZone('America/Vancouver'));
         $this->assertSame('America/Vancouver', $d->tzName);
     }
+
     public function testTzUsingDateTimeZone()
     {
         $d = Carbon::now();

@@ -20,6 +20,7 @@ class TestingAidsTest extends TestFixture
         $this->assertFalse(Carbon::hasTestNow());
         $this->assertNull(Carbon::getTestNow());
     }
+
     public function testTestingAidsWithTestNowSet()
     {
         $notNow = Carbon::yesterday();
@@ -104,12 +105,12 @@ class TestingAidsTest extends TestFixture
 
     public function testParseRelativeWithMinusSignsInDate()
     {
-      $notNow = Carbon::parse('2013-09-01 05:15:05');
-      Carbon::setTestNow($notNow);
+        $notNow = Carbon::parse('2013-09-01 05:15:05');
+        Carbon::setTestNow($notNow);
 
-      $this->assertEquals('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
-      $this->assertEquals('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
-  }
+        $this->assertEquals('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
+        $this->assertEquals('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
+    }
 
     public function testTimeZoneWithTestValueSet()
     {
@@ -119,5 +120,5 @@ class TestingAidsTest extends TestFixture
         $this->assertEquals('2013-07-01T12:00:00-0400', Carbon::parse('now')->toIso8601String());
         $this->assertEquals('2013-07-01T11:00:00-0500', Carbon::parse('now', 'America/Mexico_City')->toIso8601String());
         $this->assertEquals('2013-07-01T09:00:00-0700', Carbon::parse('now', 'America/Vancouver')->toIso8601String());
-   }
+    }
 }

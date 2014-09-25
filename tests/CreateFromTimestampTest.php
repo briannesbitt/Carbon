@@ -34,6 +34,7 @@ class CreateFromTimestampTest extends TestFixture
         $this->assertSame('UTC', $d->tzName);
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
     }
+
     public function testCreateFromTimestampWithString()
     {
         $d = Carbon::createFromTimestamp(0, 'UTC');

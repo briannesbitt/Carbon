@@ -51,6 +51,7 @@ class CreateFromTimeTest extends TestFixture
         $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
+
     public function testCreateFromTimeWithTimeZoneString()
     {
         $d = Carbon::createFromTime(12, 0, 0, 'Europe/London');

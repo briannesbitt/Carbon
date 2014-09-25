@@ -18,6 +18,7 @@ class NowAndOtherStaticHelpersTest extends TestFixture
         $dt = Carbon::now();
         $this->assertSame(time(), $dt->timestamp);
     }
+
     public function testNowWithTimezone()
     {
         $dt = Carbon::now('Europe/London');
@@ -30,6 +31,7 @@ class NowAndOtherStaticHelpersTest extends TestFixture
         $dt = Carbon::today();
         $this->assertSame(date('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
+
     public function testTodayWithTimezone()
     {
         $dt = Carbon::today('Europe/London');
@@ -43,6 +45,7 @@ class NowAndOtherStaticHelpersTest extends TestFixture
         $dt2 = new \DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
+
     public function testTomorrowWithTimezone()
     {
         $dt = Carbon::tomorrow('Europe/London');
@@ -56,6 +59,7 @@ class NowAndOtherStaticHelpersTest extends TestFixture
         $dt2 = new \DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
+
     public function testYesterdayWithTimezone()
     {
         $dt = Carbon::yesterday('Europe/London');
@@ -67,6 +71,7 @@ class NowAndOtherStaticHelpersTest extends TestFixture
     {
         $this->assertLessThanOrEqual(- 2147483647, Carbon::minValue()->getTimestamp());
     }
+
     public function testMaxValue()
     {
         $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
