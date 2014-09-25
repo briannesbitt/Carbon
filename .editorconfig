@@ -7,7 +7,7 @@ insert_final_newline = true
 [*.php]
 charset = utf-8
 indent_style = space
-indent_size = 3
+indent_size = 4
 
 [composer.json]
 indent_style = space
