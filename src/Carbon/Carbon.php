@@ -55,13 +55,13 @@ class Carbon extends DateTime
     /**
      * The day constants
      */
-    const SUNDAY    = 0;
-    const MONDAY    = 1;
-    const TUESDAY   = 2;
+    const SUNDAY = 0;
+    const MONDAY = 1;
+    const TUESDAY = 2;
     const WEDNESDAY = 3;
-    const THURSDAY  = 4;
-    const FRIDAY    = 5;
-    const SATURDAY  = 6;
+    const THURSDAY = 4;
+    const FRIDAY = 5;
+    const SATURDAY = 6;
 
     /**
      * Names of days of the week.
@@ -69,13 +69,13 @@ class Carbon extends DateTime
      * @var array
      */
     protected static $days = array(
-        self::SUNDAY    => 'Sunday',
-        self::MONDAY    => 'Monday',
-        self::TUESDAY   => 'Tuesday',
+        self::SUNDAY => 'Sunday',
+        self::MONDAY => 'Monday',
+        self::TUESDAY => 'Tuesday',
         self::WEDNESDAY => 'Wednesday',
-        self::THURSDAY  => 'Thursday',
-        self::FRIDAY    => 'Friday',
-        self::SATURDAY  => 'Saturday'
+        self::THURSDAY => 'Thursday',
+        self::FRIDAY => 'Friday',
+        self::SATURDAY => 'Saturday'
     );
 
     /**
@@ -449,18 +449,18 @@ class Carbon extends DateTime
             case 'daysInMonth':
             case 'timestamp':
                 $formats = array(
-                    'year'        => 'Y',
-                    'month'       => 'n',
-                    'day'         => 'j',
-                    'hour'        => 'G',
-                    'minute'      => 'i',
-                    'second'      => 's',
-                    'micro'       => 'u',
-                    'dayOfWeek'   => 'w',
-                    'dayOfYear'   => 'z',
-                    'weekOfYear'  => 'W',
+                    'year' => 'Y',
+                    'month' => 'n',
+                    'day' => 'j',
+                    'hour' => 'G',
+                    'minute' => 'i',
+                    'second' => 's',
+                    'micro' => 'u',
+                    'dayOfWeek' => 'w',
+                    'dayOfYear' => 'z',
+                    'weekOfYear' => 'W',
                     'daysInMonth' => 't',
-                    'timestamp'   => 'U',
+                    'timestamp' => 'U',
                 );
 
                 return (int) $this->format($formats[$name]);
@@ -1823,10 +1823,10 @@ class Carbon extends DateTime
         $divs = array(
             'second' => self::SECONDS_PER_MINUTE,
             'minute' => self::MINUTES_PER_HOUR,
-            'hour'   => self::HOURS_PER_DAY,
-            'day'    => self::DAYS_PER_WEEK,
-            'week'   => 30 / self::DAYS_PER_WEEK,
-            'month'  => self::MONTHS_PER_YEAR
+            'hour' => self::HOURS_PER_DAY,
+            'day' => self::DAYS_PER_WEEK,
+            'week' => 30 / self::DAYS_PER_WEEK,
+            'month' => self::MONTHS_PER_YEAR
         );
 
         $unit = 'year';
