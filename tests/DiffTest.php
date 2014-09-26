@@ -116,7 +116,7 @@ class DiffTest extends TestFixture
 
         $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date)
         {
-            return $date->dayOfWeek === 1;
+            return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2));
     }
 
@@ -125,7 +125,7 @@ class DiffTest extends TestFixture
         $dt = Carbon::createFromDate(2000, 1, 31);
         $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date)
         {
-            return $date->dayOfWeek === 1;
+            return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt->copy()->startOfMonth()));
     }
 
@@ -136,7 +136,7 @@ class DiffTest extends TestFixture
 
         $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date)
         {
-            return $date->dayOfWeek === 1;
+            return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2));
     }
 
@@ -156,8 +156,45 @@ class DiffTest extends TestFixture
 
         $this->assertSame(-5, $dt1->diffInDaysFiltered(function (Carbon $date)
         {
-            return $date->dayOfWeek === 1;
+            return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2, false));
+    }
+
+    public function testBug188DiffWithSameDates()
+    {
+        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $end = $start->copy();
+
+        $this->assertSame(0, $start->diffInDays($end));
+        $this->assertSame(0, $start->diffInWeekdays($end));
+    }
+
+    public function testBug188DiffWithDatesOnlyHoursApart()
+    {
+        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $end = $start->copy();
+
+        $this->assertSame(0, $start->diffInDays($end));
+        $this->assertSame(0, $start->diffInWeekdays($end));
+    }
+
+    public function testBug188DiffWithSameDates1DayApart()
+    {
+        $start = Carbon::create(2014, 10, 8, 15, 20, 0);
+        $end = $start->copy()->addDay();
+
+        $this->assertSame(1, $start->diffInDays($end));
+        $this->assertSame(1, $start->diffInWeekdays($end));
+    }
+
+    public function testBug188DiffWithDatesOnTheWeekend()
+    {
+        $start = Carbon::create(2014, 1, 1, 0, 0, 0);
+        $start->next(Carbon::SATURDAY);
+        $end = $start->copy()->addDay();
+
+        $this->assertSame(1, $start->diffInDays($end));
+        $this->assertSame(0, $start->diffInWeekdays($end));
     }
 
     public function testDiffInWeekdaysPositive()

@@ -1701,8 +1701,6 @@ class Carbon extends DateTime
                 $inverse = true;
           }
 
-          $end->endOfDay(); // DatePeriod does not include the end date otherwise
-
           $period = new DatePeriod($start, new DateInterval('P1D'), $end);
           $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
                 return call_user_func($callback, Carbon::instance($date));
