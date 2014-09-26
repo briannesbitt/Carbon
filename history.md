@@ -1,4 +1,4 @@
-1.13.0 / 2014-XX-XX
+1.13.0 / 2014-09-25
 ===================
 * Fixed diffInDaysFiltered() bug.
 * Removed default param from formatLocalized() (thanks @vlakoff)
