@@ -270,6 +270,13 @@ class GettersTest extends TestFixture
         $this->assertSame('America/Toronto', $dt->tzName);
     }
 
+    public function testGetBeat()
+    {
+        $this->assertSame(0, Carbon::create(2014, 9, 26, 0, 0, 0, 'CET')->beat);
+        $this->assertSame(500, Carbon::create(2014, 9, 26, 12, 0, 0, 'CET')->beat);
+        $this->assertSame(999, Carbon::create(2014, 9, 26, 23, 59, 59, 'CET')->beat);
+    }
+
     public function testInvalidGetter()
     {
         $this->setExpectedException('InvalidArgumentException');
