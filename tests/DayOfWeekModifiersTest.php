@@ -34,14 +34,14 @@ class DayOfWeekModifiersTest extends TestFixture
 
     public function testEndOfWeek()
     {
-         $d = Carbon::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
-         $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
+        $d = Carbon::create(1980, 8, 7, 11, 12, 13)->endOfWeek();
+        $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
     }
 
     public function testEndOfWeekFromWeekEnd()
     {
-         $d = Carbon::createFromDate(1980, 8, 9)->endOfWeek();
-         $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
+        $d = Carbon::createFromDate(1980, 8, 9)->endOfWeek();
+        $this->assertCarbon($d, 1980, 8, 10, 23, 59, 59);
     }
 
     public function testEndOfWeekCrossingYearBoundary()

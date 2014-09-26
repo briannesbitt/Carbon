@@ -21,6 +21,7 @@ class ConstructTest extends TestFixture
         $this->assertEquals($now->tzName, $c->tzName);
         $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
+
     public function testParseCreatesAnInstanceDefaultToNow()
     {
         $c = Carbon::parse();
@@ -35,6 +36,7 @@ class ConstructTest extends TestFixture
         $c = new Carbon('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
+
     public function testParseWithFancyString()
     {
         $c = Carbon::parse('first day of January 2008');
@@ -46,6 +48,7 @@ class ConstructTest extends TestFixture
         $c = new Carbon('now');
         $this->assertSame('America/Toronto', $c->tzName);
     }
+
     public function testParseWithDefaultTimezone()
     {
         $c = Carbon::parse('now');
@@ -63,6 +66,7 @@ class ConstructTest extends TestFixture
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
+
     public function testParseSettingTimezone()
     {
         $timezone = 'Europe/London';
@@ -86,6 +90,7 @@ class ConstructTest extends TestFixture
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
+
     public function testParseSettingTimezoneWithString()
     {
         $timezone = 'Asia/Tokyo';

@@ -26,6 +26,7 @@ class FluidSettersTest extends TestFixture
         $this->assertTrue($d->month(3) instanceof Carbon);
         $this->assertSame(3, $d->month);
     }
+
     public function testFluidMonthSetterWithWrap()
     {
         $d = Carbon::createFromDate(2012, 8, 21);
@@ -39,6 +40,7 @@ class FluidSettersTest extends TestFixture
         $this->assertTrue($d->day(2) instanceof Carbon);
         $this->assertSame(2, $d->day);
     }
+
     public function testFluidDaySetterWithWrap()
     {
         $d = Carbon::createFromDate(2000, 1, 1);
@@ -59,6 +61,7 @@ class FluidSettersTest extends TestFixture
         $this->assertTrue($d->hour(2) instanceof Carbon);
         $this->assertSame(2, $d->hour);
     }
+
     public function testFluidHourSetterWithWrap()
     {
         $d = Carbon::now();
@@ -72,6 +75,7 @@ class FluidSettersTest extends TestFixture
         $this->assertTrue($d->minute(2) instanceof Carbon);
         $this->assertSame(2, $d->minute);
     }
+
     public function testFluidMinuteSetterWithWrap()
     {
         $d = Carbon::now();
@@ -85,6 +89,7 @@ class FluidSettersTest extends TestFixture
         $this->assertTrue($d->second(2) instanceof Carbon);
         $this->assertSame(2, $d->second);
     }
+
     public function testFluidSecondSetterWithWrap()
     {
         $d = Carbon::now();
