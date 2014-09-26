@@ -1,7 +1,10 @@
 1.13.0 / 2014-XX-XX
 ===================
+* Fixed diffInDaysFiltered() bug.
 * Removed default param from formatLocalized() (thanks @vlakoff)
 * Various refactorings (thanks @lucasmichot @euromark)
+* Updated toXXXString() methods to be camel cased (thanks @euromark)
+* Now using 4 spaces for indent. (thanks @lucasmichot @euromark)
 
 1.12.0 / 2014-09-09
 ===================
