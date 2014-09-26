@@ -39,7 +39,7 @@ class CreateFromTimestampTest extends TestFixture
     {
         $d = Carbon::createFromTimestamp(0, 'UTC');
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
-        $this->assertTrue($d->offset === 0);
+        $this->assertSame(0, $d->offset);
         $this->assertSame('UTC', $d->tzName);
     }
 
@@ -47,6 +47,6 @@ class CreateFromTimestampTest extends TestFixture
     {
         $d = Carbon::createFromTimestampUTC(0);
         $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
-        $this->assertTrue($d->offset === 0);
+        $this->assertSame(0, $d->offset);
     }
 }
