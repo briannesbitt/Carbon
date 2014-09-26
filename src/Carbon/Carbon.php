@@ -449,18 +449,18 @@ class Carbon extends DateTime
             case 'daysInMonth':
             case 'timestamp':
                 $formats = array(
-                    'year'          => 'Y',
-                    'month'         => 'n',
-                    'day'            => 'j',
-                    'hour'          => 'G',
-                    'minute'        => 'i',
-                    'second'        => 's',
-                    'micro'         => 'u',
-                    'dayOfWeek'    => 'w',
-                    'dayOfYear'    => 'z',
+                    'year'        => 'Y',
+                    'month'       => 'n',
+                    'day'         => 'j',
+                    'hour'        => 'G',
+                    'minute'      => 'i',
+                    'second'      => 's',
+                    'micro'       => 'u',
+                    'dayOfWeek'   => 'w',
+                    'dayOfYear'   => 'z',
                     'weekOfYear'  => 'W',
                     'daysInMonth' => 't',
-                    'timestamp'    => 'U',
+                    'timestamp'   => 'U',
                 );
 
                 return (int) $this->format($formats[$name]);
@@ -1823,9 +1823,9 @@ class Carbon extends DateTime
         $divs = array(
             'second' => self::SECONDS_PER_MINUTE,
             'minute' => self::MINUTES_PER_HOUR,
-            'hour'    => self::HOURS_PER_DAY,
-            'day'     => self::DAYS_PER_WEEK,
-            'week'    => 30/self::DAYS_PER_WEEK,
+            'hour'   => self::HOURS_PER_DAY,
+            'day'    => self::DAYS_PER_WEEK,
+            'week'   => 30 / self::DAYS_PER_WEEK,
             'month'  => self::MONTHS_PER_YEAR
         );
 
