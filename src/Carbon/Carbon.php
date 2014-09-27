@@ -2208,7 +2208,7 @@ class Carbon extends DateTime
     
     public function isBirthday(Carbon $dt)
     {
-        if ($this->month == $dt->month && $this->day == $dt->day) {
+        if ($this->month === $dt->month && $this->day === $dt->day) {
             return true;
         }
         return false;
