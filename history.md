@@ -1,3 +1,8 @@
+1.14.0 / 2014-10-XX
+===================
+* Added isBirthday()
+* Various refactorings
+
 1.13.0 / 2014-09-25
 ===================
 * Fixed diffInDaysFiltered() bug.

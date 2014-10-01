@@ -177,13 +177,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-26 02:24:25
+echo $now;                               // 2014-09-30 20:42:35
 $today = Carbon::today();
-echo $today;                             // 2014-09-26 00:00:00
+echo $today;                             // 2014-09-30 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-09-27 00:00:00
+echo $tomorrow;                          // 2014-10-02 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2014-09-25 00:00:00
+echo $yesterday;                         // 2014-09-29 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -253,8 +253,8 @@ echo $dt->copy()->micro;                               // 123456
 Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:
 
 ```php
-echo Carbon::maxValue();                               // '292277026596-12-04 10:30:07'
-echo Carbon::minValue();                               // '292277026596-12-04 10:30:08'
+echo Carbon::maxValue();                               // '2038-01-18 22:14:07'
+echo Carbon::minValue();                               // '1901-12-13 15:45:52'
 ```
 
 <a name="api-testing"/>
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-26 02:24:25
+echo Carbon::now();                                    // 2014-09-30 20:42:35
 ```
 
 A more meaning full example:
@@ -477,7 +477,7 @@ Unfortunately the base class DateTime does not have any localization support.  T
 
 ```php
 setlocale(LC_TIME, 'German');
-echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
+echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
 setlocale(LC_TIME, '');
 echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 ```
@@ -566,7 +566,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-26 02:24:25
+echo $dt1->max();                                  // 2014-09-30 20:42:35
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
