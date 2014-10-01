@@ -1,0 +1,73 @@
+
+/* Mobile */
+@media only screen and (max-width: 500px) and (-webkit-min-device-pixel-ratio: 2) {
+	
+}
+
+/** Tablets */
+@media only screen and (min-width:600px) {
+
+}
+
+/* Standard Desktop */
+@media only screen and (min-width:900px) {
+	#sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 25%;
+		height: 100%;
+		padding: 30px 0;
+		text-align: center;
+		overflow: auto;
+
+		box-shadow: inset -30px -10px 80px 0 rgba(0,0,0,.2), inset -10px -10px 20px 0 rgba(0,0,0,.15), 1px 0 0 0 white;
+	}
+
+	#content {
+		width: 75%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-top: 20px;
+	}
+
+	.container {
+		margin: 10px auto;
+		max-width: 800px;
+	}
+}
+
+/* Large screens */
+@media only screen and (min-width:1200px) {
+
+}
+
+/** Fucking Large screens  */
+@media only screen and (min-width:2000px) {
+	#sidebar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 25%;
+		height: 100%;
+		padding: 30px 0;
+		text-align: center;
+		overflow: auto;
+
+		box-shadow: inset -30px -10px 80px 0 rgba(0,0,0,.2), inset -10px -10px 20px 0 rgba(0,0,0,.15), 1px 0 0 0 white;
+	}
+
+	#content {
+		width: 75%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin-top: 80px;
+	}
+
+	.container {
+		margin: 10px auto;
+		max-width: 1200px;
+	}
+}
