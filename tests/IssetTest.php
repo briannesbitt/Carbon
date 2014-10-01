@@ -27,19 +27,24 @@ class IssetTest extends TestFixture
             'hour',
             'minute',
             'second',
+            'micro',
             'dayOfWeek',
             'dayOfYear',
+            'weekOfYear',
             'daysInMonth',
             'timestamp',
+            'weekOfMonth',
             'age',
             'quarter',
-            'dst',
             'offset',
             'offsetHours',
+            'dst',
+            'local',
+            'utc',
             'timezone',
             'timezoneName',
             'tz',
-            'tzName'
+            'tzName',
         );
 
         foreach ($properties as $property) {

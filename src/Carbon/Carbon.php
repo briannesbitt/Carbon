@@ -16,6 +16,7 @@ use DateTime;
 use DateTimeZone;
 use DateInterval;
 use DatePeriod;
+use JsonSerializable;
 use InvalidArgumentException;
 
 /**
@@ -50,7 +51,7 @@ use InvalidArgumentException;
  * @property-write DateTimeZone|string $tz alias of timezone
  *
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements JsonSerializable
 {
     /**
      * The day constants
@@ -76,6 +77,38 @@ class Carbon extends DateTime
         self::THURSDAY => 'Thursday',
         self::FRIDAY => 'Friday',
         self::SATURDAY => 'Saturday'
+    );
+
+    /**
+     * Available attributes.
+     *
+     * @var array
+     */
+    protected $attributes = array(
+        'year',
+        'month',
+        'day',
+        'hour',
+        'minute',
+        'second',
+        'micro',
+        'dayOfWeek',
+        'dayOfYear',
+        'weekOfYear',
+        'daysInMonth',
+        'timestamp',
+        'weekOfMonth',
+        'age',
+        'quarter',
+        'offset',
+        'offsetHours',
+        'dst',
+        'local',
+        'utc',
+        'timezone',
+        'timezoneName',
+        'tz',
+        'tzName',
     );
 
     /**
@@ -511,13 +544,7 @@ class Carbon extends DateTime
      */
     public function __isset($name)
     {
-        try {
-            $this->__get($name);
-        } catch (InvalidArgumentException $e) {
-            return false;
-        }
-
-        return true;
+        return in_array($name, $this->attributes);
     }
 
     /**
@@ -2208,6 +2235,32 @@ class Carbon extends DateTime
      */
     public function isBirthday(Carbon $dt)
     {
-        return $this->month === $dt->month && $this->day === $dt->day;
+	    return $this->month === $dt->month && $this->day === $dt->day;
+    }
+
+    /**
+     * Serialize the current instance to JSON.
+     *
+     * @return string
+     */
+    public function jsonSerialize()
+    {
+        return $this->getAttributes();
+    }
+
+    /**
+     * Get Carbon attributes.
+     *
+     * @return array
+     */
+    protected function getAttributes()
+    {
+        $attributes = array();
+
+        foreach ($this->attributes as $attribute) {
+            $attributes[$attribute] = $this->$attribute;
+        }
+
+        return $attributes;
     }
 }
