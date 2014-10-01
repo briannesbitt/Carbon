@@ -36,6 +36,21 @@ $ jekyll server --watch
 
 You'll have access to the website at `localhost:4000` :D
 
+## File Structure
+
+The file structure for the project is organized in the following way:
+
+```
+.
+|-- _includes
+|-- _layouts
+|-- _posts
+|-- _config.yml
+`-- index.html
+```
+
+TODO
+
 ## Contributing
  
 1. Fork it!
