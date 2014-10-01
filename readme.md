@@ -177,7 +177,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2014-09-30 20:42:35
+echo $now;                               // 2014-09-30 21:03:42
 $today = Carbon::today();
 echo $today;                             // 2014-09-30 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -276,7 +276,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2014-09-30 20:42:35
+echo Carbon::now();                                    // 2014-09-30 21:03:42
 ```
 
 A more meaning full example:
@@ -535,12 +535,6 @@ var_dump($first->gt($second));                     // bool(false)
 var_dump($first->gte($second));                    // bool(false)
 var_dump($first->lt($second));                     // bool(true)
 var_dump($first->lte($second));                    // bool(true)
-
-$birthday_original = Carbon::createFromDate(1987, 4, 23);
-$birthday_not = Carbon::createFromDate(2014, 9, 26);
-$birthday_today = Carbon::createFromDate(2014, 4, 23);
-var_dump($birthday_original->isBirthday($birthday_not)); // bool(false)  
-var_dump($birthday_original->isBirthday($birthday_today)); // bool(true)  
 ```
 
 To determine if the current instance is between two other instances you can use the aptly named `between()` method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.
@@ -566,7 +560,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2014-09-30 20:42:35
+echo $dt1->max();                                  // 2014-09-30 21:03:42
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -583,6 +577,11 @@ $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
 $dt->isSameDay(Carbon::now());
+$born = Carbon::createFromDate(1987, 4, 23);
+$noCake = Carbon::createFromDate(2014, 9, 26);
+$yesCake = Carbon::createFromDate(2014, 4, 23);
+var_dump($born->isBirthday($noCake));              // bool(false)  
+var_dump($born->isBirthday($yesCake));             // bool(true)  
 ```
 
 <a name="api-addsub"/>
