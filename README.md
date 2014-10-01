@@ -21,12 +21,12 @@ $ gem install jekyll
 
 3 - Now clone the project
 ```sh
-$ git clone git@github.com:randsonjs/randsonjs.github.io.git
+$ git clone git@github.com:briannesbitt/Carbon.git
 ```
 
 4 - Navigate to the project folder
 ```sh
-$ cd randsonjs.github.io
+$ cd Carbon
 ```
 
 5 - And finally run: 
