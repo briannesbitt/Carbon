@@ -2200,4 +2200,17 @@ class Carbon extends DateTime
 
         return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
     }
+    /**
+     * Check if its the birthday. Compares the date/month values of the two dates.
+     * @param  Carbon  $dt
+     * @return boolean  
+     */
+    
+    public function isBirthday(Carbon $dt)
+    {
+        if ($this->month === $dt->month && $this->day === $dt->day) {
+            return true;
+        }
+        return false;
+    }
 }

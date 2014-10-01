@@ -553,6 +553,12 @@ Simple comparison is offered up via the following functions.  Remember that the 
 {{compare12::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare12_eval}}
 {{compare13::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare13_eval}}
 {{compare14::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare14_eval}}
+
+{{::lint($birthday_original = Carbon::createFromDate(1987, 4, 23);)}}
+{{::lint($birthday_not = Carbon::createFromDate(2014, 9, 26);)}}
+{{::lint($birthday_today = Carbon::createFromDate(2014, 4, 23);)}}
+{{compare15::exec(var_dump($birthday_original->isBirthday($birthday_not));/*pad(50)*/)}} // {{compare15_eval}}  
+{{compare16::exec(var_dump($birthday_original->isBirthday($birthday_today));/*pad(50)*/)}} // {{compare16_eval}}  
 ```
 
 To determine if the current instance is between two other instances you can use the aptly named `between()` method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.
