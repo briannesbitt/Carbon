@@ -80,6 +80,38 @@ class Carbon extends DateTime implements JsonSerializable
     );
 
     /**
+     * Available attributes.
+     *
+     * @var array
+     */
+    protected $attributes = array(
+        'year',
+        'month',
+        'day',
+        'hour',
+        'minute',
+        'second',
+        'micro',
+        'dayOfWeek',
+        'dayOfYear',
+        'weekOfYear',
+        'daysInMonth',
+        'timestamp',
+        'weekOfMonth',
+        'age',
+        'quarter',
+        'offset',
+        'offsetHours',
+        'dst',
+        'local',
+        'utc',
+        'timezone',
+        'timezoneName',
+        'tz',
+        'tzName',
+    );
+
+    /**
      * Terms used to detect if a time passed is a relative date for testing purposes
      *
      * @var array
@@ -512,13 +544,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function __isset($name)
     {
-        try {
-            $this->__get($name);
-        } catch (InvalidArgumentException $e) {
-            return false;
-        }
-
-        return true;
+        return in_array($name, $this->attributes);
     }
 
     /**
@@ -2219,14 +2245,22 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
-            'year' => $this->year,
-            'month' => $this->month,
-            'day' => $this->day,
-            'hour' => $this->hour,
-            'minute' => $this->minute,
-            'second' => $this->second,
-            'tz' => $this->tzName,
-        );
+        return $this->getAttributes();
+    }
+
+    /**
+     * Get Carbon attributes.
+     *
+     * @return array
+     */
+    protected function getAttributes()
+    {
+        $attributes = array();
+
+        foreach ($this->attributes as $attribute) {
+            $attributes[$attribute] = $this->$attribute;
+        }
+
+        return $attributes;
     }
 }

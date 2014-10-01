@@ -279,8 +279,12 @@ class GettersTest extends TestFixture
 
     public function testJsonSerialize()
     {
-        $dt = Carbon::create(2000, 1, 1, 12, 59, 59, 'America/Toronto');
-        $json = '{"year":2000,"month":1,"day":1,"hour":12,"minute":59,"second":59,"tz":"America\/Toronto"}';
+        $dt   = Carbon::create(2000, 1, 1, 12, 59, 59, 'America/Toronto');
+        $json = '{"year":2000,"month":1,"day":1,"hour":12,"minute":59,"second":59,"micro":0,';
+        $json .= '"dayOfWeek":6,"dayOfYear":0,"weekOfYear":52,"daysInMonth":31,"timestamp":946749599,';
+        $json .= '"weekOfMonth":1,"age":14,"quarter":1,"offset":-18000,"offsetHours":-5,"dst":false,';
+        $json .= '"local":true,"utc":false,"timezone":"America\/Toronto","timezoneName":"America\/Toronto",';
+        $json .= '"tz":{"timezone_type":3,"timezone":"America\/Toronto"},"tzName":"America\/Toronto"}';
         $this->assertSame($json, json_encode($dt));
     }
 }
