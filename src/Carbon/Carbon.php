@@ -29,6 +29,7 @@ use InvalidArgumentException;
  * @property      integer $second
  * @property      integer $timestamp seconds since the Unix Epoch
  * @property-read integer $micro
+ * @property-read integer $beat The Internet Swatch beat
  * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
  * @property-read integer $weekOfMonth 1 through 6
@@ -443,6 +444,7 @@ class Carbon extends DateTime
             case 'minute':
             case 'second':
             case 'micro':
+            case 'beat':
             case 'dayOfWeek':
             case 'dayOfYear':
             case 'weekOfYear':
@@ -456,6 +458,7 @@ class Carbon extends DateTime
                     'minute' => 'i',
                     'second' => 's',
                     'micro' => 'u',
+                    'beat' => 'B',
                     'dayOfWeek' => 'w',
                     'dayOfYear' => 'z',
                     'weekOfYear' => 'W',
