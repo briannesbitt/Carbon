@@ -43,6 +43,8 @@ use InvalidArgumentException;
  * @property-read boolean $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string  $timezoneName
  * @property-read string  $tzName
+ * @property-read int     $timezoneType The type of timezone
+ * @property-read int     $tzType The type of timezone
  *
  * @property-read  DateTimeZone        $timezone the current timezone
  * @property-read  DateTimeZone        $tz alias of timezone
@@ -496,6 +498,11 @@ class Carbon extends DateTime
             case 'timezoneName':
             case 'tzName':
                 return $this->getTimezone()->getName();
+
+            case 'timezoneType':
+            case 'tzType':
+                $timezone = (array) $this->getTimezone();
+                return $timezone['timezone_type'];
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
