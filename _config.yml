@@ -1,0 +1,12 @@
+# Site settings
+title: Carbon
+email: brian@nesbot.com
+description: "A simple API extension for DateTime with PHP 5.3+"
+baseurl: ""
+url: "http://carbon.nesbot.com"
+author: "Brian Nesbitt"
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <title>{% if page.title %}{{ page.title }} &mdash; {% endif %} {{ site.title }}</title>
+
+  <!-- Meta -->
+  <meta charset="UTF-8">
+  <meta name="author" content="{{ site.author }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ site.description }}">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="{{ site.url }}/assets/img/favicon.png">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/normalize.css?v=3.0.1">
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/styles.css?v=1">
+</head>
+<body>
+  <div class="main">
+    
+    {% include sidebar.html %}
