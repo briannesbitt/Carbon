@@ -49,7 +49,27 @@ The file structure for the project is organized in the following way:
 `-- index.html
 ```
 
-TODO
+### [_includes](https://github.com/briannesbitt/Carbon/tree/gh-pages/_includes)
+
+They're blocks of code used to generate the main page of the site (index.html).
+
+### [_layouts](https://github.com/briannesbitt/Carbon/tree/gh-pages/_layouts)
+
+Here you'll find the default template of the application.
+
+### [_posts](https://github.com/briannesbitt/Carbon/tree/gh-pages/_posts)
+
+Here you'll find a list of files for each post.
+
+### [_config.yml](https://github.com/briannesbitt/Carbon/_config.yml)
+
+It stores most of the settings of the application.
+
+### [index.html](https://github.com/briannesbitt/Carbon/index.html)
+
+It's the file responsible for all application sections.
+
+_More information about Jekyll's file structure [here](https://github.com/mojombo/jekyll/wiki/Usage)._
 
 ## Contributing
  
