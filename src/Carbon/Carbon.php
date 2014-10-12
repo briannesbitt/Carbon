@@ -435,71 +435,57 @@ class Carbon extends DateTime
      */
     public function __get($name)
     {
-        switch ($name) {
-            case 'year':
-            case 'month':
-            case 'day':
-            case 'hour':
-            case 'minute':
-            case 'second':
-            case 'micro':
-            case 'dayOfWeek':
-            case 'dayOfYear':
-            case 'weekOfYear':
-            case 'daysInMonth':
-            case 'timestamp':
-                $formats = array(
-                    'year' => 'Y',
-                    'month' => 'n',
-                    'day' => 'j',
-                    'hour' => 'G',
-                    'minute' => 'i',
-                    'second' => 's',
-                    'micro' => 'u',
-                    'dayOfWeek' => 'w',
-                    'dayOfYear' => 'z',
-                    'weekOfYear' => 'W',
-                    'daysInMonth' => 't',
-                    'timestamp' => 'U',
-                );
+      switch(true)
+      {
+         case array_key_exists($name, $formats = array(
+            'year'        => 'Y',
+            'month'       => 'n',
+            'day'         => 'j',
+            'hour'        => 'G',
+            'minute'      => 'i',
+            'second'      => 's',
+            'micro'       => 'u',
+            'dayOfWeek'   => 'w',
+            'dayOfYear'   => 'z',
+            'weekOfYear'  => 'W',
+            'daysInMonth' => 't',
+            'timestamp'   => 'U',
+         )):
+            return (int) $this->format($formats[$name]);
 
-                return (int) $this->format($formats[$name]);
+         case $name == 'weekOfMonth':
+            return (int) ceil($this->day / self::DAYS_PER_WEEK);
 
-            case 'weekOfMonth':
-                return (int) ceil($this->day / self::DAYS_PER_WEEK);
+         case $name == 'age':
+            return (int) $this->diffInYears();
 
-            case 'age':
-                return (int) $this->diffInYears();
+         case $name == 'quarter':
+            return (int) ceil($this->month / 3);
 
-            case 'quarter':
-                return (int) ceil($this->month / 3);
+         case $name == 'offset':
+            return $this->getOffset();
 
-            case 'offset':
-                return $this->getOffset();
+         case $name == 'offsetHours':
+            return $this->getOffset() / self::SECONDS_PER_MINUTE / self::MINUTES_PER_HOUR;
 
-            case 'offsetHours':
-                return $this->getOffset() / self::SECONDS_PER_MINUTE / self::MINUTES_PER_HOUR;
+         case $name == 'dst':
+            return $this->format('I') == '1';
 
-            case 'dst':
-                return $this->format('I') == '1';
+         case $name == 'local':
+            return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
 
-            case 'local':
-                return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
+         case $name == 'utc':
+            return $this->offset == 0;
 
-            case 'utc':
-                return $this->offset == 0;
+         case $name == 'timezone' || $name == 'tz':
+            return $this->getTimezone();
 
-            case 'timezone':
-            case 'tz':
-                return $this->getTimezone();
+         case $name == 'timezoneName' || $name == 'tzName':
+            return $this->getTimezone()->getName();
 
-            case 'timezoneName':
-            case 'tzName':
-                return $this->getTimezone()->getName();
-
-            default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
-        }
+         default:
+            throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+      }
     }
 
     /**
