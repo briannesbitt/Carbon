@@ -452,37 +452,37 @@ class Carbon extends DateTime
                 'timestamp' => 'U',
             )):
                 return (int) $this->format($formats[$name]);
-            
-            case $name == 'weekOfMonth':
+
+            case $name === 'weekOfMonth':
                 return (int) ceil($this->day / self::DAYS_PER_WEEK);
-            
-            case $name == 'age':
+
+            case $name === 'age':
                 return (int) $this->diffInYears();
-            
-            case $name == 'quarter':
+
+            case $name === 'quarter':
                 return (int) ceil($this->month / 3);
-            
-            case $name == 'offset':
+
+            case $name === 'offset':
                 return $this->getOffset();
-            
-            case $name == 'offsetHours':
+
+            case $name === 'offsetHours':
                 return $this->getOffset() / self::SECONDS_PER_MINUTE / self::MINUTES_PER_HOUR;
-            
-            case $name == 'dst':
+
+            case $name === 'dst':
                 return $this->format('I') == '1';
-            
-            case $name == 'local':
+
+            case $name === 'local':
                 return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
-            
-            case $name == 'utc':
+
+            case $name === 'utc':
                 return $this->offset == 0;
-            
-            case $name == 'timezone' || $name == 'tz':
+
+            case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
-            
-            case $name == 'timezoneName' || $name == 'tzName':
+
+            case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
-            
+
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
