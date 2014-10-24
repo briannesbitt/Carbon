@@ -2204,10 +2204,30 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      * @param  Carbon  $dt
-     * @return boolean  
+     * @return boolean
      */
     public function isBirthday(Carbon $dt)
     {
         return $this->month === $dt->month && $this->day === $dt->day;
+    }
+
+    /**
+     * The number of seconds since midnight.
+     *
+     * @return integer
+     */
+    public function secondsSinceMidnight()
+    {
+        return $this->diffInSeconds($this->copy()->startOfDay());
+    }
+
+    /**
+     * The number of seconds until 23:23:59.
+     *
+     * @return integer
+     */
+    public function secondsUntilEndOfDay()
+    {
+        return $this->diffInSeconds($this->copy()->endOfDay());
     }
 }
