@@ -132,7 +132,7 @@ class Carbon extends DateTime
     /**
      * Creates a DateTimeZone from a string or a DateTimeZone
      *
-     * @param DateTimeZone|string $object
+     * @param DateTimeZone|string|null $object
      *
      * @return DateTimeZone
      *
@@ -140,6 +140,8 @@ class Carbon extends DateTime
      */
     protected static function safeCreateDateTimeZone($object)
     {
+        if ($object === null) return null;
+
         if ($object instanceof DateTimeZone) {
             return $object;
         }
@@ -186,11 +188,7 @@ class Carbon extends DateTime
             $time = $testInstance->toDateTimeString();
         }
 
-        if ($tz !== null) {
-            parent::__construct($time, static::safeCreateDateTimeZone($tz));
-        } else {
-            parent::__construct($time);
-        }
+        parent::__construct($time, static::safeCreateDateTimeZone($tz));
     }
 
     /**
