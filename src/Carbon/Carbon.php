@@ -612,22 +612,6 @@ class Carbon extends DateTime
     }
 
     /**
-     * Set the date all together
-     *
-     * @param integer $year
-     * @param integer $month
-     * @param integer $day
-     *
-     * @return static
-     */
-    public function setDate($year, $month, $day)
-    {
-        parent::setDate($year, $month, $day);
-
-        return $this;
-    }
-
-    /**
      * Set the instance's hour
      *
      * @param integer $value
@@ -665,22 +649,6 @@ class Carbon extends DateTime
     public function second($value)
     {
         $this->second = $value;
-
-        return $this;
-    }
-
-    /**
-     * Set the time all together
-     *
-     * @param integer $hour
-     * @param integer $minute
-     * @param integer $second
-     *
-     * @return static
-     */
-    public function setTime($hour, $minute, $second = 0)
-    {
-        parent::setTime($hour, $minute, $second);
 
         return $this;
     }
