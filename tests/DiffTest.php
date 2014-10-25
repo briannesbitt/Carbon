@@ -103,8 +103,7 @@ class DiffTest extends TestFixture
     public function testDiffInDaysFilteredPositiveWithMutated()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === 1;
         }, $dt->copy()->endOfMonth()));
     }
@@ -114,8 +113,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 1);
         $dt2 = Carbon::createFromDate(2000, 1, 31);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2));
     }
@@ -123,8 +121,7 @@ class DiffTest extends TestFixture
     public function testDiffInDaysFilteredNegativeNoSignWithMutated()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(5, $dt->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt->copy()->startOfMonth()));
     }
@@ -134,8 +131,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 31);
         $dt2 = Carbon::createFromDate(2000, 1, 1);
 
-        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(5, $dt1->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2));
     }
@@ -143,8 +139,7 @@ class DiffTest extends TestFixture
     public function testDiffInDaysFilteredNegativeWithSignWithMutated()
     {
         $dt = Carbon::createFromDate(2000, 1, 31);
-        $this->assertSame(-5, $dt->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(-5, $dt->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === 1;
         }, $dt->copy()->startOfMonth(), false));
     }
@@ -154,8 +149,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 31);
         $dt2 = Carbon::createFromDate(2000, 1, 1);
 
-        $this->assertSame(-5, $dt1->diffInDaysFiltered(function (Carbon $date)
-        {
+        $this->assertSame(-5, $dt1->diffInDaysFiltered(function (Carbon $date) {
             return $date->dayOfWeek === Carbon::SUNDAY;
         }, $dt2, false));
     }
