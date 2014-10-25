@@ -92,6 +92,15 @@ class SettersTest extends TestFixture
         $this->assertSame(0, $d->second);
     }
 
+    public function testTimeSetterWithChaining()
+    {
+        $d = Carbon::now();
+        $d->setTime(2, 2, 2)->setTime(1, 1, 1);
+        $this->assertSame(1, $d->second);
+        $d->setTime(2, 2, 2)->setTime(1, 1);
+        $this->assertSame(0, $d->second);
+    }
+
     public function testTimeSetterWithZero()
     {
         $d = Carbon::now();
@@ -111,6 +120,13 @@ class SettersTest extends TestFixture
         $d = Carbon::now();
         $d->setDateTime($d->year, $d->month, $d->day, 1, 1);
         $this->assertSame(0, $d->second);
+    }
+
+    public function testDateTimeSetterWithChaining()
+    {
+        $d = Carbon::now();
+        $d->setDateTime(2013, 9, 24, 17, 4, 29)->setDateTime(2014, 10, 25, 18, 5, 30);
+        $this->assertCarbon($d, 2014, 10, 25, 18, 5, 30);
     }
 
     public function testSecondSetterWithWrap()
