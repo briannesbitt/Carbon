@@ -2203,11 +2203,13 @@ class Carbon extends DateTime
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
-     * @param  Carbon  $dt
-     * @return boolean  
+     *
+     * @param  Carbon $dt
+     *
+     * @return boolean
      */
     public function isBirthday(Carbon $dt)
     {
-        return $this->month === $dt->month && $this->day === $dt->day;
+        return $this->format('md') == $dt->format('md');
     }
 }
