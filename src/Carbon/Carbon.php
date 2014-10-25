@@ -2210,6 +2210,6 @@ class Carbon extends DateTime
      */
     public function isBirthday(Carbon $dt)
     {
-        return $this->format('md') == $dt->format('md');
+        return $this->format('md') === $dt->format('md');
     }
 }
