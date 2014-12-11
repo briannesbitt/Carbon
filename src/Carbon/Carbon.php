@@ -1805,7 +1805,7 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function diffForHumans(Carbon $other = null)
+    public function diffForHumans(Carbon $other = null, $absolute = false)
     {
         $isNow = $other === null;
 
@@ -1846,6 +1846,10 @@ class Carbon extends DateTime
 
         $txt = $delta . ' ' . $unit;
         $txt .= $delta == 1 ? '' : 's';
+
+        if ($absolute) {
+            return $txt;
+        }
 
         if ($isNow) {
             if ($isFuture) {
@@ -2204,7 +2208,7 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      * @param  Carbon  $dt
-     * @return boolean  
+     * @return boolean
      */
     public function isBirthday(Carbon $dt)
     {

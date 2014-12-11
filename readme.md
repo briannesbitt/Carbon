@@ -709,6 +709,8 @@ This method will add a phrase after the difference value relative to the instanc
     * 1 hour after
     * 5 months after
 
+You may also pass `true` to remove the modifiers *ago*, *from now*, etc as a 2nd parameter: `diffForHumans(Carbon $other, true)`
+
 ```php
 // The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -724,6 +726,7 @@ echo $dt->diffForHumans($dt->copy()->subMonth());              // 1 month after
 echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from now
 
 echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
+echo Carbon::now()->subDays(24)->diffForHumans(null, true);    // 3 weeks
 ```
 
 <a name="api-modifiers"/>
