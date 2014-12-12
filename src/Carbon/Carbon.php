@@ -1802,6 +1802,7 @@ class Carbon extends DateTime
      * 5 months after
      *
      * @param Carbon $other
+     * @param bool   $absolute removes time difference modifiers ago, after, etc
      *
      * @return string
      */
