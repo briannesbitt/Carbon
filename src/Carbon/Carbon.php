@@ -13,6 +13,7 @@ namespace Carbon;
 
 use Closure;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use DateInterval;
 use DatePeriod;
@@ -200,7 +201,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public static function instance(DateTime $dt)
+    public static function instance(DateTimeInterface $dt)
     {
         return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
     }
@@ -377,7 +378,7 @@ class Carbon extends DateTime
             $dt = parent::createFromFormat($format, $time);
         }
 
-        if ($dt instanceof DateTime) {
+        if ($dt instanceof DateTimeInterface) {
             return static::instance($dt);
         }
 
@@ -1702,7 +1703,7 @@ class Carbon extends DateTime
           }
 
           $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-          $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+          $days = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
                 return call_user_func($callback, Carbon::instance($date));
           });
 
