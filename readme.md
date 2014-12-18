@@ -181,7 +181,7 @@ echo $now;                               // 2014-09-30 21:03:42
 $today = Carbon::today();
 echo $today;                             // 2014-09-30 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2014-10-02 00:00:00
+echo $tomorrow;                          // 2014-10-01 00:00:00
 $yesterday = Carbon::yesterday();
 echo $yesterday;                         // 2014-09-29 00:00:00
 ```
