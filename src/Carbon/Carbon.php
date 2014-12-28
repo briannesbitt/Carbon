@@ -22,6 +22,7 @@ use InvalidArgumentException;
  * A simple API extension for DateTime
  *
  * @property      integer $year
+ * @property      integer $yearIso
  * @property      integer $month
  * @property      integer $day
  * @property      integer $hour
@@ -437,6 +438,7 @@ class Carbon extends DateTime
     {
         switch ($name) {
             case 'year':
+            case 'yearIso':
             case 'month':
             case 'day':
             case 'hour':
@@ -450,6 +452,7 @@ class Carbon extends DateTime
             case 'timestamp':
                 $formats = array(
                     'year' => 'Y',
+                    'yearIso' => 'o',
                     'month' => 'n',
                     'day' => 'j',
                     'hour' => 'G',
