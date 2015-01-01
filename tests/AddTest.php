@@ -58,6 +58,27 @@ class AddTest extends TestFixture
         $this->assertSame(3, Carbon::createFromDate(2012, 1, 31)->addMonth()->month);
     }
 
+    public function testAddMonthsNoOverflowPositive()
+    {
+        $this->assertSame('2012-02-29', Carbon::createFromDate(2012, 1, 31)->addMonthNoOverflow()->toDateString());
+        $this->assertSame('2012-03-31', Carbon::createFromDate(2012, 1, 31)->addMonthsNoOverflow(2)->toDateString());
+        $this->assertSame('2012-03-29', Carbon::createFromDate(2012, 2, 29)->addMonthNoOverflow()->toDateString());
+        $this->assertSame('2012-02-29', Carbon::createFromDate(2011, 12, 31)->addMonthsNoOverflow(2)->toDateString());
+    }
+
+    public function testAddMonthsNoOverflowZero()
+    {
+        $this->assertSame(12, Carbon::createFromDate(1975, 12)->addMonths(0)->month);
+    }
+
+    public function testAddMonthsNoOverflowNegative()
+    {
+        $this->assertSame('2012-01-29', Carbon::createFromDate(2012, 2, 29)->addMonthsNoOverflow(-1)->toDateString());
+        $this->assertSame('2012-01-31', Carbon::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-2)->toDateString());
+        $this->assertSame('2012-02-29', Carbon::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-1)->toDateString());
+        $this->assertSame('2011-12-31', Carbon::createFromDate(2012, 1, 31)->addMonthsNoOverflow(-1)->toDateString());
+    }
+
     public function testAddDaysPositive()
     {
         $this->assertSame(1, Carbon::createFromDate(1975, 5, 31)->addDays(1)->day);
