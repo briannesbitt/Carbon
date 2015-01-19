@@ -824,6 +824,7 @@ The only one slightly different is the `average()` function.  It moves your inst
 
 The following constants are defined in the Carbon class.
 
+```php
 // These getters specifically return integers, ie intval()
 {{constSunday::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{constSunday_eval}}
 {{constMonday::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{constMonday_eval}}
@@ -842,7 +843,6 @@ The following constants are defined in the Carbon class.
 {{constMinutesPerHour::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{constMinutesPerHour_eval}}
 {{constSecondsPerMinute::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{constSecondsPerMinute_eval}}
 
-```php
 {{::lint(
 $dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
