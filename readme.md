@@ -802,6 +802,7 @@ echo $start->average($end);                        // 2014-01-15 12:00:00
 
 The following constants are defined in the Carbon class.
 
+```php
 // These getters specifically return integers, ie intval()
 var_dump(Carbon::SUNDAY);                          // int(0)
 var_dump(Carbon::MONDAY);                          // int(1)
@@ -820,7 +821,6 @@ var_dump(Carbon::HOURS_PER_DAY);                   // int(24)
 var_dump(Carbon::MINUTES_PER_HOUR);                // int(60)
 var_dump(Carbon::SECONDS_PER_MINUTE);              // int(60)
 
-```php
 $dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
     echo 'Place bets on Ottawa Senators Winning!';
