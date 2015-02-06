@@ -83,15 +83,23 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
 <a name="install-composer"/>
 ### With Composer
 
-The easiest way to install Carbon is via [composer](http://getcomposer.org/). Create the following `composer.json` file and run the `php composer.phar install` command to install it.
+The easiest way to install Carbon is via [composer](http://getcomposer.org/). Using the following command:
+
+```
+$ composer require nesbot/carbon
+```
+This will automatically find the latest version and include that one, for example `~1.13`.
+
+I you wish you can create the following `composer.json` file and run the `php composer.phar install` command to install it.
 
 ```json
 {
     "require": {
-        "nesbot/Carbon": "*"
+        "nesbot/carbon": "*"
     }
 }
 ```
+Note: we recommend using a defined version like `~1.13` instead of `*`,
 
 ```php
 <?php
@@ -177,7 +185,7 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2015-02-05 23:13:48
+echo $now;                               // 2015-02-05 23:42:01
 $today = Carbon::today();
 echo $today;                             // 2015-02-05 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -276,7 +284,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-02-05 23:13:48
+echo Carbon::now();                                    // 2015-02-05 23:42:01
 ```
 
 A more meaning full example:
@@ -560,7 +568,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-02-05 23:13:48
+echo $dt1->max();                                  // 2015-02-05 23:42:01
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
