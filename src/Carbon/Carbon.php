@@ -1349,6 +1349,64 @@ class Carbon extends DateTime
     }
 
     /**
+     * Add months without overflowing to the instance. Positive $value 
+     * travels forward while negative $value travels into the past.
+     *
+     * @param integer $value
+     *
+     * @return static
+     */
+    public function addMonthsNoOverflow($value)
+    {
+        // jump straight into the month to avoid any php overflow weirdness
+        $newYear   = $this->year + floor(($this->month + $value) / 12);
+        $newMonth = ($this->month + $value) % 12;
+        $newDate = self::create($newYear, $newMonth, $this->day, $this->hour, $this->minute, $this->second, $this->getTimeZone());
+
+        if(($newDate->day != $this->day)) {
+            // it seems like this would be dependent on whether the value is
+            // positive or negative, but because of how we set the month above,
+            // we should always zero out and subtract a month
+            $newDate->day(1)->subMonth();
+            $newDate->day($newDate->daysInMonth);
+        }
+
+        return $newDate;
+    }
+
+    /**
+     * Add a month with no overflow to the instance
+     *
+     * @return static
+     */
+    public function addMonthNoOverflow()
+    {
+        return $this->addMonthsNoOverflow(1);
+    }
+
+    /**
+     * Remove a month with no overflow from the instance
+     *
+     * @return static
+     */
+    public function subMonthNoOverflow()
+    {
+        return $this->addMonthsNoOverflow(-1);
+    }
+
+    /**
+     * Remove months with no overflow from the instance
+     *
+     * @param integer $value
+     *
+     * @return static
+     */
+    public function subMonthsNoOverflow($value)
+    {
+        return $this->addMonthsNoOverflow(-1 * $value);
+    }
+
+    /**
      * Add days to the instance. Positive $value travels forward while
      * negative $value travels into the past.
      *
