@@ -65,6 +65,11 @@ class StringsTest extends TestFixture
 
       *****************/
     }
+    public function testToLocalizedFormattedTimezonedDateString()
+    {        
+      $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
+      $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));      
+    }
     public function testToTimeString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
