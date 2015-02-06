@@ -435,66 +435,52 @@ class Carbon extends DateTime
      */
     public function __get($name)
     {
-        switch ($name) {
-            case 'year':
-            case 'month':
-            case 'day':
-            case 'hour':
-            case 'minute':
-            case 'second':
-            case 'micro':
-            case 'dayOfWeek':
-            case 'dayOfYear':
-            case 'weekOfYear':
-            case 'daysInMonth':
-            case 'timestamp':
-                $formats = array(
-                    'year' => 'Y',
-                    'month' => 'n',
-                    'day' => 'j',
-                    'hour' => 'G',
-                    'minute' => 'i',
-                    'second' => 's',
-                    'micro' => 'u',
-                    'dayOfWeek' => 'w',
-                    'dayOfYear' => 'z',
-                    'weekOfYear' => 'W',
-                    'daysInMonth' => 't',
-                    'timestamp' => 'U',
-                );
-
+        switch(true)
+        {
+            case array_key_exists($name, $formats = array(
+                'year' => 'Y',
+                'month' => 'n',
+                'day' => 'j',
+                'hour' => 'G',
+                'minute' => 'i',
+                'second' => 's',
+                'micro' => 'u',
+                'dayOfWeek' => 'w',
+                'dayOfYear' => 'z',
+                'weekOfYear' => 'W',
+                'daysInMonth' => 't',
+                'timestamp' => 'U',
+            )):
                 return (int) $this->format($formats[$name]);
 
-            case 'weekOfMonth':
+            case $name === 'weekOfMonth':
                 return (int) ceil($this->day / self::DAYS_PER_WEEK);
 
-            case 'age':
+            case $name === 'age':
                 return (int) $this->diffInYears();
 
-            case 'quarter':
+            case $name === 'quarter':
                 return (int) ceil($this->month / 3);
 
-            case 'offset':
+            case $name === 'offset':
                 return $this->getOffset();
 
-            case 'offsetHours':
+            case $name === 'offsetHours':
                 return $this->getOffset() / self::SECONDS_PER_MINUTE / self::MINUTES_PER_HOUR;
 
-            case 'dst':
+            case $name === 'dst':
                 return $this->format('I') == '1';
 
-            case 'local':
+            case $name === 'local':
                 return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
 
-            case 'utc':
+            case $name === 'utc':
                 return $this->offset == 0;
 
-            case 'timezone':
-            case 'tz':
+            case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
 
-            case 'timezoneName':
-            case 'tzName':
+            case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
 
             default:
