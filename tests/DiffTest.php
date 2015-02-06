@@ -918,10 +918,12 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansAbsoluteMonths()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 1));
         $d = Carbon::now()->subMonths(2);
         $this->assertSame('2 months', Carbon::now()->diffForHumans($d, true));
         $d = Carbon::now()->addMonths(2);
         $this->assertSame('2 months', Carbon::now()->diffForHumans($d, true));
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansAbsoluteYears()
