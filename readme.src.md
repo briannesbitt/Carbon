@@ -87,15 +87,23 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
 <a name="install-composer"/>
 ### With Composer
 
-The easiest way to install Carbon is via [composer](http://getcomposer.org/). Create the following `composer.json` file and run the `php composer.phar install` command to install it.
+The easiest way to install Carbon is via [composer](http://getcomposer.org/). Using the following command:
+
+```
+$ composer require nesbot/carbon
+```
+This will automatically find the latest version and include that one, for example `~1.13`.
+
+I you wish you can create the following `composer.json` file and run the `php composer.phar install` command to install it.
 
 ```json
 {
     "require": {
-        "nesbot/Carbon": "*"
+        "nesbot/carbon": "*"
     }
 }
 ```
+Note: we recommend using a defined version like `~1.13` instead of `*`,
 
 ```php
 <?php
