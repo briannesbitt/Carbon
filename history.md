@@ -1,4 +1,4 @@
-1.14.0 / 2015-2-XX
+1.14.0 / 2015-02-06
 ===================
 * Added isBirthday()
 * Various refactorings
