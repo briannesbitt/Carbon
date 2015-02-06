@@ -1827,6 +1827,26 @@ class Carbon extends DateTime
     }
 
     /**
+     * The number of seconds since midnight.
+     *
+     * @return integer
+     */
+    public function secondsSinceMidnight()
+    {
+        return $this->diffInSeconds($this->copy()->startOfDay());
+    }
+
+    /**
+     * The number of seconds until 23:23:59.
+     *
+     * @return integer
+     */
+    public function secondsUntilEndOfDay()
+    {
+        return $this->diffInSeconds($this->copy()->endOfDay());
+    }
+
+    /**
      * Get the difference in a human readable format.
      *
      * When comparing a value in the past to default now:
@@ -2258,25 +2278,5 @@ class Carbon extends DateTime
     public function isBirthday(Carbon $dt)
     {
         return $this->month === $dt->month && $this->day === $dt->day;
-    }
-
-    /**
-     * The number of seconds since midnight.
-     *
-     * @return integer
-     */
-    public function secondsSinceMidnight()
-    {
-        return $this->diffInSeconds($this->copy()->startOfDay());
-    }
-
-    /**
-     * The number of seconds until 23:23:59.
-     *
-     * @return integer
-     */
-    public function secondsUntilEndOfDay()
-    {
-        return $this->diffInSeconds($this->copy()->endOfDay());
     }
 }

@@ -695,6 +695,8 @@ These functions always return the **total difference** expressed in the specifie
 {{diff15::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(60));/*pad(70)*/)}} // {{diff15_eval}}
 {{diff16::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{diff16_eval}}
 {{diff17::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{diff17_eval}}
+
+{{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
 ```
 
 There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
@@ -714,6 +716,7 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 // diffInYears(), diffInMonths(), diffInWeeks()
 // diffInDays(), diffInWeekdays(), diffInWeekendDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
+// secondsSinceMidnight(), secondsUntilEndOfDay()
 ```
 
 <a name="api-humandiff"/>

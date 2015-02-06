@@ -185,13 +185,13 @@ To accompany `now()`, a few other static instantiation helpers exist to create w
 
 ```php
 $now = Carbon::now();
-echo $now;                               // 2015-02-05 23:42:01
+echo $now;                               // 2015-02-06 00:04:01
 $today = Carbon::today();
-echo $today;                             // 2015-02-05 00:00:00
+echo $today;                             // 2015-02-06 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
 echo $tomorrow;                          // 2015-02-07 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2015-02-04 00:00:00
+echo $yesterday;                         // 2015-02-05 00:00:00
 ```
 
 The next group of static helpers are the `createXXX()` helpers. Most of the static `create` functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an `InvalidArgumentException` with an informative message.  The message is obtained from an [DateTime::getLastErrors()](http://php.net/manual/en/datetime.getlasterrors.php) call.
@@ -284,7 +284,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-02-05 23:42:01
+echo Carbon::now();                                    // 2015-02-06 00:04:01
 ```
 
 A more meaning full example:
@@ -568,7 +568,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-02-05 23:42:01
+echo $dt1->max();                                  // 2015-02-06 00:04:01
 ```
 
 To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to `now()` (ex. isToday()) in some manner the `now()` is created in the same timezone as the instance.
@@ -675,6 +675,8 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(59));                  // 0
 echo $dt->diffInMinutes($dt->copy()->addSeconds(60));                  // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(119));                 // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
+
+echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
 ```
 
 There is also a special `diffInDaysFiltered()` method to help you filter the difference by days.  For example to count the weekend days between two instances:
@@ -692,6 +694,7 @@ echo $daysForExtraCoding;      // 104
 // diffInYears(), diffInMonths(), diffInWeeks()
 // diffInDays(), diffInWeekdays(), diffInWeekendDays()
 // diffInHours(), diffInMinutes(), diffInSeconds()
+// secondsSinceMidnight(), secondsUntilEndOfDay()
 ```
 
 <a name="api-humandiff"/>
