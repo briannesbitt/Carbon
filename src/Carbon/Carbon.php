@@ -31,7 +31,7 @@ use InvalidArgumentException;
  * @property-read integer $micro
  * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
- * @property-read integer $weekOfMonth 1 through 6
+ * @property-read integer $weekOfMonth 1 through 5
  * @property-read integer $weekOfYear ISO-8601 week number of year, weeks starting on Monday
  * @property-read integer $daysInMonth number of days in the given month
  * @property-read integer $age does a diffInYears() with default parameters
@@ -1363,7 +1363,7 @@ class Carbon extends DateTime
         $newMonth = ($this->month + $value) % 12;
         $newDate = self::create($newYear, $newMonth, $this->day, $this->hour, $this->minute, $this->second, $this->getTimeZone());
 
-        if(($newDate->day != $this->day)) {
+        if ($newDate->day != $this->day) {
             // it seems like this would be dependent on whether the value is
             // positive or negative, but because of how we set the month above,
             // we should always zero out and subtract a month
