@@ -1,7 +1,8 @@
-1.14.0 / 2014-10-XX
+1.14.0 / 2015-2-XX
 ===================
 * Added isBirthday()
 * Various refactorings
+* Merged MonthsNoOverflow helpers
 
 1.13.0 / 2014-09-25
 ===================
