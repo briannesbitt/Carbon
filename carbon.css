@@ -1,0 +1,9 @@
+body {font-family:"Open sans","Helvetica Neue",Helvetica,Arial,sans-serif;}
+.navbar {margin-bottom:0;background-color:white}
+.navbar-brand {height:70px;padding:10px 15px;}
+.navbar-nav > li > a {line-height:40px;}
+.jumbotron {background-color:#7ac35f;padding: 30px 15px;text-align:center}
+.jumbotron h2 {color:#f6f6f6}
+.jumbotron code, .jumbotron pre {display:inline-block;text-align:left}
+pre {border:0;border-radius:4px;margin:0;padding:0;background-color:#1d1f21}
+.hljs {padding:15px}
