@@ -21,7 +21,7 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon"></a>
+            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="161" height="50"></a>
          </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -37,7 +37,7 @@
 
    <div class="jumbotron">
       <div class="container">
-         <h2>A simple PHP API extension for DateTime.</h2>
+         <h1>A simple PHP API extension for DateTime.</h1>
          <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
 $tomorrow = Carbon::now()->addDay();
@@ -75,7 +75,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
       </div>
    </div>
 
-   <div class="container">
+   <div class="container"><div class="row"><div class="col-sm-offset-2 col-sm-8">
       <div class="text-center">
          <ul class="list-inline">
             <li><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></li>
@@ -83,7 +83,54 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
             <li><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></li>
          </ul>
       </div>
-   </div>
+
+      <a name="gettingstarted"></a>
+      <h1>Getting Started</h1>
+
+      <p>1.x is compatible with PHP 5.3+.</p>
+
+      <h2>Installing with Composer</h2>
+      <p>The easiest way to install Carbon is via <a href="http://getcomposer.org/">composer</a>. Using the following command:</p>
+
+      <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
+
+      <p>This will automatically find and download the latest version and setup an appropriate <code>composer.json</code> file.</p>
+
+      <p><pre><code class="php">&lt;?php
+require 'vendor/autoload.php';
+
+use Carbon\Carbon;
+
+printf("Now: %s", Carbon::now());</code></pre></p>
+
+      <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
+
+      <p><pre><code class="php">{
+    "require": {
+        "nesbot/carbon": "~1.0"
+    }
+}</code></pre></p>
+
+      <h3>Installing without Composer</h3>
+      <p>Why are you not using <a href="http://getcomposer.org/">composer</a>? Download <a href="https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php">Carbon.php</a> from the repo and save the file into your project path somewhere.</p>
+
+      <p><pre><code class="php">&lt;?php
+require 'path/to/Carbon.php';
+
+use Carbon\Carbon;
+
+printf("Now: %s", Carbon::now());</code></pre></p>
+
+      <h2>Author</h2>
+      <p>Brian Nesbitt - brian@nesbot.com - http://twitter.com/NesbittBrian</p>
+
+      <h2>License</h2>
+      <p>Carbon is licensed under the MIT License - see the <code>LICENSE</code> file for details.</p>
+
+      <h2>Why the name Carbon?</h2>
+      <p>Read about <a href="http://en.wikipedia.org/wiki/Radiocarbon_dating">Carbon Dating</a>.</p>
+
+   </div></div></div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
