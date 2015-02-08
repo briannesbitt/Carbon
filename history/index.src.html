@@ -1,0 +1,119 @@
+<h1>1.14.0 / 2015-02-06</h1>
+  <ul>
+    <li>Added isBirthday()</li>
+    <li>Various refactorings</li>
+    <li>Merged MonthsNoOverflow helpers</li>
+    <li>Added 2nd param to diffForHumans() to remove string modifier text</li>
+    <li>Improved readme for installation</li>
+    <li>Simplified __get method</li>
+    <li>timezone support for method formatLocalized</li>
+    <li>Added helpers secondsSinceMidnight() / secondsUntilEndOfDay()</li>
+  </ul>
+<h1>1.13.0 / 2014-09-25</h1>
+  <ul>
+    <li>Fixed diffInDaysFiltered() bug.</li>
+    <li>Removed default param from formatLocalized() (thanks @vlakoff)</li>
+    <li>Various refactorings (thanks @lucasmichot @euromark)</li>
+    <li>Updated toXXXString() methods to be camel cased (thanks @euromark)</li>
+    <li>Now using 4 spaces for indent. (thanks @lucasmichot @euromark)</li>
+  </ul>
+<h1>1.12.0 / 2014-09-09</h1>
+  <ul>
+    <li>Add new functions diffInDaysFiltered(), diffInWeekdays() and diffInWeekendDays() (thanks @m4tthumphrey)</li>
+    <li>Fixed XofQuarter methods when moving to a month that doesn&#39;t have that day it jumps forward #168</li>
+    <li>Support for microseconds during instantiation and copy.  Be aware that microseconds are ignored for doing any of the math.</li>
+    <li>Microsecond getter.</li>
+    <li>Various refactorings (thanks @lucasmichot @lorenzo)</li>
+  </ul>
+<h1>1.11.0 / 2014-08-25</h1>
+  <ul>
+    <li>Added isSameDay() (thanks @enkelmedia)</li>
+    <li>Added diffInWeeks(), maxValue() and minValue() (thanks @lucasmichot)</li>
+    <li>Improved accuracy of diffForHumans() by using 30/7 for weeks and moving the floor() call to outside the loop.  Fixed tests that just look better now as a result.</li>
+    <li>Improved readme with common formats example output (thanks @troyharvey)</li>
+    <li>Various internal refactors (thanks @lucasmichot)</li>
+  </ul>
+<h1>1.10.0 / 2014-07-17</h1>
+  <ul>
+    <li>Changed @return Carbon phpdocs to static for better IDE typehint when extending Carbon</li>
+    <li>Fixed Carbon.php download link</li>
+    <li>Added 5.6 and HHVM to test coverage</li>
+    <li>Fixed issue with isPast() returning true for now()</li>
+    <li>Added getter for weekOfMonth</li>
+  </ul>
+<h1>1.9.0 / 2014-05-12</h1>
+  <ul>
+    <li>Changed self references to static to allow for easier child classes</li>
+    <li>Fixed a couple of tests to account for London DST</li>
+    <li>Fixed a test that failed due to inconsistent DateTime COOKIE strings</li>
+  </ul>
+<h1>1.8.0 / 2014-01-06</h1>
+  <ul>
+    <li>Added .gitattributes file to to ignore some files on export (thanks @lucasmichot)</li>
+    <li>Removed unnecessary __set tz/timezone switch</li>
+    <li>Added min() / max() (thanks @lucasmichot)</li>
+    <li>Fixed startOfWeek() / endOfWeek() when crossing year boundary.</li>
+    <li>Fixed bug in detecting relative keywords in ctor parameter when using a test now</li>
+  </ul>
+<h1>1.7.0 / 2013-12-04</h1>
+  <ul>
+    <li>Added startOfYear() / endOfYear() (thanks @semalead)</li>
+    <li>Added average() (thanks @semalead)</li>
+  </ul>
+<h1>1.6.0 / 2013-11-23</h1>
+  <ul>
+    <li>Fixed &quot;Cannot access property ::$toStringFormat&quot; when extending Carbon and type juggling to a string occurs</li>
+  </ul>
+<h1>1.5.0 / 2013-11-21</h1>
+  <ul>
+    <li>Diff for humans now shows 2 weeks ago instead of 14 days ago</li>
+    <li>Added a local getter to test if the instance is in the local timezone</li>
+    <li>Added a utc getter to check if the instance is in UTC timezone</li>
+    <li>Fixed dst comment / phpdoc and psr issues</li>
+    <li>Optimize timezone getters (thanks @semalead)</li>
+    <li>Added static __toString formatting (thanks @cviebrock and @anlutro)</li>
+  </ul>
+<h1>1.4.0 / 2013-09-08</h1>
+  <ul>
+    <li>Corrected various PHPdocs</li>
+    <li>formatLocalized() is now more OS independent</li>
+    <li>Improved diff methods</li>
+    <li>Test now can be mocked using a relative term</li>
+  </ul>
+<h1>1.3.0 / 2013-08-21</h1>
+  <ul>
+    <li>Added modifier methods firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on</li>
+    <li>Added modifiers startOfWeek() and endOfWeek()</li>
+    <li>Added testing helpers to allow mocking of new Carbon(), new Carbon(&#39;now&#39;) and Carbon::now()</li>
+    <li>Added formatLocalized() to format a string using strftime() with the current locale</li>
+    <li>Improved diffInSeconds()</li>
+    <li>Improved [add|sub][Years|Months|Days|Hours|Minutes|Seconds|Weeks]</li>
+    <li>Docblocks everywhere ;(</li>
+    <li>Magic class properties</li>
+    <li>Added PHP 5.5 to travis test coverage</li>
+    <li>General Code cleanup</li>
+  </ul>
+<h1>1.2.0 / 2012-10-14</h1>
+  <ul>
+    <li>Added history.md</li>
+    <li>Implemented __isset() (thanks @flevour)</li>
+    <li>Simplified tomorrow()/yesterday() to rely on today()... more DRY</li>
+    <li>Simplified __set() and fixed exception text</li>
+    <li>Updated readme</li>
+  </ul>
+<h1>1.1.0 / 2012-09-16</h1>
+  <ul>
+    <li>Updated composer.json</li>
+    <li>Added better error messaging for failed readme generation</li>
+    <li>Fixed readme typos</li>
+    <li>Added static helpers <code>today()</code>, <code>tomorrow()</code>, <code>yesterday()</code></li>
+    <li>Simplified <code>now()</code> code</li>
+  </ul>
+<h1>1.0.1 / 2012-09-10</h1>
+  <ul>
+    <li>Added travis-ci.org</li>
+  </ul>
+<h1>1.0.0 / 2012-09-10</h1>
+  <ul>
+    <li>Initial release</li>
+  </ul>

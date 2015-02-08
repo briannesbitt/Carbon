@@ -1,7 +1,7 @@
 <div class="jumbotron">
    <div class="container">
       <h1>A simple PHP API extension for DateTime.</h1>
-      <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
+      <pre><code class="php">{{::lint(printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
@@ -29,12 +29,15 @@ Carbon::setTestNow();
 if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
-
-echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
+)}}
+{{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}} // '{{intro_eval}}'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
-$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
+{{::lint(
+$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
+)}}
+</code></pre>
    </div>
 </div>

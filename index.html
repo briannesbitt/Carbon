@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
    <link href="/carbon.css" rel="stylesheet">
 </head>
-<body>
+<body data-spy="scroll" data-target="#affix-nav">
    <nav class="navbar navbar-default navbar-static-top">
       <div class="container">
          <div class="navbar-header">
@@ -21,15 +21,15 @@
                <span class="icon-bar"></span>
                <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="161" height="50"></a>
+            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="158" height="50"></a>
          </div>
          <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                <li><a href="/#gettingstarted">Getting Started</a></li>
-               <li><a href="/docs.html">Docs</a></li>
-               <li><a href="/history.html">History</a></li>
-               <li><a href="/contribute.html">Contribute</a></li>
-               <li><a href="//github.com/briannesbitt/carbon">Code</a></li>
+               <li><a href="/docs">Docs</a></li>
+               <li><a href="/history">History</a></li>
+               <li><a href="/contribute">Contribute</a></li>
+               <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
             </ul>
          </div>
       </div>
@@ -66,29 +66,26 @@ Carbon::setTestNow();
 if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
-
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
-$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
+$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
+</code></pre>
    </div>
 </div>
 
-   <div class="container"><div class="row"><div class="col-sm-offset-2 col-sm-8">
-      <div class="text-center">
-   <ul class="list-inline">
-      <li><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></li>
-      <li><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></i>
-      <li><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></li>
-   </ul>
-</div>
+   <div class="container page"><div class="row"><div class="col-md-9">
+      <ul class="list-inline">
+   <li><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></li>
+   <li><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></i>
+   <li><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></li>
+</ul>
 
-<a name="gettingstarted"></a>
-<h1>Getting Started</h1>
+<h1 id="gettingstarted">Getting Started</h1>
 
-<p>1.x is compatible with PHP 5.3+.</p>
+<p>1.x is compatible with PHP 5.3+.<br>A 2.x version is in the works and will require PHP 5.4+.</p>
 
 <h3>Installing</h3>
 <p>The easiest and recommended method to install Carbon is via <a href="http://getcomposer.org/">composer</a>.</p>
@@ -106,7 +103,7 @@ $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
 
          <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
 
-         <p>This will automatically download the latest version and setup an appropriate <code>composer.json</code> file.</p>
+         <p>This will automatically get the latest version and configure a <code>composer.json</code> file.</p>
 
          <p><pre><code class="php">&lt;?php
 require 'vendor/autoload.php';
@@ -118,9 +115,9 @@ printf("Now: %s", Carbon::now());</code></pre></p>
          <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
 
          <p><pre><code class="php">{
- "require": {
-     "nesbot/carbon": "~1.0"
- }
+   "require": {
+      "nesbot/carbon": "~1.0"
+   }
 }</code></pre></p>
 
       </div>
@@ -140,14 +137,14 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 </div>
 
 <h3>Learn More</h3>
-Looks good so far.  What do I do next? Read the <a href="/docs.html">API docs</a>.
+Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
 <h2>Author</h2>
 
 <address>
   <strong>Brian Nesbitt</strong><br>
-  brian@nesbot.com<br>
-  http://twitter.com/NesbittBrian
+  <a href="http://nesbot.com">http://nesbot.com</a><br>
+  <a href="http://twitter.com/NesbittBrian">http://twitter.com/NesbittBrian</a>
 </address>
 
 <h2>License</h2>

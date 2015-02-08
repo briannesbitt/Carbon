@@ -1,0 +1,239 @@
+<div id="docs">
+
+<h1 id="api-introduction">Introduction</h1>
+
+<p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+
+<p><pre><code class="php">&lt;?php
+class Carbon extends \DateTime
+{
+    // code here
+}
+</code></pre></p>
+
+<p>Carbon has all of the functions inherited from the base DateTime class.  This approach allows you to access the base functionality if you see anything missing in Carbon but is there in DateTime.</p>
+
+<blockquote>Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.</blockquote>
+
+<p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
+
+<p><pre><code class="php">{{::lint($dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');)}}
+{{::lint($dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');)}}
+
+{{tz::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{tz_eval}}
+</code></pre></p>
+
+Also <code>is</code> comparisons are done in the timezone of the provided Carbon instance.  For example my current timezone is -13 hours from Tokyo.  So <code>Carbon::now('Asia/Tokyo')->isToday()</code> would only return false for any time past 1 PM my time.  This doesn't make sense since <code>now()</code> in tokyo is always today in Tokyo.  Thus the comparison to <code>now()</code> is done in the same timezone as the current instance.</p>
+
+<h1 id="api-instantiation">Instantiation</h1>
+
+<p>There are several different methods available to create a new instance of Carbon. First there is a constructor. It overrides the <a href="http://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you are best to read about the first parameter from the PHP manual and understand the date/time string formats it accepts. You'll hopefully find yourself rarely using the constructor but rather relying on the explicit static methods for improved readability.</p>
+
+<p><pre><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
+{{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
+{{ctorType::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{ctorType_eval}}'
+</code></pre></p>
+
+<p>You'll notice above that the timezone (2nd) parameter was passed as a string rather than a <code>\DateTimeZone</code> instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the <code>now()</code> function.</p>
+
+<p><pre><code class="php">{{::lint(
+$now = Carbon::now();
+
+$nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
+
+// or just pass the timezone as a string
+$nowInLondonTz = Carbon::now('Europe/London');
+)}}
+</code></pre></p>
+
+<p>If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets necessary when using the constructor you'll enjoy the <code>parse</code> method.</p>
+
+<p><pre><code class="php">{{parse1::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{parse1_eval}}
+{{parse2::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{parse2_eval}}
+</code></pre></p>
+
+<p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
+
+<p><pre><code class="php">{{::lint($now = Carbon::now();)}}
+{{now::exec(echo $now;/*pad(40)*/)}} // {{now_eval}}
+{{::lint($today = Carbon::today();)}}
+{{today::exec(echo $today;/*pad(40)*/)}} // {{today_eval}}
+{{::lint($tomorrow = Carbon::tomorrow('Europe/London');)}}
+{{tomorrow::exec(echo $tomorrow;/*pad(40)*/)}} // {{tomorrow_eval}}
+{{::lint($yesterday = Carbon::yesterday();)}}
+{{yesterday::exec(echo $yesterday;/*pad(40)*/)}} // {{yesterday_eval}}
+</code></pre></p>
+
+<p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
+
+<p><pre><code class="php">Carbon::createFromDate($year, $month, $day, $tz);
+Carbon::createFromTime($hour, $minute, $second, $tz);
+Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
+</code></pre></p>
+
+<p><code>createFromDate()</code> will default the time to now.  <code>createFromTime()</code> will default the date to today. <code>create()</code> will default any null parameter to the current respective value. As before, the <code>$tz</code> defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case for default values (mimicking the underlying PHP library) occurs when an hour value is specified but no minutes or seconds, they will get defaulted to 0.</p>
+
+<p><pre><code class="php">{{::lint(
+$xmasThisYear = Carbon::createFromDate(null, 12, 25);  // Year defaults to current year
+$Y2K = Carbon::create(2000, 1, 1, 0, 0, 0);
+$alsoY2K = Carbon::create(1999, 12, 31, 24);
+$noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
+)}}
+
+// {{createFromDateException_eval}}
+{{createFromDateException::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); })}}
+</code></pre></p>
+
+<p><pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre></p>
+
+<p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>.  The difference being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and then throw a <code>InvalidArgumentException</code> with the errors as the message.  If you look at the source for the <code>createXX()</code> functions above, they all make a call to <code>createFromFormat()</code>.</p>
+
+<p><pre><code class="php">{{createFromFormat1::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{createFromFormat1_eval}}</code></pre></p>
+
+<p>The final two create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  Negative timestamps are also allowed.</p>
+
+<p><pre><code class="php">{{createFromTimeStamp1::exec(echo Carbon::createFromTimeStamp(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp1_eval}}
+{{createFromTimeStamp2::exec(echo Carbon::createFromTimeStamp(-1, 'Europe/London')->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp2_eval}}
+{{createFromTimeStampUTC::exec(echo Carbon::createFromTimeStampUTC(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStampUTC_eval}}
+</code></pre></p>
+
+<p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
+
+<p><pre><code class="php">{{::lint($dt = Carbon::now();)}}
+{{copy2::exec(echo $dt->diffInYears($dt->copy()->addYear());)}}  // {{copy2_eval}}
+
+// $dt was unchanged and still holds the value of Carbon:now()
+</code></pre></p>
+
+<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
+
+<p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
+{{::lint($carbon = Carbon::instance($dt);)}}
+{{ctorType1::exec(echo get_class($carbon);/*pad(54)*/)}} // '{{ctorType1_eval}}'
+{{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
+</code></pre></p>
+
+<p>A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the <code>format()</code> method.</p>
+
+<p><pre><code class="php">{{::lint($dt = Carbon::parse('1975-05-21 22:23:00.123456');)}}
+{{micro1::exec(echo $dt->micro;/*pad(54)*/)}} // {{micro1_eval}}
+{{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
+</code></pre></p>
+
+<p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
+
+<p><pre><code class="php">{{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
+{{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
+</code></pre></p>
+
+<h1 id="api-testing">Testing Aids</h1>
+
+<p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
+
+<ul>
+  <li>A call to the static now() method, ex. Carbon::now()</li>
+  <li>When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)</li>
+  <li>When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')</li>
+</ul>
+
+<p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+{{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock (of course this could be a real mock object)
+{{testaid1::exec(echo Carbon::now();/*pad(54)*/)}} // {{testaid1_eval}}
+{{testaid2::exec(echo new Carbon();/*pad(54)*/)}} // {{testaid2_eval}}
+{{testaid3::exec(echo Carbon::parse();/*pad(54)*/)}} // {{testaid3_eval}}
+{{testaid4::exec(echo new Carbon('now');/*pad(54)*/)}} // {{testaid4_eval}}
+{{testaid5::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{testaid5_eval}}
+{{hasTestNow::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNow_eval}}
+{{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
+{{hasTestNowNo::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNowNo_eval}}
+{{backToNormal::exec(echo Carbon::now();/*pad(54)*/)}} // {{backToNormal_eval}}
+</code></pre></p>
+
+<p>A more meaning full example:</p>
+
+<p><pre><code class="php">{{::lint(
+class SeasonalProduct
+{
+    protected $price;
+
+    public function __construct($price)
+    {
+        $this->price = $price;
+    }
+
+    public function getPrice() {
+        $multiplier = 1;
+        if (Carbon::now()->month == 12) {
+            $multiplier = 2;
+        }
+
+        return $this->price * $multiplier;
+    }
+}
+
+$product = new SeasonalProduct(100);
+)}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of March 2000'));/*pad(40)*/)}}
+{{product1::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product1_eval}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of December 2000'));/*pad(40)*/)}}
+{{product2::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product2_eval}}
+{{::lint(Carbon::setTestNow(Carbon::parse('first day of May 2000'));/*pad(40)*/)}}
+{{product3::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product3_eval}}
+{{::lint(Carbon::setTestNow();)}}
+</code></pre></p>
+
+<p>Relative phrases are also mocked according to the given "now" instance.</p>
+
+<p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+{{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
+{{testaid6::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid6_eval}}  ... notice the time !
+{{testaid7::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid7_eval}}
+{{testaid8::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid8_eval}}
+{{testaid9::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid9_eval}}
+{{testaid10::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid10_eval}}
+{{::exec(Carbon::setTestNow();/*pad(54)*/)}} // always clear it !
+</code></pre></p>
+
+<p>The list of words that are considered to be relative modifiers are:</p>
+
+<ul>
+  <li>this</li>
+  <li>next</li>
+  <li>last</li>
+  <li>tomorrow</li>
+  <li>yesterday</li>
+  <li>+</li>
+  <li>-</li>
+  <li>first</li>
+  <li>last</li>
+  <li>ago</li>
+</ul>
+
+<p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.</p>
+
+<h1 id="api-getters">Getters</a>
+
+</div>
+</div>
+
+<div class="col-md-3">
+  <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
+    <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
+      <li><a href="#api-introduction">Introduction</a></li>
+      <li><a href="#api-instantiation">Instantiation</a></li>
+      <li><a href="#api-testing">Testing Aids</a></li>
+      <li><a href="#api-getters">Getters</a></li>
+      <li><a href="#api-setters">Setters</a></li>
+      <li><a href="#api-settersfluent">Fluent Setters</a></li>
+      <li><a href="#api-isset">IsSet</a></li>
+      <li><a href="#api-formatting">String Formatting and Localization</a></li>
+      <li><a href="#api-commonformats">Common Formats</a></li>
+      <li><a href="#api-comparison">Comparison</a></li>
+      <li><a href="#api-addsub">Addition and Subtraction</a></li>
+      <li><a href="#api-difference">Difference</a></li>
+      <li><a href="#api-humandiff">Difference for Humans</a></li>
+      <li><a href="#api-modifiers">Modifiers</a></li>
+      <li><a href="#api-constants">Constants</a></li>
+    </ul>
+  </div>
+</div>
