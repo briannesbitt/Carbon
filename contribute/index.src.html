@@ -3,16 +3,16 @@
 <p>I hate reading documenation that has code errors and/or sample output that is incorrect.  I tried something new with this project and wrote a quick parser that can <b>lint</b> sample source code or <b>execute</b> and inject the actual result into a generated doc.</p>
 
 <blockquote>
-  <p>Don't make changes to the <code>docs.html</code> directly!!</p>
+  <p>Don't make changes to the <code>[a-z]+.html</code> files directly!!</p>
 </blockquote>
 
-<p>Change the <code>docs.src.html</code> and then use the <code>generate.php</code> script to generate the new <code>docs.html</code> file.  It can be run at the command line using <code>php generate.php</code> from the project root when in the <code>gh-pages</code> branch.  Maybe someday I'll extract this out to another project or at least run it with a post receive hook, but for now its just a local tool, deal with it.</p>
+<p>Change the associated <code>[a-z]+.src.html</code> and then use the <code>generate.php</code> script to generate the new <code>[a-z]+.html</code> file.  It can be run at the command line using <code>php generate.php</code> from the project root when in the <code>gh-pages</code> branch.  Maybe someday I'll extract this out to another project or at least run it with a post receive hook, but for now its just a local tool, deal with it.</p>
 
-<p>The commands are quickly explained below.  To see some examples you can view the raw <code>docs.src.html</code> file in this repo.</p>
+<p>The commands are quickly explained below.  To see some examples you can view the raw <code>docs/index.src.html</code> file in this repo.</p>
 
 <h2>{{::lint()}}</h2>
 
-<p>The <code>lint</code> command is meant for confirming the code is valid and will <code>eval()</code> the code passed into the function.  Assuming there were no errors, the executed source code will then be injected back into the text replacing out the <code>{{::lint()}}</code>.  When you look at the raw <code>docs.src.html</code> you will see that the code can span several lines.  Remember the code is executed in the context of the running script so any variables will be available for the rest of the file.</p>
+<p>The <code>lint</code> command is meant for confirming the code is valid and will <code>eval()</code> the code passed into the function.  Assuming there were no errors, the executed source code will then be injected back into the text replacing out the <code>{{::lint()}}</code>.  When you look at the raw <code>docs/index.src.html</code> you will see that the code can span several lines.  Remember the code is executed in the context of the running script so any variables will be available for the rest of the file.</p>
 
 <p><pre><code>{{::lint($var = 'brian nesbitt';)}} => $var = 'brian nesbitt';</code></pre></p>
 
