@@ -6,7 +6,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="icon" href="/favicon.ico">
    <title>Carbon - A simple PHP API extension for DateTime.</title>
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
    <link href="/carbon.css" rel="stylesheet">
@@ -23,22 +23,22 @@
             </button>
             <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="161" height="50"></a>
          </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#gettingstarted">Getting Started</a></li>
-            <li><a href="/docs.html">Docs</a></li>
-            <li><a href="/history.html">History</a></li>
-            <li><a href="/contribute.html">Contribute</a></li>
-            <li><a href="//github.com/briannesbitt/carbon">Code</a></li>
-          </ul>
-        </div>
+         <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+               <li><a href="/#gettingstarted">Getting Started</a></li>
+               <li><a href="/docs.html">Docs</a></li>
+               <li><a href="/history.html">History</a></li>
+               <li><a href="/contribute.html">Contribute</a></li>
+               <li><a href="//github.com/briannesbitt/carbon">Code</a></li>
+            </ul>
+         </div>
       </div>
-    </nav>
+   </nav>
 
    <div class="jumbotron">
-      <div class="container">
-         <h1>A simple PHP API extension for DateTime.</h1>
-         <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
+   <div class="container">
+      <h1>A simple PHP API extension for DateTime.</h1>
+      <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
@@ -57,79 +57,104 @@ Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
 if (Carbon::now()->gte($worldWillEnd)) {
-   die();
+    die();
 }
 
 // Phew! Return to normal behaviour
 Carbon::setTestNow();
 
 if (Carbon::now()->isWeekend()) {
-   echo 'Party!';
+    echo 'Party!';
 }
+
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
 $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();</code></pre>
-      </div>
    </div>
+</div>
 
    <div class="container"><div class="row"><div class="col-sm-offset-2 col-sm-8">
       <div class="text-center">
-         <ul class="list-inline">
-            <li><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></li>
-            <li><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></i>
-            <li><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></li>
-         </ul>
-      </div>
+   <ul class="list-inline">
+      <li><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></li>
+      <li><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></i>
+      <li><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></li>
+   </ul>
+</div>
 
-      <a name="gettingstarted"></a>
-      <h1>Getting Started</h1>
+<a name="gettingstarted"></a>
+<h1>Getting Started</h1>
 
-      <p>1.x is compatible with PHP 5.3+.</p>
+<p>1.x is compatible with PHP 5.3+.</p>
 
-      <h2>Installing with Composer</h2>
-      <p>The easiest way to install Carbon is via <a href="http://getcomposer.org/">composer</a>. Using the following command:</p>
+<h3>Installing</h3>
+<p>The easiest and recommended method to install Carbon is via <a href="http://getcomposer.org/">composer</a>.</p>
 
-      <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
+<div role="tabpanel">
+   <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#withcomposer" role="tab" data-toggle="tab">With composer</a></li>
+      <li role="presentation"><a href="#nocomposer" role="tab" data-toggle="tab">Direct download</a></li>
+   </ul>
 
-      <p>This will automatically find and download the latest version and setup an appropriate <code>composer.json</code> file.</p>
+   <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="withcomposer">
+         <p></p>
+         <p>Use the following command to install with composer.</p>
 
-      <p><pre><code class="php">&lt;?php
+         <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
+
+         <p>This will automatically download the latest version and setup an appropriate <code>composer.json</code> file.</p>
+
+         <p><pre><code class="php">&lt;?php
 require 'vendor/autoload.php';
 
 use Carbon\Carbon;
 
 printf("Now: %s", Carbon::now());</code></pre></p>
 
-      <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
+         <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
 
-      <p><pre><code class="php">{
-    "require": {
-        "nesbot/carbon": "~1.0"
-    }
+         <p><pre><code class="php">{
+ "require": {
+     "nesbot/carbon": "~1.0"
+ }
 }</code></pre></p>
 
-      <h3>Installing without Composer</h3>
-      <p>Why are you not using <a href="http://getcomposer.org/">composer</a>? Download <a href="https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php">Carbon.php</a> from the repo and save the file into your project path somewhere.</p>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="nocomposer">
+         <p></p>
+         <p>Why are you not using <a href="http://getcomposer.org/">composer</a>?</p>
+         <p>Download <a href="https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php">Carbon.php</a> from the repo and save the file into your project path somewhere.</p>
 
-      <p><pre><code class="php">&lt;?php
+         <p><pre><code class="php">&lt;?php
 require 'path/to/Carbon.php';
 
 use Carbon\Carbon;
 
-printf("Now: %s", Carbon::now());</code></pre></p>
+printf("Now: %s", Carbon::now());</code></pre></p> 
+      </div>
+   </div>
+</div>
 
-      <h2>Author</h2>
-      <p>Brian Nesbitt - brian@nesbot.com - http://twitter.com/NesbittBrian</p>
+<h3>Learn More</h3>
+Looks good so far.  What do I do next? Read the <a href="/docs.html">API docs</a>.
 
-      <h2>License</h2>
-      <p>Carbon is licensed under the MIT License - see the <code>LICENSE</code> file for details.</p>
+<h2>Author</h2>
 
-      <h2>Why the name Carbon?</h2>
-      <p>Read about <a href="http://en.wikipedia.org/wiki/Radiocarbon_dating">Carbon Dating</a>.</p>
+<address>
+  <strong>Brian Nesbitt</strong><br>
+  brian@nesbot.com<br>
+  http://twitter.com/NesbittBrian
+</address>
 
+<h2>License</h2>
+<p>Carbon is licensed under the MIT License - see the <code>LICENSE</code> file for details.</p>
+
+<h2>Why the name Carbon?</h2>
+<p>Read about <a href="http://en.wikipedia.org/wiki/Radiocarbon_dating">Carbon Dating</a>.</p>
    </div></div></div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
