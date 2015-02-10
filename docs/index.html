@@ -93,13 +93,13 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2015-02-08 00:42:50
+echo $now;                               // 2015-02-09 23:45:29
 $today = Carbon::today();
-echo $today;                             // 2015-02-08 00:00:00
+echo $today;                             // 2015-02-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2015-02-09 00:00:00
+echo $tomorrow;                          // 2015-02-11 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2015-02-07 00:00:00
+echo $yesterday;                         // 2015-02-08 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -182,7 +182,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-02-08 00:42:50
+echo Carbon::now();                                    // 2015-02-09 23:45:29
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -245,7 +245,481 @@ Carbon::setTestNow();                                  // always clear it !
 
 <p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.</p>
 
-<h1 id="api-getters">Getters</a>
+<h1 id="api-getters">Getters</h1>
+
+<p>The getters are implemented via PHP's <code>__get()</code> method.  This enables you to access the value as if it was a property rather than a function call.</p>
+
+<p><pre><code class="php">$dt = Carbon::parse('2012-9-5 23:26:11.123789');
+
+// These getters specifically return integers, ie intval()
+var_dump($dt->year);                                         // int(2012)
+var_dump($dt->month);                                        // int(9)
+var_dump($dt->day);                                          // int(5)
+var_dump($dt->hour);                                         // int(23)
+var_dump($dt->minute);                                       // int(26)
+var_dump($dt->second);                                       // int(11)
+var_dump($dt->micro);                                        // int(123789)
+var_dump($dt->dayOfWeek);                                    // int(3)
+var_dump($dt->dayOfYear);                                    // int(248)
+var_dump($dt->weekOfMonth);                                  // int(1)
+var_dump($dt->weekOfYear);                                   // int(36)
+var_dump($dt->daysInMonth);                                  // int(30)
+var_dump($dt->timestamp);                                    // int(1346901971)
+var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(39) calculated vs now in the same tz
+var_dump($dt->quarter);                                      // int(3)
+
+// Returns an int of seconds difference from UTC (+/- sign included)
+var_dump(Carbon::createFromTimestampUTC(0)->offset);         // int(0)
+var_dump(Carbon::createFromTimestamp(0)->offset);            // int(-18000)
+
+// Returns an int of hours difference from UTC (+/- sign included)
+var_dump(Carbon::createFromTimestamp(0)->offsetHours);       // int(-5)
+
+// Indicates if day light savings time is on
+var_dump(Carbon::createFromDate(2012, 1, 1)->dst);           // bool(false)
+var_dump(Carbon::createFromDate(2012, 9, 1)->dst);           // bool(true)
+
+// Indicates if the instance is in the same timezone as the local timezone
+var_dump(Carbon::now()->local);                              // bool(true)
+var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
+
+// Indicates if the instance is in the UTC timezone
+var_dump(Carbon::now()->utc);                                // bool(false)
+var_dump(Carbon::now('Europe/London')->utc);                 // bool(true)
+var_dump(Carbon::createFromTimestampUTC(0)->utc);            // bool(true)
+
+// Gets the DateTimeZone instance
+echo get_class(Carbon::now()->timezone);                     // DateTimeZone
+echo get_class(Carbon::now()->tz);                           // DateTimeZone
+
+// Gets the DateTimeZone instance name, shortcut for ->timezone->getName()
+echo Carbon::now()->timezoneName;                            // America/Toronto
+echo Carbon::now()->tzName;                                  // America/Toronto
+</code></pre></p>
+
+<h1 id="api-setters">Setters</h1>
+
+<p>The following setters are implemented via PHP's <code>__set()</code> method.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
+
+<p><pre><code class="php">$dt = Carbon::now();
+
+$dt->year = 1975;
+$dt->month = 13;             // would force year++ and month = 1
+$dt->month = 5;
+$dt->day = 21;
+$dt->hour = 22;
+$dt->minute = 32;
+$dt->second = 5;
+
+$dt->timestamp = 169957925;  // This will not change the timezone
+
+// Set the timezone via DateTimeZone instance or string
+$dt->timezone = new DateTimeZone('Europe/London');
+$dt->timezone = 'Europe/London';
+$dt->tz = 'Europe/London';
+</code></pre></p>
+
+<h1 id="api-settersfluent">Fluent Setters</h1>
+
+<p>No arguments are optional for the setters, but there are enough variety in the function definitions that you shouldn't need them anyway.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
+
+<p><pre><code class="php">$dt = Carbon::now();
+
+$dt->year(1975)->month(5)->day(21)->hour(22)->minute(32)->second(5)->toDateTimeString();
+$dt->setDate(1975, 5, 21)->setTime(22, 32, 5)->toDateTimeString();
+$dt->setDateTime(1975, 5, 21, 22, 32, 5)->toDateTimeString();
+
+$dt->timestamp(169957925)->timezone('Europe/London');
+
+$dt->tz('America/Toronto')->setTimezone('America/Vancouver');
+</code></pre></p>
+
+<h1 id="api-isset">IsSet</h1>
+
+<p>The PHP function <code>__isset()</code> is implemented.  This was done as some external systems (ex. <a href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the existence of a property before using it.  This is done using the <code>isset()</code> or <code>empty()</code> method.  You can read more about these on the PHP site: <a href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
+
+<p><pre><code class="php">var_dump(isset(Carbon::now()->iDoNotExist));       // bool(false)
+var_dump(isset(Carbon::now()->hour));              // bool(true)
+var_dump(empty(Carbon::now()->iDoNotExist));       // bool(true)
+var_dump(empty(Carbon::now()->year));              // bool(false)
+</code></pre></p>
+
+<h1 id="api-formatting">String Formatting and Localization</h1>
+
+<p>All of the available <code>toXXXString()</code> methods rely on the base class method <a href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>.  You'll notice the <code>__toString()</code> method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a string context.</p>
+
+<p><pre><code class="php">$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
+
+var_dump($dt->toDateTimeString() == $dt);          // bool(true) => uses __toString()
+echo $dt->toDateString();                          // 1975-12-25
+echo $dt->toFormattedDateString();                 // Dec 25, 1975
+echo $dt->toTimeString();                          // 14:15:16
+echo $dt->toDateTimeString();                      // 1975-12-25 14:15:16
+echo $dt->toDayDateTimeString();                   // Thu, Dec 25, 1975 2:15 PM
+
+// ... of course format() is still available
+echo $dt->format('l jS \\of F Y h:i:s A');         // Thursday 25th of December 1975 02:15:16 PM
+</code></pre></p>
+
+<p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
+
+<p><pre><code class="php">Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+echo $dt;                                          // 25th of December, 1975 2:15:16 pm
+Carbon::resetToStringFormat();
+echo $dt;                                          // 1975-12-25 14:15:16
+</code></pre></p>
+
+<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method has been added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
+
+<p><pre><code class="php">setlocale(LC_TIME, 'German');
+echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
+setlocale(LC_TIME, '');
+echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
+</code></pre></p>
+
+<h1 id="api-commonformats">Common Formats</h1>
+
+<p>The following are wrappers for the common formats provided in the <a href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
+
+<p><pre><code class="php">$dt = Carbon::now();
+
+// $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
+echo $dt->toAtomString();      // 1975-12-25T14:15:16-05:00
+echo $dt->toCookieString();    // Thursday, 25-Dec-1975 14:15:16 EST
+echo $dt->toIso8601String();   // 1975-12-25T14:15:16-0500
+echo $dt->toRfc822String();    // Thu, 25 Dec 75 14:15:16 -0500
+echo $dt->toRfc850String();    // Thursday, 25-Dec-75 14:15:16 EST
+echo $dt->toRfc1036String();   // Thu, 25 Dec 75 14:15:16 -0500
+echo $dt->toRfc1123String();   // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toRfc2822String();   // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toRfc3339String();   // 1975-12-25T14:15:16-05:00
+echo $dt->toRssString();       // Thu, 25 Dec 1975 14:15:16 -0500
+echo $dt->toW3cString();       // 1975-12-25T14:15:16-05:00
+</code></pre></p>
+
+<h1 id="api-comparison">Comparison</h1>
+
+<p>Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.</p>
+
+<p><pre><code class="php">echo Carbon::now()->tzName;                        // America/Toronto
+$first = Carbon::create(2012, 9, 5, 23, 26, 11);
+$second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');
+
+echo $first->toDateTimeString();                   // 2012-09-05 23:26:11
+echo $first->tzName;                               // America/Toronto
+echo $second->toDateTimeString();                  // 2012-09-05 20:26:11
+echo $second->tzName;                              // America/Vancouver
+
+var_dump($first->eq($second));                     // bool(true)
+var_dump($first->ne($second));                     // bool(false)
+var_dump($first->gt($second));                     // bool(false)
+var_dump($first->gte($second));                    // bool(true)
+var_dump($first->lt($second));                     // bool(false)
+var_dump($first->lte($second));                    // bool(true)
+
+$first->setDateTime(2012, 1, 1, 0, 0, 0);
+$second->setDateTime(2012, 1, 1, 0, 0, 0);         // Remember tz is 'America/Vancouver'
+
+var_dump($first->eq($second));                     // bool(false)
+var_dump($first->ne($second));                     // bool(true)
+var_dump($first->gt($second));                     // bool(false)
+var_dump($first->gte($second));                    // bool(false)
+var_dump($first->lt($second));                     // bool(true)
+var_dump($first->lte($second));                    // bool(true)
+</code></pre></p>
+
+<p>To determine if the current instance is between two other instances you can use the aptly named <code>between()</code> method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.</p>
+
+<p><pre><code class="php">$first = Carbon::create(2012, 9, 5, 1);
+$second = Carbon::create(2012, 9, 5, 5);
+var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));          // bool(true)
+var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));          // bool(true)
+var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));   // bool(false)
+</code></pre></p>
+
+<p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods.  As usual the default parameter is now if null is specified.</p>
+
+<p><pre><code class="php">$dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
+$dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $dt1->min($dt2);                              // 2012-01-01 00:00:00
+
+$dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);
+$dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
+
+// now is the default param
+$dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
+echo $dt1->max();                                  // 2015-02-09 23:45:29
+</code></pre></p>
+
+<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
+
+<p><pre><code class="php">$dt = Carbon::now();
+
+$dt->isWeekday();
+$dt->isWeekend();
+$dt->isYesterday();
+$dt->isToday();
+$dt->isTomorrow();
+$dt->isFuture();
+$dt->isPast();
+$dt->isLeapYear();
+$dt->isSameDay(Carbon::now());
+$born = Carbon::createFromDate(1987, 4, 23);
+$noCake = Carbon::createFromDate(2014, 9, 26);
+$yesCake = Carbon::createFromDate(2014, 4, 23);
+var_dump($born->isBirthday($noCake));              // bool(false)  
+var_dump($born->isBirthday($yesCake));             // bool(true)  
+</code></pre></p>
+
+<h1 id="api-addsub">Addition and Subtraction</h1>
+
+<p>The default DateTime provides a couple of different methods for easily adding and subtracting time.  There is <code>modify()</code>, <code>add()</code> and <code>sub()</code>.  <code>modify()</code> takes a <i>magical</i> date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification while <code>add()</code> and <code>sub()</code> use a <code>DateInterval</code> class thats not so obvious, <code>new \DateInterval('P6YT5M')</code>.  Hopefully using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.  But of course I don't make you choose since the base class functions are still available.</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2012, 1, 31, 0);
+
+echo $dt->toDateTimeString();            // 2012-01-31 00:00:00
+
+echo $dt->addYears(5);                   // 2017-01-31 00:00:00
+echo $dt->addYear();                     // 2018-01-31 00:00:00
+echo $dt->subYear();                     // 2017-01-31 00:00:00
+echo $dt->subYears(5);                   // 2012-01-31 00:00:00
+
+echo $dt->addMonths(60);                 // 2017-01-31 00:00:00
+echo $dt->addMonth();                    // 2017-03-03 00:00:00 equivalent of $dt->month($dt->month + 1); so it wraps
+echo $dt->subMonth();                    // 2017-02-03 00:00:00
+echo $dt->subMonths(60);                 // 2012-02-03 00:00:00
+
+echo $dt->addDays(29);                   // 2012-03-03 00:00:00
+echo $dt->addDay();                      // 2012-03-04 00:00:00
+echo $dt->subDay();                      // 2012-03-03 00:00:00
+echo $dt->subDays(29);                   // 2012-02-03 00:00:00
+
+echo $dt->addWeekdays(4);                // 2012-02-09 00:00:00
+echo $dt->addWeekday();                  // 2012-02-10 00:00:00
+echo $dt->subWeekday();                  // 2012-02-09 00:00:00
+echo $dt->subWeekdays(4);                // 2012-02-03 00:00:00
+
+echo $dt->addWeeks(3);                   // 2012-02-24 00:00:00
+echo $dt->addWeek();                     // 2012-03-02 00:00:00
+echo $dt->subWeek();                     // 2012-02-24 00:00:00
+echo $dt->subWeeks(3);                   // 2012-02-03 00:00:00
+
+echo $dt->addHours(24);                  // 2012-02-04 00:00:00
+echo $dt->addHour();                     // 2012-02-04 01:00:00
+echo $dt->subHour();                     // 2012-02-04 00:00:00
+echo $dt->subHours(24);                  // 2012-02-03 00:00:00
+
+echo $dt->addMinutes(61);                // 2012-02-03 01:01:00
+echo $dt->addMinute();                   // 2012-02-03 01:02:00
+echo $dt->subMinute();                   // 2012-02-03 01:01:00
+echo $dt->subMinutes(61);                // 2012-02-03 00:00:00
+
+echo $dt->addSeconds(61);                // 2012-02-03 00:01:01
+echo $dt->addSecond();                   // 2012-02-03 00:01:02
+echo $dt->subSecond();                   // 2012-02-03 00:01:01
+echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
+</code></pre></p>
+
+<p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
+
+<h1 id="api-difference">Difference</h1>
+
+<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
+
+<p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
+
+echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 0
+
+$dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+$dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');
+echo $dtOttawa->diffInHours($dtVancouver);                             // 3
+
+echo $dtOttawa->diffInHours($dtVancouver, false);                      // 3
+echo $dtVancouver->diffInHours($dtOttawa, false);                      // -3
+
+$dt = Carbon::create(2012, 1, 31, 0);
+echo $dt->diffInDays($dt->copy()->addMonth());                         // 31
+echo $dt->diffInDays($dt->copy()->subMonth(), false);                  // -31
+
+$dt = Carbon::create(2012, 4, 30, 0);
+echo $dt->diffInDays($dt->copy()->addMonth());                         // 30
+echo $dt->diffInDays($dt->copy()->addWeek());                          // 7
+
+$dt = Carbon::create(2012, 1, 1, 0);
+echo $dt->diffInMinutes($dt->copy()->addSeconds(59));                  // 0
+echo $dt->diffInMinutes($dt->copy()->addSeconds(60));                  // 1
+echo $dt->diffInMinutes($dt->copy()->addSeconds(119));                 // 1
+echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
+
+echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
+</code></pre></p>
+
+<p>There is also a special <code>diffInDaysFiltered()</code> method to help you filter the difference by days.  For example to count the weekend days between two instances:</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2014, 1, 1);
+$dt2 = Carbon::create(2014, 12, 31);
+$daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
+   return $date->isWeekend();
+}, $dt2);
+
+echo $daysForExtraCoding;      // 104
+
+// others that are defined
+// diffInYears(), diffInMonths(), diffInWeeks()
+// diffInDays(), diffInWeekdays(), diffInWeekendDays()
+// diffInHours(), diffInMinutes(), diffInSeconds()
+// secondsSinceMidnight(), secondsUntilEndOfDay()
+</code></pre></p>
+
+<h1 id="api-humandiff">Difference for Humans</h1>
+
+<p>It is easier for humans to read <code>1 month ago</code> compared to 30 days ago.  This is a common function seen in most date libraries so I thought I would add it here as well.  It uses approximations for a month being 4 weeks. The lone argument for the function is the other Carbon instance to diff against, and of course it defaults to <code>now()</code> if not specified.</p>
+
+<p>This method will add a phrase after the difference value relative to the instance and the passed in instance.  There are 4 possibilities:</p>
+
+<ul>
+   <li>When comparing a value in the past to default now:
+   <ul>
+      <li>1 hour ago</li>
+      <li>5 months ago</li>
+   </ul>
+   </li>
+   <li>When comparing a value in the future to default now:
+   <ul>
+      <li>1 hour from now</li>
+      <li>5 months from now</li>
+   </ul>
+   </li>
+   <li>When comparing a value in the past to another value:
+   <ul>
+      <li>1 hour before</li>
+      <li>5 months before</li>
+    </ul>
+   </li>
+   <li>When comparing a value in the future to another value:
+   <ul>
+      <li>1 hour after</li>
+      <li>5 months after</li>
+   </ul>
+   </li>
+</ul>
+
+<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
+
+<p><pre><code class="php">// The most typical usage is for comments
+// The instance is the date the comment was created and its being compared to default now()
+echo Carbon::now()->subDays(5)->diffForHumans();               // 5 days ago
+
+echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
+
+$dt = Carbon::createFromDate(2011, 8, 1);
+
+echo $dt->diffForHumans($dt->copy()->addMonth());              // 1 month before
+echo $dt->diffForHumans($dt->copy()->subMonth());              // 1 month after
+
+echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from now
+
+echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
+echo Carbon::now()->subDays(24)->diffForHumans(null, true);    // 3 weeks
+</code></pre></p>
+
+<h1 id="api-modifiers">Modifiers</h1>
+
+<p>These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.</p>
+
+<p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfDay();                            // 2012-01-31 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfDay();                              // 2012-01-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfMonth();                          // 2012-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfMonth();                            // 2012-01-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfYear();                           // 2012-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfYear();                             // 2012-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfDecade();                         // 2010-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfDecade();                           // 2019-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfCentury();                        // 2000-01-01 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfCentury();                          // 2099-12-31 23:59:59
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->startOfWeek();                           // 2012-01-30 00:00:00
+var_dump($dt->dayOfWeek == Carbon::MONDAY);        // bool(true) : ISO8601 week starts on Monday
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->endOfWeek();                             // 2012-02-05 23:59:59
+var_dump($dt->dayOfWeek == Carbon::SUNDAY);        // bool(true) : ISO8601 week ends on Sunday
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->next(Carbon::WEDNESDAY);                 // 2012-02-01 00:00:00
+var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
+
+$dt = Carbon::create(2012, 1, 1, 12, 0, 0);
+echo $dt->next();                                  // 2012-01-08 00:00:00
+
+$dt = Carbon::create(2012, 1, 31, 12, 0, 0);
+echo $dt->previous(Carbon::WEDNESDAY);             // 2012-01-25 00:00:00
+var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);     // bool(true)
+
+$dt = Carbon::create(2012, 1, 1, 12, 0, 0);
+echo $dt->previous();                              // 2011-12-25 00:00:00
+
+$start = Carbon::create(2014, 1, 1, 0, 0, 0);
+$end = Carbon::create(2014, 1, 30, 0, 0, 0);
+echo $start->average($end);                        // 2014-01-15 12:00:00
+
+// others that are defined that are similar
+//   firstOfMonth(), lastOfMonth(), nthOfMonth()
+//   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
+//   firstOfYear(), lastOfYear(), nthOfYear()
+</code></pre></p>
+
+<h1 id="api-constants">Constants</h1>
+
+<p>The following constants are defined in the Carbon class.</p>
+
+<p><pre><code class="php">// These getters specifically return integers, ie intval()
+var_dump(Carbon::SUNDAY);                          // int(0)
+var_dump(Carbon::MONDAY);                          // int(1)
+var_dump(Carbon::TUESDAY);                         // int(2)
+var_dump(Carbon::WEDNESDAY);                       // int(3)
+var_dump(Carbon::THURSDAY);                        // int(4)
+var_dump(Carbon::FRIDAY);                          // int(5)
+var_dump(Carbon::SATURDAY);                        // int(6)
+
+var_dump(Carbon::YEARS_PER_CENTURY);               // int(100)
+var_dump(Carbon::YEARS_PER_DECADE);                // int(10)
+var_dump(Carbon::MONTHS_PER_YEAR);                 // int(12)
+var_dump(Carbon::WEEKS_PER_YEAR);                  // int(52)
+var_dump(Carbon::DAYS_PER_WEEK);                   // int(7)
+var_dump(Carbon::HOURS_PER_DAY);                   // int(24)
+var_dump(Carbon::MINUTES_PER_HOUR);                // int(60)
+var_dump(Carbon::SECONDS_PER_MINUTE);              // int(60)
+</code></pre></p>
+
+<p><pre><code class="php">$dt = Carbon::createFromDate(2012, 10, 6);
+if ($dt->dayOfWeek === Carbon::SATURDAY) {
+    echo 'Place bets on Ottawa Senators Winning!';
+}
+</code></pre></p>
 
 </div>
 </div>
