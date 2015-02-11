@@ -9,7 +9,7 @@ a {outline:0}
 .jumbotron h1 {color:#f6f6f6;font-size:36px;margin-bottom:20px;}
 .jumbotron code, .jumbotron pre {display:inline-block;text-align:left}
 pre {border:0;border-radius:4px;margin:0;padding:0;background-color:#1d1f21}
-.hljs {padding:15px}
+pre code.hljs {padding:15px;overflow-x:auto;overflow:auto;word-wrap:normal;white-space:pre}
 
 p {line-height: 1.6;margin-bottom:16px;font-size:16px}
 code {color: #38932c;font-size:90%}
