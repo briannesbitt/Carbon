@@ -4,8 +4,9 @@
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="icon" href="/favicon.ico">
+   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
    <title>Carbon - A simple PHP API extension for DateTime.</title>
+   <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
@@ -93,7 +94,7 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2015-02-10 22:37:08
+echo $now;                               // 2015-02-10 22:43:00
 $today = Carbon::today();
 echo $today;                             // 2015-02-10 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -182,7 +183,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-02-10 22:37:08
+echo Carbon::now();                                    // 2015-02-10 22:43:00
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -449,7 +450,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-02-10 22:37:08
+echo $dt1->max();                                  // 2015-02-10 22:43:00
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
