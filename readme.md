@@ -2,9 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon) [![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon) [![Build Status](https://secure.travis-ci.org/briannesbitt/Carbon.png)](http://travis-ci.org/briannesbitt/Carbon)
 
-A simple PHP API extension for DateTime.
-
-[http://carbon.nesbot.com](http://carbon.nesbot.com)
+A simple PHP API extension for DateTime. [http://carbon.nesbot.com](http://carbon.nesbot.com)
 
 ```php
 printf("Right now is %s", Carbon::now()->toDateTimeString());
@@ -81,21 +79,3 @@ use Carbon\Carbon;
 
 printf("Now: %s", Carbon::now());
 ```
-
-### Author
-
-Brian Nesbitt - <brian@nesbot.com> - <http://twitter.com/NesbittBrian>
-
-### License
-
-Carbon is licensed under the MIT License - see the `LICENSE` file for details
-
-### History
-
-You can view the history of the Carbon project in the [history file](https://github.com/briannesbitt/Carbon/blob/master/history.md).
-
-### Why the name Carbon?
-
-Read about [Carbon Dating](http://en.wikipedia.org/wiki/Radiocarbon_dating)
-
-![](https://cruel-carlota.pagodabox.com/55ce479cc1edc5e0cc5b4b6f9a7a9200)
