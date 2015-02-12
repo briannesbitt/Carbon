@@ -48,4 +48,9 @@ class TestFixture extends \PHPUnit_Framework_TestCase
             $this->assertSame($second, $d->second, 'Carbon->second');
         }
     }
+
+    protected function assertInstanceOfCarbon($d)
+    {
+        $this->assertInstanceOf('Carbon\Carbon', $d);
+    }
 }
