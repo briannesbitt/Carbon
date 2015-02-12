@@ -2273,7 +2273,7 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param  Carbon $dt
+     * @param Carbon $dt
      *
      * @return boolean
      */
