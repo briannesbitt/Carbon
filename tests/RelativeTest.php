@@ -39,7 +39,7 @@ class RelativeTest extends TestFixture
         $d = Carbon::create(2014, 10, 24, 12, 34, 56);
         $this->assertSame(41103, $d->secondsUntilEndOfDay());
 
-         $d = Carbon::create(2014, 10, 24, 0, 0, 0);
+        $d = Carbon::create(2014, 10, 24, 0, 0, 0);
         $this->assertSame(86399, $d->secondsUntilEndOfDay());
     }
 }

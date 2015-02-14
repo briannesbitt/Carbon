@@ -11,7 +11,9 @@
 
 use Carbon\Carbon;
 
-class MyCarbon extends Carbon {}
+class MyCarbon extends Carbon
+{
+}
 
 class StringsTest extends TestFixture
 {
@@ -66,9 +68,9 @@ class StringsTest extends TestFixture
       *****************/
     }
     public function testToLocalizedFormattedTimezonedDateString()
-    {        
-      $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
-      $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));      
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
+        $this->assertSame('Thursday 25 December 1975 14:15', $d->formatLocalized('%A %d %B %Y %H:%M'));
     }
     public function testToTimeString()
     {
@@ -99,10 +101,11 @@ class StringsTest extends TestFixture
     public function testToCOOKIEString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-        if( \DateTime::COOKIE === 'l, d-M-y H:i:s T' )
+        if (\DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
-        else
+        } else {
             $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';
+        }
 
         $this->assertSame($cookieString, $d->toCOOKIEString());
     }
@@ -128,8 +131,8 @@ class StringsTest extends TestFixture
     }
     public function testToRfc1123String()
     {
-      $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-      $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('Thu, 25 Dec 1975 14:15:16 -0500', $d->toRfc1123String());
     }
     public function testToRfc2822String()
     {

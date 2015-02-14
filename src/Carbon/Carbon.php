@@ -141,7 +141,9 @@ class Carbon extends DateTime
      */
     protected static function safeCreateDateTimeZone($object)
     {
-        if ($object === null) return null;
+        if ($object === null) {
+            return null;
+        }
 
         if ($object instanceof DateTimeZone) {
             return $object;
@@ -434,8 +436,7 @@ class Carbon extends DateTime
      */
     public function __get($name)
     {
-        switch(true)
-        {
+        switch (true) {
             case array_key_exists($name, $formats = array(
                 'year' => 'Y',
                 'yearIso' => 'o',
@@ -794,7 +795,7 @@ class Carbon extends DateTime
         // Check for Windows to find and replace the %e
         // modifier correctly
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
-             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
+            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
         }
 
         return strftime($format, strtotime($this));
@@ -1303,7 +1304,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Add months without overflowing to the instance. Positive $value 
+     * Add months without overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
      * @param integer $value
@@ -1703,24 +1704,24 @@ class Carbon extends DateTime
       */
      public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
      {
-          $start = $this;
-          $end = ($dt === null) ? static::now($this->tz) : $dt;
-          $inverse = false;
+         $start = $this;
+         $end = ($dt === null) ? static::now($this->tz) : $dt;
+         $inverse = false;
 
-          if ($end < $start) {
-                $start = $end;
-                $end = $this;
-                $inverse = true;
-          }
+         if ($end < $start) {
+             $start = $end;
+             $end = $this;
+             $inverse = true;
+         }
 
-          $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-          $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+         $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+         $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
                 return call_user_func($callback, Carbon::instance($date));
           });
 
-          $diff = count($days);
+         $diff = count($days);
 
-          return $inverse && !$abs ? -$diff : $diff;
+         return $inverse && !$abs ? -$diff : $diff;
      }
 
      /**
@@ -1733,7 +1734,7 @@ class Carbon extends DateTime
       */
      public function diffInWeekdays(Carbon $dt = null, $abs = true)
      {
-          return $this->diffInDaysFiltered(function (Carbon $date) {
+         return $this->diffInDaysFiltered(function (Carbon $date) {
                 return $date->isWeekday();
           }, $dt, $abs);
      }
@@ -1748,7 +1749,7 @@ class Carbon extends DateTime
       */
      public function diffInWeekendDays(Carbon $dt = null, $abs = true)
      {
-          return $this->diffInDaysFiltered(function (Carbon $date) {
+         return $this->diffInDaysFiltered(function (Carbon $date) {
                 return $date->isWeekend();
           }, $dt, $abs);
      }
@@ -1950,8 +1951,8 @@ class Carbon extends DateTime
       */
     public function startOfYear()
     {
-         return $this->month(1)->startOfMonth();
-     }
+        return $this->month(1)->startOfMonth();
+    }
 
      /**
       * Resets the date to end of the year and time to 23:59:59
@@ -1960,7 +1961,7 @@ class Carbon extends DateTime
       */
      public function endOfYear()
      {
-          return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
+         return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
      }
 
      /**
@@ -1970,7 +1971,7 @@ class Carbon extends DateTime
       */
      public function startOfDecade()
      {
-          return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
+         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
      }
 
      /**
@@ -1980,7 +1981,7 @@ class Carbon extends DateTime
       */
      public function endOfDecade()
      {
-          return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
+         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
      }
 
      /**
@@ -1990,7 +1991,7 @@ class Carbon extends DateTime
       */
      public function startOfCentury()
      {
-          return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
+         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
      }
 
      /**
@@ -2000,7 +2001,7 @@ class Carbon extends DateTime
       */
      public function endOfCentury()
      {
-          return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
+         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
      }
 
     /**
@@ -2010,8 +2011,11 @@ class Carbon extends DateTime
      */
      public function startOfWeek()
      {
-          if ($this->dayOfWeek != static::MONDAY) $this->previous(static::MONDAY);
-          return $this->startOfDay();
+         if ($this->dayOfWeek != static::MONDAY) {
+             $this->previous(static::MONDAY);
+         }
+
+         return $this->startOfDay();
      }
 
      /**
@@ -2021,8 +2025,11 @@ class Carbon extends DateTime
       */
      public function endOfWeek()
      {
-          if ($this->dayOfWeek != static::SUNDAY) $this->next(static::SUNDAY);
-          return $this->endOfDay();
+         if ($this->dayOfWeek != static::SUNDAY) {
+             $this->next(static::SUNDAY);
+         }
+
+         return $this->endOfDay();
      }
 
     /**
