@@ -20,7 +20,7 @@ class IssetTest extends TestFixture
 
     public function testIssetReturnTrueForProperties()
     {
-        $properties = array(
+        $properties = [
             'year',
             'month',
             'day',
@@ -40,7 +40,7 @@ class IssetTest extends TestFixture
             'timezoneName',
             'tz',
             'tzName'
-        );
+        ];
 
         foreach ($properties as $property) {
             $this->assertTrue(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->$property));

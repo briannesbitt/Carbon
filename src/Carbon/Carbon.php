@@ -69,7 +69,7 @@ class Carbon extends DateTime
      *
      * @var array
      */
-    protected static $days = array(
+    protected static $days = [
         self::SUNDAY => 'Sunday',
         self::MONDAY => 'Monday',
         self::TUESDAY => 'Tuesday',
@@ -77,14 +77,14 @@ class Carbon extends DateTime
         self::THURSDAY => 'Thursday',
         self::FRIDAY => 'Friday',
         self::SATURDAY => 'Saturday'
-    );
+    ];
 
     /**
      * Terms used to detect if a time passed is a relative date for testing purposes
      *
      * @var array
      */
-    protected static $relativeKeywords = array(
+    protected static $relativeKeywords = [
         'this',
         'next',
         'last',
@@ -95,7 +95,7 @@ class Carbon extends DateTime
         'first',
         'last',
         'ago'
-    );
+    ];
 
     /**
      * Number of X in Y
@@ -436,7 +436,7 @@ class Carbon extends DateTime
     {
         switch(true)
         {
-            case array_key_exists($name, $formats = array(
+            case array_key_exists($name, $formats = [
                 'year' => 'Y',
                 'yearIso' => 'o',
                 'month' => 'n',
@@ -450,7 +450,7 @@ class Carbon extends DateTime
                 'weekOfYear' => 'W',
                 'daysInMonth' => 't',
                 'timestamp' => 'U',
-            )):
+            ]):
                 return (int) $this->format($formats[$name]);
 
             case $name === 'weekOfMonth':
@@ -1851,14 +1851,14 @@ class Carbon extends DateTime
         $delta = $other->diffInSeconds($this);
 
         // a little weeks per month, 365 days per year... good enough!!
-        $divs = array(
+        $divs = [
             'second' => static::SECONDS_PER_MINUTE,
             'minute' => static::MINUTES_PER_HOUR,
             'hour' => static::HOURS_PER_DAY,
             'day' => static::DAYS_PER_WEEK,
             'week' => 30 / static::DAYS_PER_WEEK,
             'month' => static::MONTHS_PER_YEAR
-        );
+        ];
 
         $unit = 'year';
 
