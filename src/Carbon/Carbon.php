@@ -56,13 +56,13 @@ class Carbon extends DateTime
     /**
      * The day constants
      */
-    const SUNDAY = 0;
     const MONDAY = 1;
     const TUESDAY = 2;
     const WEDNESDAY = 3;
     const THURSDAY = 4;
     const FRIDAY = 5;
     const SATURDAY = 6;
+    const SUNDAY = 7;
 
     /**
      * Names of days of the week.
@@ -70,13 +70,13 @@ class Carbon extends DateTime
      * @var array
      */
     protected static $days = array(
-        self::SUNDAY => 'Sunday',
         self::MONDAY => 'Monday',
         self::TUESDAY => 'Tuesday',
         self::WEDNESDAY => 'Wednesday',
         self::THURSDAY => 'Thursday',
         self::FRIDAY => 'Friday',
-        self::SATURDAY => 'Saturday'
+        self::SATURDAY => 'Saturday',
+        self::SUNDAY => 'Sunday'
     );
 
     /**
@@ -445,7 +445,7 @@ class Carbon extends DateTime
                 'minute' => 'i',
                 'second' => 's',
                 'micro' => 'u',
-                'dayOfWeek' => 'w',
+                'dayOfWeek' => 'N',
                 'dayOfYear' => 'z',
                 'weekOfYear' => 'W',
                 'daysInMonth' => 't',
@@ -1124,7 +1124,7 @@ class Carbon extends DateTime
      */
     public function isWeekday()
     {
-        return ($this->dayOfWeek != static::SUNDAY && $this->dayOfWeek != static::SATURDAY);
+        return $this->dayOfWeek < static::SATURDAY;
     }
 
     /**
