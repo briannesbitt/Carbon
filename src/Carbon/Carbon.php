@@ -1693,66 +1693,66 @@ class Carbon extends DateTime
         return (int) $this->diff($dt, $abs)->format('%r%a');
     }
 
-     /**
-      * Get the difference in days using a filter closure
-      *
-      * @param Closure $callback
-      * @param Carbon  $dt
-      * @param boolean $abs      Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
-     {
-         $start = $this;
-         $end = ($dt === null) ? static::now($this->tz) : $dt;
-         $inverse = false;
+    /**
+     * Get the difference in days using a filter closure
+     *
+     * @param Closure $callback
+     * @param Carbon  $dt
+     * @param boolean $abs      Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    {
+        $start = $this;
+        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $inverse = false;
 
-         if ($end < $start) {
-             $start = $end;
-             $end = $this;
-             $inverse = true;
-         }
+        if ($end < $start) {
+            $start = $end;
+            $end = $this;
+            $inverse = true;
+        }
 
-         $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-         $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
-                return call_user_func($callback, Carbon::instance($date));
-          });
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+            return call_user_func($callback, Carbon::instance($date));
+        });
 
-         $diff = count($days);
+        $diff = count($days);
 
-         return $inverse && !$abs ? -$diff : $diff;
-     }
+        return $inverse && !$abs ? -$diff : $diff;
+    }
 
-     /**
-      * Get the difference in weekdays
-      *
-      * @param Carbon  $dt
-      * @param boolean $abs Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInWeekdays(Carbon $dt = null, $abs = true)
-     {
-         return $this->diffInDaysFiltered(function (Carbon $date) {
-                return $date->isWeekday();
-          }, $dt, $abs);
-     }
+    /**
+     * Get the difference in weekdays
+     *
+     * @param Carbon  $dt
+     * @param boolean $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInWeekdays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekday();
+        }, $dt, $abs);
+    }
 
-     /**
-      * Get the difference in weekend days using a filter
-      *
-      * @param Carbon  $dt
-      * @param boolean $abs Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInWeekendDays(Carbon $dt = null, $abs = true)
-     {
-         return $this->diffInDaysFiltered(function (Carbon $date) {
-                return $date->isWeekend();
-          }, $dt, $abs);
-     }
+    /**
+     * Get the difference in weekend days using a filter
+     *
+     * @param Carbon  $dt
+     * @param boolean $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInWeekendDays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekend();
+        }, $dt, $abs);
+    }
 
     /**
      * Get the difference in hours
@@ -1944,93 +1944,93 @@ class Carbon extends DateTime
         return $this->day($this->daysInMonth)->endOfDay();
     }
 
-     /**
-      * Resets the date to the first day of the year and the time to 00:00:00
-      *
-      * @return static
-      */
+    /**
+     * Resets the date to the first day of the year and the time to 00:00:00
+     *
+     * @return static
+     */
     public function startOfYear()
     {
         return $this->month(1)->startOfMonth();
     }
 
-     /**
-      * Resets the date to end of the year and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfYear()
-     {
-         return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
-     }
+    /**
+     * Resets the date to end of the year and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfYear()
+    {
+        return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
+    }
 
-     /**
-      * Resets the date to the first day of the decade and the time to 00:00:00
-      *
-      * @return static
-      */
-     public function startOfDecade()
-     {
-         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
-     }
+    /**
+     * Resets the date to the first day of the decade and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfDecade()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
+    }
 
-     /**
-      * Resets the date to end of the decade and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfDecade()
-     {
-         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
-     }
+    /**
+     * Resets the date to end of the decade and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfDecade()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
+    }
 
-     /**
-      * Resets the date to the first day of the century and the time to 00:00:00
-      *
-      * @return static
-      */
-     public function startOfCentury()
-     {
-         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
-     }
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfCentury()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
+    }
 
-     /**
-      * Resets the date to end of the century and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfCentury()
-     {
-         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
-     }
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfCentury()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
+    }
 
     /**
      * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
      *
      * @return static
      */
-     public function startOfWeek()
-     {
-         if ($this->dayOfWeek != static::MONDAY) {
-             $this->previous(static::MONDAY);
-         }
+    public function startOfWeek()
+    {
+        if ($this->dayOfWeek != static::MONDAY) {
+            $this->previous(static::MONDAY);
+        }
 
-         return $this->startOfDay();
-     }
+        return $this->startOfDay();
+    }
 
-     /**
-      * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfWeek()
-     {
-         if ($this->dayOfWeek != static::SUNDAY) {
-             $this->next(static::SUNDAY);
-         }
+    /**
+     * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfWeek()
+    {
+        if ($this->dayOfWeek != static::SUNDAY) {
+            $this->next(static::SUNDAY);
+        }
 
-         return $this->endOfDay();
-     }
+        return $this->endOfDay();
+    }
 
     /**
      * Modify to the next occurence of a given day of the week.
