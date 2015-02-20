@@ -1662,7 +1662,7 @@ class Carbon extends DateTime
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + $this->diff($dt, $abs)->format('%r%m');
+        return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
 
     /**
