@@ -2033,8 +2033,8 @@ class Carbon extends DateTime
      }
 
     /**
-     * Modify to the next occurance of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurance
+     * Modify to the next occurence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the next occurence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2052,8 +2052,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the previous occurance of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurance
+     * Modify to the previous occurence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the previous occurence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2071,7 +2071,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2092,7 +2092,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2113,8 +2113,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current month. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current month. If the calculated occurence is outside the scope
      * of the current month, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2133,7 +2133,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2148,7 +2148,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2163,8 +2163,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current quarter. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current quarter. If the calculated occurence is outside the scope
      * of the current quarter, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2184,7 +2184,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2199,7 +2199,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2214,8 +2214,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current year. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current year. If the calculated occurence is outside the scope
      * of the current year, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
