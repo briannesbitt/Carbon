@@ -1924,7 +1924,7 @@ class Carbon extends DateTime
                 $count = $diffInterval->d;
                 if ($count >= self::DAYS_PER_WEEK) {
                     $unit = 'week';
-                    $count = floor($count / self::DAYS_PER_WEEK);
+                    $count = (int)($count / self::DAYS_PER_WEEK);
                 }
                 break;
 
