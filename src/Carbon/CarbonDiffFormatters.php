@@ -47,4 +47,33 @@ class CarbonDiffFormatters
          return $txt;
       };
    }
+
+   public static function fr()
+   {
+      return function ($isNow, $isFuture, $delta, $unit) {
+         $units = array(
+            Carbon::SECOND => 'seconde',
+            Carbon::MINUTE => 'minute',
+            Carbon::HOUR   => 'heure',
+            Carbon::DAY    => 'jour',
+            Carbon::MONTH  => 'mois',
+            Carbon::YEAR   => 'an'
+         );
+
+         $txt = $delta . ' ' . $units[$unit];
+         $txt .= ($delta == 1 && $unit!==Carbon::MONTH) ? '' : 's';
+
+         if ($isNow) {
+            if( $isFuture ) {
+               $txt .= ' à partir de maintenant';
+            } else {
+               $txt = 'il y a '.$txt;
+            }
+            return $txt;
+         }
+
+         $txt .= ($isFuture) ? ' après' : ' avant';
+         return $txt;
+      };
+   }
 }
