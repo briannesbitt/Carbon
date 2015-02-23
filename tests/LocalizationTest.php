@@ -100,4 +100,63 @@ class LocalizationTest extends TestFixture
         $this->assertSame('1 seconde', $d->diffForHumans($d2, true));
         $this->assertSame('2 secondes', $d2->diffForHumans($d->addSecond(), true));
     }
+
+
+    public function testDiffForHumansLocalizedInSpanish()
+    {
+        Carbon::setLocale('es');
+
+        $d = Carbon::now()->subSecond();
+        $this->assertSame('hace 1 segundo', $d->diffForHumans());
+
+        $d = Carbon::now()->subSeconds(2);
+        $this->assertSame('hace 2 segundos', $d->diffForHumans());
+
+        $d = Carbon::now()->subMinute();
+        $this->assertSame('hace 1 minuto', $d->diffForHumans());
+
+        $d = Carbon::now()->subMinutes(2);
+        $this->assertSame('hace 2 minutos', $d->diffForHumans());
+
+        $d = Carbon::now()->subHour();
+        $this->assertSame('hace 1 hora', $d->diffForHumans());
+
+        $d = Carbon::now()->subHours(2);
+        $this->assertSame('hace 2 horas', $d->diffForHumans());
+
+        $d = Carbon::now()->subDay();
+        $this->assertSame('hace 1 día', $d->diffForHumans());
+
+        $d = Carbon::now()->subDays(2);
+        $this->assertSame('hace 2 días', $d->diffForHumans());
+
+        $d = Carbon::now()->subWeek();
+        $this->assertSame('hace 1 semana', $d->diffForHumans());
+
+        $d = Carbon::now()->subWeeks(2);
+        $this->assertSame('hace 2 semanas', $d->diffForHumans());
+
+        $d = Carbon::now()->subMonth();
+        $this->assertSame('hace 1 mes', $d->diffForHumans());
+
+        $d = Carbon::now()->subMonths(2);
+        $this->assertSame('hace 2 meses', $d->diffForHumans());
+
+        $d = Carbon::now()->subYear();
+        $this->assertSame('hace 1 año', $d->diffForHumans());
+
+        $d = Carbon::now()->subYears(2);
+        $this->assertSame('hace 2 años', $d->diffForHumans());
+
+        $d = Carbon::now()->addSecond();
+        $this->assertSame('1 segundo a partir de ahora', $d->diffForHumans());
+
+        $d = Carbon::now()->addSecond();
+        $d2 = Carbon::now();
+        $this->assertSame('1 segundo antes', $d->diffForHumans($d2));
+        $this->assertSame('1 segundo después', $d2->diffForHumans($d));
+
+        $this->assertSame('1 segundo', $d->diffForHumans($d2, true));
+        $this->assertSame('2 segundos', $d2->diffForHumans($d->addSecond(), true));
+    }
 }
