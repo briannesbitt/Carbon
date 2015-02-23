@@ -1950,19 +1950,20 @@ class Carbon extends DateTime
 
         $time = static::translator()->transChoice($unit, $count, array(':count' => $count));
 
-        if ($absolute) {
-            return $time;
+        if (! $absolute) {
+
+            $params = array(':time' => $time);
+    
+            if ($isNow) {
+                $transId = $isFuture ? 'from_now' : 'ago';
+            } else {
+                $transId = $isFuture ? 'after' : 'before';
+            }
+            
+            $time = static::translator()->trans($transId, $params);
         }
 
-        $params = array(':time' => $time);
-
-        if ($isNow) {
-            $transId = $isFuture ? 'from_now' : 'ago';
-        } else {
-            $transId = $isFuture ? 'after' : 'before';
-        }
-
-        return static::translator()->trans($transId, $params);
+        return $time;
     }
 
     ///////////////////////////////////////////////////////////////////
