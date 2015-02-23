@@ -96,5 +96,8 @@ class LocalizationTest extends TestFixture
         $d2 = Carbon::now();
         $this->assertSame('1 seconde après', $d->diffForHumans($d2));
         $this->assertSame('1 seconde avant', $d2->diffForHumans($d));
+
+        $this->assertSame('1 seconde', $d->diffForHumans($d2, true));
+        $this->assertSame('2 secondes', $d2->diffForHumans($d->addSecond(), true));
     }
 }

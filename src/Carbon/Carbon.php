@@ -1957,18 +1957,12 @@ class Carbon extends DateTime
         $params = array(':time' => $time);
 
         if ($isNow) {
-            if ($isFuture) {
-                return static::translator()->trans('from_now', $params);
-            }
-            
-            return static::translator()->trans('ago', $params);
+            $transId = $isFuture ? 'from_now' : 'ago';
+        } else {
+            $transId = $isFuture ? 'after' : 'before';
         }
 
-        if ($isFuture) {
-            return static::translator()->trans('after', $params);
-        }
-
-        return static::translator()->trans('before', $params);
+        return static::translator()->trans($transId, $params);
     }
 
     ///////////////////////////////////////////////////////////////////
