@@ -13,6 +13,7 @@ namespace Carbon;
 
 use DateTime;
 use DateTimeZone;
+use Closure;
 use InvalidArgumentException;
 
 /**
