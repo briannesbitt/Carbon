@@ -927,4 +927,11 @@ class DiffTest extends TestFixture
         $d = Carbon::now()->addYears(1);
         $this->assertSame('1 year', Carbon::now()->diffForHumans($d, true));
     }
+
+    public function testDiffForHumansWithShorterMonthShouldStillBeAMonth()
+    {
+        $feb15 = Carbon::parse('2015-02-15');
+        $mar15 = Carbon::parse('2015-03-15');
+        $this->assertSame('1 month after', $mar15->diffForHumans($feb15));
+    }
 }
