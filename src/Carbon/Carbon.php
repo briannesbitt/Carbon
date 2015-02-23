@@ -58,6 +58,16 @@ class Carbon extends DateTime
    const SATURDAY  = 6;
 
    /**
+    * The units constants
+    */
+   const SECOND = 'second';
+   const MINUTE = 'minute';
+   const HOUR   = 'hour';
+   const DAY    = 'day';
+   const MONTH  = 'month';
+   const YEAR   = 'year';
+
+   /**
    * Names of days of the week.
    *
    * @var array
@@ -1593,14 +1603,14 @@ class Carbon extends DateTime
 
       // 30 days per month, 365 days per year... good enough!!
       $divs = array(
-         'second' => self::SECONDS_PER_MINUTE,
-         'minute' => self::MINUTES_PER_HOUR,
-         'hour'   => self::HOURS_PER_DAY,
-         'day'    => 30,
-         'month'  => self::MONTHS_PER_YEAR
+         self::SECOND => self::SECONDS_PER_MINUTE,
+         self::MINUTE => self::MINUTES_PER_HOUR,
+         self::HOUR   => self::HOURS_PER_DAY,
+         self::DAY    => 30,
+         self::MONTH  => self::MONTHS_PER_YEAR
       );
 
-      $unit = 'year';
+      $unit = self::YEAR;
 
       foreach ($divs as $divUnit => $divValue) {
          if ($delta < $divValue) {
