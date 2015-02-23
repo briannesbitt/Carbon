@@ -94,7 +94,7 @@ class LocalizationTest extends TestFixture
 
         $d = Carbon::now()->addSecond();
         $d2 = Carbon::now();
-        $this->assertSame('1 seconde après', $d->diffForHumans($d2));
+        $this->assertSame('1 seconde aprÃ¨s', $d->diffForHumans($d2));
         $this->assertSame('1 seconde avant', $d2->diffForHumans($d));
 
         $this->assertSame('1 seconde', $d->diffForHumans($d2, true));
@@ -125,10 +125,10 @@ class LocalizationTest extends TestFixture
         $this->assertSame('hace 2 horas', $d->diffForHumans());
 
         $d = Carbon::now()->subDay();
-        $this->assertSame('hace 1 día', $d->diffForHumans());
+        $this->assertSame('hace 1 dÃ­a', $d->diffForHumans());
 
         $d = Carbon::now()->subDays(2);
-        $this->assertSame('hace 2 días', $d->diffForHumans());
+        $this->assertSame('hace 2 dÃ­as', $d->diffForHumans());
 
         $d = Carbon::now()->subWeek();
         $this->assertSame('hace 1 semana', $d->diffForHumans());
@@ -143,10 +143,10 @@ class LocalizationTest extends TestFixture
         $this->assertSame('hace 2 meses', $d->diffForHumans());
 
         $d = Carbon::now()->subYear();
-        $this->assertSame('hace 1 año', $d->diffForHumans());
+        $this->assertSame('hace 1 aÃ±o', $d->diffForHumans());
 
         $d = Carbon::now()->subYears(2);
-        $this->assertSame('hace 2 años', $d->diffForHumans());
+        $this->assertSame('hace 2 aÃ±os', $d->diffForHumans());
 
         $d = Carbon::now()->addSecond();
         $this->assertSame('1 segundo a partir de ahora', $d->diffForHumans());
@@ -154,7 +154,7 @@ class LocalizationTest extends TestFixture
         $d = Carbon::now()->addSecond();
         $d2 = Carbon::now();
         $this->assertSame('1 segundo antes', $d->diffForHumans($d2));
-        $this->assertSame('1 segundo después', $d2->diffForHumans($d));
+        $this->assertSame('1 segundo despuÃ©s', $d2->diffForHumans($d));
 
         $this->assertSame('1 segundo', $d->diffForHumans($d2, true));
         $this->assertSame('2 segundos', $d2->diffForHumans($d->addSecond(), true));
