@@ -23,7 +23,7 @@ return array(
     'minute'    => '1 minuto|:count minutos',
     'second'    => '1 segundo|:count segundos',
     'ago'       => 'hace :time',
-    'from_now'  => 'dentro de :time',
+    'from_now'  => ':time a partir de ahora',
     'after'     => ':time antes',
     'before'    => ':time después'
 );
