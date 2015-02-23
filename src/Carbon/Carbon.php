@@ -17,6 +17,9 @@ use DateTimeZone;
 use DateInterval;
 use DatePeriod;
 use InvalidArgumentException;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 
 /**
  * A simple API extension for DateTime
@@ -129,6 +132,13 @@ class Carbon extends DateTime
      * @var Carbon
      */
     protected static $testNow;
+
+    /**
+     * A translator to ... er ... translate stuff
+     *
+     * @var TranslatorInterface
+     */
+    protected static $translator;
 
     /**
      * Creates a DateTimeZone from a string or a DateTimeZone
@@ -776,6 +786,54 @@ class Carbon extends DateTime
         }
 
         return false;
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    /////////////////////// LOCALIZATION //////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    /**
+     * Intialize the translator instance if necessary.
+     *
+     * @return TranslatorInterface
+     */
+    protected static function translator() {
+        if (static::$translator == null) {
+            static::$translator = new Translator('en');
+            static::$translator->addLoader('array', new ArrayLoader());
+            static::setLocale('en');
+        }
+
+        return static::$translator;
+    }
+
+    /**
+     * Get the translator instance in use
+     *
+     * @return TranslatorInterface
+     */
+    public static function getTranslator() {
+        return static::translator();
+    }
+
+    /**
+     * Set the translator instance to use
+     *
+     * @param TranslatorInterface
+     */
+    public static function setTranslator(TranslatorInterface $translator) {
+        static::$translator = $translator;
+    }
+
+    public static function getLocale() {
+        return static::translator()->getLocale();
+    }
+
+    public static function setLocale($locale) {
+        static::translator()->setLocale($locale);
+
+        // Ensure the locale has been loaded.
+        static::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1854,62 +1912,63 @@ class Carbon extends DateTime
         switch (true) {
             case ($diffInterval->y > 0):
                 $unit = 'year';
-                $delta = $diffInterval->y;
+                $count = $diffInterval->y;
                 break;
             case ($diffInterval->m > 0):
                 $unit = 'month';
-                $delta = $diffInterval->m;
+                $count = $diffInterval->m;
                 break;
 
             case ($diffInterval->d > 0):
                 $unit = 'day';
-                $delta = $diffInterval->d;
-                if ($delta >= self::DAYS_PER_WEEK) {
+                $count = $diffInterval->d;
+                if ($count >= self::DAYS_PER_WEEK) {
                     $unit = 'week';
-                    $delta = floor($delta / self::DAYS_PER_WEEK);
+                    $count = floor($count / self::DAYS_PER_WEEK);
                 }
                 break;
 
             case ($diffInterval->h > 0):
                 $unit = 'hour';
-                $delta = $diffInterval->h;
+                $count = $diffInterval->h;
                 break;
 
             case ($diffInterval->i > 0):
                 $unit = 'minute';
-                $delta = $diffInterval->i;
+                $count = $diffInterval->i;
                 break;
 
             default:
-                $delta = $diffInterval->s;
+                $count = $diffInterval->s;
                 $unit = 'second';
                 break;
         }
 
-        if ($delta == 0) {
-            $delta = 1;
+        if ($count == 0) {
+            $count = 1;
         }
 
-        $txt = $delta . ' ' . $unit;
-        $txt .= $delta == 1 ? '' : 's';
+        $time = static::translator()->transChoice($unit, $count, array(':count' => $count));
 
         if ($absolute) {
-            return $txt;
+            return $time;
         }
+
+        $params = array(':time' => $time);
 
         if ($isNow) {
             if ($isFuture) {
-                return $txt . ' from now';
+                return static::translator()->trans('from_now', $params);
             }
-
-            return $txt . ' ago';
+            
+            return static::translator()->trans('ago', $params);
         }
 
         if ($isFuture) {
-            return $txt . ' after';
+            return static::translator()->trans('after', $params);
         }
 
-        return $txt . ' before';
+        return static::translator()->trans('before', $params);
     }
 
     ///////////////////////////////////////////////////////////////////
