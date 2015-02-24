@@ -13,7 +13,7 @@
  *
  */
 /**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/ar/date.php
+ * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/cs/date.php
  */
 return array(
     'year'      => 'rok|:count roky|:count let',
