@@ -18,15 +18,6 @@
  */
 
 return array(
-    /*
-    |--------------------------------------------------------------------------
-    | Date Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used by the date library. Each line can
-    | have a singular and plural translation separated by a '|'.
-    |
-    */
     'year'      => '{0}سنة|{1}سنة|{2}سنتين|[3,Inf]:count سنوات / سنين',
     'month'     => '{0}شهر|{1}شهر|{2}شهرين|[3,Inf]:count شهور / أشهر',
     'week'      => '{0}أسبوع|{1}أسبوع|{2}أسبوعين|[3,Inf]:count أسابيع',
