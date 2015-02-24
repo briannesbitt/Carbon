@@ -43,6 +43,11 @@ class LocalizationTest extends TestFixture
         $this->assertSame('fr', Carbon::getLocale());
     }
 
+    /**
+     * The purpose of these tests aren't to test the validitity of the translation
+     * but more so to test that the language file exists.
+     */
+
     public function testDiffForHumansLocalizedInFrench()
     {
         Carbon::setLocale('fr');
@@ -101,7 +106,6 @@ class LocalizationTest extends TestFixture
         $this->assertSame('2 secondes', $d2->diffForHumans($d->addSecond(), true));
     }
 
-
     public function testDiffForHumansLocalizedInSpanish()
     {
         Carbon::setLocale('es');
@@ -158,5 +162,27 @@ class LocalizationTest extends TestFixture
 
         $this->assertSame('1 segundo', $d->diffForHumans($d2, true));
         $this->assertSame('2 segundos', $d2->diffForHumans($d->addSecond(), true));
+    }
+
+    public function testDiffForHumansLocalizedInItalian()
+    {
+        Carbon::setLocale('it');
+
+        $d = Carbon::now()->addYear();
+        $this->assertSame('1 anno da adesso', $d->diffForHumans());
+
+        $d = Carbon::now()->addYears(2);
+        $this->assertSame('2 anni da adesso', $d->diffForHumans());
+    }
+
+    public function testDiffForHumansLocalizedInGerman()
+    {
+        Carbon::setLocale('de');
+
+        $d = Carbon::now()->addYear();
+        $this->assertSame('in 1 Jahr', $d->diffForHumans());
+
+        $d = Carbon::now()->addYears(2);
+        $this->assertSame('in 2 Jahre', $d->diffForHumans());
     }
 }
