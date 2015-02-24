@@ -1954,11 +1954,9 @@ class Carbon extends DateTime
             return $time;
         }
 
-        $params = array(':time' => $time);
-
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
-        return static::translator()->trans($transId, $params);
+        return static::translator()->trans($transId, array(':time' => $time));
     }
 
     ///////////////////////////////////////////////////////////////////
