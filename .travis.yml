@@ -8,10 +8,6 @@ php:
   - 7.0
   - hhvm
 
-matrix:
-    allow_failures:
-        - php: 7.0
-
 before_install:
   - travis_retry composer self-update
 install:
@@ -23,4 +19,5 @@ script:
 matrix:
   allow_failures:
     - php: hhvm
+    - php: 7.0
   fast_finish: true
