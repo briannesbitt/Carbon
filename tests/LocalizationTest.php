@@ -218,7 +218,7 @@ class LocalizationTest extends TestFixture
         $this->assertSame('1 hafta önce', $d->diffForHumans());
 
         $d = Carbon::now()->subWeeks(2);
-        $this->assertSame('2 haft önce', $d->diffForHumans());
+        $this->assertSame('2 hafta önce', $d->diffForHumans());
 
         $d = Carbon::now()->subMonth();
         $this->assertSame('1 ay önce', $d->diffForHumans());
@@ -233,7 +233,7 @@ class LocalizationTest extends TestFixture
         $this->assertSame('2 yıl önce', $d->diffForHumans());
 
         $d = Carbon::now()->addSecond();
-        $this->assertSame('1 saniye önce', $d->diffForHumans());
+        $this->assertSame('1 saniye andan itibaren', $d->diffForHumans());
 
         $d = Carbon::now()->addSecond();
         $d2 = Carbon::now();

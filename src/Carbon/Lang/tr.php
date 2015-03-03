@@ -15,13 +15,13 @@
  *
  */
 return array(
-    'year'      => '1 yıl|:count yıl',
-    'month'     => '1 ay|:count ay',
-    'week'      => '1 hafta|:count hafta',
-    'day'       => '1 gün|:count gün',
-    'hour'      => '1 saat|:count saat',
-    'minute'    => '1 dakika|:count dakika',
-    'second'    => '1 saniye|:count saniye',
+    'year'      => ':count yıl',
+    'month'     => ':count ay',
+    'week'      => ':count hafta',
+    'day'       => ':count gün',
+    'hour'      => ':count saat',
+    'minute'    => ':count dakika',
+    'second'    => ':count saniye',
     'ago'       => ':time önce',
     'from_now'  => ':time andan itibaren',
     'after'     => ':time sonra',
