@@ -1371,20 +1371,13 @@ class Carbon extends DateTime
      */
     public function addMonthsNoOverflow($value)
     {
-        // jump straight into the month to avoid any php overflow weirdness
-        $newYear   = $this->year + floor(($this->month + $value) / 12);
-        $newMonth = ($this->month + $value) % 12;
-        $newDate = static::create($newYear, $newMonth, $this->day, $this->hour, $this->minute, $this->second, $this->getTimeZone());
+        $date = $this->copy()->addMonths($value);
 
-        if ($newDate->day != $this->day) {
-            // it seems like this would be dependent on whether the value is
-            // positive or negative, but because of how we set the month above,
-            // we should always zero out and subtract a month
-            $newDate->day(1)->subMonth();
-            $newDate->day($newDate->daysInMonth);
+        if ($date->day != $this->day) {
+            $date->day(1)->subMonth()->day($date->daysInMonth);
         }
 
-        return $newDate;
+        return $date;
     }
 
     /**
