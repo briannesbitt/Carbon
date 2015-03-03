@@ -1840,8 +1840,6 @@ class Carbon extends DateTime
             $other = static::now($this->tz);
         }
 
-        $isFuture = $this->gt($other);
-
         $diffInterval = $this->diff($other);
 
         switch (true) {
@@ -1849,6 +1847,7 @@ class Carbon extends DateTime
                 $unit = 'year';
                 $delta = $diffInterval->y;
                 break;
+
             case ($diffInterval->m > 0):
                 $unit = 'month';
                 $delta = $diffInterval->m;
@@ -1889,6 +1888,8 @@ class Carbon extends DateTime
         if ($absolute) {
             return $txt;
         }
+
+        $isFuture = $diffInterval->invert === 1;
 
         if ($isNow) {
             if ($isFuture) {
