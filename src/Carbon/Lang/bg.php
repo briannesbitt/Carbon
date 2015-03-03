@@ -28,5 +28,5 @@ return array(
     'ago'       => 'преди :time',
     'from_now'  => ':time от сега',
     'after'     => 'след :time',
-    'before'    => 'преди :time'
+    'before'    => 'преди :time',
 );

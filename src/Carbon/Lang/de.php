@@ -5,8 +5,8 @@
  *
  * (c) Michael Hohl <me@michaelhohl.net>
  *
- * This file is released under the terms of CC0. 
- * CC0 is even more permissive than the MIT license, allowing you to use the code in 
+ * This file is released under the terms of CC0.
+ * CC0 is even more permissive than the MIT license, allowing you to use the code in
  * any manner you want, without any copyright headers, notices, or other attribution.
  */
 
@@ -26,5 +26,5 @@ return array(
     'ago'       => 'vor :time',
     'from_now'  => 'in :time',
     'after'     => ':time später',
-    'before'    => ':time zuvor'
+    'before'    => ':time zuvor',
 );

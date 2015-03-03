@@ -26,5 +26,5 @@ return array(
     'ago'       => 'před :time',
     'from_now'  => 'za :time',
     'after'     => ':time později',
-    'before'    => ':time předtím'
+    'before'    => ':time předtím',
 );

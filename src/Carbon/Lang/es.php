@@ -25,5 +25,5 @@ return array(
     'ago'       => 'hace :time',
     'from_now'  => 'dentro de :time',
     'after'     => ':time antes',
-    'before'    => ':time después'
+    'before'    => ':time después',
 );

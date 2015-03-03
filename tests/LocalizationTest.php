@@ -15,13 +15,15 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 
 class LocalizationTest extends TestFixture
 {
-    public function testGetTranslator() {
+    public function testGetTranslator()
+    {
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
     }
-    
-    public function testSetTranslator() {
+
+    public function testSetTranslator()
+    {
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
         Carbon::setTranslator($t);
@@ -31,12 +33,14 @@ class LocalizationTest extends TestFixture
         $this->assertSame('fr', $t->getLocale());
     }
 
-    public function testGetLocale() {
+    public function testGetLocale()
+    {
         Carbon::setLocale('en');
         $this->assertSame('en', Carbon::getLocale());
     }
 
-    public function testSetLocale() {
+    public function testSetLocale()
+    {
         Carbon::setLocale('en');
         $this->assertSame('en', Carbon::getLocale());
         Carbon::setLocale('fr');

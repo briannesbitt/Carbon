@@ -26,5 +26,5 @@ return array(
     'ago'       => 'Fa :time',
     'from_now'  => 'Dins de :time',
     'after'     => ':time després',
-    'before'    => ':time abans'
+    'before'    => ':time abans',
 );

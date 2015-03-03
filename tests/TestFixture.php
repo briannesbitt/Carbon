@@ -58,7 +58,7 @@ class TestFixture extends \PHPUnit_Framework_TestCase
     protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
         $this->assertSame($years, $ci->years, 'CarbonInterval->years');
-        
+
         if ($months !== null) {
             $this->assertSame($months, $ci->months, 'CarbonInterval->months');
         }
