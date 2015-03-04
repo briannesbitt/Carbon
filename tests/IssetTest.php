@@ -39,7 +39,7 @@ class IssetTest extends TestFixture
             'timezone',
             'timezoneName',
             'tz',
-            'tzName'
+            'tzName',
         );
 
         foreach ($properties as $property) {

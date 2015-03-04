@@ -79,7 +79,7 @@ class Carbon extends DateTime
         self::WEDNESDAY => 'Wednesday',
         self::THURSDAY => 'Thursday',
         self::FRIDAY => 'Friday',
-        self::SATURDAY => 'Saturday'
+        self::SATURDAY => 'Saturday',
     );
 
     /**
@@ -97,7 +97,7 @@ class Carbon extends DateTime
         '-',
         'first',
         'last',
-        'ago'
+        'ago',
     );
 
     /**
@@ -152,7 +152,7 @@ class Carbon extends DateTime
     protected static function safeCreateDateTimeZone($object)
     {
         if ($object === null) {
-            return null;
+            return;
         }
 
         if ($object instanceof DateTimeZone) {
@@ -797,7 +797,8 @@ class Carbon extends DateTime
      *
      * @return TranslatorInterface
      */
-    protected static function translator() {
+    protected static function translator()
+    {
         if (static::$translator == null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
@@ -812,7 +813,8 @@ class Carbon extends DateTime
      *
      * @return TranslatorInterface
      */
-    public static function getTranslator() {
+    public static function getTranslator()
+    {
         return static::translator();
     }
 
@@ -821,15 +823,18 @@ class Carbon extends DateTime
      *
      * @param TranslatorInterface
      */
-    public static function setTranslator(TranslatorInterface $translator) {
+    public static function setTranslator(TranslatorInterface $translator)
+    {
         static::$translator = $translator;
     }
 
-    public static function getLocale() {
+    public static function getLocale()
+    {
         return static::translator()->getLocale();
     }
 
-    public static function setLocale($locale) {
+    public static function setLocale($locale)
+    {
         static::translator()->setLocale($locale);
 
         // Ensure the locale has been loaded.
@@ -1281,7 +1286,7 @@ class Carbon extends DateTime
      */
     public function addYears($value)
     {
-        return $this->modify((int) $value . ' year');
+        return $this->modify((int) $value.' year');
     }
 
     /**
@@ -1326,7 +1331,7 @@ class Carbon extends DateTime
      */
     public function addMonths($value)
     {
-        return $this->modify((int) $value . ' month');
+        return $this->modify((int) $value.' month');
     }
 
     /**
@@ -1422,7 +1427,7 @@ class Carbon extends DateTime
      */
     public function addDays($value)
     {
-        return $this->modify((int) $value . ' day');
+        return $this->modify((int) $value.' day');
     }
 
     /**
@@ -1467,7 +1472,7 @@ class Carbon extends DateTime
      */
     public function addWeekdays($value)
     {
-        return $this->modify((int) $value . ' weekday');
+        return $this->modify((int) $value.' weekday');
     }
 
     /**
@@ -1512,7 +1517,7 @@ class Carbon extends DateTime
      */
     public function addWeeks($value)
     {
-        return $this->modify((int) $value . ' week');
+        return $this->modify((int) $value.' week');
     }
 
     /**
@@ -1557,7 +1562,7 @@ class Carbon extends DateTime
      */
     public function addHours($value)
     {
-        return $this->modify((int) $value . ' hour');
+        return $this->modify((int) $value.' hour');
     }
 
     /**
@@ -1602,7 +1607,7 @@ class Carbon extends DateTime
      */
     public function addMinutes($value)
     {
-        return $this->modify((int) $value . ' minute');
+        return $this->modify((int) $value.' minute');
     }
 
     /**
@@ -1647,7 +1652,7 @@ class Carbon extends DateTime
      */
     public function addSeconds($value)
     {
-        return $this->modify((int) $value . ' second');
+        return $this->modify((int) $value.' second');
     }
 
     /**
@@ -1917,7 +1922,7 @@ class Carbon extends DateTime
                 $count = $diffInterval->d;
                 if ($count >= self::DAYS_PER_WEEK) {
                     $unit = 'week';
-                    $count = (int)($count / self::DAYS_PER_WEEK);
+                    $count = (int) ($count / self::DAYS_PER_WEEK);
                 }
                 break;
 
@@ -2100,7 +2105,7 @@ class Carbon extends DateTime
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('next ' . static::$days[$dayOfWeek]);
+        return $this->startOfDay()->modify('next '.static::$days[$dayOfWeek]);
     }
 
     /**
@@ -2119,7 +2124,7 @@ class Carbon extends DateTime
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('last ' . static::$days[$dayOfWeek]);
+        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
     }
 
     /**
@@ -2140,7 +2145,7 @@ class Carbon extends DateTime
             return $this->day(1);
         }
 
-        return $this->modify('first ' . static::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
+        return $this->modify('first '.static::$days[$dayOfWeek].' of '.$this->format('F').' '.$this->year);
     }
 
     /**
@@ -2161,7 +2166,7 @@ class Carbon extends DateTime
             return $this->day($this->daysInMonth);
         }
 
-        return $this->modify('last ' . static::$days[$dayOfWeek] . ' of ' . $this->format('F') . ' ' . $this->year);
+        return $this->modify('last '.static::$days[$dayOfWeek].' of '.$this->format('F').' '.$this->year);
     }
 
     /**
@@ -2179,7 +2184,7 @@ class Carbon extends DateTime
     {
         $dt = $this->copy()->firstOfMonth();
         $check = $dt->format('Y-m');
-        $dt->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
+        $dt->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
         return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
     }
@@ -2230,7 +2235,7 @@ class Carbon extends DateTime
         $dt = $this->copy()->day(1)->month($this->quarter * 3);
         $last_month = $dt->month;
         $year = $dt->year;
-        $dt->firstOfQuarter()->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
+        $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
         return ($last_month < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
     }
@@ -2278,7 +2283,7 @@ class Carbon extends DateTime
      */
     public function nthOfYear($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->firstOfYear()->modify('+' . $nth . ' ' . static::$days[$dayOfWeek]);
+        $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
         return $this->year == $dt->year ? $this->modify($dt) : false;
     }

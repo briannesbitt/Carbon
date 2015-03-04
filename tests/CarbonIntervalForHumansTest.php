@@ -17,7 +17,7 @@ class CarbonIntervalForHumansTest extends TestFixture
     {
         $this->assertSame('1 year', CarbonInterval::year()->forHumans());
     }
-    
+
     public function testYears()
     {
         $this->assertSame('2 years', CarbonInterval::years(2)->forHumans());

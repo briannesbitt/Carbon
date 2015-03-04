@@ -23,5 +23,5 @@ return array(
     'ago'       => ':time geleden',
     'from_now'  => 'over :time',
     'after'     => ':time later',
-    'before'    => ':time eerder'
+    'before'    => ':time eerder',
 );

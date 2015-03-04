@@ -45,48 +45,55 @@ class CarbonInterval extends DateInterval
     //////////////////////////// CONSTRUCTORS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    public function __construct($years = 0, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null) {
+    public function __construct($years = 0, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    {
         $spec = static::PERIOD_PREFIX;
 
-        $spec .= $years > 0 ? $years . static::PERIOD_YEARS : '';
-        $spec .= $months > 0 ? $months . static::PERIOD_MONTHS : '';
+        $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
+        $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
 
         $specDays = 0;
         $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
-        $spec .= ($specDays > 0) ? $specDays . static::PERIOD_DAYS : '';
+        $spec .= ($specDays > 0) ? $specDays.static::PERIOD_DAYS : '';
 
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
-            $spec .= $hours > 0 ? '' : $hours . static::PERIOD_HOURS;
-            $spec .= $minutes > 0 ? '' : $minutes . static::PERIOD_MINUTES;
-            $spec .= $seconds > 0 ? '' : $seconds . static::PERIOD_SECONDS;
+            $spec .= $hours > 0 ? '' : $hours.static::PERIOD_HOURS;
+            $spec .= $minutes > 0 ? '' : $minutes.static::PERIOD_MINUTES;
+            $spec .= $seconds > 0 ? '' : $seconds.static::PERIOD_SECONDS;
         }
 
         parent::__construct($spec);
     }
 
-    public static function create($years = 0, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null) {
+    public static function create($years = 0, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    {
         return new CarbonInterval($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
 
-    public static function years($years) {
+    public static function years($years)
+    {
         return new CarbonInterval($years);
     }
 
-    public static function year() {
+    public static function year()
+    {
         return static::years(1);
     }
 
-    public static function months($months) {
+    public static function months($months)
+    {
         return new CarbonInterval(null, $months);
     }
 
-    public static function weeks($weeks) {
+    public static function weeks($weeks)
+    {
         return new CarbonInterval(null, null, $weeks);
     }
 
-    public static function days($days) {
+    public static function days($days)
+    {
         return new CarbonInterval(null, null, null, $days);
     }
 
@@ -99,7 +106,8 @@ class CarbonInterval extends DateInterval
      *
      * @return TranslatorInterface
      */
-    protected static function translator() {
+    protected static function translator()
+    {
         if (static::$translator == null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
@@ -114,7 +122,8 @@ class CarbonInterval extends DateInterval
      *
      * @return TranslatorInterface
      */
-    public static function getTranslator() {
+    public static function getTranslator()
+    {
         return static::translator();
     }
 
@@ -123,15 +132,18 @@ class CarbonInterval extends DateInterval
      *
      * @param TranslatorInterface
      */
-    public static function setTranslator(TranslatorInterface $translator) {
+    public static function setTranslator(TranslatorInterface $translator)
+    {
         static::$translator = $translator;
     }
 
-    public static function getLocale() {
+    public static function getLocale()
+    {
         return static::translator()->getLocale();
     }
 
-    public static function setLocale($locale) {
+    public static function setLocale($locale)
+    {
         static::translator()->setLocale($locale);
 
         // Ensure the locale has been loaded.
@@ -159,7 +171,7 @@ class CarbonInterval extends DateInterval
 
             case 'months':
                 return $this->m;
-            
+
             case 'dayz':
                 return $this->d;
 
@@ -173,7 +185,7 @@ class CarbonInterval extends DateInterval
                 return $this->s;
 
             case 'weeks':
-                return $this->d >= Carbon::DAYS_PER_WEEK ? (int)($this->d / Carbon::DAYS_PER_WEEK) : 0;
+                return $this->d >= Carbon::DAYS_PER_WEEK ? (int) ($this->d / Carbon::DAYS_PER_WEEK) : 0;
 
             case 'daysExcludeWeeks':
                 return $this->d % Carbon::DAYS_PER_WEEK;
@@ -205,7 +217,8 @@ class CarbonInterval extends DateInterval
         return implode(' ', $parts);
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->forHumans();
     }
 }
