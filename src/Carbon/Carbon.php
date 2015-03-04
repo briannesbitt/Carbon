@@ -142,7 +142,8 @@ class Carbon extends DateTime
     protected static function safeCreateDateTimeZone($object)
     {
         if ($object === null) {
-            return null;
+            // Don't return null... avoid Bug #52063 in PHP <5.3.6
+            return new DateTimeZone(date_default_timezone_get());
         }
 
         if ($object instanceof DateTimeZone) {
