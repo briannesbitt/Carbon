@@ -876,9 +876,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toDayDateTimeString()
+    public function toDayDateTimeString($format = 'D, M j, Y g:i A')
     {
-        return $this->format('D, M j, Y g:i A');
+        return $this->format($format);
     }
 
     /**
