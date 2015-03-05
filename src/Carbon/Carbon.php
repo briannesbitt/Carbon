@@ -846,9 +846,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toFormattedDateString()
+    public function toFormattedDateString($format = 'M j, Y')
     {
-        return $this->format('M j, Y');
+        return $this->format($format);
     }
 
     /**
