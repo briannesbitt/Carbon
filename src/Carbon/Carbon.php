@@ -856,9 +856,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toTimeString()
+    public function toTimeString($format = 'H:i:s')
     {
-        return $this->format('H:i:s');
+        return $this->format($format);
     }
 
     /**
