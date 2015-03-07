@@ -548,8 +548,10 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansNowAndNearlyFutureDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 1));
         $d = Carbon::now()->addHours(23);
         $this->assertSame('23 hours from now', $d->diffForHumans());
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansNowAndFutureDay()
@@ -674,8 +676,10 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansOtherAndNearlyDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 1));
         $d = Carbon::now()->addHours(23);
         $this->assertSame('23 hours before', Carbon::now()->diffForHumans($d));
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansOtherAndDay()
