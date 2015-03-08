@@ -104,13 +104,13 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2015-03-03 23:55:01
+echo $now;                               // 2015-03-08 10:11:16
 $today = Carbon::today();
-echo $today;                             // 2015-03-03 00:00:00
+echo $today;                             // 2015-03-08 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2015-03-05 00:00:00
+echo $tomorrow;                          // 2015-03-09 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2015-03-02 00:00:00
+echo $yesterday;                         // 2015-03-07 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -193,7 +193,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-03-03 23:55:01
+echo Carbon::now();                                    // 2015-03-08 10:11:16
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -460,7 +460,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-03-03 23:55:01
+echo $dt1->max();                                  // 2015-03-08 10:11:16
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -620,7 +620,7 @@ echo $daysForExtraCoding;      // 104
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-echo Carbon::now()->subDays(5)->diffForHumans();               // 5 days ago
+echo Carbon::now()->subDays(5)->diffForHumans();               // 4 days ago
 
 echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
