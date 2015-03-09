@@ -51,7 +51,7 @@ use InvalidArgumentException;
  * @property-write DateTimeZone|string $tz alias of timezone
  *
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements JsonSerializable
 {
     /**
      * The day constants
@@ -172,8 +172,11 @@ class Carbon extends DateTime
      * @param string              $time
      * @param DateTimeZone|string $tz
      */
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = null, $tz = null, $array = null)
     {
+    	
+		$this->array = $array;
+		
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
@@ -194,6 +197,18 @@ class Carbon extends DateTime
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
     }
+	
+	/**
+	 *	jsonSerialize method for JsonSerialize interface
+	 * 
+	 *	For further reference, please refer to:
+	 * 	http://php.net/manual/en/jsonserializable.jsonserialize.php
+	 */
+	 
+	public function jsonSerialize()
+	{
+		return $this->array;
+	}
 
     /**
      * Create a Carbon instance from a DateTime one
