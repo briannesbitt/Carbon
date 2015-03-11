@@ -187,7 +187,25 @@ class LocalizationTest extends TestFixture
         $this->assertSame('in 1 Jahr', $d->diffForHumans());
 
         $d = Carbon::now()->addYears(2);
-        $this->assertSame('in 2 Jahre', $d->diffForHumans());
+        $this->assertSame('in 2 Jahren', $d->diffForHumans());
+
+        $d = Carbon::now()->subYear();
+        $this->assertSame('1 Jahr später', Carbon::now()->diffForHumans($d));
+
+        $d = Carbon::now()->subYears(2);
+        $this->assertSame('2 Jahre später', Carbon::now()->diffForHumans($d));
+
+        $d = Carbon::now()->addYear();
+        $this->assertSame('1 Jahr zuvor', Carbon::now()->diffForHumans($d));
+
+        $d = Carbon::now()->addYears(2);
+        $this->assertSame('2 Jahre zuvor', Carbon::now()->diffForHumans($d));
+
+        $d = Carbon::now()->subYear();
+        $this->assertSame('vor 1 Jahr', $d->diffForHumans());
+
+        $d = Carbon::now()->subYears(2);
+        $this->assertSame('vor 2 Jahren', $d->diffForHumans());
     }
 
     public function testDiffForHumansLocalizedInTurkish()

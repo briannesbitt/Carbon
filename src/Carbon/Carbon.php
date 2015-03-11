@@ -1957,6 +1957,12 @@ class Carbon extends DateTime
 
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
+        // Some langs have special pluralization for past and future tense.
+        $tryKeyExists = $unit.'_'.$transId;
+        if ($tryKeyExists !== static::translator()->transChoice($tryKeyExists, $count)) {
+            $time = static::translator()->transChoice($tryKeyExists, $count, array(':count' => $count));
+        }
+
         return static::translator()->trans($transId, array(':time' => $time));
     }
 
