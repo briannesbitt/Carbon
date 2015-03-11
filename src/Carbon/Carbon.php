@@ -1242,9 +1242,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subYear($value = -1)
+    public function subYear($value = 1)
     {
-        return $this->addYears($value);
+        return $this->subYears($value);
     }
 
     /**
@@ -1287,9 +1287,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMonth($value = -1)
+    public function subMonth($value = 1)
     {
-        return $this->addMonths($value);
+        return $this->subMonths($value);
     }
 
     /**
@@ -1338,9 +1338,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMonthNoOverflow($value = -1)
+    public function subMonthNoOverflow($value = 1)
     {
-        return $this->addMonthsNoOverflow($value);
+        return $this->subMonthsNoOverflow($value);
     }
 
     /**
@@ -1383,9 +1383,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subDay($value = -1)
+    public function subDay($value = 1)
     {
-        return $this->addDays($value);
+        return $this->subDays($value);
     }
 
     /**
@@ -1428,9 +1428,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subWeekday($value = -1)
+    public function subWeekday($value = 1)
     {
-        return $this->addWeekdays($value);
+        return $this->subWeekdays($value);
     }
 
     /**
@@ -1473,9 +1473,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subWeek($value = -1)
+    public function subWeek($value = 1)
     {
-        return $this->addWeeks($value);
+        return $this->subWeeks($value);
     }
 
     /**
@@ -1518,9 +1518,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subHour($value = -1)
+    public function subHour($value = 1)
     {
-        return $this->addHours($value);
+        return $this->subHours($value);
     }
 
     /**
@@ -1563,9 +1563,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMinute($value = -1)
+    public function subMinute($value = 1)
     {
-        return $this->addMinutes($value);
+        return $this->subMinutes($value);
     }
 
     /**
@@ -1608,9 +1608,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subSecond($value = -1)
+    public function subSecond($value = 1)
     {
-        return $this->addSeconds($value);
+        return $this->subSeconds($value);
     }
 
     /**
