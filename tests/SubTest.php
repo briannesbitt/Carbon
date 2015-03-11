@@ -172,4 +172,43 @@ class SubTest extends TestFixture
     {
         $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->subSecond()->second);
     }
+
+    /***** Test non plural methods with non default args *****/
+
+    public function testSubYearPassingArg()
+    {
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subYear(2)->year);
+    }
+
+    public function testSubMonthPassingArg()
+    {
+        $this->assertSame(3, Carbon::createFromDate(1975, 5, 1)->subMonth(2)->month);
+    }
+
+    public function testSubMonthNoOverflowPassingArg()
+    {
+        $dt = Carbon::createFromDate(2011, 4, 30)->subMonthNoOverflow(2);
+        $this->assertSame(2, $dt->month);
+        $this->assertSame(28, $dt->day);
+    }
+
+    public function testSubDayPassingArg()
+    {
+        $this->assertSame(8, Carbon::createFromDate(1975, 5, 10)->subDay(2)->day);
+    }
+
+    public function testSubHourPassingArg()
+    {
+        $this->assertSame(22, Carbon::createFromTime(0)->subHour(2)->hour);
+    }
+
+    public function testSubMinutePassingArg()
+    {
+        $this->assertSame(58, Carbon::createFromTime(0)->subMinute(2)->minute);
+    }
+
+    public function testSubSecondPassingArg()
+    {
+        $this->assertSame(58, Carbon::createFromTime(0)->subSecond(2)->second);
+    }
 }

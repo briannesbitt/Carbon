@@ -198,4 +198,44 @@ class AddTest extends TestFixture
     {
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addSecond()->second);
     }
+
+    /***** Test non plural methods with non default args *****/
+
+    public function testAddYearPassingArg()
+    {
+        $this->assertSame(1977, Carbon::createFromDate(1975)->addYear(2)->year);
+    }
+
+    public function testAddMonthPassingArg()
+    {
+        $this->assertSame(7, Carbon::createFromDate(1975, 5, 1)->addMonth(2)->month);
+    }
+
+    public function testAddMonthNoOverflowPassingArg()
+    {
+        $dt = Carbon::createFromDate(2010, 12, 31)->addMonthNoOverflow(2);
+        $this->assertSame(2011, $dt->year);
+        $this->assertSame(2, $dt->month);
+        $this->assertSame(28, $dt->day);
+    }
+
+    public function testAddDayPassingArg()
+    {
+        $this->assertSame(12, Carbon::createFromDate(1975, 5, 10)->addDay(2)->day);
+    }
+
+    public function testAddHourPassingArg()
+    {
+        $this->assertSame(2, Carbon::createFromTime(0)->addHour(2)->hour);
+    }
+
+    public function testAddMinutePassingArg()
+    {
+        $this->assertSame(2, Carbon::createFromTime(0)->addMinute(2)->minute);
+    }
+
+    public function testAddSecondPassingArg()
+    {
+        $this->assertSame(2, Carbon::createFromTime(0)->addSecond(2)->second);
+    }
 }

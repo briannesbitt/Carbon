@@ -152,7 +152,8 @@ class Carbon extends DateTime
     protected static function safeCreateDateTimeZone($object)
     {
         if ($object === null) {
-            return;
+            // Don't return null... avoid Bug #52063 in PHP <5.3.6
+            return new DateTimeZone(date_default_timezone_get());
         }
 
         if ($object instanceof DateTimeZone) {
@@ -1294,9 +1295,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addYear()
+    public function addYear($value = 1)
     {
-        return $this->addYears(1);
+        return $this->addYears($value);
     }
 
     /**
@@ -1304,9 +1305,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subYear()
+    public function subYear($value = 1)
     {
-        return $this->addYears(-1);
+        return $this->subYears($value);
     }
 
     /**
@@ -1339,9 +1340,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addMonth()
+    public function addMonth($value = 1)
     {
-        return $this->addMonths(1);
+        return $this->addMonths($value);
     }
 
     /**
@@ -1349,9 +1350,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMonth()
+    public function subMonth($value = 1)
     {
-        return $this->addMonths(-1);
+        return $this->subMonths($value);
     }
 
     /**
@@ -1390,9 +1391,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addMonthNoOverflow()
+    public function addMonthNoOverflow($value = 1)
     {
-        return $this->addMonthsNoOverflow(1);
+        return $this->addMonthsNoOverflow($value);
     }
 
     /**
@@ -1400,9 +1401,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMonthNoOverflow()
+    public function subMonthNoOverflow($value = 1)
     {
-        return $this->addMonthsNoOverflow(-1);
+        return $this->subMonthsNoOverflow($value);
     }
 
     /**
@@ -1435,9 +1436,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addDay()
+    public function addDay($value = 1)
     {
-        return $this->addDays(1);
+        return $this->addDays($value);
     }
 
     /**
@@ -1445,9 +1446,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subDay()
+    public function subDay($value = 1)
     {
-        return $this->addDays(-1);
+        return $this->subDays($value);
     }
 
     /**
@@ -1480,9 +1481,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addWeekday()
+    public function addWeekday($value = 1)
     {
-        return $this->addWeekdays(1);
+        return $this->addWeekdays($value);
     }
 
     /**
@@ -1490,9 +1491,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subWeekday()
+    public function subWeekday($value = 1)
     {
-        return $this->addWeekdays(-1);
+        return $this->subWeekdays($value);
     }
 
     /**
@@ -1525,9 +1526,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addWeek()
+    public function addWeek($value = 1)
     {
-        return $this->addWeeks(1);
+        return $this->addWeeks($value);
     }
 
     /**
@@ -1535,9 +1536,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subWeek()
+    public function subWeek($value = 1)
     {
-        return $this->addWeeks(-1);
+        return $this->subWeeks($value);
     }
 
     /**
@@ -1570,9 +1571,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addHour()
+    public function addHour($value = 1)
     {
-        return $this->addHours(1);
+        return $this->addHours($value);
     }
 
     /**
@@ -1580,9 +1581,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subHour()
+    public function subHour($value = 1)
     {
-        return $this->addHours(-1);
+        return $this->subHours($value);
     }
 
     /**
@@ -1615,9 +1616,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addMinute()
+    public function addMinute($value = 1)
     {
-        return $this->addMinutes(1);
+        return $this->addMinutes($value);
     }
 
     /**
@@ -1625,9 +1626,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subMinute()
+    public function subMinute($value = 1)
     {
-        return $this->addMinutes(-1);
+        return $this->subMinutes($value);
     }
 
     /**
@@ -1660,9 +1661,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function addSecond()
+    public function addSecond($value = 1)
     {
-        return $this->addSeconds(1);
+        return $this->addSeconds($value);
     }
 
     /**
@@ -1670,9 +1671,9 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function subSecond()
+    public function subSecond($value = 1)
     {
-        return $this->addSeconds(-1);
+        return $this->subSeconds($value);
     }
 
     /**
@@ -1846,7 +1847,8 @@ class Carbon extends DateTime
      */
     public function diffInSeconds(Carbon $dt = null, $abs = true)
     {
-        $value = (($dt === null) ? time() : $dt->getTimestamp()) - $this->getTimestamp();
+        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
     }
@@ -1903,8 +1905,6 @@ class Carbon extends DateTime
             $other = static::now($this->tz);
         }
 
-        $isFuture = $this->gt($other);
-
         $diffInterval = $this->diff($other);
 
         switch (true) {
@@ -1912,6 +1912,7 @@ class Carbon extends DateTime
                 $unit = 'year';
                 $count = $diffInterval->y;
                 break;
+
             case ($diffInterval->m > 0):
                 $unit = 'month';
                 $count = $diffInterval->m;
@@ -1951,6 +1952,8 @@ class Carbon extends DateTime
         if ($absolute) {
             return $time;
         }
+
+        $isFuture = $diffInterval->invert === 1;
 
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 

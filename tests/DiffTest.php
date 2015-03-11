@@ -276,7 +276,9 @@ class DiffTest extends TestFixture
 
     public function testDiffInHoursVsDefaultNow()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 15));
         $this->assertSame(48, Carbon::now()->subDays(2)->diffInHours());
+        Carbon::setTestNow();
     }
 
     public function testDiffInHoursEnsureIsTruncated()
@@ -418,14 +420,18 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansNowAndHours()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 15));
         $d = Carbon::now()->subHours(2);
         $this->assertSame('2 hours ago', $d->diffForHumans());
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansNowAndNearlyDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 15));
         $d = Carbon::now()->subHours(23);
         $this->assertSame('23 hours ago', $d->diffForHumans());
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansNowAndDay()
@@ -548,8 +554,10 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansNowAndNearlyFutureDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 1));
         $d = Carbon::now()->addHours(23);
         $this->assertSame('23 hours from now', $d->diffForHumans());
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansNowAndFutureDay()
@@ -674,8 +682,10 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansOtherAndNearlyDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 1));
         $d = Carbon::now()->addHours(23);
         $this->assertSame('23 hours before', Carbon::now()->diffForHumans($d));
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansOtherAndDay()
@@ -800,8 +810,10 @@ class DiffTest extends TestFixture
 
     public function testDiffForHumansOtherAndNearlyFutureDay()
     {
+        Carbon::setTestNow(Carbon::create(2012, 1, 15));
         $d = Carbon::now()->subHours(23);
         $this->assertSame('23 hours after', Carbon::now()->diffForHumans($d));
+        Carbon::setTestNow();
     }
 
     public function testDiffForHumansOtherAndFutureDay()
