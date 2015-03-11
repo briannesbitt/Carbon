@@ -1475,7 +1475,7 @@ class Carbon extends DateTime
      */
     public function subWeek($value = -1)
     {
-        return $this->addWeeks($value = 1);
+        return $this->addWeeks($value);
     }
 
     /**
