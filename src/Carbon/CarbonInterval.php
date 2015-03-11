@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use DateInterval;
+use InvalidArgumentException;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -45,7 +46,7 @@ class CarbonInterval extends DateInterval
     //////////////////////////// CONSTRUCTORS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
-    public function __construct($years = 0, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
         $spec = static::PERIOD_PREFIX;
 
@@ -59,9 +60,10 @@ class CarbonInterval extends DateInterval
         $spec .= ($specDays > 0) ? $specDays.static::PERIOD_DAYS : '';
 
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
-            $spec .= $hours > 0 ? '' : $hours.static::PERIOD_HOURS;
-            $spec .= $minutes > 0 ? '' : $minutes.static::PERIOD_MINUTES;
-            $spec .= $seconds > 0 ? '' : $seconds.static::PERIOD_SECONDS;
+            $spec .= static::PERIOD_TIME_PREFIX;
+            $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
+            $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
+            $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
         }
 
         parent::__construct($spec);
@@ -72,29 +74,39 @@ class CarbonInterval extends DateInterval
         return new CarbonInterval($years, $months, $weeks, $days, $hours, $minutes, $seconds);
     }
 
-    public static function years($years)
-    {
-        return new CarbonInterval($years);
-    }
+    public static function __callStatic($name, $args) {
+        $arg = count($args) == 0 ? 1 : $args[0];
 
-    public static function year()
-    {
-        return static::years(1);
-    }
+        switch ($name) {
+            case 'years':
+            case 'year':
+                return new CarbonInterval($arg);
 
-    public static function months($months)
-    {
-        return new CarbonInterval(null, $months);
-    }
+            case 'months':
+            case 'month':
+                return new CarbonInterval(null, $arg);
 
-    public static function weeks($weeks)
-    {
-        return new CarbonInterval(null, null, $weeks);
-    }
+            case 'weeks':
+            case 'week':
+                return new CarbonInterval(null, null, $arg);
 
-    public static function days($days)
-    {
-        return new CarbonInterval(null, null, null, $days);
+            case 'days':
+            case 'dayz':
+            case 'day':
+                return new CarbonInterval(null, null, null, $arg);
+
+            case 'hours':
+            case 'hour':
+                return new CarbonInterval(null, null, null, null, $arg);
+
+            case 'minutes':
+            case 'minute':
+                return new CarbonInterval(null, null, null, null, null, $arg);
+
+            case 'seconds':
+            case 'second':
+                return new CarbonInterval(null, null, null, null, null, null, $arg);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -188,10 +200,91 @@ class CarbonInterval extends DateInterval
                 return $this->d >= Carbon::DAYS_PER_WEEK ? (int) ($this->d / Carbon::DAYS_PER_WEEK) : 0;
 
             case 'daysExcludeWeeks':
+            case 'dayzExcludeWeeks':
                 return $this->d % Carbon::DAYS_PER_WEEK;
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+        }
+    }
+
+    // Allow fluent calls on the setters
+    public function __call($name, $args) {
+        $arg = count($args) == 0 ? 1 : $args[0];
+
+        switch ($name) {
+            case 'years':
+            case 'year':
+                $this->years = $arg;
+                break;
+
+            case 'months':
+            case 'month':
+                $this->months = $arg;
+                break;
+
+            case 'weeks':
+            case 'week':
+                $this->dayz = $arg * Carbon::DAYS_PER_WEEK;
+                break;
+
+            case 'days':
+            case 'dayz':
+            case 'day':
+                $this->dayz = $arg;
+                break;
+
+            case 'hours':
+            case 'hour':
+                $this->hours = $arg;
+                break;
+
+            case 'minutes':
+            case 'minute':
+                $this->minutes = $arg;
+                break;
+
+            case 'seconds':
+            case 'second':
+                $this->seconds = $arg;
+                break;
+        }
+
+        return $this;
+    }
+
+    public function __set($name, $val) {
+        switch ($name) {
+            case 'years':
+                $this->y = $val;
+                break;
+
+            case 'months':
+                $this->m = $val;
+                break;
+
+            case 'weeks':
+                $this->d = $val * Carbon::DAYS_PER_WEEK;
+                break;
+
+            case 'dayz':
+                $this->d = $val;
+                break;
+
+            case 'hours':
+                $this->h = $val;
+                break;
+
+            case 'minutes':
+                $this->i = $val;
+                break;
+
+            case 'seconds':
+                $this->s = $val;
+                break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
     }
 
