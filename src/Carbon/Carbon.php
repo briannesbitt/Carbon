@@ -822,18 +822,28 @@ class Carbon extends DateTime
     /**
      * Set the translator instance to use
      *
-     * @param TranslatorInterface
+     * @param TranslatorInterface $translator
      */
     public static function setTranslator(TranslatorInterface $translator)
     {
         static::$translator = $translator;
     }
 
+    /**
+     * Get the current translator locale
+     *
+     * @return string
+     */
     public static function getLocale()
     {
         return static::translator()->getLocale();
     }
 
+    /**
+     * Set the current translator locale
+     *
+     * @param string $locale
+     */
     public static function setLocale($locale)
     {
         static::translator()->setLocale($locale);
@@ -1874,7 +1884,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Get the difference in a human readable format.
+     * Get the difference in a human readable format in the current locale.
      *
      * When comparing a value in the past to default now:
      * 1 hour ago

@@ -10,6 +10,7 @@
  */
 
 use Carbon\CarbonInterval;
+use Carbon\Carbon;
 
 class CarbonIntervalConstructTest extends TestFixture
 {
@@ -194,13 +195,30 @@ class CarbonIntervalConstructTest extends TestFixture
         $this->assertCarbonInterval($ci, 5, 6, 19, 9, 10, 11);
     }
 
-    public function testYearsAndThenMonths()
+    public function testInstance()
     {
-        $ci = CarbonInterval::years(4)->months(2);
+        $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 4, 2, 0, 0, 0, 0);
+        $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
+        $this->assertSame(false, $ci->days);
+    }
 
-        $ci = CarbonInterval::years(4)->month();
-        $this->assertCarbonInterval($ci, 4, 1, 0, 0, 0, 0);
+    public function testInstanceWithNegativeDateInterval()
+    {
+        $di = new DateInterval('P2Y1M5DT22H33M44S');
+        $di->invert = 1;
+        $ci = CarbonInterval::instance($di);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
+        $this->assertSame(false, $ci->days);
+        $this->assertSame(1, $ci->invert);
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testInstanceWithDaysThrowsException()
+    {
+        $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
     }
 }
