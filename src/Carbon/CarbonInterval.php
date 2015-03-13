@@ -86,6 +86,22 @@ class CarbonInterval extends DateInterval
      */
     protected static $translator;
 
+    /**
+     * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
+     * was created by DateTime:diff().
+     */
+    const PHP_DAYS_FALSE = -99999;
+
+    /**
+     * Determine if the interval was created via DateTime:diff() or not.
+     *
+     * @return boolean
+     */
+    private static function wasCreatedFromDiff(DateInterval $interval)
+    {
+        return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
+    }
+
     ///////////////////////////////////////////////////////////////////
     //////////////////////////// CONSTRUCTORS /////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -202,7 +218,7 @@ class CarbonInterval extends DateInterval
      */
     public static function instance(DateInterval $di)
     {
-        if ($di->days !== false) {
+        if (static::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException("Can not instance a DateInterval object created from DateTime::diff().");
         }
 
@@ -477,7 +493,7 @@ class CarbonInterval extends DateInterval
     {
         $sign = ($interval->invert === 1) ? -1 : 1;
 
-        if ($interval->days !== false) {
+        if (static::wasCreatedFromDiff($interval)) {
             $this->dayz = $this->dayz + ($interval->days * $sign);
         } else {
             $this->years = $this->years + ($interval->y * $sign);

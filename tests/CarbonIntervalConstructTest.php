@@ -200,7 +200,7 @@ class CarbonIntervalConstructTest extends TestFixture
         $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertSame(false, $ci->days);
+        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
     }
 
     public function testInstanceWithNegativeDateInterval()
@@ -210,7 +210,7 @@ class CarbonIntervalConstructTest extends TestFixture
         $ci = CarbonInterval::instance($di);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertSame(false, $ci->days);
+        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
         $this->assertSame(1, $ci->invert);
     }
 
