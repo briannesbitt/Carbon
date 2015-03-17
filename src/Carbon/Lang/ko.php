@@ -24,7 +24,7 @@ return array(
     'minute'    => ':count 분',
     'second'    => ':count 초',
     'ago'       => ':time 전',
-    'from_now'  => '지금부터 :time 후',
-    'after'     => ':time 후',
-    'before'    => ':time 까지',
+    'from_now'  => ':time 후',
+    'after'     => ':time 뒤',
+    'before'    => ':time 앞',
 );
