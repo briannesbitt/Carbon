@@ -131,9 +131,9 @@ class Carbon extends DateTime
     protected static $testNow;
 
     /**
-     * Creates a DateTimeZone from a string or a DateTimeZone
+     * Creates a DateTimeZone from a string, a DateTimeZone or an integer offset
      *
-     * @param DateTimeZone|string|null $object
+     * @param DateTimeZone|string|integer|null $object
      *
      * @return DateTimeZone
      *
