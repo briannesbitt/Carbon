@@ -150,6 +150,11 @@ class Carbon extends DateTime
             return $object;
         }
 
+        if (is_numeric($object)) {
+            $timezone_offset = $object * 3600;
+            return new DateTimeZone(timezone_name_from_abbr(null, $timezone_offset, true));
+        }
+
         $tz = @timezone_open((string) $object);
 
         if ($tz === false) {
