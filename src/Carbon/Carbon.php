@@ -278,7 +278,13 @@ class Carbon extends DateTime
      */
     public static function maxValue()
     {
-        return static::createFromTimestamp(PHP_INT_MAX);
+        if (PHP_INT_SIZE == 4) {
+            // 32 bit (and additionally Windows 64 bit)
+            return static::createFromTimestamp(PHP_INT_MAX);
+        } else {
+            // 64 bit
+            return static::create(9999, 12, 31, 23, 59, 59);
+        }
     }
 
     /**
@@ -288,7 +294,13 @@ class Carbon extends DateTime
      */
     public static function minValue()
     {
-        return static::createFromTimestamp(~PHP_INT_MAX);
+        if (PHP_INT_SIZE == 4) {
+            // 32 bit (and additionally Windows 64 bit)
+            return static::createFromTimestamp(~PHP_INT_MAX);
+        } else {
+            // 64 bit
+            return static::create(1001, 1, 1, 0, 0, 0);
+        } 
     }
 
     /**
