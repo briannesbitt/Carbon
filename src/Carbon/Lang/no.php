@@ -16,10 +16,6 @@
  * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/no/date.php
  */
 return array(
-    'ago'       => ':time siden',
-    'from_now'  => 'om :time',
-    'after'     => ':time etter',
-    'before'    => ':time før',
     'year'      => '1 år|:count år',
     'month'     => '1 måned|:count måneder',
     'week'      => '1 uke|:count uker',
@@ -30,6 +26,5 @@ return array(
     'ago'       => ':time siden',
     'from_now'  => 'om :time',
     'after'     => ':time etter',
-    'before'    => ':time før',
-    'year'      => '1 år|:count år'
+    'before'    => ':time før'
 );
