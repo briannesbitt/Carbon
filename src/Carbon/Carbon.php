@@ -29,6 +29,8 @@ use InvalidArgumentException;
  * @property      integer $minute
  * @property      integer $second
  * @property      integer $timestamp seconds since the Unix Epoch
+ * @property      DateTimeZone $timezone the current timezone
+ * @property      DateTimeZone $tz alias of timezone
  * @property-read integer $micro
  * @property-read integer $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read integer $dayOfYear 0 through 365
@@ -44,12 +46,6 @@ use InvalidArgumentException;
  * @property-read boolean $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string  $timezoneName
  * @property-read string  $tzName
- *
- * @property-read  DateTimeZone        $timezone the current timezone
- * @property-read  DateTimeZone        $tz alias of timezone
- * @property-write DateTimeZone|string $timezone the current timezone
- * @property-write DateTimeZone|string $tz alias of timezone
- *
  */
 class Carbon extends DateTime
 {
