@@ -1063,15 +1063,15 @@ class Carbon extends DateTime
         return $this <= $dt;
     }
 
-  /**
-   * Determines if the instance is between two others
-   *
-   * @param  Carbon  $dt1
-   * @param  Carbon  $dt2
-   * @param  boolean $equal  Indicates if a > and < comparison should be used or <= or >=
-   *
-   * @return boolean
-   */
+    /**
+     * Determines if the instance is between two others
+     *
+     * @param  Carbon  $dt1
+     * @param  Carbon  $dt2
+     * @param  boolean $equal  Indicates if a > and < comparison should be used or <= or >=
+     *
+     * @return boolean
+     */
     public function between(Carbon $dt1, Carbon $dt2, $equal = true)
     {
         if ($dt1->gt($dt2)) {
@@ -1207,7 +1207,7 @@ class Carbon extends DateTime
     }
 
     ///////////////////////////////////////////////////////////////////
-    /////////////////// ADDITIONS AND SUBSTRACTIONS ///////////////////
+    /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
     ///////////////////////////////////////////////////////////////////
 
     /**
@@ -1652,7 +1652,7 @@ class Carbon extends DateTime
     {
         $dt = ($dt === null) ? static::now($this->tz) : $dt;
 
-        return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + $this->diff($dt, $abs)->format('%r%m');
+        return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
 
     /**
@@ -1683,66 +1683,66 @@ class Carbon extends DateTime
         return (int) $this->diff($dt, $abs)->format('%r%a');
     }
 
-     /**
-      * Get the difference in days using a filter closure
-      *
-      * @param Closure $callback
-      * @param Carbon  $dt
-      * @param boolean $abs      Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
-     {
-         $start = $this;
-         $end = ($dt === null) ? static::now($this->tz) : $dt;
-         $inverse = false;
+    /**
+     * Get the difference in days using a filter closure
+     *
+     * @param Closure $callback
+     * @param Carbon  $dt
+     * @param boolean $abs      Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    {
+        $start = $this;
+        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $inverse = false;
 
-         if ($end < $start) {
-             $start = $end;
-             $end = $this;
-             $inverse = true;
-         }
+        if ($end < $start) {
+            $start = $end;
+            $end = $this;
+            $inverse = true;
+        }
 
-         $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-         $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
-                return call_user_func($callback, Carbon::instance($date));
-          });
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+        $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+            return call_user_func($callback, Carbon::instance($date));
+        });
 
-         $diff = count($days);
+        $diff = count($days);
 
-         return $inverse && !$abs ? -$diff : $diff;
-     }
+        return $inverse && !$abs ? -$diff : $diff;
+    }
 
-     /**
-      * Get the difference in weekdays
-      *
-      * @param Carbon  $dt
-      * @param boolean $abs Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInWeekdays(Carbon $dt = null, $abs = true)
-     {
-         return $this->diffInDaysFiltered(function (Carbon $date) {
-                return $date->isWeekday();
-          }, $dt, $abs);
-     }
+    /**
+     * Get the difference in weekdays
+     *
+     * @param Carbon  $dt
+     * @param boolean $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInWeekdays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekday();
+        }, $dt, $abs);
+    }
 
-     /**
-      * Get the difference in weekend days using a filter
-      *
-      * @param Carbon  $dt
-      * @param boolean $abs Get the absolute of the difference
-      *
-      * @return int
-      */
-     public function diffInWeekendDays(Carbon $dt = null, $abs = true)
-     {
-         return $this->diffInDaysFiltered(function (Carbon $date) {
-                return $date->isWeekend();
-          }, $dt, $abs);
-     }
+    /**
+     * Get the difference in weekend days using a filter
+     *
+     * @param Carbon  $dt
+     * @param boolean $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInWeekendDays(Carbon $dt = null, $abs = true)
+    {
+        return $this->diffInDaysFiltered(function (Carbon $date) {
+            return $date->isWeekend();
+        }, $dt, $abs);
+    }
 
     /**
      * Get the difference in hours
@@ -1948,97 +1948,97 @@ class Carbon extends DateTime
         return $this->day($this->daysInMonth)->endOfDay();
     }
 
-     /**
-      * Resets the date to the first day of the year and the time to 00:00:00
-      *
-      * @return static
-      */
+    /**
+     * Resets the date to the first day of the year and the time to 00:00:00
+     *
+     * @return static
+     */
     public function startOfYear()
     {
         return $this->month(1)->startOfMonth();
     }
 
-     /**
-      * Resets the date to end of the year and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfYear()
-     {
-         return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
-     }
+    /**
+     * Resets the date to end of the year and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfYear()
+    {
+        return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
+    }
 
-     /**
-      * Resets the date to the first day of the decade and the time to 00:00:00
-      *
-      * @return static
-      */
-     public function startOfDecade()
-     {
-         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
-     }
+    /**
+     * Resets the date to the first day of the decade and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfDecade()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
+    }
 
-     /**
-      * Resets the date to end of the decade and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfDecade()
-     {
-         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
-     }
+    /**
+     * Resets the date to end of the decade and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfDecade()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
+    }
 
-     /**
-      * Resets the date to the first day of the century and the time to 00:00:00
-      *
-      * @return static
-      */
-     public function startOfCentury()
-     {
-         return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
-     }
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfCentury()
+    {
+        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
+    }
 
-     /**
-      * Resets the date to end of the century and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfCentury()
-     {
-         return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
-     }
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfCentury()
+    {
+        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
+    }
 
     /**
      * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
      *
      * @return static
      */
-     public function startOfWeek()
-     {
-         if ($this->dayOfWeek != static::MONDAY) {
-             $this->previous(static::MONDAY);
-         }
+    public function startOfWeek()
+    {
+        if ($this->dayOfWeek != static::MONDAY) {
+            $this->previous(static::MONDAY);
+        }
 
-         return $this->startOfDay();
-     }
-
-     /**
-      * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
-      *
-      * @return static
-      */
-     public function endOfWeek()
-     {
-         if ($this->dayOfWeek != static::SUNDAY) {
-             $this->next(static::SUNDAY);
-         }
-
-         return $this->endOfDay();
-     }
+        return $this->startOfDay();
+    }
 
     /**
-     * Modify to the next occurance of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurance
+     * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfWeek()
+    {
+        if ($this->dayOfWeek != static::SUNDAY) {
+            $this->next(static::SUNDAY);
+        }
+
+        return $this->endOfDay();
+    }
+
+    /**
+     * Modify to the next occurence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the next occurence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2056,8 +2056,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the previous occurance of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurance
+     * Modify to the previous occurence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the previous occurence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2075,7 +2075,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2096,7 +2096,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2117,8 +2117,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current month. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current month. If the calculated occurence is outside the scope
      * of the current month, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2137,7 +2137,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2152,7 +2152,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2167,8 +2167,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current quarter. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current quarter. If the calculated occurence is outside the scope
      * of the current quarter, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
@@ -2188,7 +2188,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurance of a given day of the week
+     * Modify to the first occurence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2203,7 +2203,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the last occurance of a given day of the week
+     * Modify to the last occurence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
@@ -2218,8 +2218,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the given occurance of a given day of the week
-     * in the current year. If the calculated occurance is outside the scope
+     * Modify to the given occurence of a given day of the week
+     * in the current year. If the calculated occurence is outside the scope
      * of the current year, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
