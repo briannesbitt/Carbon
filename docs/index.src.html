@@ -741,11 +741,12 @@ class CarbonInterval extends \DateInterval
 <p>You can create an instance in the following ways:</p>
 
 <p><pre><code class="php">{{cicreate1::exec(
-echo CarbonInterval::year();/*pad(50)*/)}} // {{cicreate1_eval}}
-{{cicreate2::exec(echo CarbonInterval::months(3);/*pad(50)*/)}} // {{cicreate2_eval}}
-{{cicreate3::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(50)*/)}} // {{cicreate3_eval}}
-{{cicreate4::exec(echo CarbonInterval::days(3)->weeks(4);/*pad(50)*/)}} // {{cicreate4_eval}}
-{{cicreate5::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(50)*/)}} // {{cicreate5_eval}}
+echo CarbonInterval::year();/*pad(54)*/)}} // {{cicreate1_eval}}
+{{cicreate2::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{cicreate2_eval}}
+{{cicreate3::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(54)*/)}} // {{cicreate3_eval}}
+{{cicreate4::exec(echo CarbonInterval::weeks(3);/*pad(54)*/)}} // {{cicreate4_eval}}
+{{cicreate5::exec(echo CarbonInterval::days(23);/*pad(54)*/)}} // {{cicreate5_eval}}
+{{cicreate6::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(54)*/)}} // {{cicreate6_eval}}
 </code></pre></p>
 
 <p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
@@ -759,20 +760,21 @@ echo CarbonInterval::year();/*pad(50)*/)}} // {{cicreate1_eval}}
 <p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
 
 <p><pre><code class="php">{{cihelper1::exec(
-echo CarbonInterval::year()->years;/*pad(50)*/)}} // {{cihelper1_eval}}
-{{cihelper2::exec(echo CarbonInterval::year()->dayz;/*pad(50)*/)}} // {{cihelper2_eval}}
-{{cihelper3::exec(echo CarbonInterval::days(24)->dayz;/*pad(50)*/)}} // {{cihelper3_eval}}
-{{cihelper4::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(50)*/)}} // {{cihelper4_eval}}
-{{cihelper5::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(50)*/)}} // {{cihelper5_eval}}  <-- days setter overwrites the current value
-{{cihelper5::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(50)*/)}} // {{cihelper5_eval}}
+echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
+{{cihelper2::exec(echo CarbonInterval::year()->dayz;/*pad(54)*/)}} // {{cihelper2_eval}}
+{{cihelper3::exec(echo CarbonInterval::days(24)->dayz;/*pad(54)*/)}} // {{cihelper3_eval}}
+{{cihelper4::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(54)*/)}} // {{cihelper4_eval}}
+{{cihelper5::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{cihelper5_eval}}  <-- days setter overwrites the current value
+{{cihelper6::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{cihelper6_eval}}
+{{cihelper7::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{cihelper7_eval}}
 </code></pre></p>
 
 <p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
 
 <p><pre><code class="php">{{::lint(
 CarbonInterval::setLocale('fr');)}}
-{{interval2::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(50)*/)}} // {{interval2_eval}}
-{{interval3::exec(echo CarbonInterval::hour()->seconds(3);/*pad(50)*/)}} // {{interval3_eval}}
+{{interval2::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(54)*/)}} // {{interval2_eval}}
+{{interval3::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{interval3_eval}}
 {{::lint(CarbonInterval::setLocale('en');)}}
 </code></pre></p>
 
