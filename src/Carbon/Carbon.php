@@ -1767,7 +1767,7 @@ class Carbon extends DateTime
      */
     public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
     {
-        return $this->diffFilter(CarbonInterval::day(), $callback, $dt, $abs);
+        return $this->diffFiltered(CarbonInterval::day(), $callback, $dt, $abs);
     }
 
     /**
@@ -1781,20 +1781,20 @@ class Carbon extends DateTime
      */
     public function diffInHoursFiltered(Closure $callback, Carbon $dt = null, $abs = true)
     {
-        return $this->diffFilter(CarbonInterval::hour(), $callback, $dt, $abs);
+        return $this->diffFiltered(CarbonInterval::hour(), $callback, $dt, $abs);
     }
 
     /**
      * Get the difference by the given interval using a filter closure
      *
-     * @param CarbonInterval $ci An interval to traverse
+     * @param CarbonInterval $ci An interval to traverse by
      * @param Closure $callback
      * @param Carbon  $dt
      * @param boolean $abs      Get the absolute of the difference
      *
      * @return int
      */
-    protected function diffFilter(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
+    public function diffFiltered(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
     {
         $start = $this;
         $end = ($dt === null) ? static::now($this->tz) : $dt;

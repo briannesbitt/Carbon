@@ -10,6 +10,7 @@
  */
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class DiffTest extends TestFixture
 {
@@ -185,6 +186,61 @@ class DiffTest extends TestFixture
         {
             return ($date->hour > 8 && $date->hour < 17);
         }, $dt2));
+    }
+
+    public function testDiffFilteredUsingMinutesPositiveWithMutated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+        $this->assertSame(60, $dt->diffFiltered(CarbonInterval::minute(), function (Carbon $date) {
+            return $date->hour === 12;
+        }, Carbon::createFromDate(2000, 1, 1)->endOfDay()));
+    }
+
+    public function testDiffFilteredPositiveWithSecondObject()
+    {
+        $dt1 = Carbon::create(2000, 1, 1);
+        $dt2 = $dt1->copy()->addSeconds(80);
+
+        $this->assertSame(40, $dt1->diffFiltered(CarbonInterval::second(), function (Carbon $date) {
+            return $date->second % 2 === 0;
+        }, $dt2));
+    }
+
+    public function testDiffFilteredNegativeNoSignWithMutated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 31);
+
+        $this->assertSame(2, $dt->diffFiltered(CarbonInterval::days(2), function (Carbon $date) {
+            return $date->dayOfWeek === Carbon::SUNDAY;
+        }, $dt->copy()->startOfMonth()));
+    }
+
+    public function testDiffFilteredNegativeNoSignWithSecondObject()
+    {
+        $dt1 = Carbon::createFromDate(2006, 1, 31);
+        $dt2 = Carbon::createFromDate(2000, 1, 1);
+
+        $this->assertSame(7, $dt1->diffFiltered(CarbonInterval::year(), function (Carbon $date) {
+            return $date->month === 1;
+        }, $dt2));
+    }
+
+    public function testDiffFilteredNegativeWithSignWithMutated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 31);
+        $this->assertSame(-4, $dt->diffFiltered(CarbonInterval::week(), function (Carbon $date) {
+            return $date->month === 12;
+        }, $dt->copy()->subMonths(3), false));
+    }
+
+    public function testDiffFilteredNegativeWithSignWithSecondObject()
+    {
+        $dt1 = Carbon::createFromDate(2001, 1, 31);
+        $dt2 = Carbon::createFromDate(1999, 1, 1);
+
+        $this->assertSame(-12, $dt1->diffFiltered(CarbonInterval::month(), function (Carbon $date) {
+            return $date->year === 2000;
+        }, $dt2, false));
     }
 
     public function testBug188DiffWithSameDates()
