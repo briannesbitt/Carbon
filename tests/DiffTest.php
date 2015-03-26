@@ -154,6 +154,39 @@ class DiffTest extends TestFixture
         }, $dt2, false));
     }
 
+    public function testDiffInHoursFiltered()
+    {
+        $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+
+        $this->assertSame(31, $dt1->diffInHoursFiltered(function (Carbon $date)
+        {
+            return $date->hour === 9;
+        }, $dt2));
+    }
+
+    public function testDiffInHoursFilteredNegative()
+    {
+        $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
+        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+
+        $this->assertSame(-31, $dt1->diffInHoursFiltered(function (Carbon $date)
+        {
+            return $date->hour === 9;
+        }, $dt2, false));
+    }
+
+    public function testDiffInHoursFilteredWorkHoursPerWeek()
+    {
+        $dt1 = Carbon::createFromDate(2000, 1, 5)->endOfDay();
+        $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
+
+        $this->assertSame(40, $dt1->diffInHoursFiltered(function (Carbon $date)
+        {
+            return ($date->hour > 8 && $date->hour < 17);
+        }, $dt2));
+    }
+
     public function testBug188DiffWithSameDates()
     {
         $start = Carbon::create(2014, 10, 8, 15, 20, 0);

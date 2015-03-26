@@ -1788,6 +1788,37 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get the difference in hours using a filter closure
+     *
+     * @param Closure $callback
+     * @param Carbon  $dt
+     * @param boolean $abs      Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInHoursFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    {
+        $start = $this;
+        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $inverse = false;
+
+        if ($end < $start) {
+            $start = $end;
+            $end = $this;
+            $inverse = true;
+        }
+
+        $period = new DatePeriod($start, new DateInterval('PT1H'), $end);
+        $hours = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+            return call_user_func($callback, Carbon::instance($date));
+        });
+
+        $diff = count($hours);
+
+        return $inverse && !$abs ? -$diff : $diff;
+    }
+
+    /**
      * Get the difference in weekdays
      *
      * @param Carbon  $dt
