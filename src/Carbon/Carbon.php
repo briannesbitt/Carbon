@@ -1767,24 +1767,7 @@ class Carbon extends DateTime
      */
     public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
     {
-        $start = $this;
-        $end = ($dt === null) ? static::now($this->tz) : $dt;
-        $inverse = false;
-
-        if ($end < $start) {
-            $start = $end;
-            $end = $this;
-            $inverse = true;
-        }
-
-        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
-        $days = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
-            return call_user_func($callback, Carbon::instance($date));
-        });
-
-        $diff = count($days);
-
-        return $inverse && !$abs ? -$diff : $diff;
+        return $this->diffFilter(CarbonInterval::day(), $callback, $dt, $abs);
     }
 
     /**
@@ -1798,6 +1781,21 @@ class Carbon extends DateTime
      */
     public function diffInHoursFiltered(Closure $callback, Carbon $dt = null, $abs = true)
     {
+        return $this->diffFilter(CarbonInterval::hour(), $callback, $dt, $abs);
+    }
+
+    /**
+     * Get the difference by the given interval using a filter closure
+     *
+     * @param CarbonInterval $ci An interval to traverse
+     * @param Closure $callback
+     * @param Carbon  $dt
+     * @param boolean $abs      Get the absolute of the difference
+     *
+     * @return int
+     */
+    protected function diffFilter(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
+    {
         $start = $this;
         $end = ($dt === null) ? static::now($this->tz) : $dt;
         $inverse = false;
@@ -1808,12 +1806,12 @@ class Carbon extends DateTime
             $inverse = true;
         }
 
-        $period = new DatePeriod($start, new DateInterval('PT1H'), $end);
-        $hours = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+        $period = new DatePeriod($start, $ci, $end);
+        $vals = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
             return call_user_func($callback, Carbon::instance($date));
         });
 
-        $diff = count($hours);
+        $diff = count($vals);
 
         return $inverse && !$abs ? -$diff : $diff;
     }
