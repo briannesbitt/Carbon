@@ -32,6 +32,6 @@ return array(
     'week_ago'    => 'týdnem|[2,Inf]:count týdny',
     'day_ago'     => 'dnem|[2,Inf]:count dny',
     'hour_ago'    => 'hodinou|[2,Inf]:count hodinami',
-    'minute_ago'  => 'minútou|[2,Inf]:count minutami',
+    'minute_ago'  => 'minutou|[2,Inf]:count minutami',
     'second_ago'  => 'sekundou|[2,Inf]:count sekundami',
 );
