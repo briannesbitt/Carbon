@@ -104,13 +104,13 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2015-03-08 10:11:16
+echo $now;                               // 2015-03-26 00:27:51
 $today = Carbon::today();
-echo $today;                             // 2015-03-08 00:00:00
+echo $today;                             // 2015-03-26 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2015-03-09 00:00:00
+echo $tomorrow;                          // 2015-03-27 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2015-03-07 00:00:00
+echo $yesterday;                         // 2015-03-25 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -173,6 +173,24 @@ echo $dt->copy()->micro;                               // 123456
 echo Carbon::minValue();                               // '1901-12-13 15:45:52'
 </code></pre></p>
 
+<h1 id="api-localization">Localization</h1>
+
+<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
+
+<p><pre><code class="php">setlocale(LC_TIME, 'German');
+echo $dt->formatLocalized('%A %d %B %Y');          // Mittwoch 21 Mai 1975
+setlocale(LC_TIME, '');
+echo $dt->formatLocalized('%A %d %B %Y');          // Wednesday 21 May 1975
+</code></pre></p>
+
+<p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
+
+<p><pre><code class="php">Carbon::setLocale('de');
+echo Carbon::now()->addYear()->diffForHumans();    // in 1 Jahr
+
+Carbon::setLocale('en');
+</code></pre></p>
+
 <h1 id="api-testing">Testing Aids</h1>
 
 <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
@@ -193,7 +211,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-03-08 10:11:16
+echo Carbon::now();                                    // 2015-03-26 00:27:51
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -355,7 +373,7 @@ var_dump(empty(Carbon::now()->iDoNotExist));       // bool(true)
 var_dump(empty(Carbon::now()->year));              // bool(false)
 </code></pre></p>
 
-<h1 id="api-formatting">String Formatting and Localization</h1>
+<h1 id="api-formatting">String Formatting</h1>
 
 <p>All of the available <code>toXXXString()</code> methods rely on the base class method <a href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>.  You'll notice the <code>__toString()</code> method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a string context.</p>
 
@@ -380,13 +398,7 @@ Carbon::resetToStringFormat();
 echo $dt;                                          // 1975-12-25 14:15:16
 </code></pre></p>
 
-<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method has been added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
-
-<p><pre><code class="php">setlocale(LC_TIME, 'German');
-echo $dt->formatLocalized('%A %d %B %Y');          // Donnerstag 25 Dezember 1975
-setlocale(LC_TIME, '');
-echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
-</code></pre></p>
+<p>Note: For localization support see the <a href="#api-localization">Localization</a> section.</p>
 
 <h1 id="api-commonformats">Common Formats</h1>
 
@@ -395,7 +407,7 @@ echo $dt->formatLocalized('%A %d %B %Y');          // Thursday 25 December 1975
 <p><pre><code class="php">$dt = Carbon::now();
 
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
-echo $dt->toAtomString();      // 1975-12-25T14:15:16-05:00
+echo $dt->toAtomString();      // in 1 Jahr
 echo $dt->toCookieString();    // Thursday, 25-Dec-1975 14:15:16 EST
 echo $dt->toIso8601String();   // 1975-12-25T14:15:16-0500
 echo $dt->toRfc822String();    // Thu, 25 Dec 75 14:15:16 -0500
@@ -460,7 +472,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-03-08 10:11:16
+echo $dt1->max();                                  // 2015-03-26 00:27:51
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -534,6 +546,8 @@ echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
 
 <p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
 
+<p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
+
 <h1 id="api-difference">Difference</h1>
 
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
@@ -566,7 +580,7 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
 </code></pre></p>
 
-<p>There is also a special <code>diffInDaysFiltered()</code> method to help you filter the difference by days.  For example to count the weekend days between two instances:</p>
+<p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
 <p><pre><code class="php">$dt = Carbon::create(2014, 1, 1);
 $dt2 = Carbon::create(2014, 12, 31);
@@ -575,6 +589,14 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 }, $dt2);
 
 echo $daysForExtraCoding;      // 104
+
+$dt = Carbon::create(2014, 1, 1)->startOfDay();
+$dt2 = $dt->copy()->endOfDay();
+$littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carbon $date) {
+   return $date->minute === 0;
+}, $dt2);
+
+echo $littleHandRotations;     // 24
 
 // others that are defined
 // diffInYears(), diffInMonths(), diffInWeeks()
@@ -620,7 +642,7 @@ echo $daysForExtraCoding;      // 104
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-echo Carbon::now()->subDays(5)->diffForHumans();               // 4 days ago
+echo Carbon::now()->subDays(5)->diffForHumans();               // 5 days ago
 
 echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
@@ -634,6 +656,8 @@ echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from
 echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
 echo Carbon::now()->subDays(24)->diffForHumans(null, true);    // 3 weeks
 </code></pre></p>
+
+<p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
 
 <h1 id="api-modifiers">Modifiers</h1>
 
@@ -732,6 +756,54 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
 }
 </code></pre></p>
 
+<h1 id="api-interval">CarbonInterval</h1>
+
+<p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+
+<p><pre><code class="php">&lt;?php
+class CarbonInterval extends \DateInterval
+{
+    // code here
+}
+</code></pre></p>
+
+<p>You can create an instance in the following ways:</p>
+
+<p><pre><code class="php">echo CarbonInterval::year();                       // 1 year
+echo CarbonInterval::months(3);                    // 3 months
+echo CarbonInterval::days(3)->seconds(32);         // 3 days 32 seconds
+echo CarbonInterval::days(3)->weeks(4);            // 4 weeks
+echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);  // 2 years 5 weeks 1 day 1 hour 2 minutes 7 seconds
+</code></pre></p>
+
+<p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
+
+<p><pre><code class="php">$di = new \DateInterval('P1Y2M'); // <== instance from another API
+$ci = CarbonInterval::instance($di);
+echo get_class($ci);                                   // 'Carbon\CarbonInterval'
+echo $ci;                                              // 1 year 2 months
+</code></pre></p>
+
+<p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+
+<p><pre><code class="php">echo CarbonInterval::year()->years;                // 1
+echo CarbonInterval::year()->dayz;                 // 0
+echo CarbonInterval::days(24)->dayz;               // 24
+echo CarbonInterval::days(24)->daysExcludeWeeks;   // 3
+echo CarbonInterval::weeks(3)->days(14)->weeks;    // 2  <-- days setter overwrites the current value
+echo CarbonInterval::weeks(3)->weeks;              // 2
+</code></pre></p>
+
+<p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
+
+<p><pre><code class="php">CarbonInterval::setLocale('fr');
+echo CarbonInterval::create(2, 1)->forHumans();    // 2 ans 1 mois
+echo CarbonInterval::hour()->seconds(3);           // 1 heure 3 secondes
+CarbonInterval::setLocale('en');
+</code></pre></p>
+
+<p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+
 </div>
 </div>
 
@@ -740,12 +812,13 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
     <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
       <li><a href="#api-introduction">Introduction</a></li>
       <li><a href="#api-instantiation">Instantiation</a></li>
+      <li><a href="#api-localization">Localization</a></li>
       <li><a href="#api-testing">Testing Aids</a></li>
       <li><a href="#api-getters">Getters</a></li>
       <li><a href="#api-setters">Setters</a></li>
       <li><a href="#api-settersfluent">Fluent Setters</a></li>
       <li><a href="#api-isset">IsSet</a></li>
-      <li><a href="#api-formatting">String Formatting and Localization</a></li>
+      <li><a href="#api-formatting">String Formatting</a></li>
       <li><a href="#api-commonformats">Common Formats</a></li>
       <li><a href="#api-comparison">Comparison</a></li>
       <li><a href="#api-addsub">Addition and Subtraction</a></li>
@@ -753,6 +826,7 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
       <li><a href="#api-humandiff">Difference for Humans</a></li>
       <li><a href="#api-modifiers">Modifiers</a></li>
       <li><a href="#api-constants">Constants</a></li>
+      <li><a href="#api-interval">CarbonInterval</a></li>
     </ul>
   </div>
 </div>

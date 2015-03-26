@@ -4,6 +4,7 @@ date_default_timezone_set('America/Toronto');
 
 require 'vendor/autoload.php';
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 $template = file_get_contents('template.src.html');
 
@@ -18,7 +19,7 @@ function genHtml($page, $out, $jumbotron = '') {
 function compile($src, $dest) {
     $code = file_get_contents($src);
 
-    $pre_src = 'use Carbon\Carbon; ';
+    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; ';
 
     // {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}}
     preg_match_all('@{{(\w*)::(\w+)\((.+)\)}}@sU', $code, $matches, PREG_SET_ORDER);
@@ -81,5 +82,7 @@ genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html')
 
 compile('index.o.html', 'index.html');
 unlink('index.o.html');
+
+CarbonInterval::setLocale('en');
 compile('docs/index.o.html', 'docs/index.html');
 unlink('docs/index.o.html');

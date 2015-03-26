@@ -82,6 +82,9 @@ echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
+CarbonInterval::setLocale('fr');
+echo CarbonInterval::years(2)->minutes(2); // '2 ans 2 minutes'
+
 $daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
 </code></pre>
    </div>
@@ -127,7 +130,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
          <p><pre><code class="php">{
    "require": {
-      "nesbot/carbon": "~1.14"
+      "nesbot/carbon": "~1.18"
    }
 }</code></pre></p>
 

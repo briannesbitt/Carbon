@@ -126,6 +126,24 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
 </code></pre></p>
 
+<h1 id="api-localization">Localization</h1>
+
+<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
+
+<p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
+{{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
+{{::lint(setlocale(LC_TIME, '');)}}
+{{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
+</code></pre></p>
+
+<p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
+
+<p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
+{{format22::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{format22_eval}}
+
+{{::lint(Carbon::setLocale('en');)}}
+</code></pre></p>
+
 <h1 id="api-testing">Testing Aids</h1>
 
 <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
@@ -314,7 +332,7 @@ $dt->tz('America/Toronto')->setTimezone('America/Vancouver');
 {{isset4::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{isset4_eval}}
 </code></pre></p>
 
-<h1 id="api-formatting">String Formatting and Localization</h1>
+<h1 id="api-formatting">String Formatting</h1>
 
 <p>All of the available <code>toXXXString()</code> methods rely on the base class method <a href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>.  You'll notice the <code>__toString()</code> method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a string context.</p>
 
@@ -343,13 +361,7 @@ Carbon::resetToStringFormat();
 {{format9::exec(echo $dt;/*pad(50)*/)}} // {{format9_eval}}
 </code></pre></p>
 
-<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method has been added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
-
-<p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
-{{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
-{{::lint(setlocale(LC_TIME, '');)}}
-{{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
-</code></pre></p>
+<p>Note: For localization support see the <a href="#api-localization">Localization</a> section.</p>
 
 <h1 id="api-commonformats">Common Formats</h1>
 
@@ -499,6 +511,8 @@ $dt->isSameDay(Carbon::now());
 
 <p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
 
+<p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
+
 <h1 id="api-difference">Difference</h1>
 
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
@@ -531,7 +545,7 @@ $dt->isSameDay(Carbon::now());
 {{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
 </code></pre></p>
 
-<p>There is also a special <code>diffInDaysFiltered()</code> method to help you filter the difference by days.  For example to count the weekend days between two instances:</p>
+<p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
 <p><pre><code class="php">{{::lint(
 $dt = Carbon::create(2014, 1, 1);
@@ -542,6 +556,16 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 )}}
 
 {{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
+
+{{::lint(
+$dt = Carbon::create(2014, 1, 1)->startOfDay();
+$dt2 = $dt->copy()->endOfDay();
+$littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carbon $date) {
+   return $date->minute === 0;
+}, $dt2);
+)}}
+
+{{littleHandRotations::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{littleHandRotations_eval}}
 
 // others that are defined
 // diffInYears(), diffInMonths(), diffInWeeks()
@@ -601,6 +625,8 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 {{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(62)*/)}} // {{humandiff7_eval}}
 {{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(62)*/)}} // {{humandiff8_eval}}
 </code></pre></p>
+
+<p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
 
 <h1 id="api-modifiers">Modifiers</h1>
 
@@ -701,6 +727,57 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
 )}}
 </code></pre></p>
 
+<h1 id="api-interval">CarbonInterval</h1>
+
+<p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+
+<p><pre><code class="php">&lt;?php
+class CarbonInterval extends \DateInterval
+{
+    // code here
+}
+</code></pre></p>
+
+<p>You can create an instance in the following ways:</p>
+
+<p><pre><code class="php">{{cicreate1::exec(
+echo CarbonInterval::year();/*pad(50)*/)}} // {{cicreate1_eval}}
+{{cicreate2::exec(echo CarbonInterval::months(3);/*pad(50)*/)}} // {{cicreate2_eval}}
+{{cicreate3::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(50)*/)}} // {{cicreate3_eval}}
+{{cicreate4::exec(echo CarbonInterval::days(3)->weeks(4);/*pad(50)*/)}} // {{cicreate4_eval}}
+{{cicreate5::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(50)*/)}} // {{cicreate5_eval}}
+</code></pre></p>
+
+<p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
+
+<p><pre><code class="php">{{::lint($di = new \DateInterval('P1Y2M');)}} // <== instance from another API
+{{::lint($ci = CarbonInterval::instance($di);)}}
+{{ciinstance1::exec(echo get_class($ci);/*pad(54)*/)}} // '{{ciinstance1_eval}}'
+{{ciinstance2::exec(echo $ci;/*pad(54)*/)}} // {{ciinstance2_eval}}
+</code></pre></p>
+
+<p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+
+<p><pre><code class="php">{{cihelper1::exec(
+echo CarbonInterval::year()->years;/*pad(50)*/)}} // {{cihelper1_eval}}
+{{cihelper2::exec(echo CarbonInterval::year()->dayz;/*pad(50)*/)}} // {{cihelper2_eval}}
+{{cihelper3::exec(echo CarbonInterval::days(24)->dayz;/*pad(50)*/)}} // {{cihelper3_eval}}
+{{cihelper4::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(50)*/)}} // {{cihelper4_eval}}
+{{cihelper5::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(50)*/)}} // {{cihelper5_eval}}  <-- days setter overwrites the current value
+{{cihelper5::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(50)*/)}} // {{cihelper5_eval}}
+</code></pre></p>
+
+<p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
+
+<p><pre><code class="php">{{::lint(
+CarbonInterval::setLocale('fr');)}}
+{{interval2::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(50)*/)}} // {{interval2_eval}}
+{{interval3::exec(echo CarbonInterval::hour()->seconds(3);/*pad(50)*/)}} // {{interval3_eval}}
+{{::lint(CarbonInterval::setLocale('en');)}}
+</code></pre></p>
+
+<p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+
 </div>
 </div>
 
@@ -709,12 +786,13 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
     <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
       <li><a href="#api-introduction">Introduction</a></li>
       <li><a href="#api-instantiation">Instantiation</a></li>
+      <li><a href="#api-localization">Localization</a></li>
       <li><a href="#api-testing">Testing Aids</a></li>
       <li><a href="#api-getters">Getters</a></li>
       <li><a href="#api-setters">Setters</a></li>
       <li><a href="#api-settersfluent">Fluent Setters</a></li>
       <li><a href="#api-isset">IsSet</a></li>
-      <li><a href="#api-formatting">String Formatting and Localization</a></li>
+      <li><a href="#api-formatting">String Formatting</a></li>
       <li><a href="#api-commonformats">Common Formats</a></li>
       <li><a href="#api-comparison">Comparison</a></li>
       <li><a href="#api-addsub">Addition and Subtraction</a></li>
@@ -722,6 +800,7 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
       <li><a href="#api-humandiff">Difference for Humans</a></li>
       <li><a href="#api-modifiers">Modifiers</a></li>
       <li><a href="#api-constants">Constants</a></li>
+      <li><a href="#api-interval">CarbonInterval</a></li>
     </ul>
   </div>
 </div>
