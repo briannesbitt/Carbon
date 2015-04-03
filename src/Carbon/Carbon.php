@@ -197,6 +197,11 @@ class Carbon extends DateTime
 
             $time = $testInstance->toDateTimeString();
         }
+        
+        if (strtotime($time) == time()) {
+            $aMicrotime = explode(' ', microtime());
+            $time = date('Y-m-d H:i:s.' . $aMicrotime[0] * 1000000, $aMicrotime[1]);
+        }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
     }
