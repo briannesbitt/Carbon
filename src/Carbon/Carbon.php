@@ -180,7 +180,7 @@ class Carbon extends DateTime
      */
     public function __construct($time = null, $tz = null)
     {
-        // If the class has a test now set and we are trying to create a now()
+                // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
@@ -197,13 +197,17 @@ class Carbon extends DateTime
 
             $time = $testInstance->toDateTimeString();
         }
-        
-        if (strtotime($time) == time()) {
-            $aMicrotime = explode(' ', microtime());
-            $time = date('Y-m-d H:i:s.' . $aMicrotime[0] * 1000000, $aMicrotime[1]);
-        }
 
-        parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        if(is_null($time) || $time == 'now') {
+            $dateTime = new \DateTime('now', static::safeCreateDateTimeZone($tz));
+            $aMicrotime = explode(' ', microtime());
+            $aMicrotime = explode('.', $aMicrotime[0]);
+            $format = $dateTime->format('Y-m-d H:i:s');
+            $format = $format.'.'.substr($aMicrotime[1], 0, 6);
+            parent::__construct($format, static::safeCreateDateTimeZone($tz));
+        } else {
+            parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        }
     }
 
     /**
