@@ -288,7 +288,14 @@ class Carbon extends DateTime
             $time = $testInstance->toDateTimeString();
         }
 
-        parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        $timezone = static::safeCreateDateTimeZone($tz);
+        if (is_null($time) || $time === 'now') {
+            $dateTime = new DateTime('now', $timezone);
+            $micro = preg_replace('/0\.(\d{6}).*/', '$1', microtime());
+            $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).'.'.$micro;
+        }
+
+        parent::__construct($time, $timezone);
     }
 
     /**
