@@ -198,7 +198,7 @@ class Carbon extends DateTime
             $time = $testInstance->toDateTimeString();
         }
 
-        if (is_null($time) || $time == 'now') {
+        if (is_null($time) || $time === 'now') {
             $dateTime = new \DateTime('now', static::safeCreateDateTimeZone($tz));
             $aMicrotime = explode(' ', microtime());
             $aMicrotime = explode('.', $aMicrotime[0]);
