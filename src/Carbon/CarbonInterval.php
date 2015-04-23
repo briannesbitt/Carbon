@@ -215,7 +215,7 @@ class CarbonInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param DateInterval $dt
+     * @param DateInterval $di
      *
      * @throws InvalidArgumentException
      *
@@ -346,7 +346,7 @@ class CarbonInterval extends DateInterval
      * Set a part of the CarbonInterval object
      *
      * @param string $name
-     * @param integer $value
+     * @param integer $val
      *
      * @throws InvalidArgumentException
      */
