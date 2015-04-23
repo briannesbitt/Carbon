@@ -1299,6 +1299,8 @@ class Carbon extends DateTime
     /**
      * Add a year to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addYear($value = 1)
@@ -1308,6 +1310,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a year from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1344,6 +1348,8 @@ class Carbon extends DateTime
     /**
      * Add a month to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addMonth($value = 1)
@@ -1353,6 +1359,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a month from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1395,6 +1403,8 @@ class Carbon extends DateTime
     /**
      * Add a month with no overflow to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addMonthNoOverflow($value = 1)
@@ -1404,6 +1414,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a month with no overflow from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1440,6 +1452,8 @@ class Carbon extends DateTime
     /**
      * Add a day to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addDay($value = 1)
@@ -1449,6 +1463,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a day from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1485,6 +1501,8 @@ class Carbon extends DateTime
     /**
      * Add a weekday to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addWeekday($value = 1)
@@ -1494,6 +1512,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a weekday from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1530,6 +1550,8 @@ class Carbon extends DateTime
     /**
      * Add a week to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addWeek($value = 1)
@@ -1539,6 +1561,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a week from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1575,6 +1599,8 @@ class Carbon extends DateTime
     /**
      * Add an hour to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addHour($value = 1)
@@ -1584,6 +1610,8 @@ class Carbon extends DateTime
 
     /**
      * Remove an hour from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1620,6 +1648,8 @@ class Carbon extends DateTime
     /**
      * Add a minute to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addMinute($value = 1)
@@ -1629,6 +1659,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a minute from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
@@ -1665,6 +1697,8 @@ class Carbon extends DateTime
     /**
      * Add a second to the instance
      *
+     * @param integer $value
+     *
      * @return static
      */
     public function addSecond($value = 1)
@@ -1674,6 +1708,8 @@ class Carbon extends DateTime
 
     /**
      * Remove a second from the instance
+     *
+     * @param integer $value
      *
      * @return static
      */
