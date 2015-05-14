@@ -154,4 +154,34 @@ class StringsTest extends TestFixture
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toW3cString());
     }
+    public function testToMaterialStringAbbreviations()
+    {
+        $d1 = Carbon::create(2015, 1, 1, 12, 0);
+        $d2 = Carbon::create(2015, 2, 2, 12, 15);
+        $this->assertSame("Jan 1 - Feb 2 2015", $d1->toMaterialString($d2, true, false));
+    }
+    public function testToMaterialStringNoAbbreviations()
+    {
+        $d1 = Carbon::create(2015, 1, 1, 12, 0);
+        $d2 = Carbon::create(2015, 2, 2, 12, 15);
+        $this->assertSame("January 1 - February 2 2015", $d1->toMaterialString($d2, false, false));
+    }
+    public function testToMaterialStringAbbreviationsTime()
+    {
+        $d1 = Carbon::create(2015, 1, 1, 12, 0);
+        $d2 = Carbon::create(2015, 2, 2, 12, 15);
+        $this->assertSame("Jan 1 - Feb 2 2015 12:00-12:15 PM", $d1->toMaterialString($d2, true, true));
+    }
+    public function testToMaterialStringNoAbbreviationsTime()
+    {
+        $d1 = Carbon::create(2015, 1, 1, 12, 0);
+        $d2 = Carbon::create(2015, 2, 2, 12, 15);
+        $this->assertSame("January 1 - February 2 2015 12:00-12:15 PM", $d1->toMaterialString($d2, false, true));
+    }
+    public function testToMaterialStringNoAbbreviationsTimeDiffYear()
+    {
+        $d1 = Carbon::create(2014, 1, 1, 12, 0);
+        $d2 = Carbon::create(2015, 2, 2, 12, 15);
+        $this->assertSame("January 1, 2014 - February 2, 2015 12:00-12:15 PM", $d1->toMaterialString($d2, false, true));
+    }
 }
