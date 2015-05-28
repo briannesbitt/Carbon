@@ -1257,6 +1257,19 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get the closest date from the instance.
+     *
+     * @param  Carbon  $dt1
+     * @param  Carbon  $dt2
+     *
+     * @return static
+     */
+    public function closest(Carbon $dt1, Carbon $dt2)
+    {
+        return $this->diffInSeconds($dt1) < $this->diffInSeconds($dt2) ? $dt1 : $dt2;
+    }
+
+    /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
      * @param Carbon $dt
