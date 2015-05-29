@@ -796,9 +796,11 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (static::$translator == null) {
-            static::$translator = new Translator('en');
+            $defaultLocaleLanguage = substr(locale_get_default(), 0, 2);
+            
+            static::$translator = new Translator($defaultLocaleLanguage);
             static::$translator->addLoader('array', new ArrayLoader());
-            static::setLocale('en');
+            static::setLocale($defaultLocaleLanguage);
         }
 
         return static::$translator;
