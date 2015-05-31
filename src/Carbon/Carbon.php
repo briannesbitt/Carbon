@@ -121,28 +121,6 @@ class Carbon extends DateTime
      */
     protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
-
-    /**
-     * First day of week
-     *
-     * @var int
-     */
-    protected static $weekStartsAt = self::MONDAY;
-
-    /**
-     * Last day of week
-     *
-     * @var int
-     */
-    protected static $weekEndsAt = self::SUNDAY;
-
-    /**
-     * Days of weekend
-     *
-     * @var array
-     */
-    protected static $weekendDays = [self::SATURDAY, self::SUNDAY];
-
     /**
      * A test Carbon instance to be returned when now instances are created
      *
@@ -737,73 +715,6 @@ class Carbon extends DateTime
         return $this;
     }
 
-
-
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////// WEEK SPECIAL DAYS /////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Get the first day of week
-     *
-     * @return int
-     */
-    public static function getWeekStartsAt()
-    {
-        return static::$weekStartsAt;
-    }
-
-    /**
-     * Set the first day of week
-     *
-     * @param int
-     */
-    public static function setWeekStartsAt($day)
-    {
-        static::$weekStartsAt = $day;
-    }
-
-    /**
-     * Get the last day of week
-     *
-     * @return int
-     */
-    public static function getWeekEndsAt()
-    {
-        return static::$weekEndsAt;
-    }
-
-    /**
-     * Set the first day of week
-     *
-     * @param int
-     */
-    public static function setWeekEndsAt($day)
-    {
-        static::$weekEndsAt = $day;
-    }
-
-    /**
-     * Get weekend days
-     *
-     * @return array
-     */
-    public static function getWeekendDays()
-    {
-        return static::$weekendDays;
-    }
-
-    /**
-     * Set weekend days
-     *
-     * @param array
-     */
-    public static function setWeekendDays($days)
-    {
-        static::$weekendDays = $days;
-    }
-
-
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// TESTING AIDS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -1283,7 +1194,7 @@ class Carbon extends DateTime
      */
     public function isWeekday()
     {
-        return !$this->isWeekend();
+        return ($this->dayOfWeek != static::SUNDAY && $this->dayOfWeek != static::SATURDAY);
     }
 
     /**
@@ -1293,7 +1204,7 @@ class Carbon extends DateTime
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, self::$weekendDays);
+        return !$this->isWeekDay();
     }
 
     /**
@@ -2194,28 +2105,28 @@ class Carbon extends DateTime
     }
 
     /**
-     * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
+     * Resets the date to the first day of the ISO-8601 week (Monday) and the time to 00:00:00
      *
      * @return static
      */
     public function startOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekStartsAt) {
-            $this->previous(static::$weekStartsAt);
+        if ($this->dayOfWeek != static::MONDAY) {
+            $this->previous(static::MONDAY);
         }
 
         return $this->startOfDay();
     }
 
     /**
-     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
+     * Resets the date to end of the ISO-8601 week (Sunday) and time to 23:59:59
      *
      * @return static
      */
     public function endOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekEndsAt) {
-            $this->next(static::$weekEndsAt);
+        if ($this->dayOfWeek != static::SUNDAY) {
+            $this->next(static::SUNDAY);
         }
 
         return $this->endOfDay();
