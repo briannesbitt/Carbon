@@ -141,7 +141,7 @@ class Carbon extends DateTime
      *
      * @var array
      */
-    protected static $weekendDays = [self::SATURDAY, self::SUNDAY];
+    protected static $weekendDays = array(self::SATURDAY, self::SUNDAY);
 
     /**
      * A test Carbon instance to be returned when now instances are created
