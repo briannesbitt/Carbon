@@ -197,7 +197,16 @@ class Carbon extends DateTime
             $time = $testInstance->toDateTimeString();
         }
 
-        parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        if (is_null($time) || $time === 'now') {
+            $dateTime = new \DateTime('now', static::safeCreateDateTimeZone($tz));
+            $aMicrotime = explode(' ', microtime());
+            $aMicrotime = explode('.', $aMicrotime[0]);
+            $format = $dateTime->format('Y-m-d H:i:s');
+            $format = $format.'.'.substr($aMicrotime[1], 0, 6);
+            parent::__construct($format, static::safeCreateDateTimeZone($tz));
+        } else {
+            parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        }
     }
 
     /**
