@@ -95,6 +95,8 @@ class CarbonInterval extends DateInterval
     /**
      * Determine if the interval was created via DateTime:diff() or not.
      *
+     * @param DateInterval $interval
+     *
      * @return boolean
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
@@ -166,7 +168,10 @@ class CarbonInterval extends DateInterval
      *
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
-     *  
+     *
+     * @param string $name
+     * @param array $args
+     *
      * @return static
      */
     public static function __callStatic($name, $args)
@@ -210,7 +215,7 @@ class CarbonInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param DateInterval $dt
+     * @param DateInterval $di
      *
      * @throws InvalidArgumentException
      *
@@ -261,7 +266,7 @@ class CarbonInterval extends DateInterval
     /**
      * Set the translator instance to use
      *
-     * @param TranslatorInterface
+     * @param TranslatorInterface $translator
      */
     public static function setTranslator(TranslatorInterface $translator)
     {
@@ -341,7 +346,7 @@ class CarbonInterval extends DateInterval
      * Set a part of the CarbonInterval object
      *
      * @param string $name
-     * @param integer $value
+     * @param integer $val
      *
      * @throws InvalidArgumentException
      */
@@ -394,10 +399,13 @@ class CarbonInterval extends DateInterval
 
     /**
      * Allow fluent calls on the setters... CarbonInterval::years(3)->months(5)->day().
-     * 
+     *
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
-     *  
+     *
+     * @param string $name
+     * @param array $args
+     *
      * @return static
      */
     public function __call($name, $args)
