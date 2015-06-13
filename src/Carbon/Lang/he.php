@@ -15,15 +15,15 @@
  *
  */
 return array(
-    'year'      => 'שנה|:count שנים',
-    'month'     => 'חודש|:count חודשיים',
-    'week'      => 'שבוע|:count שבועות',
-    'day'       => 'יום|:count ימים',
-    'hour'      => 'שעה|:count שעות',
+    'year'      => '[0,1]שנה|{2}שנתיים|[3,Inf]:count שנים',
+    'month'     => '[0,1]חודש|{2}חודשיים|[3,Inf]:count חודשים',
+    'week'      => '[0,1]שבוע|{2}שבועיים|[3,Inf]:count שבועות',
+    'day'       => '[0,1]יום|{2}יומיים|[3,Inf]:count ימים',
+    'hour'      => '[0,1]שעה|{2}שעתיים|[3,Inf]:count שעות',
     'minute'    => 'דקה|:count דקות',
-    'second'    => 'שניה|:count שניות',
+    'second'    => 'שנייה|:count שניות',
     'ago'       => 'לפני :time',
-    'from_now'  => ':time מעכשיו',
-    'after'     => 'אחרי :time',
-    'before'    => 'לפני :time',
+    'from_now'  => 'בעוד :time',
+    'after'     => ':time אחרי',
+    'before'    => ':time לפני',
 );
