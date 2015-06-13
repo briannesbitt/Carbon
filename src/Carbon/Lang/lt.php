@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Carbon package.
  *
@@ -7,21 +8,23 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /**
  * Translation messages.  See http://symfony.com/doc/current/book/translation.html
  * for possible formats.
  *
  */
+
 return array(
-    'year'      => '1 metai|:count metai',
-    'month'     => '1 mėnuo|:count mėnesiai',
-    'week'      => '1 savaitė|:count savaitės',
-    'day'       => '1 diena|:count dienos',
-    'hour'      => '1 valanda|:count valandos',
-    'minute'    => '1 minutė|:count minutės',
-    'second'    => '1 sekundė|:count sekundės',
+    'year'      => '1 metus|:count metus|:count metų',
+    'month'     => '1 menesį|:count menesius|:count menesių',
+    'week'      => '1 savaitę|:count savaites|:count savaičių',
+    'day'       => '1 dieną|:count dienas|:count dienų',
+    'hour'      => '1 valandą|:count valandas|:count valandų',
+    'minute'    => '1 minutę|:count minutes|:count minučių',
+    'second'    => '1 sekundę|:count sekundes|:count sekundžių',
     'ago'       => 'prieš :time',
-    'from_now'  => ':time nuo dabar',
+    'from_now'  => 'už :time',
     'after'     => 'po :time',
-    'before'    => 'prieš :time',
+    'before'    => ':time nuo dabar',
 );
