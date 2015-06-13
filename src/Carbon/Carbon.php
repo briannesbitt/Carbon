@@ -299,7 +299,7 @@ class Carbon extends DateTime
             return static::createFromTimestamp(~PHP_INT_MAX);
         } else {
             // 64 bit
-            return static::create(1000, 1, 1, 0, 0, 0);
+            return static::create(1, 1, 1, 0, 0, 0);
         } 
     }
 
