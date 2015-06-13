@@ -329,10 +329,10 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('lt');
 
         $d = Carbon::now()->addYear();
-        $this->assertSame('1 metai nuo dabar', $d->diffForHumans());
+        $this->assertSame('už 1 metus', $d->diffForHumans());
 
         $d = Carbon::now()->addYears(2);
-        $this->assertSame('2 metai nuo dabar', $d->diffForHumans());
+        $this->assertSame('už 2 metus', $d->diffForHumans());
     }
 
     public function testDiffForHumansLocalizedInKorean()
