@@ -1367,6 +1367,69 @@ class Carbon extends DateTime
         return $this->toDateString() === $dt->toDateString();
     }
 
+    /**
+     * Checks if this day is a Sunday.
+     * @return boolean
+     */
+    public function isSunday()
+    {
+        return $this->dayOfWeek == static::SUNDAY;
+    }
+
+    /**
+     * Checks if this day is a Monday.
+     * @return boolean
+     */
+    public function isMonday()
+    {
+        return $this->dayOfWeek == static::MONDAY;
+    }
+
+    /**
+     * Checks if this day is a Tuesday.
+     * @return boolean
+     */
+    public function isTuesday()
+    {
+        return $this->dayOfWeek == static::TUESDAY;
+    }
+
+    /**
+     * Checks if this day is a Wednesday.
+     * @return boolean
+     */
+    public function isWednesday()
+    {
+        return $this->dayOfWeek == static::WEDNESDAY;
+    }
+
+    /**
+     * Checks if this day is a Thursday.
+     * @return boolean
+     */
+    public function isThursday()
+    {
+        return $this->dayOfWeek == static::THURSDAY;
+    }
+
+    /**
+     * Checks if this day is a Friday.
+     * @return boolean
+     */
+    public function isFriday()
+    {
+        return $this->dayOfWeek == static::FRIDAY;
+    }
+
+    /**
+     * Checks if this day is a Saturday.
+     * @return boolean
+     */
+    public function isSaturday()
+    {
+        return $this->dayOfWeek == static::SATURDAY;
+    }
+    
     ///////////////////////////////////////////////////////////////////
     /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
     ///////////////////////////////////////////////////////////////////
