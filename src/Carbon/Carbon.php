@@ -1284,7 +1284,7 @@ class Carbon extends DateTime
      */
     public function isSunday()
     {
-        return $this->dayOfWeek == static::SUNDAY;
+        return $this->dayOfWeek === static::SUNDAY;
     }
 
     /**
@@ -1293,7 +1293,7 @@ class Carbon extends DateTime
      */
     public function isMonday()
     {
-        return $this->dayOfWeek == static::MONDAY;
+        return $this->dayOfWeek === static::MONDAY;
     }
 
     /**
@@ -1302,7 +1302,7 @@ class Carbon extends DateTime
      */
     public function isTuesday()
     {
-        return $this->dayOfWeek == static::TUESDAY;
+        return $this->dayOfWeek === static::TUESDAY;
     }
 
     /**
@@ -1311,7 +1311,7 @@ class Carbon extends DateTime
      */
     public function isWednesday()
     {
-        return $this->dayOfWeek == static::WEDNESDAY;
+        return $this->dayOfWeek === static::WEDNESDAY;
     }
 
     /**
@@ -1320,7 +1320,7 @@ class Carbon extends DateTime
      */
     public function isThursday()
     {
-        return $this->dayOfWeek == static::THURSDAY;
+        return $this->dayOfWeek === static::THURSDAY;
     }
 
     /**
@@ -1329,7 +1329,7 @@ class Carbon extends DateTime
      */
     public function isFriday()
     {
-        return $this->dayOfWeek == static::FRIDAY;
+        return $this->dayOfWeek === static::FRIDAY;
     }
 
     /**
@@ -1338,7 +1338,7 @@ class Carbon extends DateTime
      */
     public function isSaturday()
     {
-        return $this->dayOfWeek == static::SATURDAY;
+        return $this->dayOfWeek === static::SATURDAY;
     }
     
     ///////////////////////////////////////////////////////////////////
