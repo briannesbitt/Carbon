@@ -174,13 +174,13 @@ class StartEndOfTest extends TestFixture
 
     public function testStartOfCenturyFromFirstDay()
     {
-        $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->startOfCentury();
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->startOfCentury();
         $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
     }
 
     public function testStartOfCenturyFromLastDay()
     {
-        $dt = Carbon::create(2009, 12, 31, 23, 59, 59)->startOfCentury();
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->startOfCentury();
         $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
     }
 
@@ -199,13 +199,13 @@ class StartEndOfTest extends TestFixture
 
     public function testEndOfCenturyFromFirstDay()
     {
-        $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfCentury();
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
         $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
     }
 
     public function testEndOfCenturyFromLastDay()
     {
-        $dt = Carbon::create(2099, 12, 31, 23, 59, 59)->endOfCentury();
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
         $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
     }
 
