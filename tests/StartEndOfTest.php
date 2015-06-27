@@ -167,20 +167,21 @@ class StartEndOfTest extends TestFixture
 
     public function testStartOfCenturyFromNow()
     {
+        $now = Carbon::now();
         $dt = Carbon::now()->startOfCentury();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 100, 1, 1, 0, 0, 0);
+        $this->assertCarbon($dt, $now->year - $now->year % 100 + 1, 1, 1, 0, 0, 0);
     }
 
     public function testStartOfCenturyFromFirstDay()
     {
         $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->startOfCentury();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
     }
 
     public function testStartOfCenturyFromLastDay()
     {
         $dt = Carbon::create(2009, 12, 31, 23, 59, 59)->startOfCentury();
-        $this->assertCarbon($dt, 2000, 1, 1, 0, 0, 0);
+        $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
     }
 
     public function testEndOfCenturyIsFluid()
@@ -191,20 +192,21 @@ class StartEndOfTest extends TestFixture
 
     public function testEndOfCenturyFromNow()
     {
+        $now = Carbon::now();
         $dt = Carbon::now()->endOfCentury();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 100 + 99, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, $now->year - $now->year % 100 + 100, 12, 31, 23, 59, 59);
     }
 
     public function testEndOfCenturyFromFirstDay()
     {
         $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfCentury();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
     }
 
     public function testEndOfCenturyFromLastDay()
     {
         $dt = Carbon::create(2099, 12, 31, 23, 59, 59)->endOfCentury();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
     }
 
     public function testAverageIsFluid()
