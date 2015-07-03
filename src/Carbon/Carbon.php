@@ -885,9 +885,12 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (static::$translator == null) {
-            static::$translator = new Translator('en');
+            // If intl extension is loaded, the OS language is used
+            $defaultLocaleLanguage = extension_loaded('intl') ? substr(locale_get_default(), 0, 2) : 'en';
+            
+            static::$translator = new Translator($defaultLocaleLanguage);
             static::$translator->addLoader('array', new ArrayLoader());
-            static::setLocale('en');
+            static::setLocale($defaultLocaleLanguage);
         }
 
         return static::$translator;
