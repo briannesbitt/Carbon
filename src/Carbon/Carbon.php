@@ -1369,7 +1369,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Sunday.
-     * 
+     *
      * @return boolean
      */
     public function isSunday()
@@ -1379,7 +1379,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Monday.
-     * 
+     *
      * @return boolean
      */
     public function isMonday()
@@ -1389,7 +1389,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Tuesday.
-     * 
+     *
      * @return boolean
      */
     public function isTuesday()
@@ -1399,7 +1399,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Wednesday.
-     * 
+     *
      * @return boolean
      */
     public function isWednesday()
@@ -1409,7 +1409,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Thursday.
-     * 
+     *
      * @return boolean
      */
     public function isThursday()
@@ -1419,7 +1419,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Friday.
-     * 
+     *
      * @return boolean
      */
     public function isFriday()
@@ -1429,14 +1429,14 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Saturday.
-     * 
+     *
      * @return boolean
      */
     public function isSaturday()
     {
         return $this->dayOfWeek === static::SATURDAY;
     }
-    
+
     ///////////////////////////////////////////////////////////////////
     /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -2428,7 +2428,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to the first occurence of a given day of the week
+     * Modify to the first occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
