@@ -84,4 +84,11 @@ class TestFixture extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Carbon\CarbonInterval', $d);
     }
+
+    protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    {
+        Carbon::setTestNow(($dt === null) ? Carbon::now() : $dt);
+        $func();
+        Carbon::setTestNow();
+    }
 }
