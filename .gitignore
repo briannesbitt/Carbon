@@ -1,3 +1,5 @@
+.idea
+*.iml
 vendor
 composer.phar
 composer.lock
