@@ -93,6 +93,11 @@ class SubTest extends TestFixture
         $this->assertSame(6, Carbon::createFromDate(2012, 1, 9)->subWeekday()->day);
     }
 
+    public function testSubWeekdayDuringWeekend()
+    {
+        $this->assertSame(6, Carbon::createFromDate(2012, 1, 8)->subWeekday()->day);
+    }
+
     public function testSubWeeksPositive()
     {
         $this->assertSame(14, Carbon::createFromDate(1975, 5, 21)->subWeeks(1)->day);
