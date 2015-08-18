@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Interval;
+namespace Mutable;
 
 use Carbon\Carbon;
 use TestFixture;
