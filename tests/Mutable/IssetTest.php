@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class IssetTest extends TestFixture
 {
+
     public function testIssetReturnFalseForUnknownProperty()
     {
         $this->assertFalse(isset(Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss));

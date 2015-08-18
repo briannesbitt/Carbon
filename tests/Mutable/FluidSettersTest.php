@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class FluidSettersTest extends TestFixture
 {
+
     public function testFluidYearSetter()
     {
         $d = Carbon::now();

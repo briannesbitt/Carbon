@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class CreateFromDateTest extends TestFixture
 {
+
     public function testCreateFromDateWithDefaults()
     {
         $d = Carbon::createFromDate();

@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class NowAndOtherStaticHelpersTest extends TestFixture
 {
+
     public function testNow()
     {
         $dt = Carbon::now();
@@ -34,42 +38,42 @@ class NowAndOtherStaticHelpersTest extends TestFixture
 
     public function testTodayWithTimezone()
     {
-        $dt = Carbon::today('Europe/London');
+        $dt  = Carbon::today('Europe/London');
         $dt2 = new \DateTime('now', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testTomorrow()
     {
-        $dt = Carbon::tomorrow();
+        $dt  = Carbon::tomorrow();
         $dt2 = new \DateTime('tomorrow');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testTomorrowWithTimezone()
     {
-        $dt = Carbon::tomorrow('Europe/London');
+        $dt  = Carbon::tomorrow('Europe/London');
         $dt2 = new \DateTime('tomorrow', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testYesterday()
     {
-        $dt = Carbon::yesterday();
+        $dt  = Carbon::yesterday();
         $dt2 = new \DateTime('yesterday');
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testYesterdayWithTimezone()
     {
-        $dt = Carbon::yesterday('Europe/London');
+        $dt  = Carbon::yesterday('Europe/London');
         $dt2 = new \DateTime('yesterday', new \DateTimeZone('Europe/London'));
         $this->assertSame($dt2->format('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testMinValue()
     {
-        $this->assertLessThanOrEqual(- 2147483647, Carbon::minValue()->getTimestamp());
+        $this->assertLessThanOrEqual(-2147483647, Carbon::minValue()->getTimestamp());
     }
 
     public function testMaxValue()

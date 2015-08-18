@@ -9,27 +9,31 @@
  * file that was distributed with this source code.
  */
 
+namespace Interval;
+
 use Carbon\CarbonInterval;
+use TestFixture;
 
 class CarbonIntervalSettersTest extends TestFixture
 {
+
     public function testYearsSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->years = 2;
         $this->assertSame(2, $d->years);
     }
 
     public function testMonthsSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d         = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->months = 11;
         $this->assertSame(11, $d->months);
     }
 
     public function testWeeksSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->weeks = 11;
         $this->assertSame(11, $d->weeks);
         $this->assertSame(7 * 11, $d->dayz);
@@ -37,7 +41,7 @@ class CarbonIntervalSettersTest extends TestFixture
 
     public function testDayzSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d       = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->dayz = 11;
         $this->assertSame(11, $d->dayz);
         $this->assertSame(1, $d->weeks);
@@ -46,21 +50,21 @@ class CarbonIntervalSettersTest extends TestFixture
 
     public function testHoursSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d        = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->hours = 12;
         $this->assertSame(12, $d->hours);
     }
 
     public function testMinutesSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d          = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->minutes = 11;
         $this->assertSame(11, $d->minutes);
     }
 
     public function testSecondsSetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $d          = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $d->seconds = 34;
         $this->assertSame(34, $d->seconds);
     }

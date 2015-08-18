@@ -9,11 +9,18 @@
  * file that was distributed with this source code.
  */
 
+namespace Interval;
+
 use Carbon\CarbonInterval;
 use Carbon\Carbon;
+use DateInterval;
+use Exception;
+use InvalidArgumentException;
+use TestFixture;
 
 class CarbonIntervalConstructTest extends TestFixture
 {
+
     public function testDefaults()
     {
         $ci = new CarbonInterval();
@@ -205,9 +212,9 @@ class CarbonIntervalConstructTest extends TestFixture
 
     public function testInstanceWithNegativeDateInterval()
     {
-        $di = new DateInterval('P2Y1M5DT22H33M44S');
+        $di         = new DateInterval('P2Y1M5DT22H33M44S');
         $di->invert = 1;
-        $ci = CarbonInterval::instance($di);
+        $ci         = CarbonInterval::instance($di);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
         $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);

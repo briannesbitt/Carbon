@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class DayOfWeekModifiersTest extends TestFixture
 {
+
     public function testStartOfWeek()
     {
         $d = Carbon::create(1980, 8, 7, 12, 11, 9)->startOfWeek();

@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class InstanceTest extends TestFixture
 {
+
     public function testInstanceFromDateTime()
     {
         $dating = Carbon::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
@@ -21,15 +25,16 @@ class InstanceTest extends TestFixture
 
     public function testInstanceFromDateTimeKeepsTimezoneName()
     {
-        $dating = Carbon::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11')->setTimezone(new \DateTimeZone('America/Vancouver')));
+        $dating = Carbon::instance(\DateTime::createFromFormat('Y-m-d H:i:s',
+            '1975-05-21 22:32:11')->setTimezone(new \DateTimeZone('America/Vancouver')));
         $this->assertSame('America/Vancouver', $dating->tzName);
     }
 
     public function testInstanceFromDateTimeKeepsMicros()
     {
-        $micro = 254687;
-        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.'.$micro);
-        $carbon = Carbon::instance($datetime);
+        $micro    = 254687;
+        $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u', '2014-02-01 03:45:27.' . $micro);
+        $carbon   = Carbon::instance($datetime);
         $this->assertSame($micro, $carbon->micro);
     }
 }

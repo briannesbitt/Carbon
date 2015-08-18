@@ -9,7 +9,10 @@
  * file that was distributed with this source code.
  */
 
+namespace Interval;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class MyCarbon extends Carbon
 {

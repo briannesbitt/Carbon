@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class RelativeTest extends TestFixture
 {
+
     public function testSecondsSinceMidnight()
     {
         $d = Carbon::today()->addSeconds(30);

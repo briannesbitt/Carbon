@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class IsTest extends TestFixture
 {
+
     public function testIsWeekdayTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2012, 1, 2)->isWeekday());

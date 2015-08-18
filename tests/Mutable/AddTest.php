@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class AddTest extends TestFixture
 {
+
     public function testAddYearsPositive()
     {
         $this->assertSame(1976, Carbon::createFromDate(1975)->addYears(1)->year);

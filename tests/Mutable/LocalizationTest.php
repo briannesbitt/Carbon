@@ -9,12 +9,16 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use TestFixture;
 
 class LocalizationTest extends TestFixture
 {
+
     public function testGetTranslator()
     {
         $t = Carbon::getTranslator();
@@ -57,7 +61,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('fr');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
 
             $d = Carbon::now()->subSecond();
             $scope->assertSame('il y a 1 seconde', $d->diffForHumans());
@@ -104,7 +108,7 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('dans 1 seconde', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 seconde après', $d->diffForHumans($d2));
             $scope->assertSame('1 seconde avant', $d2->diffForHumans($d));
@@ -119,7 +123,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('es');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('hace 1 segundo', $d->diffForHumans());
 
@@ -165,7 +169,7 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('dentro de 1 segundo', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 segundo antes', $d->diffForHumans($d2));
             $scope->assertSame('1 segundo después', $d2->diffForHumans($d));
@@ -180,7 +184,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('it');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('1 anno da adesso', $d->diffForHumans());
 
@@ -194,7 +198,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('de');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('in 1 Jahr', $d->diffForHumans());
 
@@ -226,7 +230,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('tr');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 saniye önce', $d->diffForHumans());
 
@@ -272,7 +276,7 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('1 saniye andan itibaren', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 saniye sonra', $d->diffForHumans($d2));
             $scope->assertSame('1 saniye önce', $d2->diffForHumans($d));
@@ -287,7 +291,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('da');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 sekund siden', $d->diffForHumans());
 
@@ -333,7 +337,7 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('om 1 sekund', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 sekund efter', $d->diffForHumans($d2));
             $scope->assertSame('1 sekund før', $d2->diffForHumans($d));
@@ -348,7 +352,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('lt');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('už 1 metus', $d->diffForHumans());
 
@@ -362,7 +366,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('ko');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('1 년 후', $d->diffForHumans());
 
@@ -376,7 +380,7 @@ class LocalizationTest extends TestFixture
         Carbon::setLocale('fa');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 ثانیه پیش', $d->diffForHumans());
 
@@ -422,12 +426,12 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('1 ثانیه بعد', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 ثانیه پیش از', $d->diffForHumans($d2));
             $scope->assertSame('1 ثانیه پس از', $d2->diffForHumans($d));
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 ثانیه پیش از', $d->diffForHumans($d2));
             $scope->assertSame('1 ثانیه پس از', $d2->diffForHumans($d));
@@ -435,14 +439,14 @@ class LocalizationTest extends TestFixture
             $scope->assertSame('1 ثانیه', $d->diffForHumans($d2, true));
             $scope->assertSame('2 ثانیه', $d2->diffForHumans($d->addSecond(), true));
         });
-	}
+    }
 
-	public function testDiffForHumansLocalizedInFaroese()
+    public function testDiffForHumansLocalizedInFaroese()
     {
         Carbon::setLocale('fo');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 sekund síðan', $d->diffForHumans());
 
@@ -488,7 +492,7 @@ class LocalizationTest extends TestFixture
             $d = Carbon::now()->addSecond();
             $scope->assertSame('um 1 sekund', $d->diffForHumans());
 
-            $d = Carbon::now()->addSecond();
+            $d  = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 sekund aftaná', $d->diffForHumans($d2));
             $scope->assertSame('1 sekund áðrenn', $d2->diffForHumans($d));

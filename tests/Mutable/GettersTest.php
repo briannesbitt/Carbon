@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class GettersTest extends TestFixture
 {
+
     public function testGettersThrowExceptionOnUnknownGetter()
     {
         $this->setExpectedException('InvalidArgumentException');
@@ -64,7 +68,7 @@ class GettersTest extends TestFixture
     public function testMicroGetter()
     {
         $micro = 345678;
-        $d = Carbon::parse('2014-01-05 12:34:11.'.$micro);
+        $d     = Carbon::parse('2014-01-05 12:34:11.' . $micro);
         $this->assertSame($micro, $d->micro);
     }
 
@@ -107,7 +111,7 @@ class GettersTest extends TestFixture
 
     public function testGetAgeWithRealAge()
     {
-        $d = Carbon::createFromDate(1975, 5, 21);
+        $d   = Carbon::createFromDate(1975, 5, 21);
         $age = intval(substr(date('Ymd') - date('Ymd', $d->timestamp), 0, -4));
 
         $this->assertSame($age, $d->age);
@@ -279,7 +283,7 @@ class GettersTest extends TestFixture
     public function testInvalidGetter()
     {
         $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::now();
+        $d  = Carbon::now();
         $bb = $d->doesNotExit;
     }
 }

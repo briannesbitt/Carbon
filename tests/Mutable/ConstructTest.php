@@ -9,13 +9,17 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class ConstructTest extends TestFixture
 {
+
     public function testCreatesAnInstanceDefaultToNow()
     {
-        $c = new Carbon();
+        $c   = new Carbon();
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);
@@ -24,7 +28,7 @@ class ConstructTest extends TestFixture
 
     public function testParseCreatesAnInstanceDefaultToNow()
     {
-        $c = Carbon::parse();
+        $c   = Carbon::parse();
         $now = Carbon::now();
         $this->assertInstanceOfCarbon($c);
         $this->assertSame($now->tzName, $c->tzName);
@@ -57,9 +61,9 @@ class ConstructTest extends TestFixture
 
     public function testSettingTimezone()
     {
-        $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $timezone                 = 'Europe/London';
+        $dtz                      = new \DateTimeZone($timezone);
+        $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new Carbon('now', $dtz);
@@ -69,9 +73,9 @@ class ConstructTest extends TestFixture
 
     public function testParseSettingTimezone()
     {
-        $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $timezone                 = 'Europe/London';
+        $dtz                      = new \DateTimeZone($timezone);
+        $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = Carbon::parse('now', $dtz);
@@ -81,9 +85,9 @@ class ConstructTest extends TestFixture
 
     public function testSettingTimezoneWithString()
     {
-        $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $timezone                 = 'Asia/Tokyo';
+        $dtz                      = new \DateTimeZone($timezone);
+        $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new Carbon('now', $timezone);
@@ -93,9 +97,9 @@ class ConstructTest extends TestFixture
 
     public function testParseSettingTimezoneWithString()
     {
-        $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $timezone                 = 'Asia/Tokyo';
+        $dtz                      = new \DateTimeZone($timezone);
+        $dt                       = new \DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = Carbon::parse('now', $timezone);

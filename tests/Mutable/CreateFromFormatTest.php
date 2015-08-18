@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Mutable;
+
 use Carbon\Carbon;
+use TestFixture;
 
 class CreateFromFormatTest extends TestFixture
 {
+
     public function testCreateFromFormatReturnsCarbon()
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');

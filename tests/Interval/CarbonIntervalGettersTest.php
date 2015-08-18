@@ -9,10 +9,14 @@
  * file that was distributed with this source code.
  */
 
+namespace Interval;
+
 use Carbon\CarbonInterval;
+use TestFixture;
 
 class CarbonIntervalGettersTest extends TestFixture
 {
+
     public function testGettersThrowExceptionOnUnknownGetter()
     {
         $this->setExpectedException('InvalidArgumentException');
