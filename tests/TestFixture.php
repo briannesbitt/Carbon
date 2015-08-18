@@ -12,6 +12,7 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 
 class TestFixture extends \PHPUnit_Framework_TestCase
@@ -53,6 +54,30 @@ class TestFixture extends \PHPUnit_Framework_TestCase
     protected function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf('Carbon\Carbon', $d);
+    }
+
+    protected function assertCarbonImmutable(CarbonImmutable $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    {
+        $this->assertSame($year, $d->year, 'CarbonImmutable->year');
+        $this->assertSame($month, $d->month, 'CarbonImmutable->month');
+        $this->assertSame($day, $d->day, 'CarbonImmutable->day');
+
+        if ($hour !== null) {
+            $this->assertSame($hour, $d->hour, 'CarbonImmutable->hour');
+        }
+
+        if ($minute !== null) {
+            $this->assertSame($minute, $d->minute, 'CarbonImmutable->minute');
+        }
+
+        if ($second !== null) {
+            $this->assertSame($second, $d->second, 'CarbonImmutable->second');
+        }
+    }
+
+    protected function assertInstanceOfCarbonImmutable($d)
+    {
+        $this->assertInstanceOf('Carbon\CarbonImmutable', $d);
     }
 
     protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
