@@ -42,6 +42,8 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
     }
 
     /**
+     * Create a new mutable instance from current immutable instance.
+     *
      * @return Carbon
      */
     public function toMutable()

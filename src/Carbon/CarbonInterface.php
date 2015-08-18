@@ -1519,4 +1519,11 @@ interface CarbonInterface extends DateTimeInterface
      * @return boolean
      */
     public function isBirthday(CarbonInterface $dt);
+
+    /**
+     * Check if instance of CarbonInterface is mutable.
+     *
+     * @return boolean
+     */
+    public function isMutable();
 }
