@@ -116,4 +116,11 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         $func();
         Carbon::setTestNow();
     }
+
+    protected function wrapWithTestNowImmutable(Closure $func, CarbonImmutable $dt = null)
+    {
+        CarbonImmutable::setTestNow(($dt === null) ? CarbonImmutable::now() : $dt);
+        $func();
+        CarbonImmutable::setTestNow();
+    }
 }

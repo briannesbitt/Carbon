@@ -170,39 +170,39 @@ class ComparisonTest extends TestFixture
     public function testMinIsFluid()
     {
         $dt = CarbonImmutable::now();
-        $this->assertTrue($dt->min() instanceof Carbon);
+        $this->assertTrue($dt->min() instanceof CarbonImmutable);
     }
 
     public function testMinWithNow()
     {
         $dt = CarbonImmutable::create(2012, 1, 1, 0, 0, 0)->min();
-        $this->assertCarbon($dt, 2012, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($dt, 2012, 1, 1, 0, 0, 0);
     }
 
     public function testMinWithInstance()
     {
         $dt1 = CarbonImmutable::create(2013, 12, 31, 23, 59, 59);
         $dt2 = CarbonImmutable::create(2012, 1, 1, 0, 0, 0)->min($dt1);
-        $this->assertCarbon($dt2, 2012, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($dt2, 2012, 1, 1, 0, 0, 0);
     }
 
     public function testMaxIsFluid()
     {
         $dt = CarbonImmutable::now();
-        $this->assertTrue($dt->max() instanceof Carbon);
+        $this->assertTrue($dt->max() instanceof CarbonImmutable);
     }
 
     public function testMaxWithNow()
     {
         $dt = CarbonImmutable::create(2099, 12, 31, 23, 59, 59)->max();
-        $this->assertCarbon($dt, 2099, 12, 31, 23, 59, 59);
+        $this->assertCarbonImmutable($dt, 2099, 12, 31, 23, 59, 59);
     }
 
     public function testMaxWithInstance()
     {
         $dt1 = CarbonImmutable::create(2012, 1, 1, 0, 0, 0);
         $dt2 = CarbonImmutable::create(2099, 12, 31, 23, 59, 59)->max($dt1);
-        $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
+        $this->assertCarbonImmutable($dt2, 2099, 12, 31, 23, 59, 59);
     }
 
     public function testIsBirthday()

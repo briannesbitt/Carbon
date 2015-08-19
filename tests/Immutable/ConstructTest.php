@@ -21,30 +21,30 @@ class ConstructTest extends TestFixture
     {
         $c   = new CarbonImmutable();
         $now = CarbonImmutable::now();
-        $this->assertInstanceOfCarbon($c);
+        $this->assertInstanceOfCarbonImmutable($c);
         $this->assertSame($now->tzName, $c->tzName);
-        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+        $this->assertCarbonImmutable($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
     public function testParseCreatesAnInstanceDefaultToNow()
     {
         $c   = CarbonImmutable::parse();
         $now = CarbonImmutable::now();
-        $this->assertInstanceOfCarbon($c);
+        $this->assertInstanceOfCarbonImmutable($c);
         $this->assertSame($now->tzName, $c->tzName);
-        $this->assertCarbon($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
+        $this->assertCarbonImmutable($c, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second);
     }
 
     public function testWithFancyString()
     {
         $c = new CarbonImmutable('first day of January 2008');
-        $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($c, 2008, 1, 1, 0, 0, 0);
     }
 
     public function testParseWithFancyString()
     {
         $c = CarbonImmutable::parse('first day of January 2008');
-        $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($c, 2008, 1, 1, 0, 0, 0);
     }
 
     public function testDefaultTimezone()

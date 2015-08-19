@@ -26,7 +26,7 @@ class CreateFromTimeTest extends TestFixture
     public function testCreateFromDate()
     {
         $d = CarbonImmutable::createFromTime(23, 5, 21);
-        $this->assertCarbon($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 23, 5, 21);
+        $this->assertCarbonImmutable($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 23, 5, 21);
     }
 
     public function testCreateFromTimeWithHour()
@@ -52,14 +52,14 @@ class CreateFromTimeTest extends TestFixture
     public function testCreateFromTimeWithDateTimeZone()
     {
         $d = CarbonImmutable::createFromTime(12, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 12, 0, 0);
+        $this->assertCarbonImmutable($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
     public function testCreateFromTimeWithTimeZoneString()
     {
         $d = CarbonImmutable::createFromTime(12, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 12, 0, 0);
+        $this->assertCarbonImmutable($d, CarbonImmutable::now()->year, CarbonImmutable::now()->month, CarbonImmutable::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

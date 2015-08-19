@@ -20,7 +20,7 @@ class CreateTest extends TestFixture
     public function testCreateReturnsDatingInstance()
     {
         $d = CarbonImmutable::create();
-        $this->assertTrue($d instanceof Carbon);
+        $this->assertTrue($d instanceof CarbonImmutable);
     }
 
     public function testCreateWithDefaults()
@@ -56,7 +56,7 @@ class CreateTest extends TestFixture
     public function testCreateMonthWraps()
     {
         $d = CarbonImmutable::create(2011, 0, 1, 0, 0, 0);
-        $this->assertCarbon($d, 2010, 12, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 2010, 12, 1, 0, 0, 0);
     }
 
     public function testCreateWithDay()
@@ -74,7 +74,7 @@ class CreateTest extends TestFixture
     public function testCreateDayWraps()
     {
         $d = CarbonImmutable::create(2011, 1, 40, 0, 0, 0);
-        $this->assertCarbon($d, 2011, 2, 9, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 2011, 2, 9, 0, 0, 0);
     }
 
     public function testCreateWithHourAndDefaultMinSecToZero()
@@ -94,7 +94,7 @@ class CreateTest extends TestFixture
     public function testCreateHourWraps()
     {
         $d = CarbonImmutable::create(2011, 1, 1, 24, 0, 0);
-        $this->assertCarbon($d, 2011, 1, 2, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 2011, 1, 2, 0, 0, 0);
     }
 
     public function testCreateWithMinute()
@@ -112,7 +112,7 @@ class CreateTest extends TestFixture
     public function testCreateMinuteWraps()
     {
         $d = CarbonImmutable::create(2011, 1, 1, 0, 62, 0);
-        $this->assertCarbon($d, 2011, 1, 1, 1, 2, 0);
+        $this->assertCarbonImmutable($d, 2011, 1, 1, 1, 2, 0);
     }
 
     public function testCreateWithSecond()
@@ -130,20 +130,20 @@ class CreateTest extends TestFixture
     public function testCreateSecondsWrap()
     {
         $d = CarbonImmutable::create(2012, 1, 1, 0, 0, 61);
-        $this->assertCarbon($d, 2012, 1, 1, 0, 1, 1);
+        $this->assertCarbonImmutable($d, 2012, 1, 1, 0, 1, 1);
     }
 
     public function testCreateWithDateTimeZone()
     {
         $d = CarbonImmutable::create(2012, 1, 1, 0, 0, 0, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
     public function testCreateWithTimeZoneString()
     {
         $d = CarbonImmutable::create(2012, 1, 1, 0, 0, 0, 'Europe/London');
-        $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

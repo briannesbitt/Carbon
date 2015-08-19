@@ -99,7 +99,7 @@ class GettersTest extends TestFixture
     public function testTimestampGetter()
     {
         $d = CarbonImmutable::create();
-        $d->setTimezone('GMT');
+        $d = $d->setTimezone('GMT');
         $this->assertSame(0, $d->setDateTime(1970, 1, 1, 0, 0, 0)->timestamp);
     }
 

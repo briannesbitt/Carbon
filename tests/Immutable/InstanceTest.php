@@ -20,7 +20,7 @@ class InstanceTest extends TestFixture
     public function testInstanceFromDateTime()
     {
         $dating = CarbonImmutable::instance(\DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
-        $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
+        $this->assertCarbonImmutable($dating, 1975, 5, 21, 22, 32, 11);
     }
 
     public function testInstanceFromDateTimeKeepsTimezoneName()

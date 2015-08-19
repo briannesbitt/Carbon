@@ -26,7 +26,7 @@ class CreateFromDateTest extends TestFixture
     public function testCreateFromDate()
     {
         $d = CarbonImmutable::createFromDate(1975, 5, 21);
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertCarbonImmutable($d, 1975, 5, 21);
     }
 
     public function testCreateFromDateWithYear()
@@ -50,14 +50,14 @@ class CreateFromDateTest extends TestFixture
     public function testCreateFromDateWithTimezone()
     {
         $d = CarbonImmutable::createFromDate(1975, 5, 21, 'Europe/London');
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertCarbonImmutable($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 
     public function testCreateFromDateWithDateTimeZone()
     {
         $d = CarbonImmutable::createFromDate(1975, 5, 21, new \DateTimeZone('Europe/London'));
-        $this->assertCarbon($d, 1975, 5, 21);
+        $this->assertCarbonImmutable($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
     }
 }

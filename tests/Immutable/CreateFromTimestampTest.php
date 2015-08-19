@@ -20,7 +20,7 @@ class CreateFromTimestampTest extends TestFixture
     public function testCreateReturnsDatingInstance()
     {
         $d = CarbonImmutable::createFromTimestamp(CarbonImmutable::create(1975, 5, 21, 22, 32, 5)->timestamp);
-        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5);
+        $this->assertCarbonImmutable($d, 1975, 5, 21, 22, 32, 5);
     }
 
     public function testCreateFromTimestampUsesDefaultTimezone()
@@ -36,13 +36,13 @@ class CreateFromTimestampTest extends TestFixture
     {
         $d = CarbonImmutable::createFromTimestamp(0, new \DateTimeZone('UTC'));
         $this->assertSame('UTC', $d->tzName);
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 1970, 1, 1, 0, 0, 0);
     }
 
     public function testCreateFromTimestampWithString()
     {
         $d = CarbonImmutable::createFromTimestamp(0, 'UTC');
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
         $this->assertSame('UTC', $d->tzName);
     }
@@ -50,7 +50,7 @@ class CreateFromTimestampTest extends TestFixture
     public function testCreateFromTimestampGMTDoesNotUseDefaultTimezone()
     {
         $d = CarbonImmutable::createFromTimestampUTC(0);
-        $this->assertCarbon($d, 1970, 1, 1, 0, 0, 0);
+        $this->assertCarbonImmutable($d, 1970, 1, 1, 0, 0, 0);
         $this->assertSame(0, $d->offset);
     }
 }
