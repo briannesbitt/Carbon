@@ -12,6 +12,7 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 
 class TestFixture extends \PHPUnit_Framework_TestCase
@@ -55,6 +56,30 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Carbon\Carbon', $d);
     }
 
+    protected function assertCarbonImmutable(CarbonImmutable $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    {
+        $this->assertSame($year, $d->year, 'CarbonImmutable->year');
+        $this->assertSame($month, $d->month, 'CarbonImmutable->month');
+        $this->assertSame($day, $d->day, 'CarbonImmutable->day');
+
+        if ($hour !== null) {
+            $this->assertSame($hour, $d->hour, 'CarbonImmutable->hour');
+        }
+
+        if ($minute !== null) {
+            $this->assertSame($minute, $d->minute, 'CarbonImmutable->minute');
+        }
+
+        if ($second !== null) {
+            $this->assertSame($second, $d->second, 'CarbonImmutable->second');
+        }
+    }
+
+    protected function assertInstanceOfCarbonImmutable($d)
+    {
+        $this->assertInstanceOf('Carbon\CarbonImmutable', $d);
+    }
+
     protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
         $this->assertSame($years, $ci->years, 'CarbonInterval->years');
@@ -90,5 +115,12 @@ class TestFixture extends \PHPUnit_Framework_TestCase
         Carbon::setTestNow(($dt === null) ? Carbon::now() : $dt);
         $func();
         Carbon::setTestNow();
+    }
+
+    protected function wrapWithTestNowImmutable(Closure $func, CarbonImmutable $dt = null)
+    {
+        CarbonImmutable::setTestNow(($dt === null) ? CarbonImmutable::now() : $dt);
+        $func();
+        CarbonImmutable::setTestNow();
     }
 }

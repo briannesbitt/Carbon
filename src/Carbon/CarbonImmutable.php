@@ -1,25 +1,16 @@
 <?php
 
-/*
- * This file is part of the Carbon package.
- *
- * (c) Brian Nesbitt <brian@nesbot.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Carbon;
 
-use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 
-class Carbon extends DateTime implements CarbonInterface
+class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 {
     use CarbonTrait;
 
     /**
-     * Create a new Carbon instance.
+     * Create a new CarbonImmutable instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
@@ -34,12 +25,12 @@ class Carbon extends DateTime implements CarbonInterface
         if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
             if (static::hasRelativeKeywords($time)) {
-                $testInstance->modify($time);
+                $testInstance = $testInstance->modify($time);
             }
 
             //shift the time according to the given time zone
             if ($tz !== NULL && $tz != static::getTestNow()->tz) {
-                $testInstance->setTimezone($tz);
+                $testInstance = $testInstance->setTimezone($tz);
             } else {
                 $tz = $testInstance->tz;
             }
@@ -51,12 +42,12 @@ class Carbon extends DateTime implements CarbonInterface
     }
 
     /**
-     * Create a new immutable instance from current mutable instance.
+     * Create a new mutable instance from current immutable instance.
      *
-     * @return CarbonImmutable
+     * @return Carbon
      */
-    public function toImmutable()
+    public function toMutable()
     {
-        return CarbonImmutable::instance($this);
+        return Carbon::instance($this);
     }
 }
