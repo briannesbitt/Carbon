@@ -136,6 +136,13 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
 </code></pre></p>
 
+<blockquote><p><strong>on Linux</strong><br>
+If you have trouble with translations, check locales installed in your system (local and production).<br>
+<code>locale -a</code> to list locales enabled.<br>
+<code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
+<code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
+And reboot your system.</p></blockquote>
+
 <p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
 
 <p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
