@@ -48,7 +48,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
  * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
- * 
+ *
  * @method CarbonInterval years() years($years = 1) Set the years portion of the current interval.
  * @method CarbonInterval year() year($years = 1) Alias for years().
  * @method CarbonInterval months() months($months = 1) Set the months portion of the current interval.
@@ -137,6 +137,11 @@ class CarbonInterval extends DateInterval
             $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
             $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
             $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
+        }
+
+        if ($spec == static::PERIOD_PREFIX) {
+            // Allow the zero interval.
+            $spec .= '0'.static::PERIOD_YEARS;
         }
 
         parent::__construct($spec);
