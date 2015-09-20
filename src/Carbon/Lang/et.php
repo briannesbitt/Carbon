@@ -20,8 +20,6 @@ return array(
     'from_now'  => ':time pärast',
     'after'     => ':time pärast',
     'before'    => ':time enne',
-
-    //from_now
     'year_from_now' => ':count aasta',
     'month_from_now' => ':count kuu',
     'week_from_now' => ':count nädala',
