@@ -24,6 +24,6 @@ return array(
     'second'    => '1 segundo|:count segundos',
     'ago'       => 'hace :time',
     'from_now'  => 'dentro de :time',
-    'after'     => ':time antes',
-    'before'    => ':time después',
+    'after'     => ':time después',
+    'before'    => ':time antes',
 );
