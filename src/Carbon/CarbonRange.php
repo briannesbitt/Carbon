@@ -46,7 +46,7 @@ class CarbonRange
     /**
      * @var array An array of accepted time periods
      */
-    protected $accepted_timeperiods = [self::DAY => '', self::WEEK => '', self::MONTH => '', self::YEAR => ''];
+    protected $accepted_timeperiods = array(self::DAY => '', self::WEEK => '', self::MONTH => '', self::YEAR => '');
 
     /**
      * @var string
