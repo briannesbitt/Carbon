@@ -307,10 +307,10 @@ class Carbon extends DateTime
         if (PHP_INT_SIZE == 4) {
             // 32 bit (and additionally Windows 64 bit)
             return static::createFromTimestamp(PHP_INT_MAX);
-        } else {
-            // 64 bit
-            return static::create(9999, 12, 31, 23, 59, 59);
         }
+
+        // 64 bit
+        return static::create(9999, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -323,10 +323,10 @@ class Carbon extends DateTime
         if (PHP_INT_SIZE == 4) {
             // 32 bit (and additionally Windows 64 bit)
             return static::createFromTimestamp(~PHP_INT_MAX);
-        } else {
-            // 64 bit
-            return static::create(1, 1, 1, 0, 0, 0);
         }
+
+        // 64 bit
+        return static::create(1, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -1251,9 +1251,9 @@ class Carbon extends DateTime
 
         if ($equal) {
             return $this->gte($dt1) && $this->lte($dt2);
-        } else {
-            return $this->gt($dt1) && $this->lt($dt2);
         }
+
+        return $this->gt($dt1) && $this->lt($dt2);
     }
 
     /**
