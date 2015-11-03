@@ -597,6 +597,21 @@ class Carbon extends DateTime
     }
 
     /**
+     * Set a part of the Carbon object when calling a function.
+     *
+     * @param string                      $name
+     * @param string|integer|DateTimeZone $value
+     *
+     * @return $this
+     */
+    public function __call($name, $value)
+    {
+        $this->{$name} = $value;
+
+        return $this;
+    }
+
+    /**
      * Set the instance's year
      *
      * @param integer $value

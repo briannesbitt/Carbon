@@ -83,6 +83,86 @@ class SettersTest extends TestFixture
         $this->assertSame(2, $d->second);
     }
 
+    public function testYearCaller()
+    {
+        $d = Carbon::now();
+        $d->year(1995);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(1995, $d->year);
+    }
+
+    public function testMonthCaller()
+    {
+        $d = Carbon::now();
+        $d->month(3);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(3, $d->month);
+    }
+
+    public function testMonthCallerWithWrap()
+    {
+        $d = Carbon::now();
+        $d->month(13);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(1, $d->month);
+    }
+
+    public function testDayCaller()
+    {
+        $d = Carbon::now();
+        $d->day(2);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(2, $d->day);
+    }
+
+    public function testDayCallerWithWrap()
+    {
+        $d = Carbon::createFromDate(2012, 8, 5);
+        $d->day(32);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(1, $d->day);
+    }
+
+    public function testHourCaller()
+    {
+        $d = Carbon::now();
+        $d->hour(2);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(2, $d->hour);
+    }
+
+    public function testHourCallerWithWrap()
+    {
+        $d = Carbon::now();
+        $d->hour(25);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(1, $d->hour);
+    }
+
+    public function testMinuteCaller()
+    {
+        $d = Carbon::now();
+        $d->minute(2);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(2, $d->minute);
+    }
+
+    public function testMinuteCallerWithWrap()
+    {
+        $d = Carbon::now();
+        $d->minute(65);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(5, $d->minute);
+    }
+
+    public function testSecondCaller()
+    {
+        $d = Carbon::now();
+        $d->second(2);
+        $this->assertInstanceOfCarbon($d);
+        $this->assertSame(2, $d->second);
+    }
+
     public function testTimeSetter()
     {
         $d = Carbon::now();
