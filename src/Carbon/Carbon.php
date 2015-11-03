@@ -1081,6 +1081,64 @@ class Carbon extends DateTime
     }
 
     /**
+     * Generate date(s) and time(s) based on Google's Material design
+     *
+     * @see http://www.google.com/design/spec/patterns/data-formats.html Data format specs
+     * @param Carbon $other
+     * @param bool $useAbbreviations
+     * @param bool $showTimes
+     * @return string
+     */
+    public function toMaterialString(Carbon $other = null, $useAbbreviations = false, $showTimes = true)
+    {
+        $monthChar  = ($useAbbreviations) ? "M" : "F";
+        $return = "";
+        if ($other === null) {
+            $other = static::now($this->tz);
+        }
+        $diffInterval = $this->diff($other);
+
+        // Put the dates in order
+        $isFuture = $diffInterval->invert === 1;
+        if ($isFuture !== false) {
+            $dt_1 = clone $other;
+            $dt_2 = clone $this;
+        }else{
+            $dt_1 = clone $this;
+            $dt_2 = clone $other;
+        }
+        if($dt_1->isSameDay($dt_2))
+            $return .= $dt_1->format("{$monthChar} j, Y");
+        else {
+            if($diffInterval->y > 0) {
+                // Different years
+                $return .= $dt_1->format("{$monthChar} j, Y") . " - " . $dt_2->format("{$monthChar} j, Y");
+            }else {
+                if($diffInterval->m > 0) {
+                    // Different months in same year
+                    $return .= $dt_1->format("{$monthChar} j - ") . $dt_2->format("{$monthChar} j Y");
+                }else {
+                    $return .= $dt_1->format("{$monthChar} j-") . $dt_2->format("j Y");
+                }
+            }
+        }
+        // To return the time
+        if($showTimes && isset($dt_1->hour) && isset($dt_2->hour)) {
+            if($dt_1->hour == $dt_2->hour && $dt_1->minute == $dt_2->minute) {
+                $return .= " " . $dt_1->format('g:i A');
+            } else {
+                $return .= " " . $dt_1->format('g:i-').$dt_2->format('g:i A');
+            }
+        }
+        // Clean up
+        unset($other);
+        unset($dt_1);
+        unset($dt_2);
+
+        return $return;
+    }
+
+    /**
      * Format the instance as RFC822
      *
      * @return string
