@@ -215,4 +215,22 @@ class ComparisonTest extends TestFixture
         $closest = $instance->closest($dt1, $dt2);
         $this->assertEquals($dt1, $closest);
     }
+
+    public function testFarthest()
+    {
+        $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Carbon::create(2015, 5, 28, 11, 0, 0);
+        $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
+        $Farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $Farthest);
+    }
+
+    public function testFarthestWithEquals()
+    {
+        $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
+        $dt1 = Carbon::create(2015, 5, 28, 12, 0, 0);
+        $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
+        $Farthest = $instance->farthest($dt1, $dt2);
+        $this->assertEquals($dt2, $Farthest);
+    }
 }
