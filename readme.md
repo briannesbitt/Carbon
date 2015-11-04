@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon)
 [![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon)
 [![Build Status](https://travis-ci.org/briannesbitt/Carbon.svg?branch=master)](https://travis-ci.org/briannesbitt/Carbon)
-[![StyleCI](https://styleci.io/repos/5724990/shield)](https://styleci.io/repos/5724990)
+[![StyleCI](https://styleci.io/repos/5724990/shield?style=flat)](https://styleci.io/repos/5724990)
 
 A simple PHP API extension for DateTime. [http://carbon.nesbot.com](http://carbon.nesbot.com)
 
