@@ -144,6 +144,13 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{::lint(Carbon::setLocale('en');)}}
 </code></pre></p>
 
+<blockquote><p><strong>on Linux</strong><br>
+If you have trouble with translations, check locales installed in your system (local and production).<br>
+<code>locale -a</code> to list locales enabled.<br>
+<code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
+<code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
+And reboot your system.</p></blockquote>
+
 <h1 id="api-testing">Testing Aids</h1>
 
 <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
