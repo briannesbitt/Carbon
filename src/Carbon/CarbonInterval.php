@@ -100,7 +100,7 @@ class CarbonInterval extends DateInterval
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
     {
-        return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
+        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -129,7 +129,7 @@ class CarbonInterval extends DateInterval
         $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
-        $spec .= ($specDays > 0) ? $specDays.static::PERIOD_DAYS : '';
+        $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
 
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
             $spec .= static::PERIOD_TIME_PREFIX;
@@ -505,17 +505,17 @@ class CarbonInterval extends DateInterval
      */
     public function add(DateInterval $interval)
     {
-        $sign = ($interval->invert === 1) ? -1 : 1;
+        $sign = $interval->invert === 1 ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
-            $this->dayz = $this->dayz + ($interval->days * $sign);
+            $this->dayz = $this->dayz + $interval->days * $sign;
         } else {
-            $this->years = $this->years + ($interval->y * $sign);
-            $this->months = $this->months + ($interval->m * $sign);
-            $this->dayz = $this->dayz + ($interval->d * $sign);
-            $this->hours = $this->hours + ($interval->h * $sign);
-            $this->minutes = $this->minutes + ($interval->i * $sign);
-            $this->seconds = $this->seconds + ($interval->s * $sign);
+            $this->years = $this->years + $interval->y * $sign;
+            $this->months = $this->months + $interval->m * $sign;
+            $this->dayz = $this->dayz + $interval->d * $sign;
+            $this->hours = $this->hours + $interval->h * $sign;
+            $this->minutes = $this->minutes + $interval->i * $sign;
+            $this->seconds = $this->seconds + $interval->s * $sign;
         }
 
         return $this;
