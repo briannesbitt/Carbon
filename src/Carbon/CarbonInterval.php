@@ -139,7 +139,7 @@ class CarbonInterval extends DateInterval
             $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
         }
 
-        if ($spec == static::PERIOD_PREFIX) {
+        if ($spec === static::PERIOD_PREFIX) {
             // Allow the zero interval.
             $spec .= '0'.static::PERIOD_YEARS;
         }
@@ -181,7 +181,7 @@ class CarbonInterval extends DateInterval
      */
     public static function __callStatic($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':
@@ -250,7 +250,7 @@ class CarbonInterval extends DateInterval
      */
     protected static function translator()
     {
-        if (static::$translator == null) {
+        if (static::$translator === null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
             static::setLocale('en');
@@ -417,7 +417,7 @@ class CarbonInterval extends DateInterval
      */
     public function __call($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':

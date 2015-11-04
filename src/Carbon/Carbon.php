@@ -209,7 +209,7 @@ class Carbon extends DateTime
             }
 
             //shift the time according to the given time zone
-            if ($tz !== null && $tz != static::getTestNow()->tz) {
+            if ($tz !== null && $tz !== static::getTestNow()->tz) {
                 $testInstance->setTimezone($tz);
             } else {
                 $tz = $testInstance->tz;
@@ -304,7 +304,7 @@ class Carbon extends DateTime
      */
     public static function maxValue()
     {
-        if (PHP_INT_SIZE == 4) {
+        if (PHP_INT_SIZE === 4) {
             // 32 bit (and additionally Windows 64 bit)
             return static::createFromTimestamp(PHP_INT_MAX);
         } else {
@@ -320,7 +320,7 @@ class Carbon extends DateTime
      */
     public static function minValue()
     {
-        if (PHP_INT_SIZE == 4) {
+        if (PHP_INT_SIZE === 4) {
             // 32 bit (and additionally Windows 64 bit)
             return static::createFromTimestamp(~PHP_INT_MAX);
         } else {
@@ -509,13 +509,13 @@ class Carbon extends DateTime
                 return $this->getOffset() / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR;
 
             case $name === 'dst':
-                return $this->format('I') == '1';
+                return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->offset == $this->copy()->setTimezone(date_default_timezone_get())->offset;
+                return $this->offset === $this->copy()->setTimezone(date_default_timezone_get())->offset;
 
             case $name === 'utc':
-                return $this->offset == 0;
+                return $this->offset === 0;
 
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
@@ -910,7 +910,7 @@ class Carbon extends DateTime
      */
     protected static function translator()
     {
-        if (static::$translator == null) {
+        if (static::$translator === null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
             static::setLocale('en');
@@ -978,7 +978,7 @@ class Carbon extends DateTime
     {
         // Check for Windows to find and replace the %e
         // modifier correctly
-        if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
+        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
         }
 
@@ -1405,7 +1405,7 @@ class Carbon extends DateTime
      */
     public function isLeapYear()
     {
-        return $this->format('L') == '1';
+        return $this->format('L') === '1';
     }
 
     /**
@@ -1603,7 +1603,7 @@ class Carbon extends DateTime
     {
         $date = $this->copy()->addMonths($value);
 
-        if ($date->day != $this->day) {
+        if ($date->day !== $this->day) {
             $date->day(1)->subMonth()->day($date->daysInMonth);
         }
 
@@ -2224,7 +2224,7 @@ class Carbon extends DateTime
                 break;
         }
 
-        if ($count == 0) {
+        if ($count === 0) {
             $count = 1;
         }
 
@@ -2358,7 +2358,7 @@ class Carbon extends DateTime
      */
     public function startOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekStartsAt) {
+        if ($this->dayOfWeek !== static::$weekStartsAt) {
             $this->previous(static::$weekStartsAt);
         }
 
@@ -2372,7 +2372,7 @@ class Carbon extends DateTime
      */
     public function endOfWeek()
     {
-        if ($this->dayOfWeek != static::$weekEndsAt) {
+        if ($this->dayOfWeek !== static::$weekEndsAt) {
             $this->next(static::$weekEndsAt);
         }
 
@@ -2575,7 +2575,7 @@ class Carbon extends DateTime
     {
         $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $this->year == $dt->year ? $this->modify($dt) : false;
+        return $this->year === $dt->year ? $this->modify($dt) : false;
     }
 
     /**
