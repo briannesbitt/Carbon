@@ -41,7 +41,7 @@ echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
-$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
+$daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 ```
 
 ## Installation
