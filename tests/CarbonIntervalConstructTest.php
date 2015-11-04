@@ -21,20 +21,30 @@ class CarbonIntervalConstructTest extends TestFixture
         $this->assertCarbonInterval($ci, 1, 0, 0, 0, 0, 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testNulls()
     {
         $ci = new CarbonInterval(null, null, null, null, null, null);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $ci = CarbonInterval::days(null);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testZeroes()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+
+        $ci = CarbonInterval::days(0);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+    }
+
+    public function testZeroesChained()
+    {
+        $ci = CarbonInterval::days(0)->week(0)->minutes(0);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
     public function testYears()
