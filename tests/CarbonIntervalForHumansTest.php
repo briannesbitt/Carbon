@@ -91,21 +91,21 @@ class CarbonIntervalForHumansTest extends TestFixture
         $this->assertSame('2 Jahre 1 Monat', CarbonInterval::create(2, 1)->forHumans());
     }
 
-    public function testYearsAndMonthInBulgarian() 
+    public function testYearsAndMonthInBulgarian()
     {
         CarbonInterval::setLocale('bg');
         $this->assertSame('1 година 1 месец', CarbonInterval::create(1, 1)->forHumans());
         $this->assertSame('2 години 1 месец', CarbonInterval::create(2, 1)->forHumans());
     }
     
-    public function testYearsAndMonthInCatalan() 
+    public function testYearsAndMonthInCatalan()
     {
         CarbonInterval::setLocale('ca');
         $this->assertSame('1 any 1 mes', CarbonInterval::create(1, 1)->forHumans());
         $this->assertSame('2 anys 1 mes', CarbonInterval::create(2, 1)->forHumans());
     }
     
-    public function testYearsAndMonthInCzech() 
+    public function testYearsAndMonthInCzech()
     {
         CarbonInterval::setLocale('cs');
         $this->assertSame('1 rok 1 měsíc', CarbonInterval::create(1, 1)->forHumans());

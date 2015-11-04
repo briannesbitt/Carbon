@@ -121,7 +121,6 @@ class Carbon extends DateTime
      */
     protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
-
     /**
      * First day of week
      *
@@ -210,7 +209,7 @@ class Carbon extends DateTime
             }
 
             //shift the time according to the given time zone
-            if ($tz !== NULL && $tz != static::getTestNow()->tz) {
+            if ($tz !== null && $tz != static::getTestNow()->tz) {
                 $testInstance->setTimezone($tz);
             } else {
                 $tz = $testInstance->tz;
@@ -327,7 +326,7 @@ class Carbon extends DateTime
         } else {
             // 64 bit
             return static::create(1, 1, 1, 0, 0, 0);
-        } 
+        }
     }
 
     /**
@@ -749,8 +748,6 @@ class Carbon extends DateTime
         return $this;
     }
 
-
-
     ///////////////////////////////////////////////////////////////////
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -814,7 +811,6 @@ class Carbon extends DateTime
     {
         static::$weekendDays = $days;
     }
-
 
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// TESTING AIDS ////////////////////////////
