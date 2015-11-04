@@ -4,6 +4,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(__DIR__);
 
 $fixers = array(
+    '-psr0',
     'extra_empty_lines',
     'long_array_syntax',
     'no_empty_lines_after_phpdocs',
