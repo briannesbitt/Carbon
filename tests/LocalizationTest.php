@@ -51,7 +51,6 @@ class LocalizationTest extends TestFixture
      * The purpose of these tests aren't to test the validitity of the translation
      * but more so to test that the language file exists.
      */
-
     public function testDiffForHumansLocalizedInFrench()
     {
         Carbon::setLocale('fr');

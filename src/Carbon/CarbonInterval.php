@@ -22,13 +22,13 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * The implemenation provides helpers to handle weeks but only days are saved.
  * Weeks are calculated based on the total days of the current instance.
  *
- * @property integer $years Total years of the current interval.
- * @property integer $months Total months of the current interval.
- * @property integer $weeks Total weeks of the current interval calculated from the days.
- * @property integer $dayz Total days of the current interval (weeks * 7 + days).
- * @property integer $hours Total hours of the current interval.
- * @property integer $minutes Total minutes of the current interval.
- * @property integer $seconds Total seconds of the current interval.
+ * @property int $years Total years of the current interval.
+ * @property int $months Total months of the current interval.
+ * @property int $weeks Total weeks of the current interval calculated from the days.
+ * @property int $dayz Total days of the current interval (weeks * 7 + days).
+ * @property int $hours Total hours of the current interval.
+ * @property int $minutes Total minutes of the current interval.
+ * @property int $seconds Total seconds of the current interval.
  *
  * @property-read integer $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read integer $daysExcludeWeeks alias of dayzExcludeWeeks
@@ -48,7 +48,6 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
  * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
- *
  * @method CarbonInterval years() years($years = 1) Set the years portion of the current interval.
  * @method CarbonInterval year() year($years = 1) Alias for years().
  * @method CarbonInterval months() months($months = 1) Set the months portion of the current interval.
@@ -97,7 +96,7 @@ class CarbonInterval extends DateInterval
      *
      * @param DateInterval $interval
      *
-     * @return boolean
+     * @return bool
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
     {
@@ -111,13 +110,13 @@ class CarbonInterval extends DateInterval
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param int $years
+     * @param int $months
+     * @param int $weeks
+     * @param int $days
+     * @param int $hours
+     * @param int $minutes
+     * @param int $seconds
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
@@ -153,13 +152,13 @@ class CarbonInterval extends DateInterval
      * syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
      * (new CarbonInterval(1))->fn().
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param int $years
+     * @param int $months
+     * @param int $weeks
+     * @param int $days
+     * @param int $hours
+     * @param int $minutes
+     * @param int $seconds
      *
      * @return static
      */
@@ -175,7 +174,7 @@ class CarbonInterval extends DateInterval
      *       have the same names.
      *
      * @param string $name
-     * @param array $args
+     * @param array  $args
      *
      * @return static
      */
@@ -313,7 +312,7 @@ class CarbonInterval extends DateInterval
      *
      * @throws InvalidArgumentException
      *
-     * @return integer
+     * @return int
      */
     public function __get($name)
     {
@@ -352,7 +351,7 @@ class CarbonInterval extends DateInterval
      * Set a part of the CarbonInterval object
      *
      * @param string $name
-     * @param integer $val
+     * @param int    $val
      *
      * @throws InvalidArgumentException
      */
@@ -393,7 +392,7 @@ class CarbonInterval extends DateInterval
      * Allow setting of weeks and days to be cumulative.
      *
      * @param int $weeks Number of weeks to set
-     * @param int $days Number of days to set
+     * @param int $days  Number of days to set
      *
      * @return static
      */
@@ -411,7 +410,7 @@ class CarbonInterval extends DateInterval
      *       have the same names.
      *
      * @param string $name
-     * @param array $args
+     * @param array  $args
      *
      * @return static
      */
@@ -498,12 +497,12 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-    * Add the passed interval to the current instance
-    *
-    * @param DateInterval $interval
-    *
-    * @return static
-    */
+     * Add the passed interval to the current instance
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
     public function add(DateInterval $interval)
     {
         $sign = ($interval->invert === 1) ? -1 : 1;
