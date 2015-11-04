@@ -498,12 +498,12 @@ class LocalizationTest extends TestFixture
         });
     }
 
-	public function testDiffForHumansLocalizedInJapanese()
+    public function testDiffForHumansLocalizedInJapanese()
     {
         Carbon::setLocale('ja');
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 秒 前', $d->diffForHumans());
 
@@ -558,5 +558,4 @@ class LocalizationTest extends TestFixture
             $scope->assertSame('2 秒', $d2->diffForHumans($d->addSecond(), true));
         });
     }
-
 }
