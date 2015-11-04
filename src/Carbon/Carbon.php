@@ -2595,12 +2595,14 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param Carbon $dt
+     * @param Carbon $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isBirthday(Carbon $dt)
+    public function isBirthday(Carbon $dt = null)
     {
+        $dt = $dt ?: static::now($this->tz);
+
         return $this->format('md') === $dt->format('md');
     }
 }

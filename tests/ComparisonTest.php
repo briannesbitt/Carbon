@@ -191,6 +191,14 @@ class ComparisonTest extends TestFixture
     }
     public function testIsBirthday()
     {
+        $dt = Carbon::now();
+        $aBirthday = $dt->subYear();
+        $this->assertTrue($aBirthday->isBirthday());
+        $notABirthday = $dt->subDay();
+        $this->assertFalse($notABirthday->isBirthday());
+        $alsoNotABirthday = $dt->addDays(2);
+        $this->assertFalse($alsoNotABirthday->isBirthday());
+
         $dt1 = Carbon::createFromDate(1987, 4, 23);
         $dt2 = Carbon::createFromDate(2014, 9, 26);
         $dt3 = Carbon::createFromDate(2014, 4, 23);
