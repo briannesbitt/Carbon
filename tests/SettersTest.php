@@ -250,4 +250,15 @@ class SettersTest extends TestFixture
         $d = Carbon::now();
         $d->doesNotExit = 'bb';
     }
+
+    public function testSetTimeFromTimeString()
+    {
+        $d = Carbon::now();
+
+        $d->setTimeFromTimeString('09:15:30');
+
+        $this->assertSame(9, $d->hour);
+        $this->assertSame(15, $d->minute);
+        $this->assertSame(30, $d->second);
+    }
 }

@@ -697,6 +697,24 @@ class Carbon extends DateTime
     }
 
     /**
+     * Set the time by time string
+     *
+     * @param string $time
+     *
+     * @return static
+     */
+    public function setTimeFromTimeString($time)
+    {
+        $time = explode(":", $time);
+
+        $hour = $time[0];
+        $minute = (isset($time[1])) ? $time[1] : 0;
+        $second = (isset($time[2])) ? $time[2] : 0;
+
+        return $this->setTime($hour, $minute, $second);
+    }
+
+    /**
      * Set the instance's timestamp
      *
      * @param integer $value
