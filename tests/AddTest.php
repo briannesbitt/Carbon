@@ -119,6 +119,11 @@ class AddTest extends TestFixture
         $this->assertSame(9, Carbon::createFromDate(2012, 1, 6)->addWeekday()->day);
     }
 
+    public function testAddWeekdayDuringWeekend()
+    {
+        $this->assertSame(9, Carbon::createFromDate(2012, 1, 7)->addWeekday()->day);
+    }
+
     public function testAddWeeksPositive()
     {
         $this->assertSame(28, Carbon::createFromDate(1975, 5, 21)->addWeeks(1)->day);
