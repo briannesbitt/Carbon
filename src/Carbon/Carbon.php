@@ -1254,7 +1254,7 @@ class Carbon extends DateTime
      *
      * @param Carbon $dt1
      * @param Carbon $dt2
-     * @param bool $equal Indicates if a > and < comparison should be used or <= or >=
+     * @param bool   $equal Indicates if a > and < comparison should be used or <= or >=
      *
      * @return bool
      */
@@ -2005,9 +2005,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in days using a filter closure
      *
-     * @param Closure      $callback
-     * @param Carbon|null  $dt
-     * @param bool         $abs      Get the absolute of the difference
+     * @param Closure     $callback
+     * @param Carbon|null $dt
+     * @param bool        $abs      Get the absolute of the difference
      *
      * @return int
      */
@@ -2019,9 +2019,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours using a filter closure
      *
-     * @param Closure      $callback
-     * @param Carbon|null  $dt
-     * @param bool         $abs      Get the absolute of the difference
+     * @param Closure     $callback
+     * @param Carbon|null $dt
+     * @param bool        $abs      Get the absolute of the difference
      *
      * @return int
      */
