@@ -2338,7 +2338,7 @@ class Carbon extends DateTime
      */
     public function startOfCentury()
     {
-        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY);
+        return $this->startOfYear()->year(($this->year - 1) - ($this->year - 1) % static::YEARS_PER_CENTURY + 1);
     }
 
     /**
@@ -2348,7 +2348,7 @@ class Carbon extends DateTime
      */
     public function endOfCentury()
     {
-        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY - 1);
+        return $this->endOfYear()->year(($this->year - 1) - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY);
     }
 
     /**
