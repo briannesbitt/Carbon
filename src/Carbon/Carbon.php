@@ -2385,7 +2385,7 @@ class Carbon extends DateTime
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2404,7 +2404,7 @@ class Carbon extends DateTime
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2423,7 +2423,7 @@ class Carbon extends DateTime
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2444,7 +2444,7 @@ class Carbon extends DateTime
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2485,7 +2485,7 @@ class Carbon extends DateTime
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2500,7 +2500,7 @@ class Carbon extends DateTime
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2536,7 +2536,7 @@ class Carbon extends DateTime
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
@@ -2551,7 +2551,7 @@ class Carbon extends DateTime
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int $dayOfWeek
+     * @param int|null $dayOfWeek
      *
      * @return static
      */
