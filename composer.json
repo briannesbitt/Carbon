@@ -8,6 +8,10 @@
     "DateTime"
   ],
   "homepage": "http://carbon.nesbot.com",
+  "support": {
+    "issues": "https://github.com/briannesbitt/Carbon/issues",
+    "source": "https://github.com/briannesbitt/Carbon"
+  },
   "license": "MIT",
   "authors": [
     {
