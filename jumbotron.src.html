@@ -39,7 +39,7 @@ if (Carbon::now()->isWeekend()) {
 {{interval::exec(echo CarbonInterval::years(2)->minutes(2);)}} // '{{interval_eval}}'
 
 {{::lint(
-$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
+$daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 )}}
 </code></pre>
    </div>
