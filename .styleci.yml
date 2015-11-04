@@ -1,0 +1,6 @@
+preset: psr2
+
+enabled:
+  - extra_empty_lines
+  - long_array_syntax
+  - return

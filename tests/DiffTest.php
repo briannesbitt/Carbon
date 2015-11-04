@@ -40,7 +40,7 @@ class DiffTest extends TestFixture
     public function testDiffInYearsVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(1, Carbon::now()->subYear()->diffInYears());
         });
     }
@@ -72,7 +72,7 @@ class DiffTest extends TestFixture
     public function testDiffInMonthsVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(12, Carbon::now()->subYear()->diffInMonths());
         });
     }
@@ -104,7 +104,7 @@ class DiffTest extends TestFixture
     public function testDiffInDaysVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(7, Carbon::now()->subWeek()->diffInDays());
         });
     }
@@ -174,8 +174,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
         $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(31, $dt1->diffInHoursFiltered(function (Carbon $date)
-        {
+        $this->assertSame(31, $dt1->diffInHoursFiltered(function (Carbon $date) {
             return $date->hour === 9;
         }, $dt2));
     }
@@ -185,8 +184,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 31)->endOfDay();
         $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(-31, $dt1->diffInHoursFiltered(function (Carbon $date)
-        {
+        $this->assertSame(-31, $dt1->diffInHoursFiltered(function (Carbon $date) {
             return $date->hour === 9;
         }, $dt2, false));
     }
@@ -196,8 +194,7 @@ class DiffTest extends TestFixture
         $dt1 = Carbon::createFromDate(2000, 1, 5)->endOfDay();
         $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
 
-        $this->assertSame(40, $dt1->diffInHoursFiltered(function (Carbon $date)
-        {
+        $this->assertSame(40, $dt1->diffInHoursFiltered(function (Carbon $date) {
             return ($date->hour > 8 && $date->hour < 17);
         }, $dt2));
     }
@@ -351,7 +348,7 @@ class DiffTest extends TestFixture
     public function testDiffInWeeksVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(1, Carbon::now()->subWeek()->diffInWeeks());
         });
     }
@@ -383,7 +380,7 @@ class DiffTest extends TestFixture
     public function testDiffInHoursVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(48, Carbon::now()->subDays(2)->diffInHours());
         }, Carbon::create(2012, 1, 15));
     }
@@ -421,7 +418,7 @@ class DiffTest extends TestFixture
     public function testDiffInMinutesVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(60, Carbon::now()->subHour()->diffInMinutes());
         });
     }
@@ -459,7 +456,7 @@ class DiffTest extends TestFixture
     public function testDiffInSecondsVsDefaultNow()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame(3600, Carbon::now()->subHour()->diffInSeconds());
         });
     }
@@ -483,7 +480,7 @@ class DiffTest extends TestFixture
         $hereNow = $vanNow->copy()->setTimezone(Carbon::now()->tz);
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($vanNow, $scope) {
+        $this->wrapWithTestNow(function () use ($vanNow, $scope) {
             $scope->assertSame(0, $vanNow->diffInSeconds());
         }, $hereNow);
     }
@@ -491,7 +488,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndSecond()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 second ago', Carbon::now()->diffForHumans());
         });
     }
@@ -502,7 +499,7 @@ class DiffTest extends TestFixture
         $hereNow = $vanNow->copy()->setTimezone(Carbon::now()->tz);
 
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($vanNow, $scope) {
+        $this->wrapWithTestNow(function () use ($vanNow, $scope) {
             $scope->assertSame('1 second ago', $vanNow->diffForHumans());
         }, $hereNow);
     }
@@ -510,7 +507,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndSeconds()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 seconds ago', Carbon::now()->subSeconds(2)->diffForHumans());
         });
     }
@@ -518,7 +515,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 seconds ago', Carbon::now()->subSeconds(59)->diffForHumans());
         });
     }
@@ -526,7 +523,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 minute ago', Carbon::now()->subMinute()->diffForHumans());
         });
     }
@@ -534,7 +531,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndMinutes()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 minutes ago', Carbon::now()->subMinutes(2)->diffForHumans());
         });
     }
@@ -542,7 +539,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 minutes ago', Carbon::now()->subMinutes(59)->diffForHumans());
         });
     }
@@ -550,7 +547,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 hour ago', Carbon::now()->subHour()->diffForHumans());
         });
     }
@@ -558,7 +555,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndHours()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 hours ago', Carbon::now()->subHours(2)->diffForHumans());
         });
     }
@@ -566,7 +563,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('23 hours ago', Carbon::now()->subHours(23)->diffForHumans());
         });
     }
@@ -574,7 +571,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 day ago', Carbon::now()->subDay()->diffForHumans());
         });
     }
@@ -582,7 +579,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndDays()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 days ago', Carbon::now()->subDays(2)->diffForHumans());
         });
     }
@@ -590,7 +587,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('6 days ago', Carbon::now()->subDays(6)->diffForHumans());
         });
     }
@@ -598,7 +595,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 week ago', Carbon::now()->subWeek()->diffForHumans());
         });
     }
@@ -606,7 +603,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndWeeks()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 weeks ago', Carbon::now()->subWeeks(2)->diffForHumans());
         });
     }
@@ -614,7 +611,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('3 weeks ago', Carbon::now()->subWeeks(3)->diffForHumans());
         });
     }
@@ -622,7 +619,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('4 weeks ago', Carbon::now()->subWeeks(4)->diffForHumans());
             $scope->assertSame('1 month ago', Carbon::now()->subMonth()->diffForHumans());
         });
@@ -631,7 +628,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndMonths()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 months ago', Carbon::now()->subMonths(2)->diffForHumans());
         });
     }
@@ -639,7 +636,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('11 months ago', Carbon::now()->subMonths(11)->diffForHumans());
         });
     }
@@ -647,7 +644,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 year ago', Carbon::now()->subYear()->diffForHumans());
         });
     }
@@ -655,7 +652,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndYears()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 years ago', Carbon::now()->subYears(2)->diffForHumans());
         });
     }
@@ -663,7 +660,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureSecond()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 second from now', Carbon::now()->addSecond()->diffForHumans());
         });
     }
@@ -671,7 +668,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureSeconds()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 seconds from now', Carbon::now()->addSeconds(2)->diffForHumans());
         });
     }
@@ -679,7 +676,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 seconds from now', Carbon::now()->addSeconds(59)->diffForHumans());
         });
     }
@@ -687,7 +684,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 minute from now', Carbon::now()->addMinute()->diffForHumans());
         });
     }
@@ -695,7 +692,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureMinutes()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 minutes from now', Carbon::now()->addMinutes(2)->diffForHumans());
         });
     }
@@ -703,7 +700,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 minutes from now', Carbon::now()->addMinutes(59)->diffForHumans());
         });
     }
@@ -711,7 +708,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 hour from now', Carbon::now()->addHour()->diffForHumans());
         });
     }
@@ -719,7 +716,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureHours()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 hours from now', Carbon::now()->addHours(2)->diffForHumans());
         });
     }
@@ -727,7 +724,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('23 hours from now', Carbon::now()->addHours(23)->diffForHumans());
         });
     }
@@ -735,7 +732,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 day from now', Carbon::now()->addDay()->diffForHumans());
         });
     }
@@ -743,7 +740,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureDays()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 days from now', Carbon::now()->addDays(2)->diffForHumans());
         });
     }
@@ -751,7 +748,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('6 days from now', Carbon::now()->addDays(6)->diffForHumans());
         });
     }
@@ -759,7 +756,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 week from now', Carbon::now()->addWeek()->diffForHumans());
         });
     }
@@ -767,7 +764,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureWeeks()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 weeks from now', Carbon::now()->addWeeks(2)->diffForHumans());
         });
     }
@@ -775,7 +772,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('3 weeks from now', Carbon::now()->addWeeks(3)->diffForHumans());
         });
     }
@@ -783,7 +780,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('4 weeks from now', Carbon::now()->addWeeks(4)->diffForHumans());
             $scope->assertSame('1 month from now', Carbon::now()->addMonth()->diffForHumans());
         });
@@ -792,7 +789,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureMonths()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 months from now', Carbon::now()->addMonths(2)->diffForHumans());
         });
     }
@@ -800,7 +797,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndNearlyFutureYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('11 months from now', Carbon::now()->addMonths(11)->diffForHumans());
         });
     }
@@ -808,7 +805,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 year from now', Carbon::now()->addYear()->diffForHumans());
         });
     }
@@ -816,7 +813,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansNowAndFutureYears()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 years from now', Carbon::now()->addYears(2)->diffForHumans());
         });
     }
@@ -824,7 +821,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndSecond()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 second before', Carbon::now()->diffForHumans(Carbon::now()->addSecond()));
         });
     }
@@ -832,7 +829,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndSeconds()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 seconds before', Carbon::now()->diffForHumans(Carbon::now()->addSeconds(2)));
         });
     }
@@ -840,7 +837,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 seconds before', Carbon::now()->diffForHumans(Carbon::now()->addSeconds(59)));
         });
     }
@@ -848,7 +845,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 minute before', Carbon::now()->diffForHumans(Carbon::now()->addMinute()));
         });
     }
@@ -856,7 +853,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndMinutes()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 minutes before', Carbon::now()->diffForHumans(Carbon::now()->addMinutes(2)));
         });
     }
@@ -864,7 +861,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 minutes before', Carbon::now()->diffForHumans(Carbon::now()->addMinutes(59)));
         });
     }
@@ -872,7 +869,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 hour before', Carbon::now()->diffForHumans(Carbon::now()->addHour()));
         });
     }
@@ -880,7 +877,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndHours()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 hours before', Carbon::now()->diffForHumans(Carbon::now()->addHours(2)));
         });
     }
@@ -888,7 +885,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('23 hours before', Carbon::now()->diffForHumans(Carbon::now()->addHours(23)));
         });
     }
@@ -896,7 +893,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 day before', Carbon::now()->diffForHumans(Carbon::now()->addDay()));
         });
     }
@@ -904,7 +901,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndDays()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 days before', Carbon::now()->diffForHumans(Carbon::now()->addDays(2)));
         });
     }
@@ -912,7 +909,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('6 days before', Carbon::now()->diffForHumans(Carbon::now()->addDays(6)));
         });
     }
@@ -920,7 +917,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 week before', Carbon::now()->diffForHumans(Carbon::now()->addWeek()));
         });
     }
@@ -928,7 +925,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndWeeks()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 weeks before', Carbon::now()->diffForHumans(Carbon::now()->addWeeks(2)));
         });
     }
@@ -936,7 +933,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('3 weeks before', Carbon::now()->diffForHumans(Carbon::now()->addWeeks(3)));
         });
     }
@@ -944,7 +941,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('4 weeks before', Carbon::now()->diffForHumans(Carbon::now()->addWeeks(4)));
             $scope->assertSame('1 month before', Carbon::now()->diffForHumans(Carbon::now()->addMonth()));
         });
@@ -953,7 +950,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndMonths()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 months before', Carbon::now()->diffForHumans(Carbon::now()->addMonths(2)));
         });
     }
@@ -961,7 +958,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('11 months before', Carbon::now()->diffForHumans(Carbon::now()->addMonths(11)));
         });
     }
@@ -969,7 +966,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 year before', Carbon::now()->diffForHumans(Carbon::now()->addYear()));
         });
     }
@@ -977,7 +974,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndYears()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 years before', Carbon::now()->diffForHumans(Carbon::now()->addYears(2)));
         });
     }
@@ -985,7 +982,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureSecond()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 second after', Carbon::now()->diffForHumans(Carbon::now()->subSecond()));
         });
     }
@@ -993,7 +990,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureSeconds()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 seconds after', Carbon::now()->diffForHumans(Carbon::now()->subSeconds(2)));
         });
     }
@@ -1001,7 +998,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 seconds after', Carbon::now()->diffForHumans(Carbon::now()->subSeconds(59)));
         });
     }
@@ -1009,7 +1006,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureMinute()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 minute after', Carbon::now()->diffForHumans(Carbon::now()->subMinute()));
         });
     }
@@ -1017,7 +1014,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureMinutes()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 minutes after', Carbon::now()->diffForHumans(Carbon::now()->subMinutes(2)));
         });
     }
@@ -1025,7 +1022,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 minutes after', Carbon::now()->diffForHumans(Carbon::now()->subMinutes(59)));
         });
     }
@@ -1033,7 +1030,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureHour()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 hour after', Carbon::now()->diffForHumans(Carbon::now()->subHour()));
         });
     }
@@ -1041,7 +1038,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureHours()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 hours after', Carbon::now()->diffForHumans(Carbon::now()->subHours(2)));
         });
     }
@@ -1049,7 +1046,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('23 hours after', Carbon::now()->diffForHumans(Carbon::now()->subHours(23)));
         });
     }
@@ -1057,7 +1054,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureDay()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 day after', Carbon::now()->diffForHumans(Carbon::now()->subDay()));
         });
     }
@@ -1065,7 +1062,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureDays()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 days after', Carbon::now()->diffForHumans(Carbon::now()->subDays(2)));
         });
     }
@@ -1073,7 +1070,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('6 days after', Carbon::now()->diffForHumans(Carbon::now()->subDays(6)));
         });
     }
@@ -1081,7 +1078,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureWeek()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 week after', Carbon::now()->diffForHumans(Carbon::now()->subWeek()));
         });
     }
@@ -1089,7 +1086,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureWeeks()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 weeks after', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(2)));
         });
     }
@@ -1097,7 +1094,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('3 weeks after', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(3)));
         });
     }
@@ -1105,7 +1102,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureMonth()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('4 weeks after', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(4)));
             $scope->assertSame('1 month after', Carbon::now()->diffForHumans(Carbon::now()->subMonth()));
         });
@@ -1114,7 +1111,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureMonths()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonths(2)));
         });
     }
@@ -1122,7 +1119,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndNearlyFutureYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('11 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonths(11)));
         });
     }
@@ -1130,7 +1127,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureYear()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 year after', Carbon::now()->diffForHumans(Carbon::now()->subYear()));
         });
     }
@@ -1138,7 +1135,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansOtherAndFutureYears()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 years after', Carbon::now()->diffForHumans(Carbon::now()->subYears(2)));
         });
     }
@@ -1146,7 +1143,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteSeconds()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('59 seconds', Carbon::now()->diffForHumans(Carbon::now()->subSeconds(59), true));
             $scope->assertSame('59 seconds', Carbon::now()->diffForHumans(Carbon::now()->addSeconds(59), true));
         });
@@ -1155,7 +1152,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteMinutes()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('30 minutes', Carbon::now()->diffForHumans(Carbon::now()->subMinutes(30), true));
             $scope->assertSame('30 minutes', Carbon::now()->diffForHumans(Carbon::now()->addMinutes(30), true));
         });
@@ -1164,7 +1161,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteHours()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('3 hours', Carbon::now()->diffForHumans(Carbon::now()->subHours(3), true));
             $scope->assertSame('3 hours', Carbon::now()->diffForHumans(Carbon::now()->addHours(3), true));
         });
@@ -1173,7 +1170,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteDays()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 days', Carbon::now()->diffForHumans(Carbon::now()->subDays(2), true));
             $scope->assertSame('2 days', Carbon::now()->diffForHumans(Carbon::now()->addDays(2), true));
         });
@@ -1182,7 +1179,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteWeeks()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 weeks', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(2), true));
             $scope->assertSame('2 weeks', Carbon::now()->diffForHumans(Carbon::now()->addWeeks(2), true));
         });
@@ -1191,7 +1188,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteMonths()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->subMonths(2), true));
             $scope->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->addMonths(2), true));
         });
@@ -1200,7 +1197,7 @@ class DiffTest extends TestFixture
     public function testDiffForHumansAbsoluteYears()
     {
         $scope = $this;
-        $this->wrapWithTestNow(function() use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $scope->assertSame('1 year', Carbon::now()->diffForHumans(Carbon::now()->subYears(1), true));
             $scope->assertSame('1 year', Carbon::now()->diffForHumans(Carbon::now()->addYears(1), true));
         });
