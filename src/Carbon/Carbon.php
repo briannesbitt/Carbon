@@ -2387,7 +2387,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function next($dayOfWeek = null)
     {
@@ -2406,7 +2406,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function previous($dayOfWeek = null)
     {
@@ -2425,7 +2425,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function firstOfMonth($dayOfWeek = null)
     {
@@ -2446,7 +2446,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function lastOfMonth($dayOfWeek = null)
     {
@@ -2502,7 +2502,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
@@ -2538,7 +2538,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function firstOfYear($dayOfWeek = null)
     {
@@ -2553,7 +2553,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function lastOfYear($dayOfWeek = null)
     {
