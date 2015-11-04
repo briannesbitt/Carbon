@@ -463,8 +463,10 @@ $dt->isSameDay(Carbon::now());
 {{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
 {{::lint($yesCake = Carbon::createFromDate(2014, 4, 23);)}}
-{{birth1::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{birth1_eval}}  
-{{birth2::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{birth2_eval}}  
+{{::lint($overTheHill = Carbon::now()->subYears(50);)}}
+{{birth1::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{birth1_eval}}
+{{birth2::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{birth2_eval}}
+{{birth3::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{birth3_eval}} -> default compare it to today!
 </code></pre></p>
 
 <h1 id="api-addsub">Addition and Subtraction</h1>
