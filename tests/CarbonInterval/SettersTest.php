@@ -14,7 +14,7 @@ namespace Tests\CarbonInterval;
 use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
-class CarbonIntervalSettersTest extends AbstractTestCase
+class SettersTest extends AbstractTestCase
 {
     public function testYearsSetter()
     {

@@ -16,7 +16,7 @@ use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Tests\AbstractTestCase;
 
-class CarbonIntervalForHumansTest extends AbstractTestCase
+class ForHumansTest extends AbstractTestCase
 {
     public function testGetTranslator()
     {
