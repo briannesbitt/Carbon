@@ -336,7 +336,7 @@ class CarbonInterval extends DateInterval
                 return $this->s;
 
             case 'weeks':
-                return (int)floor($this->d / Carbon::DAYS_PER_WEEK);
+                return (int) floor($this->d / Carbon::DAYS_PER_WEEK);
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
