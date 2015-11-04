@@ -352,17 +352,17 @@ class Carbon extends DateTime
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
-        $year = ($year === null) ? date('Y') : $year;
-        $month = ($month === null) ? date('n') : $month;
-        $day = ($day === null) ? date('j') : $day;
+        $year = $year === null ? date('Y') : $year;
+        $month = $month === null ? date('n') : $month;
+        $day = $day === null ? date('j') : $day;
 
         if ($hour === null) {
             $hour = date('G');
-            $minute = ($minute === null) ? date('i') : $minute;
-            $second = ($second === null) ? date('s') : $second;
+            $minute = $minute === null ? date('i') : $minute;
+            $second = $second === null ? date('s') : $second;
         } else {
-            $minute = ($minute === null) ? 0 : $minute;
-            $second = ($second === null) ? 0 : $second;
+            $minute = $minute === null ? 0 : $minute;
+            $second = $second === null ? 0 : $second;
         }
 
         return static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
@@ -708,8 +708,8 @@ class Carbon extends DateTime
         $time = explode(":", $time);
 
         $hour = $time[0];
-        $minute = (isset($time[1])) ? $time[1] : 0;
-        $second = (isset($time[2])) ? $time[2] : 0;
+        $minute = isset($time[1]) ? $time[1] : 0;
+        $second = isset($time[2]) ? $time[2] : 0;
 
         return $this->setTime($hour, $minute, $second);
     }
@@ -2476,7 +2476,7 @@ class Carbon extends DateTime
         $check = $dt->format('Y-m');
         $dt->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return ($dt->format('Y-m') === $check) ? $this->modify($dt) : false;
+        return $dt->format('Y-m') === $check ? $this->modify($dt) : false;
     }
 
     /**
