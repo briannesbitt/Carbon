@@ -2487,7 +2487,7 @@ class Carbon extends DateTime
      *
      * @param int $dayOfWeek
      *
-     * @return mixed
+     * @return static
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
