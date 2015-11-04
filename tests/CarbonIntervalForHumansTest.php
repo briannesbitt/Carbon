@@ -118,4 +118,11 @@ class CarbonIntervalForHumansTest extends TestFixture
         $this->assertSame('1 χρόνος 1 μήνας', CarbonInterval::create(1, 1)->forHumans());
         $this->assertSame('2 χρόνια 1 μήνας', CarbonInterval::create(2, 1)->forHumans());
     }
+
+    public function testYearsAndMonthsInDanish()
+    {
+        CarbonInterval::setLocale('da');
+        $this->assertSame('1 år 1 måned', CarbonInterval::create(1, 1)->forHumans());
+        $this->assertSame('2 år 1 måned', CarbonInterval::create(2, 1)->forHumans());
+    }
 }
