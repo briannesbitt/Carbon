@@ -27,14 +27,14 @@ Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
 if (Carbon::now()->gte($worldWillEnd)) {
-   die();
+    die();
 }
 
 // Phew! Return to normal behaviour
 Carbon::setTestNow();
 
 if (Carbon::now()->isWeekend()) {
-   echo 'Party!';
+    echo 'Party!';
 }
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
