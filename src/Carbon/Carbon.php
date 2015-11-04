@@ -1309,7 +1309,7 @@ class Carbon extends DateTime
      */
     public function min(Carbon $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return $this->lt($dt) ? $this : $dt;
     }
@@ -1323,7 +1323,7 @@ class Carbon extends DateTime
      */
     public function max(Carbon $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return $this->gt($dt) ? $this : $dt;
     }
@@ -1954,7 +1954,7 @@ class Carbon extends DateTime
      */
     public function diffInYears(Carbon $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return (int) $this->diff($dt, $abs)->format('%r%y');
     }
@@ -1969,7 +1969,7 @@ class Carbon extends DateTime
      */
     public function diffInMonths(Carbon $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
@@ -1997,7 +1997,7 @@ class Carbon extends DateTime
      */
     public function diffInDays(Carbon $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return (int) $this->diff($dt, $abs)->format('%r%a');
     }
@@ -2043,7 +2043,7 @@ class Carbon extends DateTime
     public function diffFiltered(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
     {
         $start = $this;
-        $end = ($dt === null) ? static::now($this->tz) : $dt;
+        $end = $dt ?: static::now($this->tz);
         $inverse = false;
 
         if ($end < $start) {
@@ -2128,7 +2128,7 @@ class Carbon extends DateTime
      */
     public function diffInSeconds(Carbon $dt = null, $abs = true)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
@@ -2587,7 +2587,7 @@ class Carbon extends DateTime
      */
     public function average(Carbon $dt = null)
     {
-        $dt = ($dt === null) ? static::now($this->tz) : $dt;
+        $dt = $dt ?: static::now($this->tz);
 
         return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
     }
