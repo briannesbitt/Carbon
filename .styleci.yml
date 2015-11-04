@@ -18,3 +18,4 @@ enabled:
   - phpdoc_types
   - phpdoc_var_without_name
   - return
+  - spaces_cast

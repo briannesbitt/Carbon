@@ -22,6 +22,7 @@ $fixers = array(
     'phpdoc_types',
     'phpdoc_var_without_name',
     'return',
+    'spaces_cast',
 );
 
 return Symfony\CS\Config\Config::create()
