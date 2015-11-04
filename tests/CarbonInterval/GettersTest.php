@@ -14,7 +14,7 @@ namespace Tests\CarbonInterval;
 use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
-class CarbonIntervalGettersTest extends AbstractTestCase
+class GettersTest extends AbstractTestCase
 {
     public function testGettersThrowExceptionOnUnknownGetter()
     {

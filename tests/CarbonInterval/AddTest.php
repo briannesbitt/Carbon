@@ -16,7 +16,7 @@ use Carbon\Carbon;
 use DateInterval;
 use Tests\AbstractTestCase;
 
-class CarbonIntervalAddTest extends AbstractTestCase
+class AddTest extends AbstractTestCase
 {
     public function testAdd()
     {
