@@ -2258,7 +2258,7 @@ class Carbon extends DateTime
      */
     public function startOfDay()
     {
-        return $this->hour(0)->minute(0)->second(0);
+        return $this->setTime(0, 0, 0);
     }
 
     /**
@@ -2268,7 +2268,7 @@ class Carbon extends DateTime
      */
     public function endOfDay()
     {
-        return $this->hour(23)->minute(59)->second(59);
+        return $this->setTime(23, 59, 59);
     }
 
     /**
