@@ -34,10 +34,12 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(2012, $d->year);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidYear()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(-3);
+        Carbon::create(-3);
     }
 
     public function testCreateWithMonth()
@@ -46,10 +48,12 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(3, $d->month);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidMonth()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(null, -5);
+        Carbon::create(null, -5);
     }
 
     public function testCreateMonthWraps()
@@ -64,11 +68,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(21, $d->day);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidDay()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(null, null, -4);
+        Carbon::create(null, null, -4);
     }
+
     public function testCreateDayWraps()
     {
         $d = Carbon::create(2011, 1, 40, 0, 0, 0);
@@ -83,10 +90,12 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(0, $d->second);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidHour()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(null, null, null, -1);
+        Carbon::create(null, null, null, -1);
     }
 
     public function testCreateHourWraps()
@@ -101,11 +110,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(58, $d->minute);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidMinute()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(2011, 1, 1, 0, -2, 0);
+        Carbon::create(2011, 1, 1, 0, -2, 0);
     }
+
     public function testCreateMinuteWraps()
     {
         $d = Carbon::create(2011, 1, 1, 0, 62, 0);
@@ -118,11 +130,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(59, $d->second);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testCreateWithInvalidSecond()
     {
-        $this->setExpectedException('InvalidArgumentException');
-        $d = Carbon::create(null, null, null, null, null, -2);
+        Carbon::create(null, null, null, null, null, -2);
     }
+
     public function testCreateSecondsWrap()
     {
         $d = Carbon::create(2012, 1, 1, 0, 0, 61);

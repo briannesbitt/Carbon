@@ -16,9 +16,11 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        $this->setExpectedException('InvalidArgumentException');
         CarbonInterval::year()->sdfsdfss;
     }
 
