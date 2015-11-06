@@ -89,7 +89,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
     protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
     {
-        Carbon::setTestNow(($dt === null) ? Carbon::now() : $dt);
+        Carbon::setTestNow($dt ?: Carbon::now());
         $func();
         Carbon::setTestNow();
     }
