@@ -23,6 +23,8 @@ $fixers = array(
     'phpdoc_var_without_name',
     'return',
     'spaces_cast',
+    'unalign_equals',
+    'whitespacy_lines',
 );
 
 return Symfony\CS\Config\Config::create()
