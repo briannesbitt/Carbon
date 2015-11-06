@@ -229,7 +229,7 @@ class ConstructTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testInstanceWithDaysThrowsException()
     {
