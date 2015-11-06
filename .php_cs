@@ -24,6 +24,7 @@ $fixers = array(
     'return',
     'spaces_cast',
     'unalign_equals',
+    'whitespacy_lines',
 );
 
 return Symfony\CS\Config\Config::create()
