@@ -30,8 +30,8 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property int $minutes Total minutes of the current interval.
  * @property int $seconds Total seconds of the current interval.
  *
- * @property-read integer $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
- * @property-read integer $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
+ * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
