@@ -22,7 +22,7 @@ return array(
     'hour'      => '1 hodinu|:count hodiny|:count hodin',
     'minute'    => '1 minutu|:count minuty|:count minut',
     'second'    => '1 sekundu|:count sekundy|:count sekund',
-    'ago'       => 'před :time',
+    'ago'       => ':time nazpět',
     'from_now'  => 'za :time',
     'after'     => ':time později',
     'before'    => ':time předtím',
