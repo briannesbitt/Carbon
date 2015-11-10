@@ -120,8 +120,8 @@ class TestingAidsTest extends AbstractTestCase
         $notNow = Carbon::parse('2013-07-01 12:00:00', 'America/New_York');
         Carbon::setTestNow($notNow);
 
-        $this->assertSame('2013-07-01T12:00:00-0400', Carbon::parse('now')->toIso8601String());
-        $this->assertSame('2013-07-01T11:00:00-0500', Carbon::parse('now', 'America/Mexico_City')->toIso8601String());
-        $this->assertSame('2013-07-01T09:00:00-0700', Carbon::parse('now', 'America/Vancouver')->toIso8601String());
+        $this->assertSame('2013-07-01T12:00:00-04:00', Carbon::parse('now')->toIso8601String());
+        $this->assertSame('2013-07-01T11:00:00-05:00', Carbon::parse('now', 'America/Mexico_City')->toIso8601String());
+        $this->assertSame('2013-07-01T09:00:00-07:00', Carbon::parse('now', 'America/Vancouver')->toIso8601String());
     }
 }
