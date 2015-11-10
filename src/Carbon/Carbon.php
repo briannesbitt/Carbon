@@ -761,9 +761,7 @@ class Carbon extends DateTime
      */
     public function setTimezone($value)
     {
-        parent::setTimezone(static::safeCreateDateTimeZone($value));
-
-        return $this;
+        return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
     ///////////////////////////////////////////////////////////////////
