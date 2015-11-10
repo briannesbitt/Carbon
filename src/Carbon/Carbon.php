@@ -2316,7 +2316,9 @@ class Carbon extends DateTime
      */
     public function startOfDecade()
     {
-        return $this->startOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE);
+        $year = $this->year - $this->year % static::YEARS_PER_DECADE;
+
+        return $this->setDateTime($year, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -2326,7 +2328,9 @@ class Carbon extends DateTime
      */
     public function endOfDecade()
     {
-        return $this->endOfYear()->year($this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1);
+        $year = $this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1;
+
+        return $this->setDateTime($year, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -2336,7 +2340,9 @@ class Carbon extends DateTime
      */
     public function startOfCentury()
     {
-        return $this->startOfYear()->year(($this->year - 1) - ($this->year - 1) % static::YEARS_PER_CENTURY + 1);
+        $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + 1;
+
+        return $this->setDateTime($year, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -2346,7 +2352,9 @@ class Carbon extends DateTime
      */
     public function endOfCentury()
     {
-        return $this->endOfYear()->year(($this->year - 1) - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY);
+        $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
+
+        return $this->setDateTime($year, 12, 31, 23, 59, 59);
     }
 
     /**
@@ -2489,7 +2497,7 @@ class Carbon extends DateTime
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * 3 - 2)->firstOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * 3 - 2, 1)->firstOfMonth($dayOfWeek);
     }
 
     /**
@@ -2504,7 +2512,7 @@ class Carbon extends DateTime
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
-        return $this->day(1)->month($this->quarter * 3)->lastOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * 3, 1)->lastOfMonth($dayOfWeek);
     }
 
     /**
