@@ -16,9 +16,11 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        $this->setExpectedException('InvalidArgumentException');
         Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
     }
 
@@ -279,9 +281,11 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->tzName);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testInvalidGetter()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $d = Carbon::now();
         $bb = $d->doesNotExit;
     }
