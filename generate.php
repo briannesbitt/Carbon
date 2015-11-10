@@ -6,6 +6,8 @@ require 'vendor/autoload.php';
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 
+$namesCache = [];
+
 $template = file_get_contents('template.src.html');
 
 function genHtml($page, $out, $jumbotron = '') {
@@ -16,7 +18,7 @@ function genHtml($page, $out, $jumbotron = '') {
   file_put_contents($out, $html);
 }
 
-function compile($src, $dest) {
+function compile($src, $dest, & $namesCache) {
     $code = file_get_contents($src);
 
     $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; ';
@@ -27,6 +29,15 @@ function compile($src, $dest) {
     foreach ($matches as $match) {
         list($orig, $name, $cmd, $src) = $match;
         $src = trim($src, "\n\r");
+
+        if (strlen($name) > 0) {
+            if (in_array($name, $namesCache)) {
+                echo $name . " cmd name used twice !!";
+                exit(1);
+            }
+
+            $namesCache[] = $name;
+        }
 
         ob_start();
         $result = eval($pre_src . $src);
@@ -80,9 +91,9 @@ genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
 
-compile('index.o.html', 'index.html');
+compile('index.o.html', 'index.html', $namesCache);
 unlink('index.o.html');
 
 CarbonInterval::setLocale('en');
-compile('docs/index.o.html', 'docs/index.html');
+compile('docs/index.o.html', 'docs/index.html', $namesCache);
 unlink('docs/index.o.html');

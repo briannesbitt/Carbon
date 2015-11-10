@@ -137,15 +137,15 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 <p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
-{{format20::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format20_eval}}
+{{locale1::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale1_eval}}
 {{::lint(setlocale(LC_TIME, '');)}}
-{{format21::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{format21_eval}}
+{{locale2::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale2_eval}}
 </code></pre></p>
 
 <p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
 
 <p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
-{{format22::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{format22_eval}}
+{{locale3::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{locale3_eval}}
 
 {{::lint(Carbon::setLocale('en');)}}
 </code></pre></p>
