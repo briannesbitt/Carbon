@@ -24,6 +24,7 @@ $fixers = array(
     'return',
     'spaces_cast',
     'unalign_equals',
+    'unused_use',
     'whitespacy_lines',
 );
 
