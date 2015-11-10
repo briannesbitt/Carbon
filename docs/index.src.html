@@ -5,6 +5,8 @@
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
 
 <p><pre><code class="php">&lt;?php
+namespace Carbon;
+
 class Carbon extends \DateTime
 {
     // code here
@@ -12,6 +14,10 @@ class Carbon extends \DateTime
 </code></pre></p>
 
 <p>Carbon has all of the functions inherited from the base DateTime class.  This approach allows you to access the base functionality if you see anything missing in Carbon but is there in DateTime.</p>
+
+<p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace.  You need to import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+<p><pre><code class="php">use Carbon\Carbon;</code></pre></p>
 
 <blockquote>Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.</blockquote>
 

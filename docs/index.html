@@ -56,6 +56,8 @@
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
 
 <p><pre><code class="php">&lt;?php
+namespace Carbon;
+
 class Carbon extends \DateTime
 {
     // code here
@@ -63,6 +65,10 @@ class Carbon extends \DateTime
 </code></pre></p>
 
 <p>Carbon has all of the functions inherited from the base DateTime class.  This approach allows you to access the base functionality if you see anything missing in Carbon but is there in DateTime.</p>
+
+<p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace.  You need to import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+<p><pre><code class="php">use Carbon\Carbon;</code></pre></p>
 
 <blockquote>Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.</blockquote>
 
@@ -104,7 +110,7 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2015-11-10 14:18:35
+echo $now;                               // 2015-11-10 14:41:27
 $today = Carbon::today();
 echo $today;                             // 2015-11-10 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -218,7 +224,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2015-11-10 14:18:35
+echo Carbon::now();                                    // 2015-11-10 14:41:27
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -479,7 +485,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2015-11-10 14:18:35
+echo $dt1->max();                                  // 2015-11-10 14:41:28
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
