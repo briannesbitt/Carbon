@@ -33,6 +33,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property      int $timestamp seconds since the Unix Epoch
  * @property      \DateTimeZone $timezone the current timezone
  * @property      \DateTimeZone $tz alias of timezone
+ *
  * @property-read int $micro
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read int $dayOfYear 0 through 365
