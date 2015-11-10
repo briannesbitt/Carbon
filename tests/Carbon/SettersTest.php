@@ -155,9 +155,11 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(11, $d->timestamp);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testSetTimezoneWithInvalidTimezone()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $d = Carbon::now();
         $d->setTimezone('sdf');
     }
@@ -168,14 +170,15 @@ class SettersTest extends AbstractTestCase
 
         try {
             $d->timezone = 'sdf';
-            $this->fail('InvalidArgumentException was not been raised.');
+            $this->fail('InvalidArgumentException has not been raised.');
         } catch (InvalidArgumentException $expected) {
         }
 
         try {
             $d->timezone('sdf');
-            $this->fail('InvalidArgumentException was not been raised.');
+            $this->fail('InvalidArgumentException has not been raised.');
         } catch (InvalidArgumentException $expected) {
+            //
         }
     }
     public function testTzWithInvalidTimezone()
@@ -184,14 +187,16 @@ class SettersTest extends AbstractTestCase
 
         try {
             $d->tz = 'sdf';
-            $this->fail('InvalidArgumentException was not been raised.');
+            $this->fail('InvalidArgumentException has not been raised.');
         } catch (InvalidArgumentException $expected) {
+            //
         }
 
         try {
             $d->tz('sdf');
-            $this->fail('InvalidArgumentException was not been raised.');
+            $this->fail('InvalidArgumentException has not been raised.');
         } catch (InvalidArgumentException $expected) {
+            //
         }
     }
     public function testSetTimezoneUsingString()
@@ -248,9 +253,11 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     */
     public function testInvalidSetter()
     {
-        $this->setExpectedException('InvalidArgumentException');
         $d = Carbon::now();
         $d->doesNotExit = 'bb';
     }
