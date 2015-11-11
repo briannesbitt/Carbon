@@ -14,7 +14,7 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
-class Da extends AbstractTestCase
+class DaTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInDanish()
     {

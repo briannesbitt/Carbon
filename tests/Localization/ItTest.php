@@ -14,19 +14,19 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
-class Ko extends AbstractTestCase
+class ItTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInKorean()
+    public function testDiffForHumansLocalizedInItalian()
     {
-        Carbon::setLocale('ko');
+        Carbon::setLocale('it');
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->addYear();
-            $scope->assertSame('1 년 후', $d->diffForHumans());
+            $scope->assertSame('1 anno da adesso', $d->diffForHumans());
 
             $d = Carbon::now()->addYears(2);
-            $scope->assertSame('2 년 후', $d->diffForHumans());
+            $scope->assertSame('2 anni da adesso', $d->diffForHumans());
         });
     }
 }

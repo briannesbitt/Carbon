@@ -14,7 +14,7 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
-class Ja extends AbstractTestCase
+class JaTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInJapanese()
     {
