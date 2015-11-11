@@ -53,7 +53,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
 class Carbon extends DateTime
 {
     /**
-     * The day constants
+     * The day constants.
      */
     const SUNDAY = 0;
     const MONDAY = 1;
@@ -79,7 +79,9 @@ class Carbon extends DateTime
     );
 
     /**
-     * Terms used to detect if a time passed is a relative date for testing purposes
+     * Terms used to detect if a time passed is a relative date.
+     *
+     * This is here for testing purposes.
      *
      * @var array
      */
@@ -97,7 +99,7 @@ class Carbon extends DateTime
     );
 
     /**
-     * Number of X in Y
+     * Number of X in Y.
      */
     const YEARS_PER_CENTURY = 100;
     const YEARS_PER_DECADE = 10;
@@ -123,42 +125,42 @@ class Carbon extends DateTime
     protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
 
     /**
-     * First day of week
+     * First day of week.
      *
      * @var int
      */
     protected static $weekStartsAt = self::MONDAY;
 
     /**
-     * Last day of week
+     * Last day of week.
      *
      * @var int
      */
     protected static $weekEndsAt = self::SUNDAY;
 
     /**
-     * Days of weekend
+     * Days of weekend.
      *
      * @var array
      */
     protected static $weekendDays = array(self::SATURDAY, self::SUNDAY);
 
     /**
-     * A test Carbon instance to be returned when now instances are created
+     * A test Carbon instance to be returned when now instances are created.
      *
      * @var Carbon
      */
     protected static $testNow;
 
     /**
-     * A translator to ... er ... translate stuff
+     * A translator to ... er ... translate stuff.
      *
      * @var TranslatorInterface
      */
     protected static $translator;
 
     /**
-     * Creates a DateTimeZone from a string, a DateTimeZone or an integer offset
+     * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
      * @param DateTimeZone|string|int|null $object
      *
@@ -234,7 +236,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance from a DateTime one
+     * Create a Carbon instance from a DateTime one.
      *
      * @param DateTime $dt
      *
@@ -246,10 +248,11 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a carbon instance from a string.  This is an alias for the
-     * constructor that allows better fluent syntax as it allows you to do
-     * Carbon::parse('Monday next week')->fn() rather than
-     * (new Carbon('Monday next week'))->fn()
+     * Create a carbon instance from a string.
+     *
+     * This is an alias for the constructor that allows better fluent syntax
+     * as it allows you to do Carbon::parse('Monday next week')->fn() rather
+     * than (new Carbon('Monday next week'))->fn().
      *
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
@@ -262,7 +265,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Get a Carbon instance for the current date and time
+     * Get a Carbon instance for the current date and time.
      *
      * @param DateTimeZone|string|null $tz
      *
@@ -274,7 +277,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance for today
+     * Create a Carbon instance for today.
      *
      * @param DateTimeZone|string|null $tz
      *
@@ -286,7 +289,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance for tomorrow
+     * Create a Carbon instance for tomorrow.
      *
      * @param DateTimeZone|string|null $tz
      *
@@ -298,7 +301,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance for yesterday
+     * Create a Carbon instance for yesterday.
      *
      * @param DateTimeZone|string|null $tz
      *
@@ -312,7 +315,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for the greatest supported date.
      *
-     * @return Carbon
+     * @return static
      */
     public static function maxValue()
     {
@@ -328,7 +331,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for the lowest supported date.
      *
-     * @return Carbon
+     * @return static
      */
     public static function minValue()
     {
@@ -344,11 +347,12 @@ class Carbon extends DateTime
     /**
      * Create a new Carbon instance from a specific date and time.
      *
-     * If any of $year, $month or $day are set to null their now() values
-     * will be used.
+     * If any of $year, $month or $day are set to null their now() values will
+     * be used.
      *
-     * If $hour is null it will be set to its now() value and the default values
-     * for $minute and $second will be their now() values.
+     * If $hour is null it will be set to its now() value and the default
+     * values for $minute and $second will be their now() values.
+     *
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
@@ -411,7 +415,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance from a specific format
+     * Create a Carbon instance from a specific format.
      *
      * @param string                   $format
      * @param string                   $time
@@ -438,7 +442,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance from a timestamp
+     * Create a Carbon instance from a timestamp.
      *
      * @param int                      $timestamp
      * @param DateTimeZone|string|null $tz
@@ -451,7 +455,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create a Carbon instance from an UTC timestamp
+     * Create a Carbon instance from an UTC timestamp.
      *
      * @param int $timestamp
      *
@@ -463,7 +467,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Get a copy of the instance
+     * Get a copy of the instance.
      *
      * @return static
      */
