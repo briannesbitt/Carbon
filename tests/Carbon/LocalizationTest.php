@@ -68,6 +68,7 @@ class LocalizationTest extends AbstractTestCase
             array('pl'),
             array('pt'),
             array('pt_BR'),
+            array('pt-BR'),
             array('ro'),
             array('ru'),
             array('sk'),
@@ -92,7 +93,7 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testSetLocale($locale)
     {
-        Carbon::setLocale($locale);
+        $this->assertTrue(Carbon::setLocale($locale));
         $this->assertSame($locale, Carbon::getLocale());
     }
 
