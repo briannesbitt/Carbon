@@ -2296,7 +2296,7 @@ class Carbon extends DateTime
      */
     public function startOfMonth()
     {
-        return $this->startOfDay()->day(1);
+        return $this->setDateTime($this->year, $this->month, 1, 0, 0, 0);
     }
 
     /**
@@ -2306,7 +2306,7 @@ class Carbon extends DateTime
      */
     public function endOfMonth()
     {
-        return $this->day($this->daysInMonth)->endOfDay();
+        return $this->setDateTime($this->year, $this->month, $this->daysInMonth, 23, 59, 59);
     }
 
     /**
@@ -2316,7 +2316,7 @@ class Carbon extends DateTime
      */
     public function startOfYear()
     {
-        return $this->month(1)->startOfMonth();
+        return $this->setDateTime($this->year, 1, 1, 0, 0, 0);
     }
 
     /**
@@ -2326,7 +2326,7 @@ class Carbon extends DateTime
      */
     public function endOfYear()
     {
-        return $this->month(static::MONTHS_PER_YEAR)->endOfMonth();
+        return $this->setDateTime($this->year, 12, 31, 23, 59, 59);
     }
 
     /**
