@@ -1189,6 +1189,20 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance is equal to another
+     *
+     * @param Carbon $dt
+     *
+     * @see eq()
+     *
+     * @return bool
+     */
+    public function equalTo(Carbon $dt)
+    {
+        return $this->eq($dt);
+    }
+
+    /**
      * Determines if the instance is not equal to another
      *
      * @param Carbon $dt
@@ -1198,6 +1212,20 @@ class Carbon extends DateTime
     public function ne(Carbon $dt)
     {
         return !$this->eq($dt);
+    }
+
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param Carbon $dt
+     *
+     * @see ne()
+     *
+     * @return bool
+     */
+    public function notEqualTo(Carbon $dt)
+    {
+        return $this->ne($dt);
     }
 
     /**
@@ -1213,6 +1241,20 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param Carbon $dt
+     *
+     * @see gt()
+     *
+     * @return bool
+     */
+    public function greaterThan(Carbon $dt)
+    {
+        return $this->gt($dt);
+    }
+
+    /**
      * Determines if the instance is greater (after) than or equal to another
      *
      * @param Carbon $dt
@@ -1222,6 +1264,20 @@ class Carbon extends DateTime
     public function gte(Carbon $dt)
     {
         return $this >= $dt;
+    }
+
+    /**
+     * Determines if the instance is greater (after) than or equal to another
+     *
+     * @param Carbon $dt
+     *
+     * @see gte()
+     *
+     * @return bool
+     */
+    public function greaterThanOrEqualTo(Carbon $dt)
+    {
+        return $this->gte($dt);
     }
 
     /**
@@ -1237,6 +1293,20 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param Carbon $dt
+     *
+     * @see lt()
+     *
+     * @return bool
+     */
+    public function lessThan(Carbon $dt)
+    {
+        return $this->lt($dt);
+    }
+
+    /**
      * Determines if the instance is less (before) or equal to another
      *
      * @param Carbon $dt
@@ -1246,6 +1316,20 @@ class Carbon extends DateTime
     public function lte(Carbon $dt)
     {
         return $this <= $dt;
+    }
+
+    /**
+     * Determines if the instance is less (before) or equal to another
+     *
+     * @param Carbon $dt
+     *
+     * @see lte()
+     *
+     * @return bool
+     */
+    public function lessThanOrEqualTo(Carbon $dt)
+    {
+        return $this->lte($dt);
     }
 
     /**
@@ -1313,6 +1397,20 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get the minimum instance between a given instance (default now) and the current instance.
+     *
+     * @param Carbon|null $dt
+     *
+     * @see min()
+     *
+     * @return static
+     */
+    public function minimum(Carbon $dt = null)
+    {
+        return $this->min($dt);
+    }
+
+    /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
      * @param Carbon|null $dt
@@ -1324,6 +1422,20 @@ class Carbon extends DateTime
         $dt = $dt ?: static::now($this->tz);
 
         return $this->gt($dt) ? $this : $dt;
+    }
+
+    /**
+     * Get the maximum instance between a given instance (default now) and the current instance.
+     *
+     * @param Carbon|null $dt
+     *
+     * @see max()
+     *
+     * @return static
+     */
+    public function maximum(Carbon $dt = null)
+    {
+        return $this->max($dt);
     }
 
     /**
