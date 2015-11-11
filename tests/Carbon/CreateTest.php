@@ -157,4 +157,18 @@ class CreateTest extends AbstractTestCase
         $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateWithInvalidTimezoneOffset()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1, -28236);
+    }
+
+    public function testCreateWithValidTimezoneOffset()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1, -4);
+        $this->assertSame('America/New_York', $dt->tzName);
+    }
 }
