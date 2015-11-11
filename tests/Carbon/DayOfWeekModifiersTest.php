@@ -16,6 +16,25 @@ use Tests\AbstractTestCase;
 
 class DayOfWeekModifiersTest extends AbstractTestCase
 {
+    public function testGetWeekendDays()
+    {
+        $this->assertSame(array(Carbon::SATURDAY, Carbon::SUNDAY), Carbon::getWeekendDays());
+    }
+
+    public function testGetWeekEndsAt()
+    {
+        Carbon::setWeekEndsAt(Carbon::SATURDAY);
+        $this->assertSame(Carbon::SATURDAY, Carbon::getWeekEndsAt());
+        Carbon::setWeekEndsAt(Carbon::SUNDAY);
+    }
+
+    public function testGetWeekStartsAt()
+    {
+        Carbon::setWeekStartsAt(Carbon::TUESDAY);
+        $this->assertSame(Carbon::TUESDAY, Carbon::getWeekStartsAt());
+        Carbon::setWeekStartsAt(Carbon::MONDAY);
+    }
+
     public function testStartOfWeek()
     {
         $d = Carbon::create(1980, 8, 7, 12, 11, 9)->startOfWeek();

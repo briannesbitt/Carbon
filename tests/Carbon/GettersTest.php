@@ -301,23 +301,4 @@ class GettersTest extends AbstractTestCase
         $d = Carbon::now();
         $bb = $d->doesNotExit;
     }
-
-    public function testGetWeekendDays()
-    {
-        $this->assertSame(array(Carbon::SATURDAY, Carbon::SUNDAY), Carbon::now()->getWeekendDays());
-    }
-
-    public function testGetWeekEndsAt()
-    {
-        $dt = Carbon::now();
-        $dt->setWeekEndsAt(Carbon::SATURDAY);
-        $this->assertSame(Carbon::SATURDAY, $dt->getWeekEndsAt());
-    }
-
-    public function testGetWeekStartsAt()
-    {
-        $dt = Carbon::now();
-        $dt->setWeekStartsAt(Carbon::TUESDAY);
-        $this->assertSame(Carbon::TUESDAY, $dt->getWeekStartsAt());
-    }
 }
