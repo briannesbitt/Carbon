@@ -38,9 +38,10 @@ Also <code>is</code> comparisons are done in the timezone of the provided Carbon
 <p><pre><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{ctorType::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{ctorType_eval}}'
+{{::lint($carbon = Carbon::now(-5);)}}
 </code></pre></p>
 
-<p>You'll notice above that the timezone (2nd) parameter was passed as a string rather than a <code>\DateTimeZone</code> instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance or a string and the timezone will be created for you.  This is again shown in the next example which also introduces the <code>now()</code> function.</p>
+<p>You'll notice above that the timezone (2nd) parameter was passed as a string and an integer rather than a <code>\DateTimeZone</code> instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance, string or integer offset to GMT and the timezone will be created for you.  This is again shown in the next example which also introduces the <code>now()</code> function.</p>
 
 <p><pre><code class="php">{{::lint(
 $now = Carbon::now();
@@ -49,7 +50,10 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 
 // or just pass the timezone as a string
 $nowInLondonTz = Carbon::now('Europe/London');
+
+// or to create a date with a timezone of +1 to GMT during DST then just pass an integer
 )}}
+{{londonTz::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{londonTz_eval}}
 </code></pre></p>
 
 <p>If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets necessary when using the constructor you'll enjoy the <code>parse</code> method.</p>
