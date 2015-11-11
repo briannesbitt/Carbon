@@ -160,7 +160,7 @@ class Carbon extends DateTime
     /**
      * Creates a DateTimeZone from a string, a DateTimeZone or an integer offset
      *
-     * @param DateTimeZone|string|integer|null $object
+     * @param DateTimeZone|string|int|null $object
      *
      * @throws InvalidArgumentException
      *
