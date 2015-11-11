@@ -158,9 +158,9 @@ class Carbon extends DateTime
     protected static $translator;
 
     /**
-     * Creates a DateTimeZone from a string or a DateTimeZone
+     * Creates a DateTimeZone from a string, a DateTimeZone or an integer offset
      *
-     * @param DateTimeZone|string|null $object
+     * @param DateTimeZone|string|integer|null $object
      *
      * @throws InvalidArgumentException
      *
@@ -175,6 +175,17 @@ class Carbon extends DateTime
 
         if ($object instanceof DateTimeZone) {
             return $object;
+        }
+
+        if (is_numeric($object)) {
+            $timezone_offset = $object * 3600;
+            $tzName = timezone_name_from_abbr(null, $timezone_offset, true);
+
+            if ($tzName === false) {
+                throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+            }
+
+            $object = $tzName;
         }
 
         $tz = @timezone_open((string) $object);
