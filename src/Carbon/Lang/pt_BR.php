@@ -12,6 +12,5 @@
  * for possible formats.
  *
  * @deprecated use pt-BR instead.
- *
  */
 return include 'pt-BR.php';
