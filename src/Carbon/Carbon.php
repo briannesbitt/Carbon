@@ -949,16 +949,24 @@ class Carbon extends DateTime
     }
 
     /**
-     * Set the current translator locale
+     * Set the current translator locale and indicate if the source locale file exists
      *
      * @param string $locale
+     *
+     * @return bool
      */
     public static function setLocale($locale)
     {
+        if (!file_exists(__DIR__.'/Lang/'.$locale.'.php')) {
+            return false;
+        }
+
         static::translator()->setLocale($locale);
 
         // Ensure the locale has been loaded.
         static::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
+
+        return true;
     }
 
     ///////////////////////////////////////////////////////////////////

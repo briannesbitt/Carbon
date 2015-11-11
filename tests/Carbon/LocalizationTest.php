@@ -111,4 +111,14 @@ class LocalizationTest extends AbstractTestCase
         $this->assertNotNull($t);
         $this->assertSame($locale, $t->getLocale());
     }
+
+    public function testSetLocaleWithKnownLocale()
+    {
+        $this->assertTrue(Carbon::setLocale('fr'));
+    }
+
+    public function testSetLocaleWithUnknownLocale()
+    {
+        $this->assertFalse(Carbon::setLocale('zz'));
+    }
 }
