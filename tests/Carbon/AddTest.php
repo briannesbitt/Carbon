@@ -104,7 +104,14 @@ class AddTest extends AbstractTestCase
 
     public function testAddWeekdaysPositive()
     {
-        $this->assertSame(17, Carbon::createFromDate(2012, 1, 4)->addWeekdays(9)->day);
+        $dt = Carbon::create(2012, 1, 4, 13, 2, 1)->addWeekdays(9);
+
+        $this->assertSame(17, $dt->day);
+
+        // test for https://bugs.php.net/bug.php?id=54909
+        $this->assertSame(13, $dt->hour);
+        $this->assertSame(2, $dt->minute);
+        $this->assertSame(1, $dt->second);
     }
 
     public function testAddWeekdaysZero()

@@ -1727,7 +1727,11 @@ class Carbon extends DateTime
      */
     public function addWeekdays($value)
     {
-        return $this->modify((int) $value.' weekday');
+        // fix for https://bugs.php.net/bug.php?id=54909
+        $t = $this->toTimeString();
+        $this->modify((int) $value.' weekday');
+
+        return $this->setTimeFromTimeString($t);
     }
 
     /**
