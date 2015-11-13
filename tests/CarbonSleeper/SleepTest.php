@@ -62,8 +62,7 @@ class SleepTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
-     * @expectedMessage Number of seconds must be greater than or equal to 0
+     * @expectedException \InvalidArgumentException
      */
     public function testNegativeSleep()
     {
