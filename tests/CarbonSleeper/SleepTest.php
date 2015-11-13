@@ -62,7 +62,7 @@ class SleepTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error_Warning
+     * @expectedException InvalidArgumentException
      * @expectedMessage Number of seconds must be greater than or equal to 0
      */
     public function testNegativeSleep()
@@ -70,16 +70,6 @@ class SleepTest extends AbstractTestCase
         $this->wrapWithTestNow(
             function () {
                 CarbonSleeper::sleep(-1);
-            }
-        );
-    }
-
-    public function testNegativeSleepReturnValue()
-    {
-        $self = $this;
-        $this->wrapWithTestNow(
-            function () use ($self) {
-                $self->assertFalse(@CarbonSleeper::sleep(-1), 'Wrong error return value from sleep');
             }
         );
     }

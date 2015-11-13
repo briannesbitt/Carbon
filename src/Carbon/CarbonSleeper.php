@@ -11,6 +11,8 @@
 
 namespace Carbon;
 
+use InvalidArgumentException;
+
 /**
  * A shim between system sleep and Carbon
  */
@@ -23,17 +25,19 @@ class CarbonSleeper
      *
      * @param int $seconds Halt time in seconds
      *
+     * @throws InvalidArgumentException
+     *
      * @return int
      */
     public static function sleep($seconds)
     {
         if (Carbon::hasTestNow()) {
-            $seconds = intval($seconds);
+            $seconds = (int)$seconds;
 
-            if (0 > $seconds) {
-                trigger_error('sleep(): Number of seconds must be greater than or equal to 0', \E_USER_WARNING);
-
-                return false;
+            if ($seconds < 0) {
+                throw new InvalidArgumentException(
+                    'sleep(): Number of seconds must be greater than or equal to 0'
+                );
             }
 
             Carbon::setTestNow(Carbon::getTestNow()->modify("+{$seconds} seconds"));
