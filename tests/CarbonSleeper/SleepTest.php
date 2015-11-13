@@ -34,8 +34,7 @@ class SleepTest extends AbstractTestCase
 
                 $self->assertLessThanOrEqual(
                     1, // Allow up to 1 second in case of timing issue between calls
-                    $after - $before,
-                    'Carbon sleep called system sleep in test condition'
+                    $after - $before
                 );
             }
         );
@@ -52,11 +51,7 @@ class SleepTest extends AbstractTestCase
 
                 $after = Carbon::now()->getTimestamp();
 
-                $self->assertEquals(
-                    5,
-                    $after - $before,
-                    'Carbon sleep called system sleep in test condition'
-                );
+                $self->assertEquals(5, $after - $before);
             }
         );
     }
@@ -83,6 +78,6 @@ class SleepTest extends AbstractTestCase
 
         $after = time();
 
-        $this->assertNotEquals($after, $before, 'Sleep did not delay execution');
+        $this->assertNotEquals($after, $before);
     }
 }
