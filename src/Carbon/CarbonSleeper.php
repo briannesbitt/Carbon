@@ -23,6 +23,9 @@ class CarbonSleeper
      *
      * When Carbon's testing time is set, it will fake sleeping
      *
+     * Like PHP's sleep function, this will accept zero without error. Unlike
+     * PHP's sleep function, negative sleep will throw an exception.
+     *
      * @param int $seconds Halt time in seconds
      *
      * @throws InvalidArgumentException
@@ -32,7 +35,7 @@ class CarbonSleeper
     public static function sleep($seconds)
     {
         if (Carbon::hasTestNow()) {
-            $seconds = (int)$seconds;
+            $seconds = (int) $seconds;
 
             if ($seconds < 0) {
                 throw new InvalidArgumentException(
