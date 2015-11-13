@@ -2639,5 +2639,4 @@ class Carbon extends DateTime
 
         return $this->format('md') === $dt->format('md');
     }
-
 }

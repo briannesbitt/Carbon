@@ -74,6 +74,16 @@ class SleepTest extends AbstractTestCase
         );
     }
 
+    public function testNegativeSleepReturnValue()
+    {
+        $self = $this;
+        $this->wrapWithTestNow(
+            function () use ($self) {
+                $self->assertFalse(@CarbonSleeper::sleep(-1), 'Wrong error return value from sleep');
+            }
+        );
+    }
+
     public function testRealSleep()
     {
         Carbon::setTestNow();
