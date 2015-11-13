@@ -17,47 +17,47 @@ use Tests\AbstractTestCase;
 
 class SleepTest extends AbstractTestCase
 {
-    protected function tearDown()
-    {
-        Carbon::setTestNow();
-        parent::tearDown();
-    }
-
     public function testFakeSleepDelay()
     {
-        Carbon::setTestNow(Carbon::now());
+        $self = $this;
+        $this->wrapWithTestNow(
+            function () use ($self) {
+                $before = time();
 
-        $before = time();
+                $carbonBefore = Carbon::now();
 
-        $carbonBefore = Carbon::now();
+                CarbonSleeper::sleep(5);
 
-        CarbonSleeper::sleep(5);
+                $after = time();
 
-        $after = time();
+                $carbonAfter = Carbon::now();
 
-        $carbonAfter = Carbon::now();
-
-        $this->assertLessThanOrEqual(
-            1, // Allow up to 1 second in case of timing issue between calls
-            $after - $before,
-            'Carbon sleep called system sleep in test condition'
+                $self->assertLessThanOrEqual(
+                    1, // Allow up to 1 second in case of timing issue between calls
+                    $after - $before,
+                    'Carbon sleep called system sleep in test condition'
+                );
+            }
         );
     }
 
     public function testFakeSleepMoveTestTime()
     {
-        Carbon::setTestNow(Carbon::now());
+        $self = $this;
+        $this->wrapWithTestNow(
+            function () use ($self) {
+                $before = Carbon::now()->getTimestamp();
 
-        $before = Carbon::now()->getTimestamp();
+                CarbonSleeper::sleep(5);
 
-        CarbonSleeper::sleep(5);
+                $after = Carbon::now()->getTimestamp();
 
-        $after = Carbon::now()->getTimestamp();
-
-        $this->assertEquals(
-            5,
-            $after - $before,
-            'Carbon sleep called system sleep in test condition'
+                $self->assertEquals(
+                    5,
+                    $after - $before,
+                    'Carbon sleep called system sleep in test condition'
+                );
+            }
         );
     }
 
@@ -67,13 +67,17 @@ class SleepTest extends AbstractTestCase
      */
     public function testNegativeSleep()
     {
-        Carbon::setTestNow(Carbon::now());
-
-        CarbonSleeper::sleep(-1);
+        $this->wrapWithTestNow(
+            function () {
+                CarbonSleeper::sleep(-1);
+            }
+        );
     }
 
     public function testRealSleep()
     {
+        Carbon::setTestNow();
+
         $before = time();
 
         CarbonSleeper::sleep(1);
