@@ -2660,6 +2660,7 @@ class Carbon extends DateTime
 
             if (0 > $seconds) {
                 trigger_error('sleep(): Number of seconds must be greater than or equal to 0', \E_USER_WARNING);
+
                 return false;
             }
 

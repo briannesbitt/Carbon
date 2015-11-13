@@ -57,4 +57,17 @@ class SleepTest extends AbstractTestCase
             }
         );
     }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error_Warning
+     * @expectedMessage Number of seconds must be greater than or equal to 0
+     */
+    public function testNegativeSleep()
+    {
+        $this->wrapWithTestNow(
+            function () {
+                Carbon::sleep(-1);
+            }
+        );
+    }
 }
