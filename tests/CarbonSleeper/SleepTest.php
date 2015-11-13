@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Carbon;
+namespace Tests\CarbonSleeper;
 
 /*
  * This file is part of the Carbon package.
