@@ -12,25 +12,27 @@ namespace Tests\Carbon;
  */
 
 use Carbon\Carbon;
+use Carbon\CarbonSleeper;
 use Tests\AbstractTestCase;
 
 class SleepTest extends AbstractTestCase
 {
     public function testFakeSleepDelay()
     {
+        $self = $this;
         $this->wrapWithTestNow(
-            function () {
+            function () use ($self) {
                 $before = time();
 
                 $carbonBefore = Carbon::now();
 
-                Carbon::sleep(5);
+                CarbonSleeper::sleep(5);
 
                 $after = time();
 
                 $carbonAfter = Carbon::now();
 
-                $this->assertLessThanOrEqual(
+                $self->assertLessThanOrEqual(
                     1, // Allow up to 1 second in case of timing issue between calls
                     $after - $before,
                     'Carbon sleep called system sleep in test condition'
@@ -41,15 +43,16 @@ class SleepTest extends AbstractTestCase
 
     public function testFakeSleepMoveTestTime()
     {
+        $self = $this;
         $this->wrapWithTestNow(
-            function () {
+            function () use ($self) {
                 $before = Carbon::now()->getTimestamp();
 
-                Carbon::sleep(5);
+                CarbonSleeper::sleep(5);
 
                 $after = Carbon::now()->getTimestamp();
 
-                $this->assertEquals(
+                $self->assertEquals(
                     5,
                     $after - $before,
                     'Carbon sleep called system sleep in test condition'
@@ -66,8 +69,21 @@ class SleepTest extends AbstractTestCase
     {
         $this->wrapWithTestNow(
             function () {
-                Carbon::sleep(-1);
+                CarbonSleeper::sleep(-1);
             }
         );
+    }
+
+    public function testRealSleep()
+    {
+        Carbon::setTestNow();
+
+        $before = time();
+
+        CarbonSleeper::sleep(1);
+
+        $after = time();
+
+        $this->assertNotEquals($after, $before, 'Sleep did not delay execution');
     }
 }

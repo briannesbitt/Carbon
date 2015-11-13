@@ -2640,35 +2640,4 @@ class Carbon extends DateTime
         return $this->format('md') === $dt->format('md');
     }
 
-    ///////////////////////////////////////////////////////////////////
-    //////////////////////////// SLEEPERS /////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Delay execution
-     *
-     * When testing time is set, it will fake sleeping
-     *
-     * @param int $seconds Halt time in seconds
-     *
-     * @return int
-     */
-    public static function sleep($seconds)
-    {
-        if (static::hasTestNow()) {
-            $seconds = intval($seconds);
-
-            if (0 > $seconds) {
-                trigger_error('sleep(): Number of seconds must be greater than or equal to 0', \E_USER_WARNING);
-
-                return false;
-            }
-
-            static::$testNow->modify("+{$seconds} seconds");
-
-            return 0;
-        }
-
-        return sleep($seconds);
-    }
 }
