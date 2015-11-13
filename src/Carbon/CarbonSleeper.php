@@ -34,15 +34,15 @@ class CarbonSleeper
      */
     public static function sleep($seconds)
     {
+        $seconds = (int) $seconds;
+
+        if ($seconds < 0) {
+            throw new InvalidArgumentException(
+                'sleep(): Number of seconds must be greater than or equal to 0'
+            );
+        }
+
         if (Carbon::hasTestNow()) {
-            $seconds = (int) $seconds;
-
-            if ($seconds < 0) {
-                throw new InvalidArgumentException(
-                    'sleep(): Number of seconds must be greater than or equal to 0'
-                );
-            }
-
             Carbon::setTestNow(Carbon::getTestNow()->modify("+{$seconds} seconds"));
 
             return 0;
