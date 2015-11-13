@@ -21,4 +21,8 @@
          <directory>tests</directory>
       </testsuite>
    </testsuites>
+
+   <listeners>
+      <listener class="Tests\ClearCarbonListener" />
+   </listeners>
 </phpunit>
