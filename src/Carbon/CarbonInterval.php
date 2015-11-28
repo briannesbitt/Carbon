@@ -548,7 +548,7 @@ class CarbonInterval extends DateInterval
         if (count($time) > 0) {
             $specString .= static::PERIOD_TIME_PREFIX;
             foreach ($time as $key => $value) {
-            $specString .= $value . $key;
+                $specString .= $value . $key;
             }
         }
 
