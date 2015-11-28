@@ -552,6 +552,6 @@ class CarbonInterval extends DateInterval
 	    }
 	}
 
-	return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString ;
+	return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
     }
 }
