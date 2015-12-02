@@ -12,7 +12,7 @@
  * for possible formats.
  */
 return array(
-    'year'      => '1 jaar|:count jaren',
+    'year'      => ':count jaar',
     'month'     => '1 maand|:count maanden',
     'week'      => '1 week|:count weken',
     'day'       => '1 dag|:count dagen',
