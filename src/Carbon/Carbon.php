@@ -932,9 +932,6 @@ class Carbon extends DateTime
             } else {
                 static::setLocale('en');
             }
-
-
-
         }
 
         return static::$translator;
@@ -950,10 +947,12 @@ class Carbon extends DateTime
      *
      * @return bool|string
      */
-    protected function getDefaultLocale() {
+    protected function getDefaultLocale()
+    {
         $defaultLocale = setlocale(LC_TIME, "0");
         if (strlen($defaultLocale) && $defaultLocale !== 'C') {
-            $defaultLocale = substr($defaultLocale,0,2);
+            $defaultLocale = substr($defaultLocale, 0, 2);
+
             return $defaultLocale;
         }
 
