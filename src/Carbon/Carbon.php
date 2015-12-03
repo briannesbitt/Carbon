@@ -13,8 +13,10 @@ namespace Carbon;
 
 use Closure;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use DatePeriod;
+use Exception;
 use InvalidArgumentException;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -196,6 +198,18 @@ class Carbon extends DateTime
         }
 
         return $tz;
+    }
+
+    /**
+     * Determines if code is being executed by HHVM
+     *
+     * @return bool
+     *
+     * @codeCoverageIgnore
+     */
+    public static function isHhvm()
+    {
+        return defined('HHVM_VERSION');
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -772,11 +786,23 @@ class Carbon extends DateTime
      *
      * @param DateTimeZone|string $value
      *
+     * @throws Exception
+     *
      * @return static
      */
     public function setTimezone($value)
     {
-        return parent::setTimezone(static::safeCreateDateTimeZone($value));
+        try {
+            return parent::setTimezone(static::safeCreateDateTimeZone($value));
+        } catch (Exception $e) {
+            // @codeCoverageIgnoreStart
+            $message = $e->getMessage();
+            if (self::isHhvm() && 0 === strpos($message, 'DateTimeZone::__construct()')) {
+                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
+            }
+            throw $e;
+            // @codeCoverageIgnoreEnd
+        }
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -2058,6 +2084,10 @@ class Carbon extends DateTime
     /**
      * Get the difference by the given interval using a filter closure
      *
+     * DateTimeImmutable used as a workaround for HHVM bug
+     *
+     * @see https://github.com/facebook/hhvm/issues/3947
+     *
      * @param CarbonInterval $ci       An interval to traverse by
      * @param Closure        $callback
      * @param Carbon|null    $dt
@@ -2071,6 +2101,13 @@ class Carbon extends DateTime
         $end = $dt ?: static::now($this->tz);
         $inverse = false;
 
+        // @codeCoverageIgnoreStart
+        if (self::isHhvm()) {
+            $start = new DateTimeImmutable($this->toIso8601String());
+            $end = new DateTimeImmutable($end->toIso8601String());
+        }
+        // @codeCoverageIgnoreEnd
+
         if ($end < $start) {
             $start = $end;
             $end = $this;
@@ -2078,8 +2115,11 @@ class Carbon extends DateTime
         }
 
         $period = new DatePeriod($start, $ci, $end);
-        $vals = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
-            return call_user_func($callback, Carbon::instance($date));
+        $vals = array_filter(iterator_to_array($period), function ($date) use ($callback) {
+            /* @var  $date DateTime */
+            $ci = new Carbon($date->format(DateTime::ISO8601));
+
+            return call_user_func($callback, $ci);
         });
 
         $diff = count($vals);
@@ -2259,7 +2299,8 @@ class Carbon extends DateTime
             return $time;
         }
 
-        $isFuture = $diffInterval->invert === 1;
+        //HHVM 3.6 workaround, allow true
+        $isFuture = $diffInterval->invert === 1 || $diffInterval->invert === true;
 
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
