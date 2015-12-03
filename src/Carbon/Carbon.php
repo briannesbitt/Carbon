@@ -926,10 +926,38 @@ class Carbon extends DateTime
         if (static::$translator === null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
-            static::setLocale('en');
+
+            if ($locale = self::getDefaultLocale()) {
+                static::setLocale($locale);
+            } else {
+                static::setLocale('en');
+            }
+
+
+
         }
 
         return static::$translator;
+    }
+
+    /**
+     * Gets the locale set in the php configs, converts it to the two letter format.
+     * Returns false if a locale could not be determined.
+     *
+     * Example:
+     * 'en_GB.utf8' to 'en'
+     * 'it_IT.utf8' to 'it'
+     *
+     * @return bool|string
+     */
+    protected function getDefaultLocale() {
+        $defaultLocale = setlocale(LC_TIME, "0");
+        if (strlen($defaultLocale) && $defaultLocale !== 'C') {
+            $defaultLocale = substr($defaultLocale,0,2);
+            return $defaultLocale;
+        }
+
+        return false;
     }
 
     /**
