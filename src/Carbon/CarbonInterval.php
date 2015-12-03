@@ -251,7 +251,13 @@ class CarbonInterval extends DateInterval
         if (static::$translator === null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
-            static::setLocale('en');
+
+            $locale = Carbon::getDefaultLocale();
+            if ($locale) {
+                static::setLocale($locale);
+            } else {
+                static::setLocale('en');
+            }
         }
 
         return static::$translator;

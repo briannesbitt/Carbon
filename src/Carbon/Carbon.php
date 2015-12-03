@@ -948,7 +948,7 @@ class Carbon extends DateTime
      *
      * @return bool|string
      */
-    protected static function getDefaultLocale()
+    public static function getDefaultLocale()
     {
         $defaultLocale = setlocale(LC_TIME, "0");
         if (strlen($defaultLocale) && $defaultLocale !== 'C') {
