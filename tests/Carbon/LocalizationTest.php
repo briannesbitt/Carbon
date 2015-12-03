@@ -113,6 +113,16 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame($locale, $t->getLocale());
     }
 
+    public function testGetLocaleFromPHPConfig() {
+        setLocale(LC_TIME, 'en_GB.utf8');
+        $this->assertSame('en', Carbon::getDefaultLocale());
+    }
+
+    public function testGetLocaleReturnsFalseWhenNotSet() {
+        setLocale(LC_TIME, 'C');
+        $this->assertFalse(Carbon::getDefaultLocale());
+    }
+
     public function testSetLocaleWithKnownLocale()
     {
         $this->assertTrue(Carbon::setLocale('fr'));
