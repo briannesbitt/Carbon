@@ -20,7 +20,7 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 11);
-        $this->assertTrue($d instanceof Carbon);
+        $this->assertInstanceOfCarbon($d);
     }
 
     public function testCreateFromFormatWithTimezoneString()
