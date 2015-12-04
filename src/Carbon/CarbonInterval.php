@@ -533,7 +533,7 @@ class CarbonInterval extends DateInterval
      */
     public function add(DateInterval $interval)
     {
-        $sign = $interval->invert === 1 ? -1 : 1;
+        $sign = ($interval->invert === 1 || $interval->invert === true) ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
             $this->dayz = $this->dayz + $interval->days * $sign;
