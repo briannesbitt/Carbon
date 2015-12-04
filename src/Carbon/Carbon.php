@@ -191,7 +191,13 @@ class Carbon extends DateTime
             $object = $tzName;
         }
 
-        $tz = @timezone_open((string) $object);
+        try {
+            $tz = @timezone_open((string) $object);
+        } catch (Exception $e) {
+            // HHVM throws an exception while PHP returns false.
+            // @see https://github.com/facebook/hhvm/issues/6632
+            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')', $e->getCode(), $e);
+        }
 
         if ($tz === false) {
             throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
@@ -208,6 +214,44 @@ class Carbon extends DateTime
     public static function isHhvm()
     {
         return defined('HHVM_VERSION');
+    }
+
+    /**
+     * Workaround for HHVM bug in handling "this month"
+     *
+     * @param $parse
+     * @param Carbon|null $ci
+     * @return mixed
+     *
+     * @see https://github.com/facebook/hhvm/pull/5240
+     */
+    protected static function hhvmParse($parse, Carbon $ci = null) {
+        if (!is_string($parse)) {
+            return $parse;
+        } else if (strpos($parse, 'this month') === false) {
+            return $parse;
+        }
+
+        if ($ci === null) {
+            $ci = static::now();
+        }
+
+        $thisMonth = $ci->format('F Y');
+
+        return str_replace('this month', $thisMonth, $parse);
+    }
+
+    /**
+     * @param string $modify
+     * @return Carbon
+     */
+    public function modify($modify) {
+        if (static::isHhvm()) {
+            // Workaround for HHVM bugs in string parsing
+            $modify = static::hhvmParse($modify);
+        }
+
+        return parent::modify($modify);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -241,6 +285,10 @@ class Carbon extends DateTime
             }
 
             $time = $testInstance->toDateTimeString();
+        }
+
+        if (static::isHhvm()) {
+            $time = static::hhvmParse($time);
         }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
@@ -790,17 +838,7 @@ class Carbon extends DateTime
      */
     public function setTimezone($value)
     {
-        try {
-            return parent::setTimezone(static::safeCreateDateTimeZone($value));
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-            if (static::isHhvm() && strpos($message, 'DateTimeZone::__construct()') === 0) {
-                //HHVM throws the wrong exception type.
-                //Catching and throwing InvalidArgumentException for consistency.
-                throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
-            }
-            throw $e;
-        }
+        return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -2100,7 +2138,7 @@ class Carbon extends DateTime
         $inverse = false;
 
         if (static::isHhvm()) {
-            //Workaround for bug in HHVM DatePeriod.
+            // Workaround for bug in HHVM DatePeriod.
             $start = new DateTimeImmutable($this->toIso8601String());
             $end = new DateTimeImmutable($end->toIso8601String());
         }
@@ -2298,7 +2336,7 @@ class Carbon extends DateTime
             return $time;
         }
 
-        //HHVM 3.6 workaround, allow true
+        // HHVM 3.6 workaround, allow true
         $isFuture = $diffInterval->invert === 1 || $diffInterval->invert === true;
 
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');

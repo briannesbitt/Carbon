@@ -345,7 +345,7 @@ class CarbonInterval extends DateInterval
             // @see https://github.com/facebook/hhvm/issues/2952
             case 'invert':
                 if (Carbon::isHhvm()) {
-                    //3.6 returns bool rather than documented int
+                    // HHVM 3.6 returns bool rather than documented int
                     return (int) parent::__get($name);
                 }
             case 'days':
