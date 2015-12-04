@@ -341,9 +341,8 @@ class CarbonInterval extends DateInterval
             case 'dayzExcludeWeeks':
                 return $this->d % Carbon::DAYS_PER_WEEK;
 
-            // Workaround for HHVM bug
+            // Workaround for HHVM bug.
             // @see https://github.com/facebook/hhvm/issues/2952
-            // @codeCoverageIgnoreStart
             case 'invert':
                 if (Carbon::isHhvm()) {
                     //3.6 returns bool rather than documented int
@@ -359,7 +358,6 @@ class CarbonInterval extends DateInterval
                 if (Carbon::isHhvm()) {
                     return parent::__get($name);
                 }
-            // @codeCoverageIgnoreEnd
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
@@ -406,13 +404,11 @@ class CarbonInterval extends DateInterval
                 break;
 
             default:
-                 // Workaround for HHVM bug
+                 // Workaround for HHVM bug.
                  // @see https://github.com/facebook/hhvm/issues/2952
-                 // @codeCoverageIgnoreStart
                 if (Carbon::isHhvm()) {
                     parent::__set($name, $val);
                 }
-                // @codeCoverageIgnoreEnd
         }
     }
 

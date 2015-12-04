@@ -204,8 +204,6 @@ class Carbon extends DateTime
      * Determines if code is being executed by HHVM
      *
      * @return bool
-     *
-     * @codeCoverageIgnore
      */
     public static function isHhvm()
     {
@@ -795,13 +793,13 @@ class Carbon extends DateTime
         try {
             return parent::setTimezone(static::safeCreateDateTimeZone($value));
         } catch (Exception $e) {
-            // @codeCoverageIgnoreStart
             $message = $e->getMessage();
-            if (self::isHhvm() && 0 === strpos($message, 'DateTimeZone::__construct()')) {
+            if (static::isHhvm() && strpos($message, 'DateTimeZone::__construct()') === 0) {
+                //HHVM throws the wrong exception type.
+                //Catching and throwing InvalidArgumentException for consistency.
                 throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
             }
             throw $e;
-            // @codeCoverageIgnoreEnd
         }
     }
 
@@ -2084,7 +2082,7 @@ class Carbon extends DateTime
     /**
      * Get the difference by the given interval using a filter closure
      *
-     * DateTimeImmutable used as a workaround for HHVM bug
+     * DateTimeImmutable used as a workaround for HHVM bug.
      *
      * @see https://github.com/facebook/hhvm/issues/3947
      *
@@ -2101,12 +2099,11 @@ class Carbon extends DateTime
         $end = $dt ?: static::now($this->tz);
         $inverse = false;
 
-        // @codeCoverageIgnoreStart
-        if (self::isHhvm()) {
+        if (static::isHhvm()) {
+            //Workaround for bug in HHVM DatePeriod.
             $start = new DateTimeImmutable($this->toIso8601String());
             $end = new DateTimeImmutable($end->toIso8601String());
         }
-        // @codeCoverageIgnoreEnd
 
         if ($end < $start) {
             $start = $end;
@@ -2116,6 +2113,8 @@ class Carbon extends DateTime
 
         $period = new DatePeriod($start, $ci, $end);
         $vals = array_filter(iterator_to_array($period), function ($date) use ($callback) {
+            //Not type hinting to allow DateTimeImmutable.
+            //Can not hint DateTimeInterface for compatibility with earlier versions of PHP.
             /* @var  $date DateTime */
             $ci = new Carbon($date->format(DateTime::ISO8601));
 
