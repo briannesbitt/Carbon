@@ -141,7 +141,8 @@ class SettersTest extends AbstractTestCase
     /**
      * @link https://github.com/briannesbitt/Carbon/issues/539
      */
-    public function testSetDateAfterStringCreation(){
+    public function testSetDateAfterStringCreation()
+    {
         $d = new Carbon('first day of this month');
         $this->assertEquals(1, $d->day);
         $d->setDate($d->year, $d->month, 12);

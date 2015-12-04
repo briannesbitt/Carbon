@@ -701,13 +701,14 @@ class Carbon extends DateTime
      * @param int $year
      * @param int $month
      * @param int $day
+     *
      * @return Carbon
      *
      * @see https://github.com/briannesbitt/Carbon/issues/539
      * @see https://bugs.php.net/bug.php?id=63863
-     *
      */
-    public function setDate ($year, $month, $day) {
+    public function setDate($year, $month, $day)
+    {
         $this->modify('+0 day');
 
         return parent::setDate($year, $month, $day);
