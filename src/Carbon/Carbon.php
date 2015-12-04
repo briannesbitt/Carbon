@@ -216,44 +216,6 @@ class Carbon extends DateTime
         return defined('HHVM_VERSION');
     }
 
-    /**
-     * Workaround for HHVM bug in handling "this month"
-     *
-     * @param $parse
-     * @param Carbon|null $ci
-     * @return mixed
-     *
-     * @see https://github.com/facebook/hhvm/pull/5240
-     */
-    protected static function hhvmParse($parse, Carbon $ci = null) {
-        if (!is_string($parse)) {
-            return $parse;
-        } else if (strpos($parse, 'this month') === false) {
-            return $parse;
-        }
-
-        if ($ci === null) {
-            $ci = static::now();
-        }
-
-        $thisMonth = $ci->format('F Y');
-
-        return str_replace('this month', $thisMonth, $parse);
-    }
-
-    /**
-     * @param string $modify
-     * @return Carbon
-     */
-    public function modify($modify) {
-        if (static::isHhvm()) {
-            // Workaround for HHVM bugs in string parsing
-            $modify = static::hhvmParse($modify);
-        }
-
-        return parent::modify($modify);
-    }
-
     ///////////////////////////////////////////////////////////////////
     //////////////////////////// CONSTRUCTORS /////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -285,10 +247,6 @@ class Carbon extends DateTime
             }
 
             $time = $testInstance->toDateTimeString();
-        }
-
-        if (static::isHhvm()) {
-            $time = static::hhvmParse($time);
         }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
