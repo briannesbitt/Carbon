@@ -2642,7 +2642,7 @@ class Carbon extends DateTime
     /**
      * Consider the timezone when modifying the instance.
      *
-     * @param  string $modify
+     * @param string $modify
      *
      * @return static
      */
