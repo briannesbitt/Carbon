@@ -26,50 +26,50 @@ class GettersTest extends AbstractTestCase
 
     public function testYearsGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(4, $d->years);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(4, $ci->years);
     }
 
     public function testMonthsGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(5, $d->months);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(5, $ci->months);
     }
 
     public function testWeeksGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(6, $d->weeks);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(6, $ci->weeks);
     }
 
     public function testDayzExcludingWeeksGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(5, $d->daysExcludeWeeks);
-        $this->assertSame(5, $d->dayzExcludeWeeks);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(5, $ci->daysExcludeWeeks);
+        $this->assertSame(5, $ci->dayzExcludeWeeks);
     }
 
     public function testDayzGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(6 * 7 + 5, $d->dayz);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(6 * 7 + 5, $ci->dayz);
     }
 
     public function testHoursGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(8, $d->hours);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(8, $ci->hours);
     }
 
     public function testMinutesGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(9, $d->minutes);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(9, $ci->minutes);
     }
 
     public function testSecondsGetter()
     {
-        $d = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
-        $this->assertSame(10, $d->seconds);
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $this->assertSame(10, $ci->seconds);
     }
 }
