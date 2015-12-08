@@ -13,7 +13,9 @@
  */
 /**
  * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/Lang/ka.php
+ *
  * @author  Avtandil Kikabidze aka LONGMAN <akalongman@gmail.com>
+ *
  * @version 1.0.0
  */
 return array(
