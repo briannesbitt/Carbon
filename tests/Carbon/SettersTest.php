@@ -12,6 +12,7 @@ namespace Tests\Carbon;
  */
 
 use Carbon\Carbon;
+use DateTimeZone;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -229,27 +230,27 @@ class SettersTest extends AbstractTestCase
     public function testSetTimezoneUsingDateTimeZone()
     {
         $d = Carbon::now();
-        $d->setTimezone(new \DateTimeZone('America/Toronto'));
+        $d->setTimezone(new DateTimeZone('America/Toronto'));
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
     public function testTimezoneUsingDateTimeZone()
     {
         $d = Carbon::now();
-        $d->timezone = new \DateTimeZone('America/Toronto');
+        $d->timezone = new DateTimeZone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->timezone(new \DateTimeZone('America/Vancouver'));
+        $d->timezone(new DateTimeZone('America/Vancouver'));
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 
     public function testTzUsingDateTimeZone()
     {
         $d = Carbon::now();
-        $d->tz = new \DateTimeZone('America/Toronto');
+        $d->tz = new DateTimeZone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
 
-        $d->tz(new \DateTimeZone('America/Vancouver'));
+        $d->tz(new DateTimeZone('America/Vancouver'));
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 

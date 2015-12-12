@@ -12,6 +12,7 @@ namespace Tests\Carbon;
  */
 
 use Carbon\Carbon;
+use DateTimeZone;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -146,7 +147,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithDateTimeZone()
     {
-        $d = Carbon::create(2012, 1, 1, 0, 0, 0, new \DateTimeZone('Europe/London'));
+        $d = Carbon::create(2012, 1, 1, 0, 0, 0, new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 2012, 1, 1, 0, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }

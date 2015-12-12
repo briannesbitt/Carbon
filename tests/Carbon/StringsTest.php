@@ -12,6 +12,7 @@ namespace Tests\Carbon;
  */
 
 use Carbon\Carbon;
+use DateTime;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -101,7 +102,7 @@ class StringsTest extends AbstractTestCase
     public function testToCOOKIEString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-        if (\DateTime::COOKIE === 'l, d-M-y H:i:s T') {
+        if (DateTime::COOKIE === 'l, d-M-y H:i:s T') {
             $cookieString = 'Thursday, 25-Dec-75 14:15:16 EST';
         } else {
             $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';

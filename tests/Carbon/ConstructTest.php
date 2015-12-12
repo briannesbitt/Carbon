@@ -12,6 +12,8 @@ namespace Tests\Carbon;
  */
 
 use Carbon\Carbon;
+use DateTime;
+use DateTimeZone;
 use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
@@ -61,8 +63,8 @@ class ConstructTest extends AbstractTestCase
     public function testSettingTimezone()
     {
         $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new Carbon('now', $dtz);
@@ -73,8 +75,8 @@ class ConstructTest extends AbstractTestCase
     public function testParseSettingTimezone()
     {
         $timezone = 'Europe/London';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = Carbon::parse('now', $dtz);
@@ -85,8 +87,8 @@ class ConstructTest extends AbstractTestCase
     public function testSettingTimezoneWithString()
     {
         $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = new Carbon('now', $timezone);
@@ -97,8 +99,8 @@ class ConstructTest extends AbstractTestCase
     public function testParseSettingTimezoneWithString()
     {
         $timezone = 'Asia/Tokyo';
-        $dtz = new \DateTimeZone($timezone);
-        $dt = new \DateTime('now', $dtz);
+        $dtz = new DateTimeZone($timezone);
+        $dt = new DateTime('now', $dtz);
         $dayLightSavingTimeOffset = $dt->format('I');
 
         $c = Carbon::parse('now', $timezone);
