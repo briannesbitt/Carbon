@@ -243,6 +243,10 @@ class Carbon extends DateTime
      */
     public static function instance(DateTime $dt)
     {
+        if ($dt instanceof static) {
+            return clone $dt;
+        }
+
         return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
     }
 
