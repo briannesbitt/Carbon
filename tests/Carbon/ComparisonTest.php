@@ -158,7 +158,7 @@ class ComparisonTest extends AbstractTestCase
     public function testMinIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->min() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->min());
     }
 
     public function testMinWithNow()
@@ -177,7 +177,7 @@ class ComparisonTest extends AbstractTestCase
     public function testMaxIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->max() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->max());
     }
 
     public function testMaxWithNow()

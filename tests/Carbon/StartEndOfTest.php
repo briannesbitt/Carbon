@@ -19,21 +19,21 @@ class StartEndOfTest extends AbstractTestCase
     public function testStartOfDay()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->startOfDay() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->startOfDay());
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
     }
 
     public function testEndOfDay()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->endOfDay() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->endOfDay());
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
     }
 
     public function testStartOfMonthIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->startOfMonth() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->startOfMonth());
     }
 
     public function testStartOfMonthFromNow()
@@ -51,7 +51,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testStartOfYearIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->startOfYear() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->startOfYear());
     }
 
     public function testStartOfYearFromNow()
@@ -75,7 +75,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfMonthIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->endOfMonth() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->endOfMonth());
     }
 
     public function testEndOfMonth()
@@ -93,7 +93,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfYearIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->endOfYear() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->endOfYear());
     }
 
     public function testEndOfYearFromNow()
@@ -117,7 +117,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testStartOfDecadeIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->startOfDecade() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->startOfDecade());
     }
 
     public function testStartOfDecadeFromNow()
@@ -141,7 +141,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfDecadeIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->endOfDecade() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->endOfDecade());
     }
 
     public function testEndOfDecadeFromNow()
@@ -165,7 +165,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testStartOfCenturyIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->startOfCentury() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->startOfCentury());
     }
 
     public function testStartOfCenturyFromNow()
@@ -190,7 +190,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfCenturyIsFluid()
     {
         $dt = Carbon::now();
-        $this->assertTrue($dt->endOfCentury() instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt->endOfCentury());
     }
 
     public function testEndOfCenturyFromNow()
@@ -215,7 +215,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testAverageIsFluid()
     {
         $dt = Carbon::now()->average();
-        $this->assertTrue($dt instanceof Carbon);
+        $this->assertInstanceOfCarbon($dt);
     }
 
     public function testAverageFromSame()

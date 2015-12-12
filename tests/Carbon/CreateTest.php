@@ -20,7 +20,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateReturnsDatingInstance()
     {
         $d = Carbon::create();
-        $this->assertTrue($d instanceof Carbon);
+        $this->assertInstanceOfCarbon($d);
     }
 
     public function testCreateWithDefaults()
