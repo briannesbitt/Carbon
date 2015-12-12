@@ -3,11 +3,10 @@
 /*
  * This file is part of the Carbon package.
  *
- * (c) Michael Hohl <me@michaelhohl.net>
+ * (c) Brian Nesbitt <brian@nesbot.com>
  *
- * This file is released under the terms of CC0.
- * CC0 is even more permissive than the MIT license, allowing you to use the code in
- * any manner you want, without any copyright headers, notices, or other attribution.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 /**

@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * This file is part of the Carbon package.
  *
@@ -11,6 +10,7 @@
  */
 
 namespace Tests\CarbonInterval;
+
 use Carbon\CarbonInterval;
 use Carbon\Carbon;
 use DateInterval;

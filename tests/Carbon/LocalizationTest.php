@@ -1,6 +1,5 @@
 <?php
 
-
 /*
  * This file is part of the Carbon package.
  *
@@ -11,6 +10,7 @@
  */
 
 namespace Tests\Carbon;
+
 use Carbon\Carbon;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
