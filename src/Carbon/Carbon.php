@@ -150,25 +150,25 @@ class Carbon extends DateTime
     /**
      * A test Carbon instance to be returned when now instances are created.
      *
-     * @var Carbon
+     * @var \Carbon\Carbon
      */
     protected static $testNow;
 
     /**
      * A translator to ... er ... translate stuff.
      *
-     * @var TranslatorInterface
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
 
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
-     * @param DateTimeZone|string|int|null $object
+     * @param \DateTimeZone|string|int|null $object
      *
      * @throws InvalidArgumentException
      *
-     * @return DateTimeZone
+     * @return \DateTimeZone
      */
     protected static function safeCreateDateTimeZone($object)
     {
@@ -211,8 +211,8 @@ class Carbon extends DateTime
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
      */
     public function __construct($time = null, $tz = null)
     {
@@ -240,7 +240,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param DateTime $dt
+     * @param \DateTime $dt
      *
      * @return static
      */
@@ -260,8 +260,8 @@ class Carbon extends DateTime
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
-     * @param DateTimeZone|string|null $tz
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -273,7 +273,7 @@ class Carbon extends DateTime
     /**
      * Get a Carbon instance for the current date and time.
      *
-     * @param DateTimeZone|string|null $tz
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -285,7 +285,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for today.
      *
-     * @param DateTimeZone|string|null $tz
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -297,7 +297,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for tomorrow.
      *
-     * @param DateTimeZone|string|null $tz
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -309,7 +309,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for yesterday.
      *
-     * @param DateTimeZone|string|null $tz
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -362,13 +362,13 @@ class Carbon extends DateTime
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
-     * @param DateTimeZone|string|null $tz
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -393,10 +393,10 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param DateTimeZone|string|null $tz
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -408,10 +408,10 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
      *
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
-     * @param DateTimeZone|string|null $tz
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -423,9 +423,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                   $format
-     * @param string                   $time
-     * @param DateTimeZone|string|null $tz
+     * @param string                    $format
+     * @param string                    $time
+     * @param \DateTimeZone|string|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -450,8 +450,8 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a timestamp.
      *
-     * @param int                      $timestamp
-     * @param DateTimeZone|string|null $tz
+     * @param int                       $timestamp
+     * @param \DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -493,7 +493,7 @@ class Carbon extends DateTime
      *
      * @throws InvalidArgumentException
      *
-     * @return string|int|DateTimeZone
+     * @return string|int|\DateTimeZone
      */
     public function __get($name)
     {
@@ -571,8 +571,8 @@ class Carbon extends DateTime
     /**
      * Set a part of the Carbon object
      *
-     * @param string                  $name
-     * @param string|int|DateTimeZone $value
+     * @param string                   $name
+     * @param string|int|\DateTimeZone $value
      *
      * @throws InvalidArgumentException
      */
@@ -773,7 +773,7 @@ class Carbon extends DateTime
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value
+     * @param \DateTimeZone|string $value
      *
      * @return static
      */
@@ -785,7 +785,7 @@ class Carbon extends DateTime
     /**
      * Alias for setTimezone()
      *
-     * @param DateTimeZone|string $value
+     * @param \DateTimeZone|string $value
      *
      * @return static
      */
@@ -797,7 +797,7 @@ class Carbon extends DateTime
     /**
      * Set the instance's timezone from a string or object
      *
-     * @param DateTimeZone|string $value
+     * @param \DateTimeZone|string $value
      *
      * @return static
      */
@@ -888,7 +888,7 @@ class Carbon extends DateTime
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param Carbon|null $testNow
+     * @param \Carbon\Carbon|null $testNow
      */
     public static function setTestNow(Carbon $testNow = null)
     {
@@ -946,7 +946,7 @@ class Carbon extends DateTime
     /**
      * Intialize the translator instance if necessary.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     protected static function translator()
     {
@@ -962,7 +962,7 @@ class Carbon extends DateTime
     /**
      * Get the translator instance in use
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public static function getTranslator()
     {
@@ -972,7 +972,7 @@ class Carbon extends DateTime
     /**
      * Set the translator instance to use
      *
-     * @param TranslatorInterface $translator
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      */
     public static function setTranslator(TranslatorInterface $translator)
     {
@@ -1442,7 +1442,7 @@ class Carbon extends DateTime
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param Carbon|null $dt
+     * @param \Carbon\Carbon|null $dt
      *
      * @return static
      */
@@ -1456,7 +1456,7 @@ class Carbon extends DateTime
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param Carbon|null $dt
+     * @param \Carbon\Carbon|null $dt
      *
      * @see min()
      *
@@ -1470,7 +1470,7 @@ class Carbon extends DateTime
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param Carbon|null $dt
+     * @param \Carbon\Carbon|null $dt
      *
      * @return static
      */
@@ -1484,7 +1484,7 @@ class Carbon extends DateTime
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param Carbon|null $dt
+     * @param \Carbon\Carbon|null $dt
      *
      * @see max()
      *
@@ -1578,7 +1578,7 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon $dt
      *
      * @return bool
      */
@@ -2119,8 +2119,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in years
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2134,8 +2134,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in months
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2149,8 +2149,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weeks
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2162,8 +2162,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in days
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2177,9 +2177,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in days using a filter closure
      *
-     * @param Closure     $callback
-     * @param Carbon|null $dt
-     * @param bool        $abs      Get the absolute of the difference
+     * @param Closure             $callback
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs      Get the absolute of the difference
      *
      * @return int
      */
@@ -2191,9 +2191,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours using a filter closure
      *
-     * @param Closure     $callback
-     * @param Carbon|null $dt
-     * @param bool        $abs      Get the absolute of the difference
+     * @param Closure             $callback
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs      Get the absolute of the difference
      *
      * @return int
      */
@@ -2237,8 +2237,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekdays
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2252,8 +2252,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2267,8 +2267,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2280,8 +2280,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in minutes
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2293,8 +2293,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in seconds
      *
-     * @param Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2761,7 +2761,7 @@ class Carbon extends DateTime
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param Carbon|null $dt
+     * @param \Carbon\Carbon|null $dt
      *
      * @return static
      */
@@ -2775,7 +2775,7 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param Carbon|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */

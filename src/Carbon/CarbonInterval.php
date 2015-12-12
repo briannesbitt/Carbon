@@ -80,7 +80,7 @@ class CarbonInterval extends DateInterval
     /**
      * A translator to ... er ... translate stuff
      *
-     * @var TranslatorInterface
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
 
@@ -244,7 +244,7 @@ class CarbonInterval extends DateInterval
     /**
      * Intialize the translator instance if necessary.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     protected static function translator()
     {
@@ -260,7 +260,7 @@ class CarbonInterval extends DateInterval
     /**
      * Get the translator instance in use
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public static function getTranslator()
     {
