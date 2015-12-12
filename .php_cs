@@ -3,9 +3,21 @@
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in(__DIR__);
 
+$header = <<< EOF
+This file is part of the Carbon package.
+
+(c) Brian Nesbitt <brian@nesbot.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+EOF;
+
+Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
+
 $fixers = array(
     '-psr0',
     'extra_empty_lines',
+    'header_comment',
     'long_array_syntax',
     'no_empty_lines_after_phpdocs',
     'phpdoc_align',

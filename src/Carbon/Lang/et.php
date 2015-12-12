@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Carbon package.
  *
@@ -6,8 +7,8 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
  */
+
 return array(
     'year'      => '1 aasta|:count aastat',
     'month'     => '1 kuu|:count kuud',
