@@ -1,6 +1,5 @@
 <?php
 
-namespace Tests;
 
 /*
  * This file is part of the Carbon package.
@@ -11,6 +10,7 @@ namespace Tests;
  * file that was distributed with this source code.
  */
 
+namespace Tests;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Closure;

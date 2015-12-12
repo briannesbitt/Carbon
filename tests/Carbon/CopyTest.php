@@ -1,6 +1,5 @@
 <?php
 
-namespace Tests\Carbon;
 
 /*
  * This file is part of the Carbon package.
@@ -11,6 +10,7 @@ namespace Tests\Carbon;
  * file that was distributed with this source code.
  */
 
+namespace Tests\Carbon;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
