@@ -214,8 +214,9 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addSecond()->second);
     }
 
-    /***** Test non plural methods with non default args *****/
-
+    /**
+     * Test non plural methods with non default args.
+     */
     public function testAddYearPassingArg()
     {
         $this->assertSame(1977, Carbon::createFromDate(1975)->addYear(2)->year);

@@ -181,8 +181,9 @@ class SubTest extends AbstractTestCase
         $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->subSecond()->second);
     }
 
-    /***** Test non plural methods with non default args *****/
-
+    /**
+     * Test non plural methods with non default args.
+     */
     public function testSubYearPassingArg()
     {
         $this->assertSame(1973, Carbon::createFromDate(1975)->subYear(2)->year);

@@ -20,7 +20,7 @@ class DiffTest extends AbstractTestCase
 {
     protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
     {
-        parent::wrapWithTestNow($func, ($dt === null) ? Carbon::createFromDate(2012, 1, 1) : $dt);
+        parent::wrapWithTestNow($func, $dt ?: Carbon::createFromDate(2012, 1, 1));
     }
 
     public function testDiffInYearsPositive()
