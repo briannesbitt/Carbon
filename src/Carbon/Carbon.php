@@ -208,7 +208,7 @@ class Carbon extends DateTime
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null              $time
+     * @param string|null               $time
      * @param \DateTimeZone|string|null $tz
      */
     public function __construct($time = null, $tz = null)
@@ -253,7 +253,7 @@ class Carbon extends DateTime
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null              $time
+     * @param string|null               $time
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -355,12 +355,12 @@ class Carbon extends DateTime
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -386,9 +386,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
      *
-     * @param int|null                 $year
-     * @param int|null                 $month
-     * @param int|null                 $day
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -401,9 +401,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
      *
-     * @param int|null                 $hour
-     * @param int|null                 $minute
-     * @param int|null                 $second
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -416,8 +416,8 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                   $format
-     * @param string                   $time
+     * @param string                    $format
+     * @param string                    $time
      * @param \DateTimeZone|string|null $tz
      *
      * @throws InvalidArgumentException
@@ -443,7 +443,7 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a timestamp.
      *
-     * @param int                      $timestamp
+     * @param int                       $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -2093,7 +2093,7 @@ class Carbon extends DateTime
      * Get the difference in years
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2108,7 +2108,7 @@ class Carbon extends DateTime
      * Get the difference in months
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2123,7 +2123,7 @@ class Carbon extends DateTime
      * Get the difference in weeks
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2136,7 +2136,7 @@ class Carbon extends DateTime
      * Get the difference in days
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2150,9 +2150,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in days using a filter closure
      *
-     * @param Closure     $callback
+     * @param Closure             $callback
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs      Get the absolute of the difference
+     * @param bool                $abs      Get the absolute of the difference
      *
      * @return int
      */
@@ -2164,9 +2164,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours using a filter closure
      *
-     * @param Closure     $callback
+     * @param Closure             $callback
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs      Get the absolute of the difference
+     * @param bool                $abs      Get the absolute of the difference
      *
      * @return int
      */
@@ -2211,7 +2211,7 @@ class Carbon extends DateTime
      * Get the difference in weekdays
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2226,7 +2226,7 @@ class Carbon extends DateTime
      * Get the difference in weekend days using a filter
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2241,7 +2241,7 @@ class Carbon extends DateTime
      * Get the difference in hours
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2254,7 +2254,7 @@ class Carbon extends DateTime
      * Get the difference in minutes
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
@@ -2267,7 +2267,7 @@ class Carbon extends DateTime
      * Get the difference in seconds
      *
      * @param \Carbon\Carbon|null $dt
-     * @param bool        $abs Get the absolute of the difference
+     * @param bool                $abs Get the absolute of the difference
      *
      * @return int
      */
