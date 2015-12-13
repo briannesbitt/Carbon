@@ -507,14 +507,14 @@ class CarbonInterval extends DateInterval
         $sign = $interval->invert === 1 ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
-            $this->dayz = $this->dayz + $interval->days * $sign;
+            $this->dayz += $interval->days * $sign;
         } else {
-            $this->years = $this->years + $interval->y * $sign;
-            $this->months = $this->months + $interval->m * $sign;
-            $this->dayz = $this->dayz + $interval->d * $sign;
-            $this->hours = $this->hours + $interval->h * $sign;
-            $this->minutes = $this->minutes + $interval->i * $sign;
-            $this->seconds = $this->seconds + $interval->s * $sign;
+            $this->years += $interval->y * $sign;
+            $this->months += $interval->m * $sign;
+            $this->dayz += $interval->d * $sign;
+            $this->hours += $interval->h * $sign;
+            $this->minutes += $interval->i * $sign;
+            $this->seconds += $interval->s * $sign;
         }
 
         return $this;
