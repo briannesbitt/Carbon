@@ -220,7 +220,7 @@ class CarbonInterval extends DateInterval
      *
      * @param DateInterval $di
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return static
      */
@@ -309,7 +309,7 @@ class CarbonInterval extends DateInterval
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return int
      */
@@ -352,7 +352,7 @@ class CarbonInterval extends DateInterval
      * @param string $name
      * @param int    $val
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function __set($name, $val)
     {

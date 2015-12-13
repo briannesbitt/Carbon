@@ -166,7 +166,7 @@ class Carbon extends DateTime
      *
      * @param \DateTimeZone|string|int|null $object
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return \DateTimeZone
      */
@@ -427,7 +427,7 @@ class Carbon extends DateTime
      * @param string                    $time
      * @param \DateTimeZone|string|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return static
      */
@@ -491,7 +491,7 @@ class Carbon extends DateTime
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return string|int|\DateTimeZone
      */
@@ -574,7 +574,7 @@ class Carbon extends DateTime
      * @param string                   $name
      * @param string|int|\DateTimeZone $value
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function __set($name, $value)
     {
