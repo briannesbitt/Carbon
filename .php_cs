@@ -1,6 +1,10 @@
 <?php
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+use Symfony\CS\Config\Config;
+use Symfony\CS\Finder\DefaultFinder;
+use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+
+$finder = DefaultFinder::create()
     ->in(__DIR__);
 
 $header = <<< EOF
@@ -12,7 +16,7 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 EOF;
 
-Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
+HeaderCommentFixer::setHeader($header);
 
 $fixers = array(
     '-psr0',
@@ -40,7 +44,7 @@ $fixers = array(
     'whitespacy_lines',
 );
 
-return Symfony\CS\Config\Config::create()
+return Config::create()
     ->finder($finder)
     ->fixers($fixers)
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
