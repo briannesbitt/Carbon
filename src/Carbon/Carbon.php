@@ -1576,6 +1576,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance is a long year
+     *
+     * @return bool
+     */
+    public function isLongYear()
+    {
+        return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
+    }
+
+    /**
      * Checks if the passed in date is the same day as the instance current day.
      *
      * @param \Carbon\Carbon $dt
