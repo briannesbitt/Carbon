@@ -233,6 +233,6 @@ class ConstructTest extends AbstractTestCase
      */
     public function testInstanceWithDaysThrowsException()
     {
-        $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
+        CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
     }
 }

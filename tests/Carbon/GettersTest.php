@@ -299,6 +299,6 @@ class GettersTest extends AbstractTestCase
     public function testInvalidGetter()
     {
         $d = Carbon::now();
-        $bb = $d->doesNotExit;
+        $d->doesNotExit;
     }
 }

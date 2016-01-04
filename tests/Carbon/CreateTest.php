@@ -164,7 +164,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateWithInvalidTimezoneOffset()
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, -28236);
+        Carbon::createFromDate(2000, 1, 1, -28236);
     }
 
     public function testCreateWithValidTimezoneOffset()
