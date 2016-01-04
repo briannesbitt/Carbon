@@ -24,25 +24,25 @@ class IssetTest extends AbstractTestCase
     public function testIssetReturnTrueForProperties()
     {
         $properties = array(
-            'year',
-            'month',
+            'age',
             'day',
-            'hour',
-            'minute',
-            'second',
             'dayOfWeek',
             'dayOfYear',
             'daysInMonth',
-            'timestamp',
-            'age',
-            'quarter',
             'dst',
+            'hour',
+            'minute',
+            'month',
             'offset',
             'offsetHours',
+            'quarter',
+            'second',
+            'timestamp',
             'timezone',
             'timezoneName',
             'tz',
             'tzName',
+            'year',
         );
 
         foreach ($properties as $property) {
