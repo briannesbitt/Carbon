@@ -2785,4 +2785,88 @@ class Carbon extends DateTime
 
         return $this->format('md') === $dt->format('md');
     }
+    
+    
+    ///////////////////////////////////////////////////////////////////
+    //////////////////////////// Birthday  ////////////////////////////
+    ///////////////////////////////////////////////////////////////////    
+    
+    
+    /**
+     * Get year of birth for certian age. Subtract age from years 
+     * 
+     * @param int $age
+     * 
+     * @return int 
+     */
+    public static function getBirthYear($age){
+     	return 	self::now()->subYears((int) $age)->year;
+    }
+    
+    /**
+     * Get age in years,months,days,hours,minutes and seconds
+     * 
+     * @param string $dateOfBirth
+     * @return array
+     */
+    public static function getAge($dateOfBirth){
+    	$ageArray = [];
+    	$age = self::now()->diff(self::parse($dateOfBirth));
+    	$ageArray['years'] = $age->y;
+    	$ageArray['months'] = $age->m;
+    	$ageArray['days'] = $age->d;
+    	$ageArray['hours'] = $age->h;
+    	$ageArray['minutes'] = $age->i;
+    	$ageArray['seconds'] = $age->s;
+    	return $ageArray;
+    }
+    
+    /**
+     * Get age in years,months,days,hours,minutes and seconds human readable
+     * 
+     * @param string $dateOfBirth
+     * @return string
+     */
+    public static function getAgeForHumans($dateOfBirth){
+    	$ageItems = self::getAge($dateOfBirth);
+    	$ageString = '';
+    	foreach($ageItems as $key=>$ageItem){
+    		$ageString .= $ageItem.' '.$key.',';
+    	}
+    	$ageString = trim($ageString,',');
+    	return $ageString;
+    }
+    
+    /**
+     * Get age in days 
+     * 
+     * @param string $dateOfBirth
+     * 
+     * @return number
+     */
+    public static function getAgeInDays($dateOfBirth){
+    	return self::now()->diffInDays(self::parse($dateOfBirth));
+    }
+    
+    /**
+     * Get age in hours 
+     * 
+     * @param string $dateOfBirth
+     * 
+     * @return number
+     */
+    public static function getAgeInHours($dateOfBirth){
+    	return self::now()->diffInHours(self::parse($dateOfBirth));
+    }
+
+    /**
+     * Get age in minutes
+     *
+     * @param string $dateOfBirth
+     *
+     * @return number
+     */    
+    public static function getAgeInMinutes($dateOfBirth){
+    	return self::now()->diffInMinutes(self::parse($dateOfBirth));
+    }
 }
