@@ -31,6 +31,8 @@ class IssetTest extends AbstractTestCase
             'daysInMonth',
             'dst',
             'hour',
+            'local',
+            'micro',
             'minute',
             'month',
             'offset',
@@ -42,6 +44,9 @@ class IssetTest extends AbstractTestCase
             'timezoneName',
             'tz',
             'tzName',
+            'utc',
+            'weekOfMonth',
+            'weekOfYear',
             'year',
         );
 
