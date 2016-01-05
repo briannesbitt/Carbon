@@ -33,12 +33,12 @@ class AgeTest extends AbstractTestCase
     public function testGetAge()
     {
     	$ageArray = Carbon::getAge('1984/03/09');
-    	$this->assertArrayHasKey('years',$ageArray);
-    	$this->assertArrayHasKey('months',$ageArray);
-    	$this->assertArrayHasKey('days',$ageArray);
-    	$this->assertArrayHasKey('hours',$ageArray);
-    	$this->assertArrayHasKey('minutes',$ageArray);
-    	$this->assertArrayHasKey('seconds',$ageArray);
+    	$this->assertArrayHasKey('year',$ageArray);
+    	$this->assertArrayHasKey('month',$ageArray);
+    	$this->assertArrayHasKey('day',$ageArray);
+    	$this->assertArrayHasKey('hour',$ageArray);
+    	$this->assertArrayHasKey('minute',$ageArray);
+    	$this->assertArrayHasKey('second',$ageArray);
     }
     
     /*
