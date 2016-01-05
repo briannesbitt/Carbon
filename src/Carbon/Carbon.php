@@ -163,7 +163,10 @@ class Carbon extends DateTime
 
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param \DateTimeZone|string|int|null $object
      *
      * @throws InvalidArgumentException
@@ -210,7 +213,8 @@ class Carbon extends DateTime
      *
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
-     *
+     * @access public
+     * 
      * @param string|null               $time
      * @param \DateTimeZone|string|null $tz
      */
@@ -239,7 +243,10 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance from a DateTime one.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param \DateTime $dt
      *
      * @return static
@@ -260,6 +267,9 @@ class Carbon extends DateTime
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
+     * @access public
+     * @static
+     *
      * @param string|null               $time
      * @param \DateTimeZone|string|null $tz
      *
@@ -273,6 +283,9 @@ class Carbon extends DateTime
     /**
      * Get a Carbon instance for the current date and time.
      *
+     * @access public
+     * @static
+     *
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -284,6 +297,9 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance for today.
+     *
+     * @access public
+     * @static
      *
      * @param \DateTimeZone|string|null $tz
      *
@@ -297,6 +313,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for tomorrow.
      *
+     * @access public
+     * @static
+     *
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -309,6 +328,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for yesterday.
      *
+     * @access public
+     * @static
+     *
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -320,6 +342,9 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance for the greatest supported date.
+     *
+     * @access public
+     * @static
      *
      * @return static
      */
@@ -337,6 +362,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance for the lowest supported date.
      *
+     * @access public
+     * @static
+     * 
      * @return static
      */
     public static function minValue()
@@ -361,6 +389,9 @@ class Carbon extends DateTime
      *
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
+     *
+     * @access public
+     * @static
      *
      * @param int|null                  $year
      * @param int|null                  $month
@@ -393,6 +424,9 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
      *
+     * @access public
+     * @static
+     * 
      * @param int|null                  $year
      * @param int|null                  $month
      * @param int|null                  $day
@@ -407,7 +441,10 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
-     *
+     * 
+     * @access public
+     * @static 
+     * 
      * @param int|null                  $hour
      * @param int|null                  $minute
      * @param int|null                  $second
@@ -422,7 +459,10 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance from a specific format.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param string                    $format
      * @param string                    $time
      * @param \DateTimeZone|string|null $tz
@@ -449,7 +489,10 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance from a timestamp.
-     *
+     * 
+     * @access public
+     * @static 
+     * 
      * @param int                       $timestamp
      * @param \DateTimeZone|string|null $tz
      *
@@ -462,7 +505,10 @@ class Carbon extends DateTime
 
     /**
      * Create a Carbon instance from an UTC timestamp.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param int $timestamp
      *
      * @return static
@@ -474,7 +520,9 @@ class Carbon extends DateTime
 
     /**
      * Get a copy of the instance.
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function copy()
@@ -488,7 +536,9 @@ class Carbon extends DateTime
 
     /**
      * Get a part of the Carbon object
-     *
+     * 
+     * @access public
+     * 
      * @param string $name
      *
      * @throws InvalidArgumentException
@@ -552,7 +602,9 @@ class Carbon extends DateTime
 
     /**
      * Check if an attribute exists on the object
-     *
+     * 
+     * @access public
+     * 
      * @param string $name
      *
      * @return bool
@@ -570,7 +622,9 @@ class Carbon extends DateTime
 
     /**
      * Set a part of the Carbon object
-     *
+     * 
+     * @access public
+     * 
      * @param string                   $name
      * @param string|int|\DateTimeZone $value
      *
@@ -619,7 +673,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's year
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -633,6 +689,8 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's month
+     * 
+     * @access public
      *
      * @param int $value
      *
@@ -647,6 +705,8 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's day
+     * 
+     * @access public
      *
      * @param int $value
      *
@@ -661,7 +721,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's hour
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -675,7 +737,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's minute
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -689,7 +753,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's second
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -704,7 +770,9 @@ class Carbon extends DateTime
     /**
      * Sets the current date of the DateTime object to a different date.
      * Calls modify as a workaround for a php bug
-     *
+     * 
+     * @access public
+     * 
      * @param int $year
      * @param int $month
      * @param int $day
@@ -723,7 +791,9 @@ class Carbon extends DateTime
 
     /**
      * Set the date and time all together
-     *
+     * 
+     * @access public
+     * 
      * @param int $year
      * @param int $month
      * @param int $day
@@ -740,7 +810,9 @@ class Carbon extends DateTime
 
     /**
      * Set the time by time string
-     *
+     * 
+     * @access public
+     * 
      * @param string $time
      *
      * @return static
@@ -758,7 +830,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's timestamp
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -772,7 +846,9 @@ class Carbon extends DateTime
 
     /**
      * Alias for setTimezone()
-     *
+     * 
+     * @access public
+     * 
      * @param \DateTimeZone|string $value
      *
      * @return static
@@ -784,7 +860,9 @@ class Carbon extends DateTime
 
     /**
      * Alias for setTimezone()
-     *
+     * 
+     * @access public
+     * 
      * @param \DateTimeZone|string $value
      *
      * @return static
@@ -796,7 +874,9 @@ class Carbon extends DateTime
 
     /**
      * Set the instance's timezone from a string or object
-     *
+     * 
+     * @access public
+     * 
      * @param \DateTimeZone|string $value
      *
      * @return static
@@ -812,7 +892,10 @@ class Carbon extends DateTime
 
     /**
      * Get the first day of week
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return int
      */
     public static function getWeekStartsAt()
@@ -822,7 +905,10 @@ class Carbon extends DateTime
 
     /**
      * Set the first day of week
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param int
      */
     public static function setWeekStartsAt($day)
@@ -832,7 +918,10 @@ class Carbon extends DateTime
 
     /**
      * Get the last day of week
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return int
      */
     public static function getWeekEndsAt()
@@ -842,7 +931,10 @@ class Carbon extends DateTime
 
     /**
      * Set the first day of week
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param int
      */
     public static function setWeekEndsAt($day)
@@ -852,7 +944,10 @@ class Carbon extends DateTime
 
     /**
      * Get weekend days
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return array
      */
     public static function getWeekendDays()
@@ -862,7 +957,10 @@ class Carbon extends DateTime
 
     /**
      * Set weekend days
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param array
      */
     public static function setWeekendDays($days)
@@ -887,7 +985,10 @@ class Carbon extends DateTime
      *
      * To clear the test instance call this method using the default
      * parameter of null.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param \Carbon\Carbon|null $testNow
      */
     public static function setTestNow(Carbon $testNow = null)
@@ -898,7 +999,10 @@ class Carbon extends DateTime
     /**
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return static the current instance used for testing
      */
     public static function getTestNow()
@@ -909,7 +1013,10 @@ class Carbon extends DateTime
     /**
      * Determine if there is a valid test instance set. A valid test instance
      * is anything that is not null.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return bool true if there is a test instance, otherwise false
      */
     public static function hasTestNow()
@@ -920,7 +1027,10 @@ class Carbon extends DateTime
     /**
      * Determine if there is a relative keyword in the time string, this is to
      * create dates relative to now for test instances. e.g.: next tuesday
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param string $time
      *
      * @return bool true if there is a keyword, otherwise false
@@ -945,7 +1055,10 @@ class Carbon extends DateTime
 
     /**
      * Intialize the translator instance if necessary.
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
     protected static function translator()
@@ -961,7 +1074,10 @@ class Carbon extends DateTime
 
     /**
      * Get the translator instance in use
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public static function getTranslator()
@@ -971,7 +1087,10 @@ class Carbon extends DateTime
 
     /**
      * Set the translator instance to use
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      */
     public static function setTranslator(TranslatorInterface $translator)
@@ -981,7 +1100,10 @@ class Carbon extends DateTime
 
     /**
      * Get the current translator locale
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @return string
      */
     public static function getLocale()
@@ -991,7 +1113,10 @@ class Carbon extends DateTime
 
     /**
      * Set the current translator locale and indicate if the source locale file exists
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param string $locale
      *
      * @return bool
@@ -1025,7 +1150,9 @@ class Carbon extends DateTime
     /**
      * Format the instance with the current locale.  You can set the current
      * locale using setlocale() http://php.net/setlocale.
-     *
+     * 
+     * @access public
+     * 
      * @param string $format
      *
      * @return string
@@ -1043,6 +1170,10 @@ class Carbon extends DateTime
 
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string
+     * 
+     * @access public
+     * @static
+     * 
      */
     public static function resetToStringFormat()
     {
@@ -1051,7 +1182,10 @@ class Carbon extends DateTime
 
     /**
      * Set the default format used when type juggling a Carbon instance to a string
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param string $format
      */
     public static function setToStringFormat($format)
@@ -1061,7 +1195,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as a string using the set format
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function __toString()
@@ -1071,7 +1207,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as date
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toDateString()
@@ -1081,7 +1219,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as a readable date
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toFormattedDateString()
@@ -1091,7 +1231,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as time
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toTimeString()
@@ -1101,7 +1243,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as date and time
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toDateTimeString()
@@ -1111,7 +1255,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance with day, date and time
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toDayDateTimeString()
@@ -1121,7 +1267,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as ATOM
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toAtomString()
@@ -1131,7 +1279,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as COOKIE
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toCookieString()
@@ -1141,7 +1291,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as ISO8601
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toIso8601String()
@@ -1151,7 +1303,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC822
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc822String()
@@ -1161,7 +1315,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC850
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc850String()
@@ -1171,7 +1327,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC1036
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc1036String()
@@ -1181,7 +1339,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC1123
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc1123String()
@@ -1191,7 +1351,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC2822
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc2822String()
@@ -1201,7 +1363,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RFC3339
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRfc3339String()
@@ -1211,7 +1375,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as RSS
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toRssString()
@@ -1221,7 +1387,9 @@ class Carbon extends DateTime
 
     /**
      * Format the instance as W3C
-     *
+     * 
+     * @access public
+     * 
      * @return string
      */
     public function toW3cString()
@@ -1235,7 +1403,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1247,7 +1417,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see eq()
@@ -1261,7 +1433,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is not equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1273,7 +1447,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is not equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see ne()
@@ -1287,7 +1463,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is greater (after) than another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1299,7 +1477,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is greater (after) than another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see gt()
@@ -1313,7 +1493,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is greater (after) than or equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1325,7 +1507,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is greater (after) than or equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see gte()
@@ -1339,7 +1523,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is less (before) than another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1351,7 +1537,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is less (before) than another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see lt()
@@ -1365,7 +1553,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is less (before) or equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @return bool
@@ -1377,7 +1567,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is less (before) or equal to another
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt
      *
      * @see lte()
@@ -1391,7 +1583,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is between two others
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt1
      * @param Carbon $dt2
      * @param bool   $equal Indicates if a > and < comparison should be used or <= or >=
@@ -1415,7 +1609,9 @@ class Carbon extends DateTime
 
     /**
      * Get the closest date from the instance.
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt1
      * @param Carbon $dt2
      *
@@ -1428,7 +1624,9 @@ class Carbon extends DateTime
 
     /**
      * Get the farthest date from the instance.
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon $dt1
      * @param Carbon $dt2
      *
@@ -1441,7 +1639,9 @@ class Carbon extends DateTime
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      *
      * @return static
@@ -1455,7 +1655,9 @@ class Carbon extends DateTime
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      *
      * @see min()
@@ -1469,7 +1671,9 @@ class Carbon extends DateTime
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      *
      * @return static
@@ -1483,7 +1687,9 @@ class Carbon extends DateTime
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      *
      * @see max()
@@ -1497,7 +1703,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is a weekday
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isWeekday()
@@ -1507,7 +1715,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is a weekend day
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isWeekend()
@@ -1517,7 +1727,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is yesterday
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isYesterday()
@@ -1527,7 +1739,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is today
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isToday()
@@ -1537,7 +1751,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is tomorrow
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isTomorrow()
@@ -1547,7 +1763,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is in the future, ie. greater (after) than now
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isFuture()
@@ -1557,7 +1775,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is in the past, ie. less (before) than now
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isPast()
@@ -1567,7 +1787,9 @@ class Carbon extends DateTime
 
     /**
      * Determines if the instance is a leap year
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isLeapYear()
@@ -1577,7 +1799,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if the passed in date is the same day as the instance current day.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon $dt
      *
      * @return bool
@@ -1589,7 +1813,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Sunday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isSunday()
@@ -1599,7 +1825,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Monday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isMonday()
@@ -1609,7 +1837,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Tuesday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isTuesday()
@@ -1619,7 +1849,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Wednesday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isWednesday()
@@ -1629,7 +1861,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Thursday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isThursday()
@@ -1639,7 +1873,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Friday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isFriday()
@@ -1649,7 +1885,9 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a Saturday.
-     *
+     * 
+     * @access public
+     * 
      * @return bool
      */
     public function isSaturday()
@@ -1664,7 +1902,9 @@ class Carbon extends DateTime
     /**
      * Add years to the instance. Positive $value travel forward while
      * negative $value travel into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1676,7 +1916,9 @@ class Carbon extends DateTime
 
     /**
      * Add a year to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1688,7 +1930,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a year from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1700,7 +1944,9 @@ class Carbon extends DateTime
 
     /**
      * Remove years from the instance.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1713,7 +1959,9 @@ class Carbon extends DateTime
     /**
      * Add months to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1725,7 +1973,9 @@ class Carbon extends DateTime
 
     /**
      * Add a month to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1737,7 +1987,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a month from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1749,7 +2001,9 @@ class Carbon extends DateTime
 
     /**
      * Remove months from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1762,7 +2016,9 @@ class Carbon extends DateTime
     /**
      * Add months without overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1780,7 +2036,9 @@ class Carbon extends DateTime
 
     /**
      * Add a month with no overflow to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1792,7 +2050,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a month with no overflow from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1804,7 +2064,9 @@ class Carbon extends DateTime
 
     /**
      * Remove months with no overflow from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1817,7 +2079,9 @@ class Carbon extends DateTime
     /**
      * Add days to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1829,7 +2093,9 @@ class Carbon extends DateTime
 
     /**
      * Add a day to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1841,7 +2107,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a day from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1853,7 +2121,9 @@ class Carbon extends DateTime
 
     /**
      * Remove days from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1866,7 +2136,9 @@ class Carbon extends DateTime
     /**
      * Add weekdays to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1882,7 +2154,9 @@ class Carbon extends DateTime
 
     /**
      * Add a weekday to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1894,7 +2168,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a weekday from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1906,6 +2182,8 @@ class Carbon extends DateTime
 
     /**
      * Remove weekdays from the instance
+     *
+     * @access public
      *
      * @param int $value
      *
@@ -1919,7 +2197,9 @@ class Carbon extends DateTime
     /**
      * Add weeks to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1931,7 +2211,9 @@ class Carbon extends DateTime
 
     /**
      * Add a week to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1943,7 +2225,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a week from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1955,7 +2239,9 @@ class Carbon extends DateTime
 
     /**
      * Remove weeks to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1968,7 +2254,9 @@ class Carbon extends DateTime
     /**
      * Add hours to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1980,7 +2268,9 @@ class Carbon extends DateTime
 
     /**
      * Add an hour to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -1992,7 +2282,9 @@ class Carbon extends DateTime
 
     /**
      * Remove an hour from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2004,7 +2296,9 @@ class Carbon extends DateTime
 
     /**
      * Remove hours from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2017,7 +2311,9 @@ class Carbon extends DateTime
     /**
      * Add minutes to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2029,7 +2325,9 @@ class Carbon extends DateTime
 
     /**
      * Add a minute to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2041,7 +2339,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a minute from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2053,7 +2353,9 @@ class Carbon extends DateTime
 
     /**
      * Remove minutes from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2066,7 +2368,9 @@ class Carbon extends DateTime
     /**
      * Add seconds to the instance. Positive $value travels forward while
      * negative $value travels into the past.
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2078,7 +2382,9 @@ class Carbon extends DateTime
 
     /**
      * Add a second to the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2090,7 +2396,9 @@ class Carbon extends DateTime
 
     /**
      * Remove a second from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2102,7 +2410,9 @@ class Carbon extends DateTime
 
     /**
      * Remove seconds from the instance
-     *
+     * 
+     * @access public
+     * 
      * @param int $value
      *
      * @return static
@@ -2118,7 +2428,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in years
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2133,7 +2445,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in months
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2148,7 +2462,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in weeks
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2161,7 +2477,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in days
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2176,7 +2494,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in days using a filter closure
-     *
+     * 
+     * @access public
+     * 
      * @param Closure             $callback
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs      Get the absolute of the difference
@@ -2190,7 +2510,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in hours using a filter closure
-     *
+     * 
+     * @access public
+     * 
      * @param Closure             $callback
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs      Get the absolute of the difference
@@ -2204,7 +2526,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference by the given interval using a filter closure
-     *
+     * 
+     * @access public
+     * 
      * @param CarbonInterval $ci       An interval to traverse by
      * @param Closure        $callback
      * @param Carbon|null    $dt
@@ -2236,7 +2560,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in weekdays
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2251,7 +2577,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in weekend days using a filter
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2266,7 +2594,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in hours
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2279,7 +2609,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in minutes
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2292,7 +2624,9 @@ class Carbon extends DateTime
 
     /**
      * Get the difference in seconds
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      * @param bool                $abs Get the absolute of the difference
      *
@@ -2308,7 +2642,9 @@ class Carbon extends DateTime
 
     /**
      * The number of seconds since midnight.
-     *
+     * 
+     * @access public
+     * 
      * @return int
      */
     public function secondsSinceMidnight()
@@ -2318,7 +2654,9 @@ class Carbon extends DateTime
 
     /**
      * The number of seconds until 23:23:59.
-     *
+     * 
+     * @access public
+     * 
      * @return int
      */
     public function secondsUntilEndOfDay()
@@ -2344,7 +2682,9 @@ class Carbon extends DateTime
      * When comparing a value in the future to another value:
      * 1 hour after
      * 5 months after
-     *
+     * 
+     * @access public
+     * 
      * @param Carbon|null $other
      * @param bool        $absolute removes time difference modifiers ago, after, etc
      *
@@ -2425,7 +2765,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfDay()
@@ -2435,7 +2777,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfDay()
@@ -2445,7 +2789,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to the first day of the month and the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfMonth()
@@ -2455,7 +2801,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to end of the month and time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfMonth()
@@ -2465,7 +2813,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfYear()
@@ -2475,7 +2825,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to end of the year and time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfYear()
@@ -2485,7 +2837,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfDecade()
@@ -2497,7 +2851,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to end of the decade and time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfDecade()
@@ -2509,7 +2865,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfCentury()
@@ -2521,7 +2879,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to end of the century and time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfCentury()
@@ -2533,7 +2893,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function startOfWeek()
@@ -2547,7 +2909,9 @@ class Carbon extends DateTime
 
     /**
      * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
-     *
+     * 
+     * @access public
+     * 
      * @return static
      */
     public function endOfWeek()
@@ -2564,7 +2928,9 @@ class Carbon extends DateTime
      * If no dayOfWeek is provided, modify to the next occurrence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2583,7 +2949,9 @@ class Carbon extends DateTime
      * If no dayOfWeek is provided, modify to the previous occurrence
      * of the current day of the week.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2602,7 +2970,9 @@ class Carbon extends DateTime
      * in the current month. If no dayOfWeek is provided, modify to the
      * first day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2623,7 +2993,9 @@ class Carbon extends DateTime
      * in the current month. If no dayOfWeek is provided, modify to the
      * last day of the current month.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2644,7 +3016,9 @@ class Carbon extends DateTime
      * in the current month. If the calculated occurrence is outside the scope
      * of the current month, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int $nth
      * @param int $dayOfWeek
      *
@@ -2664,7 +3038,9 @@ class Carbon extends DateTime
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * first day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2679,7 +3055,9 @@ class Carbon extends DateTime
      * in the current quarter. If no dayOfWeek is provided, modify to the
      * last day of the current quarter.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2694,7 +3072,9 @@ class Carbon extends DateTime
      * in the current quarter. If the calculated occurrence is outside the scope
      * of the current quarter, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int $nth
      * @param int $dayOfWeek
      *
@@ -2715,7 +3095,9 @@ class Carbon extends DateTime
      * in the current year. If no dayOfWeek is provided, modify to the
      * first day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2730,7 +3112,9 @@ class Carbon extends DateTime
      * in the current year. If no dayOfWeek is provided, modify to the
      * last day of the current year.  Use the supplied consts
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int|null $dayOfWeek
      *
      * @return static
@@ -2745,7 +3129,9 @@ class Carbon extends DateTime
      * in the current year. If the calculated occurrence is outside the scope
      * of the current year, then return false and no modifications are made.
      * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
-     *
+     * 
+     * @access public
+     * 
      * @param int $nth
      * @param int $dayOfWeek
      *
@@ -2760,7 +3146,9 @@ class Carbon extends DateTime
 
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt
      *
      * @return static
@@ -2774,7 +3162,9 @@ class Carbon extends DateTime
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
-     *
+     * 
+     * @access public
+     * 
      * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
@@ -2788,16 +3178,19 @@ class Carbon extends DateTime
     
     
     ///////////////////////////////////////////////////////////////////
-    //////////////////////////// Birthday  ////////////////////////////
+    ////////////////////////////  Age  ////////////////////////////////
     ///////////////////////////////////////////////////////////////////    
     
     
     /**
      * Get year of birth for certian age. Subtract age from years 
      * 
+     * @access public
+     * @static
+     * 
      * @param int $age
      * 
-     * @return int 
+     * @return int year of birth
      */
     public static function getBirthYear($age){
      	return 	self::now()->subYears((int) $age)->year;
@@ -2806,11 +3199,14 @@ class Carbon extends DateTime
     /**
      * Get age in years,months,days,hours,minutes and seconds
      * 
-     * @param string $dateOfBirth
-     * @return array
+     * @access public
+     * @static
+     * 
+     * @param string $dateOfBirth 
+     * @return array $ageArray
      */
     public static function getAge($dateOfBirth){
-    	$ageArray = [];
+    	$ageArray = array();
     	$age = self::now()->diff(self::parse($dateOfBirth));
     	$ageArray['year'] = $age->y;
     	$ageArray['month'] = $age->m;
@@ -2824,8 +3220,11 @@ class Carbon extends DateTime
     /**
      * Get age in years,months,days,hours,minutes and seconds human readable
      * 
+     * @access public
+     * @static
+     * 
      * @param string $dateOfBirth
-     * @return string
+     * @return string $ageString
      */
     public static function getAgeForHumans($dateOfBirth){
     	$ageItems = self::getAge($dateOfBirth);
@@ -2840,9 +3239,12 @@ class Carbon extends DateTime
     /**
      * Get age in days 
      * 
+     * @access public
+     * @static
+     * 
      * @param string $dateOfBirth
      * 
-     * @return number
+     * @return int age in days
      */
     public static function getAgeInDays($dateOfBirth){
     	return self::now()->diffInDays(self::parse($dateOfBirth));
@@ -2851,9 +3253,12 @@ class Carbon extends DateTime
     /**
      * Get age in hours 
      * 
+     * @access public
+     * @static
+     * 
      * @param string $dateOfBirth
      * 
-     * @return number
+     * @return int age in hours
      */
     public static function getAgeInHours($dateOfBirth){
     	return self::now()->diffInHours(self::parse($dateOfBirth));
@@ -2861,12 +3266,16 @@ class Carbon extends DateTime
 
     /**
      * Get age in minutes
-     *
+     * 
+     * @access public
+     * @static
+     * 
      * @param string $dateOfBirth
      *
-     * @return number
+     * @return int age in minutes
      */    
     public static function getAgeInMinutes($dateOfBirth){
     	return self::now()->diffInMinutes(self::parse($dateOfBirth));
     }
+    
 }
