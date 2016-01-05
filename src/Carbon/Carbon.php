@@ -148,6 +148,12 @@ class Carbon extends DateTime
     );
 
     /**
+     * midday/noon hour
+     * @var int
+     */
+    protected static $midDayAt = 12;
+
+    /**
      * A test Carbon instance to be returned when now instances are created.
      *
      * @var \Carbon\Carbon
@@ -869,6 +875,26 @@ class Carbon extends DateTime
     {
         static::$weekendDays = $days;
     }
+    
+    /**
+     * get midday/noon hour
+     * 
+     * @return int
+     */
+    public static function getMidDayAt()
+    {
+        return static::$midDayAt;
+    }
+    
+    /**
+     * Set midday/noon hour
+     * 
+     * @param int $hour
+     */
+    public static function setMidDayAt(int $hour)
+    {
+        static::$midDayAt = $hour;
+    }
 
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// TESTING AIDS ////////////////////////////
@@ -1229,6 +1255,27 @@ class Carbon extends DateTime
         return $this->format(static::W3C);
     }
 
+    /**
+     * Get default array representation
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'dayOfWeek' => $this->dayOfWeek,
+            'dayOfYear' => $this->dayOfYear,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'timestamp' => $this->timestamp,
+            'formatted' => $this->format(self::DEFAULT_TO_STRING_FORMAT),
+            'timezone' => $this->timezone,
+        );
+    }
+    
     ///////////////////////////////////////////////////////////////////
     ////////////////////////// COMPARISONS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -2559,6 +2606,51 @@ class Carbon extends DateTime
         return $this->endOfDay();
     }
 
+    /**
+     * Modify to start of current hour, minutes and seconds become 0
+     * @return Carbon
+     */
+    public function startOfHour()
+    {
+        return $this->setTime($this->hour, 0, 0);
+    }
+
+    /**
+     * Modify to end of current hour, minutes and seconds become 59
+     * @return Carbon
+     */
+    public function endOfHour()
+    {
+        return $this->setTime($this->hour, 59, 59);
+    }
+
+    /**
+     * Modify to start of current minute, seconds become 0
+     * @return Carbon
+     */
+    public function startOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 0);
+    }
+
+    /**
+     * Modify to end of current minute, seconds become 59
+     * @return Carbon
+     */
+    public function endOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 59);
+    }
+
+    /**
+     * Modify to end of day, default to self::$midDayAt
+     * @return Carbon
+     */
+    public function midDay()
+    {
+        return $this->setTime(self::$midDayAt, 0, 0);
+    }
+    
     /**
      * Modify to the next occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the next occurrence
