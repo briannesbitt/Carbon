@@ -2812,12 +2812,12 @@ class Carbon extends DateTime
     public static function getAge($dateOfBirth){
     	$ageArray = [];
     	$age = self::now()->diff(self::parse($dateOfBirth));
-    	$ageArray['years'] = $age->y;
-    	$ageArray['months'] = $age->m;
-    	$ageArray['days'] = $age->d;
-    	$ageArray['hours'] = $age->h;
-    	$ageArray['minutes'] = $age->i;
-    	$ageArray['seconds'] = $age->s;
+    	$ageArray['year'] = $age->y;
+    	$ageArray['month'] = $age->m;
+    	$ageArray['day'] = $age->d;
+    	$ageArray['hour'] = $age->h;
+    	$ageArray['minute'] = $age->i;
+    	$ageArray['second'] = $age->s;
     	return $ageArray;
     }
     
@@ -2831,7 +2831,7 @@ class Carbon extends DateTime
     	$ageItems = self::getAge($dateOfBirth);
     	$ageString = '';
     	foreach($ageItems as $key=>$ageItem){
-    		$ageString .= $ageItem.' '.$key.',';
+    		$ageString .= static::translator()->transChoice($key,$ageItem, array(':count' => $ageItem)).',';
     	}
     	$ageString = trim($ageString,',');
     	return $ageString;
