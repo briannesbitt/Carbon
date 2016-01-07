@@ -1578,6 +1578,8 @@ class Carbon extends DateTime
     /**
      * Determines if the instance is a long year
      *
+     * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+     *
      * @return bool
      */
     public function isLongYear()
