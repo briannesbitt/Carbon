@@ -157,6 +157,12 @@ class Carbon extends DateTime
                                     );
 
     /**
+     * midday/noon hour
+     * @var int
+     */
+    protected static $midDayAt = 12;
+
+    /**
      * A test Carbon instance to be returned when now instances are created.
      *
      * @var \Carbon\Carbon
@@ -1059,6 +1065,34 @@ class Carbon extends DateTime
 
 
     /**
+     * get midday/noon hour
+     * 
+     * @access public
+     * @return int
+     */
+    public static function getMidDayAt()
+    {
+        return static::$midDayAt;
+
+    }//end getMidDayAt()
+
+
+    /**
+     * Set midday/noon hour
+     * 
+     * @param int $hour midday hour
+     * 
+     * @access public
+     * @return void
+     */
+    public static function setMidDayAt(int $hour)
+    {
+        static::$midDayAt = $hour;
+
+    }//end setMidDayAt()
+
+
+    /**
      * ******************************************************************************
      * ************************ TESTING AIDS ****************************************
      * ******************************************************************************
@@ -1535,6 +1569,31 @@ class Carbon extends DateTime
         return $this->format(static::W3C);
 
     }//end toW3cString()
+
+
+    /**
+     * Get default array representation
+     * 
+     * @access public
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+                'year'      => $this->year,
+                'month'     => $this->month,
+                'day'       => $this->day,
+                'dayOfWeek' => $this->dayOfWeek,
+                'dayOfYear' => $this->dayOfYear,
+                'hour'      => $this->hour,
+                'minute'    => $this->minute,
+                'second'    => $this->second,
+                'timestamp' => $this->timestamp,
+                'formatted' => $this->format(self::DEFAULT_TO_STRING_FORMAT),
+                'timezone'  => $this->timezone,
+               );
+
+    }//end toArray()
 
 
     /**
@@ -3164,6 +3223,71 @@ class Carbon extends DateTime
         return $this->endOfDay();
 
     }//end endOfWeek()
+
+
+    /**
+     * Modify to start of current hour, minutes and seconds become 0
+     * 
+     * @access public
+     * @return Carbon
+     */
+    public function startOfHour()
+    {
+        return $this->setTime($this->hour, 0, 0);
+
+    }//end startOfHour()
+
+
+    /**
+     * Modify to end of current hour, minutes and seconds become 59
+     * 
+     * @access public
+     * @return Carbon
+     */
+    public function endOfHour()
+    {
+        return $this->setTime($this->hour, 59, 59);
+
+    }//end endOfHour()
+
+
+    /**
+     * Modify to start of current minute, seconds become 0
+     * 
+     * @access public
+     * @return Carbon
+     */
+    public function startOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 0);
+
+    }//end startOfMinute()
+
+
+    /**
+     * Modify to end of current minute, seconds become 59
+     * 
+     * @access public
+     * @return Carbon
+     */
+    public function endOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 59);
+
+    }//end endOfMinute()
+
+
+    /**
+     * Modify to midday, default to self::$midDayAt
+     * 
+     * @access public
+     * @return Carbon
+     */
+    public function midDay()
+    {
+        return $this->setTime(self::$midDayAt, 0, 0);
+
+    }//end midDay()
 
 
     /**
