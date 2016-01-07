@@ -19,19 +19,43 @@ class ArraysTest extends AbstractTestCase
 
     public function testToArray()
     {
-        $expectedArrayKeys = array('year', 'month', 'day', 'dayOfWeek', 'dayOfYear', 'hour', 'minute', 'second');
         $dt = Carbon::now();
         $dtToArray = $dt->toArray();
-
-        foreach ($expectedArrayKeys as $key) {
-            // key is exist, value is exists in Carbon object
-            $this->assertArrayHasKey($key, $dtToArray);
-            if ('formatted' == $key) {
-                $this->assertEquals($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToArray[$key]);
-            } else {
-                $this->assertEquals($dt->{$key}, $dtToArray[$key]);
-            }
-        }
+        
+        $this->assertInternalType('array', $dtToArray);
+        
+        $this->assertArrayHasKey('year', $dtToArray);
+        $this->assertEquals($dt->year, $dtToArray['year']);
+        
+        $this->assertArrayHasKey('month', $dtToArray);
+        $this->assertEquals($dt->month, $dtToArray['month']);
+        
+        $this->assertArrayHasKey('day', $dtToArray);
+        $this->assertEquals($dt->day, $dtToArray['day']);
+        
+        $this->assertArrayHasKey('dayOfWeek', $dtToArray);
+        $this->assertEquals($dt->dayOfWeek, $dtToArray['dayOfWeek']);
+        
+        $this->assertArrayHasKey('dayOfYear', $dtToArray);
+        $this->assertEquals($dt->dayOfYear, $dtToArray['dayOfYear']);
+        
+        $this->assertArrayHasKey('hour', $dtToArray);
+        $this->assertEquals($dt->hour, $dtToArray['hour']);
+        
+        $this->assertArrayHasKey('minute', $dtToArray);
+        $this->assertEquals($dt->minute, $dtToArray['minute']);
+        
+        $this->assertArrayHasKey('second', $dtToArray);
+        $this->assertEquals($dt->second, $dtToArray['second']);
+        
+        $this->assertArrayHasKey('timestamp', $dtToArray);
+        $this->assertEquals($dt->timestamp, $dtToArray['timestamp']);
+        
+        $this->assertArrayHasKey('timezone', $dtToArray);
+        $this->assertEquals($dt->timezone, $dtToArray['timezone']);
+        
+        $this->assertArrayHasKey('formatted', $dtToArray);
+        $this->assertEquals($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToArray['formatted']);
     }
 
 }
