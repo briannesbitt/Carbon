@@ -878,7 +878,7 @@ class Carbon extends DateTime
     
     /**
      * get midday/noon hour
-     * 
+     * @access public
      * @return int
      */
     public static function getMidDayAt()
@@ -888,7 +888,7 @@ class Carbon extends DateTime
     
     /**
      * Set midday/noon hour
-     * 
+     * @access public
      * @param int $hour
      */
     public static function setMidDayAt(int $hour)
@@ -1257,6 +1257,7 @@ class Carbon extends DateTime
 
     /**
      * Get default array representation
+     * @access public
      * @return array
      */
     public function toArray()
@@ -2608,6 +2609,7 @@ class Carbon extends DateTime
 
     /**
      * Modify to start of current hour, minutes and seconds become 0
+     * @access public
      * @return Carbon
      */
     public function startOfHour()
@@ -2617,6 +2619,7 @@ class Carbon extends DateTime
 
     /**
      * Modify to end of current hour, minutes and seconds become 59
+     * @access public
      * @return Carbon
      */
     public function endOfHour()
@@ -2626,6 +2629,7 @@ class Carbon extends DateTime
 
     /**
      * Modify to start of current minute, seconds become 0
+     * @access public
      * @return Carbon
      */
     public function startOfMinute()
@@ -2635,6 +2639,7 @@ class Carbon extends DateTime
 
     /**
      * Modify to end of current minute, seconds become 59
+     * @access public
      * @return Carbon
      */
     public function endOfMinute()
@@ -2643,7 +2648,8 @@ class Carbon extends DateTime
     }
 
     /**
-     * Modify to end of day, default to self::$midDayAt
+     * Modify to midday, default to self::$midDayAt
+     * @access public
      * @return Carbon
      */
     public function midDay()
