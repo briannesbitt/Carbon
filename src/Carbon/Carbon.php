@@ -3033,7 +3033,7 @@ class Carbon extends DateTime
      *
      * @return int year of birth
      */
-    public static function getBirthYear($age)
+    public static function birthYear($age)
     {
         return self::now()->subYears((int) $age)->year;
     }//end getBirthYear()
@@ -3047,7 +3047,7 @@ class Carbon extends DateTime
      *
      * @return array $ageArray
      */
-    public static function getAge($dateOfBirth)
+    public static function age($dateOfBirth)
     {
         $ageArray = array();
         $age = self::now()->diff(self::parse($dateOfBirth));
@@ -3070,9 +3070,9 @@ class Carbon extends DateTime
      *
      * @return string $ageString
      */
-    public static function getAgeForHumans($dateOfBirth)
+    public static function ageForHumans($dateOfBirth)
     {
-        $ageItems = self::getAge($dateOfBirth);
+        $ageItems = self::age($dateOfBirth);
         $ageString = '';
         foreach ($ageItems as $key => $ageItem) {
             $ageString .= static::translator()->transChoice($key, $ageItem, array(':count' => $ageItem)).',';
@@ -3092,7 +3092,7 @@ class Carbon extends DateTime
      *
      * @return int age in days
      */
-    public static function getAgeInDays($dateOfBirth)
+    public static function ageInDays($dateOfBirth)
     {
         return self::now()->diffInDays(self::parse($dateOfBirth));
     }//end getAgeInDays()
@@ -3106,7 +3106,7 @@ class Carbon extends DateTime
      *
      * @return int age in hours
      */
-    public static function getAgeInHours($dateOfBirth)
+    public static function ageInHours($dateOfBirth)
     {
         return self::now()->diffInHours(self::parse($dateOfBirth));
     }//end getAgeInHours()
@@ -3120,7 +3120,7 @@ class Carbon extends DateTime
      *
      * @return int age in minutes
      */
-    public static function getAgeInMinutes($dateOfBirth)
+    public static function ageInMinutes($dateOfBirth)
     {
         return self::now()->diffInMinutes(self::parse($dateOfBirth));
     }//end getAgeInMinutes()

@@ -26,12 +26,12 @@ class AgeTest extends AbstractTestCase
     public function testGetBirthYear()
     {
         $age = 32;
-        $this->assertEquals(Carbon::now()->subYears($age)->year, Carbon::getBirthYear($age));
+        $this->assertEquals(Carbon::now()->subYears($age)->year, Carbon::birthYear($age));
     }
 
     public function testGetAge()
     {
-        $ageArray = Carbon::getAge($this->testDate);
+        $ageArray = Carbon::age($this->testDate);
         $this->assertArrayHasKey('year', $ageArray);
         $this->assertArrayHasKey('month', $ageArray);
         $this->assertArrayHasKey('day', $ageArray);
@@ -42,24 +42,24 @@ class AgeTest extends AbstractTestCase
 
     public function testGetAgeForHumans()
     {
-        $this->assertStringMatchesFormat('%d year%S,%d month%S,%d day%S,%d hour%S,%d minute%S,%d second%S', Carbon::getAgeForHumans($this->testDate));
+        $this->assertStringMatchesFormat('%d year%S,%d month%S,%d day%S,%d hour%S,%d minute%S,%d second%S', Carbon::ageForHumans($this->testDate));
     }
 
     public function testGetAgeInDays()
     {
         $date = Carbon::parse($this->testDate);
-        $this->assertEquals(Carbon::now()->diffInDays($date), Carbon::getAgeInDays($this->testDate));
+        $this->assertEquals(Carbon::now()->diffInDays($date), Carbon::ageInDays($this->testDate));
     }
 
     public function testGetAgeInHours()
     {
         $date = Carbon::parse($this->testDate);
-        $this->assertEquals(Carbon::now()->diffInHours($date), Carbon::getAgeInHours($this->testDate));
+        $this->assertEquals(Carbon::now()->diffInHours($date), Carbon::ageInHours($this->testDate));
     }
 
     public function testGetAgeInMinutes()
     {
         $date = Carbon::parse($this->testDate);
-        $this->assertEquals(Carbon::now()->diffInMinutes($date), Carbon::getAgeInMinutes($this->testDate));
+        $this->assertEquals(Carbon::now()->diffInMinutes($date), Carbon::ageInMinutes($this->testDate));
     }
 }
