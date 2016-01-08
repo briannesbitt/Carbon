@@ -284,4 +284,19 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(15, $d->minute);
         $this->assertSame(30, $d->second);
     }
+
+    public function testWeekendDaysSetter()
+    {
+    	$weekendDays = array(Carbon::FRIDAY,Carbon::SATURDAY);
+    	$d = Carbon::now();
+    	$d->setWeekendDays($weekendDays);
+    	$this->assertSame($weekendDays, $d->getWeekendDays());
+    }
+
+    public function testMidDayAtSetter()
+    {
+    	$d = Carbon::now();
+    	$d->setMidDayAt(12);
+    	$this->assertSame(12, $d->getMidDayAt());
+    }
 }
