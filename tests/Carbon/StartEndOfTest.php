@@ -227,13 +227,13 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfHourFromFirstMinute()
     {
-        $dt = Carbon::create(2001, 1, 1, 1, 1, rand(0,59))->endOfHour();
+        $dt = Carbon::create(2001, 1, 1, 1, 1, rand(0, 59))->endOfHour();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59);
     }
 
     public function testEndOfHourFromLastMinute()
     {
-        $dt = Carbon::create(2100, 12, 31, 23, 59, rand(0,59))->endOfHour();
+        $dt = Carbon::create(2100, 12, 31, 23, 59, rand(0, 59))->endOfHour();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59);
     }
 
@@ -283,7 +283,6 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfMinuteFromLastSecond()
     {
-        
         $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfHour();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59);
     }
@@ -300,7 +299,7 @@ class StartEndOfTest extends AbstractTestCase
         $dt = Carbon::now()->midDay();
         $this->assertCarbon($dt, $now->year, $now->month, $now->day, 12, 0, 0);
     }
-    
+
     public function testEndOfCenturyIsFluid()
     {
         $dt = Carbon::now();
