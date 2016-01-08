@@ -975,7 +975,7 @@ class Carbon extends DateTime
      * 
      * @return void
      */
-    public static function setMidDayAt(int $hour)
+    public static function setMidDayAt($hour)
     {
         static::$midDayAt = $hour;
     }//end setMidDayAt()
