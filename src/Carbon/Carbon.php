@@ -124,6 +124,11 @@ class Carbon extends DateTime
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
+     * The PHP_INT_SIZE
+     */
+    public static $PHPIntSize = PHP_INT_SIZE;
+
+    /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
@@ -365,7 +370,7 @@ class Carbon extends DateTime
      */
     public static function maxValue()
     {
-        if (PHP_INT_SIZE === 4) {
+        if (self::$PHPIntSize === 4) {
             // Int 32 bit (and additionally Windows 64 bit).
             return static::createFromTimestamp(PHP_INT_MAX);
         }
@@ -383,7 +388,7 @@ class Carbon extends DateTime
      */
     public static function minValue()
     {
-        if (PHP_INT_SIZE === 4) {
+        if (self::$PHPIntSize === 4) {
             // Int 32 bit (and additionally Windows 64 bit).
             return static::createFromTimestamp(~PHP_INT_MAX);
         }
