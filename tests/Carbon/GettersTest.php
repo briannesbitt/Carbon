@@ -198,8 +198,8 @@ class GettersTest extends AbstractTestCase
 
     public function testGetMidDayAt()
     {
-    	$d = Carbon::now();
-    	$this->assertSame(12, $d->getMidDayAt());
+        $d = Carbon::now();
+        $this->assertSame(12, $d->getMidDayAt());
     }
 
     public function testOffsetForTorontoWithDST()
