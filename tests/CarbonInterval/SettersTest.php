@@ -74,7 +74,7 @@ class SettersTest extends AbstractTestCase
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 4, 2, 5, 3, 1, 59);
 
-        $ci = CarbonInterval::year(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
+        $ci = CarbonInterval::years(4)->months(2)->weeks(2)->hours(3)->minute()->seconds(59);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 4, 2, 14, 3, 1, 59);
     }
