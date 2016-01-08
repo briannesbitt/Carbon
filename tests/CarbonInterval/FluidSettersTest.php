@@ -121,5 +121,4 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertInstanceOfCarbonInterval($d->seconds(20));
         $this->assertSame(20, $d->seconds);
     }
-
 }
