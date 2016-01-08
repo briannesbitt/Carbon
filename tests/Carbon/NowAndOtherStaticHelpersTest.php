@@ -92,7 +92,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
     public function testMaxValue32()
     {
         $dt = Carbon::now();
-    	$dt::$PHPIntSize = 4;
+        $dt::$PHPIntSize = 4;
         $this->assertGreaterThanOrEqual(2147483647, $dt::maxValue()->getTimestamp());
     }
 }
