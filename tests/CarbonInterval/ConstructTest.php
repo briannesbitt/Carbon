@@ -235,7 +235,7 @@ class ConstructTest extends AbstractTestCase
     {
         $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
     }
-    
+
     public function testUnknownMethod()
     {
         $this->assertNull(CarbonInterval::notExistMethod());
