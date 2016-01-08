@@ -77,6 +77,11 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertLessThanOrEqual(- 2147483647, Carbon::minValue()->getTimestamp());
     }
 
+    public function testMaxValue()
+    {
+        $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
+    }
+
     public function testMinValue32()
     {
         $dt = Carbon::now();
@@ -84,15 +89,10 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertLessThanOrEqual(- 2147483647, $dt::minValue()->getTimestamp());
     }
 
-    public function testMaxValue()
-    {
-        $this->assertGreaterThanOrEqual(2147483647, Carbon::maxValue()->getTimestamp());
-    }
-
     public function testMaxValue32()
     {
         $dt = Carbon::now();
-        $dt::$PHPIntSize = 4;
+    	$dt::$PHPIntSize = 4;
         $this->assertGreaterThanOrEqual(2147483647, $dt::maxValue()->getTimestamp());
     }
 }
