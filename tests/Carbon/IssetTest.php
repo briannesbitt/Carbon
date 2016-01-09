@@ -58,6 +58,6 @@ class IssetTest extends AbstractTestCase
      */
     public function testIssetReturnTrueForProperties($property)
     {
-        $this->assertTrue(isset(Carbon::now()->$property, $property));
+        $this->assertTrue(isset(Carbon::now()->$property));
     }
 }
