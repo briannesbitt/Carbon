@@ -24,8 +24,8 @@ return array(
     'hour'      => '1 órával|:count órával',
     'minute'    => '1 perccel|:count perccel',
     'second'    => '1 másodperccel|:count másodperccel',
-    'ago'       => ':time korábban',
-    'from_now'  => ':time később',
+    'ago'       => ':time ezelőtt',
+    'from_now'  => ':time ezután',
     'after'     => ':time később',
     'before'    => ':time korábban'
 );
