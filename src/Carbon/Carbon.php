@@ -944,7 +944,7 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Intialize the translator instance if necessary.
+     * Initialize the translator instance if necessary.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
