@@ -2581,7 +2581,7 @@ class Carbon extends DateTime
     /**
      * Modify to the previous occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied consts
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
