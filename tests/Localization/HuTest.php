@@ -169,7 +169,7 @@ class HuTest extends AbstractTestCase
             $d2 = Carbon::now();
             $scope->assertSame('2 évvel később', $d->diffForHumans($d2));
             $scope->assertSame('2 évvel korábban', $d2->diffForHumans($d));
-           
+
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 másodperc', $d->diffForHumans($d2, true));
