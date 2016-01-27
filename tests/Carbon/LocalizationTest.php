@@ -68,7 +68,7 @@ class LocalizationTest extends AbstractTestCase
             array('no'),
             array('pl'),
             array('pt'),
-            array('pt_BR'),
+            array('pt-BR'),
             array('ro'),
             array('ru'),
             array('sk'),
@@ -120,9 +120,9 @@ class LocalizationTest extends AbstractTestCase
 
     public function testSetLocaleWithMalformedLocale()
     {
-        $this->assertTrue(Carbon::setLocale('pt_br'));
-        $this->assertTrue(Carbon::setLocale('PT_br'));
-        $this->assertTrue(Carbon::setLocale('PT_BR'));
+        $this->assertTrue(Carbon::setLocale('pt-br'));
+        $this->assertTrue(Carbon::setLocale('PT-br'));
+        $this->assertTrue(Carbon::setLocale('PT-BR'));
 
         $this->assertTrue(Carbon::setLocale('pt-BR'));
         $this->assertTrue(Carbon::setLocale('pt-br'));
