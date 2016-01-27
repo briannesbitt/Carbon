@@ -40,7 +40,7 @@ class PtTest extends AbstractTestCase
 
     public function testDiffForHumansLocalizedInPortugueseBrazilBC()
     {
-        Carbon::setLocale('pt_BR');
+        Carbon::setLocale('pt-BR');
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
