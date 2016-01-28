@@ -12,15 +12,8 @@
 namespace Tests\Carbon\Fixtures;
 
 use Carbon\Carbon;
-use DateTime;
 
 class MyCarbon extends Carbon
 {
-    /**
-     * {@inheritdoc}
-     */
-    public static function instance(DateTime $dt)
-    {
-        return parent::instance($dt);
-    }
+    //
 }
