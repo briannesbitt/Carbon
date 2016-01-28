@@ -13,6 +13,7 @@ namespace Carbon;
 
 use Closure;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use DatePeriod;
 use InvalidArgumentException;
@@ -240,17 +241,19 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTime $dt
+     * @param \DateTime|\DateTimeImmutable $dt
      *
      * @return static
      */
-    public static function instance(DateTime $dt)
+    public static function instance($dt)
     {
         if ($dt instanceof static) {
             return clone $dt;
+        } elseif ($dt instanceof DateTime || $dt instanceof DateTimeImmutable) {
+            return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
         }
 
-        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
+        throw new InvalidArgumentException('$dt must be at \DateTime or a \DateTimeImmutable');
     }
 
     /**

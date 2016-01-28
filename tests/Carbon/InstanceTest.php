@@ -13,14 +13,54 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
+use StdClass;
 use Tests\AbstractTestCase;
 
 class InstanceTest extends AbstractTestCase
 {
+
+    /**
+     * Data provider for \Tests\Carbon\InstanceTest::testInstanceThrowsAnException
+     *
+     * @return array
+     */
+    public function dataProviderTestInstanceThrowsAnException()
+    {
+        return array(
+            array('foo'),
+            array(array()),
+            array(new StdClass()),
+            array(time()),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\InstanceTest::dataProviderTestInstanceThrowsAnException
+     * @expectedException \InvalidArgumentException
+     *
+     * @param mixed $dt
+     */
+    public function testInstanceThrowsAnException($dt)
+    {
+        Carbon::instance($dt);
+    }
+
     public function testInstanceFromDateTime()
     {
         $dating = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
+    }
+
+    public function testInstanceFromDateTimeImmutable()
+    {
+        if (version_compare(PHP_VERSION, '5.5.0') < 0) {
+            $this->markTestSkipped('Skipping test with \DateTimeImmutable on PHP < 5.5');
+        }
+
+        $immutableDateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
+        $dating = Carbon::instance($immutableDateTime);
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
     }
 
