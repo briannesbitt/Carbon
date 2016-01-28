@@ -192,6 +192,7 @@ class ComparisonTest extends AbstractTestCase
         $dt2 = Carbon::create(2099, 12, 31, 23, 59, 59)->max($dt1);
         $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
     }
+
     public function testIsBirthday()
     {
         $dt = Carbon::now();

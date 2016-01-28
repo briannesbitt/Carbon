@@ -193,6 +193,7 @@ class SettersTest extends AbstractTestCase
             //
         }
     }
+
     public function testTzWithInvalidTimezone()
     {
         $d = Carbon::now();
@@ -211,6 +212,7 @@ class SettersTest extends AbstractTestCase
             //
         }
     }
+
     public function testSetTimezoneUsingString()
     {
         $d = Carbon::now();
