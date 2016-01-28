@@ -17,9 +17,16 @@ use DateTimeImmutable;
 use DateTimeZone;
 use StdClass;
 use Tests\AbstractTestCase;
+use Tests\Carbon\Fixtures\MyCarbon;
 
 class InstanceTest extends AbstractTestCase
 {
+    public function testMyExtendedClassCanOverrideInstance()
+    {
+        $dt = MyCarbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $this->assertCarbon($dt, 1975, 5, 21, 22, 32, 11);
+    }
+
     /**
      * Data provider for \Tests\Carbon\InstanceTest::testInstanceThrowsAnException
      *
