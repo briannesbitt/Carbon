@@ -43,14 +43,14 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateHandlesFiveDigitsPositiveYears()
     {
-        $c = Carbon::create(10000, 10, 12, 1, 2, 3);
-        $this->assertCarbon($c, 10000, 10, 12, 1, 2, 3);
+        $c = Carbon::create(999999999, 10, 12, 1, 2, 3);
+        $this->assertCarbon($c, 999999999, 10, 12, 1, 2, 3);
     }
 
     public function testCreateHandlesFiveDigitsNegativeYears()
     {
-        $c = Carbon::create(-10000, 10, 12, 1, 2, 3);
-        $this->assertCarbon($c, -10000, 10, 12, 1, 2, 3);
+        $c = Carbon::create(-999999999, 10, 12, 1, 2, 3);
+        $this->assertCarbon($c, -999999999, 10, 12, 1, 2, 3);
     }
 
     public function testCreateWithMonth()
