@@ -14,7 +14,6 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use DateTime;
 use DateTimeImmutable;
-use DateTimeInterface;
 use DateTimeZone;
 use StdClass;
 use Tests\AbstractTestCase;
@@ -71,11 +70,11 @@ class InstanceTest extends AbstractTestCase
         }
 
         $dt = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
-        $this->assertInstanceOf(DateTimeInterface::class, $dt);
+        $this->assertInstanceOf('\DateTimeInterface', $dt);
         $this->assertCarbon($dt, 1975, 5, 21, 22, 32, 11);
 
         $immutableDateTime = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
-        $this->assertInstanceOf(DateTimeInterface::class, $immutableDateTime);
+        $this->assertInstanceOf('\DateTimeInterface', $immutableDateTime);
         $this->assertCarbon($immutableDateTime, 1975, 5, 21, 22, 32, 11);
     }
 
