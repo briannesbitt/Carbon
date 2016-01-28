@@ -14,13 +14,13 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use DateTimeZone;
 use StdClass;
 use Tests\AbstractTestCase;
 
 class InstanceTest extends AbstractTestCase
 {
-
     /**
      * Data provider for \Tests\Carbon\InstanceTest::testInstanceThrowsAnException
      *
@@ -49,8 +49,8 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceFromDateTime()
     {
-        $dating = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
-        $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
+        $dt = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $this->assertCarbon($dt, 1975, 5, 21, 22, 32, 11);
     }
 
     public function testInstanceFromDateTimeImmutable()
@@ -62,6 +62,21 @@ class InstanceTest extends AbstractTestCase
         $immutableDateTime = DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
         $dating = Carbon::instance($immutableDateTime);
         $this->assertCarbon($dating, 1975, 5, 21, 22, 32, 11);
+    }
+
+    public function testInstanceFromDateTimeInterface()
+    {
+        if (version_compare(PHP_VERSION, '5.5.0') < 0) {
+            $this->markTestSkipped('Skipping test with \DateTimeInterface on PHP < 5.5');
+        }
+
+        $dt = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $this->assertInstanceOf(DateTimeInterface::class, $dt);
+        $this->assertCarbon($dt, 1975, 5, 21, 22, 32, 11);
+
+        $immutableDateTime = Carbon::instance(DateTime::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11'));
+        $this->assertInstanceOf(DateTimeInterface::class, $immutableDateTime);
+        $this->assertCarbon($immutableDateTime, 1975, 5, 21, 22, 32, 11);
     }
 
     public function testInstanceFromCarbon()
