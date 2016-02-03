@@ -454,7 +454,7 @@ class Carbon extends DateTime
                 continue;
             }
 
-            if ($value < $element['range'][0] || $value > $element['range'][1]) {
+            if (!is_int($value) || $value < $element['range'][0] || $value > $element['range'][1]) {
                 throw new InvalidDateException($field, $value);
             }
         }

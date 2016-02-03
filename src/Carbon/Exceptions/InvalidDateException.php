@@ -26,7 +26,7 @@ class InvalidDateException extends InvalidArgumentException
     /**
      * The invalid value.
      *
-     * @var int
+     * @var mixed
      */
     private $value;
 
@@ -34,7 +34,7 @@ class InvalidDateException extends InvalidArgumentException
      * Constructor.
      *
      * @param string          $field
-     * @param int             $value
+     * @param mixed           $value
      * @param int             $code
      * @param \Exception|null $previous
      */
@@ -46,6 +46,8 @@ class InvalidDateException extends InvalidArgumentException
     }
 
     /**
+     * Set the invalid field.
+     *
      * @param string $field
      *
      * @return $this
@@ -58,6 +60,8 @@ class InvalidDateException extends InvalidArgumentException
     }
 
     /**
+     * Get the invalid field.
+     *
      * @return string
      */
     public function getField()
@@ -66,7 +70,9 @@ class InvalidDateException extends InvalidArgumentException
     }
 
     /**
-     * @param int $value
+     * Set the invalid value.
+     *
+     * @param mixed $value
      *
      * @return $this
      */
@@ -78,7 +84,9 @@ class InvalidDateException extends InvalidArgumentException
     }
 
     /**
-     * @return int
+     * Get the invalid value.
+     *
+     * @return mixed
      */
     public function getValue()
     {

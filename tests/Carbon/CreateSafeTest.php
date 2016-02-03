@@ -162,6 +162,15 @@ class CreateSafeTest extends AbstractTestCase
         Carbon::createSafe(2015, 2, 29, 17, 16, 15);
     }
 
+    /**
+     * @expectedException \Carbon\Exceptions\InvalidDateException
+     * @expectedExceptionMessage second : 15.1 is not a valid value.
+     */
+    public function testCreateSafeThrowsExceptionForWithNonIntegerValue()
+    {
+        Carbon::createSafe(2015, 2, 10, 17, 16, 15.1);
+    }
+
     public function testCreateSafePassesForFebruaryInNonLeapYear()
     {
         // 28 days in February in a non-leap year
