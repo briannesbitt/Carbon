@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use Carbon\Exceptions\InvalidDateException;
 use Closure;
 use DateTime;
 use DateTimeZone;
@@ -388,6 +389,88 @@ class Carbon extends DateTime
         }
 
         return static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+    }
+
+    /**
+     * Create a new safe Carbon instance from a specific date and time.
+     *
+     * If any of $year, $month or $day are set to null their now() values will
+     * be used.
+     *
+     * If $hour is null it will be set to its now() value and the default
+     * values for $minute and $second will be their now() values.
+     *
+     * If $hour is not null then the default values for $minute and $second
+     * will be 0.
+     *
+     * If one of the set values is not valid, an \InvalidArgumentException
+     * will be thrown.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \Carbon\Exceptions\InvalidDateException
+     *
+     * @return static
+     */
+    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
+    {
+        $fields = array(
+            'second' => array(
+                'value' => $second,
+                'range' => array(0, 59),
+            ),
+            'minute' => array(
+                'value' => $minute,
+                'range' => array(0, 59),
+            ),
+            'hour' => array(
+                'value' => $hour,
+                'range' => array(0, 24),
+            ),
+            'year' => array(
+                'value' => $year,
+                'range' => array(0, 9999),
+            ),
+            'month' => array(
+                'value' => $month,
+                'range' => array(0, 12),
+            ),
+            'day' => array(
+                'value' => $day,
+                'range' => array(0, 31),
+            ),
+        );
+
+        foreach ($fields as $field => $element) {
+            $value = $element['value'];
+
+            if ($value === null) {
+                continue;
+            }
+
+            if ($value < $element['range'][0] || $value > $element['range'][1]) {
+                throw new InvalidDateException($field, $value);
+            }
+        }
+
+        $instance = static::create($year, $month, 1, $hour, $minute, $second, $tz);
+
+        $field = 'day';
+        $value = $fields[$field]['value'];
+
+        if ($value !== null && $value > $instance->daysInMonth) {
+            throw new InvalidDateException($field, $value);
+        } else {
+            $instance->day($value);
+        }
+
+        return $instance;
     }
 
     /**
