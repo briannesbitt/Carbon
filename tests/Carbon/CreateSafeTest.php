@@ -140,14 +140,14 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInLeapYear()
     {
-        // 29 days in February in a leap year
+        // 29 days in February for a leap year
         $this->assertTrue(Carbon::create(2016, 2)->isLeapYear());
         Carbon::createSafe(2016, 2, 30, 17, 16, 15);
     }
 
     public function testCreateSafePassesForFebruaryInLeapYear()
     {
-        // 29 days in February in a leap year
+        // 29 days in February for a leap year
         Carbon::createSafe(2016, 2, 29, 17, 16, 15);
     }
 
@@ -157,7 +157,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForInvalidDayForFebruaryInNonLeapYear()
     {
-        // 28 days in February in a non-leap year
+        // 28 days in February for a non-leap year
         $this->assertFalse(Carbon::create(2015, 2)->isLeapYear());
         Carbon::createSafe(2015, 2, 29, 17, 16, 15);
     }
@@ -173,7 +173,7 @@ class CreateSafeTest extends AbstractTestCase
 
     public function testCreateSafePassesForFebruaryInNonLeapYear()
     {
-        // 28 days in February in a non-leap year
+        // 28 days in February for a non-leap year
         Carbon::createSafe(2015, 2, 28, 17, 16, 15);
     }
 
