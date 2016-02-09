@@ -2483,7 +2483,7 @@ class Carbon extends DateTime
      */
     public function endOfQuarter()
     {
-        return $this->startOfQuarter()->addMonths(2)->endOfMonth();
+        return $this->startOfQuarter()->addMonths(static::MONTHS_PER_QUARTER - 1)->endOfMonth();
     }
 
     /**
