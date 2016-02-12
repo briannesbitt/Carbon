@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use BadMethodCallException;
 use Closure;
 use DateTime;
 use DateTimeZone;
@@ -160,6 +161,13 @@ class Carbon extends DateTime
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
+
+    /**
+     * The registered macros.
+     *
+     * @var array
+     */
+    protected static $macros = array();
 
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
@@ -2784,5 +2792,78 @@ class Carbon extends DateTime
         $dt = $dt ?: static::now($this->tz);
 
         return $this->format('md') === $dt->format('md');
+    }
+
+    /**
+     * Register a macro.
+     *
+     * @param string   $name
+     * @param \Closure $macro
+     *
+     * @return void
+     */
+    public static function macro($name, Closure $macro)
+    {
+        static::$macros[$name] = $macro;
+    }
+
+    /**
+     * Flush macros.
+     *
+     * @return void
+     */
+    public static function flushMacros()
+    {
+        static::$macros = array();
+    }
+
+    /**
+     * Checks if macro is registered.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function hasMacro($name)
+    {
+        return isset(static::$macros[$name]);
+    }
+
+    /**
+     * Dynamically handle static calls to the class.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        if (isset(static::$macros[$method])) {
+            return call_user_func_array(static::$macros[$method], $parameters);
+        }
+
+        throw new BadMethodCallException(sprintf('Method %s does not exist.', $method));
+    }
+
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (isset(static::$macros[$method])) {
+            return call_user_func_array(static::$macros[$method], $parameters);
+        }
+
+        throw new BadMethodCallException(sprintf('Method %s does not exist.', $method));
     }
 }
