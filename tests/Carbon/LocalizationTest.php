@@ -60,6 +60,7 @@ class LocalizationTest extends AbstractTestCase
             array('id'),
             array('it'),
             array('ja'),
+            array('ka'),
             array('ko'),
             array('lt'),
             array('lv'),
