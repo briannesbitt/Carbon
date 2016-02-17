@@ -30,10 +30,11 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property      int $hour
  * @property      int $minute
  * @property      int $second
+ * @property      int $milliSeconds
+ * @property      int $micro
  * @property      int $timestamp seconds since the Unix Epoch
  * @property      \DateTimeZone $timezone the current timezone
  * @property      \DateTimeZone $tz alias of timezone
- * @property-read int $micro
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5
@@ -108,6 +109,8 @@ class Carbon extends DateTime
     const HOURS_PER_DAY = 24;
     const MINUTES_PER_HOUR = 60;
     const SECONDS_PER_MINUTE = 60;
+    const MICROSECONDS_PER_MILLISECOND = 1000;
+    const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
      * Default format to use for __toString method when type juggling occurs.
@@ -160,6 +163,27 @@ class Carbon extends DateTime
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
+
+    /**
+     * Microseconds comparison flag.
+     *
+     * @var bool
+     */
+    protected $useMicroseconds = false;
+
+    /**
+     * Indicates if comparisons should be done with microseconds
+     *
+     * @param bool $useMicroseconds
+     *
+     * @return static
+     */
+    protected function useMicroseconds($useMicroseconds = false)
+    {
+        $this->useMicroseconds = $useMicroseconds;
+
+        return $this;
+    }
 
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
@@ -232,6 +256,11 @@ class Carbon extends DateTime
             }
 
             $time = $testInstance->toDateTimeString();
+        }
+
+        if ($time === null || $time === 'now') {
+            $dateTime = new DateTime('now', static::safeCreateDateTimeZone($tz));
+            $time = $dateTime->format('Y-m-d H:i:s').'.'.substr(microtime(), 2, 6);
         }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
@@ -524,6 +553,9 @@ class Carbon extends DateTime
             case $name === 'quarter':
                 return (int) ceil($this->month / 3);
 
+            case $name === 'milliSeconds':
+                return (int) ceil($this->micro / static::MICROSECONDS_PER_MILLISECOND);
+
             case $name === 'offset':
                 return $this->getOffset();
 
@@ -699,6 +731,32 @@ class Carbon extends DateTime
         $this->second = $value;
 
         return $this;
+    }
+
+    /**
+     * Set the instance's micro-seconds
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function microSeconds($value)
+    {
+        $this->micro = $value;
+
+        return $this;
+    }
+
+    /**
+     * Set the instance's micro-seconds
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function milliSeconds($value)
+    {
+        return $this->microSeconds($value * static::MICROSECONDS_PER_MILLISECOND);
     }
 
     /**
@@ -1242,7 +1300,9 @@ class Carbon extends DateTime
      */
     public function eq(Carbon $dt)
     {
-        return $this == $dt;
+        $eq = $this->useMicroseconds ? $this->micro === $dt->micro : true;
+
+        return $eq && $this == $dt;
     }
 
     /**
@@ -1256,7 +1316,7 @@ class Carbon extends DateTime
      */
     public function equalTo(Carbon $dt)
     {
-        return $this->eq($dt);
+        return $this->eq($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1268,7 +1328,7 @@ class Carbon extends DateTime
      */
     public function ne(Carbon $dt)
     {
-        return !$this->eq($dt);
+        return !$this->eq($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1282,7 +1342,7 @@ class Carbon extends DateTime
      */
     public function notEqualTo(Carbon $dt)
     {
-        return $this->ne($dt);
+        return $this->ne($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1294,7 +1354,9 @@ class Carbon extends DateTime
      */
     public function gt(Carbon $dt)
     {
-        return $this > $dt;
+        $gt = $this->useMicroseconds ? $this->micro > $dt->micro : true;
+
+        return $gt && $this > $dt;
     }
 
     /**
@@ -1308,7 +1370,7 @@ class Carbon extends DateTime
      */
     public function greaterThan(Carbon $dt)
     {
-        return $this->gt($dt);
+        return $this->gt($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1320,7 +1382,9 @@ class Carbon extends DateTime
      */
     public function gte(Carbon $dt)
     {
-        return $this >= $dt;
+        $gte = $this->useMicroseconds ? $this->micro >= $dt->micro : true;
+
+        return $gte && $this >= $dt;
     }
 
     /**
@@ -1334,7 +1398,7 @@ class Carbon extends DateTime
      */
     public function greaterThanOrEqualTo(Carbon $dt)
     {
-        return $this->gte($dt);
+        return $this->gte($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1346,7 +1410,9 @@ class Carbon extends DateTime
      */
     public function lt(Carbon $dt)
     {
-        return $this < $dt;
+        $gte = $this->useMicroseconds ? $this->micro < $dt->micro : true;
+
+        return $gte && $this < $dt;
     }
 
     /**
@@ -1360,7 +1426,7 @@ class Carbon extends DateTime
      */
     public function lessThan(Carbon $dt)
     {
-        return $this->lt($dt);
+        return $this->lt($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1372,7 +1438,9 @@ class Carbon extends DateTime
      */
     public function lte(Carbon $dt)
     {
-        return $this <= $dt;
+        $lte = $this->useMicroseconds ? $this->micro <= $dt->micro : true;
+
+        return $lte && $this <= $dt;
     }
 
     /**
@@ -1386,7 +1454,7 @@ class Carbon extends DateTime
      */
     public function lessThanOrEqualTo(Carbon $dt)
     {
-        return $this->lte($dt);
+        return $this->lte($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1400,17 +1468,17 @@ class Carbon extends DateTime
      */
     public function between(Carbon $dt1, Carbon $dt2, $equal = true)
     {
-        if ($dt1->gt($dt2)) {
+        if ($dt1->gt($dt2, $this->useMicroseconds)) {
             $temp = $dt1;
             $dt1 = $dt2;
             $dt2 = $temp;
         }
 
         if ($equal) {
-            return $this->gte($dt1) && $this->lte($dt2);
+            return $this->gte($dt1, $this->useMicroseconds) && $this->lte($dt2, $this->useMicroseconds);
         }
 
-        return $this->gt($dt1) && $this->lt($dt2);
+        return $this->gt($dt1, $this->useMicroseconds) && $this->lt($dt2, $this->useMicroseconds);
     }
 
     /**
@@ -1420,6 +1488,8 @@ class Carbon extends DateTime
      * @param Carbon $dt2
      *
      * @return static
+     *
+     * TODO : handles microtime comparison
      */
     public function closest(Carbon $dt1, Carbon $dt2)
     {
@@ -1433,6 +1503,8 @@ class Carbon extends DateTime
      * @param Carbon $dt2
      *
      * @return static
+     *
+     * TODO : handles microtime comparison
      */
     public function farthest(Carbon $dt1, Carbon $dt2)
     {
@@ -1450,7 +1522,7 @@ class Carbon extends DateTime
     {
         $dt = $dt ?: static::now($this->tz);
 
-        return $this->lt($dt) ? $this : $dt;
+        return $this->lt($dt, $this->useMicroseconds) ? $this : $dt;
     }
 
     /**
@@ -1464,7 +1536,7 @@ class Carbon extends DateTime
      */
     public function minimum(Carbon $dt = null)
     {
-        return $this->min($dt);
+        return $this->min($dt, $this->useMicroseconds);
     }
 
     /**
@@ -1478,7 +1550,7 @@ class Carbon extends DateTime
     {
         $dt = $dt ?: static::now($this->tz);
 
-        return $this->gt($dt) ? $this : $dt;
+        return $this->gt($dt, $this->useMicroseconds) ? $this : $dt;
     }
 
     /**
@@ -1492,7 +1564,7 @@ class Carbon extends DateTime
      */
     public function maximum(Carbon $dt = null)
     {
-        return $this->max($dt);
+        return $this->max($dt, $this->useMicroseconds);
     }
 
     /**
@@ -2112,6 +2184,106 @@ class Carbon extends DateTime
         return $this->addSeconds(-1 * $value);
     }
 
+    /**
+     * Add milli-seconds to the instance. Positive $value travels forward while
+     * negative $value travels into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMilliSeconds($value)
+    {
+        return $this->addMicroSeconds($value * static::MICROSECONDS_PER_MILLISECOND);
+    }
+
+    /**
+     * Add a milli-second to the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMilliSecond($value = 1)
+    {
+        return $this->addMilliSeconds($value);
+    }
+
+    /**
+     * Remove a milli-second from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMilliSecond($value = 1)
+    {
+        return $this->subMilliSeconds($value);
+    }
+
+    /**
+     * Remove milli-seconds from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMilliSeconds($value)
+    {
+        return $this->addMilliSeconds(-1 * $value);
+    }
+
+    /**
+     * Add micro-seconds to the instance. Positive $value travels forward while
+     * negative $value travels into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMicroSeconds($value)
+    {
+        $this->micro += (int) ($value % self::MICROSECONDS_PER_SECOND);
+
+        return $this->addSeconds((int) ($value / self::MICROSECONDS_PER_SECOND));
+    }
+
+    /**
+     * Add a micro-second to the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMicroSecond($value = 1)
+    {
+        return $this->addMicroSeconds($value);
+    }
+
+    /**
+     * Remove a micro-second from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMicroSecond($value = 1)
+    {
+        return $this->subMicroSeconds($value);
+    }
+
+    /**
+     * Remove micro-seconds from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMicroSeconds($value)
+    {
+        return $this->addMicroSeconds(-1 * $value);
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////////////// DIFFERENCES ///////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -2304,6 +2476,36 @@ class Carbon extends DateTime
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
+    }
+
+    /**
+     * Get the difference in milli-seconds
+     *
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMilliSeconds(Carbon $dt = null, $abs = true)
+    {
+        return (int) ($this->diffInMicroSeconds($dt, $abs) / static::MICROSECONDS_PER_SECOND);
+    }
+
+    /**
+     * Get the difference in micro-seconds
+     *
+     * @param \Carbon\Carbon|null $dt
+     * @param bool                $abs Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMicroSeconds(Carbon $dt = null, $abs = true)
+    {
+        $dt = $dt ?: static::now($this->tz);
+        $value = $dt->micro - $this->micro;
+        $diff = $abs ? abs($value) : $value;
+
+        return $this->diffInSeconds($dt, $abs) * static::MICROSECONDS_PER_SECOND + $diff;
     }
 
     /**

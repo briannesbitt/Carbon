@@ -76,7 +76,9 @@ class GettersTest extends AbstractTestCase
     public function testMicroGetterWithDefaultNow()
     {
         $d = Carbon::now();
-        $this->assertSame(0, $d->micro);
+        $micro = explode(' ', microtime());
+        $micro = explode('.', $micro[0]);
+        $this->assertGreaterThan($d->micro, $micro[1]);
     }
 
     public function testDayOfWeeGetter()
