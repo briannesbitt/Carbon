@@ -214,7 +214,7 @@ class Carbon extends DateTime
      * @param string|null               $time
      * @param \DateTimeZone|string|null $tz
      */
-    public function __construct($time = null, $tz = null)
+    public function __construct($time = 'now', $tz = null)
     {
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
