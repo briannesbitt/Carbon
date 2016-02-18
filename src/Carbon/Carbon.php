@@ -841,7 +841,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Set the first day of week
+     * Set the last day of week
      *
      * @param int
      */
