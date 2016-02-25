@@ -22,7 +22,7 @@ return array(
     'minute'    => ':count dakika',
     'second'    => ':count saniye',
     'ago'       => ':time önce',
-    'from_now'  => ':time andan itibaren',
+    'from_now'  => ':time sonra',
     'after'     => ':time sonra',
     'before'    => ':time önce',
 );
