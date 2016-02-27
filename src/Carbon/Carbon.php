@@ -1769,13 +1769,15 @@ class Carbon extends DateTime
      */
     public function addMonthsNoOverflow($value)
     {
-        $date = $this->copy()->addMonths($value);
+        $day = $this->day;
 
-        if ($date->day !== $this->day) {
-            $date->day(1)->subMonth()->day($date->daysInMonth);
+        $this->addMonths($value);
+
+        if ($day !== $this->day) {
+            $this->modify('last day of previous month');
         }
 
-        return $date;
+        return $this;
     }
 
     /**

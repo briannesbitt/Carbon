@@ -63,10 +63,10 @@ class AddTest extends AbstractTestCase
 
     public function testAddMonthsNoOverflowPositive()
     {
-        $this->assertSame('2012-02-29', Carbon::createFromDate(2012, 1, 31)->addMonthNoOverflow()->toDateString());
-        $this->assertSame('2012-03-31', Carbon::createFromDate(2012, 1, 31)->addMonthsNoOverflow(2)->toDateString());
-        $this->assertSame('2012-03-29', Carbon::createFromDate(2012, 2, 29)->addMonthNoOverflow()->toDateString());
-        $this->assertSame('2012-02-29', Carbon::createFromDate(2011, 12, 31)->addMonthsNoOverflow(2)->toDateString());
+        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthNoOverflow(), 2012, 2, 29, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthsNoOverflow(2), 2012, 3, 31, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2012, 2, 29, 1, 1, 1)->addMonthNoOverflow(), 2012, 3, 29, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2011, 12, 31, 1, 1, 1)->addMonthNoOverflow(2), 2012, 2, 29, 1, 1, 1);
     }
 
     public function testAddMonthsNoOverflowZero()
@@ -76,10 +76,10 @@ class AddTest extends AbstractTestCase
 
     public function testAddMonthsNoOverflowNegative()
     {
-        $this->assertSame('2012-01-29', Carbon::createFromDate(2012, 2, 29)->addMonthsNoOverflow(-1)->toDateString());
-        $this->assertSame('2012-01-31', Carbon::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-2)->toDateString());
-        $this->assertSame('2012-02-29', Carbon::createFromDate(2012, 3, 31)->addMonthsNoOverflow(-1)->toDateString());
-        $this->assertSame('2011-12-31', Carbon::createFromDate(2012, 1, 31)->addMonthsNoOverflow(-1)->toDateString());
+        $this->assertCarbon(Carbon::create(2012, 2, 29, 1, 1, 1)->addMonthsNoOverflow(-1), 2012, 1, 29, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2012, 3, 31, 1, 1, 1)->addMonthsNoOverflow(-2), 2012, 1, 31, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2012, 3, 31, 1, 1, 1)->addMonthsNoOverflow(-1), 2012, 2, 29, 1, 1, 1);
+        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthsNoOverflow(-1), 2011, 12, 31, 1, 1, 1);
     }
 
     public function testAddDaysPositive()
@@ -229,10 +229,7 @@ class AddTest extends AbstractTestCase
 
     public function testAddMonthNoOverflowPassingArg()
     {
-        $dt = Carbon::createFromDate(2010, 12, 31)->addMonthNoOverflow(2);
-        $this->assertSame(2011, $dt->year);
-        $this->assertSame(2, $dt->month);
-        $this->assertSame(28, $dt->day);
+        $this->assertCarbon(Carbon::create(2010, 12, 31, 1, 1, 1, 1)->addMonthNoOverflow(2), 2011, 2, 28, 1, 1, 1);
     }
 
     public function testAddDayPassingArg()
