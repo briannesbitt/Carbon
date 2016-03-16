@@ -89,6 +89,7 @@ class Carbon extends DateTime
         'next',
         'last',
         'tomorrow',
+        'today',
         'yesterday',
         '+',
         '-',
