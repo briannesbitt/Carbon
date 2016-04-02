@@ -225,10 +225,10 @@ class Carbon extends DateTime
             }
 
             //shift the time according to the given time zone
-            if ($tz !== null && $tz !== static::getTestNow()->tz) {
+            if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
                 $testInstance->setTimezone($tz);
             } else {
-                $tz = $testInstance->tz;
+                $tz = $testInstance->getTimezone();
             }
 
             $time = $testInstance->toDateTimeString();
@@ -1448,7 +1448,7 @@ class Carbon extends DateTime
      */
     public function min(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return $this->lt($dt) ? $this : $dt;
     }
@@ -1476,7 +1476,7 @@ class Carbon extends DateTime
      */
     public function max(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return $this->gt($dt) ? $this : $dt;
     }
@@ -1522,7 +1522,7 @@ class Carbon extends DateTime
      */
     public function isYesterday()
     {
-        return $this->toDateString() === static::yesterday($this->tz)->toDateString();
+        return $this->toDateString() === static::yesterday($this->getTimezone())->toDateString();
     }
 
     /**
@@ -1532,7 +1532,7 @@ class Carbon extends DateTime
      */
     public function isToday()
     {
-        return $this->toDateString() === static::now($this->tz)->toDateString();
+        return $this->toDateString() === static::now($this->getTimezone())->toDateString();
     }
 
     /**
@@ -1542,7 +1542,7 @@ class Carbon extends DateTime
      */
     public function isTomorrow()
     {
-        return $this->toDateString() === static::tomorrow($this->tz)->toDateString();
+        return $this->toDateString() === static::tomorrow($this->getTimezone())->toDateString();
     }
 
     /**
@@ -1552,7 +1552,7 @@ class Carbon extends DateTime
      */
     public function isFuture()
     {
-        return $this->gt(static::now($this->tz));
+        return $this->gt(static::now($this->getTimezone()));
     }
 
     /**
@@ -1562,7 +1562,7 @@ class Carbon extends DateTime
      */
     public function isPast()
     {
-        return $this->lt(static::now($this->tz));
+        return $this->lt(static::now($this->getTimezone()));
     }
 
     /**
@@ -2126,7 +2126,7 @@ class Carbon extends DateTime
      */
     public function diffInYears(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return (int) $this->diff($dt, $abs)->format('%r%y');
     }
@@ -2141,7 +2141,7 @@ class Carbon extends DateTime
      */
     public function diffInMonths(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
@@ -2169,7 +2169,7 @@ class Carbon extends DateTime
      */
     public function diffInDays(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return (int) $this->diff($dt, $abs)->format('%r%a');
     }
@@ -2215,7 +2215,7 @@ class Carbon extends DateTime
     public function diffFiltered(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
     {
         $start = $this;
-        $end = $dt ?: static::now($this->tz);
+        $end = $dt ?: static::now($this->getTimezone());
         $inverse = false;
 
         if ($end < $start) {
@@ -2300,7 +2300,7 @@ class Carbon extends DateTime
      */
     public function diffInSeconds(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
@@ -2355,7 +2355,7 @@ class Carbon extends DateTime
         $isNow = $other === null;
 
         if ($isNow) {
-            $other = static::now($this->tz);
+            $other = static::now($this->getTimezone());
         }
 
         $diffInterval = $this->diff($other);
@@ -2767,7 +2767,7 @@ class Carbon extends DateTime
      */
     public function average(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
     }
@@ -2781,7 +2781,7 @@ class Carbon extends DateTime
      */
     public function isBirthday(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $dt ?: static::now($this->getTimezone());
 
         return $this->format('md') === $dt->format('md');
     }
