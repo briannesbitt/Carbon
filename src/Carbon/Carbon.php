@@ -1582,7 +1582,41 @@ class Carbon extends DateTime
      */
     public function isCurrentYear()
     {
-        return $this->format('Y') === static::now($this->tz)->format('Y');
+        return $this->isSameYear(static::now($this->tz));
+    }
+
+    /**
+     * Checks if the passed in date is in the same year as the instance year.
+     *
+     * @param \Carbon\Carbon $dt The instance to compare with.
+     *
+     * @return bool
+     */
+    public function isSameYear(Carbon $dt)
+    {
+        return $this->format('Y') === $dt->format('Y');
+    }
+
+    /**
+     * Determines if the instance is in the current month
+     *
+     * @return bool
+     */
+    public function isCurrentMonth()
+    {
+        return $this->isSameMonth(static::now($this->tz));
+    }
+
+    /**
+     * Checks if the passed in date is in the same month as the instance month.
+     *
+     * @param \Carbon\Carbon $dt The instance to compare with.
+     *
+     * @return bool
+     */
+    public function isSameMonth(Carbon $dt)
+    {
+        return $this->format('m') === $dt->format('m');
     }
 
     /**
