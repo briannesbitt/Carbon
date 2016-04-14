@@ -1579,7 +1579,7 @@ class Carbon extends DateTime
      * Compares the formatted values of the two dates.
      *
      * @param string              $format The date formats to compare.
-     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|null $dt     The instance to compare with or null to use current day.
      *
      * @return bool
      */
@@ -1625,7 +1625,7 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
-     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|null $dt         The instance to compare with or null to use current day.
      * @param bool                $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
