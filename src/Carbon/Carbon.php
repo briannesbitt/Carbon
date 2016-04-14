@@ -1582,7 +1582,7 @@ class Carbon extends DateTime
      */
     public function isCurrentYear()
     {
-        return $this->year === static::now($this->tz)->year;
+        return $this->format('Y') === static::now($this->tz)->format('Y');
     }
 
     /**
