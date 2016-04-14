@@ -122,6 +122,16 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::createFromDate(2014, 1, 1)->isLeapYear());
     }
 
+    public function testIsCurrentYearTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentYear());
+    }
+
+    public function testIsCurrentYearFalse()
+    {
+        $this->assertFalse(Carbon::now()->subYear()->isCurrentYear());
+    }
+
     public function testIsSameDayTrue()
     {
         $current = Carbon::createFromDate(2012, 1, 2);

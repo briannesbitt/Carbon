@@ -1576,6 +1576,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance is in the current year
+     *
+     * @return bool
+     */
+    public function isCurrentYear()
+    {
+        return $this->year === static::now($this->tz)->year;
+    }
+
+    /**
      * Checks if the passed in date is the same day as the instance current day.
      *
      * @param \Carbon\Carbon $dt
