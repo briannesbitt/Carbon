@@ -1632,11 +1632,8 @@ class Carbon extends DateTime
      */
     public function isSameMonth(Carbon $dt = null, $ofSameYear = false)
     {
-        if ($ofSameYear) {
-            return $this->isSameAs('Ym', $dt);
-        } else {
-            return $this->isSameAs('m', $dt);
-        }
+        $format = $ofSameYear ? 'Y-m' : 'm';
+        return $this->isSameAs($format, $dt);
     }
 
     /**
