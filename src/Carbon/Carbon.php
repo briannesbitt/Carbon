@@ -1576,25 +1576,40 @@ class Carbon extends DateTime
     }
 
     /**
+     * Compares the formatted values of the two dates.
+     *
+     * @param string $format The date formats to compare.
+     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     *
+     * @return bool
+     */
+    public function isSameAs($format, Carbon $dt = null)
+    {
+        $dt = $dt ?: static::now($this->tz);
+
+        return $this->format($format) === $dt->format($format);
+    }
+
+    /**
      * Determines if the instance is in the current year
      *
      * @return bool
      */
     public function isCurrentYear()
     {
-        return $this->isSameYear(static::now($this->tz));
+        return $this->isSameYear();
     }
 
     /**
      * Checks if the passed in date is in the same year as the instance year.
      *
-     * @param \Carbon\Carbon $dt The instance to compare with.
+     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isSameYear(Carbon $dt)
+    public function isSameYear(Carbon $dt = null)
     {
-        return $this->format('Y') === $dt->format('Y');
+        return $this->isSameAs('Y', $dt);
     }
 
     /**
@@ -1604,19 +1619,24 @@ class Carbon extends DateTime
      */
     public function isCurrentMonth()
     {
-        return $this->isSameMonth(static::now($this->tz));
+        return $this->isSameMonth();
     }
 
     /**
-     * Checks if the passed in date is in the same month as the instance month.
+     * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
-     * @param \Carbon\Carbon $dt The instance to compare with.
+     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     * @param bool $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameMonth(Carbon $dt)
+    public function isSameMonth(Carbon $dt = null, $ofSameYear = false)
     {
-        return $this->format('m') === $dt->format('m');
+        if ($ofSameYear) {
+            return $this->isSameAs('Ym', $dt);
+        } else {
+            return $this->isSameAs('m', $dt);
+        }
     }
 
     /**
@@ -2825,8 +2845,6 @@ class Carbon extends DateTime
      */
     public function isBirthday(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
-
-        return $this->format('md') === $dt->format('md');
+        return $this->isSameAs('md', $dt);
     }
 }
