@@ -154,6 +154,63 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(4, $d->quarter);
     }
 
+    /**
+     * @return array
+     */
+    public function dataProviderGetSemester()
+    {
+        return array(
+            array(1, 1),
+            array(1, 2),
+            array(1, 3),
+            array(1, 4),
+            array(1, 5),
+            array(1, 6),
+            array(2, 7),
+            array(2, 8),
+            array(2, 9),
+            array(2, 10),
+            array(2, 11),
+            array(2, 12),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\GettersTest::dataProviderGetSemester
+     *
+     * @param int $semester
+     * @param int $month
+     */
+    public function testGetSemesterFirstOfMonth($semester, $month)
+    {
+        $d = Carbon::createFromDate(2016, $month)->startOfMonth();
+        $this->assertSame($semester, $d->semester);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\GettersTest::dataProviderGetSemester
+     *
+     * @param int $semester
+     * @param int $month
+     */
+    public function testGetSemesterFirstMiddleOfMonth($semester, $month)
+    {
+        $d = Carbon::create(2016, $month, 15, 1, 1, 1);
+        $this->assertSame($semester, $d->semester);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\GettersTest::dataProviderGetSemester
+     *
+     * @param int $semester
+     * @param int $month
+     */
+    public function testGetSemesterLastMiddleOfMonth($semester, $month)
+    {
+        $d = Carbon::create(2016, $month)->endOfMonth();
+        $this->assertSame($semester, $d->semester);
+    }
+
     public function testGetLocalTrue()
     {
         // Default timezone has been set to America/Toronto in AbstractTestCase.php
