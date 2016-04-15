@@ -41,6 +41,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property-read int $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
  * @property-read int $quarter the quarter of this instance, 1 - 4
+ * @property-read int $semester the semester of this instance, 1 - 2
  * @property-read int $offset the timezone offset in seconds from UTC
  * @property-read int $offsetHours the timezone offset in hours from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
@@ -103,6 +104,7 @@ class Carbon extends DateTime
     const YEARS_PER_CENTURY = 100;
     const YEARS_PER_DECADE = 10;
     const MONTHS_PER_YEAR = 12;
+    const MONTHS_PER_SEMESTER = 6;
     const WEEKS_PER_YEAR = 52;
     const DAYS_PER_WEEK = 7;
     const HOURS_PER_DAY = 24;
@@ -523,6 +525,9 @@ class Carbon extends DateTime
 
             case $name === 'quarter':
                 return (int) ceil($this->month / 3);
+
+            case $name === 'semester':
+                return $this->month <= static::MONTHS_PER_SEMESTER ? 1 : 2;
 
             case $name === 'offset':
                 return $this->getOffset();
@@ -2461,6 +2466,34 @@ class Carbon extends DateTime
     public function endOfMonth()
     {
         return $this->setDateTime($this->year, $this->month, $this->daysInMonth, 23, 59, 59);
+    }
+
+    /**
+     * Resets the date to the first day of the semester and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfSemester()
+    {
+        if ($this->semester === 2) {
+            return $this->setDateTime($this->year, 7, 1, 0, 0, 0);
+        }
+
+        return $this->startOfYear();
+    }
+
+    /**
+     * Resets the date to end of the semester and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfSemester()
+    {
+        if ($this->semester === 1) {
+            return $this->setDateTime($this->year, 6, 30, 23, 59, 59);
+        }
+
+        return $this->endOfYear();
     }
 
     /**

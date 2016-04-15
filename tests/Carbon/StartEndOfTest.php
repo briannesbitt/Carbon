@@ -114,6 +114,129 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
     }
 
+    public function testStartOfSemesterIsFluid()
+    {
+        $dt = Carbon::now()->startOfSemester();
+        $this->assertInstanceOfCarbon($dt);
+    }
+
+    public function dataProviderTestStartOfSemester()
+    {
+        return array(
+            array(1, 1),
+            array(2, 1),
+            array(3, 1),
+            array(4, 1),
+            array(5, 1),
+            array(6, 1),
+            array(7, 7),
+            array(8, 7),
+            array(9, 7),
+            array(10, 7),
+            array(11, 7),
+            array(12, 7),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfSemester
+     *
+     * @param int $month
+     * @param int $firstMonthOfSemester
+     */
+    public function testStartOfSemesterFromStartOfMonth($month, $firstMonthOfSemester)
+    {
+        $dt = Carbon::create(2016, $month, 1)->startOfSemester();
+        $this->assertCarbon($dt, 2016, $firstMonthOfSemester, 1, 0, 0, 0);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfSemester
+     *
+     * @param int $month
+     * @param int $firstMonthOfSemester
+     */
+    public function testStartOfSemesterFromMiddleOfMonth($month, $firstMonthOfSemester)
+    {
+        $dt = Carbon::create(2016, $month, 15, 20, 21, 22)->startOfSemester();
+        $this->assertCarbon($dt, 2016, $firstMonthOfSemester, 1, 0, 0, 0);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfSemester
+     *
+     * @param int $month
+     * @param int $firstMonthOfSemester
+     */
+    public function testStartOfSemesterFromEndOfMonth($month, $firstMonthOfSemester)
+    {
+        $dt = Carbon::create(2016, $month)->endOfMonth()->startOfSemester();
+        $this->assertCarbon($dt, 2016, $firstMonthOfSemester, 1, 0, 0, 0);
+    }
+
+    public function testEndOfSemesterIsFluid()
+    {
+        $dt = Carbon::now()->endOfSemester();
+        $this->assertInstanceOfCarbon($dt);
+    }
+
+    public function dataProviderTestEndOfSemester()
+    {
+        return array(
+            array(1, 6, 30),
+            array(2, 6, 30),
+            array(3, 6, 30),
+            array(4, 6, 30),
+            array(5, 6, 30),
+            array(6, 6, 30),
+            array(7, 12, 31),
+            array(8, 12, 31),
+            array(9, 12, 31),
+            array(10, 12, 31),
+            array(11, 12, 31),
+            array(12, 12, 31),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfSemester
+     *
+     * @param int $month
+     * @param int $lastMonthOfSemester
+     * @param int $lastDayOfSemester
+     */
+    public function testEndOfSemesterFromStartOfMonth($month, $lastMonthOfSemester, $lastDayOfSemester)
+    {
+        $dt = Carbon::create(2016, $month)->startOfMonth()->endOfSemester();
+        $this->assertCarbon($dt, 2016, $lastMonthOfSemester, $lastDayOfSemester, 23, 59, 59);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfSemester
+     *
+     * @param int $month
+     * @param int $lastMonthOfSemester
+     * @param int $lastDayOfSemester
+     */
+    public function testEndOfSemesterFromMiddleOfMonth($month, $lastMonthOfSemester, $lastDayOfSemester)
+    {
+        $dt = Carbon::create(2016, $month, 15, 20, 21, 22)->endOfSemester();
+        $this->assertCarbon($dt, 2016, $lastMonthOfSemester, $lastDayOfSemester, 23, 59, 59);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfSemester
+     *
+     * @param int $month
+     * @param int $lastMonthOfSemester
+     * @param int $lastDayOfSemester
+     */
+    public function testEndOfSemesterFromEndOfMonth($month, $lastMonthOfSemester, $lastDayOfSemester)
+    {
+        $dt = Carbon::create(2016, $month)->endOfMonth()->endOfSemester();
+        $this->assertCarbon($dt, 2016, $lastMonthOfSemester, $lastDayOfSemester, 23, 59, 59);
+    }
+
     public function testStartOfDecadeIsFluid()
     {
         $dt = Carbon::now();
