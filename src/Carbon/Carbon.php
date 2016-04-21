@@ -1142,7 +1142,7 @@ class Carbon extends DateTime
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
         }
 
-        return strftime($format, strtotime($this));
+        return utf8_encode(strftime($format, strtotime($this)));
     }
 
     /**
