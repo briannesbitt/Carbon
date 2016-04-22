@@ -48,6 +48,8 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @property-read int $timezoneType
+ * @property-read int $tzType
  */
 class Carbon extends DateTime
 {
@@ -179,6 +181,12 @@ class Carbon extends DateTime
 
         if ($object instanceof DateTimeZone) {
             return $object;
+        }
+
+        // Workaround for PHP < 5.5
+        if (version_compare(PHP_VERSION, '5.5.0') < 0 && preg_match('/([-\+])?(\d{2}):(\d{2})/', $object, $matches)) {
+            $object = $matches[2] + $matches[3] / static::MINUTES_PER_HOUR;
+            $object = $matches[1] === '-' ? - $object : $object;
         }
 
         if (is_numeric($object)) {
@@ -544,6 +552,11 @@ class Carbon extends DateTime
 
             case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
+
+            case $name === 'timezoneType' || $name === 'tzType':
+                $timezone = (array) $this->getTimezone();
+
+                return $timezone['timezone_type'];
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));

@@ -17,6 +17,18 @@ use Tests\AbstractTestCase;
 class GettersTest extends AbstractTestCase
 {
     /**
+     * @var int
+     */
+    protected $expectedOffsetType;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->expectedOffsetType = version_compare(PHP_VERSION, '5.5.0') >= 0 ? 1 : 3;
+    }
+
+    /**
      * @expectedException \InvalidArgumentException
      */
     public function testGettersThrowExceptionOnUnknownGetter()
@@ -259,38 +271,63 @@ class GettersTest extends AbstractTestCase
 
     public function testGetTimezone()
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
-        $this->assertSame('America/Toronto', $dt->timezone->getName());
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame('America/Toronto', $carbon->timezone->getName());
 
-        $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezone->getName());
+        $carbon = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $carbon->timezone->getName());
     }
 
     public function testGetTz()
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
-        $this->assertSame('America/Toronto', $dt->tz->getName());
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame('America/Toronto', $carbon->tz->getName());
 
-        $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->tz->getName());
+        $carbon = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $carbon->tz->getName());
     }
 
     public function testGetTimezoneName()
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
-        $this->assertSame('America/Toronto', $dt->timezoneName);
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame('America/Toronto', $carbon->timezoneName);
 
-        $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezoneName);
+        $carbon = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $carbon->timezoneName);
     }
 
     public function testGetTzName()
     {
-        $dt = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
-        $this->assertSame('America/Toronto', $dt->tzName);
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame('America/Toronto', $carbon->tzName);
 
-        $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezoneName);
+        $carbon = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $carbon->timezoneName);
+    }
+
+    public function testGetTimezoneType()
+    {
+
+        $carbon = Carbon::createFromDate(2000, 1, 1, '+02:00');
+        $this->assertSame($this->expectedOffsetType, $carbon->timezoneType);
+
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'GMT');
+        $this->assertSame(2, $carbon->timezoneType);
+
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame(3, $carbon->timezoneType);
+    }
+
+    public function testGetTzType()
+    {
+        $carbon = Carbon::createFromDate(2000, 1, 1, '+02:00');
+        $this->assertSame($this->expectedOffsetType, $carbon->tzType);
+
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'GMT');
+        $this->assertSame(2, $carbon->tzType);
+
+        $carbon = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
+        $this->assertSame(3, $carbon->tzType);
     }
 
     /**
