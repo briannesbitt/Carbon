@@ -25,7 +25,7 @@ return array(
     'minute'    => ':count分钟',
     'second'    => ':count秒',
     'ago'       => ':time前',
-    'from_now'  => ':time距现在',
+    'from_now'  => '距现在:time',
     'after'     => ':time后',
     'before'    => ':time前'
 );
