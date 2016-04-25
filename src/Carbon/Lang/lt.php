@@ -16,7 +16,7 @@
 
 return array(
     'year'      => '1 metus|:count metus|:count metų',
-    'month'     => '1 menesį|:count menesius|:count menesių',
+    'month'     => '1 mėnesį|:count mėnesius|:count mėnesių',
     'week'      => '1 savaitę|:count savaites|:count savaičių',
     'day'       => '1 dieną|:count dienas|:count dienų',
     'hour'      => '1 valandą|:count valandas|:count valandų',
