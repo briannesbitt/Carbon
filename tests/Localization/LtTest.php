@@ -27,6 +27,15 @@ class LtTest extends AbstractTestCase
 
             $d = Carbon::now()->addYears(2);
             $scope->assertSame('už 2 metus', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonth(1);
+            $scope->assertSame('prieš 1 mėnesį', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonth(2);
+            $scope->assertSame('prieš 2 mėnesius', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonth(10);
+            $scope->assertSame('prieš 10 mėnesių', $d->diffForHumans());
         });
     }
 }
