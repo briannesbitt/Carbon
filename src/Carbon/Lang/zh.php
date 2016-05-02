@@ -18,7 +18,7 @@
  */
 return array(
     'year'      => ':count年',
-    'month'     => ':count月',
+    'month'     => ':count个月',
     'week'      => ':count周',
     'day'       => ':count天',
     'hour'      => ':count小时',
