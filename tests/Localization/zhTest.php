@@ -22,7 +22,8 @@ class ZhTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
-            Carbon::now()->addSeconds(5)->diffForHumans();
+        	$d = Carbon::now()->addSeconds(5);
+        	$scope->assertSame('距现在5秒', $d->diffForHumans());
         });
     }
 }
