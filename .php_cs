@@ -35,6 +35,7 @@ $fixers = array(
     'phpdoc_var_without_name',
     'return',
     'spaces_cast',
+    'unalign_double_arrow',
     'unalign_equals',
     'unused_use',
     'whitespacy_lines',
