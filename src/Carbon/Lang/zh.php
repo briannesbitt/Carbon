@@ -18,14 +18,14 @@
  */
 return array(
     'year'      => ':count年',
-    'month'     => ':count月',
+    'month'     => ':count个月',
     'week'      => ':count周',
     'day'       => ':count天',
     'hour'      => ':count小时',
     'minute'    => ':count分钟',
     'second'    => ':count秒',
     'ago'       => ':time前',
-    'from_now'  => ':time距现在',
+    'from_now'  => '距现在:time',
     'after'     => ':time后',
     'before'    => ':time前'
 );
