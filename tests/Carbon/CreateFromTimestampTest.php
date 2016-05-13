@@ -23,6 +23,12 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5);
     }
 
+    public function testCreateFromDateTime()
+    {
+        $d = Carbon::createFromDateTime(date('Y-m-d H:i:s', time()));
+        $this->assertInstanceOf('Carbon\Carbon', $d);
+    }
+
     public function testCreateFromTimestampUsesDefaultTimezone()
     {
         $d = Carbon::createFromTimestamp(0);
