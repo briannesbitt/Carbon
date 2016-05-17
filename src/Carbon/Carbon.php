@@ -1260,6 +1260,19 @@ class Carbon extends DateTime
     }
 
     /**
+     * Determines if the instance date is equal to another
+     * instance date
+     *
+     * @param Carbon $dt
+     *
+     * @return bool
+     */
+    public function eqDate(Carbon $dt)
+    {
+        return $this->toDateString() == $dt->toDateString();
+    }    
+
+    /**
      * Determines if the instance is not equal to another
      *
      * @param Carbon $dt
