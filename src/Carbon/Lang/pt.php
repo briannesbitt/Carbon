@@ -24,8 +24,8 @@ return array(
     'hour'      => '1 hora|:count horas',
     'minute'    => '1 minuto|:count minutos',
     'second'    => '1 segundo|:count segundos',
-    'ago'       => ':time atrás',
-    'from_now'  => 'em :time',
+    'ago'       => 'há :time',
+    'from_now'  => 'daqui a :time',
     'after'     => ':time depois',
     'before'    => ':time antes'
 );
