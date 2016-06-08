@@ -16,6 +16,7 @@ use DateTime;
 use DateTimeZone;
 use DatePeriod;
 use InvalidArgumentException;
+use JsonSerializable;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -49,7 +50,7 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @property-read string $timezoneName
  * @property-read string $tzName
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements JsonSerializable
 {
     /**
      * The day constants.
@@ -122,6 +123,13 @@ class Carbon extends DateTime
      * @var string
      */
     protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+
+    /**
+     * Format to use for jsonSerialize method when serializing occurs.
+     *
+     * @var string
+     */
+    protected static $toJsonFormat;
 
     /**
      * First day of week.
@@ -1050,6 +1058,14 @@ class Carbon extends DateTime
     }
 
     /**
+     * Reset the format used to the default when serializing a Carbon instance to json
+     */
+    public static function resetToJsonFormat()
+    {
+        static::setToJsonFormat(null);
+    }
+
+    /**
      * Set the default format used when type juggling a Carbon instance to a string
      *
      * @param string $format
@@ -1060,6 +1076,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Set the default format used when serializing a Carbon instance to json
+     *
+     * @param string $format
+     */
+    public static function setToJsonFormat($format)
+    {
+        static::$toJsonFormat = $format;
+    }
+
+    /**
      * Format the instance as a string using the set format
      *
      * @return string
@@ -1067,6 +1093,18 @@ class Carbon extends DateTime
     public function __toString()
     {
         return $this->format(static::$toStringFormat);
+    }
+
+    /**
+     * Serialize the instance to a json object using the set format.
+     * Defaulting to the serialized DateTime object.
+     *
+     * @return string
+     */
+    public function jsonSerialize()
+    {
+        $jsonFormat = static::$toJsonFormat;
+        return $jsonFormat ? $this->format($jsonFormat) : $this;
     }
 
     /**
