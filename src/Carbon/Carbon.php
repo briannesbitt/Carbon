@@ -1104,6 +1104,7 @@ class Carbon extends DateTime implements JsonSerializable
     public function jsonSerialize()
     {
         $jsonFormat = static::$toJsonFormat;
+
         return $jsonFormat ? $this->format($jsonFormat) : $this;
     }
 
