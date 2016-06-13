@@ -22,7 +22,6 @@ class HyTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
-
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 վայրկյան առաջ', $d->diffForHumans());
 

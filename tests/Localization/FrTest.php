@@ -22,7 +22,6 @@ class FrTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
-
             $d = Carbon::now()->subSecond();
             $scope->assertSame('il y a 1 seconde', $d->diffForHumans());
 
