@@ -74,7 +74,6 @@ class MkTest extends AbstractTestCase
 
             $scope->assertSame('1 секунда', $d->diffForHumans($d2, true));
             $scope->assertSame('2 секунди', $d2->diffForHumans($d->addSecond(), true));
-
         });
     }
 }
