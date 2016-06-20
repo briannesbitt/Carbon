@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class MkTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInSpanish()
+    public function testDiffForHumansLocalizedInMacedonian()
     {
         Carbon::setLocale('mk');
 
