@@ -34,6 +34,7 @@ $fixers = array(
     'phpdoc_types',
     'phpdoc_var_without_name',
     'return',
+    'single_quote',
     'spaces_cast',
     'unalign_double_arrow',
     'unalign_equals',

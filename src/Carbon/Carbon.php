@@ -747,7 +747,7 @@ class Carbon extends DateTime
      */
     public function setTimeFromTimeString($time)
     {
-        $time = explode(":", $time);
+        $time = explode(':', $time);
 
         $hour = $time[0];
         $minute = isset($time[1]) ? $time[1] : 0;
@@ -1000,7 +1000,7 @@ class Carbon extends DateTime
     {
         $matches = array();
 
-        if (preg_match("/([a-z]{2})[-_]([a-z]{2})/i", $locale, $matches)) {
+        if (preg_match('/([a-z]{2})[-_]([a-z]{2})/i', $locale, $matches)) {
             $locale = strtolower($matches[1]).'_'.strtoupper($matches[2]);
         } else {
             $locale = strtolower($locale);
