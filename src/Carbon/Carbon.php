@@ -388,7 +388,9 @@ class Carbon extends DateTime
             $second = $second === null ? 0 : $second;
         }
 
-        return static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+        $instance = static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', 0, $month, $day, $hour, $minute, $second), $tz);
+
+        return $instance->addYears($year);
     }
 
     /**
