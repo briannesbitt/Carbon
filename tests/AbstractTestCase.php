@@ -35,21 +35,34 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
     protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
     {
-        $this->assertSame($year, $d->year, 'Carbon->year');
-        $this->assertSame($month, $d->month, 'Carbon->month');
-        $this->assertSame($day, $d->day, 'Carbon->day');
+        $actual = array(
+            'years' => $year,
+            'months' => $month,
+            'day' => $day,
+        );
+
+        $expected = array(
+            'years' => $d->year,
+            'months' => $d->month,
+            'day' => $d->day,
+        );
 
         if ($hour !== null) {
-            $this->assertSame($hour, $d->hour, 'Carbon->hour');
+            $expected['hours'] = $d->hour;
+            $actual['hours'] = $hour;
         }
 
         if ($minute !== null) {
-            $this->assertSame($minute, $d->minute, 'Carbon->minute');
+            $expected['minutes'] = $d->minute;
+            $actual['minutes'] = $minute;
         }
 
         if ($second !== null) {
-            $this->assertSame($second, $d->second, 'Carbon->second');
+            $expected['seconds'] = $d->second;
+            $actual['seconds'] = $second;
         }
+
+        $this->assertSame($expected, $actual);
     }
 
     protected function assertInstanceOfCarbon($d)
@@ -59,27 +72,36 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
     protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $this->assertSame($years, $ci->years, 'CarbonInterval->years');
+        $expected = array('years' => $ci->years);
+
+        $actual = array('years' => $years);
 
         if ($months !== null) {
-            $this->assertSame($months, $ci->months, 'CarbonInterval->months');
+            $expected['months'] = $ci->months;
+            $actual['months'] = $months;
         }
 
         if ($days !== null) {
-            $this->assertSame($days, $ci->dayz, 'CarbonInterval->dayz');
+            $expected['days'] = $ci->dayz;
+            $actual['days'] = $days;
         }
 
         if ($hours !== null) {
-            $this->assertSame($hours, $ci->hours, 'CarbonInterval->hours');
+            $expected['hours'] = $ci->hours;
+            $actual['hours'] = $hours;
         }
 
         if ($minutes !== null) {
-            $this->assertSame($minutes, $ci->minutes, 'CarbonInterval->minutes');
+            $expected['minutes'] = $ci->minutes;
+            $actual['minutes'] = $minutes;
         }
 
         if ($seconds !== null) {
-            $this->assertSame($seconds, $ci->seconds, 'CarbonInterval->seconds');
+            $expected['seconds'] = $ci->seconds;
+            $actual['seconds'] = $seconds;
         }
+
+        $this->assertSame($expected, $actual);
     }
 
     protected function assertInstanceOfCarbonInterval($d)
