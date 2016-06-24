@@ -236,6 +236,16 @@ class GettersTest extends AbstractTestCase
         $this->assertFalse(Carbon::createFromDate(2011, 1, 1)->isLeapYear());
     }
 
+    public function testIsLongYearTrue()
+    {
+        $this->assertTrue(Carbon::createFromDate(2015, 1, 1)->isLongYear());
+    }
+
+    public function testIsLongYearFalse()
+    {
+        $this->assertFalse(Carbon::createFromDate(2016, 1, 1)->isLongYear());
+    }
+
     public function testWeekOfMonth()
     {
         $this->assertSame(5, Carbon::createFromDate(2012, 9, 30)->weekOfMonth);
