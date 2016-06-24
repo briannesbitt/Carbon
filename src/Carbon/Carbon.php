@@ -479,7 +479,7 @@ class Carbon extends DateTime
      */
     public function copy()
     {
-        return static::instance($this);
+        return clone $this;
     }
 
     ///////////////////////////////////////////////////////////////////
