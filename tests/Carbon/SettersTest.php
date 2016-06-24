@@ -145,9 +145,9 @@ class SettersTest extends AbstractTestCase
     public function testSetDateAfterStringCreation()
     {
         $d = new Carbon('first day of this month');
-        $this->assertEquals(1, $d->day);
+        $this->assertSame(1, $d->day);
         $d->setDate($d->year, $d->month, 12);
-        $this->assertEquals(12, $d->day);
+        $this->assertSame(12, $d->day);
     }
 
     public function testSecondSetterWithWrap()
