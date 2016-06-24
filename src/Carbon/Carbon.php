@@ -86,16 +86,15 @@ class Carbon extends DateTime
      * @var array
      */
     protected static $relativeKeywords = array(
-        'this',
-        'next',
-        'last',
-        'tomorrow',
-        'yesterday',
         '+',
         '-',
+        'ago',
         'first',
         'last',
-        'ago',
+        'next',
+        'this',
+        'tomorrow',
+        'yesterday',
     );
 
     /**
