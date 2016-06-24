@@ -519,4 +519,39 @@ class CarbonInterval extends DateInterval
 
         return $this;
     }
+
+    /**
+     * Get the interval_spec string
+     *
+     * @return string
+     */
+    public function spec()
+    {
+        $date = array_filter(array(
+            static::PERIOD_YEARS  => $this->y,
+            static::PERIOD_MONTHS => $this->m,
+            static::PERIOD_DAYS   => $this->d,
+        ));
+
+        $time = array_filter(array(
+            static::PERIOD_HOURS   => $this->h,
+            static::PERIOD_MINUTES => $this->i,
+            static::PERIOD_SECONDS => $this->s,
+        ));
+
+        $specString = static::PERIOD_PREFIX;
+
+        foreach ($date as $key => $value) {
+            $specString .= $value . $key;
+        }
+
+        if (count($time) > 0) {
+            $specString .= static::PERIOD_TIME_PREFIX;
+            foreach ($time as $key => $value) {
+                $specString .= $value . $key;
+            }
+        }
+
+        return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
+    }
 }
