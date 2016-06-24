@@ -20,6 +20,7 @@ HeaderCommentFixer::setHeader($header);
 
 $fixers = array(
     '-psr0',
+    'concat_without_spaces',
     'extra_empty_lines',
     'header_comment',
     'long_array_syntax',

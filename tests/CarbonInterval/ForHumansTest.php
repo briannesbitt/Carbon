@@ -59,7 +59,7 @@ class ForHumansTest extends AbstractTestCase
     public function testYearToString()
     {
         CarbonInterval::setLocale('en');
-        $this->assertSame('1 year:abc', CarbonInterval::year() . ':abc');
+        $this->assertSame('1 year:abc', CarbonInterval::year().':abc');
     }
 
     public function testYears()

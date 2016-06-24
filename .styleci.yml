@@ -1,8 +1,10 @@
 preset: psr2
 
 enabled:
+  - concat_without_spaces
   - extra_empty_lines
   - long_array_syntax
+  - method_separation
   - no_empty_lines_after_phpdocs
   - phpdoc_align
   - phpdoc_indent
