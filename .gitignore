@@ -1,6 +1,3 @@
-.idea
-*.iml
+vendor/
 .php_cs.cache
-vendor
-composer.phar
 composer.lock
