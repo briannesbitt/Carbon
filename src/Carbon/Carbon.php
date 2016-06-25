@@ -1097,24 +1097,19 @@ class Carbon extends DateTime
      */
     public static function setLocale($locale)
     {
-        $matches = array();
+        $locale = preg_replace_callback('/([a-z]{2})[-_]([a-z]{2})/', function ($matches) {
+            return $matches[1].'_'.strtoupper($matches[2]);
+        }, strtolower($locale));
 
-        if (preg_match('/([a-z]{2})[-_]([a-z]{2})/i', $locale, $matches)) {
-            $locale = strtolower($matches[1]).'_'.strtoupper($matches[2]);
-        } else {
-            $locale = strtolower($locale);
+        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
+            static::translator()->setLocale($locale);
+            // Ensure the locale has been loaded.
+            static::translator()->addResource('array', require $filename, $locale);
+
+            return true;
         }
 
-        if (!file_exists(__DIR__.'/Lang/'.$locale.'.php')) {
-            return false;
-        }
-
-        static::translator()->setLocale($locale);
-
-        // Ensure the locale has been loaded.
-        static::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
-
-        return true;
+        return false;
     }
 
     ///////////////////////////////////////////////////////////////////

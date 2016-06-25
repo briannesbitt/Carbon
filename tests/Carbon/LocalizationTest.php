@@ -127,6 +127,7 @@ class LocalizationTest extends AbstractTestCase
     public function dataProviderTestSetLocaleWithMalformedLocale()
     {
         return array(
+            array('DE'),
             array('pt-BR'),
             array('pt-br'),
             array('PT-br'),
