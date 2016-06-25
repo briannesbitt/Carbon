@@ -212,6 +212,79 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
     }
 
+    public function testStartOfQuarterIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfQuarter());
+    }
+
+    public function dataProviderTestStartOfQuarter()
+    {
+        return array(
+            array(1, 1),
+            array(2, 1),
+            array(3, 1),
+            array(4, 4),
+            array(5, 4),
+            array(6, 4),
+            array(7, 7),
+            array(8, 7),
+            array(9, 7),
+            array(10, 10),
+            array(11, 10),
+            array(12, 10),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestStartOfQuarter
+     *
+     * @param int $month
+     * @param int $startOfQuarterMonth
+     */
+    public function testStartOfQuarter($month, $startOfQuarterMonth)
+    {
+        $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
+        $this->assertCarbon($dt->startOfQuarter(), 2015, $startOfQuarterMonth, 1, 0, 0, 0);
+    }
+
+    public function testEndOfQuarterIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOfQuarter());
+    }
+
+    public function dataProviderTestEndOfQuarter()
+    {
+        return array(
+            array(1, 3, 31),
+            array(2, 3, 31),
+            array(3, 3, 31),
+            array(4, 6, 30),
+            array(5, 6, 30),
+            array(6, 6, 30),
+            array(7, 9, 30),
+            array(8, 9, 30),
+            array(9, 9, 30),
+            array(10, 12, 31),
+            array(11, 12, 31),
+            array(12, 12, 31),
+        );
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\StartEndOfTest::dataProviderTestEndOfQuarter
+     *
+     * @param int $month
+     * @param int $endOfQuarterMonth
+     * @param int $endOfQuarterDay
+     */
+    public function testEndOfQuarter($month, $endOfQuarterMonth, $endOfQuarterDay)
+    {
+        $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
+        $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59);
+    }
+
     public function testAverageIsFluid()
     {
         $dt = Carbon::now()->average();
