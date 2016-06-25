@@ -276,14 +276,28 @@ class SettersTest extends AbstractTestCase
         $d->doesNotExit = 'bb';
     }
 
-    public function testSetTimeFromTimeString()
+    /**
+     * @dataProvider \Tests\Carbon\SettersTest::dataProviderTestSetTimeFromTimeString
+     *
+     * @param int    $hour
+     * @param int    $minute
+     * @param int    $second
+     * @param string $time
+     */
+    public function testSetTimeFromTimeString($hour, $minute, $second, $time)
     {
-        $d = Carbon::now();
+        Carbon::setTestNow(Carbon::create(2016, 2, 12, 1, 2, 3));
+        $d = Carbon::now()->setTimeFromTimeString($time);
+        $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
+        Carbon::setTestNow();
+    }
 
-        $d->setTimeFromTimeString('09:15:30');
-
-        $this->assertSame(9, $d->hour);
-        $this->assertSame(15, $d->minute);
-        $this->assertSame(30, $d->second);
+    public function dataProviderTestSetTimeFromTimeString()
+    {
+        return array(
+            array(9, 15, 30, '09:15:30'),
+            array(9, 15, 0, '09:15'),
+            array(9, 0, 0, '09'),
+        );
     }
 }
