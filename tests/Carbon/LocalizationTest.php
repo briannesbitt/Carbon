@@ -118,16 +118,32 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::setLocale('fr'));
     }
 
-    public function testSetLocaleWithMalformedLocale()
+    /**
+     * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
+     *
+     * @return array
+     */
+    public function dataProviderTestSetLocaleWithMalformedLocale()
     {
-        $this->assertTrue(Carbon::setLocale('pt_br'));
-        $this->assertTrue(Carbon::setLocale('PT_br'));
-        $this->assertTrue(Carbon::setLocale('PT_BR'));
+        return array(
+            array('pt-BR'),
+            array('pt-br'),
+            array('PT-br'),
+            array('PT-BR'),
+            array('pt_br'),
+            array('PT_br'),
+            array('PT_BR'),
+        );
+    }
 
-        $this->assertTrue(Carbon::setLocale('pt-BR'));
-        $this->assertTrue(Carbon::setLocale('pt-br'));
-        $this->assertTrue(Carbon::setLocale('PT-br'));
-        $this->assertTrue(Carbon::setLocale('PT-BR'));
+    /**
+     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     *
+     * @param string $malformedLocale
+     */
+    public function testSetLocaleWithMalformedLocale($malformedLocale)
+    {
+        $this->assertTrue(Carbon::setLocale($malformedLocale));
     }
 
     public function testSetLocaleWithNonExistingLocale()
