@@ -3322,4 +3322,34 @@ class Carbon extends DateTime
 
         return $instance;
     }
+
+    /**
+     * Return a serialized string of the instance.
+     *
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize($this);
+    }
+
+    /**
+     * Create an instance form a serialized string.
+     *
+     * @param string $value
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static
+     */
+    public static function fromSerialized($value)
+    {
+        $instance = @unserialize($value);
+
+        if (! $instance instanceof static) {
+            throw new InvalidArgumentException('Invalid serialized value.');
+        }
+
+        return $instance;
+    }
 }
