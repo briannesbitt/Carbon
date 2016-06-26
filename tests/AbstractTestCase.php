@@ -31,6 +31,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function tearDown()
     {
         date_default_timezone_set($this->saveTz);
+        Carbon::setTestNow();
     }
 
     protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
