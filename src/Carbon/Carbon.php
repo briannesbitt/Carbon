@@ -183,8 +183,7 @@ class Carbon extends DateTime
         }
 
         if (is_numeric($object)) {
-            $timezone_offset = $object * 3600;
-            $tzName = timezone_name_from_abbr(null, $timezone_offset, true);
+            $tzName = timezone_name_from_abbr(null, $object * 3600, true);
 
             if ($tzName === false) {
                 throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
