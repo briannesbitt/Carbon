@@ -21,7 +21,7 @@ class GettersTest extends AbstractTestCase
      */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        Carbon::create(1234, 5, 6, 7, 8, 9)->sdfsdfss;
+        Carbon::create(1234, 5, 6, 7, 8, 9)->doesNotExit;
     }
 
     public function testYearGetter()
@@ -319,14 +319,5 @@ class GettersTest extends AbstractTestCase
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
         $this->assertSame('America/Chicago', $dt->timezoneName);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInvalidGetter()
-    {
-        $d = Carbon::now();
-        $d->doesNotExit;
     }
 }
