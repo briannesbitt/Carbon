@@ -2726,7 +2726,7 @@ class Carbon extends DateTime
      */
     public function startOfCentury()
     {
-        $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + 1;
+        $year = $this->year - ($this->year - 1) % static::YEARS_PER_CENTURY;
 
         return $this->setDateTime($year, 1, 1, 0, 0, 0);
     }
