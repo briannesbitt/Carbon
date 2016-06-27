@@ -397,17 +397,17 @@ class Carbon extends DateTime
         $fixYear = null;
 
         if ($year < 0) {
-          $fixYear = $year;
-          $year = 0;
-        } else if ($year > 9999) {
-          $fixYear = $year - 9999;
-          $year = 9999;
+            $fixYear = $year;
+            $year = 0;
+        } elseif ($year > 9999) {
+            $fixYear = $year - 9999;
+            $year = 9999;
         }
 
         $instance = static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
-        
+
         if ($fixYear !== null) {
-          $instance->addYears($fixYear);
+            $instance->addYears($fixYear);
         }
 
         return $instance;

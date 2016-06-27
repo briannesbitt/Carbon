@@ -22,14 +22,13 @@ class LtTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithTestNow(function () use ($scope) {
-
             $d = Carbon::now()->subSecond();
             $scope->assertSame('prieš 1 sekundę', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('prieš 2 sekundes', $d->diffForHumans());
-			
-			$d = Carbon::now()->subSeconds(21);
+
+            $d = Carbon::now()->subSeconds(21);
             $scope->assertSame('prieš 21 sekundę', $d->diffForHumans());
 
             $d = Carbon::now()->subMinute();
