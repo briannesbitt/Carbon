@@ -14,17 +14,17 @@
  * for possible formats.
  */
 return array(
-    'year'      => '1 Jahr|:count Jahre',
-    'month'     => '1 Monat|:count Monate',
-    'week'      => '1 Woche|:count Wochen',
-    'day'       => '1 Tag|:count Tage',
-    'hour'      => '1 Stunde|:count Stunden',
-    'minute'    => '1 Minute|:count Minuten',
-    'second'    => '1 Sekunde|:count Sekunden',
-    'ago'       => 'vor :time',
-    'from_now'  => 'in :time',
-    'after'     => ':time später',
-    'before'    => ':time zuvor',
+    'year' => '1 Jahr|:count Jahre',
+    'month' => '1 Monat|:count Monate',
+    'week' => '1 Woche|:count Wochen',
+    'day' => '1 Tag|:count Tage',
+    'hour' => '1 Stunde|:count Stunden',
+    'minute' => '1 Minute|:count Minuten',
+    'second' => '1 Sekunde|:count Sekunden',
+    'ago' => 'vor :time',
+    'from_now' => 'in :time',
+    'after' => ':time später',
+    'before' => ':time zuvor',
 
     'year_from_now' => '1 Jahr|:count Jahren',
     'month_from_now' => '1 Monat|:count Monaten',
