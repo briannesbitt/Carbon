@@ -74,7 +74,6 @@ class ZhTest extends AbstractTestCase
 
             $scope->assertSame('1秒', $d->diffForHumans($d2, true));
             $scope->assertSame('2秒', $d2->diffForHumans($d->addSecond(), true));
-
         });
     }
 }
