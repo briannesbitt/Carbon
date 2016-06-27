@@ -528,13 +528,13 @@ class CarbonInterval extends DateInterval
     public function spec()
     {
         $date = array_filter(array(
-            static::PERIOD_YEARS  => $this->y,
+            static::PERIOD_YEARS => $this->y,
             static::PERIOD_MONTHS => $this->m,
-            static::PERIOD_DAYS   => $this->d,
+            static::PERIOD_DAYS => $this->d,
         ));
 
         $time = array_filter(array(
-            static::PERIOD_HOURS   => $this->h,
+            static::PERIOD_HOURS => $this->h,
             static::PERIOD_MINUTES => $this->i,
             static::PERIOD_SECONDS => $this->s,
         ));
@@ -542,13 +542,13 @@ class CarbonInterval extends DateInterval
         $specString = static::PERIOD_PREFIX;
 
         foreach ($date as $key => $value) {
-            $specString .= $value . $key;
+            $specString .= $value.$key;
         }
 
         if (count($time) > 0) {
             $specString .= static::PERIOD_TIME_PREFIX;
             foreach ($time as $key => $value) {
-                $specString .= $value . $key;
+                $specString .= $value.$key;
             }
         }
 
