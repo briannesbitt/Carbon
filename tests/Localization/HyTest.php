@@ -21,7 +21,7 @@ class HyTest extends AbstractTestCase
         Carbon::setLocale('hy');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 վայրկյան առաջ', $d->diffForHumans());
 

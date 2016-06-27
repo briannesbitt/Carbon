@@ -21,7 +21,7 @@ class PtTest extends AbstractTestCase
         Carbon::setLocale('pt');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 segundo atrás', $d->diffForHumans());
         });
@@ -32,7 +32,7 @@ class PtTest extends AbstractTestCase
         Carbon::setLocale('pt-BR');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('há 1 segundo', $d->diffForHumans());
         });
@@ -43,7 +43,7 @@ class PtTest extends AbstractTestCase
         Carbon::setLocale('pt_BR');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('há 1 segundo', $d->diffForHumans());
         });
