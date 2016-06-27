@@ -17,6 +17,15 @@ use Tests\AbstractTestCase;
 
 class CreateFromTimeTest extends AbstractTestCase
 {
+    public function testCreateWithTestNow()
+    {
+        Carbon::setTestNow($testNow = Carbon::create(2011, 1, 1, 12, 13, 14));
+        $dt = Carbon::create(null, null, null, null, null, null);
+
+        $this->assertCarbon($dt, 2011, 1, 1, 12, 13, 14);
+        $this->assertTrue($testNow->eq($dt));
+    }
+
     public function testCreateFromDateWithDefaults()
     {
         $d = Carbon::createFromTime();
