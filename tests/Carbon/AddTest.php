@@ -257,7 +257,7 @@ class AddTest extends AbstractTestCase
         $this->assertSame(8, Carbon::createFromDate(1975, 5, 6)->addQuarter()->month);
     }
 
-    public function tesAddQuarterNegatve()
+    public function tesAddQuarterNegative()
     {
         $this->assertSame(2, Carbon::createFromDate(1975, 5, 6)->addQuarter(-1)->month);
     }
@@ -267,7 +267,7 @@ class AddTest extends AbstractTestCase
         $this->assertSame(2, Carbon::createFromDate(1975, 5, 6)->subQuarter()->month);
     }
 
-    public function tesSubQuarterNegatve()
+    public function tesSubQuarterNegative()
     {
         $c = Carbon::createFromDate(1975, 5, 6)->subQuarters(2);
         $this->assertSame(1974, $c->year);
