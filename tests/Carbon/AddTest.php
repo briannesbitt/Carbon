@@ -271,4 +271,54 @@ class AddTest extends AbstractTestCase
     {
         $this->assertCarbon(Carbon::createFromDate(1975, 5, 6)->subQuarters(2), 1974, 11, 6);
     }
+
+    public function testAddCentury()
+    {
+        $this->assertSame(2075, Carbon::createFromDate(1975)->addCentury()->year);
+        $this->assertSame(2075, Carbon::createFromDate(1975)->addCentury(1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->addCentury(2)->year);
+    }
+
+    public function testAddCenturyNegative()
+    {
+        $this->assertSame(1875, Carbon::createFromDate(1975)->addCentury(- 1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->addCentury(- 2)->year);
+    }
+
+    public function testAddCenturies()
+    {
+        $this->assertSame(2075, Carbon::createFromDate(1975)->addCenturies(1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->addCenturies(2)->year);
+    }
+
+    public function testAddCenturiesNegative()
+    {
+        $this->assertSame(1875, Carbon::createFromDate(1975)->addCenturies(- 1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->addCenturies(- 2)->year);
+    }
+
+    public function testSubCentury()
+    {
+        $this->assertSame(1875, Carbon::createFromDate(1975)->subCentury()->year);
+        $this->assertSame(1875, Carbon::createFromDate(1975)->subCentury(1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->subCentury(2)->year);
+    }
+
+    public function testSubCenturyNegative()
+    {
+        $this->assertSame(2075, Carbon::createFromDate(1975)->subCentury(- 1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->subCentury(- 2)->year);
+    }
+
+    public function testSubCenturies()
+    {
+        $this->assertSame(1875, Carbon::createFromDate(1975)->subCenturies(1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->subCenturies(2)->year);
+    }
+
+    public function testSubCenturiesNegative()
+    {
+        $this->assertSame(2075, Carbon::createFromDate(1975)->subCenturies(- 1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->subCenturies(- 2)->year);
+    }
 }
