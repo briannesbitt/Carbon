@@ -9,14 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/ar/date.php
- */
-
 return array(
     'year' => '{0}سنة|{1}سنة|{2}سنتين|[3,10]:count سنوات|[11,Inf]:count سنة',
     'month' => '{0}شهر|{1} شهر|{2}شهرين|[3,10]:count أشهر|[11,Inf]:count شهر',
