@@ -562,7 +562,7 @@ class Carbon extends DateTime
      */
     private static function setLastErrors(array $lastErrors)
     {
-        self::$lastErrors = $lastErrors;
+        static::$lastErrors = $lastErrors;
     }
 
     /**
@@ -570,7 +570,7 @@ class Carbon extends DateTime
      */
     public static function getLastErrors()
     {
-        return self::$lastErrors;
+        return static::$lastErrors;
     }
 
     /**
@@ -1633,7 +1633,7 @@ class Carbon extends DateTime
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, self::$weekendDays);
+        return in_array($this->dayOfWeek, static::$weekendDays);
     }
 
     /**
@@ -1853,7 +1853,7 @@ class Carbon extends DateTime
      */
     public function addQuarters($value)
     {
-        return $this->addMonths(self::MONTHS_PER_QUARTER * $value);
+        return $this->addMonths(static::MONTHS_PER_QUARTER * $value);
     }
 
     /**
@@ -2558,9 +2558,9 @@ class Carbon extends DateTime
             case ($diffInterval->d > 0):
                 $unit = 'day';
                 $count = $diffInterval->d;
-                if ($count >= self::DAYS_PER_WEEK) {
+                if ($count >= static::DAYS_PER_WEEK) {
                     $unit = 'week';
-                    $count = (int) ($count / self::DAYS_PER_WEEK);
+                    $count = (int) ($count / static::DAYS_PER_WEEK);
                 }
                 break;
 
