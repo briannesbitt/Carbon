@@ -22,16 +22,15 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * The implemenation provides helpers to handle weeks but only days are saved.
  * Weeks are calculated based on the total days of the current instance.
  *
- * @property integer $years Total years of the current interval.
- * @property integer $months Total months of the current interval.
- * @property integer $weeks Total weeks of the current interval calculated from the days.
- * @property integer $dayz Total days of the current interval (weeks * 7 + days).
- * @property integer $hours Total hours of the current interval.
- * @property integer $minutes Total minutes of the current interval.
- * @property integer $seconds Total seconds of the current interval.
- *
- * @property-read integer $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
- * @property-read integer $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property int $years Total years of the current interval.
+ * @property int $months Total months of the current interval.
+ * @property int $weeks Total weeks of the current interval calculated from the days.
+ * @property int $dayz Total days of the current interval (weeks * 7 + days).
+ * @property int $hours Total hours of the current interval.
+ * @property int $minutes Total minutes of the current interval.
+ * @property int $seconds Total seconds of the current interval.
+ * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
+ * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
@@ -48,7 +47,6 @@ use Symfony\Component\Translation\Loader\ArrayLoader;
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
  * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
- * 
  * @method CarbonInterval years() years($years = 1) Set the years portion of the current interval.
  * @method CarbonInterval year() year($years = 1) Alias for years().
  * @method CarbonInterval months() months($months = 1) Set the months portion of the current interval.
@@ -82,7 +80,7 @@ class CarbonInterval extends DateInterval
     /**
      * A translator to ... er ... translate stuff
      *
-     * @var TranslatorInterface
+     * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
 
@@ -97,11 +95,11 @@ class CarbonInterval extends DateInterval
      *
      * @param DateInterval $interval
      *
-     * @return boolean
+     * @return bool
      */
     private static function wasCreatedFromDiff(DateInterval $interval)
     {
-        return ($interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE);
+        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -111,13 +109,13 @@ class CarbonInterval extends DateInterval
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param int $years
+     * @param int $months
+     * @param int $weeks
+     * @param int $days
+     * @param int $hours
+     * @param int $minutes
+     * @param int $seconds
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
@@ -130,13 +128,18 @@ class CarbonInterval extends DateInterval
         $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
         $specDays += $days > 0 ? $days : 0;
 
-        $spec .= ($specDays > 0) ? $specDays.static::PERIOD_DAYS : '';
+        $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
 
         if ($hours > 0 || $minutes > 0 || $seconds > 0) {
             $spec .= static::PERIOD_TIME_PREFIX;
             $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
             $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
             $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
+        }
+
+        if ($spec === static::PERIOD_PREFIX) {
+            // Allow the zero interval.
+            $spec .= '0'.static::PERIOD_YEARS;
         }
 
         parent::__construct($spec);
@@ -148,13 +151,13 @@ class CarbonInterval extends DateInterval
      * syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
      * (new CarbonInterval(1))->fn().
      *
-     * @param integer $years
-     * @param integer $months
-     * @param integer $weeks
-     * @param integer $days
-     * @param integer $hours
-     * @param integer $minutes
-     * @param integer $seconds
+     * @param int $years
+     * @param int $months
+     * @param int $weeks
+     * @param int $days
+     * @param int $hours
+     * @param int $minutes
+     * @param int $seconds
      *
      * @return static
      */
@@ -170,13 +173,13 @@ class CarbonInterval extends DateInterval
      *       have the same names.
      *
      * @param string $name
-     * @param array $args
+     * @param array  $args
      *
      * @return static
      */
     public static function __callStatic($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':
@@ -230,6 +233,7 @@ class CarbonInterval extends DateInterval
         $instance = new static($di->y, $di->m, 0, $di->d, $di->h, $di->i, $di->s);
         $instance->invert = $di->invert;
         $instance->days = $di->days;
+
         return $instance;
     }
 
@@ -240,11 +244,11 @@ class CarbonInterval extends DateInterval
     /**
      * Intialize the translator instance if necessary.
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     protected static function translator()
     {
-        if (static::$translator == null) {
+        if (static::$translator === null) {
             static::$translator = new Translator('en');
             static::$translator->addLoader('array', new ArrayLoader());
             static::setLocale('en');
@@ -256,7 +260,7 @@ class CarbonInterval extends DateInterval
     /**
      * Get the translator instance in use
      *
-     * @return TranslatorInterface
+     * @return \Symfony\Component\Translation\TranslatorInterface
      */
     public static function getTranslator()
     {
@@ -307,7 +311,7 @@ class CarbonInterval extends DateInterval
      *
      * @throws InvalidArgumentException
      *
-     * @return integer
+     * @return int
      */
     public function __get($name)
     {
@@ -331,7 +335,7 @@ class CarbonInterval extends DateInterval
                 return $this->s;
 
             case 'weeks':
-                return (int)floor($this->d / Carbon::DAYS_PER_WEEK);
+                return (int) floor($this->d / Carbon::DAYS_PER_WEEK);
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
@@ -346,7 +350,7 @@ class CarbonInterval extends DateInterval
      * Set a part of the CarbonInterval object
      *
      * @param string $name
-     * @param integer $val
+     * @param int    $val
      *
      * @throws InvalidArgumentException
      */
@@ -387,13 +391,14 @@ class CarbonInterval extends DateInterval
      * Allow setting of weeks and days to be cumulative.
      *
      * @param int $weeks Number of weeks to set
-     * @param int $days Number of days to set
+     * @param int $days  Number of days to set
      *
      * @return static
      */
     public function weeksAndDays($weeks, $days)
     {
         $this->dayz = ($weeks * Carbon::DAYS_PER_WEEK) + $days;
+
         return $this;
     }
 
@@ -404,13 +409,13 @@ class CarbonInterval extends DateInterval
      *       have the same names.
      *
      * @param string $name
-     * @param array $args
+     * @param array  $args
      *
      * @return static
      */
     public function __call($name, $args)
     {
-        $arg = count($args) == 0 ? 1 : $args[0];
+        $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {
             case 'years':
@@ -491,25 +496,25 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-    * Add the passed interval to the current instance
-    *
-    * @param DateInterval $interval
-    *
-    * @return static
-    */
+     * Add the passed interval to the current instance
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
     public function add(DateInterval $interval)
     {
-        $sign = ($interval->invert === 1) ? -1 : 1;
+        $sign = $interval->invert === 1 ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
-            $this->dayz = $this->dayz + ($interval->days * $sign);
+            $this->dayz = $this->dayz + $interval->days * $sign;
         } else {
-            $this->years = $this->years + ($interval->y * $sign);
-            $this->months = $this->months + ($interval->m * $sign);
-            $this->dayz = $this->dayz + ($interval->d * $sign);
-            $this->hours = $this->hours + ($interval->h * $sign);
-            $this->minutes = $this->minutes + ($interval->i * $sign);
-            $this->seconds = $this->seconds + ($interval->s * $sign);
+            $this->years = $this->years + $interval->y * $sign;
+            $this->months = $this->months + $interval->m * $sign;
+            $this->dayz = $this->dayz + $interval->d * $sign;
+            $this->hours = $this->hours + $interval->h * $sign;
+            $this->minutes = $this->minutes + $interval->i * $sign;
+            $this->seconds = $this->seconds + $interval->s * $sign;
         }
 
         return $this;

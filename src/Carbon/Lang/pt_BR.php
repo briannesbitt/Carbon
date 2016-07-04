@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Carbon package.
  *
@@ -7,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /**
  * Translation messages.  See http://symfony.com/doc/current/book/translation.html
  * for possible formats.
- *
  */
 return array(
     'year'      => '1 ano|:count anos',
@@ -22,6 +23,6 @@ return array(
     'second'    => '1 segundo|:count segundos',
     'ago'       => 'há :time',
     'from_now'  => 'dentro de :time',
-    'after'     => ':time depois',
-    'before'    => ':time antes',
+    'after'     => 'após :time',
+    'before'    => ':time atrás',
 );

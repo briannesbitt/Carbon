@@ -1,10 +1,16 @@
 # Carbon
 
-[![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon) [![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon) [![Build Status](https://travis-ci.org/briannesbitt/Carbon.svg?branch=master)](https://travis-ci.org/briannesbitt/Carbon)
+[![Latest Stable Version](https://poser.pugx.org/nesbot/carbon/v/stable.png)](https://packagist.org/packages/nesbot/carbon)
+[![Total Downloads](https://poser.pugx.org/nesbot/carbon/downloads.png)](https://packagist.org/packages/nesbot/carbon)
+[![Build Status](https://travis-ci.org/briannesbitt/Carbon.svg?branch=master)](https://travis-ci.org/briannesbitt/Carbon)
+[![StyleCI](https://styleci.io/repos/5724990/shield?style=flat)](https://styleci.io/repos/5724990)
+[![codecov.io](https://codecov.io/github/briannesbitt/Carbon/coverage.svg?branch=master)](https://codecov.io/github/briannesbitt/Carbon?branch=master)
 
 A simple PHP API extension for DateTime. [http://carbon.nesbot.com](http://carbon.nesbot.com)
 
 ```php
+use Carbon\Carbon;
+
 printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
 $tomorrow = Carbon::now()->addDay();
@@ -24,21 +30,21 @@ Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
 if (Carbon::now()->gte($worldWillEnd)) {
-   die();
+    die();
 }
 
 // Phew! Return to normal behaviour
 Carbon::setTestNow();
 
 if (Carbon::now()->isWeekend()) {
-   echo 'Party!';
+    echo 'Party!';
 }
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
-$daysSinceEpoch = Carbon::createFromTimeStamp(0)->diffInDays();
+$daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 ```
 
 ## Installation

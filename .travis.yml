@@ -8,16 +8,21 @@ php:
   - 7.0
   - hhvm
 
+sudo: false
+
 before_install:
-  - travis_retry composer self-update
+  - pip install --user codecov
+
 install:
   - travis_retry composer install --no-interaction --prefer-source
 
 script:
-  - vendor/bin/phpunit --verbose --coverage-text
+  - vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
+
+after_success:
+  - codecov
 
 matrix:
   allow_failures:
     - php: hhvm
-    - php: 7.0
   fast_finish: true

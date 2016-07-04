@@ -8,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /**
  * Translation messages.  See http://symfony.com/doc/current/book/translation.html
  * for possible formats.
- *
  */
 /**
  * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/bg/date.php

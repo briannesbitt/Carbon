@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Carbon package.
  *
@@ -7,10 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 /**
  * Translation messages.  See http://symfony.com/doc/current/book/translation.html
  * for possible formats.
- *
  */
 /**
  * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/cs/date.php
@@ -23,7 +24,7 @@ return array(
     'hour'      => '1 hodinu|:count hodiny|:count hodin',
     'minute'    => '1 minutu|:count minuty|:count minut',
     'second'    => '1 sekundu|:count sekundy|:count sekund',
-    'ago'       => 'před :time',
+    'ago'       => ':time nazpět',
     'from_now'  => 'za :time',
     'after'     => ':time později',
     'before'    => ':time předtím',
