@@ -123,7 +123,6 @@ class LtTest extends AbstractTestCase
 
             $d = Carbon::now()->addYears(10);
             $scope->assertSame('už 10 metų', $d->diffForHumans());
-
         });
     }
 }
