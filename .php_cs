@@ -3,6 +3,7 @@
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
 use Symfony\CS\Fixer\Contrib\HeaderCommentFixer;
+use Symfony\CS\FixerInterface;
 
 $finder = DefaultFinder::create()
     ->in(__DIR__);
@@ -50,5 +51,5 @@ $fixers = array(
 return Config::create()
     ->finder($finder)
     ->fixers($fixers)
-    ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
+    ->level(FixerInterface::PSR2_LEVEL)
     ->setUsingCache(true);
