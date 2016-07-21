@@ -21,7 +21,7 @@ class PtBrTest extends AbstractTestCase
         Carbon::setLocale('pt_BR');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('há 1 segundo', $d->diffForHumans());
 
