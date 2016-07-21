@@ -9,11 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-
 return array(
     'year' => ':count metus|:count metus|:count metų',
     'month' => ':count mėnesį|:count mėnesius|:count mėnesių',

@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
 return array(
     'year' => '1 anno|:count anni',
     'month' => '1 mese|:count mesi',

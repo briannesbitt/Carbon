@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/hr/date.php
- */
 return array(
     'year' => ':count godinu|:count godine|:count godina',
     'month' => ':count mjesec|:count mjeseca|:count mjeseci',
