@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\CarbonInterval;
-
 /*
  * This file is part of the Carbon package.
  *
@@ -11,8 +9,9 @@ namespace Tests\CarbonInterval;
  * file that was distributed with this source code.
  */
 
+namespace Tests\CarbonInterval;
+
 use Carbon\CarbonInterval;
-use Carbon\Carbon;
 use DateInterval;
 use Tests\AbstractTestCase;
 
@@ -87,9 +86,6 @@ class SpecTest extends AbstractTestCase
     public function testCreatingInstanceEquals()
     {
         $ci = new CarbonInterval(1, 2, 0, 3, 4, 5, 6);
-        $this->assertEquals(
-            $ci,
-            CarbonInterval::instance(new DateInterval($ci->spec()))
-        );
+        $this->assertEquals($ci, CarbonInterval::instance(new DateInterval($ci->spec())));
     }
 }
