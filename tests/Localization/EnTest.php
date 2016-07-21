@@ -14,7 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
-class EnShortUnitsTest extends AbstractTestCase
+class EnTest extends AbstractTestCase
 {
     public function testDiffForHumansUsingShortUnitsEnglish()
     {
