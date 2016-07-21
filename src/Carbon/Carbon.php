@@ -2785,6 +2785,62 @@ class Carbon extends DateTime
     }
 
     /**
+     * Go forward to the next weekday.
+     *
+     * @return $this
+     */
+    public function nextWeekday()
+    {
+        do {
+            $this->addDay();
+        } while ($this->isWeekend());
+
+        return $this;
+    }
+
+    /**
+     * Go backward to the previous weekday.
+     *
+     * @return $this
+     */
+    public function previousWeekday()
+    {
+        do {
+            $this->subDay();
+        } while ($this->isWeekend());
+
+        return $this;
+    }
+
+    /**
+     * Go forward to the next weekend day.
+     *
+     * @return $this
+     */
+    public function nextWeekendDay()
+    {
+        do {
+            $this->addDay();
+        } while ($this->isWeekday());
+
+        return $this;
+    }
+
+    /**
+     * Go backward to the previous weekend day.
+     *
+     * @return $this
+     */
+    public function previousWeekendDay()
+    {
+        do {
+            $this->subDay();
+        } while ($this->isWeekday());
+
+        return $this;
+    }
+
+    /**
      * Modify to the previous occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the previous occurrence
      * of the current day of the week.  Use the supplied consts
