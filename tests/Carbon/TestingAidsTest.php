@@ -75,6 +75,7 @@ class TestingAidsTest extends AbstractTestCase
             $scope->assertSame('2013-08-25 05:15:05', Carbon::parse('1 week ago')->toDateTimeString());
 
             $scope->assertSame('2013-09-02 00:00:00', Carbon::parse('tomorrow')->toDateTimeString());
+            $scope->assertSame('2013-09-01 00:00:00', Carbon::parse('today')->toDateTimeString());
             $scope->assertSame('2013-08-31 00:00:00', Carbon::parse('yesterday')->toDateTimeString());
 
             $scope->assertSame('2013-09-02 05:15:05', Carbon::parse('+1 day')->toDateTimeString());
