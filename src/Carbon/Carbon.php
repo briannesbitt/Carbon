@@ -382,14 +382,25 @@ class Carbon extends DateTime
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
-        $year = $year === null ? date('Y') : $year;
-        $month = $month === null ? date('n') : $month;
-        $day = $day === null ? date('j') : $day;
+        $now = static::hasTestNow() ? static::getTestNow()->getTimestamp() : time();
+
+        $defaults = array_combine(array(
+            'year',
+            'month',
+            'day',
+            'hour',
+            'minute',
+            'second',
+        ), explode('-', date('Y-n-j-G-i-s', $now)));
+
+        $year = $year === null ? $defaults['year'] : $year;
+        $month = $month === null ? $defaults['month'] : $month;
+        $day = $day === null ? $defaults['day'] : $day;
 
         if ($hour === null) {
-            $hour = date('G');
-            $minute = $minute === null ? date('i') : $minute;
-            $second = $second === null ? date('s') : $second;
+            $hour = $defaults['hour'];
+            $minute = $minute === null ? $defaults['minute'] : $minute;
+            $second = $second === null ? $defaults['second'] : $second;
         } else {
             $minute = $minute === null ? 0 : $minute;
             $second = $second === null ? 0 : $second;
