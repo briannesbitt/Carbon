@@ -9,15 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-
-/**
- * Contributed by Mehshan Mustafa <m.mustafa@mehshan.com>
- */
-
 return array(
     'year' => ':count سال',
     'month' => ':count ماه',

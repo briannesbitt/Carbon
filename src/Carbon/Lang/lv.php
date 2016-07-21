@@ -9,10 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
 return array(
     'year' => '0 gadiem|:count gada|:count gadiem',
     'month' => '0 mēnešiem|:count mēneša|:count mēnešiem',

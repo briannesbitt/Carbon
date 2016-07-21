@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/el/date.php
- */
 return array(
     'year' => '1 χρόνος|:count χρόνια',
     'month' => '1 μήνας|:count μήνες',

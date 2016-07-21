@@ -9,17 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/Lang/ka.php
- *
- * @author  Avtandil Kikabidze aka LONGMAN <akalongman@gmail.com>
- *
- * @version 1.0.0
- */
 return array(
     'year' => ':count წლის',
     'month' => ':count თვის',
