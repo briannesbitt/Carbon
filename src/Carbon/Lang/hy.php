@@ -9,16 +9,27 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Translation messages.  See http://symfony.com/doc/current/book/translation.html
+ * for possible formats.
+ */
 return array(
-    'year' => ':count տարի',
-    'month' => ':count ամիս',
-    'week' => ':count շաբաթ',
-    'day' => ':count օր',
-    'hour' => ':count ժամ',
-    'minute' => ':count րոպե',
-    'second' => ':count վայրկյան',
-    'ago' => ':time առաջ',
+    'year'     => ':count տարի',
+    'y'        => ':count տարի',
+    'month'    => ':count ամիս',
+    'm'        => ':count ամիս',
+    'week'     => ':count շաբաթ',
+    'w'        => ':count շաբաթ',
+    'day'      => ':count օր',
+    'd'        => ':count օր',
+    'hour'     => ':count ժամ',
+    'h'        => ':count ժամ',
+    'minute'   => ':count րոպե',
+    'min'      => ':count րոպե',
+    'second'   => ':count վայրկյան',
+    's'        => ':count վայրկյան',
+    'ago'      => ':time առաջ',
     'from_now' => ':time հետո',
-    'after' => ':time հետո',
-    'before' => ':time առաջ'
+    'after'    => ':time հետո',
+    'before'   => ':time առաջ'
 );

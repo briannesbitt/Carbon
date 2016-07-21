@@ -10,6 +10,7 @@
  */
 
 return array(
+<<<<<<< HEAD
     'year' => '1 år|:count år',
     'month' => '1 månad|:count månader',
     'week' => '1 vecka|:count veckor',
@@ -21,4 +22,24 @@ return array(
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time före'
+=======
+    'year'     => '1 år|:count år',
+    'y'        => '1 år|:count år',
+    'month'    => '1 månad|:count månader',
+    'm'        => '1 månad|:count månader',
+    'week'     => '1 vecka|:count veckor',
+    'w'        => '1 vecka|:count veckor',
+    'day'      => '1 dag|:count dagar',
+    'd'        => '1 dag|:count dagar',
+    'hour'     => '1 timme|:count timmar',
+    'h'        => '1 timme|:count timmar',
+    'minute'   => '1 minut|:count minuter',
+    'min'      => '1 minut|:count minuter',
+    'second'   => '1 sekund|:count sekunder',
+    's'        => '1 sekund|:count sekunder',
+    'ago'      => ':time sedan',
+    'from_now' => 'om :time',
+    'after'    => ':time efter',
+    'before'   => ':time före'
+>>>>>>> 5daff200bc020ddbef2b8a6b17bda9e092f4db8b
 );
