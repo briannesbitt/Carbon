@@ -9,16 +9,27 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Translation messages.  See http://symfony.com/doc/current/book/translation.html
+ * for possible formats.
+ */
 return array(
-    'year' => ':count tahun',
-    'month' => ':count bulan',
-    'week' => ':count minggu',
-    'day' => ':count hari',
-    'hour' => ':count jam',
-    'minute' => ':count minit',
-    'second' => ':count saat',
-    'ago' => ':time yang lalu',
+    'year'     => ':count tahun',
+    'y'        => ':count tahun',
+    'month'    => ':count bulan',
+    'm'        => ':count bulan',
+    'week'     => ':count minggu',
+    'w'        => ':count minggu',
+    'day'      => ':count hari',
+    'd'        => ':count hari',
+    'hour'     => ':count jam',
+    'h'        => ':count jam',
+    'minute'   => ':count minit',
+    'min'      => ':count minit',
+    'second'   => ':count saat',
+    's'        => ':count saat',
+    'ago'      => ':time yang lalu',
     'from_now' => ':time dari sekarang',
-    'after' => ':time selepas',
-    'before' => ':time sebelum',
+    'after'    => ':time selepas',
+    'before'   => ':time sebelum',
 );

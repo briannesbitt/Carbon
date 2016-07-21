@@ -21,7 +21,7 @@ class NlTest extends AbstractTestCase
         Carbon::setLocale('nl');
 
         $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
+        $this->wrapWithTestNow(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 seconde geleden', $d->diffForHumans());
 

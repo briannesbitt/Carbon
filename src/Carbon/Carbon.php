@@ -2625,10 +2625,11 @@ class Carbon extends DateTime
      *
      * @param Carbon|null $other
      * @param bool        $absolute removes time difference modifiers ago, after, etc
+     * @param bool        $short    displays short format of time units
      *
      * @return string
      */
-    public function diffForHumans(Carbon $other = null, $absolute = false)
+    public function diffForHumans(Carbon $other = null, $absolute = false, $short = false)
     {
         $isNow = $other === null;
 
@@ -2640,37 +2641,38 @@ class Carbon extends DateTime
 
         switch (true) {
             case ($diffInterval->y > 0):
-                $unit = 'year';
+                $unit = $short ? 'y' : 'year';
                 $count = $diffInterval->y;
                 break;
 
             case ($diffInterval->m > 0):
-                $unit = 'month';
+                $unit = $short ? 'm' : 'month';
                 $count = $diffInterval->m;
                 break;
 
             case ($diffInterval->d > 0):
-                $unit = 'day';
+                $unit = $short ? 'd' : 'day';
                 $count = $diffInterval->d;
+
                 if ($count >= static::DAYS_PER_WEEK) {
-                    $unit = 'week';
+                    $unit = $short ? 'w' : 'week';
                     $count = (int) ($count / static::DAYS_PER_WEEK);
                 }
                 break;
 
             case ($diffInterval->h > 0):
-                $unit = 'hour';
+                $unit = $short ? 'h' : 'hour';
                 $count = $diffInterval->h;
                 break;
 
             case ($diffInterval->i > 0):
-                $unit = 'minute';
+                $unit = $short ? 'min' : 'minute';
                 $count = $diffInterval->i;
                 break;
 
             default:
                 $count = $diffInterval->s;
-                $unit = 'second';
+                $unit = $short ? 's' : 'second';
                 break;
         }
 
