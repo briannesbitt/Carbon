@@ -271,6 +271,6 @@ class AddTest extends AbstractTestCase
     {
         $c = Carbon::createFromDate(1975, 5, 6)->subQuarters(2);
         $this->assertSame(1974, $c->year);
-        $this->assertSame(9, $c->month);
+        $this->assertSame(11, $c->month);
     }
 }
