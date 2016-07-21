@@ -21,7 +21,7 @@ class GlTest extends AbstractTestCase
         Carbon::setLocale('gl');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('fai 1 segundo', $d->diffForHumans());
 

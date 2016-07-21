@@ -21,7 +21,7 @@ class MkTest extends AbstractTestCase
         Carbon::setLocale('mk');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('пред 1 секунда', $d->diffForHumans());
 

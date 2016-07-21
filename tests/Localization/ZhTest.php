@@ -21,7 +21,7 @@ class ZhTest extends AbstractTestCase
         Carbon::setLocale('zh');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1秒前', $d->diffForHumans());
 

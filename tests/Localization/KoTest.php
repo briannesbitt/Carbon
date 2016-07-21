@@ -21,7 +21,7 @@ class KoTest extends AbstractTestCase
         Carbon::setLocale('ko');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('1 년 후', $d->diffForHumans());
 
