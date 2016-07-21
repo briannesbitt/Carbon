@@ -455,56 +455,27 @@ class Carbon extends DateTime
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
         $fields = array(
-            'second' => array(
-                'value' => $second,
-                'range' => array(0, 59),
-            ),
-            'minute' => array(
-                'value' => $minute,
-                'range' => array(0, 59),
-            ),
-            'hour' => array(
-                'value' => $hour,
-                'range' => array(0, 24),
-            ),
-            'year' => array(
-                'value' => $year,
-                'range' => array(0, 9999),
-            ),
-            'month' => array(
-                'value' => $month,
-                'range' => array(0, 12),
-            ),
-            'day' => array(
-                'value' => $day,
-                'range' => array(0, 31),
-            ),
+            'year' => array(0, 9999),
+            'month' => array(0, 12),
+            'day' => array(0, 31),
+            'hour' => array(0, 24),
+            'minute' => array(0, 59),
+            'second' => array(0, 59),
         );
 
-        foreach ($fields as $field => $element) {
-            $value = $element['value'];
-
-            if ($value === null) {
-                continue;
-            }
-
-            if (!is_int($value) || $value < $element['range'][0] || $value > $element['range'][1]) {
-                throw new InvalidDateException($field, $value);
+        foreach ($fields as $field => $range) {
+            if ($$field !== null && (!is_int($$field) || $$field < $range[0] || $$field > $range[1])) {
+                throw new InvalidDateException($field, $$field);
             }
         }
 
         $instance = static::create($year, $month, 1, $hour, $minute, $second, $tz);
 
-        $field = 'day';
-        $value = $fields[$field]['value'];
-
-        if ($value !== null && $value > $instance->daysInMonth) {
-            throw new InvalidDateException($field, $value);
-        } else {
-            $instance->day($value);
+        if ($day !== null && $day > $instance->daysInMonth) {
+            throw new InvalidDateException('day', $day);
         }
 
-        return $instance;
+        return $instance->day($day);
     }
 
     /**
