@@ -21,7 +21,7 @@ class KaTest extends AbstractTestCase
         Carbon::setLocale('ka');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 წამის უკან', $d->diffForHumans());
 

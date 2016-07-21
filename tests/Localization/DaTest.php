@@ -21,7 +21,7 @@ class DaTest extends AbstractTestCase
         Carbon::setLocale('da');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 sekund siden', $d->diffForHumans());
 

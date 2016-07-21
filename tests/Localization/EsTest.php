@@ -21,7 +21,7 @@ class EsTest extends AbstractTestCase
         Carbon::setLocale('es');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('hace 1 segundo', $d->diffForHumans());
 

@@ -21,7 +21,7 @@ class FoTest extends AbstractTestCase
         Carbon::setLocale('fo');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 sekund síðan', $d->diffForHumans());
 

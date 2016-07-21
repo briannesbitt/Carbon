@@ -21,7 +21,7 @@ class ItTest extends AbstractTestCase
         Carbon::setLocale('it');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('1 anno da adesso', $d->diffForHumans());
 

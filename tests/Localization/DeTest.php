@@ -21,7 +21,7 @@ class DeTest extends AbstractTestCase
         Carbon::setLocale('de');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('in 1 Jahr', $d->diffForHumans());
 
