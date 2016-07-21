@@ -21,7 +21,7 @@ class LtTest extends AbstractTestCase
         Carbon::setLocale('lt');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('prieš 1 sekundę', $d->diffForHumans());
 
