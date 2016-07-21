@@ -10,19 +10,6 @@
  */
 
 return array(
-<<<<<<< HEAD
-    'year' => ':count рік|:count роки|:count років',
-    'month' => ':count місяць|:count місяці|:count місяців',
-    'week' => ':count тиждень|:count тижні|:count тижнів',
-    'day' => ':count день|:count дні|:count днів',
-    'hour' => ':count година|:count години|:count годин',
-    'minute' => ':count хвилину|:count хвилини|:count хвилин',
-    'second' => ':count секунду|:count секунди|:count секунд',
-    'ago' => ':time назад',
-    'from_now' => 'через :time',
-    'after' => ':time після',
-    'before' => ':time до'
-=======
     'year'     => ':count рік|:count роки|:count років',
     'y'        => ':count рік|:count роки|:count років',
     'month'    => ':count місяць|:count місяці|:count місяців',
@@ -41,5 +28,4 @@ return array(
     'from_now' => 'через :time',
     'after'    => ':time після',
     'before'   => ':time до'
->>>>>>> 5daff200bc020ddbef2b8a6b17bda9e092f4db8b
 );

@@ -10,19 +10,6 @@
  */
 
 return array(
-<<<<<<< HEAD
-    'year' => 'un an|:count ani|:count ani',
-    'month' => 'o lună|:count luni|:count luni',
-    'week' => 'o săptămână|:count săptămâni|:count săptămâni',
-    'day' => 'o zi|:count zile|:count zile',
-    'hour' => 'o oră|:count ore|:count ore',
-    'minute' => 'un minut|:count minute|:count minute',
-    'second' => 'o secundă|:count secunde|:count secunde',
-    'ago' => 'acum :time',
-    'from_now' => ':time de acum',
-    'after' => 'peste :time',
-    'before' => 'acum :time'
-=======
     'year'     => 'un an|:count ani|:count ani',
     'y'        => 'un an|:count ani|:count ani',
     'month'    => 'o lună|:count luni|:count luni',
@@ -41,5 +28,4 @@ return array(
     'from_now' => ':time de acum',
     'after'    => 'peste :time',
     'before'   => 'acum :time'
->>>>>>> 5daff200bc020ddbef2b8a6b17bda9e092f4db8b
 );

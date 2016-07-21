@@ -31,6 +31,6 @@ return array(
     's'        => ':count ثانیه',
     'ago'      => ':time پیش',
     'from_now' => ':time بعد',
-    'after'    => ':time پیش از',
-    'before'   => ':time پس از',
+    'after'    => ':time پس از',
+    'before'   => ':time پیش از',
 );

@@ -10,19 +10,6 @@
  */
 
 return array(
-<<<<<<< HEAD
-    'year' => ':count yıl',
-    'month' => ':count ay',
-    'week' => ':count hafta',
-    'day' => ':count gün',
-    'hour' => ':count saat',
-    'minute' => ':count dakika',
-    'second' => ':count saniye',
-    'ago' => ':time önce',
-    'from_now' => ':time sonra',
-    'after' => ':time sonra',
-    'before' => ':time önce',
-=======
     'year'     => ':count yıl',
     'y'        => ':count yıl',
     'month'    => ':count ay',
@@ -37,9 +24,8 @@ return array(
     'min'      => ':count dakika',
     'second'   => ':count saniye',
     's'        => ':count saniye',
-    'ago'      => ':time önce',
-    'from_now' => ':time andan itibaren',
-    'after'    => ':time sonra',
-    'before'   => ':time önce',
->>>>>>> 5daff200bc020ddbef2b8a6b17bda9e092f4db8b
+    'ago' => ':time önce',
+    'from_now' => ':time sonra',
+    'after' => ':time sonra',
+    'before' => ':time önce',
 );
