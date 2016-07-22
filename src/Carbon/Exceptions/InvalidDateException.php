@@ -41,7 +41,7 @@ class InvalidDateException extends InvalidArgumentException
     public function __construct($field, $value, $code = 0, Exception $previous = null)
     {
         $this->setField($field);
-        $this->setValue($field);
+        $this->setValue($value);
         parent::__construct($field.' : '.$value.' is not a valid value.', $code, $previous);
     }
 
