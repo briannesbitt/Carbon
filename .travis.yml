@@ -15,6 +15,7 @@ php:
 env:
   global:
     - setup=basic
+    - coverage=false
 
 sudo: false
 
@@ -23,9 +24,12 @@ install:
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
 
-script: vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
+script:
+  - if [[ $coverage = 'true' ]]; vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
+  - if [[ $coverage = 'false' ]]; vendor/bin/phpunit --verbose
 
-after_success: bash <(curl -s https://codecov.io/bash)
+after_success:
+  - if [[ $coverage = 'true' ]]; bash <(curl -s https://codecov.io/bash)
 
 matrix:
   include:
@@ -48,7 +52,9 @@ matrix:
     - php: 7.0
       env: setup=lowest
     - php: 7.0
-      env: setup=stable
+      env:
+        - setup=stable
+        - coverage=true
   allow_failures:
     - php: hhvm
   fast_finish: true
