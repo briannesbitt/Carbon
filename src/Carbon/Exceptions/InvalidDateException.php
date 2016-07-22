@@ -40,23 +40,9 @@ class InvalidDateException extends InvalidArgumentException
      */
     public function __construct($field, $value, $code = 0, Exception $previous = null)
     {
-        $this->setField($field);
-        $this->setValue($value);
-        parent::__construct($field.' : '.$value.' is not a valid value.', $code, $previous);
-    }
-
-    /**
-     * Set the invalid field.
-     *
-     * @param string $field
-     *
-     * @return $this
-     */
-    public function setField($field)
-    {
         $this->field = $field;
-
-        return $this;
+        $this->value = $value;
+        parent::__construct($field.' : '.$value.' is not a valid value.', $code, $previous);
     }
 
     /**
@@ -67,20 +53,6 @@ class InvalidDateException extends InvalidArgumentException
     public function getField()
     {
         return $this->field;
-    }
-
-    /**
-     * Set the invalid value.
-     *
-     * @param mixed $value
-     *
-     * @return $this
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-
-        return $this;
     }
 
     /**
