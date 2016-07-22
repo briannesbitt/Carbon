@@ -12,10 +12,18 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidDateException;
 use Tests\AbstractTestCase;
 
 class CreateSafeTest extends AbstractTestCase
 {
+    public function testInvalidDateExceptionProperties()
+    {
+        $e = new InvalidDateException('day', 'foo');
+        $this->assertSame('day', $e->getField());
+        $this->assertSame('foo', $e->getValue());
+    }
+
     /**
      * @expectedException \Carbon\Exceptions\InvalidDateException
      * @expectedExceptionMessage second : -1 is not a valid value.
