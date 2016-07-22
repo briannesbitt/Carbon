@@ -25,6 +25,7 @@
         "symfony/translation": "~2.6|~3.0"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "~1.11",
         "phpunit/phpunit": "~4.0|~5.0"
     },
     "autoload": {
@@ -41,5 +42,10 @@
         "branch-alias": {
             "dev-master": "1.22-dev"
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit; ./vendor/bin/php-cs-fixer fix -v --diff --dry-run;",
+        "phpunit": "./vendor/bin/phpunit;",
+        "phpcs": "./vendor/bin/php-cs-fixer fix -v --diff --dry-run;"
     }
 }
