@@ -689,27 +689,14 @@ class Carbon extends DateTime
     {
         switch ($name) {
             case 'year':
-                $this->setDate($value, $this->month, $this->day);
-                break;
-
             case 'month':
-                $this->setDate($this->year, $value, $this->day);
-                break;
-
             case 'day':
-                $this->setDate($this->year, $this->month, $value);
-                break;
-
             case 'hour':
-                $this->setTime($value, $this->minute, $this->second);
-                break;
-
             case 'minute':
-                $this->setTime($this->hour, $value, $this->second);
-                break;
-
             case 'second':
-                $this->setTime($this->hour, $this->minute, $value);
+                list($year, $month, $day, $hour, $minute, $second) = explode('-', $this->format('Y-n-j-G-i-s'));
+                $$name = $value;
+                $this->setDateTime($year, $month, $day, $hour, $minute, $second);
                 break;
 
             case 'timestamp':
