@@ -341,6 +341,24 @@ class CarbonInterval extends DateInterval
             case 'dayzExcludeWeeks':
                 return $this->d % Carbon::DAYS_PER_WEEK;
 
+            // Workaround for HHVM bug.
+            // @see https://github.com/facebook/hhvm/issues/2952
+            case 'invert':
+                if (Carbon::isHhvm()) {
+                    // HHVM 3.6 returns bool rather than documented int
+                    return (int) parent::__get($name);
+                }
+            case 'days':
+            case 'y':
+            case 'm':
+            case 'd':
+            case 'h':
+            case 'i':
+            case 's':
+                if (Carbon::isHhvm()) {
+                    return parent::__get($name);
+                }
+
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
@@ -384,6 +402,13 @@ class CarbonInterval extends DateInterval
             case 'seconds':
                 $this->s = $val;
                 break;
+
+            default:
+                 // Workaround for HHVM bug.
+                 // @see https://github.com/facebook/hhvm/issues/2952
+                if (Carbon::isHhvm()) {
+                    parent::__set($name, $val);
+                }
         }
     }
 
@@ -504,7 +529,7 @@ class CarbonInterval extends DateInterval
      */
     public function add(DateInterval $interval)
     {
-        $sign = $interval->invert === 1 ? -1 : 1;
+        $sign = ($interval->invert === 1 || $interval->invert === true) ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
             $this->dayz += $interval->days * $sign;
