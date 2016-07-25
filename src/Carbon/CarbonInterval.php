@@ -119,30 +119,32 @@ class CarbonInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
+        $periods = array(
+            'years' => static::PERIOD_YEARS,
+            'months' => static::PERIOD_MONTHS,
+            'days' => static::PERIOD_DAYS,
+            'hours' => static::PERIOD_HOURS,
+            'minutes' => static::PERIOD_MINUTES,
+            'seconds' => static::PERIOD_SECONDS,
+        );
+
+        $days = $weeks === null ? $days : $weeks * Carbon::DAYS_PER_WEEK + $days;
+
+        // Allow the zero interval.
+        $years = (int) $years;
+
         $spec = static::PERIOD_PREFIX;
 
-        $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
-        $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
-
-        $specDays = 0;
-        $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
-        $specDays += $days > 0 ? $days : 0;
-
-        $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
-
-        if ($hours > 0 || $minutes > 0 || $seconds > 0) {
-            $spec .= static::PERIOD_TIME_PREFIX;
-            $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
-            $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
-            $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
+        foreach ($periods as $value => $suffix) {
+            if ($$value !== null) {
+                $spec .= $$value.$suffix;
+            }
+            if ($suffix === static::PERIOD_DAYS) {
+                $spec .= static::PERIOD_TIME_PREFIX;
+            }
         }
 
-        if ($spec === static::PERIOD_PREFIX) {
-            // Allow the zero interval.
-            $spec .= '0'.static::PERIOD_YEARS;
-        }
-
-        parent::__construct($spec);
+        parent::__construct(rtrim($spec, static::PERIOD_TIME_PREFIX));
     }
 
     /**
