@@ -689,10 +689,10 @@ class Carbon extends DateTime
                 return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->offset === $this->copy()->setTimezone(date_default_timezone_get())->offset;
+                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get())->getOffset();
 
             case $name === 'utc':
-                return $this->offset === 0;
+                return $this->getOffset() === 0;
 
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
