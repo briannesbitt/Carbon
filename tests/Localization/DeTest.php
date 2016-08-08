@@ -48,16 +48,16 @@ class DeTest extends AbstractTestCase
 
             $d = Carbon::now()->subYears(2);
             $scope->assertSame('vor 2 Jahren', $d->diffForHumans());
-            
+
             $d = Carbon::now()->subMinute();
             $scope->assertSame('1Min', $d->diffForHumans(null, true, true));
-            
+
             $d = Carbon::now()->subHours(2);
             $scope->assertSame('vor 2Std', $d->diffForHumans(null, false, true));
-            
+
             $d = Carbon::now()->subDay();
             $scope->assertSame('vor 1Tg', $d->diffForHumans(null, false, true));
-            
+
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('vor 2Wo', $d->diffForHumans(null, false, true));
 
@@ -66,7 +66,7 @@ class DeTest extends AbstractTestCase
 
             $d = Carbon::now()->addYear();
             $scope->assertSame('in 1J', $d->diffForHumans(null, false, true));
-            
+
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('vor 2Sek', $d->diffForHumans(null, false, true));
         });
