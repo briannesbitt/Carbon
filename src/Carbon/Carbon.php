@@ -851,7 +851,7 @@ class Carbon extends DateTime
      * @param int $month
      * @param int $day
      *
-     * @return Carbon
+     * @return static
      *
      * @see https://github.com/briannesbitt/Carbon/issues/539
      * @see https://bugs.php.net/bug.php?id=63863
@@ -2979,7 +2979,7 @@ class Carbon extends DateTime
     /**
      * Go forward to the next weekday.
      *
-     * @return $this
+     * @return static
      */
     public function nextWeekday()
     {
@@ -2993,7 +2993,7 @@ class Carbon extends DateTime
     /**
      * Go backward to the previous weekday.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekday()
     {
@@ -3007,7 +3007,7 @@ class Carbon extends DateTime
     /**
      * Go forward to the next weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function nextWeekendDay()
     {
@@ -3021,7 +3021,7 @@ class Carbon extends DateTime
     /**
      * Go backward to the previous weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekendDay()
     {
