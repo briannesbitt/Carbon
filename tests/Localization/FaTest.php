@@ -21,7 +21,7 @@ class FaTest extends AbstractTestCase
         Carbon::setLocale('fa');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 ثانیه پیش', $d->diffForHumans());
 
@@ -69,13 +69,13 @@ class FaTest extends AbstractTestCase
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
-            $scope->assertSame('1 ثانیه پیش از', $d->diffForHumans($d2));
-            $scope->assertSame('1 ثانیه پس از', $d2->diffForHumans($d));
+            $scope->assertSame('1 ثانیه پس از', $d->diffForHumans($d2));
+            $scope->assertSame('1 ثانیه پیش از', $d2->diffForHumans($d));
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
-            $scope->assertSame('1 ثانیه پیش از', $d->diffForHumans($d2));
-            $scope->assertSame('1 ثانیه پس از', $d2->diffForHumans($d));
+            $scope->assertSame('1 ثانیه پس از', $d->diffForHumans($d2));
+            $scope->assertSame('1 ثانیه پیش از', $d2->diffForHumans($d));
 
             $scope->assertSame('1 ثانیه', $d->diffForHumans($d2, true));
             $scope->assertSame('2 ثانیه', $d2->diffForHumans($d->addSecond(), true));

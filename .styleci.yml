@@ -1,8 +1,10 @@
 preset: psr2
 
 enabled:
+  - concat_without_spaces
   - extra_empty_lines
   - long_array_syntax
+  - method_separation
   - no_empty_lines_after_phpdocs
   - phpdoc_align
   - phpdoc_indent
@@ -18,7 +20,9 @@ enabled:
   - phpdoc_types
   - phpdoc_var_without_name
   - return
+  - single_quote
   - spaces_cast
+  - unalign_double_arrow
   - unalign_equals
   - unused_use
   - whitespacy_lines

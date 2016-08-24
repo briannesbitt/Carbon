@@ -192,6 +192,7 @@ class ComparisonTest extends AbstractTestCase
         $dt2 = Carbon::create(2099, 12, 31, 23, 59, 59)->max($dt1);
         $this->assertCarbon($dt2, 2099, 12, 31, 23, 59, 59);
     }
+
     public function testIsBirthday()
     {
         $dt = Carbon::now();
@@ -215,7 +216,7 @@ class ComparisonTest extends AbstractTestCase
         $dt1 = Carbon::create(2015, 5, 28, 11, 0, 0);
         $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
-        $this->assertEquals($dt1, $closest);
+        $this->assertSame($dt1, $closest);
     }
 
     public function testClosestWithEquals()
@@ -224,7 +225,7 @@ class ComparisonTest extends AbstractTestCase
         $dt1 = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
         $closest = $instance->closest($dt1, $dt2);
-        $this->assertEquals($dt1, $closest);
+        $this->assertSame($dt1, $closest);
     }
 
     public function testFarthest()
@@ -232,8 +233,8 @@ class ComparisonTest extends AbstractTestCase
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 11, 0, 0);
         $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
-        $Farthest = $instance->farthest($dt1, $dt2);
-        $this->assertEquals($dt2, $Farthest);
+        $farthest = $instance->farthest($dt1, $dt2);
+        $this->assertSame($dt2, $farthest);
     }
 
     public function testFarthestWithEquals()
@@ -241,7 +242,7 @@ class ComparisonTest extends AbstractTestCase
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt1 = Carbon::create(2015, 5, 28, 12, 0, 0);
         $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
-        $Farthest = $instance->farthest($dt1, $dt2);
-        $this->assertEquals($dt2, $Farthest);
+        $farthest = $instance->farthest($dt1, $dt2);
+        $this->assertSame($dt2, $farthest);
     }
 }

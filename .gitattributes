@@ -1,3 +1,6 @@
+* text=auto
+
+.codecov.yml export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore

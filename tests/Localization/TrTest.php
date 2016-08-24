@@ -21,7 +21,7 @@ class TrTest extends AbstractTestCase
         Carbon::setLocale('tr');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 saniye önce', $d->diffForHumans());
 
@@ -65,7 +65,7 @@ class TrTest extends AbstractTestCase
             $scope->assertSame('2 yıl önce', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 saniye andan itibaren', $d->diffForHumans());
+            $scope->assertSame('1 saniye sonra', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();

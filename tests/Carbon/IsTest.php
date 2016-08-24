@@ -122,6 +122,56 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::createFromDate(2014, 1, 1)->isLeapYear());
     }
 
+    public function testIsCurrentYearTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentYear());
+    }
+
+    public function testIsCurrentYearFalse()
+    {
+        $this->assertFalse(Carbon::now()->subYear()->isCurrentYear());
+    }
+
+    public function testIsSameYearTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameYear(Carbon::now()));
+    }
+
+    public function testIsSameYearFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameYear(Carbon::now()->subYear()));
+    }
+
+    public function testIsCurrentMonthTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentMonth());
+    }
+
+    public function testIsCurrentMonthFalse()
+    {
+        $this->assertFalse(Carbon::now()->subMonth()->isCurrentMonth());
+    }
+
+    public function testIsSameMonthTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now()));
+    }
+
+    public function testIsSameMonthFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subMonth()));
+    }
+
+    public function testIsSameMonthAndYearTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now(), true));
+    }
+
+    public function testIsSameMonthAndYearFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subYear(), true));
+    }
+
     public function testIsSameDayTrue()
     {
         $current = Carbon::createFromDate(2012, 1, 2);
