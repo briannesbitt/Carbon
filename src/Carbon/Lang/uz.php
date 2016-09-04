@@ -25,7 +25,7 @@ return array(
     'second' => ':count sekund|:count sekund|:count sekund',
     's' => ':count sekund|:count sekund|:count sekund',
     'ago' => ':time avval',
-    'from_now' => 'keyin :time',
+    'from_now' => ':time keyin',
     'after' => ':time keyin',
     'before' => ':time gacha'
 );
