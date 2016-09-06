@@ -21,7 +21,7 @@ class UzTest extends AbstractTestCase
         Carbon::setLocale('uz');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 sekund avval', $d->diffForHumans(null, false, true));
 
@@ -70,7 +70,7 @@ class UzTest extends AbstractTestCase
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
             $scope->assertSame('1 sekund keyin', $d->diffForHumans($d2, false, true));
-            $scope->assertSame('1 sekund gacha', $d2->diffForHumans($d, false, true));
+            $scope->assertSame('1 sekund oldin', $d2->diffForHumans($d, false, true));
 
             $scope->assertSame('1 sekund', $d->diffForHumans($d2, true, true));
             $scope->assertSame('2 sekund', $d2->diffForHumans($d->addSecond(), true, true));
