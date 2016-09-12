@@ -304,7 +304,7 @@ class Carbon extends DateTime
             return clone $dt;
         }
 
-        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
+        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
     }
 
     /**
