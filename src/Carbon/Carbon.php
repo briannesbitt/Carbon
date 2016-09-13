@@ -171,6 +171,13 @@ class Carbon extends DateTime
     private static $lastErrors;
 
     /**
+     * Is UTF8 needed to print localized date/time ?
+     *
+     * @var bool
+     */
+    protected static $utf8 = false;
+
+    /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
      * @param \DateTimeZone|string|int|null $object
@@ -1122,6 +1129,18 @@ class Carbon extends DateTime
         return false;
     }
 
+    /**
+     * Set if UTF8 will be used for localized date/time
+     *
+     * @param bool $useUtf8
+     *
+     * @return void
+     */
+    public static function useUtf8($useUtf8)
+    {
+        static::$utf8 = $useUtf8;
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////////// STRING FORMATTING /////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -1142,7 +1161,13 @@ class Carbon extends DateTime
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
         }
 
-        return utf8_encode(strftime($format, strtotime($this)));
+        $formatted = strftime($format, strtotime($this));
+
+        if (static::$utf8) {
+            return utf8_encode($formatted);
+        }
+
+        return $formatted;
     }
 
     /**
