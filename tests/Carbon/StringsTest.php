@@ -71,6 +71,17 @@ class StringsTest extends AbstractTestCase
          */
     }
 
+    public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
+    {
+        Carbon::useUtf8(true);
+        $cache = setlocale(LC_TIME, 0);
+        $d = Carbon::create(2016, 01, 06, 00, 00, 00);
+        setlocale(LC_TIME, 'es_ES');
+        $this->assertSame(utf8_encode('miércoles 06 enero 2016'), $d->formatLocalized('%A %d %B %Y'));
+        setlocale(LC_TIME, $cache);
+        Carbon::useUtf8(false);
+    }
+
     public function testToLocalizedFormattedTimezonedDateString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/London');
