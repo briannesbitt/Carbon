@@ -2783,12 +2783,16 @@ class Carbon extends DateTime
      * @param Carbon|null $other
      * @param bool        $absolute removes time difference modifiers ago, after, etc
      * @param bool        $short    displays short format of time units
+     * @param int         $parts    displays number of parts in the interval
      *
      * @return string
      */
-    public function diffForHumans(Carbon $other = null, $absolute = false, $short = false)
+    public function diffForHumans(Carbon $other = null, $absolute = false, $short = false, $parts = 1)
     {
         $isNow = $other === null;
+        $interval = array();
+
+        $parts = min(6, max(1, (int) $parts));
 
         if ($isNow) {
             $other = static::now($this->getTimezone());
@@ -2796,48 +2800,55 @@ class Carbon extends DateTime
 
         $diffInterval = $this->diff($other);
 
-        switch (true) {
-            case $diffInterval->y > 0:
-                $unit = $short ? 'y' : 'year';
-                $count = $diffInterval->y;
-                break;
+        $diffIntervalArray = array(
+            array('value' => $diffInterval->y, 'unit' => 'year',    'unitShort' => 'y'),
+            array('value' => $diffInterval->m, 'unit' => 'month',   'unitShort' => 'm'),
+            array('value' => $diffInterval->d, 'unit' => 'day',     'unitShort' => 'd'),
+            array('value' => $diffInterval->h, 'unit' => 'hour',    'unitShort' => 'h'),
+            array('value' => $diffInterval->i, 'unit' => 'minute',  'unitShort' => 'min'),
+            array('value' => $diffInterval->s, 'unit' => 'second',  'unitShort' => 's'),
+        );
 
-            case $diffInterval->m > 0:
-                $unit = $short ? 'm' : 'month';
-                $count = $diffInterval->m;
-                break;
+        foreach ($diffIntervalArray as $diffIntervalData) {
+            if ($diffIntervalData['value'] > 0) {
+                $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
+                $count = $diffIntervalData['value'];
 
-            case $diffInterval->d > 0:
-                $unit = $short ? 'd' : 'day';
-                $count = $diffInterval->d;
-
-                if ($count >= static::DAYS_PER_WEEK) {
+                if ($diffIntervalData['unit'] == 'day' && $count >= static::DAYS_PER_WEEK) {
                     $unit = $short ? 'w' : 'week';
                     $count = (int) ($count / static::DAYS_PER_WEEK);
+
+                    $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+
+                    // get the count days excluding weeks (might be zero)
+                    $numOfDaysCount = (int) ($diffIntervalData['value'] - ($count * static::DAYS_PER_WEEK));
+
+                    if ($numOfDaysCount > 0) {
+                        $unit = $short ? 'd' : 'day';
+                        $count = $numOfDaysCount;
+                        $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+                    }
+                } else {
+                    $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
                 }
-                break;
+            }
 
-            case $diffInterval->h > 0:
-                $unit = $short ? 'h' : 'hour';
-                $count = $diffInterval->h;
+            // break the loop after we get the required number of parts in array
+            if (count($interval) >= $parts) {
                 break;
-
-            case $diffInterval->i > 0:
-                $unit = $short ? 'min' : 'minute';
-                $count = $diffInterval->i;
-                break;
-
-            default:
-                $count = $diffInterval->s;
-                $unit = $short ? 's' : 'second';
-                break;
+            }
         }
 
-        if ($count === 0) {
+        if (count($interval) === 0) {
             $count = 1;
+            $unit = $short ? 's' : 'second';
+            $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
         }
 
-        $time = static::translator()->transChoice($unit, $count, array(':count' => $count));
+        // join the interval parts by a space
+        $time = implode(' ', $interval);
+
+        unset($diffIntervalArray, $interval);
 
         if ($absolute) {
             return $time;
@@ -2847,10 +2858,13 @@ class Carbon extends DateTime
 
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
-        // Some langs have special pluralization for past and future tense.
-        $tryKeyExists = $unit.'_'.$transId;
-        if ($tryKeyExists !== static::translator()->transChoice($tryKeyExists, $count)) {
-            $time = static::translator()->transChoice($tryKeyExists, $count, array(':count' => $count));
+        if ($parts === 1) {
+            // Some langs have special pluralization for past and future tense.
+            $key = $unit.'_'.$transId;
+            $count = isset($count) ? $count : 1;
+            if ($key !== static::translator()->transChoice($key, $count)) {
+                $time = static::translator()->transChoice($key, $count, array(':count' => $count));
+            }
         }
 
         return static::translator()->trans($transId, array(':time' => $time));
