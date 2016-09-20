@@ -1138,11 +1138,22 @@ class Carbon extends DateTime
     {
         // Check for Windows to find and replace the %e
         // modifier correctly
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
-        }
+        $characters = array(
+            'd' => '%d', 'D' => '%a', 'j' => '%e', 'l' => '%A', 'N' => '%u', 'w' => '%w', 'z' => '%j',
+            'W' => '%V',
+            'F' => '%B', 'm' => '%m', 'M' => '%b',
+            'o' => '%G', 'Y' => '%Y', 'y' => '%y',
+            'a' => '%P', 'A' => '%p', 'g' => '%l', 'h' => '%I', 'H' => '%H', 'i' => '%M', 's' => '%S',
+            'O' => '%z', 'T' => '%Z',
+            'U' => '%s'
+        );
 
-        return strftime($format, strtotime($this));
+        $date = strftime(strtr((string)$format, $characters), $this->timestamp);
+        if(self::getLocale()=='ru')
+        {
+            return iconv('cp1251', 'UTF-8', $date);
+        }
+        return iconv('iso-8859-9', 'UTF-8', $date);
     }
 
     /**
