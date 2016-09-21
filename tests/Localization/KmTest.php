@@ -16,12 +16,12 @@ use Tests\AbstractTestCase;
 
 class KmTest extends AbstractTestCase
 {
-    public function testDiffForHumansUsingShortUnitsKhmer()
+    public function testDiffForHumansLocalizedInKhmer()
     {
         Carbon::setLocale('km');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 វិនាទីមុន', $d->diffForHumans(null, false));
 
