@@ -3125,7 +3125,7 @@ class Carbon extends DateTime
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
-        return $this->setDate($this->year, $this->quarter * 3 - 2, 1)->firstOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * static::MONTHS_PER_QUARTER - 2, 1)->firstOfMonth($dayOfWeek);
     }
 
     /**
@@ -3140,7 +3140,7 @@ class Carbon extends DateTime
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
-        return $this->setDate($this->year, $this->quarter * 3, 1)->lastOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * static::MONTHS_PER_QUARTER, 1)->lastOfMonth($dayOfWeek);
     }
 
     /**
@@ -3156,7 +3156,7 @@ class Carbon extends DateTime
      */
     public function nthOfQuarter($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->day(1)->month($this->quarter * 3);
+        $dt = $this->copy()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
         $lastMonth = $dt->month;
         $year = $dt->year;
         $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
