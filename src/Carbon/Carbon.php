@@ -14,6 +14,7 @@ namespace Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Closure;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use DatePeriod;
 use InvalidArgumentException;
@@ -248,11 +249,11 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTime $dt
+     * @param \DateTimeInterface $dt
      *
      * @return static
      */
-    public static function instance(DateTime $dt)
+    public static function instance(DateTimeInterface $dt)
     {
         if ($dt instanceof static) {
             return clone $dt;
@@ -529,7 +530,7 @@ class Carbon extends DateTime
 
         static::setLastErrors($lastErrors = parent::getLastErrors());
 
-        if ($dt instanceof DateTime) {
+        if ($dt instanceof DateTimeInterface) {
             return static::instance($dt);
         }
 
@@ -2503,7 +2504,7 @@ class Carbon extends DateTime
         }
 
         $period = new DatePeriod($start, $ci, $end);
-        $vals = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+        $vals = array_filter(iterator_to_array($period), function (DateTimeInterface $date) use ($callback) {
             return call_user_func($callback, Carbon::instance($date));
         });
 
