@@ -13,13 +13,13 @@ namespace Carbon;
 
 use Carbon\Exceptions\InvalidDateException;
 use Closure;
+use DatePeriod;
 use DateTime;
 use DateTimeZone;
-use DatePeriod;
 use InvalidArgumentException;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Translation\Loader\ArrayLoader;
 
 /**
  * A simple API extension for DateTime
@@ -1983,7 +1983,7 @@ class Carbon extends DateTime
      */
     public function subCenturies($value)
     {
-        return $this->addCenturies(- 1 * $value);
+        return $this->addCenturies(-1 * $value);
     }
 
     /**
@@ -2640,17 +2640,17 @@ class Carbon extends DateTime
         $diffInterval = $this->diff($other);
 
         switch (true) {
-            case ($diffInterval->y > 0):
+            case $diffInterval->y > 0:
                 $unit = $short ? 'y' : 'year';
                 $count = $diffInterval->y;
                 break;
 
-            case ($diffInterval->m > 0):
+            case $diffInterval->m > 0:
                 $unit = $short ? 'm' : 'month';
                 $count = $diffInterval->m;
                 break;
 
-            case ($diffInterval->d > 0):
+            case $diffInterval->d > 0:
                 $unit = $short ? 'd' : 'day';
                 $count = $diffInterval->d;
 
@@ -2660,12 +2660,12 @@ class Carbon extends DateTime
                 }
                 break;
 
-            case ($diffInterval->h > 0):
+            case $diffInterval->h > 0:
                 $unit = $short ? 'h' : 'hour';
                 $count = $diffInterval->h;
                 break;
 
-            case ($diffInterval->i > 0):
+            case $diffInterval->i > 0:
                 $unit = $short ? 'min' : 'minute';
                 $count = $diffInterval->i;
                 break;

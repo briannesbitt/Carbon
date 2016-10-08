@@ -34,5 +34,5 @@ return array(
     'ago' => ':time 前',
     'from_now' => '今から :time',
     'after' => ':time 後',
-    'before' => ':time 前'
+    'before' => ':time 前',
 );

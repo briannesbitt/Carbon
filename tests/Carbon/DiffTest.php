@@ -199,7 +199,7 @@ class DiffTest extends AbstractTestCase
         $dt2 = Carbon::createFromDate(2000, 1, 1)->startOfDay();
 
         $this->assertSame(40, $dt1->diffInHoursFiltered(function (Carbon $date) {
-            return ($date->hour > 8 && $date->hour < 17);
+            return $date->hour > 8 && $date->hour < 17;
         }, $dt2));
     }
 

@@ -27,5 +27,5 @@ return array(
     'ago' => ':time trước',
     'from_now' => ':time từ bây giờ',
     'after' => ':time sau',
-    'before' => ':time trước'
+    'before' => ':time trước',
 );
