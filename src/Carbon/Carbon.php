@@ -674,7 +674,7 @@ class Carbon extends DateTime
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
 
             case $name === 'age':
-                return (int) $this->diffInYears();
+                return $this->diffInYears();
 
             case $name === 'quarter':
                 return (int) ceil($this->month / static::MONTHS_PER_QUARTER);
