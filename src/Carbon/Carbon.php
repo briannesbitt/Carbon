@@ -2977,17 +2977,32 @@ class Carbon extends DateTime
     }
 
     /**
+     * Go forward or backward to the next week- or weekend-day.
+     *
+     * @param bool $weekday
+     * @param bool $forward
+     *
+     * @return $this
+     */
+    private function nextOrPreviousDay($weekday = true, $forward = true)
+    {
+        $step = $forward ? 1 : -1;
+
+        do {
+            $this->addDay($step);
+        } while ($weekday ? $this->isWeekend() : $this->isWeekday());
+
+        return $this;
+    }
+
+    /**
      * Go forward to the next weekday.
      *
      * @return $this
      */
     public function nextWeekday()
     {
-        do {
-            $this->addDay();
-        } while ($this->isWeekend());
-
-        return $this;
+        return $this->nextOrPreviousDay();
     }
 
     /**
@@ -2997,11 +3012,7 @@ class Carbon extends DateTime
      */
     public function previousWeekday()
     {
-        do {
-            $this->subDay();
-        } while ($this->isWeekend());
-
-        return $this;
+        return $this->nextOrPreviousDay(true, false);
     }
 
     /**
@@ -3011,11 +3022,7 @@ class Carbon extends DateTime
      */
     public function nextWeekendDay()
     {
-        do {
-            $this->addDay();
-        } while ($this->isWeekday());
-
-        return $this;
+        return $this->nextOrPreviousDay(false);
     }
 
     /**
@@ -3025,11 +3032,7 @@ class Carbon extends DateTime
      */
     public function previousWeekendDay()
     {
-        do {
-            $this->subDay();
-        } while ($this->isWeekday());
-
-        return $this;
+        return $this->nextOrPreviousDay(false, false);
     }
 
     /**
