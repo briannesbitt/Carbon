@@ -177,6 +177,45 @@ class Carbon extends DateTime
      */
     protected static $utf8 = false;
 
+    /*
+     * Indicates if months should be calculated with overflow.
+     *
+     * @var bool
+     */
+    protected static $monthsOverflow = true;
+
+    /**
+     * Indicates if months should be calculated with overflow.
+     *
+     * @param bool $monthsOverflow
+     *
+     * @return void
+     */
+    public static function useMonthsOverflow($monthsOverflow = true)
+    {
+        static::$monthsOverflow = $monthsOverflow;
+    }
+
+    /**
+     * Reset the month overflow behavior.
+     *
+     * @return void
+     */
+    public static function resetMonthsOverflow()
+    {
+        static::$monthsOverflow = true;
+    }
+
+    /**
+     * Get the month overflow behavior.
+     *
+     * @return bool
+     */
+    public static function shouldOverflowMonths()
+    {
+        return static::$monthsOverflow;
+    }
+
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
@@ -2015,7 +2054,11 @@ class Carbon extends DateTime
      */
     public function addMonths($value)
     {
-        return $this->modify((int) $value.' month');
+        if (static::shouldOverflowMonths()) {
+            return $this->addMonthsWithOverflow($value);
+        }
+
+        return $this->addMonthsNoOverflow($value);
     }
 
     /**
@@ -2055,6 +2098,55 @@ class Carbon extends DateTime
     }
 
     /**
+     * Add months to the instance. Positive $value travels forward while
+     * negative $value travels into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMonthsWithOverflow($value)
+    {
+        return $this->modify((int) $value.' month');
+    }
+
+    /**
+     * Add a month to the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMonthWithOverflow($value = 1)
+    {
+        return $this->addMonthsWithOverflow($value);
+    }
+
+    /**
+     * Remove a month from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMonthWithOverflow($value = 1)
+    {
+        return $this->subMonthsWithOverflow($value);
+    }
+
+    /**
+     * Remove months from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMonthsWithOverflow($value)
+    {
+        return $this->addMonthsWithOverflow(-1 * $value);
+    }
+
+    /**
      * Add months without overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
@@ -2066,7 +2158,7 @@ class Carbon extends DateTime
     {
         $day = $this->day;
 
-        $this->addMonths($value);
+        $this->modify((int) $value.' month');
 
         if ($day !== $this->day) {
             $this->modify('last day of previous month');

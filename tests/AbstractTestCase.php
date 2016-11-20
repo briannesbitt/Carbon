@@ -32,6 +32,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     {
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
+        Carbon::resetMonthsOverflow();
     }
 
     protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
