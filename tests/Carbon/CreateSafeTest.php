@@ -30,7 +30,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForSecondLowerThanZero()
     {
-        Carbon::createSafe(null, null, null, null, null, - 1);
+        Carbon::createSafe(null, null, null, null, null, -1);
     }
 
     /**
@@ -48,7 +48,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForMinuteLowerThanZero()
     {
-        Carbon::createSafe(null, null, null, null, - 1);
+        Carbon::createSafe(null, null, null, null, -1);
     }
 
     /**
@@ -66,7 +66,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForHourLowerThanZero()
     {
-        Carbon::createSafe(null, null, null, - 6);
+        Carbon::createSafe(null, null, null, -6);
     }
 
     /**
@@ -84,7 +84,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForDayLowerThanZero()
     {
-        Carbon::createSafe(null, null, - 5);
+        Carbon::createSafe(null, null, -5);
     }
 
     /**
@@ -102,7 +102,7 @@ class CreateSafeTest extends AbstractTestCase
      */
     public function testCreateSafeThrowsExceptionForMonthLowerThanZero()
     {
-        Carbon::createSafe(null, - 4);
+        Carbon::createSafe(null, -4);
     }
 
     /**

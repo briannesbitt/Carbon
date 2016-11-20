@@ -27,5 +27,5 @@ return array(
     'ago' => ':time atrás',
     'from_now' => 'em :time',
     'after' => ':time depois',
-    'before' => ':time antes'
+    'before' => ':time antes',
 );

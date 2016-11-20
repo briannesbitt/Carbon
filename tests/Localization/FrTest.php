@@ -21,7 +21,7 @@ class FrTest extends AbstractTestCase
         Carbon::setLocale('fr');
 
         $scope = $this;
-        $this->wrapWithTestNow(function () use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('il y a 1 seconde', $d->diffForHumans());
 

@@ -13,7 +13,6 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTimeZone;
-use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
@@ -176,41 +175,44 @@ class SettersTest extends AbstractTestCase
         $d->setTimezone('sdf');
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown or bad timezone (sdf)
+     */
     public function testTimezoneWithInvalidTimezone()
     {
         $d = Carbon::now();
-
-        try {
-            $d->timezone = 'sdf';
-            $this->fail('InvalidArgumentException has not been raised.');
-        } catch (InvalidArgumentException $expected) {
-        }
-
-        try {
-            $d->timezone('sdf');
-            $this->fail('InvalidArgumentException has not been raised.');
-        } catch (InvalidArgumentException $expected) {
-            //
-        }
+        $d->timezone = 'sdf';
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown or bad timezone (sdf)
+     */
+    public function testTimezoneWithInvalidTimezoneSetter()
+    {
+        $d = Carbon::now();
+        $d->timezone('sdf');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown or bad timezone (sdf)
+     */
     public function testTzWithInvalidTimezone()
     {
         $d = Carbon::now();
+        $d->tz = 'sdf';
+    }
 
-        try {
-            $d->tz = 'sdf';
-            $this->fail('InvalidArgumentException has not been raised.');
-        } catch (InvalidArgumentException $expected) {
-            //
-        }
-
-        try {
-            $d->tz('sdf');
-            $this->fail('InvalidArgumentException has not been raised.');
-        } catch (InvalidArgumentException $expected) {
-            //
-        }
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown or bad timezone (sdf)
+     */
+    public function testTzWithInvalidTimezoneSetter()
+    {
+        $d = Carbon::now();
+        $d->tz('sdf');
     }
 
     public function testSetTimezoneUsingString()

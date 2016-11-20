@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/fi/date.php
- */
 return array(
     'year' => '1 vuosi|:count vuotta',
     'y' => '1 vuosi|:count vuotta',
@@ -34,5 +27,5 @@ return array(
     'ago' => ':time sitten',
     'from_now' => ':time tästä hetkestä',
     'after' => ':time sen jälkeen',
-    'before' => ':time ennen'
+    'before' => ':time ennen',
 );

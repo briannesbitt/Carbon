@@ -36,52 +36,6 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1976, Carbon::createFromDate(1975)->addYear()->year);
     }
 
-    public function testAddMonthsPositive()
-    {
-        $this->assertSame(1, Carbon::createFromDate(1975, 12)->addMonths(1)->month);
-    }
-
-    public function testAddMonthsZero()
-    {
-        $this->assertSame(12, Carbon::createFromDate(1975, 12)->addMonths(0)->month);
-    }
-
-    public function testAddMonthsNegative()
-    {
-        $this->assertSame(11, Carbon::createFromDate(1975, 12, 1)->addMonths(-1)->month);
-    }
-
-    public function testAddMonth()
-    {
-        $this->assertSame(1, Carbon::createFromDate(1975, 12)->addMonth()->month);
-    }
-
-    public function testAddMonthWithOverflow()
-    {
-        $this->assertSame(3, Carbon::createFromDate(2012, 1, 31)->addMonth()->month);
-    }
-
-    public function testAddMonthsNoOverflowPositive()
-    {
-        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthNoOverflow(), 2012, 2, 29, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthsNoOverflow(2), 2012, 3, 31, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2012, 2, 29, 1, 1, 1)->addMonthNoOverflow(), 2012, 3, 29, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2011, 12, 31, 1, 1, 1)->addMonthNoOverflow(2), 2012, 2, 29, 1, 1, 1);
-    }
-
-    public function testAddMonthsNoOverflowZero()
-    {
-        $this->assertSame(12, Carbon::createFromDate(1975, 12)->addMonths(0)->month);
-    }
-
-    public function testAddMonthsNoOverflowNegative()
-    {
-        $this->assertCarbon(Carbon::create(2012, 2, 29, 1, 1, 1)->addMonthsNoOverflow(-1), 2012, 1, 29, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2012, 3, 31, 1, 1, 1)->addMonthsNoOverflow(-2), 2012, 1, 31, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2012, 3, 31, 1, 1, 1)->addMonthsNoOverflow(-1), 2012, 2, 29, 1, 1, 1);
-        $this->assertCarbon(Carbon::create(2012, 1, 31, 1, 1, 1)->addMonthsNoOverflow(-1), 2011, 12, 31, 1, 1, 1);
-    }
-
     public function testAddDaysPositive()
     {
         $this->assertSame(1, Carbon::createFromDate(1975, 5, 31)->addDays(1)->day);
@@ -222,16 +176,6 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1977, Carbon::createFromDate(1975)->addYear(2)->year);
     }
 
-    public function testAddMonthPassingArg()
-    {
-        $this->assertSame(7, Carbon::createFromDate(1975, 5, 1)->addMonth(2)->month);
-    }
-
-    public function testAddMonthNoOverflowPassingArg()
-    {
-        $this->assertCarbon(Carbon::create(2010, 12, 31, 1, 1, 1, 1)->addMonthNoOverflow(2), 2011, 2, 28, 1, 1, 1);
-    }
-
     public function testAddDayPassingArg()
     {
         $this->assertSame(12, Carbon::createFromDate(1975, 5, 10)->addDay(2)->day);
@@ -281,8 +225,8 @@ class AddTest extends AbstractTestCase
 
     public function testAddCenturyNegative()
     {
-        $this->assertSame(1875, Carbon::createFromDate(1975)->addCentury(- 1)->year);
-        $this->assertSame(1775, Carbon::createFromDate(1975)->addCentury(- 2)->year);
+        $this->assertSame(1875, Carbon::createFromDate(1975)->addCentury(-1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->addCentury(-2)->year);
     }
 
     public function testAddCenturies()
@@ -293,8 +237,8 @@ class AddTest extends AbstractTestCase
 
     public function testAddCenturiesNegative()
     {
-        $this->assertSame(1875, Carbon::createFromDate(1975)->addCenturies(- 1)->year);
-        $this->assertSame(1775, Carbon::createFromDate(1975)->addCenturies(- 2)->year);
+        $this->assertSame(1875, Carbon::createFromDate(1975)->addCenturies(-1)->year);
+        $this->assertSame(1775, Carbon::createFromDate(1975)->addCenturies(-2)->year);
     }
 
     public function testSubCentury()
@@ -306,8 +250,8 @@ class AddTest extends AbstractTestCase
 
     public function testSubCenturyNegative()
     {
-        $this->assertSame(2075, Carbon::createFromDate(1975)->subCentury(- 1)->year);
-        $this->assertSame(2175, Carbon::createFromDate(1975)->subCentury(- 2)->year);
+        $this->assertSame(2075, Carbon::createFromDate(1975)->subCentury(-1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->subCentury(-2)->year);
     }
 
     public function testSubCenturies()
@@ -318,7 +262,7 @@ class AddTest extends AbstractTestCase
 
     public function testSubCenturiesNegative()
     {
-        $this->assertSame(2075, Carbon::createFromDate(1975)->subCenturies(- 1)->year);
-        $this->assertSame(2175, Carbon::createFromDate(1975)->subCenturies(- 2)->year);
+        $this->assertSame(2075, Carbon::createFromDate(1975)->subCenturies(-1)->year);
+        $this->assertSame(2175, Carbon::createFromDate(1975)->subCenturies(-2)->year);
     }
 }
