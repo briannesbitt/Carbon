@@ -3346,7 +3346,7 @@ class Carbon extends DateTime
     {
         $instance = @unserialize($value);
 
-        if (! $instance instanceof static) {
+        if (!$instance instanceof static) {
             throw new InvalidArgumentException('Invalid serialized value.');
         }
 
