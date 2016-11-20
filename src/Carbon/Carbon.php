@@ -2986,7 +2986,7 @@ class Carbon extends DateTime
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
-        $step = $forward ? 1 : - 1;
+        $step = $forward ? 1 : -1;
 
         do {
             $this->addDay($step);
