@@ -31,8 +31,8 @@ class AddMonthsTest extends AbstractTestCase
     public function providerTestAddMonthNoOverflow()
     {
         return array(
-            array(- 2, 2015, 11, 30),
-            array(- 1, 2015, 12, 31),
+            array(-2, 2015, 11, 30),
+            array(-1, 2015, 12, 31),
             array(0, 2016, 1, 31),
             array(1, 2016, 2, 29),
             array(2, 2016, 3, 31),
@@ -68,8 +68,8 @@ class AddMonthsTest extends AbstractTestCase
     public function providerTestSubMonthNoOverflow()
     {
         return array(
-            array(- 2, 2016, 3, 31),
-            array(- 1, 2016, 2, 29),
+            array(-2, 2016, 3, 31),
+            array(-1, 2016, 2, 29),
             array(0, 2016, 1, 31),
             array(1, 2015, 12, 31),
             array(2, 2015, 11, 30),
@@ -105,8 +105,8 @@ class AddMonthsTest extends AbstractTestCase
     public function providerTestAddMonthWithOverflow()
     {
         return array(
-            array(- 2, 2015, 12, 1),
-            array(- 1, 2015, 12, 31),
+            array(-2, 2015, 12, 1),
+            array(-1, 2015, 12, 31),
             array(0, 2016, 1, 31),
             array(1, 2016, 3, 2),
             array(2, 2016, 3, 31),
@@ -142,8 +142,8 @@ class AddMonthsTest extends AbstractTestCase
     public function providerTestSubMonthWithOverflow()
     {
         return array(
-            array(- 2, 2016, 3, 31),
-            array(- 1, 2016, 3, 2),
+            array(-2, 2016, 3, 31),
+            array(-1, 2016, 3, 2),
             array(0, 2016, 1, 31),
             array(1, 2015, 12, 31),
             array(2, 2015, 12, 1),
