@@ -1084,7 +1084,7 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Intialize the translator instance if necessary.
+     * Initialize the translator instance if necessary.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -2960,7 +2960,7 @@ class Carbon extends DateTime
     /**
      * Modify to the next occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the next occurrence
-     * of the current day of the week.  Use the supplied consts
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3038,7 +3038,7 @@ class Carbon extends DateTime
     /**
      * Modify to the previous occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied consts
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3057,7 +3057,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
-     * first day of the current month.  Use the supplied consts
+     * first day of the current month.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3078,7 +3078,7 @@ class Carbon extends DateTime
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
-     * last day of the current month.  Use the supplied consts
+     * last day of the current month.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3100,7 +3100,7 @@ class Carbon extends DateTime
      * Modify to the given occurrence of a given day of the week
      * in the current month. If the calculated occurrence is outside the scope
      * of the current month, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -3119,7 +3119,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
-     * first day of the current quarter.  Use the supplied consts
+     * first day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3134,7 +3134,7 @@ class Carbon extends DateTime
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
-     * last day of the current quarter.  Use the supplied consts
+     * last day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3150,7 +3150,7 @@ class Carbon extends DateTime
      * Modify to the given occurrence of a given day of the week
      * in the current quarter. If the calculated occurrence is outside the scope
      * of the current quarter, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -3170,7 +3170,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
-     * first day of the current year.  Use the supplied consts
+     * first day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3185,7 +3185,7 @@ class Carbon extends DateTime
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
-     * last day of the current year.  Use the supplied consts
+     * last day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3201,7 +3201,7 @@ class Carbon extends DateTime
      * Modify to the given occurrence of a given day of the week
      * in the current year. If the calculated occurrence is outside the scope
      * of the current year, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
