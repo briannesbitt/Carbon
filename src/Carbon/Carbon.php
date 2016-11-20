@@ -2936,8 +2936,8 @@ class Carbon extends DateTime
      */
     public function startOfWeek()
     {
-        if ($this->dayOfWeek !== static::$weekStartsAt) {
-            $this->previous(static::$weekStartsAt);
+        while ($this->dayOfWeek !== static::$weekStartsAt) {
+            $this->subDay();
         }
 
         return $this->startOfDay();
@@ -2950,8 +2950,8 @@ class Carbon extends DateTime
      */
     public function endOfWeek()
     {
-        if ($this->dayOfWeek !== static::$weekEndsAt) {
-            $this->next(static::$weekEndsAt);
+        while ($this->dayOfWeek !== static::$weekEndsAt) {
+            $this->addDay();
         }
 
         return $this->endOfDay();

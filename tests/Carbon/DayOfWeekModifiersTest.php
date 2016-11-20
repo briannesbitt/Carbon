@@ -73,6 +73,26 @@ class DayOfWeekModifiersTest extends AbstractTestCase
         $this->assertCarbon($d, 2014, 1, 5, 23, 59, 59);
     }
 
+    /**
+     * @see https://github.com/briannesbitt/Carbon/issues/735
+     */
+    public function testStartOrEndOfWeekFromWeekWithUTC()
+    {
+        $d = Carbon::create(2016, 7, 27, 17, 13, 7, 'UTC');
+        $this->assertCarbon($d->copy()->startOfWeek(), 2016, 7, 25, 0, 0, 0);
+        $this->assertCarbon($d->copy()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
+    }
+
+    /**
+     * @see https://github.com/briannesbitt/Carbon/issues/735
+     */
+    public function testStartOrEndOfWeekFromWeekWithOtherTimezone()
+    {
+        $d = Carbon::create(2016, 7, 27, 17, 13, 7, 'America/New_York');
+        $this->assertCarbon($d->copy()->startOfWeek(), 2016, 7, 25, 0, 0, 0);
+        $this->assertCarbon($d->copy()->endOfWeek(), 2016, 7, 31, 23, 59, 59);
+    }
+
     public function testNext()
     {
         $d = Carbon::createFromDate(1975, 5, 21)->next();
