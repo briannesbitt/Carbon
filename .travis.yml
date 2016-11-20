@@ -15,17 +15,22 @@ php:
 env:
   global:
     - setup=basic
+    - coverage=false
 
 sudo: false
 
+before_install:
+  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
+
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-dist; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --prefer-lowest --prefer-stable; fi
+  - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
 
 script: vendor/bin/phpunit --verbose --coverage-text --coverage-clover=coverage.xml
 
-after_success: bash <(curl -s https://codecov.io/bash)
+after_success:
+  - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
 
 matrix:
   include:
@@ -49,6 +54,7 @@ matrix:
       env: setup=lowest
     - php: 7.0
       env: setup=stable
+      env: coverage=true
   allow_failures:
     - php: hhvm
   fast_finish: true
