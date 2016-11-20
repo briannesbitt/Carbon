@@ -34,5 +34,5 @@ return array(
     'ago' => 'πρίν απο :time',
     'from_now' => 'σε :time απο τώρα',
     'after' => ':time μετά',
-    'before' => ':time πρίν'
+    'before' => ':time πρίν',
 );

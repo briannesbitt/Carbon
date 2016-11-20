@@ -34,5 +34,5 @@ return array(
     'ago' => 'Orain dela :time',
     'from_now' => ':time barru',
     'after' => ':time geroago',
-    'before' => ':time lehenago'
+    'before' => ':time lehenago',
 );
