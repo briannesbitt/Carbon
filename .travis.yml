@@ -10,6 +10,7 @@ php:
   - 5.5
   - 5.6
   - 7.0
+  - 7.1
   - hhvm
 
 env:
@@ -54,7 +55,12 @@ matrix:
       env: setup=lowest
     - php: 7.0
       env: setup=stable
-      env: coverage=true
+    - php: 7.1
+      env: setup=lowest
+    - php: 7.1
+      env: setup=stable
   allow_failures:
-    - php: hhvm
+    - php:
+      - 7.1
+      - hhvm
   fast_finish: true
