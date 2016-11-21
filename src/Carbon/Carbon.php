@@ -907,7 +907,7 @@ class Carbon extends DateTime
      */
     public function timestamp($value)
     {
-        return parent::setTimestamp($value);
+        return $this->setTimestamp($value);
     }
 
     /**
