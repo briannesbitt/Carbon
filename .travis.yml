@@ -60,7 +60,5 @@ matrix:
     - php: 7.1
       env: setup=stable
   allow_failures:
-    - php:
-      - 7.1
-      - hhvm
+    - php: hhvm
   fast_finish: true
