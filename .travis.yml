@@ -21,7 +21,7 @@ env:
 sudo: false
 
 before_install:
-  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $TRAVIS_PHP_VERSION != 7.1 && $TRAVIS_PHP_VERSION != 'hhvm' && $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
