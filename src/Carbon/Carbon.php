@@ -1034,9 +1034,9 @@ class Carbon extends DateTime
     {
         if (is_string($testNow)) {
             static::$testNow = static::parse($testNow);
+
             return;
         }
-        
         static::$testNow = $testNow;
     }
 
