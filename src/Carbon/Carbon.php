@@ -1030,8 +1030,13 @@ class Carbon extends DateTime
      *
      * @param \Carbon\Carbon|null $testNow
      */
-    public static function setTestNow(Carbon $testNow = null)
+    public static function setTestNow($testNow = null)
     {
+        if (is_string($testNow)) {
+            static::$testNow = static::parse($testNow);
+            return;
+        }
+        
         static::$testNow = $testNow;
     }
 
