@@ -494,7 +494,6 @@ class MeTest extends AbstractTestCase
 
             $d = Carbon::now()->subSeconds(51);
             $scope->assertSame('prije 51 sekund', $d->diffForHumans());
-
         });
     }
 }
