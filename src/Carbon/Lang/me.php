@@ -29,8 +29,8 @@ return array(
     'after' => ':time nakon',
     'before' => ':time prije',
 
-    'year_from_now' => '{1} :count godinu|{2,3,4} :count godine|[5,Inf[ :count godina',
-    'year_ago' => '{1} :count godinu|{2,3,4} :count godine|[5,Inf[ :count godina',
+    'year_from_now' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
+    'year_ago' => '{1,21,31,41,51} :count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54} :count godine|[5,Inf[ :count godina',
 
     'week_from_now' => '{1} :count nedjelju|{2,3,4} :count nedjelje|[5,Inf[ :count nedjelja',
     'week_ago' => '{1} :count nedjelju|{2,3,4} :count nedjelje|[5,Inf[ :count nedjelja',
