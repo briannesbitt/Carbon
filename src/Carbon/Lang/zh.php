@@ -27,5 +27,5 @@ return array(
     'ago' => ':time前',
     'from_now' => '距现在:time',
     'after' => ':time后',
-    'before' => ':time前'
+    'before' => ':time前',
 );

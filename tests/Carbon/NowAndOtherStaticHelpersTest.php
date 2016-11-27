@@ -74,7 +74,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
 
     public function testMinValue()
     {
-        $this->assertLessThanOrEqual(- 2147483647, Carbon::minValue()->getTimestamp());
+        $this->assertLessThanOrEqual(-2147483647, Carbon::minValue()->getTimestamp());
     }
 
     public function testMaxValue()

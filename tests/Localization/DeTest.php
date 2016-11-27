@@ -24,9 +24,12 @@ class DeTest extends AbstractTestCase
         $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->addYear();
             $scope->assertSame('in 1 Jahr', $d->diffForHumans());
+            $scope->assertSame('1J', $d->diffForHumans(null, true, true));
 
             $d = Carbon::now()->addYears(2);
             $scope->assertSame('in 2 Jahren', $d->diffForHumans());
+            $scope->assertSame('2J', $d->diffForHumans(null, true, true));
+            $scope->assertSame('in 2J', $d->diffForHumans(null, false, true));
 
             $d = Carbon::now()->subYear();
             $scope->assertSame('1 Jahr später', Carbon::now()->diffForHumans($d));
@@ -45,6 +48,27 @@ class DeTest extends AbstractTestCase
 
             $d = Carbon::now()->subYears(2);
             $scope->assertSame('vor 2 Jahren', $d->diffForHumans());
+
+            $d = Carbon::now()->subMinute();
+            $scope->assertSame('1Min', $d->diffForHumans(null, true, true));
+
+            $d = Carbon::now()->subHours(2);
+            $scope->assertSame('vor 2Std', $d->diffForHumans(null, false, true));
+
+            $d = Carbon::now()->subDay();
+            $scope->assertSame('vor 1Tg', $d->diffForHumans(null, false, true));
+
+            $d = Carbon::now()->subWeeks(2);
+            $scope->assertSame('vor 2Wo', $d->diffForHumans(null, false, true));
+
+            $d = Carbon::now()->subMonths(2);
+            $scope->assertSame('vor 2Mon', $d->diffForHumans(null, false, true));
+
+            $d = Carbon::now()->addYear();
+            $scope->assertSame('in 1J', $d->diffForHumans(null, false, true));
+
+            $d = Carbon::now()->subSeconds(2);
+            $scope->assertSame('vor 2Sek', $d->diffForHumans(null, false, true));
         });
     }
 }

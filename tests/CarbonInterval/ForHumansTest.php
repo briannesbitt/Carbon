@@ -12,8 +12,8 @@
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
 
 class ForHumansTest extends AbstractTestCase

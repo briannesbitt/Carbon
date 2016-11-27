@@ -13,13 +13,13 @@ namespace Carbon;
 
 use Carbon\Exceptions\InvalidDateException;
 use Closure;
+use DatePeriod;
 use DateTime;
 use DateTimeZone;
-use DatePeriod;
 use InvalidArgumentException;
+use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Translation\Loader\ArrayLoader;
 
 /**
  * A simple API extension for DateTime
@@ -171,6 +171,52 @@ class Carbon extends DateTime
     private static $lastErrors;
 
     /**
+     * Will UTF8 encoding be used to print localized date/time ?
+     *
+     * @var bool
+     */
+    protected static $utf8 = false;
+
+    /*
+     * Indicates if months should be calculated with overflow.
+     *
+     * @var bool
+     */
+    protected static $monthsOverflow = true;
+
+    /**
+     * Indicates if months should be calculated with overflow.
+     *
+     * @param bool $monthsOverflow
+     *
+     * @return void
+     */
+    public static function useMonthsOverflow($monthsOverflow = true)
+    {
+        static::$monthsOverflow = $monthsOverflow;
+    }
+
+    /**
+     * Reset the month overflow behavior.
+     *
+     * @return void
+     */
+    public static function resetMonthsOverflow()
+    {
+        static::$monthsOverflow = true;
+    }
+
+    /**
+     * Get the month overflow behavior.
+     *
+     * @return bool
+     */
+    public static function shouldOverflowMonths()
+    {
+        return static::$monthsOverflow;
+    }
+
+    /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
      * @param \DateTimeZone|string|int|null $object
@@ -258,7 +304,7 @@ class Carbon extends DateTime
             return clone $dt;
         }
 
-        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimeZone());
+        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
     }
 
     /**
@@ -628,7 +674,7 @@ class Carbon extends DateTime
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
 
             case $name === 'age':
-                return (int) $this->diffInYears();
+                return $this->diffInYears();
 
             case $name === 'quarter':
                 return (int) ceil($this->month / static::MONTHS_PER_QUARTER);
@@ -643,10 +689,10 @@ class Carbon extends DateTime
                 return $this->format('I') === '1';
 
             case $name === 'local':
-                return $this->offset === $this->copy()->setTimezone(date_default_timezone_get())->offset;
+                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get())->getOffset();
 
             case $name === 'utc':
-                return $this->offset === 0;
+                return $this->getOffset() === 0;
 
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
@@ -689,27 +735,14 @@ class Carbon extends DateTime
     {
         switch ($name) {
             case 'year':
-                $this->setDate($value, $this->month, $this->day);
-                break;
-
             case 'month':
-                $this->setDate($this->year, $value, $this->day);
-                break;
-
             case 'day':
-                $this->setDate($this->year, $this->month, $value);
-                break;
-
             case 'hour':
-                $this->setTime($value, $this->minute, $this->second);
-                break;
-
             case 'minute':
-                $this->setTime($this->hour, $value, $this->second);
-                break;
-
             case 'second':
-                $this->setTime($this->hour, $this->minute, $value);
+                list($year, $month, $day, $hour, $minute, $second) = explode('-', $this->format('Y-n-j-G-i-s'));
+                $$name = $value;
+                $this->setDateTime($year, $month, $day, $hour, $minute, $second);
                 break;
 
             case 'timestamp':
@@ -818,7 +851,7 @@ class Carbon extends DateTime
      * @param int $month
      * @param int $day
      *
-     * @return Carbon
+     * @return static
      *
      * @see https://github.com/briannesbitt/Carbon/issues/539
      * @see https://bugs.php.net/bug.php?id=63863
@@ -874,9 +907,7 @@ class Carbon extends DateTime
      */
     public function timestamp($value)
     {
-        $this->timestamp = $value;
-
-        return $this;
+        return $this->setTimestamp($value);
     }
 
     /**
@@ -1053,7 +1084,7 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Intialize the translator instance if necessary.
+     * Initialize the translator instance if necessary.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -1127,6 +1158,16 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
+     * Set if UTF8 will be used for localized date/time
+     *
+     * @param bool $utf8
+     */
+    public static function setUtf8($utf8)
+    {
+        static::$utf8 = $utf8;
+    }
+
+    /**
      * Format the instance with the current locale.  You can set the current
      * locale using setlocale() http://php.net/setlocale.
      *
@@ -1142,7 +1183,9 @@ class Carbon extends DateTime
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
         }
 
-        return strftime($format, strtotime($this));
+        $formatted = strftime($format, strtotime($this));
+
+        return static::$utf8 ? utf8_encode($formatted) : $formatted;
     }
 
     /**
@@ -1983,7 +2026,7 @@ class Carbon extends DateTime
      */
     public function subCenturies($value)
     {
-        return $this->addCenturies(- 1 * $value);
+        return $this->addCenturies(-1 * $value);
     }
 
     /**
@@ -1996,7 +2039,11 @@ class Carbon extends DateTime
      */
     public function addMonths($value)
     {
-        return $this->modify((int) $value.' month');
+        if (static::shouldOverflowMonths()) {
+            return $this->addMonthsWithOverflow($value);
+        }
+
+        return $this->addMonthsNoOverflow($value);
     }
 
     /**
@@ -2036,6 +2083,55 @@ class Carbon extends DateTime
     }
 
     /**
+     * Add months to the instance. Positive $value travels forward while
+     * negative $value travels into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMonthsWithOverflow($value)
+    {
+        return $this->modify((int) $value.' month');
+    }
+
+    /**
+     * Add a month to the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMonthWithOverflow($value = 1)
+    {
+        return $this->addMonthsWithOverflow($value);
+    }
+
+    /**
+     * Remove a month from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMonthWithOverflow($value = 1)
+    {
+        return $this->subMonthsWithOverflow($value);
+    }
+
+    /**
+     * Remove months from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subMonthsWithOverflow($value)
+    {
+        return $this->addMonthsWithOverflow(-1 * $value);
+    }
+
+    /**
      * Add months without overflowing to the instance. Positive $value
      * travels forward while negative $value travels into the past.
      *
@@ -2047,7 +2143,7 @@ class Carbon extends DateTime
     {
         $day = $this->day;
 
-        $this->addMonths($value);
+        $this->modify((int) $value.' month');
 
         if ($day !== $this->day) {
             $this->modify('last day of previous month');
@@ -2640,17 +2736,17 @@ class Carbon extends DateTime
         $diffInterval = $this->diff($other);
 
         switch (true) {
-            case ($diffInterval->y > 0):
+            case $diffInterval->y > 0:
                 $unit = $short ? 'y' : 'year';
                 $count = $diffInterval->y;
                 break;
 
-            case ($diffInterval->m > 0):
+            case $diffInterval->m > 0:
                 $unit = $short ? 'm' : 'month';
                 $count = $diffInterval->m;
                 break;
 
-            case ($diffInterval->d > 0):
+            case $diffInterval->d > 0:
                 $unit = $short ? 'd' : 'day';
                 $count = $diffInterval->d;
 
@@ -2660,12 +2756,12 @@ class Carbon extends DateTime
                 }
                 break;
 
-            case ($diffInterval->h > 0):
+            case $diffInterval->h > 0:
                 $unit = $short ? 'h' : 'hour';
                 $count = $diffInterval->h;
                 break;
 
-            case ($diffInterval->i > 0):
+            case $diffInterval->i > 0:
                 $unit = $short ? 'min' : 'minute';
                 $count = $diffInterval->i;
                 break;
@@ -2840,8 +2936,8 @@ class Carbon extends DateTime
      */
     public function startOfWeek()
     {
-        if ($this->dayOfWeek !== static::$weekStartsAt) {
-            $this->previous(static::$weekStartsAt);
+        while ($this->dayOfWeek !== static::$weekStartsAt) {
+            $this->subDay();
         }
 
         return $this->startOfDay();
@@ -2854,8 +2950,8 @@ class Carbon extends DateTime
      */
     public function endOfWeek()
     {
-        if ($this->dayOfWeek !== static::$weekEndsAt) {
-            $this->next(static::$weekEndsAt);
+        while ($this->dayOfWeek !== static::$weekEndsAt) {
+            $this->addDay();
         }
 
         return $this->endOfDay();
@@ -2864,7 +2960,7 @@ class Carbon extends DateTime
     /**
      * Modify to the next occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the next occurrence
-     * of the current day of the week.  Use the supplied consts
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -2881,65 +2977,68 @@ class Carbon extends DateTime
     }
 
     /**
+     * Go forward or backward to the next week- or weekend-day.
+     *
+     * @param bool $weekday
+     * @param bool $forward
+     *
+     * @return static
+     */
+    private function nextOrPreviousDay($weekday = true, $forward = true)
+    {
+        $step = $forward ? 1 : -1;
+
+        do {
+            $this->addDay($step);
+        } while ($weekday ? $this->isWeekend() : $this->isWeekday());
+
+        return $this;
+    }
+
+    /**
      * Go forward to the next weekday.
      *
      * @return $this
      */
     public function nextWeekday()
     {
-        do {
-            $this->addDay();
-        } while ($this->isWeekend());
-
-        return $this;
+        return $this->nextOrPreviousDay();
     }
 
     /**
      * Go backward to the previous weekday.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekday()
     {
-        do {
-            $this->subDay();
-        } while ($this->isWeekend());
-
-        return $this;
+        return $this->nextOrPreviousDay(true, false);
     }
 
     /**
      * Go forward to the next weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function nextWeekendDay()
     {
-        do {
-            $this->addDay();
-        } while ($this->isWeekday());
-
-        return $this;
+        return $this->nextOrPreviousDay(false);
     }
 
     /**
      * Go backward to the previous weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekendDay()
     {
-        do {
-            $this->subDay();
-        } while ($this->isWeekday());
-
-        return $this;
+        return $this->nextOrPreviousDay(false, false);
     }
 
     /**
      * Modify to the previous occurrence of a given day of the week.
      * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied consts
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -2958,7 +3057,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
-     * first day of the current month.  Use the supplied consts
+     * first day of the current month.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -2979,7 +3078,7 @@ class Carbon extends DateTime
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current month. If no dayOfWeek is provided, modify to the
-     * last day of the current month.  Use the supplied consts
+     * last day of the current month.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3001,7 +3100,7 @@ class Carbon extends DateTime
      * Modify to the given occurrence of a given day of the week
      * in the current month. If the calculated occurrence is outside the scope
      * of the current month, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -3020,7 +3119,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
-     * first day of the current quarter.  Use the supplied consts
+     * first day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3029,13 +3128,13 @@ class Carbon extends DateTime
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
-        return $this->setDate($this->year, $this->quarter * 3 - 2, 1)->firstOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * static::MONTHS_PER_QUARTER - 2, 1)->firstOfMonth($dayOfWeek);
     }
 
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current quarter. If no dayOfWeek is provided, modify to the
-     * last day of the current quarter.  Use the supplied consts
+     * last day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3044,14 +3143,14 @@ class Carbon extends DateTime
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
-        return $this->setDate($this->year, $this->quarter * 3, 1)->lastOfMonth($dayOfWeek);
+        return $this->setDate($this->year, $this->quarter * static::MONTHS_PER_QUARTER, 1)->lastOfMonth($dayOfWeek);
     }
 
     /**
      * Modify to the given occurrence of a given day of the week
      * in the current quarter. If the calculated occurrence is outside the scope
      * of the current quarter, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek
@@ -3060,7 +3159,7 @@ class Carbon extends DateTime
      */
     public function nthOfQuarter($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->day(1)->month($this->quarter * 3);
+        $dt = $this->copy()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
         $lastMonth = $dt->month;
         $year = $dt->year;
         $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
@@ -3071,7 +3170,7 @@ class Carbon extends DateTime
     /**
      * Modify to the first occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
-     * first day of the current year.  Use the supplied consts
+     * first day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3086,7 +3185,7 @@ class Carbon extends DateTime
     /**
      * Modify to the last occurrence of a given day of the week
      * in the current year. If no dayOfWeek is provided, modify to the
-     * last day of the current year.  Use the supplied consts
+     * last day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int|null $dayOfWeek
@@ -3102,7 +3201,7 @@ class Carbon extends DateTime
      * Modify to the given occurrence of a given day of the week
      * in the current year. If the calculated occurrence is outside the scope
      * of the current year, then return false and no modifications are made.
-     * Use the supplied consts to indicate the desired dayOfWeek, ex. static::MONDAY.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
      * @param int $nth
      * @param int $dayOfWeek

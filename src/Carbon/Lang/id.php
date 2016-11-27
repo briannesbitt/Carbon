@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/id/date.php
- */
 return array(
     'year' => ':count tahun',
     'y' => ':count tahun',
@@ -34,5 +27,5 @@ return array(
     'ago' => ':time yang lalu',
     'from_now' => ':time dari sekarang',
     'after' => ':time setelah',
-    'before' => ':time sebelum'
+    'before' => ':time sebelum',
 );

@@ -9,13 +9,6 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Translation messages.  See http://symfony.com/doc/current/book/translation.html
- * for possible formats.
- */
-/**
- * Extracted from https://github.com/jenssegers/laravel-date/blob/master/src/lang/eu/date.php
- */
 return array(
     'year' => 'Urte 1|:count urte',
     'y' => 'Urte 1|:count urte',
@@ -34,5 +27,5 @@ return array(
     'ago' => 'Orain dela :time',
     'from_now' => ':time barru',
     'after' => ':time geroago',
-    'before' => ':time lehenago'
+    'before' => ':time lehenago',
 );
