@@ -86,3 +86,7 @@ use Carbon\Carbon;
 
 printf("Now: %s", Carbon::now());
 ```
+
+## Docs
+
+[http://carbon.nesbot.com/docs](http://carbon.nesbot.com/docs)
