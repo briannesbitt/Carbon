@@ -401,7 +401,6 @@ class MeTest extends AbstractTestCase
             $d = Carbon::now()->subMinutes(51);
             $scope->assertSame('prije 51 minut', $d->diffForHumans());
 
-
             /*
             * Second
             */
