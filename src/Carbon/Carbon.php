@@ -1138,8 +1138,8 @@ class Carbon extends DateTime
      */
     public static function setLocale($locale)
     {
-        $locale = preg_replace_callback('/([a-z]{2})[-_]([a-z]{2})/', function ($matches) {
-            return $matches[1].'_'.strtoupper($matches[2]);
+        $locale = preg_replace_callback('/\b([a-z]{2})[-_](?:([a-z]{4})[-_])?([a-z]{2})\b/', function ($matches) {
+            return $matches[1].'_'.(!empty($matches[2]) ? ucfirst($matches[2]).'_' : '').strtoupper($matches[3]);
         }, strtolower($locale));
 
         if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
