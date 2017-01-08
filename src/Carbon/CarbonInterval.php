@@ -249,8 +249,9 @@ class CarbonInterval extends DateInterval
     protected static function translator()
     {
         if (static::$translator === null) {
-            static::$translator = new Translator('en');
-            static::$translator->addLoader('array', new ArrayLoader());
+            $translator = new Translator('en');
+            $translator->addLoader('array', new ArrayLoader());
+            static::$translator = $translator;
             static::setLocale('en');
         }
 
@@ -294,10 +295,13 @@ class CarbonInterval extends DateInterval
      */
     public static function setLocale($locale)
     {
-        static::translator()->setLocale($locale);
+        $translator = static::translator();
+        $translator->setLocale($locale);
 
-        // Ensure the locale has been loaded.
-        static::translator()->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
+        if ($translator instanceof Translator) {
+            // Ensure the locale has been loaded.
+            $translator->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////

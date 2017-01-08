@@ -1092,8 +1092,9 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (static::$translator === null) {
-            static::$translator = new Translator('en');
-            static::$translator->addLoader('array', new ArrayLoader());
+            $translator = new Translator('en');
+            $translator->addLoader('array', new ArrayLoader());
+            static::$translator = $translator;
             static::setLocale('en');
         }
 
@@ -1144,9 +1145,13 @@ class Carbon extends DateTime
         }, strtolower($locale));
 
         if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
-            static::translator()->setLocale($locale);
-            // Ensure the locale has been loaded.
-            static::translator()->addResource('array', require $filename, $locale);
+            $translator = static::translator();
+            $translator->setLocale($locale);
+
+            if ($translator instanceof Translator) {
+                // Ensure the locale has been loaded.
+                $translator->addResource('array', require $filename, $locale);
+            }
 
             return true;
         }
