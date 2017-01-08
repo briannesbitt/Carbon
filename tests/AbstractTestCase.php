@@ -120,6 +120,6 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 
     protected function wrapWithNonDstDate(Closure $func)
     {
-        static::wrapWithTestNow($func, Carbon::now()->startOfYear());
+        $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
     }
 }
