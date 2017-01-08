@@ -3048,7 +3048,7 @@ class Carbon extends DateTime
      * @param bool $weekday
      * @param bool $forward
      *
-     * @return static
+     * @return $this
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
@@ -3074,7 +3074,7 @@ class Carbon extends DateTime
     /**
      * Go backward to the previous weekday.
      *
-     * @return static
+     * @return $this
      */
     public function previousWeekday()
     {
@@ -3084,7 +3084,7 @@ class Carbon extends DateTime
     /**
      * Go forward to the next weekend day.
      *
-     * @return static
+     * @return $this
      */
     public function nextWeekendDay()
     {
@@ -3094,7 +3094,7 @@ class Carbon extends DateTime
     /**
      * Go backward to the previous weekend day.
      *
-     * @return static
+     * @return $this
      */
     public function previousWeekendDay()
     {
