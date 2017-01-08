@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		- '#Access to an undefined property Carbon\\Carbon::\$doesNotExit#'
+		- '#Call to an undefined static method Carbon\\CarbonInterval#'
+		- '#Property Carbon\\Carbon::\$timezone \(DateTimeZone\) does not accept string#'
+		- '#Property Carbon\\Carbon::\$tz \(DateTimeZone\) does not accept string#'

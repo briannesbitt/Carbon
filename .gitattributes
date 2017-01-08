@@ -7,5 +7,6 @@
 .php_cs export-ignore
 .styleci.yml export-ignore
 .travis.yml export-ignore
+phpstan.neon export-ignore
 phpunit.xml.dist export-ignore
 tests export-ignore
