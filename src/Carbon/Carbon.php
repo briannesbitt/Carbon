@@ -16,6 +16,7 @@ use Closure;
 use DatePeriod;
 use DateTime;
 use DateTimeZone;
+use DateTimeInterface;
 use InvalidArgumentException;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
@@ -298,7 +299,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public static function instance(DateTime $dt)
+    public static function instance(DateTimeInterface $dt)
     {
         if ($dt instanceof static) {
             return clone $dt;
