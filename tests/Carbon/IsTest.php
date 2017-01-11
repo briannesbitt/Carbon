@@ -113,7 +113,7 @@ class IsTest extends AbstractTestCase
 
     public function testNowIsPastFalse()
     {
-        if (version_compare(PHP_VERSION, '7.1.0', '<')) {
+        if (version_compare(PHP_VERSION, '7.1.0', '>=')) {
             $this->markTestSkipped();
         }
 
