@@ -9,6 +9,8 @@
  * file that was distributed with this source code.
  */
 
+namespace Tests\Carbon;
+
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
