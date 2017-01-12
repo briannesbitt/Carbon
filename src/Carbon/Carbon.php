@@ -1719,7 +1719,7 @@ class Carbon extends DateTime
      */
     public function isNextMonth()
     {
-        return $this->month === static::now($this->getTimezone())->addMonth()->month;
+        return $this->month === static::now($this->getTimezone())->addMonthNoOverflow()->month;
     }
 
     /**
@@ -1729,7 +1729,7 @@ class Carbon extends DateTime
      */
     public function isLastMonth()
     {
-        return $this->month === static::now($this->getTimezone())->subMonth()->month;
+        return $this->month === static::now($this->getTimezone())->subMonthNoOverflow()->month;
     }
 
     /**
