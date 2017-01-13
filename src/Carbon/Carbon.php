@@ -1029,7 +1029,7 @@ class Carbon extends DateTime
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param \Carbon\Carbon|null $testNow
+     * @param \Carbon\Carbon|string|null $testNow
      */
     public static function setTestNow($testNow = null)
     {
