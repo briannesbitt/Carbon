@@ -1021,6 +1021,7 @@ class Carbon extends DateTime
      *   - A call to the static now() method, ex. Carbon::now()
      *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
      *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a string containing the desired time is passed to Carbon::parse().
      *
      * Note the timezone parameter was left out of the examples above and
      * has no affect as the mock value will be returned regardless of its value.
@@ -1028,11 +1029,11 @@ class Carbon extends DateTime
      * To clear the test instance call this method using the default
      * parameter of null.
      *
-     * @param \Carbon\Carbon|null $testNow
+     * @param \Carbon\Carbon|string|null $testNow
      */
-    public static function setTestNow(Carbon $testNow = null)
+    public static function setTestNow($testNow = null)
     {
-        static::$testNow = $testNow;
+        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
     /**

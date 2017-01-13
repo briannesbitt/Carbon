@@ -33,6 +33,13 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame($testNow, Carbon::getTestNow());
     }
 
+    public function testTestingAidsWithTestNowSetToString()
+    {
+        Carbon::setTestNow('2016-11-23');
+        $this->assertTrue(Carbon::hasTestNow());
+        $this->assertEquals(Carbon::getTestNow(), Carbon::parse('2016-11-23'));
+    }
+
     public function testConstructorWithTestValueSet()
     {
         $testNow = Carbon::yesterday();
