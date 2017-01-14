@@ -10,15 +10,15 @@
          stopOnFailure="false"
 >
 
-  <filter>
-    <whitelist>
-      <directory>src/Carbon</directory>
-    </whitelist>
-  </filter>
+    <filter>
+        <whitelist>
+            <directory>src/Carbon</directory>
+        </whitelist>
+    </filter>
 
-   <testsuites>
-      <testsuite name="Carbon Test Suite">
-         <directory>tests</directory>
-      </testsuite>
-   </testsuites>
+    <testsuites>
+        <testsuite name="Carbon Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
