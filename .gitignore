@@ -1,5 +1,6 @@
 .idea
 *.iml
+.php_cs
 .php_cs.cache
 vendor
 composer.phar
