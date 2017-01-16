@@ -168,7 +168,7 @@ class Carbon extends DateTime
      *
      * @var array
      */
-    private static $lastErrors;
+    protected static $lastErrors;
 
     /**
      * Will UTF8 encoding be used to print localized date/time ?
