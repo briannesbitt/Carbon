@@ -2793,6 +2793,8 @@ class Carbon extends DateTime
         $interval = array();
 
         $parts = min(6, max(1, (int) $parts));
+        $count = 1;
+        $unit = $short ? 's' : 'second';
 
         if ($isNow) {
             $other = static::now($this->getTimezone());
@@ -2814,7 +2816,7 @@ class Carbon extends DateTime
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
 
-                if ($diffIntervalData['unit'] == 'day' && $count >= static::DAYS_PER_WEEK) {
+                if ($diffIntervalData['unit'] === 'day' && $count >= static::DAYS_PER_WEEK) {
                     $unit = $short ? 'w' : 'week';
                     $count = (int) ($count / static::DAYS_PER_WEEK);
 
