@@ -20,67 +20,67 @@ class SpecTest extends AbstractTestCase
     public function testZeroInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 0);
-        $this->assertEquals('PT0S', $ci->spec());
+        $this->assertSame('PT0S', $ci->spec());
     }
 
     public function testYearInterval()
     {
         $ci = new CarbonInterval();
-        $this->assertEquals('P1Y', $ci->spec());
+        $this->assertSame('P1Y', $ci->spec());
     }
 
     public function testMonthInterval()
     {
         $ci = new CarbonInterval(0, 1);
-        $this->assertEquals('P1M', $ci->spec());
+        $this->assertSame('P1M', $ci->spec());
     }
 
     public function testWeekInterval()
     {
         $ci = new CarbonInterval(0, 0, 1);
-        $this->assertEquals('P7D', $ci->spec());
+        $this->assertSame('P7D', $ci->spec());
     }
 
     public function testDayInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 1);
-        $this->assertEquals('P1D', $ci->spec());
+        $this->assertSame('P1D', $ci->spec());
     }
 
     public function testMixedDateInterval()
     {
         $ci = new CarbonInterval(1, 2, 0, 3);
-        $this->assertEquals('P1Y2M3D', $ci->spec());
+        $this->assertSame('P1Y2M3D', $ci->spec());
     }
 
     public function testHourInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 1);
-        $this->assertEquals('PT1H', $ci->spec());
+        $this->assertSame('PT1H', $ci->spec());
     }
 
     public function testMinuteInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 1);
-        $this->assertEquals('PT1M', $ci->spec());
+        $this->assertSame('PT1M', $ci->spec());
     }
 
     public function testSecondInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 1);
-        $this->assertEquals('PT1S', $ci->spec());
+        $this->assertSame('PT1S', $ci->spec());
     }
 
     public function testMixedTimeInterval()
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 1, 2, 3);
-        $this->assertEquals('PT1H2M3S', $ci->spec());
+        $this->assertSame('PT1H2M3S', $ci->spec());
     }
 
     public function testMixedDateAndTimeInterval()
     {
         $ci = new CarbonInterval(1, 2, 0, 3, 4, 5, 6);
-        $this->assertEquals('P1Y2M3DT4H5M6S', $ci->spec());
+        $this->assertSame('P1Y2M3DT4H5M6S', $ci->spec());
     }
 
     public function testCreatingInstanceEquals()
