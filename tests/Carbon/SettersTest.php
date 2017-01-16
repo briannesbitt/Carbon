@@ -291,7 +291,6 @@ class SettersTest extends AbstractTestCase
         Carbon::setTestNow(Carbon::create(2016, 2, 12, 1, 2, 3));
         $d = Carbon::now()->setTimeFromTimeString($time);
         $this->assertCarbon($d, 2016, 2, 12, $hour, $minute, $second);
-        Carbon::setTestNow();
     }
 
     public function dataProviderTestSetTimeFromTimeString()
