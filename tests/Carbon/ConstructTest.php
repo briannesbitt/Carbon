@@ -38,12 +38,14 @@ class ConstructTest extends AbstractTestCase
 
     public function testWithFancyString()
     {
+        Carbon::setTestNow(Carbon::today());
         $c = new Carbon('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
     public function testParseWithFancyString()
     {
+        Carbon::setTestNow(Carbon::today());
         $c = Carbon::parse('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }

@@ -18,6 +18,14 @@ use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Carbon\Carbon
+     */
+    protected $now;
+
+    /**
+     * @var string
+     */
     private $saveTz;
 
     protected function setUp()
@@ -26,6 +34,8 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         $this->saveTz = date_default_timezone_get();
 
         date_default_timezone_set('America/Toronto');
+
+        Carbon::setTestNow($this->now = Carbon::now());
     }
 
     protected function tearDown()

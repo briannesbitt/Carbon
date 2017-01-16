@@ -25,9 +25,8 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithDefaults()
     {
-        Carbon::setTestNow($now = Carbon::now());
         $d = Carbon::create();
-        $this->assertSame($d->getTimestamp(), $now->getTimestamp());
+        $this->assertSame($d->getTimestamp(), Carbon::now()->getTimestamp());
     }
 
     public function testCreateWithYear()
