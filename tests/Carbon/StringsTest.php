@@ -132,7 +132,7 @@ class StringsTest extends AbstractTestCase
             $cookieString = 'Thursday, 25-Dec-1975 14:15:16 EST';
         }
 
-        $this->assertSame($cookieString, $d->toCOOKIEString());
+        $this->assertSame($cookieString, $d->toCookieString());
     }
 
     public function testToIso8601String()
