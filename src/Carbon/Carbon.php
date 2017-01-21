@@ -177,7 +177,7 @@ class Carbon extends DateTime
      */
     protected static $utf8 = false;
 
-    /*
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @var bool
@@ -637,6 +637,16 @@ class Carbon extends DateTime
         return clone $this;
     }
 
+    /**
+     * Returns a present instance in the same timezone
+     *
+     * @return \Carbon\Carbon
+     */
+    public function nowWithSameTz()
+    {
+        return static::now($this->getTimezone());
+    }
+
     ///////////////////////////////////////////////////////////////////
     ///////////////////////// GETTERS AND SETTERS /////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -764,7 +774,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function year($value)
     {
@@ -778,7 +788,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function month($value)
     {
@@ -792,7 +802,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function day($value)
     {
@@ -806,7 +816,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function hour($value)
     {
@@ -820,7 +830,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function minute($value)
     {
@@ -834,7 +844,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function second($value)
     {
@@ -851,7 +861,7 @@ class Carbon extends DateTime
      * @param int $month
      * @param int $day
      *
-     * @return Carbon|DateTime
+     * @return \Carbon\Carbon|\DateTime
      *
      * @see https://github.com/briannesbitt/Carbon/issues/539
      * @see https://bugs.php.net/bug.php?id=63863
@@ -939,7 +949,7 @@ class Carbon extends DateTime
      *
      * @param \DateTimeZone|string $value
      *
-     * @return Carbon|DateTime
+     * @return \Carbon\Carbon|\DateTime
      */
     public function setTimezone($value)
     {
@@ -1553,17 +1563,14 @@ class Carbon extends DateTime
      */
     public function between(Carbon $dt1, Carbon $dt2, $equal = true)
     {
-        if ($dt1->gt($dt2)) {
-            $temp = $dt1;
-            $dt1 = $dt2;
-            $dt2 = $temp;
-        }
+        $min = min($dt1, $dt2);
+        $max = max($dt1, $dt2);
 
         if ($equal) {
-            return $this->gte($dt1) && $this->lte($dt2);
+            return $this->gte($min) && $this->lte($max);
         }
 
-        return $this->gt($dt1) && $this->lt($dt2);
+        return $this->gt($min) && $this->lt($max);
     }
 
     /**
@@ -1601,9 +1608,9 @@ class Carbon extends DateTime
      */
     public function min(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
-        return $this->lt($dt) ? $this : $dt;
+        return min($this, $dt);
     }
 
     /**
@@ -1629,9 +1636,9 @@ class Carbon extends DateTime
      */
     public function max(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
-        return $this->gt($dt) ? $this : $dt;
+        return max($this, $dt);
     }
 
     /**
@@ -1685,7 +1692,7 @@ class Carbon extends DateTime
      */
     public function isToday()
     {
-        return $this->toDateString() === static::now($this->getTimezone())->toDateString();
+        return $this->toDateString() === $this->nowWithSameTz()->toDateString();
     }
 
     /**
@@ -1705,7 +1712,7 @@ class Carbon extends DateTime
      */
     public function isNextWeek()
     {
-        return $this->weekOfYear === static::now($this->getTimezone())->addWeek()->weekOfYear;
+        return $this->weekOfYear === $this->nowWithSameTz()->addWeek()->weekOfYear;
     }
 
     /**
@@ -1715,7 +1722,7 @@ class Carbon extends DateTime
      */
     public function isLastWeek()
     {
-        return $this->weekOfYear === static::now($this->getTimezone())->subWeek()->weekOfYear;
+        return $this->weekOfYear === $this->nowWithSameTz()->subWeek()->weekOfYear;
     }
 
     /**
@@ -1725,7 +1732,7 @@ class Carbon extends DateTime
      */
     public function isNextMonth()
     {
-        return $this->month === static::now($this->getTimezone())->addMonthNoOverflow()->month;
+        return $this->month === $this->nowWithSameTz()->addMonthNoOverflow()->month;
     }
 
     /**
@@ -1735,7 +1742,7 @@ class Carbon extends DateTime
      */
     public function isLastMonth()
     {
-        return $this->month === static::now($this->getTimezone())->subMonthNoOverflow()->month;
+        return $this->month === $this->nowWithSameTz()->subMonthNoOverflow()->month;
     }
 
     /**
@@ -1745,7 +1752,7 @@ class Carbon extends DateTime
      */
     public function isNextYear()
     {
-        return $this->year === static::now($this->getTimezone())->addYear()->year;
+        return $this->year === $this->nowWithSameTz()->addYear()->year;
     }
 
     /**
@@ -1755,7 +1762,7 @@ class Carbon extends DateTime
      */
     public function isLastYear()
     {
-        return $this->year === static::now($this->getTimezone())->subYear()->year;
+        return $this->year === $this->nowWithSameTz()->subYear()->year;
     }
 
     /**
@@ -1765,7 +1772,7 @@ class Carbon extends DateTime
      */
     public function isFuture()
     {
-        return $this->gt(static::now($this->getTimezone()));
+        return $this->gt($this->nowWithSameTz());
     }
 
     /**
@@ -1775,7 +1782,7 @@ class Carbon extends DateTime
      */
     public function isPast()
     {
-        return $this->lt(static::now($this->getTimezone()));
+        return $this->lt($this->nowWithSameTz());
     }
 
     /**
@@ -1800,7 +1807,7 @@ class Carbon extends DateTime
         return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
 
-    /*
+    /**
      * Compares the formatted values of the two dates.
      *
      * @param string              $format The date formats to compare.
@@ -1810,7 +1817,7 @@ class Carbon extends DateTime
      */
     public function isSameAs($format, Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $dt = $this->resolveCarbon($dt);
 
         return $this->format($format) === $dt->format($format);
     }
@@ -2203,7 +2210,7 @@ class Carbon extends DateTime
      *
      * @param int $value
      *
-     * @return static
+     * @return $this
      */
     public function addMonthsNoOverflow($value)
     {
@@ -2566,7 +2573,7 @@ class Carbon extends DateTime
      */
     public function diffInYears(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
         return (int) $this->diff($dt, $abs)->format('%r%y');
     }
@@ -2581,7 +2588,7 @@ class Carbon extends DateTime
      */
     public function diffInMonths(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
         return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
     }
@@ -2609,7 +2616,7 @@ class Carbon extends DateTime
      */
     public function diffInDays(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
         return (int) $this->diff($dt, $abs)->format('%r%a');
     }
@@ -2655,7 +2662,7 @@ class Carbon extends DateTime
     public function diffFiltered(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
     {
         $start = $this;
-        $end = $dt ?: static::now($this->getTimezone());
+        $end = $this->resolveCarbon($dt);
         $inverse = false;
 
         if ($end < $start) {
@@ -2740,7 +2747,7 @@ class Carbon extends DateTime
      */
     public function diffInSeconds(Carbon $dt = null, $abs = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
         $value = $dt->getTimestamp() - $this->getTimestamp();
 
         return $abs ? abs($value) : $value;
@@ -2796,7 +2803,7 @@ class Carbon extends DateTime
         $isNow = $other === null;
 
         if ($isNow) {
-            $other = static::now($this->getTimezone());
+            $other = $this->nowWithSameTz();
         }
 
         $diffInterval = $this->diff($other);
@@ -3290,7 +3297,7 @@ class Carbon extends DateTime
      */
     public function average(Carbon $dt = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $dt = $this->resolveCarbon($dt);
 
         return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
     }
@@ -3312,7 +3319,7 @@ class Carbon extends DateTime
      *
      * @param string $modify
      *
-     * @return Carbon|DateTime
+     * @return \Carbon\Carbon|\DateTime
      */
     public function modify($modify)
     {
@@ -3356,5 +3363,15 @@ class Carbon extends DateTime
         }
 
         return $instance;
+    }
+
+    /**
+     * @param \Carbon\Carbon|null $dt
+     *
+     * @return \Carbon\Carbon
+     */
+    public function resolveCarbon(Carbon $dt = null)
+    {
+        return is_null($dt) ? $this->nowWithSameTz() : $dt;
     }
 }
