@@ -851,7 +851,7 @@ class Carbon extends DateTime
      * @param int $month
      * @param int $day
      *
-     * @return static
+     * @return Carbon|DateTime
      *
      * @see https://github.com/briannesbitt/Carbon/issues/539
      * @see https://bugs.php.net/bug.php?id=63863
@@ -939,7 +939,7 @@ class Carbon extends DateTime
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return Carbon|DateTime
      */
     public function setTimezone($value)
     {
@@ -3312,7 +3312,7 @@ class Carbon extends DateTime
      *
      * @param string $modify
      *
-     * @return static
+     * @return Carbon|DateTime
      */
     public function modify($modify)
     {
