@@ -324,4 +324,19 @@ class GettersTest extends AbstractTestCase
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
         $this->assertSame('America/Chicago', $dt->timezoneName);
     }
+
+    public function testGetDays()
+    {
+        $days = [
+            Carbon::SUNDAY => 'Sunday',
+            Carbon::MONDAY => 'Monday',
+            Carbon::TUESDAY => 'Tuesday',
+            Carbon::WEDNESDAY => 'Wednesday',
+            Carbon::THURSDAY => 'Thursday',
+            Carbon::FRIDAY => 'Friday',
+            Carbon::SATURDAY => 'Saturday',
+        ];
+
+        $this->assertSame($days, Carbon::getDays());
+    }
 }
