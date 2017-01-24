@@ -327,7 +327,7 @@ class GettersTest extends AbstractTestCase
 
     public function testGetDays()
     {
-        $days = [
+        $days = array(
             Carbon::SUNDAY => 'Sunday',
             Carbon::MONDAY => 'Monday',
             Carbon::TUESDAY => 'Tuesday',
@@ -335,7 +335,7 @@ class GettersTest extends AbstractTestCase
             Carbon::THURSDAY => 'Thursday',
             Carbon::FRIDAY => 'Friday',
             Carbon::SATURDAY => 'Saturday',
-        ];
+        );
 
         $this->assertSame($days, Carbon::getDays());
     }
