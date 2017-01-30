@@ -946,6 +946,16 @@ class Carbon extends DateTime
         return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
+    /**
+     * Get the days of the week
+     *
+     * @return array
+     */
+    public static function getDays()
+    {
+        return static::$days;
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
