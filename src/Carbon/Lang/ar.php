@@ -25,7 +25,7 @@ return array(
     'second' => '{0}ثانية|{1}ثانية|{2}ثانيتين|[3,10]:count ثوان|[11,Inf]:count ثانية',
     's' => '{0}ثانية|{1}ثانية|{2}ثانيتين|[3,10]:count ثوان|[11,Inf]:count ثانية',
     'ago' => 'منذ :time',
-    'from_now' => 'من الآن :time',
+    'from_now' => ':time من الآن',
     'after' => 'بعد :time',
     'before' => 'قبل :time',
 );
