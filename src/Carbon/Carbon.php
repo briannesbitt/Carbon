@@ -947,7 +947,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Get days
+     * Get the days of the week
      *
      * @return array
      */
