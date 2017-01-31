@@ -148,7 +148,7 @@ class GettersTest extends AbstractTestCase
      */
     public function testQuarterFirstOfMonth($month, $quarter)
     {
-        $c = Carbon::create(2015, $month)->startOfMonth();
+        $c = Carbon::create(2015, $month, 1)->startOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
@@ -172,7 +172,7 @@ class GettersTest extends AbstractTestCase
      */
     public function testQuarterLastOfMonth($month, $quarter)
     {
-        $c = Carbon::create(2015, $month)->endOfMonth();
+        $c = Carbon::create(2015, $month, 1)->endOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
