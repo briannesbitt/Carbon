@@ -3326,16 +3326,23 @@ class Carbon extends DateTime
      */
     public function modify($modify)
     {
-        if ($this->local) {
-            return parent::modify($modify);
+        // If we changing time in some timezone with daylight correction, there can be the case, that this correction
+        // influence to time in nonwanted way. So we have to make this modification in UTC timezone.
+
+        // We don't need to know particular unit, so technically regexp presented below covers that long explicit
+        // regexp: '/(sec|second|min|minute|hour)s?/i'
+        if (!preg_match('/sec|min|hour/i', $modify)) {
+            parent::modify($modify);
+        } else {
+            $timezone = $this->getTimezone();
+            $this->setTimezone('UTC');
+
+            parent::modify($modify);
+
+            $this->setTimezone($timezone);
         }
 
-        $timezone = $this->getTimezone();
-        $this->setTimezone('UTC');
-        $instance = parent::modify($modify);
-        $this->setTimezone($timezone);
-
-        return $instance;
+        return $this;
     }
 
     /**
