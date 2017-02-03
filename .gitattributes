@@ -1,4 +1,4 @@
-* text=auto
+* text=auto eol=lf
 
 .codecov.yml export-ignore
 .editorconfig export-ignore
