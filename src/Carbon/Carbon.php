@@ -3376,6 +3376,8 @@ class Carbon extends DateTime
     }
 
     /**
+     * Return the Carbon instance passed through or a copy in the same timezone.
+     *
      * @param \Carbon\Carbon|null $dt
      *
      * @return \Carbon\Carbon
