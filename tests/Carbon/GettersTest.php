@@ -148,7 +148,7 @@ class GettersTest extends AbstractTestCase
      */
     public function testQuarterFirstOfMonth($month, $quarter)
     {
-        $c = Carbon::create(2015, $month)->startOfMonth();
+        $c = Carbon::create(2015, $month, 1)->startOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
@@ -172,7 +172,7 @@ class GettersTest extends AbstractTestCase
      */
     public function testQuarterLastOfMonth($month, $quarter)
     {
-        $c = Carbon::create(2015, $month)->endOfMonth();
+        $c = Carbon::create(2015, $month, 1)->endOfMonth();
         $this->assertSame($quarter, $c->quarter);
     }
 
@@ -323,5 +323,20 @@ class GettersTest extends AbstractTestCase
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
         $this->assertSame('America/Chicago', $dt->timezoneName);
+    }
+
+    public function testGetDays()
+    {
+        $days = array(
+            Carbon::SUNDAY => 'Sunday',
+            Carbon::MONDAY => 'Monday',
+            Carbon::TUESDAY => 'Tuesday',
+            Carbon::WEDNESDAY => 'Wednesday',
+            Carbon::THURSDAY => 'Thursday',
+            Carbon::FRIDAY => 'Friday',
+            Carbon::SATURDAY => 'Saturday',
+        );
+
+        $this->assertSame($days, Carbon::getDays());
     }
 }
