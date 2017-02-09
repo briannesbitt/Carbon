@@ -17,7 +17,7 @@ printf("Right now is %s", Carbon::now()->toDateTimeString());
 printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
-$nextSummerOlympics = Carbon::createFromDate(2012)->addYears(4);
+$nextSummerOlympics = Carbon::createFromDate(2016)->addYears(4);
 
 $officialDate = Carbon::now()->toRfc2822String();
 
