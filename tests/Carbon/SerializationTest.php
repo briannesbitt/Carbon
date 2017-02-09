@@ -36,12 +36,21 @@ class SerializationTest extends AbstractTestCase
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
         $this->assertSame($this->serialized, $dt->serialize());
+        $this->assertSame($this->serialized, serialize($dt));
     }
 
     public function testFromUnserialized()
     {
         $dt = Carbon::fromSerialized($this->serialized);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
+
+        $dt = unserialize($this->serialized);
+        $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
+    }
+
+    public function testSerialization()
+    {
+        $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
     }
 
     public function providerTestFromUnserializedWithInvalidValue()
