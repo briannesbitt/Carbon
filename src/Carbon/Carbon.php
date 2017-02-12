@@ -1319,7 +1319,7 @@ class Carbon extends DateTime
      */
     public static function resetToDayDateTimeStringFormat()
     {
-        static::setToDayDateTimeStringFormat(static::DEFAULT_TO_DAY_DATE_TIME_STRING_FORMAT);;
+        static::setToDayDateTimeStringFormat(static::DEFAULT_TO_DAY_DATE_TIME_STRING_FORMAT);
     }
 
     /**
