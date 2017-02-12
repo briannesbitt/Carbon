@@ -119,11 +119,81 @@ class Carbon extends DateTime
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
+     * Default format to use for toDateString method when type juggling occurs.
+     *
+     * @var string
+     */
+    const DEFAULT_TO_DATE_STRING_FORMAT = 'Y-m-d';
+
+    /**
+     * Default format to use for toFormattedDateString method when type juggling occurs.
+     *
+     * @var string
+     */
+    const DEFAULT_TO_FORMATTED_DATE_STRING_FORMAT = 'M j, Y';
+
+    /**
+     * Default format to use for toTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    const DEFAULT_TO_TIME_STRING_FORMAT = 'H:i:s';
+
+    /**
+     * Default format to use for toDateTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    const DEFAULT_TO_DATE_TIME_STRING_FORMAT = 'Y-m-d H:i:s';
+
+    /**
+     * Default format to use for toDayDateTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    const DEFAULT_TO_DAY_DATE_TIME_STRING_FORMAT = 'D, M j, Y g:i A';
+
+    /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
      */
     protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
+
+    /**
+     * Format to use for toDateString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toDateStringFormat = self::DEFAULT_TO_DATE_STRING_FORMAT;
+
+    /**
+     * Format to use for toFormattedDateString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toFormattedDateStringFormat = self::DEFAULT_TO_FORMATTED_DATE_STRING_FORMAT;
+
+    /**
+     * Format to use for toTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toTimeStringFormat = self::DEFAULT_TO_TIME_STRING_FORMAT;
+
+    /**
+     * Format to use for toDateTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toDateTimeStringFormat = self::DEFAULT_TO_DATE_TIME_STRING_FORMAT;
+
+    /**
+     * Format to use for toDayDateTimeString method when type juggling occurs.
+     *
+     * @var string
+     */
+    protected static $toDayDateTimeStringFormat = self::DEFAULT_TO_DAY_DATE_TIME_STRING_FORMAT;
 
     /**
      * First day of week.
@@ -1213,6 +1283,46 @@ class Carbon extends DateTime
     }
 
     /**
+     * Reset the format used to the default when type juggling a Carbon instance to a date string
+     */
+    public static function resetToDateStringFormat()
+    {
+        static::setToDateStringFormat(static::DEFAULT_TO_DATE_STRING_FORMAT);
+    }
+
+    /**
+     * Reset the format used to the default when type juggling a Carbon instance to a formatted date string
+     */
+    public static function resetToFormattedDateStringFormat()
+    {
+        static::setToFormattedDateStringFormat(static::DEFAULT_TO_FORMATTED_DATE_STRING_FORMAT);
+    }
+
+    /**
+     * Reset the format used to the default when type juggling a Carbon instance to a time string
+     */
+    public static function resetToTimeStringFormat()
+    {
+        static::setToTimeStringFormat(static::DEFAULT_TO_TIME_STRING_FORMAT);
+    }
+
+    /**
+     * Reset the format used to the default when type juggling a Carbon instance to a date time string
+     */
+    public static function resetToDateTimeStringFormat()
+    {
+        static::setToDateTimeStringFormat(static::DEFAULT_TO_DATE_TIME_STRING_FORMAT);
+    }
+
+    /**
+     * Reset the format used to the default when type juggling a Carbon instance to a day date time string
+     */
+    public static function resetToDayDateTimeStringFormat()
+    {
+        static::setToDayDateTimeStringFormat(static::DEFAULT_TO_DAY_DATE_TIME_STRING_FORMAT);;
+    }
+
+    /**
      * Set the default format used when type juggling a Carbon instance to a string
      *
      * @param string $format
@@ -1220,6 +1330,56 @@ class Carbon extends DateTime
     public static function setToStringFormat($format)
     {
         static::$toStringFormat = $format;
+    }
+
+    /**
+     * Set the default format used when type juggling a Carbon instance to a date string
+     *
+     * @param string $format
+     */
+    public static function setToDateStringFormat($format)
+    {
+        static::$toDateStringFormat = $format;
+    }
+
+    /**
+     * Set the default format used when type juggling a Carbon instance to a formatted date string
+     *
+     * @param string $format
+     */
+    public static function setToFormattedDateStringFormat($format)
+    {
+        static::$toFormattedDateStringFormat = $format;
+    }
+
+    /**
+     * Set the default format used when type juggling a Carbon instance to a time string
+     *
+     * @param string $format
+     */
+    public static function setToTimeStringFormat($format)
+    {
+        static::$toTimeStringFormat = $format;
+    }
+
+    /**
+     * Set the default format used when type juggling a Carbon instance to a date time string
+     *
+     * @param string $format
+     */
+    public static function setToDateTimeStringFormat($format)
+    {
+        static::$toDateTimeStringFormat = $format;
+    }
+
+    /**
+     * Set the default format used when type juggling a Carbon instance to a day date time string
+     *
+     * @param string $format
+     */
+    public static function setToDayDateTimeStringFormat($format)
+    {
+        static::$toDayDateTimeStringFormat = $format;
     }
 
     /**
@@ -1239,7 +1399,7 @@ class Carbon extends DateTime
      */
     public function toDateString()
     {
-        return $this->format('Y-m-d');
+        return $this->format(static::$toDateStringFormat);
     }
 
     /**
@@ -1249,7 +1409,7 @@ class Carbon extends DateTime
      */
     public function toFormattedDateString()
     {
-        return $this->format('M j, Y');
+        return $this->format(static::$toFormattedDateStringFormat);
     }
 
     /**
@@ -1259,7 +1419,7 @@ class Carbon extends DateTime
      */
     public function toTimeString()
     {
-        return $this->format('H:i:s');
+        return $this->format(static::$toTimeStringFormat);
     }
 
     /**
@@ -1269,7 +1429,7 @@ class Carbon extends DateTime
      */
     public function toDateTimeString()
     {
-        return $this->format('Y-m-d H:i:s');
+        return $this->format(static::$toDateTimeStringFormat);
     }
 
     /**
@@ -1279,7 +1439,7 @@ class Carbon extends DateTime
      */
     public function toDayDateTimeString()
     {
-        return $this->format('D, M j, Y g:i A');
+        return $this->format(static::$toDayDateTimeStringFormat);
     }
 
     /**
