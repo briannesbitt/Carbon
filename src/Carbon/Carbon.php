@@ -943,7 +943,12 @@ class Carbon extends DateTime
      */
     public function setTimezone($value)
     {
-        return parent::setTimezone(static::safeCreateDateTimeZone($value));
+        parent::setTimezone(static::safeCreateDateTimeZone($value));
+        // https://bugs.php.net/bug.php?id=72338
+        // just workaround on this bug
+        $this->getTimestamp();
+
+        return $this;
     }
 
     /**
