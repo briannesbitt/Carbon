@@ -8,8 +8,10 @@
  * file that was distributed with this source code.
  */
 namespace Tests\Localization;
+
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
+
 class AzTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInAzerbaijani()
