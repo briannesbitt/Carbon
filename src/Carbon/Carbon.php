@@ -616,6 +616,18 @@ class Carbon extends DateTime
     }
 
     /**
+     * Create a Carbon instance for readability purposes
+     *
+     * @param string $timestamp
+     *
+     * @return static
+     */
+    public static function createFromDateTime($timestamp)
+    {
+        return static::parse($timestamp);
+    }
+
+    /**
      * Create a Carbon instance from an UTC timestamp.
      *
      * @param int $timestamp
