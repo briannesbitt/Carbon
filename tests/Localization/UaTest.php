@@ -10,8 +10,10 @@
  */
 
 namespace Tests\Localization;
+
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
+
 class UaTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInUkrainian()
