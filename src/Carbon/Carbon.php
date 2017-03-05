@@ -1968,7 +1968,11 @@ class Carbon extends DateTime
      */
     public function addYears($value)
     {
-        return $this->modify((int) $value.' year');
+        if (static::shouldOverflowMonths()) {
+            return $this->modify((int) $value.' year');
+        }
+
+        return $this->addMonthsNoOverflow($value * 12);
     }
 
     /**
