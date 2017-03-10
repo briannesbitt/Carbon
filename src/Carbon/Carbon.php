@@ -3323,7 +3323,6 @@ class Carbon extends DateTime
      */
     public function modify($modify)
     {
-
         $timezone = $this->getTimezone();
         $this->setTimezone('UTC');
         $instance = parent::modify($modify);
