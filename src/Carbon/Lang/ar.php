@@ -7,7 +7,6 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-// Updated by : Abdellah Chadidi => https://github.com/chadidi
 return array(
     'year'  => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
     'y'     => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
