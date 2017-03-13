@@ -91,6 +91,14 @@ class SubTest extends AbstractTestCase
         $this->assertSame(13, Carbon::createFromDate(2012, 1, 31)->subWeekdays(-9)->day);
     }
 
+    /**
+     * @see https://github.com/briannesbitt/Carbon/issues/692
+     */
+    public function testSubWeekdaysShouldKeepTime()
+    {
+        $this->assertCarbon(Carbon::create(2016, 06, 28, 12, 32, 10)->subWeekdays(1), 2016, 06, 27, 12, 32, 10);
+    }
+
     public function testSubWeekday()
     {
         $this->assertSame(6, Carbon::createFromDate(2012, 1, 9)->subWeekday()->day);
