@@ -1235,11 +1235,13 @@ class Carbon extends DateTime
     /**
      * Format the instance as date
      *
+     * @param string $format
+     * 
      * @return string
      */
-    public function toDateString()
+    public function toDateString($format='Y-m-d')
     {
-        return $this->format('Y-m-d');
+        return $this->format($format);
     }
 
     /**
