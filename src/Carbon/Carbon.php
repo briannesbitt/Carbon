@@ -579,7 +579,7 @@ class Carbon extends DateTime
             return static::instance($dt);
         }
 
-        throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+        return false;
     }
 
     /**
