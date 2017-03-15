@@ -1233,6 +1233,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get the instance as a base DateTime
+     *
+     * @return \DateTime
+     */
+    public function toDatetime()
+    {
+        return new DateTime($this);
+    }
+
+    /**
      * Format the instance as date
      *
      * @return string
