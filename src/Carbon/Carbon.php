@@ -561,9 +561,7 @@ class Carbon extends DateTime
      * @param string                    $time
      * @param \DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
-     *
-     * @return static
+     * @return static|false
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
