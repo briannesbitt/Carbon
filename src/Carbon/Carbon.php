@@ -1968,11 +1968,7 @@ class Carbon extends DateTime
      */
     public function addYears($value)
     {
-        if (static::shouldOverflowMonths()) {
-            return $this->modify((int) $value.' year');
-        }
-
-        return $this->addMonthsNoOverflow($value * 12);
+        return $this->modify((int) $value.' year');
     }
 
     /**
@@ -1985,6 +1981,58 @@ class Carbon extends DateTime
     public function addYear($value = 1)
     {
         return $this->addYears($value);
+    }
+
+    /**
+     * Add years to the instance with no overflow of months
+     * Positive $value travel forward while
+     * negative $value travel into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearsNoOverflow($value)
+    {
+        return $this->addMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
+    }
+
+    /**
+     * Add year with overflow months set to false
+     *
+     * @param $value
+     *
+     * @return static
+     */
+    public function addYearNoOverflow($value = 1)
+    {
+        return $this->addYearsNoOverflow($value);
+    }
+
+    /**
+     * Add years to the instance.
+     * Positive $value travel forward while
+     * negative $value travel into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearsWithOverflow($value)
+    {
+        return $this->addYears($value);
+    }
+
+    /**
+     * Add year with overflow.
+     *
+     * @param $value
+     *
+     * @return static
+     */
+    public function addYearWithOverflow($value = 1)
+    {
+        return $this->addYearsWithOverflow($value);
     }
 
     /**
@@ -2007,6 +2055,54 @@ class Carbon extends DateTime
      * @return static
      */
     public function subYears($value)
+    {
+        return $this->addYears(-1 * $value);
+    }
+
+    /**
+     * Remove year from the instance with no month overflow
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearNoOverflow($value = 1)
+    {
+        return $this->subYearsNoOverflow($value);
+    }
+
+    /**
+     * Remove years from the instance with no month overflow.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearsNoOverflow($value)
+    {
+        return $this->addMonthsNoOverflow(-1 * $value);
+    }
+
+    /**
+     * Remove year from the instance.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearWithOverflow($value = 1)
+    {
+        return $this->subYearsWithOverflow($value);
+    }
+
+    /**
+     * Remove years from the instance.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearsWithOverflow($value)
     {
         return $this->addYears(-1 * $value);
     }
