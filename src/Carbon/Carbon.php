@@ -2080,7 +2080,7 @@ class Carbon extends DateTime
      */
     public function subYearsNoOverflow($value)
     {
-        return $this->addMonthsNoOverflow(-1 * $value);
+        return $this->subMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
     }
 
     /**
@@ -2104,7 +2104,7 @@ class Carbon extends DateTime
      */
     public function subYearsWithOverflow($value)
     {
-        return $this->addYears(-1 * $value);
+        return $this->subMonthsWithOverflow($value * static::MONTHS_PER_YEAR);
     }
 
     /**
