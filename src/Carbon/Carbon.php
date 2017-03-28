@@ -2000,7 +2000,7 @@ class Carbon extends DateTime
     /**
      * Add year with overflow months set to false
      *
-     * @param $value
+     * @param int $value
      *
      * @return static
      */
@@ -2026,7 +2026,7 @@ class Carbon extends DateTime
     /**
      * Add year with overflow.
      *
-     * @param $value
+     * @param int $value
      *
      * @return static
      */
