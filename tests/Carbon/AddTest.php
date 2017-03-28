@@ -268,65 +268,41 @@ class AddTest extends AbstractTestCase
 
     public function testAddYearNoOverflow()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->addYearNoOverflow();
-        $this->assertSame(28, $date->day);
-        $this->assertSame(2, $date->month);
-        $this->assertSame(2017, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearNoOverflow(), 2017, 2, 28);
     }
 
     public function testAddYearWithOverflow()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->addYearWithOverflow();
-        $this->assertSame(1, $date->day);
-        $this->assertSame(3, $date->month);
-        $this->assertSame(2017, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearWithOverflow(), 2017, 3, 1);
     }
 
     public function testAddYearNoOverflowPassingArg()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->addYearsNoOverflow(2);
-        $this->assertSame(28, $date->day);
-        $this->assertSame(2, $date->month);
-        $this->assertSame(2018, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearsNoOverflow(2), 2018, 2, 28);
     }
 
     public function testAddYearWithOverflowPassingArg()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->addYearsWithOverflow(2);
-        $this->assertSame(1, $date->day);
-        $this->assertSame(3, $date->month);
-        $this->assertSame(2018, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearsWithOverflow(2), 2018, 3, 1);
     }
 
     public function testSubYearNoOverflowPassingArg()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->subYearsNoOverflow(2);
-        $this->assertSame(28, $date->day);
-        $this->assertSame(2, $date->month);
-        $this->assertSame(2014, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearsNoOverflow(2), 2014, 2, 28);
     }
 
     public function testSubYearWithOverflowPassingArg()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->subYearsWithOverflow(2);
-        $this->assertSame(1, $date->day);
-        $this->assertSame(3, $date->month);
-        $this->assertSame(2014, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearsWithOverflow(2), 2014, 3, 1);
     }
 
     public function testSubYearNoOverflow()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->subYearNoOverflow();
-        $this->assertSame(28, $date->day);
-        $this->assertSame(2, $date->month);
-        $this->assertSame(2015, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearNoOverflow(), 2015, 2, 28);
     }
 
     public function testSubYearWithOverflow()
     {
-        $date = Carbon::createFromDate(2016, 2, 29)->subYearWithOverflow();
-        $this->assertSame(1, $date->day);
-        $this->assertSame(3, $date->month);
-        $this->assertSame(2015, $date->year);
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearWithOverflow(), 2015, 3, 1);
     }
 }
