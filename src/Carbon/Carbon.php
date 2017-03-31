@@ -3399,6 +3399,7 @@ class Carbon extends DateTime
         if (!is_null(static::$userTimeZone)) {
             $this->timezone(static::$userTimeZone);
         }
+
         return parent::format($format);
     }
 }
