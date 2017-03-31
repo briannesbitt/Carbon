@@ -185,6 +185,13 @@ class Carbon extends DateTime
     protected static $monthsOverflow = true;
 
     /**
+     * User timezone
+     *
+     * @var string
+     */
+    protected static $userTimeZone = null;
+
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @param bool $monthsOverflow
@@ -3366,5 +3373,32 @@ class Carbon extends DateTime
         }
 
         return $instance;
+    }
+
+    /**
+     * Set user timezone, will be used before format function to apply current user timezone
+     *
+     * @param $timezone
+     */
+    public static function setUserTimezone($timezone)
+    {
+        static::$userTimeZone = $timezone;
+    }
+
+    /**
+     * Returns date formatted according to given format.
+     *
+     * @param string $format
+     *
+     * @return string
+     *
+     * @link http://php.net/manual/en/datetime.format.php
+     */
+    public function format($format)
+    {
+        if (!is_null(static::$userTimeZone)) {
+            $this->timezone(static::$userTimeZone);
+        }
+        return parent::format($format);
     }
 }
