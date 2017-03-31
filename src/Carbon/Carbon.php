@@ -3385,8 +3385,11 @@ class Carbon extends DateTime
 
     /**
      * Returns date formatted according to given format.
+     *
      * @param string $format
+     *
      * @return string
+     * 
      * @link http://php.net/manual/en/datetime.format.php
      */
     public function format($format)
