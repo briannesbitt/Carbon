@@ -12,8 +12,8 @@
 return array(
     'year' => ':count 年',
     'y' => ':count 年',
-    'month' => ':count 月',
-    'm' => ':count 月',
+    'month' => ':count 个月',
+    'm' => ':count 个月',
     'week' => ':count 周',
     'w' => ':count 周',
     'day' => ':count 天',

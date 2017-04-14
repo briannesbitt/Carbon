@@ -53,10 +53,10 @@ class ZhTest extends AbstractTestCase
             $scope->assertSame('2 周前', $d->diffForHumans());
 
             $d = Carbon::now()->subMonth();
-            $scope->assertSame('1 月前', $d->diffForHumans());
+            $scope->assertSame('1 个月前', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 月前', $d->diffForHumans());
+            $scope->assertSame('2 个月前', $d->diffForHumans());
 
             $d = Carbon::now()->subYear();
             $scope->assertSame('1 年前', $d->diffForHumans());
