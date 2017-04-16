@@ -1237,9 +1237,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toDateString()
+    public function toDateString($format = 'Y-m-d')
     {
-        return $this->format('Y-m-d');
+        return $this->format($format);
     }
 
     /**
@@ -1247,9 +1247,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toFormattedDateString()
+    public function toFormattedDateString($format = 'M j, Y')
     {
-        return $this->format('M j, Y');
+        return $this->format($format);
     }
 
     /**
@@ -1257,9 +1257,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toTimeString()
+    public function toTimeString($format = 'H:i:s')
     {
-        return $this->format('H:i:s');
+        return $this->format($format);
     }
 
     /**
@@ -1267,9 +1267,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toDateTimeString()
+    public function toDateTimeString($format = 'Y-m-d H:i:s')
     {
-        return $this->format('Y-m-d H:i:s');
+        return $this->format($format);
     }
 
     /**
@@ -1277,9 +1277,9 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function toDayDateTimeString()
+    public function toDayDateTimeString($format = 'D, M j, Y g:i A')
     {
-        return $this->format('D, M j, Y g:i A');
+        return $this->format($format);
     }
 
     /**
