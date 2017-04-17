@@ -558,4 +558,26 @@ class CarbonInterval extends DateInterval
 
         return $specString === static::PERIOD_PREFIX ? 'PT0S' : $specString;
     }
+
+    /**
+     * Comparing with passed interval
+     *
+     * @param DateInterval $interval
+     *
+     * @return int
+     */
+    public function compare(DateInterval $interval)
+    {
+        $current = Carbon::now();
+        $passed = $current->copy()->add($interval);
+        $current->add($this);
+
+        if ($current < $passed) {
+            return -1;
+        } elseif ($current > $passed) {
+            return 1;
+        }
+
+        return 0;
+    }
 }
