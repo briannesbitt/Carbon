@@ -177,7 +177,7 @@ class Carbon extends DateTime
      */
     protected static $utf8 = false;
 
-    /*
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @var bool
