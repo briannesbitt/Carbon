@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class ZhTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInTurkish()
+    public function testDiffForHumansLocalizedInChinese()
     {
         Carbon::setLocale('zh');
 
