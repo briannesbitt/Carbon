@@ -111,6 +111,11 @@ class Carbon extends DateTime
     const MINUTES_PER_HOUR = 60;
     const SECONDS_PER_MINUTE = 60;
 
+    const SECONDS_PER_HOUR = 60 * 60;
+    const SECONDS_PER_DAY = 60 * 60 * 24;
+    const SECONDS_PER_WEEK = 60 * 60 * 24 * 7;
+    const SECONDS_PER_YEAR = 60 * 60 * 24 * 365;
+
     /**
      * Default format to use for __toString method when type juggling occurs.
      *
