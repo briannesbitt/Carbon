@@ -10,24 +10,24 @@ class ConstantTest extends AbstractTestCase
     public function testSecondsPerHour()
     {
         $this->assertEquals(
-            Carbon::create()->addHour(),
-            Carbon::createFromTimestamp(time() + Carbon::SECONDS_PER_HOUR)
+            Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR,
+            Carbon::SECONDS_PER_HOUR
         );
     }
 
     public function testSecondsPerDay()
     {
         $this->assertEquals(
-            Carbon::create()->addDay(),
-            Carbon::createFromTimestamp(time() + Carbon::SECONDS_PER_DAY)
+            Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR * Carbon::HOURS_PER_DAY,
+            Carbon::SECONDS_PER_DAY
         );
     }
 
     public function testSecondsPerWeek()
     {
         $this->assertEquals(
-            Carbon::create()->addWeek(),
-            Carbon::createFromTimestamp(time() + Carbon::SECONDS_PER_WEEK)
+            Carbon::SECONDS_PER_MINUTE * Carbon::MINUTES_PER_HOUR * Carbon::HOURS_PER_DAY * Carbon::DAYS_PER_WEEK,
+            Carbon::SECONDS_PER_WEEK
         );
     }
 }
