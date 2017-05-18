@@ -3367,4 +3367,16 @@ class Carbon extends DateTime
 
         return $instance;
     }
+
+    /**
+     * The __set_state handler.
+     *
+     * @param array $array
+     *
+     * @return static
+     */
+    public static function __set_state($array)
+    {
+        return static::instance(parent::__set_state($array));
+    }
 }
