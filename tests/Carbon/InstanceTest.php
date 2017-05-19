@@ -65,6 +65,6 @@ class InstanceTest extends AbstractTestCase
             'timezone_type' => 3,
             'timezone' => 'UTC',
         ));
-        $this->assertInstanceOf(Carbon::class, $carbon);
+        $this->assertInstanceOf('Carbon\Carbon', $carbon);
     }
 }
