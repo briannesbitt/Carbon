@@ -24,7 +24,7 @@ return array(
     'min' => '1دقيقه|:countدقيقې',
     'second' => '1 ثانيه|:count ثانيې',
     's' => '1ثانيه|:countثانيې',
-    'ago' => ':time مخکي',
+    'ago' => ':time دمخه',
     'from_now' => ':time له اوس څخه',
     'after' => ':time وروسته',
     'before' => ':time دمخه',
