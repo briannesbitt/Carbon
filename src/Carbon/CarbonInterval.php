@@ -226,7 +226,7 @@ class CarbonInterval extends DateInterval
      */
     public static function instance(DateInterval $di)
     {
-        if (static::wasCreatedFromDiff($di)) {
+        if (!static::wasCreatedFromDiff($di)) {
             throw new InvalidArgumentException('Can not instance a DateInterval object created from DateTime::diff().');
         }
 
