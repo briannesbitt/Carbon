@@ -38,6 +38,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5
+ * @property-read int $weekNumberInMonth 1 through 5
  * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
  * @property-read int $daysInMonth number of days in the given month
  * @property-read int $age does a diffInYears() with default parameters
@@ -693,6 +694,9 @@ class Carbon extends DateTime
 
             case $name === 'weekOfMonth':
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
+
+            case $name === 'weekNumberInMonth':
+                return (int) ceil(($this->day + $this->copy()->startOfMonth()->dayOfWeek - 1) / static::DAYS_PER_WEEK);
 
             case $name === 'age':
                 return $this->diffInYears();
