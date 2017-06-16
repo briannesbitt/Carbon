@@ -271,10 +271,23 @@ class GettersTest extends AbstractTestCase
     public function testWeekOfMonth()
     {
         $this->assertSame(5, Carbon::createFromDate(2012, 9, 30)->weekOfMonth);
-        $this->assertSame(4, Carbon::createFromDate(2012, 9, 28)->weekOfMonth);
-        $this->assertSame(3, Carbon::createFromDate(2012, 9, 20)->weekOfMonth);
+        $this->assertSame(5, Carbon::createFromDate(2012, 9, 28)->weekOfMonth);
+        $this->assertSame(4, Carbon::createFromDate(2012, 9, 20)->weekOfMonth);
         $this->assertSame(2, Carbon::createFromDate(2012, 9, 8)->weekOfMonth);
         $this->assertSame(1, Carbon::createFromDate(2012, 9, 1)->weekOfMonth);
+    }
+
+    public function testWeekOfMonthIsNotFromTheBeginning()
+    {
+        $this->assertSame(5, Carbon::createFromDate(2017, 2, 28)->weekOfMonth);
+        $this->assertSame(5, Carbon::createFromDate(2017, 2, 27)->weekOfMonth);
+        $this->assertSame(4, Carbon::createFromDate(2017, 2, 26)->weekOfMonth);
+        $this->assertSame(4, Carbon::createFromDate(2017, 2, 20)->weekOfMonth);
+        $this->assertSame(3, Carbon::createFromDate(2017, 2, 19)->weekOfMonth);
+        $this->assertSame(3, Carbon::createFromDate(2017, 2, 13)->weekOfMonth);
+        $this->assertSame(2, Carbon::createFromDate(2017, 2, 12)->weekOfMonth);
+        $this->assertSame(2, Carbon::createFromDate(2017, 2, 6)->weekOfMonth);
+        $this->assertSame(1, Carbon::createFromDate(2017, 2, 1)->weekOfMonth);
     }
 
     public function testWeekOfYearFirstWeek()
