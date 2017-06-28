@@ -385,4 +385,12 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isSaturday());
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
     }
+
+    public function testIsLastDayOfMonth()
+    {
+        $this->assertFalse(Carbon::createFromDate(2015, 6, 15)->isLastDayOfMonth());
+        $this->assertTrue(Carbon::createFromDate(2015, 6, 30)->isLastDayOfMonth());
+        $this->assertTrue(Carbon::createFromDate(2016, 2, 29)->isLastDayOfMonth());
+        $this->assertFalse(Carbon::createFromDate(2015, 2, 29)->isLastDayOfMonth());
+    }
 }

@@ -177,7 +177,7 @@ class Carbon extends DateTime
      */
     protected static $utf8 = false;
 
-    /*
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @var bool
@@ -1810,7 +1810,7 @@ class Carbon extends DateTime
         return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
 
-    /*
+    /**
      * Compares the formatted values of the two dates.
      *
      * @param string              $format The date formats to compare.
@@ -3271,6 +3271,17 @@ class Carbon extends DateTime
     public function lastOfYear($dayOfWeek = null)
     {
         return $this->month(static::MONTHS_PER_YEAR)->lastOfMonth($dayOfWeek);
+    }
+
+    /**
+     * Determine if current day is the last day
+     * of the month
+     *
+     * @return bool
+     */
+    public function isLastDayOfMonth()
+    {
+        return $this->day == $this->daysInMonth;
     }
 
     /**
