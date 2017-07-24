@@ -26,7 +26,7 @@ return array(
     's' => 'sekundu|:count sekundy|:count sekúnd',
     'ago' => 'pred :time',
     'from_now' => 'za :time',
-    'after' => ':time neskôr',
+    'after' => 'o :time neskôr',
     'before' => ':time predtým',
     'year_ago' => 'rokom|:count rokmi|:count rokmi',
     'month_ago' => 'mesiacom|:count mesiacmi|:count mesiacmi',
