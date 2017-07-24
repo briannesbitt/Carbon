@@ -28,7 +28,6 @@ return array(
     'from_now' => 'za :time',
     'after' => ':time neskôr',
     'before' => ':time predtým',
-    
     'year_ago' => 'rokom|:count rokmi|:count rokmi',
     'month_ago' => 'mesiacom|:count mesiacmi|:count mesiacmi',
     'week_ago' => 'týždňom|:count týždňami|:count týždňami',
