@@ -81,36 +81,6 @@ class SkTest extends AbstractTestCase
 
             $d = Carbon::now()->addYear(5);
             $scope->assertSame('za 5 rokov', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('o sekundu neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('sekundu predtým', $d2->diffForHumans($d));
-
-            $d = Carbon::now()->addSeconds(2);
-            $d2 = Carbon::now();
-            $scope->assertSame('o 2 sekundy neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('2 sekundy predtým', $d2->diffForHumans($d));
-
-            $d = Carbon::now()->addSeconds(5);
-            $d2 = Carbon::now();
-            $scope->assertSame('o 5 sekúnd neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('5 sekúnd predtým', $d2->diffForHumans($d));
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('o sekundu neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('sekundu predtým', $d2->diffForHumans($d));
-
-            $d = Carbon::now()->addSeconds(2);
-            $d2 = Carbon::now();
-            $scope->assertSame('o 2 sekundy neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('2 sekundy predtým', $d2->diffForHumans($d));
-
-            $d = Carbon::now()->addSeconds(5);
-            $d2 = Carbon::now();
-            $scope->assertSame('o 5 sekúnd neskôr', $d->diffForHumans($d2));
-            $scope->assertSame('5 sekúnd predtým', $d2->diffForHumans($d));
         });
     }
 }
