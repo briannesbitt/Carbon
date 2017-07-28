@@ -19,6 +19,7 @@ class SkTest extends AbstractTestCase
     public function testDiffForHumansLocalizedInSlovak()
     {
         Carbon::setLocale('sk');
+        \Carbon\Carbon::setUtf8(true);
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
