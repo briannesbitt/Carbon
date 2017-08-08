@@ -626,7 +626,7 @@ class Carbon extends DateTime
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
         return static::createFromFormat('U.u', sprintf('%F', $timestamp / 1000))
-            ->setTimeZone(static::safeCreateDateTimeZone($tz));
+            ->setTimezone(static::safeCreateDateTimeZone($tz));
     }
 
     /**
