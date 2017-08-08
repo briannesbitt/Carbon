@@ -147,11 +147,12 @@ try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $
 
 <p><pre><code class="php">echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString(); // 1975-05-21 22:00:00</code></pre></p>
 
-<p>The final two create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  Negative timestamps are also allowed.</p>
+<p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  The third, <code>createFromTimestampMs()</code>,  accepts a timestamp in milliseconds instead of seconds.  Negative timestamps are also allowed.</p>
 
 <p><pre><code class="php">echo Carbon::createFromTimestamp(-1)->toDateTimeString();                        // 1969-12-31 18:59:59
 echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();       // 1970-01-01 00:59:59
 echo Carbon::createFromTimeStampUTC(-1)->toDateTimeString();                     // 1969-12-31 23:59:59
+echo Carbon::createFromTimeStampMs(-1)->format('Y-m-d\TH:i:s.uP');               // 1969-12-31T19:00:00.001000-05:00
 </code></pre></p>
 
 <p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
