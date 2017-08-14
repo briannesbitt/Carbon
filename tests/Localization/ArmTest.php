@@ -65,15 +65,15 @@ class ArmTest extends AbstractTestCase
             $scope->assertSame('2տ առաջ', $d->diffForHumans(null, false, true));
 
             $d = Carbon::now()->addSecond();
-            $scope->assertSame('1վ ներկա պահից', $d->diffForHumans(null, false, true));
+            $scope->assertSame('1վրկ ներկա պահից', $d->diffForHumans(null, false, true));
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
-            $scope->assertSame('1վ հետո', $d->diffForHumans($d2, false, true));
-            $scope->assertSame('1վ առաջ', $d2->diffForHumans($d, false, true));
+            $scope->assertSame('1վրկ հետո', $d->diffForHumans($d2, false, true));
+            $scope->assertSame('1վրկ առաջ', $d2->diffForHumans($d, false, true));
 
-            $scope->assertSame('1վ', $d->diffForHumans($d2, true, true));
-            $scope->assertSame('2վ', $d2->diffForHumans($d->addSecond(), true, true));
+            $scope->assertSame('1վրկ', $d->diffForHumans($d2, true, true));
+            $scope->assertSame('2վրկ', $d2->diffForHumans($d->addSecond(), true, true));
         });
     }
 }
