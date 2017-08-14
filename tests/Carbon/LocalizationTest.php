@@ -36,6 +36,7 @@ class LocalizationTest extends AbstractTestCase
         return array(
             array('af'),
             array('ar'),
+            array('arm'),
             array('az'),
             array('bg'),
             array('bn'),
