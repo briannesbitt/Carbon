@@ -1891,7 +1891,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isDayOfWeek(int $dayOfWeek)
+    public function isDayOfWeek($dayOfWeek)
     {
         return $this->dayOfWeek === $dayOfWeek;
     }
