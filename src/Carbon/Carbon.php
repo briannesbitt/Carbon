@@ -1886,7 +1886,7 @@ class Carbon extends DateTime
 
     /**
      * Checks if this day is a specific day of the week.
-     * 
+     *
      * @param int $dayOfWeek
      *
      * @return bool
