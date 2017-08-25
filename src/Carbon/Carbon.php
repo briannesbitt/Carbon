@@ -1246,7 +1246,7 @@ class Carbon extends DateTime implements JsonSerializable
      * Serialize the instance to a json object using the set format.
      * Defaulting to the serialized DateTime object.
      *
-     * @return string
+     * @return string|static
      */
     public function jsonSerialize()
     {
