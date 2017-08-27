@@ -16,6 +16,20 @@ use Tests\AbstractTestCase;
 
 class StartEndOfTest extends AbstractTestCase
 {
+    public function testStartOfMinute()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfMinute());
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 0);
+    }
+
+    public function testStartOfHour()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfHour());
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 0, 0);
+    }
+
     public function testStartOfDay()
     {
         $dt = Carbon::now();
