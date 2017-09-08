@@ -198,12 +198,12 @@ class SubTest extends AbstractTestCase
 
     public function testSubSecondsDSTSpring()
     {
-        $this->assertSame(0, Carbon::create(2014, 3, 30, 4, 0, 0, 'Europe/London')->subHours(3 * 3600)->hour);
+        $this->assertSame(0, Carbon::create(2014, 3, 30, 4, 0, 0, 'Europe/London')->subSeconds(3 * 3600)->hour);
     }
 
     public function testSubSecondsDSTAutumn()
     {
-        $this->assertSame(0, Carbon::create(2017, 10, 29, 4, 0, 0, 'Europe/London')->subHours(5 * 3600)->hour);
+        $this->assertSame(0, Carbon::create(2017, 10, 29, 4, 0, 0, 'Europe/London')->subSeconds(5 * 3600)->hour);
     }
 
     public function testSubSecond()
