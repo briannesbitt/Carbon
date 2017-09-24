@@ -129,6 +129,12 @@ class DayOfWeekModifiersTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 19, 0, 0, 0);
     }
 
+    public function testPreviousFridayWithTimezone()
+    {
+        $d = Carbon::create(2017, 9, 23, 19, 00, 00, 'Europe/Berlin')->previous(Carbon::FRIDAY);
+        $this->assertCarbon($d, 2017, 9, 22, 0, 0, 0);
+    }
+
     public function testPreviousSaturday()
     {
         $d = Carbon::createFromDate(1975, 5, 21)->previous(6);
