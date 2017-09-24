@@ -3127,7 +3127,7 @@ class Carbon extends DateTime
             $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
+        return $this->modify('last '.static::$days[$dayOfWeek])->startOfDay();
     }
 
     /**
