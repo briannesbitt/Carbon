@@ -14,9 +14,9 @@ namespace Tests;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Closure;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * @var \Carbon\Carbon
