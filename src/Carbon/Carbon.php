@@ -3349,7 +3349,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Create an instance form a serialized string.
+     * Create an instance from a serialized string.
      *
      * @param string $value
      *
