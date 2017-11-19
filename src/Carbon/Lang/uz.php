@@ -12,8 +12,8 @@
 return array(
     'year' => ':count yil',
     'y' => ':count yil',
-    'month' => ':count oylar',
-    'm' => ':count oylar',
+    'month' => ':count oy',
+    'm' => ':count oy',
     'week' => ':count hafta',
     'w' => ':count hafta',
     'day' => ':count kun',
