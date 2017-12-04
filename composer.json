@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "symfony/translation": "~2.6 || ~3.0"
+        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~2",
