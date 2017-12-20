@@ -1810,7 +1810,7 @@ class Carbon extends DateTime
         return static::create($this->year, 12, 28, 0, 0, 0, $this->tz)->weekOfYear === 53;
     }
 
-    /*
+    /**
      * Compares the formatted values of the two dates.
      *
      * @param string              $format The date formats to compare.
