@@ -6,7 +6,7 @@
  * Time: 13:37
  */
 
-namespace Tests\CarbonInterval;
+namespace Tests\CarbonRange;
 
 
 use Carbon\Carbon;
