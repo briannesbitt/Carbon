@@ -214,4 +214,17 @@ class ExpressiveComparisonTest extends AbstractTestCase
         $this->assertFalse($dt2->isBirthday($dt1));
         $this->assertTrue($dt3->isBirthday($dt1));
     }
+
+    public function testIsLastOfMonth()
+    {
+        $dt1 = Carbon::createFromDate(2017, 1, 31);
+        $dt2 = Carbon::createFromDate(2016, 2, 28);
+        $dt3 = Carbon::createFromDate(2016, 2, 29);
+        $dt4 = Carbon::createFromDate(2018, 5, 5);
+
+        $this->assertTrue($dt1->isLastOfMonth());
+        $this->assertFalse($dt2->isLastOfMonth());
+        $this->assertTrue($dt3->isLastOfMonth());
+        $this->assertFalse($dt4->isLastOfMonth());
+    }
 }
