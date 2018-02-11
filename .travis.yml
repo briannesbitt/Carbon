@@ -11,7 +11,7 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
+  - 7.2
 
 env:
   global:
@@ -39,8 +39,12 @@ after_success:
 matrix:
   include:
     - php: 5.3
+      dist: precise
+    - php: 5.3
+      dist: precise
       env: setup=lowest
     - php: 5.3
+      dist: precise
       env: setup=stable
     - php: 5.4
       env: setup=lowest
@@ -66,7 +70,11 @@ matrix:
       env:
         - coverage=true
         - phpstan=true
+        - setup=stable   
+    - php: 7.2
+      env: setup=lowest
+    - php: 7.2
+      env:
+        - phpstan=true
         - setup=stable
-  allow_failures:
-    - php: hhvm
   fast_finish: true
