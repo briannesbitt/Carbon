@@ -265,7 +265,7 @@ class Carbon extends DateTime
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null               $time
+     * @param string|int|null           $time
      * @param \DateTimeZone|string|null $tz
      */
     public function __construct($time = null, $tz = null)
