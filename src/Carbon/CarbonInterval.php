@@ -47,21 +47,21 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
  * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
- * @method CarbonInterval years() years($years = 1) Set the years portion of the current interval.
- * @method CarbonInterval year() year($years = 1) Alias for years().
- * @method CarbonInterval months() months($months = 1) Set the months portion of the current interval.
- * @method CarbonInterval month() month($months = 1) Alias for months().
- * @method CarbonInterval weeks() weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
- * @method CarbonInterval week() week($weeks = 1) Alias for weeks().
- * @method CarbonInterval days() days($days = 1) Set the days portion of the current interval.
- * @method CarbonInterval dayz() dayz($days = 1) Alias for days().
- * @method CarbonInterval day() day($days = 1) Alias for days().
- * @method CarbonInterval hours() hours($hours = 1) Set the hours portion of the current interval.
- * @method CarbonInterval hour() hour($hours = 1) Alias for hours().
- * @method CarbonInterval minutes() minutes($minutes = 1) Set the minutes portion of the current interval.
- * @method CarbonInterval minute() minute($minutes = 1) Alias for minutes().
- * @method CarbonInterval seconds() seconds($seconds = 1) Set the seconds portion of the current interval.
- * @method CarbonInterval second() second($seconds = 1) Alias for seconds().
+ * @method CarbonInterval years($years = 1) Set the years portion of the current interval.
+ * @method CarbonInterval year($years = 1) Alias for years().
+ * @method CarbonInterval months($months = 1) Set the months portion of the current interval.
+ * @method CarbonInterval month($months = 1) Alias for months().
+ * @method CarbonInterval weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
+ * @method CarbonInterval week($weeks = 1) Alias for weeks().
+ * @method CarbonInterval days($days = 1) Set the days portion of the current interval.
+ * @method CarbonInterval dayz($days = 1) Alias for days().
+ * @method CarbonInterval day($days = 1) Alias for days().
+ * @method CarbonInterval hours($hours = 1) Set the hours portion of the current interval.
+ * @method CarbonInterval hour($hours = 1) Alias for hours().
+ * @method CarbonInterval minutes($minutes = 1) Set the minutes portion of the current interval.
+ * @method CarbonInterval minute($minutes = 1) Alias for minutes().
+ * @method CarbonInterval seconds($seconds = 1) Set the seconds portion of the current interval.
+ * @method CarbonInterval second($seconds = 1) Alias for seconds().
  */
 class CarbonInterval extends DateInterval
 {

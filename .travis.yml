@@ -6,9 +6,9 @@ cache:
 
 env:
   global:
+    - setup=basic
     - coverage=false
     - phpstan=false
-    - setup=basic
 
 sudo: false
 
@@ -57,18 +57,27 @@ matrix:
       env: setup=stable
 
     - php: 7.0
+      env:
+        - coverage=true
+        - phpstan=true
     - php: 7.0
       env: setup=lowest
     - php: 7.0
       env: setup=stable
 
     - php: 7.1
+      env:
+        - coverage=true
+        - phpstan=true
     - php: 7.1
       env: setup=lowest
     - php: 7.1
       env: setup=stable
       
     - php: 7.2
+      env:
+        - coverage=true
+        - phpstan=true
     - php: 7.2
       env: setup=lowest
     - php: 7.2

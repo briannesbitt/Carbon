@@ -1,6 +1,7 @@
 parameters:
 	ignoreErrors:
-		- '#Access to an undefined property Carbon\\Carbon::\$doesNotExit#'
-		- '#Call to an undefined static method Carbon\\CarbonInterval#'
-		- '#Property Carbon\\Carbon::\$timezone \(DateTimeZone\) does not accept string#'
-		- '#Property Carbon\\Carbon::\$tz \(DateTimeZone\) does not accept string#'
+		- '#Static call to instance method Carbon\\CarbonInterval::#'
+	excludes_analyse:
+		- '*/tests/Carbon/SettersTest.php'
+		- '*/tests/Carbon/GettersTest.php'
+		- '*/tests/CarbonInterval/GettersTest.php'

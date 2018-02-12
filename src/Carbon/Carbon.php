@@ -973,7 +973,7 @@ class Carbon extends DateTime
     /**
      * Set the first day of week
      *
-     * @param int
+     * @param int $day
      */
     public static function setWeekStartsAt($day)
     {
@@ -993,7 +993,7 @@ class Carbon extends DateTime
     /**
      * Set the last day of week
      *
-     * @param int
+     * @param int $day
      */
     public static function setWeekEndsAt($day)
     {
@@ -1013,7 +1013,7 @@ class Carbon extends DateTime
     /**
      * Set weekend days
      *
-     * @param array
+     * @param array $days
      */
     public static function setWeekendDays($days)
     {
