@@ -11,6 +11,7 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
 
 env:
   global:
@@ -58,14 +59,9 @@ matrix:
     - php: 7.0
       env: setup=lowest
     - php: 7.0
-      env:
-        - phpstan=true
-        - setup=stable
+      env: setup=stable
     - php: 7.1
       env: setup=lowest
     - php: 7.1
-      env:
-        - coverage=true
-        - phpstan=true
-        - setup=stable
+      env: setup=stable
   fast_finish: true
