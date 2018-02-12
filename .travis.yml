@@ -86,6 +86,6 @@ matrix:
     - php: 7.2
       env: setup=stable
 
-    allow_failures:
-        - env: ALLOW_FAIL=true
+  allow_failures:
+    - env: ALLOW_FAIL=true
   fast_finish: true
