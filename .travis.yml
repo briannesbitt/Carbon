@@ -18,11 +18,12 @@ before_install:
 install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-lowest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan && vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
+  - if [[ $phpstan = 'true' ]]; then vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
@@ -79,7 +80,12 @@ matrix:
         - coverage=true
         - phpstan=true
     - php: 7.2
-      env: setup=lowest
+      env: 
+        - setup=lowest
+        - ALLOW_FAIL=true
     - php: 7.2
       env: setup=stable
+
+    allow_failures:
+        - env: ALLOW_FAIL=true
   fast_finish: true
