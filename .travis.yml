@@ -21,7 +21,7 @@ env:
 sudo: false
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 && $TRAVIS_PHP_VERSION != 'hhvm' && $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
@@ -30,7 +30,7 @@ install:
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan:^0.6 && vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan && vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
