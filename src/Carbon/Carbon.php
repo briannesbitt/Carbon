@@ -2801,7 +2801,7 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function diffForHumans(Carbon $other = null, $absolute = false, $short = false)
+    public function diffForHumans(self $other = null, $absolute = false, $short = false)
     {
         $isNow = $other === null;
 
