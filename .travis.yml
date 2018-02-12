@@ -4,15 +4,6 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-
 env:
   global:
     - coverage=false
@@ -27,7 +18,7 @@ before_install:
 install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-lowest; fi
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
@@ -40,28 +31,46 @@ matrix:
   include:
     - php: 5.3
       dist: precise
+    - php: 5.3
+      dist: precise
       env: setup=lowest
     - php: 5.3
       dist: precise
       env: setup=stable
+
+    - php: 5.4
     - php: 5.4
       env: setup=lowest
     - php: 5.4
       env: setup=stable
+
+    - php: 5.5
     - php: 5.5
       env: setup=lowest
     - php: 5.5
       env: setup=stable
+
+    - php: 5.6
     - php: 5.6
       env: setup=lowest
     - php: 5.6
       env: setup=stable
+
+    - php: 7.0
     - php: 7.0
       env: setup=lowest
     - php: 7.0
       env: setup=stable
+
+    - php: 7.1
     - php: 7.1
       env: setup=lowest
     - php: 7.1
+      env: setup=stable
+      
+    - php: 7.2
+    - php: 7.2
+      env: setup=lowest
+    - php: 7.2
       env: setup=stable
   fast_finish: true
