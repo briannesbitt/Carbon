@@ -19,7 +19,7 @@ install:
   - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
