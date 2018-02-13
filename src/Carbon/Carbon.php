@@ -973,7 +973,7 @@ class Carbon extends DateTime
     /**
      * Set the first day of week
      *
-     * @param int
+     * @param int $day
      */
     public static function setWeekStartsAt($day)
     {
@@ -993,7 +993,7 @@ class Carbon extends DateTime
     /**
      * Set the last day of week
      *
-     * @param int
+     * @param int $day
      */
     public static function setWeekEndsAt($day)
     {
@@ -1013,7 +1013,7 @@ class Carbon extends DateTime
     /**
      * Set weekend days
      *
-     * @param array
+     * @param array $days
      */
     public static function setWeekendDays($days)
     {
@@ -1403,7 +1403,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function eq(Carbon $dt)
+    public function eq(self $dt)
     {
         return $this == $dt;
     }
@@ -1417,7 +1417,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function equalTo(Carbon $dt)
+    public function equalTo(self $dt)
     {
         return $this->eq($dt);
     }
@@ -1429,7 +1429,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function ne(Carbon $dt)
+    public function ne(self $dt)
     {
         return !$this->eq($dt);
     }
@@ -1443,7 +1443,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function notEqualTo(Carbon $dt)
+    public function notEqualTo(self $dt)
     {
         return $this->ne($dt);
     }
@@ -1455,7 +1455,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function gt(Carbon $dt)
+    public function gt(self $dt)
     {
         return $this > $dt;
     }
@@ -1469,7 +1469,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function greaterThan(Carbon $dt)
+    public function greaterThan(self $dt)
     {
         return $this->gt($dt);
     }
@@ -1481,7 +1481,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function gte(Carbon $dt)
+    public function gte(self $dt)
     {
         return $this >= $dt;
     }
@@ -1495,7 +1495,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function greaterThanOrEqualTo(Carbon $dt)
+    public function greaterThanOrEqualTo(self $dt)
     {
         return $this->gte($dt);
     }
@@ -1507,7 +1507,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function lt(Carbon $dt)
+    public function lt(self $dt)
     {
         return $this < $dt;
     }
@@ -1521,7 +1521,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function lessThan(Carbon $dt)
+    public function lessThan(self $dt)
     {
         return $this->lt($dt);
     }
@@ -1533,7 +1533,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function lte(Carbon $dt)
+    public function lte(self $dt)
     {
         return $this <= $dt;
     }
@@ -1547,7 +1547,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function lessThanOrEqualTo(Carbon $dt)
+    public function lessThanOrEqualTo(self $dt)
     {
         return $this->lte($dt);
     }
@@ -1561,7 +1561,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function between(Carbon $dt1, Carbon $dt2, $equal = true)
+    public function between(self $dt1, self $dt2, $equal = true)
     {
         if ($dt1->gt($dt2)) {
             $temp = $dt1;
@@ -1584,7 +1584,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function closest(Carbon $dt1, Carbon $dt2)
+    public function closest(self $dt1, self $dt2)
     {
         return $this->diffInSeconds($dt1) < $this->diffInSeconds($dt2) ? $dt1 : $dt2;
     }
@@ -1597,7 +1597,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function farthest(Carbon $dt1, Carbon $dt2)
+    public function farthest(self $dt1, self $dt2)
     {
         return $this->diffInSeconds($dt1) > $this->diffInSeconds($dt2) ? $dt1 : $dt2;
     }
@@ -1609,7 +1609,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function min(Carbon $dt = null)
+    public function min(self $dt = null)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -1625,7 +1625,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function minimum(Carbon $dt = null)
+    public function minimum(self $dt = null)
     {
         return $this->min($dt);
     }
@@ -1637,7 +1637,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function max(Carbon $dt = null)
+    public function max(self $dt = null)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -1653,7 +1653,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function maximum(Carbon $dt = null)
+    public function maximum(self $dt = null)
     {
         return $this->max($dt);
     }
@@ -1818,7 +1818,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isSameAs($format, Carbon $dt = null)
+    public function isSameAs($format, self $dt = null)
     {
         $dt = $dt ?: static::now($this->tz);
 
@@ -1842,7 +1842,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isSameYear(Carbon $dt = null)
+    public function isSameYear(self $dt = null)
     {
         return $this->isSameAs('Y', $dt);
     }
@@ -1865,7 +1865,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isSameMonth(Carbon $dt = null, $ofSameYear = false)
+    public function isSameMonth(self $dt = null, $ofSameYear = false)
     {
         $format = $ofSameYear ? 'Y-m' : 'm';
 
@@ -1879,7 +1879,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isSameDay(Carbon $dt)
+    public function isSameDay(self $dt)
     {
         return $this->toDateString() === $dt->toDateString();
     }
@@ -2574,7 +2574,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInYears(Carbon $dt = null, $abs = true)
+    public function diffInYears(self $dt = null, $abs = true)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -2589,7 +2589,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInMonths(Carbon $dt = null, $abs = true)
+    public function diffInMonths(self $dt = null, $abs = true)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -2604,7 +2604,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInWeeks(Carbon $dt = null, $abs = true)
+    public function diffInWeeks(self $dt = null, $abs = true)
     {
         return (int) ($this->diffInDays($dt, $abs) / static::DAYS_PER_WEEK);
     }
@@ -2617,7 +2617,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInDays(Carbon $dt = null, $abs = true)
+    public function diffInDays(self $dt = null, $abs = true)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -2633,7 +2633,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInDaysFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    public function diffInDaysFiltered(Closure $callback, self $dt = null, $abs = true)
     {
         return $this->diffFiltered(CarbonInterval::day(), $callback, $dt, $abs);
     }
@@ -2647,7 +2647,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInHoursFiltered(Closure $callback, Carbon $dt = null, $abs = true)
+    public function diffInHoursFiltered(Closure $callback, self $dt = null, $abs = true)
     {
         return $this->diffFiltered(CarbonInterval::hour(), $callback, $dt, $abs);
     }
@@ -2662,7 +2662,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, Closure $callback, Carbon $dt = null, $abs = true)
+    public function diffFiltered(CarbonInterval $ci, Closure $callback, self $dt = null, $abs = true)
     {
         $start = $this;
         $end = $dt ?: static::now($this->getTimezone());
@@ -2692,7 +2692,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInWeekdays(Carbon $dt = null, $abs = true)
+    public function diffInWeekdays(self $dt = null, $abs = true)
     {
         return $this->diffInDaysFiltered(function (Carbon $date) {
             return $date->isWeekday();
@@ -2707,7 +2707,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInWeekendDays(Carbon $dt = null, $abs = true)
+    public function diffInWeekendDays(self $dt = null, $abs = true)
     {
         return $this->diffInDaysFiltered(function (Carbon $date) {
             return $date->isWeekend();
@@ -2722,7 +2722,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInHours(Carbon $dt = null, $abs = true)
+    public function diffInHours(self $dt = null, $abs = true)
     {
         return (int) ($this->diffInSeconds($dt, $abs) / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR);
     }
@@ -2735,7 +2735,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInMinutes(Carbon $dt = null, $abs = true)
+    public function diffInMinutes(self $dt = null, $abs = true)
     {
         return (int) ($this->diffInSeconds($dt, $abs) / static::SECONDS_PER_MINUTE);
     }
@@ -2748,7 +2748,7 @@ class Carbon extends DateTime
      *
      * @return int
      */
-    public function diffInSeconds(Carbon $dt = null, $abs = true)
+    public function diffInSeconds(self $dt = null, $abs = true)
     {
         $dt = $dt ?: static::now($this->getTimezone());
         $value = $dt->getTimestamp() - $this->getTimestamp();
@@ -2801,7 +2801,7 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function diffForHumans(Carbon $other = null, $absolute = false, $short = false)
+    public function diffForHumans(self $other = null, $absolute = false, $short = false)
     {
         $isNow = $other === null;
 
@@ -3298,7 +3298,7 @@ class Carbon extends DateTime
      *
      * @return static
      */
-    public function average(Carbon $dt = null)
+    public function average(self $dt = null)
     {
         $dt = $dt ?: static::now($this->getTimezone());
 
@@ -3312,7 +3312,7 @@ class Carbon extends DateTime
      *
      * @return bool
      */
-    public function isBirthday(Carbon $dt = null)
+    public function isBirthday(self $dt = null)
     {
         return $this->isSameAs('md', $dt);
     }

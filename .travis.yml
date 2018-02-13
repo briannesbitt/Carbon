@@ -4,34 +4,30 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-php:
-  - 5.3
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - hhvm
-
 env:
   global:
+    - setup=basic
     - coverage=false
     - phpstan=false
-    - setup=basic
 
 sudo: false
 
 before_install:
-  - if [[ $TRAVIS_PHP_VERSION != 7.1 && $TRAVIS_PHP_VERSION != 'hhvm' && $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
+  - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
+  - |
+    if [[ $setup = 'lowest' ]]; then
+        composer require sebastian/comparator:"~1.2.4" --no-update --dev
+        travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
+    fi
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan:^0.6 && vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
+  - if [[ $phpstan = 'true' ]]; then vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
@@ -39,34 +35,51 @@ after_success:
 matrix:
   include:
     - php: 5.3
+      dist: precise
+    - php: 5.3
+      dist: precise
       env: setup=lowest
     - php: 5.3
+      dist: precise
       env: setup=stable
+
+    - php: 5.4
     - php: 5.4
       env: setup=lowest
     - php: 5.4
       env: setup=stable
+
+    - php: 5.5
     - php: 5.5
       env: setup=lowest
     - php: 5.5
       env: setup=stable
+
+    - php: 5.6
     - php: 5.6
       env: setup=lowest
     - php: 5.6
       env: setup=stable
+
+    - php: 7.0
     - php: 7.0
       env: setup=lowest
     - php: 7.0
-      env:
-        - phpstan=true
-        - setup=stable
+      env: setup=stable
+
+    - php: 7.1
     - php: 7.1
       env: setup=lowest
     - php: 7.1
+      env: setup=stable
+
+    - php: 7.2
       env:
         - coverage=true
         - phpstan=true
-        - setup=stable
-  allow_failures:
-    - php: hhvm
+    - php: 7.2
+      env: setup=lowest
+    - php: 7.2
+      env: setup=stable
+
   fast_finish: true
