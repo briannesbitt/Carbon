@@ -136,11 +136,11 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
 </code></pre></p>
 
-<p>Min and max value mainly depends on the system (32 or 64 bits).</p>
+<p>Min and max value mainly depends on the system (32 or 64 bit).</p>
 
-<p>With a 32 bits OS system (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
+<p>With a 32-bit OS system or 32-bit version of PHP (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
 
-<p>With a 64 bits OS system, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
+<p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
 
 <h1 id="api-localization">Localization</h1>
 
@@ -539,7 +539,7 @@ $dt->isSameDay(Carbon::now());
 
 <p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
 
-<p>By default, Carbon behave as the PHP DateTime do. That means adding or substracting months can overflow, example:</p>
+<p>By default, Carbon relies on the underlying parent class PHP DateTime behavior. As a result adding or subtracting months can overflow, example:</p>
 
 <p><pre><code class="php">{{::lint($dt = Carbon::create(2017, 1, 31, 0);)}}
 
@@ -547,7 +547,7 @@ $dt->isSameDay(Carbon::now());
 {{addoverflow2::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow2_eval}}
 </code></pre></p>
 
-<p>You can't prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+<p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
 
 <p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
@@ -560,7 +560,7 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 {{reset1::exec(Carbon::resetMonthsOverflow();)}}} // same as Carbon::useMonthsOverflow(true);
 </code></pre></p>
 
-The method <code>Carbon::shouldOverflowMonths()</code> allow you to know if the overflow is currently enabled.
+The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
 
 You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
 <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
