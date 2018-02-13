@@ -119,6 +119,13 @@ class Carbon extends DateTime
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
+     * ISO8601 format without timezone.
+     *
+     * @var string
+     */
+    const ATOM_NO_TIMEZONE = 'Y-m-d\TH:i:s';
+
+    /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
@@ -1303,13 +1310,15 @@ class Carbon extends DateTime
     }
 
     /**
-     * Format the instance as ISO8601
+     * Format the instance as ISO8601.
+     * Pass in false if you want ISO8601 without timezone.
      *
+     * @param bool $withTimezone
      * @return string
      */
-    public function toIso8601String()
+    public function toIso8601String($withTimezone = true)
     {
-        return $this->toAtomString();
+        return $withTimezone ? $this->toAtomString() : $this->format(self::ATOM_NO_TIMEZONE);
     }
 
     /**
