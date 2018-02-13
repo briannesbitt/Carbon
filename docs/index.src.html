@@ -136,14 +136,21 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
 </code></pre></p>
 
+<p>Min and max value mainly depends on the system (32 or 64 bit).</p>
+
+<p>With a 32-bit OS system or 32-bit version of PHP (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
+
+<p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
+
 <h1 id="api-localization">Localization</h1>
 
 <p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
 {{locale1::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale1_eval}}
-{{::lint(setlocale(LC_TIME, '');)}}
+{{::lint(setlocale(LC_TIME, 'English');)}}
 {{locale2::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale2_eval}}
+{{::lint(setlocale(LC_TIME, ''); // reset locale)}}
 </code></pre></p>
 
 <p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
@@ -531,6 +538,61 @@ $dt->isSameDay(Carbon::now());
 <p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
 
 <p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
+
+<p>By default, Carbon relies on the underlying parent class PHP DateTime behavior. As a result adding or subtracting months can overflow, example:</p>
+
+<p><pre><code class="php">{{::lint($dt = Carbon::create(2017, 1, 31, 0);)}}
+
+{{addoverflow1::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{addoverflow1_eval}}
+{{addoverflow2::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow2_eval}}
+</code></pre></p>
+
+<p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+
+<p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+
+$dt = Carbon::create(2017, 1, 31, 0);)}}
+
+{{addoverflow3::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{addoverflow3_eval}}
+{{addoverflow4::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow4_eval}}
+
+// Call the method with true to allow overflow again
+{{reset1::exec(Carbon::resetMonthsOverflow();)}}} // same as Carbon::useMonthsOverflow(true);
+</code></pre></p>
+
+The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
+
+You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+<code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+(or the singular methods with no <code>s</code> to "month").
+to explicitly add/sub months with or without overflow no matter the current mode.
+
+<p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+
+$dt = Carbon::create(2017, 1, 31, 0);)}}
+
+{{addoverflow5::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow5_eval}}
+{{addoverflow6::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow6_eval}}
+{{addoverflow7::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{addoverflow7_eval}}
+{{addoverflow8::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{addoverflow8_eval}}
+
+{{addoverflowremind1::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind1_eval}}
+{{addoverflowremind2::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind2_eval}}
+
+{{::lint(Carbon::useMonthsOverflow(true);
+
+$dt = Carbon::create(2017, 1, 31, 0);)}}
+
+{{addoverflow9::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow9_eval}}
+{{addoverflow10::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow10_eval}}
+{{addoverflow11::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{addoverflow11_eval}}
+{{addoverflow12::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{addoverflow12_eval}}
+
+{{addoverflowremind3::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind3_eval}}
+{{addoverflowremind4::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind4_eval}}
+
+{{reset2::exec(Carbon::resetMonthsOverflow();)}}}
+</code></pre></p>
 
 <h1 id="api-difference">Difference</h1>
 

@@ -1,12 +1,14 @@
 <?php
 
 date_default_timezone_set('America/Toronto');
+setlocale(LC_ALL, 'en');
 
 require 'vendor/autoload.php';
+
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 
-$namesCache = [];
+$namesCache = array();
 
 $template = file_get_contents('template.src.html');
 
