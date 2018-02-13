@@ -16,10 +16,14 @@ before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest; fi
   - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
+  - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $setup = 'lowest' ]]; then ; fi
+  - if [[ $setup = 'lowest' ]] ; then
+        composer require sebastian/comparator:"~1.2.4" --no-update --dev
+        travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
+    fi
 
 script:
   - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
@@ -58,34 +62,24 @@ matrix:
       env: setup=stable
 
     - php: 7.0
-      env:
-        - coverage=true
-        - phpstan=true
     - php: 7.0
       env: setup=lowest
     - php: 7.0
       env: setup=stable
 
     - php: 7.1
-      env:
-        - coverage=true
-        - phpstan=true
     - php: 7.1
       env: setup=lowest
     - php: 7.1
       env: setup=stable
-      
+
     - php: 7.2
       env:
         - coverage=true
         - phpstan=true
     - php: 7.2
-      env: 
-        - setup=lowest
-        - ALLOW_FAIL=true
+      env: setup=lowest
     - php: 7.2
       env: setup=stable
 
-  allow_failures:
-    - env: ALLOW_FAIL=true
   fast_finish: true
