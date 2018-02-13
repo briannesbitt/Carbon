@@ -81,7 +81,7 @@ class StringsTest extends AbstractTestCase
          * $cache = setlocale(LC_TIME, 0);
          * $d = Carbon::create(2016, 01, 06, 00, 00, 00);
          * setlocale(LC_TIME, 'spanish');
-         * $this->assertSame(utf8_encode('miércoles 06 enero 2016'), $d->formatLocalized('%A %d %B %Y'));
+         * $this->assertSame(utf8_encode('miï¿½rcoles 06 enero 2016'), $d->formatLocalized('%A %d %B %Y'));
          * setlocale(LC_TIME, $cache);
          * Carbon::setUtf8(false);
          */
@@ -138,7 +138,7 @@ class StringsTest extends AbstractTestCase
     public function testToIso8601String()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-        $this->assertSame('1975-12-25T14:15:16-05:00', $d->toIso8601String());
+        $this->assertSame('1975-12-25T14:15:16-0500', $d->toIso8601String());
     }
 
     public function testToRC822String()
