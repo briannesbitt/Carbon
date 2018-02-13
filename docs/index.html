@@ -426,7 +426,7 @@ echo $dt;                                          // 1975-12-25 14:15:16
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
 echo $dt->toAtomString();      // 1975-12-25T14:15:16-05:00
 echo $dt->toCookieString();    // Thursday, 25-Dec-1975 14:15:16 EST
-echo $dt->toIso8601String();   // 1975-12-25T14:15:16-0500
+echo $dt->toIso8601String();   // same as $dt->toAtomString(); 1975-12-25T14:15:16-05:00
 echo $dt->toRfc822String();    // Thu, 25 Dec 75 14:15:16 -0500
 echo $dt->toRfc850String();    // Thursday, 25-Dec-75 14:15:16 EST
 echo $dt->toRfc1036String();   // Thu, 25 Dec 75 14:15:16 -0500
