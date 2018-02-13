@@ -136,14 +136,21 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
 </code></pre></p>
 
+<p>Min and max value mainly depends on the system (32 or 64 bits).</p>
+
+<p>With a 32 bits OS system (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
+
+<p>With a 64 bits OS system, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
+
 <h1 id="api-localization">Localization</h1>
 
 <p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
 {{locale1::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale1_eval}}
-{{::lint(setlocale(LC_TIME, '');)}}
+{{::lint(setlocale(LC_TIME, 'English');)}}
 {{locale2::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale2_eval}}
+{{::lint(setlocale(LC_TIME, ''); // reset locale)}}
 </code></pre></p>
 
 <p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>

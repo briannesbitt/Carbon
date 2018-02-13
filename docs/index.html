@@ -114,7 +114,7 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-02-13 07:06:49
+echo $now;                               // 2018-02-13 07:37:34
 $today = Carbon::today();
 echo $today;                             // 2018-02-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -183,14 +183,21 @@ echo $dt->copy()->micro;                               // 123456
 echo Carbon::minValue();                               // '1901-12-13 15:45:52'
 </code></pre></p>
 
+<p>Min and max value mainly depends on the system (32 or 64 bits).</p>
+
+<p>With a 32 bits OS system (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
+
+<p>With a 64 bits OS system, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
+
 <h1 id="api-localization">Localization</h1>
 
 <p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">setlocale(LC_TIME, 'German');
+echo $dt->formatLocalized('%A %d %B %Y');          // Mittwoch 21 Mai 1975
+setlocale(LC_TIME, 'English');
 echo $dt->formatLocalized('%A %d %B %Y');          // Wednesday 21 May 1975
-setlocale(LC_TIME, '');
-echo $dt->formatLocalized('%A %d %B %Y');          // Wednesday 21 May 1975
+setlocale(LC_TIME, ''); // reset locale
 </code></pre></p>
 
 <p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
@@ -228,7 +235,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-02-13 07:06:49
+echo Carbon::now();                                    // 2018-02-13 07:37:34
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -489,7 +496,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2018-02-13 07:06:49
+echo $dt1->max();                                  // 2018-02-13 07:37:34
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>

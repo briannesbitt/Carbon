@@ -23,8 +23,7 @@ function genHtml($page, $out, $jumbotron = '') {
 function compile($src, $dest, & $namesCache) {
     $code = file_get_contents($src);
 
-    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; '.
-        'date_default_timezone_set(\'America/Toronto\'); setlocale(LC_ALL, \'en\'); ';
+    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; ';
 
     // {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}}
     preg_match_all('@{{(\w*)::(\w+)\((.+)\)}}@sU', $code, $matches, PREG_SET_ORDER);
