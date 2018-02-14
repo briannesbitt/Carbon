@@ -22,7 +22,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "symfony/translation": "~2.6 || ~3.0"
+        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "~2",
@@ -47,8 +47,11 @@
         "sort-packages": true
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit; ./vendor/bin/php-cs-fixer fix -v --diff --dry-run;",
-        "phpunit": "./vendor/bin/phpunit;",
-        "phpcs": "./vendor/bin/php-cs-fixer fix -v --diff --dry-run;"
+        "test": [
+            "@phpunit",
+            "@phpcs"
+        ],
+        "phpunit": "phpunit",
+        "phpcs": "php-cs-fixer fix -v --diff --dry-run"
     }
 }

@@ -24,8 +24,8 @@ return array(
     'min' => ':count dəqiqə',
     'second' => ':count saniyə',
     's' => ':count saniyə',
-    'ago' => ':time öncə',
+    'ago' => ':time əvvəl',
     'from_now' => ':time sonra',
     'after' => ':time sonra',
-    'before' => ':time öncə',
+    'before' => ':time əvvəl',
 );

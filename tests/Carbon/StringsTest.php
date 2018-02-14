@@ -59,32 +59,33 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedDateString()
     {
-        /*
-         * Working out a Travis issue on how to set a different locale
-         * other than EN to test this.
-         *
-         * $cache = setlocale(LC_TIME, 0);
-         * setlocale(LC_TIME, 'German');
-         * $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-         * $this->assertSame('Donnerstag 25 Dezember 1975', $d->formatLocalized('%A %d %B %Y'));
-         * setlocale(LC_TIME, $cache);
-         */
+        $currentLocale = setlocale(LC_TIME, '0');
+        if (setlocale(LC_TIME, 'fr_FR.UTF-8') === false) {
+            $this->markTestSkipped('UTF-8 test need fr_FR.UTF-8 (a locale with accents).');
+        }
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $date = $d->formatLocalized('%A %d %B %Y');
+        setlocale(LC_TIME, $currentLocale);
+
+        $this->assertSame('jeudi 25 décembre 1975', $date);
     }
 
     public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
     {
-        /*
-         * Working out a Travis issue on how to set a different locale
-         * other than EN to test this.
-         *
-         * Carbon::setUtf8(true);
-         * $cache = setlocale(LC_TIME, 0);
-         * $d = Carbon::create(2016, 01, 06, 00, 00, 00);
-         * setlocale(LC_TIME, 'spanish');
-         * $this->assertSame(utf8_encode('mi�rcoles 06 enero 2016'), $d->formatLocalized('%A %d %B %Y'));
-         * setlocale(LC_TIME, $cache);
-         * Carbon::setUtf8(false);
-         */
+        $currentLocale = setlocale(LC_TIME, '0');
+        if (setlocale(LC_TIME, 'fr_FR.UTF-8') === false) {
+            $this->markTestSkipped('UTF-8 test need fr_FR.UTF-8 (a locale with accents).');
+        }
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
+        Carbon::setUtf8(false);
+        $nonUtf8Date = $d->formatLocalized('%B');
+        Carbon::setUtf8(true);
+        $utf8Date = $d->formatLocalized('%B');
+        Carbon::setUtf8(false);
+        setlocale(LC_TIME, $currentLocale);
+
+        $this->assertSame('décembre', $nonUtf8Date);
+        $this->assertSame(utf8_encode('décembre'), $utf8Date);
     }
 
     public function testToLocalizedFormattedTimezonedDateString()
