@@ -71,4 +71,23 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 12, 0, 0);
         $this->assertSame('Europe/London', $d->tzName);
     }
+
+    public function testCreateFromTime()
+    {
+        // disable test for now
+        // because we need Carbon::now() in Carbon::create() to work with given TZ
+        $test = Carbon::getTestNow();
+        Carbon::setTestNow();
+
+        $tz = 'Etc/GMT+12';
+        $now = Carbon::now($tz);
+        $dt = Carbon::createFromTime($now->hour, $now->minute, $now->second, $tz);
+
+        // reenable test
+        Carbon::setTestNow($test);
+
+        // tested without microseconds
+        // because they appear withing calls to Carbon
+        $this->assertEquals($now->format('c'), $dt->format('c'));
+    }
 }
