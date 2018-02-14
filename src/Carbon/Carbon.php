@@ -119,6 +119,13 @@ class Carbon extends DateTime
     const DEFAULT_TO_STRING_FORMAT = 'Y-m-d H:i:s';
 
     /**
+     * Format for converting mocked time, includes microseconds.
+     *
+     * @var string
+     */
+    const MOCK_DATETIME_FORMAT = 'Y-m-d H:i:s.u';
+
+    /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
@@ -285,7 +292,7 @@ class Carbon extends DateTime
                 $tz = $testInstance->getTimezone();
             }
 
-            $time = $testInstance->toDateTimeString();
+            $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
