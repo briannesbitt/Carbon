@@ -387,8 +387,8 @@ class Carbon extends DateTime
     public static function maxValue()
     {
         if (PHP_INT_SIZE === 4) {
-            // 32 bit (and additionally Windows 64 bit)
-            return static::createFromTimestamp(PHP_INT_MAX);
+            // 32 bit
+            return static::createFromTimestamp(PHP_INT_MAX); // @codeCoverageIgnore
         }
 
         // 64 bit
@@ -403,8 +403,8 @@ class Carbon extends DateTime
     public static function minValue()
     {
         if (PHP_INT_SIZE === 4) {
-            // 32 bit (and additionally Windows 64 bit)
-            return static::createFromTimestamp(~PHP_INT_MAX);
+            // 32 bit
+            return static::createFromTimestamp(~PHP_INT_MAX); // @codeCoverageIgnore
         }
 
         // 64 bit
@@ -1203,7 +1203,7 @@ class Carbon extends DateTime
         // Check for Windows to find and replace the %e
         // modifier correctly
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format);
+            $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
         $formatted = strftime($format, strtotime($this));

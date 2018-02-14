@@ -1,6 +1,7 @@
 parameters:
 	ignoreErrors:
 		- '#Static call to instance method Carbon\\CarbonInterval::#'
+		- '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
 	excludes_analyse:
 		- '*/tests/Carbon/SettersTest.php'
 		- '*/tests/Carbon/GettersTest.php'

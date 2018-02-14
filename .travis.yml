@@ -1,6 +1,7 @@
 language: php
 
 cache:
+  apt: true
   directories:
     - $HOME/.composer/cache
 
@@ -13,6 +14,7 @@ env:
 sudo: false
 
 before_install:
+  - sudo apt-get update && sudo apt-get --reinstall install -qq language-pack-fr
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
