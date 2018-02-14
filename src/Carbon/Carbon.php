@@ -2005,17 +2005,17 @@ class Carbon extends DateTime
     /**
      * Checks if the (date)time string is in a given format.
      *
+     * @param string $date
      * @param string $format
-     * @param string $time
      *
      * @return bool
      */
-    public static function isFormat($format, $time)
+    public static function hasFormat($date, $format)
     {
         try {
             // Try to create a DateTime object. Throws an InvalidArgumentException if the provided time string
             // doesn't match the format in any way.
-            static::createFromFormat($format, $time);
+            static::createFromFormat($format, $date);
 
             // createFromFormat() is known to handle edge cases silently.
             // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
@@ -2025,7 +2025,7 @@ class Carbon extends DateTime
                 static::$regexFormats
             );
 
-            return (bool) preg_match('/^'.$regex.'$/', $time);
+            return (bool) preg_match('/^'.$regex.'$/', $date);
         } catch (InvalidArgumentException $e) {
         }
 

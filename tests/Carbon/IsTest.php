@@ -386,18 +386,18 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
     }
 
-    public function testIsFormat()
+    public function testHasFormat()
     {
-        $this->assertTrue(Carbon::isFormat('Y-m-d', '1975-05-01'));
-        $this->assertTrue(Carbon::isFormat('D jS', 'Sun 21st'));
+        $this->assertTrue(Carbon::hasFormat('1975-05-01', 'Y-m-d'));
+        $this->assertTrue(Carbon::hasFormat('Sun 21st', 'D jS'));
 
         // Format failure
-        $this->assertFalse(Carbon::isFormat('d m Y', '1975-05-01'));
-        $this->assertFalse(Carbon::isFormat('D jS', 'Foo 21st'));
-        $this->assertFalse(Carbon::isFormat('D jS', 'Sun 51st'));
-        $this->assertFalse(Carbon::isFormat('D jS', 'Sun 21xx'));
+        $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
+        $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));
+        $this->assertFalse(Carbon::hasFormat('Sun 51st', 'D jS'));
+        $this->assertFalse(Carbon::hasFormat('Sun 21xx', 'D jS'));
 
         // Regex failure
-        $this->assertFalse(Carbon::isFormat('Y-m-d', '1975-5-1'));
+        $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
     }
 }
