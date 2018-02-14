@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 66);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 58);
 
 require 'vendor/autoload.php';
 
@@ -17,7 +17,13 @@ function display($message) {
     echo $message;
 }
 
+$dateTimeMethods = get_class_methods(new \DateTime());
+
 foreach (get_class_methods(new \Carbon\Carbon()) as $method) {
+    if (in_array($method, $dateTimeMethods)) {
+        continue;
+    }
+
     $methodsCount++;
     $documented = strpos($documentation, $method) !== false;
     if (!$documented) {
@@ -25,8 +31,11 @@ foreach (get_class_methods(new \Carbon\Carbon()) as $method) {
     }
     $color = $documented ? 31 : 32;
     $message = $documented ? 'documented' : 'missing';
+    $method = str_pad($method, 25);
 
-    display("- $method \033[0;{$color}m{$message}\033[0m\n");
+    if (!$documented || !isset($argv[1]) || $argv[1] !== 'missing') {
+        display("- $method \033[0;{$color}m{$message}\033[0m\n");
+    }
 }
 
 display($missingMethodsCount ?

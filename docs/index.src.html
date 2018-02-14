@@ -144,7 +144,7 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 <h1 id="api-localization">Localization</h1>
 
-<p>Unfortunately the base class DateTime does not have any localization support.  To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
+<p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
 {{locale1::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale1_eval}}
@@ -153,12 +153,14 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{::lint(setlocale(LC_TIME, ''); // reset locale)}}
 </code></pre></p>
 
-<p><code>diffForHumans()</code> has also been localized.  You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function.</p>
+<p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
 <p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
+{{getlocale1::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale1_eval}}
 {{locale3::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{locale3_eval}}
 
 {{::lint(Carbon::setLocale('en');)}}
+{{getlocale2::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale2_eval}}
 </code></pre></p>
 
 <blockquote><p><strong>on Linux</strong><br>
