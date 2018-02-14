@@ -23,57 +23,57 @@ class JaTest extends AbstractTestCase
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
-            $scope->assertSame('1 秒 前', $d->diffForHumans());
+            $scope->assertSame('1秒前', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 秒 前', $d->diffForHumans());
+            $scope->assertSame('2秒前', $d->diffForHumans());
 
             $d = Carbon::now()->subMinute();
-            $scope->assertSame('1 分 前', $d->diffForHumans());
+            $scope->assertSame('1分前', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 分 前', $d->diffForHumans());
+            $scope->assertSame('2分前', $d->diffForHumans());
 
             $d = Carbon::now()->subHour();
-            $scope->assertSame('1 時間 前', $d->diffForHumans());
+            $scope->assertSame('1時間前', $d->diffForHumans());
 
             $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 時間 前', $d->diffForHumans());
+            $scope->assertSame('2時間前', $d->diffForHumans());
 
             $d = Carbon::now()->subDay();
-            $scope->assertSame('1 日 前', $d->diffForHumans());
+            $scope->assertSame('1日前', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 日 前', $d->diffForHumans());
+            $scope->assertSame('2日前', $d->diffForHumans());
 
             $d = Carbon::now()->subWeek();
-            $scope->assertSame('1 週間 前', $d->diffForHumans());
+            $scope->assertSame('1週間前', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 週間 前', $d->diffForHumans());
+            $scope->assertSame('2週間前', $d->diffForHumans());
 
             $d = Carbon::now()->subMonth();
-            $scope->assertSame('1 ヶ月 前', $d->diffForHumans());
+            $scope->assertSame('1ヶ月前', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 ヶ月 前', $d->diffForHumans());
+            $scope->assertSame('2ヶ月前', $d->diffForHumans());
 
             $d = Carbon::now()->subYear();
-            $scope->assertSame('1 年 前', $d->diffForHumans());
+            $scope->assertSame('1年前', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 年 前', $d->diffForHumans());
+            $scope->assertSame('2年前', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
-            $scope->assertSame('今から 1 秒', $d->diffForHumans());
+            $scope->assertSame('今から1秒', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
-            $scope->assertSame('1 秒 後', $d->diffForHumans($d2));
-            $scope->assertSame('1 秒 前', $d2->diffForHumans($d));
+            $scope->assertSame('1秒後', $d->diffForHumans($d2));
+            $scope->assertSame('1秒前', $d2->diffForHumans($d));
 
-            $scope->assertSame('1 秒', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 秒', $d2->diffForHumans($d->addSecond(), true));
+            $scope->assertSame('1秒', $d->diffForHumans($d2, true));
+            $scope->assertSame('2秒', $d2->diffForHumans($d->addSecond(), true));
         });
     }
 }

@@ -78,22 +78,22 @@ class IsTest extends AbstractTestCase
 
     public function testIsNextMonthTrue()
     {
-        $this->assertTrue(Carbon::now()->addMonth()->isNextMonth());
+        $this->assertTrue(Carbon::now()->addMonthNoOverflow()->isNextMonth());
     }
 
     public function testIsLastMonthTrue()
     {
-        $this->assertTrue(Carbon::now()->subMonth()->isLastMonth());
+        $this->assertTrue(Carbon::now()->subMonthNoOverflow()->isLastMonth());
     }
 
     public function testIsNextMonthFalse()
     {
-        $this->assertFalse(Carbon::now()->addMonth(2)->isNextMonth());
+        $this->assertFalse(Carbon::now()->addMonthsNoOverflow(2)->isNextMonth());
     }
 
     public function testIsLastMonthFalse()
     {
-        $this->assertFalse(Carbon::now()->subMonth(2)->isLastMonth());
+        $this->assertFalse(Carbon::now()->subMonthsNoOverflow(2)->isLastMonth());
     }
 
     public function testIsNextYearTrue()

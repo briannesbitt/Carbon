@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Carbon;
+namespace Tests\Localization;
 
 use Carbon\Carbon;
 use Tests\AbstractTestCase;

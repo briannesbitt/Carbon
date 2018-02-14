@@ -25,7 +25,7 @@ class SrMeTest extends AbstractTestCase
         $this->diffForHumansLocalizedInMontenegrinLatin();
     }
 
-    protected function DiffForHumansLocalizedInMontenegrinLatin()
+    protected function diffForHumansLocalizedInMontenegrinLatin()
     {
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {

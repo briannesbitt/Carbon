@@ -21,6 +21,8 @@ class SettersTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->years = 2;
         $this->assertSame(2, $ci->years);
+        $ci->years(5);
+        $this->assertSame(5, $ci->years);
     }
 
     public function testMonthsSetter()
@@ -28,6 +30,8 @@ class SettersTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->months = 11;
         $this->assertSame(11, $ci->months);
+        $ci->months(8);
+        $this->assertSame(8, $ci->months);
     }
 
     public function testWeeksSetter()
@@ -36,6 +40,8 @@ class SettersTest extends AbstractTestCase
         $ci->weeks = 11;
         $this->assertSame(11, $ci->weeks);
         $this->assertSame(7 * 11, $ci->dayz);
+        $ci->weeks(4);
+        $this->assertSame(4, $ci->weeks);
     }
 
     public function testDayzSetter()
@@ -45,6 +51,10 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(11, $ci->dayz);
         $this->assertSame(1, $ci->weeks);
         $this->assertSame(4, $ci->dayzExcludeWeeks);
+        $ci->days(1);
+        $this->assertSame(1, $ci->dayz);
+        $ci->day(3);
+        $this->assertSame(3, $ci->dayz);
     }
 
     public function testHoursSetter()
@@ -52,6 +62,8 @@ class SettersTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->hours = 12;
         $this->assertSame(12, $ci->hours);
+        $ci->hours(0);
+        $this->assertSame(0, $ci->hours);
     }
 
     public function testMinutesSetter()
@@ -59,6 +71,8 @@ class SettersTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->minutes = 11;
         $this->assertSame(11, $ci->minutes);
+        $ci->minutes(9);
+        $this->assertSame(9, $ci->minutes);
     }
 
     public function testSecondsSetter()
@@ -66,6 +80,10 @@ class SettersTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $ci->seconds = 34;
         $this->assertSame(34, $ci->seconds);
+        $ci->seconds(59);
+        $this->assertSame(59, $ci->seconds);
+        $ci->second(1);
+        $this->assertSame(1, $ci->seconds);
     }
 
     public function testFluentSetters()

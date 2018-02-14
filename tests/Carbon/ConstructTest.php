@@ -38,12 +38,14 @@ class ConstructTest extends AbstractTestCase
 
     public function testWithFancyString()
     {
+        Carbon::setTestNow(Carbon::today());
         $c = new Carbon('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
     public function testParseWithFancyString()
     {
+        Carbon::setTestNow(Carbon::today());
         $c = Carbon::parse('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
@@ -106,5 +108,16 @@ class ConstructTest extends AbstractTestCase
         $c = Carbon::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
+    }
+
+    public function testMockingWithMicroseconds()
+    {
+        $c = new Carbon(Carbon::now()->toDateTimeString().'.123456');
+        Carbon::setTestNow($c);
+
+        $mockedC = Carbon::now();
+        $this->assertTrue($c->eq($mockedC));
+
+        Carbon::setTestNow();
     }
 }

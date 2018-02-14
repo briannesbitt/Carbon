@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use DateTime;
 use DateTimeZone;
 use Tests\AbstractTestCase;
+use Tests\Carbon\Fixtures\MyCarbon;
 
 class CreateFromFormatTest extends AbstractTestCase
 {
@@ -72,6 +73,11 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         $d = Carbon::createFromFormat('Y-m-d H:i:s.u', '1975-05-21 22:32:11.254687');
         $this->assertSame(254687, $d->micro);
+    }
+
+    public function testCreateLastErrorsCanBeAccessedByExtendingClass()
+    {
+        MyCarbon::getLastErrors();
     }
 
     public function testCreateFromFormatHandlesLastErrors()

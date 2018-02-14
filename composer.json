@@ -22,12 +22,11 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "symfony/translation": "~2.6 || ~3.0"
+        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "~1.11",
-        "phpunit/phpunit": "~4.0 || ~5.0",
-        "sllh/php-cs-fixer-styleci-bridge": "^2.1"
+        "friendsofphp/php-cs-fixer": "~2",
+        "phpunit/phpunit": "~4.0 || ~5.0"
     },
     "autoload": {
         "psr-4": {
@@ -41,15 +40,18 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.22-dev"
+            "dev-master": "1.23-dev"
         }
     },
     "config": {
         "sort-packages": true
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit; ./vendor/bin/php-cs-fixer fix -v --diff --dry-run;",
-        "phpunit": "./vendor/bin/phpunit;",
-        "phpcs": "./vendor/bin/php-cs-fixer fix -v --diff --dry-run;"
+        "test": [
+            "@phpunit",
+            "@phpcs"
+        ],
+        "phpunit": "phpunit",
+        "phpcs": "php-cs-fixer fix -v --diff --dry-run"
     }
 }
