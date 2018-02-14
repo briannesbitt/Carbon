@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Carbon package.
  *
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Localization;
 
 use Carbon\Carbon;
@@ -17,6 +19,7 @@ class AzTest extends AbstractTestCase
     public function testDiffForHumansLocalizedInAzerbaijani()
     {
         Carbon::setLocale('az');
+
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
