@@ -74,6 +74,27 @@ class EnTest extends AbstractTestCase
 
             $scope->assertSame('1s', $d->diffForHumans($d2, true, true));
             $scope->assertSame('2s', $d2->diffForHumans($d->addSecond(), true, true));
+
+            $d = Carbon::now()->addSecond();
+            $scope->assertSame('1s from now', $d->diffForHumans(null, false, true, 1));
+
+            $d = Carbon::now()->addMinute()->addSecond();
+            $scope->assertSame('1 minute 1 second', $d->diffForHumans(null, true, false, 2));
+
+            $d = Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond();
+            $scope->assertSame('2yrs 3mos 1d 1s', $d->diffForHumans(null, true, true, 4));
+
+            $d = Carbon::now()->addWeek()->addHours(10);
+            $scope->assertSame('1 week 10 hours', $d->diffForHumans(null, true, false, 2));
+
+            $d = Carbon::now()->addWeek()->addDays(6);
+            $scope->assertSame('1 week 6 days', $d->diffForHumans(null, true, false, 2));
+
+            $d = Carbon::now()->addWeeks(3)->addDays(3);
+            $scope->assertSame('3 weeks 3 days', $d->diffForHumans(null, true, false, 2));
+
+            $d = Carbon::now()->addWeeks(2)->addHour(1);
+            $scope->assertSame('2 weeks 1 hour', $d->diffForHumans(null, true, false, 2));
         });
     }
 }
