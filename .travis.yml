@@ -32,6 +32,11 @@ script:
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
 
+branches:
+  only:
+    - gh-pages
+    - /.*/
+
 matrix:
   include:
     - php: 5.3
