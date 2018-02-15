@@ -2,6 +2,11 @@
 
 date_default_timezone_set('America/Toronto');
 setlocale(LC_ALL, 'en');
+ini_set('html_errors', 0);
+if(function_exists('xdebug_disable')) {
+    ini_set('xdebug.overload_var_dump', 0);
+    xdebug_disable();
+}
 
 require 'vendor/autoload.php';
 
