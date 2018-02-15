@@ -45,7 +45,7 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         Carbon::resetMonthsOverflow();
     }
 
-    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null)
+    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $actual = array(
             'years' => $year,
@@ -72,6 +72,11 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
         if ($second !== null) {
             $expected['seconds'] = $d->second;
             $actual['seconds'] = $second;
+        }
+
+        if ($micro !== null) {
+            $expected['micro'] = $d->micro;
+            $actual['micro'] = $micro;
         }
 
         $this->assertSame($expected, $actual);

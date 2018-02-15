@@ -623,6 +623,20 @@ class Carbon extends DateTime
     }
 
     /**
+     * Create a Carbon instance from a timestamp in milliseconds.
+     *
+     * @param int                       $timestamp
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static
+     */
+    public static function createFromTimestampMs($timestamp, $tz = null)
+    {
+        return static::createFromFormat('U.u', sprintf('%F', $timestamp / 1000))
+            ->setTimezone(static::safeCreateDateTimeZone($tz));
+    }
+
+    /**
      * Create a Carbon instance from an UTC timestamp.
      *
      * @param int $timestamp
