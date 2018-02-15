@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 58);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 39);
 
 require 'vendor/autoload.php';
 
@@ -29,7 +29,7 @@ foreach (get_class_methods(new \Carbon\Carbon()) as $method) {
     if (!$documented) {
         $missingMethodsCount++;
     }
-    $color = $documented ? 31 : 32;
+    $color = $documented ? 32 : 31;
     $message = $documented ? 'documented' : 'missing';
     $method = str_pad($method, 25);
 
@@ -38,9 +38,11 @@ foreach (get_class_methods(new \Carbon\Carbon()) as $method) {
     }
 }
 
+$errorExit = $missingMethodsCount > MAXIMUM_MISSING_METHODS_THRESHOLD;
+
 display($missingMethodsCount ?
-    "\033[0;32m$missingMethodsCount missing / $methodsCount (threshold: " . MAXIMUM_MISSING_METHODS_THRESHOLD . ")\033[0m\n" :
-    "\033[0;31mEvery method documented\033[0m\n"
+    "\033[".($errorExit ? '0;31' : '1;33')."m$missingMethodsCount missing / $methodsCount (threshold: ".MAXIMUM_MISSING_METHODS_THRESHOLD.")\033[0m\n" :
+    "\033[0;32mEvery method documented\033[0m\n"
 );
 
-exit($missingMethodsCount > MAXIMUM_MISSING_METHODS_THRESHOLD ? 1 : 0);
+exit($errorExit ? 1 : 0);

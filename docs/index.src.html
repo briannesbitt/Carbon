@@ -472,6 +472,13 @@ $dt = Carbon::now();
 
 $dt->isWeekday();
 $dt->isWeekend();
+$dt->isMonday();
+$dt->isTuesday();
+$dt->isWednesday();
+$dt->isThursday();
+$dt->isFriday();
+$dt->isSaturday();
+$dt->isSunday();
 $dt->isYesterday();
 $dt->isToday();
 $dt->isTomorrow();
@@ -479,6 +486,21 @@ $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
 $dt->isSameDay(Carbon::now());
+$dt->isNextWeek();
+$dt->isLastWeek();
+$dt->isCurrentMonth();
+$dt->isNextMonth();
+$dt->isLastMonth();
+$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
+$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
+$dt->isCurrentYear();
+$dt->isNextYear();
+$dt->isLastYear();
+$dt->isSameYear(Carbon::createFromDate(1987, 4, 23));
+$dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+$dt->isSameAs('w', Carbon::now()); // w is the date of the week, so this will return true if now and $dt has
+                                   // the same day of week (both monday or both sunday, etc.)
+                                   // you can use any format and combine as much as you want.
 )}}
 {{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
