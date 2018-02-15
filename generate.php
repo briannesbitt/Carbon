@@ -90,7 +90,7 @@ function compile($src, $dest, & $namesCache) {
     // allow for escaping a command
     $code = str_replace('\{\{', '{{', $code);
 
-    file_put_contents($dest, $code);
+    file_put_contents($dest, trim($code)."\n");
 }
 
 genHtml(file_get_contents('index.src.html'), 'index.o.html', file_get_contents('jumbotron.src.html'));
