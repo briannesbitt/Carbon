@@ -344,6 +344,18 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get a Carbon instance for the current date and time, for fun people.
+     *
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static
+     */
+    public static function meow($tz = null)
+    {
+        return self::now($tz);
+    }
+
+    /**
      * Create a Carbon instance for today.
      *
      * @param \DateTimeZone|string|null $tz
