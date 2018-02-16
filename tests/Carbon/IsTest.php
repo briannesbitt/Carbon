@@ -11,6 +11,7 @@
 
 namespace Tests\Carbon;
 
+use \DateTime;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
@@ -225,9 +226,21 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now()));
     }
 
+    public function testIsSameMonthTrueWithDateTime()
+    {
+        $this->assertTrue(Carbon::now()->isSameMonth(new DateTime()));
+    }
+
     public function testIsSameMonthFalse()
     {
         $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subMonth()));
+    }
+
+    public function testIsSameMonthFalseWithDateTime()
+    {
+        $dt = new DateTime();
+        $dt->modify('-1 month');
+        $this->assertFalse(Carbon::now()->isSameMonth($dt));
     }
 
     public function testIsSameMonthAndYearTrue()
@@ -235,9 +248,21 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now(), true));
     }
 
+    public function testIsSameMonthAndYearTrueWithDateTime()
+    {
+        $this->assertTrue(Carbon::now()->isSameMonth(new DateTime(), true));
+    }
+
     public function testIsSameMonthAndYearFalse()
     {
         $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subYear(), true));
+    }
+
+    public function testIsSameMonthAndYearFalseWithDateTime()
+    {
+        $dt = new DateTime();
+        $dt->modify('-1 year');
+        $this->assertFalse(Carbon::now()->isSameMonth($dt, true));
     }
 
     public function testIsSameDayTrue()
@@ -246,10 +271,22 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($current->isSameDay(Carbon::createFromDate(2012, 1, 2)));
     }
 
+    public function T_testIsSameDayTrueWithDateTime()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameDay(new DateTime('2012-01-02')));
+    }
+
     public function testIsSameDayFalse()
     {
         $current = Carbon::createFromDate(2012, 1, 2);
         $this->assertFalse($current->isSameDay(Carbon::createFromDate(2012, 1, 3)));
+    }
+
+    public function testIsSameDayFalseWithDateTime()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameDay(new DateTime('2012-01-03')));
     }
 
     public function testIsSunday()

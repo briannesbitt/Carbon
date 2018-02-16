@@ -1839,12 +1839,12 @@ class Carbon extends DateTime
     /**
      * Compares the formatted values of the two dates.
      *
-     * @param string              $format The date formats to compare.
-     * @param \Carbon\Carbon|null $dt     The instance to compare with or null to use current day.
+     * @param string                        $format The date formats to compare.
+     * @param \Carbon\Carbon|\DateTime|null $dt     The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isSameAs($format, self $dt = null)
+    public function isSameAs($format, $dt = null)
     {
         $dt = $dt ?: static::now($this->tz);
 
@@ -1864,11 +1864,11 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same year as the instance year.
      *
-     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTime|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isSameYear(self $dt = null)
+    public function isSameYear($dt = null)
     {
         return $this->isSameAs('Y', $dt);
     }
@@ -1886,12 +1886,12 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
-     * @param \Carbon\Carbon|null $dt         The instance to compare with or null to use current day.
-     * @param bool                $ofSameYear Check if it is the same month in the same year.
+     * @param \Carbon\Carbon|\DateTime|null $dt         The instance to compare with or null to use current day.
+     * @param bool                          $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameMonth(self $dt = null, $ofSameYear = false)
+    public function isSameMonth($dt = null, $ofSameYear = false)
     {
         $format = $ofSameYear ? 'Y-m' : 'm';
 
@@ -1901,13 +1901,13 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Carbon\Carbon $dt
+     * @param \Carbon\Carbon|\DateTime $dt
      *
      * @return bool
      */
-    public function isSameDay(self $dt)
+    public function isSameDay($dt)
     {
-        return $this->toDateString() === $dt->toDateString();
+        return $this->isSameAs('Y-m-d', $dt);
     }
 
     /**
