@@ -12,7 +12,7 @@ $missingArguments = 0;
 
 function display($message) {
     if (substr(PHP_OS, 0, 3) === 'WIN') {
-        $message = preg_replace("/\033\\[0(;\d+)?m/", '', $message);
+        $message = preg_replace("/\033\\[\d+(;\d+)?m/", '', $message);
     }
 
     echo $message;
@@ -40,13 +40,14 @@ foreach (get_class_methods($carbon) as $method) {
 
         $reflexion = new \ReflectionMethod($carbon, $method);
         $argumentsCount = count($reflexion->getParameters());
-        if ($argumentsCount > 1) {
+        if ($argumentsCount) {
             preg_match_all('/'.preg_quote($method, '/').'\s*\\((
                 "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                 \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
                 (\\[([^\\[\\]\'"]+|(?1))*\\]) |
                 (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                (\\{([^\\{\\}\'"]+|(?1))*\\})
+                (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                [^\\{\\}\\(\\)\\[\\]\'"]+
             )\\)/x', $documentation, $matches, PREG_PATTERN_ORDER);
             $coveredArgs = 0;
             if (!empty($matches[1])) {
@@ -56,7 +57,8 @@ foreach (get_class_methods($carbon) as $method) {
                         \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
                         (\\[([^\\[\\]\'"]+|(?1))*\\]) |
                         (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                        (\\{([^\\{\\}\'"]+|(?1))*\\})
+                        (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                        [^\\{\\}\\(\\)\\[\\]\'"]+
                     )\\))/x', '', $argumentsString)));
                     if ($count > $coveredArgs) {
                         $coveredArgs = $count;
@@ -64,6 +66,7 @@ foreach (get_class_methods($carbon) as $method) {
                 }
             }
 
+            $missingArguments += $argumentsCount - $coveredArgs;
             $color = $argumentsCount === $coveredArgs ? 32 : 31;
             $message = $documented ? 'documented' : 'missing';
 
@@ -80,7 +83,7 @@ display($missingMethodsCount ?
 );
 
 if ($missingArguments) {
-    display("\033[1;33There are $missingArguments arguments that seems to not be documented.\033[0m\n");
+    display("\033[1;33mThere are $missingArguments arguments that seems to not be documented.\033[0m\n");
 }
 
 exit($errorExit ? 1 : 0);
