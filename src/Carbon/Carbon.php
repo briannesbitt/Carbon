@@ -2861,7 +2861,7 @@ class Carbon extends DateTime
                     // get the count days excluding weeks (might be zero)
                     $numOfDaysCount = (int) ($diffIntervalData['value'] - ($count * static::DAYS_PER_WEEK));
 
-                    if ($numOfDaysCount > 0) {
+                    if ($numOfDaysCount > 0 && count($interval) < $parts) {
                         $unit = $short ? 'd' : 'day';
                         $count = $numOfDaysCount;
                         $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
