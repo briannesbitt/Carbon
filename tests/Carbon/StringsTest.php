@@ -67,7 +67,7 @@ class StringsTest extends AbstractTestCase
         $date = $d->formatLocalized('%A %d %B %Y');
         setlocale(LC_TIME, $currentLocale);
 
-        $this->assertSame('Jeudi 25 décembre 1975', $date);
+        $this->assertSame('jeudi 25 décembre 1975', $date);
     }
 
     public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
