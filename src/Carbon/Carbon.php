@@ -1227,12 +1227,7 @@ class Carbon extends DateTime
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
 
-        $customToStringFormat = self::$toStringFormat;
-        self::resetToStringFormat();
-
-        $formatted = strftime($format, strtotime($this));
-
-        self::setToStringFormat($customToStringFormat);
+        $formatted = strftime($format, strtotime($this->toDateTimeString()));
 
         return static::$utf8 ? utf8_encode($formatted) : $formatted;
     }
