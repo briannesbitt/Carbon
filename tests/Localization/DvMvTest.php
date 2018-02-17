@@ -21,7 +21,7 @@ class DvMvTest extends AbstractTestCase
         Carbon::setLocale('dv_MV');
 
         $scope = $this;
-        $this->wrapWithNonDstDate(function() use ($scope) {
+        $this->wrapWithNonDstDate(function () use ($scope) {
             $d = Carbon::now()->subSecond();
             $scope->assertSame('1 ސިކުންތު ކުރިން', $d->diffForHumans(null, false, true));
 
