@@ -673,22 +673,24 @@ class Carbon extends DateTime
      */
     public function __get($name)
     {
+        static $formats = array(
+            'year' => 'Y',
+            'yearIso' => 'o',
+            'month' => 'n',
+            'day' => 'j',
+            'hour' => 'G',
+            'minute' => 'i',
+            'second' => 's',
+            'micro' => 'u',
+            'dayOfWeek' => 'w',
+            'dayOfYear' => 'z',
+            'weekOfYear' => 'W',
+            'daysInMonth' => 't',
+            'timestamp' => 'U',
+        );
+
         switch (true) {
-            case array_key_exists($name, $formats = array(
-                'year' => 'Y',
-                'yearIso' => 'o',
-                'month' => 'n',
-                'day' => 'j',
-                'hour' => 'G',
-                'minute' => 'i',
-                'second' => 's',
-                'micro' => 'u',
-                'dayOfWeek' => 'w',
-                'dayOfYear' => 'z',
-                'weekOfYear' => 'W',
-                'daysInMonth' => 't',
-                'timestamp' => 'U',
-            )):
+            case isset($formats[$name]):
                 return (int) $this->format($formats[$name]);
 
             case $name === 'weekOfMonth':
