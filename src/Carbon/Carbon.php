@@ -296,6 +296,7 @@ class Carbon extends DateTime
         }
 
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        static::setLastErrors(parent::getLastErrors());
     }
 
     /**
@@ -580,10 +581,13 @@ class Carbon extends DateTime
             $dt = parent::createFromFormat($format, $time);
         }
 
-        static::setLastErrors($lastErrors = parent::getLastErrors());
+        $lastErrors = parent::getLastErrors();
 
         if ($dt instanceof DateTime) {
-            return static::instance($dt);
+            $instance = static::instance($dt);
+            $instance::setLastErrors($lastErrors);
+
+            return $instance;
         }
 
         throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
