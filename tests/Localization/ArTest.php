@@ -22,9 +22,6 @@ class ArTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
-
             $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('منذ ثانية', $d->diffForHumans());
 
@@ -39,9 +36,6 @@ class ArTest extends AbstractTestCase
 
             $d = Carbon::now()->subSeconds(11);
             $scope->assertSame('منذ 11 ثانية', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('منذ دقيقة', $d->diffForHumans());
@@ -58,9 +52,6 @@ class ArTest extends AbstractTestCase
             $d = Carbon::now()->subMinutes(11);
             $scope->assertSame('منذ 11 دقيقة', $d->diffForHumans());
 
-            $d = Carbon::now()->subHours(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
-
             $d = Carbon::now()->subHours(1);
             $scope->assertSame('منذ ساعة', $d->diffForHumans());
 
@@ -75,9 +66,6 @@ class ArTest extends AbstractTestCase
 
             $d = Carbon::now()->subHours(11);
             $scope->assertSame('منذ 11 ساعة', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(1);
             $scope->assertSame('منذ يوم', $d->diffForHumans());
@@ -94,9 +82,6 @@ class ArTest extends AbstractTestCase
             $d = Carbon::now()->subDays(11);
             $scope->assertSame('منذ أسبوع', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeeks(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
-
             $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('منذ أسبوع', $d->diffForHumans());
 
@@ -112,9 +97,6 @@ class ArTest extends AbstractTestCase
             $d = Carbon::now()->subWeeks(11);
             $scope->assertSame('منذ شهرين', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonths(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
-
             $d = Carbon::now()->subMonths(1);
             $scope->assertSame('منذ شهر', $d->diffForHumans());
 
@@ -129,9 +111,6 @@ class ArTest extends AbstractTestCase
 
             $d = Carbon::now()->subMonths(11);
             $scope->assertSame('منذ 11 شهر', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(0);
-            $scope->assertSame('منذ ثانية', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(1);
             $scope->assertSame('منذ سنة', $d->diffForHumans());

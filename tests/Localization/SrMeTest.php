@@ -22,9 +22,6 @@ class SrMeTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
-
             $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('prije 1 sekund', $d->diffForHumans());
 
@@ -87,9 +84,6 @@ class SrMeTest extends AbstractTestCase
 
             $d = Carbon::now()->subSeconds(54);
             $scope->assertSame('prije 54 sekunde', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('prije 1 minut', $d->diffForHumans());
@@ -154,9 +148,6 @@ class SrMeTest extends AbstractTestCase
             $d = Carbon::now()->subMinutes(54);
             $scope->assertSame('prije 54 minuta', $d->diffForHumans());
 
-            $d = Carbon::now()->subHours(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
-
             $d = Carbon::now()->subHours(1);
             $scope->assertSame('prije 1 sat', $d->diffForHumans());
 
@@ -219,9 +210,6 @@ class SrMeTest extends AbstractTestCase
 
             $d = Carbon::now()->subHours(54);
             $scope->assertSame('prije 2 dana', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(1);
             $scope->assertSame('prije 1 dan', $d->diffForHumans());
@@ -286,9 +274,6 @@ class SrMeTest extends AbstractTestCase
             $d = Carbon::now()->subDays(54);
             $scope->assertSame('prije 1 mjesec', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeeks(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
-
             $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('prije 1 nedjelju', $d->diffForHumans());
 
@@ -352,9 +337,6 @@ class SrMeTest extends AbstractTestCase
             $d = Carbon::now()->subWeeks(54);
             $scope->assertSame('prije 1 godinu', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonths(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
-
             $d = Carbon::now()->subMonths(1);
             $scope->assertSame('prije 1 mjesec', $d->diffForHumans());
 
@@ -417,9 +399,6 @@ class SrMeTest extends AbstractTestCase
 
             $d = Carbon::now()->subMonths(54);
             $scope->assertSame('prije 4 godine', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(0);
-            $scope->assertSame('prije 1 sekund', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(1);
             $scope->assertSame('prije 1 godinu', $d->diffForHumans());

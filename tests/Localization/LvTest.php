@@ -22,17 +22,11 @@ class LvTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
-
             $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('pirms 2 sekundēm', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('pirms 1 minūtes', $d->diffForHumans());
@@ -40,17 +34,11 @@ class LvTest extends AbstractTestCase
             $d = Carbon::now()->subMinutes(2);
             $scope->assertSame('pirms 2 minūtēm', $d->diffForHumans());
 
-            $d = Carbon::now()->subHours(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
-
             $d = Carbon::now()->subHours(1);
             $scope->assertSame('pirms 1 stundas', $d->diffForHumans());
 
             $d = Carbon::now()->subHours(2);
             $scope->assertSame('pirms 2 stundām', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(1);
             $scope->assertSame('pirms 1 dienas', $d->diffForHumans());
@@ -58,26 +46,17 @@ class LvTest extends AbstractTestCase
             $d = Carbon::now()->subDays(2);
             $scope->assertSame('pirms 2 dienām', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeeks(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
-
             $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('pirms 1 nedēļas', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('pirms 2 nedēļām', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonths(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
-
             $d = Carbon::now()->subMonths(1);
             $scope->assertSame('pirms 1 mēneša', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
             $scope->assertSame('pirms 2 mēnešiem', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(0);
-            $scope->assertSame('pirms 1 sekundes', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(1);
             $scope->assertSame('pirms 1 gada', $d->diffForHumans());
