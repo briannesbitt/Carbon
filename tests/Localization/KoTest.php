@@ -22,11 +22,58 @@ class KoTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->addYear();
-            $scope->assertSame('1 년 후', $d->diffForHumans());
+            $d = Carbon::now()->subSeconds(1);
+            $scope->assertSame('1 초 전', $d->diffForHumans());
 
-            $d = Carbon::now()->addYears(2);
-            $scope->assertSame('2 년 후', $d->diffForHumans());
+            $d = Carbon::now()->subSeconds(2);
+            $scope->assertSame('2 초 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subMinutes(1);
+            $scope->assertSame('1 분 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subMinutes(2);
+            $scope->assertSame('2 분 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subHours(1);
+            $scope->assertSame('1 시간 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subHours(2);
+            $scope->assertSame('2 시간 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subDays(1);
+            $scope->assertSame('1 일 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subDays(2);
+            $scope->assertSame('2 일 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subWeeks(1);
+            $scope->assertSame('1 주일 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subWeeks(2);
+            $scope->assertSame('2 주일 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonths(1);
+            $scope->assertSame('1 개월 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonths(2);
+            $scope->assertSame('2 개월 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subYears(1);
+            $scope->assertSame('1 년 전', $d->diffForHumans());
+
+            $d = Carbon::now()->subYears(2);
+            $scope->assertSame('2 년 전', $d->diffForHumans());
+
+            $d = Carbon::now()->addSecond();
+            $scope->assertSame('1 초 후', $d->diffForHumans());
+
+            $d = Carbon::now()->addSecond();
+            $d2 = Carbon::now();
+            $scope->assertSame('1 초 뒤', $d->diffForHumans($d2));
+            $scope->assertSame('1 초 앞', $d2->diffForHumans($d));
+
+            $scope->assertSame('1 초', $d->diffForHumans($d2, true));
+            $scope->assertSame('2 초', $d2->diffForHumans($d->addSecond(), true));
         });
     }
 }

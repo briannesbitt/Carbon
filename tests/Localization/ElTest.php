@@ -16,49 +16,49 @@ use Tests\AbstractTestCase;
 
 class ElTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInEl()
+    public function testDiffForHumansLocalizedInGreek()
     {
         Carbon::setLocale('el');
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSecond();
+            $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('πριν από 1 δευτερόλεπτο', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('πριν από 2 δευτερόλεπτα', $d->diffForHumans());
 
-            $d = Carbon::now()->subMinute();
+            $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('πριν από 1 λεπτό', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(2);
             $scope->assertSame('πριν από 2 λεπτά', $d->diffForHumans());
 
-            $d = Carbon::now()->subHour();
+            $d = Carbon::now()->subHours(1);
             $scope->assertSame('πριν από 1 ώρα', $d->diffForHumans());
 
             $d = Carbon::now()->subHours(2);
             $scope->assertSame('πριν από 2 ώρες', $d->diffForHumans());
 
-            $d = Carbon::now()->subDay();
+            $d = Carbon::now()->subDays(1);
             $scope->assertSame('πριν από 1 μέρα', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(2);
             $scope->assertSame('πριν από 2 μέρες', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeek();
+            $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('πριν από 1 εβδομάδα', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('πριν από 2 εβδομάδες', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonth();
+            $d = Carbon::now()->subMonths(1);
             $scope->assertSame('πριν από 1 μήνας', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
             $scope->assertSame('πριν από 2 μήνες', $d->diffForHumans());
 
-            $d = Carbon::now()->subYear();
+            $d = Carbon::now()->subYears(1);
             $scope->assertSame('πριν από 1 χρόνος', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);
