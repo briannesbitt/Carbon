@@ -164,6 +164,18 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{getlocale2::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale2_eval}}
 </code></pre></p>
 
+<p>Some languages require utf8 encoding to be printed.  In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
+
+<p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
+{{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
+{{::lint(Carbon::setUtf8(false);)}}
+{{locale4::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale4_eval}}
+{{::lint(Carbon::setUtf8(true);)}}
+{{locale5::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale5_eval}}
+{{::lint(Carbon::setUtf8(false);)}}
+{{::lint(setlocale(LC_TIME, '');)}}
+</code></pre></p>
+
 <blockquote><p><strong>on Linux</strong><br>
 If you have trouble with translations, check locales installed in your system (local and production).<br>
 <code>locale -a</code> to list locales enabled.<br>
