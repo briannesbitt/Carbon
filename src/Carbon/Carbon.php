@@ -15,6 +15,7 @@ use Carbon\Exceptions\InvalidDateException;
 use Closure;
 use DatePeriod;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -1839,14 +1840,20 @@ class Carbon extends DateTime
     /**
      * Compares the formatted values of the two dates.
      *
-     * @param string                        $format The date formats to compare.
-     * @param \Carbon\Carbon|\DateTime|null $dt     The instance to compare with or null to use current day.
+     * @param string                                 $format The date formats to compare.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $dt     The instance to compare with or null to use current day.
+     *
+     * @throws \InvalidArgumentException
      *
      * @return bool
      */
     public function isSameAs($format, $dt = null)
     {
         $dt = $dt ?: static::now($this->tz);
+
+        if (!($dt instanceof DateTime) && !($dt instanceof DateTimeInterface)) {
+            throw new InvalidArgumentException('Expected DateTime (or instanceof) object as argument.');
+        }
 
         return $this->format($format) === $dt->format($format);
     }
@@ -1864,7 +1871,7 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same year as the instance year.
      *
-     * @param \Carbon\Carbon|\DateTime|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */
@@ -1886,22 +1893,20 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
-     * @param \Carbon\Carbon|\DateTime|null $dt         The instance to compare with or null to use current day.
-     * @param bool                          $ofSameYear Check if it is the same month in the same year.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $dt         The instance to compare with or null to use current day.
+     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
     public function isSameMonth($dt = null, $ofSameYear = false)
     {
-        $format = $ofSameYear ? 'Y-m' : 'm';
-
-        return $this->isSameAs($format, $dt);
+        return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $dt);
     }
 
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Carbon\Carbon|\DateTime $dt
+     * @param \Carbon\Carbon|\DateTimeInterface $dt
      *
      * @return bool
      */
@@ -3350,11 +3355,11 @@ class Carbon extends DateTime
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Carbon\Carbon|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $dt The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isBirthday(self $dt = null)
+    public function isBirthday($dt = null)
     {
         return $this->isSameAs('md', $dt);
     }

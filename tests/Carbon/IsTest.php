@@ -289,6 +289,21 @@ class IsTest extends AbstractTestCase
         $this->assertFalse($current->isSameDay(new DateTime('2012-01-03')));
     }
 
+    public function testIsSameAs()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameAs('c', $current));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testIsSameAsWithInvalidArgument()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $current->isSameAs('Y-m-d', 'abc');
+    }
+
     public function testIsSunday()
     {
         // True in the past past
