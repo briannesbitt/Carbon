@@ -256,6 +256,11 @@ $product = new SeasonalProduct(100);
 
 <p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.</p>
 
+<p><code>Carbon::parse($time, $tz)</code> and <code>new Carbon($time, $tz)</code> both can take a timezone as second argument.</p>
+
+<p><pre><code class="php">{{parsetimezone::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{parsetimezone_eval}}
+</code></pre></p>
+
 <h1 id="api-getters">Getters</h1>
 
 <p>The getters are implemented via PHP's <code>__get()</code> method.  This enables you to access the value as if it was a property rather than a function call.</p>
