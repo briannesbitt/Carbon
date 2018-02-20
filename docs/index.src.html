@@ -105,7 +105,7 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 <p><pre><code class="php">{{createFromTimeStamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp1_eval}}
 {{createFromTimeStamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp2_eval}}
 {{createFromTimeStampUTC::exec(echo Carbon::createFromTimeStampUTC(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStampUTC_eval}}
-{{createFromTimeStampMs::exec(echo Carbon::createFromTimeStampMs(-1)->format('Y-m-d\TH:i:s.uP');/*pad(80)*/)}} // {{createFromTimeStampMs_eval}}
+{{createFromTimeStampMs::exec(echo Carbon::createFromTimeStampMs(1)->format('Y-m-d\TH:i:s.uP');/*pad(80)*/)}} // {{createFromTimeStampMs_eval}}
 </code></pre></p>
 
 <p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
@@ -242,16 +242,16 @@ $product = new SeasonalProduct(100);
 <p>The list of words that are considered to be relative modifiers are:</p>
 
 <ul>
-  <li>this</li>
-  <li>next</li>
-  <li>last</li>
-  <li>tomorrow</li>
-  <li>yesterday</li>
   <li>+</li>
   <li>-</li>
-  <li>first</li>
-  <li>last</li>
   <li>ago</li>
+  <li>first</li>
+  <li>next</li>
+  <li>last</li>
+  <li>this</li>
+  <li>today</li>
+  <li>tomorrow</li>
+  <li>yesterday</li>
 </ul>
 
 <p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.</p>
