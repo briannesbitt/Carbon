@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 39);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 23);
 
 require 'vendor/autoload.php';
 
@@ -40,6 +40,22 @@ foreach (get_class_methods($carbon) as $method) {
     $reflexion = new \ReflectionMethod($carbon, $method);
     $argumentsCount = count($reflexion->getParameters());
     $argumentsDocumented = true;
+
+    if ($argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method)) {
+        $argumentsCount = 0;
+    }
+
+    if ($argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method)) {
+        $argumentsCount = 0;
+    }
+
+    if ($argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method)) {
+        $argumentsCount = 0;
+    }
+
+    if ($argumentsCount === 4 && $method === 'diffFiltered') {
+        $argumentsCount = 0;
+    }
 
     if ($argumentsCount) {
         preg_match_all('/'.preg_quote($method, '/').'\s*\\((

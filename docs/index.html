@@ -74,10 +74,10 @@ class Carbon extends \DateTime
 
 <p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
 
-<p><pre><code class="php">$dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');
-$dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
+<p><pre><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
+$dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 
-echo $dtVancouver->diffInHours($dtToronto); // 0
+echo $dtVancouver->diffInHours($dtToronto); // 3
 </code></pre></p>
 
 Also <code>is</code> comparisons are done in the timezone of the provided Carbon instance.  For example my current timezone is -13 hours from Tokyo.  So <code>Carbon::now('Asia/Tokyo')->isToday()</code> would only return false for any time past 1 PM my time.  This doesn't make sense since <code>now()</code> in tokyo is always today in Tokyo.  Thus the comparison to <code>now()</code> is done in the same timezone as the current instance.</p>
@@ -114,7 +114,7 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-02-21 08:47:30
+echo $now;                               // 2018-02-21 12:09:23
 $today = Carbon::today();
 echo $today;                             // 2018-02-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -250,7 +250,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-02-21 08:47:30
+echo Carbon::now();                                    // 2018-02-21 12:09:23
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -516,7 +516,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2018-02-21 08:47:30
+echo $dt1->max();                                  // 2018-02-21 12:09:23
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -571,10 +571,20 @@ var_dump($overTheHill->isBirthday());              // bool(true) -> default comp
 
 echo $dt->toDateTimeString();            // 2012-01-31 00:00:00
 
+echo $dt->addCenturies(5);               // 2512-01-31 00:00:00
+echo $dt->addCentury();                  // 2612-01-31 00:00:00
+echo $dt->subCentury();                  // 2512-01-31 00:00:00
+echo $dt->subCenturies(5);               // 2012-01-31 00:00:00
+
 echo $dt->addYears(5);                   // 2017-01-31 00:00:00
 echo $dt->addYear();                     // 2018-01-31 00:00:00
 echo $dt->subYear();                     // 2017-01-31 00:00:00
 echo $dt->subYears(5);                   // 2012-01-31 00:00:00
+
+echo $dt->addQuarters(2);                // 2012-07-31 00:00:00
+echo $dt->addQuarter();                  // 2012-10-31 00:00:00
+echo $dt->subQuarter();                  // 2012-07-31 00:00:00
+echo $dt->subQuarters(2);                // 2012-01-31 00:00:00
 
 echo $dt->addMonths(60);                 // 2017-01-31 00:00:00
 echo $dt->addMonth();                    // 2017-03-03 00:00:00 equivalent of $dt->month($dt->month + 1); so it wraps
@@ -714,11 +724,11 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 
 echo $daysForExtraCoding;      // 104
 
-$dt = Carbon::create(2014, 1, 1)->startOfDay();
-$dt2 = $dt->copy()->endOfDay();
+$dt = Carbon::create(2014, 1, 1)->endOfDay();
+$dt2 = $dt->copy()->startOfDay();
 $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carbon $date) {
    return $date->minute === 0;
-}, $dt2);
+}, $dt2, true); // true as last parameter returns absolute value
 
 echo $littleHandRotations;     // 24
 
@@ -728,6 +738,8 @@ echo $littleHandRotations;     // 24
 // diffInHours(), diffInMinutes(), diffInSeconds()
 // secondsSinceMidnight(), secondsUntilEndOfDay()
 </code></pre></p>
+
+<p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
 
@@ -763,6 +775,8 @@ echo $littleHandRotations;     // 24
 </ul>
 
 <p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
+<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans(Carbon $other, false, true)</code>.</p>
+<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans(Carbon $other, false, false, 4)</code>.</p>
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -779,6 +793,8 @@ echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from
 
 echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
 echo Carbon::now()->subDays(24)->diffForHumans(null, true);    // 3 weeks
+
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
@@ -845,10 +861,30 @@ $start = Carbon::create(2014, 1, 1, 0, 0, 0);
 $end = Carbon::create(2014, 1, 30, 0, 0, 0);
 echo $start->average($end);                        // 2014-01-15 12:00:00
 
-// others that are defined that are similar
-//   firstOfMonth(), lastOfMonth(), nthOfMonth()
-//   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
-//   firstOfYear(), lastOfYear(), nthOfYear()
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth();                       // 2014-05-01 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth(Carbon::MONDAY);         // 2014-05-05 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth();                        // 2014-05-31 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth(Carbon::TUESDAY);         // 2014-05-27 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfMonth(2, Carbon::SATURDAY);      // 2014-05-10 00:00:00
+
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter();                     // 2014-04-01 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter(Carbon::MONDAY);       // 2014-04-07 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter();                      // 2014-06-30 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter(Carbon::TUESDAY);       // 2014-06-24 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfQuarter(2, Carbon::SATURDAY);    // 2014-04-12 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->startOfQuarter();                     // 2014-04-01 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->endOfQuarter();                       // 2014-06-30 23:59:59
+
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear();                        // 2014-01-01 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear(Carbon::MONDAY);          // 2014-01-06 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear();                         // 2014-12-31 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear(Carbon::TUESDAY);          // 2014-12-30 00:00:00
+echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfYear(2, Carbon::SATURDAY);       // 2014-01-11 00:00:00
+
+echo Carbon::create(2018, 2, 23, 0, 0, 0)->nextWeekday();                        // 2018-02-26 00:00:00
+echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();                    // 2018-02-22 00:00:00
+echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();                     // 2018-02-24 00:00:00
+echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();                 // 2018-02-18 00:00:00
 </code></pre></p>
 
 <h1 id="api-constants">Constants</h1>
