@@ -164,7 +164,7 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{getlocale2::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale2_eval}}
 </code></pre></p>
 
-<p>Some languages require utf8 encoding to be printed.  In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
+<p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code> mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
 {{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
@@ -644,9 +644,10 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 {{diff1::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{diff1_eval}}
 
-{{::lint($dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');)}}
-{{::lint($dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');)}}
+{{::lint($dtOttawa = Carbon::create(2000, 1, 1, 0, 0, 0, 'America/Toronto');)}}
+{{::lint($dtVancouver = Carbon::create(2000, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
 {{diff4::exec(echo $dtOttawa->diffInHours($dtVancouver);/*pad(70)*/)}} // {{diff4_eval}}
+{{diff4b::exec(echo $dtVancouver->diffInHours($dtOttawa);/*pad(70)*/)}} // {{diff4b_eval}}
 
 {{diff5::exec(echo $dtOttawa->diffInHours($dtVancouver, false);/*pad(70)*/)}} // {{diff5_eval}}
 {{diff6::exec(echo $dtVancouver->diffInHours($dtOttawa, false);/*pad(70)*/)}} // {{diff6_eval}}
