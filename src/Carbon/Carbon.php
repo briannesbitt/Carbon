@@ -1361,7 +1361,7 @@ class Carbon extends DateTime
      */
     public function toIso8601ZuluString()
     {
-        return $this->setTimezone('UTC')->format('Y-m-d\TH:i:s\Z');
+        return $this->copy()->setTimezone('UTC')->format('Y-m-d\TH:i:s\Z');
     }
 
     /**
