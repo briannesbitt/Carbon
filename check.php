@@ -35,43 +35,47 @@ foreach (get_class_methods($carbon) as $method) {
     $message = $documented ? 'documented' : 'missing';
     $methodPad = str_pad($method, 25);
 
-    if (!$documented || !isset($argv[1]) || $argv[1] !== 'missing') {
-        display("- $methodPad \033[0;{$color}m{$message}\033[0m\n");
+    $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-        $reflexion = new \ReflectionMethod($carbon, $method);
-        $argumentsCount = count($reflexion->getParameters());
-        if ($argumentsCount) {
-            preg_match_all('/'.preg_quote($method, '/').'\s*\\((
-                "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-                \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-                (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                [^\\{\\}\\(\\)\\[\\]\'"]+
-            )\\)/x', $documentation, $matches, PREG_PATTERN_ORDER);
-            $coveredArgs = 0;
-            if (!empty($matches[1])) {
-                foreach ($matches[1] as $argumentsString) {
-                    $count = count(explode(',', preg_replace('/(\\((
-                        "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-                        \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                        (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-                        (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                        (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                        [^\\{\\}\\(\\)\\[\\]\'"]+
-                    )\\))/x', '', $argumentsString)));
-                    if ($count > $coveredArgs) {
-                        $coveredArgs = $count;
-                    }
+    $reflexion = new \ReflectionMethod($carbon, $method);
+    $argumentsCount = count($reflexion->getParameters());
+    $argumentsDocumented = true;
+
+    if ($argumentsCount) {
+        preg_match_all('/'.preg_quote($method, '/').'\s*\\((
+            "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+            \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
+            (\\[([^\\[\\]\'"]+|(?1))*\\]) |
+            (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+            (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+            [^\\{\\}\\(\\)\\[\\]\'"]+
+        )\\)/x', $documentation, $matches, PREG_PATTERN_ORDER);
+        $coveredArgs = 0;
+        if (!empty($matches[1])) {
+            foreach ($matches[1] as $argumentsString) {
+                $count = count(explode(',', preg_replace('/(\\((
+                    "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                    \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
+                    (\\[([^\\[\\]\'"]+|(?1))*\\]) |
+                    (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+                    (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                    [^\\{\\}\\(\\)\\[\\]\'"]+
+                )\\))/x', '', $argumentsString)));
+                if ($count > $coveredArgs) {
+                    $coveredArgs = $count;
                 }
             }
-
-            $missingArguments += $argumentsCount - $coveredArgs;
-            $color = $argumentsCount === $coveredArgs ? 32 : 31;
-            $message = $documented ? 'documented' : 'missing';
-
-            display("   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n");
         }
+
+        $missingArguments += $argumentsCount - $coveredArgs;
+        $argumentsDocumented = $argumentsCount === $coveredArgs;
+        $color = $argumentsDocumented ? 32 : 31;
+        $message = $documented ? 'documented' : 'missing';
+
+        $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+    }
+    if (!$documented || !$argumentsDocumented || (isset($argv[1]) && $argv[1] === 'verbose')) {
+        display($output);
     }
 }
 
