@@ -4,7 +4,7 @@
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
- * 
+ *
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -58,5 +58,5 @@ return array(
     'day_before' => ':count хоногий',
     'hour_before' => ':count цагий',
     'minute_before' => ':count минуты',
-    'second_before' => ':count секунды'
+    'second_before' => ':count секунды',
 );
