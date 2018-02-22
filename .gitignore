@@ -7,4 +7,5 @@ vendor
 composer.phar
 composer.lock
 coverage.xml
+coverage
 phpunit.xml
