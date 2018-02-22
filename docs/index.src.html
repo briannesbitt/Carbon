@@ -23,8 +23,8 @@ class Carbon extends \DateTime
 
 <p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
 
-<p><pre><code class="php">{{::lint($dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');)}}
-{{::lint($dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');)}}
+<p><pre><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
+{{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
 
 {{tz::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{tz_eval}}
 </code></pre></p>
@@ -536,10 +536,20 @@ $dt->isSameAs('w', Carbon::now()); // w is the date of the week, so this will re
 
 {{addsub1::exec(echo $dt->toDateTimeString();/*pad(40)*/)}} // {{addsub1_eval}}
 
+{{addCenturies::exec(echo $dt->addCenturies(5);/*pad(40)*/)}} // {{addCenturies_eval}}
+{{addCentury::exec(echo $dt->addCentury();/*pad(40)*/)}} // {{addCentury_eval}}
+{{subCentury::exec(echo $dt->subCentury();/*pad(40)*/)}} // {{subCentury_eval}}
+{{subCenturies::exec(echo $dt->subCenturies(5);/*pad(40)*/)}} // {{subCenturies_eval}}
+
 {{addsub2::exec(echo $dt->addYears(5);/*pad(40)*/)}} // {{addsub2_eval}}
 {{addsub3::exec(echo $dt->addYear();/*pad(40)*/)}} // {{addsub3_eval}}
 {{addsub4::exec(echo $dt->subYear();/*pad(40)*/)}} // {{addsub4_eval}}
 {{addsub5::exec(echo $dt->subYears(5);/*pad(40)*/)}} // {{addsub5_eval}}
+
+{{addQuarters::exec(echo $dt->addQuarters(2);/*pad(40)*/)}} // {{addQuarters_eval}}
+{{addQuarter::exec(echo $dt->addQuarter();/*pad(40)*/)}} // {{addQuarter_eval}}
+{{subQuarter::exec(echo $dt->subQuarter();/*pad(40)*/)}} // {{subQuarter_eval}}
+{{subQuarters::exec(echo $dt->subQuarters(2);/*pad(40)*/)}} // {{subQuarters_eval}}
 
 {{addsub6::exec(echo $dt->addMonths(60);/*pad(40)*/)}} // {{addsub6_eval}}
 {{addsub7::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{addsub7_eval}} equivalent of $dt->month($dt->month + 1); so it wraps
@@ -614,9 +624,13 @@ to explicitly add/sub months with or without overflow no matter the current mode
 $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 {{addoverflow5::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow5_eval}}
+// plural addMonthsWithOverflow() method is also available
 {{addoverflow6::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow6_eval}}
+// singular subMonthWithOverflow() method is also available
 {{addoverflow7::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{addoverflow7_eval}}
+// plural addMonthsNoOverflow() method is also available
 {{addoverflow8::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{addoverflow8_eval}}
+// singular subMonthNoOverflow() method is also available
 
 {{addoverflowremind1::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind1_eval}}
 {{addoverflowremind2::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind2_eval}}
@@ -682,11 +696,11 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 {{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
 
 {{::lint(
-$dt = Carbon::create(2014, 1, 1)->startOfDay();
-$dt2 = $dt->copy()->endOfDay();
+$dt = Carbon::create(2014, 1, 1)->endOfDay();
+$dt2 = $dt->copy()->startOfDay();
 $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carbon $date) {
    return $date->minute === 0;
-}, $dt2);
+}, $dt2, true); // true as last parameter returns absolute value
 )}}
 
 {{littleHandRotations::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{littleHandRotations_eval}}
@@ -697,6 +711,8 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 // diffInHours(), diffInMinutes(), diffInSeconds()
 // secondsSinceMidnight(), secondsUntilEndOfDay()
 </code></pre></p>
+
+<p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
 
@@ -732,6 +748,8 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 </ul>
 
 <p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
+<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans(Carbon $other, false, true)</code>.</p>
+<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans(Carbon $other, false, false, 4)</code>.</p>
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -748,6 +766,8 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 
 {{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(62)*/)}} // {{humandiff7_eval}}
 {{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(62)*/)}} // {{humandiff8_eval}}
+
+{{humandiff9::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{humandiff9_eval}}
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
@@ -814,10 +834,30 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 {{::lint($end = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
 {{modifierAverage::exec(echo $start->average($end);/*pad(50)*/)}} // {{modifierAverage_eval}}
 
-// others that are defined that are similar
-//   firstOfMonth(), lastOfMonth(), nthOfMonth()
-//   firstOfQuarter(), lastOfQuarter(), nthOfQuarter()
-//   firstOfYear(), lastOfYear(), nthOfYear()
+{{firstOfMonth1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth();/*pad(80)*/)}} // {{firstOfMonth1_eval}}
+{{firstOfMonth2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfMonth2_eval}}
+{{lastOfMonth1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth();/*pad(80)*/)}} // {{lastOfMonth1_eval}}
+{{lastOfMonth2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfMonth2_eval}}
+{{nthOfMonth::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfMonth(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfMonth_eval}}
+
+{{firstOfQuarter1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter();/*pad(80)*/)}} // {{firstOfQuarter1_eval}}
+{{firstOfQuarter2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfQuarter2_eval}}
+{{lastOfQuarter1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter();/*pad(80)*/)}} // {{lastOfQuarter1_eval}}
+{{lastOfQuarter2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfQuarter2_eval}}
+{{nthOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfQuarter(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfQuarter_eval}}
+{{startOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->startOfQuarter();/*pad(80)*/)}} // {{startOfQuarter_eval}}
+{{endOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->endOfQuarter();/*pad(80)*/)}} // {{endOfQuarter_eval}}
+
+{{firstOfYear1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear();/*pad(80)*/)}} // {{firstOfYear1_eval}}
+{{firstOfYear2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfYear2_eval}}
+{{lastOfYear1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear();/*pad(80)*/)}} // {{lastOfYear1_eval}}
+{{lastOfYear2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfYear2_eval}}
+{{nthOfYear::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfYear(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfYear_eval}}
+
+{{nextWeekday::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->nextWeekday();/*pad(80)*/)}} // {{nextWeekday_eval}}
+{{previousWeekday::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();/*pad(80)*/)}} // {{previousWeekday_eval}}
+{{nextWeekendDay::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();/*pad(80)*/)}} // {{nextWeekendDay_eval}}
+{{previousWeekendDay::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();/*pad(80)*/)}} // {{previousWeekendDay_eval}}
 </code></pre></p>
 
 <h1 id="api-constants">Constants</h1>
