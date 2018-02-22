@@ -87,7 +87,7 @@ class SkTest extends AbstractTestCase
             $d2 = Carbon::now();
             $scope->assertSame('o sekundu neskôr', $d->diffForHumans($d2));
             $scope->assertSame('sekundu predtým', $d2->diffForHumans($d));
-            
+
             $d = Carbon::now()->addSecond(2);
             $d2 = Carbon::now();
             $scope->assertSame('o 2 sekundy neskôr', $d->diffForHumans($d2));
