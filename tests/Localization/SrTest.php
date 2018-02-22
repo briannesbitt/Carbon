@@ -16,49 +16,49 @@ use Tests\AbstractTestCase;
 
 class SrTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInSr()
+    public function testDiffForHumansLocalizedInSerbian()
     {
         Carbon::setLocale('sr');
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSecond();
+            $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('pre 1 sekund', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('pre 2 sekunde', $d->diffForHumans());
 
-            $d = Carbon::now()->subMinute();
+            $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('pre 1 minut', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(2);
             $scope->assertSame('pre 2 minuta', $d->diffForHumans());
 
-            $d = Carbon::now()->subHour();
+            $d = Carbon::now()->subHours(1);
             $scope->assertSame('pre 1 sat', $d->diffForHumans());
 
             $d = Carbon::now()->subHours(2);
             $scope->assertSame('pre 2 sata', $d->diffForHumans());
 
-            $d = Carbon::now()->subDay();
+            $d = Carbon::now()->subDays(1);
             $scope->assertSame('pre 1 dan', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(2);
             $scope->assertSame('pre 2 dana', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeek();
+            $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('pre 1 nedelja', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('pre 2 nedelje', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonth();
+            $d = Carbon::now()->subMonths(1);
             $scope->assertSame('pre 1 mesec', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
             $scope->assertSame('pre 2 meseca', $d->diffForHumans());
 
-            $d = Carbon::now()->subYear();
+            $d = Carbon::now()->subYears(1);
             $scope->assertSame('pre 1 godina', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);

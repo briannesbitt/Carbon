@@ -22,53 +22,58 @@ class DeTest extends AbstractTestCase
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->addYear();
-            $scope->assertSame('in 1 Jahr', $d->diffForHumans());
-            $scope->assertSame('1J', $d->diffForHumans(null, true, true));
+            $d = Carbon::now()->subSeconds(1);
+            $scope->assertSame('vor 1 Sekunde', $d->diffForHumans());
 
-            $d = Carbon::now()->addYears(2);
-            $scope->assertSame('in 2 Jahren', $d->diffForHumans());
-            $scope->assertSame('2J', $d->diffForHumans(null, true, true));
-            $scope->assertSame('in 2J', $d->diffForHumans(null, false, true));
+            $d = Carbon::now()->subSeconds(2);
+            $scope->assertSame('vor 2 Sekunden', $d->diffForHumans());
 
-            $d = Carbon::now()->subYear();
-            $scope->assertSame('1 Jahr später', Carbon::now()->diffForHumans($d));
+            $d = Carbon::now()->subMinutes(1);
+            $scope->assertSame('vor 1 Minute', $d->diffForHumans());
 
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 Jahre später', Carbon::now()->diffForHumans($d));
+            $d = Carbon::now()->subMinutes(2);
+            $scope->assertSame('vor 2 Minuten', $d->diffForHumans());
 
-            $d = Carbon::now()->addYear();
-            $scope->assertSame('1 Jahr zuvor', Carbon::now()->diffForHumans($d));
+            $d = Carbon::now()->subHours(1);
+            $scope->assertSame('vor 1 Stunde', $d->diffForHumans());
 
-            $d = Carbon::now()->addYears(2);
-            $scope->assertSame('2 Jahre zuvor', Carbon::now()->diffForHumans($d));
+            $d = Carbon::now()->subHours(2);
+            $scope->assertSame('vor 2 Stunden', $d->diffForHumans());
 
-            $d = Carbon::now()->subYear();
+            $d = Carbon::now()->subDays(1);
+            $scope->assertSame('vor 1 Tag', $d->diffForHumans());
+
+            $d = Carbon::now()->subDays(2);
+            $scope->assertSame('vor 2 Tagen', $d->diffForHumans());
+
+            $d = Carbon::now()->subWeeks(1);
+            $scope->assertSame('vor 1 Woche', $d->diffForHumans());
+
+            $d = Carbon::now()->subWeeks(2);
+            $scope->assertSame('vor 2 Wochen', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonths(1);
+            $scope->assertSame('vor 1 Monat', $d->diffForHumans());
+
+            $d = Carbon::now()->subMonths(2);
+            $scope->assertSame('vor 2 Monaten', $d->diffForHumans());
+
+            $d = Carbon::now()->subYears(1);
             $scope->assertSame('vor 1 Jahr', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);
             $scope->assertSame('vor 2 Jahren', $d->diffForHumans());
 
-            $d = Carbon::now()->subMinute();
-            $scope->assertSame('1Min', $d->diffForHumans(null, true, true));
+            $d = Carbon::now()->addSecond();
+            $scope->assertSame('in 1 Sekunde', $d->diffForHumans());
 
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('vor 2Std', $d->diffForHumans(null, false, true));
+            $d = Carbon::now()->addSecond();
+            $d2 = Carbon::now();
+            $scope->assertSame('1 Sekunde später', $d->diffForHumans($d2));
+            $scope->assertSame('1 Sekunde zuvor', $d2->diffForHumans($d));
 
-            $d = Carbon::now()->subDay();
-            $scope->assertSame('vor 1Tg', $d->diffForHumans(null, false, true));
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('vor 2Wo', $d->diffForHumans(null, false, true));
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('vor 2Mon', $d->diffForHumans(null, false, true));
-
-            $d = Carbon::now()->addYear();
-            $scope->assertSame('in 1J', $d->diffForHumans(null, false, true));
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('vor 2Sek', $d->diffForHumans(null, false, true));
+            $scope->assertSame('1 Sekunde', $d->diffForHumans($d2, true));
+            $scope->assertSame('2 Sekunden', $d2->diffForHumans($d->addSecond(), true));
         });
     }
 }

@@ -16,49 +16,49 @@ use Tests\AbstractTestCase;
 
 class ZhTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInTurkish()
+    public function testDiffForHumansLocalizedInChinese()
     {
         Carbon::setLocale('zh');
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSecond();
+            $d = Carbon::now()->subSeconds(1);
             $scope->assertSame('1秒前', $d->diffForHumans());
 
             $d = Carbon::now()->subSeconds(2);
             $scope->assertSame('2秒前', $d->diffForHumans());
 
-            $d = Carbon::now()->subMinute();
+            $d = Carbon::now()->subMinutes(1);
             $scope->assertSame('1分钟前', $d->diffForHumans());
 
             $d = Carbon::now()->subMinutes(2);
             $scope->assertSame('2分钟前', $d->diffForHumans());
 
-            $d = Carbon::now()->subHour();
+            $d = Carbon::now()->subHours(1);
             $scope->assertSame('1小时前', $d->diffForHumans());
 
             $d = Carbon::now()->subHours(2);
             $scope->assertSame('2小时前', $d->diffForHumans());
 
-            $d = Carbon::now()->subDay();
+            $d = Carbon::now()->subDays(1);
             $scope->assertSame('1天前', $d->diffForHumans());
 
             $d = Carbon::now()->subDays(2);
             $scope->assertSame('2天前', $d->diffForHumans());
 
-            $d = Carbon::now()->subWeek();
+            $d = Carbon::now()->subWeeks(1);
             $scope->assertSame('1周前', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('2周前', $d->diffForHumans());
 
-            $d = Carbon::now()->subMonth();
+            $d = Carbon::now()->subMonths(1);
             $scope->assertSame('1个月前', $d->diffForHumans());
 
             $d = Carbon::now()->subMonths(2);
             $scope->assertSame('2个月前', $d->diffForHumans());
 
-            $d = Carbon::now()->subYear();
+            $d = Carbon::now()->subYears(1);
             $scope->assertSame('1年前', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);
