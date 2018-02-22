@@ -289,7 +289,12 @@ $product = new SeasonalProduct(100);
 {{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
+{{getwim::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{getwim_eval}}
+// weekNumberInMonth consider weeks from monday to sunday, so the week 1 will
+// contain 1 day if the month start with a sunday, and up to 7 if it starts with a monday
 {{getwom::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{getwom_eval}}
+// weekOfMonth will returns 1 for the 7 first days of the month, then 2 from the 8th to
+// the 14th, 3 from the 15th to the 21st, 4 from 22nd to 28th and 5 above
 {{getwoy::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{getwoy_eval}}
 {{getdnm::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{getdnm_eval}}
 {{getts::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{getts_eval}}
