@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class SrCyrlMeTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInSrCyrlMe()
+    public function testDiffForHumansLocalizedInCyrillicSerbianMe()
     {
         Carbon::setLocale('sr_Cyrl_ME');
 

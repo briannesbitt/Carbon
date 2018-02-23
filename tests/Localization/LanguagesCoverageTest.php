@@ -21,13 +21,18 @@ class LanguagesCoverageTest extends AbstractTestCase
         $tests = array_map(function ($file) {
             return strtolower(substr(basename($file), 0, -8));
         }, glob(__DIR__.'/*Test.php'));
-        $missingLanguages = count(array_filter($languages, function ($language) use ($tests) {
-            return !in_array(
-                str_replace(array('_', '-'), '', strtolower(substr(basename($language), 0, -4))),
+        $tester = $this;
+        $missingLanguages = array_filter($languages, function ($language) use ($tester, $tests) {
+            $file = basename($language);
+            $covered = in_array(
+                str_replace(array('_', '-'), '', strtolower(substr($file, 0, -4))),
                 $tests
             );
-        }));
+            $tester->assertTrue($covered, "Expect $file language file to be covered.");
 
-        $this->assertSame(0, $missingLanguages);
+            return !$covered;
+        });
+
+        $this->assertCount(0, $missingLanguages, 'Expect to have 0 languages uncovered.');
     }
 }

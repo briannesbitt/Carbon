@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class SrLatnMeTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInSrLatnMe()
+    public function testDiffForHumansLocalizedInLatinSerbianMe()
     {
         Carbon::setLocale('sr_Latn_ME');
 

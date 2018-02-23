@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class SrCyrlTest extends AbstractTestCase
 {
-    public function testDiffForHumansLocalizedInSrCyrl()
+    public function testDiffForHumansLocalizedInCyrillicSerbian()
     {
         Carbon::setLocale('sr_Cyrl');
         $scope = $this;
