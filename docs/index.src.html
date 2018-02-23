@@ -421,7 +421,16 @@ Carbon::resetToStringFormat();
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
 {{format22::exec(echo $dt->toAtomString();/*pad(30)*/)}} // {{format22_eval}}
 {{format23::exec(echo $dt->toCookieString();/*pad(30)*/)}} // {{format23_eval}}
+
 {{format24::exec(echo $dt->toIso8601String();/*pad(30)*/)}} // {{format24_eval}}
+// Be aware we chose to use the full-extended format of the ISO 8601 norm
+// Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
+// is explained here in the PHP documentation:
+// http://php.net/manual/fr/class.datetime.php#datetime.constants.iso8601
+// We consider it as a PHP mistake and chose not to provide method for this
+// format, but you still can use it this way:
+{{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(30)*/)}} // {{formatiso8601_eval}}
+
 {{format25::exec(echo $dt->toRfc822String();/*pad(30)*/)}} // {{format25_eval}}
 {{format26::exec(echo $dt->toRfc850String();/*pad(30)*/)}} // {{format26_eval}}
 {{format27::exec(echo $dt->toRfc1036String();/*pad(30)*/)}} // {{format27_eval}}
