@@ -36,7 +36,7 @@ class LocalizationTest extends AbstractTestCase
         return array(
             array('af'),
             array('ar'),
-            array('ar_shakl'),
+            array('ar_Shakl'),
             array('az'),
             array('bg'),
             array('bn'),
@@ -84,6 +84,7 @@ class LocalizationTest extends AbstractTestCase
             array('sl'),
             array('sq'),
             array('sr'),
+            array('sr_Cyrl'),
             array('sr_Cyrl_ME'),
             array('sr_Latn_ME'),
             array('sr_ME'),
