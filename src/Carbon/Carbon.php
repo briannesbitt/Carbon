@@ -3375,27 +3375,6 @@ class Carbon extends DateTime
     }
 
     /**
-     * Consider the timezone when modifying the instance.
-     *
-     * @param string $modify
-     *
-     * @return static
-     */
-    public function modify($modify)
-    {
-        if ($this->local) {
-            return parent::modify($modify);
-        }
-
-        $timezone = $this->getTimezone();
-        $this->setTimezone('UTC');
-        $instance = parent::modify($modify);
-        $this->setTimezone($timezone);
-
-        return $instance;
-    }
-
-    /**
      * Return a serialized string of the instance.
      *
      * @return string
