@@ -426,7 +426,7 @@ Carbon::resetToStringFormat();
 // Be aware we chose to use the full-extended format of the ISO 8601 norm
 // Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
 // is explained here in the PHP documentation:
-// http://php.net/manual/fr/class.datetime.php#datetime.constants.iso8601
+// https://php.net/manual/class.datetime.php#datetime.constants.iso8601
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
 {{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(30)*/)}} // {{formatiso8601_eval}}
