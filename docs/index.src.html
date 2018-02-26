@@ -498,7 +498,7 @@ Carbon::resetToStringFormat();
 {{compare32::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{compare32_eval}}
 </code></pre></p>
 
-<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then taken into account starting with 7.1.</p>
+<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
 
 <p>To determine if the current instance is between two other instances you can use the aptly named <code>between()</code> method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.</p>
 
