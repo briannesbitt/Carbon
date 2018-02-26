@@ -13,7 +13,7 @@ return array(
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count године|[0,Inf[ :count година',
     'y' => ':count г.',
     'month' => '{1} :count мјесец|{2,3,4}:count мјесеца|[5,Inf[ :count мјесеци',
-    'm' => ':count м.',
+    'm' => ':count мј.',
     'week' => '{1} :count недјеља|{2,3,4}:count недјеље|[5,Inf[ :count недјеља',
     'w' => ':count нед.',
     'day' => '{1,21,31} :count дан|[2,Inf[ :count дана',
