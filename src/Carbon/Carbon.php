@@ -720,9 +720,6 @@ class Carbon extends DateTime
             case $name === 'dst':
                 return $this->format('I') === '1';
 
-            case $name === 'local':
-                return $this->getOffset() === $this->copy()->setTimezone(date_default_timezone_get())->getOffset();
-
             case $name === 'utc':
                 return $this->getOffset() === 0;
 
@@ -3384,10 +3381,6 @@ class Carbon extends DateTime
      */
     public function modify($modify)
     {
-        if ($this->local) {
-            return parent::modify($modify);
-        }
-
         $timezone = $this->getTimezone();
         $this->setTimezone('UTC');
         $instance = parent::modify($modify);
