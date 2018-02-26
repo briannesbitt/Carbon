@@ -470,7 +470,35 @@ Carbon::resetToStringFormat();
 {{compare12::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare12_eval}}
 {{compare13::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare13_eval}}
 {{compare14::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare14_eval}}
+
+// All have verbose aliases and PHP equivalent code:
+
+{{compare15::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{compare15_eval}}
+{{compare16::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{compare16_eval}}
+{{compare17::exec(var_dump($first == $second);/*pad(50)*/)}} // {{compare17_eval}}
+
+{{compare18::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{compare18_eval}}
+{{compare19::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{compare19_eval}}
+{{compare20::exec(var_dump($first != $second);/*pad(50)*/)}} // {{compare20_eval}}
+
+{{compare21::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{compare21_eval}}
+{{compare22::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{compare22_eval}}
+{{compare23::exec(var_dump($first > $second);/*pad(50)*/)}} // {{compare23_eval}}
+
+{{compare24::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare24_eval}}
+{{compare25::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{compare25_eval}}
+{{compare26::exec(var_dump($first >= $second);/*pad(50)*/)}} // {{compare26_eval}}
+
+{{compare27::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare27_eval}}
+{{compare28::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{compare28_eval}}
+{{compare29::exec(var_dump($first < $second);/*pad(50)*/)}} // {{compare29_eval}}
+
+{{compare30::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare30_eval}}
+{{compare31::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{compare31_eval}}
+{{compare32::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{compare32_eval}}
 </code></pre></p>
+
+<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then taken into account starting with 7.1.</p>
 
 <p>To determine if the current instance is between two other instances you can use the aptly named <code>between()</code> method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.</p>
 
