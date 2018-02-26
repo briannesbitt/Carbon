@@ -47,7 +47,7 @@ class SrTest extends AbstractTestCase
             $scope->assertSame('pre 2 dana', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('pre 1 nedelja', $d->diffForHumans());
+            $scope->assertSame('pre 1 nedelju', $d->diffForHumans());
 
             $d = Carbon::now()->subWeeks(2);
             $scope->assertSame('pre 2 nedelje', $d->diffForHumans());
@@ -59,7 +59,7 @@ class SrTest extends AbstractTestCase
             $scope->assertSame('pre 2 meseca', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(1);
-            $scope->assertSame('pre 1 godina', $d->diffForHumans());
+            $scope->assertSame('pre 1 godinu', $d->diffForHumans());
 
             $d = Carbon::now()->subYears(2);
             $scope->assertSame('pre 2 godine', $d->diffForHumans());

@@ -18,7 +18,7 @@ class ArShaklTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInArb()
     {
-        Carbon::setLocale('ar_shakl');
+        Carbon::setLocale('ar_Shakl');
 
         $scope = $this;
         $this->wrapWithNonDstDate(function () use ($scope) {
