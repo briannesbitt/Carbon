@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 23);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 17);
 
 require 'vendor/autoload.php';
 
