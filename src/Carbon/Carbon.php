@@ -2802,7 +2802,10 @@ class Carbon extends DateTime
     {
         $dt = $dt ?: static::now($this->getTimezone());
         $diff = $this->diff($dt);
-        $value = $diff->days * 24 * 3600 + $diff->h * 3600 + $diff->i * 60 + $diff->s;
+        $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
+            $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
+            $diff->i * static::SECONDS_PER_MINUTE +
+            $diff->s;
 
         return $abs || !$diff->invert ? $value : -$value;
     }
