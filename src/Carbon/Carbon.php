@@ -297,7 +297,15 @@ class Carbon extends DateTime
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
+        // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
+        if (strpos((string) .1, '.') === false) {
+            $locale = setlocale(LC_NUMERIC, '0');
+            setlocale(LC_NUMERIC, 'C');
+        }
         parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        if (isset($locale)) {
+            setlocale(LC_NUMERIC, $locale);
+        }
         static::setLastErrors(parent::getLastErrors());
     }
 
@@ -639,7 +647,7 @@ class Carbon extends DateTime
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
         return static::createFromFormat('U.u', sprintf('%F', $timestamp / 1000))
-            ->setTimezone(static::safeCreateDateTimeZone($tz));
+            ->setTimezone($tz);
     }
 
     /**
@@ -2581,18 +2589,6 @@ class Carbon extends DateTime
     }
 
     /**
-     * Remove a second from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subSecond($value = 1)
-    {
-        return $this->subSeconds($value);
-    }
-
-    /**
      * Remove seconds from the instance
      *
      * @param int $value
@@ -2602,6 +2598,18 @@ class Carbon extends DateTime
     public function subSeconds($value)
     {
         return $this->addSeconds(-1 * $value);
+    }
+
+    /**
+     * Remove a second from the instance
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subSecond($value = 1)
+    {
+        return $this->subSeconds($value);
     }
 
     ///////////////////////////////////////////////////////////////////
