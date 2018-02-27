@@ -2801,9 +2801,10 @@ class Carbon extends DateTime
     public function diffInSeconds(self $dt = null, $abs = true)
     {
         $dt = $dt ?: static::now($this->getTimezone());
-        $value = $dt->getTimestamp() - $this->getTimestamp();
+        $diff = $this->diff($dt);
+        $value = $diff->days * 24 * 3600 + $diff->h * 3600 + $diff->i * 60 + $diff->s;
 
-        return $abs ? abs($value) : $value;
+        return $abs || !$diff->invert ? $value : -$value;
     }
 
     /**
@@ -3381,27 +3382,6 @@ class Carbon extends DateTime
     public function isBirthday($dt = null)
     {
         return $this->isSameAs('md', $dt);
-    }
-
-    /**
-     * Consider the timezone when modifying the instance.
-     *
-     * @param string $modify
-     *
-     * @return static
-     */
-    public function modify($modify)
-    {
-        if ($this->local) {
-            return parent::modify($modify);
-        }
-
-        $timezone = $this->getTimezone();
-        $this->setTimezone('UTC');
-        $instance = parent::modify($modify);
-        $this->setTimezone($timezone);
-
-        return $instance;
     }
 
     /**
