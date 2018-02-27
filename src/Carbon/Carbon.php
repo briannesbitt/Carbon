@@ -1430,6 +1430,16 @@ class Carbon extends DateTime
         return $this->format(static::W3C);
     }
 
+    /**
+     * Format the instance as HTTP Date (IMF-fixdate)
+     *
+     * @return string
+     */
+    public function toHttpDateString()
+    {
+        return $this->copy()->tz('GMT')->format('D, d M Y H:m:s T');
+    }
+    
     ///////////////////////////////////////////////////////////////////
     ////////////////////////// COMPARISONS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
