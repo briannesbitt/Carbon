@@ -523,6 +523,22 @@ Carbon::resetToStringFormat();
 // now is the default param
 {{::lint($dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);)}}
 {{max2::exec(echo $dt1->max();/*pad(50)*/)}} // {{max2_eval}}
+
+{{::lint(
+$dt1 = Carbon::create(2010, 4, 1, 0, 0, 0);
+$dt2 = Carbon::create(2010, 3, 28, 0, 0, 0);
+$dt3 = Carbon::create(2010, 4, 16, 0, 0, 0);
+)}}
+
+// returns the closest of two date (no matter before or after)
+{{closest1::exec(echo $dt1->closest($dt2, $dt3);/*pad(50)*/)}} // {{closest1_eval}}
+{{closest2::exec(echo $dt2->closest($dt1, $dt3);/*pad(50)*/)}} // {{closest2_eval}}
+{{closest3::exec(echo $dt3->closest($dt2, $dt1);/*pad(50)*/)}} // {{closest3_eval}}
+
+// returns the farthest of two date (no matter before or after)
+{{farthest1::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{farthest1_eval}}
+{{farthest2::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{farthest2_eval}}
+{{farthest3::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{farthest3_eval}}
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
