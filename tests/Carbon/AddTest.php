@@ -265,4 +265,44 @@ class AddTest extends AbstractTestCase
         $this->assertSame(2075, Carbon::createFromDate(1975)->subCenturies(-1)->year);
         $this->assertSame(2175, Carbon::createFromDate(1975)->subCenturies(-2)->year);
     }
+
+    public function testAddYearNoOverflow()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearNoOverflow(), 2017, 2, 28);
+    }
+
+    public function testAddYearWithOverflow()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearWithOverflow(), 2017, 3, 1);
+    }
+
+    public function testAddYearNoOverflowPassingArg()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearsNoOverflow(2), 2018, 2, 28);
+    }
+
+    public function testAddYearWithOverflowPassingArg()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYearsWithOverflow(2), 2018, 3, 1);
+    }
+
+    public function testSubYearNoOverflowPassingArg()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearsNoOverflow(2), 2014, 2, 28);
+    }
+
+    public function testSubYearWithOverflowPassingArg()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearsWithOverflow(2), 2014, 3, 1);
+    }
+
+    public function testSubYearNoOverflow()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearNoOverflow(), 2015, 2, 28);
+    }
+
+    public function testSubYearWithOverflow()
+    {
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearWithOverflow(), 2015, 3, 1);
+    }
 }

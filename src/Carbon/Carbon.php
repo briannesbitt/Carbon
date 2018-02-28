@@ -2053,6 +2053,58 @@ class Carbon extends DateTime
     }
 
     /**
+     * Add years to the instance with no overflow of months
+     * Positive $value travel forward while
+     * negative $value travel into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearsNoOverflow($value)
+    {
+        return $this->addMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
+    }
+
+    /**
+     * Add year with overflow months set to false
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearNoOverflow($value = 1)
+    {
+        return $this->addYearsNoOverflow($value);
+    }
+
+    /**
+     * Add years to the instance.
+     * Positive $value travel forward while
+     * negative $value travel into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearsWithOverflow($value)
+    {
+        return $this->addYears($value);
+    }
+
+    /**
+     * Add year with overflow.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addYearWithOverflow($value = 1)
+    {
+        return $this->addYearsWithOverflow($value);
+    }
+
+    /**
      * Remove a year from the instance
      *
      * @param int $value
@@ -2074,6 +2126,54 @@ class Carbon extends DateTime
     public function subYears($value)
     {
         return $this->addYears(-1 * $value);
+    }
+
+    /**
+     * Remove year from the instance with no month overflow
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearNoOverflow($value = 1)
+    {
+        return $this->subYearsNoOverflow($value);
+    }
+
+    /**
+     * Remove years from the instance with no month overflow.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearsNoOverflow($value)
+    {
+        return $this->subMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
+    }
+
+    /**
+     * Remove year from the instance.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearWithOverflow($value = 1)
+    {
+        return $this->subYearsWithOverflow($value);
+    }
+
+    /**
+     * Remove years from the instance.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function subYearsWithOverflow($value)
+    {
+        return $this->subMonthsWithOverflow($value * static::MONTHS_PER_YEAR);
     }
 
     /**
