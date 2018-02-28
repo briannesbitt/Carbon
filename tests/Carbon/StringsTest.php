@@ -142,6 +142,12 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('1975-12-25T14:15:16-05:00', $d->toIso8601String());
     }
 
+    public function testToIso8601ZuluString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T19:15:16Z', $d->toIso8601ZuluString());
+    }
+
     public function testToRC822String()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);

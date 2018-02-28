@@ -1376,6 +1376,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Convert the instance to UTC and return as Zulu ISO8601
+     *
+     * @return string
+     */
+    public function toIso8601ZuluString()
+    {
+        return $this->copy()->setTimezone('UTC')->format('Y-m-d\TH:i:s\Z');
+    }
+
+    /**
      * Format the instance as RFC850
      *
      * @return string
