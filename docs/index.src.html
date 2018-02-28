@@ -102,10 +102,11 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  The third, <code>createFromTimestampMs()</code>,  accepts a timestamp in milliseconds instead of seconds.  Negative timestamps are also allowed.</p>
 
-<p><pre><code class="php">{{createFromTimeStamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp1_eval}}
-{{createFromTimeStamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp2_eval}}
-{{createFromTimeStampUTC::exec(echo Carbon::createFromTimeStampUTC(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStampUTC_eval}}
-{{createFromTimeStampMs::exec(echo Carbon::createFromTimeStampMs(1)->format('Y-m-d\TH:i:s.uP');/*pad(80)*/)}} // {{createFromTimeStampMs_eval}}
+<p><pre><code class="php">{{createFromTimestamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp1_eval}}
+{{createFromTimestamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp2_eval}}
+{{createFromTimestampUTC::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestampUTC_eval}}
+{{createFromTimestampMs1::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs1_eval}}
+{{createFromTimestampMs2::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs2_eval}}
 </code></pre></p>
 
 <p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
