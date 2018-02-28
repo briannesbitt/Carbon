@@ -98,6 +98,12 @@ class Carbon extends DateTime
         'today',
         'tomorrow',
         'yesterday',
+        'sunday',
+        'monday',
+        'tuesday',
+        'thursday',
+        'friday',
+        'saturday',
     );
 
     /**
