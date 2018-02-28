@@ -974,6 +974,28 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
 )}}
 </code></pre></p>
 
+<h1 id="api-serialization">Serialization</h1>
+
+<p>The Carbon instances can be serialized.</p>
+
+<p><pre><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+)}}
+
+{{serialize1::exec(echo serialize($dt);/*pad(65)*/)}} // {{serialize1_eval}}
+// same as:
+{{serialize2::exec(echo $dt->serialize();/*pad(65)*/)}} // {{serialize2_eval}}
+
+{{::lint(
+$dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:13:"Europe/Moscow";}';
+)}}
+
+{{unserialize1::exec(echo unserialize($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize1_eval}}
+// same as:
+{{unserialize2::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize2_eval}}
+
+</code></pre></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
@@ -1050,6 +1072,7 @@ CarbonInterval::setLocale('fr');)}}
       <li><a href="#api-modifiers">Modifiers</a></li>
       <li><a href="#api-constants">Constants</a></li>
       <li><a href="#api-interval">CarbonInterval</a></li>
+      <li><a href="#api-serialization">Serialization</a></li>
     </ul>
   </div>
 </div>

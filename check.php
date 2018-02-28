@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 14);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 12);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require 'vendor/autoload.php';
@@ -42,19 +42,13 @@ foreach (get_class_methods($carbon) as $method) {
     $argumentsCount = count($reflexion->getParameters());
     $argumentsDocumented = true;
 
-    if ($argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 4 && $method === 'diffFiltered') {
+    if (
+        $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
+        $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
+        $argumentsCount === 4 && $method === 'diffFiltered' ||
+        $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
+        $method === '__set'
+    ) {
         $argumentsCount = 0;
     }
 
