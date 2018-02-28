@@ -49,6 +49,9 @@ $rules = [
     'trailing_comma_in_multiline_array' => true,
     'trim_array_spaces' => true,
     'unary_operator_spaces' => true,
+    'line_ending' => true,
+    'blank_line_after_namespace' => true,
+    'no_unused_imports' => true,
 ];
 
 return Config::create()->setRules($rules)
