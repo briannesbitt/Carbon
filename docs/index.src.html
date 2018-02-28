@@ -102,10 +102,11 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  The third, <code>createFromTimestampMs()</code>,  accepts a timestamp in milliseconds instead of seconds.  Negative timestamps are also allowed.</p>
 
-<p><pre><code class="php">{{createFromTimeStamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp1_eval}}
-{{createFromTimeStamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStamp2_eval}}
-{{createFromTimeStampUTC::exec(echo Carbon::createFromTimeStampUTC(-1)->toDateTimeString();/*pad(80)*/)}} // {{createFromTimeStampUTC_eval}}
-{{createFromTimeStampMs::exec(echo Carbon::createFromTimeStampMs(1)->format('Y-m-d\TH:i:s.uP');/*pad(80)*/)}} // {{createFromTimeStampMs_eval}}
+<p><pre><code class="php">{{createFromTimestamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp1_eval}}
+{{createFromTimestamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp2_eval}}
+{{createFromTimestampUTC::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestampUTC_eval}}
+{{createFromTimestampMs1::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs1_eval}}
+{{createFromTimestampMs2::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs2_eval}}
 </code></pre></p>
 
 <p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
@@ -191,15 +192,18 @@ And reboot your system.</p></blockquote>
   <li>A call to the static now() method, ex. Carbon::now()</li>
   <li>When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)</li>
   <li>When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')</li>
+  <li>The given instance will also be used as default relative moment for diff methods</li>
 </ul>
 
 <p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock (of course this could be a real mock object)
+{{testaid0::exec(echo Carbon::getTestNow();/*pad(54)*/)}} // {{testaid0_eval}}
 {{testaid1::exec(echo Carbon::now();/*pad(54)*/)}} // {{testaid1_eval}}
 {{testaid2::exec(echo new Carbon();/*pad(54)*/)}} // {{testaid2_eval}}
 {{testaid3::exec(echo Carbon::parse();/*pad(54)*/)}} // {{testaid3_eval}}
 {{testaid4::exec(echo new Carbon('now');/*pad(54)*/)}} // {{testaid4_eval}}
 {{testaid5::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{testaid5_eval}}
+{{testaid6::exec(echo Carbon::create(2001, 4, 21, 12)->diffForHumans();/*pad(54)*/)}} // {{testaid6_eval}}
 {{hasTestNow::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNow_eval}}
 {{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
 {{hasTestNowNo::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNowNo_eval}}
@@ -243,11 +247,11 @@ $product = new SeasonalProduct(100);
 
 <p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
-{{testaid6::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid6_eval}}  ... notice the time !
-{{testaid7::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid7_eval}}
-{{testaid8::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid8_eval}}
-{{testaid9::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid9_eval}}
-{{testaid10::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid10_eval}}
+{{testaid7::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid7_eval}}  ... notice the time !
+{{testaid8::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid8_eval}}
+{{testaid9::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid9_eval}}
+{{testaid10::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid10_eval}}
+{{testaid11::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid11_eval}}
 {{::exec(Carbon::setTestNow();/*pad(54)*/)}} // always clear it !
 </code></pre></p>
 
@@ -509,19 +513,38 @@ Carbon::resetToStringFormat();
 {{between3::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{between3_eval}}
 </code></pre></p>
 
-<p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods.  As usual the default parameter is now if null is specified.</p>
+<p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods or <code>minimum()</code> and <code>maximum()</code> aliases.  As usual the default parameter is now if null is specified.</p>
 
 <p><pre><code class="php">{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
 {{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
 {{min::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{min_eval}}
+{{minimum::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{minimum_eval}}
 
 {{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
 {{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
 {{max::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{max_eval}}
+{{maximum::exec(echo $dt1->maximum($dt2);/*pad(50)*/)}} // {{maximum_eval}}
 
 // now is the default param
 {{::lint($dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);)}}
 {{max2::exec(echo $dt1->max();/*pad(50)*/)}} // {{max2_eval}}
+{{maximum2::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{maximum2_eval}}
+
+{{::lint(
+$dt1 = Carbon::create(2010, 4, 1, 0, 0, 0);
+$dt2 = Carbon::create(2010, 3, 28, 0, 0, 0);
+$dt3 = Carbon::create(2010, 4, 16, 0, 0, 0);
+)}}
+
+// returns the closest of two date (no matter before or after)
+{{closest1::exec(echo $dt1->closest($dt2, $dt3);/*pad(50)*/)}} // {{closest1_eval}}
+{{closest2::exec(echo $dt2->closest($dt1, $dt3);/*pad(50)*/)}} // {{closest2_eval}}
+{{closest3::exec(echo $dt3->closest($dt2, $dt1);/*pad(50)*/)}} // {{closest3_eval}}
+
+// returns the farthest of two date (no matter before or after)
+{{farthest1::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{farthest1_eval}}
+{{farthest2::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{farthest2_eval}}
+{{farthest3::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{farthest3_eval}}
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -694,7 +717,7 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 <h1 id="api-difference">Difference</h1>
 
-<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
+<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
 <p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
 
@@ -747,11 +770,29 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 
 {{littleHandRotations::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{littleHandRotations_eval}}
 
-// others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks()
-// diffInDays(), diffInWeekdays(), diffInWeekendDays()
-// diffInHours(), diffInMinutes(), diffInSeconds()
-// secondsSinceMidnight(), secondsUntilEndOfDay()
+{{::lint($date = Carbon::now()->addSeconds(3666);)}}
+
+{{diffin1::exec(echo $date->diffInSeconds();/*pad(50)*/)}} // {{diffin1_eval}}
+{{diffin2::exec(echo $date->diffInMinutes();/*pad(50)*/)}} // {{diffin2_eval}}
+{{diffin3::exec(echo $date->diffInHours();/*pad(50)*/)}} // {{diffin3_eval}}
+{{diffin4::exec(echo $date->diffInDays();/*pad(50)*/)}} // {{diffin4_eval}}
+
+{{::lint($date = Carbon::create(2016, 1, 5, 22, 40, 32);)}}
+
+{{diffin5::exec(echo $date->secondsSinceMidnight();/*pad(50)*/)}} // {{diffin5_eval}}
+{{diffin6::exec(echo $date->secondsUntilEndOfDay();/*pad(50)*/)}} // {{diffin6_eval}}
+
+{{::lint(
+$date1 = Carbon::create(2016, 1, 5, 0, 0, 0);
+$date2 = Carbon::create(2017, 3, 15, 0, 0, 0);
+)}}
+
+{{diffin7::exec(echo $date1->diffInDays($date2);/*pad(50)*/)}} // {{diffin7_eval}}
+{{diffin8::exec(echo $date1->diffInWeekdays($date2);/*pad(50)*/)}} // {{diffin8_eval}}
+{{diffin9::exec(echo $date1->diffInWeekendDays($date2);/*pad(50)*/)}} // {{diffin9_eval}}
+{{diffin10::exec(echo $date1->diffInWeeks($date2);/*pad(50)*/)}} // {{diffin10_eval}}
+{{diffin11::exec(echo $date1->diffInMonths($date2);/*pad(50)*/)}} // {{diffin11_eval}}
+{{diffin12::exec(echo $date1->diffInYears($date2);/*pad(50)*/)}} // {{diffin12_eval}}
 </code></pre></p>
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
@@ -933,6 +974,28 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
 )}}
 </code></pre></p>
 
+<h1 id="api-serialization">Serialization</h1>
+
+<p>The Carbon instances can be serialized.</p>
+
+<p><pre><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+)}}
+
+{{serialize1::exec(echo serialize($dt);/*pad(65)*/)}} // {{serialize1_eval}}
+// same as:
+{{serialize2::exec(echo $dt->serialize();/*pad(65)*/)}} // {{serialize2_eval}}
+
+{{::lint(
+$dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:13:"Europe/Moscow";}';
+)}}
+
+{{unserialize1::exec(echo unserialize($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize1_eval}}
+// same as:
+{{unserialize2::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize2_eval}}
+
+</code></pre></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
@@ -1009,6 +1072,7 @@ CarbonInterval::setLocale('fr');)}}
       <li><a href="#api-modifiers">Modifiers</a></li>
       <li><a href="#api-constants">Constants</a></li>
       <li><a href="#api-interval">CarbonInterval</a></li>
+      <li><a href="#api-serialization">Serialization</a></li>
     </ul>
   </div>
 </div>

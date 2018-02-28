@@ -1,6 +1,7 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 17);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 12);
+define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require 'vendor/autoload.php';
 
@@ -41,56 +42,58 @@ foreach (get_class_methods($carbon) as $method) {
     $argumentsCount = count($reflexion->getParameters());
     $argumentsDocumented = true;
 
-    if ($argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method)) {
-        $argumentsCount = 0;
-    }
-
-    if ($argumentsCount === 4 && $method === 'diffFiltered') {
+    if (
+        $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
+        $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
+        $argumentsCount === 4 && $method === 'diffFiltered' ||
+        $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
+        $method === '__set'
+    ) {
         $argumentsCount = 0;
     }
 
     if ($argumentsCount) {
-        preg_match_all('/'.preg_quote($method, '/').'\s*\\((
-            "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-            \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-            (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-            (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-            (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-            [^\\{\\}\\(\\)\\[\\]\'"]+
-        )\\)/x', $documentation, $matches, PREG_PATTERN_ORDER);
+        preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
         $coveredArgs = 0;
-        if (!empty($matches[1])) {
-            foreach ($matches[1] as $argumentsString) {
-                $count = count(explode(',', preg_replace('/(\\((
+        if (!empty($matches[0])) {
+            foreach ($matches[0] as $data) {
+                if (preg_match('/^(
+                    [^"\'\\(\\)]+ |
                     "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                     \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                    (\\[([^\\[\\]\'"]+|(?1))*\\]) |
                     (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                    (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                    [^\\{\\}\\(\\)\\[\\]\'"]+
-                )\\))/x', '', $argumentsString)));
-                if ($count > $coveredArgs) {
-                    $coveredArgs = $count;
+                )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
+                    $argumentsString = substr($match[0], 0, -1);
+                    $argumentsString = preg_replace('/(
+                            "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                            \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
+                        )*/x', '', $argumentsString);
+                    $argumentsString = preg_replace('/(\\(
+                            (\\[([^\\[\\]\'"]+|(?1))*\\]) |
+                            (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+                            (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                            [^\\{\\}\\(\\)\\[\\]\'"]+
+                        \\))*/x', '', $argumentsString);
+                    $count = count(explode(',', $argumentsString));
+                    if ($count > $coveredArgs) {
+                        $coveredArgs = $count;
+                    }
                 }
             }
         }
 
-        $missingArguments += $argumentsCount - $coveredArgs;
+        if ($documented) {
+            $missingArguments += $argumentsCount - $coveredArgs;
+        }
         $argumentsDocumented = $argumentsCount === $coveredArgs;
         $color = $argumentsDocumented ? 32 : 31;
         $message = $documented ? 'documented' : 'missing';
 
-        $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+        if (VERBOSE || $documented) {
+            $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+        }
     }
-    if (!$documented || !$argumentsDocumented || (isset($argv[1]) && $argv[1] === 'verbose')) {
+    if (!$documented || !$argumentsDocumented || VERBOSE) {
         display($output);
     }
 }
@@ -103,7 +106,7 @@ display($missingMethodsCount ?
 );
 
 if ($missingArguments) {
-    display("\033[1;33mThere are $missingArguments arguments that seems to not be documented.\033[0m\n");
+    display("\033[1;33mAnd there are $missingArguments more arguments that seems to not be documented.\033[0m\n");
 }
 
 exit($errorExit ? 1 : 0);
