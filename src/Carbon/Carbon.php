@@ -114,6 +114,13 @@ class Carbon extends DateTime
     const SECONDS_PER_MINUTE = 60;
 
     /**
+     * RFC7231 DateTime format.
+     *
+     * @var string
+     */
+    const RFC7231_FORMAT = 'D, d M Y H:i:s \G\M\T';
+
+    /**
      * Default format to use for __toString method when type juggling occurs.
      *
      * @var string
@@ -1436,6 +1443,18 @@ class Carbon extends DateTime
     public function toW3cString()
     {
         return $this->format(static::W3C);
+    }
+
+    /**
+     * Format the instance as RFC7231
+     *
+     * @return string
+     */
+    public function toRfc7231String()
+    {
+        return $this->copy()
+            ->setTimezone('GMT')
+            ->format(static::RFC7231_FORMAT);
     }
 
     ///////////////////////////////////////////////////////////////////
