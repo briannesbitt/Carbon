@@ -58,27 +58,28 @@ foreach (get_class_methods($carbon) as $method) {
     }
 
     if ($argumentsCount) {
-        preg_match_all('/'.preg_quote($method, '/').'\s*\\((
-            "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-            \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-            (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-            (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-            (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-            [^\\{\\}\\(\\)\\[\\]\'"]+
-        )\\)/x', $documentation, $matches, PREG_PATTERN_ORDER);
+        preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
         $coveredArgs = 0;
-        if (!empty($matches[1])) {
-            foreach ($matches[1] as $argumentsString) {
-                $count = count(explode(',', preg_replace('/(\\((
+        if (!empty($matches[0])) {
+            foreach ($matches[0] as $data) {
+                if (preg_match('/^(
+                    [^"\'\\(\\)]+ |
                     "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                     \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                    (\\[([^\\[\\]\'"]+|(?1))*\\]) |
                     (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                    (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                    [^\\{\\}\\(\\)\\[\\]\'"]+
-                )\\))/x', '', $argumentsString)));
-                if ($count > $coveredArgs) {
-                    $coveredArgs = $count;
+                )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
+                    $argumentsString = substr($match[0], 0, -1);
+                    $count = count(explode(',', preg_replace('/(\\((
+                        "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                        \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
+                        (\\[([^\\[\\]\'"]+|(?1))*\\]) |
+                        (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+                        (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                        [^\\{\\}\\(\\)\\[\\]\'"]+
+                    )*\\))/x', '', $argumentsString)));
+                    if ($count > $coveredArgs) {
+                        $coveredArgs = $count;
+                    }
                 }
             }
         }

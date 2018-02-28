@@ -694,7 +694,7 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 <h1 id="api-difference">Difference</h1>
 
-<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
+<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
 <p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
 
@@ -747,11 +747,29 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 
 {{littleHandRotations::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{littleHandRotations_eval}}
 
-// others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks()
-// diffInDays(), diffInWeekdays(), diffInWeekendDays()
-// diffInHours(), diffInMinutes(), diffInSeconds()
-// secondsSinceMidnight(), secondsUntilEndOfDay()
+{{::lint($date = Carbon::now()->addSeconds(3666);)}}
+
+{{diffin1::exec(echo $date->diffInSeconds();/*pad(50)*/)}} // {{diffin1_eval}}
+{{diffin2::exec(echo $date->diffInMinutes();/*pad(50)*/)}} // {{diffin2_eval}}
+{{diffin3::exec(echo $date->diffInHours();/*pad(50)*/)}} // {{diffin3_eval}}
+{{diffin4::exec(echo $date->diffInDays();/*pad(50)*/)}} // {{diffin4_eval}}
+
+{{::lint($date = Carbon::create(2016, 1, 5, 22, 40, 32);)}}
+
+{{diffin5::exec(echo $date->secondsSinceMidnight();/*pad(50)*/)}} // {{diffin5_eval}}
+{{diffin6::exec(echo $date->secondsUntilEndOfDay();/*pad(50)*/)}} // {{diffin6_eval}}
+
+{{::lint(
+$date1 = Carbon::create(2016, 1, 5, 0, 0, 0);
+$date2 = Carbon::create(2017, 3, 15, 0, 0, 0);
+)}}
+
+{{diffin7::exec(echo $date1->diffInDays($date2);/*pad(50)*/)}} // {{diffin7_eval}}
+{{diffin8::exec(echo $date1->diffInWeekdays($date2);/*pad(50)*/)}} // {{diffin8_eval}}
+{{diffin9::exec(echo $date1->diffInWeekendDays($date2);/*pad(50)*/)}} // {{diffin9_eval}}
+{{diffin10::exec(echo $date1->diffInWeeks($date2);/*pad(50)*/)}} // {{diffin10_eval}}
+{{diffin11::exec(echo $date1->diffInMonths($date2);/*pad(50)*/)}} // {{diffin11_eval}}
+{{diffin12::exec(echo $date1->diffInYears($date2);/*pad(50)*/)}} // {{diffin12_eval}}
 </code></pre></p>
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>

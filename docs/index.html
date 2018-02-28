@@ -114,13 +114,13 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-02-26 04:36:09
+echo $now;                               // 2018-02-28 04:38:01
 $today = Carbon::today();
-echo $today;                             // 2018-02-26 00:00:00
+echo $today;                             // 2018-02-28 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-02-27 00:00:00
+echo $tomorrow;                          // 2018-03-01 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-02-25 00:00:00
+echo $yesterday;                         // 2018-02-27 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -250,7 +250,7 @@ echo Carbon::parse('now');                             // 2001-05-21 12:00:00
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-02-26 04:36:09
+echo Carbon::now();                                    // 2018-02-28 04:38:01
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -535,7 +535,7 @@ var_dump($first->lessThanOrEqualTo($second));      // bool(true)
 var_dump($first <= $second);                       // bool(true)
 </code></pre></p>
 
-<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then taken into account starting with 7.1.</p>
+<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
 
 <p>To determine if the current instance is between two other instances you can use the aptly named <code>between()</code> method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.</p>
 
@@ -558,7 +558,7 @@ echo $dt1->max($dt2);                              // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2018-02-26 04:36:09
+echo $dt1->max();                                  // 2018-02-28 04:38:01
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -729,7 +729,7 @@ Carbon::resetMonthsOverflow();}
 
 <h1 id="api-difference">Difference</h1>
 
-<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 61 seconds would be returned as 1 minute and 1 second via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 1.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.  The comparisons are done in UTC.</p>
+<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
 <p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
 
@@ -778,11 +778,27 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 
 echo $littleHandRotations;     // 24
 
-// others that are defined
-// diffInYears(), diffInMonths(), diffInWeeks()
-// diffInDays(), diffInWeekdays(), diffInWeekendDays()
-// diffInHours(), diffInMinutes(), diffInSeconds()
-// secondsSinceMidnight(), secondsUntilEndOfDay()
+$date = Carbon::now()->addSeconds(3666);
+
+echo $date->diffInSeconds();                       // 3666
+echo $date->diffInMinutes();                       // 61
+echo $date->diffInHours();                         // 1
+echo $date->diffInDays();                          // 0
+
+$date = Carbon::create(2016, 1, 5, 22, 40, 32);
+
+echo $date->secondsSinceMidnight();                // 81632
+echo $date->secondsUntilEndOfDay();                // 4767
+
+$date1 = Carbon::create(2016, 1, 5, 0, 0, 0);
+$date2 = Carbon::create(2017, 3, 15, 0, 0, 0);
+
+echo $date1->diffInDays($date2);                   // 435
+echo $date1->diffInWeekdays($date2);               // 311
+echo $date1->diffInWeekendDays($date2);            // 124
+echo $date1->diffInWeeks($date2);                  // 62
+echo $date1->diffInMonths($date2);                 // 14
+echo $date1->diffInYears($date2);                  // 1
 </code></pre></p>
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
