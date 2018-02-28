@@ -305,4 +305,16 @@ class AddTest extends AbstractTestCase
     {
         $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->subYearWithOverflow(), 2015, 3, 1);
     }
+
+    public function testUseYearsOverflow()
+    {
+        $this->assertTrue(Carbon::shouldOverflowYears());
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYears(2), 2018, 3, 1);
+        Carbon::useYearsOverflow(false);
+        $this->assertFalse(Carbon::shouldOverflowYears());
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYears(2), 2018, 2, 28);
+        Carbon::resetYearsOverflow();
+        $this->assertTrue(Carbon::shouldOverflowYears());
+        $this->assertCarbon(Carbon::createFromDate(2016, 2, 29)->addYears(2), 2018, 3, 1);
+    }
 }
