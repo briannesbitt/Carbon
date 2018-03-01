@@ -51,39 +51,57 @@
    <div class="container page"><div class="row"><div class="col-md-9">
       <h1>1.22.1 / 2017-01-16</h1>
   <ul>
+    <li>Add ->weekNumberInMonth property</li>
+    <li>Add $parts arguments to diffForHumans() to allow components diff like "1 week 2 days 11 hours"</li>
+    <li>Add createFromTimestampMs method to create from timestamp in milliseconds</li>
+    <li>Fix/complete translations: ar, az, bg, el, fr, hy (arm), ja, pl, sk, sr, th, uk, uz, zh</li>
+    <li>Add translations: ar_shakl, dv_MV, kk, mn, ps, sr_Cyrl</li>
+    <li>Add Carbon::getDays() returning week days codes</li>
+    <li>getLastErrors() now works also on construct</li>
+    <li>Add workaround for setTimezone bug: https://bugs.php.net/bug.php?id=72338</li>
+    <li>Now Carbon instances can be exported via var_export and recreated with the produced code</li>
+    <li>Compatible with Symfony 4</li>
+    <li>Dates can be mocked now with microseconds</li>
+    <li>Workaround for the coma decimal separator PHP bug https://bugs.php.net/bug.php?id=67127</li>
+    <li>Allow formatLocalized no matter if a custom toStringFormat has been set</li>
+    <li>isSame*() methods now also accept DateTime instances</li>
+    <li>Handle daylight saving time in a better way</li>
+  </ul>
+<h1>1.22.1 / 2017-01-16</h1>
+  <ul>
     <li>Fix diffForHumans()</li>
-	<li>Let extended classes access lastErrors</li>
+    <li>Let extended classes access lastErrors</li>
   </ul>
 <h1>1.22.0 / 2017-01-15</h1>
   <ul>
     <li>Added new langs and fixed up others</li>
-	<li>Various style fixes and small internal code improvements</li>
-	<li>Use atom format for iso8601 as suggested by php docs</li>
-	<li>Added addQuarters/subQuarters</li>
+    <li>Various style fixes and small internal code improvements</li>
+    <li>Use atom format for iso8601 as suggested by php docs</li>
+    <li>Added addQuarters/subQuarters</li>
     <li>Added startOfQuarter/EndOfQuarter</li>
-	<li>Added support for short time units in diffForHumans()</li>
-	<li>Added nextWeek(end)day/previousWeek(end)day</li>
-	<li>Added addCenturies/subCenturies</li>
-	<li>Added support for no overflow when working with months.</li>
-	<li>New is methods for next/last week, month and year</li>
-	<li>Add number of parts in the diffForHumans() interval</li>
+    <li>Added support for short time units in diffForHumans()</li>
+    <li>Added nextWeek(end)day/previousWeek(end)day</li>
+    <li>Added addCenturies/subCenturies</li>
+    <li>Added support for no overflow when working with months.</li>
+    <li>New is methods for next/last week, month and year</li>
+    <li>Add number of parts in the diffForHumans() interval</li>
     <li>Added codecov</li>
   </ul>
 <h1>1.21.0 / 2015-11-04</h1>
   <ul>
     <li>Added new langs and fixed up others</li>
-	<li>Improved race conditions in tests</li>
-	<li>Allow CarbonInterval to hold a 0 interval</li>
+    <li>Improved race conditions in tests</li>
+    <li>Allow CarbonInterval to hold a 0 interval</li>
     <li>Added styleci checks and fixes</li>
-	<li>Added closest() and farthest() comparison methods.</li>
-	<li>Made isBirthday() arg optional to allow for easy comparison to today</li>
-	<li>Bumped class loading to psr4</li>
+    <li>Added closest() and farthest() comparison methods.</li>
+    <li>Made isBirthday() arg optional to allow for easy comparison to today</li>
+    <li>Bumped class loading to psr4</li>
   </ul>
 <h1>1.20.0 / 2015-06-25</h1>
   <ul>
     <li>Added ms, uz, bn, he, lv langs and fixed up others</li>
-	<li>Added day of week helpers, isSunday(), isMonday() etc.</li>
-	<li>Made first and last day of week dynamic</li>
+    <li>Added day of week helpers, isSunday(), isMonday() etc.</li>
+    <li>Made first and last day of week dynamic</li>
     <li>Bumped to symfony/translation ~2.6|~3.0</li>
   </ul>
 <h1>1.19.0 / 2015-05-08</h1>
