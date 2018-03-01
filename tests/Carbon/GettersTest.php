@@ -75,12 +75,18 @@ class GettersTest extends AbstractTestCase
 
     public function testMicroGetterWithDefaultNow()
     {
-        if (version_compare(PHP_VERSION, '7.1.0', '>=')) {
-            $this->markTestSkipped();
-        }
-
+        $now = Carbon::getTestNow();
+        Carbon::setTestNow(null);
+        $start = microtime(true);
+        usleep(1000);
         $d = Carbon::now();
-        $this->assertSame(0, $d->micro);
+        usleep(1000);
+        $end = microtime(true);
+        $microTime = $d->getTimestamp() + $d->micro / 1000000;
+        $this->assertGreaterThan($start, $microTime);
+        $this->assertLessThan($end, $microTime);
+
+        Carbon::setTestNow($now);
     }
 
     public function testDayOfWeeGetter()
