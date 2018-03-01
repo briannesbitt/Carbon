@@ -98,6 +98,7 @@ class Carbon extends DateTime
         'today',
         'tomorrow',
         'yesterday',
+
         'sunday',
         'monday',
         'tuesday',
@@ -105,6 +106,18 @@ class Carbon extends DateTime
         'thursday',
         'friday',
         'saturday',
+
+        'january',
+        'february',
+        'march',
+        'april',
+        'may',
+        'june',
+        'july',
+        'august',
+        'september',
+        'october',
+        'december',
     );
 
     /**
@@ -1138,11 +1151,18 @@ class Carbon extends DateTime
     public static function hasRelativeKeywords($time)
     {
         // skip common format with a '-' in it
-        if (preg_match('/\d{4}-\d{1,2}-\d{1,2}/', $time) !== 1) {
-            foreach (static::$relativeKeywords as $keyword) {
-                if (stripos($time, $keyword) !== false) {
-                    return true;
-                }
+        if (preg_match('/\d{4}-\d{1,2}-\d{1,2}/', $time) === 1) {
+            return false;
+        }
+
+        // looks for years within dates
+        if (preg_match('/\d{4}/', $time) === 1) {
+            return false;
+        }
+
+        foreach (static::$relativeKeywords as $keyword) {
+            if (stripos($time, $keyword) !== false) {
+                return true;
             }
         }
 
