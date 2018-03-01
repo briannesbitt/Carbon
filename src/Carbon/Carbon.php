@@ -201,6 +201,13 @@ class Carbon extends DateTime
     protected static $monthsOverflow = true;
 
     /**
+     * Indicates if years should be calculated with overflow.
+     *
+     * @var bool
+     */
+    protected static $yearsOverflow = true;
+
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @param bool $monthsOverflow
@@ -230,6 +237,38 @@ class Carbon extends DateTime
     public static function shouldOverflowMonths()
     {
         return static::$monthsOverflow;
+    }
+
+    /**
+     * Indicates if years should be calculated with overflow.
+     *
+     * @param bool $yearsOverflow
+     *
+     * @return void
+     */
+    public static function useYearsOverflow($yearsOverflow = true)
+    {
+        static::$yearsOverflow = $yearsOverflow;
+    }
+
+    /**
+     * Reset the month overflow behavior.
+     *
+     * @return void
+     */
+    public static function resetYearsOverflow()
+    {
+        static::$yearsOverflow = true;
+    }
+
+    /**
+     * Get the month overflow behavior.
+     *
+     * @return bool
+     */
+    public static function shouldOverflowYears()
+    {
+        return static::$yearsOverflow;
     }
 
     /**
@@ -2047,7 +2086,11 @@ class Carbon extends DateTime
      */
     public function addYears($value)
     {
-        return $this->modify((int) $value.' year');
+        if ($this->shouldOverflowYears()) {
+            return $this->addYearsWithOverflow($value);
+        }
+
+        return $this->addYearsNoOverflow($value);
     }
 
     /**
@@ -2099,7 +2142,7 @@ class Carbon extends DateTime
      */
     public function addYearsWithOverflow($value)
     {
-        return $this->addYears($value);
+        return $this->modify((int) $value.' year');
     }
 
     /**
