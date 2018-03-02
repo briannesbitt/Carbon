@@ -11,7 +11,8 @@ $methodsCount = 0;
 $missingMethodsCount = 0;
 $missingArguments = 0;
 
-function display($message) {
+function display($message)
+{
     if (substr(PHP_OS, 0, 3) === 'WIN') {
         $message = preg_replace("/\033\\[\d+(;\d+)?m/", '', $message);
     }

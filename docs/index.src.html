@@ -184,6 +184,26 @@ If you have trouble with translations, check locales installed in your system (l
 <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
 And reboot your system.</p></blockquote>
 
+<p>You can customize a existing language the following way:</p>
+
+<p><pre><code class="php">{{::lint(
+Carbon::setLocale('en');
+$translator = Carbon::getTranslator();
+$resources = $translator->getCatalogue('en')->all('messages');
+$resources['day'] = '1 boring day|:count boring days';
+$translator->addResource('array', $resources, 'en');
+
+$date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
+$date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
+)}}
+
+{{customizetr::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{customizetr_eval}}
+
+{{::lint(Carbon::setLocale('en'); // reset language customizations)}}
+</code></pre></p>
+
+<p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
+
 <h1 id="api-testing">Testing Aids</h1>
 
 <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
