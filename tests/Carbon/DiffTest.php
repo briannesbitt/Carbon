@@ -395,6 +395,25 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(1, $dt->diffInHours($dt->copy()->addHour()->addMinutes(31)));
     }
 
+    public function testDiffInHoursWithTimezones()
+    {
+        Carbon::setTestNow();
+        $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
+        $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
+
+        $this->assertSame(3, $dtVancouver->diffInHours($dtToronto), 'Midnight in Toronto is 3 hours from midnight in Vancouver');
+
+        $dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');
+        $dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
+
+        $this->assertSame(0, $dtVancouver->diffInHours($dtToronto) % 24);
+
+        $dtToronto = Carbon::createMidnightDate(2012, 1, 1, 'America/Toronto');
+        $dtVancouver = Carbon::createMidnightDate(2012, 1, 1, 'America/Vancouver');
+
+        $this->assertSame(3, $dtVancouver->diffInHours($dtToronto), 'Midnight in Toronto is 3 hours from midnight in Vancouver');
+    }
+
     public function testDiffInMinutesPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);

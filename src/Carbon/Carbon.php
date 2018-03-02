@@ -624,6 +624,21 @@ class Carbon extends DateTime
     }
 
     /**
+     * Create a Carbon instance from just a date. The time portion is set to midnight.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static
+     */
+    public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null)
+    {
+        return static::create($year, $month, $day, 0, 0, 0, $tz);
+    }
+
+    /**
      * Create a Carbon instance from just a time. The date portion is set to today.
      *
      * @param int|null                  $hour
