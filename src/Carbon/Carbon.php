@@ -3587,6 +3587,16 @@ class Carbon extends DateTime
     }
 
     /**
+     * Check if today is the last day of the Month
+     *
+     * @return bool
+     */
+    public function isLastOfMonth()
+    {
+        return $this->day === $this->daysInMonth;
+    }
+
+    /**
      * Return a serialized string of the instance.
      *
      * @return string
