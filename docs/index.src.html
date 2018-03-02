@@ -715,6 +715,39 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 {{reset2::exec(Carbon::resetMonthsOverflow();)}}}
 </code></pre></p>
 
+<p>From version 1.23.0, overflow control is also available on years:</p>
+
+<p><pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
+
+$dt = Carbon::create(2020, 2, 29, 0);)}}
+
+{{addyearoverflow5::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow5_eval}}
+// plural addYearsWithOverflow() method is also available
+{{addyearoverflow6::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow6_eval}}
+// singular subYearWithOverflow() method is also available
+{{addyearoverflow7::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow7_eval}}
+// plural addYearsNoOverflow() method is also available
+{{addyearoverflow8::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow8_eval}}
+// singular subYearNoOverflow() method is also available
+
+{{addyearoverflowremind1::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind1_eval}}
+{{addyearoverflowremind2::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind2_eval}}
+
+{{::lint(Carbon::useYearsOverflow(true);
+
+$dt = Carbon::create(2020, 2, 29, 0);)}}
+
+{{addyearoverflow9::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow9_eval}}
+{{addyearoverflow10::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow10_eval}}
+{{addyearoverflow11::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow11_eval}}
+{{addyearoverflow12::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow12_eval}}
+
+{{addyearoverflowremind3::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind3_eval}}
+{{addyearoverflowremind4::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind4_eval}}
+
+{{reset3::exec(Carbon::resetYearsOverflow();)}}}
+</code></pre></p>
+
 <h1 id="api-difference">Difference</h1>
 
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
