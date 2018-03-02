@@ -435,12 +435,14 @@ Carbon::resetToStringFormat();
 // format, but you still can use it this way:
 {{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(30)*/)}} // {{formatiso8601_eval}}
 
+{{format24b::exec(echo $dt->toIso8601ZuluString();/*pad(30)*/)}} // {{format24b_eval}}
 {{format25::exec(echo $dt->toRfc822String();/*pad(30)*/)}} // {{format25_eval}}
 {{format26::exec(echo $dt->toRfc850String();/*pad(30)*/)}} // {{format26_eval}}
 {{format27::exec(echo $dt->toRfc1036String();/*pad(30)*/)}} // {{format27_eval}}
 {{format28::exec(echo $dt->toRfc1123String();/*pad(30)*/)}} // {{format28_eval}}
 {{format29::exec(echo $dt->toRfc2822String();/*pad(30)*/)}} // {{format29_eval}}
 {{format30::exec(echo $dt->toRfc3339String();/*pad(30)*/)}} // {{format30_eval}}
+{{format30b::exec(echo $dt->toRfc7231String();/*pad(30)*/)}} // {{format30b_eval}}
 {{format31::exec(echo $dt->toRssString();/*pad(30)*/)}} // {{format31_eval}}
 {{format32::exec(echo $dt->toW3cString();/*pad(30)*/)}} // {{format32_eval}}
 </code></pre></p>
@@ -567,12 +569,13 @@ $dt->isTomorrow();
 $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
-$dt->isSameDay(Carbon::now());
+$dt->isSameDay(Carbon::now()); // Same day of same month of same year
 $dt->isNextWeek();
 $dt->isLastWeek();
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
+$dt->isLastOfMonth(); // last day of the month
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
 $dt->isCurrentYear();
