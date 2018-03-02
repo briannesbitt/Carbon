@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
 
@@ -169,5 +170,24 @@ class LocalizationTest extends AbstractTestCase
     public function testSetLocaleWithUnknownLocale()
     {
         $this->assertFalse(Carbon::setLocale('zz'));
+    }
+
+    public function testCustomTranslation()
+    {
+        Carbon::setLocale('en');
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        /** @var MessageCatalogue $messages */
+        $messages = $translator->getCatalogue('en');
+        $resources = $messages->all('messages');
+        $resources['day'] = '1 boring day|:count boring days';
+        $translator->addResource('array', $resources, 'en');
+
+        $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
+            ->diffForHumans(Carbon::create(2018, 1, 4, 4, 0, 0), true, false, 2);
+
+        $this->assertSame('3 boring days 4 hours', $diff);
+
+        Carbon::setLocale('en');
     }
 }
