@@ -437,4 +437,19 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isSaturday());
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
     }
+
+    public function testHasFormat()
+    {
+        $this->assertTrue(Carbon::hasFormat('1975-05-01', 'Y-m-d'));
+        $this->assertTrue(Carbon::hasFormat('Sun 21st', 'D jS'));
+
+        // Format failure
+        $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
+        $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));
+        $this->assertFalse(Carbon::hasFormat('Sun 51st', 'D jS'));
+        $this->assertFalse(Carbon::hasFormat('Sun 21xx', 'D jS'));
+
+        // Regex failure
+        $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
+    }
 }
