@@ -918,6 +918,30 @@ class DiffTest extends AbstractTestCase
         });
     }
 
+    public function testDiffForHumansOverWeekWithDefaultPartsCount()
+    {
+        $scope = $this;
+        $this->wrapWithTestNow(function () use ($scope) {
+            $scope->assertSame('1 week ago', Carbon::now()->subDays(8)->diffForHumans());
+        });
+    }
+
+    public function testDiffForHumansOverWeekWithPartsCount1()
+    {
+        $scope = $this;
+        $this->wrapWithTestNow(function () use ($scope) {
+            $scope->assertSame('1 week ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 1));
+        });
+    }
+
+    public function testDiffForHumansOverWeekWithPartsCount2()
+    {
+        $scope = $this;
+        $this->wrapWithTestNow(function () use ($scope) {
+            $scope->assertSame('1 week 1 day ago', Carbon::now()->subDays(8)->diffForHumans(null, false, false, 2));
+        });
+    }
+
     public function testDiffForHumansOtherAndWeek()
     {
         $scope = $this;

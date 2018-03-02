@@ -23,6 +23,43 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5);
     }
 
+    public function testCreateFromTimestampMS()
+    {
+        $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
+        $d = Carbon::createFromTimestampMs($timestamp);
+        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
+    }
+
+    public function testComaDecimalSeparatorLocale()
+    {
+        $date = new Carbon('2017-07-29T13:57:27.123456Z');
+        $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
+
+        $date = Carbon::createFromFormat('Y-m-d\TH:i:s.uT', '2017-07-29T13:57:27.123456Z');
+        $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
+        $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
+        $d = Carbon::createFromTimestampMs($timestamp);
+        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
+
+        $locale = setlocale(LC_ALL, '0');
+        setlocale(LC_ALL, 'fr_FR.UTF-8');
+
+        $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
+        $d = Carbon::createFromTimestampMs($timestamp);
+        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
+
+        $date = new Carbon('2017-07-29T13:57:27.123456Z');
+        $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
+
+        $date = Carbon::createFromFormat('Y-m-d\TH:i:s.uT', '2017-07-29T13:57:27.123456Z');
+        $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
+        $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
+        $d = Carbon::createFromTimestampMs($timestamp);
+        $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
+
+        setlocale(LC_ALL, $locale);
+    }
+
     public function testCreateFromTimestampUsesDefaultTimezone()
     {
         $d = Carbon::createFromTimestamp(0);
