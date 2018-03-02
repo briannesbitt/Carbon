@@ -123,6 +123,16 @@ class AddTest extends AbstractTestCase
         $this->assertSame(23, Carbon::createFromTime(0)->addHours(-1)->hour);
     }
 
+    public function testAddHoursDSTSpring()
+    {
+        $this->assertSame(3, Carbon::create(2014, 3, 30, 0, 0, 0, 'Europe/London')->addHours(2)->hour);
+    }
+
+    public function testAddHoursDSTAutumn()
+    {
+        $this->assertSame(4, Carbon::create(2017, 10, 29, 0, 0, 0, 'Europe/London')->addHours(5)->hour);
+    }
+
     public function testAddHour()
     {
         $this->assertSame(1, Carbon::createFromTime(0)->addHour()->hour);
@@ -143,6 +153,16 @@ class AddTest extends AbstractTestCase
         $this->assertSame(59, Carbon::createFromTime(0, 0)->addMinutes(-1)->minute);
     }
 
+    public function testAddMinutesDSTSpring()
+    {
+        $this->assertSame(3, Carbon::create(2014, 3, 30, 0, 0, 0, 'Europe/London')->addMinutes(2 * 60)->hour);
+    }
+
+    public function testAddMinutesDSTAutumn()
+    {
+        $this->assertSame(4, Carbon::create(2017, 10, 29, 0, 0, 0, 'Europe/London')->addMinutes(5 * 60)->hour);
+    }
+
     public function testAddMinute()
     {
         $this->assertSame(1, Carbon::createFromTime(0, 0)->addMinute()->minute);
@@ -161,6 +181,16 @@ class AddTest extends AbstractTestCase
     public function testAddSecondsNegative()
     {
         $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->addSeconds(-1)->second);
+    }
+
+    public function testAddSecondsDSTSpring()
+    {
+        $this->assertSame(3, Carbon::create(2014, 3, 30, 0, 0, 0, 'Europe/London')->addSeconds(2 * 3600)->hour);
+    }
+
+    public function testAddSecondsDSTAutumn()
+    {
+        $this->assertSame(4, Carbon::create(2017, 10, 29, 0, 0, 0, 'Europe/London')->addSeconds(5 * 3600)->hour);
     }
 
     public function testAddSecond()

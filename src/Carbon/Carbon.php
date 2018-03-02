@@ -2689,7 +2689,9 @@ class Carbon extends DateTime
      */
     public function addHours($value)
     {
-        return $this->modify((int) $value.' hour');
+        $seconds = $value * self::SECONDS_PER_MINUTE * self::MINUTES_PER_HOUR;
+
+        return $this->setTimestamp($this->getTimestamp() + $seconds);
     }
 
     /**
@@ -2738,7 +2740,9 @@ class Carbon extends DateTime
      */
     public function addMinutes($value)
     {
-        return $this->modify((int) $value.' minute');
+        $seconds = $value * self::SECONDS_PER_MINUTE;
+
+        return $this->setTimestamp($this->getTimestamp() + $seconds);
     }
 
     /**
@@ -2787,7 +2791,7 @@ class Carbon extends DateTime
      */
     public function addSeconds($value)
     {
-        return $this->modify((int) $value.' second');
+        return $this->setTimestamp($this->getTimestamp() + $value);
     }
 
     /**
