@@ -114,13 +114,13 @@ echo Carbon::parse('first day of December 2008')->addWeeks(2);    // 2008-12-15 
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-02-28 08:14:46
+echo $now;                               // 2018-03-02 04:44:39
 $today = Carbon::today();
-echo $today;                             // 2018-02-28 00:00:00
+echo $today;                             // 2018-03-02 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-03-01 00:00:00
+echo $tomorrow;                          // 2018-03-03 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-02-27 00:00:00
+echo $yesterday;                         // 2018-03-01 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -231,6 +231,24 @@ If you have trouble with translations, check locales installed in your system (l
 <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
 And reboot your system.</p></blockquote>
 
+<p>You can customize a existing language the following way:</p>
+
+<p><pre><code class="php">Carbon::setLocale('en');
+$translator = Carbon::getTranslator();
+$resources = $translator->getCatalogue('en')->all('messages');
+$resources['day'] = '1 boring day|:count boring days';
+$translator->addResource('array', $resources, 'en');
+
+$date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
+$date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
+
+echo $date1->diffForHumans($date2, true, false, 2); // 3 boring days 4 hours
+
+Carbon::setLocale('en'); // reset language customizations
+</code></pre></p>
+
+<p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
+
 <h1 id="api-testing">Testing Aids</h1>
 
 <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
@@ -254,7 +272,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-02-28 08:14:46
+echo Carbon::now();                                    // 2018-03-02 04:44:39
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -564,8 +582,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);
-echo $dt1->max();                                  // 2018-02-28 08:14:46
-echo $dt1->maximum();                              // 2018-02-28 08:14:46
+echo $dt1->max();                                  // 2018-03-02 04:44:39
+echo $dt1->maximum();                              // 2018-03-02 04:44:39
 
 $dt1 = Carbon::create(2010, 4, 1, 0, 0, 0);
 $dt2 = Carbon::create(2010, 3, 28, 0, 0, 0);
