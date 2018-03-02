@@ -347,7 +347,10 @@ class Carbon extends DateTime
         // Get microseconds from microtime() if "now" asked and PHP < 7.1
         $timezone = static::safeCreateDateTimeZone($tz);
         // @codeCoverageIgnoreStart
-        if ($isNow && !isset($testInstance) && version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
+        if ($isNow && !isset($testInstance) && (
+            version_compare(PHP_VERSION, '7.1.0-dev', '<')) ||
+            version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
+        ) {
             $dateTime = new DateTime('now', $timezone);
             $microTime = str_pad(strval(microtime(true) * 1000000 % 1000000), 6, '0', STR_PAD_LEFT);
             $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).'.'.$microTime;
