@@ -661,13 +661,15 @@ class Carbon extends DateTime
             }
         }
 
-        $instance = static::create($year, $month, 1, $hour, $minute, $second, $tz);
+        $instance = static::create($year, $month, $day, $hour, $minute, $second, $tz);
 
-        if ($day !== null && $day > $instance->daysInMonth) {
-            throw new InvalidDateException('day', $day);
+        foreach (array_reverse($fields) as $field => $range) {
+            if ($$field !== null && (!is_int($$field) || $$field !== $instance->$field)) {
+                throw new InvalidDateException($field, $$field);
+            }
         }
 
-        return $instance->day($day);
+        return $instance;
     }
 
     /**

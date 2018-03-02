@@ -172,6 +172,24 @@ class CreateSafeTest extends AbstractTestCase
 
     /**
      * @expectedException \Carbon\Exceptions\InvalidDateException
+     * @expectedExceptionMessage hour : 1 is not a valid value.
+     */
+    public function testCreateSafePassesForFebruaryInInvalidDSTTime()
+    {
+        // 1h jumped to 2h because of the DST, so 1h30 is not a safe date
+        Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London');
+    }
+
+    public function testCreateSafePassesForFebruaryInValidDSTTime()
+    {
+        // 28 days in February for a non-leap year
+        Carbon::createSafe(2014, 3, 30, 0, 30, 0, 'Europe/London');
+        Carbon::createSafe(2014, 3, 30, 2, 30, 0, 'Europe/London');
+        Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'UTC');
+    }
+
+    /**
+     * @expectedException \Carbon\Exceptions\InvalidDateException
      * @expectedExceptionMessage second : 15.1 is not a valid value.
      */
     public function testCreateSafeThrowsExceptionForWithNonIntegerValue()
