@@ -570,6 +570,8 @@ class Carbon extends DateTime
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
+     * @throws \InvalidArgumentException
+     *
      * @return static
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
@@ -640,7 +642,7 @@ class Carbon extends DateTime
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
-     * @throws \Carbon\Exceptions\InvalidDateException
+     * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
      * @return static
      */
@@ -680,6 +682,8 @@ class Carbon extends DateTime
      * @param int|null                  $day
      * @param \DateTimeZone|string|null $tz
      *
+     * @throws \InvalidArgumentException
+     *
      * @return static
      */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null)
@@ -709,6 +713,8 @@ class Carbon extends DateTime
      * @param int|null                  $minute
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
      *
      * @return static
      */
