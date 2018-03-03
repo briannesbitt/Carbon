@@ -395,7 +395,8 @@ class Carbon extends DateTime
     {
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
-        if (static::hasTestNow() && (empty($time) || $time === 'now' || static::hasRelativeKeywords($time))) {
+        $isNow = empty($time) || $time === 'now';
+        if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
             if (static::hasRelativeKeywords($time)) {
                 $testInstance->modify($time);
@@ -411,12 +412,25 @@ class Carbon extends DateTime
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
+        // Get microseconds from microtime() if "now" asked and PHP < 7.1
+        $timezone = static::safeCreateDateTimeZone($tz);
+        // @codeCoverageIgnoreStart
+        if ($isNow && !isset($testInstance) && (
+            version_compare(PHP_VERSION, '7.1.0-dev', '<')) ||
+            version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
+        ) {
+            $dateTime = new DateTime('now', $timezone);
+            $microTime = str_pad(strval(microtime(true) * 1000000 % 1000000), 6, '0', STR_PAD_LEFT);
+            $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).'.'.$microTime;
+        }
+        // @codeCoverageIgnoreEnd
+
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
         if (strpos((string) .1, '.') === false) {
             $locale = setlocale(LC_NUMERIC, '0');
             setlocale(LC_NUMERIC, 'C');
         }
-        parent::__construct($time, static::safeCreateDateTimeZone($tz));
+        parent::__construct($time, $timezone);
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);
         }
