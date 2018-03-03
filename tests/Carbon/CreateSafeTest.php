@@ -170,19 +170,23 @@ class CreateSafeTest extends AbstractTestCase
         Carbon::createSafe(2015, 2, 29, 17, 16, 15);
     }
 
-    /**
-     * @expectedException \Carbon\Exceptions\InvalidDateException
-     * @expectedExceptionMessage hour : 1 is not a valid value.
-     */
-    public function testCreateSafePassesForFebruaryInInvalidDSTTime()
+    public function testCreateSafePassesForInvalidDSTTime()
     {
-        // 1h jumped to 2h because of the DST, so 1h30 is not a safe date
-        Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London');
+        $message = '';
+        try {
+            // 1h jumped to 2h because of the DST, so 1h30 is not a safe date in PHP 5.4+
+            $date = Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London');
+        } catch (\Carbon\Exceptions\InvalidDateException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        version_compare(PHP_VERSION, '5.4.0-dev', '<')
+            ? $this->assertCarbon($date, 2014, 3, 30, 1, 30, 0)
+            : $this->assertContains('hour : 1 is not a valid value.', $message);
     }
 
-    public function testCreateSafePassesForFebruaryInValidDSTTime()
+    public function testCreateSafePassesForValidDSTTime()
     {
-        // 28 days in February for a non-leap year
         Carbon::createSafe(2014, 3, 30, 0, 30, 0, 'Europe/London');
         Carbon::createSafe(2014, 3, 30, 2, 30, 0, 'Europe/London');
         Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'UTC');
