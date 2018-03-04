@@ -3252,6 +3252,26 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
+     * Resets the seconds to 00
+     *
+     * @return static
+     */
+    public function startOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 0);
+    }
+
+    /**
+     * Resets the Minutes and seconds to 00:00
+     *
+     * @return static
+     */
+    public function startOfHour()
+    {
+        return $this->setTime($this->hour, 0, 0);
+    }
+
+    /**
      * Resets the time to 00:00:00
      *
      * @return static
