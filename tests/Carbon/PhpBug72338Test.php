@@ -36,7 +36,7 @@ class PhpBug72338Test extends AbstractTestCase
 
         // In versions <= 5.5.5 setTimezone doesn't accept timezone in 'HH:MM' format.
         // I dont know about versions between 5.5.5 and 5.5.18, but 5.5.18 accept it.
-        if (version_compare(PHP_VERSION, '5.5.18', '<')) {
+        if (version_compare(PHP_VERSION, '5.5.18-dev', '<')) {
             $this->markTestSkipped();
         }
     }

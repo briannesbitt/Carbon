@@ -570,6 +570,8 @@ class Carbon extends DateTime
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
+     * @throws \InvalidArgumentException
+     *
      * @return static
      */
     public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
@@ -640,7 +642,7 @@ class Carbon extends DateTime
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
      *
-     * @throws \Carbon\Exceptions\InvalidDateException
+     * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
      * @return static
      */
@@ -661,13 +663,15 @@ class Carbon extends DateTime
             }
         }
 
-        $instance = static::create($year, $month, 1, $hour, $minute, $second, $tz);
+        $instance = static::create($year, $month, $day, $hour, $minute, $second, $tz);
 
-        if ($day !== null && $day > $instance->daysInMonth) {
-            throw new InvalidDateException('day', $day);
+        foreach (array_reverse($fields) as $field => $range) {
+            if ($$field !== null && (!is_int($$field) || $$field !== $instance->$field)) {
+                throw new InvalidDateException($field, $$field);
+            }
         }
 
-        return $instance->day($day);
+        return $instance;
     }
 
     /**
@@ -677,6 +681,8 @@ class Carbon extends DateTime
      * @param int|null                  $month
      * @param int|null                  $day
      * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
      *
      * @return static
      */
@@ -707,6 +713,8 @@ class Carbon extends DateTime
      * @param int|null                  $minute
      * @param int|null                  $second
      * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
      *
      * @return static
      */
