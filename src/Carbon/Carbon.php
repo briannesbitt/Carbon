@@ -440,17 +440,17 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTime $dt
+     * @param \DateTime $date
      *
      * @return static
      */
-    public static function instance(DateTime $dt)
+    public static function instance(DateTime $date)
     {
-        if ($dt instanceof static) {
-            return clone $dt;
+        if ($date instanceof static) {
+            return clone $date;
         }
 
-        return new static($dt->format('Y-m-d H:i:s.u'), $dt->getTimezone());
+        return new static($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
     }
 
     /**
@@ -737,15 +737,15 @@ class Carbon extends DateTime
     public static function createFromFormat($format, $time, $tz = null)
     {
         if ($tz !== null) {
-            $dt = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
+            $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
         } else {
-            $dt = parent::createFromFormat($format, $time);
+            $date = parent::createFromFormat($format, $time);
         }
 
         $lastErrors = parent::getLastErrors();
 
-        if ($dt instanceof DateTime) {
-            $instance = static::instance($dt);
+        if ($date instanceof DateTime) {
+            $instance = static::instance($date);
             $instance::setLastErrors($lastErrors);
 
             return $instance;
@@ -1625,263 +1625,263 @@ class Carbon extends DateTime
     /**
      * Determines if the instance is equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function eq(self $dt)
+    public function eq($date)
     {
-        return $this == $dt;
+        return $this == $date;
     }
 
     /**
      * Determines if the instance is equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see eq()
      *
      * @return bool
      */
-    public function equalTo(self $dt)
+    public function equalTo($date)
     {
-        return $this->eq($dt);
+        return $this->eq($date);
     }
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function ne(self $dt)
+    public function ne($date)
     {
-        return !$this->eq($dt);
+        return !$this->eq($date);
     }
 
     /**
      * Determines if the instance is not equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see ne()
      *
      * @return bool
      */
-    public function notEqualTo(self $dt)
+    public function notEqualTo($date)
     {
-        return $this->ne($dt);
+        return $this->ne($date);
     }
 
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function gt(self $dt)
+    public function gt($date)
     {
-        return $this > $dt;
+        return $this > $date;
     }
 
     /**
      * Determines if the instance is greater (after) than another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see gt()
      *
      * @return bool
      */
-    public function greaterThan(self $dt)
+    public function greaterThan($date)
     {
-        return $this->gt($dt);
+        return $this->gt($date);
     }
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function gte(self $dt)
+    public function gte($date)
     {
-        return $this >= $dt;
+        return $this >= $date;
     }
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see gte()
      *
      * @return bool
      */
-    public function greaterThanOrEqualTo(self $dt)
+    public function greaterThanOrEqualTo($date)
     {
-        return $this->gte($dt);
+        return $this->gte($date);
     }
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function lt(self $dt)
+    public function lt($date)
     {
-        return $this < $dt;
+        return $this < $date;
     }
 
     /**
      * Determines if the instance is less (before) than another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see lt()
      *
      * @return bool
      */
-    public function lessThan(self $dt)
+    public function lessThan($date)
     {
-        return $this->lt($dt);
+        return $this->lt($date);
     }
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return bool
      */
-    public function lte(self $dt)
+    public function lte($date)
     {
-        return $this <= $dt;
+        return $this <= $date;
     }
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
-     * @param Carbon $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see lte()
      *
      * @return bool
      */
-    public function lessThanOrEqualTo(self $dt)
+    public function lessThanOrEqualTo($date)
     {
-        return $this->lte($dt);
+        return $this->lte($date);
     }
 
     /**
      * Determines if the instance is between two others
      *
-     * @param Carbon $dt1
-     * @param Carbon $dt2
-     * @param bool   $equal Indicates if a > and < comparison should be used or <= or >=
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param bool                                    $equal Indicates if a > and < comparison should be used or <= or >=
      *
      * @return bool
      */
-    public function between(self $dt1, self $dt2, $equal = true)
+    public function between($date1, $date2, $equal = true)
     {
-        if ($dt1->gt($dt2)) {
-            $temp = $dt1;
-            $dt1 = $dt2;
-            $dt2 = $temp;
+        if ($date1->gt($date2)) {
+            $temp = $date1;
+            $date1 = $date2;
+            $date2 = $temp;
         }
 
         if ($equal) {
-            return $this->gte($dt1) && $this->lte($dt2);
+            return $this->gte($date1) && $this->lte($date2);
         }
 
-        return $this->gt($dt1) && $this->lt($dt2);
+        return $this->gt($date1) && $this->lt($date2);
     }
 
     /**
      * Get the closest date from the instance.
      *
-     * @param Carbon $dt1
-     * @param Carbon $dt2
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
      * @return static
      */
-    public function closest(self $dt1, self $dt2)
+    public function closest($date1, $date2)
     {
-        return $this->diffInSeconds($dt1) < $this->diffInSeconds($dt2) ? $dt1 : $dt2;
+        return $this->diffInSeconds($date1) < $this->diffInSeconds($date2) ? $date1 : $date2;
     }
 
     /**
      * Get the farthest date from the instance.
      *
-     * @param Carbon $dt1
-     * @param Carbon $dt2
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
      * @return static
      */
-    public function farthest(self $dt1, self $dt2)
+    public function farthest($date1, $date2)
     {
-        return $this->diffInSeconds($dt1) > $this->diffInSeconds($dt2) ? $dt1 : $dt2;
+        return $this->diffInSeconds($date1) > $this->diffInSeconds($date2) ? $date1 : $date2;
     }
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|null $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return static
      */
-    public function min(self $dt = null)
+    public function min($date = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return $this->lt($dt) ? $this : $dt;
+        return $this->lt($date) ? $this : $date;
     }
 
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|null $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see min()
      *
      * @return static
      */
-    public function minimum(self $dt = null)
+    public function minimum($date = null)
     {
-        return $this->min($dt);
+        return $this->min($date);
     }
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|null $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @return static
      */
-    public function max(self $dt = null)
+    public function max($date = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return $this->gt($dt) ? $this : $dt;
+        return $this->gt($date) ? $this : $date;
     }
 
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|null $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
      * @see max()
      *
      * @return static
      */
-    public function maximum(self $dt = null)
+    public function maximum($date = null)
     {
-        return $this->max($dt);
+        return $this->max($date);
     }
 
     /**
@@ -2040,21 +2040,21 @@ class Carbon extends DateTime
      * Compares the formatted values of the two dates.
      *
      * @param string                                 $format The date formats to compare.
-     * @param \Carbon\Carbon|\DateTimeInterface|null $dt     The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date   The instance to compare with or null to use current day.
      *
      * @throws \InvalidArgumentException
      *
      * @return bool
      */
-    public function isSameAs($format, $dt = null)
+    public function isSameAs($format, $date = null)
     {
-        $dt = $dt ?: static::now($this->tz);
+        $date = $date ?: static::now($this->tz);
 
-        if (!($dt instanceof DateTime) && !($dt instanceof DateTimeInterface)) {
+        if (!($date instanceof DateTime) && !($date instanceof DateTimeInterface)) {
             throw new InvalidArgumentException('Expected DateTime (or instanceof) object as argument.');
         }
 
-        return $this->format($format) === $dt->format($format);
+        return $this->format($format) === $date->format($format);
     }
 
     /**
@@ -2070,13 +2070,13 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same year as the instance year.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isSameYear($dt = null)
+    public function isSameYear($date = null)
     {
-        return $this->isSameAs('Y', $dt);
+        return $this->isSameAs('Y', $date);
     }
 
     /**
@@ -2092,26 +2092,26 @@ class Carbon extends DateTime
     /**
      * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $dt         The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
-    public function isSameMonth($dt = null, $ofSameYear = false)
+    public function isSameMonth($date = null, $ofSameYear = false)
     {
-        return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $dt);
+        return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $date);
     }
 
     /**
      * Checks if the passed in date is the same day as the instance current day.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $dt
+     * @param \Carbon\Carbon|\DateTimeInterface $date
      *
      * @return bool
      */
-    public function isSameDay($dt)
+    public function isSameDay($date)
     {
-        return $this->isSameAs('Y-m-d', $dt);
+        return $this->isSameAs('Y-m-d', $date);
     }
 
     /**
@@ -2933,87 +2933,87 @@ class Carbon extends DateTime
     /**
      * Get the difference in years
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     * @param bool                                   $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInYears(self $dt = null, $abs = true)
+    public function diffInYears($date = null, $absolute = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return (int) $this->diff($dt, $abs)->format('%r%y');
+        return (int) $this->diff($date, $absolute)->format('%r%y');
     }
 
     /**
      * Get the difference in months
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     * @param bool                                   $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInMonths(self $dt = null, $abs = true)
+    public function diffInMonths($date = null, $absolute = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return $this->diffInYears($dt, $abs) * static::MONTHS_PER_YEAR + (int) $this->diff($dt, $abs)->format('%r%m');
+        return $this->diffInYears($date, $absolute) * static::MONTHS_PER_YEAR + (int) $this->diff($date, $absolute)->format('%r%m');
     }
 
     /**
      * Get the difference in weeks
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     * @param bool                                   $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeeks(self $dt = null, $abs = true)
+    public function diffInWeeks($date = null, $absolute = true)
     {
-        return (int) ($this->diffInDays($dt, $abs) / static::DAYS_PER_WEEK);
+        return (int) ($this->diffInDays($date, $absolute) / static::DAYS_PER_WEEK);
     }
 
     /**
      * Get the difference in days
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     * @param bool                                   $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInDays(self $dt = null, $abs = true)
+    public function diffInDays($date = null, $absolute = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return (int) $this->diff($dt, $abs)->format('%r%a');
+        return (int) $this->diff($date, $absolute)->format('%r%a');
     }
 
     /**
      * Get the difference in days using a filter closure
      *
      * @param Closure             $callback
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs      Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInDaysFiltered(Closure $callback, self $dt = null, $abs = true)
+    public function diffInDaysFiltered(Closure $callback, $date = null, $absolute = true)
     {
-        return $this->diffFiltered(CarbonInterval::day(), $callback, $dt, $abs);
+        return $this->diffFiltered(CarbonInterval::day(), $callback, $date, $absolute);
     }
 
     /**
      * Get the difference in hours using a filter closure
      *
      * @param Closure             $callback
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs      Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInHoursFiltered(Closure $callback, self $dt = null, $abs = true)
+    public function diffInHoursFiltered(Closure $callback, $date = null, $absolute = true)
     {
-        return $this->diffFiltered(CarbonInterval::hour(), $callback, $dt, $abs);
+        return $this->diffFiltered(CarbonInterval::hour(), $callback, $date, $absolute);
     }
 
     /**
@@ -3021,15 +3021,15 @@ class Carbon extends DateTime
      *
      * @param CarbonInterval $ci       An interval to traverse by
      * @param Closure        $callback
-     * @param Carbon|null    $dt
-     * @param bool           $abs      Get the absolute of the difference
+     * @param Carbon|null    $date
+     * @param bool           $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffFiltered(CarbonInterval $ci, Closure $callback, self $dt = null, $abs = true)
+    public function diffFiltered(CarbonInterval $ci, Closure $callback, $date = null, $absolute = true)
     {
         $start = $this;
-        $end = $dt ?: static::now($this->getTimezone());
+        $end = $date ?: static::now($this->getTimezone());
         $inverse = false;
 
         if ($end < $start) {
@@ -3039,89 +3039,89 @@ class Carbon extends DateTime
         }
 
         $period = new DatePeriod($start, $ci, $end);
-        $vals = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+        $values = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
             return call_user_func($callback, Carbon::instance($date));
         });
 
-        $diff = count($vals);
+        $diff = count($values);
 
-        return $inverse && !$abs ? -$diff : $diff;
+        return $inverse && !$absolute ? -$diff : $diff;
     }
 
     /**
      * Get the difference in weekdays
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekdays(self $dt = null, $abs = true)
+    public function diffInWeekdays($date = null, $absolute = true)
     {
         return $this->diffInDaysFiltered(function (Carbon $date) {
             return $date->isWeekday();
-        }, $dt, $abs);
+        }, $date, $absolute);
     }
 
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInWeekendDays(self $dt = null, $abs = true)
+    public function diffInWeekendDays($date = null, $absolute = true)
     {
         return $this->diffInDaysFiltered(function (Carbon $date) {
             return $date->isWeekend();
-        }, $dt, $abs);
+        }, $date, $absolute);
     }
 
     /**
      * Get the difference in hours
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInHours(self $dt = null, $abs = true)
+    public function diffInHours($date = null, $absolute = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR);
+        return (int) ($this->diffInSeconds($date, $absolute) / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR);
     }
 
     /**
      * Get the difference in minutes
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInMinutes(self $dt = null, $abs = true)
+    public function diffInMinutes($date = null, $absolute = true)
     {
-        return (int) ($this->diffInSeconds($dt, $abs) / static::SECONDS_PER_MINUTE);
+        return (int) ($this->diffInSeconds($date, $absolute) / static::SECONDS_PER_MINUTE);
     }
 
     /**
      * Get the difference in seconds
      *
-     * @param \Carbon\Carbon|null $dt
-     * @param bool                $abs Get the absolute of the difference
+     * @param \Carbon\Carbon|null $date
+     * @param bool                $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInSeconds(self $dt = null, $abs = true)
+    public function diffInSeconds($date = null, $absolute = true)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
-        $diff = $this->diff($dt);
+        $date = $date ?: static::now($this->getTimezone());
+        $diff = $this->diff($date);
         $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->i * static::SECONDS_PER_MINUTE +
             $diff->s;
 
-        return $abs || !$diff->invert ? $value : -$value;
+        return $absolute || !$diff->invert ? $value : -$value;
     }
 
     /**
@@ -3569,11 +3569,11 @@ class Carbon extends DateTime
      */
     public function nthOfMonth($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->firstOfMonth();
-        $check = $dt->format('Y-m');
-        $dt->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $this->copy()->firstOfMonth();
+        $check = $date->format('Y-m');
+        $date->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $dt->format('Y-m') === $check ? $this->modify($dt) : false;
+        return $date->format('Y-m') === $check ? $this->modify($date) : false;
     }
 
     /**
@@ -3619,12 +3619,12 @@ class Carbon extends DateTime
      */
     public function nthOfQuarter($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
-        $lastMonth = $dt->month;
-        $year = $dt->year;
-        $dt->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $this->copy()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
+        $lastMonth = $date->month;
+        $year = $date->year;
+        $date->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $dt->month || $year !== $dt->year) ? false : $this->modify($dt);
+        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify($date);
     }
 
     /**
@@ -3670,35 +3670,35 @@ class Carbon extends DateTime
      */
     public function nthOfYear($nth, $dayOfWeek)
     {
-        $dt = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $this->year === $dt->year ? $this->modify($dt) : false;
+        return $this->year === $date->year ? $this->modify($date) : false;
     }
 
     /**
      * Modify the current instance to the average of a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|null $dt
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
      * @return static
      */
-    public function average(self $dt = null)
+    public function average($date = null)
     {
-        $dt = $dt ?: static::now($this->getTimezone());
+        $date = $date ?: static::now($this->getTimezone());
 
-        return $this->addSeconds((int) ($this->diffInSeconds($dt, false) / 2));
+        return $this->addSeconds((int) ($this->diffInSeconds($date, false) / 2));
     }
 
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $dt The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
      *
      * @return bool
      */
-    public function isBirthday($dt = null)
+    public function isBirthday($date = null)
     {
-        return $this->isSameAs('md', $dt);
+        return $this->isSameAs('md', $date);
     }
 
     /**
