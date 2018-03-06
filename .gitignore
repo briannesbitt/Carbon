@@ -9,3 +9,4 @@ composer.lock
 coverage.xml
 coverage
 phpunit.xml
+Carbon-*.zip
