@@ -15,56 +15,64 @@ $tags = array_map(function ($ref) {
 }));
 usort($tags, 'version_compare');
 
-$tag = isset($argv[1]) ? $argv[1] : end($tags);
+$tag = isset($argv[1]) && !in_array($argv[1], array('last', 'latest')) ? $argv[1] : end($tags);
 
-if (!in_array($tag, $tags)) {
-    echo "Tag must be one of remote tags available:\n";
-    foreach ($tags as $_tag) {
-        echo "  - $_tag\n";
+if (strtolower($tag) !== 'all') {
+    if (!in_array($tag, $tags)) {
+        echo "Tag must be one of remote tags available:\n";
+        foreach ($tags as $_tag) {
+            echo "  - $_tag\n";
+        }
+        echo "\"$tag\" does not match.\n";
+
+        exit(1);
     }
-    echo "\"$tag\" does not match.\n";
 
-    exit(1);
+    $tags = array($tag);
 }
 
-$branch = "build-$tag";
-shell_exec('git stash');
-shell_exec("git branch -d $branch");
-shell_exec("git checkout tags/$tag -b $branch");
-shell_exec('composer config platform.php 5.3.9');
-shell_exec('composer update --no-interaction --no-dev --optimize-autoloader');
-$zip = new ZipArchive();
+foreach ($tags as $tag) {
+    $branch = "build-$tag";
+    shell_exec('git stash');
+    shell_exec("git branch -d $branch");
+    shell_exec("git checkout tags/$tag -b $branch");
+    shell_exec('composer config platform.php 5.3.9');
+    shell_exec('composer update --no-interaction --no-dev --optimize-autoloader');
+    $zip = new ZipArchive();
 
-$zip->open("Carbon-$tag.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
+    $zip->open("Carbon-$tag.zip", ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-foreach (array('src', 'vendor') as $directory) {
-    $directory = realpath($directory);
-    $base = dirname($directory);
+    foreach (array('src', 'vendor', 'Carbon') as $directory) {
+        if (is_dir($directory)) {
+            $directory = realpath($directory);
+            $base = dirname($directory);
 
-    $files = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($directory),
-        RecursiveIteratorIterator::LEAVES_ONLY
-    );
+            $files = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($directory),
+                RecursiveIteratorIterator::LEAVES_ONLY
+            );
 
-    foreach ($files as $name => $file) {
-        if (!$file->isDir()) {
-            $filePath = $file->getRealPath();
+            foreach ($files as $name => $file) {
+                if (!$file->isDir()) {
+                    $filePath = $file->getRealPath();
 
-            $zip->addFile($filePath, substr($filePath, strlen($base) + 1));
+                    $zip->addFile($filePath, substr($filePath, strlen($base) + 1));
+                }
+            }
         }
     }
+
+    $autoload = 'autoload.php';
+    file_put_contents($autoload, "<?php\n\n/**\n * @version $tag\n */\n\nrequire __DIR__.'/vendor/autoload.php';\n");
+    $zip->addFile($autoload, $autoload);
+    $zip->close();
+    unlink($autoload);
+
+    shell_exec('git checkout .');
+    shell_exec("git checkout $currentBranch");
+    shell_exec("git branch -d $branch");
+    shell_exec('git stash pop');
+    shell_exec('composer update --no-interaction');
 }
-
-$autoload = 'autoload.php';
-file_put_contents($autoload, "<?php\n\n/**\n * @version $tag\n */\n\nrequire __DIR__.'/vendor/autoload.php';\n");
-$zip->addFile($autoload, $autoload);
-$zip->close();
-unlink($autoload);
-
-shell_exec('git checkout .');
-shell_exec("git checkout $currentBranch");
-shell_exec("git branch -d $branch");
-shell_exec('git stash pop');
-shell_exec('composer update --no-interaction');
 
 exit(0);
