@@ -155,6 +155,13 @@ class Carbon extends DateTime
     const MOCK_DATETIME_FORMAT = 'Y-m-d H:i:s.u';
 
     /**
+     * Customizable PHP_INT_SIZE override.
+     *
+     * @var int
+     */
+    public static $PHPIntSize = PHP_INT_SIZE;
+
+    /**
      * Format to use for __toString method when type juggling occurs.
      *
      * @var string
@@ -184,6 +191,13 @@ class Carbon extends DateTime
         self::SATURDAY,
         self::SUNDAY,
     );
+
+    /**
+     * Midday/noon hour.
+     *
+     * @var int
+     */
+    protected static $midDayAt = 12;
 
     /**
      * Format regex patterns.
@@ -525,7 +539,7 @@ class Carbon extends DateTime
      */
     public static function maxValue()
     {
-        if (PHP_INT_SIZE === 4) {
+        if (self::$PHPIntSize === 4) {
             // 32 bit
             return static::createFromTimestamp(PHP_INT_MAX); // @codeCoverageIgnore
         }
@@ -541,7 +555,7 @@ class Carbon extends DateTime
      */
     public static function minValue()
     {
-        if (PHP_INT_SIZE === 4) {
+        if (self::$PHPIntSize === 4) {
             // 32 bit
             return static::createFromTimestamp(~PHP_INT_MAX); // @codeCoverageIgnore
         }
@@ -726,11 +740,11 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                    $format
+     * @param string                    $format Datetime format
      * @param string                    $time
      * @param \DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return static
      */
@@ -921,6 +935,8 @@ class Carbon extends DateTime
      * @param string|int|\DateTimeZone $value
      *
      * @throws \InvalidArgumentException
+     *
+     * @return void
      */
     public function __set($name, $value)
     {
@@ -1169,7 +1185,9 @@ class Carbon extends DateTime
     /**
      * Set the first day of week
      *
-     * @param int $day
+     * @param int $day week start day
+     *
+     * @return void
      */
     public static function setWeekStartsAt($day)
     {
@@ -1190,6 +1208,8 @@ class Carbon extends DateTime
      * Set the last day of week
      *
      * @param int $day
+     *
+     * @return void
      */
     public static function setWeekEndsAt($day)
     {
@@ -1210,10 +1230,34 @@ class Carbon extends DateTime
      * Set weekend days
      *
      * @param array $days
+     *
+     * @return void
      */
     public static function setWeekendDays($days)
     {
         static::$weekendDays = $days;
+    }
+
+    /**
+     * get midday/noon hour
+     *
+     * @return int
+     */
+    public static function getMidDayAt()
+    {
+        return static::$midDayAt;
+    }
+
+    /**
+     * Set midday/noon hour
+     *
+     * @param int $hour midday hour
+     *
+     * @return void
+     */
+    public static function setMidDayAt($hour)
+    {
+        static::$midDayAt = $hour;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1235,6 +1279,7 @@ class Carbon extends DateTime
      * To clear the test instance call this method using the default
      * parameter of null.
      *
+     * @param \Carbon\Carbon|null        $testNow real or mock Carbon instance
      * @param \Carbon\Carbon|string|null $testNow
      */
     public static function setTestNow($testNow = null)
@@ -1328,6 +1373,8 @@ class Carbon extends DateTime
      * Set the translator instance to use
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     *
+     * @return void
      */
     public static function setTranslator(TranslatorInterface $translator)
     {
@@ -1347,7 +1394,7 @@ class Carbon extends DateTime
     /**
      * Set the current translator locale and indicate if the source locale file exists
      *
-     * @param string $locale
+     * @param string $locale locale ex. en
      *
      * @return bool
      */
@@ -1397,8 +1444,7 @@ class Carbon extends DateTime
      */
     public function formatLocalized($format)
     {
-        // Check for Windows to find and replace the %e
-        // modifier correctly
+        // Check for Windows to find and replace the %e modifier correctly.
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $format = preg_replace('#(?<!%)((?:%%)*)%e#', '\1%#d', $format); // @codeCoverageIgnore
         }
@@ -1410,6 +1456,8 @@ class Carbon extends DateTime
 
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string
+     *
+     * @return void
      */
     public static function resetToStringFormat()
     {
@@ -1420,6 +1468,8 @@ class Carbon extends DateTime
      * Set the default format used when type juggling a Carbon instance to a string
      *
      * @param string $format
+     *
+     * @return void
      */
     public static function setToStringFormat($format)
     {
@@ -1616,6 +1666,28 @@ class Carbon extends DateTime
         return $this->copy()
             ->setTimezone('GMT')
             ->format(static::RFC7231_FORMAT);
+    }
+
+    /**
+     * Get default array representation
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return array(
+            'year' => $this->year,
+            'month' => $this->month,
+            'day' => $this->day,
+            'dayOfWeek' => $this->dayOfWeek,
+            'dayOfYear' => $this->dayOfYear,
+            'hour' => $this->hour,
+            'minute' => $this->minute,
+            'second' => $this->second,
+            'timestamp' => $this->timestamp,
+            'formatted' => $this->format(self::DEFAULT_TO_STRING_FORMAT),
+            'timezone' => $this->timezone,
+        );
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -2687,7 +2759,7 @@ class Carbon extends DateTime
      */
     public function addWeekdays($value)
     {
-        // fix for https://bugs.php.net/bug.php?id=54909
+        // Fix for weekday bug https://bugs.php.net/bug.php?id=54909
         $t = $this->toTimeString();
         $this->modify((int) $value.' weekday');
 
@@ -3260,7 +3332,7 @@ class Carbon extends DateTime
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Resets the time to 00:00:00
+     * Resets the time to 00:00:00 start of day
      *
      * @return static
      */
@@ -3270,7 +3342,7 @@ class Carbon extends DateTime
     }
 
     /**
-     * Resets the time to 23:59:59
+     * Resets the time to 23:59:59 end of day
      *
      * @return static
      */
@@ -3415,6 +3487,56 @@ class Carbon extends DateTime
         }
 
         return $this->endOfDay();
+    }
+
+    /**
+     * Modify to start of current hour, minutes and seconds become 0
+     *
+     * @return static
+     */
+    public function startOfHour()
+    {
+        return $this->setTime($this->hour, 0, 0);
+    }
+
+    /**
+     * Modify to end of current hour, minutes and seconds become 59
+     *
+     * @return static
+     */
+    public function endOfHour()
+    {
+        return $this->setTime($this->hour, 59, 59);
+    }
+
+    /**
+     * Modify to start of current minute, seconds become 0
+     *
+     * @return static
+     */
+    public function startOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 0);
+    }
+
+    /**
+     * Modify to end of current minute, seconds become 59
+     *
+     * @return static
+     */
+    public function endOfMinute()
+    {
+        return $this->setTime($this->hour, $this->minute, 59);
+    }
+
+    /**
+     * Modify to midday, default to self::$midDayAt
+     *
+     * @return static
+     */
+    public function midDay()
+    {
+        return $this->setTime(self::$midDayAt, 0, 0);
     }
 
     /**
@@ -3582,7 +3704,7 @@ class Carbon extends DateTime
      * first day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param int|null $dayOfWeek day of the week default null
      *
      * @return static
      */
@@ -3597,7 +3719,7 @@ class Carbon extends DateTime
      * last day of the current quarter.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param int|null $dayOfWeek day of the week default null
      *
      * @return static
      */
@@ -3633,7 +3755,7 @@ class Carbon extends DateTime
      * first day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param int|null $dayOfWeek day of the week default null
      *
      * @return static
      */
@@ -3648,7 +3770,7 @@ class Carbon extends DateTime
      * last day of the current year.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param int|null $dayOfWeek day of the week default null
      *
      * @return static
      */
