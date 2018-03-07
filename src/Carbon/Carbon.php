@@ -2187,6 +2187,18 @@ class Carbon extends DateTime
     }
 
     /**
+     * Checks if this day is a specific day of the week.
+     *
+     * @param int $dayOfWeek
+     *
+     * @return bool
+     */
+    public function isDayOfWeek($dayOfWeek)
+    {
+        return $this->dayOfWeek === $dayOfWeek;
+    }
+
+    /**
      * Checks if this day is a Sunday.
      *
      * @return bool
