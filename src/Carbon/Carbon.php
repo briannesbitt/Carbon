@@ -1684,6 +1684,7 @@ class Carbon extends DateTime
             'hour' => $this->hour,
             'minute' => $this->minute,
             'second' => $this->second,
+            'micro' => $this->micro,
             'timestamp' => $this->timestamp,
             'formatted' => $this->format(self::DEFAULT_TO_STRING_FORMAT),
             'timezone' => $this->timezone,

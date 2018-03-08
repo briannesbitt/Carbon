@@ -47,6 +47,9 @@ class ArraysTest extends AbstractTestCase
         $this->assertArrayHasKey('second', $dtToArray);
         $this->assertEquals($dt->second, $dtToArray['second']);
 
+        $this->assertArrayHasKey('micro', $dtToArray);
+        $this->assertEquals($dt->micro, $dtToArray['micro']);
+
         $this->assertArrayHasKey('timestamp', $dtToArray);
         $this->assertEquals($dt->timestamp, $dtToArray['timestamp']);
 
