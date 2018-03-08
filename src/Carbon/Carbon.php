@@ -3267,7 +3267,7 @@ class Carbon extends DateTime
         if ($isNow) {
             $other = static::now($this->getTimezone());
         } elseif (!$other instanceof self) {
-	        $other = $this->parse($other);
+            $other = $this->parse($other);
         }
 
         $diffInterval = $this->diff($other);
