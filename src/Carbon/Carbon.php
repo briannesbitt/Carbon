@@ -81,46 +81,6 @@ class Carbon extends DateTime
     );
 
     /**
-     * Terms used to detect if a time passed is a relative date.
-     *
-     * This is here for testing purposes.
-     *
-     * @var array
-     */
-    protected static $relativeKeywords = array(
-        '+',
-        '-',
-        'ago',
-        'first',
-        'last',
-        'next',
-        'this',
-        'today',
-        'tomorrow',
-        'yesterday',
-
-        'sunday',
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-
-        'january',
-        'february',
-        'march',
-        'april',
-        'may',
-        'june',
-        'july',
-        'august',
-        'september',
-        'october',
-        'december',
-    );
-
-    /**
      * Number of X in Y.
      */
     const YEARS_PER_CENTURY = 100;
@@ -410,9 +370,9 @@ class Carbon extends DateTime
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
-        if (static::hasTestNow() && ($isNow || static::isRelativeTimeString($time))) {
+        if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
-            if (static::isRelativeTimeString($time)) {
+            if (static::hasRelativeKeywords($time)) {
                 $testInstance->modify($time);
             }
 
@@ -1310,39 +1270,13 @@ class Carbon extends DateTime
     }
 
     /**
-     * @obsolete You're recommended to use isRelativeTimeString instead.
-     *
-     * Determine if there is a relative keyword in the time string, this is to
-     * create dates relative to now for test instances. e.g.: next tuesday
-     *
-     * @param string $time
-     *
-     * @return bool true if there is a keyword, otherwise false
-     */
-    public static function hasRelativeKeywords($time)
-    {
-        // looks for years within dates
-        if (preg_match('/\d{4}/', $time) === 1) {
-            return false;
-        }
-
-        foreach (static::$relativeKeywords as $keyword) {
-            if (stripos($time, $keyword) !== false) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
      * Determine if a time string will produce a relative date.
      *
      * @param string $time
      *
      * @return bool true if time match a relative date, false if absolute or invalid time string
      */
-    public static function isRelativeTimeString($time)
+    public static function hasRelativeKeywords($time)
     {
         if (strtotime($time) === false) {
             return false;
