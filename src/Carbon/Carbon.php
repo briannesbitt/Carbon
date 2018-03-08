@@ -1321,11 +1321,6 @@ class Carbon extends DateTime
      */
     public static function hasRelativeKeywords($time)
     {
-        // skip common format with a '-' in it
-        if (preg_match('/\d{4}-\d{1,2}-\d{1,2}/', $time) === 1) {
-            return false;
-        }
-
         // looks for years within dates
         if (preg_match('/\d{4}/', $time) === 1) {
             return false;

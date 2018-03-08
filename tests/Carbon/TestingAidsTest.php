@@ -114,6 +114,28 @@ class TestingAidsTest extends AbstractTestCase
         }, $testNow);
     }
 
+    public function testHasRelativeKeywords()
+    {
+        $this->assertFalse(Carbon::hasRelativeKeywords('sunday 2015-02-23'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('today +2014 days'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('next sunday -3600 seconds'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('last day of this month'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('last day of december 2015'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('first sunday of next month'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('first sunday of January 2017'));
+    }
+
+    public function testIsRelativeTimeString()
+    {
+        $this->assertFalse(Carbon::isRelativeTimeString('sunday 2015-02-23'));
+        $this->assertTrue(Carbon::isRelativeTimeString('today +2014 days'));
+        $this->assertTrue(Carbon::isRelativeTimeString('next sunday -3600 seconds'));
+        $this->assertTrue(Carbon::isRelativeTimeString('last day of this month'));
+        $this->assertFalse(Carbon::isRelativeTimeString('last day of last month of 2015'));
+        $this->assertTrue(Carbon::isRelativeTimeString('first sunday of next month'));
+        $this->assertFalse(Carbon::isRelativeTimeString('first sunday of January 2017'));
+    }
+
     public function testParseRelativeWithMinusSignsInDate()
     {
         $testNow = Carbon::parse('2013-09-01 05:15:05');
