@@ -62,6 +62,19 @@ $nowInLondonTz = Carbon::now('Europe/London');
 {{parse2::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{parse2_eval}}
 </code></pre></p>
 
+<p>Note: before PHP 5.4 <code>(new MyClass())->method()</code> trigger a syntax error, if you use PHP 5.3, you need to create a variable then call the method on it: <code>$date = new Carbon('first day of December 2008'); echo $date->addWeeks(2)</code></p>
+
+<p>The string passed to <code>Carbon::parse</code> or to <code>new Carbon</code> can represent a relative time (next sunday, tomorrow, first day of next month, last year) or an absolute time (first day of December 2008, 2017-01-06). You can test if a string will produce a relative or absolute date with <code>Carbon::hasRelativeKeywords()</code>.</p>
+
+<p><pre><code class="php">$string = 'first day of next month';
+if (strtotime($string) === false) {
+    echo "'$string' is not a valid date/time string.";
+} elseif (Carbon::hasRelativeKeywords($string)) {
+    echo "'$string' is a relative valid date/time string, it will returns different dates depending on the current date.";
+} else {
+    echo "'$string' is an absolute date/time string, it will always returns the same date.";
+}</code></pre></p>
+
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">{{::lint($now = Carbon::now();)}}
@@ -85,7 +98,7 @@ Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
 
 <p><pre><code class="php">{{::lint(
 $xmasThisYear = Carbon::createFromDate(null, 12, 25);  // Year defaults to current year
-$Y2K = Carbon::create(2000, 1, 1, 0, 0, 0);
+$Y2K = Carbon::create(2000, 1, 1, 0, 0, 0); // equivalent to Carbon::createMidnightDate(2000, 1, 1)
 $alsoY2K = Carbon::create(1999, 12, 31, 24);
 $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 )}}
@@ -93,6 +106,22 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 // {{createFromDateException_eval}}
 {{createFromDateException::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); })}}
 </code></pre></p>
+
+<p>Create exceptions occurs on such negative values but not on overflow, to get exceptions on overflow, use <code>createSafe()</code></p>
+
+<p><pre><code class="php">{{notSafeOverflow::exec(echo Carbon::create(2000, 1, 35, 13, 0, 0);)}}
+// {{notSafeOverflow_eval}}
+
+{{safeOverflow::exec(try {
+    Carbon::createSafe(2000, 1, 35, 13, 0, 0);
+} catch (\Carbon\Exceptions\InvalidDateException $exp) {
+    echo $exp->getMessage();
+})}}
+// {{safeOverflow_eval}}</code></pre></p>
+
+<p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
+
+<p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception since PHP 5.4 because this time is in an hour skipped by the daylight saving time, but before PHP 5.4, it will just create this invalid date as it has existed.</p>
 
 <p><pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre></p>
 
@@ -421,6 +450,9 @@ $dt->tz('America/Toronto')->setTimezone('America/Vancouver');
 
 // ... of course format() is still available
 {{format7::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{format7_eval}}
+
+// The reverse hasFormat method allows you to test if a string looks like a given format
+{{hasformat::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{hasformat_eval}}
 </code></pre></p>
 
 <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
@@ -441,31 +473,36 @@ Carbon::resetToStringFormat();
 
 <p>The following are wrappers for the common formats provided in the <a href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
 
-<p><pre><code class="php">$dt = Carbon::now();
+<p><pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
-{{format22::exec(echo $dt->toAtomString();/*pad(30)*/)}} // {{format22_eval}}
-{{format23::exec(echo $dt->toCookieString();/*pad(30)*/)}} // {{format23_eval}}
+{{format22::exec(echo $dt->toAtomString();/*pad(32)*/)}} // {{format22_eval}}
+{{format23::exec(echo $dt->toCookieString();/*pad(32)*/)}} // {{format23_eval}}
 
-{{format24::exec(echo $dt->toIso8601String();/*pad(30)*/)}} // {{format24_eval}}
+{{format24::exec(echo $dt->toIso8601String();/*pad(32)*/)}} // {{format24_eval}}
 // Be aware we chose to use the full-extended format of the ISO 8601 norm
 // Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
 // is explained here in the PHP documentation:
 // https://php.net/manual/class.datetime.php#datetime.constants.iso8601
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
-{{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(30)*/)}} // {{formatiso8601_eval}}
+{{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{formatiso8601_eval}}
 
-{{format24b::exec(echo $dt->toIso8601ZuluString();/*pad(30)*/)}} // {{format24b_eval}}
-{{format25::exec(echo $dt->toRfc822String();/*pad(30)*/)}} // {{format25_eval}}
-{{format26::exec(echo $dt->toRfc850String();/*pad(30)*/)}} // {{format26_eval}}
-{{format27::exec(echo $dt->toRfc1036String();/*pad(30)*/)}} // {{format27_eval}}
-{{format28::exec(echo $dt->toRfc1123String();/*pad(30)*/)}} // {{format28_eval}}
-{{format29::exec(echo $dt->toRfc2822String();/*pad(30)*/)}} // {{format29_eval}}
-{{format30::exec(echo $dt->toRfc3339String();/*pad(30)*/)}} // {{format30_eval}}
-{{format30b::exec(echo $dt->toRfc7231String();/*pad(30)*/)}} // {{format30b_eval}}
-{{format31::exec(echo $dt->toRssString();/*pad(30)*/)}} // {{format31_eval}}
-{{format32::exec(echo $dt->toW3cString();/*pad(30)*/)}} // {{format32_eval}}
+{{format24b::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{format24b_eval}}
+{{format25::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{format25_eval}}
+{{format26::exec(echo $dt->toRfc850String();/*pad(32)*/)}} // {{format26_eval}}
+{{format27::exec(echo $dt->toRfc1036String();/*pad(32)*/)}} // {{format27_eval}}
+{{format28::exec(echo $dt->toRfc1123String();/*pad(32)*/)}} // {{format28_eval}}
+{{format29::exec(echo $dt->toRfc2822String();/*pad(32)*/)}} // {{format29_eval}}
+{{format30::exec(echo $dt->toRfc3339String();/*pad(32)*/)}} // {{format30_eval}}
+{{format30b::exec(echo $dt->toRfc7231String();/*pad(32)*/)}} // {{format30b_eval}}
+{{format31::exec(echo $dt->toRssString();/*pad(32)*/)}} // {{format31_eval}}
+{{format32::exec(echo $dt->toW3cString();/*pad(32)*/)}} // {{format32_eval}}
+
+{{toarray::exec(var_dump($dt->toArray());)}}
+/*
+{{toarray_eval}}
+*/
 </code></pre></p>
 
 <h1 id="api-comparison">Comparison</h1>
@@ -538,25 +575,25 @@ Carbon::resetToStringFormat();
 
 <p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods or <code>minimum()</code> and <code>maximum()</code> aliases.  As usual the default parameter is now if null is specified.</p>
 
-<p><pre><code class="php">{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
-{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+<p><pre><code class="php">{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
+{{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
 {{min::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{min_eval}}
 {{minimum::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{minimum_eval}}
 
-{{::lint($dt1 = Carbon::create(2012, 1, 1, 0, 0, 0);)}}
-{{::lint($dt2 = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
+{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
+{{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
 {{max::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{max_eval}}
 {{maximum::exec(echo $dt1->maximum($dt2);/*pad(50)*/)}} // {{maximum_eval}}
 
 // now is the default param
-{{::lint($dt1 = Carbon::create(2000, 1, 1, 0, 0, 0);)}}
+{{::lint($dt1 = Carbon::createMidnightDate(2000, 1, 1);)}}
 {{max2::exec(echo $dt1->max();/*pad(50)*/)}} // {{max2_eval}}
 {{maximum2::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{maximum2_eval}}
 
 {{::lint(
-$dt1 = Carbon::create(2010, 4, 1, 0, 0, 0);
-$dt2 = Carbon::create(2010, 3, 28, 0, 0, 0);
-$dt3 = Carbon::create(2010, 4, 16, 0, 0, 0);
+$dt1 = Carbon::createMidnightDate(2010, 4, 1);
+$dt2 = Carbon::createMidnightDate(2010, 3, 28);
+$dt3 = Carbon::createMidnightDate(2010, 4, 16);
 )}}
 
 // returns the closest of two date (no matter before or after)
@@ -591,12 +628,13 @@ $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
 $dt->isSameDay(Carbon::now()); // Same day of same month of same year
+$dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
 $dt->isNextWeek();
 $dt->isLastWeek();
+$dt->isLastOfMonth(); // is the last day of the month
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
-$dt->isLastOfMonth(); // last day of the month
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
 $dt->isCurrentYear();
@@ -692,7 +730,7 @@ $dt->isSameAs('w', Carbon::now()); // w is the date of the week, so this will re
 
 <p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
-$dt = Carbon::create(2017, 1, 31, 0);)}}
+$dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{addoverflow3::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{addoverflow3_eval}}
 {{addoverflow4::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow4_eval}}
@@ -710,7 +748,7 @@ to explicitly add/sub months with or without overflow no matter the current mode
 
 <p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
-$dt = Carbon::create(2017, 1, 31, 0);)}}
+$dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{addoverflow5::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow5_eval}}
 // plural addMonthsWithOverflow() method is also available
@@ -726,7 +764,7 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 {{::lint(Carbon::useMonthsOverflow(true);
 
-$dt = Carbon::create(2017, 1, 31, 0);)}}
+$dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{addoverflow9::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow9_eval}}
 {{addoverflow10::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow10_eval}}
@@ -743,7 +781,9 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 
 <p><pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
 
-$dt = Carbon::create(2020, 2, 29, 0);)}}
+$dt = Carbon::createMidnightDate(2020, 2, 29);)}}
+
+{{shouldyearoverflow1::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{shouldyearoverflow1_eval}}
 
 {{addyearoverflow5::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow5_eval}}
 // plural addYearsWithOverflow() method is also available
@@ -759,7 +799,9 @@ $dt = Carbon::create(2020, 2, 29, 0);)}}
 
 {{::lint(Carbon::useYearsOverflow(true);
 
-$dt = Carbon::create(2020, 2, 29, 0);)}}
+$dt = Carbon::createMidnightDate(2020, 2, 29);)}}
+
+{{shouldyearoverflow2::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{shouldyearoverflow2_eval}}
 
 {{addyearoverflow9::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow9_eval}}
 {{addyearoverflow10::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow10_eval}}
@@ -780,23 +822,23 @@ $dt = Carbon::create(2020, 2, 29, 0);)}}
 
 {{diff1::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{diff1_eval}}
 
-{{::lint($dtOttawa = Carbon::create(2000, 1, 1, 0, 0, 0, 'America/Toronto');)}}
-{{::lint($dtVancouver = Carbon::create(2000, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
+{{::lint($dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');)}}
+{{::lint($dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');)}}
 {{diff4::exec(echo $dtOttawa->diffInHours($dtVancouver);/*pad(70)*/)}} // {{diff4_eval}}
 {{diff4b::exec(echo $dtVancouver->diffInHours($dtOttawa);/*pad(70)*/)}} // {{diff4b_eval}}
 
 {{diff5::exec(echo $dtOttawa->diffInHours($dtVancouver, false);/*pad(70)*/)}} // {{diff5_eval}}
 {{diff6::exec(echo $dtVancouver->diffInHours($dtOttawa, false);/*pad(70)*/)}} // {{diff6_eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
+{{::lint($dt = Carbon::createMidnightDate(2012, 1, 31);)}}
 {{diff8::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{diff8_eval}}
 {{diff9::exec(echo $dt->diffInDays($dt->copy()->subMonth(), false);/*pad(70)*/)}} // {{diff9_eval}}
 
-{{::lint($dt = Carbon::create(2012, 4, 30, 0);)}}
+{{::lint($dt = Carbon::createMidnightDate(2012, 4, 30);)}}
 {{diff11::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{diff11_eval}}
 {{diff12::exec(echo $dt->diffInDays($dt->copy()->addWeek());/*pad(70)*/)}} // {{diff12_eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 1, 0);)}}
+{{::lint($dt = Carbon::createMidnightDate(2012, 1, 1);)}}
 {{diff14::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(59));/*pad(70)*/)}} // {{diff14_eval}}
 {{diff15::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(60));/*pad(70)*/)}} // {{diff15_eval}}
 {{diff16::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{diff16_eval}}
@@ -840,8 +882,8 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 {{diffin6::exec(echo $date->secondsUntilEndOfDay();/*pad(50)*/)}} // {{diffin6_eval}}
 
 {{::lint(
-$date1 = Carbon::create(2016, 1, 5, 0, 0, 0);
-$date2 = Carbon::create(2017, 3, 15, 0, 0, 0);
+$date1 = Carbon::createMidnightDate(2016, 1, 5);
+$date2 = Carbon::createMidnightDate(2017, 3, 15);
 )}}
 
 {{diffin7::exec(echo $date1->diffInDays($date2);/*pad(50)*/)}} // {{diffin7_eval}}
@@ -969,7 +1011,27 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 <p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);/*pad(40)*/)}}
+<p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{startofminute::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{startofminute_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{endofminute::exec(echo $dt->endOfMinute();/*pad(50)*/)}} // {{endofminute_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{startofhour::exec(echo $dt->startOfHour();/*pad(50)*/)}} // {{startofhour_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{endofhour::exec(echo $dt->endOfHour();/*pad(50)*/)}} // {{endofhour_eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{midday1::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{midday1_eval}}
+{{midday2::exec(echo $dt->midDay();/*pad(50)*/)}} // {{midday2_eval}}
+{{::lint(Carbon::setMidDayAt(13);/*pad(40)*/)}}
+{{midday3::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{midday3_eval}}
+{{midday4::exec(echo $dt->midDay();/*pad(50)*/)}} // {{midday4_eval}}
+{{::lint(Carbon::setMidDayAt(12);/*pad(40)*/)}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{modifier1::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{modifier1_eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
