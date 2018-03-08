@@ -456,12 +456,14 @@ Carbon::resetToStringFormat();
 // format, but you still can use it this way:
 {{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(30)*/)}} // {{formatiso8601_eval}}
 
+{{format24b::exec(echo $dt->toIso8601ZuluString();/*pad(30)*/)}} // {{format24b_eval}}
 {{format25::exec(echo $dt->toRfc822String();/*pad(30)*/)}} // {{format25_eval}}
 {{format26::exec(echo $dt->toRfc850String();/*pad(30)*/)}} // {{format26_eval}}
 {{format27::exec(echo $dt->toRfc1036String();/*pad(30)*/)}} // {{format27_eval}}
 {{format28::exec(echo $dt->toRfc1123String();/*pad(30)*/)}} // {{format28_eval}}
 {{format29::exec(echo $dt->toRfc2822String();/*pad(30)*/)}} // {{format29_eval}}
 {{format30::exec(echo $dt->toRfc3339String();/*pad(30)*/)}} // {{format30_eval}}
+{{format30b::exec(echo $dt->toRfc7231String();/*pad(30)*/)}} // {{format30b_eval}}
 {{format31::exec(echo $dt->toRssString();/*pad(30)*/)}} // {{format31_eval}}
 {{format32::exec(echo $dt->toW3cString();/*pad(30)*/)}} // {{format32_eval}}
 </code></pre></p>
@@ -588,12 +590,13 @@ $dt->isTomorrow();
 $dt->isFuture();
 $dt->isPast();
 $dt->isLeapYear();
-$dt->isSameDay(Carbon::now());
+$dt->isSameDay(Carbon::now()); // Same day of same month of same year
 $dt->isNextWeek();
 $dt->isLastWeek();
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
+$dt->isLastOfMonth(); // last day of the month
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
 $dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
 $dt->isCurrentYear();
@@ -734,6 +737,39 @@ $dt = Carbon::create(2017, 1, 31, 0);)}}
 {{addoverflowremind4::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind4_eval}}
 
 {{reset2::exec(Carbon::resetMonthsOverflow();)}}}
+</code></pre></p>
+
+<p>From version 1.23.0, overflow control is also available on years:</p>
+
+<p><pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
+
+$dt = Carbon::create(2020, 2, 29, 0);)}}
+
+{{addyearoverflow5::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow5_eval}}
+// plural addYearsWithOverflow() method is also available
+{{addyearoverflow6::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow6_eval}}
+// singular subYearWithOverflow() method is also available
+{{addyearoverflow7::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow7_eval}}
+// plural addYearsNoOverflow() method is also available
+{{addyearoverflow8::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow8_eval}}
+// singular subYearNoOverflow() method is also available
+
+{{addyearoverflowremind1::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind1_eval}}
+{{addyearoverflowremind2::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind2_eval}}
+
+{{::lint(Carbon::useYearsOverflow(true);
+
+$dt = Carbon::create(2020, 2, 29, 0);)}}
+
+{{addyearoverflow9::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow9_eval}}
+{{addyearoverflow10::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow10_eval}}
+{{addyearoverflow11::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow11_eval}}
+{{addyearoverflow12::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow12_eval}}
+
+{{addyearoverflowremind3::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind3_eval}}
+{{addyearoverflowremind4::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind4_eval}}
+
+{{reset3::exec(Carbon::resetYearsOverflow();)}}}
 </code></pre></p>
 
 <h1 id="api-difference">Difference</h1>
