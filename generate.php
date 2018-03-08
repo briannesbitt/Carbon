@@ -26,7 +26,7 @@ function genHtml($page, $out, $jumbotron = '')
     file_put_contents($out, $html);
 }
 
-function compile($src, $dest, & $namesCache)
+function compile($src, $dest, &$namesCache)
 {
     $code = file_get_contents($src);
 
@@ -41,7 +41,7 @@ function compile($src, $dest, & $namesCache)
 
         if (strlen($name) > 0) {
             if (in_array($name, $namesCache)) {
-                echo $name." cmd name used twice !!";
+                echo "$name cmd name used twice !!";
                 exit(1);
             }
 
@@ -53,7 +53,7 @@ function compile($src, $dest, & $namesCache)
         $ob = ob_get_clean();
 
         if ($result === false) {
-            echo "Failed lint check.".PHP_EOL.PHP_EOL;
+            echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
             $error = error_get_last();
 
             if ($error != null) {
