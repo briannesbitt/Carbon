@@ -123,6 +123,9 @@ class TestingAidsTest extends AbstractTestCase
             $scope->assertSame('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
             $scope->assertSame('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
         }, $testNow);
+
+        $scope->assertSame('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
+        $scope->assertSame('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
     }
 
     public function testTimeZoneWithTestValueSet()

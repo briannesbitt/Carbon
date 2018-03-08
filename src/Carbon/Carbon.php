@@ -410,9 +410,9 @@ class Carbon extends DateTime
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
-        if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
+        if (static::hasTestNow() && ($isNow || static::isRelativeTimeString($time))) {
             $testInstance = clone static::getTestNow();
-            if (static::hasRelativeKeywords($time)) {
+            if (static::isRelativeTimeString($time)) {
                 $testInstance->modify($time);
             }
 
@@ -1310,6 +1310,8 @@ class Carbon extends DateTime
     }
 
     /**
+     * @obsolete You're recommended to use isRelativeTimeString instead.
+     *
      * Determine if there is a relative keyword in the time string, this is to
      * create dates relative to now for test instances. e.g.: next tuesday
      *
@@ -1336,6 +1338,27 @@ class Carbon extends DateTime
         }
 
         return false;
+    }
+
+    /**
+     * Determine if a time string will produce a relative date.
+     *
+     * @param string $time
+     *
+     * @return bool true if time match a relative date, false if absolute or invalid time string
+     */
+    public static function isRelativeTimeString($time)
+    {
+        if (strtotime($time) === false) {
+            return false;
+        }
+
+        $date1 = new DateTime('2000-01-01T00:00:00Z');
+        $date1->modify($time);
+        $date2 = new DateTime('2001-12-25T00:00:00Z');
+        $date2->modify($time);
+
+        return $date1 != $date2;
     }
 
     ///////////////////////////////////////////////////////////////////
