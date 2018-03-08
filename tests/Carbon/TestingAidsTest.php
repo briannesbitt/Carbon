@@ -114,6 +114,17 @@ class TestingAidsTest extends AbstractTestCase
         }, $testNow);
     }
 
+    public function testHasRelativeKeywords()
+    {
+        $this->assertFalse(Carbon::hasRelativeKeywords('sunday 2015-02-23'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('today +2014 days'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('next sunday -3600 seconds'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('last day of this month'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('last day of last month of 2015'));
+        $this->assertTrue(Carbon::hasRelativeKeywords('first sunday of next month'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('first sunday of January 2017'));
+    }
+
     public function testParseRelativeWithMinusSignsInDate()
     {
         $testNow = Carbon::parse('2013-09-01 05:15:05');
@@ -123,6 +134,9 @@ class TestingAidsTest extends AbstractTestCase
             $scope->assertSame('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
             $scope->assertSame('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
         }, $testNow);
+
+        $scope->assertSame('2000-01-03 00:00:00', Carbon::parse('2000-1-3')->toDateTimeString());
+        $scope->assertSame('2000-10-10 00:00:00', Carbon::parse('2000-10-10')->toDateTimeString());
     }
 
     public function testTimeZoneWithTestValueSet()

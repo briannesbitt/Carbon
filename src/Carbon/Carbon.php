@@ -81,46 +81,6 @@ class Carbon extends DateTime
     );
 
     /**
-     * Terms used to detect if a time passed is a relative date.
-     *
-     * This is here for testing purposes.
-     *
-     * @var array
-     */
-    protected static $relativeKeywords = array(
-        '+',
-        '-',
-        'ago',
-        'first',
-        'last',
-        'next',
-        'this',
-        'today',
-        'tomorrow',
-        'yesterday',
-
-        'sunday',
-        'monday',
-        'tuesday',
-        'wednesday',
-        'thursday',
-        'friday',
-        'saturday',
-
-        'january',
-        'february',
-        'march',
-        'april',
-        'may',
-        'june',
-        'july',
-        'august',
-        'september',
-        'october',
-        'december',
-    );
-
-    /**
      * Number of X in Y.
      */
     const YEARS_PER_CENTURY = 100;
@@ -1310,32 +1270,24 @@ class Carbon extends DateTime
     }
 
     /**
-     * Determine if there is a relative keyword in the time string, this is to
-     * create dates relative to now for test instances. e.g.: next tuesday
+     * Determine if a time string will produce a relative date.
      *
      * @param string $time
      *
-     * @return bool true if there is a keyword, otherwise false
+     * @return bool true if time match a relative date, false if absolute or invalid time string
      */
     public static function hasRelativeKeywords($time)
     {
-        // skip common format with a '-' in it
-        if (preg_match('/\d{4}-\d{1,2}-\d{1,2}/', $time) === 1) {
+        if (strtotime($time) === false) {
             return false;
         }
 
-        // looks for years within dates
-        if (preg_match('/\d{4}/', $time) === 1) {
-            return false;
-        }
+        $date1 = new DateTime('2000-01-01T00:00:00Z');
+        $date1->modify($time);
+        $date2 = new DateTime('2001-12-25T00:00:00Z');
+        $date2->modify($time);
 
-        foreach (static::$relativeKeywords as $keyword) {
-            if (stripos($time, $keyword) !== false) {
-                return true;
-            }
-        }
-
-        return false;
+        return $date1 != $date2;
     }
 
     ///////////////////////////////////////////////////////////////////
