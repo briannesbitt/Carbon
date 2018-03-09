@@ -1,6 +1,6 @@
 <?php
 
-define('MAXIMUM_MISSING_METHODS_THRESHOLD', 12);
+define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require 'vendor/autoload.php';
