@@ -390,7 +390,8 @@ class Carbon extends DateTime
         $timezone = static::safeCreateDateTimeZone($tz);
         // @codeCoverageIgnoreStart
         if ($isNow && !isset($testInstance) && (
-            version_compare(PHP_VERSION, '7.1.0-dev', '<')) ||
+            version_compare(PHP_VERSION, '7.1.0-dev', '<')
+        ) ||
             version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
         ) {
             $dateTime = new DateTime('now', $timezone);
@@ -3846,12 +3847,12 @@ class Carbon extends DateTime
     /**
      * The __set_state handler.
      *
-     * @param array $array
+     * @param array $state
      *
      * @return static
      */
-    public static function __set_state($array)
+    public static function __set_state(array $state)
     {
-        return static::instance(parent::__set_state($array));
+        return static::instance(parent::__set_state($state));
     }
 }
