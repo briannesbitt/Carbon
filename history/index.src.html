@@ -1,13 +1,35 @@
+<h1>1.24.0 / 2018-03-09</h1>
+  <ul>
+    <li>Added createMidnightDate() method</li>
+    <li>Added isLastOfMonth() method</li>
+    <li>Added isDayOfWeek() method</li>
+    <li>Added toRfc7231String() method</li>
+    <li>Added toIso8601ZuluString() method</li>
+    <li>Added hasFormat() method</li>
+    <li>Added toArray() method</li>
+    <li>Added startOfHour() method</li>
+    <li>Added endOfHour() method</li>
+    <li>Added startOfMinute() method</li>
+    <li>Added endOfMinute() method</li>
+    <li>Added midDay() dynamic method, and getMidDayAt, setMidDayAt static methods</li>
+    <li>Added nowWithSameTz() method</li>
+    <li>Added CarbonInterval::compare() method</li>
+    <li>Added year overflow support (addYearsNoOverflow, addYearNoOverflow, addYearsWithOverflow, addYearWithOverflow, subYearNoOverflow, subYearsNoOverflow, subYearWithOverflow, subYearsWithOverflow dynamic methods and useYearsOverflow, resetYearsOverflow, shouldOverflowYears static methods)</li>
+    <li>Added microseconds on calling <strong>now</strong> with PHP < 7.1 (PHP >= 7.1 still support it natively)</li>
+    <li>Fixed hasRelativeKeywords() that no longer guess if the string is relative but test if it really produces a relative date, making it more accurate</li>
+    <li>Fixed createSafe(), now throws an exception with PHP >= 5.4 if the time is in a hour skipped by daylight saving time</li>
+    <li>Allowed DateTime and DateTimeInterface in diff methods</li>
+  </ul>
 <h1>1.23.0 / 2018-02-28</h1>
   <ul>
-    <li>Add ->weekNumberInMonth property</li>
-    <li>Add $parts arguments to diffForHumans() to allow components diff like "1 week 2 days 11 hours"</li>
-    <li>Add createFromTimestampMs method to create from timestamp in milliseconds</li>
-    <li>Fix/complete translations: ar, az, bg, el, fr, hy (arm), ja, pl, sk, sr, th, uk, uz, zh</li>
-    <li>Add translations: ar_shakl, dv_MV, kk, mn, ps, sr_Cyrl</li>
-    <li>Add Carbon::getDays() returning week days codes</li>
+    <li>Added ->weekNumberInMonth property</li>
+    <li>Added $parts arguments to diffForHumans() to allow components diff like "1 week 2 days 11 hours"</li>
+    <li>Added createFromTimestampMs method to create from timestamp in milliseconds</li>
+    <li>Fixed/completed translations: ar, az, bg, el, fr, hy (arm), ja, pl, sk, sr, th, uk, uz, zh</li>
+    <li>Added translations: ar_shakl, dv_MV, kk, mn, ps, sr_Cyrl</li>
+    <li>Added Carbon::getDays() returning week days codes</li>
     <li>getLastErrors() now works also on construct</li>
-    <li>Add workaround for setTimezone bug: https://bugs.php.net/bug.php?id=72338</li>
+    <li>Added workaround for setTimezone bug: https://bugs.php.net/bug.php?id=72338</li>
     <li>Now Carbon instances can be exported via var_export and recreated with the produced code</li>
     <li>Compatible with Symfony 4</li>
     <li>Dates can be mocked now with microseconds</li>
