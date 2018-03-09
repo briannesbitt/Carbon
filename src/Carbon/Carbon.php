@@ -3847,7 +3847,7 @@ class Carbon extends DateTime
     /**
      * The __set_state handler.
      *
-     * @param $state
+     * @param mixed $state
      *
      * @return static
      */
