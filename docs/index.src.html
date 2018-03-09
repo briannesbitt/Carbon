@@ -146,6 +146,16 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 // $dt was unchanged and still holds the value of Carbon:now()
 </code></pre></p>
 
+<p>You can use <code>nowWithSameTz()</code> on an existing Carbon instance to get a new instance at now in the same timezone.</p>
+
+<p><pre><code class="php">{{::lint($meeting = Carbon::createFromTime(19, 15, 00, 'Africa/Johannesburg');)}}
+
+// 19:15 in Johannesburg
+{{nowwtz1::exec(echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz1_eval}}
+// now in Johannesburg
+{{nowwtz2::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz2_eval}}
+</code></pre></p>
+
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
 
 <p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
