@@ -20,22 +20,17 @@ class NowDerivativesTest extends AbstractTestCase
     {
         $dt = Carbon::now('Europe/London');
         $dt2 = $dt->nowWithSameTz();
+
         $this->assertSame($dt2->toDateTimeString(), $dt->toDateTimeString());
         $this->assertSame($dt2->tzName, $dt->tzName);
-    }
 
-    public function testResolveCarbon()
-    {
-        $dt = Carbon::now();
-        $dt2 = Carbon::yesterday();
-        $this->assertInstanceOfCarbon($dt->resolveCarbon($dt2));
-        $this->assertSame($dt2, $dt->resolveCarbon($dt2));
-    }
+        Carbon::setTestNow(new Carbon('2017-07-29T07:57:27.123456Z'));
+        $dt = Carbon::createFromTime(13, 40, 00, 'Africa/Asmara');
+        $dt2 = $dt->nowWithSameTz();
+        Carbon::setTestNow();
 
-    public function testResolveCarbonNull()
-    {
-        $dt = Carbon::now();
-        $this->assertInstanceOfCarbon($dt->resolveCarbon(null));
-        $this->assertSame($dt->toDateTimeString(), $dt->resolveCarbon(null)->toDateTimeString());
+        $this->assertSame($dt->format('H:i'), '13:40');
+        $this->assertSame($dt2->format('H:i'), '10:57');
+        $this->assertSame($dt2->tzName, $dt->tzName);
     }
 }

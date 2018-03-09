@@ -457,16 +457,6 @@ class Carbon extends DateTime
     }
 
     /**
-     * Returns a present instance in the same timezone.
-     *
-     * @return static
-     */
-    public function nowWithSameTz()
-    {
-        return static::now($this->getTimezone());
-    }
-
-    /**
      * Create a Carbon instance for today.
      *
      * @param \DateTimeZone|string|null $tz
@@ -808,13 +798,23 @@ class Carbon extends DateTime
     }
 
     /**
+     * Returns a present instance in the same timezone.
+     *
+     * @return static
+     */
+    public function nowWithSameTz()
+    {
+        return static::now($this->getTimezone());
+    }
+
+    /**
      * Return the Carbon instance passed through or a copy in the same timezone.
      *
      * @param \Carbon\Carbon|null $date
      *
-     * @return \Carbon\Carbon
+     * @return static
      */
-    public function resolveCarbon(self $date = null)
+    protected function resolveCarbon(self $date = null)
     {
         return $date ?: $this->nowWithSameTz();
     }
