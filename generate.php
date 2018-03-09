@@ -3,7 +3,7 @@
 date_default_timezone_set('America/Toronto');
 setlocale(LC_ALL, 'en');
 ini_set('html_errors', 0);
-if(function_exists('xdebug_disable')) {
+if (function_exists('xdebug_disable')) {
     ini_set('xdebug.overload_var_dump', 0);
     xdebug_disable();
 }
@@ -17,15 +17,17 @@ $namesCache = array();
 
 $template = file_get_contents('template.src.html');
 
-function genHtml($page, $out, $jumbotron = '') {
-  global $template;
-  $html = $template;
-  $html = str_replace('#{page}', $page, $html);
-  $html = str_replace('#{jumbotron}', $jumbotron, $html);
-  file_put_contents($out, $html);
+function genHtml($page, $out, $jumbotron = '')
+{
+    global $template;
+    $html = $template;
+    $html = str_replace('#{page}', $page, $html);
+    $html = str_replace('#{jumbotron}', $jumbotron, $html);
+    file_put_contents($out, $html);
 }
 
-function compile($src, $dest, & $namesCache) {
+function compile($src, $dest, &$namesCache)
+{
     $code = file_get_contents($src);
 
     $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; ';
@@ -39,7 +41,7 @@ function compile($src, $dest, & $namesCache) {
 
         if (strlen($name) > 0) {
             if (in_array($name, $namesCache)) {
-                echo $name . " cmd name used twice !!";
+                echo "$name cmd name used twice !!";
                 exit(1);
             }
 
@@ -47,18 +49,18 @@ function compile($src, $dest, & $namesCache) {
         }
 
         ob_start();
-        $result = eval($pre_src . $src);
+        $result = eval($pre_src.$src);
         $ob = ob_get_clean();
 
         if ($result === false) {
-            echo "Failed lint check.". PHP_EOL . PHP_EOL;
+            echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
             $error = error_get_last();
 
             if ($error != null) {
-                echo $error['message'] . ' on line ' . $error['line'] . PHP_EOL . PHP_EOL;
+                echo $error['message'].' on line '.$error['line'].PHP_EOL.PHP_EOL;
             }
 
-            echo "---- eval'd source ---- " . PHP_EOL . PHP_EOL;
+            echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
             $i = 1;
             foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
                 printf('%3s : %s%s', $i++, $ln, PHP_EOL);

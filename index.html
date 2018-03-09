@@ -93,11 +93,11 @@ $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 
    <div class="container page"><div class="row"><div class="col-md-9">
       <ul class="list-inline">
-   <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></a></li>
-   <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></a></i>
-   <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></a></li>
-   <li><a href="https://styleci.io/repos/5724990"><img src="https://styleci.io/repos/5724990/shield?style=flat"></a></li>
-   <li><a href="https://codecov.io/github/briannesbitt/Carbon?branch=master"><img src="https://codecov.io/github/briannesbitt/Carbon/coverage.svg?branch=master"></a></li>
+    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></a></li>
+    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></a></i>
+    <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></a></li>
+    <li><a href="https://styleci.io/repos/5724990"><img src="https://styleci.io/repos/5724990/shield?style=flat"></a></li>
+    <li><a href="https://codecov.io/github/briannesbitt/Carbon?branch=master"><img src="https://codecov.io/github/briannesbitt/Carbon/coverage.svg?branch=master"></a></li>
 </ul>
 
 <h1 id="gettingstarted">Getting Started</h1>
@@ -108,51 +108,57 @@ $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 <p>The easiest and recommended method to install Carbon is via <a href="http://getcomposer.org/">composer</a>.</p>
 
 <div role="tabpanel">
-   <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#withcomposer" role="tab" data-toggle="tab">With composer</a></li>
-      <li role="presentation"><a href="#nocomposer" role="tab" data-toggle="tab">Direct download</a></li>
-   </ul>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#withcomposer" role="tab" data-toggle="tab">With composer</a></li>
+        <li role="presentation"><a href="#nocomposer" role="tab" data-toggle="tab">Direct download</a></li>
+    </ul>
 
-   <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="withcomposer">
-         <p></p>
-         <p>Use the following command to install with composer.</p>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="withcomposer">
+            <p></p>
+            <p>Use the following command to install with composer.</p>
 
-         <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
+            <p><pre><code>$ composer require nesbot/carbon</code></pre></p>
 
-         <p>This will automatically get the latest version and configure a <code>composer.json</code> file.</p>
+            <p>This will automatically get the latest version and configure a <code>composer.json</code> file.</p>
 
-         <p><pre><code class="php">&lt;?php
+            <p><pre><code class="php">&lt;?php
 require 'vendor/autoload.php';
 
 use Carbon\Carbon;
 
 printf("Now: %s", Carbon::now());</code></pre></p>
 
-         <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
+            <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
 
-         <p><pre><code class="php">{
-   "require": {
-      "nesbot/carbon": "~1.18"
-   }
+            <p><pre><code class="php">{
+    "require": {
+        "nesbot/carbon": "~1.18"
+    }
 }</code></pre></p>
 
-      </div>
-      <div role="tabpanel" class="tab-pane" id="nocomposer">
-         <p></p>
-         <p>Why are you not using <a href="http://getcomposer.org/">composer</a>?</p>
-         <p>Download <a href="https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php">Carbon.php</a> from the repo and save the file into your project path somewhere.</p>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="nocomposer">
+            <p></p>
+            <p>Why are you not using <a href="http://getcomposer.org/">composer</a>?</p>
+            <p>Download the last release (or any other you want) here: <a href="https://github.com/briannesbitt/Carbon/releases">releases</a>.</p>
+            <p>Release package is the asset named <strong>Carbon-x.y.z.zip</strong> where <strong>x.y.z</strong> is the version number.</p>
+            <p>Extract the zip in a directory in your project, then require the <strong>autoload.php</strong> file to make any Carbon class available:</p>
 
-         <p><pre><code class="php">&lt;?php
-require 'path/to/Carbon.php';
+            <p><pre><code class="php">&lt;?php
+require 'path/to/Carbon/autoload.php';
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
-printf("Now: %s", Carbon::now());</code></pre></p>
+printf("Now: %s", Carbon::now());
 
-          <p>If you want to use <code>diffForHumans()</code> with this install mode, you will also need to download and load <a href="https://packagist.org/packages/symfony/translation">symfony/translation</a> and its owns dependencies. But if you do, you should really consider using composer instead.</p>
-      </div>
-   </div>
+printf("1 day: %s", CarbonInterval::day()->forHumans());</code></pre></p>
+
+            <p>Those packages contain <strong>symfony/translation</strong> to make <code>diffForHumans</code> method vailable in different languages.</p>
+            <p>Install with composer is still a better option since it allows you to get the <strong>symfony/translation</strong> (and possible future dependencies) version that suit the best your PHP version and keep the whole think up-to-date via <code>composer update</code> command.</p>
+        </div>
+    </div>
 </div>
 
 <h3>Learn More</h3>
