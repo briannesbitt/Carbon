@@ -60,13 +60,4 @@ class LastErrorTest extends AbstractTestCase
         $this->assertSame($this->noErrors, $carbon->getLastErrors());
         $this->assertSame($carbon->getLastErrors(), $datetime->getLastErrors());
     }
-
-    public function testCreateLastErrors()
-    {
-        $carbon = new Carbon('2017-02-30');
-        $this->assertSame($this->lastErrors, $carbon->getLastErrors());
-
-        $carbon = new Carbon('2017-02-15');
-        $this->assertSame($this->noErrors, $carbon->getLastErrors());
-    }
 }

@@ -28,8 +28,8 @@ install:
     fi
 
 script:
-  - vendor/bin/phpunit --verbose --coverage-clover=coverage.xml
-  - if [[ $phpstan = 'true' ]]; then vendor/bin/phpstan analyse --configuration phpstan.neon --level 3 src tests; fi
+  - composer phpunit
+  - if [[ $phpstan = 'true' ]]; then composer phpstan; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
