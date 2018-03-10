@@ -390,9 +390,10 @@ class Carbon extends DateTime
         $timezone = static::safeCreateDateTimeZone($tz);
         // @codeCoverageIgnoreStart
         if ($isNow && !isset($testInstance) && (
-            version_compare(PHP_VERSION, '7.1.0-dev', '<')
-        ) ||
-            version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
+                version_compare(PHP_VERSION, '7.1.0-dev', '<')
+                ||
+                version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
+            )
         ) {
             $dateTime = new DateTime('now', $timezone);
             $microTime = str_pad(strval(microtime(true) * 1000000 % 1000000), 6, '0', STR_PAD_LEFT);
