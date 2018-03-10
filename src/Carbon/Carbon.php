@@ -396,8 +396,11 @@ class Carbon extends DateTime
             )
         ) {
             $dateTime = new DateTime('now', $timezone);
-            $microTime = str_pad(strval(microtime(true) * 1000000 % 1000000), 6, '0', STR_PAD_LEFT);
-            $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).'.'.$microTime;
+            $microTime = microtime(true) * 1000000 % 1000000;
+            if ($microTime > 0) {
+                $microTime = str_pad(strval($microTime), 6, '0', STR_PAD_LEFT);
+                $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).'.'.$microTime;
+            }
         }
         // @codeCoverageIgnoreEnd
 
