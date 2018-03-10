@@ -3851,12 +3851,12 @@ class Carbon extends DateTime
     /**
      * The __set_state handler.
      *
-     * @param $state
+     * @param array $array
      *
      * @return static
      */
-    public static function __set_state($state)
+    public static function __set_state($array)
     {
-        return static::instance(parent::__set_state($state));
+        return static::instance(parent::__set_state($array));
     }
 }
