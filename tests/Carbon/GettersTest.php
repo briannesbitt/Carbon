@@ -82,11 +82,11 @@ class GettersTest extends AbstractTestCase
         $d = Carbon::now();
         usleep(1000);
         $end = microtime(true);
-        $microTime = $d->getTimestamp() + $d->micro / 1000000;
-        $this->assertGreaterThan($start, $microTime);
-        $this->assertLessThan($end, $microTime);
+        $microTime = 0.000001 * $d->micro + $d->getTimestamp();
 
         Carbon::setTestNow($now);
+        $this->assertGreaterThan($start, $microTime);
+        $this->assertLessThan($end, $microTime);
     }
 
     public function testDayOfWeeGetter()

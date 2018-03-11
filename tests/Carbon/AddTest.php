@@ -183,7 +183,7 @@ class AddTest extends AbstractTestCase
 
     public function testAddHourPassingArg()
     {
-        $this->assertSame(2, Carbon::createFromTime(0)->addHour(2)->hour);
+        $this->assertSame(2, Carbon::createFromTime(0, 0, 0, 'UTC')->addHour(2)->hour);
     }
 
     public function testAddMinutePassingArg()

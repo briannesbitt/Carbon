@@ -295,12 +295,14 @@ class CarbonInterval extends DateInterval
      */
     public static function setLocale($locale)
     {
-        $translator = static::translator();
-        $translator->setLocale($locale);
+        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
+            $translator = static::translator();
+            $translator->setLocale($locale);
 
-        if ($translator instanceof Translator) {
-            // Ensure the locale has been loaded.
-            $translator->addResource('array', require __DIR__.'/Lang/'.$locale.'.php', $locale);
+            if ($translator instanceof Translator) {
+                // Ensure the locale has been loaded.
+                $translator->addResource('array', require $filename, $locale);
+            }
         }
     }
 
