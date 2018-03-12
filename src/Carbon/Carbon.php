@@ -372,15 +372,16 @@ class Carbon extends DateTime
         $isNow = empty($time) || $time === 'now';
         if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
-            if (static::hasRelativeKeywords($time)) {
-                $testInstance->modify($time);
-            }
 
             //shift the time according to the given time zone
             if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
                 $testInstance->setTimezone($tz);
             } else {
                 $tz = $testInstance->getTimezone();
+            }
+
+            if (static::hasRelativeKeywords($time)) {
+                $testInstance->modify($time);
             }
 
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
@@ -466,7 +467,7 @@ class Carbon extends DateTime
      */
     public static function today($tz = null)
     {
-        return static::now($tz)->startOfDay();
+        return static::parse('today', $tz);
     }
 
     /**
@@ -478,7 +479,7 @@ class Carbon extends DateTime
      */
     public static function tomorrow($tz = null)
     {
-        return static::today($tz)->addDay();
+        return static::parse('tomorrow', $tz);
     }
 
     /**
@@ -490,7 +491,7 @@ class Carbon extends DateTime
      */
     public static function yesterday($tz = null)
     {
-        return static::today($tz)->subDay();
+        return static::parse('yesterday', $tz);
     }
 
     /**
