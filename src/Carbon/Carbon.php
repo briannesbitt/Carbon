@@ -1223,7 +1223,6 @@ class Carbon extends DateTime
         for ($i = 1; $i < 7; $i++)
         {
             $weekDays[] = $startOfWeek->addDay(1)->toDateTimeString();
-
         }
 
         return $weekDays;
