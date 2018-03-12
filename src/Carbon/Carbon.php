@@ -1210,6 +1210,26 @@ class Carbon extends DateTime
     }
 
     /**
+     * Get the all dates of week
+     *
+     * @return array
+     */
+    public static function getCurrentWeekDays()
+    {
+        $startOfWeek = Carbon::instance((new static)->startOfWeek());
+
+        $weekDays = [$startOfWeek->toDateTimeString()];
+
+        for ($i = 1; $i < 7; $i++)
+        {
+            $weekDays[] = $startOfWeek->addDay(1)->toDateTimeString();
+
+        }
+
+        return $weekDays;
+    }
+
+    /**
      * Set weekend days
      *
      * @param array $days
