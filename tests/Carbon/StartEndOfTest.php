@@ -20,14 +20,18 @@ class StartEndOfTest extends AbstractTestCase
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->startOfDay());
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0);
+        version_compare(PHP_VERSION, '7.1.0-dev', '<')
+            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0)
+            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
     }
 
     public function testEndOfDay()
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOfDay());
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59);
+        version_compare(PHP_VERSION, '7.1.0-dev', '<')
+            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59)
+            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
     }
 
     public function testStartOfMonthIsFluid()

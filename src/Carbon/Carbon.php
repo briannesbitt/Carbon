@@ -3322,7 +3322,7 @@ class Carbon extends DateTime
      */
     public function startOfDay()
     {
-        return $this->setTime(0, 0, 0);
+        return $this->modify('00:00:00.000000');
     }
 
     /**
@@ -3332,7 +3332,7 @@ class Carbon extends DateTime
      */
     public function endOfDay()
     {
-        return $this->setTime(23, 59, 59);
+        return $this->modify('23.59.59.999999');
     }
 
     /**
