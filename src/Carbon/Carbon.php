@@ -698,6 +698,21 @@ class Carbon extends DateTime
     }
 
     /**
+     * Create a Carbon instance from a time string. The date portion is set to today.
+     *
+     * @param string                    $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static
+     */
+    public static function createFromTimeString($time, $tz = null)
+    {
+        return static::today($tz)->setTimeFromTimeString($time);
+    }
+
+    /**
      * Create a Carbon instance from a specific format.
      *
      * @param string                    $format Datetime format
@@ -758,7 +773,7 @@ class Carbon extends DateTime
      */
     public static function createFromTimestamp($timestamp, $tz = null)
     {
-        return static::now($tz)->setTimestamp($timestamp);
+        return static::today($tz)->setTimestamp($timestamp);
     }
 
     /**
@@ -1078,13 +1093,11 @@ class Carbon extends DateTime
      */
     public function setTimeFromTimeString($time)
     {
-        $time = explode(':', $time);
+        if (strpos($time, ':') === false) {
+            $time .= ':0';
+        }
 
-        $hour = $time[0];
-        $minute = isset($time[1]) ? $time[1] : 0;
-        $second = isset($time[2]) ? $time[2] : 0;
-
-        return $this->setTime($hour, $minute, $second);
+        return $this->modify($time);
     }
 
     /**

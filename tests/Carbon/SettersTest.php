@@ -299,6 +299,9 @@ class SettersTest extends AbstractTestCase
             array(9, 15, 30, '09:15:30'),
             array(9, 15, 0, '09:15'),
             array(9, 0, 0, '09'),
+            array(9, 5, 3, '9:5:3'),
+            array(9, 5, 0, '9:5'),
+            array(9, 0, 0, '9'),
         );
     }
 
