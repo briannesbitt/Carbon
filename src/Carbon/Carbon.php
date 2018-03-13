@@ -1217,13 +1217,10 @@ class Carbon extends DateTime
     public static function getCurrentWeekDays()
     {
         $startOfWeek = static::now()->startOfWeek()->subDay();
-
         $weekDays = array();
 
-        for ($i = 0; $i < 7; $i++)
-        {
-            $weekDays[] = $startOfWeek->addDay(1)->toDateTimeString();
-
+        for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
+            $weekDays[] = $startOfWeek->addDay();
         }
 
         return $weekDays;
