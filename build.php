@@ -7,7 +7,7 @@ if (preg_match('/On branch ([^\n]+)\n/', shell_exec('git status'), $match)) {
 }
 shell_exec('git fetch --all --tags --prune');
 $remotes = explode("\n", trim(shell_exec('git remote')));
-$tagsCommand =  count($remotes)
+$tagsCommand = count($remotes)
     ? 'git ls-remote --tags '.(in_array('upstream', $remotes) ? 'upstream' : (in_array('origin', $remotes) ? 'origin' : $remotes[0]))
     : 'git tag';
 $tags = array_map(function ($ref) {
