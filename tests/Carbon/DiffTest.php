@@ -420,7 +420,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(62, $dt->diffInMinutes($dt->copy()->addHour()->addMinutes(2)));
     }
 
-    public function testDiffInMinutesPositiveALot()
+    public function testDiffInMinutesPositiveAlot()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(1502, $dt->diffInMinutes($dt->copy()->addHours(25)->addMinutes(2)));
@@ -458,7 +458,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(62, $dt->diffInSeconds($dt->copy()->addMinute()->addSeconds(2)));
     }
 
-    public function testDiffInSecondsPositiveALot()
+    public function testDiffInSecondsPositiveAlot()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(7202, $dt->diffInSeconds($dt->copy()->addHours(2)->addSeconds(2)));

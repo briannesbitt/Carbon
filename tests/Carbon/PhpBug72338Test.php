@@ -35,14 +35,14 @@ class PhpBug72338Test extends AbstractTestCase
         parent::setUp();
 
         // In versions <= 5.5.5 setTimezone doesn't accept timezone in 'HH:MM' format.
-        // I don't know about versions between 5.5.5 and 5.5.18, but 5.5.18 accept it.
+        // I dont know about versions between 5.5.5 and 5.5.18, but 5.5.18 accept it.
         if (version_compare(PHP_VERSION, '5.5.18-dev', '<')) {
             $this->markTestSkipped();
         }
     }
 
     /**
-     * Ensures that modify don't use changed timestamp
+     * Ensures that modify dont use changed timestamp
      */
     public function testModify()
     {
@@ -74,7 +74,7 @@ class PhpBug72338Test extends AbstractTestCase
     }
 
     /**
-     * Ensures that second call to setTimezone() don't changing timestamp
+     * Ensures that second call to setTimezone() dont changing timestamp
      */
     public function testSecondSetTimezone()
     {
