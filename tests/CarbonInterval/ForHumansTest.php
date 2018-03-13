@@ -18,6 +18,12 @@ use Tests\AbstractTestCase;
 
 class ForHumansTest extends AbstractTestCase
 {
+    protected function tearDown()
+    {
+        parent::tearDown();
+        CarbonInterval::setLocale('en');
+    }
+
     public function testGetTranslator()
     {
         $t = CarbonInterval::getTranslator();
@@ -27,6 +33,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testSetTranslator()
     {
+        $ori = CarbonInterval::getTranslator();
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
         CarbonInterval::setTranslator($t);
@@ -34,6 +41,7 @@ class ForHumansTest extends AbstractTestCase
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('fr', $t->getLocale());
+        CarbonInterval::setTranslator($ori);
     }
 
     public function testGetLocale()
