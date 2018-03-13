@@ -3217,7 +3217,7 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function diffForHumans(self $other = null, $absolute = false, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
     {
         $isNow = $other === null;
         $interval = array();
@@ -3228,6 +3228,8 @@ class Carbon extends DateTime
 
         if ($isNow) {
             $other = $this->nowWithSameTz();
+        } elseif (!$other instanceof self) {
+            $other = static::parse($other);
         }
 
         $diffInterval = $this->diff($other);
