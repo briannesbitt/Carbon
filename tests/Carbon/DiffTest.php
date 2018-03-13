@@ -1273,7 +1273,6 @@ class DiffTest extends AbstractTestCase
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Failed to parse time string (2018-04-13-08:00:00) at position 16');
-        
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13-08:00:00');
     }
