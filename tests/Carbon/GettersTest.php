@@ -89,10 +89,40 @@ class GettersTest extends AbstractTestCase
         Carbon::setTestNow($now);
     }
 
-    public function testDayOfWeeGetter()
+    public function testDayOfWeekGetter()
     {
         $d = Carbon::create(2012, 5, 7, 7, 8, 9);
         $this->assertSame(Carbon::MONDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 8, 7, 8, 9);
+        $this->assertSame(Carbon::TUESDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 9, 7, 8, 9);
+        $this->assertSame(Carbon::WEDNESDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 10, 0, 0, 0);
+        $this->assertSame(Carbon::THURSDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 11, 23, 59, 59);
+        $this->assertSame(Carbon::FRIDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 12, 12, 0, 0);
+        $this->assertSame(Carbon::SATURDAY, $d->dayOfWeek);
+        $d = Carbon::create(2012, 5, 13, 12, 0, 0);
+        $this->assertSame(Carbon::SUNDAY, $d->dayOfWeek);
+    }
+
+    public function testDayOfWeekIsoGetter()
+    {
+        $d = Carbon::create(2012, 5, 7, 7, 8, 9);
+        $this->assertSame(1, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 8, 7, 8, 9);
+        $this->assertSame(2, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 9, 7, 8, 9);
+        $this->assertSame(3, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 10, 0, 0, 0);
+        $this->assertSame(4, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 11, 23, 59, 59);
+        $this->assertSame(5, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 12, 12, 0, 0);
+        $this->assertSame(6, $d->dayOfWeekIso);
+        $d = Carbon::create(2012, 5, 13, 12, 0, 0);
+        $this->assertSame(7, $d->dayOfWeekIso);
     }
 
     public function testDayOfYearGetter()
