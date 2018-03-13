@@ -18,8 +18,6 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -372,15 +370,16 @@ class Carbon extends DateTime
         $isNow = empty($time) || $time === 'now';
         if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
             $testInstance = clone static::getTestNow();
-            if (static::hasRelativeKeywords($time)) {
-                $testInstance->modify($time);
-            }
 
             //shift the time according to the given time zone
             if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
                 $testInstance->setTimezone($tz);
             } else {
                 $tz = $testInstance->getTimezone();
+            }
+
+            if (static::hasRelativeKeywords($time)) {
+                $testInstance->modify($time);
             }
 
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
@@ -466,7 +465,7 @@ class Carbon extends DateTime
      */
     public static function today($tz = null)
     {
-        return static::now($tz)->startOfDay();
+        return static::parse('today', $tz);
     }
 
     /**
@@ -478,7 +477,7 @@ class Carbon extends DateTime
      */
     public static function tomorrow($tz = null)
     {
-        return static::today($tz)->addDay();
+        return static::parse('tomorrow', $tz);
     }
 
     /**
@@ -490,7 +489,7 @@ class Carbon extends DateTime
      */
     public static function yesterday($tz = null)
     {
-        return static::today($tz)->subDay();
+        return static::parse('yesterday', $tz);
     }
 
     /**
@@ -1325,10 +1324,7 @@ class Carbon extends DateTime
     protected static function translator()
     {
         if (static::$translator === null) {
-            $translator = new Translator('en');
-            $translator->addLoader('array', new ArrayLoader());
-            static::$translator = $translator;
-            static::setLocale('en');
+            static::$translator = Translator::get();
         }
 
         return static::$translator;
@@ -1375,24 +1371,7 @@ class Carbon extends DateTime
      */
     public static function setLocale($locale)
     {
-        $locale = preg_replace_callback('/[-_]([a-z]{2,})/', function ($matches) {
-            // _2-letters is a region, _3+-letters is a variant
-            return '_'.call_user_func(strlen($matches[1]) > 2 ? 'ucfirst' : 'strtoupper', $matches[1]);
-        }, strtolower($locale));
-
-        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
-            $translator = static::translator();
-            $translator->setLocale($locale);
-
-            if ($translator instanceof Translator) {
-                // Ensure the locale has been loaded.
-                $translator->addResource('array', require $filename, $locale);
-            }
-
-            return true;
-        }
-
-        return false;
+        return static::translator()->setLocale($locale) !== false;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -3321,7 +3300,7 @@ class Carbon extends DateTime
      */
     public function startOfDay()
     {
-        return $this->setTime(0, 0, 0);
+        return $this->modify('00:00:00.000000');
     }
 
     /**
@@ -3331,7 +3310,7 @@ class Carbon extends DateTime
      */
     public function endOfDay()
     {
-        return $this->setTime(23, 59, 59);
+        return $this->modify('23.59.59.999999');
     }
 
     /**
@@ -3341,7 +3320,7 @@ class Carbon extends DateTime
      */
     public function startOfMonth()
     {
-        return $this->setDateTime($this->year, $this->month, 1, 0, 0, 0);
+        return $this->setDate($this->year, $this->month, 1)->startOfDay();
     }
 
     /**
@@ -3351,7 +3330,7 @@ class Carbon extends DateTime
      */
     public function endOfMonth()
     {
-        return $this->setDateTime($this->year, $this->month, $this->daysInMonth, 23, 59, 59);
+        return $this->setDate($this->year, $this->month, $this->daysInMonth)->endOfDay();
     }
 
     /**
@@ -3363,7 +3342,7 @@ class Carbon extends DateTime
     {
         $month = ($this->quarter - 1) * static::MONTHS_PER_QUARTER + 1;
 
-        return $this->setDateTime($this->year, $month, 1, 0, 0, 0);
+        return $this->setDate($this->year, $month, 1)->startOfDay();
     }
 
     /**
@@ -3383,7 +3362,7 @@ class Carbon extends DateTime
      */
     public function startOfYear()
     {
-        return $this->setDateTime($this->year, 1, 1, 0, 0, 0);
+        return $this->setDate($this->year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3393,7 +3372,7 @@ class Carbon extends DateTime
      */
     public function endOfYear()
     {
-        return $this->setDateTime($this->year, 12, 31, 23, 59, 59);
+        return $this->setDate($this->year, 12, 31)->endOfDay();
     }
 
     /**
@@ -3405,7 +3384,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE;
 
-        return $this->setDateTime($year, 1, 1, 0, 0, 0);
+        return $this->setDate($year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3417,7 +3396,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1;
 
-        return $this->setDateTime($year, 12, 31, 23, 59, 59);
+        return $this->setDate($year, 12, 31)->endOfDay();
     }
 
     /**
@@ -3429,7 +3408,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - ($this->year - 1) % static::YEARS_PER_CENTURY;
 
-        return $this->setDateTime($year, 1, 1, 0, 0, 0);
+        return $this->setDate($year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3441,7 +3420,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
 
-        return $this->setDateTime($year, 12, 31, 23, 59, 59);
+        return $this->setDate($year, 12, 31)->endOfDay();
     }
 
     /**

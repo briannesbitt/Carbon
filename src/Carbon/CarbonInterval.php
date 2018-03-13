@@ -13,8 +13,6 @@ namespace Carbon;
 
 use DateInterval;
 use InvalidArgumentException;
-use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -249,10 +247,7 @@ class CarbonInterval extends DateInterval
     protected static function translator()
     {
         if (static::$translator === null) {
-            $translator = new Translator('en');
-            $translator->addLoader('array', new ArrayLoader());
-            static::$translator = $translator;
-            static::setLocale('en');
+            static::$translator = Translator::get();
         }
 
         return static::$translator;
@@ -295,15 +290,7 @@ class CarbonInterval extends DateInterval
      */
     public static function setLocale($locale)
     {
-        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
-            $translator = static::translator();
-            $translator->setLocale($locale);
-
-            if ($translator instanceof Translator) {
-                // Ensure the locale has been loaded.
-                $translator->addResource('array', require $filename, $locale);
-            }
-        }
+        return static::translator()->setLocale($locale) !== false;
     }
 
     ///////////////////////////////////////////////////////////////////

@@ -19,6 +19,12 @@ use Tests\AbstractTestCase;
 
 class LocalizationTest extends AbstractTestCase
 {
+    protected function tearDown()
+    {
+        parent::tearDown();
+        Carbon::setLocale('en');
+    }
+
     public function testGetTranslator()
     {
         $t = Carbon::getTranslator();
@@ -119,6 +125,7 @@ class LocalizationTest extends AbstractTestCase
      */
     public function testSetTranslator($locale)
     {
+        $ori = Carbon::getTranslator();
         $t = new Translator($locale);
         $t->addLoader('array', new ArrayLoader());
         Carbon::setTranslator($t);
@@ -126,6 +133,7 @@ class LocalizationTest extends AbstractTestCase
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame($locale, $t->getLocale());
+        Carbon::setTranslator($ori);
     }
 
     public function testSetLocaleWithKnownLocale()
