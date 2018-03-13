@@ -83,7 +83,7 @@ class CreateFromTimeTest extends AbstractTestCase
         $now = Carbon::now($tz);
         $dt = Carbon::createFromTime($now->hour, $now->minute, $now->second, $tz);
 
-        // reenable test
+        // re-enable test
         Carbon::setTestNow($test);
 
         // tested without microseconds
