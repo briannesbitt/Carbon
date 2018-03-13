@@ -31,7 +31,7 @@ $worldDidNotEndOn = Carbon::createFromDate(2012, 12, 21, 'GMT');
 Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
-if (Carbon::now()->gte($worldWillEnd)) {
+if (Carbon::now()->gte($worldDidNotEndOn)) {
     die();
 }
 
