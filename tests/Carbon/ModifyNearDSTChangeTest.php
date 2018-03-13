@@ -19,6 +19,9 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
     /**
      * Tests transition through DST change hour in non default timezone
      *
+     * @param string $dateString
+     * @param int    $addHours
+     * @param string $expected
      * @dataProvider getTransitionTests
      */
     public function testTransitionInNonDefaultTimezone($dateString, $addHours, $expected)
@@ -32,6 +35,9 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
     /**
      * Tests transition through DST change hour in default timezone
      *
+     * @param string $dateString
+     * @param int    $addHours
+     * @param string $expected
      * @dataProvider getTransitionTests
      */
     public function testTransitionInDefaultTimezone($dateString, $addHours, $expected)
