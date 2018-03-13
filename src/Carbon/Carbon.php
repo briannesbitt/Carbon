@@ -3342,7 +3342,7 @@ class Carbon extends DateTime
      */
     public function startOfMonth()
     {
-        return $this->setDateTime($this->year, $this->month, 1, 0, 0, 0);
+        return $this->setDate($this->year, $this->month, 1)->startOfDay();
     }
 
     /**
@@ -3352,7 +3352,7 @@ class Carbon extends DateTime
      */
     public function endOfMonth()
     {
-        return $this->setDateTime($this->year, $this->month, $this->daysInMonth, 23, 59, 59);
+        return $this->setDate($this->year, $this->month, $this->daysInMonth)->endOfDay();
     }
 
     /**
@@ -3364,7 +3364,7 @@ class Carbon extends DateTime
     {
         $month = ($this->quarter - 1) * static::MONTHS_PER_QUARTER + 1;
 
-        return $this->setDateTime($this->year, $month, 1, 0, 0, 0);
+        return $this->setDate($this->year, $month, 1)->startOfDay();
     }
 
     /**
@@ -3384,7 +3384,7 @@ class Carbon extends DateTime
      */
     public function startOfYear()
     {
-        return $this->setDateTime($this->year, 1, 1, 0, 0, 0);
+        return $this->setDate($this->year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3394,7 +3394,7 @@ class Carbon extends DateTime
      */
     public function endOfYear()
     {
-        return $this->setDateTime($this->year, 12, 31, 23, 59, 59);
+        return $this->setDate($this->year, 12, 31)->endOfDay();
     }
 
     /**
@@ -3406,7 +3406,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE;
 
-        return $this->setDateTime($year, 1, 1, 0, 0, 0);
+        return $this->setDate($year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3418,7 +3418,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1;
 
-        return $this->setDateTime($year, 12, 31, 23, 59, 59);
+        return $this->setDate($year, 12, 31)->endOfDay();
     }
 
     /**
@@ -3430,7 +3430,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - ($this->year - 1) % static::YEARS_PER_CENTURY;
 
-        return $this->setDateTime($year, 1, 1, 0, 0, 0);
+        return $this->setDate($year, 1, 1)->startOfDay();
     }
 
     /**
@@ -3442,7 +3442,7 @@ class Carbon extends DateTime
     {
         $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
 
-        return $this->setDateTime($year, 12, 31, 23, 59, 59);
+        return $this->setDate($year, 12, 31)->endOfDay();
     }
 
     /**
