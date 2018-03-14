@@ -212,6 +212,98 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Creates a CarbonInterval from string in JIRA format
+     *
+     * Format:
+     *
+     * | Suffix | Unit    | Example | DateInterval expression |
+     * |--------|---------|---------|-------------------------|
+     * |   y    | years   |   1y    | P1Y                     |
+     * |   M    | months  |   3m    | P3M                     |
+     * |   w    | weeks   |   2w    | P2W                     |
+     * |   d    | days    |  28d    | P28D                    |
+     * |   h    | hours   |   4h    | PT4H                    |
+     * |   m    | minutes |  12m    | PT12M                   |
+     * |   s    | seconds |  59s    | PT59S                   |
+     * |--------|---------|---------|-------------------------|
+     *
+     * e. g. `1w 3d 4h 32m 23s` is converted to 10 days 4 hours 32 minutes and 23 seconds.
+     *
+     * Special cases:
+     *  - An empty string will return a zero interval
+     *  - Fractions are allowed for weeks, days, hours and minutes and will be converted
+     *    and rounded to the next smaller value (caution: 0.5w = 4d)
+     *
+     * @param string $intervalDefinition
+     * @return static
+     */
+    public static function fromString($intervalDefinition)
+    {
+        if (empty($intervalDefinition)) {
+            return new static(0);
+        }
+
+        $years = 0;
+        $months = 0;
+        $weeks = 0;
+        $days = 0;
+        $hours = 0;
+        $minutes = 0;
+        $seconds = 0;
+
+        foreach (explode(' ', $intervalDefinition) as $value) {
+            $intValue = intval($value);
+            $floatValue = floatval($value) - $intValue;
+            switch (substr($value, -1)) {
+                case 'y':
+                    $years += $intValue;
+                    break;
+
+                case 'M':
+                    $months += $intValue;
+                    break;
+
+                case 'w':
+                    $weeks += $intValue;
+                    if ($floatValue != 0) {
+                        $days += round($floatValue * Carbon::DAYS_PER_WEEK);
+                    }
+                    break;
+
+                case 'd':
+                    $days += $intValue;
+                    if ($floatValue != 0) {
+                        $hours += round($floatValue * Carbon::HOURS_PER_DAY);
+                    }
+                    break;
+
+                case 'h':
+                    $hours += $intValue;
+                    if ($floatValue != 0) {
+                        $minutes += round($floatValue * Carbon::MINUTES_PER_HOUR);
+                    }
+                    break;
+
+                case 'm':
+                    $minutes += $intValue;
+                    if ($floatValue != 0) {
+                        $seconds += round($floatValue * Carbon::SECONDS_PER_MINUTE);
+                    }
+                    break;
+
+                case 's':
+                    $seconds += $intValue;
+                    break;
+
+                default:
+                    throw new InvalidArgumentException(sprintf('Invalid unit %s', substr($value, -1)));
+            }
+        }
+
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
+    }
+
+    /**
      * Create a CarbonInterval instance from a DateInterval one.  Can not instance
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
