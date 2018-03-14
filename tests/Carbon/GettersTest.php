@@ -114,6 +114,8 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue(Carbon::isMicrosecondsFallbackEnabled());
 
         Carbon::setTestNow($now);
+        $this->assertGreaterThan($start, $microTime);
+        $this->assertLessThan($end, $microTime);
     }
 
     public function testDayOfWeeGetter()
