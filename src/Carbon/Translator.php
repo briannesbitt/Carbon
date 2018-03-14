@@ -14,6 +14,13 @@ class Translator extends Translation\Translator
     protected static $singleton;
 
     /**
+     * List of custom localized messages.
+     *
+     * @var array
+     */
+    protected static $messages = array();
+
+    /**
      * Return a singleton instance of Translator.
      *
      * @param string|null $locale optional initial locale ("en" - english by default)
@@ -36,6 +43,82 @@ class Translator extends Translation\Translator
     }
 
     /**
+     * Reset messages of a locale (all locale if no locale passed).
+     * Remove custom messages and reload initial messages from matching
+     * file in Lang directory.
+     *
+     * @param string|null $locale
+     *
+     * @return bool
+     */
+    public function resetMessages($locale = null)
+    {
+        if ($locale === null) {
+            static::$messages = array();
+
+            return true;
+        }
+
+        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
+            static::$messages[$locale] = require $filename;
+            $this->addResource('array', static::$messages[$locale], $locale);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Init messages language from matching file in Lang directory.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    protected function loadMessagesFromFile($locale)
+    {
+        if (isset(static::$messages[$locale])) {
+            return true;
+        }
+
+        return $this->resetMessages($locale);
+    }
+
+    /**
+     * Set messages of a locale and take file first if present.
+     *
+     * @param string $locale
+     * @param array  $messages
+     *
+     * @return $this
+     */
+    public function setMessages($locale, $messages)
+    {
+        $this->loadMessagesFromFile($locale);
+        $this->addResource('array', $messages, $locale);
+        static::$messages[$locale] = array_merge(
+            isset(static::$messages[$locale]) ? static::$messages[$locale] : array(),
+            $messages
+        );
+
+        return $this;
+    }
+
+    /**
+     * Get messages of a locale, if none given, return all the
+     * languages.
+     *
+     * @param string|null $locale
+     *
+     * @return array
+     */
+    public function getMessages($locale = null)
+    {
+        return $locale === null ? static::$messages : static::$messages[$locale];
+    }
+
+    /**
      * Set the current translator locale and indicate if the source locale file exists
      *
      * @param string $locale locale ex. en
@@ -49,9 +132,8 @@ class Translator extends Translation\Translator
             return '_'.call_user_func(strlen($matches[1]) > 2 ? 'ucfirst' : 'strtoupper', $matches[1]);
         }, strtolower($locale));
 
-        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
+        if ($this->loadMessagesFromFile($locale)) {
             parent::setLocale($locale);
-            $this->addResource('array', require $filename, $locale);
 
             return true;
         }

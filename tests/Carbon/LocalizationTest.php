@@ -12,9 +12,9 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
 
 class LocalizationTest extends AbstractTestCase
@@ -197,5 +197,53 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('3 boring days 4 hours', $diff);
 
         Carbon::setLocale('en');
+    }
+
+    public function testAddCustomTranslation()
+    {
+        $enBoring = array(
+            'day' => '1 boring day|:count boring days',
+        );
+
+        $this->assertTrue(Carbon::setLocale('en'));
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->setMessages('en', $enBoring);
+
+        $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
+            ->diffForHumans(Carbon::create(2018, 1, 4, 4, 0, 0), true, false, 2);
+
+        $this->assertSame('3 boring days 4 hours', $diff);
+
+        $translator->resetMessages('en');
+
+        $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
+            ->diffForHumans(Carbon::create(2018, 1, 4, 4, 0, 0), true, false, 2);
+
+        $this->assertSame('3 days 4 hours', $diff);
+
+        $translator->setMessages('en_Boring', $enBoring);
+
+        $this->assertSame($enBoring, $translator->getMessages('en_Boring'));
+
+        $messages = $translator->getMessages();
+
+        $this->assertArrayHasKey('en', $messages);
+        $this->assertArrayHasKey('en_Boring', $messages);
+        $this->assertSame($enBoring, $messages['en_Boring']);
+
+        $this->assertTrue(Carbon::setLocale('en_Boring'));
+
+        $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
+            ->diffForHumans(Carbon::create(2018, 1, 4, 4, 0, 0), true, false, 2);
+
+        // en_Boring inherit en because it starts with "en", see symfony-translation behavior
+        $this->assertSame('3 boring days 4 hours', $diff);
+
+        $translator->resetMessages();
+
+        $this->assertSame(array(), $translator->getMessages());
+
+        $this->assertTrue(Carbon::setLocale('en'));
     }
 }
