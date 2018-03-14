@@ -10,8 +10,8 @@ class FromStringTest extends AbstractTestCase
     /**
      * @dataProvider provideValidStrings
      *
-     * @param $string
-     * @param $expected
+     * @param string $string
+     * @param CarbonInterval $expected
      */
     public function testReturnsInterval($string, $expected)
     {
