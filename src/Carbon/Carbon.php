@@ -234,6 +234,13 @@ class Carbon extends DateTime
     protected static $utf8 = false;
 
     /**
+     * Add microseconds to now on PHP < 7.1 and 7.1.3. true by default.
+     *
+     * @var bool
+     */
+    protected static $microsecondsFallback = true;
+
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @var bool
@@ -246,6 +253,28 @@ class Carbon extends DateTime
      * @var bool
      */
     protected static $yearsOverflow = true;
+
+    /**
+     * Add microseconds to now on PHP < 7.1 and 7.1.3 if set to true,
+     * let microseconds to 0 on those PHP versions if false.
+     *
+     * @param bool $microsecondsFallback
+     */
+    public static function useMicrosecondsFallback($microsecondsFallback = true)
+    {
+        static::$microsecondsFallback = $microsecondsFallback;
+    }
+
+    /**
+     * Return true if microseconds fallback on PHP < 7.1 and 7.1.3 is
+     * enabled. false if disabled.
+     *
+     * @return bool
+     */
+    public static function isMicrosecondsFallbackEnabled()
+    {
+        return static::$microsecondsFallback;
+    }
 
     /**
      * Indicates if months should be calculated with overflow.
@@ -385,17 +414,19 @@ class Carbon extends DateTime
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
-        // Get microseconds from microtime() if "now" asked and PHP < 7.1
         $timezone = static::safeCreateDateTimeZone($tz);
         // @codeCoverageIgnoreStart
-        if ($isNow && !isset($testInstance) && (
+        if ($isNow && !isset($testInstance) && static::isMicrosecondsFallbackEnabled() && (
                 version_compare(PHP_VERSION, '7.1.0-dev', '<')
                 ||
                 version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
             )
         ) {
+            // Get microseconds from microtime() if "now" asked and PHP < 7.1 and PHP 7.1.3 if fallback enabled.
+            list($microTime, $timeStamp) = explode(' ', microtime());
             $dateTime = new DateTime('now', $timezone);
-            $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).substr(microtime(), 1, 7);
+            $dateTime->setTimestamp($timeStamp); // Use the timestamp returned by microtime as now can happen in the next second
+            $time = $dateTime->format(static::DEFAULT_TO_STRING_FORMAT).substr($microTime, 1, 7);
         }
         // @codeCoverageIgnoreEnd
 
@@ -698,6 +729,21 @@ class Carbon extends DateTime
     }
 
     /**
+     * Create a Carbon instance from a time string. The date portion is set to today.
+     *
+     * @param string                    $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static
+     */
+    public static function createFromTimeString($time, $tz = null)
+    {
+        return static::today($tz)->setTimeFromTimeString($time);
+    }
+
+    /**
      * Create a Carbon instance from a specific format.
      *
      * @param string                    $format Datetime format
@@ -758,7 +804,7 @@ class Carbon extends DateTime
      */
     public static function createFromTimestamp($timestamp, $tz = null)
     {
-        return static::now($tz)->setTimestamp($timestamp);
+        return static::today($tz)->setTimestamp($timestamp);
     }
 
     /**
@@ -1078,13 +1124,11 @@ class Carbon extends DateTime
      */
     public function setTimeFromTimeString($time)
     {
-        $time = explode(':', $time);
+        if (strpos($time, ':') === false) {
+            $time .= ':0';
+        }
 
-        $hour = $time[0];
-        $minute = isset($time[1]) ? $time[1] : 0;
-        $second = isset($time[2]) ? $time[2] : 0;
-
-        return $this->setTime($hour, $minute, $second);
+        return $this->modify($time);
     }
 
     /**
@@ -3204,7 +3248,7 @@ class Carbon extends DateTime
      *
      * @return string
      */
-    public function diffForHumans(self $other = null, $absolute = false, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
     {
         $isNow = $other === null;
         $interval = array();
@@ -3215,6 +3259,8 @@ class Carbon extends DateTime
 
         if ($isNow) {
             $other = $this->nowWithSameTz();
+        } elseif (!$other instanceof self) {
+            $other = static::parse($other);
         }
 
         $diffInterval = $this->diff($other);

@@ -1256,4 +1256,26 @@ class DiffTest extends AbstractTestCase
         $mar15 = Carbon::parse('2015-03-15');
         $this->assertSame('1 month after', $mar15->diffForHumans($feb15));
     }
+
+    public function testDiffForHumansWithDateStringWhichIsNotACarbonInstance()
+    {
+        $mar13 = Carbon::parse('2018-03-13');
+        $this->assertSame('1 month before', $mar13->diffForHumans('2018-04-13'));
+    }
+
+    public function testDiffForHumansWithDateTimeStringWhichIsNotACarbonInstance()
+    {
+        $mar13 = Carbon::parse('2018-03-13');
+        $this->assertSame('1 month before', $mar13->diffForHumans('2018-04-13 08:00:00'));
+    }
+
+    /**
+     * @expectedException \Exception
+     * @expectedExceptionMessage Failed to parse time string (2018-04-13-08:00:00) at position 16
+     */
+    public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
+    {
+        $mar13 = Carbon::parse('2018-03-13');
+        $mar13->diffForHumans('2018-04-13-08:00:00');
+    }
 }
