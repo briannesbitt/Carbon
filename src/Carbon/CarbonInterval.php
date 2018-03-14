@@ -235,6 +235,7 @@ class CarbonInterval extends DateInterval
      *    and rounded to the next smaller value (caution: 0.5w = 4d)
      *
      * @param string $intervalDefinition
+     *
      * @return static
      */
     public static function fromString($intervalDefinition)
