@@ -253,7 +253,7 @@ class CarbonInterval extends DateInterval
 
         $pattern = '/([\d.]+)\h*([a-z]+)/i';
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
-        foreach ($parts as &$match) {
+        while ($match = array_shift($parts)) {
             list(, $value, $unit) = $match;
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
