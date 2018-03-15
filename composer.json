@@ -30,7 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Carbon\\": "src/Carbon/"
+            "": "src/"
         }
     },
     "autoload-dev": {

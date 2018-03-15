@@ -18,6 +18,7 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use JsonSerializable;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -50,7 +51,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read string $timezoneName
  * @property-read string $tzName
  */
-class Carbon extends DateTime
+class Carbon extends DateTime implements JsonSerializable
 {
     /**
      * The day constants.
@@ -225,6 +226,20 @@ class Carbon extends DateTime
      * @var array
      */
     protected static $lastErrors;
+
+    /**
+     * The custom Carbon JSON serializer.
+     *
+     * @var callable|null
+     */
+    protected static $serializer;
+
+    /**
+     * The registered string macros.
+     *
+     * @var array
+     */
+    protected static $macros = array();
 
     /**
      * Will UTF8 encoding be used to print localized date/time ?
@@ -2268,6 +2283,28 @@ class Carbon extends DateTime
     }
 
     /**
+     * Check if its the birthday. Compares the date/month values of the two dates.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
+     *
+     * @return bool
+     */
+    public function isBirthday($date = null)
+    {
+        return $this->isSameAs('md', $date);
+    }
+
+    /**
+     * Check if today is the last day of the Month
+     *
+     * @return bool
+     */
+    public function isLastOfMonth()
+    {
+        return $this->day === $this->daysInMonth;
+    }
+
+    /**
      * Checks if the (date)time string is in a given format.
      *
      * @param string $date
@@ -3817,27 +3854,9 @@ class Carbon extends DateTime
         return $this->addSeconds((int) ($this->diffInSeconds($this->resolveCarbon($date), false) / 2));
     }
 
-    /**
-     * Check if its the birthday. Compares the date/month values of the two dates.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
-     *
-     * @return bool
-     */
-    public function isBirthday($date = null)
-    {
-        return $this->isSameAs('md', $date);
-    }
-
-    /**
-     * Check if today is the last day of the Month
-     *
-     * @return bool
-     */
-    public function isLastOfMonth()
-    {
-        return $this->day === $this->daysInMonth;
-    }
+    ///////////////////////////////////////////////////////////////////
+    /////////////////////////// SERIALIZATION /////////////////////////
+    ///////////////////////////////////////////////////////////////////
 
     /**
      * Return a serialized string of the instance.
@@ -3879,5 +3898,140 @@ class Carbon extends DateTime
     public static function __set_state($array)
     {
         return static::instance(parent::__set_state($array));
+    }
+
+    /**
+     * Prepare the object for JSON serialization.
+     *
+     * @return array|string
+     */
+    public function jsonSerialize()
+    {
+        if (static::$serializer) {
+            return call_user_func(static::$serializer, $this);
+        }
+
+        $carbon = $this;
+
+        return call_user_func(function () use ($carbon) {
+            return get_object_vars($carbon);
+        });
+    }
+
+    /**
+     * JSON serialize all Carbon instances using the given callback.
+     *
+     * @param callable $callback
+     *
+     * @return void
+     */
+    public static function serializeUsing($callback)
+    {
+        static::$serializer = $callback;
+    }
+
+    ///////////////////////////////////////////////////////////////////
+    /////////////////////////////// MACRO /////////////////////////////
+    ///////////////////////////////////////////////////////////////////
+
+    /**
+     * Register a custom macro.
+     *
+     * @param string          $name
+     * @param object|callable $macro
+     *
+     * @return void
+     */
+    public static function macro($name, $macro)
+    {
+        static::$macros[$name] = $macro;
+    }
+
+    /**
+     * Mix another object into the class.
+     *
+     * @param object $mixin
+     *
+     * @throws \ReflectionException
+     *
+     * @return void
+     */
+    public static function mixin($mixin)
+    {
+        $reflextion = new \ReflectionClass($mixin);
+        $methods = $reflextion->getMethods(
+            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            $method->setAccessible(true);
+
+            static::macro($method->name, $method->invoke($mixin));
+        }
+    }
+
+    /**
+     * Checks if macro is registered.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function hasMacro($name)
+    {
+        return isset(static::$macros[$name]);
+    }
+
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return mixed
+     */
+    public static function __callStatic($method, $parameters)
+    {
+        if (!static::hasMacro($method)) {
+            throw new \BadMethodCallException("Method {$method} does not exist.");
+        }
+
+        if (static::$macros[$method] instanceof Closure && method_exists('Closure', 'bind')) {
+            return call_user_func_array(Closure::bind(static::$macros[$method], null, get_called_class()), $parameters);
+        }
+
+        return call_user_func_array(static::$macros[$method], $parameters);
+    }
+
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @throws \BadMethodCallException|\ReflectionException
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (!static::hasMacro($method)) {
+            throw new \BadMethodCallException("Method {$method} does not exist.");
+        }
+
+        $macro = static::$macros[$method];
+
+        $reflexion = new \ReflectionFunction($macro);
+        if (count($reflexion->getParameters()) > count($parameters)) {
+            $parameters[] = $this;
+        }
+
+        if ($macro instanceof Closure && method_exists($macro, 'bindTo')) {
+            return call_user_func_array($macro->bindTo($this, get_class($this)), $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
     }
 }

@@ -84,7 +84,7 @@ class CarbonInterval extends DateInterval
 
     /**
      * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
-     * was created by DateTime:diff().
+     * was created by DateTime::diff().
      */
     const PHP_DAYS_FALSE = -99999;
 
