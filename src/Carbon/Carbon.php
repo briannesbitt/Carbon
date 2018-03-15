@@ -35,6 +35,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      \DateTimeZone $tz alias of timezone
  * @property-read int $micro
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
+ * @property-read int $dayOfWeekIso 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
  * @property-read int $weekOfMonth 1 through 5
  * @property-read int $weekNumberInMonth 1 through 5
@@ -890,6 +891,7 @@ class Carbon extends DateTime
             'second' => 's',
             'micro' => 'u',
             'dayOfWeek' => 'w',
+            'dayOfWeekIso' => 'N',
             'dayOfYear' => 'z',
             'weekOfYear' => 'W',
             'daysInMonth' => 't',
