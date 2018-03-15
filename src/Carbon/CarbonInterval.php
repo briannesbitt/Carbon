@@ -212,20 +212,19 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Creates a CarbonInterval from string in JIRA format
+     * Creates a CarbonInterval from string
      *
      * Format:
      *
-     * | Suffix | Unit    | Example | DateInterval expression |
-     * |--------|---------|---------|-------------------------|
-     * |   y    | years   |   1y    | P1Y                     |
-     * |   M    | months  |   3m    | P3M                     |
-     * |   w    | weeks   |   2w    | P2W                     |
-     * |   d    | days    |  28d    | P28D                    |
-     * |   h    | hours   |   4h    | PT4H                    |
-     * |   m    | minutes |  12m    | PT12M                   |
-     * |   s    | seconds |  59s    | PT59S                   |
-     * |--------|---------|---------|-------------------------|
+     * Suffix | Unit    | Example | DateInterval expression
+     * -------|---------|---------|------------------------
+     * y      | years   |   1y    | P1Y
+     * mo     | months  |   3mo   | P3M
+     * w      | weeks   |   2w    | P2W
+     * d      | days    |  28d    | P28D
+     * h      | hours   |   4h    | PT4H
+     * m      | minutes |  12m    | PT12M
+     * s      | seconds |  59s    | PT59S
      *
      * e. g. `1w 3d 4h 32m 23s` is converted to 10 days 4 hours 32 minutes and 23 seconds.
      *
@@ -252,52 +251,69 @@ class CarbonInterval extends DateInterval
         $minutes = 0;
         $seconds = 0;
 
-        foreach (explode(' ', $intervalDefinition) as $value) {
+        $pattern = '/([\d.]+)\h*([a-z]+)/i';
+        preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
+        foreach ($parts as &$match) {
+            list(, $value, $unit) = $match;
             $intValue = intval($value);
-            $floatValue = floatval($value) - $intValue;
-            switch (substr($value, -1)) {
+            $fraction = floatval($value) - $intValue;
+            switch (strtolower($unit)) {
+                case 'year':
+                case 'years':
                 case 'y':
                     $years += $intValue;
                     break;
 
-                case 'M':
+                case 'month':
+                case 'months':
+                case 'mo':
                     $months += $intValue;
                     break;
 
+                case 'week':
+                case 'weeks':
                 case 'w':
                     $weeks += $intValue;
-                    if ($floatValue != 0) {
-                        $days += round($floatValue * Carbon::DAYS_PER_WEEK);
+                    if ($fraction != 0) {
+                        $parts[] = array(null, $fraction * Carbon::DAYS_PER_WEEK, 'd');
                     }
                     break;
 
+                case 'day':
+                case 'days':
                 case 'd':
                     $days += $intValue;
-                    if ($floatValue != 0) {
-                        $hours += round($floatValue * Carbon::HOURS_PER_DAY);
+                    if ($fraction != 0) {
+                        $parts[] = array(null, $fraction * Carbon::HOURS_PER_DAY, 'h');
                     }
                     break;
 
+                case 'hour':
+                case 'hours':
                 case 'h':
                     $hours += $intValue;
-                    if ($floatValue != 0) {
-                        $minutes += round($floatValue * Carbon::MINUTES_PER_HOUR);
+                    if ($fraction != 0) {
+                        $parts[] = array(null, $fraction * Carbon::MINUTES_PER_HOUR, 'm');
                     }
                     break;
 
+                case 'minute':
+                case 'minutes':
                 case 'm':
                     $minutes += $intValue;
-                    if ($floatValue != 0) {
-                        $seconds += round($floatValue * Carbon::SECONDS_PER_MINUTE);
+                    if ($fraction != 0) {
+                        $seconds += round($fraction * Carbon::SECONDS_PER_MINUTE);
                     }
                     break;
 
+                case 'second':
+                case 'seconds':
                 case 's':
                     $seconds += $intValue;
                     break;
 
                 default:
-                    throw new InvalidArgumentException(sprintf('Invalid unit %s', substr($value, -1)));
+                    throw new InvalidArgumentException(sprintf('Invalid unit %s', $unit));
             }
         }
 
