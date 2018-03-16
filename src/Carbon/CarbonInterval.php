@@ -251,10 +251,10 @@ class CarbonInterval extends DateInterval
         $minutes = 0;
         $seconds = 0;
 
-        $pattern = '/([\d.]+)\h*([a-z]+)/i';
+        $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
         while ($match = array_shift($parts)) {
-            list(, $value, $unit) = $match;
+            list($part, $value, $unit) = $match;
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
             switch (strtolower($unit)) {
@@ -313,7 +313,9 @@ class CarbonInterval extends DateInterval
                     break;
 
                 default:
-                    throw new InvalidArgumentException(sprintf('Invalid unit %s', $unit));
+                    throw new InvalidArgumentException(
+                        sprintf('Invalid part %s in definition %s', $part, $intervalDefinition)
+                    );
             }
         }
 

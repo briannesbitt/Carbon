@@ -91,10 +91,28 @@ class FromStringTest extends AbstractTestCase
     }
 
     /**
+     * @dataProvider provideInvalidStrings
      * @expectedException \InvalidArgumentException
+     *
+     * @param string $string
+     * @param string $part
      */
-    public function testThrowsExceptionForUnknownValues()
+    public function testThrowsExceptionForUnknownValues($string, $part)
     {
-        CarbonInterval::fromString('1q');
+        try {
+            CarbonInterval::fromString($string);
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertContains($part, $exception->getMessage());
+            throw $exception;
+        }
+    }
+
+    public function provideInvalidStrings()
+    {
+        return array(
+            array('1q', '1q'),
+            array('about 12..14m', '12..'),
+            array('4h 13', '13'),
+        );
     }
 }
