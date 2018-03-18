@@ -1187,6 +1187,22 @@ class Carbon extends DateTime
     }
 
     /**
+     * Set the year, month, and date for this instance to that of the passed instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date
+     *
+     * @return static
+     */
+    public function setDateFrom($date)
+    {
+        $date = static::instance($date);
+
+        $this->setDate($date->year, $date->month, $date->day);
+
+        return $this;
+    }
+
+    /**
      * Get the days of the week
      *
      * @return array
