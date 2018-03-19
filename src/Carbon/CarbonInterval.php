@@ -117,27 +117,31 @@ class CarbonInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $spec = static::PERIOD_PREFIX;
+        $spec = $years;
 
-        $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
-        $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
+        if (!is_string($spec) || floatval($years) || preg_match('/^[0-9.]/', $years)) {
+            $spec = static::PERIOD_PREFIX;
 
-        $specDays = 0;
-        $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
-        $specDays += $days > 0 ? $days : 0;
+            $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
+            $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
 
-        $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
+            $specDays = 0;
+            $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
+            $specDays += $days > 0 ? $days : 0;
 
-        if ($hours > 0 || $minutes > 0 || $seconds > 0) {
-            $spec .= static::PERIOD_TIME_PREFIX;
-            $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
-            $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
-            $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
-        }
+            $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
 
-        if ($spec === static::PERIOD_PREFIX) {
-            // Allow the zero interval.
-            $spec .= '0'.static::PERIOD_YEARS;
+            if ($hours > 0 || $minutes > 0 || $seconds > 0) {
+                $spec .= static::PERIOD_TIME_PREFIX;
+                $spec .= $hours > 0 ? $hours.static::PERIOD_HOURS : '';
+                $spec .= $minutes > 0 ? $minutes.static::PERIOD_MINUTES : '';
+                $spec .= $seconds > 0 ? $seconds.static::PERIOD_SECONDS : '';
+            }
+
+            if ($spec === static::PERIOD_PREFIX) {
+                // Allow the zero interval.
+                $spec .= '0'.static::PERIOD_YEARS;
+            }
         }
 
         parent::__construct($spec);

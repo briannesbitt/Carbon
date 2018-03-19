@@ -18,6 +18,18 @@ use Tests\AbstractTestCase;
 
 class ConstructTest extends AbstractTestCase
 {
+    public function testInheritedConstruct()
+    {
+        $ci = new CarbonInterval('PT0S');
+        $this->assertSame('PT0S', $ci->spec());
+        $ci = new CarbonInterval('P1Y2M3D');
+        $this->assertSame('P1Y2M3D', $ci->spec());
+        $ci = CarbonInterval::create('PT0S');
+        $this->assertSame('PT0S', $ci->spec());
+        $ci = CarbonInterval::create('P1Y2M3D');
+        $this->assertSame('P1Y2M3D', $ci->spec());
+    }
+
     public function testDefaults()
     {
         $ci = new CarbonInterval();
