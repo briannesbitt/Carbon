@@ -889,6 +889,27 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
 </code></pre></p>
 
+<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
+
+<p><pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
+{{dstmodify::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{dstmodify_eval}} (DST on, 24 hours only have been actually added)
+</code></pre></p>
+
+<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works withe <em>real</em> hours using timestamp:</p>
+
+<p><pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
+{{realhours1::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours1_eval}} (DST on)
+{{realhours2::exec(echo $date->diffInRealHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours2_eval}}
+{{realhours3::exec(echo $date->diffInHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours3_eval}}
+{{realhours4::exec(echo $date->diffInRealMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours4_eval}}
+{{realhours5::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours5_eval}}
+{{realhours6::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours6_eval}}
+{{realhours7::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours7_eval}}
+{{realhours8::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours8_eval}} (DST off)
+</code></pre></p>
+
+<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+
 <p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
 <p><pre><code class="php">{{::lint(

@@ -127,7 +127,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-19 07:40:12
+echo $now;                               // 2018-03-19 12:33:16
 $today = Carbon::today();
 echo $today;                             // 2018-03-19 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -202,7 +202,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:40 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:33 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -343,7 +343,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-19 07:40:12
+echo Carbon::now();                                    // 2018-03-19 12:33:16
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -602,7 +602,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#33 (2) {
+  object(DateTimeZone)#32 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -694,8 +694,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-19 07:40:12
-echo $dt1->maximum();                              // 2018-03-19 07:40:12
+echo $dt1->max();                                  // 2018-03-19 12:33:16
+echo $dt1->maximum();                              // 2018-03-19 12:33:16
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -950,6 +950,27 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
 </code></pre></p>
 
+<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
+
+<p><pre><code class="php">$date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London')); // DST off
+echo $date->modify('+25 hours')->format('H:i');                   // 01:00 (DST on, 24 hours only have been actually added)
+</code></pre></p>
+
+<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works withe <em>real</em> hours using timestamp:</p>
+
+<p><pre><code class="php">$date = new Carbon('2014-03-30 00:00:00', 'Europe/London');       // DST off
+echo $date->addRealHours(25)->format('H:i');                      // 02:00 (DST on)
+echo $date->diffInRealHours('2014-03-30 00:00:00');               // 25
+echo $date->diffInHours('2014-03-30 00:00:00');                   // 26
+echo $date->diffInRealMinutes('2014-03-30 00:00:00');             // 1500
+echo $date->diffInMinutes('2014-03-30 00:00:00');                 // 1560
+echo $date->diffInRealSeconds('2014-03-30 00:00:00');             // 90000
+echo $date->diffInSeconds('2014-03-30 00:00:00');                 // 93600
+echo $date->subRealHours(25)->format('H:i');                      // 00:00 (DST off)
+</code></pre></p>
+
+<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+
 <p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
 <p><pre><code class="php">$dt = Carbon::create(2014, 1, 1);
@@ -1076,7 +1097,7 @@ echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 04-Mar-1
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-echo Carbon::now()->subDays(5)->diffForHumans();               // 5 days ago
+echo Carbon::now()->subDays(5)->diffForHumans();               // 5 boring days ago
 
 echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
@@ -1093,7 +1114,7 @@ echo Carbon::now()->subDays(24)->diffForHumans(null, true);              // 3 we
 echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');           // 1 week before
 echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');  // 5 hours after
 
-echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 boring days 4 hours 29 minutes 43 seconds after
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
@@ -1268,10 +1289,10 @@ class CarbonInterval extends \DateInterval
 
 <p><pre><code class="php">echo CarbonInterval::year();                           // 1 year
 echo CarbonInterval::months(3);                        // 3 months
-echo CarbonInterval::days(3)->seconds(32);             // 3 days 32 seconds
+echo CarbonInterval::days(3)->seconds(32);             // 3 boring days 32 seconds
 echo CarbonInterval::weeks(3);                         // 3 weeks
-echo CarbonInterval::days(23);                         // 3 weeks 2 days
-echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);      // 2 years 5 weeks 1 day 1 hour 2 minutes 7 seconds
+echo CarbonInterval::days(23);                         // 3 weeks 2 boring days
+echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);      // 2 years 5 weeks 1 boring day 1 hour 2 minutes 7 seconds
 </code></pre></p>
 
 <p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
@@ -1282,7 +1303,7 @@ echo get_class($ci);                                   // 'Carbon\CarbonInterval
 echo $ci;                                              // 1 year 2 months
 </code></pre></p>
 
-<p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+<p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
 
 <p><pre><code class="php">echo CarbonInterval::year()->years;                    // 1
 echo CarbonInterval::year()->dayz;                     // 0
@@ -1290,7 +1311,13 @@ echo CarbonInterval::days(24)->dayz;                   // 24
 echo CarbonInterval::days(24)->daysExcludeWeeks;       // 3
 echo CarbonInterval::weeks(3)->days(14)->weeks;        // 2  <-- days setter overwrites the current value
 echo CarbonInterval::weeks(3)->weeks;                  // 3
-echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 days 3 minutes
+echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 boring days 3 minutes
+</code></pre></p>
+
+<p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
+
+<p><pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
+$ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
 <p>Carbon intervals can be created from human-frendly strings thanks ti <code>fromString()</code> method.</p>
