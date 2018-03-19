@@ -855,15 +855,31 @@ class Carbon extends DateTime
     }
 
     /**
-     * Return the Carbon instance passed through or a copy in the same timezone.
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
      *
-     * @param \Carbon\Carbon|null $date
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
      * @return static
      */
-    protected function resolveCarbon(self $date = null)
+    protected function resolveCarbon($date = null)
     {
-        return $date ?: $this->nowWithSameTz();
+        if (!$date) {
+            return $this->nowWithSameTz();
+        }
+
+        if (is_string($date)) {
+            return static::parse($date, $this->getTimezone());
+        }
+
+        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
+            throw new InvalidArgumentException(
+                'Expected null, string, DateTime or DateTimeInterface, '.
+                (is_object($date) ? get_class($date) : gettype($date)).' given'
+            );
+        }
+
+        return $date instanceof self ? $date : static::instance($date);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -3387,7 +3403,7 @@ class Carbon extends DateTime
      */
     public function diffInRealSeconds(self $date = null, $absolute = true)
     {
-        $date = $date ?: static::now($this->getTimezone());
+        $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
 
         return $absolute ? abs($value) : $value;

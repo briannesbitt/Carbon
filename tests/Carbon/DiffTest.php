@@ -1269,6 +1269,39 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('1 month before', $mar13->diffForHumans('2018-04-13 08:00:00'));
     }
 
+    public function testDiffWithString()
+    {
+        $dt1 = Carbon::createFromDate(2000, 1, 25)->endOfDay();
+
+        $this->assertSame(383, $dt1->diffInHours('2000-01-10'));
+    }
+
+    public function testDiffWithDateTime()
+    {
+        $dt1 = Carbon::createFromDate(2000, 1, 25)->endOfDay();
+        $dt2 = new \DateTime('2000-01-10');
+
+        $this->assertSame(383, $dt1->diffInHours($dt2));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, integer given
+     */
+    public function testDiffWithInvalidType()
+    {
+        Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given
+     */
+    public function testDiffWithInvalidObject()
+    {
+        Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
+    }
+
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage Failed to parse time string (2018-04-13-08:00:00) at position 16
