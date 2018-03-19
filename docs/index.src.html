@@ -990,9 +990,10 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
    </li>
 </ul>
 
-<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
-<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans(Carbon $other, false, true)</code>.</p>
-<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans(Carbon $other, false, false, 4)</code>.</p>
+<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans($other, true)</code>.</p>
+<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other, false, true)</code>.</p>
+<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
+<p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is passed, <code>Carbon::now()</code> will be used instead.</p>
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -1002,13 +1003,16 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 {{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
 
-{{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(62)*/)}} // {{humandiff4_eval}}
-{{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(62)*/)}} // {{humandiff5_eval}}
+{{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(72)*/)}} // {{humandiff4_eval}}
+{{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(72)*/)}} // {{humandiff5_eval}}
 
-{{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(62)*/)}} // {{humandiff6_eval}}
+{{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{humandiff6_eval}}
 
-{{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(62)*/)}} // {{humandiff7_eval}}
-{{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(62)*/)}} // {{humandiff8_eval}}
+{{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{humandiff7_eval}}
+{{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{humandiff8_eval}}
+
+{{humandiffstr1::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{humandiffstr1_eval}}
+{{humandiffstr2::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{humandiffstr2_eval}}
 
 {{humandiff9::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{humandiff9_eval}}
 </code></pre></p>

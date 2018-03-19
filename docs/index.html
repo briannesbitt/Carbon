@@ -127,13 +127,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-09 04:45:28
+echo $now;                               // 2018-03-19 05:27:16
 $today = Carbon::today();
-echo $today;                             // 2018-03-09 00:00:00
+echo $today;                             // 2018-03-19 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-03-10 00:00:00
+echo $tomorrow;                          // 2018-03-20 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-03-08 00:00:00
+echo $yesterday;                         // 2018-03-18 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -200,7 +200,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:45 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:27 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -311,7 +311,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-09 04:45:28
+echo Carbon::now();                                    // 2018-03-19 05:27:16
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -570,7 +570,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#36 (2) {
+  object(DateTimeZone)#32 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -662,8 +662,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-09 04:45:28
-echo $dt1->maximum();                              // 2018-03-09 04:45:28
+echo $dt1->max();                                  // 2018-03-19 05:27:16
+echo $dt1->maximum();                              // 2018-03-19 05:27:16
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1037,9 +1037,10 @@ echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 04-Mar-1
    </li>
 </ul>
 
-<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
-<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans(Carbon $other, false, true)</code>.</p>
-<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans(Carbon $other, false, false, 4)</code>.</p>
+<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans($other, true)</code>.</p>
+<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other, false, true)</code>.</p>
+<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
+<p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is passed, <code>Carbon::now()</code> will be used instead.</p>
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -1049,15 +1050,23 @@ echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
 $dt = Carbon::createFromDate(2011, 8, 1);
 
-echo $dt->diffForHumans($dt->copy()->addMonth());              // 1 month before
-echo $dt->diffForHumans($dt->copy()->subMonth());              // 1 month after
+echo $dt->diffForHumans($dt->copy()->addMonth());                        // 1 month before
+echo $dt->diffForHumans($dt->copy()->subMonth());                        // 1 month after
 
-echo Carbon::now()->addSeconds(5)->diffForHumans();            // 5 seconds from now
+echo Carbon::now()->addSeconds(5)->diffForHumans();                      // 5 seconds from now
 
-echo Carbon::now()->subDays(24)->diffForHumans();              // 3 weeks ago
-echo Carbon::now()->subDays(24)->diffForHumans(null, true);    // 3 weeks
+echo Carbon::now()->subDays(24)->diffForHumans();                        // 3 weeks ago
+echo Carbon::now()->subDays(24)->diffForHumans(null, true);              // 3 weeks
 
-echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
+echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');           // 1 week before
+echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');  // 5 hours after
+
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(
+    Carbon::create(2016, 6, 21, 0, 0, 0),
+    false,
+    false,
+    6
+); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
