@@ -3181,8 +3181,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in years
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date
-     * @param bool                                   $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3194,8 +3194,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in months
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date
-     * @param bool                                   $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3209,8 +3209,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weeks
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date
-     * @param bool                                   $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3222,8 +3222,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in days
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date
-     * @param bool                                   $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3235,9 +3235,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in days using a filter closure
      *
-     * @param Closure             $callback
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3249,9 +3249,9 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours using a filter closure
      *
-     * @param Closure             $callback
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3263,10 +3263,10 @@ class Carbon extends DateTime
     /**
      * Get the difference by the given interval using a filter closure
      *
-     * @param CarbonInterval $ci       An interval to traverse by
-     * @param Closure        $callback
-     * @param Carbon|null    $date
-     * @param bool           $absolute Get the absolute of the difference
+     * @param CarbonInterval                                $ci       An interval to traverse by
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3295,8 +3295,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekdays
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3310,8 +3310,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3325,8 +3325,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3338,12 +3338,12 @@ class Carbon extends DateTime
     /**
      * Get the difference in hours using timestamps.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInRealHours(self $date = null, $absolute = true)
+    public function diffInRealHours($date = null, $absolute = true)
     {
         return (int) ($this->diffInRealSeconds($date, $absolute) / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR);
     }
@@ -3351,8 +3351,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in minutes.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3364,12 +3364,12 @@ class Carbon extends DateTime
     /**
      * Get the difference in minutes using timestamps.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInRealMinutes(self $date = null, $absolute = true)
+    public function diffInRealMinutes($date = null, $absolute = true)
     {
         return (int) ($this->diffInRealSeconds($date, $absolute) / static::SECONDS_PER_MINUTE);
     }
@@ -3377,8 +3377,8 @@ class Carbon extends DateTime
     /**
      * Get the difference in seconds.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -3396,12 +3396,12 @@ class Carbon extends DateTime
     /**
      * Get the difference in seconds using timestamps.
      *
-     * @param \Carbon\Carbon|null $date
-     * @param bool                $absolute Get the absolute of the difference
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
      */
-    public function diffInRealSeconds(self $date = null, $absolute = true)
+    public function diffInRealSeconds($date = null, $absolute = true)
     {
         $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
