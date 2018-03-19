@@ -127,7 +127,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-19 05:40:09
+echo $now;                               // 2018-03-19 05:56:04
 $today = Carbon::today();
 echo $today;                             // 2018-03-19 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -202,7 +202,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:40 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:56 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -218,6 +218,36 @@ echo $carbon->toDateTimeString();                      // 2008-01-01 00:00:00
 <p><pre><code class="php">$dt = Carbon::parse('1975-05-21 22:23:00.123456');
 echo $dt->micro;                                       // 123456
 echo $dt->copy()->micro;                               // 123456
+</code></pre></p>
+
+<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> isntances and cannot be changed after instanciation, this means:</p>
+
+<p><pre><code class="php">$date = new DateTime('now');
+echo $date->format('u');
+// display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
+// display 000000 before PHP 7.1
+
+$date = new DateTime('2001-01-01T00:00:00.123456Z');
+echo $date->format('u');
+// display 123456 in all PHP versions
+
+$date->modify('00:00:00.987654');
+echo $date->format('u');
+// display 987654 in PHP >= 7.1
+// display 123456 before PHP 7.1
+</code></pre></p>
+
+<p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+
+<p><pre><code class="php">Carbon::useMicrosecondsFallback(false);
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
+
+echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
+
+Carbon::useMicrosecondsFallback(true); // default value
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
+
+echo Carbon::now()->micro; // microtime in all PHP version
 </code></pre></p>
 
 <p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
@@ -313,7 +343,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-19 05:40:09
+echo Carbon::now();                                    // 2018-03-19 05:56:04
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -664,8 +694,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-19 05:40:09
-echo $dt1->maximum();                              // 2018-03-19 05:40:09
+echo $dt1->max();                                  // 2018-03-19 05:56:04
+echo $dt1->maximum();                              // 2018-03-19 05:56:04
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);

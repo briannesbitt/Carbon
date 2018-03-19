@@ -173,6 +173,36 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 {{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
 </code></pre></p>
 
+<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> isntances and cannot be changed after instanciation, this means:</p>
+
+<p><pre><code class="php">$date = new DateTime('now');
+echo $date->format('u');
+// display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
+// display 000000 before PHP 7.1
+
+$date = new DateTime('2001-01-01T00:00:00.123456Z');
+echo $date->format('u');
+// display 123456 in all PHP versions
+
+$date->modify('00:00:00.987654');
+echo $date->format('u');
+// display 987654 in PHP >= 7.1
+// display 123456 before PHP 7.1
+</code></pre></p>
+
+<p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+
+<p><pre><code class="php">Carbon::useMicrosecondsFallback(false);
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
+
+echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
+
+Carbon::useMicrosecondsFallback(true); // default value
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
+
+echo Carbon::now()->micro; // microtime in all PHP version
+</code></pre></p>
+
 <p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
 
 <p><pre><code class="php">{{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
