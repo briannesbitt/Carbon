@@ -1254,6 +1254,14 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{cihelper7::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{cihelper7_eval}}
 </code></pre></p>
 
+<p>Carbon intervals can be created from human-frendly strings thanks ti <code>fromString()</code> method.</p>
+
+<p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
+CarbonInterval::fromString('2m 15s'); // or abbreviated
+</code></pre></p>
+
+<p>Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.</p>
+
 <p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
 
 <p><pre><code class="php">{{::lint(
@@ -1265,7 +1273,6 @@ CarbonInterval::setLocale('fr');)}}
 
 <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
 
-</div>
 </div>
 
 <div class="col-md-3">
