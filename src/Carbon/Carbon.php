@@ -3450,7 +3450,7 @@ class Carbon extends DateTime
 
         if ($isNow) {
             $other = $this->nowWithSameTz();
-        } elseif (!$other instanceof self) {
+        } elseif (!$other instanceof DateTime && !$other instanceof DateTimeInterface) {
             $other = static::parse($other);
         }
 

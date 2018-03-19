@@ -1257,13 +1257,20 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('1 month after', $mar15->diffForHumans($feb15));
     }
 
-    public function testDiffForHumansWithDateStringWhichIsNotACarbonInstance()
+    public function testDiffForHumansWithDateTimeInstance()
+    {
+        $feb15 = new \DateTime('2015-02-15');
+        $mar15 = Carbon::parse('2015-03-15');
+        $this->assertSame('1 month after', $mar15->diffForHumans($feb15));
+    }
+
+    public function testDiffForHumansWithDateString()
     {
         $mar13 = Carbon::parse('2018-03-13');
         $this->assertSame('1 month before', $mar13->diffForHumans('2018-04-13'));
     }
 
-    public function testDiffForHumansWithDateTimeStringWhichIsNotACarbonInstance()
+    public function testDiffForHumansWithDateTimeString()
     {
         $mar13 = Carbon::parse('2018-03-13');
         $this->assertSame('1 month before', $mar13->diffForHumans('2018-04-13 08:00:00'));
