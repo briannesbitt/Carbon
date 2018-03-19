@@ -446,15 +446,17 @@ class Carbon extends DateTime
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTime $date
+     * @param \DateTime|\DateTimeInterface $date
      *
      * @return static
      */
-    public static function instance(DateTime $date)
+    public static function instance($date)
     {
         if ($date instanceof static) {
             return clone $date;
         }
+
+        static::expectDateTime($date);
 
         return new static($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
     }
@@ -855,6 +857,23 @@ class Carbon extends DateTime
     }
 
     /**
+     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
+     *
+     * @param mixed $date
+     *
+     * @throws \InvalidArgumentException
+     */
+    protected static function expectDateTime($date)
+    {
+        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
+            throw new InvalidArgumentException(
+                'Expected null, string, DateTime or DateTimeInterface, '.
+                (is_object($date) ? get_class($date) : gettype($date)).' given'
+            );
+        }
+    }
+
+    /**
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
@@ -872,12 +891,7 @@ class Carbon extends DateTime
             return static::parse($date, $this->getTimezone());
         }
 
-        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
-            throw new InvalidArgumentException(
-                'Expected null, string, DateTime or DateTimeInterface, '.
-                (is_object($date) ? get_class($date) : gettype($date)).' given'
-            );
-        }
+        static::expectDateTime($date);
 
         return $date instanceof self ? $date : static::instance($date);
     }
@@ -2139,9 +2153,7 @@ class Carbon extends DateTime
     {
         $date = $date ?: static::now($this->tz);
 
-        if (!($date instanceof DateTime) && !($date instanceof DateTimeInterface)) {
-            throw new InvalidArgumentException('Expected DateTime (or instanceof) object as argument.');
-        }
+        static::expectDateTime($date);
 
         return $this->format($format) === $date->format($format);
     }
@@ -3283,7 +3295,7 @@ class Carbon extends DateTime
         }
 
         $period = new DatePeriod($start, $ci, $end);
-        $values = array_filter(iterator_to_array($period), function (DateTime $date) use ($callback) {
+        $values = array_filter(iterator_to_array($period), function ($date) use ($callback) {
             return call_user_func($callback, Carbon::instance($date));
         });
 
