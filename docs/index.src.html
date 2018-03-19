@@ -1242,7 +1242,7 @@ echo CarbonInterval::year();/*pad(54)*/)}} // {{cicreate1_eval}}
 {{ciinstance2::exec(echo $ci;/*pad(54)*/)}} // {{ciinstance2_eval}}
 </code></pre></p>
 
-<p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+<p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
 
 <p><pre><code class="php">{{cihelper1::exec(
 echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
@@ -1252,6 +1252,12 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{cihelper5::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{cihelper5_eval}}  <-- days setter overwrites the current value
 {{cihelper6::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{cihelper6_eval}}
 {{cihelper7::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{cihelper7_eval}}
+</code></pre></p>
+
+<p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
+
+<p><pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
+$ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
 <p>Carbon intervals can be created from human-frendly strings thanks ti <code>fromString()</code> method.</p>
