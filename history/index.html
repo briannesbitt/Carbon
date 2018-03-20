@@ -49,7 +49,22 @@
    
 
    <div class="container page"><div class="row"><div class="col-md-9">
-      <h1>1.24.0 / 2018-03-09</h1>
+      <h1>1.25.0 / 2018-03-19</h1>
+  <ul>
+    <li>Allowed date/time strings in diffIn* and diffForHumans methods</li>
+    <li>Added addRealHours()/addRealHour()/subRealHours()/subRealHour() method</li>
+    <li>Added addRealMinutes()/addRealMinute()/subRealMinutes()/subRealMinute() method</li>
+    <li>Added addRealSeconds()/addRealSecond()/subRealSeconds()/subRealSecond() method</li>
+    <li>Added diffInRealHours() method</li>
+    <li>Added diffInRealMinutes() method</li>
+    <li>Added diffInRealSeconds() method</li>
+    <li>Added Carbon::createFromTimeString() method</li>
+    <li>Added CarbonInterval::fromString() method</li>
+    <li>Allowed spec string as CarbonInterval constructor and in CarbonInterval::parse()</li>
+    <li>Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds work-around in PHP < 7.1</li>
+    <li>Added dayOfWeekIso property</li>
+  </ul>
+<h1>1.24.0 / 2018-03-09</h1>
   <ul>
     <li>Added createMidnightDate() method</li>
     <li>Added isLastOfMonth() method</li>
