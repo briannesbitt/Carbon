@@ -25,13 +25,13 @@ $howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
 
 $noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
-$worldDidNotEndOn = Carbon::createFromDate(2012, 12, 21, 'GMT');
+$internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
 
-// Don't really want to die so mock now
+// Don't really want this to happen so mock now
 Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
 
 // comparisons are always done in UTC
-if (Carbon::now()->gte($worldDidNotEndOn)) {
+if (Carbon::now()->gte($internetWillBlowUpOn)) {
     die();
 }
 
