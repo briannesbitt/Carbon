@@ -911,7 +911,7 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{realhours8::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours8_eval}} (DST off)
 </code></pre></p>
 
-<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>, <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
 
 <p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
