@@ -382,9 +382,9 @@ $product = new SeasonalProduct(100);
 {{getminute::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{getminute_eval}}
 {{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
 {{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
-// dayOfWeek return a number between 0 (sunday) and 6 (saturday)
+// dayOfWeek returns a number between 0 (sunday) and 6 (saturday)
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
-// dayOfWeekIso return a number between 1 (monday) and 7 (sunday)
+// dayOfWeekIso returns a number between 1 (monday) and 7 (sunday)
 {{getdowi::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{getdowi_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
 {{getwim::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{getwim_eval}}
