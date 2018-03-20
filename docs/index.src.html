@@ -91,6 +91,7 @@ if (strtotime($string) === false) {
 
 <p><pre><code class="php">Carbon::createFromDate($year, $month, $day, $tz);
 Carbon::createFromTime($hour, $minute, $second, $tz);
+Carbon::createFromTimeString("$hour:$minute:$second", $tz);
 Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
 </code></pre></p>
 
@@ -101,6 +102,7 @@ $xmasThisYear = Carbon::createFromDate(null, 12, 25);  // Year defaults to curre
 $Y2K = Carbon::create(2000, 1, 1, 0, 0, 0); // equivalent to Carbon::createMidnightDate(2000, 1, 1)
 $alsoY2K = Carbon::create(1999, 12, 31, 24);
 $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
+$teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 )}}
 
 // {{createFromDateException_eval}}
@@ -171,6 +173,36 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 {{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
 </code></pre></p>
 
+<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> isntances and cannot be changed after instanciation, this means:</p>
+
+<p><pre><code class="php">$date = new DateTime('now');
+echo $date->format('u');
+// display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
+// display 000000 before PHP 7.1
+
+$date = new DateTime('2001-01-01T00:00:00.123456Z');
+echo $date->format('u');
+// display 123456 in all PHP versions
+
+$date->modify('00:00:00.987654');
+echo $date->format('u');
+// display 987654 in PHP >= 7.1
+// display 123456 before PHP 7.1
+</code></pre></p>
+
+<p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+
+<p><pre><code class="php">Carbon::useMicrosecondsFallback(false);
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
+
+echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
+
+Carbon::useMicrosecondsFallback(true); // default value
+var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
+
+echo Carbon::now()->micro; // microtime in all PHP version
+</code></pre></p>
+
 <p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
 
 <p><pre><code class="php">{{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
@@ -228,9 +260,9 @@ And reboot your system.</p></blockquote>
 <p><pre><code class="php">{{::lint(
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
-$resources = $translator->getCatalogue('en')->all('messages');
-$resources['day'] = '1 boring day|:count boring days';
-$translator->addResource('array', $resources, 'en');
+$translator->setMessages('en', array(
+    'day' => '1 boring day|:count boring days',
+));
 
 $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
 $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
@@ -238,7 +270,7 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 
 {{customizetr::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{customizetr_eval}}
 
-{{::lint(Carbon::setLocale('en'); // reset language customizations)}}
+{{::lint($translator->resetMessages('en'); // reset language customizations for en language)}}
 </code></pre></p>
 
 <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
@@ -350,7 +382,10 @@ $product = new SeasonalProduct(100);
 {{getminute::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{getminute_eval}}
 {{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
 {{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
+// dayOfWeek returns a number between 0 (sunday) and 6 (saturday)
 {{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
+// dayOfWeekIso returns a number between 1 (monday) and 7 (sunday)
+{{getdowi::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{getdowi_eval}}
 {{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
 {{getwim::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{getwim_eval}}
 // weekNumberInMonth consider weeks from monday to sunday, so the week 1 will
@@ -857,6 +892,27 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
 </code></pre></p>
 
+<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
+
+<p><pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
+{{dstmodify::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{dstmodify_eval}} (DST on, 24 hours only have been actually added)
+</code></pre></p>
+
+<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works with <em>real</em> hours using timestamp:</p>
+
+<p><pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
+{{realhours1::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours1_eval}} (DST on)
+{{realhours2::exec(echo $date->diffInRealHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours2_eval}}
+{{realhours3::exec(echo $date->diffInHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours3_eval}}
+{{realhours4::exec(echo $date->diffInRealMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours4_eval}}
+{{realhours5::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours5_eval}}
+{{realhours6::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours6_eval}}
+{{realhours7::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours7_eval}}
+{{realhours8::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours8_eval}} (DST off)
+</code></pre></p>
+
+<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>, <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+
 <p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
 
 <p><pre><code class="php">{{::lint(
@@ -990,9 +1046,10 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
    </li>
 </ul>
 
-<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans(Carbon $other, true)</code>.</p>
-<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans(Carbon $other, false, true)</code>.</p>
-<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans(Carbon $other, false, false, 4)</code>.</p>
+<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans($other, true)</code>.</p>
+<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other, false, true)</code>.</p>
+<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
+<p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is passed, <code>Carbon::now()</code> will be used instead.</p>
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
@@ -1002,13 +1059,16 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 {{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
 
-{{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(62)*/)}} // {{humandiff4_eval}}
-{{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(62)*/)}} // {{humandiff5_eval}}
+{{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(72)*/)}} // {{humandiff4_eval}}
+{{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(72)*/)}} // {{humandiff5_eval}}
 
-{{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(62)*/)}} // {{humandiff6_eval}}
+{{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{humandiff6_eval}}
 
-{{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(62)*/)}} // {{humandiff7_eval}}
-{{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(62)*/)}} // {{humandiff8_eval}}
+{{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{humandiff7_eval}}
+{{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{humandiff8_eval}}
+
+{{humandiffstr1::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{humandiffstr1_eval}}
+{{humandiffstr2::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{humandiffstr2_eval}}
 
 {{humandiff9::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{humandiff9_eval}}
 </code></pre></p>
@@ -1206,7 +1266,7 @@ echo CarbonInterval::year();/*pad(54)*/)}} // {{cicreate1_eval}}
 {{ciinstance2::exec(echo $ci;/*pad(54)*/)}} // {{ciinstance2_eval}}
 </code></pre></p>
 
-<p>Other helpers, but beware the implemenation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+<p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
 
 <p><pre><code class="php">{{cihelper1::exec(
 echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
@@ -1217,6 +1277,20 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{cihelper6::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{cihelper6_eval}}
 {{cihelper7::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{cihelper7_eval}}
 </code></pre></p>
+
+<p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
+
+<p><pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
+$ci = new CarbonInterval('PT0S');
+</code></pre></p>
+
+<p>Carbon intervals can be created from human-frendly strings thanks to <code>fromString()</code> method.</p>
+
+<p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
+CarbonInterval::fromString('2m 15s'); // or abbreviated
+</code></pre></p>
+
+<p>Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.</p>
 
 <p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
 
@@ -1229,7 +1303,6 @@ CarbonInterval::setLocale('fr');)}}
 
 <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
 
-</div>
 </div>
 
 <div class="col-md-3">
