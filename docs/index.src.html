@@ -260,9 +260,9 @@ And reboot your system.</p></blockquote>
 <p><pre><code class="php">{{::lint(
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
-$resources = $translator->getCatalogue('en')->all('messages');
-$resources['day'] = '1 boring day|:count boring days';
-$translator->addResource('array', $resources, 'en');
+$translator->setMessages('en', array(
+    'day' => '1 boring day|:count boring days',
+));
 
 $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
 $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
@@ -270,7 +270,7 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 
 {{customizetr::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{customizetr_eval}}
 
-{{::lint(Carbon::setLocale('en'); // reset language customizations)}}
+{{::lint($translator->resetMessages('en'); // reset language customizations for en language)}}
 </code></pre></p>
 
 <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
@@ -892,13 +892,13 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
 </code></pre></p>
 
-<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
+<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
 
 <p><pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
 {{dstmodify::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{dstmodify_eval}} (DST on, 24 hours only have been actually added)
 </code></pre></p>
 
-<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works withe <em>real</em> hours using timestamp:</p>
+<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works with <em>real</em> hours using timestamp:</p>
 
 <p><pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
 {{realhours1::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours1_eval}} (DST on)
@@ -1284,7 +1284,7 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 $ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
-<p>Carbon intervals can be created from human-frendly strings thanks ti <code>fromString()</code> method.</p>
+<p>Carbon intervals can be created from human-frendly strings thanks to <code>fromString()</code> method.</p>
 
 <p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
