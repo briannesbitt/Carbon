@@ -29,7 +29,7 @@ foreach (get_class_methods($carbon) as $method) {
     }
 
     $methodsCount++;
-    $documented = strpos($documentation, $method) !== false;
+    $documented = !!preg_match('/'.preg_quote($method, '/').'(?!\w)/', $documentation);
     if (!$documented) {
         $missingMethodsCount++;
     }
