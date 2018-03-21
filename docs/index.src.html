@@ -173,7 +173,7 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 {{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
 </code></pre></p>
 
-<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> isntances and cannot be changed after instanciation, this means:</p>
+<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed afterwards, this means:</p>
 
 <p><pre><code class="php">$date = new DateTime('now');
 echo $date->format('u');
