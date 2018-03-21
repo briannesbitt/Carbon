@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-21 10:00:53
+echo $now;                               // 2018-03-21 15:06:39
 $today = Carbon::today();
 echo $today;                             // 2018-03-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:00 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:06 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-21 10:00:53
+echo Carbon::now();                                    // 2018-03-21 15:06:39
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -607,7 +607,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#33 (2) {
+  object(DateTimeZone)#14 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -699,8 +699,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-21 10:00:53
-echo $dt1->maximum();                              // 2018-03-21 10:00:53
+echo $dt1->max();                                  // 2018-03-21 15:06:39
+echo $dt1->maximum();                              // 2018-03-21 15:06:39
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1368,8 +1368,8 @@ CarbonInterval::setLocale('en');
           <li><a href="#api-humandiff">Difference for Humans</a></li>
           <li><a href="#api-modifiers">Modifiers</a></li>
           <li><a href="#api-constants">Constants</a></li>
-          <li><a href="#api-interval">CarbonInterval</a></li>
           <li><a href="#api-serialization">Serialization</a></li>
+          <li><a href="#api-interval">CarbonInterval</a></li>
         </ul>
       </div>
     </div>
