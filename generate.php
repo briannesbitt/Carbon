@@ -20,9 +20,16 @@ $template = file_get_contents('template.src.html');
 function genHtml($page, $out, $jumbotron = '')
 {
     global $template;
+    $menu = '';
+    $page = preg_replace_callback('/<nav>([\s\S]*?)<\/nav>/', function ($match) use (&$menu) {
+        $menu = $match[1];
+
+        return '';
+    }, $page);
     $html = $template;
     $html = str_replace('#{page}', $page, $html);
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
+    $html = str_replace('#{menu}', $menu, $html);
     file_put_contents($out, $html);
 }
 

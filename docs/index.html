@@ -48,8 +48,10 @@
 
    
 
-   <div class="container page"><div class="row"><div class="col-md-9">
-      <div id="docs">
+   <div class="container page">
+      <div class="row">
+         <div class="col-md-9">
+            <div id="docs">
 
 <h1 id="api-introduction">Introduction</h1>
 
@@ -127,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-21 04:56:13
+echo $now;                               // 2018-03-21 10:00:53
 $today = Carbon::today();
 echo $today;                             // 2018-03-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -202,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 10:56 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:00 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -288,9 +290,9 @@ echo Carbon::getLocale();                          // en
 <p><pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
-echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
 Carbon::setUtf8(false);
 setlocale(LC_TIME, '');
 </code></pre></p>
@@ -343,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-21 04:56:13
+echo Carbon::now();                                    // 2018-03-21 10:00:53
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -605,7 +607,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#31 (2) {
+  object(DateTimeZone)#33 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -697,8 +699,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-21 04:56:13
-echo $dt1->maximum();                              // 2018-03-21 04:56:13
+echo $dt1->max();                                  // 2018-03-21 10:00:53
+echo $dt1->maximum();                              // 2018-03-21 10:00:53
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1100,7 +1102,7 @@ echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 04-Mar-1
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-echo Carbon::now()->subDays(5)->diffForHumans();               // 5 boring days ago
+echo Carbon::now()->subDays(5)->diffForHumans();               // 5 days ago
 
 echo Carbon::now()->diffForHumans(Carbon::now()->subYear());   // 1 year after
 
@@ -1117,7 +1119,7 @@ echo Carbon::now()->subDays(24)->diffForHumans(null, true);              // 3 we
 echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');           // 1 week before
 echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');  // 5 hours after
 
-echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 boring days 4 hours 29 minutes 43 seconds after
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
@@ -1292,10 +1294,10 @@ class CarbonInterval extends \DateInterval
 
 <p><pre><code class="php">echo CarbonInterval::year();                           // 1 year
 echo CarbonInterval::months(3);                        // 3 months
-echo CarbonInterval::days(3)->seconds(32);             // 3 boring days 32 seconds
+echo CarbonInterval::days(3)->seconds(32);             // 3 days 32 seconds
 echo CarbonInterval::weeks(3);                         // 3 weeks
-echo CarbonInterval::days(23);                         // 3 weeks 2 boring days
-echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);      // 2 years 5 weeks 1 boring day 1 hour 2 minutes 7 seconds
+echo CarbonInterval::days(23);                         // 3 weeks 2 days
+echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);      // 2 years 5 weeks 1 day 1 hour 2 minutes 7 seconds
 </code></pre></p>
 
 <p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
@@ -1314,7 +1316,7 @@ echo CarbonInterval::days(24)->dayz;                   // 24
 echo CarbonInterval::days(24)->daysExcludeWeeks;       // 3
 echo CarbonInterval::weeks(3)->days(14)->weeks;        // 2  <-- days setter overwrites the current value
 echo CarbonInterval::weeks(3)->weeks;                  // 3
-echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 boring days 3 minutes
+echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 days 3 minutes
 </code></pre></p>
 
 <p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
@@ -1343,32 +1345,37 @@ CarbonInterval::setLocale('en');
 
 </div>
 
-<div class="col-md-3">
-  <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
-    <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
-      <li><a href="#api-introduction">Introduction</a></li>
-      <li><a href="#api-instantiation">Instantiation</a></li>
-      <li><a href="#api-localization">Localization</a></li>
-      <li><a href="#api-testing">Testing Aids</a></li>
-      <li><a href="#api-getters">Getters</a></li>
-      <li><a href="#api-setters">Setters</a></li>
-      <li><a href="#api-settersfluent">Fluent Setters</a></li>
-      <li><a href="#api-isset">IsSet</a></li>
-      <li><a href="#api-formatting">String Formatting</a></li>
-      <li><a href="#api-commonformats">Common Formats</a></li>
-      <li><a href="#api-comparison">Comparison</a></li>
-      <li><a href="#api-addsub">Addition and Subtraction</a></li>
-      <li><a href="#api-difference">Difference</a></li>
-      <li><a href="#api-humandiff">Difference for Humans</a></li>
-      <li><a href="#api-modifiers">Modifiers</a></li>
-      <li><a href="#api-constants">Constants</a></li>
-      <li><a href="#api-interval">CarbonInterval</a></li>
-      <li><a href="#api-serialization">Serialization</a></li>
-    </ul>
-  </div>
-</div>
 
-   </div></div></div>
+
+         </div>
+         
+    <div class="col-md-3">
+      <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
+        <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
+          <li><a href="#api-introduction">Introduction</a></li>
+          <li><a href="#api-instantiation">Instantiation</a></li>
+          <li><a href="#api-localization">Localization</a></li>
+          <li><a href="#api-testing">Testing Aids</a></li>
+          <li><a href="#api-getters">Getters</a></li>
+          <li><a href="#api-setters">Setters</a></li>
+          <li><a href="#api-settersfluent">Fluent Setters</a></li>
+          <li><a href="#api-isset">IsSet</a></li>
+          <li><a href="#api-formatting">String Formatting</a></li>
+          <li><a href="#api-commonformats">Common Formats</a></li>
+          <li><a href="#api-comparison">Comparison</a></li>
+          <li><a href="#api-addsub">Addition and Subtraction</a></li>
+          <li><a href="#api-difference">Difference</a></li>
+          <li><a href="#api-humandiff">Difference for Humans</a></li>
+          <li><a href="#api-modifiers">Modifiers</a></li>
+          <li><a href="#api-constants">Constants</a></li>
+          <li><a href="#api-interval">CarbonInterval</a></li>
+          <li><a href="#api-serialization">Serialization</a></li>
+        </ul>
+      </div>
+    </div>
+
+      </div>
+   </div>
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
