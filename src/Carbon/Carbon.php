@@ -3260,6 +3260,19 @@ class Carbon extends DateTime implements JsonSerializable
     ///////////////////////////////////////////////////////////////////
 
     /**
+     * Get the difference as a CarbonInterval instance
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
+    public function diffAsCarbonInterval($date = null, $absolute = true)
+    {
+        return CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
+    }
+
+    /**
      * Get the difference in years
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
