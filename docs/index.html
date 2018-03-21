@@ -127,13 +127,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-20 11:14:05
+echo $now;                               // 2018-03-21 03:56:03
 $today = Carbon::today();
-echo $today;                             // 2018-03-20 00:00:00
+echo $today;                             // 2018-03-21 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-03-21 00:00:00
+echo $tomorrow;                          // 2018-03-22 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-03-19 00:00:00
+echo $yesterday;                         // 2018-03-20 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -202,7 +202,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:14 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 09:56 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -220,7 +220,7 @@ echo $dt->micro;                                       // 123456
 echo $dt->copy()->micro;                               // 123456
 </code></pre></p>
 
-<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> isntances and cannot be changed after instanciation, this means:</p>
+<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed afterwards, this means:</p>
 
 <p><pre><code class="php">$date = new DateTime('now');
 echo $date->format('u');
@@ -343,7 +343,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-20 11:14:05
+echo Carbon::now();                                    // 2018-03-21 03:56:03
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -697,8 +697,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-20 11:14:05
-echo $dt1->maximum();                              // 2018-03-20 11:14:05
+echo $dt1->max();                                  // 2018-03-21 03:56:03
+echo $dt1->maximum();                              // 2018-03-21 03:56:03
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
