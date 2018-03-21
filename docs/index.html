@@ -288,9 +288,9 @@ echo Carbon::getLocale();                          // en
 <p><pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
-Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+Carbon::setUtf8(true);
+echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
 Carbon::setUtf8(false);
 setlocale(LC_TIME, '');
 </code></pre></p>
