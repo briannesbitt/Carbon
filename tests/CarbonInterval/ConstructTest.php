@@ -240,12 +240,10 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(1, $ci->invert);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInstanceWithDaysThrowsException()
+    public function testInstanceWithDays()
     {
-        CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
+        $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
+        $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
     }
 
     public function testCallInvalidStaticMethod()

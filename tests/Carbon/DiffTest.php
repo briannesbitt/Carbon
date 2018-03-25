@@ -23,6 +23,12 @@ class DiffTest extends AbstractTestCase
         parent::wrapWithTestNow($func, $dt ?: Carbon::createFromDate(2012, 1, 1));
     }
 
+    public function testDiffAsCarbonInterval()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertCarbonInterval($dt->diffAsCarbonInterval($dt->copy()->addYear()), 1, 0, 0, 0, 0, 0);
+    }
+
     public function testDiffInYearsPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
