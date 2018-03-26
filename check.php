@@ -24,7 +24,11 @@ $dateTimeMethods = get_class_methods(new \DateTime());
 $carbon = new \Carbon\Carbon();
 
 foreach (get_class_methods($carbon) as $method) {
-    if (in_array($method, $dateTimeMethods)) {
+    if (
+        in_array($method, $dateTimeMethods)  ||
+        $method === '__call' ||
+        $method === '__callStatic'
+    ) {
         continue;
     }
 

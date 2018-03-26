@@ -470,6 +470,26 @@ $dt->tz('America/Toronto')->setTimezone('America/Vancouver');
 )}}
 </code></pre></p>
 
+<p>You also can set date and time separatly from other DateTime/Carbon objects:</p>
+
+<p><pre><code class="php">{{::lint(
+$source1 = new Carbon('2010-05-16 22:40:10');
+
+$dt = new Carbon('2001-01-01 01:01:01');
+$dt->setTimeFrom($source1);
+)}}
+
+{{setTimeFrom::exec(echo $dt;)}} // {{setTimeFrom_eval}}
+
+{{::lint(
+$source2 = new DateTime('2013-09-01 09:22:56');
+
+$dt->setDateFrom($source2);
+)}}
+
+{{setDateFrom::exec(echo $dt;)}} // {{setDateFrom_eval}}
+</code></pre></p>
+
 <h1 id="api-isset">IsSet</h1>
 
 <p>The PHP function <code>__isset()</code> is implemented.  This was done as some external systems (ex. <a href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the existence of a property before using it.  This is done using the <code>isset()</code> or <code>empty()</code> method.  You can read more about these on the PHP site: <a href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
