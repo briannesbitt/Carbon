@@ -11,7 +11,7 @@ return array(
     'year' => '1 flwyddyn|:count blynedd',
     'y' => '1bl|:countbl',
     'month' => '1 mis|:count fis',
-    'm' => '1mi|:countmi',
+    'm' => ':countmi',
     'week' => ':count wythnos',
     'w' => '1w|:countw',
     'day' => '|:count diwrnod',
