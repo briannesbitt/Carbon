@@ -85,7 +85,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @var array
      */
-    protected static $days = array(
+    protected static $months = array(
         self::JANUARY => 'January',
         self::FEBRUARY => 'February',
         self::MARCH => 'March',
