@@ -81,6 +81,26 @@ class Carbon extends DateTime implements JsonSerializable
     );
 
     /**
+     * Names of months of the year.
+     *
+     * @var array
+     */
+    protected static $months = array(
+        self::JANUARY => 'January',
+        self::FEBRUARY => 'February',
+        self::MARCH => 'March',
+        self::APRIL => 'April',
+        self::MAY => 'May',
+        self::JUNE => 'June',
+        self::JULY => 'July',
+        self::AUGUST => 'August',
+        self::SEPTEMBER => 'September',
+        self::OCTOBER => 'October',
+        self::NOVEMBER => 'November',
+        self::DECEMBER => 'December',
+    );
+
+    /**
      * Number of X in Y.
      */
     const YEARS_PER_CENTURY = 100;
