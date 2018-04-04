@@ -1332,6 +1332,42 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Get the all dates of week
+     *
+     * @return array
+     */
+    public static function getCurrentWeekDays()
+    {
+        $startOfWeek = static::now()->startOfWeek()->subDay();
+        $weekDays = array();
+
+        for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
+            $weekDays[] = $startOfWeek->addDay()->copy();
+        }
+
+        return $weekDays;
+    }
+
+    /**
+     * Get the all dates of month
+     *
+     * @return array
+     */
+    public static function getCurrentMonthDays()
+    {
+        $startOfMonth = static::now()->startOfMonth()->subDay();
+        $endOfMonth = static::now()->endOfMonth()->format('d');
+        $monthDays = array();
+
+        for ($i = 0; $i < $endOfMonth; $i++)
+        {
+            $monthDays[] = $startOfMonth->addDay()->copy();
+        }
+
+        return $monthDays;
+    }
+
+    /**
      * Set weekend days
      *
      * @param array $days
