@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-13 07:58:05
+echo $now;                               // 2018-04-13 11:18:49
 $today = Carbon::today();
 echo $today;                             // 2018-04-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:58 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:18 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-13 07:58:05
+echo Carbon::now();                                    // 2018-04-13 11:18:49
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-13 07:58:05
-echo $dt1->maximum();                              // 2018-04-13 07:58:05
+echo $dt1->max();                                  // 2018-04-13 11:18:49
+echo $dt1->maximum();                              // 2018-04-13 11:18:49
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1348,6 +1348,108 @@ var_dump($dt->jsonSerialize());
 }
 </code></pre></p>
 
+<h1 id="api-macro">Macro</h1>
+
+<p>You may be familiar with the macro concept if you are used to work with Laravel and objects such as <a href="https://laravel.com/docs/5.6/responses#response-macros">response</a> or <a href="https://laravel.com/docs/5.6/collections#extending-collections">collections</a>. The Carbon <code>macro()</code> works the exact same way than the Laravel MacroableTrait one, it take a method name as first argument and a closure as second. This make the closure action available on all Carbon instance (and also as Carbon static method) as a method with the given name.</p>
+
+<p>From PHP 5.4, <code>$this</code> can be used in closures to refer the current instance. For PHP 5.3 compatibility, we also add a `$self` attribute to the closure. Example:</p>
+
+<p><pre><code class="php">Carbon::macro('diffFromYear', function ($year, $self) {
+    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
+});
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year 1 week 4 days after
+</code></pre></p>
+
+<p>To deal with optional args, use <code>func_get_args()</code>:</p>
+
+<p><pre><code class="php">Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1, $self = null) {
+    $arguments = func_get_args();
+    $self = array_pop($arguments);
+    $absolute = isset($arguments[1]) ? $arguments[1] : false;
+    $short = isset($arguments[2]) ? $arguments[2] : false;
+    $parts = isset($arguments[3]) ? $arguments[3] : 1;
+
+    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
+});
+
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year after
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1 year
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 1yr
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  // 1yr 1w 4d 12h
+</code></pre></p>
+
+<p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
+
+<p><pre><code class="php">Class BeerDayCarbonMixin
+{
+    public function nextBeerDay()
+    {
+        return function ($self) {
+            return $self->modify('next wednesday');
+        };
+    }
+
+    public function previousBeerDay()
+    {
+        return function ($self) {
+            return $self->modify('previous wednesday');
+        };
+    }
+}
+
+Carbon::mixin(new BeerDayCarbonMixin());
+
+$date = Carbon::parse('First saturday of December 2018');
+
+echo $date->previousBeerDay();                                                 // 2018-11-28 00:00:00
+echo $date->nextBeerDay();                                                     // 2018-12-05 00:00:00
+</code></pre></p>
+
+<p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
+
+<p><pre><code class="php">var_dump(Carbon::hasMacro('previousBeerDay'));                                 // bool(true)
+var_dump(Carbon::hasMacro('diffFromYear'));                                    // bool(true)
+var_dump(Carbon::hasMacro('dontKnowWhat'));                                    // bool(false)
+</code></pre></p>
+
+<p>Here are some useful macros proposed by the community:</p>
+
+<p><pre><code class="php">Carbon::macro('easterDate', function ($year) {
+    $instance = Carbon::create($year);
+
+    $a = $instance->year % 19;
+    $b = floor($instance->year / 100);
+    $c = $instance->year % 100;
+    $d = floor($b / 4);
+    $e = $b % 4;
+    $f = floor(($b + 8) / 25);
+    $g = floor(($b - $f + 1) / 3);
+    $h = (19 * $a + $b - $d - $g + 15) % 30;
+    $i = floor($c / 4);
+    $k = $c % 4;
+    $l = (32 + 2 * $e + 2 * $i - $h - $k) % 7;
+    $m = floor(($a + 11 * $h + 22 * $l) / 451);
+    $month = floor(($h + $l - 7 * $m + 114) / 31);
+    $day = (($h + $l - 7 * $m + 114) % 31) + 1;
+
+    $instance->month($month)->day($day);
+
+    return $instance;
+});
+echo Carbon::easterDate(2015)->format('d/m');
+// 05/04
+echo Carbon::easterDate(2016)->format('d/m');
+// 27/03
+echo Carbon::easterDate(2017)->format('d/m');
+// 16/04
+echo Carbon::easterDate(2018)->format('d/m');
+// 01/04
+echo Carbon::easterDate(2019)->format('d/m');
+// 21/04
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/andreisena">andreisena</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
@@ -1439,6 +1541,7 @@ CarbonInterval::setLocale('en');
           <li><a href="#api-constants">Constants</a></li>
           <li><a href="#api-serialization">Serialization</a></li>
           <li><a href="#api-json">JSON</a></li>
+          <li><a href="#api-macro">Macro</a></li>
           <li><a href="#api-interval">CarbonInterval</a></li>
         </ul>
       </div>
