@@ -1401,6 +1401,91 @@ $date = Carbon::parse('First saturday of December 2018');
 <p>Here are some useful macros proposed by the community:</p>
 
 <p><pre><code class="php">{{::lint(
+Carbon::macro('isHoliday', function ($self) {
+    return in_array($self->format('d/m'), [
+        '25/12', // Christmas
+        '01/01', // New Year
+        // ...
+    ]);
+});
+)}}
+{{holiday1::exec(var_dump(Carbon::createMidnightDate(2012, 12, 25)->isHoliday());/*pad(65)*/)}} // {{holiday1_eval}}
+{{holiday2::exec(var_dump(Carbon::createMidnightDate(2017, 6, 25)->isHoliday());/*pad(65)*/)}} // {{holiday2_eval}}
+{{holiday3::exec(var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());/*pad(65)*/)}} // {{holiday3_eval}}
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
+
+<p><pre><code class="php">{{::lint(
+Class CurrentDaysCarbonMixin
+{
+    /**
+     * Get the all dates of week
+     *
+     * @return array
+     */
+    public static function getCurrentWeekDays()
+    {
+        return function ($self = null) {
+            $startOfWeek = ($self ?: static::now())->startOfWeek()->subDay();
+            $weekDays = array();
+
+            for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
+                $weekDays[] = $startOfWeek->addDay()->startOfDay()->copy();
+            }
+
+            return $weekDays;
+        };
+    }
+
+    /**
+     * Get the all dates of month
+     *
+     * @return array
+     */
+    public static function getCurrentMonthDays()
+    {
+        return function ($self = null) {
+            $startOfMonth = ($self ?: static::now())->startOfMonth()->subDay();
+            $endOfMonth = ($self ?: static::now())->endOfMonth()->format('d');
+            $monthDays = array();
+
+            for ($i = 0; $i < $endOfMonth; $i++)
+            {
+                $monthDays[] = $startOfMonth->addDay()->startOfDay()->copy();
+            }
+
+            return $monthDays;
+        };
+    }
+}
+
+Carbon::mixin(new CurrentDaysCarbonMixin());
+
+function dumpDateList($dates) {
+    echo substr(implode(', ', $dates), 0, 100).'...';
+}
+)}}
+
+{{currentdays1::exec(dumpDateList(Carbon::getCurrentWeekDays());/*pad(65)*/)}} // {{currentdays1_eval}}
+{{currentdays2::exec(dumpDateList(Carbon::getCurrentMonthDays());/*pad(65)*/)}} // {{currentdays2_eval}}
+{{currentdays3::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());/*pad(65)*/)}} // {{currentdays3_eval}}
+{{currentdays4::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());/*pad(65)*/)}} // {{currentdays4_eval}}
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
+
+<p><pre><code class="php">{{::lint(
+Carbon::macro('toAtomStringWithNoTimezone', function ($self) {
+    return $self->format('Y-m-d\TH:i:s');
+});
+)}}
+{{atomntz::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{atomntz_eval}}
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/afrojuju1">afrojuju1</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1063">#1063</a>).</em></p>
+
+<p><pre><code class="php">{{::lint(
 Carbon::macro('easterDate', function ($year) {
     $instance = Carbon::create($year);
 
@@ -1424,16 +1509,11 @@ Carbon::macro('easterDate', function ($year) {
     return $instance;
 });
 )}}
-{{easter1::exec(echo Carbon::easterDate(2015)->format('d/m');)}}
-// {{easter1_eval}}
-{{easter2::exec(echo Carbon::easterDate(2016)->format('d/m');)}}
-// {{easter2_eval}}
-{{easter3::exec(echo Carbon::easterDate(2017)->format('d/m');)}}
-// {{easter3_eval}}
-{{easter4::exec(echo Carbon::easterDate(2018)->format('d/m');)}}
-// {{easter4_eval}}
-{{easter5::exec(echo Carbon::easterDate(2019)->format('d/m');)}}
-// {{easter5_eval}}
+{{easter1::exec(echo Carbon::easterDate(2015)->format('d/m');)}} // {{easter1_eval}}
+{{easter2::exec(echo Carbon::easterDate(2016)->format('d/m');)}} // {{easter2_eval}}
+{{easter3::exec(echo Carbon::easterDate(2017)->format('d/m');)}} // {{easter3_eval}}
+{{easter4::exec(echo Carbon::easterDate(2018)->format('d/m');)}} // {{easter4_eval}}
+{{easter5::exec(echo Carbon::easterDate(2019)->format('d/m');)}} // {{easter5_eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
