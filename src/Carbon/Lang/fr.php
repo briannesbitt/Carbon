@@ -28,4 +28,9 @@ return array(
     'from_now' => 'dans :time',
     'after' => ':time après',
     'before' => ':time avant',
+    'now' => "à l'instant",
+    'yesterday' => 'hier',
+    'tomorrow' => 'demain',
+    'before-yesterday' => 'avant-hier',
+    'after-tomorrow' => 'après-demain',
 );

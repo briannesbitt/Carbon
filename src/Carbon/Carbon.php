@@ -54,6 +54,11 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class Carbon extends DateTime implements JsonSerializable
 {
+    const NO_ZERO_DIFF = 01;
+    const ENABLE_JUST_NOW = 02;
+    const ENABLE_ONE_DAY_WORDS = 04;
+    const ENABLE_TWO_DAY_WORDS = 010;
+
     /**
      * The day constants.
      */
@@ -269,6 +274,29 @@ class Carbon extends DateTime implements JsonSerializable
      * @var bool
      */
     protected static $yearsOverflow = true;
+
+    /**
+     * Options for diffForHumans().
+     *
+     * @var int
+     */
+    protected static $humanDiffOptions = self::NO_ZERO_DIFF;
+
+    /**
+     * @param int $humanDiffOptions
+     */
+    public static function setHumanDiffOptions($humanDiffOptions)
+    {
+        static::$humanDiffOptions = $humanDiffOptions;
+    }
+
+    /**
+     * @return int
+     */
+    public static function getHumanDiffOptions()
+    {
+        return static::$humanDiffOptions;
+    }
 
     /**
      * Add microseconds to now on PHP < 7.1 and 7.1.3 if set to true,
@@ -3606,7 +3634,10 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         if (count($interval) === 0) {
-            $count = 1;
+            if ($isNow && static::getHumanDiffOptions() & self::ENABLE_JUST_NOW) {
+                return static::translator()->trans('now');
+            }
+            $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
             $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
         }
@@ -3625,6 +3656,14 @@ class Carbon extends DateTime implements JsonSerializable
         $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
         if ($parts === 1) {
+            if ($isNow && $unit === 'day') {
+                if ($count === 1 && static::getHumanDiffOptions() & self::ENABLE_ONE_DAY_WORDS) {
+                    return static::translator()->trans($isFuture ? 'tomorrow' : 'yesterday');
+                }
+                if ($count === 2 && static::getHumanDiffOptions() & self::ENABLE_TWO_DAY_WORDS) {
+                    return static::translator()->trans($isFuture ? 'after-tomorrow' : 'before-yesterday');
+                }
+            }
             // Some langs have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
             $count = isset($count) ? $count : 1;

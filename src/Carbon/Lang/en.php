@@ -28,4 +28,9 @@ return array(
     'from_now' => ':time from now',
     'after' => ':time after',
     'before' => ':time before',
+    'now' => 'just now',
+    'yesterday' => 'yesterday',
+    'tomorrow' => 'tomorrow',
+    'before-yesterday' => 'before yesterday',
+    'after-tomorrow' => 'after tomorrow',
 );
