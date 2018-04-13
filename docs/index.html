@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-13 12:20:01
+echo $now;                               // 2018-04-13 14:56:43
 $today = Carbon::today();
 echo $today;                             // 2018-04-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:20 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 20:56 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-13 12:20:01
+echo Carbon::now();                                    // 2018-04-13 14:56:43
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-13 12:20:01
-echo $dt1->maximum();                              // 2018-04-13 12:20:01
+echo $dt1->max();                                  // 2018-04-13 14:56:43
+echo $dt1->maximum();                              // 2018-04-13 14:56:43
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1510,26 +1510,7 @@ echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone(); // 2021
 <p><em>Credit: <a href="https://github.com/afrojuju1">afrojuju1</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1063">#1063</a>).</em></p>
 
 <p><pre><code class="php">Carbon::macro('easterDate', function ($year) {
-    $instance = Carbon::create($year);
-
-    $a = $instance->year % 19;
-    $b = floor($instance->year / 100);
-    $c = $instance->year % 100;
-    $d = floor($b / 4);
-    $e = $b % 4;
-    $f = floor(($b + 8) / 25);
-    $g = floor(($b - $f + 1) / 3);
-    $h = (19 * $a + $b - $d - $g + 15) % 30;
-    $i = floor($c / 4);
-    $k = $c % 4;
-    $l = (32 + 2 * $e + 2 * $i - $h - $k) % 7;
-    $m = floor(($a + 11 * $h + 22 * $l) / 451);
-    $month = floor(($h + $l - 7 * $m + 114) / 31);
-    $day = (($h + $l - 7 * $m + 114) % 31) + 1;
-
-    $instance->month($month)->day($day);
-
-    return $instance;
+    return Carbon::createMidnightDate($year, 3, 21)->addDays(easter_days($year));
 });
 echo Carbon::easterDate(2015)->format('d/m'); // 05/04
 echo Carbon::easterDate(2016)->format('d/m'); // 27/03
@@ -1538,7 +1519,7 @@ echo Carbon::easterDate(2018)->format('d/m'); // 01/04
 echo Carbon::easterDate(2019)->format('d/m'); // 21/04
 </code></pre></p>
 
-<p><em>Credit: <a href="https://github.com/andreisena">andreisena</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
+<p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
 <h1 id="api-interval">CarbonInterval</h1>
 
