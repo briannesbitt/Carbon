@@ -1256,6 +1256,36 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 
 </code></pre></p>
 
+<h1 id="api-json">JSON</h1>
+
+<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+).</p>
+
+<p><pre><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+)}}
+{{json1::exec(echo json_encode($dt);)}}
+// {{json1_eval}}
+
+{{::lint(
+$json = '{"date":"2012-12-25 20:30:00.000000","timezone_type":3,"timezone":"Europe\/Moscow"}';
+$dt = Carbon::__set_state(json_decode($json, true));
+)}}
+{{json2::exec(echo $dt->format('Y-m-d\TH:i:s.uP T');)}}
+// {{json2_eval}}
+</code></pre></p>
+
+<p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
+
+<p><pre><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+Carbon::serializeUsing(function ($date) {
+    return $date->getTimestamp();
+});
+)}}
+{{json3::exec(echo json_encode($dt);)}}
+// {{json3_eval}}
+</code></pre></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
@@ -1346,6 +1376,7 @@ CarbonInterval::setLocale('fr');)}}
           <li><a href="#api-modifiers">Modifiers</a></li>
           <li><a href="#api-constants">Constants</a></li>
           <li><a href="#api-serialization">Serialization</a></li>
+          <li><a href="#api-json">JSON</a></li>
           <li><a href="#api-interval">CarbonInterval</a></li>
         </ul>
       </div>

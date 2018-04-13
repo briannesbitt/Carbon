@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-03-26 12:41:21
+echo $now;                               // 2018-04-13 06:31:18
 $today = Carbon::today();
-echo $today;                             // 2018-03-26 00:00:00
+echo $today;                             // 2018-04-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-03-27 00:00:00
+echo $tomorrow;                          // 2018-04-14 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-03-25 00:00:00
+echo $yesterday;                         // 2018-04-12 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:41 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 12:31 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-03-26 12:41:21
+echo Carbon::now();                                    // 2018-04-13 06:31:18
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -623,7 +623,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#34 (2) {
+  object(DateTimeZone)#31 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-03-26 12:41:21
-echo $dt1->maximum();                              // 2018-03-26 12:41:21
+echo $dt1->max();                                  // 2018-04-13 06:31:18
+echo $dt1->maximum();                              // 2018-04-13 06:31:18
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1068,14 +1068,14 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 
 var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);      // bool(true)
 var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 02-Mar-18 00:00:00 EST
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 07-Mar-18 23:59:59 EST
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 06-Apr-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 11-Apr-18 23:59:59 EDT
 
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 26-Feb-18 00:00:00 EST
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 04-Mar-18 23:59:59 EST
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 02-Apr-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 08-Apr-18 23:59:59 EDT
 </code></pre></p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
@@ -1295,6 +1295,30 @@ echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');    // 2012-12-25T
 
 </code></pre></p>
 
+<h1 id="api-json">JSON</h1>
+
+<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+).</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+echo json_encode($dt);
+// {"date":"2012-12-25 20:30:00.000000","timezone_type":3,"timezone":"Europe\/Moscow"}
+
+$json = '{"date":"2012-12-25 20:30:00.000000","timezone_type":3,"timezone":"Europe\/Moscow"}';
+$dt = Carbon::__set_state(json_decode($json, true));
+echo $dt->format('Y-m-d\TH:i:s.uP T');
+// 2012-12-25T20:30:00.000000+04:00 MSK
+</code></pre></p>
+
+<p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+Carbon::serializeUsing(function ($date) {
+    return $date->getTimestamp();
+});
+echo json_encode($dt);
+// 1356453000
+</code></pre></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
@@ -1385,6 +1409,7 @@ CarbonInterval::setLocale('en');
           <li><a href="#api-modifiers">Modifiers</a></li>
           <li><a href="#api-constants">Constants</a></li>
           <li><a href="#api-serialization">Serialization</a></li>
+          <li><a href="#api-json">JSON</a></li>
           <li><a href="#api-interval">CarbonInterval</a></li>
         </ul>
       </div>
