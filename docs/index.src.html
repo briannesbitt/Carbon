@@ -1258,7 +1258,7 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 
 <h1 id="api-json">JSON</h1>
 
-<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+).</p>
+<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+, see below notes about PHP 5.3).</p>
 
 <p><pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
@@ -1283,7 +1283,28 @@ Carbon::serializeUsing(function ($date) {
 });
 )}}
 {{json3::exec(echo json_encode($dt);)}}
-// {{json3_eval}}
+/*
+{{json3_eval}}
+*/
+
+// Call serializeUsing with null to reset the serializer:
+{{::lint(
+Carbon::serializeUsing(null);
+)}}
+</code></pre></p>
+
+<p>The <code>jsonSerialize()</code> method returns the intermediate turned into string by `json_encode`, it can also allow you to work with PHP 5.3 compatibility.</p>
+
+<p><pre><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+)}}
+{{json4::exec(echo json_encode($dt->jsonSerialize());)}}
+// {{json4_eval}}
+// This is equivalent to the first json_encode example but works with PHP 5.3.
+
+// And it can be used separately:
+{{json5::exec(var_dump($dt->jsonSerialize());)}}
+// {{json5_eval}}
 </code></pre></p>
 
 <h1 id="api-interval">CarbonInterval</h1>

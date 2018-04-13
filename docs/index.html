@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-13 06:31:18
+echo $now;                               // 2018-04-13 07:19:45
 $today = Carbon::today();
 echo $today;                             // 2018-04-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 12:31 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:19 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-13 06:31:18
+echo Carbon::now();                                    // 2018-04-13 07:19:45
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-13 06:31:18
-echo $dt1->maximum();                              // 2018-04-13 06:31:18
+echo $dt1->max();                                  // 2018-04-13 07:19:45
+echo $dt1->maximum();                              // 2018-04-13 07:19:45
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1297,7 +1297,7 @@ echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');    // 2012-12-25T
 
 <h1 id="api-json">JSON</h1>
 
-<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+).</p>
+<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+, see below notes about PHP 5.3).</p>
 
 <p><pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 echo json_encode($dt);
@@ -1316,7 +1316,31 @@ Carbon::serializeUsing(function ($date) {
     return $date->getTimestamp();
 });
 echo json_encode($dt);
-// 1356453000
+/*
+1356453000
+*/
+
+// Call serializeUsing with null to reset the serializer:
+Carbon::serializeUsing(null);
+</code></pre></p>
+
+<p>The <code>jsonSerialize()</code> method returns the intermediate turned into string by `json_encode`, it can also allow you to work with PHP 5.3 compatibility.</p>
+
+<p><pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
+echo json_encode($dt->jsonSerialize());
+// {"date":"2012-12-25 20:30:00.000000","timezone_type":3,"timezone":"Europe\/Moscow"}
+// This is equivalent to the first json_encode example but works with PHP 5.3.
+
+// And it can be used separately:
+var_dump($dt->jsonSerialize());
+// array(3) {
+  ["date"]=>
+  string(26) "2012-12-25 20:30:00.000000"
+  ["timezone_type"]=>
+  int(3)
+  ["timezone"]=>
+  string(13) "Europe/Moscow"
+}
 </code></pre></p>
 
 <h1 id="api-interval">CarbonInterval</h1>
