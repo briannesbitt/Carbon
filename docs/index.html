@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-13 07:19:45
+echo $now;                               // 2018-04-13 07:58:05
 $today = Carbon::today();
 echo $today;                             // 2018-04-13 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:19 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:58 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-13 07:19:45
+echo Carbon::now();                                    // 2018-04-13 07:58:05
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-13 07:19:45
-echo $dt1->maximum();                              // 2018-04-13 07:19:45
+echo $dt1->max();                                  // 2018-04-13 07:58:05
+echo $dt1->maximum();                              // 2018-04-13 07:58:05
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -940,11 +940,13 @@ Carbon::resetYearsOverflow();}
 
 <h1 id="api-difference">Difference</h1>
 
+<p>As <code>Carbon</code> extends <code>DateTime</code> it inherit its methods such as <code>diff()</code> that take a second date object as argument and returns a <code>DateInterval</code> instance.</p>
+
+<p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code> instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code> and <code>diffIn*()</code> methods all can take 2 optional arguments: date to compare with (if missing, now is used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative value when the instance the method is called on is greater than the compared date (first argument or now). Note that <code>diff()</code> prototype is different: its first argument (the date) is mandatory and its second argument (the absolute option) defaults to <code>false</code>.</p>
+
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
-<p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
-
-echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 0
+<p><pre><code class="php">echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London')); // 0
 
 $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
 $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
@@ -969,6 +971,9 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(119));                 // 1
 echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 
 echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
+
+$interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);
+echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;      // minus 3
 </code></pre></p>
 
 <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>

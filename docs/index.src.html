@@ -881,11 +881,13 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
 <h1 id="api-difference">Difference</h1>
 
+<p>As <code>Carbon</code> extends <code>DateTime</code> it inherit its methods such as <code>diff()</code> that take a second date object as argument and returns a <code>DateInterval</code> instance.</p>
+
+<p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code> instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code> and <code>diffIn*()</code> methods all can take 2 optional arguments: date to compare with (if missing, now is used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative value when the instance the method is called on is greater than the compared date (first argument or now). Note that <code>diff()</code> prototype is different: its first argument (the date) is mandatory and its second argument (the absolute option) defaults to <code>false</code>.</p>
+
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
-<p><pre><code class="php">// Carbon::diffInYears(Carbon $dt = null, $abs = true)
-
-{{diff1::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{diff1_eval}}
+<p><pre><code class="php">{{diff1::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{diff1_eval}}
 
 {{::lint($dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');)}}
@@ -910,6 +912,9 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{diff17::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{diff17_eval}}
 
 {{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
+
+{{::lint($interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);)}}
+{{diffinterval::exec(echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;/*pad(70)*/)}} // {{diffinterval_eval}}
 </code></pre></p>
 
 <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
