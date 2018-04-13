@@ -3651,7 +3651,11 @@ class Carbon extends DateTime implements JsonSerializable
 
         if (count($interval) === 0) {
             if ($isNow && static::getHumanDiffOptions() & self::JUST_NOW) {
-                return static::translator()->trans('now');
+                $key = 'diff_now';
+                $translation = static::translator()->trans($key);
+                if ($translation !== $key) {
+                    return $translation;
+                }
             }
             $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
@@ -3674,10 +3678,18 @@ class Carbon extends DateTime implements JsonSerializable
         if ($parts === 1) {
             if ($isNow && $unit === 'day') {
                 if ($count === 1 && static::getHumanDiffOptions() & self::ONE_DAY_WORDS) {
-                    return static::translator()->trans($isFuture ? 'tomorrow' : 'yesterday');
+                    $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
+                    $translation = static::translator()->trans($key);
+                    if ($translation !== $key) {
+                        return $translation;
+                    }
                 }
                 if ($count === 2 && static::getHumanDiffOptions() & self::TWO_DAY_WORDS) {
-                    return static::translator()->trans($isFuture ? 'after-tomorrow' : 'before-yesterday');
+                    $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
+                    $translation = static::translator()->trans($key);
+                    if ($translation !== $key) {
+                        return $translation;
+                    }
                 }
             }
             // Some langs have special pluralization for past and future tense.
