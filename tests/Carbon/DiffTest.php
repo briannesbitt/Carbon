@@ -1300,9 +1300,9 @@ class DiffTest extends AbstractTestCase
     public function testDiffOptions()
     {
         $this->assertSame(1, Carbon::NO_ZERO_DIFF);
-        $this->assertSame(2, Carbon::ENABLE_JUST_NOW);
-        $this->assertSame(4, Carbon::ENABLE_ONE_DAY_WORDS);
-        $this->assertSame(8, Carbon::ENABLE_TWO_DAY_WORDS);
+        $this->assertSame(2, Carbon::JUST_NOW);
+        $this->assertSame(4, Carbon::ONE_DAY_WORDS);
+        $this->assertSame(8, Carbon::TWO_DAY_WORDS);
 
         $options = Carbon::getHumanDiffOptions();
         $this->assertSame(1, $options);
@@ -1319,12 +1319,12 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('0 seconde avant', $date->diffForHumans($date));
 
         Carbon::setLocale('en');
-        Carbon::setHumanDiffOptions(Carbon::ENABLE_JUST_NOW);
+        Carbon::setHumanDiffOptions(Carbon::JUST_NOW);
         $this->assertSame(2, Carbon::getHumanDiffOptions());
         $this->assertSame('0 seconds before', $date->diffForHumans($date));
         $this->assertSame('just now', Carbon::now()->diffForHumans());
 
-        Carbon::setHumanDiffOptions(Carbon::ENABLE_ONE_DAY_WORDS | Carbon::ENABLE_TWO_DAY_WORDS | Carbon::NO_ZERO_DIFF);
+        Carbon::setHumanDiffOptions(Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS | Carbon::NO_ZERO_DIFF);
         $this->assertSame(13, Carbon::getHumanDiffOptions());
 
         $oneDayAfter = Carbon::create(2018, 3, 13, 2, 5, 6, 'UTC');
@@ -1342,13 +1342,20 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('after tomorrow', Carbon::now()->addDays(2)->diffForHumans());
         $this->assertSame('before yesterday', Carbon::now()->subDays(2)->diffForHumans());
 
-        Carbon::setHumanDiffOptions(Carbon::ENABLE_ONE_DAY_WORDS | Carbon::NO_ZERO_DIFF);
+        Carbon::disableHumanDiffOption(Carbon::TWO_DAY_WORDS);
+        $this->assertSame(5, Carbon::getHumanDiffOptions());
+        Carbon::disableHumanDiffOption(Carbon::TWO_DAY_WORDS);
         $this->assertSame(5, Carbon::getHumanDiffOptions());
 
         $this->assertSame('tomorrow', Carbon::now()->addDay()->diffForHumans());
         $this->assertSame('yesterday', Carbon::now()->subDay()->diffForHumans());
         $this->assertSame('2 days from now', Carbon::now()->addDays(2)->diffForHumans());
         $this->assertSame('2 days ago', Carbon::now()->subDays(2)->diffForHumans());
+
+        Carbon::enableHumanDiffOption(Carbon::JUST_NOW);
+        $this->assertSame(7, Carbon::getHumanDiffOptions());
+        Carbon::enableHumanDiffOption(Carbon::JUST_NOW);
+        $this->assertSame(7, Carbon::getHumanDiffOptions());
 
         Carbon::setHumanDiffOptions($options);
     }

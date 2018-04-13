@@ -55,9 +55,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class Carbon extends DateTime implements JsonSerializable
 {
     const NO_ZERO_DIFF = 01;
-    const ENABLE_JUST_NOW = 02;
-    const ENABLE_ONE_DAY_WORDS = 04;
-    const ENABLE_TWO_DAY_WORDS = 010;
+    const JUST_NOW = 02;
+    const ONE_DAY_WORDS = 04;
+    const TWO_DAY_WORDS = 010;
 
     /**
      * The day constants.
@@ -288,6 +288,22 @@ class Carbon extends DateTime implements JsonSerializable
     public static function setHumanDiffOptions($humanDiffOptions)
     {
         static::$humanDiffOptions = $humanDiffOptions;
+    }
+
+    /**
+     * @param int $humanDiffOptions
+     */
+    public static function enableHumanDiffOption($humanDiffOption)
+    {
+        static::$humanDiffOptions = static::getHumanDiffOptions() | $humanDiffOption;
+    }
+
+    /**
+     * @param int $humanDiffOptions
+     */
+    public static function disableHumanDiffOption($humanDiffOption)
+    {
+        static::$humanDiffOptions = static::getHumanDiffOptions() & ~$humanDiffOption;
     }
 
     /**
@@ -3634,7 +3650,7 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         if (count($interval) === 0) {
-            if ($isNow && static::getHumanDiffOptions() & self::ENABLE_JUST_NOW) {
+            if ($isNow && static::getHumanDiffOptions() & self::JUST_NOW) {
                 return static::translator()->trans('now');
             }
             $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
@@ -3657,10 +3673,10 @@ class Carbon extends DateTime implements JsonSerializable
 
         if ($parts === 1) {
             if ($isNow && $unit === 'day') {
-                if ($count === 1 && static::getHumanDiffOptions() & self::ENABLE_ONE_DAY_WORDS) {
+                if ($count === 1 && static::getHumanDiffOptions() & self::ONE_DAY_WORDS) {
                     return static::translator()->trans($isFuture ? 'tomorrow' : 'yesterday');
                 }
-                if ($count === 2 && static::getHumanDiffOptions() & self::ENABLE_TWO_DAY_WORDS) {
+                if ($count === 2 && static::getHumanDiffOptions() & self::TWO_DAY_WORDS) {
                     return static::translator()->trans($isFuture ? 'after-tomorrow' : 'before-yesterday');
                 }
             }
