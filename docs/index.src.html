@@ -261,7 +261,7 @@ And reboot your system.</p></blockquote>
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
 $translator->setMessages('en', array(
-    'day' => '1 boring day|:count boring days',
+    'day' => ':count boring day|:count boring days',
 ));
 
 $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
@@ -1099,6 +1099,22 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
+
+<p>From version 1.26, options for diffForHumans() can be enabled/disabled with:</p>
+
+<p><pre><code class="php">Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);
+Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);</code></pre></p>
+
+<p>Available options are:</p>
+
+<ul>
+    <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
+    <li><code>Carbon::JUST_NOW</code> disabled by default): turns diff from now to now into "just now"</li>
+    <li><code>Carbon::ONE_DAY_WORDS</code> (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"</li>
+    <li><code>Carbon::TWO_DAY_WORDS</code> (disabled by default): turns "2 days from now/ago" to "before yesterday/after </li>
+</ul>
+
+<p>Carbon::JUST_NOW, Carbon::ONE_DAY_WORDS and Carbon::TWO_DAY_WORDS are now only available with en and fr languages, other languages will fallback to previous behavior until missing translations are added.</p>
 
 <h1 id="api-modifiers">Modifiers</h1>
 
