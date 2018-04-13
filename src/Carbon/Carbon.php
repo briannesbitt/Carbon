@@ -291,7 +291,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * @param int $humanDiffOptions
+     * @param int $humanDiffOption
      */
     public static function enableHumanDiffOption($humanDiffOption)
     {
@@ -299,7 +299,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * @param int $humanDiffOptions
+     * @param int $humanDiffOption
      */
     public static function disableHumanDiffOption($humanDiffOption)
     {
