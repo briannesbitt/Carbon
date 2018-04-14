@@ -2105,6 +2105,26 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Determines if the instance is within the next quarter
+     *
+     * @return bool
+     */
+    public function isNextQuarter()
+    {
+        return $this->quarter === $this->nowWithSameTz()->addQuarter()->quarter;
+    }
+
+    /**
+     * Determines if the instance is within the last quarter
+     *
+     * @return bool
+     */
+    public function isLastQuarter()
+    {
+        return $this->quarter === $this->nowWithSameTz()->subQuarter()->quarter;
+    }
+
+    /**
      * Determines if the instance is within the next month
      *
      * @return bool
@@ -2225,6 +2245,33 @@ class Carbon extends DateTime implements JsonSerializable
     public function isSameYear($date = null)
     {
         return $this->isSameAs('Y', $date);
+    }
+
+    /**
+     * Determines if the instance is in the current month
+     *
+     * @return bool
+     */
+    public function isCurrentQuarter()
+    {
+        return $this->isSameQuarter();
+    }
+
+    /**
+     * Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
+     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
+     *
+     * @return bool
+     */
+    public function isSameQuarter($date = null, $ofSameYear = false)
+    {
+        $date = $date ? static::instance($date) : static::now($this->tz);
+
+        static::expectDateTime($date);
+
+        return ($this->quarter === $date->quarter) && ($ofSameYear ? $this->isSameYear($date) : true);
     }
 
     /**
