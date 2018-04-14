@@ -255,7 +255,7 @@ class IsTest extends AbstractTestCase
     public function testIsSameQuarterFalseWithDateTime()
     {
         $dt = new DateTime();
-        $dt->modify((Carbon::MONTHS_PER_QUARTER * -1) . ' month');
+        $dt->modify((Carbon::MONTHS_PER_QUARTER * -1).' month');
         $this->assertFalse(Carbon::now()->isSameQuarter($dt));
     }
 
