@@ -1499,6 +1499,20 @@ Carbon::macro('easterDate', function ($year) {
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
+<p><pre><code class="php">{{::lint(
+Carbon::macro('range', function ($startDate, $endDate) {
+    return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
+});
+)}}
+{{range::exec(foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
+    echo "$date\n";
+})}}
+/*
+{{range_eval}}*/
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
+
 <h1 id="api-interval">CarbonInterval</h1>
 
 <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
