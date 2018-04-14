@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-14 04:25:50
+echo $now;                               // 2018-04-14 05:14:21
 $today = Carbon::today();
 echo $today;                             // 2018-04-14 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 10:25 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:14 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-14 04:25:50
+echo Carbon::now();                                    // 2018-04-14 05:14:21
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-14 04:25:50
-echo $dt1->maximum();                              // 2018-04-14 04:25:50
+echo $dt1->max();                                  // 2018-04-14 05:14:21
+echo $dt1->maximum();                              // 2018-04-14 05:14:21
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1537,7 +1537,60 @@ foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMi
 */
 </code></pre></p>
 
-<p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
+<p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
+
+<p><pre><code class="php">class UserTimezoneCarbonMixin
+{
+    public $userTimeZone;
+
+    /**
+     * Set user timezone, will be used before format function to apply current user timezone
+     *
+     * @param $timezone
+     */
+    public function setUserTimezone()
+    {
+        $mixin = $this;
+
+        return function ($timezone) use ($mixin) {
+            $mixin->userTimeZone = $timezone;
+        };
+    }
+
+    /**
+     * Returns date formatted according to given format.
+     *
+     * @param string $format
+     *
+     * @return string
+     *
+     * @link http://php.net/manual/en/datetime.format.php
+     */
+    public function tzFormat()
+    {
+        $mixin = $this;
+
+        return function ($format, $self) use ($mixin) {
+            if (!is_null($mixin->userTimeZone)) {
+                $self->timezone($mixin->userTimeZone);
+            }
+
+            return $self->format($format);
+        };
+    }
+}
+
+Carbon::mixin(new UserTimezoneCarbonMixin());
+
+Carbon::setUserTimezone('Europe/Berlin');
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 14:00
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 17:00
+Carbon::setUserTimezone('America/Toronto');
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 08:00
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 11:00
+</code></pre></p>
+
+<p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
 
 <h1 id="api-interval">CarbonInterval</h1>
 
