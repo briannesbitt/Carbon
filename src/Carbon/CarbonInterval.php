@@ -426,10 +426,14 @@ class CarbonInterval extends DateInterval
      *
      * @throws \InvalidArgumentException
      *
-     * @return int
+     * @return int|float
      */
     public function __get($name)
     {
+        if (substr($name, 0, 5) === 'total') {
+            return $this->total(substr($name, 5));
+        }
+
         switch ($name) {
             case 'years':
                 return $this->y;
@@ -740,5 +744,54 @@ class CarbonInterval extends DateInterval
         }
 
         return $this;
+    }
+
+    /**
+     * Get total amount of given unit.
+     *
+     * @param  string  $unit
+     * @return float
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function total($unit)
+    {
+        $unit = strtolower($unit);
+
+        if (! in_array($unit, ['seconds', 'minutes', 'hours', 'dayz', 'days', 'weeks', 'months', 'years'])) {
+            throw new InvalidArgumentException("Unknown unit '$unit'.");
+        }
+
+        $carry = 0;
+
+        foreach (static::$cascades as $property => $perBigger) {
+            $carry = $this->$property + $carry;
+
+            if ($property == $unit || ($property == 'dayz' && in_array($unit, ['days', 'weeks']))) {
+                $result = $carry;
+
+                break;
+            }
+
+            $carry /= $perBigger;
+        }
+
+        foreach (array_reverse(static::$cascades, true) as $property => $perBigger) {
+            $carry *= $perBigger;
+
+            if ($property == $unit || ($property == 'dayz' && in_array($unit, ['days', 'weeks']))) {
+                $result += $carry;
+
+                break;
+            }
+
+            $carry += $this->$property;
+        }
+
+        if ($unit == 'weeks') {
+            return $result / Carbon::DAYS_PER_WEEK;
+        }
+
+        return $result;
     }
 }
