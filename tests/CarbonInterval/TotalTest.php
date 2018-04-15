@@ -17,7 +17,8 @@ class TotalTest extends AbstractTestCase
         );
     }
 
-    public function provideIntervalSpecs() {
+    public function provideIntervalSpecs()
+    {
         return array(
             array('10s',                'seconds', 10),
             array('100s',               'seconds', 100),
@@ -31,7 +32,7 @@ class TotalTest extends AbstractTestCase
             array('4y 2mo',             'days',    (4 * 12 + 2) * 30),
             array('165d',               'weeks',   165 / 7),
             array('5mo',                'weeks',   5 * 30 / 7),
-            array('6897d',              'months',  6897/30),
+            array('6897d',              'months',  6897 / 30),
             array('35mo',               'years',   35 / 12),
         );
     }
@@ -48,12 +49,12 @@ class TotalTest extends AbstractTestCase
     {
         $interval = CarbonInterval::create(0, 0, 0, 0, 150, 0, 0);
 
-        $this->assertSame(150 * 60 * 60,      $interval->totalSeconds);
-        $this->assertSame(150 * 60,           $interval->totalMinutes);
-        $this->assertSame(150,                $interval->totalHours);
-        $this->assertSame(150 / 24,           $interval->totalDays);
-        $this->assertSame(150 / 24 / 7,       $interval->totalWeeks);
-        $this->assertSame(150 / 24 / 30,      $interval->totalMonths);
+        $this->assertSame(150 * 60 * 60, $interval->totalSeconds);
+        $this->assertSame(150 * 60, $interval->totalMinutes);
+        $this->assertSame(150, $interval->totalHours);
+        $this->assertSame(150 / 24, $interval->totalDays);
+        $this->assertSame(150 / 24 / 7, $interval->totalWeeks);
+        $this->assertSame(150 / 24 / 30, $interval->totalMonths);
         $this->assertSame(150 / 24 / 30 / 12, $interval->totalYears);
     }
 }

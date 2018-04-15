@@ -93,14 +93,14 @@ class CarbonInterval extends DateInterval
      *
      * @var array
      */
-    protected static $cascades = [
+    protected static $cascades = array(
         'seconds' => Carbon::SECONDS_PER_MINUTE,
         'minutes' => Carbon::MINUTES_PER_HOUR,
-        'hours'   => Carbon::HOURS_PER_DAY,
-        'dayz'    => Carbon::DAYS_PER_MONTH,
-        'months'  => Carbon::MONTHS_PER_YEAR,
-        'years'   => null,
-    ];
+        'hours' => Carbon::HOURS_PER_DAY,
+        'dayz' => Carbon::DAYS_PER_MONTH,
+        'months' => Carbon::MONTHS_PER_YEAR,
+        'years' => null,
+    );
 
     /**
      * Determine if the interval was created via DateTime:diff() or not.
@@ -736,8 +736,7 @@ class CarbonInterval extends DateInterval
             if ($max) {
                 $this->$property = $value % $max;
                 $carry = ($value - $this->$property) / $max;
-            }
-            else {
+            } else {
                 $this->$property = $value;
                 $carry = 0;
             }
@@ -749,16 +748,17 @@ class CarbonInterval extends DateInterval
     /**
      * Get total amount of given unit.
      *
-     * @param  string  $unit
-     * @return float
+     * @param string $unit
      *
      * @throws \InvalidArgumentException
+     *
+     * @return float
      */
     public function total($unit)
     {
         $unit = strtolower($unit);
 
-        if (! in_array($unit, ['seconds', 'minutes', 'hours', 'dayz', 'days', 'weeks', 'months', 'years'])) {
+        if (!in_array($unit, array('seconds', 'minutes', 'hours', 'dayz', 'days', 'weeks', 'months', 'years'))) {
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 
@@ -767,7 +767,7 @@ class CarbonInterval extends DateInterval
         foreach (static::$cascades as $property => $perBigger) {
             $carry = $this->$property + $carry;
 
-            if ($property == $unit || ($property == 'dayz' && in_array($unit, ['days', 'weeks']))) {
+            if ($property == $unit || ($property == 'dayz' && in_array($unit, array('days', 'weeks')))) {
                 $result = $carry;
 
                 break;
@@ -779,7 +779,7 @@ class CarbonInterval extends DateInterval
         foreach (array_reverse(static::$cascades, true) as $property => $perBigger) {
             $carry *= $perBigger;
 
-            if ($property == $unit || ($property == 'dayz' && in_array($unit, ['days', 'weeks']))) {
+            if ($property == $unit || ($property == 'dayz' && in_array($unit, array('days', 'weeks')))) {
                 $result += $carry;
 
                 break;

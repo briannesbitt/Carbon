@@ -17,7 +17,8 @@ class CascadeTest extends AbstractTestCase
         );
     }
 
-    public function provideIntervalSpecs() {
+    public function provideIntervalSpecs()
+    {
         return array(
             array('3600s',                        'PT1H'),
             array('10000s',                       'PT2H46M40S'),
