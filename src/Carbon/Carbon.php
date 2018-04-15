@@ -2271,7 +2271,7 @@ class Carbon extends DateTime implements JsonSerializable
 
         static::expectDateTime($date);
 
-        return ($this->quarter === $date->quarter) && ($ofSameYear ? $this->isSameYear($date) : true);
+        return $this->quarter === $date->quarter && (!$ofSameYear || $this->isSameYear($date));
     }
 
     /**
