@@ -987,7 +987,7 @@ $date2 = Carbon::createMidnightDate(2017, 3, 15);
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
-<p>For advanced handle of the week/weekend days, use the following tools:</p>
+<p id="weekend">For advanced handle of the week/weekend days, use the following tools:</p>
 
 <p><pre><code class="php">{{week1::exec(echo implode(', ', Carbon::getDays());/*pad(60)*/)}} // {{week1_eval}}
 
@@ -1416,6 +1416,8 @@ Carbon::macro('isHoliday', function ($self) {
 
 <p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
 
+<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete business days handler.</p>
+
 <p><pre><code class="php">{{::lint(
 Class CurrentDaysCarbonMixin
 {
@@ -1498,6 +1500,8 @@ Carbon::macro('easterDate', function ($year) {
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
+
+<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete holidays handler.</p>
 
 <p><pre><code class="php">{{::lint(
 Carbon::macro('range', function ($startDate, $endDate) {
