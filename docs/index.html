@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-14 05:14:21
+echo $now;                               // 2018-04-15 17:44:59
 $today = Carbon::today();
-echo $today;                             // 2018-04-14 00:00:00
+echo $today;                             // 2018-04-15 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-04-15 00:00:00
+echo $tomorrow;                          // 2018-04-16 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-04-13 00:00:00
+echo $yesterday;                         // 2018-04-14 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:14 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 23:44 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-14 05:14:21
+echo Carbon::now();                                    // 2018-04-15 17:44:59
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-14 05:14:21
-echo $dt1->maximum();                              // 2018-04-14 05:14:21
+echo $dt1->max();                                  // 2018-04-15 17:44:59
+echo $dt1->maximum();                              // 2018-04-15 17:44:59
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1040,7 +1040,7 @@ echo $date1->diffInYears($date2);                  // 1
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
-<p>For advanced handle of the week/weekend days, use the following tools:</p>
+<p id="weekend">For advanced handle of the week/weekend days, use the following tools:</p>
 
 <p><pre><code class="php">echo implode(', ', Carbon::getDays());                       // Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
 
@@ -1444,6 +1444,8 @@ var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());    // bool(true)
 
 <p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
 
+<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete business days handler.</p>
+
 <p><pre><code class="php">Class CurrentDaysCarbonMixin
 {
     /**
@@ -1521,6 +1523,8 @@ echo Carbon::easterDate(2019)->format('d/m'); // 21/04
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
+<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete holidays handler.</p>
+
 <p><pre><code class="php">Carbon::macro('range', function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 });
@@ -1590,7 +1594,7 @@ echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 08:00
 echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 11:00
 </code></pre></p>
 
-<p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
+<p><em>Credit: <a href="https://github.com/thiagocordeiro">thiagocordeiro</a> (<a href="https://github.com/briannesbitt/Carbon/pull/927">#927</a>).</em></p>
 
 <h1 id="api-interval">CarbonInterval</h1>
 
