@@ -11,8 +11,8 @@
 
 namespace Carbon;
 
-use DatePeriod;
 use DateInterval;
+use DatePeriod;
 use DateTimeInterface;
 use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -607,23 +607,23 @@ class CarbonInterval extends DateInterval
     /**
      * Convert the interval to a DatePeriod in given period.
      *
-     * @param  \DateTimeInterface  $start
-     * @param  \DateTimeInterface|int  $end
-     * @param  int  $options
-     * @return \DatePeriod
+     * @param \DateTimeInterface     $start
+     * @param \DateTimeInterface|int $end
+     * @param int                    $options
      *
      * @throws \InvalidArgumentException
+     *
+     * @return \DatePeriod
      */
     public function toPeriod($start, $end, $options = 0)
     {
         if ($this->spec() == 'PT0S') {
-            throw new InvalidArgumentException("Empty interval cannot be converted into period.");
+            throw new InvalidArgumentException('Empty interval cannot be converted into period.');
         }
 
-        if (! ($options & static::EXCLUDE_END) && $end instanceof DateTimeInterface) {
+        if (!($options & static::EXCLUDE_END) && $end instanceof DateTimeInterface) {
             $end = tap(clone $end)->modify('+1 second');
-        }
-        else if ($options & static::EXCLUDE_END && is_int($end)) {
+        } elseif ($options & static::EXCLUDE_END && is_int($end)) {
             $end--;
         }
 
