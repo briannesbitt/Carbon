@@ -89,6 +89,20 @@ class CarbonInterval extends DateInterval
     const PHP_DAYS_FALSE = -99999;
 
     /**
+     * Mapping of values after which properties should cascade.
+     *
+     * @var array
+     */
+    protected static $cascades = [
+        'seconds' => Carbon::SECONDS_PER_MINUTE,
+        'minutes' => Carbon::MINUTES_PER_HOUR,
+        'hours'   => Carbon::HOURS_PER_DAY,
+        'dayz'    => Carbon::DAYS_PER_MONTH,
+        'months'  => Carbon::MONTHS_PER_YEAR,
+        'years'   => null,
+    ];
+
+    /**
      * Determine if the interval was created via DateTime:diff() or not.
      *
      * @param DateInterval $interval
@@ -701,5 +715,30 @@ class CarbonInterval extends DateInterval
     public function compare(DateInterval $interval)
     {
         return static::compareDateIntervals($this, $interval);
+    }
+
+    /**
+     * Convert overflowed values into bigger units.
+     *
+     * @return $this
+     */
+    public function cascade()
+    {
+        $carry = 0;
+
+        foreach (static::$cascades as $property => $max) {
+            $value = $this->$property + $carry;
+
+            if ($max) {
+                $this->$property = $value % $max;
+                $carry = ($value - $this->$property) / $max;
+            }
+            else {
+                $this->$property = $value;
+                $carry = 0;
+            }
+        }
+
+        return $this;
     }
 }
