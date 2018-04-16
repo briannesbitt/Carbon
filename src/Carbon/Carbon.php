@@ -245,7 +245,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @var array
      */
-    protected static $macros = array();
+    protected static $localMacros = array();
 
     /**
      * Will UTF8 encoding be used to print localized date/time ?
@@ -4275,7 +4275,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function macro($name, $macro)
     {
-        static::$macros[$name] = $macro;
+        static::$localMacros[$name] = $macro;
     }
 
     /**
@@ -4289,8 +4289,8 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function mixin($mixin)
     {
-        $reflextion = new \ReflectionClass($mixin);
-        $methods = $reflextion->getMethods(
+        $reflection = new \ReflectionClass($mixin);
+        $methods = $reflection->getMethods(
             \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
         );
 
@@ -4310,7 +4310,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function hasMacro($name)
     {
-        return isset(static::$macros[$name]);
+        return isset(static::$localMacros[$name]);
     }
 
     /**
@@ -4329,11 +4329,11 @@ class Carbon extends DateTime implements JsonSerializable
             throw new \BadMethodCallException("Method {$method} does not exist.");
         }
 
-        if (static::$macros[$method] instanceof Closure && method_exists('Closure', 'bind')) {
-            return call_user_func_array(Closure::bind(static::$macros[$method], null, get_called_class()), $parameters);
+        if (static::$localMacros[$method] instanceof Closure && method_exists('Closure', 'bind')) {
+            return call_user_func_array(Closure::bind(static::$localMacros[$method], null, get_called_class()), $parameters);
         }
 
-        return call_user_func_array(static::$macros[$method], $parameters);
+        return call_user_func_array(static::$localMacros[$method], $parameters);
     }
 
     /**
@@ -4352,7 +4352,7 @@ class Carbon extends DateTime implements JsonSerializable
             throw new \BadMethodCallException("Method {$method} does not exist.");
         }
 
-        $macro = static::$macros[$method];
+        $macro = static::$localMacros[$method];
 
         $reflexion = new \ReflectionFunction($macro);
         if (count($reflexion->getParameters()) > count($parameters)) {

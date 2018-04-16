@@ -38,11 +38,6 @@
             "Tests\\": "tests/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.23-dev"
-        }
-    },
     "config": {
         "sort-packages": true
     },
