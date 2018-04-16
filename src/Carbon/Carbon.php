@@ -4355,7 +4355,9 @@ class Carbon extends DateTime implements JsonSerializable
         $macro = static::$localMacros[$method];
 
         $reflexion = new \ReflectionFunction($macro);
-        if (count($reflexion->getParameters()) > count($parameters)) {
+        $reflectionParameters = $reflexion->getParameters();
+        $parametersCount = count($reflectionParameters);
+        if ($parametersCount > count($parameters) && $reflectionParameters[$parametersCount - 1]->name === 'self') {
             $parameters[] = $this;
         }
 
