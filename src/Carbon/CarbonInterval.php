@@ -607,9 +607,9 @@ class CarbonInterval extends DateInterval
     /**
      * Convert the interval to a DatePeriod in given period.
      *
-     * @param \DateTimeInterface     $start
-     * @param \DateTimeInterface|int $end
-     * @param int                    $options
+     * @param \DateTime|\DateTimeInterface     $start
+     * @param \DateTime|\DateTimeInterface|int $end
+     * @param int                              $options
      *
      * @throws \InvalidArgumentException
      *
@@ -618,11 +618,12 @@ class CarbonInterval extends DateInterval
     public function toPeriod($start, $end, $options = 0)
     {
         if ($this->spec() == 'PT0S') {
-            throw new InvalidArgumentException('Empty interval cannot be converted into period.');
+            throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
         }
 
-        if (!($options & static::EXCLUDE_END) && $end instanceof DateTimeInterface) {
-            $end = tap(clone $end)->modify('+1 second');
+        if (!($options & static::EXCLUDE_END) && ($end instanceof DateTime || $end instanceof DateTimeInterface)) {
+            $end = clone $end;
+            $end = $end->modify('+1 second');
         } elseif ($options & static::EXCLUDE_END && is_int($end)) {
             $end--;
         }
