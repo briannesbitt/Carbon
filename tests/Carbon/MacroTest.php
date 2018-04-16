@@ -69,6 +69,12 @@ class MacroTest extends AbstractTestCase
         });
 
         $this->assertSame(1020, $this->now->diffFromEaster(2020)->days);
+
+        Carbon::macro('otherParameterName', function ($other = true) {
+            return $other;
+        });
+
+        $this->assertTrue($this->now->otherParameterName());
     }
 
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
