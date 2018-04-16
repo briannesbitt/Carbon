@@ -77,6 +77,26 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->subWeek(2)->isLastWeek());
     }
 
+    public function testIsNextQuarterTrue()
+    {
+        $this->assertTrue(Carbon::now()->addQuarter()->isNextQuarter());
+    }
+
+    public function testIsLastQuarterTrue()
+    {
+        $this->assertTrue(Carbon::now()->subQuarter()->isLastQuarter());
+    }
+
+    public function testIsNextQuarterFalse()
+    {
+        $this->assertFalse(Carbon::now()->addQuarters(2)->isNextQuarter());
+    }
+
+    public function testIsLastQuarterFalse()
+    {
+        $this->assertFalse(Carbon::now()->subQuarters(2)->isLastQuarter());
+    }
+
     public function testIsNextMonthTrue()
     {
         $this->assertTrue(Carbon::now()->addMonthNoOverflow()->isNextMonth());
@@ -205,6 +225,60 @@ class IsTest extends AbstractTestCase
     public function testIsSameYearFalse()
     {
         $this->assertFalse(Carbon::now()->isSameYear(Carbon::now()->subYear()));
+    }
+
+    public function testIsCurrentQuarterTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentQuarter());
+    }
+
+    public function testIsCurrentQuarterFalse()
+    {
+        $this->assertFalse(Carbon::now()->subQuarter()->isCurrentQuarter());
+    }
+
+    public function testIsSameQuarterTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameQuarter(Carbon::now()));
+    }
+
+    public function testIsSameQuarterTrueWithDateTime()
+    {
+        $this->assertTrue(Carbon::now()->isSameQuarter(new DateTime()));
+    }
+
+    public function testIsSameQuarterFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameQuarter(Carbon::now()->subQuarter()));
+    }
+
+    public function testIsSameQuarterFalseWithDateTime()
+    {
+        $dt = new DateTime();
+        $dt->modify((Carbon::MONTHS_PER_QUARTER * -1).' month');
+        $this->assertFalse(Carbon::now()->isSameQuarter($dt));
+    }
+
+    public function testIsSameQuarterAndYearTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameQuarter(Carbon::now(), true));
+    }
+
+    public function testIsSameQuarterAndYearTrueWithDateTime()
+    {
+        $this->assertTrue(Carbon::now()->isSameQuarter(new DateTime(), true));
+    }
+
+    public function testIsSameQuarterAndYearFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameQuarter(Carbon::now()->subYear(), true));
+    }
+
+    public function testIsSameQuarterAndYearFalseWithDateTime()
+    {
+        $dt = new DateTime();
+        $dt->modify('-1 year');
+        $this->assertFalse(Carbon::now()->isSameQuarter($dt, true));
     }
 
     public function testIsCurrentMonthTrue()
