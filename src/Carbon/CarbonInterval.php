@@ -13,6 +13,7 @@ namespace Carbon;
 
 use DateInterval;
 use DatePeriod;
+use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface;
