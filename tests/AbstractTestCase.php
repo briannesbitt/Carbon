@@ -82,6 +82,35 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
+    protected function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
+    {
+        $actual = array();
+
+        $expected = array();
+
+        if ($hour !== null) {
+            $expected['hours'] = $d->hour;
+            $actual['hours'] = $hour;
+        }
+
+        if ($minute !== null) {
+            $expected['minutes'] = $d->minute;
+            $actual['minutes'] = $minute;
+        }
+
+        if ($second !== null) {
+            $expected['seconds'] = $d->second;
+            $actual['seconds'] = $second;
+        }
+
+        if ($micro !== null) {
+            $expected['micro'] = $d->micro;
+            $actual['micro'] = $micro;
+        }
+
+        $this->assertSame($expected, $actual);
+    }
+
     protected function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf('Carbon\Carbon', $d);
