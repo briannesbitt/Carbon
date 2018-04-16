@@ -9,6 +9,13 @@ use Tests\AbstractTestCase;
 
 class ToPeriodTest extends AbstractTestCase
 {
+    protected function standarizeDates($dates)
+    {
+        return array_map(function ($date) {
+            return Carbon::instance($date)->toDateTimeString();
+        }, $dates);
+    }
+
     /**
      * @dataProvider provideValidInput
      */
@@ -19,8 +26,8 @@ class ToPeriodTest extends AbstractTestCase
         $period = $interval->toPeriod($start, $end, $options);
 
         $this->assertEquals(
-            array_map('strval', $expected),
-            array_map('strval', iterator_to_array($period))
+            $this->standarizeDates($expected),
+            $this->standarizeDates(iterator_to_array($period))
         );
     }
 
