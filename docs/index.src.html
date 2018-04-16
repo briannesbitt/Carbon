@@ -1102,8 +1102,10 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 <p id="diff-for-humans-options">From version 1.26, options for diffForHumans() can be enabled/disabled with:</p>
 
-<p><pre><code class="php">Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);
-Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);</code></pre></p>
+<p><pre><code class="php">{{::lint(Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
+{{humandiffopt1::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{humandiffopt1_eval}}
+{{::lint(Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
+{{humandiffopt2::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{humandiffopt2_eval}}</code></pre></p>
 
 <p>Available options are:</p>
 
@@ -1115,6 +1117,10 @@ Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);</code></pre></p>
 </ul>
 
 <p>Carbon::JUST_NOW, Carbon::ONE_DAY_WORDS and Carbon::TWO_DAY_WORDS are now only available with en and fr languages, other languages will fallback to previous behavior until missing translations are added.</p>
+
+<p>Use the pipe operator to enable/disable multiple option at once, example: <code>Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS</code></p>
+
+<p>You also can use <code>setHumanDiffOptions($options)</code> to disable all options then activate only the ones passed as arguments.</p>
 
 <h1 id="api-modifiers">Modifiers</h1>
 
