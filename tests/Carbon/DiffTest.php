@@ -1297,6 +1297,69 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(383, $dt1->diffInHours($dt2));
     }
 
+    public function testDiffOptions()
+    {
+        $this->assertSame(1, Carbon::NO_ZERO_DIFF);
+        $this->assertSame(2, Carbon::JUST_NOW);
+        $this->assertSame(4, Carbon::ONE_DAY_WORDS);
+        $this->assertSame(8, Carbon::TWO_DAY_WORDS);
+
+        $options = Carbon::getHumanDiffOptions();
+        $this->assertSame(1, $options);
+
+        $date = Carbon::create(2018, 3, 12, 2, 5, 6, 'UTC');
+        $this->assertSame('1 second before', $date->diffForHumans($date));
+
+        Carbon::setHumanDiffOptions(0);
+        $this->assertSame(0, Carbon::getHumanDiffOptions());
+
+        $this->assertSame('0 seconds before', $date->diffForHumans($date));
+
+        Carbon::setLocale('fr');
+        $this->assertSame('0 seconde avant', $date->diffForHumans($date));
+
+        Carbon::setLocale('en');
+        Carbon::setHumanDiffOptions(Carbon::JUST_NOW);
+        $this->assertSame(2, Carbon::getHumanDiffOptions());
+        $this->assertSame('0 seconds before', $date->diffForHumans($date));
+        $this->assertSame('just now', Carbon::now()->diffForHumans());
+
+        Carbon::setHumanDiffOptions(Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS | Carbon::NO_ZERO_DIFF);
+        $this->assertSame(13, Carbon::getHumanDiffOptions());
+
+        $oneDayAfter = Carbon::create(2018, 3, 13, 2, 5, 6, 'UTC');
+        $oneDayBefore = Carbon::create(2018, 3, 11, 2, 5, 6, 'UTC');
+        $twoDayAfter = Carbon::create(2018, 3, 14, 2, 5, 6, 'UTC');
+        $twoDayBefore = Carbon::create(2018, 3, 10, 2, 5, 6, 'UTC');
+
+        $this->assertSame('1 day after', $oneDayAfter->diffForHumans($date));
+        $this->assertSame('1 day before', $oneDayBefore->diffForHumans($date));
+        $this->assertSame('2 days after', $twoDayAfter->diffForHumans($date));
+        $this->assertSame('2 days before', $twoDayBefore->diffForHumans($date));
+
+        $this->assertSame('tomorrow', Carbon::now()->addDay()->diffForHumans());
+        $this->assertSame('yesterday', Carbon::now()->subDay()->diffForHumans());
+        $this->assertSame('after tomorrow', Carbon::now()->addDays(2)->diffForHumans());
+        $this->assertSame('before yesterday', Carbon::now()->subDays(2)->diffForHumans());
+
+        Carbon::disableHumanDiffOption(Carbon::TWO_DAY_WORDS);
+        $this->assertSame(5, Carbon::getHumanDiffOptions());
+        Carbon::disableHumanDiffOption(Carbon::TWO_DAY_WORDS);
+        $this->assertSame(5, Carbon::getHumanDiffOptions());
+
+        $this->assertSame('tomorrow', Carbon::now()->addDay()->diffForHumans());
+        $this->assertSame('yesterday', Carbon::now()->subDay()->diffForHumans());
+        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->diffForHumans());
+        $this->assertSame('2 days ago', Carbon::now()->subDays(2)->diffForHumans());
+
+        Carbon::enableHumanDiffOption(Carbon::JUST_NOW);
+        $this->assertSame(7, Carbon::getHumanDiffOptions());
+        Carbon::enableHumanDiffOption(Carbon::JUST_NOW);
+        $this->assertSame(7, Carbon::getHumanDiffOptions());
+
+        Carbon::setHumanDiffOptions($options);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, integer given
