@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\CarbonInterval;
+namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -37,5 +37,17 @@ class CreateTest extends AbstractTestCase
             '2012-07-22 00:00:00',
             '2012-07-29 00:00:00',
         ), $results);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateFromEmptyInterval()
+    {
+        CarbonPeriod::create(
+            Carbon::now(),
+            CarbonInterval::days(0),
+            Carbon::tomorrow()
+        );
     }
 }

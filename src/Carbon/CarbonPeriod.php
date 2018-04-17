@@ -11,10 +11,12 @@
 
 namespace Carbon;
 
+use CallbackFilterIterator;
 use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
+use InvalidArgumentException;
 use Iterator;
 use IteratorIterator;
 use ReflectionClass;
@@ -32,6 +34,11 @@ class CarbonPeriod implements Iterator
     protected $dates;
 
     /**
+     * @var array
+     */
+    protected $filters = array();
+
+    /**
      * CarbonPeriod constructor.
      *
      * @throws \ReflectionException
@@ -44,8 +51,17 @@ class CarbonPeriod implements Iterator
             array_splice($arguments, 1, 0, CarbonInterval::day());
         }
 
+        if (count($arguments) > 1 && $arguments[1] instanceof DateInterval && $arguments[1]->format('%y%m%d%h%i%s') == '000000') {
+            throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
+        }
+
         $this->period = $reflection->newInstanceArgs($arguments);
-        $this->dates = new IteratorIterator($this->period);
+        $this->dates = new CallbackFilterIterator(
+            new IteratorIterator($this->period),
+            function ($current, $key, $iterator) {
+                return $this->accept();
+            }
+        );
     }
 
     private static function isDate($date)
@@ -83,6 +99,22 @@ class CarbonPeriod implements Iterator
         $reflection = new ReflectionClass('Carbon\CarbonPeriod');
 
         return $reflection->newInstanceArgs(func_get_args());
+    }
+
+    protected function accept()
+    {
+        foreach ($this->filters as $filter) {
+            if (! call_user_func($filter, $this->current(), $this->key())) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function filter($callback)
+    {
+        $this->filters[] = $callback;
     }
 
     /**
