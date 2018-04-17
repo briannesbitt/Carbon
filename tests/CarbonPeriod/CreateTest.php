@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\CarbonInterval;
+namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
