@@ -15,6 +15,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
+use InvalidArgumentException;
 use Iterator;
 use IteratorIterator;
 use ReflectionClass;
@@ -42,6 +43,10 @@ class CarbonPeriod implements Iterator
         $reflection = new ReflectionClass('DatePeriod');
         if (count($arguments) > 1 && self::isDate($arguments[0]) && self::isDate($arguments[1])) {
             array_splice($arguments, 1, 0, CarbonInterval::day());
+        }
+
+        if (count($arguments) > 1 && $arguments[1] instanceof DateInterval && $arguments[1]->format('%y%m%d%h%i%s') == '000000') {
+            throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
         }
 
         $this->period = $reflection->newInstanceArgs($arguments);

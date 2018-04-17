@@ -38,4 +38,16 @@ class CreateTest extends AbstractTestCase
             '2012-07-29 00:00:00',
         ), $results);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testCreateFromEmptyInterval()
+    {
+        CarbonPeriod::create(
+            Carbon::now(),
+            CarbonInterval::days(0),
+            Carbon::tomorrow()
+        );
+    }
 }
