@@ -47,6 +47,22 @@ echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 // rolling up to seconds, minutes, hours, days, months, years
 
 $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
+
+// Check to see if a date is a business day defaulting to a Monday
+// through Friday work week
+$today = Carbon::now();
+CarbonExtensions::isBusinessDay($today);
+
+// Use a custom operating schedule by implementing the BusinessSchedule
+// interface
+$schedule = new OperatingSchedule();
+CarbonExtensions::isBusinessDay($today, $schedule);
+
+// Create custom holiday schedules by implementing the HolidaySchedule
+// interface so that observed holidays can be excluded as business days
+$holidays = new Holidays($today->year);
+CarbonExtensions::isBusinessDay($today, $holidays);
+
 ```
 
 ## Installation
