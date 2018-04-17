@@ -65,7 +65,7 @@ class ItTest extends AbstractTestCase
             $scope->assertSame('2 anni fa', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 secondo da adesso', $d->diffForHumans());
+            $scope->assertSame('tra 1 secondo', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
