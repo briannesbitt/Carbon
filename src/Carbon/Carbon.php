@@ -4373,7 +4373,7 @@ class Carbon extends DateTime implements JsonSerializable
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new \BadMethodCallException("Method {$method} does not exist.");
+            throw new \BadMethodCallException("Method $method does not exist.");
         }
 
         if (static::$localMacros[$method] instanceof Closure && method_exists('Closure', 'bind')) {
@@ -4396,15 +4396,19 @@ class Carbon extends DateTime implements JsonSerializable
     public function __call($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new \BadMethodCallException("Method {$method} does not exist.");
+            throw new \BadMethodCallException("Method $method does not exist.");
         }
 
         $macro = static::$localMacros[$method];
 
         $reflexion = new \ReflectionFunction($macro);
         $reflectionParameters = $reflexion->getParameters();
-        $parametersCount = count($reflectionParameters);
-        if ($parametersCount > count($parameters) && $reflectionParameters[$parametersCount - 1]->name === 'self') {
+        $expectedCount = count($reflectionParameters);
+        $actualCount = count($parameters);
+        if ($expectedCount > $actualCount && $reflectionParameters[$expectedCount - 1]->name === 'self') {
+            for ($i = $actualCount; $i < $expectedCount - 1; $i++) {
+                $parameters[] = $reflectionParameters[$i]->getDefaultValue();
+            }
             $parameters[] = $this;
         }
 
