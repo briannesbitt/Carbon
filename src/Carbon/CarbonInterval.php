@@ -93,15 +93,18 @@ class CarbonInterval extends DateInterval
      *
      * Should only be modified by changing the factors or referenced constants.
      *
-     * @var array
+     * @return array
      */
-    protected static $cascades = array(
-        'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
-        'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
-        'hours' => array('dayz', Carbon::HOURS_PER_DAY),
-        'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
-        'months' => array('years', Carbon::MONTHS_PER_YEAR),
-    );
+    protected static function getCascadeFactors()
+    {
+        return array(
+            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'hours' => array('dayz', Carbon::HOURS_PER_DAY),
+            'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
+            'months' => array('years', Carbon::MONTHS_PER_YEAR),
+        );
+    }
 
     /**
      * Determine if the interval was created via DateTime:diff() or not.
@@ -729,7 +732,7 @@ class CarbonInterval extends DateInterval
      */
     public function cascade()
     {
-        foreach (static::$cascades as $source => $cascade) {
+        foreach (static::getCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
             $value = $this->$source;
@@ -761,7 +764,7 @@ class CarbonInterval extends DateInterval
         $upToUnit = 0;
         $aboveUnit = 0;
 
-        foreach (static::$cascades as $source => $cascade) {
+        foreach (static::getCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
             if ($source == $unit || ($source == 'dayz' && in_array($unit, array('days', 'weeks')))) {
@@ -773,7 +776,7 @@ class CarbonInterval extends DateInterval
             $upToUnit = ($this->$source + $upToUnit) / $factor;
         }
 
-        foreach (array_reverse(static::$cascades, true) as $source => $cascade) {
+        foreach (array_reverse(static::getCascadeFactors(), true) as $source => $cascade) {
             list($target, $factor) = $cascade;
 
             if ($target == $unit || ($target == 'dayz' && in_array($unit, array('days', 'weeks')))) {
