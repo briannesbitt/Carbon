@@ -1100,7 +1100,7 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-<p id="diff-for-humans-options">From version 1.26, options for diffForHumans() can be enabled/disabled with:</p>
+<p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
 
 <p><pre><code class="php">{{::lint(Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
 {{humandiffopt1::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{humandiffopt1_eval}}
@@ -1341,22 +1341,29 @@ $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 <p>From PHP 5.4, <code>$this</code> can be used in closures to refer the current instance. For PHP 5.3 compatibility, we also add a `$self` attribute to the closure. Example:</p>
 
 <p><pre><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $self) {
+Carbon::macro('diffFromYear', function ($year, $self = null) {
+    // this chunk is needed to be compatible on both stand-alone Carbon with PHP versions < 5.4 and Laravel
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+    // end of the compatibility chunk
+
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
 });
 )}}
 {{macro1::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{macro1_eval}}
 </code></pre></p>
 
-<p>To deal with optional args, use <code>func_get_args()</code>:</p>
+<p>The compatibility chunk allow you to ensure a full compatibility for your macro. A macro on <code>Illuminate\Support\Carbon</code> (the Laravel wrapper class), <code>$self</code> will not be defined, and as mentioned above in PHP 5.3 <code>$this</code> will not be defined. So to make your macros work everywhere, just paste this if-statement testing if <code>$this</code> is defined but not <code>$self</code> and copying it if so, then use <code>$self</code> in your function body.</p>
+
+<p>No matter if you omit some optional arguments as long as <code>$self</code> has exactly this name and is the last argument:</p>
 
 <p><pre><code class="php">{{::lint(
 Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1, $self = null) {
-    $arguments = func_get_args();
-    $self = array_pop($arguments);
-    $absolute = isset($arguments[1]) ? $arguments[1] : false;
-    $short = isset($arguments[2]) ? $arguments[2] : false;
-    $parts = isset($arguments[3]) ? $arguments[3] : 1;
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
 
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
@@ -1375,14 +1382,24 @@ Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
-        return function ($self) {
+        return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             return $self->modify('next wednesday');
         };
     }
 
     public function previousBeerDay()
     {
-        return function ($self) {
+        return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             return $self->modify('previous wednesday');
         };
     }
@@ -1407,7 +1424,12 @@ $date = Carbon::parse('First saturday of December 2018');
 <p>Here are some useful macros proposed by the community:</p>
 
 <p><pre><code class="php">{{::lint(
-Carbon::macro('isHoliday', function ($self) {
+Carbon::macro('isHoliday', function ($self = null) {
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+
     return in_array($self->format('d/m'), [
         '25/12', // Christmas
         '01/01', // New Year
@@ -1435,6 +1457,11 @@ Class CurrentDaysCarbonMixin
     public static function getCurrentWeekDays()
     {
         return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             $startOfWeek = ($self ?: static::now())->startOfWeek()->subDay();
             $weekDays = array();
 
@@ -1454,6 +1481,11 @@ Class CurrentDaysCarbonMixin
     public static function getCurrentMonthDays()
     {
         return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             $startOfMonth = ($self ?: static::now())->startOfMonth()->subDay();
             $endOfMonth = ($self ?: static::now())->endOfMonth()->format('d');
             $monthDays = array();
@@ -1484,7 +1516,12 @@ function dumpDateList($dates) {
 <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
 
 <p><pre><code class="php">{{::lint(
-Carbon::macro('toAtomStringWithNoTimezone', function ($self) {
+Carbon::macro('toAtomStringWithNoTimezone', function ($self = null) {
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+
     return $self->format('Y-m-d\TH:i:s');
 });
 )}}
@@ -1555,7 +1592,12 @@ class UserTimezoneCarbonMixin
     {
         $mixin = $this;
 
-        return function ($format, $self) use ($mixin) {
+        return function ($format, $self = null) use ($mixin) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             if (!is_null($mixin->userTimeZone)) {
                 $self->timezone($mixin->userTimeZone);
             }

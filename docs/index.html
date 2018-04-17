@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-16 07:49:19
+echo $now;                               // 2018-04-17 11:37:07
 $today = Carbon::today();
-echo $today;                             // 2018-04-16 00:00:00
+echo $today;                             // 2018-04-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-04-17 00:00:00
+echo $tomorrow;                          // 2018-04-18 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-04-15 00:00:00
+echo $yesterday;                         // 2018-04-16 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:49 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:37 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-16 07:49:19
+echo Carbon::now();                                    // 2018-04-17 11:37:07
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-16 07:49:19
-echo $dt1->maximum();                              // 2018-04-16 07:49:19
+echo $dt1->max();                                  // 2018-04-17 11:37:07
+echo $dt1->maximum();                              // 2018-04-17 11:37:07
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1145,7 +1145,7 @@ echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-<p id="diff-for-humans-options">From version 1.26, options for diffForHumans() can be enabled/disabled with:</p>
+<p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
 
 <p><pre><code class="php">Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);
 var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool(true)
@@ -1376,27 +1376,36 @@ var_dump($dt->jsonSerialize());
 
 <p>From PHP 5.4, <code>$this</code> can be used in closures to refer the current instance. For PHP 5.3 compatibility, we also add a `$self` attribute to the closure. Example:</p>
 
-<p><pre><code class="php">Carbon::macro('diffFromYear', function ($year, $self) {
+<p><pre><code class="php">Carbon::macro('diffFromYear', function ($year, $self = null) {
+    // this chunk is needed to be compatible on both stand-alone Carbon with PHP versions < 5.4 and Laravel
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+    // end of the compatibility chunk
+
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
 });
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year 1 week 4 days after
 </code></pre></p>
 
-<p>To deal with optional args, use <code>func_get_args()</code>:</p>
+<p>The compatibility chunk allow you to ensure a full compatibility for your macro. A macro on <code>Illuminate\Support\Carbon</code> (the Laravel wrapper class), <code>$self</code> will not be defined, and as mentioned above in PHP 5.3 <code>$this</code> will not be defined. So to make your macros work everywhere, just paste this if-statement testing if <code>$this</code> is defined but not <code>$self</code> and copying it if so, then use <code>$self</code> in your function body.</p>
+
+<p>No matter if you omit some optional arguments as long as <code>$self</code> has exactly this name and is the last argument:</p>
 
 <p><pre><code class="php">Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1, $self = null) {
-    $arguments = func_get_args();
-    $self = array_pop($arguments);
-    $absolute = isset($arguments[1]) ? $arguments[1] : false;
-    $short = isset($arguments[2]) ? $arguments[2] : false;
-    $parts = isset($arguments[3]) ? $arguments[3] : 1;
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
 
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year after
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1 year
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 1yr
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1yr
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 
+Notice: Object of class Carbon\Carbon could not be converted to int in C:\Users\bastien.miclo\Perso\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Carbon.php on line 3601
+1yr
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  // 1yr 1w 4d 12h
 </code></pre></p>
 
@@ -1406,14 +1415,24 @@ echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  /
 {
     public function nextBeerDay()
     {
-        return function ($self) {
+        return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             return $self->modify('next wednesday');
         };
     }
 
     public function previousBeerDay()
     {
-        return function ($self) {
+        return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             return $self->modify('previous wednesday');
         };
     }
@@ -1436,7 +1455,12 @@ var_dump(Carbon::hasMacro('dontKnowWhat'));                                    /
 
 <p>Here are some useful macros proposed by the community:</p>
 
-<p><pre><code class="php">Carbon::macro('isHoliday', function ($self) {
+<p><pre><code class="php">Carbon::macro('isHoliday', function ($self = null) {
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+
     return in_array($self->format('d/m'), [
         '25/12', // Christmas
         '01/01', // New Year
@@ -1462,6 +1486,11 @@ var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());    // bool(true)
     public static function getCurrentWeekDays()
     {
         return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             $startOfWeek = ($self ?: static::now())->startOfWeek()->subDay();
             $weekDays = array();
 
@@ -1481,6 +1510,11 @@ var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());    // bool(true)
     public static function getCurrentMonthDays()
     {
         return function ($self = null) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             $startOfMonth = ($self ?: static::now())->startOfMonth()->subDay();
             $endOfMonth = ($self ?: static::now())->endOfMonth()->format('d');
             $monthDays = array();
@@ -1509,7 +1543,12 @@ dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-03-01 
 
 <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
 
-<p><pre><code class="php">Carbon::macro('toAtomStringWithNoTimezone', function ($self) {
+<p><pre><code class="php">Carbon::macro('toAtomStringWithNoTimezone', function ($self = null) {
+    // compatibility chunk
+    if (!isset($self) && isset($this)) {
+        $self = $this;
+    }
+
     return $self->format('Y-m-d\TH:i:s');
 });
 echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone(); // 2021-06-16T20:08:34
@@ -1580,7 +1619,12 @@ foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMi
     {
         $mixin = $this;
 
-        return function ($format, $self) use ($mixin) {
+        return function ($format, $self = null) use ($mixin) {
+            // compatibility chunk
+            if (!isset($self) && isset($this)) {
+                $self = $this;
+            }
+
             if (!is_null($mixin->userTimeZone)) {
                 $self->timezone($mixin->userTimeZone);
             }
