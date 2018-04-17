@@ -623,8 +623,7 @@ class CarbonInterval extends DateInterval
         }
 
         if (!($options & static::EXCLUDE_END) && ($end instanceof DateTime || $end instanceof DateTimeInterface)) {
-            $end = clone $end;
-            $end = $end->modify('+1 second');
+            $end = Carbon::instance($end)->addSecond();
         } elseif ($options & static::EXCLUDE_END && is_int($end)) {
             $end--;
         }
