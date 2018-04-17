@@ -89,17 +89,18 @@ class CarbonInterval extends DateInterval
     const PHP_DAYS_FALSE = -99999;
 
     /**
-     * Mapping of values after which properties should cascade.
+     * Mapping of units and factors for cascading.
+     *
+     * Should only be modified by changing the factors or referenced constants.
      *
      * @var array
      */
     protected static $cascades = array(
-        'seconds' => Carbon::SECONDS_PER_MINUTE,
-        'minutes' => Carbon::MINUTES_PER_HOUR,
-        'hours' => Carbon::HOURS_PER_DAY,
-        'dayz' => Carbon::DAYS_PER_MONTH,
-        'months' => Carbon::MONTHS_PER_YEAR,
-        'years' => null,
+        'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+        'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+        'hours' => array('dayz', Carbon::HOURS_PER_DAY),
+        'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
+        'months' => array('years', Carbon::MONTHS_PER_YEAR),
     );
 
     /**
@@ -728,18 +729,13 @@ class CarbonInterval extends DateInterval
      */
     public function cascade()
     {
-        $carry = 0;
+        foreach (static::$cascades as $source => $cascade) {
+            list($target, $factor) = $cascade;
 
-        foreach (static::$cascades as $property => $max) {
-            $value = $this->$property + $carry;
+            $value = $this->$source;
 
-            if ($max) {
-                $this->$property = $value % $max;
-                $carry = ($value - $this->$property) / $max;
-            } else {
-                $this->$property = $value;
-                $carry = 0;
-            }
+            $this->$source = $modulo = $value % $factor;
+            $this->$target += ($value - $modulo) / $factor;
         }
 
         return $this;
@@ -762,36 +758,35 @@ class CarbonInterval extends DateInterval
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 
-        $carry = 0;
+        $upToUnit = 0;
+        $aboveUnit = 0;
 
-        foreach (static::$cascades as $property => $perBigger) {
-            $carry = $this->$property + $carry;
+        foreach (static::$cascades as $source => $cascade) {
+            list($target, $factor) = $cascade;
 
-            if ($property == $unit || ($property == 'dayz' && in_array($unit, array('days', 'weeks')))) {
-                $result = $carry;
+            if ($source == $unit || ($source == 'dayz' && in_array($unit, array('days', 'weeks')))) {
+                $upToUnit += $this->$source;
 
                 break;
             }
 
-            $carry /= $perBigger;
+            $upToUnit = ($this->$source + $upToUnit) / $factor;
         }
 
-        foreach (array_reverse(static::$cascades, true) as $property => $perBigger) {
-            $carry *= $perBigger;
+        foreach (array_reverse(static::$cascades, true) as $source => $cascade) {
+            list($target, $factor) = $cascade;
 
-            if ($property == $unit || ($property == 'dayz' && in_array($unit, array('days', 'weeks')))) {
-                $result += $carry;
-
+            if ($target == $unit || ($target == 'dayz' && in_array($unit, array('days', 'weeks')))) {
                 break;
             }
 
-            $carry += $this->$property;
+            $aboveUnit = ($this->$target + $aboveUnit) * $factor;
         }
 
         if ($unit == 'weeks') {
-            return $result / Carbon::DAYS_PER_WEEK;
+            return ($upToUnit + $aboveUnit) / Carbon::DAYS_PER_WEEK;
         }
 
-        return $result;
+        return $upToUnit + $aboveUnit;
     }
 }

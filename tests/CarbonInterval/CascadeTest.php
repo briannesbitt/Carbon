@@ -22,9 +22,9 @@ class CascadeTest extends AbstractTestCase
         return array(
             array('3600s',                        'PT1H'),
             array('10000s',                       'PT2H46M40S'),
-            array('1276d',                        'P3Y6M16D'),
-            array('47d 14h',                      'P1M17DT14H'),
-            array('2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M13DT1H43M37S'),
+            array('1276d',                        'P3Y9M16D'),
+            array('47d 14h',                      'P1M19DT14H'),
+            array('2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'),
         );
     }
 }
