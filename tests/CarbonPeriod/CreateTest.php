@@ -19,20 +19,23 @@ use Tests\AbstractTestCase;
 class CreateTest extends AbstractTestCase
 {
     /**
-     * @group i
      * @throws \ReflectionException
      */
     public function testCreate()
     {
-        $period = new \DatePeriod('R4/2012-07-01T00:00:00Z/P7D');
-        var_dump($period[0], get_class_methods($period));
-        exit;
         /** @var CarbonPeriod $period */
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00Z/P7D');
-        foreach ($period as $key => $date) {
-            echo $date."\n";
+        $results = array();
+        foreach ($period as $date) {
+            self::assertInstanceOf('Carbon\Carbon', $date);
+            $results[] = $date->format('Y-m-d H:i:s');
         }
-        echo "\n\n";
-        exit;
+        self::assertSame(array(
+            '2012-07-01 00:00:00',
+            '2012-07-08 00:00:00',
+            '2012-07-15 00:00:00',
+            '2012-07-22 00:00:00',
+            '2012-07-29 00:00:00',
+        ), $results);
     }
 }

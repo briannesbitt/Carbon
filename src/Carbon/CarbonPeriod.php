@@ -16,6 +16,7 @@ use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use Iterator;
+use IteratorIterator;
 use ReflectionClass;
 
 class CarbonPeriod implements Iterator
@@ -26,7 +27,7 @@ class CarbonPeriod implements Iterator
     protected $period;
 
     /**
-     * @var array
+     * @var IteratorIterator
      */
     protected $dates;
 
@@ -44,7 +45,7 @@ class CarbonPeriod implements Iterator
         }
 
         $this->period = $reflection->newInstanceArgs($arguments);
-        $this->dates = iterator_to_array($this->period);
+        $this->dates = new IteratorIterator($this->period);
     }
 
     private static function isDate($date)
@@ -93,7 +94,7 @@ class CarbonPeriod implements Iterator
      */
     public function current()
     {
-        return self::carbonify(current($this->dates));
+        return self::carbonify($this->dates->current());
     }
 
     /**
@@ -105,7 +106,7 @@ class CarbonPeriod implements Iterator
      */
     public function next()
     {
-        next($this->dates);
+        $this->dates->next();
     }
 
     /**
@@ -117,7 +118,7 @@ class CarbonPeriod implements Iterator
      */
     public function key()
     {
-        return key($this->dates);
+        return $this->dates->key();
     }
 
     /**
@@ -129,7 +130,7 @@ class CarbonPeriod implements Iterator
      */
     public function valid()
     {
-        return $this->key() !== null;
+        return $this->dates->valid();
     }
 
     /**
@@ -141,6 +142,6 @@ class CarbonPeriod implements Iterator
      */
     public function rewind()
     {
-        reset($this->dates);
+        $this->dates->rewind();
     }
 }
