@@ -826,7 +826,7 @@ class Carbon extends DateTime implements JsonSerializable
 
         $lastErrors = parent::getLastErrors();
 
-        if ($date instanceof DateTime) {
+        if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
             $instance = static::instance($date);
             $instance::setLastErrors($lastErrors);
 
