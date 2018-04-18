@@ -785,8 +785,7 @@ class CarbonInterval extends DateInterval
             if ($cumulativeFactor) {
                 $cumulativeFactor *= $factor;
                 $result += $this->$target * $cumulativeFactor;
-            }
-            else {
+            } else {
                 $result = ($result + $this->$source) / $factor;
             }
         }
