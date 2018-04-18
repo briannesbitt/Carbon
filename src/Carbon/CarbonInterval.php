@@ -29,6 +29,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property int $seconds Total seconds of the current interval.
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property-read float $totalYears Number of years equivalent to the interval.
+ * @property-read float $totalMonths Number of months equivalent to the interval.
+ * @property-read float $totalWeeks Number of weeks equivalent to the interval.
+ * @property-read float $totalDays Number of days equivalent to the interval.
+ * @property-read float $totalDayz Alias for totalDays.
+ * @property-read float $totalHours Number of hours equivalent to the interval.
+ * @property-read float $totalMinutes Number of minutes equivalent to the interval.
+ * @property-read float $totalSeconds Number of seconds equivalent to the interval.
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
