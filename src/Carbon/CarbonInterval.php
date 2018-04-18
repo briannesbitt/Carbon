@@ -753,7 +753,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get total amount of given unit.
+     * Get amount of given unit equivalent to the interval.
      *
      * @param string $unit
      *
@@ -763,41 +763,38 @@ class CarbonInterval extends DateInterval
      */
     public function total($unit)
     {
-        $unit = strtolower($unit);
+        $realUnit = $unit = strtolower($unit);
 
-        if (!in_array($unit, array('seconds', 'minutes', 'hours', 'dayz', 'days', 'weeks', 'months', 'years'))) {
+        if (in_array($unit, array('days', 'weeks'))) {
+            $realUnit = 'dayz';
+        } elseif (!in_array($unit, array('seconds', 'minutes', 'hours', 'dayz', 'months', 'years'))) {
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 
-        $upToUnit = 0;
-        $aboveUnit = 0;
+        $result = 0;
+        $cumulativeFactor = 0;
 
         foreach (static::getCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
-            if ($source == $unit || ($source == 'dayz' && in_array($unit, array('days', 'weeks')))) {
-                $upToUnit += $this->$source;
-
-                break;
+            if ($source == $realUnit) {
+                $result += $this->$source;
+                $cumulativeFactor = 1;
             }
 
-            $upToUnit = ($this->$source + $upToUnit) / $factor;
-        }
-
-        foreach (array_reverse(static::getCascadeFactors(), true) as $source => $cascade) {
-            list($target, $factor) = $cascade;
-
-            if ($target == $unit || ($target == 'dayz' && in_array($unit, array('days', 'weeks')))) {
-                break;
+            if ($cumulativeFactor) {
+                $cumulativeFactor *= $factor;
+                $result += $this->$target * $cumulativeFactor;
             }
-
-            $aboveUnit = ($this->$target + $aboveUnit) * $factor;
+            else {
+               $result = ($result + $this->$source) / $factor;
+            }
         }
 
         if ($unit == 'weeks') {
-            return ($upToUnit + $aboveUnit) / Carbon::DAYS_PER_WEEK;
+            return $result / Carbon::DAYS_PER_WEEK;
         }
 
-        return $upToUnit + $aboveUnit;
+        return $result;
     }
 }
