@@ -11,7 +11,14 @@
 
 class CallbackFilterIterator extends FilterIterator
 {
+    /**
+     * @var Iterator
+     */
     private $iterator;
+
+    /**
+     * @var callable
+     */
     private $callback;
 
     public function __construct(Iterator $iterator, $callback)
@@ -21,6 +28,9 @@ class CallbackFilterIterator extends FilterIterator
         parent::__construct($iterator);
     }
 
+    /**
+     * @return bool|mixed
+     */
     public function accept()
     {
         return call_user_func($this->callback, $this->current(), $this->key(), $this->iterator);

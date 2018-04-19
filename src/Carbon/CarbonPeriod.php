@@ -93,7 +93,7 @@ class CarbonPeriod implements Iterator
     /**
      * @throws \ReflectionException
      *
-     * @return object
+     * @return static
      */
     public static function create()
     {
