@@ -36,6 +36,11 @@ class CarbonPeriod implements Iterator
     protected $period;
 
     /**
+     * @var CarbonInterval
+     */
+    protected $interval;
+
+    /**
      * @var IteratorIterator
      */
     protected $dates;
@@ -54,12 +59,19 @@ class CarbonPeriod implements Iterator
     {
         $arguments = func_get_args();
         $reflection = new ReflectionClass('DatePeriod');
-        if (count($arguments) > 1 && self::isDate($arguments[0]) && self::isDate($arguments[1])) {
-            array_splice($arguments, 1, 0, array(CarbonInterval::day()));
-        }
+        if (count($arguments) > 1) {
+            if (self::isDate($arguments[0]) && self::isDate($arguments[1])) {
+                array_splice($arguments, 1, 0, array(CarbonInterval::day()));
+            }
 
-        if (count($arguments) > 1 && $arguments[1] instanceof DateInterval && $arguments[1]->format('%y%m%d%h%i%s') == '000000') {
-            throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
+            if ($arguments[1] instanceof DateInterval && $arguments[1]->format('%y%m%d%h%i%s') == '000000') {
+                throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
+            }
+
+            // copy interval for getDateInterval PHP < 5.6 compatibility
+            if ($arguments[1] instanceof DateInterval) {
+                $this->interval = self::carbonify($arguments[1]);
+            }
         }
 
         $this->period = $reflection->newInstanceArgs($arguments);
@@ -91,6 +103,11 @@ class CarbonPeriod implements Iterator
     public function __call($method, $arguments)
     {
         if (!method_exists($this->period, $method)) {
+            //@codeCoverageIgnoreStart
+            if ($method === 'getDateInterval') {
+                return $this->interval;
+            }
+            //@codeCoverageIgnoreEnd
             throw new \BadMethodCallException("Method $method does not exist.");
         }
 
