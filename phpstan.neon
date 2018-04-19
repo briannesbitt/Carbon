@@ -3,7 +3,7 @@ parameters:
 		- '#Static call to instance method Carbon\\CarbonInterval::#'
 		- '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
 		- '#Static method DateTime::__set_state()#'
-		- 'Property $iterator was not found in reflection of class CallbackFilterIterator - probably the wrong version of class is autoloaded.'
+		- '#Property $iterator was not found in reflection of class CallbackFilterIterator - probably the wrong version of class is autoloaded.#'
 	excludes_analyse:
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'
