@@ -24,9 +24,9 @@ use ReflectionClass;
 /**
  * Class CarbonPeriod.
  *
- * @method CarbonInterval getDateInterval
- * @method Carbon         getEndDate
- * @method Carbon         getStartDate
+ * @method CarbonInterval getDateInterval() Get the original interval (as CarbonInterval if DateInterval given)
+ * @method Carbon         getEndDate()      Get the original start date (as Carbon if DateTime given)
+ * @method Carbon         getStartDate()    Get the original end date (as Carbon if DateTime given)
  */
 class CarbonPeriod implements Iterator
 {
