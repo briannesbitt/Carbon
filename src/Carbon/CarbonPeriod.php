@@ -60,7 +60,7 @@ class CarbonPeriod implements Iterator
         $this->dates = new CallbackFilterIterator(
             new IteratorIterator($this->period),
             function ($current, $key, $iterator) use ($self) {
-                return $self->passFilters($current, $key, $iterator);
+                return $self->passFilters(static::carbonify($current), $key, $iterator);
             }
         );
     }
@@ -163,7 +163,7 @@ class CarbonPeriod implements Iterator
      * @link  http://php.net/manual/en/iterator.valid.php
      * @since 5.0.0
      *
-     * @return boolean The return value will be casted to boolean and then evaluated.
+     * @return bool The return value will be casted to boolean and then evaluated.
      */
     public function valid()
     {
