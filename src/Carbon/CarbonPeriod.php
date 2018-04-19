@@ -21,6 +21,13 @@ use Iterator;
 use IteratorIterator;
 use ReflectionClass;
 
+/**
+ * Class CarbonPeriod.
+ *
+ * @method CarbonInterval getDateInterval
+ * @method Carbon         getEndDate
+ * @method Carbon         getStartDate
+ */
 class CarbonPeriod implements Iterator
 {
     /**
@@ -48,7 +55,7 @@ class CarbonPeriod implements Iterator
         $arguments = func_get_args();
         $reflection = new ReflectionClass('DatePeriod');
         if (count($arguments) > 1 && self::isDate($arguments[0]) && self::isDate($arguments[1])) {
-            array_splice($arguments, 1, 0, CarbonInterval::day());
+            array_splice($arguments, 1, 0, array(CarbonInterval::day()));
         }
 
         if (count($arguments) > 1 && $arguments[1] instanceof DateInterval && $arguments[1]->format('%y%m%d%h%i%s') == '000000') {
@@ -93,15 +100,22 @@ class CarbonPeriod implements Iterator
     /**
      * @throws \ReflectionException
      *
-     * @return static
+     * @return self
      */
     public static function create()
     {
-        $reflection = new ReflectionClass('Carbon\CarbonPeriod');
+        $reflection = new ReflectionClass(get_class());
 
         return $reflection->newInstanceArgs(func_get_args());
     }
 
+    /**
+     * @param mixed      $current
+     * @param string|int $key
+     * @param Iterator   $iterator
+     *
+     * @return bool
+     */
     public function passFilters($current, $key, $iterator)
     {
         foreach ($this->filters as $filter) {
@@ -113,6 +127,9 @@ class CarbonPeriod implements Iterator
         return true;
     }
 
+    /**
+     * @param callable $callback
+     */
     public function filter($callback)
     {
         $this->filters[] = $callback;

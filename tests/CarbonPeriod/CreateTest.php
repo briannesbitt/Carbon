@@ -21,9 +21,8 @@ class CreateTest extends AbstractTestCase
     /**
      * @throws \ReflectionException
      */
-    public function testCreate()
+    public function testCreateWithString()
     {
-        /** @var CarbonPeriod $period */
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00Z/P7D');
         $results = array();
         foreach ($period as $date) {
@@ -37,6 +36,37 @@ class CreateTest extends AbstractTestCase
             '2012-07-22 00:00:00',
             '2012-07-29 00:00:00',
         ), $results);
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function testCreateWithTwoDates()
+    {
+        $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
+        $results = array();
+        foreach ($period as $key => $date) {
+            self::assertInstanceOf('Carbon\Carbon', $date);
+            $results[] = $key.':'.$date->format('Y-m-d');
+        }
+        self::assertSame(array(
+            '0:2015-09-30',
+            '1:2015-10-01',
+            '2:2015-10-02',
+        ), $results);
+        self::assertInstanceOf('Carbon\CarbonInterval', $period->getDateInterval());
+        self::assertSame('1 day', $period->getDateInterval()->forHumans());
+    }
+
+    /**
+     * @throws \ReflectionException
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method doesNotExists does not exist.
+     */
+    public function testCallBadMethod()
+    {
+        $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
+        $period->doesNotExists();
     }
 
     /**
