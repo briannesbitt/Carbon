@@ -56,10 +56,11 @@ class CarbonPeriod implements Iterator
         }
 
         $this->period = $reflection->newInstanceArgs($arguments);
+        $self = $this;
         $this->dates = new CallbackFilterIterator(
             new IteratorIterator($this->period),
-            function ($current, $key, $iterator) {
-                return $this->accept();
+            function ($current, $key, $iterator) use ($self) {
+                return $self->passFilters($current, $key, $iterator);
             }
         );
     }
@@ -101,10 +102,10 @@ class CarbonPeriod implements Iterator
         return $reflection->newInstanceArgs(func_get_args());
     }
 
-    protected function accept()
+    public function passFilters($current, $key, $iterator)
     {
         foreach ($this->filters as $filter) {
-            if (! call_user_func($filter, $this->current(), $this->key())) {
+            if (!call_user_func($filter, $current, $key, $iterator)) {
                 return false;
             }
         }
@@ -118,7 +119,8 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Return the current element
+     * Return the current element.
+     *
      * @link  http://php.net/manual/en/iterator.current.php
      * @since 5.0.0
      *
@@ -130,7 +132,8 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Move forward to next element
+     * Move forward to next element.
+     *
      * @link  http://php.net/manual/en/iterator.next.php
      * @since 5.0.0
      *
@@ -142,7 +145,8 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Return the key of the current element
+     * Return the key of the current element.
+     *
      * @link  http://php.net/manual/en/iterator.key.php
      * @since 5.0.0
      *
@@ -154,7 +158,8 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Checks if current position is valid
+     * Checks if current position is valid.
+     *
      * @link  http://php.net/manual/en/iterator.valid.php
      * @since 5.0.0
      *
@@ -166,7 +171,8 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Rewind the Iterator to the first element
+     * Rewind the Iterator to the first element.
+     *
      * @link  http://php.net/manual/en/iterator.rewind.php
      * @since 5.0.0
      *
