@@ -60,7 +60,7 @@ class CarbonPeriod implements Iterator
         $this->dates = new CallbackFilterIterator(
             new IteratorIterator($this->period),
             function ($current, $key, $iterator) use ($self) {
-                return $self->passFilters(static::carbonify($current), $key, $iterator);
+                return $self->passFilters($current, $key, $iterator);
             }
         );
     }
@@ -105,7 +105,7 @@ class CarbonPeriod implements Iterator
     public function passFilters($current, $key, $iterator)
     {
         foreach ($this->filters as $filter) {
-            if (!call_user_func($filter, $current, $key, $iterator)) {
+            if (!call_user_func($filter, static::carbonify($current), $key, $iterator)) {
                 return false;
             }
         }
