@@ -216,4 +216,12 @@ class CarbonPeriod implements Iterator
     {
         $this->dates->rewind();
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getStartDate().' → '.$this->getEndDate();
+    }
 }
