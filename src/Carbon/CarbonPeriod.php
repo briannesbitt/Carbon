@@ -22,11 +22,7 @@ use IteratorIterator;
 use ReflectionClass;
 
 /**
- * Class CarbonPeriod.
- *
- * @method CarbonInterval getDateInterval() Get the original interval (as CarbonInterval if DateInterval given)
- * @method Carbon         getEndDate()      Get the original start date (as Carbon if DateTime given)
- * @method Carbon         getStartDate()    Get the original end date (as Carbon if DateTime given)
+ * Class CarbonPeriod, DatePeriod wrapper.
  */
 class CarbonPeriod implements Iterator
 {
@@ -36,9 +32,19 @@ class CarbonPeriod implements Iterator
     protected $period;
 
     /**
+     * @var Carbon
+     */
+    protected $startDate;
+
+    /**
+     * @var Carbon
+     */
+    protected $endDate;
+
+    /**
      * @var CarbonInterval
      */
-    protected $interval;
+    protected $dateInterval;
 
     /**
      * @var IteratorIterator
@@ -70,7 +76,17 @@ class CarbonPeriod implements Iterator
 
             // copy interval for getDateInterval PHP < 5.6 compatibility
             if ($arguments[1] instanceof DateInterval) {
-                $this->interval = self::carbonify($arguments[1]);
+                $this->dateInterval = self::carbonify($arguments[1]);
+            }
+
+            // copy start date for getDateInterval PHP < 5.6 compatibility
+            if (static::isDate($arguments[0])) {
+                $this->startDate = self::carbonify($arguments[0]);
+            }
+
+            // copy end date for getDateInterval PHP < 5.6 compatibility
+            if (static::isDate($arguments[2])) {
+                $this->endDate = self::carbonify($arguments[2]);
             }
         }
 
@@ -100,18 +116,28 @@ class CarbonPeriod implements Iterator
         return $object;
     }
 
-    public function __call($method, $arguments)
+    /**
+     * @return CarbonInterval
+     */
+    public function getDateInterval()
     {
-        if (!method_exists($this->period, $method)) {
-            //@codeCoverageIgnoreStart
-            if ($method === 'getDateInterval') {
-                return $this->interval;
-            }
-            //@codeCoverageIgnoreEnd
-            throw new \BadMethodCallException("Method $method does not exist.");
-        }
+        return $this->dateInterval;
+    }
 
-        return self::carbonify(call_user_func_array(array($this->period, $method), $arguments));
+    /**
+     * @return Carbon
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
     }
 
     /**

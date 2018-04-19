@@ -59,17 +59,6 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
-     * @throws \ReflectionException
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method doesNotExists does not exist.
-     */
-    public function testCallBadMethod()
-    {
-        $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
-        $period->doesNotExists();
-    }
-
-    /**
      * @expectedException \InvalidArgumentException
      */
     public function testCreateFromEmptyInterval()

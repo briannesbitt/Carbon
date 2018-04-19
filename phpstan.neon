@@ -3,7 +3,6 @@ parameters:
 		- '#Static call to instance method Carbon\\CarbonInterval::#'
 		- '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
 		- '#Static method DateTime::__set_state()#'
-		- '#Call to an undefined method Carbon\\CarbonPeriod::doesNotExists()#'
 	excludes_analyse:
 		- '*/src/CallbackFilterIterator.php'
 		- '*/tests/Carbon/MacroTest.php'
