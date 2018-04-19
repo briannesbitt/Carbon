@@ -11,13 +11,22 @@
 
 namespace Tests\CarbonPeriod;
 
+use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class FilterTest extends AbstractTestCase
 {
+    /**
+     * @throws \ReflectionException
+     */
     public function testFilter()
     {
+        Carbon::setWeekendDays(array(
+            Carbon::SATURDAY,
+            Carbon::SUNDAY,
+        ));
+
         $period = CarbonPeriod::create('R4/2018-04-14T00:00:00Z/P4D');
 
         $period->filter(function ($date) {
