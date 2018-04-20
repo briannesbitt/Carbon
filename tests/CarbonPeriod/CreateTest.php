@@ -28,10 +28,10 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00Z/P7D');
         $results = array();
         foreach ($period as $date) {
-            self::assertInstanceOfCarbon($date);
+            $this->assertInstanceOfCarbon($date);
             $results[] = $date->format('Y-m-d H:i:s');
         }
-        self::assertSame(array(
+        $this->assertSame(array(
             '2012-07-01 00:00:00',
             '2012-07-08 00:00:00',
             '2012-07-15 00:00:00',
@@ -48,10 +48,10 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
         $results = array();
         foreach ($period as $key => $date) {
-            self::assertInstanceOfCarbon($date);
+            $this->assertInstanceOfCarbon($date);
             $results[] = $key.':'.$date->format('Y-m-d');
         }
-        self::assertSame(array(
+        $this->assertSame(array(
             '0:2015-09-30',
             '1:2015-10-01',
             '2:2015-10-02',
@@ -80,7 +80,7 @@ class CreateTest extends AbstractTestCase
         foreach ($period as $date) {
             $results[] = $date->format('Y-m-d');
         }
-        self::assertSame(array(
+        $this->assertSame(array(
             '2018-04-16',
             '2018-04-18',
             '2018-04-20',
@@ -98,7 +98,7 @@ class CreateTest extends AbstractTestCase
         foreach ($period as $date) {
             $results[] = $date->format('Y-m-d');
         }
-        self::assertSame(array(
+        $this->assertSame(array(
             '2018-04-16',
             '2018-04-17',
             '2018-04-18',
@@ -118,7 +118,7 @@ class CreateTest extends AbstractTestCase
         foreach ($period as $date) {
             $results[] = $date->format('Y-m-d');
         }
-        self::assertSame(array(
+        $this->assertSame(array(
             '2018-04-16',
             '2018-05-16',
             '2018-06-16',

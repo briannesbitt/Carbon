@@ -38,7 +38,7 @@ class FilterTest extends AbstractTestCase
             $results[] = $date->format('Y-m-d H:i:s');
         }
 
-        self::assertEquals(array(
+        $this->assertEquals(array(
             '2018-04-18 00:00:00',
             '2018-04-26 00:00:00',
             '2018-04-30 00:00:00',

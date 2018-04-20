@@ -34,9 +34,9 @@ class GettersTest extends AbstractTestCase
     {
         $date = $this->makePeriod()->getStartDate();
 
-        self::assertInstanceOfCarbon($date);
+        $this->assertInstanceOfCarbon($date);
 
-        self::assertSame('2012-07-01 17:30:00', $date->format('Y-m-d H:i:s'));
+        $this->assertSame('2012-07-01 17:30:00', $date->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -46,9 +46,9 @@ class GettersTest extends AbstractTestCase
     {
         $date = $this->makePeriod()->getEndDate();
 
-        self::assertInstanceOfCarbon($date);
+        $this->assertInstanceOfCarbon($date);
 
-        self::assertSame('2012-07-15 11:15:00', $date->format('Y-m-d H:i:s'));
+        $this->assertSame('2012-07-15 11:15:00', $date->format('Y-m-d H:i:s'));
     }
 
     /**
@@ -58,9 +58,9 @@ class GettersTest extends AbstractTestCase
     {
         $interval = $this->makePeriod()->getDateInterval();
 
-        self::assertInstanceOfCarbonInterval($interval);
+        $this->assertInstanceOfCarbonInterval($interval);
 
-        self::assertSame('P3DT5H', $interval->spec());
+        $this->assertSame('P3DT5H', $interval->spec());
     }
 
     /**
@@ -70,6 +70,6 @@ class GettersTest extends AbstractTestCase
     {
         $recurrences = CarbonPeriod::create(new DateTime, 5)->getRecurrences();
 
-        self::assertSame(5, $recurrences);
+        $this->assertSame(5, $recurrences);
     }
 }
