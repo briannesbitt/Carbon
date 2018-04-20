@@ -129,7 +129,9 @@ class GettersTest extends AbstractTestCase
         $results = array();
         foreach ($period->getIterator() as $date) {
             $this->assertInstanceOf('DateTime', $date);
-            $this->assertInstanceOf('Carbon\Carbon', $date);
+            if (version_compare(phpversion(), '5.5.0-dev', '>=')) {
+                $this->assertInstanceOf('Carbon\Carbon', $date);
+            }
             $results[] = $date->format('Y-m-d');
         }
         $this->assertSame(array(
