@@ -66,7 +66,7 @@ class CarbonPeriod implements Iterator
         $arguments = func_get_args();
         $reflection = new ReflectionClass('DatePeriod');
         if (count($arguments) > 1) {
-            if (self::isDate($arguments[0]) && self::isDate($arguments[1])) {
+            if (self::isDate($arguments[0]) && !$arguments[1] instanceof DateInterval) {
                 array_splice($arguments, 1, 0, array(CarbonInterval::day()));
             }
 
