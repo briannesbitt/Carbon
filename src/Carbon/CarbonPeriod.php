@@ -52,6 +52,11 @@ class CarbonPeriod implements Iterator
     protected $dates;
 
     /**
+     * @var int
+     */
+    protected $recurrences;
+
+    /**
      * @var array
      */
     protected $filters = array();
@@ -87,6 +92,9 @@ class CarbonPeriod implements Iterator
             // copy end date for getDateInterval PHP < 5.6 compatibility
             if (static::isDate($arguments[2])) {
                 $this->endDate = self::carbonify($arguments[2]);
+            }
+            else {
+                $this->recurrences = $arguments[2];
             }
         }
 
@@ -138,6 +146,14 @@ class CarbonPeriod implements Iterator
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRecurrences()
+    {
+        return $this->recurrences;
     }
 
     /**

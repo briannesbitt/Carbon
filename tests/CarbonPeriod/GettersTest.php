@@ -70,6 +70,6 @@ class GettersTest extends AbstractTestCase
     {
         $recurrences = CarbonPeriod::create(new DateTime, 5)->getRecurrences();
 
-        self::assertSame(2, $recurrences);
+        self::assertSame(5, $recurrences);
     }
 }
