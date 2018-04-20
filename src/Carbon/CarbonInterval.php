@@ -630,6 +630,11 @@ class CarbonInterval extends DateInterval
      */
     public function times($factor)
     {
+        if ($factor < 0) {
+            $this->invert = !$this->invert;
+            $factor = -$factor;
+        }
+
         $this->years = round($this->years * $factor);
         $this->months = round($this->months * $factor);
         $this->dayz = round($this->dayz * $factor);
