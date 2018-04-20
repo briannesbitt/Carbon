@@ -29,7 +29,7 @@ class CarbonPeriod implements Iterator
     /**
      * @var DatePeriod
      */
-    protected $period;
+    protected $datePeriod;
 
     /**
      * @var Carbon
@@ -49,7 +49,7 @@ class CarbonPeriod implements Iterator
     /**
      * @var IteratorIterator
      */
-    protected $dates;
+    protected $iterator;
 
     /**
      * @var int
@@ -97,10 +97,10 @@ class CarbonPeriod implements Iterator
             }
         }
 
-        $this->period = $reflection->newInstanceArgs($arguments);
+        $this->datePeriod = $reflection->newInstanceArgs($arguments);
         $self = $this;
-        $this->dates = new CallbackFilterIterator(
-            new IteratorIterator($this->period),
+        $this->iterator = new CallbackFilterIterator(
+            new IteratorIterator($this->datePeriod),
             function ($current, $key, $iterator) use ($self) {
                 return $self->passFilters($current, $key, $iterator);
             }
@@ -145,6 +145,22 @@ class CarbonPeriod implements Iterator
     public function getEndDate()
     {
         return $this->endDate;
+    }
+
+    /**
+     * @return DatePeriod
+     */
+    public function getDatePeriod()
+    {
+        return $this->datePeriod;
+    }
+
+    /**
+     * @return IteratorIterator
+     */
+    public function getIterator()
+    {
+        return $this->iterator;
     }
 
     /**
@@ -203,7 +219,7 @@ class CarbonPeriod implements Iterator
      */
     public function current()
     {
-        return self::carbonify($this->dates->current());
+        return self::carbonify($this->iterator->current());
     }
 
     /**
@@ -216,7 +232,7 @@ class CarbonPeriod implements Iterator
      */
     public function next()
     {
-        $this->dates->next();
+        $this->iterator->next();
     }
 
     /**
@@ -229,7 +245,7 @@ class CarbonPeriod implements Iterator
      */
     public function key()
     {
-        return $this->dates->key();
+        return $this->iterator->key();
     }
 
     /**
@@ -242,7 +258,7 @@ class CarbonPeriod implements Iterator
      */
     public function valid()
     {
-        return $this->dates->valid();
+        return $this->iterator->valid();
     }
 
     /**
@@ -255,7 +271,7 @@ class CarbonPeriod implements Iterator
      */
     public function rewind()
     {
-        $this->dates->rewind();
+        $this->iterator->rewind();
     }
 
     /**
