@@ -11,11 +11,10 @@
 
 namespace Tests\CarbonPeriod;
 
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use DateInterval;
 use DateTime;
-use Carbon\Carbon;
-use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
