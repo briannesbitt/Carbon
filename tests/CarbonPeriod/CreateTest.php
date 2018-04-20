@@ -11,11 +11,11 @@
 
 namespace Tests\CarbonPeriod;
 
-use DateTime;
-use DateInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use DateInterval;
+use DateTime;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase

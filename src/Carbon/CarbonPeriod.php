@@ -92,8 +92,7 @@ class CarbonPeriod implements Iterator
             // copy end date for getDateInterval PHP < 5.6 compatibility
             if (static::isDate($arguments[2])) {
                 $this->endDate = self::carbonify($arguments[2]);
-            }
-            else {
+            } else {
                 $this->recurrences = $arguments[2];
             }
         }
