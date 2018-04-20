@@ -622,6 +622,30 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Multiply current instance given number of times
+     *
+     * @param float $factor
+     *
+     * @return $this
+     */
+    public function times($factor)
+    {
+        if ($factor < 0) {
+            $this->invert = $this->invert ? 0 : 1;
+            $factor = -$factor;
+        }
+
+        $this->years = round($this->years * $factor);
+        $this->months = round($this->months * $factor);
+        $this->dayz = round($this->dayz * $factor);
+        $this->hours = round($this->hours * $factor);
+        $this->minutes = round($this->minutes * $factor);
+        $this->seconds = round($this->seconds * $factor);
+
+        return $this;
+    }
+
+    /**
      * Get the interval_spec string of a date interval
      *
      * @param DateInterval $interval
