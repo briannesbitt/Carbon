@@ -20,7 +20,7 @@ class FilterTest extends AbstractTestCase
     /**
      * @throws \ReflectionException
      */
-    public function testFilter()
+    public function testFilterOnlyWeekdays()
     {
         Carbon::setWeekendDays(array(
             Carbon::SATURDAY,

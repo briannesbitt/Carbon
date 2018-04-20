@@ -11,6 +11,8 @@
 
 namespace Tests\CarbonPeriod;
 
+use DateTime;
+use DateInterval;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
@@ -26,7 +28,7 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create('R4/2012-07-01T00:00:00Z/P7D');
         $results = array();
         foreach ($period as $date) {
-            self::assertInstanceOf('Carbon\Carbon', $date);
+            self::assertInstanceOfCarbon($date);
             $results[] = $date->format('Y-m-d H:i:s');
         }
         self::assertSame(array(
@@ -46,7 +48,7 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
         $results = array();
         foreach ($period as $key => $date) {
-            self::assertInstanceOf('Carbon\Carbon', $date);
+            self::assertInstanceOfCarbon($date);
             $results[] = $key.':'.$date->format('Y-m-d');
         }
         self::assertSame(array(
@@ -54,19 +56,72 @@ class CreateTest extends AbstractTestCase
             '1:2015-10-01',
             '2:2015-10-02',
         ), $results);
-        self::assertInstanceOf('Carbon\CarbonInterval', $period->getDateInterval());
-        self::assertSame('1 day', $period->getDateInterval()->forHumans());
     }
 
     /**
      * @expectedException \InvalidArgumentException
      */
-    public function testCreateFromEmptyInterval()
+    public function testCreateWithEmptyInterval()
     {
         CarbonPeriod::create(
             Carbon::now(),
             CarbonInterval::days(0),
             Carbon::tomorrow()
         );
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function testCreateWithDateAndIntervalAndRecurrences()
+    {
+        $period = CarbonPeriod::create(Carbon::parse('2018-04-16'), CarbonInterval::days(2), 3);
+        $results = array();
+        foreach ($period as $date) {
+            $results[] = $date->format('Y-m-d');
+        }
+        self::assertSame(array(
+            '2018-04-16',
+            '2018-04-18',
+            '2018-04-20',
+            '2018-04-22',
+        ), $results);
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function testCreateWithDateAndRecurrences()
+    {
+        $period = CarbonPeriod::create(Carbon::parse('2018-04-16'), 2);
+        $results = array();
+        foreach ($period as $date) {
+            $results[] = $date->format('Y-m-d');
+        }
+        self::assertSame(array(
+            '2018-04-16',
+            '2018-04-17',
+            '2018-04-18',
+        ), $results);
+    }
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function testCreateWithBaseClasses()
+    {
+        $period = new CarbonPeriod(
+            new DateTime('2018-04-16'), new DateInterval('P1M'), new DateTime('2018-07-15')
+        );
+
+        $results = array();
+        foreach ($period as $date) {
+            $results[] = $date->format('Y-m-d');
+        }
+        self::assertSame(array(
+            '2018-04-16',
+            '2018-05-16',
+            '2018-06-16',
+        ), $results);
     }
 }
