@@ -50,7 +50,7 @@ class TimesTest extends AbstractTestCase
     public function testTimesLessThanZeroWithInvertedInterval()
     {
         $ci = CarbonInterval::create(4, 3, 2, 5, 5, 10, 11);
-        $ci->invert = true;
+        $ci->invert = 1;
         $ci->times(-1);
         $this->assertCarbonInterval($ci, 4, 3, 19, 5, 10, 11);
         $this->assertSame(0, $ci->invert);

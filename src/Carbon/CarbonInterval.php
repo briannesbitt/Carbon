@@ -626,12 +626,12 @@ class CarbonInterval extends DateInterval
      *
      * @param float $factor
      *
-     * @return static
+     * @return $this
      */
     public function times($factor)
     {
         if ($factor < 0) {
-            $this->invert = !$this->invert;
+            $this->invert = $this->invert ? 0 : 1;
             $factor = -$factor;
         }
 
