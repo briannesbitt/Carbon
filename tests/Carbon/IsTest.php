@@ -359,6 +359,16 @@ class IsTest extends AbstractTestCase
         $this->assertFalse($current->isSameDay(new DateTime('2012-01-03')));
     }
 
+    public function testIsCurrentDayTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentDay());
+    }
+
+    public function testIsCurrentDayFalse()
+    {
+        $this->assertFalse(Carbon::now()->subDay()->isCurrentDay());
+    }
+
     public function testIsSameHourTrue()
     {
         $current = Carbon::create(2018, 5, 6, 12);
@@ -381,6 +391,16 @@ class IsTest extends AbstractTestCase
     {
         $current = Carbon::create(2018, 5, 6, 12);
         $this->assertFalse($current->isSameHour(new DateTime('2018-05-06T13:00:00')));
+    }
+
+    public function testIsCurrentHourTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentHour());
+    }
+
+    public function testIsCurrentHourFalse()
+    {
+        $this->assertFalse(Carbon::now()->subHour()->isCurrentHour());
     }
 
     public function testIsSameMinuteTrue()
@@ -407,6 +427,16 @@ class IsTest extends AbstractTestCase
         $this->assertFalse($current->isSameMinute(new DateTime('2018-05-06T13:31:00')));
     }
 
+    public function testIsCurrentMinuteTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentMinute());
+    }
+
+    public function testIsCurrentMinuteFalse()
+    {
+        $this->assertFalse(Carbon::now()->subMinute()->isCurrentMinute());
+    }
+
     public function testIsSameSecondTrue()
     {
         $current = Carbon::create(2018, 5, 6, 12, 30, 13);
@@ -429,6 +459,16 @@ class IsTest extends AbstractTestCase
     {
         $current = Carbon::create(2018, 5, 6, 12, 30, 13);
         $this->assertFalse($current->isSameSecond(new DateTime('2018-05-06T13:30:54')));
+    }
+
+    public function testIsCurrentSecondTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentSecond());
+    }
+
+    public function testIsCurrentSecondFalse()
+    {
+        $this->assertFalse(Carbon::now()->subSecond()->isCurrentSecond());
     }
 
     public function testIsDayOfWeek()
