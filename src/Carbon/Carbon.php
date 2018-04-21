@@ -2345,6 +2345,16 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Determines if the instance is in the current day.
+     *
+     * @return bool
+     */
+    public function isCurrentDay()
+    {
+        return $this->isSameDay();
+    }
+
+    /**
      * Checks if the passed in date is the same exact day as the instance´s day.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
@@ -2354,6 +2364,16 @@ class Carbon extends DateTime implements JsonSerializable
     public function isSameDay($date = null)
     {
         return $this->isSameAs('Y-m-d', $date);
+    }
+
+    /**
+     * Determines if the instance is in the current hour.
+     *
+     * @return bool
+     */
+    public function isCurrentHour()
+    {
+        return $this->isSameHour();
     }
 
     /**
@@ -2369,6 +2389,16 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Determines if the instance is in the current minute.
+     *
+     * @return bool
+     */
+    public function isCurrentMinute()
+    {
+        return $this->isSameMinute();
+    }
+
+    /**
      * Checks if the passed in date is the same exact minute as the instance´s minute.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
@@ -2378,6 +2408,16 @@ class Carbon extends DateTime implements JsonSerializable
     public function isSameMinute($date = null)
     {
         return $this->isSameAs('Y-m-d H:i', $date);
+    }
+
+    /**
+     * Determines if the instance is in the current second.
+     *
+     * @return bool
+     */
+    public function isCurrentSecond()
+    {
+        return $this->isSameSecond();
     }
 
     /**
