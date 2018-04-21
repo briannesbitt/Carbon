@@ -383,6 +383,54 @@ class IsTest extends AbstractTestCase
         $this->assertFalse($current->isSameHour(new DateTime('2018-05-06T13:00:00')));
     }
 
+    public function testIsSameMinuteTrue()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertTrue($current->isSameMinute(Carbon::create(2018, 5, 6, 12, 30)));
+    }
+
+    public function testIsSameMinuteTrueWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertTrue($current->isSameMinute(new DateTime('2018-05-06T12:30:00')));
+    }
+
+    public function testIsSameMinuteFalse()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertFalse($current->isSameMinute(Carbon::create(2018, 5, 6, 13, 31)));
+    }
+
+    public function testIsSameMinuteFalseWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertFalse($current->isSameMinute(new DateTime('2018-05-06T13:31:00')));
+    }
+
+    public function testIsSameSecondTrue()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertTrue($current->isSameSecond(Carbon::create(2018, 5, 6, 12, 30, 13)));
+    }
+
+    public function testIsSameSecondTrueWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertTrue($current->isSameSecond(new DateTime('2018-05-06T12:30:13')));
+    }
+
+    public function testIsSameSecondFalse()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertFalse($current->isSameSecond(Carbon::create(2018, 5, 6, 12, 30, 55)));
+    }
+
+    public function testIsSameSecondFalseWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertFalse($current->isSameSecond(new DateTime('2018-05-06T13:30:54')));
+    }
+
     public function testIsDayOfWeek()
     {
         // True in the past past

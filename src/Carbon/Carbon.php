@@ -2329,12 +2329,12 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Checks if the passed in date is in the same month as the instance month (and year if needed).
+     * Checks if the passed in date is in the same month as the instance´s month (and year if needed).
      *
      * The second parameter $ofSameYear will be changed to default to true in 2.x to be consistent with
      * the other comparison methods isSameDay, isSameHour. See Issue #1248
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
@@ -2345,27 +2345,51 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Checks if the passed in date is the same exact day as the instance current day.
+     * Checks if the passed in date is the same exact day as the instance´s day.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
      *
      * @return bool
      */
-    public function isSameDay($date)
+    public function isSameDay($date = null)
     {
         return $this->isSameAs('Y-m-d', $date);
     }
 
     /**
-     * Checks if the passed in date is the same exact hour as the instance current hour.
+     * Checks if the passed in date is the same exact hour as the instance´s hour.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
      *
      * @return bool
      */
-    public function isSameHour($date)
+    public function isSameHour($date = null)
     {
         return $this->isSameAs('Y-m-d H', $date);
+    }
+
+    /**
+     * Checks if the passed in date is the same exact minute as the instance´s minute.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
+     *
+     * @return bool
+     */
+    public function isSameMinute($date = null)
+    {
+        return $this->isSameAs('Y-m-d H:i', $date);
+    }
+
+    /**
+     * Checks if the passed in date is the same exact second as the instance´s second.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
+     *
+     * @return bool
+     */
+    public function isSameSecond($date = null)
+    {
+        return $this->isSameAs('Y-m-d H:i:s', $date);
     }
 
     /**
