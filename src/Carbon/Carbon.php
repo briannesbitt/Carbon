@@ -2331,6 +2331,9 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Checks if the passed in date is in the same month as the instance month (and year if needed).
      *
+     * The second parameter $ofSameYear will be changed to default to true in 2.x to be consistent with
+     * the other comparison methods isSameDay, isSameHour. See Issue #1248
+     *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
@@ -2342,7 +2345,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Checks if the passed in date is the same day as the instance current day.
+     * Checks if the passed in date is the same exact day as the instance current day.
      *
      * @param \Carbon\Carbon|\DateTimeInterface $date
      *
@@ -2351,6 +2354,18 @@ class Carbon extends DateTime implements JsonSerializable
     public function isSameDay($date)
     {
         return $this->isSameAs('Y-m-d', $date);
+    }
+
+    /**
+     * Checks if the passed in date is the same exact hour as the instance current hour.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date
+     *
+     * @return bool
+     */
+    public function isSameHour($date)
+    {
+        return $this->isSameAs('Y-m-d H', $date);
     }
 
     /**
