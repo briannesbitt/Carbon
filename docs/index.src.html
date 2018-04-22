@@ -672,44 +672,57 @@ $dt3 = Carbon::createMidnightDate(2010, 4, 16);
 {{farthest3::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{farthest3_eval}}
 </code></pre></p>
 
-<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
+<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner, the <code>now()</code> is created in the same timezone as the instance.</p>
 
 <p><pre><code class="php">{{::lint(
-$dt = Carbon::now();
+    $dt = Carbon::now();
+    $dt2 = Carbon::createFromDate(1987, 4, 23);
+    
+    $dt->isSameAs('w', $dt2); // w is the date of the week, so this will return true if $dt and $dt2
+                                       // the same day of week (both monday or both sunday, etc.)
+                                       // you can use any format and combine as much as you want.
+    $dt->isFuture();
+    $dt->isPast();
 
-$dt->isWeekday();
-$dt->isWeekend();
-$dt->isMonday();
-$dt->isTuesday();
-$dt->isWednesday();
-$dt->isThursday();
-$dt->isFriday();
-$dt->isSaturday();
-$dt->isSunday();
-$dt->isYesterday();
-$dt->isToday();
-$dt->isTomorrow();
-$dt->isFuture();
-$dt->isPast();
-$dt->isLeapYear();
-$dt->isSameDay(Carbon::now()); // Same day of same month of same year
-$dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
-$dt->isNextWeek();
-$dt->isLastWeek();
-$dt->isLastOfMonth(); // is the last day of the month
-$dt->isCurrentMonth();
-$dt->isNextMonth();
-$dt->isLastMonth();
-$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
-$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
-$dt->isCurrentYear();
-$dt->isNextYear();
-$dt->isLastYear();
-$dt->isSameYear(Carbon::createFromDate(1987, 4, 23));
-$dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
-$dt->isSameAs('w', Carbon::now()); // w is the date of the week, so this will return true if now and $dt has
-                                   // the same day of week (both monday or both sunday, etc.)
-                                   // you can use any format and combine as much as you want.
+    $dt->isSameYear($dt2);
+    $dt->isCurrentYear();
+    $dt->isNextYear();
+    $dt->isLastYear();
+    $dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+    $dt->isLeapYear();
+    
+    $dt->isSameMonth($dt2); // same month no matter the year of the given date
+    $dt->isSameMonth($dt2, true); // same month of the same year of the given date
+    $dt->isCurrentMonth();
+    $dt->isNextMonth();
+    $dt->isLastMonth();
+
+    $dt->isWeekday();
+    $dt->isWeekend();
+    $dt->isMonday();
+    $dt->isTuesday();
+    $dt->isWednesday();
+    $dt->isThursday();
+    $dt->isFriday();
+    $dt->isSaturday();
+    $dt->isSunday();
+    $dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
+    $dt->isLastOfMonth(); // is the last day of the month
+
+    $dt->isSameDay($dt2); // Same day of same month of same year
+    $dt->isCurrentDay();
+    $dt->isYesterday();
+    $dt->isToday();
+    $dt->isTomorrow();
+    $dt->isNextWeek();
+    $dt->isLastWeek();
+
+    $dt->isSameHour($dt2);
+    $dt->isCurrentHour();
+    $dt->isSameMinute($dt2);
+    $dt->isCurrentMinute();
+    $dt->isSameSecond($dt2);
+    $dt->isCurrentSecond();
 )}}
 {{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
@@ -1544,7 +1557,7 @@ Carbon::macro('easterDate', function ($year) {
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
-<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete holidays handler.</p>
+<p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete holidays handler.</p>
 
 <p><pre><code class="php">{{::lint(
 Carbon::macro('range', function ($startDate, $endDate) {
