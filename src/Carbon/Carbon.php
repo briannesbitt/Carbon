@@ -2329,10 +2329,10 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Checks if the passed in date is in the same month as the instance´s month (and year if needed).
+     * Checks if the passed in date is in the same month as the instance´s month.
      *
-     * The second parameter $ofSameYear will be changed to default to true in 2.x to be consistent with
-     * the other comparison methods isSameDay, isSameHour. See Issue #1248
+     * Note that this defaults to only comparing the month while ignoring the year.
+     * To test if it is the same exact month of the same year, pass in true as the second parameter.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
