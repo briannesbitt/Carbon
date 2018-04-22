@@ -28,4 +28,9 @@ return array(
     'from_now' => 'tra :time',
     'after' => ':time dopo',
     'before' => ':time prima',
+    'diff_now' => 'proprio ora',
+    'diff_yesterday' => 'ieri',
+    'diff_tomorrow' => 'domani',
+    'diff_before_yesterday' => "l'altro ieri",
+    'diff_after_tomorrow' => 'dopodomani',
 );
