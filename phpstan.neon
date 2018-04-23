@@ -4,6 +4,7 @@ parameters:
 		- '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
 		- '#Static method DateTime::__set_state()#'
 	excludes_analyse:
+		- '*/src/CallbackFilterIterator.php'
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'
 		- '*/tests/Carbon/GettersTest.php'
