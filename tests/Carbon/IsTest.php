@@ -353,6 +353,124 @@ class IsTest extends AbstractTestCase
         $this->assertFalse($current->isSameDay(Carbon::createFromDate(2012, 1, 3)));
     }
 
+    public function testIsSameDayFalseWithDateTime()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertFalse($current->isSameDay(new DateTime('2012-01-03')));
+    }
+
+    public function testIsCurrentDayTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentDay());
+    }
+
+    public function testIsCurrentDayFalse()
+    {
+        $this->assertFalse(Carbon::now()->subDay()->isCurrentDay());
+    }
+
+    public function testIsSameHourTrue()
+    {
+        $current = Carbon::create(2018, 5, 6, 12);
+        $this->assertTrue($current->isSameHour(Carbon::create(2018, 5, 6, 12)));
+    }
+
+    public function testIsSameHourTrueWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12);
+        $this->assertTrue($current->isSameHour(new DateTime('2018-05-06T12:00:00')));
+    }
+
+    public function testIsSameHourFalse()
+    {
+        $current = Carbon::create(2018, 5, 6, 12);
+        $this->assertFalse($current->isSameHour(Carbon::create(2018, 5, 6, 13)));
+    }
+
+    public function testIsSameHourFalseWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12);
+        $this->assertFalse($current->isSameHour(new DateTime('2018-05-06T13:00:00')));
+    }
+
+    public function testIsCurrentHourTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentHour());
+    }
+
+    public function testIsCurrentHourFalse()
+    {
+        $this->assertFalse(Carbon::now()->subHour()->isCurrentHour());
+    }
+
+    public function testIsSameMinuteTrue()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertTrue($current->isSameMinute(Carbon::create(2018, 5, 6, 12, 30)));
+    }
+
+    public function testIsSameMinuteTrueWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertTrue($current->isSameMinute(new DateTime('2018-05-06T12:30:00')));
+    }
+
+    public function testIsSameMinuteFalse()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertFalse($current->isSameMinute(Carbon::create(2018, 5, 6, 13, 31)));
+    }
+
+    public function testIsSameMinuteFalseWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30);
+        $this->assertFalse($current->isSameMinute(new DateTime('2018-05-06T13:31:00')));
+    }
+
+    public function testIsCurrentMinuteTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentMinute());
+    }
+
+    public function testIsCurrentMinuteFalse()
+    {
+        $this->assertFalse(Carbon::now()->subMinute()->isCurrentMinute());
+    }
+
+    public function testIsSameSecondTrue()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertTrue($current->isSameSecond(Carbon::create(2018, 5, 6, 12, 30, 13)));
+    }
+
+    public function testIsSameSecondTrueWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertTrue($current->isSameSecond(new DateTime('2018-05-06T12:30:13')));
+    }
+
+    public function testIsSameSecondFalse()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertFalse($current->isSameSecond(Carbon::create(2018, 5, 6, 12, 30, 55)));
+    }
+
+    public function testIsSameSecondFalseWithDateTime()
+    {
+        $current = Carbon::create(2018, 5, 6, 12, 30, 13);
+        $this->assertFalse($current->isSameSecond(new DateTime('2018-05-06T13:30:54')));
+    }
+
+    public function testIsCurrentSecondTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentSecond());
+    }
+
+    public function testIsCurrentSecondFalse()
+    {
+        $this->assertFalse(Carbon::now()->subSecond()->isCurrentSecond());
+    }
+
     public function testIsDayOfWeek()
     {
         // True in the past past
@@ -371,12 +489,6 @@ class IsTest extends AbstractTestCase
         // False in the future
         $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::MONDAY)->isDayOfWeek(0));
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek(0));
-    }
-
-    public function testIsSameDayFalseWithDateTime()
-    {
-        $current = Carbon::createFromDate(2012, 1, 2);
-        $this->assertFalse($current->isSameDay(new DateTime('2012-01-03')));
     }
 
     public function testIsSameAs()
