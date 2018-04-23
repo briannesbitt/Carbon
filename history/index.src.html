@@ -1,8 +1,27 @@
+<h1>1.27.0 / 2018-04-23</h1>
+  <ul>
+    <li>Added isSameQuarter, isCurrentQuarter, isNextQuarter and isLastQuarter methods</li>
+    <li>Added isSameHour, isSameMinute, isSameSecond, isCurrentHour, isCurrentMinute and isCurrentSecond methods</li>
+    <li>Added CarbonInterval::times method</li>
+    <li>Added italian translation for diff words</li>
+  </ul>
+<h1>1.26.4 / 2018-04-17</h1>
+  <ul>
+    <li>Always pass $self at its position even if previous arguments miss</li>
+  </ul>
+<h1>1.26.2 / 2018-04-16</h1>
+  <ul>
+    <li>Fixed Laravel's compatibility</li>
+  </ul>
+<h1>1.26.1 / 2018-04-16</h1>
+  <ul>
+    <li>Fixed Laravel's compatibility</li>
+  </ul>
 <h1>1.26.0 / 2018-04-16</h1>
   <ul>
-    <li>Added `setDateFrom` and `setTimeFrom` methods</li>
-    <li>Allowed `DateTimeInterface` in `instance` method</li>
-    <li>Added `macro`, `hasMacro` and `mixin` methods</li>
+    <li>Added setDateFrom and setTimeFrom methods</li>
+    <li>Allowed DateTimeInterface in instance method</li>
+    <li>Added macro, hasMacro and mixin methods</li>
     <li>Added welsh language</li>
     <li>Added CarbonInterval::getDateIntervalSpec (similar to CarbonInterval::spec but static and able to take any DateInterval instance as argument)</li>
     <li>Added options for `diffForHumans` to support now/yesterday/tomorrow (<a href="/docs/#diff-for-humans-options">see the doc.</a>)</li>
@@ -22,6 +41,14 @@
     <li>Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds work-around in PHP < 7.1</li>
     <li>Added dayOfWeekIso property</li>
     <li>Allowed editing/adding languages and translations</li>
+  </ul>
+<h1>1.24.2 / 2018-03-09</h1>
+  <ul>
+    <li>Prevent from negative values in microtime</li>
+  </ul>
+<h1>1.24.1 / 2018-03-09</h1>
+  <ul>
+    <li>Re-align __set_state on DateTime method to ease Laravel compatibility</li>
   </ul>
 <h1>1.24.0 / 2018-03-09</h1>
   <ul>
