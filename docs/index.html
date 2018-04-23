@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-04-17 11:37:07
+echo $now;                               // 2018-04-23 06:07:05
 $today = Carbon::today();
-echo $today;                             // 2018-04-17 00:00:00
+echo $today;                             // 2018-04-23 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-04-18 00:00:00
+echo $tomorrow;                          // 2018-04-24 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-04-16 00:00:00
+echo $yesterday;                         // 2018-04-22 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:37 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 12:07 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-04-17 11:37:07
+echo Carbon::now();                                    // 2018-04-23 06:07:05
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-04-17 11:37:07
-echo $dt1->maximum();                              // 2018-04-17 11:37:07
+echo $dt1->max();                                  // 2018-04-23 06:07:05
+echo $dt1->maximum();                              // 2018-04-23 06:07:05
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -733,9 +733,35 @@ echo $dt2->farthest($dt1, $dt3);                   // 2010-04-16 00:00:00
 echo $dt3->farthest($dt2, $dt1);                   // 2010-03-28 00:00:00
 </code></pre></p>
 
-<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner the <code>now()</code> is created in the same timezone as the instance.</p>
+<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner, the <code>now()</code> is created in the same timezone as the instance.</p>
 
 <p><pre><code class="php">$dt = Carbon::now();
+$dt2 = Carbon::createFromDate(1987, 4, 23);
+
+$dt->isSameAs('w', $dt2); // w is the date of the week, so this will return true if $dt and $dt2
+                                   // the same day of week (both monday or both sunday, etc.)
+                                   // you can use any format and combine as much as you want.
+$dt->isFuture();
+$dt->isPast();
+
+$dt->isSameYear($dt2);
+$dt->isCurrentYear();
+$dt->isNextYear();
+$dt->isLastYear();
+$dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+$dt->isLeapYear();
+
+$dt->isSameQuarter($dt2); // same quarter (3 months) no matter the year of the given date
+$dt->isSameQuarter($dt2, true); // same quarter of the same year of the given date
+$dt->isCurrentQuarter();
+$dt->isNextQuarter(); // date is in the next quarter
+$dt->isLastQuarter(); // in previous quarter
+
+$dt->isSameMonth($dt2); // same month no matter the year of the given date
+$dt->isSameMonth($dt2, true); // same month of the same year of the given date
+$dt->isCurrentMonth();
+$dt->isNextMonth();
+$dt->isLastMonth();
 
 $dt->isWeekday();
 $dt->isWeekend();
@@ -746,30 +772,23 @@ $dt->isThursday();
 $dt->isFriday();
 $dt->isSaturday();
 $dt->isSunday();
+$dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
+$dt->isLastOfMonth(); // is the last day of the month
+
+$dt->isSameDay($dt2); // Same day of same month of same year
+$dt->isCurrentDay();
 $dt->isYesterday();
 $dt->isToday();
 $dt->isTomorrow();
-$dt->isFuture();
-$dt->isPast();
-$dt->isLeapYear();
-$dt->isSameDay(Carbon::now()); // Same day of same month of same year
-$dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
 $dt->isNextWeek();
 $dt->isLastWeek();
-$dt->isLastOfMonth(); // is the last day of the month
-$dt->isCurrentMonth();
-$dt->isNextMonth();
-$dt->isLastMonth();
-$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23)); // same month no matter the year than the given date
-$dt->isSameMonth(Carbon::createFromDate(1987, 4, 23), true); // same month of the same year than the given date
-$dt->isCurrentYear();
-$dt->isNextYear();
-$dt->isLastYear();
-$dt->isSameYear(Carbon::createFromDate(1987, 4, 23));
-$dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
-$dt->isSameAs('w', Carbon::now()); // w is the date of the week, so this will return true if now and $dt has
-                                   // the same day of week (both monday or both sunday, etc.)
-                                   // you can use any format and combine as much as you want.
+
+$dt->isSameHour($dt2);
+$dt->isCurrentHour();
+$dt->isSameMinute($dt2);
+$dt->isCurrentMinute();
+$dt->isSameSecond($dt2);
+$dt->isCurrentSecond();
 $born = Carbon::createFromDate(1987, 4, 23);
 $noCake = Carbon::createFromDate(2014, 9, 26);
 $yesCake = Carbon::createFromDate(2014, 4, 23);
@@ -1401,11 +1420,9 @@ echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 /
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1yr
-echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 
-Notice: Object of class Carbon\Carbon could not be converted to int in C:\Users\bastien.miclo\Perso\CarbonDoc\vendor\nesbot\carbon\src\Carbon\Carbon.php on line 3601
-1yr
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year after
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1 year
+echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 1yr
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  // 1yr 1w 4d 12h
 </code></pre></p>
 
@@ -1535,9 +1552,9 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-04-16 00:00:00, 2018-04-17 00:00:00, 2018-04-18 00:00:00, 2018-04-19 00:00:00, 2018-04-20 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-04-23 00:00:00, 2018-04-24 00:00:00, 2018-04-25 00:00:00, 2018-04-26 00:00:00, 2018-04-27 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-04-01 00:00:00, 2018-04-02 00:00:00, 2018-04-03 00:00:00, 2018-04-04 00:00:00, 2018-04-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-03-12 00:00:00, 2018-03-13 00:00:00, 2018-03-14 00:00:00, 2018-03-15 00:00:00, 2018-03-16 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-03-19 00:00:00, 2018-03-20 00:00:00, 2018-03-21 00:00:00, 2018-03-22 00:00:00, 2018-03-23 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-03-01 00:00:00, 2018-03-02 00:00:00, 2018-03-03 00:00:00, 2018-03-04 00:00:00, 2018-03-05 00:00...
 </code></pre></p>
 
@@ -1568,7 +1585,7 @@ echo Carbon::easterDate(2019)->format('d/m'); // 21/04
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
-<p>Check [cmixin/business-day](https://github.com/kylekatarnls/business-day) for a more complete holidays handler.</p>
+<p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete holidays handler.</p>
 
 <p><pre><code class="php">Carbon::macro('range', function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
