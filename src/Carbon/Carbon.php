@@ -806,9 +806,9 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Create a Carbon instance from a specific format.
+     * Create a Carbon instance from a specific format or a format list.
      *
-     * @param string                    $format Datetime format
+     * @param string|array              $format Datetime format or formats array to try
      * @param string                    $time
      * @param \DateTimeZone|string|null $tz
      *
@@ -818,22 +818,44 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
-        if ($tz !== null) {
-            $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
-        } else {
-            $date = parent::createFromFormat($format, $time);
-        }
+        $lastErrors = array(
+            'errors' => 'Empty formats list provided.',
+        );
 
-        $lastErrors = parent::getLastErrors();
+        foreach ((array) $format as $formatString) {
+            if ($tz !== null) {
+                $date = parent::createFromFormat($formatString, $time, static::safeCreateDateTimeZone($tz));
+            } else {
+                $date = parent::createFromFormat($formatString, $time);
+            }
 
-        if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
-            $instance = static::instance($date);
-            $instance::setLastErrors($lastErrors);
+            $lastErrors = parent::getLastErrors();
 
-            return $instance;
+            if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
+                $instance = static::instance($date);
+                $instance::setLastErrors($lastErrors);
+
+                return $instance;
+            }
         }
 
         throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+    }
+
+    /**
+     * Create a Carbon instance from a specific format or a format list.
+     *
+     * @param string|array              $formats Datetime format or formats array to try
+     * @param string                    $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static
+     */
+    public static function createFromFormats($formats, $time, $tz = null)
+    {
+        return static::createFromFormat($formats, $time, $tz);
     }
 
     /**
