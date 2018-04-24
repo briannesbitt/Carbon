@@ -58,6 +58,20 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame($micro, $carbon->micro);
     }
 
+    public function testInstanceFromMultipleFormats()
+    {
+        $formats = array(
+            'Y-m-d H:i:s.u',
+            'Y-m-d H:i:s',
+        );
+        $carbon = Carbon::createFromFormats($formats, '2014-02-01 03:45:27.254687');
+        $carbon = Carbon::instance($carbon);
+        $this->assertSame('2014-02-01 03:45:27.254687', $carbon->format('Y-m-d H:i:s.u'));
+        $carbon = Carbon::createFromFormats($formats, '2014-02-01 03:45:27');
+        $carbon = Carbon::instance($carbon);
+        $this->assertSame('2014-02-01 03:45:27.000000', $carbon->format('Y-m-d H:i:s.u'));
+    }
+
     public function testInstanceStateSetBySetStateMethod()
     {
         $carbon = Carbon::__set_state(array(
