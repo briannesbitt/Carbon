@@ -818,6 +818,10 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
+        $lastErrors = array(
+            'errors' => 'Empty formats list provided.',
+        );
+
         foreach ((array) $format as $formatString) {
             if ($tz !== null) {
                 $date = parent::createFromFormat($formatString, $time, static::safeCreateDateTimeZone($tz));
