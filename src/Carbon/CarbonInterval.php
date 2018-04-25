@@ -29,6 +29,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property int $seconds Total seconds of the current interval.
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
+ * @property-read float $totalYears Number of years equivalent to the interval.
+ * @property-read float $totalMonths Number of months equivalent to the interval.
+ * @property-read float $totalWeeks Number of weeks equivalent to the interval.
+ * @property-read float $totalDays Number of days equivalent to the interval.
+ * @property-read float $totalDayz Alias for totalDays.
+ * @property-read float $totalHours Number of hours equivalent to the interval.
+ * @property-read float $totalMinutes Number of minutes equivalent to the interval.
+ * @property-read float $totalSeconds Number of seconds equivalent to the interval.
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
@@ -87,6 +95,24 @@ class CarbonInterval extends DateInterval
      * was created by DateTime::diff().
      */
     const PHP_DAYS_FALSE = -99999;
+
+    /**
+     * Mapping of units and factors for cascading.
+     *
+     * Should only be modified by changing the factors or referenced constants.
+     *
+     * @return array
+     */
+    protected static function getCascadeFactors()
+    {
+        return array(
+            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'hours' => array('dayz', Carbon::HOURS_PER_DAY),
+            'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
+            'months' => array('years', Carbon::MONTHS_PER_YEAR),
+        );
+    }
 
     /**
      * Determine if the interval was created via DateTime:diff() or not.
@@ -412,10 +438,14 @@ class CarbonInterval extends DateInterval
      *
      * @throws \InvalidArgumentException
      *
-     * @return int
+     * @return int|float
      */
     public function __get($name)
     {
+        if (substr($name, 0, 5) === 'total') {
+            return $this->total(substr($name, 5));
+        }
+
         switch ($name) {
             case 'years':
                 return $this->y;
@@ -725,5 +755,69 @@ class CarbonInterval extends DateInterval
     public function compare(DateInterval $interval)
     {
         return static::compareDateIntervals($this, $interval);
+    }
+
+    /**
+     * Convert overflowed values into bigger units.
+     *
+     * @return $this
+     */
+    public function cascade()
+    {
+        foreach (static::getCascadeFactors() as $source => $cascade) {
+            list($target, $factor) = $cascade;
+
+            $value = $this->$source;
+
+            $this->$source = $modulo = $value % $factor;
+            $this->$target += ($value - $modulo) / $factor;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get amount of given unit equivalent to the interval.
+     *
+     * @param string $unit
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return float
+     */
+    public function total($unit)
+    {
+        $realUnit = $unit = strtolower($unit);
+
+        if (in_array($unit, array('days', 'weeks'))) {
+            $realUnit = 'dayz';
+        } elseif (!in_array($unit, array('seconds', 'minutes', 'hours', 'dayz', 'months', 'years'))) {
+            throw new InvalidArgumentException("Unknown unit '$unit'.");
+        }
+
+        $result = 0;
+        $cumulativeFactor = 0;
+
+        foreach (static::getCascadeFactors() as $source => $cascade) {
+            list($target, $factor) = $cascade;
+
+            if ($source == $realUnit) {
+                $result += $this->$source;
+                $cumulativeFactor = 1;
+            }
+
+            if ($cumulativeFactor) {
+                $cumulativeFactor *= $factor;
+                $result += $this->$target * $cumulativeFactor;
+            } else {
+                $result = ($result + $this->$source) / $factor;
+            }
+        }
+
+        if ($unit == 'weeks') {
+            return $result / Carbon::DAYS_PER_WEEK;
+        }
+
+        return $result;
     }
 }
