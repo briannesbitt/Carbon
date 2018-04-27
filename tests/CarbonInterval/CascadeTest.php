@@ -2,6 +2,7 @@
 
 namespace Tests\CarbonInterval;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
@@ -25,6 +26,66 @@ class CascadeTest extends AbstractTestCase
             array('1276d',                        'P3Y9M16D'),
             array('47d 14h',                      'P1M19DT14H'),
             array('2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'),
+        );
+    }
+
+    /**
+     * @dataProvider provideCustomIntervalSpecs
+     * @group i
+     */
+    public function testCustomCascadesOverflowedValues($spec, $expected)
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'hours' => array('dayz', 8),
+            'dayz' => array('weeks', 5),
+        ));
+        $this->assertSame(
+            $expected, CarbonInterval::fromString($spec)->cascade()->forHumans(true)
+        );
+        CarbonInterval::setCascadeFactors($cascades);
+    }
+
+    public function provideCustomIntervalSpecs()
+    {
+        return array(
+            array('3600s',                        '1h'),
+            array('10000s',                       '2h 46m 40s'),
+            array('1276d',                        '255w 1d'),
+            array('47d 14h',                      '9w 6h'),
+            array('2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 9w 1h 43m 37s'),
+        );
+    }
+
+    /**
+     * @dataProvider provideCustomIntervalSpecsLongFormat
+     * @group j
+     */
+    public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'hours' => array('dayz', 8),
+            'dayz' => array('weeks', 5),
+        ));
+        $this->assertSame(
+            $expected, CarbonInterval::fromString($spec)->cascade()->forHumans(false)
+        );
+        CarbonInterval::setCascadeFactors($cascades);
+    }
+
+    public function provideCustomIntervalSpecsLongFormat()
+    {
+        return array(
+//            array('3600s',                        '1 hour'),
+//            array('10000s',                       '2 hours 46 minutes 40 seconds'),
+//            array('1276d',                        '255 weeks 1 day'),
+//            array('47d 14h',                      '9 weeks 6 hours'),
+            array('2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 6 weeks 2 days 1 hour 43 minute 37 seconds'),
         );
     }
 }

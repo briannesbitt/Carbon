@@ -91,6 +91,11 @@ class CarbonInterval extends DateInterval
     protected static $translator;
 
     /**
+     * @var array|null
+     */
+    protected static $cascadeFactors;
+
+    /**
      * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
      * was created by DateTime::diff().
      */
@@ -103,15 +108,23 @@ class CarbonInterval extends DateInterval
      *
      * @return array
      */
-    protected static function getCascadeFactors()
+    public static function getCascadeFactors()
     {
-        return array(
+        return static::$cascadeFactors ?: array(
             'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
             'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
             'hours' => array('dayz', Carbon::HOURS_PER_DAY),
             'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
             'months' => array('years', Carbon::MONTHS_PER_YEAR),
         );
+    }
+
+    /**
+     * @param array $cascadeFactors
+     */
+    public static function setCascadeFactors(array $cascadeFactors)
+    {
+        static::$cascadeFactors = $cascadeFactors;
     }
 
     /**
@@ -171,6 +184,67 @@ class CarbonInterval extends DateInterval
         }
 
         parent::__construct($spec);
+    }
+
+    /**
+     * Returns the factor for a given source-to-target couple.
+     *
+     * @param string $source
+     * @param string $target
+     *
+     * @return int|null
+     */
+    public static function getFactor($source, $target)
+    {
+        $factors = static::getCascadeFactors();
+        if (isset($factors[$source])) {
+            list($to, $factor) = $factors[$source];
+            if ($to === $target) {
+                return $factor;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns current config for days per week.
+     *
+     * @return int
+     */
+    public static function getDaysPerWeek()
+    {
+        return static::getFactor('dayz', 'weeks') ?: Carbon::DAYS_PER_WEEK;
+    }
+
+    /**
+     * Returns current config for hours per day.
+     *
+     * @return int
+     */
+    public static function getHoursPerDay()
+    {
+        return static::getFactor('hours', 'dayz') ?: Carbon::HOURS_PER_DAY;
+    }
+
+    /**
+     * Returns current config for minutes per hour.
+     *
+     * @return int
+     */
+    public static function getMinutesPerHours()
+    {
+        return static::getFactor('minutes', 'hours') ?: Carbon::MINUTES_PER_HOUR;
+    }
+
+    /**
+     * Returns current config for seconds per minute.
+     *
+     * @return int
+     */
+    public static function getSecondsPerMinutes()
+    {
+        return static::getFactor('seconds', 'minutes') ?: Carbon::SECONDS_PER_MINUTE;
     }
 
     /**
@@ -304,8 +378,8 @@ class CarbonInterval extends DateInterval
                 case 'weeks':
                 case 'w':
                     $weeks += $intValue;
-                    if ($fraction != 0) {
-                        $parts[] = array(null, $fraction * Carbon::DAYS_PER_WEEK, 'd');
+                    if ($fraction) {
+                        $parts[] = array(null, $fraction * static::getDaysPerWeek(), 'd');
                     }
                     break;
 
@@ -313,8 +387,8 @@ class CarbonInterval extends DateInterval
                 case 'days':
                 case 'd':
                     $days += $intValue;
-                    if ($fraction != 0) {
-                        $parts[] = array(null, $fraction * Carbon::HOURS_PER_DAY, 'h');
+                    if ($fraction) {
+                        $parts[] = array(null, $fraction * static::getHoursPerDay(), 'h');
                     }
                     break;
 
@@ -322,8 +396,8 @@ class CarbonInterval extends DateInterval
                 case 'hours':
                 case 'h':
                     $hours += $intValue;
-                    if ($fraction != 0) {
-                        $parts[] = array(null, $fraction * Carbon::MINUTES_PER_HOUR, 'm');
+                    if ($fraction) {
+                        $parts[] = array(null, $fraction * static::getMinutesPerHours(), 'm');
                     }
                     break;
 
@@ -331,8 +405,8 @@ class CarbonInterval extends DateInterval
                 case 'minutes':
                 case 'm':
                     $minutes += $intValue;
-                    if ($fraction != 0) {
-                        $seconds += round($fraction * Carbon::SECONDS_PER_MINUTE);
+                    if ($fraction) {
+                        $seconds += round($fraction * static::getSecondsPerMinutes());
                     }
                     break;
 
@@ -466,11 +540,11 @@ class CarbonInterval extends DateInterval
                 return $this->s;
 
             case 'weeks':
-                return (int) floor($this->d / Carbon::DAYS_PER_WEEK);
+                return (int) floor($this->d / static::getDaysPerWeek());
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
-                return $this->d % Carbon::DAYS_PER_WEEK;
+                return $this->d % static::getDaysPerWeek();
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
@@ -497,7 +571,7 @@ class CarbonInterval extends DateInterval
                 break;
 
             case 'weeks':
-                $this->d = $val * Carbon::DAYS_PER_WEEK;
+                $this->d = $val * static::getDaysPerWeek();
                 break;
 
             case 'dayz':
@@ -528,7 +602,7 @@ class CarbonInterval extends DateInterval
      */
     public function weeksAndDays($weeks, $days)
     {
-        $this->dayz = ($weeks * Carbon::DAYS_PER_WEEK) + $days;
+        $this->dayz = ($weeks * static::getDaysPerWeek()) + $days;
 
         return $this;
     }
@@ -561,7 +635,7 @@ class CarbonInterval extends DateInterval
 
             case 'weeks':
             case 'week':
-                $this->dayz = $arg * Carbon::DAYS_PER_WEEK;
+                $this->dayz = $arg * static::getDaysPerWeek();
                 break;
 
             case 'days':
@@ -592,24 +666,27 @@ class CarbonInterval extends DateInterval
     /**
      * Get the current interval in a human readable format in the current locale.
      *
+     * @param bool $short (false by default), returns short units if true
+     *
      * @return string
      */
-    public function forHumans()
+    public function forHumans($short = false)
     {
         $periods = array(
-            'year' => $this->years,
-            'month' => $this->months,
-            'week' => $this->weeks,
-            'day' => $this->daysExcludeWeeks,
-            'hour' => $this->hours,
-            'minute' => $this->minutes,
-            'second' => $this->seconds,
+            'year'   => array('y',   $this->years),
+            'month'  => array('m',   $this->months),
+            'week'   => array('w',   $this->weeks),
+            'day'    => array('d',   $this->daysExcludeWeeks),
+            'hour'   => array('h',   $this->hours),
+            'minute' => array('min', $this->minutes),
+            'second' => array('s',   $this->seconds),
         );
 
         $parts = array();
-        foreach ($periods as $unit => $count) {
+        foreach ($periods as $unit => $options) {
+            list($shortUnit, $count) = $options;
             if ($count > 0) {
-                $parts[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+                $parts[] = static::translator()->transChoice($short ? $shortUnit : $unit, $count, array(':count' => $count));
             }
         }
 
@@ -769,8 +846,10 @@ class CarbonInterval extends DateInterval
 
             $value = $this->$source;
 
-            $this->$source = $modulo = $value % $factor;
-            $this->$target += ($value - $modulo) / $factor;
+            if ($source !== 'dayz' || $target !== 'weeks') {
+                $this->$source = $modulo = $value % $factor;
+                $this->$target += ($value - $modulo) / $factor;
+            }
         }
 
         return $this;
@@ -815,7 +894,7 @@ class CarbonInterval extends DateInterval
         }
 
         if ($unit == 'weeks') {
-            return $result / Carbon::DAYS_PER_WEEK;
+            return $result / static::getDaysPerWeek();
         }
 
         return $result;
