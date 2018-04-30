@@ -31,7 +31,6 @@ class CascadeTest extends AbstractTestCase
 
     /**
      * @dataProvider provideCustomIntervalSpecs
-     * @group i
      */
     public function testCustomCascadesOverflowedValues($spec, $expected)
     {
@@ -42,10 +41,9 @@ class CascadeTest extends AbstractTestCase
             'hours' => array('dayz', 8),
             'dayz' => array('weeks', 5),
         ));
-        $this->assertSame(
-            $expected, CarbonInterval::fromString($spec)->cascade()->forHumans(true)
-        );
+        $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(true);
         CarbonInterval::setCascadeFactors($cascades);
+        $this->assertSame($expected, $actual);
     }
 
     public function provideCustomIntervalSpecs()
@@ -54,14 +52,13 @@ class CascadeTest extends AbstractTestCase
             array('3600s',                        '1h'),
             array('10000s',                       '2h 46m 40s'),
             array('1276d',                        '255w 1d'),
-            array('47d 14h',                      '9w 6h'),
-            array('2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 9w 1h 43m 37s'),
+            array('47d 14h',                      '9w 3d 6h'),
+            array('2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'),
         );
     }
 
     /**
      * @dataProvider provideCustomIntervalSpecsLongFormat
-     * @group j
      */
     public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
     {
@@ -72,20 +69,19 @@ class CascadeTest extends AbstractTestCase
             'hours' => array('dayz', 8),
             'dayz' => array('weeks', 5),
         ));
-        $this->assertSame(
-            $expected, CarbonInterval::fromString($spec)->cascade()->forHumans(false)
-        );
+        $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(false);
         CarbonInterval::setCascadeFactors($cascades);
+        $this->assertSame($expected, $actual);
     }
 
     public function provideCustomIntervalSpecsLongFormat()
     {
         return array(
-//            array('3600s',                        '1 hour'),
-//            array('10000s',                       '2 hours 46 minutes 40 seconds'),
-//            array('1276d',                        '255 weeks 1 day'),
-//            array('47d 14h',                      '9 weeks 6 hours'),
-            array('2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 6 weeks 2 days 1 hour 43 minute 37 seconds'),
+            array('3600s',                        '1 hour'),
+            array('10000s',                       '2 hours 46 minutes 40 seconds'),
+            array('1276d',                        '255 weeks 1 day'),
+            array('47d 14h',                      '9 weeks 3 days 6 hours'),
+            array('2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'),
         );
     }
 }

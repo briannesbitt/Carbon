@@ -165,7 +165,7 @@ class CarbonInterval extends DateInterval
             $spec .= $months > 0 ? $months.static::PERIOD_MONTHS : '';
 
             $specDays = 0;
-            $specDays += $weeks > 0 ? $weeks * Carbon::DAYS_PER_WEEK : 0;
+            $specDays += $weeks > 0 ? $weeks * static::getDaysPerWeek() : 0;
             $specDays += $days > 0 ? $days : 0;
 
             $spec .= $specDays > 0 ? $specDays.static::PERIOD_DAYS : '';
@@ -673,13 +673,13 @@ class CarbonInterval extends DateInterval
     public function forHumans($short = false)
     {
         $periods = array(
-            'year'   => array('y',   $this->years),
-            'month'  => array('m',   $this->months),
-            'week'   => array('w',   $this->weeks),
-            'day'    => array('d',   $this->daysExcludeWeeks),
-            'hour'   => array('h',   $this->hours),
+            'year' => array('y', $this->years),
+            'month' => array('m', $this->months),
+            'week' => array('w', $this->weeks),
+            'day' => array('d', $this->daysExcludeWeeks),
+            'hour' => array('h', $this->hours),
             'minute' => array('min', $this->minutes),
-            'second' => array('s',   $this->seconds),
+            'second' => array('s', $this->seconds),
         );
 
         $parts = array();
