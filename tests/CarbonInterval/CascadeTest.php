@@ -84,4 +84,22 @@ class CascadeTest extends AbstractTestCase
             array('2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'),
         );
     }
+
+    public function testMultipleAdd()
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'hours' => array('dayz', 8),
+            'dayz' => array('weeks', 5),
+        ));
+        $actual = CarbonInterval::fromString('3d')
+            ->add(CarbonInterval::fromString('1d 5h'))
+            ->add(CarbonInterval::fromString('7h'))
+            ->cascade()
+            ->forHumans(true);
+        CarbonInterval::setCascadeFactors($cascades);
+        $this->assertSame('1w 4h', $actual);
+    }
 }
