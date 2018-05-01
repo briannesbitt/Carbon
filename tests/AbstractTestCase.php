@@ -171,7 +171,8 @@ abstract class AbstractTestCase extends TestCase
     /**
      * Standarize given set of dates (or period) before assertion.
      *
-     * @param  array|\DatePeriod $dates
+     * @param array|\DatePeriod $dates
+     *
      * @return array
      */
     protected function standarizeDates($dates)
@@ -181,8 +182,7 @@ abstract class AbstractTestCase extends TestCase
         foreach ($dates as $date) {
             if ($date instanceof DateTime) {
                 $date = Carbon::instance($date);
-            }
-            else if (is_string($date)) {
+            } elseif (is_string($date)) {
                 $date = Carbon::parse($date);
             }
 

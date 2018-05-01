@@ -22,6 +22,7 @@ class CreateTest extends AbstractTestCase
 {
     /**
      * @dataProvider provideIso8601String
+     *
      * @throws \ReflectionException
      */
     public function testCreateFromIso8601String($arguments, $expected)
@@ -39,39 +40,20 @@ class CreateTest extends AbstractTestCase
     public function provideIso8601String()
     {
         return array(
-            // Recurrences / start date / interval.
             array(
                 array('R4/2012-07-01T00:00:00/P7D'),
-                array('2012-07-01', '2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
+                array('2012-07-01', '2012-07-08', '2012-07-15', '2012-07-22'),
             ),
             array(
                 array('R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE),
                 array('2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
             ),
-            array(
-                // Note: EXCLUDE_END_DATE should only matter if end date is specified, recurrences should not be altered.
-                array('R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_END_DATE),
-                array('2012-07-01', '2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
-            ),
-            array(
-                array('R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array('2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
-            ),
-            array(
-                array('R0/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE),
-                array(),
-            ),
-            // @todo Unbounded or omitted number of repetitions.
-            // @todo Recurrences / interval / end date.
-            // @todo Start date / end date.
-            // @todo Start date / interval / end date.
-            // @todo Invalid input.
-            // @todo Move testing options to a separate test.
         );
     }
 
     /**
      * @dataProvider provideStartDateAndEndDate
+     *
      * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
@@ -124,13 +106,12 @@ class CreateTest extends AbstractTestCase
                 array('2015-10-02', '2015-10-02', CarbonPeriod::EXCLUDE_END_DATE),
                 array(),
             ),
-            // @todo Invalid input.
-            // @todo Move testing options to a separate test.
         );
     }
 
     /**
      * @dataProvider provideStartDateAndIntervalAndEndDate
+     *
      * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
@@ -189,6 +170,7 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideStartDateAndIntervalAndRecurrences
+     *
      * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
@@ -211,26 +193,18 @@ class CreateTest extends AbstractTestCase
         return array(
             array(
                 array('2018-04-16', 'P2D', 3),
-                array('2018-04-16', '2018-04-18', '2018-04-20', '2018-04-22'),
+                array('2018-04-16', '2018-04-18', '2018-04-20'),
             ),
             array(
                 array('2018-04-30', 'P2M', 2, CarbonPeriod::EXCLUDE_START_DATE),
                 array('2018-06-30', '2018-08-30'),
-            ),
-            array(
-                // Note: EXCLUDE_END_DATE should only matter if end date is specified, recurrences should not be altered.
-                array('2018-05-30', 'P3Y', 3, CarbonPeriod::EXCLUDE_END_DATE),
-                array('2018-05-30', '2021-05-30', '2024-05-30', '2027-05-30'),
-            ),
-            array(
-                array('2018-05-30 17:35', 'PT5H', 2, CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array('2018-05-30 22:35', '2018-05-31 3:35'),
             ),
         );
     }
 
     /**
      * @dataProvider provideStartDateAndRecurrences
+     *
      * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
@@ -252,28 +226,19 @@ class CreateTest extends AbstractTestCase
         return array(
             array(
                 array('2018-04-16', 2),
-                array('2018-04-16', '2018-04-17', '2018-04-18'),
+                array('2018-04-16', '2018-04-17'),
             ),
             array(
                 array('2018-04-30', 1),
-                array('2018-04-30', '2018-05-01'),
-            ),
-            array(
-                // Note: EXCLUDE_END_DATE should only matter if end date is specified, recurrences should not be altered.
-                array('2018-04-30', 1, CarbonPeriod::EXCLUDE_END_DATE),
-                array('2018-04-30', '2018-05-01'),
+                array('2018-04-30'),
             ),
             array(
                 array('2018-04-30', 1, CarbonPeriod::EXCLUDE_START_DATE),
                 array('2018-05-01'),
             ),
             array(
-                array('2018-04-30', 1, CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array(),
-            ),
-            array(
                 array('2018-05-17', 0),
-                array('2018-05-17'),
+                array(),
             ),
             array(
                 array('2018-05-17', -1),
@@ -299,6 +264,46 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid constructor parameters.
+     */
+    public function testCreateFromInvalidStartDate()
+    {
+        CarbonPeriod::create(
+            new \stdClass,
+            CarbonInterval::days(1),
+            Carbon::tomorrow()
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid constructor parameters.
+     */
+    public function testCreateFromInvalidEndDate()
+    {
+        CarbonPeriod::create(
+            Carbon::now(),
+            CarbonInterval::days(1),
+            new \stdClass
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid constructor parameters.
+     */
+    public function testCreateFromInvalidInterval()
+    {
+        CarbonPeriod::create(
+            Carbon::now(),
+            new \stdClass,
+            Carbon::tomorrow()
+        );
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Empty interval is not accepted.
      */
     public function testCreateFromEmptyInterval()
     {
@@ -327,6 +332,14 @@ class CreateTest extends AbstractTestCase
         );
     }
 
+    /**
+     * Incorrect behaviour is caused by a bug in DateTime handling of DST backward change.
+     * It was fixed by incrementing date casted to UTC, but offsets are still kind of wrong.
+     *
+     * @see https://bugs.php.net/bug.php?id=72255
+     * @see https://bugs.php.net/bug.php?id=74274
+     * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
+     */
     public function testCreateOnDstBackwardChange()
     {
         $period = CarbonPeriod::create(
@@ -337,10 +350,10 @@ class CreateTest extends AbstractTestCase
 
         $this->assertEquals(
             array(
-                // @todo Is that how it works?
                 '2018-10-28 01:30:00 +02:00',
-                '2018-10-28 02:00:00 +02:00',
-                '2018-10-28 02:30:00 +02:00',
+                // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
+                '2018-10-28 02:00:00 +01:00',
+                '2018-10-28 02:30:00 +01:00',
                 '2018-10-28 02:00:00 +01:00',
                 '2018-10-28 02:30:00 +01:00',
                 '2018-10-28 03:00:00 +01:00',
@@ -348,5 +361,56 @@ class CreateTest extends AbstractTestCase
             ),
             $this->standarizeDates($period)
         );
+    }
+
+    public function testInternalVariablesCannotBeIndirectlyModified()
+    {
+        $period = CarbonPeriod::create(
+            $start = new DateTime('2018-04-16'),
+            $interval = new DateInterval('P1M'),
+            $end = new DateTime('2018-07-15')
+        );
+
+        $start->modify('-5 days');
+        $interval->d = 15;
+        $end->modify('+5 days');
+
+        $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
+        $this->assertEquals('P1M', $period->getDateInterval()->spec());
+        $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
+
+        $period = CarbonPeriod::create(
+            $start = new Carbon('2018-04-16'),
+            $interval = new CarbonInterval('P1M'),
+            $end = new Carbon('2018-07-15')
+        );
+
+        $start->subDays(5);
+        $interval->days(15);
+        $end->addDays(5);
+
+        $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
+        $this->assertEquals('P1M', $period->getDateInterval()->spec());
+        $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
+    }
+
+    public function testCreateFluently()
+    {
+        $period = CarbonPeriod::create();
+
+        $this->assertNull($period->getStartDate());
+        $this->assertSame('P1D', $period->getDateInterval()->spec());
+        $this->assertNull($period->getEndDate());
+        $this->assertNull($period->getRecurrences());
+
+        $period->setStartDate('2018-03-25')
+            ->setDateInterval('P3D')
+            ->setEndDate('2018-04-25')
+            ->setRecurrences(5);
+
+        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertSame('P3D', $period->getDateInterval()->spec());
+        $this->assertSame('2018-04-25', $period->getEndDate()->toDateString());
+        $this->assertSame(5, $period->getRecurrences());
     }
 }

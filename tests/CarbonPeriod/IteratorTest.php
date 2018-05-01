@@ -52,7 +52,7 @@ class IteratorTest extends AbstractTestCase
 
         foreach ($period as $key => $current) {
             $this->assertInstanceOfCarbon($current);
-            $this->assertSame($current, $period->current());
+            $this->assertEquals($current, $period->current());
         }
     }
 
@@ -89,13 +89,14 @@ class IteratorTest extends AbstractTestCase
         $this->assertEquals('2012-07-04 00:00:00', $period->current()->format('Y-m-d H:i:s'));
     }
 
-    public function testKeyAndCurrentAreRewindedAfterForeach()
+    public function testKeyAndCurrentAreNullAfterIteration()
     {
         $period = $this->makePeriod();
 
-        foreach ($period as $key => $current) {}
+        foreach ($period as $key => $current) {
+        }
 
-        $this->assertEquals(0, $period->key());
-        $this->assertEquals('2012-07-04 00:00:00', $period->current()->format('Y-m-d H:i:s'));
+        $this->assertNull($period->key());
+        $this->assertNull($period->current());
     }
 }

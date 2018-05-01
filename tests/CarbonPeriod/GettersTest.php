@@ -95,7 +95,7 @@ class GettersTest extends AbstractTestCase
 
         $period->getStartDate()->subDays(3);
 
-        $this->assertSame('2012-06-28', $period->getStartDate()->format('Y-m-d'));
+        $this->assertSame('2012-07-01', $period->getStartDate()->format('Y-m-d'));
     }
 
     /**
@@ -107,7 +107,7 @@ class GettersTest extends AbstractTestCase
 
         $period->getEndDate()->addDays(3);
 
-        $this->assertSame('2012-07-18', $period->getEndDate()->format('Y-m-d'));
+        $this->assertSame('2012-07-15', $period->getEndDate()->format('Y-m-d'));
     }
 
     /**
@@ -119,6 +119,6 @@ class GettersTest extends AbstractTestCase
 
         $period->getDateInterval()->days(5)->hours(0);
 
-        $this->assertSame('P5D', $period->getDateInterval()->spec());
+        $this->assertSame('P3DT5H', $period->getDateInterval()->spec());
     }
 }
