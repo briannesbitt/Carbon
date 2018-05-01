@@ -14,6 +14,7 @@ namespace Tests;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Closure;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
@@ -165,5 +166,29 @@ abstract class AbstractTestCase extends TestCase
     protected function wrapWithNonDstDate(Closure $func)
     {
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
+    }
+
+    /**
+     * Standarize given set of dates (or period) before assertion.
+     *
+     * @param  array|\DatePeriod $dates
+     * @return array
+     */
+    protected function standarizeDates($dates)
+    {
+        $result = array();
+
+        foreach ($dates as $date) {
+            if ($date instanceof DateTime) {
+                $date = Carbon::instance($date);
+            }
+            else if (is_string($date)) {
+                $date = Carbon::parse($date);
+            }
+
+            $result[] = $date->format('Y-m-d H:i:s P');
+        }
+
+        return $result;
     }
 }

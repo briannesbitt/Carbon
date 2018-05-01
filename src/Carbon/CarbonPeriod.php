@@ -26,7 +26,8 @@ class CarbonPeriod implements Iterator
 {
     const EXCLUDE_START_DATE = 1;
     const EXCLUDE_END_DATE = 2;
-    const END_ITERATION = 'CarbonPeriod::END_ITERATION';
+    const END_ITERATION = 'Carbon\CarbonPeriod::END_ITERATION';
+    const RECURRENCES_FILTER = 'Carbon\CarbonPeriod::filterRecurrences';
 
     /**
      * @var Carbon
@@ -62,6 +63,11 @@ class CarbonPeriod implements Iterator
      * @var array
      */
     protected $filters = array();
+
+    /**
+     * @var int|null
+     */
+    protected $recurrences;
 
     /**
      * CarbonPeriod constructor.
@@ -234,6 +240,16 @@ class CarbonPeriod implements Iterator
     }
 
     /**
+     * Get number of recurrences.
+     *
+     * @return int|null
+     */
+    public function getRecurrences()
+    {
+        return $this->recurrences;
+    }
+
+    /**
      * Returns true if the exclude_start_date option is set.
      *
      * @return bool
@@ -276,9 +292,11 @@ class CarbonPeriod implements Iterator
      *
      * @return bool|static::END_ITERATION
      */
-    public function passFilters($current, $key, $iterator)
+    public function checkFilters($current, $key, $iterator)
     {
-        foreach ($this->filters as $filter) {
+        foreach ($this->filters as $tuple) {
+            list($filter) = $tuple;
+
             $result = call_user_func($filter, static::carbonify($current), $key, $iterator);
 
             if ($result === static::END_ITERATION || !$result) {
@@ -290,21 +308,124 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Add a filter.
+     * Recurrences filter callback (limits number of recurrences).
+     *
+     * @param \Carbon\Carbon $current
+     * @param int $key
+     * @return bool
+     */
+    private function filterRecurrences($current, $key)
+    {
+        $max = $this->hasStartExcluded() ? $this->recurrences - 1 : $this->recurrences;
+
+        if ($key > $max) {
+            return static::END_ITERATION;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add a filter to the stack.
      *
      * @param callable $callback
+     * @param string $name
      *
      * @return $this
      */
-    public function filter($callback)
+    public function addFilter($callback, $name = null)
     {
-        $this->filters[] = $callback;
+        $this->filters[] = [$callback, $name];
 
         return $this;
     }
 
     /**
-     * Remove all filters.
+     * Prepend a filter to the stack.
+     *
+     * @param callable $callback
+     * @param string $name
+     *
+     * @return $this
+     */
+    public function prependFilter($callback, $name = null)
+    {
+        array_unshift($this->filters, [$callback, $name]);
+
+        return $this;
+    }
+
+    /**
+     * Remove a filter by instance or name.
+     * 
+     * @param callable|string $filter
+     *
+     * @return $this
+     */
+    public function removeFilter($remove)
+    {
+        $key = is_callable($remove) ? 0 : 1;
+
+        $this->filters = array_values(array_filter(
+            $this->filters,
+            function ($tuple) use ($key, $remove) {
+                return $tuple[$key] !== $remove;
+            }
+        ));
+
+        if ($remove === static::RECURRENCES_FILTER) {
+            $this->recurrences = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Return filter is in the stack given either instance or name.
+     * 
+     * @param callable|string $filter
+     *
+     * @return bool
+     */
+    public function hasFilter($filter)
+    {
+        $key = is_callable($filter) ? 0 : 1;
+
+        foreach ($this->filters as $tuple) {
+            if ($tuple[$key] === $filter) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get filters stack.
+     *
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+
+    /**
+     * Set filters stack.
+     *
+     * @param array $filters
+     *
+     * @return $this
+     */
+    public function setFilters(array $filters)
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Reset filters stack.
      *
      * @return $this
      */
@@ -316,7 +437,7 @@ class CarbonPeriod implements Iterator
     }
 
     /**
-     * Add a recurrences filter (set maximum of iterations).
+     * Add a recurrences filter (set maximum number of recurrences).
      *
      * @param int $recurrences
      *
@@ -324,9 +445,12 @@ class CarbonPeriod implements Iterator
      */
     public function recurrences($recurrences)
     {
-        return $this->filter(function ($current, $key, $self) use ($recurrences) {
-            return ($key <= $recurrences - ($self->hasStartExcluded() ? 1 : 0)) ?: $self::END_ITERATION;
-        });
+        $this->removeFilter(static::RECURRENCES_FILTER);
+        $this->addFilter(static::RECURRENCES_FILTER);
+
+        $this->recurrences = $recurrences;
+
+        return $this;
     }
 
     /**
@@ -344,7 +468,7 @@ class CarbonPeriod implements Iterator
 
     protected function checkValidDate($currentDate, $key)
     {
-        $result = $this->passFilters($currentDate, $key, $this);
+        $result = $this->checkFilters($currentDate, $key, $this);
         if ($result === static::END_ITERATION || ($this->endDate && ($this->hasEndExcluded()
                 ? $currentDate >= $this->endDate
                 : $currentDate > $this->endDate

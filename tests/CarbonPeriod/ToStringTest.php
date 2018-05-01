@@ -23,7 +23,15 @@ class ToStringTest extends AbstractTestCase
     public function testToString()
     {
         $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
-        self::assertSame('from 2015-09-30 00:00:00 to 2015-10-03 00:00:00', 'from '.$period->getStartDate().' to '.$period->getEndDate());
-        self::assertSame('2015-09-30 00:00:00 → 2015-10-03 00:00:00', strval($period));
+
+        $this->assertSame(
+        	'2015-09-30 00:00:00 → 2015-10-03 00:00:00',
+        	$period->getStartDate().' → '.$period->getEndDate()
+        );
+
+        $this->assertSame(
+        	'2015-09-30 00:00:00 → 2015-10-03 00:00:00',
+        	strval($period)
+        );
     }
 }
