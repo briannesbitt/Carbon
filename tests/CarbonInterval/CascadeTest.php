@@ -102,4 +102,21 @@ class CascadeTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($cascades);
         $this->assertSame('1w 4h', $actual);
     }
+
+    public function testFactorsGroups()
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
+            'dayz' => array('weeks', 5),
+        ));
+        $actual = CarbonInterval::fromString('3d 50m')
+            ->add(CarbonInterval::fromString('1d 5h 30m'))
+            ->add(CarbonInterval::fromString('7h 45m'))
+            ->add(CarbonInterval::fromString('1w 15m'))
+            ->cascade()
+            ->forHumans(true);
+        CarbonInterval::setCascadeFactors($cascades);
+        $this->assertSame('1w 4d 14h 20m', $actual);
+    }
 }
