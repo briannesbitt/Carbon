@@ -28,4 +28,9 @@ return array(
     'from_now' => 'over :time',
     'after' => ':time later',
     'before' => ':time eerder',
+    'diff_now' => 'nu',
+    'diff_yesterday' => 'gisteren',
+    'diff_tomorrow' => 'morgen',
+    'diff_after_tomorrow' => 'overmorgen',
+    //'diff_before_tomorrow' => 'before yesterday', AFAIK this is not a thing in Dutch.
 );
