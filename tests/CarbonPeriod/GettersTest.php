@@ -13,24 +13,17 @@ namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use DateInterval;
 use DateTime;
 use Tests\AbstractTestCase;
+use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
 class GettersTest extends AbstractTestCase
 {
-    protected function makePeriod()
-    {
-        return CarbonPeriod::create(
-            new DateTime('2012-07-01 17:30:00'),
-            new DateInterval('P3DT5H'),
-            new DateTime('2012-07-15 11:15:00')
-        );
-    }
-
     public function testGetStartDate()
     {
-        $date = $this->makePeriod()->getStartDate();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
+
+        $date = $period->getStartDate();
 
         $this->assertInstanceOfCarbon($date);
 
@@ -39,7 +32,9 @@ class GettersTest extends AbstractTestCase
 
     public function testGetEndDate()
     {
-        $date = $this->makePeriod()->getEndDate();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
+
+        $date = $period->getEndDate();
 
         $this->assertInstanceOfCarbon($date);
 
@@ -48,7 +43,9 @@ class GettersTest extends AbstractTestCase
 
     public function testGetDateInterval()
     {
-        $interval = $this->makePeriod()->getDateInterval();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
+
+        $interval = $period->getDateInterval();
 
         $this->assertInstanceOfCarbonInterval($interval);
 
@@ -73,7 +70,7 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyStartDate()
     {
-        $period = $this->makePeriod();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
 
         $period->getStartDate()->subDays(3);
 
@@ -82,7 +79,7 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyEndDate()
     {
-        $period = $this->makePeriod();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
 
         $period->getEndDate()->addDays(3);
 
@@ -91,10 +88,21 @@ class GettersTest extends AbstractTestCase
 
     public function testModifyDateInterval()
     {
-        $period = $this->makePeriod();
+        $period = CarbonPeriodFactory::withStartIntervalEnd();
 
         $period->getDateInterval()->days(5)->hours(0);
 
         $this->assertSame('P3DT5H', $period->getDateInterval()->spec());
+    }
+
+    public function testGetOptions()
+    {
+        $period = new CarbonPeriod;
+
+        $this->assertSame(0, $period->getOptions());
+
+        $period = new CarbonPeriod(new DateTime, new DateTime, $options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
+
+        $this->assertSame($options, $period->getOptions());
     }
 }

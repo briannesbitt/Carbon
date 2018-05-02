@@ -17,6 +17,7 @@ use Carbon\CarbonPeriod;
 use DateInterval;
 use DateTime;
 use Tests\AbstractTestCase;
+use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
 
 class FilterTest extends AbstractTestCase
 {
@@ -170,30 +171,7 @@ class FilterTest extends AbstractTestCase
         });
 
         $this->assertEquals(
-            // Note: an hour of difference caused by DST change.
-            $this->standardizeDates(array('2018-02-15 23:00', '2018-07-16 00:00', '2018-12-15 23:00')),
-            $this->standardizeDates($period)
-        );
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function testAcceptOnlyEvenDays()
-    {
-        $period = CarbonPeriod::create(
-            new Carbon('2012-07-01'),
-            new CarbonInterval('P3D'),
-            new Carbon('2012-07-16'),
-            CarbonPeriod::EXCLUDE_END_DATE
-        );
-
-        $period->addFilter(function ($date) {
-            return $date->day % 2 == 0;
-        });
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2012-07-04', '2012-07-10')),
+            $this->standardizeDates(array('2018-02-16', '2018-07-16', '2018-12-16')),
             $this->standardizeDates($period)
         );
     }
@@ -303,7 +281,7 @@ class FilterTest extends AbstractTestCase
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Could not find next valid date.
      */
-    public function testGrumpyFilter()
+    public function testThrowExceptionWhenNextValidDateCannotBeFound()
     {
         $period = CarbonPeriod::create(
             new Carbon('2000-01-01'), new CarbonInterval('PT1S'), new Carbon('2000-12-31')
@@ -325,5 +303,54 @@ class FilterTest extends AbstractTestCase
         $period->setRecurrences(null);
 
         $this->assertEmpty($period->getFilters());
+    }
+
+    /**
+     * Relies on caching validation and iteration results.
+     */
+    public function testAcceptEveryOther()
+    {
+        $period = new CarbonPeriod(
+            new DateTime('2018-04-16'), new DateTime('2018-04-20')
+        );
+
+        $period->addFilter(function ($date) {
+            static $accept;
+
+            return $accept = !$accept;
+        });
+
+        $this->assertEquals(
+            // Note: Without caching validation results the dates would be unpredictable
+            // as we cannot know how many calls to validator occur per iteration.
+            $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
+            $this->standardizeDates($period)
+        );
+
+        $this->assertEquals(
+            // Note: Without caching iteration results the dates would be complementary
+            // to the above as this time first item would be rejected.
+            $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testEndIterationFilter()
+    {
+        $period = new CarbonPeriod('2018-04-16', 5);
+
+        $period->addFilter(CarbonPeriod::END_ITERATION);
+
+        $this->assertEmpty($this->standardizeDates($period));
+    }
+
+    public function testAcceptOnlyEvenDays()
+    {
+        $period = CarbonPeriodFactory::withEvenDaysFilter();
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates($period)
+        );
     }
 }

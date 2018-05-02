@@ -743,6 +743,30 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Convert the interval to a CarbonPeriod.
+     *
+     * @return CarbonPeriod
+     */
+    public function toPeriod()
+    {
+        return CarbonPeriod::createFromArray(
+            array_merge(array($this), func_get_args())
+        );
+    }
+
+    /**
+     * Invert the interval.
+     *
+     * @return $this
+     */
+    public function invert()
+    {
+        $this->invert = $this->invert ? 0 : 1;
+
+        return $this;
+    }
+
+    /**
      * Add the passed interval to the current instance
      *
      * @param DateInterval $interval

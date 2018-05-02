@@ -46,6 +46,71 @@ class CreateTest extends AbstractTestCase
                 array('R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE),
                 array('2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
             ),
+            array(
+                array('2012-07-01/P2D/2012-07-07'),
+                array('2012-07-01', '2012-07-03', '2012-07-05', '2012-07-07'),
+            ),
+            array(
+                array('2012-07-01/2012-07-04', CarbonPeriod::EXCLUDE_END_DATE),
+                array('2012-07-01', '2012-07-02', '2012-07-03'),
+            ),
+            array(
+                array('R2/2012-07-01T10:30:45Z/P2D'),
+                array('2012-07-01 10:30:45 UTC', '2012-07-03 10:30:45 UTC'),
+            ),
+        );
+    }
+
+    public function testCreateFromIso8601StringWithUnboundedRecurrences()
+    {
+        $period = CarbonPeriod::create('R/2012-07-01T00:00:00/P7D');
+
+        $this->assertEquals('2012-07-01', $period->getStartDate()->toDateString());
+        $this->assertEquals('P7D', $period->getDateInterval()->spec());
+        $this->assertNull($period->getEndDate());
+        $this->assertNull($period->getRecurrences());
+    }
+
+    /**
+     * @dataProvider providePartialIso8601String
+     */
+    public function testCreateFromPartialIso8601String($iso, $from, $to)
+    {
+        $period = CarbonPeriod::create($iso);
+
+        $this->assertEquals(
+            $this->standardizeDates(array($from, $to)),
+            $this->standardizeDates(array($period->getStartDate(),  $period->getEndDate()))
+        );
+    }
+
+    public function providePartialIso8601String()
+    {
+        return array(
+            array('2008-02-15/03-14', '2008-02-15', '2008-03-14'),
+            array('2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'),
+        );
+    }
+
+    /**
+     * @dataProvider provideInvalidIso8601String
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Invalid ISO 8601 specification:
+     */
+    public function testCreateFromInvalidIso8601String($iso)
+    {
+        CarbonPeriod::create($iso);
+    }
+
+    public function provideInvalidIso8601String()
+    {
+        return array(
+            array('R2/R4'),
+            array('2008-02-15/2008-02-16/2008-02-17'),
+            array('P1D/2008-02-15/P2D'),
+            array('2008-02-15/R5'),
+            array('P2D/R'),
+            array('/'),
         );
     }
 
@@ -246,63 +311,32 @@ class CreateTest extends AbstractTestCase
     }
 
     /**
+     * @dataProvider provideInvalidParameters
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Invalid constructor parameters.
      */
-    public function testCreateFromInvalidStartDate()
+    public function testCreateFromInvalidParameters()
     {
-        CarbonPeriod::create(
-            new \stdClass,
-            CarbonInterval::days(1),
-            Carbon::tomorrow()
-        );
+        call_user_func_array('Carbon\CarbonPeriod::create', func_get_args());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid constructor parameters.
-     */
-    public function testCreateFromInvalidEndDate()
+    public function provideInvalidParameters()
     {
-        CarbonPeriod::create(
-            Carbon::now(),
-            CarbonInterval::days(1),
-            new \stdClass
-        );
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid constructor parameters.
-     */
-    public function testCreateFromInvalidInterval()
-    {
-        CarbonPeriod::create(
-            Carbon::now(),
-            new \stdClass,
-            Carbon::tomorrow()
-        );
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Empty interval is not accepted.
-     */
-    public function testCreateFromEmptyInterval()
-    {
-        CarbonPeriod::create(
-            Carbon::now(),
-            CarbonInterval::days(0),
-            Carbon::tomorrow()
+        return array(
+            array(new \stdClass, CarbonInterval::days(1), Carbon::tomorrow()),
+            array(Carbon::now(), new \stdClass, Carbon::tomorrow()),
+            array(Carbon::now(), CarbonInterval::days(1), new \stdClass),
+            array(Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()),
+            array(CarbonInterval::day(), CarbonInterval::hour()),
+            array(5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE),
+            array('2017-10-15/P3D', CarbonInterval::hour()),
         );
     }
 
     public function testCreateOnDstForwardChange()
     {
         $period = CarbonPeriod::create(
-            Carbon::parse('2018-03-25 1:30 Europe/Oslo'),
-            CarbonInterval::create('PT30M'),
-            Carbon::parse('2018-03-25 3:30 Europe/Oslo')
+            '2018-03-25 1:30 Europe/Oslo', 'PT30M', '2018-03-25 3:30 Europe/Oslo'
         );
 
         $this->assertEquals(
@@ -326,9 +360,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateOnDstBackwardChange()
     {
         $period = CarbonPeriod::create(
-            Carbon::parse('2018-10-28 1:30 Europe/Oslo'),
-            CarbonInterval::create('PT30M'),
-            Carbon::parse('2018-10-28 3:30 Europe/Oslo')
+            '2018-10-28 1:30 Europe/Oslo', 'PT30M', '2018-10-28 3:30 Europe/Oslo'
         );
 
         $this->assertEquals(
@@ -375,5 +407,61 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
         $this->assertEquals('P1M', $period->getDateInterval()->spec());
         $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
+    }
+
+    public function testCreateFromArray()
+    {
+        $period = CarbonPeriod::createFromArray(array(
+            '2018-03-25', 'P2D', '2018-04-01', CarbonPeriod::EXCLUDE_END_DATE,
+        ));
+
+        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertEquals('P2D', $period->getDateInterval()->spec());
+        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+    }
+
+    public function testCreateBetween()
+    {
+        $period = CarbonPeriod::createBetween('2018-03-25', '2018-04-01', 'P2D', CarbonPeriod::EXCLUDE_END_DATE);
+
+        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertEquals('P2D', $period->getDateInterval()->spec());
+        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+    }
+
+    public function testCreateFromIso()
+    {
+        $period = CarbonPeriod::createFromIso('R3/2018-03-25/P2D/2018-04-01', CarbonPeriod::EXCLUDE_END_DATE);
+
+        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertEquals('P2D', $period->getDateInterval()->spec());
+        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertEquals(3, $period->getRecurrences());
+        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+    }
+
+    public function testCreateEmpty()
+    {
+        $period = new CarbonPeriod;
+
+        $this->assertNull($period->getStartDate());
+        $this->assertSame('P1D', $period->getDateInterval()->spec());
+        $this->assertNull($period->getEndDate());
+        $this->assertNull($period->getRecurrences());
+        $this->assertSame(0, $period->getOptions());
+
+        $this->assertEmpty($this->standardizeDates($period));
+    }
+
+    public function testCreateFromDateStringsWithTimezones()
+    {
+        $period = CarbonPeriod::create(
+            $start = '2018-03-25 10:15:30 Europe/Oslo', $end = '2018-03-28 17:25:30 Asia/Kamchatka'
+        );
+
+        $this->assertEquals($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
+        $this->assertEquals($end, $period->getEndDate()->format('Y-m-d H:i:s e'));
     }
 }
