@@ -18,9 +18,6 @@ use Tests\AbstractTestCase;
 
 class ToStringTest extends AbstractTestCase
 {
-    /**
-     * @throws \ReflectionException
-     */
     public function testToString()
     {
         $this->assertSame(
@@ -36,6 +33,11 @@ class ToStringTest extends AbstractTestCase
         $this->assertSame(
             'Every 3 days 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
             CarbonPeriod::create(Carbon::parse('2015-09-30 12:50'), CarbonInterval::days(3)->hours(5), Carbon::parse('2015-10-03 19:00'))->toString()
+        );
+
+        $this->assertSame(
+            'Every 3 days 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
+            strval(CarbonPeriod::create(Carbon::parse('2015-09-30 12:50'), CarbonInterval::days(3)->hours(5), Carbon::parse('2015-10-03 19:00')))
         );
     }
 
@@ -54,6 +56,11 @@ class ToStringTest extends AbstractTestCase
         $this->assertSame(
             '2015-09-30T00:00:00-04:00/P3DT5H/2015-10-03T00:00:00-04:00',
             CarbonPeriod::create(Carbon::parse('2015-09-30'), CarbonInterval::days(3)->hours(5), Carbon::parse('2015-10-03'))->toIso8601String()
+        );
+
+        $this->assertSame(
+            '2015-09-30T00:00:00-04:00/P3DT5H/2015-10-03T00:00:00-04:00',
+            CarbonPeriod::create(Carbon::parse('2015-09-30'), CarbonInterval::days(3)->hours(5), Carbon::parse('2015-10-03'))->spec()
         );
     }
 }

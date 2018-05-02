@@ -137,9 +137,6 @@ class FilterTest extends AbstractTestCase
         ), $period->getFilters());
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testAcceptOnlyWeekdays()
     {
         Carbon::setWeekendDays(array(
@@ -154,8 +151,8 @@ class FilterTest extends AbstractTestCase
         });
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-18', '2018-04-26', '2018-04-30', '2018-05-04')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-18', '2018-04-26', '2018-04-30', '2018-05-04')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -174,8 +171,8 @@ class FilterTest extends AbstractTestCase
 
         $this->assertEquals(
             // Note: an hour of difference caused by DST change.
-            $this->standarizeDates(array('2018-02-15 23:00', '2018-07-16 00:00', '2018-12-15 23:00')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-02-15 23:00', '2018-07-16 00:00', '2018-12-15 23:00')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -196,8 +193,8 @@ class FilterTest extends AbstractTestCase
         });
 
         $this->assertEquals(
-            $this->standarizeDates(array('2012-07-04', '2012-07-10')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2012-07-04', '2012-07-10')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -215,8 +212,8 @@ class FilterTest extends AbstractTestCase
         });
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-16', '2018-04-19', '2018-04-22', '2018-04-25', '2018-04-28')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-16', '2018-04-19', '2018-04-22', '2018-04-25', '2018-04-28')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -229,22 +226,22 @@ class FilterTest extends AbstractTestCase
         $period->setRecurrences(2);
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-16', '2018-04-17')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-16', '2018-04-17')),
+            $this->standardizeDates($period)
         );
 
         $period->setOptions(CarbonPeriod::EXCLUDE_START_DATE);
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-17', '2018-04-18')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-17', '2018-04-18')),
+            $this->standardizeDates($period)
         );
 
         $period->setOptions(CarbonPeriod::EXCLUDE_END_DATE);
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-16', '2018-04-17')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-16', '2018-04-17')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -259,8 +256,24 @@ class FilterTest extends AbstractTestCase
             ->setRecurrences(3);
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testResetNumberOfRecurrences()
+    {
+        $period = new CarbonPeriod(
+            new DateTime('2018-04-16'), new DateTime('2018-07-15')
+        );
+
+        $period->setRecurrences(1)
+            ->resetFilters()
+            ->setRecurrences(3);
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -272,10 +285,11 @@ class FilterTest extends AbstractTestCase
 
         $wasCalled = false;
 
-        $period->addFilter(function ($current, $key, $iterator) use (&$wasCalled, $period) {
-            $this->assertInstanceOfCarbon($current);
-            $this->assertInternalType('int', $key);
-            $this->assertSame($period, $iterator);
+        $test = $this;
+        $period->addFilter(function ($current, $key, $iterator) use (&$wasCalled, $period, $test) {
+            $test->assertInstanceOfCarbon($current);
+            $test->assertInternalType('int', $key);
+            $test->assertSame($period, $iterator);
 
             return $wasCalled = true;
         });

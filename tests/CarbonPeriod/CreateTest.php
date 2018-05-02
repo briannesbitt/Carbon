@@ -22,8 +22,6 @@ class CreateTest extends AbstractTestCase
 {
     /**
      * @dataProvider provideIso8601String
-     *
-     * @throws \ReflectionException
      */
     public function testCreateFromIso8601String($arguments, $expected)
     {
@@ -32,8 +30,8 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($iso, $options);
 
         $this->assertEquals(
-            $this->standarizeDates($expected),
-            $this->standarizeDates($period)
+            $this->standardizeDates($expected),
+            $this->standardizeDates($period)
         );
     }
 
@@ -53,8 +51,6 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideStartDateAndEndDate
-     *
-     * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
     {
@@ -66,8 +62,8 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($start, $end, $options);
 
         $this->assertEquals(
-            $this->standarizeDates($expected),
-            $this->standarizeDates($period)
+            $this->standardizeDates($expected),
+            $this->standardizeDates($period)
         );
     }
 
@@ -111,8 +107,6 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideStartDateAndIntervalAndEndDate
-     *
-     * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
     {
@@ -125,8 +119,8 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($start, $interval, $end, $options);
 
         $this->assertEquals(
-            $this->standarizeDates($expected),
-            $this->standarizeDates($period)
+            $this->standardizeDates($expected),
+            $this->standardizeDates($period)
         );
     }
 
@@ -170,8 +164,6 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideStartDateAndIntervalAndRecurrences
-     *
-     * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
     {
@@ -183,8 +175,8 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($start, $interval, $recurrences, $options);
 
         $this->assertEquals(
-            $this->standarizeDates($expected),
-            $this->standarizeDates($period)
+            $this->standardizeDates($expected),
+            $this->standardizeDates($period)
         );
     }
 
@@ -204,8 +196,6 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideStartDateAndRecurrences
-     *
-     * @throws \ReflectionException
      */
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
     {
@@ -216,8 +206,8 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($start, $recurrences, $options);
 
         $this->assertEquals(
-            $this->standarizeDates($expected),
-            $this->standarizeDates($period)
+            $this->standardizeDates($expected),
+            $this->standardizeDates($period)
         );
     }
 
@@ -240,16 +230,9 @@ class CreateTest extends AbstractTestCase
                 array('2018-05-17', 0),
                 array(),
             ),
-            array(
-                array('2018-05-17', -1),
-                array(),
-            ),
         );
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testCreateFromBaseClasses()
     {
         $period = CarbonPeriod::create(
@@ -257,8 +240,8 @@ class CreateTest extends AbstractTestCase
         );
 
         $this->assertEquals(
-            $this->standarizeDates(array('2018-04-16', '2018-05-16', '2018-06-16')),
-            $this->standarizeDates($period)
+            $this->standardizeDates(array('2018-04-16', '2018-05-16', '2018-06-16')),
+            $this->standardizeDates($period)
         );
     }
 
@@ -328,7 +311,7 @@ class CreateTest extends AbstractTestCase
                 '2018-03-25 03:00:00 +02:00',
                 '2018-03-25 03:30:00 +02:00',
             ),
-            $this->standarizeDates($period)
+            $this->standardizeDates($period)
         );
     }
 
@@ -359,7 +342,7 @@ class CreateTest extends AbstractTestCase
                 '2018-10-28 03:00:00 +01:00',
                 '2018-10-28 03:30:00 +01:00',
             ),
-            $this->standarizeDates($period)
+            $this->standardizeDates($period)
         );
     }
 
@@ -392,25 +375,5 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
         $this->assertEquals('P1M', $period->getDateInterval()->spec());
         $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
-    }
-
-    public function testCreateFluently()
-    {
-        $period = CarbonPeriod::create();
-
-        $this->assertNull($period->getStartDate());
-        $this->assertSame('P1D', $period->getDateInterval()->spec());
-        $this->assertNull($period->getEndDate());
-        $this->assertNull($period->getRecurrences());
-
-        $period->setStartDate('2018-03-25')
-            ->setDateInterval('P3D')
-            ->setEndDate('2018-04-25')
-            ->setRecurrences(5);
-
-        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
-        $this->assertSame('P3D', $period->getDateInterval()->spec());
-        $this->assertSame('2018-04-25', $period->getEndDate()->toDateString());
-        $this->assertSame(5, $period->getRecurrences());
     }
 }

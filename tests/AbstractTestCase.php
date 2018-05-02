@@ -46,7 +46,7 @@ abstract class AbstractTestCase extends TestCase
         Carbon::resetMonthsOverflow();
     }
 
-    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $actual = array(
             'years' => $year,
@@ -83,7 +83,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $actual = array();
 
@@ -112,12 +112,12 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertInstanceOfCarbon($d)
+    public function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf('Carbon\Carbon', $d);
     }
 
-    protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
         $expected = array('years' => $ci->years);
 
@@ -151,31 +151,31 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertInstanceOfCarbonInterval($d)
+    public function assertInstanceOfCarbonInterval($d)
     {
         $this->assertInstanceOf('Carbon\CarbonInterval', $d);
     }
 
-    protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    public function wrapWithTestNow(Closure $func, Carbon $dt = null)
     {
         Carbon::setTestNow($dt ?: Carbon::now());
         $func();
         Carbon::setTestNow();
     }
 
-    protected function wrapWithNonDstDate(Closure $func)
+    public function wrapWithNonDstDate(Closure $func)
     {
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
     }
 
     /**
-     * Standarize given set of dates (or period) before assertion.
+     * Standardize given set of dates (or period) before assertion.
      *
      * @param array|\DatePeriod $dates
      *
      * @return array
      */
-    protected function standarizeDates($dates)
+    public function standardizeDates($dates)
     {
         $result = array();
 

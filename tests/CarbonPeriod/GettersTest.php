@@ -28,9 +28,6 @@ class GettersTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testGetStartDate()
     {
         $date = $this->makePeriod()->getStartDate();
@@ -40,9 +37,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-01 17:30:00', $date->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testGetEndDate()
     {
         $date = $this->makePeriod()->getEndDate();
@@ -52,9 +46,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-15 11:15:00', $date->format('Y-m-d H:i:s'));
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testGetDateInterval()
     {
         $interval = $this->makePeriod()->getDateInterval();
@@ -64,9 +55,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('P3DT5H', $interval->spec());
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testGetRecurrences()
     {
         $recurrences = CarbonPeriod::create(new DateTime, 5)->getRecurrences();
@@ -74,9 +62,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(5, $recurrences);
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testGetDefaultDateInterval()
     {
         $period = CarbonPeriod::create(Carbon::parse('2015-09-30'), Carbon::parse('2015-10-03'));
@@ -86,9 +71,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('P1D', $period->getDateInterval()->spec());
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testModifyStartDate()
     {
         $period = $this->makePeriod();
@@ -98,9 +80,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-01', $period->getStartDate()->format('Y-m-d'));
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testModifyEndDate()
     {
         $period = $this->makePeriod();
@@ -110,9 +89,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('2012-07-15', $period->getEndDate()->format('Y-m-d'));
     }
 
-    /**
-     * @throws \ReflectionException
-     */
     public function testModifyDateInterval()
     {
         $period = $this->makePeriod();

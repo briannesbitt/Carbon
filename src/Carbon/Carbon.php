@@ -4448,8 +4448,6 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @param object $mixin
      *
-     * @throws \ReflectionException
-     *
      * @return void
      */
     public static function mixin($mixin)

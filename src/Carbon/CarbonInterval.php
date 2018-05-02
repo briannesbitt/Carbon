@@ -295,6 +295,19 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function copy()
+    {
+        $date = new static($this->spec());
+        $date->invert = $this->invert;
+
+        return $date;
+    }
+
+    /**
      * Provide static helpers to create instances.  Allows CarbonInterval::years(3).
      *
      * Note: This is done using the magic method to allow static and instance methods to
@@ -841,7 +854,8 @@ class CarbonInterval extends DateInterval
 
         if ($current < $passed) {
             return -1;
-        } elseif ($current > $passed) {
+        }
+        if ($current > $passed) {
             return 1;
         }
 
