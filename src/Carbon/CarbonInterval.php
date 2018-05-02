@@ -96,6 +96,11 @@ class CarbonInterval extends DateInterval
     protected static $cascadeFactors;
 
     /**
+     * @var array|null
+     */
+    private static $flipCascadeFactors;
+
+    /**
      * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
      * was created by DateTime::diff().
      */
@@ -111,12 +116,32 @@ class CarbonInterval extends DateInterval
     public static function getCascadeFactors()
     {
         return static::$cascadeFactors ?: array(
-            'seconds' => array('minutes', Carbon::SECONDS_PER_MINUTE),
-            'minutes' => array('hours', Carbon::MINUTES_PER_HOUR),
-            'hours' => array('dayz', Carbon::HOURS_PER_DAY),
-            'dayz' => array('months', Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH),
-            'months' => array('years', Carbon::MONTHS_PER_YEAR),
+            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
+            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
+            'dayz' => array(Carbon::HOURS_PER_DAY, 'hours'),
+            'months' => array(Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH, 'dayz'),
+            'years' => array(Carbon::MONTHS_PER_YEAR, 'months'),
         );
+    }
+
+    private static function getFlipCascadeFactors()
+    {
+        if (!self::$flipCascadeFactors) {
+            self::$flipCascadeFactors = array();
+            foreach (static::getCascadeFactors() as $to => $tuple) {
+                list($factor, $from) = $tuple;
+                if ($from === 'days') {
+                    $from = 'dayz';
+                }
+                if ($to === 'days') {
+                    $to = 'dayz';
+                }
+
+                self::$flipCascadeFactors[$from] = array($to, $factor);
+            }
+        }
+
+        return self::$flipCascadeFactors;
     }
 
     /**
@@ -124,6 +149,7 @@ class CarbonInterval extends DateInterval
      */
     public static function setCascadeFactors(array $cascadeFactors)
     {
+        self::$flipCascadeFactors = null;
         static::$cascadeFactors = $cascadeFactors;
     }
 
@@ -196,7 +222,7 @@ class CarbonInterval extends DateInterval
      */
     public static function getFactor($source, $target)
     {
-        $factors = static::getCascadeFactors();
+        $factors = static::getFlipCascadeFactors();
         if (isset($factors[$source])) {
             list($to, $factor) = $factors[$source];
             if ($to === $target) {
@@ -841,7 +867,7 @@ class CarbonInterval extends DateInterval
      */
     public function cascade()
     {
-        foreach (static::getCascadeFactors() as $source => $cascade) {
+        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
             $value = $this->$source;
@@ -876,24 +902,36 @@ class CarbonInterval extends DateInterval
 
         $result = 0;
         $cumulativeFactor = 0;
+        $unitFound = false;
 
-        foreach (static::getCascadeFactors() as $source => $cascade) {
+        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
-            if ($source == $realUnit) {
+            if ($source === $realUnit) {
+                $unitFound = true;
                 $result += $this->$source;
                 $cumulativeFactor = 1;
+            }
+
+            if ($target === $realUnit) {
+                $unitFound = true;
             }
 
             if ($cumulativeFactor) {
                 $cumulativeFactor *= $factor;
                 $result += $this->$target * $cumulativeFactor;
-            } else {
-                $result = ($result + $this->$source) / $factor;
+
+                continue;
             }
+
+            $result = ($result + $this->$source) / $factor;
         }
 
-        if ($unit == 'weeks') {
+        if (!$unitFound) {
+            throw new \InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
+        }
+
+        if ($unit === 'weeks') {
             return $result / static::getDaysPerWeek();
         }
 

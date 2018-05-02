@@ -2,6 +2,7 @@
 
 namespace Tests\CarbonInterval;
 
+use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
@@ -56,5 +57,46 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(150 / 24 / 7, $interval->totalWeeks);
         $this->assertSame(150 / 24 / 7 / 4, $interval->totalMonths);
         $this->assertSame(150 / 24 / 7 / 4 / 12, $interval->totalYears);
+    }
+
+    /**
+     * @group i
+     */
+    public function testGetTotalsViaGettersWithCustomFactors()
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
+            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
+            'days' => array(8, 'hours'),
+            'weeks' => array(5, 'days'),
+        ));
+        $interval = CarbonInterval::create(0, 0, 0, 0, 150, 0, 0);
+        $totalSeconds = $interval->totalSeconds;
+        $totalMinutes = $interval->totalMinutes;
+        $totalHours = $interval->totalHours;
+        $totalDays = $interval->totalDays;
+        $totalWeeks = $interval->totalWeeks;
+        $monthsError = null;
+        try {
+            $interval->totalMonths;
+        } catch (\InvalidArgumentException $exception) {
+            $monthsError = $exception->getMessage();
+        }
+        $yearsError = null;
+        try {
+            $interval->totalYears;
+        } catch (\InvalidArgumentException $exception) {
+            $yearsError = $exception->getMessage();
+        }
+        CarbonInterval::setCascadeFactors($cascades);
+
+        $this->assertSame(150 * 60 * 60, $totalSeconds);
+        $this->assertSame(150 * 60, $totalMinutes);
+        $this->assertSame(150, $totalHours);
+        $this->assertSame(150 / 8, $totalDays);
+        $this->assertSame(150 / 8 / 5, $totalWeeks);
+        $this->assertSame('Unit months have no configuration to get total from other units.', $monthsError);
+        $this->assertSame('Unit years have no configuration to get total from other units.', $yearsError);
     }
 }
