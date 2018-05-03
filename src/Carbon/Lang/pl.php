@@ -28,4 +28,9 @@ return array(
     'from_now' => ':time od teraz',
     'after' => ':time po',
     'before' => ':time przed',
+    'diff_now' => 'przed chwilą',
+    'diff_yesterday' => 'wczoraj',
+    'diff_tomorrow' => 'jutro',
+    'diff_before_yesterday' => 'przedwczoraj',
+    'diff_after_tomorrow' => 'pojutrze',
 );
