@@ -28,4 +28,9 @@ return array(
     'from_now' => 'om :time',
     'after' => ':time etter',
     'before' => ':time før',
+    'diff_now' => 'akkurat nå',
+    'diff_yesterday' => 'i går',
+    'diff_tomorrow' => 'i morgen',
+    'diff_before_yesterday' => 'i forgårs',
+    'diff_after_tomorrow' => 'i overmorgen',
 );
