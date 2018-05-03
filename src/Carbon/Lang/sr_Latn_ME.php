@@ -35,4 +35,9 @@ return array(
     'week_from_now' => '{1} :count nedjelju|{2,3,4} :count nedjelje|[5,Inf[ :count nedjelja',
     'week_ago' => '{1} :count nedjelju|{2,3,4} :count nedjelje|[5,Inf[ :count nedjelja',
 
+    'diff_now' => 'upravo sada',
+    'diff_yesterday' => 'juče',
+    'diff_tomorrow' => 'sutra',
+    'diff_before_yesterday' => 'prekjuče',
+    'diff_after_tomorrow' => 'preksutra',
 );
