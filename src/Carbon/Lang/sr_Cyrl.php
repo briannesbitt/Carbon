@@ -39,5 +39,5 @@ return array(
     'diff_yesterday' => 'јуче',
     'diff_tomorrow' => 'сутра',
     'diff_before_yesterday' => 'прекјуче',
-    'diff_after_tomorrow' => 'прексутра',
+    'diff_after_tomorrow' => 'прекосутра',
 );
