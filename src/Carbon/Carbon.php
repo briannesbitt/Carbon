@@ -1977,7 +1977,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
-     * @param bool                                    $equal Indicates if a > and < comparison should be used or <= or >=
+     * @param bool                                    $equal Indicates if an equal to comparison should be done
      *
      * @return bool
      */
