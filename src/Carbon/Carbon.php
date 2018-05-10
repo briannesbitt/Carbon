@@ -818,6 +818,24 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
+        if ($mock = static::getTestNow()) {
+            // Set timezone from mock if custom timezone was neither given directly nor as a part of format.
+            // First let's skip the part that will be ignored by the parser.
+            $nonEscaped = '(?<!\\\\)(\\\\{2})*';
+
+            $nonIgnored = preg_replace("/^.*{$nonEscaped}!/s", '', $format);
+
+            if ($tz === null && !preg_match("/{$nonEscaped}[eOPT]/", $nonIgnored)) {
+                $tz = $mock->getTimezone();
+            }
+
+            // Prepend mock datetime only if the format does not contain non escaped unix epoch reset flag.
+            if (!preg_match("/{$nonEscaped}[!|]/", $format)) {
+                $format = static::MOCK_DATETIME_FORMAT.' '.$format;
+                $time = $mock->format(static::MOCK_DATETIME_FORMAT).' '.$time;
+            }
+        }
+
         if ($tz !== null) {
             $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
         } else {
