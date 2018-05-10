@@ -193,4 +193,12 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertEquals('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\!', '!')->toIso8601String());
         $this->assertEquals('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', 'Europe/Kiev !')->toIso8601String());
     }
+
+    public function testCreateFromPartialFormatWithMicroseconds()
+    {
+        Carbon::setTestNow($now = Carbon::parse('2013-09-01 05:10:15.123456', 'America/Vancouver'));
+
+        $this->assertEquals('2018-05-06 05:10:15.123456', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
+        $this->assertEquals('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
+    }
 }
