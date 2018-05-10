@@ -430,13 +430,25 @@ class Carbon extends DateTime implements JsonSerializable
             $object = $tzName;
         }
 
-        $tz = @timezone_open((string) $object);
+        $tz = @timezone_open($object = (string) $object);
 
-        if ($tz === false) {
-            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        if ($tz !== false) {
+            return $tz;
         }
 
-        return $tz;
+        // Work-around for a bug fixed in PHP 5.5.10 https://bugs.php.net/bug.php?id=45528
+        // See: https://stackoverflow.com/q/14068594/2646927
+        // @codeCoverageIgnoreStart
+        if (strpos($object, ':') !== false) {
+            try {
+                return static::createFromFormat('O', $object)->getTimezone();
+            } catch (InvalidArgumentException $e) {
+                //
+            }
+        }
+        // @codeCoverageIgnoreEnd
+
+        throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
     }
 
     ///////////////////////////////////////////////////////////////////
