@@ -818,7 +818,16 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
-        if ($mock = static::getTestNow()) {
+        // First attempt to create an instance, so that error messages are based on the unmodified format.
+        if ($tz !== null) {
+            $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
+        } else {
+            $date = parent::createFromFormat($format, $time);
+        }
+
+        $lastErrors = parent::getLastErrors();
+
+        if (($mock = static::getTestNow()) && ($date instanceof DateTime || $date instanceof DateTimeInterface)) {
             // Set timezone from mock if custom timezone was neither given directly nor as a part of format.
             // First let's skip the part that will be ignored by the parser.
             $nonEscaped = '(?<!\\\\)(\\\\{2})*';
@@ -834,15 +843,14 @@ class Carbon extends DateTime implements JsonSerializable
                 $format = static::MOCK_DATETIME_FORMAT.' '.$format;
                 $time = $mock->format(static::MOCK_DATETIME_FORMAT).' '.$time;
             }
-        }
 
-        if ($tz !== null) {
-            $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
-        } else {
-            $date = parent::createFromFormat($format, $time);
+            // Regenerate date from the modified format to base result on the mocked instance instead of now.
+            if ($tz !== null) {
+                $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
+            } else {
+                $date = parent::createFromFormat($format, $time);
+            }
         }
-
-        $lastErrors = parent::getLastErrors();
 
         if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
             $instance = static::instance($date);
