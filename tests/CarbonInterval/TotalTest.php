@@ -59,9 +59,6 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(150 / 24 / 7 / 4 / 12, $interval->totalYears);
     }
 
-    /**
-     * @group i
-     */
     public function testGetTotalsViaGettersWithCustomFactors()
     {
         $cascades = CarbonInterval::getCascadeFactors();
