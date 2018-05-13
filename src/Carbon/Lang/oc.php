@@ -31,6 +31,6 @@ return array(
     'diff_now' => 'ara meteis',
     'diff_yesterday' => 'ièr',
     'diff_tomorrow' => 'deman',
-    'diff_before_yesterday' => "ièr delà",
+    'diff_before_yesterday' => 'ièr delà',
     'diff_after_tomorrow' => 'deman passat',
 );
