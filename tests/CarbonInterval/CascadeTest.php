@@ -43,6 +43,7 @@ class CascadeTest extends AbstractTestCase
         ));
         $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(true);
         CarbonInterval::setCascadeFactors($cascades);
+
         $this->assertSame($expected, $actual);
     }
 
@@ -71,6 +72,7 @@ class CascadeTest extends AbstractTestCase
         ));
         $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(false);
         CarbonInterval::setCascadeFactors($cascades);
+
         $this->assertSame($expected, $actual);
     }
 
