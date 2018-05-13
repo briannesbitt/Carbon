@@ -12,6 +12,9 @@
 namespace Carbon;
 
 use DateInterval;
+use DatePeriod;
+use DateTime;
+use DateTimeInterface;
 use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -74,6 +77,12 @@ class CarbonInterval extends DateInterval
     const PERIOD_HOURS = 'H';
     const PERIOD_MINUTES = 'M';
     const PERIOD_SECONDS = 'S';
+
+    /**
+     * Date period options.
+     */
+    const EXCLUDE_START = 1;
+    const EXCLUDE_END = 2;
 
     /**
      * A translator to ... er ... translate stuff
@@ -594,6 +603,35 @@ class CarbonInterval extends DateInterval
     public function __toString()
     {
         return $this->forHumans();
+    }
+
+    /**
+     * Convert the interval to a DatePeriod in given period.
+     *
+     * @param \DateTime|\DateTimeInterface     $start
+     * @param \DateTime|\DateTimeInterface|int $end
+     * @param int                              $options
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return \DatePeriod
+     */
+    public function toPeriod($start, $end, $options = 0)
+    {
+        if ($this->spec() == 'PT0S') {
+            throw new InvalidArgumentException('Empty interval cannot be converted into a period.');
+        }
+
+        if (!($options & static::EXCLUDE_END) && ($end instanceof DateTime || $end instanceof DateTimeInterface)) {
+            $end = Carbon::instance($end)->addSecond();
+        } elseif ($options & static::EXCLUDE_END && is_int($end)) {
+            $end--;
+        }
+
+        return new DatePeriod(
+            $start, $this, $end,
+            $options & static::EXCLUDE_START ? DatePeriod::EXCLUDE_START_DATE : 0
+        );
     }
 
     /**
