@@ -430,13 +430,25 @@ class Carbon extends DateTime implements JsonSerializable
             $object = $tzName;
         }
 
-        $tz = @timezone_open((string) $object);
+        $tz = @timezone_open($object = (string) $object);
 
-        if ($tz === false) {
-            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        if ($tz !== false) {
+            return $tz;
         }
 
-        return $tz;
+        // Work-around for a bug fixed in PHP 5.5.10 https://bugs.php.net/bug.php?id=45528
+        // See: https://stackoverflow.com/q/14068594/2646927
+        // @codeCoverageIgnoreStart
+        if (strpos($object, ':') !== false) {
+            try {
+                return static::createFromFormat('O', $object)->getTimezone();
+            } catch (InvalidArgumentException $e) {
+                //
+            }
+        }
+        // @codeCoverageIgnoreEnd
+
+        throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -677,7 +689,7 @@ class Carbon extends DateTime implements JsonSerializable
             $year = 9999;
         }
 
-        $instance = static::createFromFormat('Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+        $instance = static::createFromFormat('!Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
         if ($fixYear !== null) {
             $instance->addYears($fixYear);
@@ -818,6 +830,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
+        // First attempt to create an instance, so that error messages are based on the unmodified format.
         if ($tz !== null) {
             $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
         } else {
@@ -825,6 +838,31 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         $lastErrors = parent::getLastErrors();
+
+        if (($mock = static::getTestNow()) && ($date instanceof DateTime || $date instanceof DateTimeInterface)) {
+            // Set timezone from mock if custom timezone was neither given directly nor as a part of format.
+            // First let's skip the part that will be ignored by the parser.
+            $nonEscaped = '(?<!\\\\)(\\\\{2})*';
+
+            $nonIgnored = preg_replace("/^.*{$nonEscaped}!/s", '', $format);
+
+            if ($tz === null && !preg_match("/{$nonEscaped}[eOPT]/", $nonIgnored)) {
+                $tz = $mock->getTimezone();
+            }
+
+            // Prepend mock datetime only if the format does not contain non escaped unix epoch reset flag.
+            if (!preg_match("/{$nonEscaped}[!|]/", $format)) {
+                $format = static::MOCK_DATETIME_FORMAT.' '.$format;
+                $time = $mock->format(static::MOCK_DATETIME_FORMAT).' '.$time;
+            }
+
+            // Regenerate date from the modified format to base result on the mocked instance instead of now.
+            if ($tz !== null) {
+                $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
+            } else {
+                $date = parent::createFromFormat($format, $time);
+            }
+        }
 
         if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
             $instance = static::instance($date);
