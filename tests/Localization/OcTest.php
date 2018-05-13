@@ -14,7 +14,7 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Tests\AbstractTestCase;
 
-class CaTest extends AbstractTestCase
+class OcTest extends AbstractTestCase
 {
     public function testDiffForHumansLocalizedInOccitan()
     {
