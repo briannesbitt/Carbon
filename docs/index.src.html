@@ -820,14 +820,14 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 {{addoverflow4::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow4_eval}}
 
 // Call the method with true to allow overflow again
-{{reset1::exec(Carbon::resetMonthsOverflow();)}}} // same as Carbon::useMonthsOverflow(true);
+{{reset1::exec(Carbon::resetMonthsOverflow();)}} // same as Carbon::useMonthsOverflow(true);
 </code></pre></p>
 
 The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
 
 You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
 <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-(or the singular methods with no <code>s</code> to "month").
+(or the singular methods with no <code>s</code> to "month")
 to explicitly add/sub months with or without overflow no matter the current mode.
 
 <p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
@@ -858,7 +858,7 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 {{addoverflowremind3::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind3_eval}}
 {{addoverflowremind4::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind4_eval}}
 
-{{reset2::exec(Carbon::resetMonthsOverflow();)}}}
+{{reset2::exec(Carbon::resetMonthsOverflow();)}}
 </code></pre></p>
 
 <p>From version 1.23.0, overflow control is also available on years:</p>
@@ -895,7 +895,7 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{addyearoverflowremind3::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind3_eval}}
 {{addyearoverflowremind4::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind4_eval}}
 
-{{reset3::exec(Carbon::resetYearsOverflow();)}}}
+{{reset3::exec(Carbon::resetYearsOverflow();)}}
 </code></pre></p>
 
 <h1 id="api-difference">Difference</h1>
