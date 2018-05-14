@@ -248,6 +248,8 @@ class ConstructTest extends AbstractTestCase
 
     public function testCallInvalidStaticMethod()
     {
-        $this->assertNull(CarbonInterval::anything());
+        $ci = CarbonInterval::anything();
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 }

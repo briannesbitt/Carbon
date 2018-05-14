@@ -181,38 +181,9 @@ class CarbonInterval extends DateInterval
      */
     public static function __callStatic($name, $args)
     {
-        $arg = count($args) === 0 ? 1 : $args[0];
-
-        switch ($name) {
-            case 'years':
-            case 'year':
-                return new static($arg);
-
-            case 'months':
-            case 'month':
-                return new static(null, $arg);
-
-            case 'weeks':
-            case 'week':
-                return new static(null, null, $arg);
-
-            case 'days':
-            case 'dayz':
-            case 'day':
-                return new static(null, null, null, $arg);
-
-            case 'hours':
-            case 'hour':
-                return new static(null, null, null, null, $arg);
-
-            case 'minutes':
-            case 'minute':
-                return new static(null, null, null, null, null, $arg);
-
-            case 'seconds':
-            case 'second':
-                return new static(null, null, null, null, null, null, $arg);
-        }
+        return call_user_func_array(
+            array(new static(0), $name), $args
+        );
     }
 
     /**
