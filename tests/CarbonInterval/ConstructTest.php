@@ -245,11 +245,4 @@ class ConstructTest extends AbstractTestCase
         $ci = CarbonInterval::instance(Carbon::now()->diff(Carbon::now()->addWeeks(3)));
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
     }
-
-    public function testCallInvalidStaticMethod()
-    {
-        $ci = CarbonInterval::anything();
-        $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
-    }
 }

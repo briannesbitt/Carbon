@@ -456,6 +456,9 @@ class CarbonInterval extends DateInterval
             case 'seconds':
                 $this->s = $val;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
     }
 
@@ -525,6 +528,9 @@ class CarbonInterval extends DateInterval
             case 'second':
                 $this->seconds = $arg;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown fluent setter '%s'", $name));
         }
 
         return $this;
