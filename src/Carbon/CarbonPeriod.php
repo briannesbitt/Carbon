@@ -420,7 +420,10 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected static function intervalHasTime(DateInterval $interval)
     {
-        return $interval->h || $interval->i || $interval->s || (version_compare(PHP_VERSION, '7.1.0.dev', '>=') && $interval->f);
+        // array_key_exists + get_object_vars check actual microsecond support as public available property
+        // isset or property_exists will both fail on PHP 7.0.14 - 7.0.21 due to the following bug:
+        // https://bugs.php.net/bug.php?id=74852
+        return $interval->h || $interval->i || $interval->s || array_key_exists('f', get_object_vars($interval)) && $interval->f;
     }
 
     /**

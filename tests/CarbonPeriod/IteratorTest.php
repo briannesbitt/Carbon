@@ -82,7 +82,7 @@ class IteratorTest extends AbstractTestCase
         $this->assertTrue($period->valid());
     }
 
-    public function testKeyAndCurrentAreCorrectlyRewinded()
+    public function testKeyAndCurrentAreCorrectlyRewound()
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 

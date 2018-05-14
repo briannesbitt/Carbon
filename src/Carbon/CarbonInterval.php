@@ -355,7 +355,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Creates a CarbonInterval from string
+     * Creates a CarbonInterval from string.
      *
      * Format:
      *
@@ -501,7 +501,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the translator instance in use
+     * Get the translator instance in use.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -511,7 +511,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set the translator instance to use
+     * Set the translator instance to use.
      *
      * @param TranslatorInterface $translator
      */
@@ -521,7 +521,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the current translator locale
+     * Get the current translator locale.
      *
      * @return string
      */
@@ -531,7 +531,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set the current translator locale
+     * Set the current translator locale.
      *
      * @param string $locale
      */
@@ -545,7 +545,7 @@ class CarbonInterval extends DateInterval
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Get a part of the CarbonInterval object
+     * Get a part of the CarbonInterval object.
      *
      * @param string $name
      *
@@ -591,7 +591,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set a part of the CarbonInterval object
+     * Set a part of the CarbonInterval object.
      *
      * @param string $name
      * @param int    $val
@@ -767,7 +767,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Add the passed interval to the current instance
+     * Add the passed interval to the current instance.
      *
      * @param DateInterval $interval
      *
@@ -816,7 +816,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the interval_spec string of a date interval
+     * Get the interval_spec string of a date interval.
      *
      * @param DateInterval $interval
      *
@@ -853,7 +853,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the interval_spec string
+     * Get the interval_spec string.
      *
      * @return string
      */
@@ -863,7 +863,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Comparing 2 date intervals
+     * Comparing 2 date intervals.
      *
      * @param DateInterval $a
      * @param DateInterval $b
@@ -887,7 +887,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Comparing with passed interval
+     * Comparing with passed interval.
      *
      * @param DateInterval $interval
      *
