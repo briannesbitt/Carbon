@@ -870,12 +870,13 @@ class CarbonInterval extends DateInterval
         foreach (static::getFlipCascadeFactors() as $source => $cascade) {
             list($target, $factor) = $cascade;
 
-            $value = $this->$source;
-
-            if ($source !== 'dayz' || $target !== 'weeks') {
-                $this->$source = $modulo = $value % $factor;
-                $this->$target += ($value - $modulo) / $factor;
+            if ($source === 'dayz' && $target === 'weeks') {
+                continue;
             }
+
+            $value = $this->$source;
+            $this->$source = $modulo = $value % $factor;
+            $this->$target += ($value - $modulo) / $factor;
         }
 
         return $this;
