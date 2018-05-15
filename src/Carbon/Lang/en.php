@@ -33,4 +33,8 @@ return array(
     'diff_tomorrow' => 'tomorrow',
     'diff_before_yesterday' => 'before yesterday',
     'diff_after_tomorrow' => 'after tomorrow',
+    'period_recurrences' => 'once|:count times',
+    'period_interval' => 'every :interval',
+    'period_start_date' => 'from :date',
+    'period_end_date' => 'to :date',
 );

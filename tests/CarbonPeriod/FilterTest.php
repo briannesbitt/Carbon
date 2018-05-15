@@ -18,6 +18,7 @@ use DateInterval;
 use DateTime;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
+use Tests\CarbonPeriod\Fixtures\FooFilters;
 
 class FilterTest extends AbstractTestCase
 {
@@ -350,6 +351,95 @@ class FilterTest extends AbstractTestCase
 
         $this->assertEquals(
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testAddFilterFromCarbonIsMethod()
+    {
+        $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
+
+        $period->addFilter('isLastOfMonth');
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2018-01-31', '2018-02-28', '2018-03-31', '2018-04-30', '2018-05-31')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testAddFilterFromCarbonMethodWithArguments()
+    {
+        $period = CarbonPeriod::create('2017-01-01', 'P2M16D', '2018-12-31');
+
+        $period->addFilter('isSameAs', 'm', new Carbon('2018-06-01'));
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2017-06-02', '2018-06-20')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testRemoveFilterFromCarbonMethod()
+    {
+        $period = CarbonPeriod::create('1970-01-01', '1970-01-03')->addFilter('isFuture');
+
+        $period->removeFilter('isFuture');
+
+        $this->assertEquals(
+            $this->standardizeDates(array('1970-01-01', '1970-01-02', '1970-01-03')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testInvalidCarbonMethodShouldNotBeConvertedToCallback()
+    {
+        $period = new CarbonPeriod;
+
+        $period->addFilter('toDateTimeString');
+
+        $this->assertSame(array(
+            array('toDateTimeString', null),
+        ), $period->getFilters());
+    }
+
+    public function testAddCallableFilters()
+    {
+        $period = new CarbonPeriod;
+
+        $period->addFilter($string = 'date_offset_get')
+            ->addFilter($array = array(new DateTime, 'getOffset'));
+
+        $this->assertSame(array(
+            array($string, null),
+            array($array, null),
+        ), $period->getFilters());
+    }
+
+    public function testRemoveCallableFilters()
+    {
+        $period = new CarbonPeriod;
+
+        $period->setFilters(array(
+            array($string = 'date_offset_get', null),
+            array($array = array(new DateTime, 'getOffset'), null),
+        ));
+
+        $period->removeFilter($string)->removeFilter($array);
+
+        $this->assertEmpty($period->getFilters());
+    }
+
+    public function testRunCallableFilters()
+    {
+        include_once 'Fixtures/filters.php';
+
+        $period = new CarbonPeriod('2017-03-10', '2017-03-19');
+
+        $period->addFilter(array(new FooFilters, 'bar'));
+        $period->addFilter('foobar_filter');
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18')),
             $this->standardizeDates($period)
         );
     }

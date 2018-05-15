@@ -40,7 +40,7 @@ class ToStringTest extends AbstractTestCase
                     Carbon::parse('2015-09-30'),
                     Carbon::parse('2015-10-03')
                 ),
-                'Every 1 day from 2015-09-30 00:00:00 to 2015-10-03 00:00:00',
+                'Every 1 day from 2015-09-30 to 2015-10-03',
             ),
             array(
                 CarbonPeriod::create(
@@ -60,7 +60,15 @@ class ToStringTest extends AbstractTestCase
             ),
             array(
                 CarbonPeriod::create('P5D', 4)->setEndDate('2015-09-30'),
-                '4 times every 5 days to 2015-09-30 00:00:00',
+                '4 times every 5 days to 2015-09-30',
+            ),
+            array(
+                CarbonPeriod::create('2015-09-30 13:30', 'P17D')->setRecurrences(1),
+                'Once every 2 weeks 3 days from 2015-09-30 13:30:00',
+            ),
+            array(
+                CarbonPeriod::create('2015-10-01', '2015-10-05', 'PT30M'),
+                'Every 30 minutes from 2015-10-01 to 2015-10-05',
             ),
         );
     }

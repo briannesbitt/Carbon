@@ -29,85 +29,50 @@ use RuntimeException;
  * Fully compatible with PHP 5.3+!
  *
  * @method static CarbonPeriod start($date = null, $inclusive = null) Create instance specifying start date.
- * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start()
+ * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start().
  * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now.
  * @method static CarbonPeriod end($date = null, $inclusive = null) Create instance specifying end date.
- * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end()
+ * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now.
  * @method static CarbonPeriod dates($start = null, $end = null) Create instance with start and end date.
  * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences.
- * @method static CarbonPeriod times($recurrences = null) Alias for recurrences()
+ * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method static CarbonPeriod options($options = null) Create instance with options.
  * @method static CarbonPeriod toggle($options, $state = null) Create instance with options toggled on or off.
  * @method static CarbonPeriod filter($callback, $name = null) Create instance with filter added to the stack.
- * @method static CarbonPeriod push($callback, $name = null) Alias for filter()
+ * @method static CarbonPeriod push($callback, $name = null) Alias for filter().
  * @method static CarbonPeriod prepend($callback, $name = null) Create instance with filter prepened to the stack.
  * @method static CarbonPeriod filters(array $filters) Create instance with filters stack.
  * @method static CarbonPeriod interval($interval) Create instance with given date interval.
  * @method static CarbonPeriod invert() Create instance with inverted date interval.
  * @method static CarbonPeriod years($years = 1) Create instance specifying a number of years for date interval.
- * @method static CarbonPeriod year($years = 1) Alias for years()
+ * @method static CarbonPeriod year($years = 1) Alias for years().
  * @method static CarbonPeriod months($months = 1) Create instance specifying a number of months for date interval.
- * @method static CarbonPeriod month($months = 1) Alias for months()
+ * @method static CarbonPeriod month($months = 1) Alias for months().
  * @method static CarbonPeriod weeks($weeks = 1) Create instance specifying a number of weeks for date interval.
- * @method static CarbonPeriod week($weeks = 1) Alias for weeks()
+ * @method static CarbonPeriod week($weeks = 1) Alias for weeks().
  * @method static CarbonPeriod days($days = 1) Create instance specifying a number of days for date interval.
- * @method static CarbonPeriod dayz($days = 1) Alias for days()
- * @method static CarbonPeriod day($days = 1) Alias for days()
+ * @method static CarbonPeriod dayz($days = 1) Alias for days().
+ * @method static CarbonPeriod day($days = 1) Alias for days().
  * @method static CarbonPeriod hours($hours = 1) Create instance specifying a number of hours for date interval.
- * @method static CarbonPeriod hour($hours = 1) Alias for hours()
+ * @method static CarbonPeriod hour($hours = 1) Alias for hours().
  * @method static CarbonPeriod minutes($minutes = 1) Create instance specifying a number of minutes for date interval.
- * @method static CarbonPeriod minute($minutes = 1) Alias for minutes()
+ * @method static CarbonPeriod minute($minutes = 1) Alias for minutes().
  * @method static CarbonPeriod seconds($seconds = 1) Create instance specifying a number of seconds for date interval.
- * @method static CarbonPeriod second($seconds = 1) Alias for seconds()
- * @method static CarbonPeriod isWeekday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isWeekend() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isYesterday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isToday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isTomorrow() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isNextWeek() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLastWeek() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isNextQuarter() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLastQuarter() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isNextMonth() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLastMonth() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isNextYear() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLastYear() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isFuture() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isPast() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLeapYear() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLongYear() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSameAs($format, $date = null) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isCurrentYear() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSameYear($date = null) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isCurrentQuarter() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSameQuarter($date = null, $ofSameYear = false) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isCurrentMonth() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSameMonth($date = null, $ofSameYear = false) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSameDay($date) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isDayOfWeek($dayOfWeek) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSunday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isMonday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isTuesday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isWednesday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isThursday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isFriday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isSaturday() Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isBirthday($date = null) Create instance with filter for equivalent Carbon method.
- * @method static CarbonPeriod isLastOfMonth() Create instance with filter for equivalent Carbon method.
+ * @method static CarbonPeriod second($seconds = 1) Alias for seconds().
  * @method CarbonPeriod start($date = null, $inclusive = null) Change the period start date.
- * @method CarbonPeriod since($date = null, $inclusive = null) Alias for start()
+ * @method CarbonPeriod since($date = null, $inclusive = null) Alias for start().
  * @method CarbonPeriod sinceNow($inclusive = null) Change the period start date to now.
  * @method CarbonPeriod end($date = null, $inclusive = null) Change the period end date.
- * @method CarbonPeriod until($date = null, $inclusive = null) Alias for end()
+ * @method CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method CarbonPeriod untilNow($inclusive = null) Change the period end date to now.
  * @method CarbonPeriod dates($start = null, $end = null) Change the period start and end date.
  * @method CarbonPeriod recurrences($recurrences = null) Change the maximum number of recurrences.
- * @method CarbonPeriod times($recurrences = null) Alias for recurrences()
+ * @method CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method CarbonPeriod options($options = null) Change the period options.
  * @method CarbonPeriod toggle($options, $state = null) Toggle given options on or off.
  * @method CarbonPeriod filter($callback, $name = null) Add a filter to the stack.
- * @method CarbonPeriod push($callback, $name = null) Alias for filter()
+ * @method CarbonPeriod push($callback, $name = null) Alias for filter().
  * @method CarbonPeriod prepend($callback, $name = null) Prepend a filter to the stack.
  * @method CarbonPeriod filters(array $filters = array()) Set filters stack.
  * @method CarbonPeriod interval($interval) Change the period date interval.
@@ -127,41 +92,6 @@ use RuntimeException;
  * @method CarbonPeriod minute($minutes = 1) Alias for minutes().
  * @method CarbonPeriod seconds($seconds = 1) Set the seconds portion of the date interval.
  * @method CarbonPeriod second($seconds = 1) Alias for seconds().
- * @method CarbonPeriod isWeekday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isWeekend() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isYesterday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isToday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isTomorrow() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isNextWeek() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLastWeek() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isNextQuarter() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLastQuarter() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isNextMonth() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLastMonth() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isNextYear() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLastYear() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isFuture() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isPast() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLeapYear() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLongYear() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSameAs($format, $date = null) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isCurrentYear() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSameYear($date = null) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isCurrentQuarter() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSameQuarter($date = null, $ofSameYear = false) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isCurrentMonth() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSameMonth($date = null, $ofSameYear = false) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSameDay($date) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isDayOfWeek($dayOfWeek) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSunday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isMonday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isTuesday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isWednesday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isThursday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isFriday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isSaturday() Add filter for equivalent Carbon method.
- * @method CarbonPeriod isBirthday($date = null) Add filter for equivalent Carbon method.
- * @method CarbonPeriod isLastOfMonth() Add filter for equivalent Carbon method.
  */
 class CarbonPeriod implements Iterator, Countable
 {
@@ -175,6 +105,13 @@ class CarbonPeriod implements Iterator, Countable
     const END_DATE_FILTER = 'Carbon\CarbonPeriod::filterEndDate';
 
     /**
+     * Special value which can be returned by filters to end iteration.
+     *
+     * @var string
+     */
+    const END_ITERATION = 'Carbon\CarbonPeriod::endIteration';
+
+    /**
      * Available options.
      *
      * @var int
@@ -182,13 +119,6 @@ class CarbonPeriod implements Iterator, Countable
     const EXCLUDE_START_DATE = 1;
     const EXCLUDE_END_DATE = 2;
     const DISABLE_RESULTS_CACHE = 4;
-
-    /**
-     * Special value which can be returned by filters to end iteration.
-     *
-     * @var string
-     */
-    const END_ITERATION = 'Carbon\CarbonPeriod::endIteration';
 
     /**
      * Number of maximum attempts before giving up on finding next valid date.
@@ -226,14 +156,14 @@ class CarbonPeriod implements Iterator, Countable
     protected $filters = array();
 
     /**
-     * Period start date. Applied via a filter.
+     * Period start date. When empty iteration will always give no results. Applied via a filter.
      *
      * @var Carbon|null
      */
     protected $startDate;
 
     /**
-     * Period end date. Applied via a filter.
+     * Period end date. For inverted interval should be before the start date. Applied via a filter.
      *
      * @var Carbon|null
      */
@@ -247,7 +177,7 @@ class CarbonPeriod implements Iterator, Countable
     protected $recurrences;
 
     /**
-     * Options for built-in filters.
+     * Iteration options.
      *
      * @var int
      */
@@ -378,40 +308,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Make a Carbon object from given variable if possible.
-     *
-     * @param mixed $var
-     *
-     * @return Carbon|null
-     */
-    protected static function makeCarbon($var)
-    {
-        if ($var instanceof DateTime || $var instanceof DateTimeInterface) {
-            return Carbon::instance($var);
-        }
-        if (is_string($var) && !is_numeric($var) && !empty($var) && $var[0] !== 'P' && $var[0] !== 'R') {
-            return new Carbon($var);
-        }
-    }
-
-    /**
-     * Make a CarbonInterval object from given variable if possible.
-     *
-     * @param mixed $var
-     *
-     * @return CarbonInterval|null
-     */
-    protected static function makeCarbonInterval($var)
-    {
-        if ($var instanceof DateInterval) {
-            return CarbonInterval::instance($var);
-        }
-        if (is_string($var) && !empty($var) && $var[0] === 'P') {
-            return new CarbonInterval($var);
-        }
-    }
-
-    /**
      * Return whether given interval contains non zero value of any time unit.
      *
      * @param \DateInterval $interval
@@ -420,8 +316,8 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected static function intervalHasTime(DateInterval $interval)
     {
-        // array_key_exists + get_object_vars check actual microsecond support as public available property
-        // isset or property_exists will both fail on PHP 7.0.14 - 7.0.21 due to the following bug:
+        // The array_key_exists and get_object_vars are used as a workaround to check microsecond support.
+        // Both isset and property_exists will fail on PHP 7.0.14 - 7.0.21 due to the following bug:
         // https://bugs.php.net/bug.php?id=74852
         return $interval->h || $interval->i || $interval->s || array_key_exists('f', get_object_vars($interval)) && $interval->f;
     }
@@ -468,11 +364,11 @@ class CarbonPeriod implements Iterator, Countable
         foreach (explode('/', $iso) as $key => $part) {
             if ($key === 0 && preg_match('/^R([0-9]*)$/', $part, $match)) {
                 $parsed = strlen($match[1]) ? (int) $match[1] : null;
-            } elseif ($interval === null && $parsed = static::makeCarbonInterval($part)) {
+            } elseif ($interval === null && $parsed = CarbonInterval::make($part)) {
                 $interval = $part;
-            } elseif ($start === null && $parsed = static::makeCarbon($part)) {
+            } elseif ($start === null && $parsed = Carbon::make($part)) {
                 $start = $part;
-            } elseif ($end === null && $parsed = static::makeCarbon(static::addMissingParts($start, $part))) {
+            } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start, $part))) {
                 $end = $part;
             } else {
                 throw new InvalidArgumentException("Invalid ISO 8601 specification: $iso.");
@@ -579,11 +475,11 @@ class CarbonPeriod implements Iterator, Countable
         }
 
         foreach ($arguments as $argument) {
-            if ($this->dateInterval === null && $parsed = static::makeCarbonInterval($argument)) {
+            if ($this->dateInterval === null && $parsed = CarbonInterval::make($argument)) {
                 $this->setDateInterval($parsed);
-            } elseif ($this->startDate === null && $parsed = static::makeCarbon($argument)) {
+            } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
                 $this->setStartDate($parsed);
-            } elseif ($this->endDate === null && $parsed = static::makeCarbon($argument)) {
+            } elseif ($this->endDate === null && $parsed = Carbon::make($argument)) {
                 $this->setEndDate($parsed);
             } elseif ($this->recurrences === null && $this->endDate === null && is_numeric($argument)) {
                 $this->setRecurrences($argument);
@@ -616,9 +512,10 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function setDateInterval($interval)
     {
-        if (!$interval = static::makeCarbonInterval($interval)) {
+        if (!$interval = CarbonInterval::make($interval)) {
             throw new InvalidArgumentException('Invalid interval.');
         }
+
         if ($interval->spec() === 'PT0S') {
             throw new InvalidArgumentException('Empty interval is not accepted.');
         }
@@ -837,7 +734,9 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function addFilter($callback, $name = null)
     {
-        $this->filters[] = array($callback, $name);
+        $tuple = $this->createFilterTuple(func_get_args());
+
+        $this->filters[] = $tuple;
 
         $this->handleChangedParameters();
 
@@ -854,11 +753,35 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function prependFilter($callback, $name = null)
     {
-        array_unshift($this->filters, array($callback, $name));
+        $tuple = $this->createFilterTuple(func_get_args());
+
+        array_unshift($this->filters, $tuple);
 
         $this->handleChangedParameters();
 
         return $this;
+    }
+
+    /**
+     * Create a filter tuple from raw parameters.
+     *
+     * Will create an automatic filter callback for one of Carbon's is* methods.
+     *
+     * @param array $parameters
+     *
+     * @return array
+     */
+    protected function createFilterTuple(array $parameters)
+    {
+        $method = array_shift($parameters);
+
+        if (!is_string($method) || substr($method, 0, 2) !== 'is' || !method_exists('Carbon\Carbon', $method)) {
+            return array($method, array_shift($parameters));
+        }
+
+        return array(function ($date) use ($method, $parameters) {
+            return call_user_func_array(array($date, $method), $parameters);
+        }, $method);
     }
 
     /**
@@ -879,7 +802,7 @@ class CarbonPeriod implements Iterator, Countable
             }
         ));
 
-        $this->updateInernalState();
+        $this->updateInternalState();
 
         $this->handleChangedParameters();
 
@@ -887,7 +810,7 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Return filter is in the stack given either instance or name.
+     * Return whether given instance or name is in the filter stack.
      *
      * @param callable|string $filter
      *
@@ -927,7 +850,7 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->filters = $filters;
 
-        $this->updateInernalState();
+        $this->updateInternalState();
 
         $this->handleChangedParameters();
 
@@ -965,7 +888,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return void
      */
-    protected function updateInernalState()
+    protected function updateInternalState()
     {
         if (!$this->hasFilter(static::START_DATE_FILTER)) {
             $this->startDate = null;
@@ -1039,7 +962,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function setStartDate($date, $inclusive = null)
     {
-        if (!is_null($date) && !$date = static::makeCarbon($date)) {
+        if (!is_null($date) && !$date = Carbon::make($date)) {
             throw new InvalidArgumentException('Invalid start date.');
         }
 
@@ -1094,7 +1017,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function setEndDate($date, $inclusive = null)
     {
-        if (!is_null($date) && !$date = static::makeCarbon($date)) {
+        if (!is_null($date) && !$date = Carbon::make($date)) {
             throw new InvalidArgumentException('Invalid end date.');
         }
 
@@ -1211,7 +1134,9 @@ class CarbonPeriod implements Iterator, Countable
 
             if ($result === static::END_ITERATION) {
                 return static::END_ITERATION;
-            } elseif (!$result) {
+            }
+
+            if (!$result) {
                 return false;
             }
         }
@@ -1449,23 +1374,31 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function toString()
     {
+        $translator = Carbon::getTranslator();
+
         $parts = array();
 
+        $format = $this->startDate && !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
+            ? 'Y-m-d H:i:s'
+            : 'Y-m-d';
+
         if ($this->recurrences !== null) {
-            $parts[] = sprintf('%s times', $this->recurrences);
+            $parts[] = $translator->transChoice('period_recurrences', $this->recurrences, array(':count' => $this->recurrences));
         }
 
-        $parts[] = sprintf('every %s', $this->dateInterval);
+        $parts[] = $translator->trans('period_interval', array(':interval' => $this->dateInterval->forHumans()));
 
         if ($this->startDate !== null) {
-            $parts[] = sprintf('from %s', $this->startDate);
+            $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
         }
 
         if ($this->endDate !== null) {
-            $parts[] = sprintf('to %s', $this->endDate);
+            $parts[] = $translator->trans('period_end_date', array(':date' => $this->endDate->format($format)));
         }
 
-        return ucfirst(implode(' ', $parts));
+        $result = implode(' ', $parts);
+
+        return mb_strtoupper(mb_substr($result, 0, 1)).mb_substr($result, 1);
     }
 
     /**
@@ -1681,45 +1614,6 @@ class CarbonPeriod implements Iterator, Countable
                     array($this->defaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
                     count($parameters) === 0 ? 1 : $first
                 ));
-
-            case 'isWeekday':
-            case 'isWeekend':
-            case 'isYesterday':
-            case 'isToday':
-            case 'isTomorrow':
-            case 'isNextWeek':
-            case 'isLastWeek':
-            case 'isNextQuarter':
-            case 'isLastQuarter':
-            case 'isNextMonth':
-            case 'isLastMonth':
-            case 'isNextYear':
-            case 'isLastYear':
-            case 'isFuture':
-            case 'isPast':
-            case 'isLeapYear':
-            case 'isLongYear':
-            case 'isSameAs':
-            case 'isCurrentYear':
-            case 'isSameYear':
-            case 'isCurrentQuarter':
-            case 'isSameQuarter':
-            case 'isCurrentMonth':
-            case 'isSameMonth':
-            case 'isSameDay':
-            case 'isDayOfWeek':
-            case 'isSunday':
-            case 'isMonday':
-            case 'isTuesday':
-            case 'isWednesday':
-            case 'isThursday':
-            case 'isFriday':
-            case 'isSaturday':
-            case 'isBirthday':
-            case 'isLastOfMonth':
-                return $this->addFilter(function ($date) use ($method, $parameters) {
-                    return call_user_func_array(array($date, $method), $parameters);
-                }, $method);
         }
 
         throw new BadMethodCallException("Method $method does not exist.");

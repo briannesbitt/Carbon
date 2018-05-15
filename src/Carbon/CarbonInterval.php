@@ -482,6 +482,35 @@ class CarbonInterval extends DateInterval
         return $instance;
     }
 
+    /**
+     * Make a CarbonInterval instance from given variable if possible.
+     *
+     * Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
+     * and recurrences). Throw an exception for invalid format, but otherwise return null.
+     *
+     * @param mixed $var
+     *
+     * @return static|null
+     */
+    public static function make($var)
+    {
+        if ($var instanceof DateInterval) {
+            return static::instance($var);
+        }
+
+        if (is_string($var)) {
+            $var = trim($var);
+
+            if (substr($var, 0, 1) === 'P') {
+                return new static($var);
+            }
+
+            if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
+                return static::fromString($var);
+            }
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////////// LOCALIZATION //////////////////////////////
     ///////////////////////////////////////////////////////////////////

@@ -197,36 +197,4 @@ class AliasTest extends AbstractTestCase
     {
         CarbonPeriod::days(0);
     }
-
-    public function testAddFilterFromCarbonIsMethod()
-    {
-        $period = CarbonPeriod::create('2018-01-01', '2018-06-01')->isLastOfMonth();
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2018-01-31', '2018-02-28', '2018-03-31', '2018-04-30', '2018-05-31')),
-            $this->standardizeDates($period)
-        );
-    }
-
-    public function testAddFilterFromCarbonIsMethodWithArguments()
-    {
-        $period = CarbonPeriod::create('2017-01-01', 'P2M16D', '2018-12-31')->isSameAs('m', new Carbon('2018-06-01'));
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2017-06-02', '2018-06-20')),
-            $this->standardizeDates($period)
-        );
-    }
-
-    public function testRemoveFilterFromCarbonIsMethod()
-    {
-        $period = CarbonPeriod::create('1970-01-01', '1970-01-03')->isFuture();
-
-        $period->removeFilter('isFuture');
-
-        $this->assertEquals(
-            $this->standardizeDates(array('1970-01-01', '1970-01-02', '1970-01-03')),
-            $this->standardizeDates($period)
-        );
-    }
 }

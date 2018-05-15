@@ -464,4 +464,26 @@ class CreateTest extends AbstractTestCase
         $this->assertEquals($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
         $this->assertEquals($end, $period->getEndDate()->format('Y-m-d H:i:s e'));
     }
+
+    public function testCreateWithIntervalInFromStringFormat()
+    {
+        $period = CarbonPeriod::create(
+            '2018-03-25 12:00', '2 days 10 hours', '2018-04-01 13:30'
+        );
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2018-03-25 12:00', '2018-03-27 22:00', '2018-03-30 08:00')),
+            $this->standardizeDates($period)
+        );
+    }
+
+    public function testCreateFromRelativeDates()
+    {
+        $period = CarbonPeriod::create(
+            $start = 'previous friday', $end = '+6 days'
+        );
+
+        $this->assertEquals(new Carbon($start), $period->getStartDate());
+        $this->assertEquals(new Carbon($end), $period->getEndDate());
+    }
 }

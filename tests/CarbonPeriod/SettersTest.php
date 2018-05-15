@@ -45,6 +45,15 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('P3D', $period->getDateInterval()->spec());
     }
 
+    public function testSetDateIntervalByFromStringFormat()
+    {
+        $period = new CarbonPeriod;
+
+        $period->setDateInterval('1w 3d 4h 32m 23s');
+
+        $this->assertSame('P10DT4H32M23S', $period->getDateInterval()->spec());
+    }
+
     public function testSetRecurrences()
     {
         $period = new CarbonPeriod;
@@ -271,5 +280,15 @@ class SettersTest extends AbstractTestCase
 
         $period->disableResultsCache(false);
         $this->assertEmpty($period->getOptions());
+    }
+
+    public function testSetRelativeDates()
+    {
+        $period = new CarbonPeriod;
+
+        $period->setDates('first monday of may 2018', 'last day of may 2018 noon');
+
+        $this->assertSame('2018-05-07 00:00:00', $period->getStartDate()->toDateTimeString());
+        $this->assertSame('2018-05-31 12:00:00', $period->getEndDate()->toDateTimeString());
     }
 }
