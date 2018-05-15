@@ -96,4 +96,31 @@ class TotalTest extends AbstractTestCase
         $this->assertSame('Unit months have no configuration to get total from other units.', $monthsError);
         $this->assertSame('Unit years have no configuration to get total from other units.', $yearsError);
     }
+
+    public function testGetTotalsViaGettersWithFalseFactor()
+    {
+        $cascades = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors(array(
+            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
+            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
+            'days' => array(false, 'hours'), // soft break
+            'months' => array(30, 'days'),
+            'years' => array(Carbon::MONTHS_PER_YEAR, 'months'),
+        ));
+        $interval = CarbonInterval::create(3, 2, 0, 6, 150, 0, 0);
+        $totalSeconds = $interval->totalSeconds;
+        $totalMinutes = $interval->totalMinutes;
+        $totalHours = $interval->totalHours;
+        $totalDays = $interval->totalDays;
+        $totalMonths = $interval->totalMonths;
+        $totalYears = $interval->totalYears;
+        CarbonInterval::setCascadeFactors($cascades);
+
+        $this->assertSame(150 * 60 * 60, $totalSeconds);
+        $this->assertSame(150 * 60, $totalMinutes);
+        $this->assertSame(150, $totalHours);
+        $this->assertSame(1146, $totalDays);
+        $this->assertSame(1146 / 30, $totalMonths);
+        $this->assertSame(1146 / 30 / 12, $totalYears);
+    }
 }

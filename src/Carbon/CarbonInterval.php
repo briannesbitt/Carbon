@@ -913,6 +913,17 @@ class CarbonInterval extends DateInterval
                 $cumulativeFactor = 1;
             }
 
+            if ($factor === false) {
+                if ($unitFound) {
+                    break;
+                }
+
+                $result = 0;
+                $cumulativeFactor = 0;
+
+                continue;
+            }
+
             if ($target === $realUnit) {
                 $unitFound = true;
             }
@@ -925,6 +936,10 @@ class CarbonInterval extends DateInterval
             }
 
             $result = ($result + $this->$source) / $factor;
+        }
+
+        if (!$cumulativeFactor) {
+            $result += $this->$target;
         }
 
         if (!$unitFound) {
