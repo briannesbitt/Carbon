@@ -69,8 +69,8 @@ class KoTest extends AbstractTestCase
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
-            $scope->assertSame('1 초 뒤', $d->diffForHumans($d2));
-            $scope->assertSame('1 초 앞', $d2->diffForHumans($d));
+            $scope->assertSame('1 초 이후', $d->diffForHumans($d2));
+            $scope->assertSame('1 초 이전', $d2->diffForHumans($d));
 
             $scope->assertSame('1 초', $d->diffForHumans($d2, true));
             $scope->assertSame('2 초', $d2->diffForHumans($d->addSecond(), true));
