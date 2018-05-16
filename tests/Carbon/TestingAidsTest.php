@@ -146,17 +146,6 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01 12:00:00.000000', Carbon::parse('noon')->format('Y-m-d H:i:s.u'));
     }
 
-    public function testHasRelativeKeywords()
-    {
-        $this->assertFalse(Carbon::hasRelativeKeywords('sunday 2015-02-23'));
-        $this->assertTrue(Carbon::hasRelativeKeywords('today +2014 days'));
-        $this->assertTrue(Carbon::hasRelativeKeywords('next sunday -3600 seconds'));
-        $this->assertTrue(Carbon::hasRelativeKeywords('last day of this month'));
-        $this->assertFalse(Carbon::hasRelativeKeywords('last day of last month of 2015'));
-        $this->assertTrue(Carbon::hasRelativeKeywords('first sunday of next month'));
-        $this->assertFalse(Carbon::hasRelativeKeywords('first sunday of January 2017'));
-    }
-
     public function testParseRelativeWithMinusSignsInDate()
     {
         $testNow = Carbon::parse('2013-09-01 05:15:05');

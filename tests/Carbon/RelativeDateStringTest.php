@@ -38,6 +38,8 @@ class RelativeDateStringTest extends AbstractTestCase
         'december 1750' => array('date' => '1750-12-01', 'is_relative' => false),
         'last sunday of January 2005' => array('date' => '2005-01-30', 'is_relative' => false),
         'January 2008' => array('date' => '2008-01-01', 'is_relative' => false),
+        'sunday 2015-02-23' => array('date' => '2015-03-01', 'is_relative' => false),
+        'first sunday of January 2017' => array('date' => '2017-01-01', 'is_relative' => false),
 
         // dates relative to now
         'first day of next month' => array('date' => '2017-02-01', 'is_relative' => true),
@@ -46,6 +48,10 @@ class RelativeDateStringTest extends AbstractTestCase
         'monday december' => array('date' => '2017-12-04', 'is_relative' => true),
         'next saturday' => array('date' => '2017-01-07', 'is_relative' => true),
         'april' => array('date' => '2017-04-01', 'is_relative' => true),
+        'today +2014 days' => array('date' => '2022-07-08', 'is_relative' => true),
+        'next sunday -3600 seconds' => array('date' => '2017-01-07', 'is_relative' => true),
+        'last day of this month' => array('date' => '2017-01-31', 'is_relative' => true),
+        'first sunday of next month' => array('date' => '2017-02-05', 'is_relative' => true),
     );
 
     public function test_keyword_matching()
