@@ -111,7 +111,39 @@ class TestingAidsTest extends AbstractTestCase
 
             $scope->assertSame('2013-10-01 05:15:05', Carbon::parse('first day of next month')->toDateTimeString());
             $scope->assertSame('2013-09-30 05:15:05', Carbon::parse('last day of this month')->toDateTimeString());
+
+            $scope->assertSame('2013-09-01 06:00:00', Carbon::parse('6:00')->toDateTimeString());
+            $scope->assertSame('2013-09-01 17:31:24', Carbon::parse('17:31:24')->toDateTimeString());
+
+            $scope->assertSame('2013-09-01 12:00:00', Carbon::parse('noon')->toDateTimeString());
         }, $testNow);
+    }
+
+    public function testParseRelativeWithTestValueSetAndMicroseconds()
+    {
+        Carbon::setTestNow($now = Carbon::parse('2013-09-01 05:15:05.123456'));
+
+        $this->assertSame('2013-09-01 05:10:05.123456', Carbon::parse('5 minutes ago')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-08-25 05:15:05.123456', Carbon::parse('1 week ago')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-09-02 00:00:00.000000', Carbon::parse('tomorrow')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-01 00:00:00.000000', Carbon::parse('today')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-08-31 00:00:00.000000', Carbon::parse('yesterday')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-09-02 05:15:05.123456', Carbon::parse('+1 day')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-08-31 05:15:05.123456', Carbon::parse('-1 day')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-09-02 00:00:00.000000', Carbon::parse('next monday')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-08-27 00:00:00.000000', Carbon::parse('last tuesday')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-04 00:00:00.000000', Carbon::parse('this wednesday')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-10-01 05:15:05.123456', Carbon::parse('first day of next month')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-30 05:15:05.123456', Carbon::parse('last day of this month')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-09-01 06:00:00.000000', Carbon::parse('6:00')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2013-09-01 17:31:24.654321', Carbon::parse('17:31:24.654321')->format('Y-m-d H:i:s.u'));
+
+        $this->assertSame('2013-09-01 12:00:00.000000', Carbon::parse('noon')->format('Y-m-d H:i:s.u'));
     }
 
     public function testHasRelativeKeywords()
