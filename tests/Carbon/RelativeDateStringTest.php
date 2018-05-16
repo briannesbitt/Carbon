@@ -52,6 +52,8 @@ class RelativeDateStringTest extends AbstractTestCase
         'next sunday -3600 seconds' => array('date' => '2017-01-07', 'is_relative' => true),
         'last day of this month' => array('date' => '2017-01-31', 'is_relative' => true),
         'first sunday of next month' => array('date' => '2017-02-05', 'is_relative' => true),
+        'noon' => array('date' => '2017-01-01', 'is_relative' => true),
+        'tomorrow' => array('date' => '2017-01-02', 'is_relative' => true),
     );
 
     public function test_keyword_matching()
