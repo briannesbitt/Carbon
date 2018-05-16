@@ -1530,7 +1530,7 @@ class Carbon extends DateTime implements JsonSerializable
         $date2 = new DateTime('2001-12-25T17:59:13Z');
         $date2->modify($time);
 
-        if ($date1 == $date2) {
+        if ($date1 == $date2 || $date1->format('Y-m-d') === $date2->format('Y-m-d')) {
             return false;
         }
 

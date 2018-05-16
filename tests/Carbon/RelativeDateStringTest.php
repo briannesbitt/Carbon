@@ -18,7 +18,7 @@ class RelativeDateStringTest extends AbstractTestCase
 {
     public $scenarios = array(
 
-        // ensure regular timestamps are flagged as relative
+        // ensure regular timestamps are not flagged as relative
         '2018-01-02 03:04:05' => array('date' => '2018-01-02', 'is_relative' => false),
         '1500-01-02 12:00:00' => array('date' => '1500-01-02', 'is_relative' => false),
         '1985-12-10' => array('date' => '1985-12-10', 'is_relative' => false),
@@ -55,7 +55,7 @@ class RelativeDateStringTest extends AbstractTestCase
 
             $this->assertEquals(
                 $expected['is_relative'],
-                $actual,
+                (bool) $actual,
                 "Failed relative keyword matching for scenario: {$string} (expected: {$expected['is_relative']})"
             );
         }
