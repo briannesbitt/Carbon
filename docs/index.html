@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-17 07:51:57
+echo $now;                               // 2018-05-17 08:16:27
 $today = Carbon::today();
 echo $today;                             // 2018-05-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,10 +204,10 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:51 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:16 right now in Johannesburg.
 </code></pre></p>
 
-<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
+<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
 
 <p><pre><code class="php">$dt = new \DateTime('first day of January 2008'); // <== instance from another API
 $carbon = Carbon::instance($dt);
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-17 07:51:57
+echo Carbon::now();                                    // 2018-05-17 08:16:27
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-17 07:51:57
-echo $dt1->maximum();                              // 2018-05-17 07:51:57
+echo $dt1->max();                                  // 2018-05-17 08:16:27
+echo $dt1->maximum();                              // 2018-05-17 08:16:27
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -789,6 +789,11 @@ $dt->isSameMinute($dt2);
 $dt->isCurrentMinute();
 $dt->isSameSecond($dt2);
 $dt->isCurrentSecond();
+
+$dt->isStartOfDay(); // check if hour is 00:00:00
+$dt->isMidnight(); // check if hour is 00:00:00 (isStartOfDay alias)
+$dt->isEndOfDay(); // check if hour is 23:59:59
+$dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Carbon::setMidDayAt())
 $born = Carbon::createFromDate(1987, 4, 23);
 $noCake = Carbon::createFromDate(2014, 9, 26);
 $yesCake = Carbon::createFromDate(2014, 4, 23);
@@ -1725,7 +1730,7 @@ echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 days 3 minut
 $ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
-<p>Carbon intervals can be created from human-frendly strings thanks to <code>fromString()</code> method.</p>
+<p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
 
 <p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
@@ -1742,6 +1747,17 @@ CarbonInterval::setLocale('en');
 </code></pre></p>
 
 <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+
+<p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or strings:</p>
+
+<p><pre><code class="php">$dateInterval = new DateInterval('P2D');
+$carbonInterval = CarbonInterval::month();
+echo CarbonInterval::make($dateInterval)->forHumans();       // 2 days
+echo CarbonInterval::make($carbonInterval)->forHumans();     // 1 month
+echo CarbonInterval::make('PT3H')->forHumans();              // 3 hours
+echo CarbonInterval::make('1h 15m')->forHumans();            // 1 hour 15 minutes
+CarbonInterval::setLocale('en');
+</code></pre></p>
 
 </div>
 

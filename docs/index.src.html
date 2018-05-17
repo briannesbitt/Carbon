@@ -158,7 +158,7 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 {{nowwtz2::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz2_eval}}
 </code></pre></p>
 
-<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
+<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
 
 <p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
 {{::lint($carbon = Carbon::instance($dt);)}}
@@ -729,6 +729,11 @@ $dt->isSameMinute($dt2);
 $dt->isCurrentMinute();
 $dt->isSameSecond($dt2);
 $dt->isCurrentSecond();
+
+$dt->isStartOfDay(); // check if hour is 00:00:00
+$dt->isMidnight(); // check if hour is 00:00:00 (isStartOfDay alias)
+$dt->isEndOfDay(); // check if hour is 23:59:59
+$dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Carbon::setMidDayAt())
 )}}
 {{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
@@ -1709,7 +1714,7 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 $ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
-<p>Carbon intervals can be created from human-frendly strings thanks to <code>fromString()</code> method.</p>
+<p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
 
 <p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
@@ -1727,6 +1732,19 @@ CarbonInterval::setLocale('fr');)}}
 </code></pre></p>
 
 <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+
+<p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or strings:</p>
+
+<p><pre><code class="php">{{::lint(
+$dateInterval = new DateInterval('P2D');
+$carbonInterval = CarbonInterval::month();
+)}}
+{{intervalmake1::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake1_eval}}
+{{intervalmake2::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake2_eval}}
+{{intervalmake3::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{intervalmake3_eval}}
+{{intervalmake4::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{intervalmake4_eval}}
+{{::lint(CarbonInterval::setLocale('en');)}}
+</code></pre></p>
 
 </div>
 

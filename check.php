@@ -39,7 +39,8 @@ foreach ($carbonObjects as $carbonObject) {
         }
 
         $methodsCount++;
-        $documented = !!preg_match('/'.preg_quote($method, '/').'(?!\w)/', $documentation);
+        $pattern = preg_quote($method, '/');
+        $documented = !!preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
         if (!$documented) {
             $missingMethodsCount++;
         }
