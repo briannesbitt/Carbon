@@ -1743,7 +1743,67 @@ $carbonInterval = CarbonInterval::month();
 {{intervalmake2::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake2_eval}}
 {{intervalmake3::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{intervalmake3_eval}}
 {{intervalmake4::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{intervalmake4_eval}}
-{{::lint(CarbonInterval::setLocale('en');)}}
+</code></pre></p>
+
+<p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
+
+<p><pre><code class="php">{{::lint(
+$interval = CarbonInterval::make('7h 55m');
+$interval->add(CarbonInterval::make('17h 35m'));
+$interval->times(3);
+)}}
+{{intervalmake5::exec(echo $interval->forHumans();)}} // {{intervalmake5_eval}}
+</code></pre></p>
+
+<p>You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use the cascade method:</p>
+
+<p><pre><code class="php">
+{{cascade1::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{cascade1_eval}}
+{{cascade2::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{cascade2_eval}}
+</code></pre></p>
+
+<p>Default factors are:</p>
+
+<ul>
+    <li>1 minute = 60 seconds</li>
+    <li>1 hour = 60 minutes</li>
+    <li>1 day = 24 hour</li>
+    <li>1 week = 7 days</li>
+    <li>1 month = 4 weeks</li>
+    <li>1 year = 12 months</li>
+</ul>
+
+<p>Intervals does not carry context so it cannot be more precise (no DST, no leap year, no real month length consideration).  But you can completely customize those factors. For example to deal with work time logs:</p>
+
+<p><pre><code class="php">{{::lint(
+$cascades = CarbonInterval::getCascadeFactors(); // save initial factors
+
+CarbonInterval::setCascadeFactors(array(
+    'minutes' => array(60, 'seconds'),
+    'hours' => array(60, 'minutes'),
+    'days' => array(8, 'hours'),
+    'weeks' => array(5, 'days'),
+    // in this example the cascade won't go farther than week unit
+));
+)}}
+
+{{cascade3::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade3_eval}}
+{{cascade4::exec(echo CarbonInterval::fromString('10d')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade4_eval}}
+{{cascade5::exec(echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade5_eval}}
+
+// You can see currently set factors with getFactor:
+{{cascade6::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hours');/*pad(76)*/)}} // {{cascade6_eval}}
+{{cascade7::exec(echo CarbonInterval::getFactor('dayz', 'weeks');/*pad(76)*/)}} // {{cascade7_eval}}
+
+// And common factors can be get with short-cut methods:
+{{cascade8::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{cascade8_eval}}
+{{cascade9::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{cascade9_eval}}
+{{cascade10::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{cascade10_eval}}
+{{cascade11::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{cascade11_eval}}
+
+{{::lint(
+CarbonInterval::setCascadeFactors($cascades); // restore original factors
+)}}
 </code></pre></p>
 
 </div>
