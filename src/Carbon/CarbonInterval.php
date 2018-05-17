@@ -135,20 +135,21 @@ class CarbonInterval extends DateInterval
         );
     }
 
+    private static function standardizeUnit($unit)
+    {
+        $unit = rtrim($unit, 'sz').'s';
+
+        return $unit === 'days' ? 'dayz' : $unit;
+    }
+
     private static function getFlipCascadeFactors()
     {
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = array();
             foreach (static::getCascadeFactors() as $to => $tuple) {
                 list($factor, $from) = $tuple;
-                if ($from === 'days') {
-                    $from = 'dayz';
-                }
-                if ($to === 'days') {
-                    $to = 'dayz';
-                }
 
-                self::$flipCascadeFactors[$from] = array($to, $factor);
+                self::$flipCascadeFactors[self::standardizeUnit($from)] = array(self::standardizeUnit($to), $factor);
             }
         }
 
@@ -233,6 +234,8 @@ class CarbonInterval extends DateInterval
      */
     public static function getFactor($source, $target)
     {
+        $source = self::standardizeUnit($source);
+        $target = self::standardizeUnit($target);
         $factors = static::getFlipCascadeFactors();
         if (isset($factors[$source])) {
             list($to, $factor) = $factors[$source];
