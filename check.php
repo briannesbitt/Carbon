@@ -20,14 +20,24 @@ function display($message)
     echo $message;
 }
 
-$dateTimeMethods = get_class_methods(new \DateTime());
 $carbonObjects = array(
-    new \Carbon\Carbon(),
-    new \Carbon\CarbonInterval('P1D'),
-    new \Carbon\CarbonPeriod(),
+    array(
+        new \Carbon\Carbon(),
+        new \DateTime()
+    ),
+    array(
+        new \Carbon\CarbonInterval('P1D'),
+        new \DateInterval('P1D'),
+    ),
+    array(
+        new \Carbon\CarbonPeriod(),
+        new \stdClass(),
+    ),
 );
-foreach ($carbonObjects as $carbonObject) {
+foreach ($carbonObjects as $tuple) {
+    list($carbonObject, $dateTimeObject) = $tuple;
     $className = get_class($carbonObject);
+    $dateTimeMethods = get_class_methods($dateTimeObject);
 
     foreach (get_class_methods($carbonObject) as $method) {
         if (

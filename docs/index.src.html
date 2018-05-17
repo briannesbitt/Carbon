@@ -1779,10 +1779,10 @@ $interval->times(3);
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
 
 CarbonInterval::setCascadeFactors(array(
-    'minutes' => array(60, 'seconds'),
-    'hours' => array(60, 'minutes'),
-    'days' => array(8, 'hours'),
-    'weeks' => array(5, 'days'),
+    'minute' => array(60, 'seconds'),
+    'hour' => array(60, 'minutes'),
+    'day' => array(8, 'hours'),
+    'week' => array(5, 'days'),
     // in this example the cascade won't go farther than week unit
 ));
 )}}
@@ -1792,8 +1792,8 @@ CarbonInterval::setCascadeFactors(array(
 {{cascade5::exec(echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade5_eval}}
 
 // You can see currently set factors with getFactor:
-{{cascade6::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hours');/*pad(76)*/)}} // {{cascade6_eval}}
-{{cascade7::exec(echo CarbonInterval::getFactor('dayz', 'weeks');/*pad(76)*/)}} // {{cascade7_eval}}
+{{cascade6::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hour');/*pad(76)*/)}} // {{cascade6_eval}}
+{{cascade7::exec(echo CarbonInterval::getFactor('days', 'week');/*pad(76)*/)}} // {{cascade7_eval}}
 
 // And common factors can be get with short-cut methods:
 {{cascade8::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{cascade8_eval}}
@@ -1804,6 +1804,79 @@ CarbonInterval::setCascadeFactors(array(
 {{::lint(
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
 )}}
+</code></pre></p>
+
+<p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
+
+<p><pre><code class="php">{{total1::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{total1_eval}}
+{{total2::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{total2_eval}}
+</code></pre></p>
+
+<p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
+
+<p><pre><code class="php">{{cispec1::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{cispec1_eval}}
+</code></pre></p>
+
+<p>It's also possible to get it from a DateInterval object since to the static helper:</p>
+
+<p><pre><code class="php">{{cispec2::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{cispec2_eval}}
+</code></pre></p>
+
+<p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code> methods:</p>
+
+<p><pre><code class="php">{{::lint(
+$halfDay = CarbonInterval::hours(12);
+$oneDay = CarbonInterval::day();
+$twoDay = CarbonInterval::days(2);
+)}}
+
+{{cicomparedi1::exec(echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);/*pad(62)*/)}} // {{cicomparedi1_eval}}
+{{cicompare1::exec(echo $oneDay->compare($oneDay);/*pad(62)*/)}} // {{cicompare1_eval}}
+{{cicomparedi2::exec(echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);/*pad(62)*/)}} // {{cicomparedi2_eval}}
+{{cicompare2::exec(echo $oneDay->compare($halfDay);/*pad(62)*/)}} // {{cicompare2_eval}}
+{{cicomparedi3::exec(echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);/*pad(62)*/)}} // {{cicomparedi3_eval}}
+{{cicompare3::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{cicompare3_eval}}
+
+{{::lint(
+$list = array($twoDay, $halfDay, $oneDay);
+usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
+)}}
+
+{{cicompare4::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{cicompare4_eval}}
+</code></pre></p>
+
+<p>Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling <code>toPeriod()</code> with complementary arguments.</p>
+
+<p>I hear you ask what is a CarbonPeriod instance. Oh! Perfect transition to our next chapter.</p>
+
+<h1 id="api-period">CarbonPeriod</h1>
+
+<p>CarbonPeriod is a polyfill of <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with some human-friendly shortcuts.</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
+// same as $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
+$dates = array();
+foreach ($period as $date) {
+    $dates[] = $date->format('m-d');
+}
+)}}
+
+{{cprange1::exec(echo implode(', ', $dates);)}} // {{cprange1_eval}}
+</code></pre></p>
+
+<p>You can use a fluent syntax (equivalent to the code above):</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
+// Same as $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
+$dates = array();
+foreach ($period as $date) {
+    $dates[] = $date->format('m-d');
+}
+)}}
+
+{{cprange2::exec(echo implode(', ', $dates);)}} // {{cprange2_eval}}
 </code></pre></p>
 
 </div>

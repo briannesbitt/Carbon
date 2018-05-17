@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-17 09:01:50
+echo $now;                               // 2018-05-17 12:08:57
 $today = Carbon::today();
 echo $today;                             // 2018-05-17 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:01 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:08 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-17 09:01:50
+echo Carbon::now();                                    // 2018-05-17 12:08:57
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-17 09:01:50
-echo $dt1->maximum();                              // 2018-05-17 09:01:50
+echo $dt1->max();                                  // 2018-05-17 12:08:57
+echo $dt1->maximum();                              // 2018-05-17 12:08:57
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1789,10 +1789,10 @@ echo $interval->cascade()->forHumans();  // 3 days 4 hours 30 minutes
 <p><pre><code class="php">$cascades = CarbonInterval::getCascadeFactors(); // save initial factors
 
 CarbonInterval::setCascadeFactors(array(
-    'minutes' => array(60, 'seconds'),
-    'hours' => array(60, 'minutes'),
-    'days' => array(8, 'hours'),
-    'weeks' => array(5, 'days'),
+    'minute' => array(60, 'seconds'),
+    'hour' => array(60, 'minutes'),
+    'day' => array(8, 'hours'),
+    'week' => array(5, 'days'),
     // in this example the cascade won't go farther than week unit
 ));
 
@@ -1801,8 +1801,8 @@ echo CarbonInterval::fromString('10d')->cascade()->forHumans();              // 
 echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();  // 7 weeks 4 days 7 hours 39 minutes
 
 // You can see currently set factors with getFactor:
-echo CarbonInterval::getFactor('minutes', /* per */ 'hours');                // 60
-echo CarbonInterval::getFactor('dayz', 'weeks');                             // 5
+echo CarbonInterval::getFactor('minutes', /* per */ 'hour');                 // 60
+echo CarbonInterval::getFactor('days', 'week');                              // 5
 
 // And common factors can be get with short-cut methods:
 echo CarbonInterval::getDaysPerWeek();                                       // 5
@@ -1811,6 +1811,71 @@ echo CarbonInterval::getMinutesPerHours();                                   // 
 echo CarbonInterval::getSecondsPerMinutes();                                 // 60
 
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
+</code></pre></p>
+
+<p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
+
+<p><pre><code class="php">echo CarbonInterval::days(3)->hours(5)->total('hours');    // 77
+echo CarbonInterval::days(3)->hours(5)->totalHours;        // 77
+</code></pre></p>
+
+<p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
+
+<p><pre><code class="php">echo CarbonInterval::days(3)->hours(5)->spec(); // P3DT5H
+</code></pre></p>
+
+<p>It's also possible to get it from a DateInterval object since to the static helper:</p>
+
+<p><pre><code class="php">echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S')); // P3DT6M10S
+</code></pre></p>
+
+<p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code> methods:</p>
+
+<p><pre><code class="php">$halfDay = CarbonInterval::hours(12);
+$oneDay = CarbonInterval::day();
+$twoDay = CarbonInterval::days(2);
+
+echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);   // 0
+echo $oneDay->compare($oneDay);                                // 0
+echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);  // 1
+echo $oneDay->compare($halfDay);                               // 1
+echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);   // -1
+echo $oneDay->compare($twoDay);                                // -1
+
+$list = array($twoDay, $halfDay, $oneDay);
+usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
+
+echo implode(', ', $list);                                     // 12 hours, 1 day, 2 days
+</code></pre></p>
+
+<p>Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling <code>toPeriod()</code> with complementary arguments.</p>
+
+<p>I hear you ask what is a CarbonPeriod instance. Oh! Perfect transition to our next chapter.</p>
+
+<h1 id="api-period">CarbonPeriod</h1>
+
+<p>CarbonPeriod is a polyfill of <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with some human-friendly shortcuts.</p>
+
+<p><pre><code class="php">$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
+// same as $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
+$dates = array();
+foreach ($period as $date) {
+    $dates[] = $date->format('m-d');
+}
+
+echo implode(', ', $dates); // 04-21, 04-24, 04-27
+</code></pre></p>
+
+<p>You can use a fluent syntax (equivalent to the code above):</p>
+
+<p><pre><code class="php">$period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
+// Same as $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
+$dates = array();
+foreach ($period as $date) {
+    $dates[] = $date instanceof Carbon ? $date->format('m-d') : $date;
+}
+
+echo implode(', ', $dates); // 04-21, 04-24, 04-27
 </code></pre></p>
 
 </div>
