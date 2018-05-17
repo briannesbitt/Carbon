@@ -121,4 +121,13 @@ class CascadeTest extends AbstractTestCase
         CarbonInterval::setCascadeFactors($cascades);
         $this->assertSame('1w 4d 14h 20m', $actual);
     }
+
+    public function testGetFactor()
+    {
+        $this->assertSame(28, CarbonInterval::getFactor('day', 'months'));
+        $this->assertSame(28, CarbonInterval::getFactor('day', 'month'));
+        $this->assertSame(28, CarbonInterval::getFactor('days', 'month'));
+        $this->assertSame(28, CarbonInterval::getFactor('day', 'month'));
+        $this->assertSame(28, CarbonInterval::getFactor('dayz', 'months'));
+    }
 }
