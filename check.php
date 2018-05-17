@@ -24,6 +24,7 @@ $dateTimeMethods = get_class_methods(new \DateTime());
 $carbonObjects = array(
     new \Carbon\Carbon(),
     new \Carbon\CarbonInterval('P1D'),
+    new \Carbon\CarbonPeriod(),
 );
 foreach ($carbonObjects as $carbonObject) {
     $className = get_class($carbonObject);

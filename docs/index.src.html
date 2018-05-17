@@ -1440,7 +1440,27 @@ $date = Carbon::parse('First saturday of December 2018');
 {{hasmacro3::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{hasmacro3_eval}}
 </code></pre></p>
 
+<p>And guess what? all macro methods are also available on <a href="#api-interval"><code>CarbonInterval</code></a> and <a href="#api-period"><code>CarbonPeriod</code></a> classes.</p>
+
 <p>Here are some useful macros proposed by the community:</p>
+
+<p><pre><code class="php">{{::lint(
+CarbonInterval::macro('twice', function ($self = null) {
+    return $self->times(2);
+});
+)}}
+{{intervaltwice1::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{intervaltwice1_eval}}
+{{intervaltwice2::exec(echo CarbonInterval::hours(2)->minutes(15)->twice()->forHumans(true);/*pad(72)*/)}} // {{intervaltwice2_eval}}
+</code></pre></p>
+
+<p><pre><code class="php">{{::lint(
+CarbonPeriod::macro('countWeekdays', function ($self = null) {
+    return $self->filter('isWeekday')->count();
+});
+)}}
+{{periodwd1::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{periodwd1_eval}}
+{{periodwd2::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{periodwd2_eval}}
+</code></pre></p>
 
 <p><pre><code class="php">{{::lint(
 Carbon::macro('isHoliday', function ($self = null) {
@@ -1734,6 +1754,7 @@ CarbonInterval::setLocale('fr');)}}
           <li><a href="#api-json">JSON</a></li>
           <li><a href="#api-macro">Macro</a></li>
           <li><a href="#api-interval">CarbonInterval</a></li>
+          <li><a href="#api-period">CarbonPeriod</a></li>
         </ul>
       </div>
     </div>
