@@ -2604,7 +2604,8 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Check if the instance is start of day / midnight.
      *
-     * @param bool $checkMicroseconds
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
      *
      * @return bool
      */
@@ -2618,7 +2619,8 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Check if the instance is end of day.
      *
-     * @param bool $checkMicroseconds
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
      *
      * @return bool
      */

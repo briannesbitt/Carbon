@@ -717,7 +717,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsStartOfDayWithMicroseconds()
     {
-        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
+        if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
             $this->markTestSkipped();
         }
 
@@ -739,7 +739,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsEndOfDayWithMicroseconds()
     {
-        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
+        if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
             $this->markTestSkipped();
         }
 
