@@ -415,6 +415,8 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @param object $mixin
      *
+     * @throws \ReflectionException
+     *
      * @return void
      */
     public static function mixin($mixin)

@@ -11,8 +11,12 @@
 
 namespace Carbon;
 
+use Closure;
 use DateInterval;
 use InvalidArgumentException;
+use ReflectionClass;
+use ReflectionFunction;
+use ReflectionMethod;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -99,6 +103,13 @@ class CarbonInterval extends DateInterval
      * @var array|null
      */
     private static $flipCascadeFactors;
+
+    /**
+     * The registered macros.
+     *
+     * @var array
+     */
+    protected static $macros = array();
 
     /**
      * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
@@ -351,6 +362,12 @@ class CarbonInterval extends DateInterval
             case 'seconds':
             case 'second':
                 return new static(null, null, null, null, null, null, $arg);
+        }
+
+        if (static::hasMacro($name)) {
+            return call_user_func_array(
+                array(new static(0), $name), $args
+            );
         }
     }
 
@@ -676,6 +693,89 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Register a custom macro.
+     *
+     * @param string          $name
+     * @param object|callable $macro
+     *
+     * @return void
+     */
+    public static function macro($name, $macro)
+    {
+        static::$macros[$name] = $macro;
+    }
+
+    /**
+     * Register macros from a mixin object.
+     *
+     * @param object $mixin
+     *
+     * @throws \ReflectionException
+     *
+     * @return void
+     */
+    public static function mixin($mixin)
+    {
+        $reflection = new ReflectionClass($mixin);
+
+        $methods = $reflection->getMethods(
+            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            $method->setAccessible(true);
+
+            static::macro($method->name, $method->invoke($mixin));
+        }
+    }
+
+    /**
+     * Check if macro is registered.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function hasMacro($name)
+    {
+        return isset(static::$macros[$name]);
+    }
+
+    /**
+     * Call given macro.
+     *
+     * @param string $name
+     * @param array  $parameters
+     *
+     * @return mixed
+     */
+    protected function callMacro($name, $parameters)
+    {
+        $macro = static::$macros[$name];
+
+        $reflection = new ReflectionFunction($macro);
+
+        $reflectionParameters = $reflection->getParameters();
+
+        $expectedCount = count($reflectionParameters);
+        $actualCount = count($parameters);
+
+        if ($expectedCount > $actualCount && $reflectionParameters[$expectedCount - 1]->name === 'self') {
+            for ($i = $actualCount; $i < $expectedCount - 1; $i++) {
+                $parameters[] = $reflectionParameters[$i]->getDefaultValue();
+            }
+
+            $parameters[] = $this;
+        }
+
+        if ($macro instanceof Closure && method_exists($macro, 'bindTo')) {
+            $macro = $macro->bindTo($this, get_class($this));
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
+    /**
      * Allow fluent calls on the setters... CarbonInterval::years(3)->months(5)->day().
      *
      * Note: This is done using the magic method to allow static and instance methods to
@@ -688,6 +788,10 @@ class CarbonInterval extends DateInterval
      */
     public function __call($name, $args)
     {
+        if (static::hasMacro($name)) {
+            return $this->callMacro($name, $args);
+        }
+
         $arg = count($args) === 0 ? 1 : $args[0];
 
         switch ($name) {

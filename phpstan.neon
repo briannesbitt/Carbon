@@ -10,5 +10,6 @@ parameters:
 		- '*/tests/Carbon/SettersTest.php'
 		- '*/tests/Carbon/GettersTest.php'
 		- '*/tests/CarbonInterval/GettersTest.php'
+		- '*/tests/CarbonInterval/MacroTest.php'
 		- '*/tests/CarbonPeriod/MacroTest.php'
 		- '*/tests/CarbonPeriod/Fixtures/filters.php'
