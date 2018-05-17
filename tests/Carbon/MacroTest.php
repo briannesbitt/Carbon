@@ -84,7 +84,7 @@ class MacroTest extends AbstractTestCase
             $this->markTestSkipped();
         }
 
-        Carbon::macro('diffFromEaster', function ($year) {
+        Carbon::macro('diffFromEaster2', function ($year) {
             $instance = Carbon::create($year);
 
             $a = $instance->year % 19;
@@ -107,7 +107,7 @@ class MacroTest extends AbstractTestCase
             return $this->diff($instance);
         });
 
-        $this->assertSame(1020, $this->now->diffFromEaster(2020)->days);
+        $this->assertSame(1020, $this->now->diffFromEaster2(2020)->days);
     }
 
     public function testCarbonIsMacroableWhenCalledStatically()
