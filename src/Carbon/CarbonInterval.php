@@ -295,6 +295,19 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function copy()
+    {
+        $date = new static($this->spec());
+        $date->invert = $this->invert;
+
+        return $date;
+    }
+
+    /**
      * Provide static helpers to create instances.  Allows CarbonInterval::years(3).
      *
      * Note: This is done using the magic method to allow static and instance methods to
@@ -342,7 +355,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Creates a CarbonInterval from string
+     * Creates a CarbonInterval from string.
      *
      * Format:
      *
@@ -469,6 +482,35 @@ class CarbonInterval extends DateInterval
         return $instance;
     }
 
+    /**
+     * Make a CarbonInterval instance from given variable if possible.
+     *
+     * Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
+     * and recurrences). Throw an exception for invalid format, but otherwise return null.
+     *
+     * @param mixed $var
+     *
+     * @return static|null
+     */
+    public static function make($var)
+    {
+        if ($var instanceof DateInterval) {
+            return static::instance($var);
+        }
+
+        if (is_string($var)) {
+            $var = trim($var);
+
+            if (substr($var, 0, 1) === 'P') {
+                return new static($var);
+            }
+
+            if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
+                return static::fromString($var);
+            }
+        }
+    }
+
     ///////////////////////////////////////////////////////////////////
     /////////////////////// LOCALIZATION //////////////////////////////
     ///////////////////////////////////////////////////////////////////
@@ -488,7 +530,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the translator instance in use
+     * Get the translator instance in use.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -498,7 +540,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set the translator instance to use
+     * Set the translator instance to use.
      *
      * @param TranslatorInterface $translator
      */
@@ -508,7 +550,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the current translator locale
+     * Get the current translator locale.
      *
      * @return string
      */
@@ -518,7 +560,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set the current translator locale
+     * Set the current translator locale.
      *
      * @param string $locale
      */
@@ -532,7 +574,7 @@ class CarbonInterval extends DateInterval
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Get a part of the CarbonInterval object
+     * Get a part of the CarbonInterval object.
      *
      * @param string $name
      *
@@ -578,7 +620,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Set a part of the CarbonInterval object
+     * Set a part of the CarbonInterval object.
      *
      * @param string $name
      * @param int    $val
@@ -730,7 +772,31 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Add the passed interval to the current instance
+     * Convert the interval to a CarbonPeriod.
+     *
+     * @return CarbonPeriod
+     */
+    public function toPeriod()
+    {
+        return CarbonPeriod::createFromArray(
+            array_merge(array($this), func_get_args())
+        );
+    }
+
+    /**
+     * Invert the interval.
+     *
+     * @return $this
+     */
+    public function invert()
+    {
+        $this->invert = $this->invert ? 0 : 1;
+
+        return $this;
+    }
+
+    /**
+     * Add the passed interval to the current instance.
      *
      * @param DateInterval $interval
      *
@@ -779,7 +845,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the interval_spec string of a date interval
+     * Get the interval_spec string of a date interval.
      *
      * @param DateInterval $interval
      *
@@ -816,7 +882,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Get the interval_spec string
+     * Get the interval_spec string.
      *
      * @return string
      */
@@ -826,7 +892,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Comparing 2 date intervals
+     * Comparing 2 date intervals.
      *
      * @param DateInterval $a
      * @param DateInterval $b
@@ -841,7 +907,8 @@ class CarbonInterval extends DateInterval
 
         if ($current < $passed) {
             return -1;
-        } elseif ($current > $passed) {
+        }
+        if ($current > $passed) {
             return 1;
         }
 
@@ -849,7 +916,7 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Comparing with passed interval
+     * Comparing with passed interval.
      *
      * @param DateInterval $interval
      *

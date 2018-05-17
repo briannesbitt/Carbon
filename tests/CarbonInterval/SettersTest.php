@@ -117,4 +117,15 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(2, $ci->weeks);
         $this->assertSame(6, $ci->dayzExcludeWeeks);
     }
+
+    public function testInvert()
+    {
+        $ci = new CarbonInterval;
+
+        $this->assertSame($ci, $ci->invert());
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert());
+        $this->assertSame(0, $ci->invert);
+    }
 }

@@ -705,6 +705,65 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isSaturday());
     }
 
+    public function testIsStartOfDay()
+    {
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay());
+        $this->assertTrue(Carbon::parse('00:00:00.999999')->isStartOfDay());
+        $this->assertTrue(Carbon::now()->startOfDay()->isStartOfDay());
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isStartOfDay());
+        $this->assertFalse(Carbon::now()->endOfDay()->isStartOfDay());
+    }
+
+    public function testIsStartOfDayWithMicroseconds()
+    {
+        if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
+            $this->markTestSkipped();
+        }
+
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay(true));
+        $this->assertTrue(Carbon::now()->startOfDay()->isStartOfDay(true));
+
+        $this->assertFalse(Carbon::parse('00:00:00.000001')->isStartOfDay(true));
+    }
+
+    public function testIsEndOfDay()
+    {
+        $this->assertTrue(Carbon::parse('23:59:59')->isEndOfDay());
+        $this->assertTrue(Carbon::parse('23:59:59.000000')->isEndOfDay());
+        $this->assertTrue(Carbon::now()->endOfDay()->isEndOfDay());
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isEndOfDay());
+        $this->assertFalse(Carbon::now()->startOfDay()->isEndOfDay());
+    }
+
+    public function testIsEndOfDayWithMicroseconds()
+    {
+        if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
+            $this->markTestSkipped();
+        }
+
+        $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay(true));
+        $this->assertTrue(Carbon::now()->endOfDay()->isEndOfDay(true));
+
+        $this->assertFalse(Carbon::parse('23:59:59')->isEndOfDay(true));
+        $this->assertFalse(Carbon::parse('23:59:59.999998')->isEndOfDay(true));
+    }
+
+    public function testIsMidnight()
+    {
+        $this->assertTrue(Carbon::parse('00:00:00')->isMidnight());
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isMidnight());
+    }
+
+    public function testIsMidday()
+    {
+        $this->assertTrue(Carbon::parse('12:00:00')->isMidday());
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isMidday());
+    }
+
     public function testHasFormat()
     {
         $this->assertTrue(Carbon::hasFormat('1975-05-01', 'Y-m-d'));

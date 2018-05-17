@@ -935,6 +935,32 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Make a Carbon instance from given variable if possible.
+     *
+     * Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
+     * and recurrences). Throw an exception for invalid format, but otherwise return null.
+     *
+     * @param mixed $var
+     *
+     * @return static|null
+     */
+    public static function make($var)
+    {
+        if ($var instanceof DateTime || $var instanceof DateTimeInterface) {
+            return static::instance($var);
+        }
+
+        if (is_string($var)) {
+            $var = trim($var);
+            $first = substr($var, 0, 1);
+
+            if (is_string($var) && $first !== 'P' && $first !== 'R' && preg_match('/[a-z0-9]/i', $var)) {
+                return static::parse($var);
+            }
+        }
+    }
+
+    /**
      * Get a copy of the instance.
      *
      * @return static
@@ -2118,7 +2144,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is a weekday
+     * Determines if the instance is a weekday.
      *
      * @return bool
      */
@@ -2128,7 +2154,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is a weekend day
+     * Determines if the instance is a weekend day.
      *
      * @return bool
      */
@@ -2138,7 +2164,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is yesterday
+     * Determines if the instance is yesterday.
      *
      * @return bool
      */
@@ -2148,7 +2174,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is today
+     * Determines if the instance is today.
      *
      * @return bool
      */
@@ -2158,7 +2184,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is tomorrow
+     * Determines if the instance is tomorrow.
      *
      * @return bool
      */
@@ -2168,7 +2194,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the next week
+     * Determines if the instance is within the next week.
      *
      * @return bool
      */
@@ -2178,7 +2204,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the last week
+     * Determines if the instance is within the last week.
      *
      * @return bool
      */
@@ -2188,7 +2214,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the next quarter
+     * Determines if the instance is within the next quarter.
      *
      * @return bool
      */
@@ -2198,7 +2224,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the last quarter
+     * Determines if the instance is within the last quarter.
      *
      * @return bool
      */
@@ -2208,7 +2234,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the next month
+     * Determines if the instance is within the next month.
      *
      * @return bool
      */
@@ -2218,7 +2244,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the last month
+     * Determines if the instance is within the last month.
      *
      * @return bool
      */
@@ -2228,7 +2254,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within next year
+     * Determines if the instance is within next year.
      *
      * @return bool
      */
@@ -2238,7 +2264,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is within the previous year
+     * Determines if the instance is within the previous year.
      *
      * @return bool
      */
@@ -2248,7 +2274,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the future, ie. greater (after) than now
+     * Determines if the instance is in the future, ie. greater (after) than now.
      *
      * @return bool
      */
@@ -2258,7 +2284,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the past, ie. less (before) than now
+     * Determines if the instance is in the past, ie. less (before) than now.
      *
      * @return bool
      */
@@ -2268,7 +2294,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is a leap year
+     * Determines if the instance is a leap year.
      *
      * @return bool
      */
@@ -2309,7 +2335,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the current year
+     * Determines if the instance is in the current year.
      *
      * @return bool
      */
@@ -2331,7 +2357,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the current month
+     * Determines if the instance is in the current month.
      *
      * @return bool
      */
@@ -2358,7 +2384,7 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the current month
+     * Determines if the instance is in the current month.
      *
      * @return bool
      */
@@ -2573,6 +2599,56 @@ class Carbon extends DateTime implements JsonSerializable
     public function isLastOfMonth()
     {
         return $this->day === $this->daysInMonth;
+    }
+
+    /**
+     * Check if the instance is start of day / midnight.
+     *
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
+     *
+     * @return bool
+     */
+    public function isStartOfDay($checkMicroseconds = false)
+    {
+        return $checkMicroseconds
+            ? $this->format('H:i:s.u') === '00:00:00.000000'
+            : $this->format('H:i:s') === '00:00:00';
+    }
+
+    /**
+     * Check if the instance is end of day.
+     *
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
+     *
+     * @return bool
+     */
+    public function isEndOfDay($checkMicroseconds = false)
+    {
+        return $checkMicroseconds
+            ? $this->format('H:i:s.u') === '23:59:59.999999'
+            : $this->format('H:i:s') === '23:59:59';
+    }
+
+    /**
+     * Check if the instance is start of day / midnight.
+     *
+     * @return bool
+     */
+    public function isMidnight()
+    {
+        return $this->isStartOfDay();
+    }
+
+    /**
+     * Check if the instance is midday.
+     *
+     * @return bool
+     */
+    public function isMidday()
+    {
+        return $this->format('G:i:s') === static::$midDayAt.':00:00';
     }
 
     /**
@@ -4447,8 +4523,6 @@ class Carbon extends DateTime implements JsonSerializable
      * Mix another object into the class.
      *
      * @param object $mixin
-     *
-     * @throws \ReflectionException
      *
      * @return void
      */
