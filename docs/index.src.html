@@ -1743,6 +1743,8 @@ $carbonInterval = CarbonInterval::month();
 {{intervalmake2::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake2_eval}}
 {{intervalmake3::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{intervalmake3_eval}}
 {{intervalmake4::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{intervalmake4_eval}}
+// Pass true to get short format
+{{interval2s::exec(echo CarbonInterval::make('1h 15m')->forHumans(true);/*pad(60)*/)}} // {{interval2s_eval}}
 </code></pre></p>
 
 <p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
