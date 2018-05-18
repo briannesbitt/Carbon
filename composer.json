@@ -1,5 +1,5 @@
 {
     "require": {
-        "nesbot/carbon": "dev-version-1.28"
+        "nesbot/carbon": "dev-master"
     }
 }
