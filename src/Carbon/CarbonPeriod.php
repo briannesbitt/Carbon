@@ -207,7 +207,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * The cached validation result for current date.
      *
-     * @var bool|null
+     * @var bool|static::END_ITERATION
      */
     protected $validationResult;
 
