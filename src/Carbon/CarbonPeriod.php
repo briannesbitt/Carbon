@@ -1588,6 +1588,10 @@ class CarbonPeriod implements Iterator, Countable
                 return $this->setFilters($first ?: array());
 
             case 'interval':
+            case 'each':
+            case 'every':
+            case 'step':
+            case 'stepBy':
                 return $this->setDateInterval($first);
 
             case 'invert':
