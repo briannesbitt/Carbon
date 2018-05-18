@@ -332,7 +332,7 @@ class IteratorTest extends AbstractTestCase
         $this->assertEquals(2, $counter);
     }
 
-    public function testClearCachedValidationResultWhenPropertiesAreChanged()
+    public function testInvalidateCurrentAfterChangingParameters()
     {
         $period = CarbonPeriod::create('2012-10-01');
 
@@ -341,33 +341,6 @@ class IteratorTest extends AbstractTestCase
         $period->addFilter(CarbonPeriod::END_ITERATION);
 
         $this->assertNull($period->current());
-    }
-
-    public function testClearInvalidIterationResultsBeforeSubsequentIteration()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $results = array();
-
-        foreach ($period as $key => $current) {
-            $results[$key] = $current;
-
-            if ($key === 1) {
-                $period->setStartDate('2012-09-15');
-            }
-        }
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2012-10-01', '2012-10-02', '2012-10-03')),
-            $this->standardizeDates($results)
-        );
-        $this->assertEquals(3, $counter);
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2012-09-15', '2012-09-16', '2012-09-17')),
-            $this->standardizeDates(iterator_to_array($period))
-        );
-        $this->assertEquals(6, $counter);
     }
 
     public function testTraversePeriodDynamically()
@@ -390,27 +363,6 @@ class IteratorTest extends AbstractTestCase
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
             $this->standardizeDates($results)
         );
-    }
-
-    public function testHandleDstBackwardChangeWhenReusingPartialResults()
-    {
-        $period = CarbonPeriod::create(
-            '2018-10-28 1:30 Europe/Oslo', 'PT30M', '2018-10-28 3:30 Europe/Oslo'
-        );
-
-        $expected = array(
-            '2018-10-28 01:30:00 +02:00',
-            // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
-            '2018-10-28 02:00:00 +01:00',
-            '2018-10-28 02:30:00 +01:00',
-            '2018-10-28 02:00:00 +01:00',
-            '2018-10-28 02:30:00 +01:00',
-            '2018-10-28 03:00:00 +01:00',
-            '2018-10-28 03:30:00 +01:00',
-        );
-
-        $period->next();
-        $this->assertEquals($expected, $this->standardizeDates(iterator_to_array($period)));
     }
 
     public function testExtendCompletedIteration()

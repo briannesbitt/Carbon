@@ -116,29 +116,6 @@ class ToArrayTest extends AbstractTestCase
         $this->assertNull($period->last());
     }
 
-    public function testClearCachedArrayWhenPropertiesAreChanged()
-    {
-        $period = CarbonPeriod::create('2012-10-01', 3);
-
-        $this->assertCount(3, $period->toArray());
-
-        $period->addFilter(CarbonPeriod::END_ITERATION);
-
-        $this->assertCount(0, $period->toArray());
-    }
-
-    public function testRestartInterruptedIteration()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $period->next();
-        $period->setStartDate($period->getStartDate());
-        $this->assertEquals(2, $counter);
-
-        $period->toArray();
-        $this->assertEquals(5, $counter);
-    }
-
     public function testRestoreIterationStateAfterCallingToArray()
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
@@ -162,20 +139,6 @@ class ToArrayTest extends AbstractTestCase
         $this->assertEquals(new Carbon('2012-07-16'), $period->current());
     }
 
-    public function testIterationResultsCannotBeIndirectlyModified()
-    {
-        $period = CarbonPeriod::create('2012-10-01', '2012-10-02');
-
-        foreach ($period->toArray() as $date) {
-            $date->addDay();
-        }
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2012-10-01', '2012-10-02')),
-            $this->standardizeDates($period->toArray())
-        );
-    }
-
     public function testToArrayResultsAreInTheExpectedTimezone()
     {
         $period = CarbonPeriod::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
@@ -187,32 +150,5 @@ class ToArrayTest extends AbstractTestCase
         );
 
         $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
-    }
-
-    public function testRefreshToArrayResultsAfterChangingProperties()
-    {
-        $period = CarbonPeriod::create('2018-05-13 22:00', 'PT1H');
-
-        $results = array();
-
-        while ($current = $period->current()) {
-            $results[] = $current;
-
-            if ($current->format('Y-m-d') != '2018-05-13') {
-                $period->interval('P1D')->end('2018-05-15');
-            }
-
-            $period->next();
-        }
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2018-05-13 22:00', '2018-05-13 23:00', '2018-05-14 00:00', '2018-05-15 00:00')),
-            $this->standardizeDates($results)
-        );
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2018-05-13 22:00', '2018-05-14 22:00')),
-            $this->standardizeDates($period->toArray())
-        );
     }
 }

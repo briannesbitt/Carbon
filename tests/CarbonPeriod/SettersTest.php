@@ -45,7 +45,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('P3D', $period->getDateInterval()->spec());
     }
 
-    public function testSetDateIntervalByFromStringFormat()
+    public function testSetDateIntervalFromStringFormat()
     {
         $period = new CarbonPeriod;
 
