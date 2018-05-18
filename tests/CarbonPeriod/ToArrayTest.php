@@ -89,7 +89,7 @@ class ToArrayTest extends AbstractTestCase
 
     public function testToArrayOfEmptyPeriod()
     {
-        $result = CarbonPeriod::create()->toArray();
+        $result = CarbonPeriod::create(0)->toArray();
 
         $this->assertInternalType('array', $result);
         $this->assertEmpty($result);
@@ -97,21 +97,21 @@ class ToArrayTest extends AbstractTestCase
 
     public function testCountOfEmptyPeriod()
     {
-        $period = CarbonPeriod::create();
+        $period = CarbonPeriod::create(0);
 
         $this->assertEquals(0, $period->count());
     }
 
     public function testFirstOfEmptyPeriod()
     {
-        $period = CarbonPeriod::create();
+        $period = CarbonPeriod::create(0);
 
         $this->assertNull($period->first());
     }
 
     public function testLastOfEmptyPeriod()
     {
-        $period = CarbonPeriod::create();
+        $period = CarbonPeriod::create(0);
 
         $this->assertNull($period->last());
     }

@@ -268,7 +268,6 @@ class FilterTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create(new DateTime('2018-04-16'), new DateTime('2018-07-15'))->setRecurrences(3);
 
-        $period->setStartDate(null);
         $period->setEndDate(null);
         $period->setRecurrences(null);
 

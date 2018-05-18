@@ -300,21 +300,6 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
-    public function testRewindAfterRemovingStartDate()
-    {
-        $period = CarbonPeriodFactory::withEvenDaysFilter();
-
-        $period->current();
-
-        $period->setStartDate(null);
-
-        $period->rewind();
-
-        $this->assertNull($period->key());
-        $this->assertNull($period->current());
-        $this->assertFalse($period->valid());
-    }
-
     public function testValidateOncePerIteration()
     {
         $period = CarbonPeriodFactory::withCounter($counter);

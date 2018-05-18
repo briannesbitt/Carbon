@@ -28,13 +28,13 @@ use RuntimeException;
  * Substitution of DatePeriod with some modifications and many more features.
  * Fully compatible with PHP 5.3+!
  *
- * @method static CarbonPeriod start($date = null, $inclusive = null) Create instance specifying start date.
- * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start().
+ * @method static CarbonPeriod start($date, $inclusive = null) Create instance specifying start date.
+ * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
  * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now.
  * @method static CarbonPeriod end($date = null, $inclusive = null) Create instance specifying end date.
  * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now.
- * @method static CarbonPeriod dates($start = null, $end = null) Create instance with start and end date.
+ * @method static CarbonPeriod dates($start, $end = null) Create instance with start and end date.
  * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences.
  * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method static CarbonPeriod options($options = null) Create instance with options.
@@ -60,13 +60,13 @@ use RuntimeException;
  * @method static CarbonPeriod minute($minutes = 1) Alias for minutes().
  * @method static CarbonPeriod seconds($seconds = 1) Create instance specifying a number of seconds for date interval.
  * @method static CarbonPeriod second($seconds = 1) Alias for seconds().
- * @method CarbonPeriod start($date = null, $inclusive = null) Change the period start date.
- * @method CarbonPeriod since($date = null, $inclusive = null) Alias for start().
+ * @method CarbonPeriod start($date, $inclusive = null) Change the period start date.
+ * @method CarbonPeriod since($date, $inclusive = null) Alias for start().
  * @method CarbonPeriod sinceNow($inclusive = null) Change the period start date to now.
  * @method CarbonPeriod end($date = null, $inclusive = null) Change the period end date.
  * @method CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method CarbonPeriod untilNow($inclusive = null) Change the period end date to now.
- * @method CarbonPeriod dates($start = null, $end = null) Change the period start and end date.
+ * @method CarbonPeriod dates($start, $end = null) Change the period start and end date.
  * @method CarbonPeriod recurrences($recurrences = null) Change the maximum number of recurrences.
  * @method CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method CarbonPeriod options($options = null) Change the period options.
@@ -133,7 +133,7 @@ class CarbonPeriod implements Iterator, Countable
     protected static $macros = array();
 
     /**
-     * Underlying date interval instance. Always present.
+     * Underlying date interval instance. Always present, one day by default.
      *
      * @var CarbonInterval
      */
@@ -154,9 +154,9 @@ class CarbonPeriod implements Iterator, Countable
     protected $filters = array();
 
     /**
-     * Period start date. When empty iteration will always give no results. Applied on rewind.
+     * Period start date. Applied on rewind. Always present, now by default.
      *
-     * @var Carbon|null
+     * @var Carbon
      */
     protected $startDate;
 
@@ -260,7 +260,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Create a CarbonPeriod between given dates.
      *
-     * @param DateTime|DateTimeInterface|string|null $start
+     * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      * @param DateInterval|string|null               $interval
      * @param int|null                               $options
@@ -469,6 +469,10 @@ class CarbonPeriod implements Iterator, Countable
             }
         }
 
+        if ($this->startDate === null) {
+            $this->setStartDate(Carbon::now());
+        }
+
         if ($this->dateInterval === null) {
             $this->setDateInterval(CarbonInterval::day());
 
@@ -523,7 +527,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Set start and end date.
      *
-     * @param DateTime|DateTimeInterface|string|null $start
+     * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      *
      * @return $this
@@ -627,13 +631,11 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get start date of the period.
      *
-     * @return Carbon|null
+     * @return Carbon
      */
     public function getStartDate()
     {
-        if ($this->startDate) {
-            return $this->startDate->copy();
-        }
+        return $this->startDate->copy();
     }
 
     /**
@@ -899,8 +901,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Change the period start date.
      *
-     * @param DateTime|DateTimeInterface|string|null $date
-     * @param bool|null                              $inclusive
+     * @param DateTime|DateTimeInterface|string $date
+     * @param bool|null                         $inclusive
      *
      * @throws \InvalidArgumentException
      *
@@ -908,7 +910,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function setStartDate($date, $inclusive = null)
     {
-        if (!is_null($date) && !$date = Carbon::make($date)) {
+        if (!$date = Carbon::make($date)) {
             throw new InvalidArgumentException('Invalid start date.');
         }
 
@@ -1127,12 +1129,6 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->key = 0;
 
-        if ($this->startDate === null) {
-            $this->validationResult = static::END_ITERATION;
-
-            return;
-        }
-
         $this->initializeCurrentDate();
 
         $this->validationResult = null;
@@ -1201,9 +1197,7 @@ class CarbonPeriod implements Iterator, Countable
             $parts[] = 'R'.$this->recurrences;
         }
 
-        if ($this->startDate !== null) {
-            $parts[] = $this->startDate->toIso8601String();
-        }
+        $parts[] = $this->startDate->toIso8601String();
 
         $parts[] = $this->dateInterval->spec();
 
@@ -1225,7 +1219,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $parts = array();
 
-        $format = $this->startDate && !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
+        $format = !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 
@@ -1235,9 +1229,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $parts[] = $translator->trans('period_interval', array(':interval' => $this->dateInterval->forHumans()));
 
-        if ($this->startDate !== null) {
-            $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
-        }
+        $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
 
         if ($this->endDate !== null) {
             $parts[] = $translator->trans('period_end_date', array(':date' => $this->endDate->format($format)));
