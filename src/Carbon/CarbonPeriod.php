@@ -1246,7 +1246,7 @@ class CarbonPeriod implements Iterator, Countable
         $state = array(
             $this->key,
             $this->current ? $this->current->copy() : null,
-            $this->validationResult
+            $this->validationResult,
         );
 
         $result = iterator_to_array($this);
