@@ -120,7 +120,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasRelativeKeywords('today +2014 days'));
         $this->assertTrue(Carbon::hasRelativeKeywords('next sunday -3600 seconds'));
         $this->assertTrue(Carbon::hasRelativeKeywords('last day of this month'));
-        $this->assertFalse(Carbon::hasRelativeKeywords('last day of last month of 2015'));
+        $this->assertFalse(Carbon::hasRelativeKeywords('last day of december 2015'));
         $this->assertTrue(Carbon::hasRelativeKeywords('first sunday of next month'));
         $this->assertFalse(Carbon::hasRelativeKeywords('first sunday of January 2017'));
     }
