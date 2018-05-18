@@ -1121,6 +1121,12 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Rewind to the start date.
      *
+     * Iterating over a date in the UTC timezone avoids bug during backward DST change.
+     *
+     * @see https://bugs.php.net/bug.php?id=72255
+     * @see https://bugs.php.net/bug.php?id=74274
+     * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
+     *
      * @throws \RuntimeException
      *
      * @return void
@@ -1128,37 +1134,17 @@ class CarbonPeriod implements Iterator, Countable
     public function rewind()
     {
         $this->key = 0;
+        $this->current = $this->startDate->copy();
+        $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
-        $this->initializeCurrentDate();
+        if ($this->timezone) {
+            $this->current->setTimezone('UTC');
+        }
 
         $this->validationResult = null;
 
         if ($this->isStartExcluded() || $this->validateCurrentDate() === false) {
             $this->incrementCurrentDateUntilValid();
-        }
-    }
-
-    /**
-     * Initialize current date from the start date.
-     *
-     * Iterating over a date in the UTC timezone avoids bug during backward DST change.
-     *
-     * @see https://bugs.php.net/bug.php?id=72255
-     * @see https://bugs.php.net/bug.php?id=74274
-     * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
-     *
-     * @return void
-     */
-    protected function initializeCurrentDate()
-    {
-        $this->current = $this->startDate->copy();
-
-        if (static::intervalHasTime($this->dateInterval)) {
-            $this->timezone = $this->current->getTimezone();
-
-            $this->current->setTimezone('UTC');
-        } else {
-            $this->timezone = null;
         }
     }
 
