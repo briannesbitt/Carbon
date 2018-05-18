@@ -424,4 +424,24 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertEquals($current, $period->current());
     }
+
+    public function testInvertDateIntervalDuringIteration()
+    {
+        $period = new CarbonPeriod('2018-04-11', 5);
+
+        $results = array();
+
+        foreach ($period as $key => $date) {
+            $results[] = $date;
+
+            if ($key === 2) {
+                $period->invertDateInterval();
+            }
+        }
+
+        $this->assertEquals(
+            $this->standardizeDates(array('2018-04-11', '2018-04-12', '2018-04-13', '2018-04-12', '2018-04-11')),
+            $this->standardizeDates($results)
+        );
+    }
 }
