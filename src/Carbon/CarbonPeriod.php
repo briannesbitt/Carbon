@@ -1565,6 +1565,7 @@ class CarbonPeriod implements Iterator, Countable
                 return $this->setEndDate(new Carbon, $first);
 
             case 'dates':
+            case 'between':
                 return $this->setDates($first, $second);
 
             case 'recurrences':
