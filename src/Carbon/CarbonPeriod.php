@@ -607,13 +607,10 @@ class CarbonPeriod implements Iterator, Countable
             $state = ($this->options & $options) !== $options;
         }
 
-        if ($state) {
-            $options = $this->options | $options;
-        } else {
-            $options = $this->options & ~$options;
-        }
-
-        return $this->setOptions($options);
+        return $this->setOptions($state ?
+            $this->options | $options :
+            $this->options & ~$options
+        );
     }
 
     /**
