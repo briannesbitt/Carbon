@@ -818,6 +818,13 @@ class Carbon extends DateTime implements JsonSerializable
         return static::today($tz)->setTimeFromTimeString($time);
     }
 
+    private static function createFromFormatAndTimezone($format, $time, $tz)
+    {
+        return $tz !== null
+            ? parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz))
+            : parent::createFromFormat($format, $time);
+    }
+
     /**
      * Create a Carbon instance from a specific format.
      *
@@ -832,12 +839,7 @@ class Carbon extends DateTime implements JsonSerializable
     public static function createFromFormat($format, $time, $tz = null)
     {
         // First attempt to create an instance, so that error messages are based on the unmodified format.
-        if ($tz !== null) {
-            $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
-        } else {
-            $date = parent::createFromFormat($format, $time);
-        }
-
+        $date = self::createFromFormatAndTimezone($format, $time, $tz);
         $lastErrors = parent::getLastErrors();
 
         if (($mock = static::getTestNow()) && ($date instanceof DateTime || $date instanceof DateTimeInterface)) {
@@ -858,11 +860,7 @@ class Carbon extends DateTime implements JsonSerializable
             }
 
             // Regenerate date from the modified format to base result on the mocked instance instead of now.
-            if ($tz !== null) {
-                $date = parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz));
-            } else {
-                $date = parent::createFromFormat($format, $time);
-            }
+            $date = self::createFromFormatAndTimezone($format, $time, $tz);
         }
 
         if ($date instanceof DateTime || $date instanceof DateTimeInterface) {
