@@ -118,7 +118,6 @@ class CarbonPeriod implements Iterator, Countable
      */
     const EXCLUDE_START_DATE = 1;
     const EXCLUDE_END_DATE = 2;
-    const DISABLE_RESULTS_CACHE = 4;
 
     /**
      * Number of maximum attempts before giving up on finding next valid date.
@@ -207,13 +206,6 @@ class CarbonPeriod implements Iterator, Countable
     protected $timezone;
 
     /**
-     * The array of cached dates. Equal to null before the first iteration and after reset.
-     *
-     * @var array|null
-     */
-    protected $iterationResults;
-
-    /**
      * The cached validation result for current date.
      *
      * @var bool|null
@@ -226,13 +218,6 @@ class CarbonPeriod implements Iterator, Countable
      * @var bool
      */
     protected $iterationCompleted;
-
-    /**
-     * Changing parameters invalidates the iteration results.
-     *
-     * @var bool
-     */
-    protected $parametersChanged;
 
     /**
      * Create a new instance.
@@ -638,18 +623,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Toggle DISABLE_RESULTS_CACHE option.
-     *
-     * @param bool $state
-     *
-     * @return $this
-     */
-    public function disableResultsCache($state = true)
-    {
-        return $this->toggleOptions(static::DISABLE_RESULTS_CACHE, $state);
-    }
-
-    /**
      * Get the underlying date interval.
      *
      * @return CarbonInterval
@@ -711,16 +684,6 @@ class CarbonPeriod implements Iterator, Countable
     public function isEndExcluded()
     {
         return ($this->options & static::EXCLUDE_END_DATE) !== 0;
-    }
-
-    /**
-     * Returns true if caching of iteration results is disabled.
-     *
-     * @return bool
-     */
-    public function isCacheDisabled()
-    {
-        return ($this->options & static::DISABLE_RESULTS_CACHE) !== 0;
     }
 
     /**
@@ -1077,10 +1040,7 @@ class CarbonPeriod implements Iterator, Countable
     protected function handleChangedParameters()
     {
         $this->validationResult = null;
-
         $this->iterationCompleted = false;
-
-        $this->parametersChanged = true;
     }
 
     /**
@@ -1093,7 +1053,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected function validateCurrentDate()
     {
-        if ($this->iterationResults === null) {
+        if ($this->current === null) {
             $this->rewind();
         }
 
@@ -1108,10 +1068,6 @@ class CarbonPeriod implements Iterator, Countable
             $result = $this->checkFilters();
 
             $this->iterationCompleted = $result === static::END_ITERATION;
-        }
-
-        if ($result === true) {
-            $this->iterationResults[$this->key] = $this->current->copy();
         }
 
         return $this->validationResult = $result;
@@ -1204,10 +1160,8 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function next()
     {
-        if ($this->iterationResults === null) {
+        if ($this->current === null) {
             $this->rewind();
-        } elseif ($this->setCurrentDateFromCache($this->key + 1)) {
-            return;
         }
 
         if ($this->iterationCompleted) {
@@ -1230,15 +1184,8 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->key = 0;
 
-        if ($this->iterationResults !== null && $this->setCurrentDateFromCache($this->key)) {
-            return;
-        }
-
-        $this->iterationResults = array();
         $this->validationResult = null;
-
         $this->iterationCompleted = false;
-        $this->parametersChanged = false;
 
         if ($this->startDate === null) {
             $this->iterationCompleted = true;
@@ -1251,16 +1198,6 @@ class CarbonPeriod implements Iterator, Countable
         if ($this->validateCurrentDate() === false) {
             $this->incrementCurrentDateUntilValid();
         }
-    }
-
-    /**
-     * Clear cached results and force rewind.
-     *
-     * @return void
-     */
-    public function reset()
-    {
-        $this->iterationResults = null;
     }
 
     /**
@@ -1307,37 +1244,6 @@ class CarbonPeriod implements Iterator, Countable
                 throw new RuntimeException('Could not find next valid date.');
             }
         } while ($this->validateCurrentDate() === false);
-    }
-
-    /**
-     * Set current date from the iteration results and return true on success.
-     *
-     * @param int $key
-     *
-     * @return bool
-     */
-    protected function setCurrentDateFromCache($key)
-    {
-        if ($this->parametersChanged || $this->isCacheDisabled()) {
-            return false;
-        }
-
-        if ($key < count($this->iterationResults)) {
-            $this->validationResult = true;
-
-            $this->key = $key;
-            $this->current = $this->iterationResults[$key]->copy();
-
-            return true;
-        }
-
-        if ($this->iterationCompleted) {
-            $this->validationResult = static::END_ITERATION;
-
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -1411,40 +1317,29 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Convert the date period into an array.
+     * Convert the date period into an array without changing current iteration state.
      *
      * @return array
      */
     public function toArray()
     {
-        if ($this->parametersChanged || $this->isCacheDisabled()) {
-            $this->rewind();
-        }
-
-        // Complete iteration that haven't finished yet to fill up the results array.
-        if (!$this->iterationCompleted) {
-            $this->iterateUntilCompleted();
-        }
-
-        return array_map(
-            array($this, 'prepareForReturn'), $this->iterationResults
+        $state = array(
+            $this->key,
+            $this->current ? $this->current->copy() : null,
+            $this->validationResult,
+            $this->iterationCompleted
         );
-    }
 
-    /**
-     * Fill up the results array without changing current iteration state.
-     *
-     * @return void
-     */
-    protected function iterateUntilCompleted()
-    {
-        $state = array($this->key, $this->current ? $this->current->copy() : null, $this->validationResult);
+        $result = iterator_to_array($this);
 
-        while ($this->valid()) {
-            $this->next();
-        }
+        list(
+            $this->key,
+            $this->current,
+            $this->validationResult,
+            $this->iterationCompleted
+        ) = $state;
 
-        list($this->key, $this->current, $this->validationResult) = $state;
+        return $result;
     }
 
     /**
