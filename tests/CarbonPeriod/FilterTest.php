@@ -47,16 +47,13 @@ class FilterTest extends AbstractTestCase
         );
 
         $period->setRecurrences($recurrences = 3);
-
         $period->setFilters($period->getFilters());
 
-        $this->assertEquals($start, $period->getStartDate());
         $this->assertEquals($end, $period->getEndDate());
         $this->assertEquals($recurrences, $period->getRecurrences());
 
         $period->setFilters(array());
 
-        $this->assertNull($period->getStartDate());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
     }
@@ -73,7 +70,6 @@ class FilterTest extends AbstractTestCase
         $this->assertSame($period, $period->resetFilters());
 
         $this->assertSame(array(
-            array(CarbonPeriod::START_DATE_FILTER, null),
             array(CarbonPeriod::END_DATE_FILTER, null),
         ), $period->getFilters());
     }

@@ -101,7 +101,6 @@ class CarbonPeriod implements Iterator, Countable
      * @var string
      */
     const RECURRENCES_FILTER = 'Carbon\CarbonPeriod::filterRecurrences';
-    const START_DATE_FILTER = 'Carbon\CarbonPeriod::filterStartDate';
     const END_DATE_FILTER = 'Carbon\CarbonPeriod::filterEndDate';
 
     /**
@@ -155,7 +154,7 @@ class CarbonPeriod implements Iterator, Countable
     protected $filters = array();
 
     /**
-     * Period start date. When empty iteration will always give no results. Applied via a filter.
+     * Period start date. When empty iteration will always give no results. Applied on rewind.
      *
      * @var Carbon|null
      */
@@ -821,10 +820,6 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->filters = array();
 
-        if ($this->startDate !== null) {
-            $this->filters[] = array(static::START_DATE_FILTER, null);
-        }
-
         if ($this->endDate !== null) {
             $this->filters[] = array(static::END_DATE_FILTER, null);
         }
@@ -845,10 +840,6 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected function updateInternalState()
     {
-        if (!$this->hasFilter(static::START_DATE_FILTER)) {
-            $this->startDate = null;
-        }
-
         if (!$this->hasFilter(static::END_DATE_FILTER)) {
             $this->endDate = null;
         }
@@ -921,43 +912,13 @@ class CarbonPeriod implements Iterator, Countable
             throw new InvalidArgumentException('Invalid start date.');
         }
 
-        if (!$date) {
-            return $this->removeFilter(static::START_DATE_FILTER);
-        }
-
         $this->startDate = $date;
 
         if ($inclusive !== null) {
             $this->toggleOptions(static::EXCLUDE_START_DATE, !$inclusive);
         }
 
-        if (!$this->hasFilter(static::START_DATE_FILTER)) {
-            return $this->addFilter(static::START_DATE_FILTER);
-        }
-
-        $this->handleChangedParameters();
-
         return $this;
-    }
-
-    /**
-     * Start date filter callback.
-     *
-     * @param \Carbon\Carbon $current
-     *
-     * @return bool
-     */
-    protected function filterStartDate($current)
-    {
-        if (!$this->isStartExcluded() && $current == $this->startDate) {
-            return true;
-        }
-
-        if ($this->dateInterval->invert ? $current < $this->startDate : $current > $this->startDate) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -1176,7 +1137,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $this->validationResult = null;
 
-        if ($this->validateCurrentDate() === false) {
+        if ($this->isStartExcluded() || $this->validateCurrentDate() === false) {
             $this->incrementCurrentDateUntilValid();
         }
     }
