@@ -105,7 +105,7 @@ class CarbonPeriod implements Iterator, Countable
     const END_DATE_FILTER = 'Carbon\CarbonPeriod::filterEndDate';
 
     /**
-     * Special value which can be returned by filters to end iteration.
+     * Special value which can be returned by filters to end iteration. Also a filter.
      *
      * @var string
      */
@@ -211,13 +211,6 @@ class CarbonPeriod implements Iterator, Countable
      * @var bool|null
      */
     protected $validationResult;
-
-    /**
-     * Whether iteration has been completed.
-     *
-     * @var bool
-     */
-    protected $iterationCompleted;
 
     /**
      * Create a new instance.
@@ -1040,7 +1033,6 @@ class CarbonPeriod implements Iterator, Countable
     protected function handleChangedParameters()
     {
         $this->validationResult = null;
-        $this->iterationCompleted = false;
     }
 
     /**
@@ -1062,15 +1054,7 @@ class CarbonPeriod implements Iterator, Countable
             return $this->validationResult;
         }
 
-        if ($this->iterationCompleted) {
-            $result = static::END_ITERATION;
-        } else {
-            $result = $this->checkFilters();
-
-            $this->iterationCompleted = $result === static::END_ITERATION;
-        }
-
-        return $this->validationResult = $result;
+        return $this->validationResult = $this->checkFilters();
     }
 
     /**
@@ -1083,9 +1067,9 @@ class CarbonPeriod implements Iterator, Countable
         $current = $this->prepareForReturn($this->current);
 
         foreach ($this->filters as $tuple) {
-            list($filter) = $tuple;
-
-            $result = call_user_func($filter, $current->copy(), $this->key, $this);
+            $result = call_user_func(
+                $tuple[0], $current->copy(), $this->key, $this
+            );
 
             if ($result === static::END_ITERATION) {
                 return static::END_ITERATION;
@@ -1164,13 +1148,11 @@ class CarbonPeriod implements Iterator, Countable
             $this->rewind();
         }
 
-        if ($this->iterationCompleted) {
-            return;
+        if ($this->validationResult !== static::END_ITERATION) {
+            $this->key++;
+
+            $this->incrementCurrentDateUntilValid();
         }
-
-        $this->key++;
-
-        $this->incrementCurrentDateUntilValid();
     }
 
     /**
@@ -1184,16 +1166,15 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->key = 0;
 
-        $this->validationResult = null;
-        $this->iterationCompleted = false;
-
         if ($this->startDate === null) {
-            $this->iterationCompleted = true;
+            $this->validationResult = static::END_ITERATION;
 
             return;
         }
 
         $this->initializeCurrentDate();
+
+        $this->validationResult = null;
 
         if ($this->validateCurrentDate() === false) {
             $this->incrementCurrentDateUntilValid();
@@ -1326,8 +1307,7 @@ class CarbonPeriod implements Iterator, Countable
         $state = array(
             $this->key,
             $this->current ? $this->current->copy() : null,
-            $this->validationResult,
-            $this->iterationCompleted
+            $this->validationResult
         );
 
         $result = iterator_to_array($this);
@@ -1335,8 +1315,7 @@ class CarbonPeriod implements Iterator, Countable
         list(
             $this->key,
             $this->current,
-            $this->validationResult,
-            $this->iterationCompleted
+            $this->validationResult
         ) = $state;
 
         return $result;
