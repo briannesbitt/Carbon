@@ -196,20 +196,23 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $expected = $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16'));
+        $period->next();
 
-        $results = array();
+        $key = $period->key();
+        $current = $period->current();
 
-        foreach ($period as $key => $current) {
-            $results[$key] = $current;
+        $this->assertEquals(
+            $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates($period->toArray())
+        );
 
-            $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
+        $this->assertEquals(1, $period->key());
+        $this->assertEquals(new Carbon('2012-07-10'), $period->current());
 
-            $this->assertEquals($key, $period->key());
-            $this->assertEquals($current, $period->current());
-        }
+        $period->next();
 
-        $this->assertEquals($expected, $this->standardizeDates($results));
+        $this->assertEquals(2, $period->key());
+        $this->assertEquals(new Carbon('2012-07-16'), $period->current());
     }
 
     public function testIterationResultsCannotBeIndirectlyModified()
