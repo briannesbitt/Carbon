@@ -246,6 +246,14 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 21, 0, 0, 0);
     }
 
+    public function testCopy()
+    {
+        $one = CarbonInterval::days(10);
+        $two = $one->hours(6)->copy()->hours(3);
+        $this->assertCarbonInterval($one, 0, 0, 10, 6, 0, 0);
+        $this->assertCarbonInterval($two, 0, 0, 10, 3, 0, 0);
+    }
+
     public function testCallInvalidStaticMethod()
     {
         $this->assertNull(CarbonInterval::anything());
