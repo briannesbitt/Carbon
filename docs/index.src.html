@@ -1885,7 +1885,7 @@ foreach ($period as $key => $date) {
 // Under the hood, what happen is:
 {{cpiterator2::exec(
 $period->rewind(); // rewind() restart the iteration from the start
-while($period->valid()) {
+while ($period->valid()) {
     if ($period->key()) {
         echo ', ';
     }
@@ -1894,6 +1894,22 @@ while($period->valid()) {
 }
 )}}
 // {{cpiterator2_eval}}
+</code></pre></p>
+
+<p>Parameters can be altered during iteration:</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2018-04-29', 7);
+$dates = array();
+foreach ($period as $key => $date) {
+    if ($key === 3) {
+        $period->invert()->start($date); // invert() is an alias for invertDateInterval()
+    }
+    $dates[] = $date->format('m-d');
+}
+)}}
+
+{{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
 </code></pre></p>
 
 <p>You can use a fluent syntax (equivalent to the code above):</p>
