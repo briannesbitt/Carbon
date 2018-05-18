@@ -471,6 +471,8 @@ class Carbon extends DateTime implements JsonSerializable
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
         if (static::hasTestNow() && ($isNow || static::hasRelativeKeywords($time))) {
+            list($relativeKeywords, $clearMicroseconds) = static::hasRelativeKeywords($time) ?: array(false, false);
+
             $testInstance = clone static::getTestNow();
 
             //shift the time according to the given time zone
@@ -480,11 +482,21 @@ class Carbon extends DateTime implements JsonSerializable
                 $tz = $testInstance->getTimezone();
             }
 
-            if (static::hasRelativeKeywords($time)) {
+            if ($relativeKeywords) {
                 $testInstance->modify($time);
             }
 
-            $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
+            $result = $testInstance->format(static::MOCK_DATETIME_FORMAT);
+
+            // Fix below let's us reset microseconds in PHP versions before 7.1 when time is given in
+            // absolute form but without date, or as keywords like noon or tomorrow.
+            if (preg_match('/\d+:\d+:\d+\.(\d+)/', $time, $match)) {
+                $time = substr($result, 0, -6).$match[1];
+            } elseif ($clearMicroseconds) {
+                $time = substr($result, 0, -6).'000000';
+            } else {
+                $time = $result;
+            }
         }
 
         $timezone = static::safeCreateDateTimeZone($tz);
@@ -1524,9 +1536,12 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Determine if a time string will produce a relative date.
      *
+     * Return false when time is absolute or otherwise return array with two elements.
+     * First element is always true, second will be true if microseconds should be cleared.
+     *
      * @param string $time
      *
-     * @return bool true if time match a relative date, false if absolute or invalid time string
+     * @return false|array
      */
     public static function hasRelativeKeywords($time)
     {
@@ -1534,12 +1549,16 @@ class Carbon extends DateTime implements JsonSerializable
             return false;
         }
 
-        $date1 = new DateTime('2000-01-01T00:00:00Z');
+        $date1 = new DateTime('2000-01-01T03:27:45Z');
         $date1->modify($time);
-        $date2 = new DateTime('2001-12-25T00:00:00Z');
+        $date2 = new DateTime('2001-12-25T17:59:13Z');
         $date2->modify($time);
 
-        return $date1 != $date2;
+        if ($date1 == $date2 || $date1->format('Y-m-d') === $date2->format('Y-m-d')) {
+            return false;
+        }
+
+        return array(true, $date1->format('s') === $date2->format('s'));
     }
 
     ///////////////////////////////////////////////////////////////////
