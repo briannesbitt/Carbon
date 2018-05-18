@@ -116,35 +116,6 @@ class ToArrayTest extends AbstractTestCase
         $this->assertNull($period->last());
     }
 
-    public function testCacheArray()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $period->addFilter(CarbonPeriod::END_ITERATION);
-
-        $period->toArray();
-        $period->count();
-        $period->first();
-        $period->last();
-
-        $this->assertEquals(1, $counter);
-    }
-
-    public function testPreserveCachedArrayAfterRewind()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $expected = $this->standardizeDates(array('2012-10-01', '2012-10-02', '2012-10-03'));
-
-        $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
-        $this->assertEquals(3, $counter);
-
-        $period->rewind();
-
-        $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
-        $this->assertEquals(3, $counter);
-    }
-
     public function testClearCachedArrayWhenPropertiesAreChanged()
     {
         $period = CarbonPeriod::create('2012-10-01', 3);
@@ -154,17 +125,6 @@ class ToArrayTest extends AbstractTestCase
         $period->addFilter(CarbonPeriod::END_ITERATION);
 
         $this->assertCount(0, $period->toArray());
-    }
-
-    public function testContinueUninterruptedIteration()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $period->next();
-        $this->assertEquals(2, $counter);
-
-        $period->toArray();
-        $this->assertEquals(3, $counter);
     }
 
     public function testRestartInterruptedIteration()
@@ -177,19 +137,6 @@ class ToArrayTest extends AbstractTestCase
 
         $period->toArray();
         $this->assertEquals(5, $counter);
-    }
-
-    public function testReuseIterationResultsAfterToArrayConversion()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $expected = $this->standardizeDates(array('2012-10-01', '2012-10-02', '2012-10-03'));
-
-        $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
-        $this->assertEquals(3, $counter);
-
-        $this->assertEquals($expected, $this->standardizeDates(iterator_to_array($period)));
-        $this->assertEquals(3, $counter);
     }
 
     public function testRestoreIterationStateAfterCallingToArray()
@@ -265,23 +212,6 @@ class ToArrayTest extends AbstractTestCase
 
         $this->assertEquals(
             $this->standardizeDates(array('2018-05-13 22:00', '2018-05-14 22:00')),
-            $this->standardizeDates($period->toArray())
-        );
-    }
-
-    public function testDisableCachingOfIterationResults()
-    {
-        $period = CarbonPeriodFactory::withStackFilter();
-
-        $period->setOptions(CarbonPeriod::DISABLE_RESULTS_CACHE);
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-01', '2001-01-03')),
-            $this->standardizeDates($period->toArray())
-        );
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-03', '2001-01-04')),
             $this->standardizeDates($period->toArray())
         );
     }

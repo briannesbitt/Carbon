@@ -332,25 +332,6 @@ class IteratorTest extends AbstractTestCase
         $this->assertEquals(2, $counter);
     }
 
-    public function testReuseCachedValidationResultAfterRewind()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $period->addFilter(CarbonPeriod::END_ITERATION);
-
-        foreach ($period as $date) {
-            //
-        }
-
-        $this->assertEquals(1, $counter);
-
-        foreach ($period as $date) {
-            //
-        }
-
-        $this->assertEquals(1, $counter);
-    }
-
     public function testClearCachedValidationResultWhenPropertiesAreChanged()
     {
         $period = CarbonPeriod::create('2012-10-01');
@@ -360,19 +341,6 @@ class IteratorTest extends AbstractTestCase
         $period->addFilter(CarbonPeriod::END_ITERATION);
 
         $this->assertNull($period->current());
-    }
-
-    public function testReuseValidIterationResultsInSubsequentIteration()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $expected = $this->standardizeDates(array('2012-10-01', '2012-10-02', '2012-10-03'));
-
-        $this->assertEquals($expected, $this->standardizeDates(iterator_to_array($period)));
-        $this->assertEquals(3, $counter);
-
-        $this->assertEquals($expected, $this->standardizeDates(iterator_to_array($period)));
-        $this->assertEquals(3, $counter);
     }
 
     public function testClearInvalidIterationResultsBeforeSubsequentIteration()
@@ -424,17 +392,6 @@ class IteratorTest extends AbstractTestCase
         );
     }
 
-    public function testReusePartialResultsAfterRewindMidIteration()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter);
-
-        $period->next();
-        $this->assertEquals(2, $counter);
-
-        iterator_to_array($period);
-        $this->assertEquals(3, $counter);
-    }
-
     public function testHandleDstBackwardChangeWhenReusingPartialResults()
     {
         $period = CarbonPeriod::create(
@@ -454,17 +411,6 @@ class IteratorTest extends AbstractTestCase
 
         $period->next();
         $this->assertEquals($expected, $this->standardizeDates(iterator_to_array($period)));
-    }
-
-    public function testCacheEmptyIterationResults()
-    {
-        $period = CarbonPeriodFactory::withCounter($counter)->setEndDate('2012-09-01');
-
-        iterator_to_array($period);
-        $this->assertEquals(1, $counter);
-
-        iterator_to_array($period);
-        $this->assertEquals(1, $counter);
     }
 
     public function testExtendCompletedIteration()
@@ -515,39 +461,5 @@ class IteratorTest extends AbstractTestCase
 
         $period->removeFilter(CarbonPeriod::END_ITERATION);
         $this->assertEquals($start, $period->current());
-    }
-
-    public function testClearCachedIterationResults()
-    {
-        $period = CarbonPeriodFactory::withStackFilter();
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-01', '2001-01-03')),
-            $this->standardizeDates($period)
-        );
-
-        $period->reset();
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-03', '2001-01-04')),
-            $this->standardizeDates($period)
-        );
-    }
-
-    public function testDisableCachingOfIterationResults()
-    {
-        $period = CarbonPeriodFactory::withStackFilter();
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-01', '2001-01-03')),
-            $this->standardizeDates($period)
-        );
-
-        $period->setOptions(CarbonPeriod::DISABLE_RESULTS_CACHE);
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2001-01-03', '2001-01-04')),
-            $this->standardizeDates($period)
-        );
     }
 }

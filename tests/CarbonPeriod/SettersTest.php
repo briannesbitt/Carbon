@@ -268,20 +268,6 @@ class SettersTest extends AbstractTestCase
         $this->assertEmpty($period->getOptions());
     }
 
-    public function testDisableResultsCache()
-    {
-        $period = new CarbonPeriod;
-
-        $period->disableResultsCache();
-        $this->assertSame(CarbonPeriod::DISABLE_RESULTS_CACHE, $period->getOptions());
-
-        $period->disableResultsCache(true);
-        $this->assertSame(CarbonPeriod::DISABLE_RESULTS_CACHE, $period->getOptions());
-
-        $period->disableResultsCache(false);
-        $this->assertEmpty($period->getOptions());
-    }
-
     public function testSetRelativeDates()
     {
         $period = new CarbonPeriod;

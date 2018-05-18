@@ -306,9 +306,6 @@ class FilterTest extends AbstractTestCase
         $this->assertEmpty($period->getFilters());
     }
 
-    /**
-     * Relies on caching validation and iteration results.
-     */
     public function testAcceptEveryOther()
     {
         $period = new CarbonPeriod(
@@ -324,13 +321,6 @@ class FilterTest extends AbstractTestCase
         $this->assertEquals(
             // Note: Without caching validation results the dates would be unpredictable
             // as we cannot know how many calls to validator occur per iteration.
-            $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
-            $this->standardizeDates($period)
-        );
-
-        $this->assertEquals(
-            // Note: Without caching iteration results the dates would be complementary
-            // to the above as this time first item would be rejected.
             $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
             $this->standardizeDates($period)
         );
