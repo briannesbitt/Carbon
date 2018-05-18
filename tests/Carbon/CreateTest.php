@@ -169,6 +169,14 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('Europe/London', $d->tzName);
     }
 
+    public function testMake()
+    {
+        $this->assertCarbon(Carbon::make('2017-01-05'), 2017, 1, 5, 0, 0, 0);
+        $this->assertCarbon(Carbon::make(new \DateTime('2017-01-05')), 2017, 1, 5, 0, 0, 0);
+        $this->assertCarbon(Carbon::make(new Carbon('2017-01-05')), 2017, 1, 5, 0, 0, 0);
+        $this->assertNull(Carbon::make(3));
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      */
