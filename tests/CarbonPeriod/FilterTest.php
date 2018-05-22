@@ -22,17 +22,6 @@ use Tests\CarbonPeriod\Fixtures\FooFilters;
 
 class FilterTest extends AbstractTestCase
 {
-    public function dummyPeriod()
-    {
-        $period = new CarbonPeriod(
-            new DateTime('2018-04-16'), new DateTime('2018-07-15')
-        );
-
-        $period->setFilters(array());
-
-        return $period;
-    }
-
     public function dummyFilter()
     {
         return function () {
@@ -42,7 +31,7 @@ class FilterTest extends AbstractTestCase
 
     public function testGetAndSetFilters()
     {
-        $period = $this->dummyPeriod();
+        $period = new CarbonPeriod;
 
         $this->assertSame(array(), $period->getFilters());
         $this->assertSame($period, $period->setFilters($filters = array(
@@ -58,16 +47,13 @@ class FilterTest extends AbstractTestCase
         );
 
         $period->setRecurrences($recurrences = 3);
-
         $period->setFilters($period->getFilters());
 
-        $this->assertEquals($start, $period->getStartDate());
         $this->assertEquals($end, $period->getEndDate());
         $this->assertEquals($recurrences, $period->getRecurrences());
 
         $period->setFilters(array());
 
-        $this->assertNull($period->getStartDate());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
     }
@@ -84,14 +70,13 @@ class FilterTest extends AbstractTestCase
         $this->assertSame($period, $period->resetFilters());
 
         $this->assertSame(array(
-            array(CarbonPeriod::START_DATE_FILTER, null),
             array(CarbonPeriod::END_DATE_FILTER, null),
         ), $period->getFilters());
     }
 
     public function testAddAndPrependFilters()
     {
-        $period = $this->dummyPeriod();
+        $period = new CarbonPeriod;
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
@@ -106,7 +91,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByInstance()
     {
-        $period = $this->dummyPeriod();
+        $period = new CarbonPeriod;
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter())
@@ -122,7 +107,7 @@ class FilterTest extends AbstractTestCase
 
     public function testRemoveFilterByName()
     {
-        $period = $this->dummyPeriod();
+        $period = new CarbonPeriod;
 
         $period->addFilter($filter1 = $this->dummyFilter())
             ->addFilter($filter2 = $this->dummyFilter(), 'foo')
@@ -240,22 +225,6 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testResetNumberOfRecurrences()
-    {
-        $period = new CarbonPeriod(
-            new DateTime('2018-04-16'), new DateTime('2018-07-15')
-        );
-
-        $period->setRecurrences(1)
-            ->resetFilters()
-            ->setRecurrences(3);
-
-        $this->assertEquals(
-            $this->standardizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
-            $this->standardizeDates($period)
-        );
-    }
-
     public function testCallbackArguments()
     {
         $period = new CarbonPeriod(
@@ -299,22 +268,20 @@ class FilterTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create(new DateTime('2018-04-16'), new DateTime('2018-07-15'))->setRecurrences(3);
 
-        $period->setStartDate(null);
         $period->setEndDate(null);
         $period->setRecurrences(null);
 
         $this->assertEmpty($period->getFilters());
     }
 
-    /**
-     * Relies on caching validation and iteration results.
-     */
     public function testAcceptEveryOther()
     {
         $period = new CarbonPeriod(
             new DateTime('2018-04-16'), new DateTime('2018-04-20')
         );
 
+        // Note: Without caching validation results the dates would be unpredictable
+        // as we cannot know how many calls to the filter will occur per iteration.
         $period->addFilter(function ($date) {
             static $accept;
 
@@ -322,15 +289,6 @@ class FilterTest extends AbstractTestCase
         });
 
         $this->assertEquals(
-            // Note: Without caching validation results the dates would be unpredictable
-            // as we cannot know how many calls to validator occur per iteration.
-            $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
-            $this->standardizeDates($period)
-        );
-
-        $this->assertEquals(
-            // Note: Without caching iteration results the dates would be complementary
-            // to the above as this time first item would be rejected.
             $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
             $this->standardizeDates($period)
         );
@@ -355,7 +313,7 @@ class FilterTest extends AbstractTestCase
         );
     }
 
-    public function testAddFilterFromCarbonIsMethod()
+    public function testAddFilterFromCarbonMethod()
     {
         $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
 

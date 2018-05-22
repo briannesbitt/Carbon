@@ -45,7 +45,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('P3D', $period->getDateInterval()->spec());
     }
 
-    public function testSetDateIntervalByFromStringFormat()
+    public function testSetDateIntervalFromStringFormat()
     {
         $period = new CarbonPeriod;
 
@@ -265,20 +265,6 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
 
         $period->excludeEndDate(false);
-        $this->assertEmpty($period->getOptions());
-    }
-
-    public function testDisableResultsCache()
-    {
-        $period = new CarbonPeriod;
-
-        $period->disableResultsCache();
-        $this->assertSame(CarbonPeriod::DISABLE_RESULTS_CACHE, $period->getOptions());
-
-        $period->disableResultsCache(true);
-        $this->assertSame(CarbonPeriod::DISABLE_RESULTS_CACHE, $period->getOptions());
-
-        $period->disableResultsCache(false);
         $this->assertEmpty($period->getOptions());
     }
 

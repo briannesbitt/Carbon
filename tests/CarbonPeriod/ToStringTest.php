@@ -30,6 +30,8 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToString()
     {
+        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+
         return array(
             array(
                 CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D'),
@@ -56,11 +58,7 @@ class ToStringTest extends AbstractTestCase
             ),
             array(
                 CarbonPeriod::create('P1M14D'),
-                'Every 1 month 2 weeks',
-            ),
-            array(
-                CarbonPeriod::create('P5D', 4)->setEndDate('2015-09-30'),
-                '4 times every 5 days to 2015-09-30',
+                'Every 1 month 2 weeks from 2015-09-01',
             ),
             array(
                 CarbonPeriod::create('2015-09-30 13:30', 'P17D')->setRecurrences(1),
@@ -98,6 +96,8 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToIso8601String()
     {
+        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+
         return array(
             array(
                 CarbonPeriod::create('R4/2012-07-01T00:00:00-04:00/P7D'),
@@ -126,12 +126,8 @@ class ToStringTest extends AbstractTestCase
                 '2015-09-30T12:50:00-04:00/P3D',
             ),
             array(
-                CarbonPeriod::create()->setEndDate(Carbon::parse('2015-09-30 12:50', 'America/Toronto')),
-                'P1D/2015-09-30T12:50:00-04:00',
-            ),
-            array(
                 CarbonPeriod::create(),
-                'P1D',
+                '2015-09-01T00:00:00-04:00/P1D',
             ),
         );
     }
