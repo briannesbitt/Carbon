@@ -29,7 +29,7 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($iso, $options);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -65,8 +65,8 @@ class CreateTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create('R/2012-07-01T00:00:00/P7D');
 
-        $this->assertEquals('2012-07-01', $period->getStartDate()->toDateString());
-        $this->assertEquals('P7D', $period->getDateInterval()->spec());
+        $this->assertSame('2012-07-01', $period->getStartDate()->toDateString());
+        $this->assertSame('P7D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
     }
@@ -78,7 +78,7 @@ class CreateTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create($iso);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array($from, $to)),
             $this->standardizeDates(array($period->getStartDate(),  $period->getEndDate()))
         );
@@ -126,7 +126,7 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($start, $end, $options);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -183,7 +183,7 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($start, $interval, $end, $options);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -239,7 +239,7 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($start, $interval, $recurrences, $options);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -270,7 +270,7 @@ class CreateTest extends AbstractTestCase
 
         $period = CarbonPeriod::create($start, $recurrences, $options);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -304,7 +304,7 @@ class CreateTest extends AbstractTestCase
             new DateTime('2018-04-16'), new DateInterval('P1M'), new DateTime('2018-07-15')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-05-16', '2018-06-16')),
             $this->standardizeDates($period)
         );
@@ -339,7 +339,7 @@ class CreateTest extends AbstractTestCase
             '2018-03-25 1:30 Europe/Oslo', 'PT30M', '2018-03-25 3:30 Europe/Oslo'
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             array(
                 '2018-03-25 01:30:00 +01:00',
                 '2018-03-25 03:00:00 +02:00',
@@ -363,7 +363,7 @@ class CreateTest extends AbstractTestCase
             '2018-10-28 1:30 Europe/Oslo', 'PT30M', '2018-10-28 3:30 Europe/Oslo'
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             array(
                 '2018-10-28 01:30:00 +02:00',
                 // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
@@ -390,9 +390,9 @@ class CreateTest extends AbstractTestCase
         $interval->d = 15;
         $end->modify('+5 days');
 
-        $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
-        $this->assertEquals('P1M', $period->getDateInterval()->spec());
-        $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
+        $this->assertSame('2018-04-16', $period->getStartDate()->toDateString());
+        $this->assertSame('P1M', $period->getDateInterval()->spec());
+        $this->assertSame('2018-07-15', $period->getEndDate()->toDateString());
 
         $period = CarbonPeriod::create(
             $start = new Carbon('2018-04-16'),
@@ -404,9 +404,9 @@ class CreateTest extends AbstractTestCase
         $interval->days(15);
         $end->addDays(5);
 
-        $this->assertEquals('2018-04-16', $period->getStartDate()->toDateString());
-        $this->assertEquals('P1M', $period->getDateInterval()->spec());
-        $this->assertEquals('2018-07-15', $period->getEndDate()->toDateString());
+        $this->assertSame('2018-04-16', $period->getStartDate()->toDateString());
+        $this->assertSame('P1M', $period->getDateInterval()->spec());
+        $this->assertSame('2018-07-15', $period->getEndDate()->toDateString());
     }
 
     public function testCreateFromArray()
@@ -415,31 +415,31 @@ class CreateTest extends AbstractTestCase
             '2018-03-25', 'P2D', '2018-04-01', CarbonPeriod::EXCLUDE_END_DATE,
         ));
 
-        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
-        $this->assertEquals('P2D', $period->getDateInterval()->spec());
-        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertSame('P2D', $period->getDateInterval()->spec());
+        $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
     public function testCreateBetween()
     {
         $period = CarbonPeriod::createBetween('2018-03-25', '2018-04-01', 'P2D', CarbonPeriod::EXCLUDE_END_DATE);
 
-        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
-        $this->assertEquals('P2D', $period->getDateInterval()->spec());
-        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertSame('P2D', $period->getDateInterval()->spec());
+        $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
     public function testCreateFromIso()
     {
         $period = CarbonPeriod::createFromIso('R3/2018-03-25/P2D/2018-04-01', CarbonPeriod::EXCLUDE_END_DATE);
 
-        $this->assertEquals('2018-03-25', $period->getStartDate()->toDateString());
-        $this->assertEquals('P2D', $period->getDateInterval()->spec());
-        $this->assertEquals('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertEquals(3, $period->getRecurrences());
-        $this->assertEquals(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
+        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
+        $this->assertSame('P2D', $period->getDateInterval()->spec());
+        $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
+        $this->assertSame(3, $period->getRecurrences());
+        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
     public function testCreateEmpty()
@@ -461,8 +461,8 @@ class CreateTest extends AbstractTestCase
             $start = '2018-03-25 10:15:30 Europe/Oslo', $end = '2018-03-28 17:25:30 Asia/Kamchatka'
         );
 
-        $this->assertEquals($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
-        $this->assertEquals($end, $period->getEndDate()->format('Y-m-d H:i:s e'));
+        $this->assertSame($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
+        $this->assertSame($end, $period->getEndDate()->format('Y-m-d H:i:s e'));
     }
 
     public function testCreateWithIntervalInFromStringFormat()
@@ -471,8 +471,17 @@ class CreateTest extends AbstractTestCase
             '2018-03-25 12:00', '2 days 10 hours', '2018-04-01 13:30'
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-03-25 12:00', '2018-03-27 22:00', '2018-03-30 08:00')),
+            $this->standardizeDates($period)
+        );
+
+        $period = CarbonPeriod::create(
+            '2018-04-21', '3 days', '2018-04-27'
+        );
+
+        $this->assertSame(
+            $this->standardizeDates(array('2018-04-21 00:00', '2018-04-24 00:00', '2018-04-27 00:00')),
             $this->standardizeDates($period)
         );
     }

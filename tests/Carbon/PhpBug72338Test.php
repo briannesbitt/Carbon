@@ -70,7 +70,7 @@ class PhpBug72338Test extends AbstractTestCase
         $date = Carbon::createFromTimestamp(0);
         $date->setTimezone('+02:00');
         $date1 = new Carbon('1970-01-01T02:00:00+02:00');
-        $this->assertEquals($date->format('U'), $date1->format('U'));
+        $this->assertSame($date->format('U'), $date1->format('U'));
     }
 
     /**
@@ -81,6 +81,6 @@ class PhpBug72338Test extends AbstractTestCase
         $date = Carbon::createFromTimestamp(0);
         $date->setTimezone('+02:00');
         $date->setTimezone('Europe/Moscow');
-        $this->assertEquals('0', $date->format('U'));
+        $this->assertSame('0', $date->format('U'));
     }
 }

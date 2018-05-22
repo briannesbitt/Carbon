@@ -15,6 +15,9 @@ use Carbon\CarbonPeriod;
 
 class CarbonPeriodFactory
 {
+    /**
+     * @return CarbonPeriod
+     */
     public static function withStartIntervalEnd()
     {
         $period = CarbonPeriod::create(
@@ -24,6 +27,9 @@ class CarbonPeriodFactory
         return $period;
     }
 
+    /**
+     * @return CarbonPeriod
+     */
     public static function withEvenDaysFilter()
     {
         $period = CarbonPeriod::create(
@@ -37,6 +43,9 @@ class CarbonPeriodFactory
         return $period;
     }
 
+    /**
+     * @return CarbonPeriod
+     */
     public static function withCounter(&$counter)
     {
         $counter = 0;
@@ -54,6 +63,9 @@ class CarbonPeriodFactory
         return $period;
     }
 
+    /**
+     * @return CarbonPeriod
+     */
     public static function withStackFilter()
     {
         $period = CarbonPeriod::create(

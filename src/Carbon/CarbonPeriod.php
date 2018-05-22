@@ -35,6 +35,7 @@ use RuntimeException;
  * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now.
  * @method static CarbonPeriod dates($start = null, $end = null) Create instance with start and end date.
+ * @method static CarbonPeriod between($start = null, $end = null) Create instance with start and end date.
  * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences.
  * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method static CarbonPeriod options($options = null) Create instance with options.
@@ -44,6 +45,10 @@ use RuntimeException;
  * @method static CarbonPeriod prepend($callback, $name = null) Create instance with filter prepened to the stack.
  * @method static CarbonPeriod filters(array $filters) Create instance with filters stack.
  * @method static CarbonPeriod interval($interval) Create instance with given date interval.
+ * @method static CarbonPeriod each($interval) Create instance with given date interval.
+ * @method static CarbonPeriod every($interval) Create instance with given date interval.
+ * @method static CarbonPeriod step($interval) Create instance with given date interval.
+ * @method static CarbonPeriod stepBy($interval) Create instance with given date interval.
  * @method static CarbonPeriod invert() Create instance with inverted date interval.
  * @method static CarbonPeriod years($years = 1) Create instance specifying a number of years for date interval.
  * @method static CarbonPeriod year($years = 1) Alias for years().

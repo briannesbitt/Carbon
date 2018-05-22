@@ -53,7 +53,7 @@ class RelativeDateStringTest extends AbstractTestCase
         foreach ($this->scenarios as $string => $expected) {
             $actual = Carbon::hasRelativeKeywords($string);
 
-            $this->assertEquals(
+            $this->assertSame(
                 $expected['is_relative'],
                 $actual,
                 "Failed relative keyword matching for scenario: {$string} (expected: {$expected['is_relative']})"
@@ -68,7 +68,7 @@ class RelativeDateStringTest extends AbstractTestCase
         foreach ($this->scenarios as $string => $expected) {
             $actual = Carbon::parse($string)->format('Y-m-d');
 
-            $this->assertEquals(
+            $this->assertSame(
                 $expected['date'],
                 $actual,
                 "Failed relative date scenario: {$string}"

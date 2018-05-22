@@ -43,7 +43,7 @@ class MacroTest extends AbstractTestCase
 
         $this->assertSame($period, $period->onlyWeekdays());
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-05-10', '2018-05-11', '2018-05-14')),
             $this->standardizeDates($period)
         );
@@ -95,7 +95,7 @@ class MacroTest extends AbstractTestCase
                 ->count();
         });
 
-        $this->assertEquals(
+        $this->assertSame(
             3, CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14')
         );
     }

@@ -63,7 +63,7 @@ class FilterTest extends AbstractTestCase
 
         $this->assertEquals($start, $period->getStartDate());
         $this->assertEquals($end, $period->getEndDate());
-        $this->assertEquals($recurrences, $period->getRecurrences());
+        $this->assertSame($recurrences, $period->getRecurrences());
 
         $period->setFilters(array());
 
@@ -152,7 +152,7 @@ class FilterTest extends AbstractTestCase
             return $date->isWeekday();
         });
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-18', '2018-04-26', '2018-04-30', '2018-05-04')),
             $this->standardizeDates($period)
         );
@@ -171,7 +171,7 @@ class FilterTest extends AbstractTestCase
             return $date->year === 2018;
         });
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-02-16', '2018-07-16', '2018-12-16')),
             $this->standardizeDates($period)
         );
@@ -190,7 +190,7 @@ class FilterTest extends AbstractTestCase
             return $date->month === 5 ? CarbonPeriod::END_ITERATION : true;
         });
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-04-19', '2018-04-22', '2018-04-25', '2018-04-28')),
             $this->standardizeDates($period)
         );
@@ -204,21 +204,21 @@ class FilterTest extends AbstractTestCase
 
         $period->setRecurrences(2);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-04-17')),
             $this->standardizeDates($period)
         );
 
         $period->setOptions(CarbonPeriod::EXCLUDE_START_DATE);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-17', '2018-04-18')),
             $this->standardizeDates($period)
         );
 
         $period->setOptions(CarbonPeriod::EXCLUDE_END_DATE);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-04-17')),
             $this->standardizeDates($period)
         );
@@ -234,7 +234,7 @@ class FilterTest extends AbstractTestCase
             ->setRecurrences(1)
             ->setRecurrences(3);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
             $this->standardizeDates($period)
         );
@@ -250,7 +250,7 @@ class FilterTest extends AbstractTestCase
             ->resetFilters()
             ->setRecurrences(3);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-16', '2018-04-17', '2018-04-18')),
             $this->standardizeDates($period)
         );
@@ -321,14 +321,14 @@ class FilterTest extends AbstractTestCase
             return $accept = !$accept;
         });
 
-        $this->assertEquals(
+        $this->assertSame(
             // Note: Without caching validation results the dates would be unpredictable
             // as we cannot know how many calls to validator occur per iteration.
             $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
             $this->standardizeDates($period)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             // Note: Without caching iteration results the dates would be complementary
             // to the above as this time first item would be rejected.
             $this->standardizeDates(array('2018-04-16', '2018-04-18', '2018-04-20')),
@@ -349,7 +349,7 @@ class FilterTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
             $this->standardizeDates($period)
         );
@@ -361,7 +361,7 @@ class FilterTest extends AbstractTestCase
 
         $period->addFilter('isLastOfMonth');
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-01-31', '2018-02-28', '2018-03-31', '2018-04-30', '2018-05-31')),
             $this->standardizeDates($period)
         );
@@ -373,7 +373,7 @@ class FilterTest extends AbstractTestCase
 
         $period->addFilter('isSameAs', 'm', new Carbon('2018-06-01'));
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2017-06-02', '2018-06-20')),
             $this->standardizeDates($period)
         );
@@ -385,7 +385,7 @@ class FilterTest extends AbstractTestCase
 
         $period->removeFilter('isFuture');
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('1970-01-01', '1970-01-02', '1970-01-03')),
             $this->standardizeDates($period)
         );
@@ -438,7 +438,7 @@ class FilterTest extends AbstractTestCase
         $period->addFilter(array(new FooFilters, 'bar'));
         $period->addFilter('foobar_filter');
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2017-03-10', '2017-03-12', '2017-03-16', '2017-03-18')),
             $this->standardizeDates($period)
         );
