@@ -20,86 +20,100 @@ function display($message)
     echo $message;
 }
 
-$dateTimeMethods = get_class_methods(new \DateTime());
-$carbon = new \Carbon\Carbon();
+$carbonObjects = array(
+    array(
+        new \Carbon\Carbon(),
+        new \DateTime()
+    ),
+    array(
+        new \Carbon\CarbonInterval('P1D'),
+        new \DateInterval('P1D'),
+    ),
+);
+foreach ($carbonObjects as $tuple) {
+    list($carbonObject, $dateTimeObject) = $tuple;
+    $className = get_class($carbonObject);
+    $dateTimeMethods = get_class_methods($dateTimeObject);
 
-foreach (get_class_methods($carbon) as $method) {
-    if (
-        in_array($method, $dateTimeMethods)  ||
-        $method === '__call' ||
-        $method === '__callStatic'
-    ) {
-        continue;
-    }
+    foreach (get_class_methods($carbonObject) as $method) {
+        if (
+            in_array($method, $dateTimeMethods)  ||
+            $method === '__call' ||
+            $method === '__callStatic'
+        ) {
+            continue;
+        }
 
-    $methodsCount++;
-    $documented = !!preg_match('/'.preg_quote($method, '/').'(?!\w)/', $documentation);
-    if (!$documented) {
-        $missingMethodsCount++;
-    }
-    $color = $documented ? 32 : 31;
-    $message = $documented ? 'documented' : 'missing';
-    $methodPad = str_pad($method, 25);
+        $methodsCount++;
+        $pattern = preg_quote($method, '/');
+        $documented = !!preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
+        if (!$documented) {
+            $missingMethodsCount++;
+        }
+        $color = $documented ? 32 : 31;
+        $message = $documented ? 'documented' : 'missing';
+        $methodPad = str_pad("$className::$method", 25);
 
-    $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
+        $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-    $reflexion = new \ReflectionMethod($carbon, $method);
-    $argumentsCount = count($reflexion->getParameters());
-    $argumentsDocumented = true;
+        $reflexion = new \ReflectionMethod($carbonObject, $method);
+        $argumentsCount = count($reflexion->getParameters());
+        $argumentsDocumented = true;
 
-    if (
-        $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
-        $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
-        $argumentsCount === 4 && $method === 'diffFiltered' ||
-        $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
-        $method === '__set'
-    ) {
-        $argumentsCount = 0;
-    }
+        if (
+            $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
+            $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
+            $argumentsCount === 4 && $method === 'diffFiltered' ||
+            $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
+            $method === '__set'
+        ) {
+            $argumentsCount = 0;
+        }
 
-    if ($argumentsCount) {
-        preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
-        $coveredArgs = 0;
-        if (!empty($matches[0])) {
-            foreach ($matches[0] as $data) {
-                if (preg_match('/^(
+        if ($argumentsCount) {
+            preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
+            $coveredArgs = 0;
+            if (!empty($matches[0])) {
+                foreach ($matches[0] as $data) {
+                    if (preg_match('/^(
                     [^"\'\\(\\)]+ |
                     "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                     \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
                     (\\(([^\\(\\)\'"]+|(?1))*\\)) |
                 )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
-                    $argumentsString = substr($match[0], 0, -1);
-                    $argumentsString = preg_replace('/(
+                        $argumentsString = substr($match[0], 0, -1);
+                        $argumentsString = preg_replace('/(
                             "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                             \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
                         )*/x', '', $argumentsString);
-                    $argumentsString = preg_replace('/(\\(
+                        $argumentsString = preg_replace('/(\\(
                             (\\[([^\\[\\]\'"]+|(?1))*\\]) |
                             (\\(([^\\(\\)\'"]+|(?1))*\\)) |
                             (\\{([^\\{\\}\'"]+|(?1))*\\}) |
                             [^\\{\\}\\(\\)\\[\\]\'"]+
                         \\))*/x', '', $argumentsString);
-                    $count = count(explode(',', $argumentsString));
-                    if ($count > $coveredArgs) {
-                        $coveredArgs = $count;
+                        $count = count(explode(',', $argumentsString));
+                        if ($count > $coveredArgs) {
+                            $coveredArgs = $count;
+                        }
                     }
                 }
             }
-        }
 
-        if ($documented) {
-            $missingArguments += $argumentsCount - $coveredArgs;
-        }
-        $argumentsDocumented = $argumentsCount === $coveredArgs;
-        $color = $argumentsDocumented ? 32 : 31;
-        $message = $documented ? 'documented' : 'missing';
+            if ($documented) {
+                $missingArguments += $argumentsCount - $coveredArgs;
+            }
+            $argumentsDocumented = $argumentsCount === $coveredArgs;
+            $color = $argumentsDocumented ? 32 : 31;
+            $message = $documented ? 'documented' : 'missing';
 
-        if (VERBOSE || $documented) {
-            $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+            if (VERBOSE || $documented) {
+                $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+            }
         }
-    }
-    if (!$documented || !$argumentsDocumented || VERBOSE) {
-        display($output);
+        if (!$documented || !$argumentsDocumented || VERBOSE) {
+            display($output);
+        }
     }
 }
 

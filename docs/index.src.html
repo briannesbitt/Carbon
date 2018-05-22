@@ -158,7 +158,7 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 {{nowwtz2::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz2_eval}}
 </code></pre></p>
 
-<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> function.</p>
+<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
 
 <p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
 {{::lint($carbon = Carbon::instance($dt);)}}
@@ -729,6 +729,11 @@ $dt->isSameMinute($dt2);
 $dt->isCurrentMinute();
 $dt->isSameSecond($dt2);
 $dt->isCurrentSecond();
+
+$dt->isStartOfDay(); // check if hour is 00:00:00
+$dt->isMidnight(); // check if hour is 00:00:00 (isStartOfDay alias)
+$dt->isEndOfDay(); // check if hour is 23:59:59
+$dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Carbon::setMidDayAt())
 )}}
 {{::lint($born = Carbon::createFromDate(1987, 4, 23);)}}
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
@@ -820,14 +825,14 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 {{addoverflow4::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow4_eval}}
 
 // Call the method with true to allow overflow again
-{{reset1::exec(Carbon::resetMonthsOverflow();)}}} // same as Carbon::useMonthsOverflow(true);
+{{reset1::exec(Carbon::resetMonthsOverflow();)}} // same as Carbon::useMonthsOverflow(true);
 </code></pre></p>
 
 The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
 
 You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
 <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-(or the singular methods with no <code>s</code> to "month").
+(or the singular methods with no <code>s</code> to "month")
 to explicitly add/sub months with or without overflow no matter the current mode.
 
 <p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
@@ -858,7 +863,7 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 {{addoverflowremind3::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind3_eval}}
 {{addoverflowremind4::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind4_eval}}
 
-{{reset2::exec(Carbon::resetMonthsOverflow();)}}}
+{{reset2::exec(Carbon::resetMonthsOverflow();)}}
 </code></pre></p>
 
 <p>From version 1.23.0, overflow control is also available on years:</p>
@@ -895,7 +900,7 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{addyearoverflowremind3::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind3_eval}}
 {{addyearoverflowremind4::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind4_eval}}
 
-{{reset3::exec(Carbon::resetYearsOverflow();)}}}
+{{reset3::exec(Carbon::resetYearsOverflow();)}}
 </code></pre></p>
 
 <h1 id="api-difference">Difference</h1>
@@ -1440,6 +1445,17 @@ $date = Carbon::parse('First saturday of December 2018');
 {{hasmacro3::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{hasmacro3_eval}}
 </code></pre></p>
 
+<p>And guess what? all macro methods are also available on the <a href="#api-interval"><code>CarbonInterval</code></a> class.</p>
+
+<p><pre><code class="php">{{::lint(
+CarbonInterval::macro('twice', function ($self = null) {
+    return $self->times(2);
+});
+)}}
+{{intervaltwice1::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{intervaltwice1_eval}}
+{{intervaltwice2::exec(echo CarbonInterval::hours(2)->minutes(15)->twice()->forHumans(true);/*pad(72)*/)}} // {{intervaltwice2_eval}}
+</code></pre></p>
+
 <p>Here are some useful macros proposed by the community:</p>
 
 <p><pre><code class="php">{{::lint(
@@ -1689,7 +1705,7 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 $ci = new CarbonInterval('PT0S');
 </code></pre></p>
 
-<p>Carbon intervals can be created from human-frendly strings thanks to <code>fromString()</code> method.</p>
+<p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
 
 <p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
 CarbonInterval::fromString('2m 15s'); // or abbreviated
@@ -1707,6 +1723,120 @@ CarbonInterval::setLocale('fr');)}}
 </code></pre></p>
 
 <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+
+<p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or strings:</p>
+
+<p><pre><code class="php">{{::lint(
+$dateInterval = new DateInterval('P2D');
+$carbonInterval = CarbonInterval::month();
+)}}
+{{intervalmake1::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake1_eval}}
+{{intervalmake2::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake2_eval}}
+{{intervalmake3::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{intervalmake3_eval}}
+{{intervalmake4::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{intervalmake4_eval}}
+// Pass true to get short format
+{{interval2s::exec(echo CarbonInterval::make('1h 15m')->forHumans(true);/*pad(60)*/)}} // {{interval2s_eval}}
+</code></pre></p>
+
+<p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
+
+<p><pre><code class="php">{{::lint(
+$interval = CarbonInterval::make('7h 55m');
+$interval->add(CarbonInterval::make('17h 35m'));
+$interval->times(3);
+)}}
+{{intervalmake5::exec(echo $interval->forHumans();)}} // {{intervalmake5_eval}}
+</code></pre></p>
+
+<p>You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use the cascade method:</p>
+
+<p><pre><code class="php">
+{{cascade1::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{cascade1_eval}}
+{{cascade2::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{cascade2_eval}}
+</code></pre></p>
+
+<p>Default factors are:</p>
+
+<ul>
+    <li>1 minute = 60 seconds</li>
+    <li>1 hour = 60 minutes</li>
+    <li>1 day = 24 hour</li>
+    <li>1 week = 7 days</li>
+    <li>1 month = 4 weeks</li>
+    <li>1 year = 12 months</li>
+</ul>
+
+<p>Intervals does not carry context so it cannot be more precise (no DST, no leap year, no real month length consideration).  But you can completely customize those factors. For example to deal with work time logs:</p>
+
+<p><pre><code class="php">{{::lint(
+$cascades = CarbonInterval::getCascadeFactors(); // save initial factors
+
+CarbonInterval::setCascadeFactors(array(
+    'minute' => array(60, 'seconds'),
+    'hour' => array(60, 'minutes'),
+    'day' => array(8, 'hours'),
+    'week' => array(5, 'days'),
+    // in this example the cascade won't go farther than week unit
+));
+)}}
+
+{{cascade3::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade3_eval}}
+{{cascade4::exec(echo CarbonInterval::fromString('10d')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade4_eval}}
+{{cascade5::exec(echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade5_eval}}
+
+// You can see currently set factors with getFactor:
+{{cascade6::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hour');/*pad(76)*/)}} // {{cascade6_eval}}
+{{cascade7::exec(echo CarbonInterval::getFactor('days', 'week');/*pad(76)*/)}} // {{cascade7_eval}}
+
+// And common factors can be get with short-cut methods:
+{{cascade8::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{cascade8_eval}}
+{{cascade9::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{cascade9_eval}}
+{{cascade10::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{cascade10_eval}}
+{{cascade11::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{cascade11_eval}}
+
+{{::lint(
+CarbonInterval::setCascadeFactors($cascades); // restore original factors
+)}}
+</code></pre></p>
+
+<p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
+
+<p><pre><code class="php">{{total1::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{total1_eval}}
+{{total2::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{total2_eval}}
+</code></pre></p>
+
+<p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
+
+<p><pre><code class="php">{{cispec1::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{cispec1_eval}}
+</code></pre></p>
+
+<p>It's also possible to get it from a DateInterval object since to the static helper:</p>
+
+<p><pre><code class="php">{{cispec2::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{cispec2_eval}}
+</code></pre></p>
+
+<p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code> methods:</p>
+
+<p><pre><code class="php">{{::lint(
+$halfDay = CarbonInterval::hours(12);
+$oneDay = CarbonInterval::day();
+$twoDay = CarbonInterval::days(2);
+)}}
+
+{{cicomparedi1::exec(echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);/*pad(62)*/)}} // {{cicomparedi1_eval}}
+{{cicompare1::exec(echo $oneDay->compare($oneDay);/*pad(62)*/)}} // {{cicompare1_eval}}
+{{cicomparedi2::exec(echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);/*pad(62)*/)}} // {{cicomparedi2_eval}}
+{{cicompare2::exec(echo $oneDay->compare($halfDay);/*pad(62)*/)}} // {{cicompare2_eval}}
+{{cicomparedi3::exec(echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);/*pad(62)*/)}} // {{cicomparedi3_eval}}
+{{cicompare3::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{cicompare3_eval}}
+
+{{::lint(
+$list = array($twoDay, $halfDay, $oneDay);
+usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
+)}}
+
+{{cicompare4::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{cicompare4_eval}}
+</code></pre></p>
 
 </div>
 

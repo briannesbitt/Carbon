@@ -37,7 +37,7 @@ function compile($src, $dest, &$namesCache)
 {
     $code = file_get_contents($src);
 
-    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; ';
+    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; use Carbon\CarbonPeriod; ';
 
     // {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}}
     preg_match_all('@{{(\w*)::(\w+)\((.+)\)}}@sU', $code, $matches, PREG_SET_ORDER);
