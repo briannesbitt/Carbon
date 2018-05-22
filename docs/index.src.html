@@ -1853,7 +1853,7 @@ usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
 
 <h1 id="api-period">CarbonPeriod</h1>
 
-<p>CarbonPeriod is a polyfill of <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with some human-friendly shortcuts.</p>
+<p>CarbonPeriod is a human-friendly version of <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with many shortcuts.</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
@@ -1960,9 +1960,9 @@ foreach ($period as $date) {
 // Periods can be set in many way thanks to fluent setters and the flexible string/object arguments:
 // CarbonPeriod::every('2 hours')->between($someDateTime, $someCarbon)->options(CarbonPeriod::EXCLUDE_START_DATE)
 // CarbonPeriod::options(CarbonPeriod::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday')->until('tomorrow')
-// CarbonPeriod::createBetween('first day of january', 'first day of next month')->interval('1 week')
-// CarbonPeriod::setOptions($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive)
-// CarbonPeriod::setOptions($opt)->setDateInterval($int)->setDates($start, $end)
+// CarbonPeriod::createBetween('first day of january this year', 'first day of next month')->interval('1 week')
+// CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive)
+// CarbonPeriod::interval($int)->setOptions($opt)->setDates($start, $end)
 </code></pre></p>
 
 <p>You can retrieve data from the period thanks to getters:</p>
@@ -2002,6 +2002,41 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 {{::lint($period->excludeStartDate(false);)}} // specify false to include, true or omit the second argument to exclude
 {{cpopts7::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpopts7_eval}}
 {{cpopts8::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts8_eval}}
+</code></pre></p>
+
+<p>As per ISO 8601 specification, recurrences is a limit of iterations (important note: DatePeriod change the number of occurrences depending on exclusion of start date, CarbonPeriod respect more strictly the ISO 8601 specification and provide recurrences as a occurrences overall limit):</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
+$days = array();
+foreach ($period as $date) {
+    $days[] = $date->format('d');
+}
+)}}
+
+{{cprec1::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{cprec1_eval}}
+{{cprec2::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec2_eval}}
+
+{{::lint(
+$days = array();
+$period->setRecurrences(3);
+foreach ($period as $date) {
+    $days[] = $date->format('d');
+}
+)}}
+
+{{cprec3::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{cprec3_eval}}
+{{cprec4::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec4_eval}}
+
+{{::lint(
+$days = array();
+$period = CarbonPeriod::recurrences(3)->sinceNow();
+foreach ($period as $date) {
+    $days[] = $date->format('Y-m-d');
+}
+)}}
+
+{{cprec5::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec5_eval}}
 </code></pre></p>
 
 </div>
