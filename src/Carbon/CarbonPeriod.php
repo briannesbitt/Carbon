@@ -28,14 +28,14 @@ use RuntimeException;
  * Substitution of DatePeriod with some modifications and many more features.
  * Fully compatible with PHP 5.3+!
  *
- * @method static CarbonPeriod start($date = null, $inclusive = null) Create instance specifying start date.
- * @method static CarbonPeriod since($date = null, $inclusive = null) Alias for start().
+ * @method static CarbonPeriod start($date, $inclusive = null) Create instance specifying start date.
+ * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
  * @method static CarbonPeriod sinceNow($inclusive = null) Create instance with start date set to now.
  * @method static CarbonPeriod end($date = null, $inclusive = null) Create instance specifying end date.
  * @method static CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method static CarbonPeriod untilNow($inclusive = null) Create instance with end date set to now.
- * @method static CarbonPeriod dates($start = null, $end = null) Create instance with start and end date.
- * @method static CarbonPeriod between($start = null, $end = null) Create instance with start and end date.
+ * @method static CarbonPeriod dates($start, $end = null) Create instance with start and end date.
+ * @method static CarbonPeriod between($start, $end = null) Create instance with start and end date.
  * @method static CarbonPeriod recurrences($recurrences = null) Create instance with maximum number of recurrences.
  * @method static CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method static CarbonPeriod options($options = null) Create instance with options.
@@ -65,13 +65,13 @@ use RuntimeException;
  * @method static CarbonPeriod minute($minutes = 1) Alias for minutes().
  * @method static CarbonPeriod seconds($seconds = 1) Create instance specifying a number of seconds for date interval.
  * @method static CarbonPeriod second($seconds = 1) Alias for seconds().
- * @method CarbonPeriod start($date = null, $inclusive = null) Change the period start date.
- * @method CarbonPeriod since($date = null, $inclusive = null) Alias for start().
+ * @method CarbonPeriod start($date, $inclusive = null) Change the period start date.
+ * @method CarbonPeriod since($date, $inclusive = null) Alias for start().
  * @method CarbonPeriod sinceNow($inclusive = null) Change the period start date to now.
  * @method CarbonPeriod end($date = null, $inclusive = null) Change the period end date.
  * @method CarbonPeriod until($date = null, $inclusive = null) Alias for end().
  * @method CarbonPeriod untilNow($inclusive = null) Change the period end date to now.
- * @method CarbonPeriod dates($start = null, $end = null) Change the period start and end date.
+ * @method CarbonPeriod dates($start, $end = null) Change the period start and end date.
  * @method CarbonPeriod recurrences($recurrences = null) Change the maximum number of recurrences.
  * @method CarbonPeriod times($recurrences = null) Alias for recurrences().
  * @method CarbonPeriod options($options = null) Change the period options.
@@ -106,11 +106,10 @@ class CarbonPeriod implements Iterator, Countable
      * @var string
      */
     const RECURRENCES_FILTER = 'Carbon\CarbonPeriod::filterRecurrences';
-    const START_DATE_FILTER = 'Carbon\CarbonPeriod::filterStartDate';
     const END_DATE_FILTER = 'Carbon\CarbonPeriod::filterEndDate';
 
     /**
-     * Special value which can be returned by filters to end iteration.
+     * Special value which can be returned by filters to end iteration. Also a filter.
      *
      * @var string
      */
@@ -123,7 +122,6 @@ class CarbonPeriod implements Iterator, Countable
      */
     const EXCLUDE_START_DATE = 1;
     const EXCLUDE_END_DATE = 2;
-    const DISABLE_RESULTS_CACHE = 4;
 
     /**
      * Number of maximum attempts before giving up on finding next valid date.
@@ -140,7 +138,7 @@ class CarbonPeriod implements Iterator, Countable
     protected static $macros = array();
 
     /**
-     * Underlying date interval instance. Always present.
+     * Underlying date interval instance. Always present, one day by default.
      *
      * @var CarbonInterval
      */
@@ -161,9 +159,9 @@ class CarbonPeriod implements Iterator, Countable
     protected $filters = array();
 
     /**
-     * Period start date. When empty iteration will always give no results. Applied via a filter.
+     * Period start date. Applied on rewind. Always present, now by default.
      *
-     * @var Carbon|null
+     * @var Carbon
      */
     protected $startDate;
 
@@ -212,32 +210,11 @@ class CarbonPeriod implements Iterator, Countable
     protected $timezone;
 
     /**
-     * The array of cached dates. Equal to null before the first iteration and after reset.
-     *
-     * @var array|null
-     */
-    protected $iterationResults;
-
-    /**
      * The cached validation result for current date.
      *
-     * @var bool|null
+     * @var bool|static::END_ITERATION
      */
     protected $validationResult;
-
-    /**
-     * Whether iteration has been completed.
-     *
-     * @var bool
-     */
-    protected $iterationCompleted;
-
-    /**
-     * Changing parameters invalidates the iteration results.
-     *
-     * @var bool
-     */
-    protected $parametersChanged;
 
     /**
      * Create a new instance.
@@ -288,7 +265,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Create a CarbonPeriod between given dates.
      *
-     * @param DateTime|DateTimeInterface|string|null $start
+     * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      * @param DateInterval|string|null               $interval
      * @param int|null                               $options
@@ -497,6 +474,10 @@ class CarbonPeriod implements Iterator, Countable
             }
         }
 
+        if ($this->startDate === null) {
+            $this->setStartDate(Carbon::now());
+        }
+
         if ($this->dateInterval === null) {
             $this->setDateInterval(CarbonInterval::day());
 
@@ -551,7 +532,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Set start and end date.
      *
-     * @param DateTime|DateTimeInterface|string|null $start
+     * @param DateTime|DateTimeInterface|string      $start
      * @param DateTime|DateTimeInterface|string|null $end
      *
      * @return $this
@@ -643,18 +624,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Toggle DISABLE_RESULTS_CACHE option.
-     *
-     * @param bool $state
-     *
-     * @return $this
-     */
-    public function disableResultsCache($state = true)
-    {
-        return $this->toggleOptions(static::DISABLE_RESULTS_CACHE, $state);
-    }
-
-    /**
      * Get the underlying date interval.
      *
      * @return CarbonInterval
@@ -667,13 +636,11 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get start date of the period.
      *
-     * @return Carbon|null
+     * @return Carbon
      */
     public function getStartDate()
     {
-        if ($this->startDate) {
-            return $this->startDate->copy();
-        }
+        return $this->startDate->copy();
     }
 
     /**
@@ -716,16 +683,6 @@ class CarbonPeriod implements Iterator, Countable
     public function isEndExcluded()
     {
         return ($this->options & static::EXCLUDE_END_DATE) !== 0;
-    }
-
-    /**
-     * Returns true if caching of iteration results is disabled.
-     *
-     * @return bool
-     */
-    public function isCacheDisabled()
-    {
-        return ($this->options & static::DISABLE_RESULTS_CACHE) !== 0;
     }
 
     /**
@@ -870,10 +827,6 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->filters = array();
 
-        if ($this->startDate !== null) {
-            $this->filters[] = array(static::START_DATE_FILTER, null);
-        }
-
         if ($this->endDate !== null) {
             $this->filters[] = array(static::END_DATE_FILTER, null);
         }
@@ -894,10 +847,6 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected function updateInternalState()
     {
-        if (!$this->hasFilter(static::START_DATE_FILTER)) {
-            $this->startDate = null;
-        }
-
         if (!$this->hasFilter(static::END_DATE_FILTER)) {
             $this->endDate = null;
         }
@@ -957,8 +906,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Change the period start date.
      *
-     * @param DateTime|DateTimeInterface|string|null $date
-     * @param bool|null                              $inclusive
+     * @param DateTime|DateTimeInterface|string $date
+     * @param bool|null                         $inclusive
      *
      * @throws \InvalidArgumentException
      *
@@ -966,12 +915,8 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function setStartDate($date, $inclusive = null)
     {
-        if (!is_null($date) && !$date = Carbon::make($date)) {
+        if (!$date = Carbon::make($date)) {
             throw new InvalidArgumentException('Invalid start date.');
-        }
-
-        if (!$date) {
-            return $this->removeFilter(static::START_DATE_FILTER);
         }
 
         $this->startDate = $date;
@@ -980,33 +925,7 @@ class CarbonPeriod implements Iterator, Countable
             $this->toggleOptions(static::EXCLUDE_START_DATE, !$inclusive);
         }
 
-        if (!$this->hasFilter(static::START_DATE_FILTER)) {
-            return $this->addFilter(static::START_DATE_FILTER);
-        }
-
-        $this->handleChangedParameters();
-
         return $this;
-    }
-
-    /**
-     * Start date filter callback.
-     *
-     * @param \Carbon\Carbon $current
-     *
-     * @return bool
-     */
-    protected function filterStartDate($current)
-    {
-        if (!$this->isStartExcluded() && $current == $this->startDate) {
-            return true;
-        }
-
-        if ($this->dateInterval->invert ? $current < $this->startDate : $current > $this->startDate) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
@@ -1082,10 +1001,6 @@ class CarbonPeriod implements Iterator, Countable
     protected function handleChangedParameters()
     {
         $this->validationResult = null;
-
-        $this->iterationCompleted = false;
-
-        $this->parametersChanged = true;
     }
 
     /**
@@ -1098,7 +1013,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected function validateCurrentDate()
     {
-        if ($this->iterationResults === null) {
+        if ($this->current === null) {
             $this->rewind();
         }
 
@@ -1107,19 +1022,7 @@ class CarbonPeriod implements Iterator, Countable
             return $this->validationResult;
         }
 
-        if ($this->iterationCompleted) {
-            $result = static::END_ITERATION;
-        } else {
-            $result = $this->checkFilters();
-
-            $this->iterationCompleted = $result === static::END_ITERATION;
-        }
-
-        if ($result === true) {
-            $this->iterationResults[$this->key] = $this->current->copy();
-        }
-
-        return $this->validationResult = $result;
+        return $this->validationResult = $this->checkFilters();
     }
 
     /**
@@ -1132,9 +1035,9 @@ class CarbonPeriod implements Iterator, Countable
         $current = $this->prepareForReturn($this->current);
 
         foreach ($this->filters as $tuple) {
-            list($filter) = $tuple;
-
-            $result = call_user_func($filter, $current->copy(), $this->key, $this);
+            $result = call_user_func(
+                $tuple[0], $current->copy(), $this->key, $this
+            );
 
             if ($result === static::END_ITERATION) {
                 return static::END_ITERATION;
@@ -1209,23 +1112,25 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function next()
     {
-        if ($this->iterationResults === null) {
+        if ($this->current === null) {
             $this->rewind();
-        } elseif ($this->setCurrentDateFromCache($this->key + 1)) {
-            return;
         }
 
-        if ($this->iterationCompleted) {
-            return;
+        if ($this->validationResult !== static::END_ITERATION) {
+            $this->key++;
+
+            $this->incrementCurrentDateUntilValid();
         }
-
-        $this->key++;
-
-        $this->incrementCurrentDateUntilValid();
     }
 
     /**
      * Rewind to the start date.
+     *
+     * Iterating over a date in the UTC timezone avoids bug during backward DST change.
+     *
+     * @see https://bugs.php.net/bug.php?id=72255
+     * @see https://bugs.php.net/bug.php?id=74274
+     * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
      *
      * @throws \RuntimeException
      *
@@ -1234,61 +1139,17 @@ class CarbonPeriod implements Iterator, Countable
     public function rewind()
     {
         $this->key = 0;
+        $this->current = $this->startDate->copy();
+        $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
-        if ($this->iterationResults !== null && $this->setCurrentDateFromCache($this->key)) {
-            return;
+        if ($this->timezone) {
+            $this->current->setTimezone('UTC');
         }
 
-        $this->iterationResults = array();
         $this->validationResult = null;
 
-        $this->iterationCompleted = false;
-        $this->parametersChanged = false;
-
-        if ($this->startDate === null) {
-            $this->iterationCompleted = true;
-
-            return;
-        }
-
-        $this->initializeCurrentDate();
-
-        if ($this->validateCurrentDate() === false) {
+        if ($this->isStartExcluded() || $this->validateCurrentDate() === false) {
             $this->incrementCurrentDateUntilValid();
-        }
-    }
-
-    /**
-     * Clear cached results and force rewind.
-     *
-     * @return void
-     */
-    public function reset()
-    {
-        $this->iterationResults = null;
-    }
-
-    /**
-     * Initialize current date from the start date.
-     *
-     * Iterating over a date in the UTC timezone avoids bug during backward DST change.
-     *
-     * @see https://bugs.php.net/bug.php?id=72255
-     * @see https://bugs.php.net/bug.php?id=74274
-     * @see https://wiki.php.net/rfc/datetime_and_daylight_saving_time
-     *
-     * @return void
-     */
-    protected function initializeCurrentDate()
-    {
-        $this->current = $this->startDate->copy();
-
-        if (static::intervalHasTime($this->dateInterval)) {
-            $this->timezone = $this->current->getTimezone();
-
-            $this->current->setTimezone('UTC');
-        } else {
-            $this->timezone = null;
         }
     }
 
@@ -1315,37 +1176,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Set current date from the iteration results and return true on success.
-     *
-     * @param int $key
-     *
-     * @return bool
-     */
-    protected function setCurrentDateFromCache($key)
-    {
-        if ($this->parametersChanged || $this->isCacheDisabled()) {
-            return false;
-        }
-
-        if ($key < count($this->iterationResults)) {
-            $this->validationResult = true;
-
-            $this->key = $key;
-            $this->current = $this->iterationResults[$key]->copy();
-
-            return true;
-        }
-
-        if ($this->iterationCompleted) {
-            $this->validationResult = static::END_ITERATION;
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Format the date period as ISO 8601.
      *
      * @return string
@@ -1358,9 +1188,7 @@ class CarbonPeriod implements Iterator, Countable
             $parts[] = 'R'.$this->recurrences;
         }
 
-        if ($this->startDate !== null) {
-            $parts[] = $this->startDate->toIso8601String();
-        }
+        $parts[] = $this->startDate->toIso8601String();
 
         $parts[] = $this->dateInterval->spec();
 
@@ -1382,7 +1210,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $parts = array();
 
-        $format = $this->startDate && !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
+        $format = !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 
@@ -1392,9 +1220,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $parts[] = $translator->trans('period_interval', array(':interval' => $this->dateInterval->forHumans()));
 
-        if ($this->startDate !== null) {
-            $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
-        }
+        $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
 
         if ($this->endDate !== null) {
             $parts[] = $translator->trans('period_end_date', array(':date' => $this->endDate->format($format)));
@@ -1416,40 +1242,27 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Convert the date period into an array.
+     * Convert the date period into an array without changing current iteration state.
      *
      * @return array
      */
     public function toArray()
     {
-        if ($this->parametersChanged || $this->isCacheDisabled()) {
-            $this->rewind();
-        }
-
-        // Complete iteration that haven't finished yet to fill up the results array.
-        if (!$this->iterationCompleted) {
-            $this->iterateUntilCompleted();
-        }
-
-        return array_map(
-            array($this, 'prepareForReturn'), $this->iterationResults
+        $state = array(
+            $this->key,
+            $this->current ? $this->current->copy() : null,
+            $this->validationResult,
         );
-    }
 
-    /**
-     * Fill up the results array without changing current iteration state.
-     *
-     * @return void
-     */
-    protected function iterateUntilCompleted()
-    {
-        $state = array($this->key, $this->current ? $this->current->copy() : null, $this->validationResult);
+        $result = iterator_to_array($this);
 
-        while ($this->valid()) {
-            $this->next();
-        }
+        list(
+            $this->key,
+            $this->current,
+            $this->validationResult
+        ) = $state;
 
-        list($this->key, $this->current, $this->validationResult) = $state;
+        return $result;
     }
 
     /**

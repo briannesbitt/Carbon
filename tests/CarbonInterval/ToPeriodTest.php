@@ -24,11 +24,6 @@ class ToPeriodTest extends AbstractTestCase
     {
         return array(
             array(
-                CarbonInterval::month(1),
-                array(),
-                'P1M',
-            ),
-            array(
                 CarbonInterval::days(3),
                 array('2017-10-15', 4),
                 'R4/2017-10-15T00:00:00-04:00/P3D',

@@ -446,13 +446,11 @@ class CreateTest extends AbstractTestCase
     {
         $period = new CarbonPeriod;
 
-        $this->assertNull($period->getStartDate());
-        $this->assertSame('P1D', $period->getDateInterval()->spec());
+        $this->assertEquals(new Carbon, $period->getStartDate());
+        $this->assertEquals('P1D', $period->getDateInterval()->spec());
         $this->assertNull($period->getEndDate());
         $this->assertNull($period->getRecurrences());
-        $this->assertSame(0, $period->getOptions());
-
-        $this->assertEmpty($this->standardizeDates($period));
+        $this->assertEquals(0, $period->getOptions());
     }
 
     public function testCreateFromDateStringsWithTimezones()
