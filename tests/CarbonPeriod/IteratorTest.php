@@ -426,7 +426,7 @@ class IteratorTest extends AbstractTestCase
         $period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true);
         $period->setStartDate(new Carbon('2018-10-13'));
 
-        $this->assertSame($current, $period->current());
+        $this->assertEquals($current, $period->current());
     }
 
     public function testInvertDateIntervalDuringIteration()
