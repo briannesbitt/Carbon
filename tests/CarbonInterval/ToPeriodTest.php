@@ -17,7 +17,7 @@ class ToPeriodTest extends AbstractTestCase
 
         $this->assertInstanceOf('Carbon\CarbonPeriod', $period);
 
-        $this->assertEquals($expected, $period->spec());
+        $this->assertSame($expected, $period->spec());
     }
 
     public function provideToPeriodParameters()

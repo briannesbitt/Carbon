@@ -53,7 +53,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $result = CarbonPeriodFactory::withEvenDaysFilter()->toArray();
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
             $this->standardizeDates($result)
         );
@@ -63,14 +63,14 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $this->assertEquals(3, $period->count());
+        $this->assertSame(3, $period->count());
     }
 
     public function testCountByFunction()
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $this->assertEquals(3, count($period));
+        $this->assertSame(3, count($period));
     }
 
     public function testFirst()
@@ -99,7 +99,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create(0);
 
-        $this->assertEquals(0, $period->count());
+        $this->assertSame(0, $period->count());
     }
 
     public function testFirstOfEmptyPeriod()
@@ -125,17 +125,17 @@ class ToArrayTest extends AbstractTestCase
         $key = $period->key();
         $current = $period->current();
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
             $this->standardizeDates($period->toArray())
         );
 
-        $this->assertEquals(1, $period->key());
+        $this->assertSame(1, $period->key());
         $this->assertEquals(new Carbon('2012-07-10'), $period->current());
 
         $period->next();
 
-        $this->assertEquals(2, $period->key());
+        $this->assertSame(2, $period->key());
         $this->assertEquals(new Carbon('2012-07-16'), $period->current());
     }
 
@@ -149,6 +149,6 @@ class ToArrayTest extends AbstractTestCase
             '2018-05-13 14:00:00 +04:30',
         );
 
-        $this->assertEquals($expected, $this->standardizeDates($period->toArray()));
+        $this->assertSame($expected, $this->standardizeDates($period->toArray()));
     }
 }

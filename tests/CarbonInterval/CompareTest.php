@@ -21,7 +21,7 @@ class CompareTest extends AbstractTestCase
         $first = CarbonInterval::minute();
         $second = CarbonInterval::minutes(2);
         $result = $first->compare($second);
-        $this->assertEquals(-1, $result);
+        $this->assertSame(-1, $result);
     }
 
     public function testPositive()
@@ -29,7 +29,7 @@ class CompareTest extends AbstractTestCase
         $first = CarbonInterval::day();
         $second = CarbonInterval::hour();
         $result = $first->compare($second);
-        $this->assertEquals(1, $result);
+        $this->assertSame(1, $result);
     }
 
     public function testEqual()
@@ -37,6 +37,6 @@ class CompareTest extends AbstractTestCase
         $first = CarbonInterval::year();
         $second = CarbonInterval::year();
         $result = $first->compare($second);
-        $this->assertEquals(0, $result);
+        $this->assertSame(0, $result);
     }
 }

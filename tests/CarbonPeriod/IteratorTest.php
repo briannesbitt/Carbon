@@ -77,8 +77,8 @@ class IteratorTest extends AbstractTestCase
 
         $period->next();
 
-        $this->assertEquals(1, $period->key());
-        $this->assertEquals('2012-07-10 00:00:00', $period->current()->format('Y-m-d H:i:s'));
+        $this->assertSame(1, $period->key());
+        $this->assertSame('2012-07-10 00:00:00', $period->current()->format('Y-m-d H:i:s'));
         $this->assertTrue($period->valid());
     }
 
@@ -89,8 +89,8 @@ class IteratorTest extends AbstractTestCase
         $period->next();
         $period->rewind();
 
-        $this->assertEquals(0, $period->key());
-        $this->assertEquals('2012-07-04 00:00:00', $period->current()->format('Y-m-d H:i:s'));
+        $this->assertSame(0, $period->key());
+        $this->assertSame('2012-07-04 00:00:00', $period->current()->format('Y-m-d H:i:s'));
         $this->assertTrue($period->valid());
     }
 
@@ -119,7 +119,7 @@ class IteratorTest extends AbstractTestCase
 
         $period->setDateInterval($interval);
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates($expected),
             $this->standardizeDates($period)
         );
@@ -209,7 +209,7 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             array('0 => 2012-07-04', '1 => 2012-07-10', '2 => 2012-07-16'),
             $results
         );
@@ -228,7 +228,7 @@ class IteratorTest extends AbstractTestCase
                 $period->setRecurrences(++$recurrences);
 
                 // Note: Current is still valid, because we simply extended the period.
-                $this->assertEquals($key, $period->key());
+                $this->assertSame($key, $period->key());
                 $this->assertEquals($current, $period->current());
                 $this->assertTrue($period->valid());
             }
@@ -238,7 +238,7 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             array('0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'), $results
         );
     }
@@ -268,7 +268,7 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             // Note: Results are not affected, because start date is used only for initialization.
             array('0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'), $results
         );
@@ -286,7 +286,7 @@ class IteratorTest extends AbstractTestCase
             $period->setDateInterval('P3D');
 
             // Note: Current is still valid, because changed interval changes only subsequent items.
-            $this->assertEquals($key, $period->key());
+            $this->assertSame($key, $period->key());
             $this->assertEquals($current, $period->current());
             $this->assertTrue($period->valid());
 
@@ -295,7 +295,7 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             array('0 => 2012-07-01', '1 => 2012-07-04', '2 => 2012-07-07'), $results
         );
     }
@@ -307,15 +307,15 @@ class IteratorTest extends AbstractTestCase
         $period->key();
         $period->current();
         $period->valid();
-        $this->assertEquals(1, $counter);
+        $this->assertSame(1, $counter);
 
         $period->next();
-        $this->assertEquals(2, $counter);
+        $this->assertSame(2, $counter);
 
         $period->key();
         $period->current();
         $period->valid();
-        $this->assertEquals(2, $counter);
+        $this->assertSame(2, $counter);
     }
 
     public function testInvalidateCurrentAfterChangingParameters()
@@ -345,7 +345,7 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
             $this->standardizeDates($results)
         );
@@ -371,7 +371,7 @@ class IteratorTest extends AbstractTestCase
             $period->next();
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-10-10', '2018-10-11', '2018-10-12', '2018-10-13')),
             $this->standardizeDates($results)
         );
@@ -381,6 +381,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create()->setStartDate($start = new Carbon('2018-10-28'));
         $this->assertEquals($start, $period->current());
+        $this->assertNotSame($start, $period->current());
 
         $period->addFilter($excludeStart = function ($date) use ($start) {
             return $date != $start;
@@ -389,18 +390,21 @@ class IteratorTest extends AbstractTestCase
 
         $period->removeFilter($excludeStart);
         $this->assertEquals($start, $period->current());
+        $this->assertNotSame($start, $period->current());
     }
 
     public function testRevalidateCurrentAfterEndOfIteration()
     {
         $period = CarbonPeriod::create()->setStartDate($start = new Carbon('2018-10-28'));
         $this->assertEquals($start, $period->current());
+        $this->assertNotSame($start, $period->current());
 
         $period->addFilter(CarbonPeriod::END_ITERATION);
         $this->assertNull($period->current());
 
         $period->removeFilter(CarbonPeriod::END_ITERATION);
         $this->assertEquals($start, $period->current());
+        $this->assertNotSame($start, $period->current());
     }
 
     public function testChangeStartDateBeforeIteration()
@@ -439,9 +443,25 @@ class IteratorTest extends AbstractTestCase
             }
         }
 
-        $this->assertEquals(
+        $this->assertSame(
             $this->standardizeDates(array('2018-04-11', '2018-04-12', '2018-04-13', '2018-04-12', '2018-04-11')),
             $this->standardizeDates($results)
         );
+    }
+
+    public function testManualIteration()
+    {
+        $period = CarbonPeriodFactory::withStackFilter();
+        $period->rewind();
+        $str = '';
+        while ($period->valid()) {
+            if ($period->key()) {
+                $str .= ', ';
+            }
+            $str .= $period->current()->format('m-d');
+            $period->next();
+        }
+
+        $this->assertSame('01-01, 01-03', $str);
     }
 }
