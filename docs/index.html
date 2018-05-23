@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-22 12:30:11
+echo $now;                               // 2018-05-23 09:43:43
 $today = Carbon::today();
-echo $today;                             // 2018-05-22 00:00:00
+echo $today;                             // 2018-05-23 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-05-23 00:00:00
+echo $tomorrow;                          // 2018-05-24 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-05-21 00:00:00
+echo $yesterday;                         // 2018-05-22 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:30 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:43 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-22 12:30:11
+echo Carbon::now();                                    // 2018-05-23 09:43:43
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-22 12:30:11
-echo $dt1->maximum();                              // 2018-05-22 12:30:11
+echo $dt1->max();                                  // 2018-05-23 09:43:43
+echo $dt1->maximum();                              // 2018-05-23 09:43:43
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1575,7 +1575,7 @@ function dumpDateList($dates) {
 
 dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-05-21 00:00:00, 2018-05-22 00:00:00, 2018-05-23 00:00:00, 2018-05-24 00:00:00, 2018-05-25 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-05-01 00:00:00, 2018-05-02 00:00:00, 2018-05-03 00:00:00, 2018-05-04 00:00:00, 2018-05-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-04-16 00:00:00, 2018-04-17 00:00:00, 2018-04-18 00:00:00, 2018-04-19 00:00:00, 2018-04-20 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-04-23 00:00:00, 2018-04-24 00:00:00, 2018-04-25 00:00:00, 2018-04-26 00:00:00, 2018-04-27 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-04-01 00:00:00, 2018-04-02 00:00:00, 2018-04-03 00:00:00, 2018-04-04 00:00:00, 2018-04-05 00:00...
 </code></pre></p>
 
@@ -2013,8 +2013,101 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-05-22, 2018-05-23, 2018-05-24
+echo implode(', ', $days);               // 2018-05-23, 2018-05-24, 2018-05-25
 </code></pre></p>
+
+<p>Periods can be filtered, it is a recommended way to filter the range rather than nesting <code>if</code> statement inside the loop.</p>
+
+<p><pre><code class="php">$period = CarbonPeriod::between('2000-01-01', '2000-01-15');
+$weekendFilter = function ($date) {
+    return $date->isWeekend();
+};
+
+var_dump($period->hasFilter($weekendFilter));      // bool(false)
+$period->filter($weekendFilter);
+var_dump($period->hasFilter($weekendFilter));      // bool(true)
+var_dump($period->getFilters());
+/*
+Contains CarbonPeriod::END_DATE_FILTER since an end date has been provided
+And the $weekendFilter:
+
+array(2) {
+  [0]=>
+  array(2) {
+    [0]=>
+    string(34) "Carbon\CarbonPeriod::filterEndDate"
+    [1]=>
+    NULL
+  }
+  [1]=>
+  array(2) {
+    [0]=>
+    object(Closure)#1157 (1) {
+      ["parameter"]=>
+      array(1) {
+        ["$date"]=>
+        string(10) "<required>"
+      }
+    }
+    [1]=>
+    NULL
+  }
+}
+*/
+
+$days = array();
+foreach ($period as $date) {
+    $days[] = $date->format('m-d');
+}
+echo implode(', ', $days);                         // 01-01, 01-02, 01-08, 01-09, 01-15
+
+$period->removeFilter($weekendFilter);
+var_dump($period->hasFilter($weekendFilter));      // bool(false)
+
+// To avoid storing filters as variables you can name your filters:
+$period = CarbonPeriod::between('2000-01-01', '2000-01-15')->filter(function ($date) {
+    return $date->isWeekend();
+}, 'weekend');
+var_dump($period->hasFilter('weekend'));           // bool(true)
+$period->removeFilter('weekend');
+var_dump($period->hasFilter('weekend'));           // bool(false)
+</code></pre></p>
+
+<p>Filter order can have an impact on the performances and on the result, so you can use <code>addFilter()</code> (or <code>push()</code> or <code>filter()</code>) which add in the end; and you can use <code>prepend()</code> or <code>prependFilter()</code> to add at the beginning. And you can use <code>setFilters()</code> (which take an array as argument) to replace the whole filters stack. Warning: an end date or a recurrences limit are also filters internally so <code>setFilters()</code> will erase them. To avoid this behavior, use <code>resetFilters()</code> instead, then add new filters one by one.</p>
+
+<p>For example, when you set a recurrences filter with <code>setRecurrences()</code> (or alias <code>recurrences()</code> or <code>times()</code>), the result of a filter is different if it's before or after the recurrences.</p>
+<p><pre><code class="php">$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
+    return $date->isWeekday();
+});
+
+$period1 = clone $period;
+$period1->prependFilter(function () {
+    static $count = 0;
+
+    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
+}, 'limit');
+$days = array();
+foreach ($period1 as $date) {
+    $days[] = $date->format('m-d');
+}
+
+echo implode(', ', $days);                         // 05-03, 05-04, 05-07
+$period2 = clone $period;
+$period2->addFilter(function () {
+    static $count = 0;
+
+    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
+}, 'limit');
+$days = array();
+foreach ($period2 as $date) {
+    $days[] = $date->format('m-d');
+}
+echo implode(', ', $days);                         // 05-03, 05-04, 05-07, 05-08, 05-09
+</code></pre></p>
+
+<p>Note that the recurrences filter will not works this way, it is based on the key and the key is not incremented until a valid date is found, so no matter you put it at the beginning or the end, it will limit the overall results count.</p>
+
+<p>A filter function can returns <code>true</code> to validate the date and iterate on it, <code>false</code> to skip the date and continue to search a valid date or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
 
 </div>
 

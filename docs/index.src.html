@@ -2039,6 +2039,88 @@ foreach ($period as $date) {
 {{cprec5::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec5_eval}}
 </code></pre></p>
 
+<p>Periods can be filtered, it is a recommended way to filter the range rather than nesting <code>if</code> statement inside the loop.</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::between('2000-01-01', '2000-01-15');
+$weekendFilter = function ($date) {
+    return $date->isWeekend();
+};
+)}}
+
+{{cpfilter1::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter1_eval}}
+{{::lint($period->filter($weekendFilter);)}}
+{{cpfilter2::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter2_eval}}
+{{cpfilter3::exec(var_dump($period->getFilters());)}}
+/*
+Contains CarbonPeriod::END_DATE_FILTER since an end date has been provided
+And the $weekendFilter:
+
+{{cpfilter3_eval}}
+*/
+
+{{::lint(
+$days = array();
+foreach ($period as $date) {
+    $days[] = $date->format('m-d');
+}
+)}}
+{{cpfilter4::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter4_eval}}
+
+{{::lint($period->removeFilter($weekendFilter);)}}
+{{cpfilter6::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter6_eval}}
+
+// To avoid storing filters as variables you can name your filters:
+{{::lint($period = CarbonPeriod::between('2000-01-01', '2000-01-15')->filter(function ($date) {
+    return $date->isWeekend();
+}, 'weekend');)}}
+{{cpfilter7::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{cpfilter7_eval}}
+{{::lint($period->removeFilter('weekend');)}}
+{{cpfilter8::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{cpfilter8_eval}}
+</code></pre></p>
+
+<p>Filter order can have an impact on the performances and on the result, so you can use <code>addFilter()</code> (or <code>push()</code> or <code>filter()</code>) which add in the end; and you can use <code>prepend()</code> or <code>prependFilter()</code> to add at the beginning. And you can use <code>setFilters()</code> (which take an array as argument) to replace the whole filters stack. Warning: an end date or a recurrences limit are also filters internally so <code>setFilters()</code> will erase them. To avoid this behavior, use <code>resetFilters()</code> instead, then add new filters one by one.</p>
+
+<p>For example, when you set a recurrences filter with <code>setRecurrences()</code> (or alias <code>recurrences()</code> or <code>times()</code>), the result of a filter is different if it's before or after the recurrences.</p>
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
+    return $date->isWeekday();
+});
+)}}
+
+{{::lint(
+$period1 = clone $period;
+$period1->prependFilter(function () {
+    static $count = 0;
+
+    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
+}, 'limit');
+$days = array();
+foreach ($period1 as $date) {
+    $days[] = $date->format('m-d');
+}
+)}}
+
+{{cpfilter9::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter9_eval}}
+{{::lint(
+$period2 = clone $period;
+$period2->addFilter(function () {
+    static $count = 0;
+
+    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
+}, 'limit');
+$days = array();
+foreach ($period2 as $date) {
+    $days[] = $date->format('m-d');
+}
+)}}
+{{cpfilter10::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter10_eval}}
+</code></pre></p>
+
+<p>Note that the recurrences filter will not works this way, it is based on the key and the key is not incremented until a valid date is found, so no matter you put it at the beginning or the end, it will limit the overall results count.</p>
+
+<p>A filter function can returns <code>true</code> to validate the date and iterate on it, <code>false</code> to skip the date and continue to search a valid date or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
+
 </div>
 
 <nav>
