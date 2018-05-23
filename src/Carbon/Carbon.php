@@ -19,6 +19,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use JsonSerializable;
+use ReflectionException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -2243,8 +2244,8 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Compares the formatted values of the two dates.
      *
-     * @param string                                 $format The date formats to compare.
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date   The instance to compare with or null to use current day.
+     * @param string                                 $format date formats to compare.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date   instance to compare with or null to use current day.
      *
      * @throws \InvalidArgumentException
      *
@@ -2260,35 +2261,49 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Determines if the instance is in the current year.
+     * Determines if the instance is in the current unit given.
+     *
+     * @param string                                 $unit singular unit string
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date instance to compare with or null to use current day.
+     *
+     * @throws \InvalidArgumentException
      *
      * @return bool
      */
-    public function isCurrentYear()
+    public function isSameUnit($unit, $date = null)
     {
-        return $this->isSameYear();
+        $units = [
+            // @call isSameUnit
+            'year' => 'Y',
+            // @call isSameUnit
+            'day' => 'Y-m-d',
+            // @call isSameUnit
+            'hour' => 'Y-m-d H',
+            // @call isSameUnit
+            'minute' => 'Y-m-d H:i',
+            // @call isSameUnit
+            'second' => 'Y-m-d H:i:s',
+        ];
+
+        if (!isset($units[$unit])) {
+            throw new InvalidArgumentException("Bad comparison unit: '$unit'");
+        }
+
+        return $this->isSameAs($units[$unit], $date);
     }
 
     /**
-     * Checks if the passed in date is in the same year as the instance year.
+     * Determines if the instance is in the current unit given.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
+     * @param $unit
      *
-     * @return bool
-     */
-    public function isSameYear($date = null)
-    {
-        return $this->isSameAs('Y', $date);
-    }
-
-    /**
-     * Determines if the instance is in the current month.
+     * @throws \ReflectionException
      *
      * @return bool
      */
-    public function isCurrentQuarter()
+    public function isCurrentUnit($unit)
     {
-        return $this->isSameQuarter();
+        return $this->{'isSame'.ucfirst($unit)}();
     }
 
     /**
@@ -2299,23 +2314,13 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return bool
      */
-    public function isSameQuarter($date = null, $ofSameYear = false)
+    public function isSameQuarter($date = null, $ofSameYear = true)
     {
         $date = $date ? static::instance($date) : static::now($this->tz);
 
         static::expectDateTime($date);
 
         return $this->quarter === $date->quarter && (!$ofSameYear || $this->isSameYear($date));
-    }
-
-    /**
-     * Determines if the instance is in the current month.
-     *
-     * @return bool
-     */
-    public function isCurrentMonth()
-    {
-        return $this->isSameMonth();
     }
 
     /**
@@ -2329,97 +2334,9 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return bool
      */
-    public function isSameMonth($date = null, $ofSameYear = false)
+    public function isSameMonth($date = null, $ofSameYear = true)
     {
         return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $date);
-    }
-
-    /**
-     * Determines if the instance is in the current day.
-     *
-     * @return bool
-     */
-    public function isCurrentDay()
-    {
-        return $this->isSameDay();
-    }
-
-    /**
-     * Checks if the passed in date is the same exact day as the instance´s day.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
-     *
-     * @return bool
-     */
-    public function isSameDay($date = null)
-    {
-        return $this->isSameAs('Y-m-d', $date);
-    }
-
-    /**
-     * Determines if the instance is in the current hour.
-     *
-     * @return bool
-     */
-    public function isCurrentHour()
-    {
-        return $this->isSameHour();
-    }
-
-    /**
-     * Checks if the passed in date is the same exact hour as the instance´s hour.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
-     *
-     * @return bool
-     */
-    public function isSameHour($date = null)
-    {
-        return $this->isSameAs('Y-m-d H', $date);
-    }
-
-    /**
-     * Determines if the instance is in the current minute.
-     *
-     * @return bool
-     */
-    public function isCurrentMinute()
-    {
-        return $this->isSameMinute();
-    }
-
-    /**
-     * Checks if the passed in date is the same exact minute as the instance´s minute.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
-     *
-     * @return bool
-     */
-    public function isSameMinute($date = null)
-    {
-        return $this->isSameAs('Y-m-d H:i', $date);
-    }
-
-    /**
-     * Determines if the instance is in the current second.
-     *
-     * @return bool
-     */
-    public function isCurrentSecond()
-    {
-        return $this->isSameSecond();
-    }
-
-    /**
-     * Checks if the passed in date is the same exact second as the instance´s second.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use the current date.
-     *
-     * @return bool
-     */
-    public function isSameSecond($date = null)
-    {
-        return $this->isSameAs('Y-m-d H:i:s', $date);
     }
 
     /**
@@ -3206,7 +3123,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfDay()
     {
-        return $this->modify('23.59.59.999999');
+        return $this->modify((static::HOURS_PER_DAY - 1).'.'.(static::MINUTES_PER_HOUR - 1).'.'.(static::SECONDS_PER_MINUTE - 1).'.999999');
     }
 
     /**
@@ -3364,7 +3281,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfHour()
     {
-        return $this->setTime($this->hour, 59, 59);
+        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1);
     }
 
     /**
@@ -3384,7 +3301,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, 59);
+        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1);
     }
 
     /**
@@ -3899,6 +3816,22 @@ class Carbon extends DateTime implements JsonSerializable
             }
 
             return $this->{"${action}Unit"}($unit, $value, $overflow);
+        }
+
+        if (substr($unit, 0, 6) === 'isSame') {
+            try {
+                return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
+            } catch (InvalidArgumentException $exception) {
+                // Try macros
+            }
+        }
+
+        if (substr($unit, 0, 9) === 'isCurrent') {
+            try {
+                return $this->isCurrentUnit(strtolower(substr($unit, 9)));
+            } catch (ReflectionException $exception) {
+                // Try macros
+            }
         }
 
         if (!static::hasMacro($method)) {

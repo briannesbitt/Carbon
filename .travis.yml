@@ -23,7 +23,6 @@ install:
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
     if [[ $setup = 'lowest' ]]; then
-        composer require sebastian/comparator:"~1.2.4" --no-update --dev
         travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
     fi
 

@@ -281,32 +281,31 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isSameQuarter($dt, true));
     }
 
-    public function testIsCurrentMonthTrue()
+    public function testIsCurrentMonth()
     {
         $this->assertTrue(Carbon::now()->isCurrentMonth());
         $dt = Carbon::now();
-        for ($year = 1990; $year < 2200; $year++) {
-            $dt->modify($year.$dt->format('-m-').'01');
-            $this->assertTrue($dt->isCurrentMonth());
-            $dt->modify($year.$dt->format('-m-').'28');
-            $this->assertTrue($dt->isCurrentMonth());
-        }
+        $dt->modify(Carbon::now()->year.$dt->format('-m-').'01');
+        $this->assertTrue($dt->isCurrentMonth());
+        $dt->modify((Carbon::now()->year + 1).$dt->format('-m-').'28');
+        $this->assertFalse($dt->isCurrentMonth());
     }
 
     public function testIsCurrentMonthFalse()
     {
         $this->assertFalse(Carbon::now()->subMonth()->isCurrentMonth());
+        $this->assertFalse(Carbon::now()->addYear()->isCurrentMonth());
     }
 
-    public function testIsSameMonthTrue()
+    public function testIsSameMonth()
     {
         $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now()));
         $dt = Carbon::now();
-        for ($year = 1990; $year < 2200; $year++) {
+        for ($year = 1990; $year < Carbon::now()->year; $year++) {
             $dt->modify($year.$dt->format('-m-').'01');
-            $this->assertTrue(Carbon::now()->isSameMonth($dt));
+            $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
             $dt->modify($year.$dt->format('-m-').'28');
-            $this->assertTrue(Carbon::now()->isSameMonth($dt));
+            $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
         }
     }
 
@@ -316,15 +315,34 @@ class IsTest extends AbstractTestCase
         $dt = new DateTime();
         for ($year = 1990; $year < 2200; $year++) {
             $dt->modify($year.$dt->format('-m-').'01');
-            $this->assertTrue(Carbon::now()->isSameMonth($dt));
+            $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
             $dt->modify($year.$dt->format('-m-').'28');
-            $this->assertTrue(Carbon::now()->isSameMonth($dt));
+            $this->assertTrue(Carbon::now()->isSameMonth($dt, false));
         }
     }
 
-    public function testIsSameMonthFalse()
+    public function testIsSameMonthOfSameYear()
     {
         $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subMonth()));
+        $this->assertTrue(Carbon::now()->isSameMonth(Carbon::now()));
+        $dt = Carbon::now();
+        for ($year = 1990; $year < Carbon::now()->year; $year++) {
+            $dt->modify($year.$dt->format('-m-').'01');
+            $this->assertFalse(Carbon::now()->isSameMonth($dt, true));
+            $dt->modify($year.$dt->format('-m-').'28');
+            $this->assertFalse(Carbon::now()->isSameMonth($dt, true));
+        }
+        $year = Carbon::now()->year;
+        $dt->modify($year.$dt->format('-m-').'01');
+        $this->assertTrue(Carbon::now()->isSameMonth($dt, true));
+        $dt->modify($year.$dt->format('-m-').'28');
+        $this->assertTrue(Carbon::now()->isSameMonth($dt, true));
+        for ($year = Carbon::now()->year + 1; $year < 2200; $year++) {
+            $dt->modify($year.$dt->format('-m-').'01');
+            $this->assertFalse(Carbon::now()->isSameMonth($dt, true));
+            $dt->modify($year.$dt->format('-m-').'28');
+            $this->assertFalse(Carbon::now()->isSameMonth($dt, true));
+        }
     }
 
     public function testIsSameMonthFalseWithDateTime()
