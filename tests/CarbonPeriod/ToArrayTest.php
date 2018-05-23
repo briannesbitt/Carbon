@@ -46,7 +46,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $result = CarbonPeriodFactory::withEvenDaysFilter()->toArray();
 
-        $this->assertSame(array(0, 1, 2), array_keys($result));
+        $this->assertSame([0, 1, 2], array_keys($result));
     }
 
     public function testToArrayHasCorrectValues()
@@ -54,7 +54,7 @@ class ToArrayTest extends AbstractTestCase
         $result = CarbonPeriodFactory::withEvenDaysFilter()->toArray();
 
         $this->assertSame(
-            $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
             $this->standardizeDates($result)
         );
     }
@@ -126,7 +126,7 @@ class ToArrayTest extends AbstractTestCase
         $current = $period->current();
 
         $this->assertSame(
-            $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
             $this->standardizeDates($period->toArray())
         );
 
@@ -143,11 +143,11 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
 
-        $expected = array(
+        $expected = [
             '2018-05-13 12:00:00 +04:30',
             '2018-05-13 13:00:00 +04:30',
             '2018-05-13 14:00:00 +04:30',
-        );
+        ];
 
         $this->assertSame($expected, $this->standardizeDates($period->toArray()));
     }

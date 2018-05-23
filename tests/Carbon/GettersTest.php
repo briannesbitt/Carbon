@@ -100,15 +100,8 @@ class GettersTest extends AbstractTestCase
         $end = microtime(true);
         $microTime = $d->getTimestamp() + $d->micro / 1000000;
 
-        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')
-            ||
-            version_compare(PHP_VERSION, '7.1.3-dev', '>=') && version_compare(PHP_VERSION, '7.1.4-dev', '<')
-        ) {
-            $this->assertSame(0, $d->micro);
-        } else {
-            $this->assertGreaterThan($start, $microTime);
-            $this->assertLessThan($end, $microTime);
-        }
+        $this->assertGreaterThan($start, $microTime);
+        $this->assertLessThan($end, $microTime);
 
         Carbon::useMicrosecondsFallback();
         $this->assertTrue(Carbon::isMicrosecondsFallbackEnabled());
@@ -187,20 +180,20 @@ class GettersTest extends AbstractTestCase
 
     public function dataProviderTestQuarter()
     {
-        return array(
-            array(1, 1),
-            array(2, 1),
-            array(3, 1),
-            array(4, 2),
-            array(5, 2),
-            array(6, 2),
-            array(7, 3),
-            array(8, 3),
-            array(9, 3),
-            array(10, 4),
-            array(11, 4),
-            array(12, 4),
-        );
+        return [
+            [1, 1],
+            [2, 1],
+            [3, 1],
+            [4, 2],
+            [5, 2],
+            [6, 2],
+            [7, 3],
+            [8, 3],
+            [9, 3],
+            [10, 4],
+            [11, 4],
+            [12, 4],
+        ];
     }
 
     /**
@@ -409,7 +402,7 @@ class GettersTest extends AbstractTestCase
 
     public function testGetDays()
     {
-        $days = array(
+        $days = [
             Carbon::SUNDAY => 'Sunday',
             Carbon::MONDAY => 'Monday',
             Carbon::TUESDAY => 'Tuesday',
@@ -417,7 +410,7 @@ class GettersTest extends AbstractTestCase
             Carbon::THURSDAY => 'Thursday',
             Carbon::FRIDAY => 'Friday',
             Carbon::SATURDAY => 'Saturday',
-        );
+        ];
 
         $this->assertSame($days, Carbon::getDays());
     }

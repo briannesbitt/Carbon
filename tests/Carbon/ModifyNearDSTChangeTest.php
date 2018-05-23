@@ -55,17 +55,17 @@ class ModifyNearDSTChangeTest extends AbstractTestCase
         // - Date string to Carbon::parse in America/New_York.
         // - Hours to add
         // - Resulting string in 'c' format
-        $tests = array(
+        $tests = [
             // testForwardTransition
             // When standard time was about to reach 2010-03-14T02:00:00-05:00 clocks were turned forward 1 hour to
             // 2010-03-14T03:00:00-04:00 local daylight time instead
-            array('2010-03-14T00:00:00', 24, '2010-03-15T00:00:00-04:00'),
+            ['2010-03-14T00:00:00', 24, '2010-03-15T00:00:00-04:00'],
 
             // testBackwardTransition
             // When local daylight time was about to reach 2010-11-07T02:00:00-04:00 clocks were turned backward 1 hour
             // to 2010-11-07T01:00:00-05:00 local standard time instead
-            array('2010-11-07T00:00:00', 24, '2010-11-08T00:00:00-05:00'),
-        );
+            ['2010-11-07T00:00:00', 24, '2010-11-08T00:00:00-05:00'],
+        ];
 
         return $tests;
     }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => 'Urte 1|:count urte',
     'y' => 'Urte 1|:count urte',
     'month' => 'Hile 1|:count hile',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time barru',
     'after' => ':time geroago',
     'before' => ':time lehenago',
-);
+];

@@ -37,28 +37,28 @@ class CreateTest extends AbstractTestCase
 
     public function provideIso8601String()
     {
-        return array(
-            array(
-                array('R4/2012-07-01T00:00:00/P7D'),
-                array('2012-07-01', '2012-07-08', '2012-07-15', '2012-07-22'),
-            ),
-            array(
-                array('R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE),
-                array('2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'),
-            ),
-            array(
-                array('2012-07-01/P2D/2012-07-07'),
-                array('2012-07-01', '2012-07-03', '2012-07-05', '2012-07-07'),
-            ),
-            array(
-                array('2012-07-01/2012-07-04', CarbonPeriod::EXCLUDE_END_DATE),
-                array('2012-07-01', '2012-07-02', '2012-07-03'),
-            ),
-            array(
-                array('R2/2012-07-01T10:30:45Z/P2D'),
-                array('2012-07-01 10:30:45 UTC', '2012-07-03 10:30:45 UTC'),
-            ),
-        );
+        return [
+            [
+                ['R4/2012-07-01T00:00:00/P7D'],
+                ['2012-07-01', '2012-07-08', '2012-07-15', '2012-07-22'],
+            ],
+            [
+                ['R4/2012-07-01T00:00:00/P7D', CarbonPeriod::EXCLUDE_START_DATE],
+                ['2012-07-08', '2012-07-15', '2012-07-22', '2012-07-29'],
+            ],
+            [
+                ['2012-07-01/P2D/2012-07-07'],
+                ['2012-07-01', '2012-07-03', '2012-07-05', '2012-07-07'],
+            ],
+            [
+                ['2012-07-01/2012-07-04', CarbonPeriod::EXCLUDE_END_DATE],
+                ['2012-07-01', '2012-07-02', '2012-07-03'],
+            ],
+            [
+                ['R2/2012-07-01T10:30:45Z/P2D'],
+                ['2012-07-01 10:30:45 UTC', '2012-07-03 10:30:45 UTC'],
+            ],
+        ];
     }
 
     public function testCreateFromIso8601StringWithUnboundedRecurrences()
@@ -79,17 +79,17 @@ class CreateTest extends AbstractTestCase
         $period = CarbonPeriod::create($iso);
 
         $this->assertSame(
-            $this->standardizeDates(array($from, $to)),
-            $this->standardizeDates(array($period->getStartDate(),  $period->getEndDate()))
+            $this->standardizeDates([$from, $to]),
+            $this->standardizeDates([$period->getStartDate(),  $period->getEndDate()])
         );
     }
 
     public function providePartialIso8601String()
     {
-        return array(
-            array('2008-02-15/03-14', '2008-02-15', '2008-03-14'),
-            array('2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'),
-        );
+        return [
+            ['2008-02-15/03-14', '2008-02-15', '2008-03-14'],
+            ['2007-12-14T13:30/15:30', '2007-12-14 13:30', '2007-12-14 15:30'],
+        ];
     }
 
     /**
@@ -104,14 +104,14 @@ class CreateTest extends AbstractTestCase
 
     public function provideInvalidIso8601String()
     {
-        return array(
-            array('R2/R4'),
-            array('2008-02-15/2008-02-16/2008-02-17'),
-            array('P1D/2008-02-15/P2D'),
-            array('2008-02-15/R5'),
-            array('P2D/R'),
-            array('/'),
-        );
+        return [
+            ['R2/R4'],
+            ['2008-02-15/2008-02-16/2008-02-17'],
+            ['P1D/2008-02-15/P2D'],
+            ['2008-02-15/R5'],
+            ['P2D/R'],
+            ['/'],
+        ];
     }
 
     /**
@@ -134,40 +134,40 @@ class CreateTest extends AbstractTestCase
 
     public function provideStartDateAndEndDate()
     {
-        return array(
-            array(
-                array('2015-09-30', '2015-10-03'),
-                array('2015-09-30', '2015-10-01', '2015-10-02', '2015-10-03'),
-            ),
-            array(
-                array('2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE),
-                array('2015-10-01', '2015-10-02', '2015-10-03'),
-            ),
-            array(
-                array('2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_END_DATE),
-                array('2015-09-30', '2015-10-01', '2015-10-02'),
-            ),
-            array(
-                array('2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array('2015-10-01', '2015-10-02'),
-            ),
-            array(
-                array('2015-10-02', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array(),
-            ),
-            array(
-                array('2015-10-02', '2015-10-02'),
-                array('2015-10-02'),
-            ),
-            array(
-                array('2015-10-02', '2015-10-02', CarbonPeriod::EXCLUDE_START_DATE),
-                array(),
-            ),
-            array(
-                array('2015-10-02', '2015-10-02', CarbonPeriod::EXCLUDE_END_DATE),
-                array(),
-            ),
-        );
+        return [
+            [
+                ['2015-09-30', '2015-10-03'],
+                ['2015-09-30', '2015-10-01', '2015-10-02', '2015-10-03'],
+            ],
+            [
+                ['2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE],
+                ['2015-10-01', '2015-10-02', '2015-10-03'],
+            ],
+            [
+                ['2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_END_DATE],
+                ['2015-09-30', '2015-10-01', '2015-10-02'],
+            ],
+            [
+                ['2015-09-30', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
+                ['2015-10-01', '2015-10-02'],
+            ],
+            [
+                ['2015-10-02', '2015-10-03', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
+                [],
+            ],
+            [
+                ['2015-10-02', '2015-10-02'],
+                ['2015-10-02'],
+            ],
+            [
+                ['2015-10-02', '2015-10-02', CarbonPeriod::EXCLUDE_START_DATE],
+                [],
+            ],
+            [
+                ['2015-10-02', '2015-10-02', CarbonPeriod::EXCLUDE_END_DATE],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -191,40 +191,40 @@ class CreateTest extends AbstractTestCase
 
     public function provideStartDateAndIntervalAndEndDate()
     {
-        return array(
-            array(
-                array('2018-04-21', 'P3D', '2018-04-26'),
-                array('2018-04-21', '2018-04-24'),
-            ),
-            array(
-                array('2018-04-21 16:15', 'PT15M', '2018-04-21 16:59:59'),
-                array('2018-04-21 16:15', '2018-04-21 16:30', '2018-04-21 16:45'),
-            ),
-            array(
-                array('2018-04-21 16:15', 'PT15M', '2018-04-21 17:00'),
-                array('2018-04-21 16:15', '2018-04-21 16:30', '2018-04-21 16:45', '2018-04-21 17:00'),
-            ),
-            array(
-                array('2018-04-21 17:00', 'PT45S', '2018-04-21 17:02', CarbonPeriod::EXCLUDE_START_DATE),
-                array('2018-04-21 17:00:45', '2018-04-21 17:01:30'),
-            ),
-            array(
-                array('2017-12-31 22:00', 'PT2H', '2018-01-01 4:00', CarbonPeriod::EXCLUDE_END_DATE),
-                array('2017-12-31 22:00', '2018-01-01 0:00', '2018-01-01 2:00'),
-            ),
-            array(
-                array('2017-12-31 23:59', 'PT30S', '2018-01-01 0:01', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array('2017-12-31 23:59:30', '2018-01-01 0:00', '2018-01-01 0:00:30'),
-            ),
-            array(
-                array('2018-04-21', 'P1D', '2018-04-21'),
-                array('2018-04-21'),
-            ),
-            array(
-                array('2018-04-21', 'P1D', '2018-04-20 23:59:59'),
-                array(),
-            ),
-        );
+        return [
+            [
+                ['2018-04-21', 'P3D', '2018-04-26'],
+                ['2018-04-21', '2018-04-24'],
+            ],
+            [
+                ['2018-04-21 16:15', 'PT15M', '2018-04-21 16:59:59'],
+                ['2018-04-21 16:15', '2018-04-21 16:30', '2018-04-21 16:45'],
+            ],
+            [
+                ['2018-04-21 16:15', 'PT15M', '2018-04-21 17:00'],
+                ['2018-04-21 16:15', '2018-04-21 16:30', '2018-04-21 16:45', '2018-04-21 17:00'],
+            ],
+            [
+                ['2018-04-21 17:00', 'PT45S', '2018-04-21 17:02', CarbonPeriod::EXCLUDE_START_DATE],
+                ['2018-04-21 17:00:45', '2018-04-21 17:01:30'],
+            ],
+            [
+                ['2017-12-31 22:00', 'PT2H', '2018-01-01 4:00', CarbonPeriod::EXCLUDE_END_DATE],
+                ['2017-12-31 22:00', '2018-01-01 0:00', '2018-01-01 2:00'],
+            ],
+            [
+                ['2017-12-31 23:59', 'PT30S', '2018-01-01 0:01', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
+                ['2017-12-31 23:59:30', '2018-01-01 0:00', '2018-01-01 0:00:30'],
+            ],
+            [
+                ['2018-04-21', 'P1D', '2018-04-21'],
+                ['2018-04-21'],
+            ],
+            [
+                ['2018-04-21', 'P1D', '2018-04-20 23:59:59'],
+                [],
+            ],
+        ];
     }
 
     /**
@@ -247,16 +247,16 @@ class CreateTest extends AbstractTestCase
 
     public function provideStartDateAndIntervalAndRecurrences()
     {
-        return array(
-            array(
-                array('2018-04-16', 'P2D', 3),
-                array('2018-04-16', '2018-04-18', '2018-04-20'),
-            ),
-            array(
-                array('2018-04-30', 'P2M', 2, CarbonPeriod::EXCLUDE_START_DATE),
-                array('2018-06-30', '2018-08-30'),
-            ),
-        );
+        return [
+            [
+                ['2018-04-16', 'P2D', 3],
+                ['2018-04-16', '2018-04-18', '2018-04-20'],
+            ],
+            [
+                ['2018-04-30', 'P2M', 2, CarbonPeriod::EXCLUDE_START_DATE],
+                ['2018-06-30', '2018-08-30'],
+            ],
+        ];
     }
 
     /**
@@ -278,34 +278,36 @@ class CreateTest extends AbstractTestCase
 
     public function provideStartDateAndRecurrences()
     {
-        return array(
-            array(
-                array('2018-04-16', 2),
-                array('2018-04-16', '2018-04-17'),
-            ),
-            array(
-                array('2018-04-30', 1),
-                array('2018-04-30'),
-            ),
-            array(
-                array('2018-04-30', 1, CarbonPeriod::EXCLUDE_START_DATE),
-                array('2018-05-01'),
-            ),
-            array(
-                array('2018-05-17', 0),
-                array(),
-            ),
-        );
+        return [
+            [
+                ['2018-04-16', 2],
+                ['2018-04-16', '2018-04-17'],
+            ],
+            [
+                ['2018-04-30', 1],
+                ['2018-04-30'],
+            ],
+            [
+                ['2018-04-30', 1, CarbonPeriod::EXCLUDE_START_DATE],
+                ['2018-05-01'],
+            ],
+            [
+                ['2018-05-17', 0],
+                [],
+            ],
+        ];
     }
 
     public function testCreateFromBaseClasses()
     {
         $period = CarbonPeriod::create(
-            new DateTime('2018-04-16'), new DateInterval('P1M'), new DateTime('2018-07-15')
+            new DateTime('2018-04-16'),
+            new DateInterval('P1M'),
+            new DateTime('2018-07-15')
         );
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-04-16', '2018-05-16', '2018-06-16')),
+            $this->standardizeDates(['2018-04-16', '2018-05-16', '2018-06-16']),
             $this->standardizeDates($period)
         );
     }
@@ -322,29 +324,31 @@ class CreateTest extends AbstractTestCase
 
     public function provideInvalidParameters()
     {
-        return array(
-            array(new \stdClass, CarbonInterval::days(1), Carbon::tomorrow()),
-            array(Carbon::now(), new \stdClass, Carbon::tomorrow()),
-            array(Carbon::now(), CarbonInterval::days(1), new \stdClass),
-            array(Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()),
-            array(CarbonInterval::day(), CarbonInterval::hour()),
-            array(5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE),
-            array('2017-10-15/P3D', CarbonInterval::hour()),
-        );
+        return [
+            [new \stdClass, CarbonInterval::days(1), Carbon::tomorrow()],
+            [Carbon::now(), new \stdClass, Carbon::tomorrow()],
+            [Carbon::now(), CarbonInterval::days(1), new \stdClass],
+            [Carbon::yesterday(), Carbon::now(), Carbon::tomorrow()],
+            [CarbonInterval::day(), CarbonInterval::hour()],
+            [5, CarbonPeriod::EXCLUDE_START_DATE, CarbonPeriod::EXCLUDE_END_DATE],
+            ['2017-10-15/P3D', CarbonInterval::hour()],
+        ];
     }
 
     public function testCreateOnDstForwardChange()
     {
         $period = CarbonPeriod::create(
-            '2018-03-25 1:30 Europe/Oslo', 'PT30M', '2018-03-25 3:30 Europe/Oslo'
+            '2018-03-25 1:30 Europe/Oslo',
+            'PT30M',
+            '2018-03-25 3:30 Europe/Oslo'
         );
 
         $this->assertSame(
-            array(
+            [
                 '2018-03-25 01:30:00 +01:00',
                 '2018-03-25 03:00:00 +02:00',
                 '2018-03-25 03:30:00 +02:00',
-            ),
+            ],
             $this->standardizeDates($period)
         );
     }
@@ -360,11 +364,13 @@ class CreateTest extends AbstractTestCase
     public function testCreateOnDstBackwardChange()
     {
         $period = CarbonPeriod::create(
-            '2018-10-28 1:30 Europe/Oslo', 'PT30M', '2018-10-28 3:30 Europe/Oslo'
+            '2018-10-28 1:30 Europe/Oslo',
+            'PT30M',
+            '2018-10-28 3:30 Europe/Oslo'
         );
 
         $this->assertSame(
-            array(
+            [
                 '2018-10-28 01:30:00 +02:00',
                 // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
                 '2018-10-28 02:00:00 +01:00',
@@ -373,7 +379,7 @@ class CreateTest extends AbstractTestCase
                 '2018-10-28 02:30:00 +01:00',
                 '2018-10-28 03:00:00 +01:00',
                 '2018-10-28 03:30:00 +01:00',
-            ),
+            ],
             $this->standardizeDates($period)
         );
     }
@@ -411,9 +417,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromArray()
     {
-        $period = CarbonPeriod::createFromArray(array(
+        $period = CarbonPeriod::createFromArray([
             '2018-03-25', 'P2D', '2018-04-01', CarbonPeriod::EXCLUDE_END_DATE,
-        ));
+        ]);
 
         $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
         $this->assertSame('P2D', $period->getDateInterval()->spec());
@@ -456,7 +462,8 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromDateStringsWithTimezones()
     {
         $period = CarbonPeriod::create(
-            $start = '2018-03-25 10:15:30 Europe/Oslo', $end = '2018-03-28 17:25:30 Asia/Kamchatka'
+            $start = '2018-03-25 10:15:30 Europe/Oslo',
+            $end = '2018-03-28 17:25:30 Asia/Kamchatka'
         );
 
         $this->assertSame($start, $period->getStartDate()->format('Y-m-d H:i:s e'));
@@ -466,20 +473,24 @@ class CreateTest extends AbstractTestCase
     public function testCreateWithIntervalInFromStringFormat()
     {
         $period = CarbonPeriod::create(
-            '2018-03-25 12:00', '2 days 10 hours', '2018-04-01 13:30'
+            '2018-03-25 12:00',
+            '2 days 10 hours',
+            '2018-04-01 13:30'
         );
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-03-25 12:00', '2018-03-27 22:00', '2018-03-30 08:00')),
+            $this->standardizeDates(['2018-03-25 12:00', '2018-03-27 22:00', '2018-03-30 08:00']),
             $this->standardizeDates($period)
         );
 
         $period = CarbonPeriod::create(
-            '2018-04-21', '3 days', '2018-04-27'
+            '2018-04-21',
+            '3 days',
+            '2018-04-27'
         );
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-04-21 00:00', '2018-04-24 00:00', '2018-04-27 00:00')),
+            $this->standardizeDates(['2018-04-21 00:00', '2018-04-24 00:00', '2018-04-27 00:00']),
             $this->standardizeDates($period)
         );
     }
@@ -487,7 +498,8 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromRelativeDates()
     {
         $period = CarbonPeriod::create(
-            $start = 'previous friday', $end = '+6 days'
+            $start = 'previous friday',
+            $end = '+6 days'
         );
 
         $this->assertEquals(new Carbon($start), $period->getStartDate());

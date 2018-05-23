@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => 'un an|:count ani|:count ani',
     'y' => 'un an|:count ani|:count ani',
     'month' => 'o lună|:count luni|:count luni',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time de acum',
     'after' => 'peste :time',
     'before' => 'acum :time',
-);
+];

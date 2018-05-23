@@ -40,71 +40,71 @@ class LocalizationTest extends AbstractTestCase
      */
     public function providerLocales()
     {
-        return array(
-            array('af'),
-            array('ar'),
-            array('ar_Shakl'),
-            array('az'),
-            array('bg'),
-            array('bn'),
-            array('ca'),
-            array('cs'),
-            array('da'),
-            array('de'),
-            array('dv_MV'),
-            array('el'),
-            array('en'),
-            array('eo'),
-            array('es'),
-            array('et'),
-            array('eu'),
-            array('fa'),
-            array('fi'),
-            array('fo'),
-            array('fr'),
-            array('gl'),
-            array('he'),
-            array('hr'),
-            array('hu'),
-            array('hy'),
-            array('id'),
-            array('it'),
-            array('ja'),
-            array('ka'),
-            array('kk'),
-            array('km'),
-            array('ko'),
-            array('lt'),
-            array('lv'),
-            array('mk'),
-            array('mn'),
-            array('ms'),
-            array('nl'),
-            array('no'),
-            array('pl'),
-            array('pt'),
-            array('pt_BR'),
-            array('ps'),
-            array('ro'),
-            array('ru'),
-            array('sk'),
-            array('sl'),
-            array('sq'),
-            array('sr'),
-            array('sr_Cyrl'),
-            array('sr_Cyrl_ME'),
-            array('sr_Latn_ME'),
-            array('sr_ME'),
-            array('sv'),
-            array('th'),
-            array('tr'),
-            array('uk'),
-            array('ur'),
-            array('uz'),
-            array('vi'),
-            array('zh'),
-            array('zh_TW'),
-        );
+        return [
+            ['af'],
+            ['ar'],
+            ['ar_Shakl'],
+            ['az'],
+            ['bg'],
+            ['bn'],
+            ['ca'],
+            ['cs'],
+            ['da'],
+            ['de'],
+            ['dv_MV'],
+            ['el'],
+            ['en'],
+            ['eo'],
+            ['es'],
+            ['et'],
+            ['eu'],
+            ['fa'],
+            ['fi'],
+            ['fo'],
+            ['fr'],
+            ['gl'],
+            ['he'],
+            ['hr'],
+            ['hu'],
+            ['hy'],
+            ['id'],
+            ['it'],
+            ['ja'],
+            ['ka'],
+            ['kk'],
+            ['km'],
+            ['ko'],
+            ['lt'],
+            ['lv'],
+            ['mk'],
+            ['mn'],
+            ['ms'],
+            ['nl'],
+            ['no'],
+            ['pl'],
+            ['pt'],
+            ['pt_BR'],
+            ['ps'],
+            ['ro'],
+            ['ru'],
+            ['sk'],
+            ['sl'],
+            ['sq'],
+            ['sr'],
+            ['sr_Cyrl'],
+            ['sr_Cyrl_ME'],
+            ['sr_Latn_ME'],
+            ['sr_ME'],
+            ['sv'],
+            ['th'],
+            ['tr'],
+            ['uk'],
+            ['ur'],
+            ['uz'],
+            ['vi'],
+            ['zh'],
+            ['zh_TW'],
+        ];
     }
 
     /**
@@ -148,16 +148,16 @@ class LocalizationTest extends AbstractTestCase
      */
     public function dataProviderTestSetLocaleWithMalformedLocale()
     {
-        return array(
-            array('DE'),
-            array('pt-BR'),
-            array('pt-br'),
-            array('PT-br'),
-            array('PT-BR'),
-            array('pt_br'),
-            array('PT_br'),
-            array('PT_BR'),
-        );
+        return [
+            ['DE'],
+            ['pt-BR'],
+            ['pt-br'],
+            ['PT-br'],
+            ['PT-BR'],
+            ['pt_br'],
+            ['PT_br'],
+            ['PT_BR'],
+        ];
     }
 
     /**
@@ -201,9 +201,9 @@ class LocalizationTest extends AbstractTestCase
 
     public function testAddCustomTranslation()
     {
-        $enBoring = array(
+        $enBoring = [
             'day' => '1 boring day|:count boring days',
-        );
+        ];
 
         $this->assertTrue(Carbon::setLocale('en'));
         /** @var Translator $translator */
@@ -242,7 +242,7 @@ class LocalizationTest extends AbstractTestCase
 
         $translator->resetMessages();
 
-        $this->assertSame(array(), $translator->getMessages());
+        $this->assertSame([], $translator->getMessages());
 
         $this->assertTrue(Carbon::setLocale('en'));
     }

@@ -48,17 +48,17 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
-        $actual = array(
+        $actual = [
             'years' => $year,
             'months' => $month,
             'day' => $day,
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'years' => $d->year,
             'months' => $d->month,
             'day' => $d->day,
-        );
+        ];
 
         if ($hour !== null) {
             $expected['hours'] = $d->hour;
@@ -85,9 +85,9 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
     {
-        $actual = array();
+        $actual = [];
 
-        $expected = array();
+        $expected = [];
 
         if ($hour !== null) {
             $expected['hours'] = $d->hour;
@@ -119,9 +119,9 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $expected = array('years' => $ci->years);
+        $expected = ['years' => $ci->years];
 
-        $actual = array('years' => $years);
+        $actual = ['years' => $years];
 
         if ($months !== null) {
             $expected['months'] = $ci->months;
@@ -177,7 +177,7 @@ abstract class AbstractTestCase extends TestCase
      */
     public function standardizeDates($dates)
     {
-        $result = array();
+        $result = [];
 
         foreach ($dates as $date) {
             if ($date instanceof DateTime) {

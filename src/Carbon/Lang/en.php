@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count year|:count years',
     'y' => ':countyr|:countyrs',
     'month' => ':count month|:count months',
@@ -37,4 +37,4 @@ return array(
     'period_interval' => 'every :interval',
     'period_start_date' => 'from :date',
     'period_end_date' => 'to :date',
-);
+];

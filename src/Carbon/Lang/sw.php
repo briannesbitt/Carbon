@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => 'mwaka 1|miaka :count',
     'y' => 'mwaka 1|miaka :count',
     'month' => 'mwezi 1|miezi :count',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time kwanzia sasa',
     'after' => ':time baada',
     'before' => ':time kabla',
-);
+];

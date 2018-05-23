@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-return array(
+return [
     'year' => '1 flwyddyn|:count blynedd',
     'y' => ':countbl',
     'month' => '1 mis|:count fis',
@@ -26,4 +26,4 @@ return array(
     'from_now' => ':time o hyn ymlaen',
     'after' => ':time ar ôl',
     'before' => ':time o\'r blaen',
-);
+];

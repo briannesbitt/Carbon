@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count år|:count år',
     'y' => ':count år|:count år',
     'month' => ':count måned|:count måneder',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time før',
-);
+];

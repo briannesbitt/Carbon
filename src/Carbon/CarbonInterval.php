@@ -109,7 +109,7 @@ class CarbonInterval extends DateInterval
      *
      * @var array
      */
-    protected static $macros = array();
+    protected static $macros = [];
 
     /**
      * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
@@ -126,13 +126,13 @@ class CarbonInterval extends DateInterval
      */
     public static function getCascadeFactors()
     {
-        return static::$cascadeFactors ?: array(
-            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
-            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
-            'dayz' => array(Carbon::HOURS_PER_DAY, 'hours'),
-            'months' => array(Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH, 'dayz'),
-            'years' => array(Carbon::MONTHS_PER_YEAR, 'months'),
-        );
+        return static::$cascadeFactors ?: [
+            'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
+            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
+            'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
+            'months' => [Carbon::DAYS_PER_WEEK * Carbon::WEEKS_PER_MONTH, 'dayz'],
+            'years' => [Carbon::MONTHS_PER_YEAR, 'months'],
+        ];
     }
 
     private static function standardizeUnit($unit)
@@ -145,11 +145,11 @@ class CarbonInterval extends DateInterval
     private static function getFlipCascadeFactors()
     {
         if (!self::$flipCascadeFactors) {
-            self::$flipCascadeFactors = array();
+            self::$flipCascadeFactors = [];
             foreach (static::getCascadeFactors() as $to => $tuple) {
                 list($factor, $from) = $tuple;
 
-                self::$flipCascadeFactors[self::standardizeUnit($from)] = array(self::standardizeUnit($to), $factor);
+                self::$flipCascadeFactors[self::standardizeUnit($from)] = [self::standardizeUnit($to), $factor];
             }
         }
 
@@ -369,7 +369,8 @@ class CarbonInterval extends DateInterval
 
         if (static::hasMacro($name)) {
             return call_user_func_array(
-                array(new static(0), $name), $args
+                [new static(0), $name],
+                $args
             );
         }
     }
@@ -438,7 +439,7 @@ class CarbonInterval extends DateInterval
                 case 'w':
                     $weeks += $intValue;
                     if ($fraction) {
-                        $parts[] = array(null, $fraction * static::getDaysPerWeek(), 'd');
+                        $parts[] = [null, $fraction * static::getDaysPerWeek(), 'd'];
                     }
                     break;
 
@@ -447,7 +448,7 @@ class CarbonInterval extends DateInterval
                 case 'd':
                     $days += $intValue;
                     if ($fraction) {
-                        $parts[] = array(null, $fraction * static::getHoursPerDay(), 'h');
+                        $parts[] = [null, $fraction * static::getHoursPerDay(), 'h'];
                     }
                     break;
 
@@ -456,7 +457,7 @@ class CarbonInterval extends DateInterval
                 case 'h':
                     $hours += $intValue;
                     if ($fraction) {
-                        $parts[] = array(null, $fraction * static::getMinutesPerHours(), 'm');
+                        $parts[] = [null, $fraction * static::getMinutesPerHours(), 'm'];
                     }
                     break;
 
@@ -847,21 +848,21 @@ class CarbonInterval extends DateInterval
      */
     public function forHumans($short = false)
     {
-        $periods = array(
-            'year' => array('y', $this->years),
-            'month' => array('m', $this->months),
-            'week' => array('w', $this->weeks),
-            'day' => array('d', $this->daysExcludeWeeks),
-            'hour' => array('h', $this->hours),
-            'minute' => array('min', $this->minutes),
-            'second' => array('s', $this->seconds),
-        );
+        $periods = [
+            'year' => ['y', $this->years],
+            'month' => ['m', $this->months],
+            'week' => ['w', $this->weeks],
+            'day' => ['d', $this->daysExcludeWeeks],
+            'hour' => ['h', $this->hours],
+            'minute' => ['min', $this->minutes],
+            'second' => ['s', $this->seconds],
+        ];
 
-        $parts = array();
+        $parts = [];
         foreach ($periods as $unit => $options) {
             list($shortUnit, $count) = $options;
             if ($count > 0) {
-                $parts[] = static::translator()->transChoice($short ? $shortUnit : $unit, $count, array(':count' => $count));
+                $parts[] = static::translator()->transChoice($short ? $shortUnit : $unit, $count, [':count' => $count]);
             }
         }
 
@@ -886,7 +887,7 @@ class CarbonInterval extends DateInterval
     public function toPeriod()
     {
         return CarbonPeriod::createFromArray(
-            array_merge(array($this), func_get_args())
+            array_merge([$this], func_get_args())
         );
     }
 
@@ -960,17 +961,17 @@ class CarbonInterval extends DateInterval
      */
     public static function getDateIntervalSpec(DateInterval $interval)
     {
-        $date = array_filter(array(
+        $date = array_filter([
             static::PERIOD_YEARS => $interval->y,
             static::PERIOD_MONTHS => $interval->m,
             static::PERIOD_DAYS => $interval->d,
-        ));
+        ]);
 
-        $time = array_filter(array(
+        $time = array_filter([
             static::PERIOD_HOURS => $interval->h,
             static::PERIOD_MINUTES => $interval->i,
             static::PERIOD_SECONDS => $interval->s,
-        ));
+        ]);
 
         $specString = static::PERIOD_PREFIX;
 
@@ -1069,9 +1070,9 @@ class CarbonInterval extends DateInterval
     {
         $realUnit = $unit = strtolower($unit);
 
-        if (in_array($unit, array('days', 'weeks'))) {
+        if (in_array($unit, ['days', 'weeks'])) {
             $realUnit = 'dayz';
-        } elseif (!in_array($unit, array('seconds', 'minutes', 'hours', 'dayz', 'months', 'years'))) {
+        } elseif (!in_array($unit, ['seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 

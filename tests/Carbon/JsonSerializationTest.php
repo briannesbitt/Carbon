@@ -38,10 +38,6 @@ class JsonSerializationTest extends AbstractTestCase
 
     public function testCarbonAllowsCustomSerializer()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
         Carbon::serializeUsing(function (Carbon $carbon) {
             return $carbon->getTimestamp();
         });
@@ -53,14 +49,10 @@ class JsonSerializationTest extends AbstractTestCase
 
     public function testCarbonCanSerializeToJson()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
-        $this->assertSame(array(
+        $this->assertSame([
             'date' => '2017-06-27 13:14:15.000000',
             'timezone_type' => 3,
             'timezone' => 'UTC',
-        ), $this->now->jsonSerialize());
+        ], $this->now->jsonSerialize());
     }
 }

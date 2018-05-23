@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count yil',
     'y' => ':count yil',
     'month' => ':count oy',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time dan keyin',
     'after' => ':time keyin',
     'before' => ':time oldin',
-);
+];

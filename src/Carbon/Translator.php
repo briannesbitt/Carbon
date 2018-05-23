@@ -18,7 +18,7 @@ class Translator extends Translation\Translator
      *
      * @var array
      */
-    protected static $messages = array();
+    protected static $messages = [];
 
     /**
      * Return a singleton instance of Translator.
@@ -54,7 +54,7 @@ class Translator extends Translation\Translator
     public function resetMessages($locale = null)
     {
         if ($locale === null) {
-            static::$messages = array();
+            static::$messages = [];
 
             return true;
         }
@@ -98,7 +98,7 @@ class Translator extends Translation\Translator
         $this->loadMessagesFromFile($locale);
         $this->addResource('array', $messages, $locale);
         static::$messages[$locale] = array_merge(
-            isset(static::$messages[$locale]) ? static::$messages[$locale] : array(),
+            isset(static::$messages[$locale]) ? static::$messages[$locale] : [],
             $messages
         );
 
