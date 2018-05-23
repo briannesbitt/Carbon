@@ -2606,584 +2606,6 @@ class Carbon extends DateTime implements JsonSerializable
         return false;
     }
 
-    ///////////////////////////////////////////////////////////////////
-    /////////////////// ADDITIONS AND SUBTRACTIONS ////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Add centuries to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addCenturies($value)
-    {
-        return $this->addYears(static::YEARS_PER_CENTURY * $value);
-    }
-
-    /**
-     * Add a century to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addCentury($value = 1)
-    {
-        return $this->addCenturies($value);
-    }
-
-    /**
-     * Remove centuries from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subCenturies($value)
-    {
-        return $this->addCenturies(-1 * $value);
-    }
-
-    /**
-     * Remove a century from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subCentury($value = 1)
-    {
-        return $this->subCenturies($value);
-    }
-
-    /**
-     * Add years to the instance. Positive $value travel forward while
-     * negative $value travel into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYears($value)
-    {
-        if ($this->shouldOverflowYears()) {
-            return $this->addYearsWithOverflow($value);
-        }
-
-        return $this->addYearsNoOverflow($value);
-    }
-
-    /**
-     * Add a year to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYear($value = 1)
-    {
-        return $this->addYears($value);
-    }
-
-    /**
-     * Add years to the instance with no overflow of months
-     * Positive $value travel forward while
-     * negative $value travel into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYearsNoOverflow($value)
-    {
-        return $this->addMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
-    }
-
-    /**
-     * Add year with overflow months set to false
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYearNoOverflow($value = 1)
-    {
-        return $this->addYearsNoOverflow($value);
-    }
-
-    /**
-     * Add years to the instance.
-     * Positive $value travel forward while
-     * negative $value travel into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYearsWithOverflow($value)
-    {
-        return $this->modify((int) $value.' year');
-    }
-
-    /**
-     * Add year with overflow.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addYearWithOverflow($value = 1)
-    {
-        return $this->addYearsWithOverflow($value);
-    }
-
-    /**
-     * Remove years from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYears($value)
-    {
-        return $this->addYears(-1 * $value);
-    }
-
-    /**
-     * Remove a year from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYear($value = 1)
-    {
-        return $this->subYears($value);
-    }
-
-    /**
-     * Remove years from the instance with no month overflow.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYearsNoOverflow($value)
-    {
-        return $this->subMonthsNoOverflow($value * static::MONTHS_PER_YEAR);
-    }
-
-    /**
-     * Remove year from the instance with no month overflow
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYearNoOverflow($value = 1)
-    {
-        return $this->subYearsNoOverflow($value);
-    }
-
-    /**
-     * Remove years from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYearsWithOverflow($value)
-    {
-        return $this->subMonthsWithOverflow($value * static::MONTHS_PER_YEAR);
-    }
-
-    /**
-     * Remove year from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subYearWithOverflow($value = 1)
-    {
-        return $this->subYearsWithOverflow($value);
-    }
-
-    /**
-     * Add quarters to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addQuarters($value)
-    {
-        return $this->addMonths(static::MONTHS_PER_QUARTER * $value);
-    }
-
-    /**
-     * Add a quarter to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addQuarter($value = 1)
-    {
-        return $this->addQuarters($value);
-    }
-
-    /**
-     * Remove quarters from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subQuarters($value)
-    {
-        return $this->addQuarters(-1 * $value);
-    }
-
-    /**
-     * Remove a quarter from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subQuarter($value = 1)
-    {
-        return $this->subQuarters($value);
-    }
-
-    /**
-     * Add months to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonths($value)
-    {
-        if (static::shouldOverflowMonths()) {
-            return $this->addMonthsWithOverflow($value);
-        }
-
-        return $this->addMonthsNoOverflow($value);
-    }
-
-    /**
-     * Add a month to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonth($value = 1)
-    {
-        return $this->addMonths($value);
-    }
-
-    /**
-     * Remove months from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonths($value)
-    {
-        return $this->addMonths(-1 * $value);
-    }
-
-    /**
-     * Remove a month from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonth($value = 1)
-    {
-        return $this->subMonths($value);
-    }
-
-    /**
-     * Add months to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonthsWithOverflow($value)
-    {
-        return $this->modify((int) $value.' month');
-    }
-
-    /**
-     * Add a month to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonthWithOverflow($value = 1)
-    {
-        return $this->addMonthsWithOverflow($value);
-    }
-
-    /**
-     * Remove months from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonthsWithOverflow($value)
-    {
-        return $this->addMonthsWithOverflow(-1 * $value);
-    }
-
-    /**
-     * Remove a month from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonthWithOverflow($value = 1)
-    {
-        return $this->subMonthsWithOverflow($value);
-    }
-
-    /**
-     * Add months without overflowing to the instance. Positive $value
-     * travels forward while negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonthsNoOverflow($value)
-    {
-        $day = $this->day;
-
-        $this->modify((int) $value.' month');
-
-        if ($day !== $this->day) {
-            $this->modify('last day of previous month');
-        }
-
-        return $this;
-    }
-
-    /**
-     * Add a month with no overflow to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMonthNoOverflow($value = 1)
-    {
-        return $this->addMonthsNoOverflow($value);
-    }
-
-    /**
-     * Remove months with no overflow from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonthsNoOverflow($value)
-    {
-        return $this->addMonthsNoOverflow(-1 * $value);
-    }
-
-    /**
-     * Remove a month with no overflow from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMonthNoOverflow($value = 1)
-    {
-        return $this->subMonthsNoOverflow($value);
-    }
-
-    /**
-     * Add days to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addDays($value)
-    {
-        return $this->modify((int) $value.' day');
-    }
-
-    /**
-     * Add a day to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addDay($value = 1)
-    {
-        return $this->addDays($value);
-    }
-
-    /**
-     * Remove days from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subDays($value)
-    {
-        return $this->addDays(-1 * $value);
-    }
-
-    /**
-     * Remove a day from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subDay($value = 1)
-    {
-        return $this->subDays($value);
-    }
-
-    /**
-     * Add weekdays to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addWeekdays($value)
-    {
-        // Fix for weekday bug https://bugs.php.net/bug.php?id=54909
-        $t = $this->toTimeString();
-        $this->modify((int) $value.' weekday');
-
-        return $this->setTimeFromTimeString($t);
-    }
-
-    /**
-     * Add a weekday to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addWeekday($value = 1)
-    {
-        return $this->addWeekdays($value);
-    }
-
-    /**
-     * Remove weekdays from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subWeekdays($value)
-    {
-        return $this->addWeekdays(-1 * $value);
-    }
-
-    /**
-     * Remove a weekday from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subWeekday($value = 1)
-    {
-        return $this->subWeekdays($value);
-    }
-
-    /**
-     * Add weeks to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addWeeks($value)
-    {
-        return $this->modify((int) $value.' week');
-    }
-
-    /**
-     * Add a week to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addWeek($value = 1)
-    {
-        return $this->addWeeks($value);
-    }
-
-    /**
-     * Remove weeks to the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subWeeks($value)
-    {
-        return $this->addWeeks(-1 * $value);
-    }
-
-    /**
-     * Remove a week from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subWeek($value = 1)
-    {
-        return $this->subWeeks($value);
-    }
-
-    /**
-     * Add hours to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addHours($value)
-    {
-        return $this->modify((int) $value.' hour');
-    }
-
     /**
      * Add hours to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
@@ -3198,18 +2620,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Add an hour to the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addHour($value = 1)
-    {
-        return $this->addHours($value);
-    }
-
-    /**
      * Add an hour to the instance using timestamp.
      *
      * @param int $value
@@ -3219,18 +2629,6 @@ class Carbon extends DateTime implements JsonSerializable
     public function addRealHour($value = 1)
     {
         return $this->addRealHours($value);
-    }
-
-    /**
-     * Remove hours from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subHours($value)
-    {
-        return $this->addHours(-1 * $value);
     }
 
     /**
@@ -3252,34 +2650,9 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return static
      */
-    public function subHour($value = 1)
-    {
-        return $this->subHours($value);
-    }
-
-    /**
-     * Remove an hour from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
     public function subRealHour($value = 1)
     {
         return $this->subRealHours($value);
-    }
-
-    /**
-     * Add minutes to the instance using timestamp. Positive $value
-     * travels forward while negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMinutes($value)
-    {
-        return $this->modify((int) $value.' minute');
     }
 
     /**
@@ -3296,18 +2669,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Add a minute to the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addMinute($value = 1)
-    {
-        return $this->addMinutes($value);
-    }
-
-    /**
      * Add a minute to the instance using timestamp.
      *
      * @param int $value
@@ -3317,18 +2678,6 @@ class Carbon extends DateTime implements JsonSerializable
     public function addRealMinute($value = 1)
     {
         return $this->addRealMinutes($value);
-    }
-
-    /**
-     * Remove a minute from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMinute($value = 1)
-    {
-        return $this->subMinutes($value);
     }
 
     /**
@@ -3344,18 +2693,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Remove minutes from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subMinutes($value)
-    {
-        return $this->addMinutes(-1 * $value);
-    }
-
-    /**
      * Remove a minute from the instance using timestamp.
      *
      * @param int $value
@@ -3365,19 +2702,6 @@ class Carbon extends DateTime implements JsonSerializable
     public function subRealMinutes($value = 1)
     {
         return $this->subRealMinute($value);
-    }
-
-    /**
-     * Add seconds to the instance. Positive $value travels forward while
-     * negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addSeconds($value)
-    {
-        return $this->modify((int) $value.' second');
     }
 
     /**
@@ -3394,18 +2718,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Add a second to the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addSecond($value = 1)
-    {
-        return $this->addSeconds($value);
-    }
-
-    /**
      * Add a second to the instance using timestamp.
      *
      * @param int $value
@@ -3415,18 +2727,6 @@ class Carbon extends DateTime implements JsonSerializable
     public function addRealSecond($value = 1)
     {
         return $this->addRealSeconds($value);
-    }
-
-    /**
-     * Remove seconds from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subSeconds($value)
-    {
-        return $this->addSeconds(-1 * $value);
     }
 
     /**
@@ -3442,18 +2742,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Remove a second from the instance
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subSecond($value = 1)
-    {
-        return $this->subSeconds($value);
-    }
-
-    /**
      * Remove a second from the instance using timestamp.
      *
      * @param int $value
@@ -3463,6 +2751,34 @@ class Carbon extends DateTime implements JsonSerializable
     public function subRealSecond($value = 1)
     {
         return $this->subRealSeconds($value);
+    }
+
+    public function addUnit($unit, $value = 1, $overflow = null)
+    {
+        if ($unit === 'weekday') {
+            $t = $this->toTimeString();
+        } elseif ($canOverflow = in_array($unit, [
+            'month',
+            'year',
+        ]) && ($overflow === false || ($overflow === null && !static::{'shouldOverflow'.ucfirst($unit).'s'}()))) {
+            $day = $this->day;
+        }
+
+        $this->modify((int) $value." $unit");
+
+        if ($unit === 'weekday') {
+            return $this->setTimeFromTimeString($t);
+        }
+        if ($canOverflow && $day !== $this->day) {
+            $this->modify('last day of previous month');
+        }
+
+        return $this;
+    }
+
+    public function subUnit($unit, $value = 1, $overflow = null)
+    {
+        return $this->addUnit($unit, -$value, $overflow);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -4534,13 +3850,55 @@ class Carbon extends DateTime implements JsonSerializable
             'second',
         ];
 
-        $unit = trim($method);
-        if (substr($unit, 0, 3) === 'set') {
+        $unit = rtrim($method, 's');
+        $action = substr($unit, 0, 3);
+        $overflow = null;
+        if ($action === 'set') {
             $unit = strtolower(substr($unit, 3));
         }
 
         if (in_array($unit, $units)) {
             return $this->setUnit($unit, ...$parameters);
+        }
+
+        $modifiableUnits = [
+            // @call addUnit
+            'century',
+            // @call addUnit
+            'decade',
+            // @call addUnit
+            'quarter',
+            // @call addUnit
+            'week',
+            // @call addUnit
+            'weekday',
+        ];
+
+        if ($action === 'add' || $action === 'sub') {
+            $unit = substr($unit, 3);
+            if (preg_match('/^(Month|Year)s?(No|With|Without|WithNo)Overflow$/', $unit, $match)) {
+                $unit = $match[1];
+                $overflow = $match[2] === 'With';
+            }
+            $unit = strtolower($unit);
+            if ($unit === 'centurie') {
+                $unit = 'century';
+            }
+        }
+
+        if (in_array($unit, $modifiableUnits) || in_array($unit, $units)) {
+            $metaUnits = [
+                'century' => [static::YEARS_PER_CENTURY, 'year'],
+                'decade' => [static::YEARS_PER_DECADE, 'year'],
+                'quarter' => [static::MONTHS_PER_QUARTER, 'month'],
+            ];
+            $value = $parameters[0] ?? 1;
+            if (isset($metaUnits[$unit])) {
+                list($factor, $unit) = $metaUnits[$unit];
+                $value *= $factor;
+            }
+
+            return $this->{"${action}Unit"}($unit, $value, $overflow);
         }
 
         if (!static::hasMacro($method)) {

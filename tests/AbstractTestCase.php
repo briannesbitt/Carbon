@@ -48,36 +48,36 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
-        $actual = [
+        $expected = [
             'years' => $year,
             'months' => $month,
             'day' => $day,
         ];
 
-        $expected = [
+        $actual = [
             'years' => $d->year,
             'months' => $d->month,
             'day' => $d->day,
         ];
 
         if ($hour !== null) {
-            $expected['hours'] = $d->hour;
-            $actual['hours'] = $hour;
+            $actual['hours'] = $d->hour;
+            $expected['hours'] = $hour;
         }
 
         if ($minute !== null) {
-            $expected['minutes'] = $d->minute;
-            $actual['minutes'] = $minute;
+            $actual['minutes'] = $d->minute;
+            $expected['minutes'] = $minute;
         }
 
         if ($second !== null) {
-            $expected['seconds'] = $d->second;
-            $actual['seconds'] = $second;
+            $actual['seconds'] = $d->second;
+            $expected['seconds'] = $second;
         }
 
         if ($micro !== null) {
-            $expected['micro'] = $d->micro;
-            $actual['micro'] = $micro;
+            $actual['micro'] = $d->micro;
+            $expected['micro'] = $micro;
         }
 
         $this->assertSame($expected, $actual);
