@@ -23,7 +23,7 @@ use ReflectionException;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * A simple API extension for DateTime
+ * A simple API extension for DateTime.
  *
  * @property      int $year
  * @property      int $yearIso
@@ -32,26 +32,29 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      int $hour
  * @property      int $minute
  * @property      int $second
+ * @property      int $micro
  * @property      int $timestamp seconds since the Unix Epoch
- * @property      \DateTimeZone $timezone the current timezone
- * @property      \DateTimeZone $tz alias of timezone
- * @property-read int $micro
+ * @property      int $age does a diffInYears() with default parameters
+ * @property      int $offsetHours $offsetHours the timezone offset in hours from UTC
+ * @property      \DateTimeZone $timezone $timezone the current timezone
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read int $dayOfWeekIso 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
- * @property-read int $weekOfMonth 1 through 5
- * @property-read int $weekNumberInMonth 1 through 5
  * @property-read int $weekOfYear ISO-8601 week number of year, weeks starting on Monday
  * @property-read int $daysInMonth number of days in the given month
- * @property-read int $age does a diffInYears() with default parameters
+ * @property-read int $weekOfMonth 1 through 5
+ * @property-read int $weekNumberInMonth 1 through 5
  * @property-read int $quarter the quarter of this instance, 1 - 4
  * @property-read int $offset the timezone offset in seconds from UTC
- * @property-read int $offsetHours the timezone offset in hours from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string $timezoneName
- * @property-read string $tzName
+ *
+ * @method bool isSameYear(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same year as the instance.
+ * @method bool isSameDay(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same day as the instance.
+ * @method bool isSameHour(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same hour as the instance.
+ * @method bool isSameMinute(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same minute as the instance.
+ * @method bool isSameSecond(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same second as the instance.
  */
 class Carbon extends DateTime implements JsonSerializable
 {
@@ -438,18 +441,6 @@ class Carbon extends DateTime implements JsonSerializable
             return $tz;
         }
 
-        // Work-around for a bug fixed in PHP 5.5.10 https://bugs.php.net/bug.php?id=45528
-        // See: https://stackoverflow.com/q/14068594/2646927
-        // @codeCoverageIgnoreStart
-        if (strpos($object, ':') !== false) {
-            try {
-                return static::createFromFormat('O', $object)->getTimezone();
-            } catch (InvalidArgumentException $e) {
-                //
-            }
-        }
-        // @codeCoverageIgnoreEnd
-
         throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
     }
 
@@ -505,7 +496,7 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTime|\DateTimeInterface $date
+     * @param \DateTimeInterface $date
      *
      * @return static
      */
@@ -974,7 +965,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     protected static function expectDateTime($date)
     {
-        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
+        if (!$date instanceof DateTimeInterface) {
             throw new InvalidArgumentException(
                 'Expected null, string, DateTime or DateTimeInterface, '.
                 (is_object($date) ? get_class($date) : gettype($date)).' given'

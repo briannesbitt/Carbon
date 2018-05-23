@@ -1,9 +1,4 @@
 parameters:
-	ignoreErrors:
-		- '#Call to an undefined static method#'
-		- '#Static call to instance method Carbon\\CarbonInterval::#'
-		- '#Static method DateTime::__set_state()#'
-		- '#Static call to instance method Carbon\\CarbonPeriod::#'
 	excludes_analyse:
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'
