@@ -6,7 +6,7 @@ use PhpCsFixer\Finder;
 $rules = array(
     '@PSR2' => true,
     'array_syntax' => array(
-        'syntax' => 'long',
+        'syntax' => 'short',
     ),
     'binary_operator_spaces' => array(
         'align_double_arrow' => false,

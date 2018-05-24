@@ -33,19 +33,19 @@ class CreateFromFormatTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = array(
+        $this->noErrors = [
             'warning_count' => 0,
-            'warnings' => array(),
+            'warnings' => [],
             'error_count' => 0,
-            'errors' => array(),
-        );
+            'errors' => [],
+        ];
 
-        $this->lastErrors = array(
+        $this->lastErrors = [
             'warning_count' => 1,
-            'warnings' => array('10' => 'The parsed date was invalid'),
+            'warnings' => ['10' => 'The parsed date was invalid'],
             'error_count' => 0,
-            'errors' => array(),
-        );
+            'errors' => [],
+        ];
     }
 
     public function testCreateFromFormatReturnsCarbon()
@@ -77,7 +77,12 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testCreateLastErrorsCanBeAccessedByExtendingClass()
     {
-        MyCarbon::getLastErrors();
+        $this->assertSame([
+            'warning_count' => 0,
+            'warnings' => [],
+            'error_count' => 0,
+            'errors' => [],
+        ], MyCarbon::getLastErrors());
     }
 
     public function testCreateFromFormatHandlesLastErrors()

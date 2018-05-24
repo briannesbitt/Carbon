@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => 'שנה|{2}שנתיים|:count שנים',
     'y' => 'שנה|{2}שנתיים|:count שנים',
     'month' => 'חודש|{2}חודשיים|:count חודשים',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'בעוד :time',
     'after' => 'אחרי :time',
     'before' => 'לפני :time',
-);
+];

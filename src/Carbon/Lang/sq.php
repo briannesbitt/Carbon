@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count vit|:count vjet',
     'y' => ':count vit|:count vjet',
     'month' => ':count muaj|:count muaj',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time nga tani',
     'after' => ':time pas',
     'before' => ':time para',
-);
+];

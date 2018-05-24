@@ -26,7 +26,7 @@ class MacroTest extends AbstractTestCase
         $macrosProperty = $reflection->getProperty('macros');
 
         $macrosProperty->setAccessible(true);
-        $macrosProperty->setValue(array());
+        $macrosProperty->setValue([]);
 
         parent::tearDown();
     }
@@ -35,7 +35,7 @@ class MacroTest extends AbstractTestCase
     {
         CarbonPeriod::macro('onlyWeekdays', function ($self) {
             return $self->addFilter(function ($date) {
-                return !in_array($date->dayOfWeek, array(Carbon::SATURDAY, Carbon::SUNDAY));
+                return !in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
             });
         });
 
@@ -44,7 +44,7 @@ class MacroTest extends AbstractTestCase
         $this->assertSame($period, $period->onlyWeekdays());
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-05-10', '2018-05-11', '2018-05-14')),
+            $this->standardizeDates(['2018-05-10', '2018-05-11', '2018-05-14']),
             $this->standardizeDates($period)
         );
     }
@@ -65,16 +65,13 @@ class MacroTest extends AbstractTestCase
         });
 
         $this->assertSame(
-            'Sunday, 11 September 2016', CarbonPeriod::start('2016-09-11')->formatStartDate()
+            'Sunday, 11 September 2016',
+            CarbonPeriod::start('2016-09-11')->formatStartDate()
         );
     }
 
     public function testMacroIsBindedToDatePeriodInstance()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
         CarbonPeriod::macro('myself', function () {
             return $this;
         });
@@ -90,22 +87,19 @@ class MacroTest extends AbstractTestCase
         CarbonPeriod::macro('countWeekdaysBetween', function ($from, $to) {
             return CarbonPeriod::create($from, $to)
                 ->addFilter(function ($date) {
-                    return !in_array($date->dayOfWeek, array(Carbon::SATURDAY, Carbon::SUNDAY));
+                    return !in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
                 })
                 ->count();
         });
 
         $this->assertSame(
-            3, CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14')
+            3,
+            CarbonPeriod::countWeekdaysBetween('2018-05-10', '2018-05-14')
         );
     }
 
     public function testMacroIsBindedToDatePeriodClass()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
         CarbonPeriod::macro('newMyself', function () {
             return new static;
         });

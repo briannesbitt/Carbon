@@ -50,7 +50,7 @@ class IteratorTest extends AbstractTestCase
 
     public function testKeysAreSequential()
     {
-        $keys = array();
+        $keys = [];
 
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
@@ -127,28 +127,28 @@ class IteratorTest extends AbstractTestCase
 
     public function provideIterateBackwardsArguments()
     {
-        return array(
-            array(
-                array('2015-10-15', '2015-10-06'),
-                array('2015-10-15', '2015-10-12', '2015-10-09', '2015-10-06'),
-            ),
-            array(
-                array('2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE),
-                array('2015-10-12', '2015-10-09', '2015-10-06'),
-            ),
-            array(
-                array('2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_END_DATE),
-                array('2015-10-15', '2015-10-12', '2015-10-09'),
-            ),
-            array(
-                array('2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE),
-                array('2015-10-12', '2015-10-09'),
-            ),
-            array(
-                array('2015-10-15', 3),
-                array('2015-10-15', '2015-10-12', '2015-10-09'),
-            ),
-        );
+        return [
+            [
+                ['2015-10-15', '2015-10-06'],
+                ['2015-10-15', '2015-10-12', '2015-10-09', '2015-10-06'],
+            ],
+            [
+                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE],
+                ['2015-10-12', '2015-10-09', '2015-10-06'],
+            ],
+            [
+                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_END_DATE],
+                ['2015-10-15', '2015-10-12', '2015-10-09'],
+            ],
+            [
+                ['2015-10-15', '2015-10-06', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE],
+                ['2015-10-12', '2015-10-09'],
+            ],
+            [
+                ['2015-10-15', 3],
+                ['2015-10-15', '2015-10-12', '2015-10-09'],
+            ],
+        ];
     }
 
     public function testChangingParametersShouldNotCauseInfiniteLoop()
@@ -172,7 +172,7 @@ class IteratorTest extends AbstractTestCase
 
             $period->removeFilter($filter)
                 ->prependFilter($filter)
-                ->setFilters(array())
+                ->setFilters([])
                 ->setStartDate($start)
                 ->setEndDate($end)
                 ->invertDateInterval()
@@ -190,7 +190,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $results = array();
+        $results = [];
 
         foreach ($period as $key => $current) {
             $results[] = sprintf('%s => %s', $key, $current->toDateString());
@@ -210,7 +210,7 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            array('0 => 2012-07-04', '1 => 2012-07-10', '2 => 2012-07-16'),
+            ['0 => 2012-07-04', '1 => 2012-07-10', '2 => 2012-07-16'],
             $results
         );
     }
@@ -219,7 +219,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = new CarbonPeriod('2012-07-01', $recurrences = 1);
 
-        $results = array();
+        $results = [];
 
         foreach ($period as $key => $current) {
             $results[] = sprintf('%s => %s', $key, $current->toDateString());
@@ -239,7 +239,8 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            array('0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'), $results
+            ['0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'],
+            $results
         );
     }
 
@@ -247,7 +248,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = new CarbonPeriod('2012-07-01', '2012-07-04');
 
-        $results = array();
+        $results = [];
 
         $newStart = new Carbon('2012-07-03');
 
@@ -270,7 +271,8 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame(
             // Note: Results are not affected, because start date is used only for initialization.
-            array('0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'), $results
+            ['0 => 2012-07-01', '1 => 2012-07-02', '2 => 2012-07-03', '3 => 2012-07-04'],
+            $results
         );
     }
 
@@ -278,7 +280,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = new CarbonPeriod('2012-07-01', 3);
 
-        $results = array();
+        $results = [];
 
         foreach ($period as $key => $current) {
             $results[] = sprintf('%s => %s', $key, $current->toDateString());
@@ -296,7 +298,8 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            array('0 => 2012-07-01', '1 => 2012-07-04', '2 => 2012-07-07'), $results
+            ['0 => 2012-07-01', '1 => 2012-07-04', '2 => 2012-07-07'],
+            $results
         );
     }
 
@@ -333,7 +336,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $results = array();
+        $results = [];
 
         while ($current = $period->current()) {
             $results[] = $current;
@@ -346,7 +349,7 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            $this->standardizeDates(array('2012-07-04', '2012-07-10', '2012-07-16')),
+            $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
             $this->standardizeDates($results)
         );
     }
@@ -355,7 +358,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = CarbonPeriod::create('2018-10-10', '2018-10-11');
 
-        $results = array();
+        $results = [];
 
         while ($period->valid()) {
             $results[] = $period->current();
@@ -372,7 +375,7 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-10-10', '2018-10-11', '2018-10-12', '2018-10-13')),
+            $this->standardizeDates(['2018-10-10', '2018-10-11', '2018-10-12', '2018-10-13']),
             $this->standardizeDates($results)
         );
     }
@@ -433,7 +436,7 @@ class IteratorTest extends AbstractTestCase
     {
         $period = new CarbonPeriod('2018-04-11', 5);
 
-        $results = array();
+        $results = [];
 
         foreach ($period as $key => $date) {
             $results[] = $date;
@@ -444,7 +447,7 @@ class IteratorTest extends AbstractTestCase
         }
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-04-11', '2018-04-12', '2018-04-13', '2018-04-12', '2018-04-11')),
+            $this->standardizeDates(['2018-04-11', '2018-04-12', '2018-04-13', '2018-04-12', '2018-04-11']),
             $this->standardizeDates($results)
         );
     }

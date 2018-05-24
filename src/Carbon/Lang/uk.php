@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count рік|:count роки|:count років',
     'y' => ':count рік|:count роки|:count років',
     'month' => ':count місяць|:count місяці|:count місяців',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'через :time',
     'after' => ':time після',
     'before' => ':time до',
-);
+];

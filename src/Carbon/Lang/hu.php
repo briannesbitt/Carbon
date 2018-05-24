@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count év',
     'y' => ':count év',
     'month' => ':count hónap',
@@ -49,4 +49,4 @@ return array(
     'hour_before' => ':count órával',
     'minute_before' => ':count perccel',
     'second_before' => ':count másodperccel',
-);
+];

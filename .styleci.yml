@@ -4,7 +4,7 @@ enabled:
   - concat_without_spaces
   - ereg_to_preg
   - extra_empty_lines
-  - long_array_syntax
+  - short_array_syntax
   - method_separation
   - multiline_array_trailing_comma
   - no_empty_lines_after_phpdocs

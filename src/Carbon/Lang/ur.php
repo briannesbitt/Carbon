@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count سال',
     'month' => ':count ماه',
     'week' => ':count ہفتے',
@@ -21,4 +21,4 @@ return array(
     'from_now' => ':time بعد',
     'after' => ':time بعد',
     'before' => ':time پہلے',
-);
+];

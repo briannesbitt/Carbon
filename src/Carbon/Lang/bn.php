@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
      'year' => '১ বছর|:count বছর',
      'y' => '১ বছর|:count বছর',
      'month' => '১ মাস|:count মাস',
@@ -28,4 +28,4 @@ return array(
      'from_now' => 'এখন থেকে :time',
      'after' => ':time পরে',
      'before' => ':time আগে',
-);
+];

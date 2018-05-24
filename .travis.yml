@@ -41,39 +41,6 @@ branches:
 
 matrix:
   include:
-    - php: 5.3
-      dist: precise
-    - php: 5.3
-      dist: precise
-      env: setup=lowest
-    - php: 5.3
-      dist: precise
-      env: setup=stable
-
-    - php: 5.4
-    - php: 5.4
-      env: setup=lowest
-    - php: 5.4
-      env: setup=stable
-
-    - php: 5.5
-    - php: 5.5
-      env: setup=lowest
-    - php: 5.5
-      env: setup=stable
-
-    - php: 5.6
-    - php: 5.6
-      env: setup=lowest
-    - php: 5.6
-      env: setup=stable
-
-    - php: 7.0
-    - php: 7.0
-      env: setup=lowest
-    - php: 7.0
-      env: setup=stable
-
     - php: 7.1
     - php: 7.1
       env: setup=lowest
@@ -88,8 +55,6 @@ matrix:
       env: setup=lowest
     - php: 7.2
       env: setup=stable
-
-  fast_finish: true
 
 notifications:
   slack:

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
     'month' => ':count mesec|:count meseca|:count meseci',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'za :time',
     'after' => 'nakon :time',
     'before' => ':time raniјe',
-);
+];

@@ -13,7 +13,7 @@
     return $number == 1 ? 0 : 1;
 }, 'oc');
 
-return array(
+return [
     'year' => ':count an|:count ans',
     'y' => ':count an|:count ans',
     'month' => ':count mes|:count meses',
@@ -37,4 +37,4 @@ return array(
     'diff_tomorrow' => 'deman',
     'diff_before_yesterday' => 'ièr delà',
     'diff_after_tomorrow' => 'deman passat',
-);
+];

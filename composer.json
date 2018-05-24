@@ -21,12 +21,12 @@
         }
     ],
     "require": {
-        "php": ">=5.3.9",
-        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
+        "php": "^7.1.8",
+        "symfony/translation": "^4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "~2",
-        "phpunit/phpunit": "^4.8.35 || ^5.7"
+        "friendsofphp/php-cs-fixer": "^2.11",
+        "phpunit/phpunit": "^7.1.5"
     },
     "autoload": {
         "psr-4": {

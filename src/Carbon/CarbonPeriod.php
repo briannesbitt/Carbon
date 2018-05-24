@@ -135,7 +135,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @var array
      */
-    protected static $macros = array();
+    protected static $macros = [];
 
     /**
      * Underlying date interval instance. Always present, one day by default.
@@ -156,7 +156,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @var array
      */
-    protected $filters = array();
+    protected $filters = [];
 
     /**
      * Period start date. Applied on rewind. Always present, now by default.
@@ -323,7 +323,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected static function parseIso8601($iso)
     {
-        $result = array();
+        $result = [];
 
         $interval = null;
         $start = null;
@@ -425,7 +425,8 @@ class CarbonPeriod implements Iterator, Countable
     public static function __callStatic($method, $parameters)
     {
         return call_user_func_array(
-            array(new static, $method), $parameters
+            [new static, $method],
+            $parameters
         );
     }
 
@@ -579,7 +580,8 @@ class CarbonPeriod implements Iterator, Countable
             $state = ($this->options & $options) !== $options;
         }
 
-        return $this->setOptions($state ?
+        return $this->setOptions(
+            $state ?
             $this->options | $options :
             $this->options & ~$options
         );
@@ -723,12 +725,12 @@ class CarbonPeriod implements Iterator, Countable
         $method = array_shift($parameters);
 
         if (!$this->isCarbonPredicateMethod($method)) {
-            return array($method, array_shift($parameters));
+            return [$method, array_shift($parameters)];
         }
 
-        return array(function ($date) use ($method, $parameters) {
-            return call_user_func_array(array($date, $method), $parameters);
-        }, $method);
+        return [function ($date) use ($method, $parameters) {
+            return call_user_func_array([$date, $method], $parameters);
+        }, $method];
     }
 
     /**
@@ -811,14 +813,14 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function resetFilters()
     {
-        $this->filters = array();
+        $this->filters = [];
 
         if ($this->endDate !== null) {
-            $this->filters[] = array(static::END_DATE_FILTER, null);
+            $this->filters[] = [static::END_DATE_FILTER, null];
         }
 
         if ($this->recurrences !== null) {
-            $this->filters[] = array(static::RECURRENCES_FILTER, null);
+            $this->filters[] = [static::RECURRENCES_FILTER, null];
         }
 
         $this->handleChangedParameters();
@@ -1022,7 +1024,10 @@ class CarbonPeriod implements Iterator, Countable
 
         foreach ($this->filters as $tuple) {
             $result = call_user_func(
-                $tuple[0], $current->copy(), $this->key, $this
+                $tuple[0],
+                $current->copy(),
+                $this->key,
+                $this
             );
 
             if ($result === static::END_ITERATION) {
@@ -1168,7 +1173,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function toIso8601String()
     {
-        $parts = array();
+        $parts = [];
 
         if ($this->recurrences !== null) {
             $parts[] = 'R'.$this->recurrences;
@@ -1194,22 +1199,22 @@ class CarbonPeriod implements Iterator, Countable
     {
         $translator = Carbon::getTranslator();
 
-        $parts = array();
+        $parts = [];
 
         $format = !$this->startDate->isStartOfDay() || $this->endDate && !$this->endDate->isStartOfDay()
             ? 'Y-m-d H:i:s'
             : 'Y-m-d';
 
         if ($this->recurrences !== null) {
-            $parts[] = $translator->transChoice('period_recurrences', $this->recurrences, array(':count' => $this->recurrences));
+            $parts[] = $translator->transChoice('period_recurrences', $this->recurrences, [':count' => $this->recurrences]);
         }
 
-        $parts[] = $translator->trans('period_interval', array(':interval' => $this->dateInterval->forHumans()));
+        $parts[] = $translator->trans('period_interval', [':interval' => $this->dateInterval->forHumans()]);
 
-        $parts[] = $translator->trans('period_start_date', array(':date' => $this->startDate->format($format)));
+        $parts[] = $translator->trans('period_start_date', [':date' => $this->startDate->format($format)]);
 
         if ($this->endDate !== null) {
-            $parts[] = $translator->trans('period_end_date', array(':date' => $this->endDate->format($format)));
+            $parts[] = $translator->trans('period_end_date', [':date' => $this->endDate->format($format)]);
         }
 
         $result = implode(' ', $parts);
@@ -1234,11 +1239,11 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function toArray()
     {
-        $state = array(
+        $state = [
             $this->key,
             $this->current ? $this->current->copy() : null,
             $this->validationResult,
-        );
+        ];
 
         $result = iterator_to_array($this);
 
@@ -1390,7 +1395,7 @@ class CarbonPeriod implements Iterator, Countable
                 return $this->prependFilter($first, $second);
 
             case 'filters':
-                return $this->setFilters($first ?: array());
+                return $this->setFilters($first ?: []);
 
             case 'interval':
             case 'each':
@@ -1419,7 +1424,7 @@ class CarbonPeriod implements Iterator, Countable
             case 'second':
                 return $this->setDateInterval(call_user_func(
                     // Override default P1D when instantiating via fluent setters.
-                    array($this->isDefaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
+                    [$this->isDefaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method],
                     count($parameters) === 0 ? 1 : $first
                 ));
         }

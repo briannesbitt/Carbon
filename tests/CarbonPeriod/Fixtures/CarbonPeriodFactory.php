@@ -21,7 +21,9 @@ class CarbonPeriodFactory
     public static function withStartIntervalEnd()
     {
         $period = CarbonPeriod::create(
-            '2012-07-01 17:30:00', 'P3DT5H', '2012-07-15 11:15:00'
+            '2012-07-01 17:30:00',
+            'P3DT5H',
+            '2012-07-15 11:15:00'
         );
 
         return $period;
@@ -33,7 +35,10 @@ class CarbonPeriodFactory
     public static function withEvenDaysFilter()
     {
         $period = CarbonPeriod::create(
-            '2012-07-01', 'P3D', '2012-07-22', CarbonPeriod::EXCLUDE_END_DATE
+            '2012-07-01',
+            'P3D',
+            '2012-07-22',
+            CarbonPeriod::EXCLUDE_END_DATE
         );
 
         $period->addFilter(function ($date) {
@@ -51,7 +56,8 @@ class CarbonPeriodFactory
         $counter = 0;
 
         $period = CarbonPeriod::create(
-            '2012-10-01', 3
+            '2012-10-01',
+            3
         );
 
         $period->addFilter(function () use (&$counter) {
@@ -72,10 +78,10 @@ class CarbonPeriodFactory
             '2001-01-01'
         );
 
-        $stack = array(
+        $stack = [
             true, false, true, CarbonPeriod::END_ITERATION,
             false, false, true, true, CarbonPeriod::END_ITERATION,
-        );
+        ];
 
         $period->addFilter(function () use (&$stack) {
             return array_shift($stack);

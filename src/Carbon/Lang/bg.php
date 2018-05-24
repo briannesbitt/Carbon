@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count година|:count години',
     'y' => ':count година|:count години',
     'month' => ':count месец|:count месеца',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time от сега',
     'after' => 'след :time',
     'before' => 'преди :time',
-);
+];

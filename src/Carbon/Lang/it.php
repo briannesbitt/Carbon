@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count anno|:count anni',
     'y' => ':count anno|:count anni',
     'month' => ':count mese|:count mesi',
@@ -33,4 +33,4 @@ return array(
     'diff_tomorrow' => 'domani',
     'diff_before_yesterday' => "l'altro ieri",
     'diff_after_tomorrow' => 'dopodomani',
-);
+];

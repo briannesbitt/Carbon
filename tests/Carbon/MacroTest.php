@@ -80,10 +80,6 @@ class MacroTest extends AbstractTestCase
 
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
         Carbon::macro('diffFromEaster2', function ($year) {
             $instance = Carbon::create($year);
 
