@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-24 08:21:36
+echo $now;                               // 2018-05-24 09:27:05
 $today = Carbon::today();
 echo $today;                             // 2018-05-24 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:21 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:27 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-24 08:21:36
+echo Carbon::now();                                    // 2018-05-24 09:27:05
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-24 08:21:36
-echo $dt1->maximum();                              // 2018-05-24 08:21:36
+echo $dt1->max();                                  // 2018-05-24 09:27:05
+echo $dt1->maximum();                              // 2018-05-24 09:27:05
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2013,7 +2013,7 @@ foreach ($period as $date) {
 echo implode(', ', $days);                         // 01-01, 01-02, 01-08, 01-09, 01-15
 </code></pre></p>
 
-<p>Interestingly filters are used internally to handle the recurrences limit and the end date!</p>
+<p><code>getFilters()</code> allow you to retrieve all the stored filters in a period. But be aware the recurrences limit and the end date will appear in the returned array as they are stored internally as filters.</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::end('2000-01-01')->recurrences(3);
 var_export($period->getFilters());
@@ -2059,9 +2059,9 @@ var_dump($period->hasFilter('weekend'));           // bool(false)
 <p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
 
 <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
-<p><pre><code class="php">$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
-    return $date->isWeekday();
-});
+
+<p><pre><code class="php">// Note that you can pass as string any Carbon method including macros starting with "is"
+$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter('isWeekday');
 
 $attempts = 0;
 $attemptsFilter = function () use (&$attempts) {

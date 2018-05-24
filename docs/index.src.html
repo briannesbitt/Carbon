@@ -2035,7 +2035,7 @@ foreach ($period as $date) {
 {{cpfilter1::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter1_eval}}
 </code></pre></p>
 
-<p>Interestingly filters are used internally to handle the recurrences limit and the end date!</p>
+<p><code>getFilters()</code> allow you to retrieve all the stored filters in a period. But be aware the recurrences limit and the end date will appear in the returned array as they are stored internally as filters.</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::end('2000-01-01')->recurrences(3);
@@ -2074,10 +2074,10 @@ $weekendFilter = function ($date) {
 <p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
 
 <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
+
 <p><pre><code class="php">{{::lint(
-$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
-    return $date->isWeekday();
-});
+// Note that you can pass as string any Carbon method including macros starting with "is"
+$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter('isWeekday');
 )}}
 
 {{::lint(
