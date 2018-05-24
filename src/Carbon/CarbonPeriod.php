@@ -149,7 +149,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @var bool
      */
-    protected $defaultInterval;
+    protected $isDefaultInterval;
 
     /**
      * The filters stack.
@@ -481,7 +481,7 @@ class CarbonPeriod implements Iterator, Countable
         if ($this->dateInterval === null) {
             $this->setDateInterval(CarbonInterval::day());
 
-            $this->defaultInterval = true;
+            $this->isDefaultInterval = true;
         }
 
         if ($this->options === null) {
@@ -510,7 +510,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $this->dateInterval = $interval;
 
-        $this->defaultInterval = false;
+        $this->isDefaultInterval = false;
 
         $this->handleChangedParameters();
 
@@ -1433,7 +1433,7 @@ class CarbonPeriod implements Iterator, Countable
             case 'second':
                 return $this->setDateInterval(call_user_func(
                     // Override default P1D when instantiating via fluent setters.
-                    array($this->defaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
+                    array($this->isDefaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
                     count($parameters) === 0 ? 1 : $first
                 ));
         }
