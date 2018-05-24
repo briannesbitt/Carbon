@@ -1856,15 +1856,15 @@ usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
 <p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with many shortcuts.</p>
 
 <p><pre><code class="php">{{::lint(
+// Create a new instance:
+$period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
+// Use static constructor:
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
-// same as $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
-$dates = array();
-foreach ($period as $date) {
-    $dates[] = $date->format('m-d');
-}
+// Use the fluent setters:
+$period = CarbonPeriod::since('2018-04-21')->days(3)->until('2018-04-27');
+// Start from a CarbonInterval:
+$period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 )}}
-
-{{cprange1::exec(echo implode(', ', $dates);)}} // {{cprange1_eval}}
 </code></pre></p>
 
 <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
@@ -1912,20 +1912,6 @@ foreach ($period as $key => $date) {
 {{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
 </code></pre></p>
 
-<p>Alternatively you can start from CarbonInterval and use the fluent setters (equivalent to the code above):</p>
-
-<p><pre><code class="php">{{::lint(
-$period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
-// Same as $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
-$dates = array();
-foreach ($period as $date) {
-    $dates[] = $date->format('m-d');
-}
-)}}
-
-{{cprange2::exec(echo implode(', ', $dates);)}} // {{cprange2_eval}}
-</code></pre></p>
-
 <p>Just as <code>DatePeriod</code>, the <code>CarbonPeriod</code> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>:</p>
 
 <p><pre><code class="php">{{::lint(
@@ -1954,27 +1940,6 @@ foreach ($period as $date) {
 <p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
 
 <p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
-
-<p>Last creation way is <code>createBetween()</code>:</p>
-
-<p><pre><code class="php">{{::lint(
-$someDateTime = new DateTime('2010-05-06 02:00:00');
-$someCarbon = new Carbon('2010-05-06 13:00:00');
-$period = CarbonPeriod::createBetween($someDateTime, $someCarbon, '2 hours', CarbonPeriod::EXCLUDE_START_DATE);
-$hours = array();
-foreach ($period as $date) {
-    $hours[] = $date->format('H');
-}
-)}}
-
-{{cpbetween::exec(echo implode(', ', $hours);)}} // {{cpbetween_eval}}
-// Periods can be set in many way thanks to fluent setters and the flexible string/object arguments:
-// CarbonPeriod::every('2 hours')->between($someDateTime, $someCarbon)->options(CarbonPeriod::EXCLUDE_START_DATE)
-// CarbonPeriod::options(CarbonPeriod::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday')->until('tomorrow')
-// CarbonPeriod::createBetween('first day of january this year', 'first day of next month')->interval('1 week')
-// CarbonPeriod::options($opt)->setDateInterval($int)->setStartDate($start, $inclusive)->setEndDate($end, $inclusive)
-// CarbonPeriod::interval($int)->setOptions($opt)->setDates($start, $end)
-</code></pre></p>
 
 <p>You can retrieve data from the period via variety of getters:</p>
 
@@ -2051,9 +2016,7 @@ foreach ($period as $date) {
 {{cprec5::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec5_eval}}
 </code></pre></p>
 
-<p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends.</p>
-
-<p>A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
+<p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
@@ -2081,7 +2044,7 @@ $period = CarbonPeriod::end('2000-01-01')->recurrences(3);
 */
 </code></pre></p>
 
-<p>Filters are stored internally in a stack and can be managed using a special set of methods:</p>
+<p>Filters are stored in a stack and can be managed using a special set of methods:</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
@@ -2106,7 +2069,7 @@ $weekendFilter = function ($date) {
 {{cpfilter7::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{cpfilter7_eval}}
 </code></pre></p>
 
-<p>Filter order can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format and remember about internal recurrences limit and end date filters. Alternatively you can use <code>resetFilters()</code>, then add new filters one by one.</p>
+<p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
 
 <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
 <p><pre><code class="php">{{::lint(
