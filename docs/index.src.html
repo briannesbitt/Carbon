@@ -2112,8 +2112,12 @@ foreach ($period as $date) {
 
 <p><pre><code class="php">// "start", "since", "sinceNow":
 CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-03-10');
+// Same with optional boolean argument $inclusive to change the option about include/exclude start date:
+CarbonPeriod::start('2017-03-10', true) == CarbonPeriod::create()->setStartDate('2017-03-10', true);
 // "end", "until", "untilNow":
 CarbonPeriod::end('2017-03-20') == CarbonPeriod::create()->setEndDate('2017-03-20');
+// Same with optional boolean argument $inclusive to change the option about include/exclude end date:
+CarbonPeriod::end('2017-03-20', true) == CarbonPeriod::create()->setEndDate('2017-03-20', true);
 // "dates", "between":
 CarbonPeriod::dates(..., ...) == CarbonPeriod::create()->setDates(..., ...);
 // "recurrences", "times":
@@ -2144,17 +2148,6 @@ $period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-1
 )}}
 {{cpstring1::exec(echo $period->toString();/*pad(36)*/)}} // {{cpstring1_eval}}
 {{cpstring2::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{cpstring2_eval}}
-</code></pre></p>
-
-<p>Just as <a href="#api-macro">Carbon</a> and <a href="#api-interval">CarbonInterval</a>, CarbonPeriod has support for macros.</p>
-
-<p><pre><code class="php">{{::lint(
-CarbonPeriod::macro('countWeekdays', function ($self = null) {
-    return $self->filter('isWeekday')->count();
-});
-)}}
-{{cpmacro1::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{cpmacro1_eval}}
-{{cpmacro2::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{cpmacro2_eval}}
 </code></pre></p>
 
 </div>
