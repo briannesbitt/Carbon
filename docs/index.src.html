@@ -1960,6 +1960,41 @@ $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 {{cpget6::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{cpget6_eval}}
 </code></pre></p>
 
+<p>Additional getters let you access the results as an array:</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2010-05-11', '2010-05-13');
+)}}
+
+{{cparray1::exec(echo $period->count();/*pad(40)*/)}} // {{cparray1_eval}}, equivalent to count($period)
+{{cparray2::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cparray2_eval}}
+{{cparray3::exec(echo $period->first();/*pad(40)*/)}} // {{cparray3_eval}}
+{{cparray4::exec(echo $period->last();/*pad(40)*/)}} // {{cparray4_eval}}
+</code></pre></p>
+
+<p>Note that if you intend to work using the above functions it's a good idea to store the result of <code>toArray()</code> call to a variable and use it instead, because each call performs a full iteration internally.</p>
+
+<p>To change the parameters you can use setter methods:</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE_END_DATE);
+)}}
+
+{{::lint($period->setStartDate('2010-05-11');)}}
+{{cpset1::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset1_eval}}
+
+// Second argument can be optionally used to exclude the date from the results.
+{{::lint($period->setStartDate('2010-05-11', false);)}}
+{{::lint($period->setEndDate('2010-05-14', true);)}}
+{{cpset2::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset2_eval}}
+
+{{::lint($period->setRecurrences(2);)}}
+{{cpset3::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset3_eval}}
+
+{{::lint($period->setDateInterval('PT12H');)}}
+{{cpset4::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset4_eval}}
+</code></pre></p>
+
 <p>You can change options using <code>setOptions()</code> to replace all options but you also can change them separately:</p>
 
 <p><pre><code class="php">{{::lint(
