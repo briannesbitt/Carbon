@@ -1867,6 +1867,20 @@ $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 )}}
 </code></pre></p>
 
+<p>A CarbonPeriod can be constructed in a number of ways:</p>
+<ul>
+	<li>start date, end date and optional interval (by default 1 day),</li>
+	<li>start date, number of recurrences and optional interval,</li>
+	<li>an ISO 8601 interval specification.</li>
+</ul>
+
+<p>Dates can be given as DateTime/Carbon instances or even absolute or relative strings.</p>
+<p>Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
+
+<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
+
+<p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
+
 <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
 
 <p><pre><code class="php">{{::lint(
@@ -1928,20 +1942,6 @@ foreach ($period as $date) {
 
 {{cpiso::exec(echo implode(', ', $dates);)}} // {{cpiso_eval}}
 </code></pre></p>
-
-<p>A CarbonPeriod can be constructed in a number of ways:</p>
-<ul>
-	<li>start date, end date and optional interval (by default 1 day),</li>
-	<li>start date, number of recurrences and optional interval,</li>
-	<li>an ISO 8601 interval specification.</li>
-</ul>
-
-<p>Dates can be given as DateTime/Carbon instances or even absolute or relative strings.</p>
-<p>Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
-
-<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
-
-<p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
 
 <p>You can retrieve data from the period via variety of getters:</p>
 
