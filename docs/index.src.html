@@ -2086,7 +2086,7 @@ $attemptsFilter = function () use (&$attempts) {
     return ++$attempts <= 5 ? true : CarbonPeriod::END_ITERATION;
 };
 
-$period->prependFilter($attemptsFilter);
+$period->prependFilter($attemptsFilter, 'attempts');
 $days = array();
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
@@ -2097,7 +2097,7 @@ foreach ($period as $date) {
 {{::lint(
 $attempts = 0;
 
-$period->removeFilter($attemptsFilter)->addFilter($attemptsFilter);
+$period->removeFilter($attemptsFilter)->addFilter($attemptsFilter, 'attempts');
 $days = array();
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
@@ -2115,7 +2115,7 @@ CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-
 // "end", "until", "untilNow":
 CarbonPeriod::end('2017-03-20') == CarbonPeriod::create()->setEndDate('2017-03-20');
 // "dates", "between":
-CarbonPeriod::dates(...) == CarbonPeriod::create()->setDates(...);
+CarbonPeriod::dates(..., ...) == CarbonPeriod::create()->setDates(..., ...);
 // "recurrences", "times":
 CarbonPeriod::recurrences(5) == CarbonPeriod::create()->setRecurrences(5);
 // "options":
