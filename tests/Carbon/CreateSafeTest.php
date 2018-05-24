@@ -188,7 +188,7 @@ class CreateSafeTest extends AbstractTestCase
     {
         $this->assertSame(0, Carbon::createSafe(2014, 3, 30, 0, 30, 0, 'Europe/London')->hour);
         $this->assertSame(2, Carbon::createSafe(2014, 3, 30, 2, 30, 0, 'Europe/London')->hour);
-        $this->assertSame(1,  Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'UTC')->hour);
+        $this->assertSame(1, Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'UTC')->hour);
     }
 
     /**

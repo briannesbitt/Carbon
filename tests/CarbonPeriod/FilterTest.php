@@ -348,7 +348,7 @@ class FilterTest extends AbstractTestCase
         $period->addFilter('isTenDay');
 
         $this->assertSame(
-            $this->standardizeDates(array('2018-01-10', '2018-02-10', '2018-03-10', '2018-04-10', '2018-05-10')),
+            $this->standardizeDates(['2018-01-10', '2018-02-10', '2018-03-10', '2018-04-10', '2018-05-10']),
             $this->standardizeDates($period)
         );
     }
