@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-24 07:11:49
+echo $now;                               // 2018-05-24 07:18:37
 $today = Carbon::today();
 echo $today;                             // 2018-05-24 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:11 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:18 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-24 07:11:49
+echo Carbon::now();                                    // 2018-05-24 07:18:37
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-24 07:11:49
-echo $dt1->maximum();                              // 2018-05-24 07:11:49
+echo $dt1->max();                                  // 2018-05-24 07:18:37
+echo $dt1->maximum();                              // 2018-05-24 07:18:37
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1875,12 +1875,9 @@ $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 	<li>an ISO 8601 interval specification.</li>
 </ul>
 
-<p>Dates can be given as DateTime/Carbon instances or even absolute or relative strings.</p>
-<p>Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
+<p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings, for example "next monday". Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
 
-<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
-
-<p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
+<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended. On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
 
 <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
 
@@ -1919,22 +1916,22 @@ foreach ($period as $key => $date) {
 echo implode(', ', $dates); // 04-29, 04-30, 05-01, 05-02, 05-01, 04-30, 04-29
 </code></pre></p>
 
-<p>Just as DatePeriod, the CarbonPeriod> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
+<p>Just as DatePeriod, the CarbonPeriod supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
 
 <p>Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
 
 <p><pre><code class="php">// Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
-// Default value is 0 which will have the same effect as when options are not passed.
-$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', $options = 0);
+// Default value is 0 which will have the same effect as when no options are given.
+$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', CarbonPeriod::EXCLUDE_START_DATE);
 $dates = array();
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
 }
 
-echo implode(', ', $dates); // 07-01, 07-08, 07-15, 07-22
+echo implode(', ', $dates); // 07-08, 07-15, 07-22, 07-29
 </code></pre></p>
 
-<p>You can retrieve data from the period via variety of getters:</p>
+<p>You can retrieve data from the period with variety of getters:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE_START_DATE);
 
@@ -1944,8 +1941,10 @@ echo $period->getStartDate();            // 2010-05-06 00:00:00
 echo $period->getEndDate();              // 2010-05-25 00:00:00
 echo $period->getDateInterval();         // 1 day
 echo $exclude ? 'exclude' : 'include';   // exclude
+
 var_dump($period->isStartExcluded());    // bool(true)
 var_dump($period->isEndExcluded());      // bool(false)
+
 echo $period->toString();                // Every 1 day from 2010-05-06 to 2010-05-25
 echo $period; /*implicit toString*/      // Every 1 day from 2010-05-06 to 2010-05-25
 </code></pre></p>

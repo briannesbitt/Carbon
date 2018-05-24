@@ -1874,12 +1874,9 @@ $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 	<li>an ISO 8601 interval specification.</li>
 </ul>
 
-<p>Dates can be given as DateTime/Carbon instances or even absolute or relative strings.</p>
-<p>Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
+<p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings, for example "next monday". Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
 
-<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
-
-<p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
+<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended. On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
 
 <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
 
@@ -1926,14 +1923,14 @@ foreach ($period as $key => $date) {
 {{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
 </code></pre></p>
 
-<p>Just as DatePeriod, the CarbonPeriod> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
+<p>Just as DatePeriod, the CarbonPeriod supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
 
 <p>Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
 
 <p><pre><code class="php">{{::lint(
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
-// Default value is 0 which will have the same effect as when options are not passed.
-$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', $options = 0);
+// Default value is 0 which will have the same effect as when no options are given.
+$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', CarbonPeriod::EXCLUDE_START_DATE);
 $dates = array();
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
@@ -1943,7 +1940,7 @@ foreach ($period as $date) {
 {{cpiso::exec(echo implode(', ', $dates);)}} // {{cpiso_eval}}
 </code></pre></p>
 
-<p>You can retrieve data from the period via variety of getters:</p>
+<p>You can retrieve data from the period with variety of getters:</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE_START_DATE);
@@ -1955,8 +1952,10 @@ $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 {{cpget2::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{cpget2_eval}}
 {{cpget3::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{cpget3_eval}}
 {{cpget4::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{cpget4_eval}}
+
 {{cpis1::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpis1_eval}}
 {{cpis2::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpis2_eval}}
+
 {{cpget5::exec(echo $period->toString();/*pad(40)*/)}} // {{cpget5_eval}}
 {{cpget6::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{cpget6_eval}}
 </code></pre></p>
