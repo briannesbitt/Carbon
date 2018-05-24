@@ -1912,7 +1912,9 @@ foreach ($period as $key => $date) {
 {{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
 </code></pre></p>
 
-<p>Just as <code>DatePeriod</code>, the <code>CarbonPeriod</code> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>:</p>
+<p>Just as <code>DatePeriod</code>, the <code>CarbonPeriod</code> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
+
+<p>Note that the native <code>DatePeriod</code> treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in <code>CarbonPeriod</code> made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
 
 <p><pre><code class="php">{{::lint(
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
@@ -1981,7 +1983,7 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 {{cpopts8::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts8_eval}}
 </code></pre></p>
 
-<p>As per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:</p>
+<p>As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:</p>
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
