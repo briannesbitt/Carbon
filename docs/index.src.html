@@ -1926,9 +1926,9 @@ foreach ($period as $key => $date) {
 {{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
 </code></pre></p>
 
-<p>Just as <code>DatePeriod</code>, the <code>CarbonPeriod</code> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
+<p>Just as DatePeriod, the CarbonPeriod> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
 
-<p>Note that the native <code>DatePeriod</code> treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in <code>CarbonPeriod</code> made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
+<p>Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
 
 <p><pre><code class="php">{{::lint(
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
@@ -2136,6 +2136,26 @@ CarbonPeriod::invert() == CarbonPeriod::create()->invertDateInterval();
 // "year", "months", "month", "weeks", "week", "days", "dayz", "day",
 // "hours", "hour", "minutes", "minute", "seconds", "second":
 CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInterval::hours(5));
+</code></pre></p>
+
+<p>CarbonPeriod can be easily converted to a human readable string and ISO 8601 specification:</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
+)}}
+{{cpstring1::exec(echo $period->toString();/*pad(36)*/)}} // {{cpstring1_eval}}
+{{cpstring2::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{cpstring2_eval}}
+</code></pre></p>
+
+<p>Just as <a href="#api-macro">Carbon</a> and <a href="#api-interval">CarbonInterval</a>, CarbonPeriod has support for macros.</p>
+
+<p><pre><code class="php">{{::lint(
+CarbonPeriod::macro('countWeekdays', function ($self = null) {
+    return $self->filter('isWeekday')->count();
+});
+)}}
+{{cpmacro1::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{cpmacro1_eval}}
+{{cpmacro2::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{cpmacro2_eval}}
 </code></pre></p>
 
 </div>
