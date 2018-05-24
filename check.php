@@ -29,6 +29,10 @@ $carbonObjects = array(
         new \Carbon\CarbonInterval('P1D'),
         new \DateInterval('P1D'),
     ),
+    array(
+        new \Carbon\CarbonPeriod(),
+        new \stdClass(),
+    ),
 );
 foreach ($carbonObjects as $tuple) {
     list($carbonObject, $dateTimeObject) = $tuple;
