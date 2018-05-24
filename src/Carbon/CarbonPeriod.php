@@ -149,7 +149,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @var bool
      */
-    protected $defaultInterval;
+    protected $isDefaultInterval;
 
     /**
      * The filters stack.
@@ -263,33 +263,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Create a CarbonPeriod between given dates.
-     *
-     * @param DateTime|DateTimeInterface|string      $start
-     * @param DateTime|DateTimeInterface|string|null $end
-     * @param DateInterval|string|null               $interval
-     * @param int|null                               $options
-     *
-     * @return static
-     */
-    public static function createBetween($start, $end, $interval = null, $options = null)
-    {
-        $instance = new static;
-
-        $instance->setDates($start, $end);
-
-        if ($interval !== null) {
-            $instance->setDateInterval($interval);
-        }
-
-        if ($options !== null) {
-            $instance->setOptions($options);
-        }
-
-        return $instance;
-    }
-
-    /**
      * Return whether given interval contains non zero value of any time unit.
      *
      * @param \DateInterval $interval
@@ -302,6 +275,19 @@ class CarbonPeriod implements Iterator, Countable
         // Both isset and property_exists will fail on PHP 7.0.14 - 7.0.21 due to the following bug:
         // https://bugs.php.net/bug.php?id=74852
         return $interval->h || $interval->i || $interval->s || array_key_exists('f', get_object_vars($interval)) && $interval->f;
+    }
+
+    /**
+     * Return whether given callable is a string pointing to one of Carbon's is* methods
+     * and should be automatically converted to a filter callback.
+     *
+     * @param callable $callable
+     *
+     * @return bool
+     */
+    protected static function isCarbonPredicateMethod($callable)
+    {
+        return is_string($callable) && substr($callable, 0, 2) === 'is' && method_exists('Carbon\Carbon', $callable);
     }
 
     /**
@@ -481,7 +467,7 @@ class CarbonPeriod implements Iterator, Countable
         if ($this->dateInterval === null) {
             $this->setDateInterval(CarbonInterval::day());
 
-            $this->defaultInterval = true;
+            $this->isDefaultInterval = true;
         }
 
         if ($this->options === null) {
@@ -510,7 +496,7 @@ class CarbonPeriod implements Iterator, Countable
 
         $this->dateInterval = $interval;
 
-        $this->defaultInterval = false;
+        $this->isDefaultInterval = false;
 
         $this->handleChangedParameters();
 
@@ -736,7 +722,7 @@ class CarbonPeriod implements Iterator, Countable
     {
         $method = array_shift($parameters);
 
-        if (!is_string($method) || substr($method, 0, 2) !== 'is' || !method_exists('Carbon\Carbon', $method)) {
+        if (!$this->isCarbonPredicateMethod($method)) {
             return array($method, array_shift($parameters));
         }
 
@@ -1433,7 +1419,7 @@ class CarbonPeriod implements Iterator, Countable
             case 'second':
                 return $this->setDateInterval(call_user_func(
                     // Override default P1D when instantiating via fluent setters.
-                    array($this->defaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
+                    array($this->isDefaultInterval ? new CarbonInterval('PT0S') : $this->dateInterval, $method),
                     count($parameters) === 0 ? 1 : $first
                 ));
         }

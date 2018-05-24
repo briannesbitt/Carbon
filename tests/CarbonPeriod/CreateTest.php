@@ -421,16 +421,6 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
     }
 
-    public function testCreateBetween()
-    {
-        $period = CarbonPeriod::createBetween('2018-03-25', '2018-04-01', 'P2D', CarbonPeriod::EXCLUDE_END_DATE);
-
-        $this->assertSame('2018-03-25', $period->getStartDate()->toDateString());
-        $this->assertSame('P2D', $period->getDateInterval()->spec());
-        $this->assertSame('2018-04-01', $period->getEndDate()->toDateString());
-        $this->assertSame(CarbonPeriod::EXCLUDE_END_DATE, $period->getOptions());
-    }
-
     public function testCreateFromIso()
     {
         $period = CarbonPeriod::createFromIso('R3/2018-03-25/P2D/2018-04-01', CarbonPeriod::EXCLUDE_END_DATE);
