@@ -1960,6 +1960,20 @@ $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 {{cpget6::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{cpget6_eval}}
 </code></pre></p>
 
+<p>Additional getters let you access the results as an array:</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2010-05-11', '2010-05-13');
+)}}
+
+{{cparray1::exec(echo $period->count();/*pad(40)*/)}} // {{cparray1_eval}}, equivalent to count($period)
+{{cparray2::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cparray2_eval}}
+{{cparray3::exec(echo $period->first();/*pad(40)*/)}} // {{cparray3_eval}}
+{{cparray4::exec(echo $period->last();/*pad(40)*/)}} // {{cparray4_eval}}
+</code></pre></p>
+
+<p>Note that if you intend to work using the above functions it's a good idea to store the result of <code>toArray()</code> call to a variable and use it instead, because each call performs a full iteration internally.</p>
+
 <p>You can change options using <code>setOptions()</code> to replace all options but you also can change them separately:</p>
 
 <p><pre><code class="php">{{::lint(
