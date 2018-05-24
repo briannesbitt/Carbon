@@ -2022,9 +2022,10 @@ foreach ($period as $date) {
 
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
-$period->filter($weekendFilter = function ($date) {
+$weekendFilter = function ($date) {
     return $date->isWeekend();
-});)}}
+};
+$period->filter($weekendFilter);)}}
 
 {{::lint(
 $days = array();
