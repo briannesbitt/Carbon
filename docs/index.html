@@ -129,11 +129,11 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-23 09:45:42
+echo $now;                               // 2018-05-23 22:29:34
 $today = Carbon::today();
 echo $today;                             // 2018-05-23 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-05-24 00:00:00
+echo $tomorrow;                          // 2018-05-25 00:00:00
 $yesterday = Carbon::yesterday();
 echo $yesterday;                         // 2018-05-22 00:00:00
 </code></pre></p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:45 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 04:29 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-23 09:45:42
+echo Carbon::now();                                    // 2018-05-23 22:29:34
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-23 09:45:42
-echo $dt1->maximum();                              // 2018-05-23 09:45:42
+echo $dt1->max();                                  // 2018-05-23 22:29:34
+echo $dt1->maximum();                              // 2018-05-23 22:29:34
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1856,7 +1856,7 @@ echo implode(', ', $list);                                     // 12 hours, 1 da
 
 <h1 id="api-period">CarbonPeriod</h1>
 
-<p>CarbonPeriod is a human-friendly version of <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with many shortcuts.</p>
+<p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with many shortcuts.</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 // same as $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
@@ -1868,7 +1868,7 @@ foreach ($period as $date) {
 echo implode(', ', $dates); // 04-21, 04-24, 04-27
 </code></pre></p>
 
-<p>CarbonPeriod is an <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> object. It means the iteration via <code>foreach</code> via interface methods called by PHP under the hood:</p>
+<p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 foreach ($period as $key => $date) {
@@ -1879,19 +1879,19 @@ foreach ($period as $key => $date) {
 }
 // 04-21, 04-24, 04-27
 
-// Under the hood, what happen is:
-$period->rewind(); // rewind() restart the iteration from the start
-while ($period->valid()) {
-    if ($period->key()) {
+// Here is what happens under the hood:
+$period->rewind(); // restart the iteration
+while ($period->valid()) { // check if current item is valid
+    if ($period->key()) { // echo comma if current key is greater than 0
         echo ', ';
     }
-    echo $period->current()->format('m-d');
-    $period->next();
+    echo $period->current()->format('m-d'); // echo current date
+    $period->next(); // move to the next item
 }
 // 04-21, 04-24, 04-27
 </code></pre></p>
 
-<p>Parameters can be altered during iteration:</p>
+<p>Parameters can be modified during the iteration:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2018-04-29', 7);
 $dates = array();
@@ -1905,7 +1905,7 @@ foreach ($period as $key => $date) {
 echo implode(', ', $dates); // 04-29, 04-30, 05-01, 05-02, 05-01, 04-30, 04-29
 </code></pre></p>
 
-<p>You can use a fluent syntax (equivalent to the code above):</p>
+<p>Alternatively you can start from CarbonInterval and use the fluent setters (equivalent to the code above):</p>
 
 <p><pre><code class="php">$period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
 // Same as $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
@@ -1917,12 +1917,11 @@ foreach ($period as $date) {
 echo implode(', ', $dates); // 04-21, 04-24, 04-27
 </code></pre></p>
 
-<p>As <code>DatePeriod</code>, <code>CarbonPeriod</code> support <a href="https://en.wikipedia.org/wiki/ISO_8601#Repeating_intervals">ISO 8601 repeating interval specifications</a>.</p>
+<p>Just as <code>DatePeriod</code>, the <code>CarbonPeriod</code> supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>:</p>
 
-<p><pre><code class="php">$options = 0; // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE | CarbonPeriod::DISABLE_RESULTS_CACHE
-              // 0 (no options) is the default value
-$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', $options);
-// Or simply $period = CarbonPeriod::create('R4/2012-07-01T00:00:00Z/P7D');
+<p><pre><code class="php">// Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
+// Default value is 0 which will have the same effect as when options are not passed.
+$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', $options = 0);
 $dates = array();
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
@@ -1931,7 +1930,19 @@ foreach ($period as $date) {
 echo implode(', ', $dates); // 07-01, 07-08, 07-15, 07-22
 </code></pre></p>
 
-<p>A period can be defined in many way, a couple of dates (start and end) and an optional interval (default is 1 day), or you can pass only one date and a number of recurrences or as below an ISO 8601 specification and all dates and interval arguments can be passed as string or as DateTime/DateInterval/Carbon/CarbonInterval instances.  That's why you may have your arguments in a dynamic array so use <code>createFromArray()</code> which will call <code>create()</code> with the given array as arguments list.</p>
+<p>A CarbonPeriod can be constructed in a number of ways:</p>
+<ul>
+	<li>start date, end date and optional interval (by default 1 day),</li>
+	<li>start date, number of recurrences and optional interval,</li>
+	<li>an ISO 8601 interval specification.</li>
+</ul>
+
+<p>Dates can be given as DateTime/Carbon instances or even absolute or relative strings.</p>
+<p>Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
+
+<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended.</p>
+
+<p>On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
 
 <p>Last creation way is <code>createBetween()</code>:</p>
 
@@ -1952,9 +1963,10 @@ echo implode(', ', $hours); // 04, 06, 08, 10, 12
 // CarbonPeriod::interval($int)->setOptions($opt)->setDates($start, $end)
 </code></pre></p>
 
-<p>You can retrieve data from the period thanks to getters:</p>
+<p>You can retrieve data from the period via variety of getters:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE_START_DATE);
+
 $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 
 echo $period->getStartDate();            // 2010-05-06 00:00:00
@@ -1967,27 +1979,27 @@ echo $period->toString();                // Every 1 day from 2010-05-06 to 2010-
 echo $period; /*implicit toString*/      // Every 1 day from 2010-05-06 to 2010-05-25
 </code></pre></p>
 
-<p>You can change options using <code>setOptions()</code> (alias <code>options()</code>) to replace all options but you also can change them separately:</p>
+<p>You can change options using <code>setOptions()</code> to replace all options but you also can change them separately:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 
 var_dump($period->isStartExcluded());    // bool(false)
 var_dump($period->isEndExcluded());      // bool(false)
 
-$period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true); // specify true, false or omit the second argument to invert the option
+$period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true); // true, false or nothing to invert the option
 var_dump($period->isStartExcluded());    // bool(true)
 var_dump($period->isEndExcluded());      // bool(false) (unchanged)
 
-$period->excludeEndDate(); // specify false to include, true or omit the second argument to exclude
+$period->excludeEndDate();               // specify false to include, true or omit to exclude
 var_dump($period->isStartExcluded());    // bool(true) (unchanged)
 var_dump($period->isEndExcluded());      // bool(true)
 
-$period->excludeStartDate(false); // specify false to include, true or omit the second argument to exclude
+$period->excludeStartDate(false);        // specify false to include, true or omit to exclude
 var_dump($period->isStartExcluded());    // bool(false)
 var_dump($period->isEndExcluded());      // bool(true)
 </code></pre></p>
 
-<p>As per ISO 8601 specification, recurrences is a limit of iterations (important note: DatePeriod change the number of occurrences depending on exclusion of start date, CarbonPeriod respect more strictly the ISO 8601 specification and provide recurrences as a occurrences overall limit):</p>
+<p>As per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
 $days = array();
@@ -1999,13 +2011,13 @@ echo $period->getRecurrences();          // 4
 echo implode(', ', $days);               // 01, 08, 15, 22
 
 $days = array();
-$period->setRecurrences(3);
+$period->setRecurrences(3)->excludeStartDate();
 foreach ($period as $date) {
     $days[] = $date->format('d');
 }
 
 echo $period->getRecurrences();          // 3
-echo implode(', ', $days);               // 01, 08, 15
+echo implode(', ', $days);               // 08, 15, 22
 
 $days = array();
 $period = CarbonPeriod::recurrences(3)->sinceNow();
@@ -2016,7 +2028,43 @@ foreach ($period as $date) {
 echo implode(', ', $days);               // 2018-05-23, 2018-05-24, 2018-05-25
 </code></pre></p>
 
-<p>Periods can be filtered, it is a recommended way to filter the range rather than nesting <code>if</code> statement inside the loop.</p>
+<p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends.</p>
+
+<p>A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
+
+<p><pre><code class="php">$period = CarbonPeriod::between('2000-01-01', '2000-01-15');
+$period->filter($weekendFilter = function ($date) {
+    return $date->isWeekend();
+});
+
+$days = array();
+foreach ($period as $date) {
+    $days[] = $date->format('m-d');
+}
+echo implode(', ', $days);                         // 01-01, 01-02, 01-08, 01-09, 01-15
+</code></pre></p>
+
+<p>Interestingly filters are used internally to handle the recurrences limit and the end date!</p>
+
+<p><pre><code class="php">$period = CarbonPeriod::end('2000-01-01')->recurrences(3);
+var_export($period->getFilters());
+/*
+array (
+  0 => 
+  array (
+    0 => 'Carbon\\CarbonPeriod::filterEndDate',
+    1 => NULL,
+  ),
+  1 => 
+  array (
+    0 => 'Carbon\\CarbonPeriod::filterRecurrences',
+    1 => NULL,
+  ),
+)
+*/
+</code></pre></p>
+
+<p>Filters are stored internally in a stack and can be managed using a special set of methods:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
@@ -2024,90 +2072,51 @@ $weekendFilter = function ($date) {
 };
 
 var_dump($period->hasFilter($weekendFilter));      // bool(false)
-$period->filter($weekendFilter);
+$period->addFilter($weekendFilter);
 var_dump($period->hasFilter($weekendFilter));      // bool(true)
-var_dump($period->getFilters());
-/*
-Contains CarbonPeriod::END_DATE_FILTER since an end date has been provided
-And the $weekendFilter:
-
-array(2) {
-  [0]=>
-  array(2) {
-    [0]=>
-    string(34) "Carbon\CarbonPeriod::filterEndDate"
-    [1]=>
-    NULL
-  }
-  [1]=>
-  array(2) {
-    [0]=>
-    object(Closure)#1157 (1) {
-      ["parameter"]=>
-      array(1) {
-        ["$date"]=>
-        string(10) "<required>"
-      }
-    }
-    [1]=>
-    NULL
-  }
-}
-*/
-
-$days = array();
-foreach ($period as $date) {
-    $days[] = $date->format('m-d');
-}
-echo implode(', ', $days);                         // 01-01, 01-02, 01-08, 01-09, 01-15
-
 $period->removeFilter($weekendFilter);
 var_dump($period->hasFilter($weekendFilter));      // bool(false)
 
 // To avoid storing filters as variables you can name your filters:
-$period = CarbonPeriod::between('2000-01-01', '2000-01-15')->filter(function ($date) {
+$period->prependFilter(function ($date) {
     return $date->isWeekend();
 }, 'weekend');
+
 var_dump($period->hasFilter('weekend'));           // bool(true)
 $period->removeFilter('weekend');
 var_dump($period->hasFilter('weekend'));           // bool(false)
 </code></pre></p>
 
-<p>Filter order can have an impact on the performances and on the result, so you can use <code>addFilter()</code> (or <code>push()</code> or <code>filter()</code>) which add in the end; and you can use <code>prepend()</code> or <code>prependFilter()</code> to add at the beginning. And you can use <code>setFilters()</code> (which take an array as argument) to replace the whole filters stack. Warning: an end date or a recurrences limit are also filters internally so <code>setFilters()</code> will erase them. To avoid this behavior, use <code>resetFilters()</code> instead, then add new filters one by one.</p>
+<p>Filter order can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format and remember about internal recurrences limit and end date filters. Alternatively you can use <code>resetFilters()</code>, then add new filters one by one.</p>
 
-<p>For example, when you set a recurrences filter with <code>setRecurrences()</code> (or alias <code>recurrences()</code> or <code>times()</code>), the result of a filter is different if it's before or after the recurrences.</p>
+<p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
 <p><pre><code class="php">$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
     return $date->isWeekday();
 });
 
-$period1 = clone $period;
-$period1->prependFilter(function () {
-    static $count = 0;
+$attempts = 0;
+$attemptsFilter = function () use (&$attempts) {
+    return ++$attempts <= 5 ? true : CarbonPeriod::END_ITERATION;
+};
 
-    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
-}, 'limit');
+$period->prependFilter($attemptsFilter);
 $days = array();
-foreach ($period1 as $date) {
+foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
-
 echo implode(', ', $days);                         // 05-03, 05-04, 05-07
-$period2 = clone $period;
-$period2->addFilter(function () {
-    static $count = 0;
 
-    return ++$count <= 5 ? true : CarbonPeriod::END_ITERATION;
-}, 'limit');
+$attempts = 0;
+
+$period->removeFilter($attemptsFilter)->addFilter($attemptsFilter);
 $days = array();
-foreach ($period2 as $date) {
+foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 echo implode(', ', $days);                         // 05-03, 05-04, 05-07, 05-08, 05-09
 </code></pre></p>
 
-<p>Note that the recurrences filter will not works this way, it is based on the key and the key is not incremented until a valid date is found, so no matter you put it at the beginning or the end, it will limit the overall results count.</p>
-
-<p>A filter function can returns <code>true</code> to validate the date and iterate on it, <code>false</code> to skip the date and continue to search a valid date or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
+<p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is incremented only once per item, no matter how many dates have to be checked before a valid date is found. This trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
 
 </div>
 
