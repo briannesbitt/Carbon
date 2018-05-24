@@ -287,7 +287,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     protected static function isCarbonPredicateMethod($callable)
     {
-        return is_string($callable) && substr($callable, 0, 2) === 'is' && method_exists('Carbon\Carbon', $callable);
+        return is_string($callable) && substr($callable, 0, 2) === 'is' && (method_exists('Carbon\Carbon', $callable) || Carbon::hasMacro($callable));
     }
 
     /**
