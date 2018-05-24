@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-05-23 22:37:24
+echo $now;                               // 2018-05-23 22:56:41
 $today = Carbon::today();
 echo $today;                             // 2018-05-23 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 04:37 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 04:56 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -345,7 +345,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-05-23 22:37:24
+echo Carbon::now();                                    // 2018-05-23 22:56:41
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -715,8 +715,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-05-23 22:37:24
-echo $dt1->maximum();                              // 2018-05-23 22:37:24
+echo $dt1->max();                                  // 2018-05-23 22:56:41
+echo $dt1->maximum();                              // 2018-05-23 22:56:41
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2031,7 +2031,7 @@ array (
 */
 </code></pre></p>
 
-<p>Filters are stored internally in a stack and can be managed using a special set of methods:</p>
+<p>Filters are stored in a stack and can be managed using a special set of methods:</p>
 
 <p><pre><code class="php">$period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
@@ -2054,7 +2054,7 @@ $period->removeFilter('weekend');
 var_dump($period->hasFilter('weekend'));           // bool(false)
 </code></pre></p>
 
-<p>Filter order can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format and remember about internal recurrences limit and end date filters. Alternatively you can use <code>resetFilters()</code>, then add new filters one by one.</p>
+<p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
 
 <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
 <p><pre><code class="php">$period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter(function ($date) {
@@ -2084,6 +2084,35 @@ echo implode(', ', $days);                         // 05-03, 05-04, 05-07, 05-08
 </code></pre></p>
 
 <p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is incremented only once per item, no matter how many dates have to be checked before a valid date is found. This trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
+
+<p>A number of aliases has been added to simplify building the CarbonPeriod:</p>
+
+<p><pre><code class="php">// "start", "since", "sinceNow":
+CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-03-10');
+// "end", "until", "untilNow":
+CarbonPeriod::end('2017-03-20') == CarbonPeriod::create()->setEndDate('2017-03-20');
+// "dates", "between":
+CarbonPeriod::dates(...) == CarbonPeriod::create()->setDates(...);
+// "recurrences", "times":
+CarbonPeriod::recurrences(5) == CarbonPeriod::create()->setRecurrences(5);
+// "options":
+CarbonPeriod::options(...) == CarbonPeriod::create()->setOptions(...);
+// "toggle":
+CarbonPeriod::toggle(..., true) == CarbonPeriod::create()->toggleOptions(..., true);
+// "filter", "push":
+CarbonPeriod::filter(...) == CarbonPeriod::create()->addFilter(...);
+// "prepend":
+CarbonPeriod::prepend(...) == CarbonPeriod::create()->prependFilter(...);
+// "filters":
+CarbonPeriod::filters(...) == CarbonPeriod::create()->setFilters(...);
+// "interval", "each", "every", "step", "stepBy":
+CarbonPeriod::interval(...) == CarbonPeriod::create()->setDateInterval(...);
+// "invert":
+CarbonPeriod::invert() == CarbonPeriod::create()->invertDateInterval();
+// "year", "months", "month", "weeks", "week", "days", "dayz", "day",
+// "hours", "hour", "minutes", "minute", "seconds", "second":
+CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInterval::hours(5));
+</code></pre></p>
 
 </div>
 

@@ -2106,6 +2106,35 @@ foreach ($period as $date) {
 
 <p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is incremented only once per item, no matter how many dates have to be checked before a valid date is found. This trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
 
+<p>A number of aliases has been added to simplify building the CarbonPeriod:</p>
+
+<p><pre><code class="php">// "start", "since", "sinceNow":
+CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-03-10');
+// "end", "until", "untilNow":
+CarbonPeriod::end('2017-03-20') == CarbonPeriod::create()->setEndDate('2017-03-20');
+// "dates", "between":
+CarbonPeriod::dates(...) == CarbonPeriod::create()->setDates(...);
+// "recurrences", "times":
+CarbonPeriod::recurrences(5) == CarbonPeriod::create()->setRecurrences(5);
+// "options":
+CarbonPeriod::options(...) == CarbonPeriod::create()->setOptions(...);
+// "toggle":
+CarbonPeriod::toggle(..., true) == CarbonPeriod::create()->toggleOptions(..., true);
+// "filter", "push":
+CarbonPeriod::filter(...) == CarbonPeriod::create()->addFilter(...);
+// "prepend":
+CarbonPeriod::prepend(...) == CarbonPeriod::create()->prependFilter(...);
+// "filters":
+CarbonPeriod::filters(...) == CarbonPeriod::create()->setFilters(...);
+// "interval", "each", "every", "step", "stepBy":
+CarbonPeriod::interval(...) == CarbonPeriod::create()->setDateInterval(...);
+// "invert":
+CarbonPeriod::invert() == CarbonPeriod::create()->invertDateInterval();
+// "year", "months", "month", "weeks", "week", "days", "dayz", "day",
+// "hours", "hour", "minutes", "minute", "seconds", "second":
+CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInterval::hours(5));
+</code></pre></p>
+
 </div>
 
 <nav>
