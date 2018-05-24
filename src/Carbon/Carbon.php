@@ -35,8 +35,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      int $micro
  * @property      int $timestamp seconds since the Unix Epoch
  * @property      int $age does a diffInYears() with default parameters
- * @property      int $offsetHours $offsetHours the timezone offset in hours from UTC
- * @property      \DateTimeZone $timezone $timezone the current timezone
+ * @property      int $offsetHours the timezone offset in hours from UTC
+ * @property      \DateTimeZone $timezone the current timezone
+ * @property      \DateTimeZone $tz alias of $timezone
  * @property-read int $dayOfWeek 0 (for Sunday) through 6 (for Saturday)
  * @property-read int $dayOfWeekIso 1 (for Monday) through 7 (for Sunday)
  * @property-read int $dayOfYear 0 through 365
@@ -45,16 +46,246 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read int $weekOfMonth 1 through 5
  * @property-read int $weekNumberInMonth 1 through 5
  * @property-read int $quarter the quarter of this instance, 1 - 4
+ * @property-read int $decade the decade of this instance
+ * @property-read int $century the century of this instance
+ * @property-read int $millennium the millennium of this instance
  * @property-read int $offset the timezone offset in seconds from UTC
  * @property-read bool $dst daylight savings time indicator, true if DST, false otherwise
  * @property-read bool $local checks if the timezone is local, true if local, false otherwise
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
+ * @property-read \DateTimeZone $timezoneName the current timezone name
+ * @property-read \DateTimeZone $tzName alias of $timezoneName
  *
- * @method bool isSameYear(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same year as the instance.
- * @method bool isSameDay(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same day as the instance.
- * @method bool isSameHour(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same hour as the instance.
- * @method bool isSameMinute(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same minute as the instance.
- * @method bool isSameSecond(\DateTimeInterface $date = Carbon::now()) Checks if the passed in date is in the same second as the instance.
+ * @method bool isCurrentMonth() Checks if the instance is in the same month as the current moment.
+ * @method bool isCurrentQuarter() Checks if the instance is in the same quarter as the current moment.
+ * @method bool isSameDecade(\DateTimeInterface $date = null) Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentDecade() Checks if the instance is in the same decade as the current moment.
+ * @method bool isSameCentury(\DateTimeInterface $date = null) Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentCentury() Checks if the instance is in the same century as the current moment.
+ * @method bool isSameMillennium(\DateTimeInterface $date = null) Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMillennium() Checks if the instance is in the same millennium as the current moment.
+ * @method bool isSameYear(\DateTimeInterface $date = null) Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentYear() Checks if the instance is in the same year as the current moment.
+ * @method bool isSameDay(\DateTimeInterface $date = null) Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentDay() Checks if the instance is in the same day as the current moment.
+ * @method bool isSameHour(\DateTimeInterface $date = null) Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentHour() Checks if the instance is in the same hour as the current moment.
+ * @method bool isSameMinute(\DateTimeInterface $date = null) Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMinute() Checks if the instance is in the same minute as the current moment.
+ * @method bool isSameSecond(\DateTimeInterface $date = null) Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentSecond() Checks if the instance is in the same second as the current moment.
+ * @method $this years(int $value) Set current instance year to the given value.
+ * @method $this year(int $value) Set current instance year to the given value.
+ * @method $this setYears(int $value) Set current instance year to the given value.
+ * @method $this setYear(int $value) Set current instance year to the given value.
+ * @method $this months(int $value) Set current instance month to the given value.
+ * @method $this month(int $value) Set current instance month to the given value.
+ * @method $this setMonths(int $value) Set current instance month to the given value.
+ * @method $this setMonth(int $value) Set current instance month to the given value.
+ * @method $this days(int $value) Set current instance day to the given value.
+ * @method $this day(int $value) Set current instance day to the given value.
+ * @method $this setDays(int $value) Set current instance day to the given value.
+ * @method $this setDay(int $value) Set current instance day to the given value.
+ * @method $this hours(int $value) Set current instance hour to the given value.
+ * @method $this hour(int $value) Set current instance hour to the given value.
+ * @method $this setHours(int $value) Set current instance hour to the given value.
+ * @method $this setHour(int $value) Set current instance hour to the given value.
+ * @method $this minutes(int $value) Set current instance minute to the given value.
+ * @method $this minute(int $value) Set current instance minute to the given value.
+ * @method $this setMinutes(int $value) Set current instance minute to the given value.
+ * @method $this setMinute(int $value) Set current instance minute to the given value.
+ * @method $this seconds(int $value) Set current instance second to the given value.
+ * @method $this second(int $value) Set current instance second to the given value.
+ * @method $this setSeconds(int $value) Set current instance second to the given value.
+ * @method $this setSecond(int $value) Set current instance second to the given value.
+ * @method $this addYears(int $value = 1) Add years (the $value count passed in) to the instance (using date interval).
+ * @method $this addYear() Add one year to the instance (using date interval).
+ * @method $this subYears(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval).
+ * @method $this subYear() Sub one year to the instance (using date interval).
+ * @method $this addYearsWithOverflow(int $value = 1) Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addYearWithOverflow() Add one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subYearsWithOverflow(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subYearWithOverflow() Sub one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addYearsWithoutOverflow(int $value = 1) Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addYearWithoutOverflow() Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearsWithoutOverflow(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearWithoutOverflow() Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addYearsWithNoOverflow(int $value = 1) Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addYearWithNoOverflow() Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearsWithNoOverflow(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearWithNoOverflow() Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addYearsNoOverflow(int $value = 1) Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addYearNoOverflow() Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearsNoOverflow(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subYearNoOverflow() Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonths(int $value = 1) Add months (the $value count passed in) to the instance (using date interval).
+ * @method $this addMonth() Add one month to the instance (using date interval).
+ * @method $this subMonths(int $value = 1) Sub months (the $value count passed in) to the instance (using date interval).
+ * @method $this subMonth() Sub one month to the instance (using date interval).
+ * @method $this addMonthsWithOverflow(int $value = 1) Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addMonthWithOverflow() Add one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subMonthsWithOverflow(int $value = 1) Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subMonthWithOverflow() Sub one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addMonthsWithoutOverflow(int $value = 1) Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonthWithoutOverflow() Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthsWithoutOverflow(int $value = 1) Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthWithoutOverflow() Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonthsWithNoOverflow(int $value = 1) Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonthWithNoOverflow() Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthsWithNoOverflow(int $value = 1) Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthWithNoOverflow() Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonthsNoOverflow(int $value = 1) Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMonthNoOverflow() Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthsNoOverflow(int $value = 1) Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMonthNoOverflow() Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDays(int $value = 1) Add days (the $value count passed in) to the instance (using date interval).
+ * @method $this addDay() Add one day to the instance (using date interval).
+ * @method $this subDays(int $value = 1) Sub days (the $value count passed in) to the instance (using date interval).
+ * @method $this subDay() Sub one day to the instance (using date interval).
+ * @method $this addHours(int $value = 1) Add hours (the $value count passed in) to the instance (using date interval).
+ * @method $this addHour() Add one hour to the instance (using date interval).
+ * @method $this subHours(int $value = 1) Sub hours (the $value count passed in) to the instance (using date interval).
+ * @method $this subHour() Sub one hour to the instance (using date interval).
+ * @method $this addMinutes(int $value = 1) Add minutes (the $value count passed in) to the instance (using date interval).
+ * @method $this addMinute() Add one minute to the instance (using date interval).
+ * @method $this subMinutes(int $value = 1) Sub minutes (the $value count passed in) to the instance (using date interval).
+ * @method $this subMinute() Sub one minute to the instance (using date interval).
+ * @method $this addSeconds(int $value = 1) Add seconds (the $value count passed in) to the instance (using date interval).
+ * @method $this addSecond() Add one second to the instance (using date interval).
+ * @method $this subSeconds(int $value = 1) Sub seconds (the $value count passed in) to the instance (using date interval).
+ * @method $this subSecond() Sub one second to the instance (using date interval).
+ * @method $this addMillennia(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval).
+ * @method $this addMillennium() Add one millennium to the instance (using date interval).
+ * @method $this subMillennia(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval).
+ * @method $this subMillennium() Sub one millennium to the instance (using date interval).
+ * @method $this addMillenniaWithOverflow(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addMillenniumWithOverflow() Add one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subMillenniaWithOverflow(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subMillenniumWithOverflow() Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addMillenniaWithoutOverflow(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMillenniumWithoutOverflow() Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniaWithoutOverflow(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniumWithoutOverflow() Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMillenniaWithNoOverflow(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMillenniumWithNoOverflow() Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniaWithNoOverflow(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniumWithNoOverflow() Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMillenniaNoOverflow(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addMillenniumNoOverflow() Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniaNoOverflow(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subMillenniumNoOverflow() Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturies(int $value = 1) Add centuries (the $value count passed in) to the instance (using date interval).
+ * @method $this addCentury() Add one century to the instance (using date interval).
+ * @method $this subCenturies(int $value = 1) Sub centuries (the $value count passed in) to the instance (using date interval).
+ * @method $this subCentury() Sub one century to the instance (using date interval).
+ * @method $this addCenturiesWithOverflow(int $value = 1) Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addCenturyWithOverflow() Add one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subCenturiesWithOverflow(int $value = 1) Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subCenturyWithOverflow() Sub one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addCenturiesWithoutOverflow(int $value = 1) Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturyWithoutOverflow() Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturiesWithoutOverflow(int $value = 1) Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturyWithoutOverflow() Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturiesWithNoOverflow(int $value = 1) Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturyWithNoOverflow() Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturiesWithNoOverflow(int $value = 1) Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturyWithNoOverflow() Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturiesNoOverflow(int $value = 1) Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addCenturyNoOverflow() Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturiesNoOverflow(int $value = 1) Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subCenturyNoOverflow() Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecades(int $value = 1) Add decades (the $value count passed in) to the instance (using date interval).
+ * @method $this addDecade() Add one decade to the instance (using date interval).
+ * @method $this subDecades(int $value = 1) Sub decades (the $value count passed in) to the instance (using date interval).
+ * @method $this subDecade() Sub one decade to the instance (using date interval).
+ * @method $this addDecadesWithOverflow(int $value = 1) Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addDecadeWithOverflow() Add one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subDecadesWithOverflow(int $value = 1) Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subDecadeWithOverflow() Sub one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addDecadesWithoutOverflow(int $value = 1) Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecadeWithoutOverflow() Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadesWithoutOverflow(int $value = 1) Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadeWithoutOverflow() Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecadesWithNoOverflow(int $value = 1) Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecadeWithNoOverflow() Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadesWithNoOverflow(int $value = 1) Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadeWithNoOverflow() Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecadesNoOverflow(int $value = 1) Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addDecadeNoOverflow() Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadesNoOverflow(int $value = 1) Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subDecadeNoOverflow() Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuarters(int $value = 1) Add quarters (the $value count passed in) to the instance (using date interval).
+ * @method $this addQuarter() Add one quarter to the instance (using date interval).
+ * @method $this subQuarters(int $value = 1) Sub quarters (the $value count passed in) to the instance (using date interval).
+ * @method $this subQuarter() Sub one quarter to the instance (using date interval).
+ * @method $this addQuartersWithOverflow(int $value = 1) Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addQuarterWithOverflow() Add one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subQuartersWithOverflow(int $value = 1) Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this subQuarterWithOverflow() Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method $this addQuartersWithoutOverflow(int $value = 1) Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuarterWithoutOverflow() Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuartersWithoutOverflow(int $value = 1) Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuarterWithoutOverflow() Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuartersWithNoOverflow(int $value = 1) Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuarterWithNoOverflow() Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuartersWithNoOverflow(int $value = 1) Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuarterWithNoOverflow() Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuartersNoOverflow(int $value = 1) Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addQuarterNoOverflow() Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuartersNoOverflow(int $value = 1) Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this subQuarterNoOverflow() Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method $this addWeeks(int $value = 1) Add weeks (the $value count passed in) to the instance (using date interval).
+ * @method $this addWeek() Add one week to the instance (using date interval).
+ * @method $this subWeeks(int $value = 1) Sub weeks (the $value count passed in) to the instance (using date interval).
+ * @method $this subWeek() Sub one week to the instance (using date interval).
+ * @method $this addWeekdays(int $value = 1) Add weekdays (the $value count passed in) to the instance (using date interval).
+ * @method $this addWeekday() Add one weekday to the instance (using date interval).
+ * @method $this subWeekdays(int $value = 1) Sub weekdays (the $value count passed in) to the instance (using date interval).
+ * @method $this subWeekday() Sub one weekday to the instance (using date interval).
+ * @method $this addRealSeconds(int $value = 1) Add seconds (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealSecond() Add one second to the instance (using timestamp).
+ * @method $this subRealSeconds(int $value = 1) Sub seconds (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealSecond() Sub one second to the instance (using timestamp).
+ * @method $this addRealMinutes(int $value = 1) Add minutes (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealMinute() Add one minute to the instance (using timestamp).
+ * @method $this subRealMinutes(int $value = 1) Sub minutes (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealMinute() Sub one minute to the instance (using timestamp).
+ * @method $this addRealHours(int $value = 1) Add hours (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealHour() Add one hour to the instance (using timestamp).
+ * @method $this subRealHours(int $value = 1) Sub hours (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealHour() Sub one hour to the instance (using timestamp).
+ * @method $this addRealDays(int $value = 1) Add days (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealDay() Add one day to the instance (using timestamp).
+ * @method $this subRealDays(int $value = 1) Sub days (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealDay() Sub one day to the instance (using timestamp).
+ * @method $this addRealWeeks(int $value = 1) Add weeks (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealWeek() Add one week to the instance (using timestamp).
+ * @method $this subRealWeeks(int $value = 1) Sub weeks (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealWeek() Sub one week to the instance (using timestamp).
+ * @method $this addRealMonths(int $value = 1) Add months (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealMonth() Add one month to the instance (using timestamp).
+ * @method $this subRealMonths(int $value = 1) Sub months (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealMonth() Sub one month to the instance (using timestamp).
+ * @method $this addRealQuarters(int $value = 1) Add quarters (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealQuarter() Add one quarter to the instance (using timestamp).
+ * @method $this subRealQuarters(int $value = 1) Sub quarters (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealQuarter() Sub one quarter to the instance (using timestamp).
+ * @method $this addRealYears(int $value = 1) Add years (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealYear() Add one year to the instance (using timestamp).
+ * @method $this subRealYears(int $value = 1) Sub years (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealYear() Sub one year to the instance (using timestamp).
+ * @method $this addRealDecades(int $value = 1) Add decades (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealDecade() Add one decade to the instance (using timestamp).
+ * @method $this subRealDecades(int $value = 1) Sub decades (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealDecade() Sub one decade to the instance (using timestamp).
+ * @method $this addRealCenturies(int $value = 1) Add centuries (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealCentury() Add one century to the instance (using timestamp).
+ * @method $this subRealCenturies(int $value = 1) Sub centuries (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealCentury() Sub one century to the instance (using timestamp).
+ * @method $this addRealMillennia(int $value = 1) Add millennia (the $value count passed in) to the instance (using timestamp).
+ * @method $this addRealMillennium() Add one millennium to the instance (using timestamp).
+ * @method $this subRealMillennia(int $value = 1) Sub millennia (the $value count passed in) to the instance (using timestamp).
+ * @method $this subRealMillennium() Sub one millennium to the instance (using timestamp).
  */
 class Carbon extends DateTime implements JsonSerializable
 {
@@ -92,6 +323,7 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Number of X in Y.
      */
+    const YEARS_PER_MILLENNIUM = 1000;
     const YEARS_PER_CENTURY = 100;
     const YEARS_PER_DECADE = 10;
     const MONTHS_PER_YEAR = 12;
@@ -1017,6 +1249,7 @@ class Carbon extends DateTime implements JsonSerializable
             // @property int
             'yearIso' => 'o',
             // @property int
+            // @call isSameUnit
             'month' => 'n',
             // @property int
             'day' => 'j',
@@ -1059,14 +1292,44 @@ class Carbon extends DateTime implements JsonSerializable
                 return $this->diffInYears();
 
             // @property-read int the quarter of this instance, 1 - 4
+            // @call isSameUnit
             case $name === 'quarter':
                 return (int) ceil($this->month / static::MONTHS_PER_QUARTER);
+
+            // @property-read int the decade of this instance
+            // @call isSameUnit
+            case $name === 'decade':
+                return (int) ceil($this->year / static::YEARS_PER_DECADE);
+
+            // @property-read int the century of this instance
+            // @call isSameUnit
+            case $name === 'century':
+                $factor = 0;
+                $year = $this->year;
+                if ($year < 0) {
+                    $year = -$year;
+                    $factor = -1;
+                }
+
+                return (int) $factor * ceil($year / static::YEARS_PER_CENTURY);
+
+            // @property-read int the millennium of this instance
+            // @call isSameUnit
+            case $name === 'millennium':
+                $factor = 0;
+                $year = $this->year;
+                if ($year < 0) {
+                    $year = -$year;
+                    $factor = -1;
+                }
+
+                return (int) $factor * ceil($year / static::YEARS_PER_MILLENNIUM);
 
             // @property-read int the timezone offset in seconds from UTC
             case $name === 'offset':
                 return $this->getOffset();
 
-            // @property int $offsetHours the timezone offset in hours from UTC
+            // @property int the timezone offset in hours from UTC
             case $name === 'offsetHours':
                 return $this->getOffset() / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR;
 
@@ -1083,10 +1346,12 @@ class Carbon extends DateTime implements JsonSerializable
                 return $this->getOffset() === 0;
 
             // @property \DateTimeZone $timezone the current timezone
-            // @property \DateTimeZone $tz alias of timezone
+            // @property \DateTimeZone $tz alias of $timezone
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
 
+            // @property-read \DateTimeZone $timezoneName the current timezone name
+            // @property-read \DateTimeZone $tzName alias of $timezoneName
             case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
 
@@ -2277,6 +2542,14 @@ class Carbon extends DateTime implements JsonSerializable
         ];
 
         if (!isset($units[$unit])) {
+            if (isset($this->$unit)) {
+                $date = $date ? static::instance($date) : static::now($this->tz);
+
+                static::expectDateTime($date);
+
+                return $this->$unit === $date->$unit;
+            }
+
             throw new InvalidArgumentException("Bad comparison unit: '$unit'");
         }
 
@@ -2286,7 +2559,7 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Determines if the instance is in the current unit given.
      *
-     * @param $unit
+     * @param string $unit The unit to test.
      *
      * @throws \ReflectionException
      *
@@ -2339,6 +2612,10 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function isDayOfWeek($dayOfWeek)
     {
+        if (is_string($dayOfWeek) && defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
+            $dayOfWeek = constant($constant);
+        }
+
         return $this->dayOfWeek === $dayOfWeek;
     }
 
@@ -2515,104 +2792,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Add hours to the instance using timestamp. Positive $value travels
-     * forward while negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addRealHours($value)
-    {
-        return $this->addRealMinutes($value * static::MINUTES_PER_HOUR);
-    }
-
-    /**
-     * Add an hour to the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addRealHour($value = 1)
-    {
-        return $this->addRealHours($value);
-    }
-
-    /**
-     * Remove hours from the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealHours($value)
-    {
-        return $this->addRealHours(-1 * $value);
-    }
-
-    /**
-     * Remove an hour from the instance.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealHour($value = 1)
-    {
-        return $this->subRealHours($value);
-    }
-
-    /**
-     * Add minutes to the instance using timestamp. Positive $value travels
-     * forward while negative $value travels into the past.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addRealMinutes($value)
-    {
-        return $this->addRealSeconds($value * static::SECONDS_PER_MINUTE);
-    }
-
-    /**
-     * Add a minute to the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addRealMinute($value = 1)
-    {
-        return $this->addRealMinutes($value);
-    }
-
-    /**
-     * Remove a minute from the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealMinute($value = 1)
-    {
-        return $this->addRealMinutes(-1 * $value);
-    }
-
-    /**
-     * Remove a minute from the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealMinutes($value = 1)
-    {
-        return $this->subRealMinute($value);
-    }
-
-    /**
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
@@ -2620,51 +2799,68 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return static
      */
-    public function addRealSeconds($value)
+    public function addRealUnit($unit, $value = 1)
     {
+        switch ($unit) {
+            // @call addRealUnit
+            case 'second':
+                break;
+            // @call addRealUnit
+            case 'minute':
+                $value *= static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'hour':
+                $value *= static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'day':
+                $value *= static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'week':
+                $value *= static::DAYS_PER_WEEK * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'month':
+                $value *= 30 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'quarter':
+                $value *= static::MONTHS_PER_QUARTER * 30 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'year':
+                $value *= 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'decade':
+                $value *= static::YEARS_PER_DECADE * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'century':
+                $value *= static::YEARS_PER_CENTURY * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            // @call addRealUnit
+            case 'millennium':
+                $value *= static::YEARS_PER_MILLENNIUM * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
+                break;
+            default:
+                throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
+        }
+
         return $this->setTimestamp($this->getTimestamp() + $value);
     }
 
-    /**
-     * Add a second to the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function addRealSecond($value = 1)
+    public function subRealUnit($unit, $value = 1)
     {
-        return $this->addRealSeconds($value);
-    }
-
-    /**
-     * Remove seconds from the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealSeconds($value)
-    {
-        return $this->addRealSeconds(-1 * $value);
-    }
-
-    /**
-     * Remove a second from the instance using timestamp.
-     *
-     * @param int $value
-     *
-     * @return static
-     */
-    public function subRealSecond($value = 1)
-    {
-        return $this->subRealSeconds($value);
+        return $this->addRealUnit($unit, -$value);
     }
 
     public function addUnit($unit, $value = 1, $overflow = null)
     {
         if ($unit === 'weekday') {
-            $t = $this->toTimeString();
+            $timeString = $this->toTimeString();
         } elseif ($canOverflow = in_array($unit, [
             'month',
             'year',
@@ -2674,10 +2870,10 @@ class Carbon extends DateTime implements JsonSerializable
 
         $this->modify((int) $value." $unit");
 
-        if ($unit === 'weekday') {
-            return $this->setTimeFromTimeString($t);
+        if (isset($timeString)) {
+            return $this->setTimeFromTimeString($timeString);
         }
-        if ($canOverflow && $day !== $this->day) {
+        if (isset($canOverflow, $day) && $canOverflow && $day !== $this->day) {
             $this->modify('last day of previous month');
         }
 
@@ -3337,7 +3533,7 @@ class Carbon extends DateTime implements JsonSerializable
         $step = $forward ? 1 : -1;
 
         do {
-            $this->addDay($step);
+            $this->addDays($step);
         } while ($weekday ? $this->isWeekend() : $this->isWeekday());
 
         return $this;
@@ -3731,6 +3927,36 @@ class Carbon extends DateTime implements JsonSerializable
         return $this;
     }
 
+    protected static function singularUnit($unit)
+    {
+        $unit = rtrim(strtolower($unit), 's');
+
+        if ($unit === 'centurie') {
+            return 'century';
+        }
+
+        if ($unit === 'millennia') {
+            return 'millennium';
+        }
+
+        return $unit;
+    }
+
+    protected static function pluralUnit($unit)
+    {
+        $unit = rtrim(strtolower($unit), 's');
+
+        if ($unit === 'century') {
+            return 'centuries';
+        }
+
+        if ($unit === 'millennium') {
+            return 'millennia';
+        }
+
+        return "${unit}s";
+    }
+
     /**
      * Dynamically handle calls to the class.
      *
@@ -3745,16 +3971,22 @@ class Carbon extends DateTime implements JsonSerializable
     {
         $units = [
             // @call setUnit
+            // @call addUnit
             'year',
             // @call setUnit
+            // @call addUnit
             'month',
             // @call setUnit
+            // @call addUnit
             'day',
             // @call setUnit
+            // @call addUnit
             'hour',
             // @call setUnit
+            // @call addUnit
             'minute',
             // @call setUnit
+            // @call addUnit
             'second',
         ];
 
@@ -3771,6 +4003,8 @@ class Carbon extends DateTime implements JsonSerializable
 
         $modifiableUnits = [
             // @call addUnit
+            'millennium',
+            // @call addUnit
             'century',
             // @call addUnit
             'decade',
@@ -3784,18 +4018,22 @@ class Carbon extends DateTime implements JsonSerializable
 
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
-            if (preg_match('/^(Month|Year)s?(No|With|Without|WithNo)Overflow$/', $unit, $match)) {
+            if (substr($unit, 0, 4) === 'Real') {
+                $unit = static::singularUnit(substr($unit, 4));
+
+                return $this->{"${action}RealUnit"}($unit, ...$parameters);
+            }
+
+            if (preg_match('/^(Month|Quarter|Year|Decade|Century|Centurie|Millennium|Millennia)s?(No|With|Without|WithNo)Overflow$/', $unit, $match)) {
                 $unit = $match[1];
                 $overflow = $match[2] === 'With';
             }
-            $unit = strtolower($unit);
-            if ($unit === 'centurie') {
-                $unit = 'century';
-            }
+            $unit = static::singularUnit($unit);
         }
 
         if (in_array($unit, $modifiableUnits) || in_array($unit, $units)) {
             $metaUnits = [
+                'millennium' => [static::YEARS_PER_MILLENNIUM, 'year'],
                 'century' => [static::YEARS_PER_CENTURY, 'year'],
                 'decade' => [static::YEARS_PER_DECADE, 'year'],
                 'quarter' => [static::MONTHS_PER_QUARTER, 'month'],

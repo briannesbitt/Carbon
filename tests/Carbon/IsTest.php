@@ -560,18 +560,32 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2015, 5, 31)->isDayOfWeek(0));
         $this->assertTrue(Carbon::createFromDate(2015, 6, 21)->isDayOfWeek(0));
         $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isDayOfWeek(0));
+        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isDayOfWeek('sunday'));
+        $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isDayOfWeek('SUNDAY'));
 
         // True in the future
         $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isDayOfWeek(0));
         $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isDayOfWeek(0));
+        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('sunday'));
+        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('SUNDAY'));
+        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek('monday'));
+        $this->assertTrue(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek('MONDAY'));
 
         // False in the past
         $this->assertFalse(Carbon::now()->subWeek()->previous(Carbon::MONDAY)->isDayOfWeek(0));
         $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::MONDAY)->isDayOfWeek(0));
+        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::MONDAY)->isDayOfWeek('sunday'));
+        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::MONDAY)->isDayOfWeek('SUNDAY'));
+        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('monday'));
+        $this->assertFalse(Carbon::now()->subMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('MONDAY'));
 
         // False in the future
         $this->assertFalse(Carbon::now()->addWeek()->previous(Carbon::MONDAY)->isDayOfWeek(0));
         $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek(0));
+        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek('sunday'));
+        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::MONDAY)->isDayOfWeek('SUNDAY'));
+        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('monday'));
+        $this->assertFalse(Carbon::now()->addMonth()->previous(Carbon::SUNDAY)->isDayOfWeek('MONDAY'));
     }
 
     public function testIsSameAs()

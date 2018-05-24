@@ -154,7 +154,7 @@ class CyTest extends AbstractTestCase
             $d = Carbon::now()->addWeeks(3)->addDays(3);
             $scope->assertSame('3 wythnos 3 diwrnod', $d->diffForHumans(null, true, false, 2));
 
-            $d = Carbon::now()->addWeeks(2)->addHour(1);
+            $d = Carbon::now()->addWeeks(2)->addHour();
             $scope->assertSame('2 wythnos 1 awr', $d->diffForHumans(null, true, false, 2));
         });
     }

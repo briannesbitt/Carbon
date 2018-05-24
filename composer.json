@@ -49,7 +49,7 @@
         ],
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
+        "phpstan": "phpstan analyse --debug --configuration phpstan.neon --level 3 src tests",
         "phpdoc": "php phpdoc.php"
     }
 }

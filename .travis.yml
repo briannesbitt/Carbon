@@ -18,7 +18,7 @@ before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan 0.9.2; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
@@ -47,13 +47,13 @@ matrix:
       env: setup=stable
 
     - php: 7.2
-      env:
-        - coverage=true
-        - phpstan=true
     - php: 7.2
       env: setup=lowest
     - php: 7.2
-      env: setup=stable
+      env:
+        - setup=stable
+        - coverage=true
+        - phpstan=true
 
 notifications:
   slack:
