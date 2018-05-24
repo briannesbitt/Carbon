@@ -120,10 +120,13 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $period->next();
-
         $key = $period->key();
         $current = $period->current();
+
+        $this->assertSame(0, $key);
+        $this->assertEquals(new Carbon('2012-07-04'), $current);
+
+        $period->next();
 
         $this->assertSame(
             $this->standardizeDates(['2012-07-04', '2012-07-10', '2012-07-16']),
