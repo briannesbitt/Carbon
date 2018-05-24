@@ -2111,7 +2111,7 @@ $weekendFilter = function ($date) {
 <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
 
 <p><pre><code class="php">{{::lint(
-// Note that you can pass as string any Carbon method including macros starting with "is"
+// Note that you can pass a name of any Carbon method starting with "is", including macros
 $period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter('isWeekday');
 )}}
 
