@@ -263,33 +263,6 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Create a CarbonPeriod between given dates.
-     *
-     * @param DateTime|DateTimeInterface|string      $start
-     * @param DateTime|DateTimeInterface|string|null $end
-     * @param DateInterval|string|null               $interval
-     * @param int|null                               $options
-     *
-     * @return static
-     */
-    public static function createBetween($start, $end, $interval = null, $options = null)
-    {
-        $instance = new static;
-
-        $instance->setDates($start, $end);
-
-        if ($interval !== null) {
-            $instance->setDateInterval($interval);
-        }
-
-        if ($options !== null) {
-            $instance->setOptions($options);
-        }
-
-        return $instance;
-    }
-
-    /**
      * Return whether given interval contains non zero value of any time unit.
      *
      * @param \DateInterval $interval

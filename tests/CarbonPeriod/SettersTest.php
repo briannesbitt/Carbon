@@ -313,14 +313,6 @@ class SettersTest extends AbstractTestCase
 
         $someDateTime = new DateTime('2010-05-06 02:00:00');
         $someCarbon = new Carbon('2010-05-06 13:00:00');
-        $period = CarbonPeriod::createBetween($someDateTime, $someCarbon, '2 hours', CarbonPeriod::EXCLUDE_START_DATE);
-        $hours = array();
-        foreach ($period as $date) {
-            $hours[] = $date->format('H');
-        }
-
-        $this->assertSame(array('04', '06', '08', '10', '12'), $hours);
-
         $period = CarbonPeriod::every('2 hours')->between($someDateTime, $someCarbon)->options(CarbonPeriod::EXCLUDE_START_DATE);
         $hours = array();
         foreach ($period as $date) {
@@ -357,7 +349,7 @@ class SettersTest extends AbstractTestCase
             "$d3 03",
         ), $hours);
 
-        $period = CarbonPeriod::createBetween('first day of january this year', 'first day of next month')->interval('1 week');
+        $period = CarbonPeriod::between('first day of january this year', 'first day of next month')->interval('1 week');
 
         $this->assertEquals(new Carbon('first day of january this year'), $period->getStartDate());
         $this->assertEquals(new Carbon('first day of next month'), $period->getEndDate());
