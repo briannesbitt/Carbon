@@ -18,7 +18,7 @@ before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan 0.9.2; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |

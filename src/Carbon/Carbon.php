@@ -506,13 +506,6 @@ class Carbon extends DateTime implements JsonSerializable
     protected static $utf8 = false;
 
     /**
-     * Add microseconds to now on PHP < 7.1 and 7.1.3. true by default.
-     *
-     * @var bool
-     */
-    protected static $microsecondsFallback = true;
-
-    /**
      * Indicates if months should be calculated with overflow.
      *
      * @var bool
@@ -563,28 +556,6 @@ class Carbon extends DateTime implements JsonSerializable
     public static function getHumanDiffOptions()
     {
         return static::$humanDiffOptions;
-    }
-
-    /**
-     * Add microseconds to now on PHP < 7.1 and 7.1.3 if set to true,
-     * let microseconds to 0 on those PHP versions if false.
-     *
-     * @param bool $microsecondsFallback
-     */
-    public static function useMicrosecondsFallback($microsecondsFallback = true)
-    {
-        static::$microsecondsFallback = $microsecondsFallback;
-    }
-
-    /**
-     * Return true if microseconds fallback on PHP < 7.1 and 7.1.3 is
-     * enabled. false if disabled.
-     *
-     * @return bool
-     */
-    public static function isMicrosecondsFallbackEnabled()
-    {
-        return static::$microsecondsFallback;
     }
 
     /**
@@ -672,7 +643,7 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         if (is_numeric($object)) {
-            $tzName = timezone_name_from_abbr(null, $object * 3600, true);
+            $tzName = timezone_name_from_abbr(null, floatval($object) * 3600, true);
 
             if ($tzName === false) {
                 throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
@@ -1253,7 +1224,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|int|\DateTimeZone
+     * @return string|int|bool|\DateTimeZone
      */
     public function __get($name)
     {
@@ -2659,7 +2630,6 @@ class Carbon extends DateTime implements JsonSerializable
      * Check if the instance is start of day / midnight.
      *
      * @param bool $checkMicroseconds check time at microseconds precision
-     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
      *
      * @return bool
      */
@@ -2674,7 +2644,6 @@ class Carbon extends DateTime implements JsonSerializable
      * Check if the instance is end of day.
      *
      * @param bool $checkMicroseconds check time at microseconds precision
-     *                                /!\ Warning, this is not reliable with PHP < 7.1.4
      *
      * @return bool
      */
@@ -3224,7 +3193,7 @@ class Carbon extends DateTime implements JsonSerializable
             }
             // Some langs have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            $count = isset($count) ? $count : 1;
+            $count = $count ?: 1;
             if ($key !== static::translator()->transChoice($key, $count)) {
                 $time = static::translator()->transChoice($key, $count, [':count' => $count]);
             }

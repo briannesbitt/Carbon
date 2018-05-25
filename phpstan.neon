@@ -3,7 +3,6 @@ parameters:
 		- '#^Call to an undefined static method#'
 		- '#^Static call to instance method#'
 		- '#^Method Carbon\\Carbon::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-		- '#^Static method DateTime::__set_state\(\) invoked with 1 parameter, 0 required\.#'
 	excludes_analyse:
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'

@@ -739,6 +739,13 @@ class IsTest extends AbstractTestCase
 
     public function testIsStartOfDay()
     {
+        $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay(false));
+        $this->assertTrue(Carbon::parse('00:00:00.999999')->isStartOfDay(false));
+        $this->assertTrue(Carbon::now()->startOfDay()->isStartOfDay(false));
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isStartOfDay(false));
+        $this->assertFalse(Carbon::now()->endOfDay()->isStartOfDay(false));
+
         $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay());
         $this->assertTrue(Carbon::parse('00:00:00.999999')->isStartOfDay());
         $this->assertTrue(Carbon::now()->startOfDay()->isStartOfDay());
@@ -757,6 +764,13 @@ class IsTest extends AbstractTestCase
 
     public function testIsEndOfDay()
     {
+        $this->assertTrue(Carbon::parse('23:59:59')->isEndOfDay(false));
+        $this->assertTrue(Carbon::parse('23:59:59.000000')->isEndOfDay(false));
+        $this->assertTrue(Carbon::now()->endOfDay()->isEndOfDay(false));
+
+        $this->assertFalse(Carbon::parse('15:30:45')->isEndOfDay(false));
+        $this->assertFalse(Carbon::now()->startOfDay()->isEndOfDay(false));
+
         $this->assertTrue(Carbon::parse('23:59:59')->isEndOfDay());
         $this->assertTrue(Carbon::parse('23:59:59.000000')->isEndOfDay());
         $this->assertTrue(Carbon::now()->endOfDay()->isEndOfDay());

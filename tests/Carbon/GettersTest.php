@@ -78,8 +78,6 @@ class GettersTest extends AbstractTestCase
         $now = Carbon::getTestNow();
         Carbon::setTestNow(null);
 
-        $this->assertTrue(Carbon::isMicrosecondsFallbackEnabled());
-
         $start = microtime(true);
         usleep(10000);
         $d = Carbon::now();
@@ -89,22 +87,6 @@ class GettersTest extends AbstractTestCase
 
         $this->assertGreaterThan($start, $microTime);
         $this->assertLessThan($end, $microTime);
-
-        Carbon::useMicrosecondsFallback(false);
-
-        $this->assertFalse(Carbon::isMicrosecondsFallbackEnabled());
-        $start = microtime(true);
-        usleep(10000);
-        $d = Carbon::now();
-        usleep(10000);
-        $end = microtime(true);
-        $microTime = $d->getTimestamp() + $d->micro / 1000000;
-
-        $this->assertGreaterThan($start, $microTime);
-        $this->assertLessThan($end, $microTime);
-
-        Carbon::useMicrosecondsFallback();
-        $this->assertTrue(Carbon::isMicrosecondsFallbackEnabled());
 
         Carbon::setTestNow($now);
     }

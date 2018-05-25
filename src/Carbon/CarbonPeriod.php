@@ -221,9 +221,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return static
      */
-    public static function create()
+    public static function create(...$params)
     {
-        return static::createFromArray(func_get_args());
+        return static::createFromArray($params);
     }
 
     /**
@@ -235,10 +235,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public static function createFromArray(array $params)
     {
-        // PHP 5.3 equivalent of new static(...$params).
-        $reflection = new ReflectionClass(get_class());
-
-        return $reflection->newInstanceArgs($params);
+        return new static(...$params);
     }
 
     /**
