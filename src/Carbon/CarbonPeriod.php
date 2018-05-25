@@ -20,7 +20,6 @@ use DateTimeInterface;
 use InvalidArgumentException;
 use Iterator;
 use ReflectionClass;
-use ReflectionFunction;
 use ReflectionMethod;
 use RuntimeException;
 
@@ -421,10 +420,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public static function __callStatic($method, $parameters)
     {
-        return call_user_func_array(
-            [new static, $method],
-            $parameters
-        );
+        return (new static)->$method(...$parameters);
     }
 
     /**
@@ -432,11 +428,10 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @throws InvalidArgumentException
      */
-    public function __construct()
+    public function __construct(...$arguments)
     {
         // Parse and assign arguments one by one. First argument may be an ISO 8601 spec,
         // which will be first parsed into parts and then processed the same way.
-        $arguments = func_get_args();
 
         if (count($arguments) && static::isIso8601($iso = $arguments[0])) {
             array_splice($arguments, 0, 1, static::parseIso8601($iso));
@@ -877,7 +872,7 @@ class CarbonPeriod implements Iterator, Countable
      * @param \Carbon\Carbon $current
      * @param int            $key
      *
-     * @return bool|static::END_ITERATION
+     * @return bool|string
      */
     protected function filterRecurrences($current, $key)
     {
@@ -953,7 +948,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @param \Carbon\Carbon $current
      *
-     * @return bool|static::END_ITERATION
+     * @return bool|string
      */
     protected function filterEndDate($current)
     {
@@ -994,7 +989,7 @@ class CarbonPeriod implements Iterator, Countable
      * Returns true when current date is valid, false if it is not, or static::END_ITERATION
      * when iteration should be stopped.
      *
-     * @return bool|static::END_ITERATION
+     * @return bool|string
      */
     protected function validateCurrentDate()
     {
@@ -1013,7 +1008,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Check whether current value and key pass all the filters.
      *
-     * @return bool|static::END_ITERATION
+     * @return bool|string
      */
     protected function checkFilters()
     {
@@ -1299,23 +1294,8 @@ class CarbonPeriod implements Iterator, Countable
     {
         $macro = static::$macros[$name];
 
-        $reflection = new ReflectionFunction($macro);
-
-        $reflectionParameters = $reflection->getParameters();
-
-        $expectedCount = count($reflectionParameters);
-        $actualCount = count($parameters);
-
-        if ($expectedCount > $actualCount && $reflectionParameters[$expectedCount - 1]->name === 'self') {
-            for ($i = $actualCount; $i < $expectedCount - 1; $i++) {
-                $parameters[] = $reflectionParameters[$i]->getDefaultValue();
-            }
-
-            $parameters[] = $this;
-        }
-
-        if ($macro instanceof Closure && method_exists($macro, 'bindTo')) {
-            $macro = $macro->bindTo($this, get_class($this));
+        if ($macro instanceof Closure) {
+            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
         }
 
         return call_user_func_array($macro, $parameters);

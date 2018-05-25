@@ -2921,7 +2921,7 @@ class Carbon extends DateTime implements JsonSerializable
 
         $period = new DatePeriod($start, $ci, $end);
         $values = array_filter(iterator_to_array($period), function ($date) use ($callback) {
-            return call_user_func($callback, Carbon::instance($date));
+            return $callback(Carbon::instance($date));
         });
 
         $diff = count($values);
@@ -3786,8 +3786,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public static function mixin($mixin)
     {
-        $reflection = new \ReflectionClass($mixin);
-        $methods = $reflection->getMethods(
+        $methods = (new \ReflectionClass($mixin))->getMethods(
             \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
         );
 
@@ -3813,8 +3812,8 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Dynamically handle calls to the class.
      *
-     * @param string $method
-     * @param array  $parameters
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
      *
      * @throws \BadMethodCallException
      *
@@ -3823,10 +3822,12 @@ class Carbon extends DateTime implements JsonSerializable
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new \BadMethodCallException("Method $method does not exist.");
+            throw new \BadMethodCallException(sprintf(
+                'Method %s::%s does not exist.', static::class, $method
+            ));
         }
 
-        if (static::$localMacros[$method] instanceof Closure && method_exists('Closure', 'bind')) {
+        if (static::$localMacros[$method] instanceof Closure) {
             return call_user_func_array(Closure::bind(static::$localMacros[$method], null, get_called_class()), $parameters);
         }
 
@@ -3989,19 +3990,8 @@ class Carbon extends DateTime implements JsonSerializable
 
         $macro = static::$localMacros[$method];
 
-        $reflexion = new \ReflectionFunction($macro);
-        $reflectionParameters = $reflexion->getParameters();
-        $expectedCount = count($reflectionParameters);
-        $actualCount = count($parameters);
-        if ($expectedCount > $actualCount && $reflectionParameters[$expectedCount - 1]->name === 'self') {
-            for ($i = $actualCount; $i < $expectedCount - 1; $i++) {
-                $parameters[] = $reflectionParameters[$i]->getDefaultValue();
-            }
-            $parameters[] = $this;
-        }
-
-        if ($macro instanceof Closure && method_exists($macro, 'bindTo')) {
-            return call_user_func_array($macro->bindTo($this, get_class($this)), $parameters);
+        if ($macro instanceof Closure) {
+            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
         }
 
         return call_user_func_array($macro, $parameters);

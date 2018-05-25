@@ -45,7 +45,7 @@ class MacroTest extends AbstractTestCase
 
     public function testCarbonIsMacroableWhenNotCalledStatically()
     {
-        Carbon::macro('diffFromEaster', function ($year = 2019, $self = null) {
+        Carbon::macro('diffFromEaster', function ($year = 2019) {
             $instance = Carbon::create($year);
 
             $a = $instance->year % 19;
@@ -65,7 +65,7 @@ class MacroTest extends AbstractTestCase
 
             $instance->month($month)->day($day);
 
-            return $self->diff($instance);
+            return $this->diff($instance);
         });
 
         $this->assertSame(1020, $this->now->diffFromEaster(2020)->days);
@@ -155,7 +155,7 @@ class MacroTest extends AbstractTestCase
 
     /**
      * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method nonExistingStaticMacro does not exist.
+     * @expectedExceptionMessage Method Carbon\Carbon::nonExistingStaticMacro does not exist.
      */
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
     {

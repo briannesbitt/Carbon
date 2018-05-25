@@ -15,7 +15,6 @@ use Closure;
 use DateInterval;
 use InvalidArgumentException;
 use ReflectionClass;
-use ReflectionFunction;
 use ReflectionMethod;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -327,16 +326,16 @@ class CarbonInterval extends DateInterval
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
      *
-     * @param string $name
-     * @param array  $args
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
      *
      * @return static
      */
-    public static function __callStatic($name, $args)
+    public static function __callStatic($method, $parameters)
     {
-        $arg = count($args) === 0 ? 1 : $args[0];
+        $arg = count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch ($name) {
+        switch ($method) {
             case 'years':
             case 'year':
                 return new static($arg);
@@ -367,11 +366,8 @@ class CarbonInterval extends DateInterval
                 return new static(null, null, null, null, null, null, $arg);
         }
 
-        if (static::hasMacro($name)) {
-            return call_user_func_array(
-                [new static(0), $name],
-                $args
-            );
+        if (static::hasMacro($method)) {
+            return (new static(0))->$method(...$parameters);
         }
     }
 
@@ -757,23 +753,8 @@ class CarbonInterval extends DateInterval
     {
         $macro = static::$macros[$name];
 
-        $reflection = new ReflectionFunction($macro);
-
-        $reflectionParameters = $reflection->getParameters();
-
-        $expectedCount = count($reflectionParameters);
-        $actualCount = count($parameters);
-
-        if ($expectedCount > $actualCount && $reflectionParameters[$expectedCount - 1]->name === 'self') {
-            for ($i = $actualCount; $i < $expectedCount - 1; $i++) {
-                $parameters[] = $reflectionParameters[$i]->getDefaultValue();
-            }
-
-            $parameters[] = $this;
-        }
-
-        if ($macro instanceof Closure && method_exists($macro, 'bindTo')) {
-            $macro = $macro->bindTo($this, get_class($this));
+        if ($macro instanceof Closure) {
+            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
         }
 
         return call_user_func_array($macro, $parameters);
@@ -785,20 +766,20 @@ class CarbonInterval extends DateInterval
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
      *
-     * @param string $name
-     * @param array  $args
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
      *
      * @return static
      */
-    public function __call($name, $args)
+    public function __call($method, $parameters)
     {
-        if (static::hasMacro($name)) {
-            return $this->callMacro($name, $args);
+        if (static::hasMacro($method)) {
+            return $this->callMacro($method, $parameters);
         }
 
-        $arg = count($args) === 0 ? 1 : $args[0];
+        $arg = count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch ($name) {
+        switch ($method) {
             case 'years':
             case 'year':
                 $this->years = $arg;
@@ -884,11 +865,9 @@ class CarbonInterval extends DateInterval
      *
      * @return CarbonPeriod
      */
-    public function toPeriod()
+    public function toPeriod(...$params)
     {
-        return CarbonPeriod::createFromArray(
-            array_merge([$this], func_get_args())
-        );
+        return CarbonPeriod::create($this, ...$params);
     }
 
     /**
