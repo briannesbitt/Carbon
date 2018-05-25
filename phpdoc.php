@@ -4,6 +4,7 @@ $tags = [
     'property',
     'property-read',
     PHP_EOL,
+    ['call', 'isDayOfWeek'],
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
     ['call', 'addUnit'],
@@ -45,6 +46,11 @@ foreach ($tags as $tag) {
         $vars->description = $vars->description ?: $vars->description2;
         if ($tag === 'call') {
             switch ($vars->type) {
+                case 'isDayOfWeek':
+                    $autoDoc .= "\n * @method bool is".
+                        ucFirst($vars->name).'() '.
+                        'Checks if the instance day is '.strtolower($vars->name).'.';
+                    break;
                 case 'isSameUnit':
                     $unit = $vars->name;
                     $method = 'isSame'.ucFirst($unit);

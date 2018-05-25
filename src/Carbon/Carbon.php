@@ -56,6 +56,13 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read \DateTimeZone $timezoneName the current timezone name
  * @property-read \DateTimeZone $tzName alias of $timezoneName
  *
+ * @method bool isSunday() Checks if the instance day is sunday.
+ * @method bool isMonday() Checks if the instance day is monday.
+ * @method bool isTuesday() Checks if the instance day is tuesday.
+ * @method bool isWednesday() Checks if the instance day is wednesday.
+ * @method bool isThursday() Checks if the instance day is thursday.
+ * @method bool isFriday() Checks if the instance day is friday.
+ * @method bool isSaturday() Checks if the instance day is saturday.
  * @method bool isCurrentMonth() Checks if the instance is in the same month as the current moment.
  * @method bool isCurrentQuarter() Checks if the instance is in the same quarter as the current moment.
  * @method bool isSameDecade(\DateTimeInterface $date = null) Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
@@ -311,12 +318,19 @@ class Carbon extends DateTime implements JsonSerializable
      * @var array
      */
     protected static $days = [
+        // @call isDayOfWeek
         self::SUNDAY => 'Sunday',
+        // @call isDayOfWeek
         self::MONDAY => 'Monday',
+        // @call isDayOfWeek
         self::TUESDAY => 'Tuesday',
+        // @call isDayOfWeek
         self::WEDNESDAY => 'Wednesday',
+        // @call isDayOfWeek
         self::THURSDAY => 'Thursday',
+        // @call isDayOfWeek
         self::FRIDAY => 'Friday',
+        // @call isDayOfWeek
         self::SATURDAY => 'Saturday',
     ];
 
@@ -2620,76 +2634,6 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Checks if this day is a Sunday.
-     *
-     * @return bool
-     */
-    public function isSunday()
-    {
-        return $this->dayOfWeek === static::SUNDAY;
-    }
-
-    /**
-     * Checks if this day is a Monday.
-     *
-     * @return bool
-     */
-    public function isMonday()
-    {
-        return $this->dayOfWeek === static::MONDAY;
-    }
-
-    /**
-     * Checks if this day is a Tuesday.
-     *
-     * @return bool
-     */
-    public function isTuesday()
-    {
-        return $this->dayOfWeek === static::TUESDAY;
-    }
-
-    /**
-     * Checks if this day is a Wednesday.
-     *
-     * @return bool
-     */
-    public function isWednesday()
-    {
-        return $this->dayOfWeek === static::WEDNESDAY;
-    }
-
-    /**
-     * Checks if this day is a Thursday.
-     *
-     * @return bool
-     */
-    public function isThursday()
-    {
-        return $this->dayOfWeek === static::THURSDAY;
-    }
-
-    /**
-     * Checks if this day is a Friday.
-     *
-     * @return bool
-     */
-    public function isFriday()
-    {
-        return $this->dayOfWeek === static::FRIDAY;
-    }
-
-    /**
-     * Checks if this day is a Saturday.
-     *
-     * @return bool
-     */
-    public function isSaturday()
-    {
-        return $this->dayOfWeek === static::SATURDAY;
-    }
-
-    /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
@@ -3991,6 +3935,13 @@ class Carbon extends DateTime implements JsonSerializable
         ];
 
         $unit = rtrim($method, 's');
+        if (substr($unit, 0, 2) === 'is') {
+            $day = substr($unit, 2);
+            if (in_array($day, static::$days)) {
+                return $this->isDayOfWeek($day);
+            }
+        }
+
         $action = substr($unit, 0, 3);
         $overflow = null;
         if ($action === 'set') {
