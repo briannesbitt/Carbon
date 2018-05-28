@@ -504,6 +504,16 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
+     * Returns iteration item date class.
+     *
+     * @return string
+     */
+    public function getDateClass(): string
+    {
+        return $this->dateClass;
+    }
+
+    /**
      * Change the period date interval.
      *
      * @param DateInterval|string $interval

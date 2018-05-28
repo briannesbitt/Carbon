@@ -227,6 +227,37 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isSameYear(Carbon::now()->subYear()));
     }
 
+    public function testIsCurrentDecadeTrue()
+    {
+        $this->assertTrue(Carbon::now()->isCurrentDecade());
+    }
+
+    public function testIsCurrentDecadeFalse()
+    {
+        $this->assertFalse(Carbon::now()->subDecade()->isCurrentDecade());
+    }
+
+    public function testIsSameDecadeTrue()
+    {
+        $this->assertTrue(Carbon::now()->isSameDecade(Carbon::now()));
+        $this->assertTrue(Carbon::now()->isSameUnit('millennium', Carbon::now()));
+    }
+
+    public function testIsSameDecadeFalse()
+    {
+        $this->assertFalse(Carbon::now()->isSameDecade(Carbon::now()->subDecade()));
+        $this->assertFalse(Carbon::now()->isSameUnit('millennium', Carbon::now()->subMillennia(2)));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Bad comparison unit: 'foobar'
+     */
+    public function testIsSameFoobar()
+    {
+        Carbon::now()->isSameUnit('foobar', Carbon::now()->subMillennium());
+    }
+
     public function testIsCurrentQuarterTrue()
     {
         $this->assertTrue(Carbon::now()->isCurrentQuarter());

@@ -1290,26 +1290,26 @@ trait Date
             // @property-read int the century of this instance
             // @call isSameUnit
             case $name === 'century':
-                $factor = 0;
+                $factor = 1;
                 $year = $this->year;
                 if ($year < 0) {
                     $year = -$year;
                     $factor = -1;
                 }
 
-                return (int) $factor * ceil($year / static::YEARS_PER_CENTURY);
+                return (int) ($factor * ceil($year / static::YEARS_PER_CENTURY));
 
             // @property-read int the millennium of this instance
             // @call isSameUnit
             case $name === 'millennium':
-                $factor = 0;
+                $factor = 1;
                 $year = $this->year;
                 if ($year < 0) {
                     $year = -$year;
                     $factor = -1;
                 }
 
-                return (int) $factor * ceil($year / static::YEARS_PER_MILLENNIUM);
+                return (int) ($factor * ceil($year / static::YEARS_PER_MILLENNIUM));
 
             // @property-read int the timezone offset in seconds from UTC
             case $name === 'offset':

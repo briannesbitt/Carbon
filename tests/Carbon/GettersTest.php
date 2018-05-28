@@ -24,6 +24,52 @@ class GettersTest extends AbstractTestCase
         Carbon::create(1234, 5, 6, 7, 8, 9)->doesNotExit;
     }
 
+    public function testMillenniumGetter()
+    {
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $this->assertSame(2, $d->millennium);
+        $d = Carbon::create(2000, 5, 6, 7, 8, 9);
+        $this->assertSame(2, $d->millennium);
+        $d = Carbon::create(2001, 5, 6, 7, 8, 9);
+        $this->assertSame(3, $d->millennium);
+        $d = Carbon::create(1, 5, 6, 7, 8, 9);
+        $this->assertSame(1, $d->millennium);
+        $d = Carbon::create(-1, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->millennium);
+        $d = Carbon::create(-100, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->millennium);
+        $d = Carbon::create(-101, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->millennium);
+        $d = Carbon::create(-1000, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->millennium);
+        $d = Carbon::create(-1001, 5, 6, 7, 8, 9);
+        $this->assertSame(-2, $d->millennium);
+    }
+
+    public function testCenturyGetter()
+    {
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $this->assertSame(13, $d->century);
+        $d = Carbon::create(2000, 5, 6, 7, 8, 9);
+        $this->assertSame(20, $d->century);
+        $d = Carbon::create(2001, 5, 6, 7, 8, 9);
+        $this->assertSame(21, $d->century);
+        $d = Carbon::create(1, 5, 6, 7, 8, 9);
+        $this->assertSame(1, $d->century);
+        $d = Carbon::create(-1, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->century);
+        $d = Carbon::create(-100, 5, 6, 7, 8, 9);
+        $this->assertSame(-1, $d->century);
+        $d = Carbon::create(-101, 5, 6, 7, 8, 9);
+        $this->assertSame(-2, $d->century);
+    }
+
+    public function testDecadeGetter()
+    {
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $this->assertSame(124, $d->decade);
+    }
+
     public function testYearGetter()
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
