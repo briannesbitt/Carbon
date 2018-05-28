@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 class JsonSerializationTest extends AbstractTestCase
 {
     /**
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonImmutable
      */
     protected $now;
 

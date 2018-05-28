@@ -17,7 +17,7 @@ use Tests\AbstractTestCase;
 class AddMonthsTest extends AbstractTestCase
 {
     /**
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonImmutable
      */
     private $carbon;
 

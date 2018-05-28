@@ -334,4 +334,432 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @var string
      */
     public const MOCK_DATETIME_FORMAT = 'Y-m-d H:i:s.u';
+
+    // <methods>
+
+    public static function isMutable();
+
+    public function __construct($time, $tz);
+
+    public static function __set_state($array);
+
+    public static function createFromFormat($format, $time, $tz);
+
+    public static function getLastErrors();
+
+    public function modify($modify);
+
+    public function add($interval);
+
+    public function sub($interval);
+
+    public function setTimezone($value);
+
+    public function setTime($hour, $minute, $second, $microseconds);
+
+    public function setDate($year, $month, $day);
+
+    public function setISODate($year, $week, $day);
+
+    public function setTimestamp($unixtimestamp);
+
+    public static function isImmutable();
+
+    public static function setHumanDiffOptions($humanDiffOptions);
+
+    public static function enableHumanDiffOption($humanDiffOption);
+
+    public static function disableHumanDiffOption($humanDiffOption);
+
+    public static function getHumanDiffOptions();
+
+    public static function useMonthsOverflow($monthsOverflow = 1);
+
+    public static function resetMonthsOverflow();
+
+    public static function shouldOverflowMonths();
+
+    public static function useYearsOverflow($yearsOverflow = 1);
+
+    public static function resetYearsOverflow();
+
+    public static function shouldOverflowYears();
+
+    public static function instance($date);
+
+    public static function parse($time, $tz);
+
+    public static function now($tz);
+
+    public static function today($tz);
+
+    public static function tomorrow($tz);
+
+    public static function yesterday($tz);
+
+    public static function maxValue();
+
+    public static function minValue();
+
+    public static function create($year, $month, $day, $hour, $minute, $second, $tz);
+
+    public static function createSafe($year, $month, $day, $hour, $minute, $second, $tz);
+
+    public static function createFromDate($year, $month, $day, $tz);
+
+    public static function createMidnightDate($year, $month, $day, $tz);
+
+    public static function createFromTime($hour, $minute, $second, $tz);
+
+    public static function createFromTimeString($time, $tz);
+
+    public static function createFromTimestamp($timestamp, $tz);
+
+    public static function createFromTimestampMs($timestamp, $tz);
+
+    public static function createFromTimestampUTC($timestamp);
+
+    public static function make($var);
+
+    public function copy();
+
+    public function nowWithSameTz();
+
+    public function __get($name);
+
+    public function __isset($name);
+
+    public function __set($name, $value);
+
+    public function setDateTime($year, $month, $day, $hour, $minute, $second);
+
+    public function setTimeFromTimeString($time);
+
+    public function timestamp($value);
+
+    public function timezone($value);
+
+    public function tz($value);
+
+    public function setDateFrom($date);
+
+    public function setTimeFrom($date);
+
+    public static function getDays();
+
+    public static function getWeekStartsAt();
+
+    public static function setWeekStartsAt($day);
+
+    public static function getWeekEndsAt();
+
+    public static function setWeekEndsAt($day);
+
+    public static function getWeekendDays();
+
+    public static function setWeekendDays($days);
+
+    public static function getMidDayAt();
+
+    public static function setMidDayAt($hour);
+
+    public static function setTestNow($testNow);
+
+    public static function getTestNow();
+
+    public static function hasTestNow();
+
+    public static function hasRelativeKeywords($time);
+
+    public static function getTranslator();
+
+    public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+
+    public static function getLocale();
+
+    public static function setLocale($locale);
+
+    public static function setUtf8($utf8);
+
+    public function formatLocalized($format);
+
+    public static function resetToStringFormat();
+
+    public static function setToStringFormat($format);
+
+    public function __toString();
+
+    public function toDateString();
+
+    public function toFormattedDateString();
+
+    public function toTimeString();
+
+    public function toDateTimeString();
+
+    public function toDayDateTimeString();
+
+    public function toAtomString();
+
+    public function toCookieString();
+
+    public function toIso8601String();
+
+    public function toRfc822String();
+
+    public function toIso8601ZuluString();
+
+    public function toRfc850String();
+
+    public function toRfc1036String();
+
+    public function toRfc1123String();
+
+    public function toRfc2822String();
+
+    public function toRfc3339String();
+
+    public function toRssString();
+
+    public function toW3cString();
+
+    public function toRfc7231String();
+
+    public function toArray();
+
+    public function eq($date);
+
+    public function equalTo($date);
+
+    public function ne($date);
+
+    public function notEqualTo($date);
+
+    public function gt($date);
+
+    public function greaterThan($date);
+
+    public function gte($date);
+
+    public function greaterThanOrEqualTo($date);
+
+    public function lt($date);
+
+    public function lessThan($date);
+
+    public function lte($date);
+
+    public function lessThanOrEqualTo($date);
+
+    public function between($date1, $date2, $equal = 1);
+
+    public function closest($date1, $date2);
+
+    public function farthest($date1, $date2);
+
+    public function min($date);
+
+    public function minimum($date);
+
+    public function max($date);
+
+    public function maximum($date);
+
+    public function isWeekday();
+
+    public function isWeekend();
+
+    public function isYesterday();
+
+    public function isToday();
+
+    public function isTomorrow();
+
+    public function isNextWeek();
+
+    public function isLastWeek();
+
+    public function isNextQuarter();
+
+    public function isLastQuarter();
+
+    public function isNextMonth();
+
+    public function isLastMonth();
+
+    public function isNextYear();
+
+    public function isLastYear();
+
+    public function isFuture();
+
+    public function isPast();
+
+    public function isLeapYear();
+
+    public function isLongYear();
+
+    public function isSameAs($format, $date);
+
+    public function isSameUnit($unit, $date);
+
+    public function isCurrentUnit($unit);
+
+    public function isSameQuarter($date, $ofSameYear = 1);
+
+    public function isSameMonth($date, $ofSameYear = 1);
+
+    public function isDayOfWeek($dayOfWeek);
+
+    public function isBirthday($date);
+
+    public function isLastOfMonth();
+
+    public function isStartOfDay($checkMicroseconds);
+
+    public function isEndOfDay($checkMicroseconds);
+
+    public function isMidnight();
+
+    public function isMidday();
+
+    public static function hasFormat($date, $format);
+
+    public function addRealUnit($unit, $value = 1);
+
+    public function subRealUnit($unit, $value = 1);
+
+    public function addUnit($unit, $value = 1, $overflow);
+
+    public function subUnit($unit, $value = 1, $overflow);
+
+    public function diffAsCarbonInterval($date, $absolute = 1);
+
+    public function diffInYears($date, $absolute = 1);
+
+    public function diffInMonths($date, $absolute = 1);
+
+    public function diffInWeeks($date, $absolute = 1);
+
+    public function diffInDays($date, $absolute = 1);
+
+    public function diffInDaysFiltered(\Closure $callback, $date, $absolute = 1);
+
+    public function diffInHoursFiltered(\Closure $callback, $date, $absolute = 1);
+
+    public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date, $absolute = 1);
+
+    public function diffInWeekdays($date, $absolute = 1);
+
+    public function diffInWeekendDays($date, $absolute = 1);
+
+    public function diffInHours($date, $absolute = 1);
+
+    public function diffInRealHours($date, $absolute = 1);
+
+    public function diffInMinutes($date, $absolute = 1);
+
+    public function diffInRealMinutes($date, $absolute = 1);
+
+    public function diffInSeconds($date, $absolute = 1);
+
+    public function diffInRealSeconds($date, $absolute = 1);
+
+    public function secondsSinceMidnight();
+
+    public function secondsUntilEndOfDay();
+
+    public function diffForHumans($other, $absolute, $short, $parts = 1);
+
+    public function startOfDay();
+
+    public function endOfDay();
+
+    public function startOfMonth();
+
+    public function endOfMonth();
+
+    public function startOfQuarter();
+
+    public function endOfQuarter();
+
+    public function startOfYear();
+
+    public function endOfYear();
+
+    public function startOfDecade();
+
+    public function endOfDecade();
+
+    public function startOfCentury();
+
+    public function endOfCentury();
+
+    public function startOfWeek();
+
+    public function endOfWeek();
+
+    public function startOfHour();
+
+    public function endOfHour();
+
+    public function startOfMinute();
+
+    public function endOfMinute();
+
+    public function midDay();
+
+    public function next($dayOfWeek);
+
+    public function nextWeekday();
+
+    public function previousWeekday();
+
+    public function nextWeekendDay();
+
+    public function previousWeekendDay();
+
+    public function previous($dayOfWeek);
+
+    public function firstOfMonth($dayOfWeek);
+
+    public function lastOfMonth($dayOfWeek);
+
+    public function nthOfMonth($nth, $dayOfWeek);
+
+    public function firstOfQuarter($dayOfWeek);
+
+    public function lastOfQuarter($dayOfWeek);
+
+    public function nthOfQuarter($nth, $dayOfWeek);
+
+    public function firstOfYear($dayOfWeek);
+
+    public function lastOfYear($dayOfWeek);
+
+    public function nthOfYear($nth, $dayOfWeek);
+
+    public function average($date);
+
+    public function serialize();
+
+    public static function fromSerialized($value);
+
+    public function jsonSerialize();
+
+    public static function serializeUsing($callback);
+
+    public static function macro($name, $macro);
+
+    public static function mixin($mixin);
+
+    public static function hasMacro($name);
+
+    public static function __callStatic($method, $parameters);
+
+    public function setUnit($unit, $value);
+
+    public function __call($method, $parameters);
+
+    // </methods>
 }

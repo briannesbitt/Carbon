@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @var \Carbon\Carbon
+     * @var \Carbon\CarbonInterface
      */
     protected $now;
 

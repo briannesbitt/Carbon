@@ -177,6 +177,38 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
     }, $content, 1);
 }
 
+$methods = '';
+foreach (get_class_methods(\Carbon\Carbon::class) as $method) {
+    if (method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
+        $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
+        $static = $function->isStatic() ? ' static' : '';
+        $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
+            $output = '$'.$parameter->getName();
+            if ($parameter->getType()) {
+                $name = $parameter->getType()->getName();
+                if (preg_match('/^[A-Z]/', $name)) {
+                    $name = "\\$name";
+                }
+                $output = "$name $output";
+            }
+            try {
+                if ($parameter->getDefaultValue()) {
+                    $output .= ' = '.$parameter->getDefaultValue();
+                }
+            } catch (\ReflectionException $exp) {
+            }
+
+            return $output;
+        }, $function->getParameters()));
+        $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
+        $methods .= "\n\n    public$static function $method($parameters)$return;";
+    }
+}
+
+$files->$interface = preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
+    return $matches[1]."$methods\n\n    // ".$matches[3];
+}, $files->$interface, 1);
+
 foreach ([$trait, $carbon, $immutable, $interface] as $file) {
     file_put_contents($file, $files->$file);
 }

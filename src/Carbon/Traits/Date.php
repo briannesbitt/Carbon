@@ -421,7 +421,7 @@ trait Date
     /**
      * A test Carbon instance to be returned when now instances are created.
      *
-     * @var \Carbon\Carbon
+     * @var static
      */
     protected static $testNow;
 
@@ -3449,7 +3449,7 @@ trait Date
      * @param bool $weekday
      * @param bool $forward
      *
-     * @return $this
+     * @return static
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
@@ -3467,7 +3467,7 @@ trait Date
     /**
      * Go forward to the next weekday.
      *
-     * @return $this
+     * @return static
      */
     public function nextWeekday()
     {
@@ -3477,7 +3477,7 @@ trait Date
     /**
      * Go backward to the previous weekday.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekday()
     {
@@ -3487,7 +3487,7 @@ trait Date
     /**
      * Go forward to the next weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function nextWeekendDay()
     {
@@ -3497,7 +3497,7 @@ trait Date
     /**
      * Go backward to the previous weekend day.
      *
-     * @return $this
+     * @return static
      */
     public function previousWeekendDay()
     {
