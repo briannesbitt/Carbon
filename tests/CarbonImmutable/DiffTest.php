@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Carbon;
+namespace Tests\CarbonImmutable;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Closure;
@@ -295,7 +295,7 @@ class DiffTest extends AbstractTestCase
     public function testBug188DiffWithDatesOnTheWeekend()
     {
         $start = Carbon::create(2014, 1, 1, 0, 0, 0);
-        $start->next(Carbon::SATURDAY);
+        $start = $start->next(Carbon::SATURDAY);
         $end = $start->copy()->addDay();
 
         $this->assertSame(1, $start->diffInDays($end));

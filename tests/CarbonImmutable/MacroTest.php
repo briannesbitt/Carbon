@@ -9,12 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Carbon;
+namespace Tests\CarbonImmutable;
 
-use Carbon\Carbon;
-use DateTime;
+use Carbon\CarbonImmutable as Carbon;
 use Tests\AbstractTestCase;
-use Tests\Carbon\Fixtures\Mixin;
+use Tests\CarbonImmutable\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCase
 {
@@ -38,12 +37,6 @@ class MacroTest extends AbstractTestCase
         parent::tearDown();
     }
 
-    public function testInstance()
-    {
-        $this->assertInstanceOf(DateTime::class, $this->now);
-        $this->assertInstanceOf(Carbon::class, $this->now);
-    }
-
     public function testCarbonIsMacroableWhenNotCalledStatically()
     {
         Carbon::macro('diffFromEaster', function ($year = 2019) {
@@ -64,7 +57,7 @@ class MacroTest extends AbstractTestCase
             $month = floor(($h + $l - 7 * $m + 114) / 31);
             $day = (($h + $l - 7 * $m + 114) % 31) + 1;
 
-            $instance->month($month)->day($day);
+            $instance = $instance->month($month)->day($day);
 
             return $this->diff($instance);
         });
@@ -99,7 +92,7 @@ class MacroTest extends AbstractTestCase
             $month = floor(($h + $l - 7 * $m + 114) / 31);
             $day = (($h + $l - 7 * $m + 114) % 31) + 1;
 
-            $instance->month($month)->day($day);
+            $instance = $instance->month($month)->day($day);
 
             return $this->diff($instance);
         });
@@ -127,7 +120,7 @@ class MacroTest extends AbstractTestCase
             $month = floor(($h + $l - 7 * $m + 114) / 31);
             $day = (($h + $l - 7 * $m + 114) % 31) + 1;
 
-            $instance->month($month)->day($day);
+            $instance = $instance->month($month)->day($day);
 
             return $instance;
         });
@@ -137,10 +130,10 @@ class MacroTest extends AbstractTestCase
 
     public function testCarbonIsMacroableWhithNonClosureCallables()
     {
-        Carbon::macro('lower', 'strtolower');
+        Carbon::macro('lower2', 'strtolower');
 
-        $this->assertSame('abc', $this->now->lower('ABC'));
-        $this->assertSame('abc', Carbon::lower('ABC'));
+        $this->assertSame('abc', $this->now->lower2('ABC'));
+        $this->assertSame('abc', Carbon::lower2('ABC'));
     }
 
     public function testCarbonIsMixinable()
@@ -156,7 +149,7 @@ class MacroTest extends AbstractTestCase
 
     /**
      * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method Carbon\Carbon::nonExistingStaticMacro does not exist.
+     * @expectedExceptionMessage Method Carbon\CarbonImmutable::nonExistingStaticMacro does not exist.
      */
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
     {

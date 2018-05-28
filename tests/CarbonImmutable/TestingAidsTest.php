@@ -9,13 +9,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Carbon;
+namespace Tests\CarbonImmutable;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonInterface;
+use Closure;
 use Tests\AbstractTestCase;
 
 class TestingAidsTest extends AbstractTestCase
 {
+    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
+    {
+        Carbon::setTestNow($dt ?: Carbon::now());
+        $func();
+        Carbon::setTestNow();
+    }
+
     public function testTestingAidsWithTestNowNotSet()
     {
         Carbon::setTestNow();

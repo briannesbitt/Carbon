@@ -14,9 +14,9 @@ $maxLength = max(array_map('strlen', array_map(function ($tag) {
     return is_array($tag) ? $tag[0] : $tag;
 }, $tags)));
 $autoDoc = '';
-$carbon = __DIR__.'/src/Carbon/Carbon.php';
-include_once $carbon;
-$code = file_get_contents($carbon);
+include_once __DIR__.'/vendor/autoload.php';
+$trait = __DIR__.'/src/Carbon/Traits/Date.php';
+$code = file_get_contents($trait);
 
 function pluralize($word)
 {
@@ -164,11 +164,19 @@ foreach ($tags as $tag) {
             $variable.$description;
     }
 }
-$doc = "/**
- * A simple API extension for DateTime.
- *$autoDoc
- */";
 
-file_put_contents($carbon, preg_replace_callback('/^\/\*\*\n[\s\S]*\*\//mU', function () use ($doc) {
-    return $doc;
-}, $code, 1));
+$carbon = __DIR__.'/src/Carbon/Carbon.php';
+$immutable = __DIR__.'/src/Carbon/CarbonImmutable.php';
+$interface = __DIR__.'/src/Carbon/CarbonInterface.php';
+$files = new stdClass();
+
+foreach ([$trait, $carbon, $immutable, $interface] as $file) {
+    $content = file_get_contents($file);
+    $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDoc) {
+        return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
+    }, $content, 1);
+}
+
+foreach ([$trait, $carbon, $immutable, $interface] as $file) {
+    file_put_contents($file, $files->$file);
+}

@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Carbon;
+namespace Tests\CarbonImmutable;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable as Carbon;
 use Tests\AbstractTestCase;
 
 class AddMonthsTest extends AbstractTestCase

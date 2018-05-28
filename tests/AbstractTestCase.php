@@ -12,6 +12,8 @@
 namespace Tests;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Closure;
 use DateTime;
@@ -37,6 +39,7 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set('America/Toronto');
 
         Carbon::setTestNow($this->now = Carbon::now());
+        CarbonImmutable::setTestNow($this->now = CarbonImmutable::now());
     }
 
     protected function tearDown()
@@ -44,9 +47,11 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
         Carbon::resetMonthsOverflow();
+        CarbonImmutable::setTestNow();
+        CarbonImmutable::resetMonthsOverflow();
     }
 
-    public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $expected = [
             'years' => $year,
@@ -83,7 +88,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbonTime(CarbonInterface $d, $hour = null, $minute = null, $second = null, $micro = null)
     {
         $actual = [];
 
@@ -114,7 +119,7 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertInstanceOfCarbon($d)
     {
-        $this->assertInstanceOf('Carbon\Carbon', $d);
+        $this->assertInstanceOf(CarbonInterface::class, $d);
     }
 
     public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
@@ -156,7 +161,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertInstanceOf('Carbon\CarbonInterval', $d);
     }
 
-    public function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
     {
         Carbon::setTestNow($dt ?: Carbon::now());
         $func();
