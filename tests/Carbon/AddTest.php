@@ -68,6 +68,31 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, $dt->second);
     }
 
+    public function testAddCustomWeekdays()
+    {
+        $date = Carbon::createMidnightDate(2018, 5, 25);
+
+        $weekendDays = Carbon::getWeekendDays();
+        Carbon::setWeekendDays([
+            Carbon::WEDNESDAY,
+        ]);
+
+        $date->addWeekdays(2);
+        $this->assertSame(27, $date->day);
+        $date->subWeekdays(2);
+        $this->assertSame(25, $date->day);
+        $date->addWeekdays(14);
+        $this->assertSame(10, $date->day);
+        $date->subWeekdays(14);
+        $this->assertSame(25, $date->day);
+        $date->addWeekdays(12);
+        $this->assertSame(8, $date->day);
+        $date->subWeekdays(12);
+        $this->assertSame(25, $date->day);
+
+        Carbon::setWeekendDays($weekendDays);
+    }
+
     public function testAddWeekdaysZero()
     {
         $this->assertSame(4, Carbon::createFromDate(2012, 1, 4)->addWeekdays(0)->day);

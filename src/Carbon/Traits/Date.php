@@ -2853,6 +2853,23 @@ trait Date
         $date = $this;
 
         if ($unit === 'weekday') {
+            $weekendDays = static::getWeekendDays();
+            if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
+                $absoluteValue = abs($value);
+                $sign = $value / max(1, $absoluteValue);
+                $weekDaysCount = 7 - min(6, count(array_unique($weekendDays)));
+                $weeks = floor($absoluteValue / $weekDaysCount);
+                for ($diff = $absoluteValue % $weekDaysCount; $diff; $diff--) {
+                    $date = $date->addDays($sign);
+                    while (in_array($date->dayOfWeek, $weekendDays)) {
+                        $date = $date->addDays($sign);
+                    }
+                }
+
+                $value = $weeks * $sign;
+                $unit = 'week';
+            }
+
             $timeString = $date->toTimeString();
         } elseif ($canOverflow = in_array($unit, [
             'month',
