@@ -154,7 +154,7 @@ class EnTest extends AbstractTestCase
             $d = Carbon::now()->addWeeks(3)->addDays(3);
             $scope->assertSame('3 weeks 3 days', $d->diffForHumans(null, true, false, 2));
 
-            $d = Carbon::now()->addWeeks(2)->addHour(1);
+            $d = Carbon::now()->addWeeks(2)->addHour();
             $scope->assertSame('2 weeks 1 hour', $d->diffForHumans(null, true, false, 2));
         });
     }

@@ -20,6 +20,9 @@
         <testsuite name="carbon">
             <directory>tests/Carbon</directory>
         </testsuite>
+        <testsuite name="immutable">
+            <directory>tests/CarbonImmutable</directory>
+        </testsuite>
         <testsuite name="interval">
             <directory>tests/CarbonInterval</directory>
         </testsuite>

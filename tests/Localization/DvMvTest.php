@@ -93,7 +93,7 @@ class DvMvTest extends AbstractTestCase
             $d = Carbon::now()->addWeeks(3)->addDays(3);
             $scope->assertSame('3 ހަފްތާ 3 ދުވަސް', $d->diffForHumans(null, true, false, 2));
 
-            $d = Carbon::now()->addWeeks(2)->addHour(1);
+            $d = Carbon::now()->addWeeks(2)->addHour();
             $scope->assertSame('2 ހަފްތާ 1 ގަޑި', $d->diffForHumans(null, true, false, 2));
         });
     }

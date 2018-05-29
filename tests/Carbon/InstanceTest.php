@@ -65,7 +65,7 @@ class InstanceTest extends AbstractTestCase
             'timezone_type' => 3,
             'timezone' => 'UTC',
         ]);
-        $this->assertInstanceOf('Carbon\Carbon', $carbon);
+        $this->assertInstanceOf(Carbon::class, $carbon);
     }
 
     public function testDeserializationOccursCorrectly()
@@ -74,6 +74,6 @@ class InstanceTest extends AbstractTestCase
         $serialized = 'return '.var_export($carbon, true).';';
         $deserialized = eval($serialized);
 
-        $this->assertInstanceOf('Carbon\Carbon', $deserialized);
+        $this->assertInstanceOf(Carbon::class, $deserialized);
     }
 }

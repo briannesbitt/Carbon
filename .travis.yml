@@ -18,12 +18,11 @@ before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
     if [[ $setup = 'lowest' ]]; then
-        composer require sebastian/comparator:"~1.2.4" --no-update --dev
         travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
     fi
 
@@ -48,13 +47,13 @@ matrix:
       env: setup=stable
 
     - php: 7.2
-      env:
-        - coverage=true
-        - phpstan=true
     - php: 7.2
       env: setup=lowest
     - php: 7.2
-      env: setup=stable
+      env:
+        - setup=stable
+        - coverage=true
+        - phpstan=true
 
 notifications:
   slack:

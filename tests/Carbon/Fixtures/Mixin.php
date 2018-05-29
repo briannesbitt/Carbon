@@ -28,12 +28,12 @@ class Mixin
     {
         $mixin = $this;
 
-        return function ($format, $self) use ($mixin) {
+        return function ($format) use ($mixin) {
             if ($mixin->timezone) {
-                $self->setTimezone($mixin->timezone);
+                $this->setTimezone($mixin->timezone);
             }
 
-            return $self->format($format);
+            return $this->format($format);
         };
     }
 }

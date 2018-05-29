@@ -28,8 +28,8 @@ class Mixin
     {
         $mixin = $this;
 
-        return function ($self) use ($mixin) {
-            return $self->times($mixin->factor);
+        return function () use ($mixin) {
+            return $this->times($mixin->factor);
         };
     }
 }

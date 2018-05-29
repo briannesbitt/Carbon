@@ -12,6 +12,7 @@
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateInterval;
@@ -82,6 +83,40 @@ class SettersTest extends AbstractTestCase
         $period->setOptions($options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
 
         $this->assertSame($options, $period->getOptions());
+    }
+
+    public function testSetDateClass()
+    {
+        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+
+        $period->setDateClass(CarbonImmutable::class);
+
+        $this->assertNotSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
+
+        $period->setDateClass(Carbon::class);
+
+        $this->assertSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
+
+        $period->toggleOptions(CarbonPeriod::IMMUTABLE, true);
+        $this->assertSame(CarbonImmutable::class, $period->getDateClass());
+        $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
+
+        $period->toggleOptions(CarbonPeriod::IMMUTABLE, false);
+        $this->assertSame(Carbon::class, $period->getDateClass());
+        $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval
+     */
+    public function testSetDateClassInvalidArgumentException()
+    {
+        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+
+        $period->setDateClass(CarbonInterval::class);
     }
 
     /**
