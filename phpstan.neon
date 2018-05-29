@@ -7,6 +7,7 @@ parameters:
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'
 		- '*/tests/Carbon/GettersTest.php'
+		- '*/tests/Carbon/IsTest.php'
 		- '*/tests/Carbon/Fixtures/Mixin.php'
 		- '*/tests/CarbonImmutable/MacroTest.php'
 		- '*/tests/CarbonImmutable/SettersTest.php'

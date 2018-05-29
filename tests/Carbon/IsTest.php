@@ -816,4 +816,22 @@ class IsTest extends AbstractTestCase
         // Regex failure
         $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
     }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method isSameFoobar does not exist.
+     */
+    public function testIsSameFoobar()
+    {
+        Carbon::parse('12:00:00')->isSameFoobar(Carbon::parse('15:30:45'));
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method isCurrentFoobar does not exist.
+     */
+    public function testIsCurrentFoobar()
+    {
+        Carbon::parse('12:00:00')->isCurrentFoobar();
+    }
 }

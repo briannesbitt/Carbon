@@ -11,6 +11,7 @@
 
 namespace Carbon\Traits;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
@@ -3834,7 +3835,7 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new \BadMethodCallException(sprintf(
+            throw new BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
         }
@@ -3986,13 +3987,13 @@ trait Date
         if (substr($unit, 0, 9) === 'isCurrent') {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (ReflectionException $exception) {
+            } catch (ReflectionException | InvalidArgumentException | BadMethodCallException $exception) {
                 // Try macros
             }
         }
 
         if (!static::hasMacro($method)) {
-            throw new \BadMethodCallException("Method $method does not exist.");
+            throw new BadMethodCallException("Method $method does not exist.");
         }
 
         $macro = static::$localMacros[$method];
