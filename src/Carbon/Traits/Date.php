@@ -658,7 +658,7 @@ trait Date
      *
      * @throws \InvalidArgumentException
      *
-     * @return \DateTimeZone
+     * @return \DateTimeZone|false
      */
     protected static function safeCreateDateTimeZone($object)
     {
@@ -675,7 +675,11 @@ trait Date
             $tzName = timezone_name_from_abbr(null, floatval($object) * 3600, true);
 
             if ($tzName === false) {
-                throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+                }
+
+                return false;
             }
 
             $object = $tzName;
@@ -687,7 +691,11 @@ trait Date
             return $tz;
         }
 
-        throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        if (static::isStrictModeEnabled()) {
+            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        }
+
+        return false;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -948,7 +956,7 @@ trait Date
      *
      * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
-     * @return static
+     * @return static|false
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
@@ -963,7 +971,11 @@ trait Date
 
         foreach ($fields as $field => $range) {
             if ($$field !== null && (!is_int($$field) || $$field < $range[0] || $$field > $range[1])) {
-                throw new InvalidDateException($field, $$field);
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidDateException($field, $$field);
+                }
+
+                return false;
             }
         }
 
@@ -971,7 +983,11 @@ trait Date
 
         foreach (array_reverse($fields) as $field => $range) {
             if ($$field !== null && (!is_int($$field) || $$field !== $instance->$field)) {
-                throw new InvalidDateException($field, $$field);
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidDateException($field, $$field);
+                }
+
+                return false;
             }
         }
 
@@ -1044,17 +1060,25 @@ trait Date
 
     private static function createFromFormatAndTimezone($format, $time, $tz)
     {
-        return $tz !== null
-            ? parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz))
-            : parent::createFromFormat($format, $time);
+        if ($tz === null) {
+            return parent::createFromFormat($format, $time);
+        }
+
+        $tz = static::safeCreateDateTimeZone($tz);
+
+        if ($tz === false) {
+            return false;
+        }
+
+        return parent::createFromFormat($format, $time, $tz);
     }
 
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                    $format Datetime format
-     * @param string                    $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string                          $format Datetime format
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -1257,7 +1281,7 @@ trait Date
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|int|bool|\DateTimeZone
+     * @return string|int|bool|\DateTimeZone|null
      */
     public function __get($name)
     {
@@ -1436,7 +1460,11 @@ trait Date
                 break;
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                }
+
+                $this->$name = $value;
         }
     }
 
@@ -2572,7 +2600,11 @@ trait Date
                 return $this->$unit === $date->$unit;
             }
 
-            throw new InvalidArgumentException("Bad comparison unit: '$unit'");
+            if (static::isStrictModeEnabled()) {
+                throw new InvalidArgumentException("Bad comparison unit: '$unit'");
+            }
+
+            return false;
         }
 
         return $this->isSameAs($units[$unit], $date);
@@ -2799,7 +2831,11 @@ trait Date
                 $value *= static::YEARS_PER_MILLENNIUM * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
                 break;
             default:
-                throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
+                }
+
+                return $this;
         }
 
         /* @var CarbonInterface $this */
@@ -3866,9 +3902,13 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException(sprintf(
+                    'Method %s::%s does not exist.', static::class, $method
+                ));
+            }
+
+            return null;
         }
 
         if (static::$localMacros[$method] instanceof Closure) {
@@ -4024,7 +4064,11 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
-            throw new BadMethodCallException("Method $method does not exist.");
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException("Method $method does not exist.");
+            }
+
+            return null;
         }
 
         $macro = static::$localMacros[$method];
