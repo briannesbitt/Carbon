@@ -17,6 +17,26 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
+    public function testSingularUnit()
+    {
+        $this->assertSame('year', Carbon::singularUnit('year'));
+        $this->assertSame('year', Carbon::singularUnit('Years'));
+        $this->assertSame('century', Carbon::singularUnit('centuries'));
+        $this->assertSame('millennium', Carbon::singularUnit('Millennia'));
+        $this->assertSame('millennium', Carbon::singularUnit('millenniums'));
+    }
+
+    public function testPluralUnit()
+    {
+        $this->assertSame('years', Carbon::pluralUnit('year'));
+        $this->assertSame('years', Carbon::pluralUnit('Years'));
+        $this->assertSame('centuries', Carbon::pluralUnit('century'));
+        $this->assertSame('centuries', Carbon::pluralUnit('centuries'));
+        $this->assertSame('millennia', Carbon::pluralUnit('Millennia'));
+        $this->assertSame('millennia', Carbon::pluralUnit('millenniums'));
+        $this->assertSame('millennia', Carbon::pluralUnit('millennium'));
+    }
+
     public function testYearSetter()
     {
         $d = Carbon::now();

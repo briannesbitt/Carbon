@@ -3853,7 +3853,14 @@ trait Date
         return $this;
     }
 
-    protected static function singularUnit($unit)
+    /**
+     * Returns standardized singular of a given singular/plural unit name (in English).
+     *
+     * @param string $unit
+     *
+     * @return string
+     */
+    public static function singularUnit(string $unit): string
     {
         $unit = rtrim(strtolower($unit), 's');
 
@@ -3868,7 +3875,14 @@ trait Date
         return $unit;
     }
 
-    protected static function pluralUnit($unit)
+    /**
+     * Returns standardized plural of a given singular/plural unit name (in English).
+     *
+     * @param string $unit
+     *
+     * @return string
+     */
+    public static function pluralUnit(string $unit): string
     {
         $unit = rtrim(strtolower($unit), 's');
 
@@ -3876,7 +3890,7 @@ trait Date
             return 'centuries';
         }
 
-        if ($unit === 'millennium') {
+        if ($unit === 'millennium' || $unit === 'millennia') {
             return 'millennia';
         }
 
