@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-return array(
+return [
     'year' => ':count жыл',
     'y' => ':count жыл',
     'month' => ':count ай',
@@ -26,4 +26,4 @@ return array(
     'from_now' => ':time кейін',
     'after' => ':time кейін',
     'before' => ':time бұрын',
-);
+];

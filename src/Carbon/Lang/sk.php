@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => 'rok|:count roky|:count rokov',
     'y' => 'rok|:count roky|:count rokov',
     'month' => 'mesiac|:count mesiace|:count mesiacov',
@@ -35,4 +35,4 @@ return array(
     'hour_ago' => 'hodinou|:count hodinami|:count hodinami',
     'minute_ago' => 'minútou|:count minútami|:count minútami',
     'second_ago' => 'sekundou|:count sekundami|:count sekundami',
-);
+];

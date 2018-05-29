@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count tahun',
     'y' => ':count tahun',
     'month' => ':count bulan',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time dari sekarang',
     'after' => ':time setelah',
     'before' => ':time sebelum',
-);
+];

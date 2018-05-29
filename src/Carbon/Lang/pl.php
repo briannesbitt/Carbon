@@ -9,21 +9,21 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count rok|:count lata|:count lat',
-    'y' => ':count rok|:count lata|:count lat',
+    'y' => ':countr|:countl',
     'month' => ':count miesiąc|:count miesiące|:count miesięcy',
-    'm' => ':count miesiąc|:count miesiące|:count miesięcy',
+    'm' => ':countmies',
     'week' => ':count tydzień|:count tygodnie|:count tygodni',
-    'w' => ':count tydzień|:count tygodnie|:count tygodni',
+    'w' => ':counttyg',
     'day' => ':count dzień|:count dni|:count dni',
-    'd' => ':count dzień|:count dni|:count dni',
+    'd' => ':countd',
     'hour' => ':count godzina|:count godziny|:count godzin',
-    'h' => ':count godzina|:count godziny|:count godzin',
+    'h' => ':countg',
     'minute' => ':count minuta|:count minuty|:count minut',
-    'min' => ':count minuta|:count minuty|:count minut',
+    'min' => ':countm',
     'second' => ':count sekunda|:count sekundy|:count sekund',
-    's' => ':count sekunda|:count sekundy|:count sekund',
+    's' => ':counts',
     'ago' => ':time temu',
     'from_now' => ':time od teraz',
     'after' => ':time po',
@@ -33,4 +33,4 @@ return array(
     'diff_tomorrow' => 'jutro',
     'diff_before_yesterday' => 'przedwczoraj',
     'diff_after_tomorrow' => 'pojutrze',
-);
+];

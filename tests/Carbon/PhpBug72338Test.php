@@ -33,12 +33,6 @@ class PhpBug72338Test extends AbstractTestCase
     protected function setUp()
     {
         parent::setUp();
-
-        // In versions <= 5.5.5 setTimezone doesn't accept timezone in 'HH:MM' format.
-        // I don't know about versions between 5.5.5 and 5.5.18, but 5.5.18 accept it.
-        if (version_compare(PHP_VERSION, '5.5.18-dev', '<')) {
-            $this->markTestSkipped();
-        }
     }
 
     /**
@@ -70,7 +64,7 @@ class PhpBug72338Test extends AbstractTestCase
         $date = Carbon::createFromTimestamp(0);
         $date->setTimezone('+02:00');
         $date1 = new Carbon('1970-01-01T02:00:00+02:00');
-        $this->assertEquals($date->format('U'), $date1->format('U'));
+        $this->assertSame($date->format('U'), $date1->format('U'));
     }
 
     /**
@@ -81,6 +75,6 @@ class PhpBug72338Test extends AbstractTestCase
         $date = Carbon::createFromTimestamp(0);
         $date->setTimezone('+02:00');
         $date->setTimezone('Europe/Moscow');
-        $this->assertEquals('0', $date->format('U'));
+        $this->assertSame('0', $date->format('U'));
     }
 }

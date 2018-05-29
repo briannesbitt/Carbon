@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
     'y' => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
     'month' => '[0,1] شَهْرَ|{2} شَهْرَيْن|[3,10]:count أَشْهُر|[11,Inf]:count شَهْرَ',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'مِنَ الْآن :time',
     'after' => 'بَعْدَ :time',
     'before' => 'قَبْلَ :time',
-);
+];

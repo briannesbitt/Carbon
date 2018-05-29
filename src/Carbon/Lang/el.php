@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count χρόνος|:count χρόνια',
     'y' => ':count χρόνος|:count χρόνια',
     'month' => ':count μήνας|:count μήνες',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'σε :time από τώρα',
     'after' => ':time μετά',
     'before' => ':time πριν',
-);
+];

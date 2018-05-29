@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count año|:count años',
     'y' => ':count año|:count años',
     'month' => ':count mes|:count meses',
@@ -33,4 +33,4 @@ return array(
     'diff_tomorrow' => 'mañana',
     'diff_before_yesterday' => 'anteayer',
     'diff_after_tomorrow' => 'pasado mañana',
-);
+];

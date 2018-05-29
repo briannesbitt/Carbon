@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count год|:count года|:count лет',
     'y' => ':count год|:count года|:count лет',
     'month' => ':count месяц|:count месяца|:count месяцев',
@@ -28,4 +28,4 @@ return array(
     'from_now' => 'через :time',
     'after' => ':time после',
     'before' => ':time до',
-);
+];

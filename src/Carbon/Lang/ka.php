@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count წლის',
     'y' => ':count წლის',
     'month' => ':count თვის',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time შემდეგ',
     'after' => ':time შემდეგ',
     'before' => ':time უკან',
-);
+];

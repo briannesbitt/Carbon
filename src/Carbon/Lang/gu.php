@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count વર્ષ|:count વર્ષો',
     'y' => ':countવર્ષ|:countવર્ષો',
     'month' => ':count મહિનો|:count મહિના',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time અત્યારથી',
     'after' => ':time પછી',
     'before' => ':time પહેલા',
-);
+];

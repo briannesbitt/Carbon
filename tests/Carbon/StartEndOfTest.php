@@ -20,18 +20,14 @@ class StartEndOfTest extends AbstractTestCase
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->startOfDay());
-        version_compare(PHP_VERSION, '7.1.0-dev', '<')
-            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0)
-            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
     }
 
     public function testEndOfDay()
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOfDay());
-        version_compare(PHP_VERSION, '7.1.0-dev', '<')
-            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59)
-            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
     }
 
     public function testStartOfMonthIsFluid()
@@ -337,20 +333,20 @@ class StartEndOfTest extends AbstractTestCase
 
     public function dataProviderTestStartOfQuarter()
     {
-        return array(
-            array(1, 1),
-            array(2, 1),
-            array(3, 1),
-            array(4, 4),
-            array(5, 4),
-            array(6, 4),
-            array(7, 7),
-            array(8, 7),
-            array(9, 7),
-            array(10, 10),
-            array(11, 10),
-            array(12, 10),
-        );
+        return [
+            [1, 1],
+            [2, 1],
+            [3, 1],
+            [4, 4],
+            [5, 4],
+            [6, 4],
+            [7, 7],
+            [8, 7],
+            [9, 7],
+            [10, 10],
+            [11, 10],
+            [12, 10],
+        ];
     }
 
     /**
@@ -373,20 +369,20 @@ class StartEndOfTest extends AbstractTestCase
 
     public function dataProviderTestEndOfQuarter()
     {
-        return array(
-            array(1, 3, 31),
-            array(2, 3, 31),
-            array(3, 3, 31),
-            array(4, 6, 30),
-            array(5, 6, 30),
-            array(6, 6, 30),
-            array(7, 9, 30),
-            array(8, 9, 30),
-            array(9, 9, 30),
-            array(10, 12, 31),
-            array(11, 12, 31),
-            array(12, 12, 31),
-        );
+        return [
+            [1, 3, 31],
+            [2, 3, 31],
+            [3, 3, 31],
+            [4, 6, 30],
+            [5, 6, 30],
+            [6, 6, 30],
+            [7, 9, 30],
+            [8, 9, 30],
+            [9, 9, 30],
+            [10, 12, 31],
+            [11, 12, 31],
+            [12, 12, 31],
+        ];
     }
 
     /**

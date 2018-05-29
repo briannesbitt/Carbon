@@ -14,6 +14,7 @@ namespace Tests;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Closure;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTestCase extends TestCase
@@ -45,19 +46,19 @@ abstract class AbstractTestCase extends TestCase
         Carbon::resetMonthsOverflow();
     }
 
-    protected function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
     {
-        $actual = array(
+        $actual = [
             'years' => $year,
             'months' => $month,
             'day' => $day,
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'years' => $d->year,
             'months' => $d->month,
             'day' => $d->day,
-        );
+        ];
 
         if ($hour !== null) {
             $expected['hours'] = $d->hour;
@@ -82,11 +83,11 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
+    public function assertCarbonTime(Carbon $d, $hour = null, $minute = null, $second = null, $micro = null)
     {
-        $actual = array();
+        $actual = [];
 
-        $expected = array();
+        $expected = [];
 
         if ($hour !== null) {
             $expected['hours'] = $d->hour;
@@ -111,16 +112,16 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertInstanceOfCarbon($d)
+    public function assertInstanceOfCarbon($d)
     {
         $this->assertInstanceOf('Carbon\Carbon', $d);
     }
 
-    protected function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $expected = array('years' => $ci->years);
+        $expected = ['years' => $ci->years];
 
-        $actual = array('years' => $years);
+        $actual = ['years' => $years];
 
         if ($months !== null) {
             $expected['months'] = $ci->months;
@@ -150,20 +151,44 @@ abstract class AbstractTestCase extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    protected function assertInstanceOfCarbonInterval($d)
+    public function assertInstanceOfCarbonInterval($d)
     {
         $this->assertInstanceOf('Carbon\CarbonInterval', $d);
     }
 
-    protected function wrapWithTestNow(Closure $func, Carbon $dt = null)
+    public function wrapWithTestNow(Closure $func, Carbon $dt = null)
     {
         Carbon::setTestNow($dt ?: Carbon::now());
         $func();
         Carbon::setTestNow();
     }
 
-    protected function wrapWithNonDstDate(Closure $func)
+    public function wrapWithNonDstDate(Closure $func)
     {
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
+    }
+
+    /**
+     * Standardize given set of dates (or period) before assertion.
+     *
+     * @param array|\DatePeriod $dates
+     *
+     * @return array
+     */
+    public function standardizeDates($dates)
+    {
+        $result = [];
+
+        foreach ($dates as $date) {
+            if ($date instanceof DateTime) {
+                $date = Carbon::instance($date);
+            } elseif (is_string($date)) {
+                $date = Carbon::parse($date);
+            }
+
+            $result[] = $date->format('Y-m-d H:i:s P');
+        }
+
+        return $result;
     }
 }

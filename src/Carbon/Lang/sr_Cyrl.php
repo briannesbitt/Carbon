@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count године|[0,Inf[ :count година',
     'y' => ':count г.',
     'month' => '{1} :count месец|{2,3,4}:count месеца|[5,Inf[ :count месеци',
@@ -40,4 +40,4 @@ return array(
     'diff_tomorrow' => 'сутра',
     'diff_before_yesterday' => 'прекјуче',
     'diff_after_tomorrow' => 'прекосутра',
-);
+];

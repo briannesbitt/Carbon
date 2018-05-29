@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count ano|:count anos',
     'month' => ':count mes|:count meses',
     'week' => ':count semana|:count semanas',
@@ -21,4 +21,4 @@ return array(
     'from_now' => 'dentro de :time',
     'after' => ':time despois',
     'before' => ':time antes',
-);
+];

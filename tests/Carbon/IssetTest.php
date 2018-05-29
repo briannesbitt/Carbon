@@ -23,32 +23,32 @@ class IssetTest extends AbstractTestCase
 
     public function providerTestIssetReturnTrueForProperties()
     {
-        return array(
-            array('age'),
-            array('day'),
-            array('dayOfWeek'),
-            array('dayOfYear'),
-            array('daysInMonth'),
-            array('dst'),
-            array('hour'),
-            array('local'),
-            array('micro'),
-            array('minute'),
-            array('month'),
-            array('offset'),
-            array('offsetHours'),
-            array('quarter'),
-            array('second'),
-            array('timestamp'),
-            array('timezone'),
-            array('timezoneName'),
-            array('tz'),
-            array('tzName'),
-            array('utc'),
-            array('weekOfMonth'),
-            array('weekOfYear'),
-            array('year'),
-        );
+        return [
+            ['age'],
+            ['day'],
+            ['dayOfWeek'],
+            ['dayOfYear'],
+            ['daysInMonth'],
+            ['dst'],
+            ['hour'],
+            ['local'],
+            ['micro'],
+            ['minute'],
+            ['month'],
+            ['offset'],
+            ['offsetHours'],
+            ['quarter'],
+            ['second'],
+            ['timestamp'],
+            ['timezone'],
+            ['timezoneName'],
+            ['tz'],
+            ['tzName'],
+            ['utc'],
+            ['weekOfMonth'],
+            ['weekOfYear'],
+            ['year'],
+        ];
     }
 
     /**

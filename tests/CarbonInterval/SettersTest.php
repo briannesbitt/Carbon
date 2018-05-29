@@ -146,4 +146,15 @@ class SettersTest extends AbstractTestCase
     {
         CarbonInterval::doesNotExit(123);
     }
+
+    public function testInvert()
+    {
+        $ci = new CarbonInterval;
+
+        $this->assertSame($ci, $ci->invert());
+        $this->assertSame(1, $ci->invert);
+
+        $this->assertSame($ci, $ci->invert());
+        $this->assertSame(0, $ci->invert);
+    }
 }

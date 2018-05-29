@@ -12,7 +12,7 @@
  * @translator Batmandakh Erdenebileg <batmandakh.e@icloud.com>
  */
 
-return array(
+return [
     'year' => ':count жил',
     'y' => ':count жил',
     'month' => ':count сар',
@@ -59,4 +59,4 @@ return array(
     'hour_before' => ':count цагий',
     'minute_before' => ':count минуты',
     'second_before' => ':count секунды',
-);
+];

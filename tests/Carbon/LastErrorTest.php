@@ -31,19 +31,19 @@ class LastErrorTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->noErrors = array(
+        $this->noErrors = [
             'warning_count' => 0,
-            'warnings' => array(),
+            'warnings' => [],
             'error_count' => 0,
-            'errors' => array(),
-        );
+            'errors' => [],
+        ];
 
-        $this->lastErrors = array(
+        $this->lastErrors = [
             'warning_count' => 1,
-            'warnings' => array('11' => 'The parsed date was invalid'),
+            'warnings' => ['11' => 'The parsed date was invalid'],
             'error_count' => 0,
-            'errors' => array(),
-        );
+            'errors' => [],
+        ];
     }
 
     public function testCreateHandlesLastErrors()
