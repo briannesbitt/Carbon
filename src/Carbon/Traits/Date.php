@@ -1031,7 +1031,7 @@ trait Date
      *
      * @throws InvalidArgumentException
      *
-     * @return static
+     * @return static|false
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
@@ -1067,7 +1067,11 @@ trait Date
             return $instance;
         }
 
-        throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+        if (static::isStrictModeEnabled()) {
+            throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+        }
+
+        return false;
     }
 
     /**
