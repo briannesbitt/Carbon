@@ -476,6 +476,13 @@ trait Date
     protected static $yearsOverflow = true;
 
     /**
+     * Indicates if the strict mode is in use.
+     *
+     * @var bool
+     */
+    protected static $strictModeEnabled = true;
+
+    /**
      * Options for diffForHumans().
      *
      * @var int
@@ -558,6 +565,26 @@ trait Date
     public static function getHumanDiffOptions()
     {
         return static::$humanDiffOptions;
+    }
+
+    /**
+     * Enable the strict mode (or disable with passing false).
+     *
+     * @param bool $strictModeEnabled
+     */
+    public static function useStrictMode($strictModeEnabled = true)
+    {
+        static::$strictModeEnabled = $strictModeEnabled;
+    }
+
+    /**
+     * Returns true if the strict mode is in use, false else.
+     *
+     * @return bool
+     */
+    public static function isStrictModeEnabled()
+    {
+        return static::$strictModeEnabled;
     }
 
     /**
