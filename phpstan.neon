@@ -13,6 +13,7 @@ parameters:
 		- '*/tests/CarbonImmutable/SettersTest.php'
 		- '*/tests/CarbonImmutable/GettersTest.php'
 		- '*/tests/CarbonImmutable/Fixtures/Mixin.php'
+		- '*/tests/CarbonInterval/SettersTest.php'
 		- '*/tests/CarbonInterval/GettersTest.php'
 		- '*/tests/CarbonInterval/MacroTest.php'
 		- '*/tests/CarbonInterval/Fixtures/Mixin.php'

@@ -18,10 +18,11 @@ class GettersTest extends AbstractTestCase
 {
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown getter 'doesNotExit'
      */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        CarbonInterval::year()->sdfsdfss;
+        CarbonInterval::year()->doesNotExit;
     }
 
     public function testYearsGetter()

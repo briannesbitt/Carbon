@@ -369,6 +369,8 @@ class CarbonInterval extends DateInterval
         if (static::hasMacro($method)) {
             return (new static(0))->$method(...$parameters);
         }
+
+        throw new InvalidArgumentException(sprintf("Unknown fluent constructor '%s'", $name));
     }
 
     /**
@@ -674,6 +676,9 @@ class CarbonInterval extends DateInterval
             case 'seconds':
                 $this->s = $val;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
     }
 
@@ -815,6 +820,9 @@ class CarbonInterval extends DateInterval
             case 'second':
                 $this->seconds = $arg;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown fluent setter '%s'", $name));
         }
 
         return $this;
