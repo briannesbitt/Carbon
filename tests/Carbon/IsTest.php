@@ -354,6 +354,33 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isSameMonth($dt, true));
     }
 
+    public function testCompareYearWithMonth()
+    {
+        $this->assertFalse(Carbon::shouldCompareYearWithMonth());
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2000, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2000, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2012, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2012, 1, 22)));
+        $this->assertTrue(Carbon::now()->subYear()->isCurrentMonth());
+        $this->assertTrue(Carbon::now()->subYear()->isSameQuarter());
+        Carbon::compareYearWithMonth();
+        $this->assertTrue(Carbon::shouldCompareYearWithMonth());
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2000, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2000, 1, 22)));
+        $this->assertFalse(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2012, 1, 22)));
+        $this->assertFalse(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2012, 1, 22)));
+        $this->assertFalse(Carbon::now()->subYear()->isCurrentMonth());
+        $this->assertFalse(Carbon::now()->subYear()->isSameQuarter());
+        Carbon::compareYearWithMonth(false);
+        $this->assertFalse(Carbon::shouldCompareYearWithMonth());
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2000, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2000, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameMonth(Carbon::create(2012, 1, 22)));
+        $this->assertTrue(Carbon::create(2000, 1, 3)->isSameQuarter(Carbon::create(2012, 1, 22)));
+        $this->assertTrue(Carbon::now()->subYear()->isCurrentMonth());
+        $this->assertTrue(Carbon::now()->subYear()->isSameQuarter());
+    }
+
     public function testIsSameMonthAndYearFalse()
     {
         $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subYear(), true));
