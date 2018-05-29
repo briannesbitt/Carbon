@@ -263,6 +263,10 @@ class ConstructTest extends AbstractTestCase
         $this->assertNull(CarbonInterval::make(3));
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown fluent constructor 'anything'
+     */
     public function testCallInvalidStaticMethod()
     {
         $this->assertNull(CarbonInterval::anything());

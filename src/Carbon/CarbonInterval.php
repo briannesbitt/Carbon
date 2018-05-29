@@ -335,33 +335,25 @@ class CarbonInterval extends DateInterval
     {
         $arg = count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch ($method) {
-            case 'years':
+        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
             case 'year':
                 return new static($arg);
 
-            case 'months':
             case 'month':
                 return new static(null, $arg);
 
-            case 'weeks':
             case 'week':
                 return new static(null, null, $arg);
 
-            case 'days':
-            case 'dayz':
             case 'day':
                 return new static(null, null, null, $arg);
 
-            case 'hours':
             case 'hour':
                 return new static(null, null, null, null, $arg);
 
-            case 'minutes':
             case 'minute':
                 return new static(null, null, null, null, null, $arg);
 
-            case 'seconds':
             case 'second':
                 return new static(null, null, null, null, null, null, $arg);
         }
@@ -369,6 +361,8 @@ class CarbonInterval extends DateInterval
         if (static::hasMacro($method)) {
             return (new static(0))->$method(...$parameters);
         }
+
+        throw new InvalidArgumentException(sprintf("Unknown fluent constructor '%s'", $method));
     }
 
     /**
@@ -646,34 +640,37 @@ class CarbonInterval extends DateInterval
      */
     public function __set($name, $val)
     {
-        switch ($name) {
-            case 'years':
+        switch (Carbon::singularUnit(rtrim($name, 'z'))) {
+            case 'year':
                 $this->y = $val;
                 break;
 
-            case 'months':
+            case 'month':
                 $this->m = $val;
                 break;
 
-            case 'weeks':
+            case 'week':
                 $this->d = $val * static::getDaysPerWeek();
                 break;
 
-            case 'dayz':
+            case 'day':
                 $this->d = $val;
                 break;
 
-            case 'hours':
+            case 'hour':
                 $this->h = $val;
                 break;
 
-            case 'minutes':
+            case 'minute':
                 $this->i = $val;
                 break;
 
-            case 'seconds':
+            case 'second':
                 $this->s = $val;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
         }
     }
 
@@ -779,42 +776,37 @@ class CarbonInterval extends DateInterval
 
         $arg = count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch ($method) {
-            case 'years':
+        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
             case 'year':
                 $this->years = $arg;
                 break;
 
-            case 'months':
             case 'month':
                 $this->months = $arg;
                 break;
 
-            case 'weeks':
             case 'week':
                 $this->dayz = $arg * static::getDaysPerWeek();
                 break;
 
-            case 'days':
-            case 'dayz':
             case 'day':
                 $this->dayz = $arg;
                 break;
 
-            case 'hours':
             case 'hour':
                 $this->hours = $arg;
                 break;
 
-            case 'minutes':
             case 'minute':
                 $this->minutes = $arg;
                 break;
 
-            case 'seconds':
             case 'second':
                 $this->seconds = $arg;
                 break;
+
+            default:
+                throw new InvalidArgumentException(sprintf("Unknown fluent setter '%s'", $method));
         }
 
         return $this;
