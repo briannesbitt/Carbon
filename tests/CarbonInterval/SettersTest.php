@@ -128,4 +128,33 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($ci, $ci->invert());
         $this->assertSame(0, $ci->invert);
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown setter 'doesNotExit'
+     */
+    public function testInvalidSetter()
+    {
+        $ci = new CarbonInterval;
+        $ci->doesNotExit = 123;
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown fluent setter 'doesNotExit'
+     */
+    public function testInvalidFluentSetter()
+    {
+        $ci = new CarbonInterval;
+        $ci->doesNotExit(123);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown fluent constructor 'doesNotExit'
+     */
+    public function testInvalidStaticFluentSetter()
+    {
+        CarbonInterval::doesNotExit(123);
+    }
 }
