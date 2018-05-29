@@ -61,10 +61,20 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unexpected data found.
      */
     public function testCreateWithInvalidMonth()
     {
         Carbon::create(null, -5);
+    }
+
+    public function testCreateWithInvalidMonthNonStrictMode()
+    {
+        Carbon::useStrictMode(false);
+        $this->assertFalse(Carbon::isStrictModeEnabled());
+        $this->assertFalse(Carbon::create(null, -5));
+        Carbon::useStrictMode(true);
+        $this->assertTrue(Carbon::isStrictModeEnabled());
     }
 
     public function testCreateMonthWraps()

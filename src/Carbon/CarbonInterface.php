@@ -58,6 +58,8 @@ use JsonSerializable;
  * @method bool isCurrentMillennium() Checks if the instance is in the same millennium as the current moment.
  * @method bool isSameYear(\DateTimeInterface $date = null) Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentYear() Checks if the instance is in the same year as the current moment.
+ * @method bool isSameWeek(\DateTimeInterface $date = null) Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentWeek() Checks if the instance is in the same week as the current moment.
  * @method bool isSameDay(\DateTimeInterface $date = null) Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentDay() Checks if the instance is in the same day as the current moment.
  * @method bool isSameHour(\DateTimeInterface $date = null) Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
@@ -372,6 +374,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function disableHumanDiffOption($humanDiffOption);
 
     public static function getHumanDiffOptions();
+
+    public static function useStrictMode($strictModeEnabled = 1);
+
+    public static function isStrictModeEnabled();
 
     public static function useMonthsOverflow($monthsOverflow = 1);
 
@@ -758,6 +764,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function __callStatic($method, $parameters);
 
     public function setUnit($unit, $value);
+
+    public static function singularUnit(string $unit): string;
+
+    public static function pluralUnit(string $unit): string;
 
     public function __call($method, $parameters);
 

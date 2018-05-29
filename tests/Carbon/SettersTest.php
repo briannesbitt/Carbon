@@ -331,6 +331,7 @@ class SettersTest extends AbstractTestCase
         $d = Carbon::now();
         $d->setWeekendDays($weekendDays);
         $this->assertSame($weekendDays, $d->getWeekendDays());
+        Carbon::setWeekendDays([Carbon::SATURDAY, Carbon::SUNDAY]);
     }
 
     public function testMidDayAtSetter()

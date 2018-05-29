@@ -140,7 +140,7 @@ class SettersTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \BadMethodCallException
      * @expectedExceptionMessage Unknown fluent setter 'doesNotExit'
      */
     public function testInvalidFluentSetter()
@@ -150,7 +150,7 @@ class SettersTest extends AbstractTestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException \BadMethodCallException
      * @expectedExceptionMessage Unknown fluent constructor 'doesNotExit'
      */
     public function testInvalidStaticFluentSetter()

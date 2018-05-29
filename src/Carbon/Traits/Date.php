@@ -79,6 +79,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method bool isCurrentMillennium() Checks if the instance is in the same millennium as the current moment.
  * @method bool isSameYear(\DateTimeInterface $date = null) Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentYear() Checks if the instance is in the same year as the current moment.
+ * @method bool isSameWeek(\DateTimeInterface $date = null) Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentWeek() Checks if the instance is in the same week as the current moment.
  * @method bool isSameDay(\DateTimeInterface $date = null) Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentDay() Checks if the instance is in the same day as the current moment.
  * @method bool isSameHour(\DateTimeInterface $date = null) Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
@@ -476,6 +478,13 @@ trait Date
     protected static $yearsOverflow = true;
 
     /**
+     * Indicates if the strict mode is in use.
+     *
+     * @var bool
+     */
+    protected static $strictModeEnabled = true;
+
+    /**
      * Options for diffForHumans().
      *
      * @var int
@@ -561,6 +570,26 @@ trait Date
     }
 
     /**
+     * Enable the strict mode (or disable with passing false).
+     *
+     * @param bool $strictModeEnabled
+     */
+    public static function useStrictMode($strictModeEnabled = true)
+    {
+        static::$strictModeEnabled = $strictModeEnabled;
+    }
+
+    /**
+     * Returns true if the strict mode is in use, false else.
+     *
+     * @return bool
+     */
+    public static function isStrictModeEnabled()
+    {
+        return static::$strictModeEnabled;
+    }
+
+    /**
      * Indicates if months should be calculated with overflow.
      *
      * @param bool $monthsOverflow
@@ -631,7 +660,7 @@ trait Date
      *
      * @throws \InvalidArgumentException
      *
-     * @return \DateTimeZone
+     * @return \DateTimeZone|false
      */
     protected static function safeCreateDateTimeZone($object)
     {
@@ -648,7 +677,11 @@ trait Date
             $tzName = timezone_name_from_abbr(null, floatval($object) * 3600, true);
 
             if ($tzName === false) {
-                throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+                }
+
+                return false;
             }
 
             $object = $tzName;
@@ -660,7 +693,11 @@ trait Date
             return $tz;
         }
 
-        throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        if (static::isStrictModeEnabled()) {
+            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+        }
+
+        return false;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -921,7 +958,7 @@ trait Date
      *
      * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
-     * @return static
+     * @return static|false
      */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
     {
@@ -936,7 +973,11 @@ trait Date
 
         foreach ($fields as $field => $range) {
             if ($$field !== null && (!is_int($$field) || $$field < $range[0] || $$field > $range[1])) {
-                throw new InvalidDateException($field, $$field);
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidDateException($field, $$field);
+                }
+
+                return false;
             }
         }
 
@@ -944,7 +985,11 @@ trait Date
 
         foreach (array_reverse($fields) as $field => $range) {
             if ($$field !== null && (!is_int($$field) || $$field !== $instance->$field)) {
-                throw new InvalidDateException($field, $$field);
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidDateException($field, $$field);
+                }
+
+                return false;
             }
         }
 
@@ -1017,21 +1062,29 @@ trait Date
 
     private static function createFromFormatAndTimezone($format, $time, $tz)
     {
-        return $tz !== null
-            ? parent::createFromFormat($format, $time, static::safeCreateDateTimeZone($tz))
-            : parent::createFromFormat($format, $time);
+        if ($tz === null) {
+            return parent::createFromFormat($format, $time);
+        }
+
+        $tz = static::safeCreateDateTimeZone($tz);
+
+        if ($tz === false) {
+            return false;
+        }
+
+        return parent::createFromFormat($format, $time, $tz);
     }
 
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                    $format Datetime format
-     * @param string                    $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string                          $format Datetime format
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
-     * @return static
+     * @return static|false
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
@@ -1067,7 +1120,11 @@ trait Date
             return $instance;
         }
 
-        throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+        if (static::isStrictModeEnabled()) {
+            throw new InvalidArgumentException(implode(PHP_EOL, $lastErrors['errors']));
+        }
+
+        return false;
     }
 
     /**
@@ -1226,7 +1283,7 @@ trait Date
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|int|bool|\DateTimeZone
+     * @return string|int|bool|\DateTimeZone|null
      */
     public function __get($name)
     {
@@ -1405,7 +1462,11 @@ trait Date
                 break;
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                }
+
+                $this->$name = $value;
         }
     }
 
@@ -2523,6 +2584,8 @@ trait Date
             // @call isSameUnit
             'year' => 'Y',
             // @call isSameUnit
+            'week' => 'Y-W',
+            // @call isSameUnit
             'day' => 'Y-m-d',
             // @call isSameUnit
             'hour' => 'Y-m-d H',
@@ -2541,7 +2604,11 @@ trait Date
                 return $this->$unit === $date->$unit;
             }
 
-            throw new InvalidArgumentException("Bad comparison unit: '$unit'");
+            if (static::isStrictModeEnabled()) {
+                throw new InvalidArgumentException("Bad comparison unit: '$unit'");
+            }
+
+            return false;
         }
 
         return $this->isSameAs($units[$unit], $date);
@@ -2768,7 +2835,11 @@ trait Date
                 $value *= static::YEARS_PER_MILLENNIUM * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
                 break;
             default:
-                throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
+                if (static::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
+                }
+
+                return $this;
         }
 
         /* @var CarbonInterface $this */
@@ -2786,6 +2857,23 @@ trait Date
         $date = $this;
 
         if ($unit === 'weekday') {
+            $weekendDays = static::getWeekendDays();
+            if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
+                $absoluteValue = abs($value);
+                $sign = $value / max(1, $absoluteValue);
+                $weekDaysCount = 7 - min(6, count(array_unique($weekendDays)));
+                $weeks = floor($absoluteValue / $weekDaysCount);
+                for ($diff = $absoluteValue % $weekDaysCount; $diff; $diff--) {
+                    $date = $date->addDays($sign);
+                    while (in_array($date->dayOfWeek, $weekendDays)) {
+                        $date = $date->addDays($sign);
+                    }
+                }
+
+                $value = $weeks * $sign;
+                $unit = 'week';
+            }
+
             $timeString = $date->toTimeString();
         } elseif ($canOverflow = in_array($unit, [
             'month',
@@ -3835,9 +3923,13 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            throw new BadMethodCallException(sprintf(
-                'Method %s::%s does not exist.', static::class, $method
-            ));
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException(sprintf(
+                    'Method %s::%s does not exist.', static::class, $method
+                ));
+            }
+
+            return null;
         }
 
         if (static::$localMacros[$method] instanceof Closure) {
@@ -3993,7 +4085,11 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
-            throw new BadMethodCallException("Method $method does not exist.");
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException("Method $method does not exist.");
+            }
+
+            return null;
         }
 
         $macro = static::$localMacros[$method];

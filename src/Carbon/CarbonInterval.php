@@ -11,6 +11,7 @@
 
 namespace Carbon;
 
+use BadMethodCallException;
 use Closure;
 use DateInterval;
 use InvalidArgumentException;
@@ -329,7 +330,7 @@ class CarbonInterval extends DateInterval
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @return static
+     * @return static|null
      */
     public static function __callStatic($method, $parameters)
     {
@@ -362,7 +363,11 @@ class CarbonInterval extends DateInterval
             return (new static(0))->$method(...$parameters);
         }
 
-        throw new InvalidArgumentException(sprintf("Unknown fluent constructor '%s'", $method));
+        if (Carbon::isStrictModeEnabled()) {
+            throw new BadMethodCallException(sprintf("Unknown fluent constructor '%s'.", $method));
+        }
+
+        return null;
     }
 
     /**
@@ -634,43 +639,47 @@ class CarbonInterval extends DateInterval
      * Set a part of the CarbonInterval object.
      *
      * @param string $name
-     * @param int    $val
+     * @param int    $value
      *
      * @throws \InvalidArgumentException
      */
-    public function __set($name, $val)
+    public function __set($name, $value)
     {
         switch (Carbon::singularUnit(rtrim($name, 'z'))) {
             case 'year':
-                $this->y = $val;
+                $this->y = $value;
                 break;
 
             case 'month':
-                $this->m = $val;
+                $this->m = $value;
                 break;
 
             case 'week':
-                $this->d = $val * static::getDaysPerWeek();
+                $this->d = $value * static::getDaysPerWeek();
                 break;
 
             case 'day':
-                $this->d = $val;
+                $this->d = $value;
                 break;
 
             case 'hour':
-                $this->h = $val;
+                $this->h = $value;
                 break;
 
             case 'minute':
-                $this->i = $val;
+                $this->i = $value;
                 break;
 
             case 'second':
-                $this->s = $val;
+                $this->s = $value;
                 break;
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                if (Carbon::isStrictModeEnabled()) {
+                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                }
+
+                $this->$name = $value;
         }
     }
 
@@ -806,7 +815,9 @@ class CarbonInterval extends DateInterval
                 break;
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown fluent setter '%s'", $method));
+                if (Carbon::isStrictModeEnabled()) {
+                    throw new BadMethodCallException(sprintf("Unknown fluent setter '%s'", $method));
+                }
         }
 
         return $this;

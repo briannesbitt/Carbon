@@ -341,10 +341,11 @@ class SettersTest extends AbstractTestCase
 
     public function testWeekendDaysSetter()
     {
-        $weekendDays = [Carbon::FRIDAY,Carbon::SATURDAY];
+        $weekendDays = [Carbon::FRIDAY, Carbon::SATURDAY];
         $d = Carbon::now();
         $d->setWeekendDays($weekendDays);
         $this->assertSame($weekendDays, $d->getWeekendDays());
+        Carbon::setWeekendDays([Carbon::SATURDAY, Carbon::SUNDAY]);
     }
 
     public function testMidDayAtSetter()
