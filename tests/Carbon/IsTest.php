@@ -57,6 +57,24 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::now()->isToday());
     }
 
+    public function testIsCurrentWeek()
+    {
+        $this->assertFalse(Carbon::now()->subWeek()->isCurrentWeek());
+        $this->assertFalse(Carbon::now()->addWeek()->isCurrentWeek());
+        $this->assertTrue(Carbon::now()->isCurrentWeek());
+        $this->assertTrue(Carbon::now()->startOfWeek()->isCurrentWeek());
+        $this->assertTrue(Carbon::now()->endOfWeek()->isCurrentWeek());
+    }
+
+    public function testIsSameWeek()
+    {
+        $this->assertFalse(Carbon::now()->subWeek()->isSameWeek(Carbon::now()));
+        $this->assertFalse(Carbon::now()->addWeek()->isSameWeek(Carbon::now()));
+        $this->assertTrue(Carbon::now()->isSameWeek(Carbon::now()));
+        $this->assertTrue(Carbon::now()->startOfWeek()->isSameWeek(Carbon::now()));
+        $this->assertTrue(Carbon::now()->endOfWeek()->isSameWeek(Carbon::now()));
+    }
+
     public function testIsNextWeekTrue()
     {
         $this->assertTrue(Carbon::now()->addWeek()->isNextWeek());

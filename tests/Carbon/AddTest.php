@@ -79,6 +79,10 @@ class AddTest extends AbstractTestCase
 
         $date->addWeekdays(2);
         $this->assertSame(27, $date->day);
+        $date->subWeekdays(-3);
+        $this->assertSame(31, $date->day);
+        $date->addWeekdays(-3);
+        $this->assertSame(27, $date->day);
         $date->subWeekdays(2);
         $this->assertSame(25, $date->day);
         $date->addWeekdays(14);

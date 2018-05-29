@@ -79,6 +79,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method bool isCurrentMillennium() Checks if the instance is in the same millennium as the current moment.
  * @method bool isSameYear(\DateTimeInterface $date = null) Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentYear() Checks if the instance is in the same year as the current moment.
+ * @method bool isSameWeek(\DateTimeInterface $date = null) Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentWeek() Checks if the instance is in the same week as the current moment.
  * @method bool isSameDay(\DateTimeInterface $date = null) Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentDay() Checks if the instance is in the same day as the current moment.
  * @method bool isSameHour(\DateTimeInterface $date = null) Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
@@ -2581,6 +2583,8 @@ trait Date
         $units = [
             // @call isSameUnit
             'year' => 'Y',
+            // @call isSameUnit
+            'week' => 'Y-W',
             // @call isSameUnit
             'day' => 'Y-m-d',
             // @call isSameUnit
