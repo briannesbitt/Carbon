@@ -112,6 +112,21 @@ class StrictModeTest extends AbstractTestCase
 
     /**
      * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method foobar does not exist.
+     */
+    public function testCallWithStrictMode()
+    {
+        Carbon::now()->foobar();
+    }
+
+    public function testCallWithoutStrictMode()
+    {
+        Carbon::useStrictMode(false);
+        $this->assertNull(Carbon::now()->foobar());
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
      * @expectedExceptionMessage Method Carbon\Carbon::foobar does not exist.
      */
     public function testStaticCallWithStrictMode()
