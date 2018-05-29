@@ -33,8 +33,8 @@ class MacroTest extends AbstractTestCase
 
     public function testCallMacro()
     {
-        CarbonPeriod::macro('onlyWeekdays', function ($self) {
-            return $self->addFilter(function ($date) {
+        CarbonPeriod::macro('onlyWeekdays', function () {
+            return $this->addFilter(function ($date) {
                 return !in_array($date->dayOfWeek, [Carbon::SATURDAY, Carbon::SUNDAY]);
             });
         });
@@ -60,8 +60,8 @@ class MacroTest extends AbstractTestCase
 
     public function testPassPeriodInstanceAfterOptionalParameters()
     {
-        CarbonPeriod::macro('formatStartDate', function ($format = 'l, j F Y', $self = null) {
-            return $self->getStartDate()->format($format);
+        CarbonPeriod::macro('formatStartDate', function ($format = 'l, j F Y') {
+            return $this->getStartDate()->format($format);
         });
 
         $this->assertSame(
@@ -156,8 +156,8 @@ class MacroTest extends AbstractTestCase
 
     public function testInstatiateViaStaticMacroCall()
     {
-        CarbonPeriod::macro('fromTomorrow', function ($self) {
-            return $self->setStartDate(Carbon::tomorrow());
+        CarbonPeriod::macro('fromTomorrow', function () {
+            return $this->setStartDate(Carbon::tomorrow());
         });
 
         $period = CarbonPeriod::fromTomorrow();

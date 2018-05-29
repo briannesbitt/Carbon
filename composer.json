@@ -20,6 +20,7 @@
             "homepage": "http://nesbot.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.1.8",
         "symfony/translation": "^4.0"
@@ -48,6 +49,7 @@
         ],
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests"
+        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
+        "phpdoc": "php phpdoc.php"
     }
 }
