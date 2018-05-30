@@ -18,6 +18,7 @@ use JsonSerializable;
  * @property      int $minute
  * @property      int $second
  * @property      int $micro
+ * @property      int $microsecond
  * @property      int $timestamp seconds since the Unix Epoch
  * @property      int $age does a diffInYears() with default parameters
  * @property      int $offsetHours the timezone offset in hours from UTC
@@ -49,25 +50,55 @@ use JsonSerializable;
  * @method bool isFriday() Checks if the instance day is friday.
  * @method bool isSaturday() Checks if the instance day is saturday.
  * @method bool isCurrentMonth() Checks if the instance is in the same month as the current moment.
+ * @method bool isNextMonth() Checks if the instance is in the same month as the current moment next month.
+ * @method bool isLastMonth() Checks if the instance is in the same month as the current moment last month.
  * @method bool isCurrentQuarter() Checks if the instance is in the same quarter as the current moment.
+ * @method bool isNextQuarter() Checks if the instance is in the same quarter as the current moment next quarter.
+ * @method bool isLastQuarter() Checks if the instance is in the same quarter as the current moment last quarter.
  * @method bool isSameDecade(\DateTimeInterface $date = null) Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentDecade() Checks if the instance is in the same decade as the current moment.
+ * @method bool isNextDecade() Checks if the instance is in the same decade as the current moment next decade.
+ * @method bool isLastDecade() Checks if the instance is in the same decade as the current moment last decade.
  * @method bool isSameCentury(\DateTimeInterface $date = null) Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentCentury() Checks if the instance is in the same century as the current moment.
+ * @method bool isNextCentury() Checks if the instance is in the same century as the current moment next century.
+ * @method bool isLastCentury() Checks if the instance is in the same century as the current moment last century.
  * @method bool isSameMillennium(\DateTimeInterface $date = null) Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentMillennium() Checks if the instance is in the same millennium as the current moment.
+ * @method bool isNextMillennium() Checks if the instance is in the same millennium as the current moment next millennium.
+ * @method bool isLastMillennium() Checks if the instance is in the same millennium as the current moment last millennium.
  * @method bool isSameYear(\DateTimeInterface $date = null) Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentYear() Checks if the instance is in the same year as the current moment.
+ * @method bool isNextYear() Checks if the instance is in the same year as the current moment next year.
+ * @method bool isLastYear() Checks if the instance is in the same year as the current moment last year.
  * @method bool isSameWeek(\DateTimeInterface $date = null) Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentWeek() Checks if the instance is in the same week as the current moment.
+ * @method bool isNextWeek() Checks if the instance is in the same week as the current moment next week.
+ * @method bool isLastWeek() Checks if the instance is in the same week as the current moment last week.
  * @method bool isSameDay(\DateTimeInterface $date = null) Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentDay() Checks if the instance is in the same day as the current moment.
+ * @method bool isNextDay() Checks if the instance is in the same day as the current moment next day.
+ * @method bool isLastDay() Checks if the instance is in the same day as the current moment last day.
  * @method bool isSameHour(\DateTimeInterface $date = null) Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentHour() Checks if the instance is in the same hour as the current moment.
+ * @method bool isNextHour() Checks if the instance is in the same hour as the current moment next hour.
+ * @method bool isLastHour() Checks if the instance is in the same hour as the current moment last hour.
  * @method bool isSameMinute(\DateTimeInterface $date = null) Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentMinute() Checks if the instance is in the same minute as the current moment.
+ * @method bool isNextMinute() Checks if the instance is in the same minute as the current moment next minute.
+ * @method bool isLastMinute() Checks if the instance is in the same minute as the current moment last minute.
  * @method bool isSameSecond(\DateTimeInterface $date = null) Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
  * @method bool isCurrentSecond() Checks if the instance is in the same second as the current moment.
+ * @method bool isNextSecond() Checks if the instance is in the same second as the current moment next second.
+ * @method bool isLastSecond() Checks if the instance is in the same second as the current moment last second.
+ * @method bool isSameMicro(\DateTimeInterface $date = null) Checks if the given date is in the same micro as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMicro() Checks if the instance is in the same micro as the current moment.
+ * @method bool isNextMicro() Checks if the instance is in the same micro as the current moment next micro.
+ * @method bool isLastMicro() Checks if the instance is in the same micro as the current moment last micro.
+ * @method bool isSameMicrosecond(\DateTimeInterface $date = null) Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMicrosecond() Checks if the instance is in the same microsecond as the current moment.
+ * @method bool isNextMicrosecond() Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method bool isLastMicrosecond() Checks if the instance is in the same microsecond as the current moment last microsecond.
  * @method $this years(int $value) Set current instance year to the given value.
  * @method $this year(int $value) Set current instance year to the given value.
  * @method $this setYears(int $value) Set current instance year to the given value.
@@ -92,6 +123,14 @@ use JsonSerializable;
  * @method $this second(int $value) Set current instance second to the given value.
  * @method $this setSeconds(int $value) Set current instance second to the given value.
  * @method $this setSecond(int $value) Set current instance second to the given value.
+ * @method $this micros(int $value) Set current instance micro to the given value.
+ * @method $this micro(int $value) Set current instance micro to the given value.
+ * @method $this setMicros(int $value) Set current instance micro to the given value.
+ * @method $this setMicro(int $value) Set current instance micro to the given value.
+ * @method $this microseconds(int $value) Set current instance microsecond to the given value.
+ * @method $this microsecond(int $value) Set current instance microsecond to the given value.
+ * @method $this setMicroseconds(int $value) Set current instance microsecond to the given value.
+ * @method $this setMicrosecond(int $value) Set current instance microsecond to the given value.
  * @method $this addYears(int $value = 1) Add years (the $value count passed in) to the instance (using date interval).
  * @method $this addYear() Add one year to the instance (using date interval).
  * @method $this subYears(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval).
@@ -148,6 +187,14 @@ use JsonSerializable;
  * @method $this addSecond() Add one second to the instance (using date interval).
  * @method $this subSeconds(int $value = 1) Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method $this subSecond() Sub one second to the instance (using date interval).
+ * @method $this addMicros(int $value = 1) Add micros (the $value count passed in) to the instance (using date interval).
+ * @method $this addMicro() Add one micro to the instance (using date interval).
+ * @method $this subMicros(int $value = 1) Sub micros (the $value count passed in) to the instance (using date interval).
+ * @method $this subMicro() Sub one micro to the instance (using date interval).
+ * @method $this addMicroseconds(int $value = 1) Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method $this addMicrosecond() Add one microsecond to the instance (using date interval).
+ * @method $this subMicroseconds(int $value = 1) Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method $this subMicrosecond() Sub one microsecond to the instance (using date interval).
  * @method $this addMillennia(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval).
  * @method $this addMillennium() Add one millennium to the instance (using date interval).
  * @method $this subMillennia(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval).
@@ -315,6 +362,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const HOURS_PER_DAY = 24;
     public const MINUTES_PER_HOUR = 60;
     public const SECONDS_PER_MINUTE = 60;
+    public const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
      * RFC7231 DateTime format.
@@ -581,22 +629,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function isTomorrow();
 
-    public function isNextWeek();
-
-    public function isLastWeek();
-
-    public function isNextQuarter();
-
-    public function isLastQuarter();
-
-    public function isNextMonth();
-
-    public function isLastMonth();
-
-    public function isNextYear();
-
-    public function isLastYear();
-
     public function isFuture();
 
     public function isPast();
@@ -634,6 +666,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function addRealUnit($unit, $value = 1);
 
     public function subRealUnit($unit, $value = 1);
+
+    public static function isModifiableUnit($unit);
 
     public function addUnit($unit, $value = 1, $overflow);
 

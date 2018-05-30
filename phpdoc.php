@@ -62,6 +62,12 @@ foreach ($tags as $tag) {
                     $autoDoc .= "\n * @method bool isCurrent".
                         ucFirst($unit).'() '.
                         "Checks if the instance is in the same $unit as the current moment.";
+                    $autoDoc .= "\n * @method bool isNext".
+                        ucFirst($unit).'() '.
+                        "Checks if the instance is in the same $unit as the current moment next $unit.";
+                    $autoDoc .= "\n * @method bool isLast".
+                        ucFirst($unit).'() '.
+                        "Checks if the instance is in the same $unit as the current moment last $unit.";
                     break;
                 case 'setUnit':
                     $unit = $vars->name;
