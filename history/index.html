@@ -66,14 +66,17 @@
 <h1>1.28.0 / 2018-05-22</h1>
   <ul>
     <li>Added isStartOfDay, isEndOfDay, isMidnight, isMidday methods</li>
+    <li>Added make methods to Carbon and CarbonInterval</li>
+    <li>Added workaround for timezone bug: https://bugs.php.net/bug.php?id=45528</li>
+    <li>Added cascading CarbonInterval and custom carry-over points</li>
+    <li>Added total method and total getters to CarbonInterval</li>
+    <li>Added macro support to CarbonInterval</li>
+    <li>Added invert method to CarbonInterval</li>
+    <li>Added $short argument to CarbonInterval::forHumans to display short formats</li>
     <li>Added locales bs_BA, hi, is, ne, oc, sh, sw</li>
     <li>Added diff translations for ca, es, nl, no, pl, sl, sr*</li>
-    <li>Fixed ko, pl translations</li>
     <li>Fixed createFromFormat with partial format and mock now instance</li>
-    <li>Added CarbonPeriod and related methods in Carbon and CarbonInterval</li>
-    <li>Added make methods to Carbon and CarbonInterval</li>
-    <li>Added getCascadeFactors, setCascadeFactors, getFactor, getDaysPerWeek, getHoursPerDay, getMinutesPerHours, getSecondsPerMinutes, cascade, total methods and total getters to CarbonInterval</li>
-    <li>Added $short argument to CarbonInterval::forHumans to display short formats</li>
+    <li>Fixed ko, pl translations</li>
   </ul>
 <h1>1.27.0 / 2018-04-23</h1>
   <ul>
