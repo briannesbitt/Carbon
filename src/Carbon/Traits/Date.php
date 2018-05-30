@@ -1894,7 +1894,8 @@ trait Date
     }
 
     /**
-     * Set the current translator locale and indicate if the source locale file exists
+     * Set the current translator locale and indicate if the source locale file exists.
+     * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
      *
      * @param string $locale locale ex. en
      *
@@ -1902,6 +1903,47 @@ trait Date
      */
     public static function setLocale($locale)
     {
+        if ($locale === 'auto') {
+            $completeLocale = setlocale(LC_TIME, 0);
+            $locale = substr($completeLocale, 0, 2);
+            $files = glob(__DIR__."/../Lang/$locale*.php");
+
+            if (!count($files)) {
+                return false;
+            }
+
+            $files = array_map(function ($file) {
+                return preg_replace('/^.*[\/\\\\]([^\/\\\\]+)\.php$/', '$1', $file);
+            }, $files);
+            $localeLength = strlen($completeLocale);
+            $getScore = function ($language) use ($completeLocale, $localeLength) {
+                $count = 0;
+                for ($i = 2; $i < min(strlen($language), $localeLength); $i++) {
+                    $char = substr($language, $i, 1);
+                    if ($char !== substr($completeLocale, $i, 1)) {
+                        break;
+                    }
+
+                    if ($char !== '_') {
+                        $count++;
+                    }
+                }
+
+                return $count;
+            };
+            usort($files, function ($a, $b) use ($getScore) {
+                $a = $getScore($a);
+                $b = $getScore($b);
+
+                if ($a === $b) {
+                    return 0;
+                }
+
+                return $a < $b ? 1 : -1;
+            });
+            $locale = $files[0];
+        }
+
         return static::translator()->setLocale($locale) !== false;
     }
 
