@@ -14,7 +14,7 @@ env:
 sudo: false
 
 before_install:
-  - sudo apt-get update && sudo apt-get --reinstall install -qq language-pack-fr
+  - sudo apt-get update && sudo apt-get --reinstall install -qq language-pack-ar language-pack-fr language-pack-sr language-pack-zh-hans language-pack-zh-hant language-pack-yo
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
