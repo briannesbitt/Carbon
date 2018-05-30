@@ -27,6 +27,7 @@ use DateTime;
  * @property      int $minute
  * @property      int $second
  * @property      int $micro
+ * @property      int $microsecond
  * @property      int $timestamp seconds since the Unix Epoch
  * @property      int $age does a diffInYears() with default parameters
  * @property      int $offsetHours the timezone offset in hours from UTC
@@ -99,6 +100,14 @@ use DateTime;
  * @method bool isCurrentSecond() Checks if the instance is in the same second as the current moment.
  * @method bool isNextSecond() Checks if the instance is in the same second as the current moment next second.
  * @method bool isLastSecond() Checks if the instance is in the same second as the current moment last second.
+ * @method bool isSameMicro(\DateTimeInterface $date = null) Checks if the given date is in the same micro as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMicro() Checks if the instance is in the same micro as the current moment.
+ * @method bool isNextMicro() Checks if the instance is in the same micro as the current moment next micro.
+ * @method bool isLastMicro() Checks if the instance is in the same micro as the current moment last micro.
+ * @method bool isSameMicrosecond(\DateTimeInterface $date = null) Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method bool isCurrentMicrosecond() Checks if the instance is in the same microsecond as the current moment.
+ * @method bool isNextMicrosecond() Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method bool isLastMicrosecond() Checks if the instance is in the same microsecond as the current moment last microsecond.
  * @method $this years(int $value) Set current instance year to the given value.
  * @method $this year(int $value) Set current instance year to the given value.
  * @method $this setYears(int $value) Set current instance year to the given value.
@@ -123,6 +132,14 @@ use DateTime;
  * @method $this second(int $value) Set current instance second to the given value.
  * @method $this setSeconds(int $value) Set current instance second to the given value.
  * @method $this setSecond(int $value) Set current instance second to the given value.
+ * @method $this micros(int $value) Set current instance micro to the given value.
+ * @method $this micro(int $value) Set current instance micro to the given value.
+ * @method $this setMicros(int $value) Set current instance micro to the given value.
+ * @method $this setMicro(int $value) Set current instance micro to the given value.
+ * @method $this microseconds(int $value) Set current instance microsecond to the given value.
+ * @method $this microsecond(int $value) Set current instance microsecond to the given value.
+ * @method $this setMicroseconds(int $value) Set current instance microsecond to the given value.
+ * @method $this setMicrosecond(int $value) Set current instance microsecond to the given value.
  * @method $this addYears(int $value = 1) Add years (the $value count passed in) to the instance (using date interval).
  * @method $this addYear() Add one year to the instance (using date interval).
  * @method $this subYears(int $value = 1) Sub years (the $value count passed in) to the instance (using date interval).
@@ -179,6 +196,14 @@ use DateTime;
  * @method $this addSecond() Add one second to the instance (using date interval).
  * @method $this subSeconds(int $value = 1) Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method $this subSecond() Sub one second to the instance (using date interval).
+ * @method $this addMicros(int $value = 1) Add micros (the $value count passed in) to the instance (using date interval).
+ * @method $this addMicro() Add one micro to the instance (using date interval).
+ * @method $this subMicros(int $value = 1) Sub micros (the $value count passed in) to the instance (using date interval).
+ * @method $this subMicro() Sub one micro to the instance (using date interval).
+ * @method $this addMicroseconds(int $value = 1) Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method $this addMicrosecond() Add one microsecond to the instance (using date interval).
+ * @method $this subMicroseconds(int $value = 1) Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method $this subMicrosecond() Sub one microsecond to the instance (using date interval).
  * @method $this addMillennia(int $value = 1) Add millennia (the $value count passed in) to the instance (using date interval).
  * @method $this addMillennium() Add one millennium to the instance (using date interval).
  * @method $this subMillennia(int $value = 1) Sub millennia (the $value count passed in) to the instance (using date interval).
