@@ -287,6 +287,13 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59);
     }
 
+    public function testStartOfSecond()
+    {
+        $dt = new Carbon('2000-06-15 23:10:10.123456');
+        $this->assertCarbon($dt->startOfSecond(), 2000, 6, 15, 23, 10, 10, 0);
+        $this->assertCarbon($dt->endOfSecond(), 2000, 6, 15, 23, 10, 10, 999999);
+    }
+
     public function testMidDayIsFluid()
     {
         $dt = Carbon::now();

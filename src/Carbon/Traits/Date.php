@@ -353,6 +353,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 trait Date
 {
+    use Test;
+
     /**
      * Names of days of the week.
      *
@@ -467,13 +469,6 @@ trait Date
         'c' => '(([1-9][0-9]{0,4})\-(1[012]|0[1-9])\-(3[01]|[12][0-9]|0[1-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])[\+\-](1[012]|0[0-9]):([0134][05]))', // Y-m-dTH:i:sP
         'r' => '(([a-zA-Z]{3}), ([123][0-9]|[1-9]) ([a-zA-Z]{3}) ([1-9][0-9]{0,4}) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) [\+\-](1[012]|0[0-9])([0134][05]))', // D, j M Y H:i:s O
     ];
-
-    /**
-     * A test Carbon instance to be returned when now instances are created.
-     *
-     * @var static
-     */
-    protected static $testNow;
 
     /**
      * A translator to ... er ... translate stuff.
@@ -1771,55 +1766,6 @@ trait Date
     public static function setMidDayAt($hour)
     {
         static::$midDayAt = $hour;
-    }
-
-    ///////////////////////////////////////////////////////////////////
-    ///////////////////////// TESTING AIDS ////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Set a Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.  The provided instance will be returned
-     * specifically under the following conditions:
-     *   - A call to the static now() method, ex. Carbon::now()
-     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
-     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
-     *   - When a string containing the desired time is passed to Carbon::parse().
-     *
-     * Note the timezone parameter was left out of the examples above and
-     * has no affect as the mock value will be returned regardless of its value.
-     *
-     * To clear the test instance call this method using the default
-     * parameter of null.
-     *
-     * @param \Carbon\Carbon|null        $testNow real or mock Carbon instance
-     * @param \Carbon\Carbon|string|null $testNow
-     */
-    public static function setTestNow($testNow = null)
-    {
-        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
-    }
-
-    /**
-     * Get the Carbon instance (real or mock) to be returned when a "now"
-     * instance is created.
-     *
-     * @return static the current instance used for testing
-     */
-    public static function getTestNow()
-    {
-        return static::$testNow;
-    }
-
-    /**
-     * Determine if there is a valid test instance set. A valid test instance
-     * is anything that is not null.
-     *
-     * @return bool true if there is a test instance, otherwise false
-     */
-    public static function hasTestNow()
-    {
-        return static::getTestNow() !== null;
     }
 
     /**
@@ -3268,6 +3214,7 @@ trait Date
      */
     public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
     {
+        /* @var CarbonInterface $this */
         $isNow = $other === null;
         $interval = [];
 
@@ -3387,7 +3334,8 @@ trait Date
      */
     public function startOfDay()
     {
-        return $this->modify('00:00:00.000000');
+        /* @var CarbonInterface $this */
+        return $this->setTime(0, 0, 0, 0);
     }
 
     /**
@@ -3397,7 +3345,8 @@ trait Date
      */
     public function endOfDay()
     {
-        return $this->modify((static::HOURS_PER_DAY - 1).'.'.(static::MINUTES_PER_HOUR - 1).'.'.(static::SECONDS_PER_MINUTE - 1).'.999999');
+        /* @var CarbonInterface $this */
+        return $this->setTime(static::HOURS_PER_DAY - 1, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
     }
 
     /**
@@ -3547,7 +3496,7 @@ trait Date
      */
     public function startOfHour()
     {
-        return $this->setTime($this->hour, 0, 0);
+        return $this->setTime($this->hour, 0, 0, 0);
     }
 
     /**
@@ -3557,7 +3506,7 @@ trait Date
      */
     public function endOfHour()
     {
-        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1);
+        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
     }
 
     /**
@@ -3567,7 +3516,7 @@ trait Date
      */
     public function startOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, 0);
+        return $this->setTime($this->hour, $this->minute, 0, 0);
     }
 
     /**
@@ -3577,7 +3526,27 @@ trait Date
      */
     public function endOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1);
+        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
+    }
+
+    /**
+     * Modify to start of current second, microseconds become 0
+     *
+     * @return static
+     */
+    public function startOfSecond()
+    {
+        return $this->setTime($this->hour, $this->minute, $this->second, 0);
+    }
+
+    /**
+     * Modify to end of current second, microseconds become 999999
+     *
+     * @return static
+     */
+    public function endOfSecond()
+    {
+        return $this->setTime($this->hour, $this->minute, $this->second, static::MICROSECONDS_PER_SECOND - 1);
     }
 
     /**
