@@ -324,7 +324,7 @@ class SettersTest extends AbstractTestCase
         $period = CarbonPeriod::options(CarbonPeriod::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday 19:00')->until('tomorrow 03:30');
         $hours = array();
         foreach ($period as $date) {
-            $hours[] = $date->format('d H');
+            $hours[] = $date->format('j H');
         }
         $d1 = Carbon::yesterday()->day;
         $d2 = Carbon::today()->day;
