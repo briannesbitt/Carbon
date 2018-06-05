@@ -103,7 +103,7 @@ class MacroTest extends AbstractTestCase
     public function testCarbonIsMacroableWhenCalledStatically()
     {
         Carbon::macro('easterDate', function ($year) {
-            $instance = Carbon::create($year);
+            $instance = Carbon::create($year, 1, 1);
 
             $a = $instance->year % 19;
             $b = floor($instance->year / 100);

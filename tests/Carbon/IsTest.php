@@ -132,6 +132,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsLastMonthFalse()
     {
+        Carbon::setTestNow(Carbon::create(2018, 5, 31));
         $this->assertFalse(Carbon::now()->subMonthsNoOverflow(2)->isLastMonth());
     }
 
