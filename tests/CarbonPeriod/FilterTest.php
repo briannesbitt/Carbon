@@ -354,6 +354,22 @@ class FilterTest extends AbstractTestCase
         );
     }
 
+    public function testAddFilterFromCarbonMacro()
+    {
+        $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
+
+        Carbon::macro('isTenDay', function ($self) {
+            return $self->day === 10;
+        });
+
+        $period->addFilter('isTenDay');
+
+        $this->assertSame(
+            $this->standardizeDates(array('2018-01-10', '2018-02-10', '2018-03-10', '2018-04-10', '2018-05-10')),
+            $this->standardizeDates($period)
+        );
+    }
+
     public function testAddFilterFromCarbonMethodWithArguments()
     {
         $period = CarbonPeriod::create('2017-01-01', 'P2M16D', '2018-12-31');

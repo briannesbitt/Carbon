@@ -283,6 +283,19 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
+     * Return whether given callable is a string pointing to one of Carbon's is* methods
+     * and should be automatically converted to a filter callback.
+     *
+     * @param callable $callable
+     *
+     * @return bool
+     */
+    protected static function isCarbonPredicateMethod($callable)
+    {
+        return is_string($callable) && substr($callable, 0, 2) === 'is' && (method_exists('Carbon\Carbon', $callable) || Carbon::hasMacro($callable));
+    }
+
+    /**
      * Return whether given variable is an ISO 8601 specification.
      *
      * Note: Check is very basic, as actual validation will be done later when parsing.
