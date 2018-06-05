@@ -37,4 +37,10 @@ return array(
     'month_ago' => ':count Monat|:count Monaten',
     'week_ago' => ':count Woche|:count Wochen',
     'day_ago' => ':count Tag|:count Tagen',
+
+    'diff_now' => 'Gerade eben',
+    'diff_yesterday' => 'Gestern',
+    'diff_tomorrow' => 'Heute',
+    'diff_before_yesterday' => 'Vorgestern',
+    'diff_after_tomorrow' => 'Übermorgen',
 );

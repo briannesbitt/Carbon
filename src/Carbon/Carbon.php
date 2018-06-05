@@ -277,6 +277,14 @@ class Carbon extends DateTime implements JsonSerializable
     protected static $yearsOverflow = true;
 
     /**
+     * Indicates if years are compared with month by default so isSameMonth and isSameQuarter have $ofSameYear set
+     * to true by default.
+     *
+     * @var bool
+     */
+    protected static $compareYearWithMonth = false;
+
+    /**
      * Options for diffForHumans().
      *
      * @var int
@@ -399,6 +407,26 @@ class Carbon extends DateTime implements JsonSerializable
     public static function shouldOverflowYears()
     {
         return static::$yearsOverflow;
+    }
+
+    /**
+     * Get the month comparison default behavior.
+     *
+     * @return bool
+     */
+    public static function compareYearWithMonth($compareYearWithMonth = true)
+    {
+        static::$compareYearWithMonth = $compareYearWithMonth;
+    }
+
+    /**
+     * Get the month comparison default behavior.
+     *
+     * @return bool
+     */
+    public static function shouldCompareYearWithMonth()
+    {
+        return static::$compareYearWithMonth;
     }
 
     /**
@@ -2372,11 +2400,13 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return bool
      */
-    public function isSameQuarter($date = null, $ofSameYear = false)
+    public function isSameQuarter($date = null, $ofSameYear = null)
     {
         $date = $date ? static::instance($date) : static::now($this->tz);
 
         static::expectDateTime($date);
+
+        $ofSameYear = is_null($ofSameYear) ? static::shouldCompareYearWithMonth() : $ofSameYear;
 
         return $this->quarter === $date->quarter && (!$ofSameYear || $this->isSameYear($date));
     }
@@ -2384,11 +2414,13 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Determines if the instance is in the current month.
      *
+     * @param bool $ofSameYear Check if it is the same month in the same year.
+     *
      * @return bool
      */
-    public function isCurrentMonth()
+    public function isCurrentMonth($ofSameYear = null)
     {
-        return $this->isSameMonth();
+        return $this->isSameMonth($ofSameYear);
     }
 
     /**
@@ -2402,8 +2434,10 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return bool
      */
-    public function isSameMonth($date = null, $ofSameYear = false)
+    public function isSameMonth($date = null, $ofSameYear = null)
     {
+        $ofSameYear = is_null($ofSameYear) ? static::shouldCompareYearWithMonth() : $ofSameYear;
+
         return $this->isSameAs($ofSameYear ? 'Y-m' : 'm', $date);
     }
 
