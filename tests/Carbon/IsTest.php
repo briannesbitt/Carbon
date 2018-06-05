@@ -295,7 +295,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsCurrentMonthFalse()
     {
-        $this->assertFalse(Carbon::now()->subMonth()->isCurrentMonth());
+        $this->assertFalse(Carbon::now()->day(15)->subMonth()->isCurrentMonth());
     }
 
     public function testIsSameMonthTrue()
@@ -324,7 +324,7 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameMonthFalse()
     {
-        $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->subMonth()));
+        $this->assertFalse(Carbon::now()->isSameMonth(Carbon::now()->day(15)->subMonth()));
     }
 
     public function testIsSameMonthFalseWithDateTime()
