@@ -464,4 +464,53 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame('01-01, 01-03', $str);
     }
+
+    public function testSkip()
+    {
+        $period = CarbonPeriod::create('2018-05-30', '2018-07-13');
+        $output = array();
+
+        foreach ($period as $day) {
+            /* @var Carbon $day */
+            $output[] = $day->format('Y-m-d');
+
+            if ($day->isSunday()) {
+                $this->assertTrue($period->skip(7));
+                $output[] = '...';
+            }
+        }
+
+        $this->assertSame(array(
+            '2018-05-30',
+            '2018-05-31',
+            '2018-06-01',
+            '2018-06-02',
+            '2018-06-03',
+            '...',
+            '2018-06-11',
+            '2018-06-12',
+            '2018-06-13',
+            '2018-06-14',
+            '2018-06-15',
+            '2018-06-16',
+            '2018-06-17',
+            '...',
+            '2018-06-25',
+            '2018-06-26',
+            '2018-06-27',
+            '2018-06-28',
+            '2018-06-29',
+            '2018-06-30',
+            '2018-07-01',
+            '...',
+            '2018-07-09',
+            '2018-07-10',
+            '2018-07-11',
+            '2018-07-12',
+            '2018-07-13',
+        ), $output);
+
+        $this->assertFalse($period->skip());
+        $this->assertFalse($period->skip(7));
+    }
 }

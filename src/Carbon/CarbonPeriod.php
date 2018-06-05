@@ -1140,6 +1140,22 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
+     * Skip iterations and returns iteration state (false if ended, true if still valid).
+     *
+     * @param int $count steps number to skip (1 by default)
+     *
+     * @return bool
+     */
+    public function skip($count = 1)
+    {
+        for ($i = $count; $this->valid() && $i > 0; $i--) {
+            $this->next();
+        }
+
+        return $this->valid();
+    }
+
+    /**
      * Keep incrementing the current date until a valid date is found or the iteration is ended.
      *
      * @throws \RuntimeException
