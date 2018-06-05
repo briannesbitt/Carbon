@@ -4097,7 +4097,7 @@ trait Date
             $lowerUnit = strtolower(substr($unit, 6));
 
             if (static::isModifiableUnit($lowerUnit)) {
-                return $this->copy()->addUnit($lowerUnit, $factor)->isSameUnit($lowerUnit, ...$parameters);
+                return $this->copy()->addUnit($lowerUnit, $factor, false)->isSameUnit($lowerUnit, ...$parameters);
             }
         }
 
