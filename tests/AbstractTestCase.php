@@ -163,9 +163,10 @@ abstract class AbstractTestCase extends TestCase
 
     public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
     {
+        $test = Carbon::getTestNow();
         Carbon::setTestNow($dt ?: Carbon::now());
         $func();
-        Carbon::setTestNow();
+        Carbon::setTestNow($test);
     }
 
     public function wrapWithNonDstDate(Closure $func)
