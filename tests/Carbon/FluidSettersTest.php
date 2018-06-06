@@ -120,4 +120,12 @@ class FluidSettersTest extends AbstractTestCase
         $this->assertInstanceOfCarbon($d->timestamp(10));
         $this->assertSame(10, $d->timestamp);
     }
+
+    public function testFluentCreate()
+    {
+        $date = Carbon::now()->lastDayOfPreviousMonth();
+        $this->assertInstanceOfCarbon($date);
+        $this->assertTrue($date->isLastMonth());
+        $this->assertTrue($date->isLastDayOfMonth());
+    }
 }
