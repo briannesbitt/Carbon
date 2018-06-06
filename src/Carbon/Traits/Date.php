@@ -22,6 +22,7 @@ use Closure;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -958,31 +959,36 @@ trait Date
      *
      * @return static
      */
-    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
-        $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
-
-        $defaults = array_combine([
-            'year',
-            'month',
-            'day',
-            'hour',
-            'minute',
-            'second',
-        ], explode('-', $now->format('Y-n-j-G-i-s')));
-
-        $year = $year === null ? $defaults['year'] : $year;
-        $month = $month === null ? $defaults['month'] : $month;
-        $day = $day === null ? $defaults['day'] : $day;
-
-        if ($hour === null) {
-            $hour = $defaults['hour'];
-            $minute = $minute === null ? $defaults['minute'] : $minute;
-            $second = $second === null ? $defaults['second'] : $second;
-        } else {
-            $minute = $minute === null ? 0 : $minute;
-            $second = $second === null ? 0 : $second;
+        if (is_string($year) && !is_numeric($year)) {
+            return static::parse($year);
         }
+
+        $defaults = null;
+        $getDefault = function ($unit) use ($tz, &$defaults) {
+            if ($defaults === null) {
+                $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
+
+                $defaults = array_combine([
+                    'year',
+                    'month',
+                    'day',
+                    'hour',
+                    'minute',
+                    'second',
+                ], explode('-', $now->format('Y-n-j-G-i-s.u')));
+            }
+
+            return $defaults[$unit];
+        };
+
+        $year = $year === null ? $getDefault('year') : $year;
+        $month = $month === null ? $getDefault('month') : $month;
+        $day = $day === null ? $getDefault('day') : $day;
+        $hour = $hour === null ? $getDefault('hour') : $hour;
+        $minute = $minute === null ? $getDefault('minute') : $minute;
+        $second = $second === null ? $getDefault('second') : $second;
 
         $fixYear = null;
 
@@ -994,7 +1000,8 @@ trait Date
             $year = 9999;
         }
 
-        $instance = static::createFromFormat('!Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+        $second = ($second < 10 ? '0' : '').number_format($second, 6);
+        $instance = static::createFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
         if ($fixYear !== null) {
             $instance = $instance->addYears($fixYear);
@@ -1110,7 +1117,7 @@ trait Date
      *
      * @return static
      */
-    public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
+    public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         return static::create(null, null, null, $hour, $minute, $second, $tz);
     }
@@ -1586,9 +1593,9 @@ trait Date
      *
      * @return static
      */
-    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
+    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
-        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
+        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second, $microseconds);
     }
 
     /**
@@ -2698,6 +2705,16 @@ trait Date
     public function isLastOfMonth()
     {
         return $this->day === $this->daysInMonth;
+    }
+
+    /**
+     * Check if today is the last day of the Month
+     *
+     * @return bool
+     */
+    public function isLastDayOfMonth()
+    {
+        return $this->isLastOfMonth();
     }
 
     /**
@@ -3991,13 +4008,17 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            if (static::isStrictModeEnabled()) {
-                throw new BadMethodCallException(sprintf(
-                    'Method %s::%s does not exist.', static::class, $method
-                ));
-            }
+            try {
+                return static::parse(preg_replace('/[A-Z]/', ' $0', $method), ...$parameters);
+            } catch (Exception $exception) {
+                if (static::isStrictModeEnabled()) {
+                    throw new BadMethodCallException(sprintf(
+                        'Method %s::%s does not exist.', static::class, $method
+                    ));
+                }
 
-            return null;
+                return null;
+            }
         }
 
         if (static::$localMacros[$method] instanceof Closure) {
@@ -4140,11 +4161,15 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
-            if (static::isStrictModeEnabled()) {
-                throw new BadMethodCallException("Method $method does not exist.");
-            }
+            try {
+                return $this->modify(preg_replace('/[A-Z]/', ' $0', $method), ...$parameters);
+            } catch (Exception $exception) {
+                if (static::isStrictModeEnabled()) {
+                    throw new BadMethodCallException("Method $method does not exist.");
+                }
 
-            return null;
+                return null;
+            }
         }
 
         $macro = static::$localMacros[$method];

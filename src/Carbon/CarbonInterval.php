@@ -31,6 +31,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property int $hours Total hours of the current interval.
  * @property int $minutes Total minutes of the current interval.
  * @property int $seconds Total seconds of the current interval.
+ * @property int $microseconds Total microseconds of the current interval.
+ * @property int $milliseconds Total microseconds of the current interval.
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  * @property-read float $totalYears Number of years equivalent to the interval.
@@ -41,6 +43,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read float $totalHours Number of hours equivalent to the interval.
  * @property-read float $totalMinutes Number of minutes equivalent to the interval.
  * @property-read float $totalSeconds Number of seconds equivalent to the interval.
+ * @property-read float $totalMilliseconds Number of milliseconds equivalent to the interval.
+ * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval.
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
@@ -191,8 +195,9 @@ class CarbonInterval extends DateInterval
      * @param int $hours
      * @param int $minutes
      * @param int $seconds
+     * @param int $microseconds
      */
-    public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
         $spec = $years;
 
@@ -222,6 +227,10 @@ class CarbonInterval extends DateInterval
         }
 
         parent::__construct($spec);
+
+        if (!is_null($microseconds)) {
+            $this->f = $microseconds;
+        }
     }
 
     /**
@@ -357,6 +366,13 @@ class CarbonInterval extends DateInterval
 
             case 'second':
                 return new static(null, null, null, null, null, null, $arg);
+
+            case 'millisecond':
+                return new static(null, null, null, null, null, null, $arg * 1000);
+
+            case 'microsecond':
+            case 'micro':
+                return new static(null, null, null, null, null, null, $arg);
         }
 
         if (static::hasMacro($method)) {
@@ -409,6 +425,8 @@ class CarbonInterval extends DateInterval
         $hours = 0;
         $minutes = 0;
         $seconds = 0;
+        $milliseconds = 0;
+        $microseconds = 0;
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
@@ -469,6 +487,25 @@ class CarbonInterval extends DateInterval
                 case 'seconds':
                 case 's':
                     $seconds += $intValue;
+                    if ($fraction) {
+                        $milliseconds += round($fraction * 1000);
+                    }
+                    break;
+
+                case 'millisecond':
+                case 'milliseconds':
+                case 'ms':
+                    $milliseconds += $intValue;
+                    if ($fraction) {
+                        $microseconds += round($fraction * 1000);
+                    }
+                    break;
+
+                case 'microsecond':
+                case 'microseconds':
+                case 'micro':
+                case 'µs':
+                    $microseconds += $intValue;
                     break;
 
                 default:
@@ -478,7 +515,7 @@ class CarbonInterval extends DateInterval
             }
         }
 
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * 1000 + $microseconds);
     }
 
     /**
@@ -623,6 +660,13 @@ class CarbonInterval extends DateInterval
             case 'seconds':
                 return $this->s;
 
+            case 'milliseconds':
+                return (int) floor($this->f / 1000);
+
+            case 'micro':
+            case 'microseconds':
+                return $this->f;
+
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());
 
@@ -672,6 +716,15 @@ class CarbonInterval extends DateInterval
 
             case 'second':
                 $this->s = $value;
+                break;
+
+            case 'millisecond':
+                $this->f = $value * 1000;
+                break;
+
+            case 'micro':
+            case 'microsecond':
+                $this->f = $value;
                 break;
 
             default:
@@ -840,6 +893,8 @@ class CarbonInterval extends DateInterval
             'hour' => ['h', $this->hours],
             'minute' => ['min', $this->minutes],
             'second' => ['s', $this->seconds],
+            'millisecond' => ['ms', $this->milliseconds],
+            'microsecond' => ['µs', $this->microseconds % 1000],
         ];
 
         $parts = [];
@@ -930,6 +985,7 @@ class CarbonInterval extends DateInterval
         $this->hours = (int) round($this->hours * $factor);
         $this->minutes = (int) round($this->minutes * $factor);
         $this->seconds = (int) round($this->seconds * $factor);
+        $this->microseconds = (int) round($this->microseconds * $factor);
 
         return $this;
     }

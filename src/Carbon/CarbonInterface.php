@@ -669,6 +669,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function isLastOfMonth();
 
+    public function isLastDayOfMonth();
+
     public function isStartOfDay($checkMicroseconds);
 
     public function isEndOfDay($checkMicroseconds);

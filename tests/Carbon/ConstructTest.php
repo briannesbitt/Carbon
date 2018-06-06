@@ -120,4 +120,12 @@ class ConstructTest extends AbstractTestCase
 
         Carbon::setTestNow();
     }
+
+    public function testFluentCreate()
+    {
+        $date = Carbon::lastDayOfPreviousMonth();
+        $this->assertInstanceOfCarbon($date);
+        $this->assertTrue($date->isLastMonth());
+        $this->assertTrue($date->isLastDayOfMonth());
+    }
 }
