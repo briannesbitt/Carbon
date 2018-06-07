@@ -42,6 +42,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      int           $micro
  * @property      int           $microsecond
  * @property      int           $timestamp                                              seconds since the Unix Epoch
+ * @property      string        $englishDayOfWeek                                       the day of week in English
+ * @property      string        $shortEnglishDayOfWeek                                  the abbreviated day of week in English
+ * @property      string        $englishMonth                                           the day of week in English
+ * @property      string        $shortEnglishMonth                                      the abbreviated day of week in English
+ * @property      string        $localeDayOfWeek                                        the day of week in current locale LC_TIME
+ * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
+ * @property      string        $localeMonth                                            the month in current locale LC_TIME
+ * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone
@@ -1396,11 +1404,31 @@ trait Date
             'daysInMonth' => 't',
             // @property int seconds since the Unix Epoch
             'timestamp' => 'U',
+            // @property string the day of week in English
+            'englishDayOfWeek' => 'l',
+            // @property string the abbreviated day of week in English
+            'shortEnglishDayOfWeek' => 'D',
+            // @property string the day of week in English
+            'englishMonth' => 'F',
+            // @property string the abbreviated day of week in English
+            'shortEnglishMonth' => 'M',
+            // @property string the day of week in current locale LC_TIME
+            'localeDayOfWeek' => '%A',
+            // @property string the abbreviated day of week in current locale LC_TIME
+            'shortLocaleDayOfWeek' => '%a',
+            // @property string the month in current locale LC_TIME
+            'localeMonth' => '%B',
+            // @property string the abbreviated month in current locale LC_TIME
+            'shortLocaleMonth' => '%b',
         ];
 
         switch (true) {
             case isset($formats[$name]):
-                return (int) $this->format($formats[$name]);
+                $format = $formats[$name];
+                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
+                $value = $this->$method($format);
+
+                return is_numeric($value) ? (int) $value : $value;
 
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':

@@ -20,6 +20,14 @@ use JsonSerializable;
  * @property      int           $micro
  * @property      int           $microsecond
  * @property      int           $timestamp                                              seconds since the Unix Epoch
+ * @property      string        $englishDayOfWeek                                       the day of week in English
+ * @property      string        $shortEnglishDayOfWeek                                  the abbreviated day of week in English
+ * @property      string        $englishMonth                                           the day of week in English
+ * @property      string        $shortEnglishMonth                                      the abbreviated day of week in English
+ * @property      string        $localeDayOfWeek                                        the day of week in current locale LC_TIME
+ * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
+ * @property      string        $localeMonth                                            the month in current locale LC_TIME
+ * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone
@@ -477,7 +485,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function minValue();
 
-    public static function create($year, $month, $day, $hour, $minute, $second, $tz);
+    public static function create($year, $month = 1, $day = 1, $hour, $minute, $second, $tz);
 
     public static function createSafe($year, $month, $day, $hour, $minute, $second, $tz);
 
@@ -507,7 +515,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function __set($name, $value);
 
-    public function setDateTime($year, $month, $day, $hour, $minute, $second);
+    public function setDateTime($year, $month, $day, $hour, $minute, $second, $microseconds);
 
     public function setTimeFromTimeString($time);
 
