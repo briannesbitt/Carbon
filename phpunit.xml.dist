@@ -29,6 +29,9 @@
         <testsuite name="period">
             <directory>tests/CarbonPeriod</directory>
         </testsuite>
+        <testsuite name="timezone">
+            <directory>tests/CarbonTimeZone</directory>
+        </testsuite>
         <testsuite name="localization">
             <directory>tests/Localization</directory>
         </testsuite>

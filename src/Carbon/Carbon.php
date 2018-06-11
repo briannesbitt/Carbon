@@ -37,6 +37,9 @@ use DateTime;
  * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
  * @property      string        $localeMonth                                            the month in current locale LC_TIME
  * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
+ * @property      int           $milliseconds
+ * @property      int           $millisecond
+ * @property      int           $milli
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone

@@ -95,23 +95,23 @@ abstract class AbstractTestCase extends TestCase
         $expected = [];
 
         if ($hour !== null) {
-            $expected['hours'] = $d->hour;
-            $actual['hours'] = $hour;
+            $actual['hours'] = $d->hour;
+            $expected['hours'] = $hour;
         }
 
         if ($minute !== null) {
-            $expected['minutes'] = $d->minute;
-            $actual['minutes'] = $minute;
+            $actual['minutes'] = $d->minute;
+            $expected['minutes'] = $minute;
         }
 
         if ($second !== null) {
-            $expected['seconds'] = $d->second;
-            $actual['seconds'] = $second;
+            $actual['seconds'] = $d->second;
+            $expected['seconds'] = $second;
         }
 
         if ($micro !== null) {
-            $expected['micro'] = $d->micro;
-            $actual['micro'] = $micro;
+            $actual['micro'] = $d->micro;
+            $expected['micro'] = $micro;
         }
 
         $this->assertSame($expected, $actual);
@@ -124,33 +124,33 @@ abstract class AbstractTestCase extends TestCase
 
     public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
     {
-        $expected = ['years' => $ci->years];
+        $actual = ['years' => $ci->years];
 
-        $actual = ['years' => $years];
+        $expected = ['years' => $years];
 
         if ($months !== null) {
-            $expected['months'] = $ci->months;
-            $actual['months'] = $months;
+            $actual['months'] = $ci->months;
+            $expected['months'] = $months;
         }
 
         if ($days !== null) {
-            $expected['days'] = $ci->dayz;
-            $actual['days'] = $days;
+            $actual['days'] = $ci->dayz;
+            $expected['days'] = $days;
         }
 
         if ($hours !== null) {
-            $expected['hours'] = $ci->hours;
-            $actual['hours'] = $hours;
+            $actual['hours'] = $ci->hours;
+            $expected['hours'] = $hours;
         }
 
         if ($minutes !== null) {
-            $expected['minutes'] = $ci->minutes;
-            $actual['minutes'] = $minutes;
+            $actual['minutes'] = $ci->minutes;
+            $expected['minutes'] = $minutes;
         }
 
         if ($seconds !== null) {
-            $expected['seconds'] = $ci->seconds;
-            $actual['seconds'] = $seconds;
+            $actual['seconds'] = $ci->seconds;
+            $expected['seconds'] = $seconds;
         }
 
         $this->assertSame($expected, $actual);

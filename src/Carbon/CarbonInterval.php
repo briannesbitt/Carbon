@@ -61,6 +61,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
  * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
+ * @method static CarbonInterval milliseconds($milliseconds = 1) Create instance specifying a number of milliseconds.
+ * @method static CarbonInterval millisecond($milliseconds = 1) Alias for milliseconds()
+ * @method static CarbonInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds.
+ * @method static CarbonInterval microsecond($microseconds = 1) Alias for microseconds()
  * @method CarbonInterval years($years = 1) Set the years portion of the current interval.
  * @method CarbonInterval year($years = 1) Alias for years().
  * @method CarbonInterval months($months = 1) Set the months portion of the current interval.
@@ -76,6 +80,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method CarbonInterval minute($minutes = 1) Alias for minutes().
  * @method CarbonInterval seconds($seconds = 1) Set the seconds portion of the current interval.
  * @method CarbonInterval second($seconds = 1) Alias for seconds().
+ * @method CarbonInterval milliseconds($seconds = 1) Set the seconds portion of the current interval.
+ * @method CarbonInterval millisecond($seconds = 1) Alias for seconds().
+ * @method CarbonInterval microseconds($seconds = 1) Set the seconds portion of the current interval.
+ * @method CarbonInterval microsecond($seconds = 1) Alias for seconds().
  */
 class CarbonInterval extends DateInterval
 {
@@ -368,11 +376,12 @@ class CarbonInterval extends DateInterval
                 return new static(null, null, null, null, null, null, $arg);
 
             case 'millisecond':
-                return new static(null, null, null, null, null, null, $arg * 1000);
+            case 'milli':
+                return new static(null, null, null, null, null, null, null, $arg * 1000);
 
             case 'microsecond':
             case 'micro':
-                return new static(null, null, null, null, null, null, $arg);
+                return new static(null, null, null, null, null, null, null, $arg);
         }
 
         if (static::hasMacro($method)) {
@@ -487,18 +496,18 @@ class CarbonInterval extends DateInterval
                 case 'seconds':
                 case 's':
                     $seconds += $intValue;
-                    if ($fraction) {
-                        $milliseconds += round($fraction * 1000);
-                    }
+//                    if ($fraction) {
+//                        $milliseconds += round($fraction * 1000);
+//                    }
                     break;
 
                 case 'millisecond':
                 case 'milliseconds':
                 case 'ms':
                     $milliseconds += $intValue;
-                    if ($fraction) {
-                        $microseconds += round($fraction * 1000);
-                    }
+//                    if ($fraction) {
+//                        $microseconds += round($fraction * 1000);
+//                    }
                     break;
 
                 case 'microsecond':
@@ -665,7 +674,7 @@ class CarbonInterval extends DateInterval
 
             case 'micro':
             case 'microseconds':
-                return $this->f;
+                return (int) $this->f;
 
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());

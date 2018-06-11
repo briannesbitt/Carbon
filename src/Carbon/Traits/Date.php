@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
 use Closure;
@@ -49,6 +50,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
  * @property      string        $localeMonth                                            the month in current locale LC_TIME
  * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
+ * @property      int           $milliseconds
+ * @property      int           $millisecond
+ * @property      int           $milli
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone
@@ -742,40 +746,7 @@ trait Date
      */
     protected static function safeCreateDateTimeZone($object)
     {
-        if ($object === null) {
-            // Don't return null... avoid Bug #52063 in PHP <5.3.6
-            return new DateTimeZone(date_default_timezone_get());
-        }
-
-        if ($object instanceof DateTimeZone) {
-            return $object;
-        }
-
-        if (is_numeric($object)) {
-            $tzName = timezone_name_from_abbr(null, floatval($object) * 3600, true);
-
-            if ($tzName === false) {
-                if (static::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
-                }
-
-                return false;
-            }
-
-            $object = $tzName;
-        }
-
-        $tz = @timezone_open($object = (string) $object);
-
-        if ($tz !== false) {
-            return $tz;
-        }
-
-        if (static::isStrictModeEnabled()) {
-            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
-        }
-
-        return false;
+        return CarbonTimeZone::instance($object);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1429,6 +1400,14 @@ trait Date
 
                 return is_numeric($value) ? (int) $value : $value;
 
+            // @property int
+            case $name === 'milliseconds':
+                // @property int
+            case $name === 'millisecond':
+            // @property int
+            case $name === 'milli':
+                return (int) floor($this->format('u') / 1000);
+
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
@@ -1547,6 +1526,11 @@ trait Date
         }
 
         switch ($name) {
+            case 'milliseconds':
+            case 'millisecond':
+            case 'milli':
+                $value *= 1000;
+            case 'microseconds':
             case 'microsecond':
             case 'micro':
                 while ($value < 0) {
@@ -2732,16 +2716,6 @@ trait Date
     public function isLastOfMonth()
     {
         return $this->day === $this->daysInMonth;
-    }
-
-    /**
-     * Check if today is the last day of the Month
-     *
-     * @return bool
-     */
-    public function isLastDayOfMonth()
-    {
-        return $this->isLastOfMonth();
     }
 
     /**

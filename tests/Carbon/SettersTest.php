@@ -191,6 +191,9 @@ class SettersTest extends AbstractTestCase
         $d->micro = -12600000;
         $this->assertSame(400000, $d->micro);
         $this->assertSame((Carbon::now()->second + 37) % 60, $d->second);
+        $d->milliseconds = -12600000;
+        $this->assertSame(400000, $d->micro);
+        $this->assertSame((Carbon::now()->second + 37) % 60, $d->second);
     }
 
     public function testTimestampSetter()
