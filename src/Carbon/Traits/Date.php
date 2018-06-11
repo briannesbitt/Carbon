@@ -22,7 +22,6 @@ use Closure;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
-use Exception;
 use InvalidArgumentException;
 use ReflectionException;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -4036,17 +4035,13 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
-            try {
-                return static::parse(preg_replace('/[A-Z]/', ' $0', $method), ...$parameters);
-            } catch (Exception $exception) {
-                if (static::isStrictModeEnabled()) {
-                    throw new BadMethodCallException(sprintf(
-                        'Method %s::%s does not exist.', static::class, $method
-                    ));
-                }
-
-                return null;
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException(sprintf(
+                    'Method %s::%s does not exist.', static::class, $method
+                ));
             }
+
+            return null;
         }
 
         if (static::$localMacros[$method] instanceof Closure) {
@@ -4189,15 +4184,11 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
-            try {
-                return $this->modify(preg_replace('/[A-Z]/', ' $0', $method), ...$parameters);
-            } catch (Exception $exception) {
-                if (static::isStrictModeEnabled()) {
-                    throw new BadMethodCallException("Method $method does not exist.");
-                }
-
-                return null;
+            if (static::isStrictModeEnabled()) {
+                throw new BadMethodCallException("Method $method does not exist.");
             }
+
+            return null;
         }
 
         $macro = static::$localMacros[$method];
