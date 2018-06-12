@@ -69,6 +69,7 @@ class FromStringTest extends AbstractTestCase
             ['3m 3m 3m 1m', new CarbonInterval(0, 0, 0, 0, 0, 10)],
             ['55s 45s 1s 2s 3s 4s', new CarbonInterval(0, 0, 0, 0, 0, 0, 110)],
             ['1500ms 1623555µs', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 3123555)],
+            ['430 milli', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 430000)],
 
             // multi same values with space
             ['1 y 2 y', new CarbonInterval(3)],

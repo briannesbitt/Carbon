@@ -514,6 +514,7 @@ class CarbonInterval extends DateInterval
 
                 case 'millisecond':
                 case 'milliseconds':
+                case 'milli':
                 case 'ms':
                     $intValue *= 1000;
 
@@ -676,6 +677,7 @@ class CarbonInterval extends DateInterval
             case 'seconds':
                 return $this->s;
 
+            case 'milli':
             case 'milliseconds':
                 return (int) floor($this->f / 1000);
 
@@ -734,6 +736,7 @@ class CarbonInterval extends DateInterval
                 $this->s = $value;
                 break;
 
+            case 'milli':
             case 'millisecond':
                 $this->f = $value * 1000;
                 break;
@@ -883,10 +886,12 @@ class CarbonInterval extends DateInterval
                 $this->seconds = $arg;
                 break;
 
+            case 'milli':
             case 'millisecond':
                 $this->milliseconds = $arg;
                 break;
 
+            case 'micro':
             case 'microsecond':
                 $this->microseconds = $arg;
                 break;
