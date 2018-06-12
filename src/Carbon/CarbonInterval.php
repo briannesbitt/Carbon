@@ -139,6 +139,7 @@ class CarbonInterval extends DateInterval
     public static function getCascadeFactors()
     {
         return static::$cascadeFactors ?: [
+            'seconds' => [Carbon::MICROSECONDS_PER_SECOND, 'microseconds'],
             'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
             'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
             'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
@@ -289,7 +290,7 @@ class CarbonInterval extends DateInterval
      *
      * @return int
      */
-    public static function getMinutesPerHours()
+    public static function getMinutesPerHour()
     {
         return static::getFactor('minutes', 'hours') ?: Carbon::MINUTES_PER_HOUR;
     }
@@ -299,9 +300,19 @@ class CarbonInterval extends DateInterval
      *
      * @return int
      */
-    public static function getSecondsPerMinutes()
+    public static function getSecondsPerMinute()
     {
         return static::getFactor('seconds', 'minutes') ?: Carbon::SECONDS_PER_MINUTE;
+    }
+
+    /**
+     * Returns current config for microseconds per second.
+     *
+     * @return int
+     */
+    public static function getMicrosecondsPerSecond()
+    {
+        return static::getFactor('microseconds', 'seconds') ?: Carbon::MICROSECONDS_PER_SECOND;
     }
 
     /**
@@ -434,7 +445,6 @@ class CarbonInterval extends DateInterval
         $hours = 0;
         $minutes = 0;
         $seconds = 0;
-        $milliseconds = 0;
         $microseconds = 0;
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
@@ -443,7 +453,8 @@ class CarbonInterval extends DateInterval
             list($part, $value, $unit) = $match;
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
-            switch (strtolower($unit)) {
+            $lowerUnit = $unit === 'µs' ? $unit : strtolower($unit);
+            switch ($lowerUnit) {
                 case 'year':
                 case 'years':
                 case 'y':
@@ -479,7 +490,7 @@ class CarbonInterval extends DateInterval
                 case 'h':
                     $hours += $intValue;
                     if ($fraction) {
-                        $parts[] = [null, $fraction * static::getMinutesPerHours(), 'm'];
+                        $parts[] = [null, $fraction * static::getMinutesPerHour(), 'm'];
                     }
                     break;
 
@@ -488,7 +499,7 @@ class CarbonInterval extends DateInterval
                 case 'm':
                     $minutes += $intValue;
                     if ($fraction) {
-                        $seconds += round($fraction * static::getSecondsPerMinutes());
+                        $seconds += round($fraction * static::getSecondsPerMinute());
                     }
                     break;
 
@@ -496,19 +507,15 @@ class CarbonInterval extends DateInterval
                 case 'seconds':
                 case 's':
                     $seconds += $intValue;
-//                    if ($fraction) {
-//                        $milliseconds += round($fraction * 1000);
-//                    }
+                    if ($fraction) {
+                        $microseconds += round($fraction * static::getMicrosecondsPerSecond());
+                    }
                     break;
 
                 case 'millisecond':
                 case 'milliseconds':
                 case 'ms':
-                    $milliseconds += $intValue;
-//                    if ($fraction) {
-//                        $microseconds += round($fraction * 1000);
-//                    }
-                    break;
+                    $intValue *= 1000;
 
                 case 'microsecond':
                 case 'microseconds':
@@ -524,7 +531,7 @@ class CarbonInterval extends DateInterval
             }
         }
 
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * 1000 + $microseconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
     }
 
     /**
@@ -874,6 +881,14 @@ class CarbonInterval extends DateInterval
 
             case 'second':
                 $this->seconds = $arg;
+                break;
+
+            case 'millisecond':
+                $this->milliseconds = $arg;
+                break;
+
+            case 'microsecond':
+                $this->microseconds = $arg;
                 break;
 
             default:

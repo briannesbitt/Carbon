@@ -34,6 +34,8 @@ class FromStringTest extends AbstractTestCase
             ['1h', new CarbonInterval(0, 0, 0, 0, 1)],
             ['1m', new CarbonInterval(0, 0, 0, 0, 0, 1)],
             ['1s', new CarbonInterval(0, 0, 0, 0, 0, 0, 1)],
+            ['1ms', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 1000)],
+            ['1µs', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 1)],
 
             // single values with space
             ['1 y', new CarbonInterval(1)],
@@ -52,6 +54,7 @@ class FromStringTest extends AbstractTestCase
             ['3.12h', new CarbonInterval(0, 0, 0, 0, 3, 7, 12)],
             ['3.129h', new CarbonInterval(0, 0, 0, 0, 3, 7, 44)],
             ['4.24m', new CarbonInterval(0, 0, 0, 0, 0, 4, 14)],
+            ['3.56s', new CarbonInterval(0, 0, 0, 0, 0, 0, 3, 560000)],
 
             // combinations
             ['2w 3d', new CarbonInterval(0, 0, 0, 17)],
@@ -65,6 +68,7 @@ class FromStringTest extends AbstractTestCase
             ['5h 15h 25h', new CarbonInterval(0, 0, 0, 0, 45)],
             ['3m 3m 3m 1m', new CarbonInterval(0, 0, 0, 0, 0, 10)],
             ['55s 45s 1s 2s 3s 4s', new CarbonInterval(0, 0, 0, 0, 0, 0, 110)],
+            ['1500ms 1623555µs', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 3123555)],
 
             // multi same values with space
             ['1 y 2 y', new CarbonInterval(3)],
@@ -100,11 +104,13 @@ class FromStringTest extends AbstractTestCase
     public function testThrowsExceptionForUnknownValues($string, $part)
     {
         try {
-            CarbonInterval::fromString($string);
+            $ci = CarbonInterval::fromString($string);
         } catch (\InvalidArgumentException $exception) {
             $this->assertContains($part, $exception->getMessage());
             throw $exception;
         }
+        var_dump($ci);
+        exit;
     }
 
     public function provideInvalidStrings()
