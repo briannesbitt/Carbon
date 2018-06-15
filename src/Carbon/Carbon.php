@@ -51,6 +51,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read bool $utc checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string $timezoneName
  * @property-read string $tzName
+ * @property-read string $englishDayOfWeek the day of week in English
+ * @property-read string $shortEnglishDayOfWeek the abbreviated day of week in English
+ * @property-read string $englishMonth the day of week in English
+ * @property-read string $shortEnglishMonth the abbreviated day of week in English
+ * @property-read string $localeDayOfWeek the day of week in current locale LC_TIME
+ * @property-read string $shortLocaleDayOfWeek the abbreviated day of week in current locale LC_TIME
+ * @property-read string $localeMonth the month in current locale LC_TIME
+ * @property-read string $shortLocaleMonth the abbreviated month in current locale LC_TIME
  */
 class Carbon extends DateTime implements JsonSerializable
 {
@@ -1076,11 +1084,22 @@ class Carbon extends DateTime implements JsonSerializable
             'weekOfYear' => 'W',
             'daysInMonth' => 't',
             'timestamp' => 'U',
+            'englishDayOfWeek' => 'l',
+            'shortEnglishDayOfWeek' => 'D',
+            'englishMonth' => 'F',
+            'shortEnglishMonth' => 'M',
+            'localeDayOfWeek' => '%A',
+            'shortLocaleDayOfWeek' => '%a',
+            'localeMonth' => '%B',
+            'shortLocaleMonth' => '%b',
         );
 
         switch (true) {
-            case isset($formats[$name]):
-                return (int) $this->format($formats[$name]);
+            case isset($formats[$name]):$format = $formats[$name];
+                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
+                $value = $this->$method($format);
+
+                return is_numeric($value) ? (int) $value : $value;
 
             case $name === 'weekOfMonth':
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
