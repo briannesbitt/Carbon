@@ -20,12 +20,17 @@
 <p>As mentioned the <code>$var</code> can later be echo'd and you would get 'brian nesbitt' as all of the source is executed in the same scope.</p>
 </blockquote>
 
-<h2>{{varName::exec()}} and {{varName_eval}}</h2>
+<h2>{{::exec()}} and {{eval}}</h2>
 
-<p>The <code>exec</code> command begins by performing an <code>eval()</code> on the code passed into the function.  The executed source code will then be injected back into the text replacing out the <code>{{varName::exec()}}</code>.  This will also create a variable named <code>varName_eval</code> that you can then place anywhere in the file and it will get replaced with the output of the <code>eval()</code>.  You can use any type of output (<code>echo</code>, <code>printf</code>, <code>var_dump</code> etc) statement to return the result value as an output buffer is setup to capture the output.</p>
+<p>The <code>exec</code> command begins by performing an <code>eval()</code> on the code passed into the function.  The executed source code will then be injected back into the text replacing out the <code>{{varName::exec()}}</code>.  This will also create a variable named <code>varName_eval</code> that you can then place anywhere in the file and it will get replaced with the output of the <code>eval()</code>.  You can use any type of output (<code>echo</code>, <code>printf</code>, <code>var_dump</code> etc) statement to return the result value as an output buffer is setup to capture the output.  As a shortcut, you also can use simply <code>{{::exec()}}</code> with no varName then display the last executed result with <code>{{eval}}</code>.</p>
 
-<p><pre><code>{{exVarName::exec(echo $var;)}} => echo $var;
-{{exVarName_eval}} => brian nesbitt  // $var is still set from above
+<p><pre><code>{{::exec(echo $var;)}} => echo $var;
+{{eval}} => brian nesbitt  // $var is still set from above
+{{exVarName_eval}} => 2 // named eval can be display before the execution or after many other executions
+{{exVarName::exec(echo 2;)}} => echo 2;
+{{::exec(echo 3;)}}
+{{otherName::exec(echo 4;)}}
+{{exVarName_eval}} => 2 // no matter where it's positioned, it always refers to exVarName::exec result
 </pre></code></p>
 
 <h2>/*pad()*/</h2>

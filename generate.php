@@ -13,8 +13,6 @@ require 'vendor/autoload.php';
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 
-$namesCache = array();
-
 $template = file_get_contents('template.src.html');
 
 function genHtml($page, $out, $jumbotron = '')
@@ -33,67 +31,99 @@ function genHtml($page, $out, $jumbotron = '')
     file_put_contents($out, $html);
 }
 
-function compile($src, $dest, &$namesCache)
+function compile($src, $dest)
 {
     $code = file_get_contents($src);
 
-    $pre_src = 'use Carbon\Carbon; use Carbon\CarbonInterval; use Carbon\CarbonPeriod; ';
+    $imports = 'use Carbon\Carbon; use Carbon\CarbonInterval; use Carbon\CarbonPeriod; ';
 
-    // {{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}}
-    preg_match_all('@{{(\w*)::(\w+)\((.+)\)}}@sU', $code, $matches, PREG_SET_ORDER);
+    $__state = array();
+    $lastCode = '';
+    $codes = array();
+    $oldCode = null;
 
-    foreach ($matches as $match) {
-        list($orig, $name, $cmd, $src) = $match;
-        $src = trim($src, "\n\r");
+    while ($oldCode !== $code) {
+        $namesCache = array();
+        $oldCode = $code;
+        $code = preg_replace_callback('@{{(?:(\w*)::(\w+)\((.+)\)|((?:(\w+)_)?eval))}}@sU', function ($matches) use ($imports, &$lastCode, &$codes, &$namesCache, &$__state) {
+            list($orig, $name, $cmd, $src, $eval, $evalName) = array_pad($matches, 6, null);
 
-        if (strlen($name) > 0) {
-            if (in_array($name, $namesCache)) {
-                echo "$name cmd name used twice !!";
+            $src = trim($src, "\n\r");
+
+            if (strlen($name) > 0) {
+                if (in_array($name, $namesCache)) {
+                    echo "$name cmd name used twice !!";
+                    exit(1);
+                }
+
+                $namesCache[] = $name;
+            }
+
+            ob_start();
+            $__code = $imports.$src;
+            $result = call_user_func(function () use (&$__state, $__code) {
+                foreach ($__state as $__key => &$__value) {
+                    $$__key = &$__value;
+                }
+                unset($__key);
+                unset($__value);
+                try {
+                    $lastResult = eval($__code);
+                } catch (Throwable $e) {
+                    echo "$__code\n\n";
+
+                    throw $e;
+                }
+                foreach (get_defined_vars() as $__key => $__value) {
+                    $__state[$__key] = &$$__key;
+                }
+                unset($__state['__state']);
+                unset($__state['__code']);
+
+                return $lastResult;
+            });
+            $ob = ob_get_clean();
+
+            if ($result === false) {
+                echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
+                $error = error_get_last();
+
+                if ($error != null) {
+                    echo $error['message'].' on line '.$error['line'].PHP_EOL.PHP_EOL;
+                }
+
+                echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
+                $i = 1;
+                foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
+                    printf('%3s : %s%s', $i++, $ln, PHP_EOL);
+                }
+
                 exit(1);
             }
 
-            $namesCache[] = $name;
-        }
-
-        ob_start();
-        $result = eval($pre_src.$src);
-        $ob = ob_get_clean();
-
-        if ($result === false) {
-            echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
-            $error = error_get_last();
-
-            if ($error != null) {
-                echo $error['message'].' on line '.$error['line'].PHP_EOL.PHP_EOL;
+            // remove the extra newline from a var_dump
+            if (strpos($src, 'var_dump(') === 0) {
+                $ob = trim($ob);
             }
 
-            echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
-            $i = 1;
-            foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
-                printf('%3s : %s%s', $i++, $ln, PHP_EOL);
+            // Add any necessary padding to lineup comments
+            if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $src, $matches)) {
+                $src = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $src);
+                $src = str_pad($src, intval($matches[1]));
             }
 
-            exit(1);
-        }
+            if (!empty($eval)) {
+                return empty($evalName) ? $lastCode : (isset($codes[$evalName]) ? $codes[$evalName] : $orig);
+            }
 
-        // remove the extra newline from a var_dump
-        if (strpos($src, 'var_dump(') === 0) {
-            $ob = trim($ob);
-        }
+            // Inject the eval'd result
+            if ($cmd == 'exec') {
+                $codes[$name] = $ob;
+                $lastCode = $ob;
+            }
 
-        // Add any necessary padding to lineup comments
-        if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $src, $matches)) {
-            $src = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $src);
-            $src = str_pad($src, intval($matches[1]));
-        }
-
-        // Inject the source code
-        $code = str_replace($orig, $src, $code);
-
-        // Inject the eval'd result
-        if ($cmd == 'exec') {
-            $code = str_replace('{{'.$name.'_eval}}', $ob, $code);
-        }
+            return $src;
+        }, $code);
     }
 
     // allow for escaping a command
@@ -107,9 +137,9 @@ genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
 
-compile('index.o.html', 'index.html', $namesCache);
+compile('index.o.html', 'index.html');
 unlink('index.o.html');
 
 CarbonInterval::setLocale('en');
-compile('docs/index.o.html', 'docs/index.html', $namesCache);
+compile('docs/index.o.html', 'docs/index.html');
 unlink('docs/index.o.html');
