@@ -200,6 +200,32 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 3);
     }
 
+    public function testMilliseconds()
+    {
+        $ci = CarbonInterval::milliseconds(2);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(2, $ci->milliseconds);
+
+        $ci = CarbonInterval::millisecond();
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(1, $ci->milliseconds);
+    }
+
+    public function testMicroseconds()
+    {
+        $ci = CarbonInterval::microseconds(2);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(2, $ci->microseconds);
+
+        $ci = CarbonInterval::microsecond();
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(1, $ci->microseconds);
+    }
+
     public function testYearsAndHours()
     {
         $ci = new CarbonInterval(5, 0, 0, 0, 3, 0, 0);

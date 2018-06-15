@@ -54,6 +54,15 @@ function pluralize($word)
     return preg_replace('/(centur)y$/i', '$1ie', $word).'s';
 }
 
+function dumpValue($value)
+{
+    if ($value === null) {
+        return 'null';
+    }
+
+    return var_export($value, true);
+}
+
 foreach ($tags as $tag) {
     if (is_array($tag)) {
         list($tag, $pattern) = $tag;
@@ -79,14 +88,14 @@ foreach ($tags as $tag) {
                 }
                 if (isset($defaultValues[$method])) {
                     if (isset($defaultValues[$method][$name])) {
-                        $output .= ' = '.var_export($defaultValues[$method][$name], true);
+                        $output .= ' = '.dumpValue($defaultValues[$method][$name]);
                     }
 
                     return $output;
                 }
                 try {
-                    if ($parameter->getDefaultValue()) {
-                        $output .= ' = '.$parameter->getDefaultValue();
+                    if ($parameter->isDefaultValueAvailable()) {
+                        $output .= ' = '.dumpValue($parameter->getDefaultValue());
                     }
                 } catch (\ReflectionException $exp) {
                 }
@@ -340,12 +349,12 @@ foreach ($autoDocLines as $line) {
         continue;
     }
 
-    $computedLine = '';
+    $computedLine = ' ';
     foreach ($line as $column => $text) {
         $computedLine .= str_pad($text, $columnsMaxLengths[$column] + 1, ' ', STR_PAD_RIGHT);
     }
 
-    $autoDoc .= ' '.trim($computedLine);
+    $autoDoc .= rtrim($computedLine);
 }
 
 $files = new stdClass();
@@ -372,8 +381,8 @@ foreach (get_class_methods(\Carbon\Carbon::class) as $method) {
                 $output = "$name $output";
             }
             try {
-                if ($parameter->getDefaultValue()) {
-                    $output .= ' = '.$parameter->getDefaultValue();
+                if ($parameter->isDefaultValueAvailable()) {
+                    $output .= ' = '.dumpValue($parameter->getDefaultValue());
                 }
             } catch (\ReflectionException $exp) {
             }

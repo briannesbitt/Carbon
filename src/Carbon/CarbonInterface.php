@@ -20,6 +20,17 @@ use JsonSerializable;
  * @property      int           $micro
  * @property      int           $microsecond
  * @property      int           $timestamp                                              seconds since the Unix Epoch
+ * @property      string        $englishDayOfWeek                                       the day of week in English
+ * @property      string        $shortEnglishDayOfWeek                                  the abbreviated day of week in English
+ * @property      string        $englishMonth                                           the day of week in English
+ * @property      string        $shortEnglishMonth                                      the abbreviated day of week in English
+ * @property      string        $localeDayOfWeek                                        the day of week in current locale LC_TIME
+ * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
+ * @property      string        $localeMonth                                            the month in current locale LC_TIME
+ * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
+ * @property      int           $milliseconds
+ * @property      int           $millisecond
+ * @property      int           $milli
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone
@@ -43,27 +54,27 @@ use JsonSerializable;
  * @property-read \DateTimeZone $tzName                                                 alias of $timezoneName
  *
  * @method        string        format($format)                                         call \DateTime::format if mutable or \DateTimeImmutable::format else.
- * http://php.net/manual/en/datetime.format.php
+ *                                                                                      http://php.net/manual/en/datetime.format.php
  * @method        static        modify($modify)                                         call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
- * http://php.net/manual/en/datetime.modify.php
+ *                                                                                      http://php.net/manual/en/datetime.modify.php
  * @method        static        add($interval)                                          call \DateTime::add if mutable or \DateTimeImmutable::add else.
- * http://php.net/manual/en/datetime.add.php
+ *                                                                                      http://php.net/manual/en/datetime.add.php
  * @method        static        sub($interval)                                          call \DateTime::sub if mutable or \DateTimeImmutable::sub else.
- * http://php.net/manual/en/datetime.sub.php
+ *                                                                                      http://php.net/manual/en/datetime.sub.php
  * @method        \DateTimeZone getTimezone()                                           call \DateTime::getTimezone if mutable or \DateTimeImmutable::getTimezone else.
- * http://php.net/manual/en/datetime.gettimezone.php
+ *                                                                                      http://php.net/manual/en/datetime.gettimezone.php
  * @method        int           getOffset()                                             call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
- * http://php.net/manual/en/datetime.getoffset.php
+ *                                                                                      http://php.net/manual/en/datetime.getoffset.php
  * @method        int           getTimestamp()                                          call \DateTime::getTimestamp if mutable or \DateTimeImmutable::getTimestamp else.
- * http://php.net/manual/en/datetime.gettimestamp.php
+ *                                                                                      http://php.net/manual/en/datetime.gettimestamp.php
  * @method        static        setTime($hour, $minute, $second = 0, $microseconds = 0) call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
- * http://php.net/manual/en/datetime.settime.php
+ *                                                                                      http://php.net/manual/en/datetime.settime.php
  * @method        static        setISODate($year, $week, $day = 1)                      call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
- * http://php.net/manual/en/datetime.setisodate.php
+ *                                                                                      http://php.net/manual/en/datetime.setisodate.php
  * @method        static        setTimestamp($unixtimestamp)                            call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
- * http://php.net/manual/en/datetime.settimestamp.php
+ *                                                                                      http://php.net/manual/en/datetime.settimestamp.php
  * @method        \DateInterval diff($object, $absolute = true)                         call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
- * http://php.net/manual/en/datetime.diff.php
+ *                                                                                      http://php.net/manual/en/datetime.diff.php
  * @method        bool          isSunday()                                              Checks if the instance day is sunday.
  * @method        bool          isMonday()                                              Checks if the instance day is monday.
  * @method        bool          isTuesday()                                             Checks if the instance day is tuesday.
@@ -411,11 +422,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function isMutable();
 
-    public function __construct($time, $tz);
+    public function __construct($time = null, $tz = null);
 
     public static function __set_state($array);
 
-    public static function createFromFormat($format, $time, $tz);
+    public static function createFromFormat($format, $time, $tz = null);
 
     public static function getLastErrors();
 
@@ -445,17 +456,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getHumanDiffOptions();
 
-    public static function useStrictMode($strictModeEnabled = 1);
+    public static function useStrictMode($strictModeEnabled = true);
 
     public static function isStrictModeEnabled();
 
-    public static function useMonthsOverflow($monthsOverflow = 1);
+    public static function useMonthsOverflow($monthsOverflow = true);
 
     public static function resetMonthsOverflow();
 
     public static function shouldOverflowMonths();
 
-    public static function useYearsOverflow($yearsOverflow = 1);
+    public static function useYearsOverflow($yearsOverflow = true);
 
     public static function resetYearsOverflow();
 
@@ -463,35 +474,35 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function instance($date);
 
-    public static function parse($time, $tz);
+    public static function parse($time = null, $tz = null);
 
-    public static function now($tz);
+    public static function now($tz = null);
 
-    public static function today($tz);
+    public static function today($tz = null);
 
-    public static function tomorrow($tz);
+    public static function tomorrow($tz = null);
 
-    public static function yesterday($tz);
+    public static function yesterday($tz = null);
 
     public static function maxValue();
 
     public static function minValue();
 
-    public static function create($year, $month, $day, $hour, $minute, $second, $tz);
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
-    public static function createSafe($year, $month, $day, $hour, $minute, $second, $tz);
+    public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null);
 
-    public static function createFromDate($year, $month, $day, $tz);
+    public static function createFromDate($year = null, $month = null, $day = null, $tz = null);
 
-    public static function createMidnightDate($year, $month, $day, $tz);
+    public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null);
 
-    public static function createFromTime($hour, $minute, $second, $tz);
+    public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null);
 
-    public static function createFromTimeString($time, $tz);
+    public static function createFromTimeString($time, $tz = null);
 
-    public static function createFromTimestamp($timestamp, $tz);
+    public static function createFromTimestamp($timestamp, $tz = null);
 
-    public static function createFromTimestampMs($timestamp, $tz);
+    public static function createFromTimestampMs($timestamp, $tz = null);
 
     public static function createFromTimestampUTC($timestamp);
 
@@ -507,7 +518,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function __set($name, $value);
 
-    public function setDateTime($year, $month, $day, $hour, $minute, $second);
+    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0);
 
     public function setTimeFromTimeString($time);
 
@@ -621,19 +632,19 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function lessThanOrEqualTo($date);
 
-    public function between($date1, $date2, $equal = 1);
+    public function between($date1, $date2, $equal = true);
 
     public function closest($date1, $date2);
 
     public function farthest($date1, $date2);
 
-    public function min($date);
+    public function min($date = null);
 
-    public function minimum($date);
+    public function minimum($date = null);
 
-    public function max($date);
+    public function max($date = null);
 
-    public function maximum($date);
+    public function maximum($date = null);
 
     public function isWeekday();
 
@@ -653,25 +664,25 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function isLongYear();
 
-    public function isSameAs($format, $date);
+    public function isSameAs($format, $date = null);
 
-    public function isSameUnit($unit, $date);
+    public function isSameUnit($unit, $date = null);
 
     public function isCurrentUnit($unit);
 
-    public function isSameQuarter($date, $ofSameYear = 1);
+    public function isSameQuarter($date = null, $ofSameYear = true);
 
-    public function isSameMonth($date, $ofSameYear = 1);
+    public function isSameMonth($date = null, $ofSameYear = true);
 
     public function isDayOfWeek($dayOfWeek);
 
-    public function isBirthday($date);
+    public function isBirthday($date = null);
 
     public function isLastOfMonth();
 
-    public function isStartOfDay($checkMicroseconds);
+    public function isStartOfDay($checkMicroseconds = false);
 
-    public function isEndOfDay($checkMicroseconds);
+    public function isEndOfDay($checkMicroseconds = false);
 
     public function isMidnight();
 
@@ -685,47 +696,47 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function isModifiableUnit($unit);
 
-    public function addUnit($unit, $value = 1, $overflow);
+    public function addUnit($unit, $value = 1, $overflow = null);
 
-    public function subUnit($unit, $value = 1, $overflow);
+    public function subUnit($unit, $value = 1, $overflow = null);
 
-    public function diffAsCarbonInterval($date, $absolute = 1);
+    public function diffAsCarbonInterval($date = null, $absolute = true);
 
-    public function diffInYears($date, $absolute = 1);
+    public function diffInYears($date = null, $absolute = true);
 
-    public function diffInMonths($date, $absolute = 1);
+    public function diffInMonths($date = null, $absolute = true);
 
-    public function diffInWeeks($date, $absolute = 1);
+    public function diffInWeeks($date = null, $absolute = true);
 
-    public function diffInDays($date, $absolute = 1);
+    public function diffInDays($date = null, $absolute = true);
 
-    public function diffInDaysFiltered(\Closure $callback, $date, $absolute = 1);
+    public function diffInDaysFiltered(\Closure $callback, $date = null, $absolute = true);
 
-    public function diffInHoursFiltered(\Closure $callback, $date, $absolute = 1);
+    public function diffInHoursFiltered(\Closure $callback, $date = null, $absolute = true);
 
-    public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date, $absolute = 1);
+    public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date = null, $absolute = true);
 
-    public function diffInWeekdays($date, $absolute = 1);
+    public function diffInWeekdays($date = null, $absolute = true);
 
-    public function diffInWeekendDays($date, $absolute = 1);
+    public function diffInWeekendDays($date = null, $absolute = true);
 
-    public function diffInHours($date, $absolute = 1);
+    public function diffInHours($date = null, $absolute = true);
 
-    public function diffInRealHours($date, $absolute = 1);
+    public function diffInRealHours($date = null, $absolute = true);
 
-    public function diffInMinutes($date, $absolute = 1);
+    public function diffInMinutes($date = null, $absolute = true);
 
-    public function diffInRealMinutes($date, $absolute = 1);
+    public function diffInRealMinutes($date = null, $absolute = true);
 
-    public function diffInSeconds($date, $absolute = 1);
+    public function diffInSeconds($date = null, $absolute = true);
 
-    public function diffInRealSeconds($date, $absolute = 1);
+    public function diffInRealSeconds($date = null, $absolute = true);
 
     public function secondsSinceMidnight();
 
     public function secondsUntilEndOfDay();
 
-    public function diffForHumans($other, $absolute, $short, $parts = 1);
+    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1);
 
     public function startOfDay();
 
@@ -769,7 +780,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function midDay();
 
-    public function next($dayOfWeek);
+    public function next($dayOfWeek = null);
 
     public function nextWeekday();
 
@@ -779,27 +790,27 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function previousWeekendDay();
 
-    public function previous($dayOfWeek);
+    public function previous($dayOfWeek = null);
 
-    public function firstOfMonth($dayOfWeek);
+    public function firstOfMonth($dayOfWeek = null);
 
-    public function lastOfMonth($dayOfWeek);
+    public function lastOfMonth($dayOfWeek = null);
 
     public function nthOfMonth($nth, $dayOfWeek);
 
-    public function firstOfQuarter($dayOfWeek);
+    public function firstOfQuarter($dayOfWeek = null);
 
-    public function lastOfQuarter($dayOfWeek);
+    public function lastOfQuarter($dayOfWeek = null);
 
     public function nthOfQuarter($nth, $dayOfWeek);
 
-    public function firstOfYear($dayOfWeek);
+    public function firstOfYear($dayOfWeek = null);
 
-    public function lastOfYear($dayOfWeek);
+    public function lastOfYear($dayOfWeek = null);
 
     public function nthOfYear($nth, $dayOfWeek);
 
-    public function average($date);
+    public function average($date = null);
 
     public function serialize();
 
@@ -817,7 +828,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function __callStatic($method, $parameters);
 
-    public function setUnit($unit, $value);
+    public function setUnit($unit, $value = null);
 
     public static function singularUnit(string $unit): string;
 
@@ -825,7 +836,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function __call($method, $parameters);
 
-    public static function setTestNow($testNow);
+    public static function setTestNow($testNow = null);
 
     public static function getTestNow();
 

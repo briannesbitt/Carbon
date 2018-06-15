@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
 use Closure;
@@ -41,6 +42,17 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      int           $micro
  * @property      int           $microsecond
  * @property      int           $timestamp                                              seconds since the Unix Epoch
+ * @property      string        $englishDayOfWeek                                       the day of week in English
+ * @property      string        $shortEnglishDayOfWeek                                  the abbreviated day of week in English
+ * @property      string        $englishMonth                                           the day of week in English
+ * @property      string        $shortEnglishMonth                                      the abbreviated day of week in English
+ * @property      string        $localeDayOfWeek                                        the day of week in current locale LC_TIME
+ * @property      string        $shortLocaleDayOfWeek                                   the abbreviated day of week in current locale LC_TIME
+ * @property      string        $localeMonth                                            the month in current locale LC_TIME
+ * @property      string        $shortLocaleMonth                                       the abbreviated month in current locale LC_TIME
+ * @property      int           $milliseconds
+ * @property      int           $millisecond
+ * @property      int           $milli
  * @property      int           $age                                                    does a diffInYears() with default parameters
  * @property      int           $offsetHours                                            the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                               the current timezone
@@ -64,27 +76,27 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read \DateTimeZone $tzName                                                 alias of $timezoneName
  *
  * @method        string        format($format)                                         call \DateTime::format if mutable or \DateTimeImmutable::format else.
- * http://php.net/manual/en/datetime.format.php
+ *                                                                                      http://php.net/manual/en/datetime.format.php
  * @method        static        modify($modify)                                         call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
- * http://php.net/manual/en/datetime.modify.php
+ *                                                                                      http://php.net/manual/en/datetime.modify.php
  * @method        static        add($interval)                                          call \DateTime::add if mutable or \DateTimeImmutable::add else.
- * http://php.net/manual/en/datetime.add.php
+ *                                                                                      http://php.net/manual/en/datetime.add.php
  * @method        static        sub($interval)                                          call \DateTime::sub if mutable or \DateTimeImmutable::sub else.
- * http://php.net/manual/en/datetime.sub.php
+ *                                                                                      http://php.net/manual/en/datetime.sub.php
  * @method        \DateTimeZone getTimezone()                                           call \DateTime::getTimezone if mutable or \DateTimeImmutable::getTimezone else.
- * http://php.net/manual/en/datetime.gettimezone.php
+ *                                                                                      http://php.net/manual/en/datetime.gettimezone.php
  * @method        int           getOffset()                                             call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
- * http://php.net/manual/en/datetime.getoffset.php
+ *                                                                                      http://php.net/manual/en/datetime.getoffset.php
  * @method        int           getTimestamp()                                          call \DateTime::getTimestamp if mutable or \DateTimeImmutable::getTimestamp else.
- * http://php.net/manual/en/datetime.gettimestamp.php
+ *                                                                                      http://php.net/manual/en/datetime.gettimestamp.php
  * @method        static        setTime($hour, $minute, $second = 0, $microseconds = 0) call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
- * http://php.net/manual/en/datetime.settime.php
+ *                                                                                      http://php.net/manual/en/datetime.settime.php
  * @method        static        setISODate($year, $week, $day = 1)                      call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
- * http://php.net/manual/en/datetime.setisodate.php
+ *                                                                                      http://php.net/manual/en/datetime.setisodate.php
  * @method        static        setTimestamp($unixtimestamp)                            call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
- * http://php.net/manual/en/datetime.settimestamp.php
+ *                                                                                      http://php.net/manual/en/datetime.settimestamp.php
  * @method        \DateInterval diff($object, $absolute = true)                         call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
- * http://php.net/manual/en/datetime.diff.php
+ *                                                                                      http://php.net/manual/en/datetime.diff.php
  * @method        bool          isSunday()                                              Checks if the instance day is sunday.
  * @method        bool          isMonday()                                              Checks if the instance day is monday.
  * @method        bool          isTuesday()                                             Checks if the instance day is tuesday.
@@ -734,40 +746,7 @@ trait Date
      */
     protected static function safeCreateDateTimeZone($object)
     {
-        if ($object === null) {
-            // Don't return null... avoid Bug #52063 in PHP <5.3.6
-            return new DateTimeZone(date_default_timezone_get());
-        }
-
-        if ($object instanceof DateTimeZone) {
-            return $object;
-        }
-
-        if (is_numeric($object)) {
-            $tzName = timezone_name_from_abbr(null, floatval($object) * 3600, true);
-
-            if ($tzName === false) {
-                if (static::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
-                }
-
-                return false;
-            }
-
-            $object = $tzName;
-        }
-
-        $tz = @timezone_open($object = (string) $object);
-
-        if ($tz !== false) {
-            return $tz;
-        }
-
-        if (static::isStrictModeEnabled()) {
-            throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
-        }
-
-        return false;
+        return CarbonTimeZone::instance($object);
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -958,31 +937,36 @@ trait Date
      *
      * @return static
      */
-    public static function create($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null)
+    public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
-        $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
-
-        $defaults = array_combine([
-            'year',
-            'month',
-            'day',
-            'hour',
-            'minute',
-            'second',
-        ], explode('-', $now->format('Y-n-j-G-i-s')));
-
-        $year = $year === null ? $defaults['year'] : $year;
-        $month = $month === null ? $defaults['month'] : $month;
-        $day = $day === null ? $defaults['day'] : $day;
-
-        if ($hour === null) {
-            $hour = $defaults['hour'];
-            $minute = $minute === null ? $defaults['minute'] : $minute;
-            $second = $second === null ? $defaults['second'] : $second;
-        } else {
-            $minute = $minute === null ? 0 : $minute;
-            $second = $second === null ? 0 : $second;
+        if (is_string($year) && !is_numeric($year)) {
+            return static::parse($year);
         }
+
+        $defaults = null;
+        $getDefault = function ($unit) use ($tz, &$defaults) {
+            if ($defaults === null) {
+                $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
+
+                $defaults = array_combine([
+                    'year',
+                    'month',
+                    'day',
+                    'hour',
+                    'minute',
+                    'second',
+                ], explode('-', $now->format('Y-n-j-G-i-s.u')));
+            }
+
+            return $defaults[$unit];
+        };
+
+        $year = $year === null ? $getDefault('year') : $year;
+        $month = $month === null ? $getDefault('month') : $month;
+        $day = $day === null ? $getDefault('day') : $day;
+        $hour = $hour === null ? $getDefault('hour') : $hour;
+        $minute = $minute === null ? $getDefault('minute') : $minute;
+        $second = $second === null ? $getDefault('second') : $second;
 
         $fixYear = null;
 
@@ -994,7 +978,8 @@ trait Date
             $year = 9999;
         }
 
-        $instance = static::createFromFormat('!Y-n-j G:i:s', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+        $second = ($second < 10 ? '0' : '').number_format($second, 6);
+        $instance = static::createFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
         if ($fixYear !== null) {
             $instance = $instance->addYears($fixYear);
@@ -1110,7 +1095,7 @@ trait Date
      *
      * @return static
      */
-    public static function createFromTime($hour = null, $minute = null, $second = null, $tz = null)
+    public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         return static::create(null, null, null, $hour, $minute, $second, $tz);
     }
@@ -1389,11 +1374,39 @@ trait Date
             'daysInMonth' => 't',
             // @property int seconds since the Unix Epoch
             'timestamp' => 'U',
+            // @property string the day of week in English
+            'englishDayOfWeek' => 'l',
+            // @property string the abbreviated day of week in English
+            'shortEnglishDayOfWeek' => 'D',
+            // @property string the day of week in English
+            'englishMonth' => 'F',
+            // @property string the abbreviated day of week in English
+            'shortEnglishMonth' => 'M',
+            // @property string the day of week in current locale LC_TIME
+            'localeDayOfWeek' => '%A',
+            // @property string the abbreviated day of week in current locale LC_TIME
+            'shortLocaleDayOfWeek' => '%a',
+            // @property string the month in current locale LC_TIME
+            'localeMonth' => '%B',
+            // @property string the abbreviated month in current locale LC_TIME
+            'shortLocaleMonth' => '%b',
         ];
 
         switch (true) {
             case isset($formats[$name]):
-                return (int) $this->format($formats[$name]);
+                $format = $formats[$name];
+                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
+                $value = $this->$method($format);
+
+                return is_numeric($value) ? (int) $value : $value;
+
+            // @property int
+            case $name === 'milliseconds':
+                // @property int
+            case $name === 'millisecond':
+            // @property int
+            case $name === 'milli':
+                return (int) floor($this->format('u') / 1000);
 
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
@@ -1513,6 +1526,11 @@ trait Date
         }
 
         switch ($name) {
+            case 'milliseconds':
+            case 'millisecond':
+            case 'milli':
+                $value *= 1000;
+            case 'microseconds':
             case 'microsecond':
             case 'micro':
                 while ($value < 0) {
@@ -1586,9 +1604,9 @@ trait Date
      *
      * @return static
      */
-    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0)
+    public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
-        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second);
+        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second, $microseconds);
     }
 
     /**
