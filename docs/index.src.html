@@ -1668,7 +1668,7 @@ Carbon::setUserTimezone('America/Toronto');
 
 <h1 id="api-interval">CarbonInterval</h1>
 
-<p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
+<p>The CarbonInterval class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
 
 <p><pre><code class="php">&lt;?php
 class CarbonInterval extends \DateInterval
@@ -1775,7 +1775,7 @@ $interval->times(3);
     <li>1 year = 12 months</li>
 </ul>
 
-<p>Intervals does not carry context so it cannot be more precise (no DST, no leap year, no real month length consideration).  But you can completely customize those factors. For example to deal with work time logs:</p>
+<p>CarbonIntervals do not carry context so they cannot be more precise (no DST, no leap year, no real month length or year length consideration). But you can completely customize those factors. For example to deal with work time logs:</p>
 
 <p><pre><code class="php">{{::lint(
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
@@ -1812,6 +1812,8 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
 
 <p><pre><code class="php">{{total1::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{total1_eval}}
 {{total2::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{total2_eval}}
+{{total3::exec(echo CarbonInterval::months(6)->totalWeeks;/*pad(58)*/)}} // {{total3_eval}}
+{{total4::exec(echo CarbonInterval::year()->totalDays;/*pad(58)*/)}} // {{total4_eval}}
 </code></pre></p>
 
 <p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
