@@ -26,7 +26,7 @@ class Carbon extends \DateTime
 <p><pre><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
 
-{{tz::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{tz_eval}}
+{{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
 </code></pre></p>
 
 Also <code>is</code> comparisons are done in the timezone of the provided Carbon instance.  For example my current timezone is -13 hours from Tokyo.  So <code>Carbon::now('Asia/Tokyo')->isToday()</code> would only return false for any time past 1 PM my time.  This doesn't make sense since <code>now()</code> in tokyo is always today in Tokyo.  Thus the comparison to <code>now()</code> is done in the same timezone as the current instance.</p>
@@ -37,7 +37,7 @@ Also <code>is</code> comparisons are done in the timezone of the provided Carbon
 
 <p><pre><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
-{{ctorType::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{ctorType_eval}}'
+{{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
 {{::lint($carbon = Carbon::now(-5);)}}
 </code></pre></p>
 
@@ -53,13 +53,13 @@ $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
 )}}
-{{londonTz::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{londonTz_eval}}
+{{::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets necessary when using the constructor you'll enjoy the <code>parse</code> method.</p>
 
-<p><pre><code class="php">{{parse1::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{parse1_eval}}
-{{parse2::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{parse2_eval}}
+<p><pre><code class="php">{{::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Note: before PHP 5.4 <code>(new MyClass())->method()</code> trigger a syntax error, if you use PHP 5.3, you need to create a variable then call the method on it: <code>$date = new Carbon('first day of December 2008'); echo $date->addWeeks(2)</code></p>
@@ -78,13 +78,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">{{::lint($now = Carbon::now();)}}
-{{now::exec(echo $now;/*pad(40)*/)}} // {{now_eval}}
+{{::exec(echo $now;/*pad(40)*/)}} // {{eval}}
 {{::lint($today = Carbon::today();)}}
-{{today::exec(echo $today;/*pad(40)*/)}} // {{today_eval}}
+{{::exec(echo $today;/*pad(40)*/)}} // {{eval}}
 {{::lint($tomorrow = Carbon::tomorrow('Europe/London');)}}
-{{tomorrow::exec(echo $tomorrow;/*pad(40)*/)}} // {{tomorrow_eval}}
+{{::exec(echo $tomorrow;/*pad(40)*/)}} // {{eval}}
 {{::lint($yesterday = Carbon::yesterday();)}}
-{{yesterday::exec(echo $yesterday;/*pad(40)*/)}} // {{yesterday_eval}}
+{{::exec(echo $yesterday;/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -111,15 +111,15 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 
 <p>Create exceptions occurs on such negative values but not on overflow, to get exceptions on overflow, use <code>createSafe()</code></p>
 
-<p><pre><code class="php">{{notSafeOverflow::exec(echo Carbon::create(2000, 1, 35, 13, 0, 0);)}}
-// {{notSafeOverflow_eval}}
+<p><pre><code class="php">{{::exec(echo Carbon::create(2000, 1, 35, 13, 0, 0);)}}
+// {{eval}}
 
-{{safeOverflow::exec(try {
+{{::exec(try {
     Carbon::createSafe(2000, 1, 35, 13, 0, 0);
 } catch (\Carbon\Exceptions\InvalidDateException $exp) {
     echo $exp->getMessage();
 })}}
-// {{safeOverflow_eval}}</code></pre></p>
+// {{eval}}</code></pre></p>
 
 <p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
 
@@ -129,21 +129,21 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 
 <p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>.  The difference being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and then throw a <code>InvalidArgumentException</code> with the errors as the message.  If you look at the source for the <code>createXX()</code> functions above, they all make a call to <code>createFromFormat()</code>.</p>
 
-<p><pre><code class="php">{{createFromFormat1::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{createFromFormat1_eval}}</code></pre></p>
+<p><pre><code class="php">{{::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{eval}}</code></pre></p>
 
 <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  The third, <code>createFromTimestampMs()</code>,  accepts a timestamp in milliseconds instead of seconds.  Negative timestamps are also allowed.</p>
 
-<p><pre><code class="php">{{createFromTimestamp1::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp1_eval}}
-{{createFromTimestamp2::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestamp2_eval}}
-{{createFromTimestampUTC::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{createFromTimestampUTC_eval}}
-{{createFromTimestampMs1::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs1_eval}}
-{{createFromTimestampMs2::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{createFromTimestampMs2_eval}}
+<p><pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
+{{::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
 
 <p><pre><code class="php">{{::lint($dt = Carbon::now();)}}
-{{copy2::exec(echo $dt->diffInYears($dt->copy()->addYear());)}}  // {{copy2_eval}}
+{{::exec(echo $dt->diffInYears($dt->copy()->addYear());)}}  // {{eval}}
 
 // $dt was unchanged and still holds the value of Carbon:now()
 </code></pre></p>
@@ -153,24 +153,24 @@ $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 <p><pre><code class="php">{{::lint($meeting = Carbon::createFromTime(19, 15, 00, 'Africa/Johannesburg');)}}
 
 // 19:15 in Johannesburg
-{{nowwtz1::exec(echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz1_eval}}
+{{::exec(echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';/*pad(86)*/)}}  // {{eval}}
 // now in Johannesburg
-{{nowwtz2::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{nowwtz2_eval}}
+{{::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{eval}}
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
 
 <p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
 {{::lint($carbon = Carbon::instance($dt);)}}
-{{ctorType1::exec(echo get_class($carbon);/*pad(54)*/)}} // '{{ctorType1_eval}}'
-{{ctorType2::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{ctorType2_eval}}
+{{::exec(echo get_class($carbon);/*pad(54)*/)}} // '{{eval}}'
+{{::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p id="note-about-microseconds">A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the <code>format()</code> method.</p>
 
 <p><pre><code class="php">{{::lint($dt = Carbon::parse('1975-05-21 22:23:00.123456');)}}
-{{micro1::exec(echo $dt->micro;/*pad(54)*/)}} // {{micro1_eval}}
-{{micro2::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{micro2_eval}}
+{{::exec(echo $dt->micro;/*pad(54)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed afterwards, this means:</p>
@@ -205,8 +205,8 @@ echo Carbon::now()->micro; // microtime in all PHP version
 
 <p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
 
-<p><pre><code class="php">{{maxValue::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{maxValue_eval}}'
-{{minValue::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{minValue_eval}}'
+<p><pre><code class="php">{{::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{eval}}'
+{{::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{eval}}'
 </code></pre></p>
 
 <p>Min and max value mainly depends on the system (32 or 64 bit).</p>
@@ -220,20 +220,20 @@ echo Carbon::now()->micro; // microtime in all PHP version
 <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
-{{locale1::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale1_eval}}
+{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, 'English');)}}
-{{locale2::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale2_eval}}
+{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, ''); // reset locale)}}
 </code></pre></p>
 
 <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
 <p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
-{{getlocale1::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale1_eval}}
-{{locale3::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{locale3_eval}}
+{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{eval}}
 
 {{::lint(Carbon::setLocale('en');)}}
-{{getlocale2::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{getlocale2_eval}}
+{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code> mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
@@ -241,9 +241,9 @@ echo Carbon::now()->micro; // microtime in all PHP version
 <p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
 {{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
 {{::lint(Carbon::setUtf8(false);)}}
-{{locale4::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale4_eval}}
+{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(Carbon::setUtf8(true);)}}
-{{locale5::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{locale5_eval}}
+{{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(Carbon::setUtf8(false);)}}
 {{::lint(setlocale(LC_TIME, '');)}}
 </code></pre></p>
@@ -268,7 +268,7 @@ $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
 $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 )}}
 
-{{customizetr::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{customizetr_eval}}
+{{::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{eval}}
 
 {{::lint($translator->resetMessages('en'); // reset language customizations for en language)}}
 </code></pre></p>
@@ -288,17 +288,17 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 
 <p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock (of course this could be a real mock object)
-{{testaid0::exec(echo Carbon::getTestNow();/*pad(54)*/)}} // {{testaid0_eval}}
-{{testaid1::exec(echo Carbon::now();/*pad(54)*/)}} // {{testaid1_eval}}
-{{testaid2::exec(echo new Carbon();/*pad(54)*/)}} // {{testaid2_eval}}
-{{testaid3::exec(echo Carbon::parse();/*pad(54)*/)}} // {{testaid3_eval}}
-{{testaid4::exec(echo new Carbon('now');/*pad(54)*/)}} // {{testaid4_eval}}
-{{testaid5::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{testaid5_eval}}
-{{testaid6::exec(echo Carbon::create(2001, 4, 21, 12)->diffForHumans();/*pad(54)*/)}} // {{testaid6_eval}}
-{{hasTestNow::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNow_eval}}
+{{::exec(echo Carbon::getTestNow();/*pad(54)*/)}} // {{eval}}
+{{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
+{{::exec(echo new Carbon();/*pad(54)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse();/*pad(54)*/)}} // {{eval}}
+{{::exec(echo new Carbon('now');/*pad(54)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('now');/*pad(54)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2001, 4, 21, 12)->diffForHumans();/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
-{{hasTestNowNo::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{hasTestNowNo_eval}}
-{{backToNormal::exec(echo Carbon::now();/*pad(54)*/)}} // {{backToNormal_eval}}
+{{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
+{{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -326,11 +326,11 @@ class SeasonalProduct
 $product = new SeasonalProduct(100);
 )}}
 {{::lint(Carbon::setTestNow(Carbon::parse('first day of March 2000'));/*pad(40)*/)}}
-{{product1::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product1_eval}}
+{{::exec(echo $product->getPrice();/*pad(70)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow(Carbon::parse('first day of December 2000'));/*pad(40)*/)}}
-{{product2::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product2_eval}}
+{{::exec(echo $product->getPrice();/*pad(70)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow(Carbon::parse('first day of May 2000'));/*pad(40)*/)}}
-{{product3::exec(echo $product->getPrice();/*pad(70)*/)}} // {{product3_eval}}
+{{::exec(echo $product->getPrice();/*pad(70)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow();)}}
 </code></pre></p>
 
@@ -338,11 +338,11 @@ $product = new SeasonalProduct(100);
 
 <p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
-{{testaid7::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{testaid7_eval}}  ... notice the time !
-{{testaid8::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{testaid8_eval}}
-{{testaid9::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{testaid9_eval}}
-{{testaid10::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{testaid10_eval}}
-{{testaid11::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{testaid11_eval}}
+{{::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{eval}}  ... notice the time !
+{{::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{eval}}
+{{::exec(echo new Carbon('next wednesday');/*pad(54)*/)}} // {{eval}}
+{{::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{eval}}
+{{::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{eval}}
 {{::exec(Carbon::setTestNow();/*pad(54)*/)}} // always clear it !
 </code></pre></p>
 
@@ -365,67 +365,77 @@ $product = new SeasonalProduct(100);
 
 <p><code>Carbon::parse($time, $tz)</code> and <code>new Carbon($time, $tz)</code> both can take a timezone as second argument.</p>
 
-<p><pre><code class="php">{{parsetimezone::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{parsetimezone_eval}}
+<p><pre><code class="php">{{::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-getters">Getters</h1>
 
 <p>The getters are implemented via PHP's <code>__get()</code> method.  This enables you to access the value as if it was a property rather than a function call.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::parse('2012-9-5 23:26:11.123789');)}}
+<p><pre><code class="php">{{::lint($dt = Carbon::parse('2012-10-5 23:26:11.123789');)}}
 
 // These getters specifically return integers, ie intval()
-{{getyear::exec(var_dump($dt->year);/*pad(60)*/)}} // {{getyear_eval}}
-{{getmonth::exec(var_dump($dt->month);/*pad(60)*/)}} // {{getmonth_eval}}
-{{getday::exec(var_dump($dt->day);/*pad(60)*/)}} // {{getday_eval}}
-{{gethour::exec(var_dump($dt->hour);/*pad(60)*/)}} // {{gethour_eval}}
-{{getminute::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{getminute_eval}}
-{{getsecond::exec(var_dump($dt->second);/*pad(60)*/)}} // {{getsecond_eval}}
-{{getmicro::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{getmicro_eval}}
+{{::exec(var_dump($dt->year);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->month);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->day);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->hour);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->minute);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->second);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->micro);/*pad(60)*/)}} // {{eval}}
 // dayOfWeek returns a number between 0 (sunday) and 6 (saturday)
-{{getdow::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{getdow_eval}}
+{{::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{eval}}
 // dayOfWeekIso returns a number between 1 (monday) and 7 (sunday)
-{{getdowi::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{getdowi_eval}}
-{{getdoy::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{getdoy_eval}}
-{{getwim::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{getwim_eval}}
+{{::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{eval}}
+{{::lint(setlocale(LC_TIME, 'German');)}}
+{{::exec(var_dump($dt->englishDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortEnglishDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->englishMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortEnglishMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->localeMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortLocaleMonth);/*pad(60)*/)}} // {{eval}}
+{{::lint(setlocale(LC_TIME, '');)}}
+{{::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{eval}}
 // weekNumberInMonth consider weeks from monday to sunday, so the week 1 will
 // contain 1 day if the month start with a sunday, and up to 7 if it starts with a monday
-{{getwom::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{getwom_eval}}
+{{::exec(var_dump($dt->weekOfMonth);/*pad(60)*/)}} // {{eval}}
 // weekOfMonth will returns 1 for the 7 first days of the month, then 2 from the 8th to
 // the 14th, 3 from the 15th to the 21st, 4 from 22nd to 28th and 5 above
-{{getwoy::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{getwoy_eval}}
-{{getdnm::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{getdnm_eval}}
-{{getts::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{getts_eval}}
-{{getage::exec(var_dump(Carbon::createFromDate(1975, 5, 21)->age);/*pad(60)*/)}} // {{getage_eval}} calculated vs now in the same tz
-{{getq::exec(var_dump($dt->quarter);/*pad(60)*/)}} // {{getq_eval}}
+{{::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromDate(1975, 5, 21)->age);/*pad(60)*/)}} // {{eval}} calculated vs now in the same tz
+{{::exec(var_dump($dt->quarter);/*pad(60)*/)}} // {{eval}}
 
 // Returns an int of seconds difference from UTC (+/- sign included)
-{{get1::exec(var_dump(Carbon::createFromTimestampUTC(0)->offset);/*pad(60)*/)}} // {{get1_eval}}
-{{get2::exec(var_dump(Carbon::createFromTimestamp(0)->offset);/*pad(60)*/)}} // {{get2_eval}}
+{{::exec(var_dump(Carbon::createFromTimestampUTC(0)->offset);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0)->offset);/*pad(60)*/)}} // {{eval}}
 
 // Returns an int of hours difference from UTC (+/- sign included)
-{{get3::exec(var_dump(Carbon::createFromTimestamp(0)->offsetHours);/*pad(60)*/)}} // {{get3_eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0)->offsetHours);/*pad(60)*/)}} // {{eval}}
 
 // Indicates if day light savings time is on
-{{getdst::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{getdst_eval}}
-{{getdst2::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{getdst2_eval}}
+{{::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{eval}}
 
 // Indicates if the instance is in the same timezone as the local timezone
-{{getLocal::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{getLocal_eval}}
-{{getLocal2::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{getLocal2_eval}}
+{{::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{eval}}
 
 // Indicates if the instance is in the UTC timezone
-{{getUTC::exec(var_dump(Carbon::now()->utc);/*pad(60)*/)}} // {{getUTC_eval}}
-{{getUTC2::exec(var_dump(Carbon::now('Europe/London')->utc);/*pad(60)*/)}} // {{getUTC2_eval}}
-{{getUTC3::exec(var_dump(Carbon::createFromTimestampUTC(0)->utc);/*pad(60)*/)}} // {{getUTC3_eval}}
+{{::exec(var_dump(Carbon::now()->utc);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('Europe/London')->utc);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestampUTC(0)->utc);/*pad(60)*/)}} // {{eval}}
 
 // Gets the DateTimeZone instance
-{{get5::exec(echo get_class(Carbon::now()->timezone);/*pad(60)*/)}} // {{get5_eval}}
-{{get6::exec(echo get_class(Carbon::now()->tz);/*pad(60)*/)}} // {{get6_eval}}
+{{::exec(echo get_class(Carbon::now()->timezone);/*pad(60)*/)}} // {{eval}}
+{{::exec(echo get_class(Carbon::now()->tz);/*pad(60)*/)}} // {{eval}}
 
 // Gets the DateTimeZone instance name, shortcut for ->timezone->getName()
-{{get7::exec(echo Carbon::now()->timezoneName;/*pad(60)*/)}} // {{get7_eval}}
-{{get8::exec(echo Carbon::now()->tzName;/*pad(60)*/)}} // {{get8_eval}}
+{{::exec(echo Carbon::now()->timezoneName;/*pad(60)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->tzName;/*pad(60)*/)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-setters">Setters</h1>
@@ -479,7 +489,7 @@ $dt = new Carbon('2001-01-01 01:01:01');
 $dt->setTimeFrom($source1);
 )}}
 
-{{setTimeFrom::exec(echo $dt;)}} // {{setTimeFrom_eval}}
+{{::exec(echo $dt;)}} // {{eval}}
 
 {{::lint(
 $source2 = new DateTime('2013-09-01 09:22:56');
@@ -487,17 +497,17 @@ $source2 = new DateTime('2013-09-01 09:22:56');
 $dt->setDateFrom($source2);
 )}}
 
-{{setDateFrom::exec(echo $dt;)}} // {{setDateFrom_eval}}
+{{::exec(echo $dt;)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-isset">IsSet</h1>
 
 <p>The PHP function <code>__isset()</code> is implemented.  This was done as some external systems (ex. <a href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the existence of a property before using it.  This is done using the <code>isset()</code> or <code>empty()</code> method.  You can read more about these on the PHP site: <a href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
 
-<p><pre><code class="php">{{isset1::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{isset1_eval}}
-{{isset2::exec(var_dump(isset(Carbon::now()->hour));/*pad(50)*/)}} // {{isset2_eval}}
-{{isset3::exec(var_dump(empty(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{isset3_eval}}
-{{isset4::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{isset4_eval}}
+<p><pre><code class="php">{{::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(isset(Carbon::now()->hour));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(empty(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-formatting">String Formatting</h1>
@@ -506,18 +516,18 @@ $dt->setDateFrom($source2);
 
 <p><pre><code class="php">{{::lint($dt = Carbon::create(1975, 12, 25, 14, 15, 16);)}}
 
-{{format1::exec(var_dump($dt->toDateTimeString() == $dt);/*pad(50)*/)}} // {{format1_eval}} => uses __toString()
-{{format2::exec(echo $dt->toDateString();/*pad(50)*/)}} // {{format2_eval}}
-{{format3::exec(echo $dt->toFormattedDateString();/*pad(50)*/)}} // {{format3_eval}}
-{{format4::exec(echo $dt->toTimeString();/*pad(50)*/)}} // {{format4_eval}}
-{{format5::exec(echo $dt->toDateTimeString();/*pad(50)*/)}} // {{format5_eval}}
-{{format6::exec(echo $dt->toDayDateTimeString();/*pad(50)*/)}} // {{format6_eval}}
+{{::exec(var_dump($dt->toDateTimeString() == $dt);/*pad(50)*/)}} // {{eval}} => uses __toString()
+{{::exec(echo $dt->toDateString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->toFormattedDateString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->toTimeString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->toDateTimeString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->toDayDateTimeString();/*pad(50)*/)}} // {{eval}}
 
 // ... of course format() is still available
-{{format7::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{format7_eval}}
+{{::exec(echo $dt->format('l jS \\of F Y h:i:s A');/*pad(50)*/)}} // {{eval}}
 
 // The reverse hasFormat method allows you to test if a string looks like a given format
-{{hasformat::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{hasformat_eval}}
+{{::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
@@ -525,11 +535,11 @@ $dt->setDateFrom($source2);
 <p><pre><code class="php">{{::lint(
 Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
 )}}
-{{format8::exec(echo $dt;/*pad(50)*/)}} // {{format8_eval}}
+{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
 {{::lint(
 Carbon::resetToStringFormat();
 )}}
-{{format9::exec(echo $dt;/*pad(50)*/)}} // {{format9_eval}}
+{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Note: For localization support see the <a href="#api-localization">Localization</a> section.</p>
@@ -541,32 +551,32 @@ Carbon::resetToStringFormat();
 <p><pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
-{{format22::exec(echo $dt->toAtomString();/*pad(32)*/)}} // {{format22_eval}}
-{{format23::exec(echo $dt->toCookieString();/*pad(32)*/)}} // {{format23_eval}}
+{{::exec(echo $dt->toAtomString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toCookieString();/*pad(32)*/)}} // {{eval}}
 
-{{format24::exec(echo $dt->toIso8601String();/*pad(32)*/)}} // {{format24_eval}}
+{{::exec(echo $dt->toIso8601String();/*pad(32)*/)}} // {{eval}}
 // Be aware we chose to use the full-extended format of the ISO 8601 norm
 // Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
 // is explained here in the PHP documentation:
 // https://php.net/manual/class.datetime.php#datetime.constants.iso8601
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
-{{formatiso8601::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{formatiso8601_eval}}
+{{::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{eval}}
 
-{{format24b::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{format24b_eval}}
-{{format25::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{format25_eval}}
-{{format26::exec(echo $dt->toRfc850String();/*pad(32)*/)}} // {{format26_eval}}
-{{format27::exec(echo $dt->toRfc1036String();/*pad(32)*/)}} // {{format27_eval}}
-{{format28::exec(echo $dt->toRfc1123String();/*pad(32)*/)}} // {{format28_eval}}
-{{format29::exec(echo $dt->toRfc2822String();/*pad(32)*/)}} // {{format29_eval}}
-{{format30::exec(echo $dt->toRfc3339String();/*pad(32)*/)}} // {{format30_eval}}
-{{format30b::exec(echo $dt->toRfc7231String();/*pad(32)*/)}} // {{format30b_eval}}
-{{format31::exec(echo $dt->toRssString();/*pad(32)*/)}} // {{format31_eval}}
-{{format32::exec(echo $dt->toW3cString();/*pad(32)*/)}} // {{format32_eval}}
+{{::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc850String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc1036String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc1123String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc2822String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc3339String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc7231String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toRssString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toW3cString();/*pad(32)*/)}} // {{eval}}
 
-{{toarray::exec(var_dump($dt->toArray());)}}
+{{::exec(var_dump($dt->toArray());)}}
 /*
-{{toarray_eval}}
+{{eval}}
 */
 </code></pre></p>
 
@@ -574,57 +584,57 @@ Carbon::resetToStringFormat();
 
 <p>Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.</p>
 
-<p><pre><code class="php">{{comparetz::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{comparetz_eval}}
+<p><pre><code class="php">{{::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{eval}}
 {{::lint($first = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
 {{::lint($second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');)}}
 
-{{compare1::exec(echo $first->toDateTimeString();/*pad(50)*/)}} // {{compare1_eval}}
-{{compare1tz::exec(echo $first->tzName;/*pad(50)*/)}} // {{compare1tz_eval}}
-{{compare2::exec(echo $second->toDateTimeString();/*pad(50)*/)}} // {{compare2_eval}}
-{{compare2tz::exec(echo $second->tzName;/*pad(50)*/)}} // {{compare2tz_eval}}
+{{::exec(echo $first->toDateTimeString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $first->tzName;/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $second->toDateTimeString();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $second->tzName;/*pad(50)*/)}} // {{eval}}
 
-{{compare3::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{compare3_eval}}
-{{compare4::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{compare4_eval}}
-{{compare5::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{compare5_eval}}
-{{compare6::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare6_eval}}
-{{compare7::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare7_eval}}
-{{compare8::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare8_eval}}
+{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
 
 {{::lint($first->setDateTime(2012, 1, 1, 0, 0, 0);)}}
 {{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(50)*/)}} // Remember tz is 'America/Vancouver'
 
-{{compare9::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{compare9_eval}}
-{{compare10::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{compare10_eval}}
-{{compare11::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{compare11_eval}}
-{{compare12::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare12_eval}}
-{{compare13::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare13_eval}}
-{{compare14::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare14_eval}}
+{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
 
 // All have verbose aliases and PHP equivalent code:
 
-{{compare15::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{compare15_eval}}
-{{compare16::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{compare16_eval}}
-{{compare17::exec(var_dump($first == $second);/*pad(50)*/)}} // {{compare17_eval}}
+{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first == $second);/*pad(50)*/)}} // {{eval}}
 
-{{compare18::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{compare18_eval}}
-{{compare19::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{compare19_eval}}
-{{compare20::exec(var_dump($first != $second);/*pad(50)*/)}} // {{compare20_eval}}
+{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first != $second);/*pad(50)*/)}} // {{eval}}
 
-{{compare21::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{compare21_eval}}
-{{compare22::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{compare22_eval}}
-{{compare23::exec(var_dump($first > $second);/*pad(50)*/)}} // {{compare23_eval}}
+{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first > $second);/*pad(50)*/)}} // {{eval}}
 
-{{compare24::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{compare24_eval}}
-{{compare25::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{compare25_eval}}
-{{compare26::exec(var_dump($first >= $second);/*pad(50)*/)}} // {{compare26_eval}}
+{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first >= $second);/*pad(50)*/)}} // {{eval}}
 
-{{compare27::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{compare27_eval}}
-{{compare28::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{compare28_eval}}
-{{compare29::exec(var_dump($first < $second);/*pad(50)*/)}} // {{compare29_eval}}
+{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first < $second);/*pad(50)*/)}} // {{eval}}
 
-{{compare30::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{compare30_eval}}
-{{compare31::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{compare31_eval}}
-{{compare32::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{compare32_eval}}
+{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
@@ -633,27 +643,27 @@ Carbon::resetToStringFormat();
 
 <p><pre><code class="php">{{::lint($first = Carbon::create(2012, 9, 5, 1);)}}
 {{::lint($second = Carbon::create(2012, 9, 5, 5);)}}
-{{between1::exec(var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));/*pad(75)*/)}} // {{between1_eval}}
-{{between2::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{between2_eval}}
-{{between3::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{between3_eval}}
+{{::exec(var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));/*pad(75)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods or <code>minimum()</code> and <code>maximum()</code> aliases.  As usual the default parameter is now if null is specified.</p>
 
 <p><pre><code class="php">{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
 {{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
-{{min::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{min_eval}}
-{{minimum::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{minimum_eval}}
+{{::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
 {{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
-{{max::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{max_eval}}
-{{maximum::exec(echo $dt1->maximum($dt2);/*pad(50)*/)}} // {{maximum_eval}}
+{{::exec(echo $dt1->max($dt2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt1->maximum($dt2);/*pad(50)*/)}} // {{eval}}
 
 // now is the default param
 {{::lint($dt1 = Carbon::createMidnightDate(2000, 1, 1);)}}
-{{max2::exec(echo $dt1->max();/*pad(50)*/)}} // {{max2_eval}}
-{{maximum2::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{maximum2_eval}}
+{{::exec(echo $dt1->max();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{eval}}
 
 {{::lint(
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
@@ -662,14 +672,14 @@ $dt3 = Carbon::createMidnightDate(2010, 4, 16);
 )}}
 
 // returns the closest of two date (no matter before or after)
-{{closest1::exec(echo $dt1->closest($dt2, $dt3);/*pad(50)*/)}} // {{closest1_eval}}
-{{closest2::exec(echo $dt2->closest($dt1, $dt3);/*pad(50)*/)}} // {{closest2_eval}}
-{{closest3::exec(echo $dt3->closest($dt2, $dt1);/*pad(50)*/)}} // {{closest3_eval}}
+{{::exec(echo $dt1->closest($dt2, $dt3);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt2->closest($dt1, $dt3);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt3->closest($dt2, $dt1);/*pad(50)*/)}} // {{eval}}
 
 // returns the farthest of two date (no matter before or after)
-{{farthest1::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{farthest1_eval}}
-{{farthest2::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{farthest2_eval}}
-{{farthest3::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{farthest3_eval}}
+{{::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner, the <code>now()</code> is created in the same timezone as the instance.</p>
@@ -693,12 +703,24 @@ $dt->isLeapYear();
 
 $dt->isSameQuarter($dt2); // same quarter (3 months) no matter the year of the given date
 $dt->isSameQuarter($dt2, true); // same quarter of the same year of the given date
+/*
+    Alternatively, you can run Carbon::compareYearWithMonth() to compare both quarter and year by default,
+    In this case you can use $dt->isSameQuarter($dt2, false) to compare ignoring the year
+    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
+    Run Carbon::shouldCompareYearWithMonth() to get the current setting
+*/
 $dt->isCurrentQuarter();
 $dt->isNextQuarter(); // date is in the next quarter
 $dt->isLastQuarter(); // in previous quarter
 
 $dt->isSameMonth($dt2); // same month no matter the year of the given date
 $dt->isSameMonth($dt2, true); // same month of the same year of the given date
+/*
+    As for isSameQuarter, you can run Carbon::compareYearWithMonth() to compare both month and year by default,
+    In this case you can use $dt->isSameMonth($dt2, false) to compare ignoring the year
+    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
+    Run Carbon::shouldCompareYearWithMonth() to get the current setting
+*/
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
@@ -739,9 +761,9 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::lint($noCake = Carbon::createFromDate(2014, 9, 26);)}}
 {{::lint($yesCake = Carbon::createFromDate(2014, 4, 23);)}}
 {{::lint($overTheHill = Carbon::now()->subYears(50);)}}
-{{birth1::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{birth1_eval}}
-{{birth2::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{birth2_eval}}
-{{birth3::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{birth3_eval}} -> default compare it to today!
+{{::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{eval}} -> default compare it to today!
 </code></pre></p>
 
 <h1 id="api-addsub">Addition and Subtraction</h1>
@@ -750,57 +772,57 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 
 <p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
 
-{{addsub1::exec(echo $dt->toDateTimeString();/*pad(40)*/)}} // {{addsub1_eval}}
+{{::exec(echo $dt->toDateTimeString();/*pad(40)*/)}} // {{eval}}
 
-{{addCenturies::exec(echo $dt->addCenturies(5);/*pad(40)*/)}} // {{addCenturies_eval}}
-{{addCentury::exec(echo $dt->addCentury();/*pad(40)*/)}} // {{addCentury_eval}}
-{{subCentury::exec(echo $dt->subCentury();/*pad(40)*/)}} // {{subCentury_eval}}
-{{subCenturies::exec(echo $dt->subCenturies(5);/*pad(40)*/)}} // {{subCenturies_eval}}
+{{::exec(echo $dt->addCenturies(5);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addCentury();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subCentury();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subCenturies(5);/*pad(40)*/)}} // {{eval}}
 
-{{addsub2::exec(echo $dt->addYears(5);/*pad(40)*/)}} // {{addsub2_eval}}
-{{addsub3::exec(echo $dt->addYear();/*pad(40)*/)}} // {{addsub3_eval}}
-{{addsub4::exec(echo $dt->subYear();/*pad(40)*/)}} // {{addsub4_eval}}
-{{addsub5::exec(echo $dt->subYears(5);/*pad(40)*/)}} // {{addsub5_eval}}
+{{::exec(echo $dt->addYears(5);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addYear();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subYear();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subYears(5);/*pad(40)*/)}} // {{eval}}
 
-{{addQuarters::exec(echo $dt->addQuarters(2);/*pad(40)*/)}} // {{addQuarters_eval}}
-{{addQuarter::exec(echo $dt->addQuarter();/*pad(40)*/)}} // {{addQuarter_eval}}
-{{subQuarter::exec(echo $dt->subQuarter();/*pad(40)*/)}} // {{subQuarter_eval}}
-{{subQuarters::exec(echo $dt->subQuarters(2);/*pad(40)*/)}} // {{subQuarters_eval}}
+{{::exec(echo $dt->addQuarters(2);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addQuarter();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subQuarter();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subQuarters(2);/*pad(40)*/)}} // {{eval}}
 
-{{addsub6::exec(echo $dt->addMonths(60);/*pad(40)*/)}} // {{addsub6_eval}}
-{{addsub7::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{addsub7_eval}} equivalent of $dt->month($dt->month + 1); so it wraps
-{{addsub8::exec(echo $dt->subMonth();/*pad(40)*/)}} // {{addsub8_eval}}
-{{addsub9::exec(echo $dt->subMonths(60);/*pad(40)*/)}} // {{addsub9_eval}}
+{{::exec(echo $dt->addMonths(60);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{eval}} equivalent of $dt->month($dt->month + 1); so it wraps
+{{::exec(echo $dt->subMonth();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMonths(60);/*pad(40)*/)}} // {{eval}}
 
-{{addsub10::exec(echo $dt->addDays(29);/*pad(40)*/)}} // {{addsub10_eval}}
-{{addsub11::exec(echo $dt->addDay();/*pad(40)*/)}} // {{addsub11_eval}}
-{{addsub12::exec(echo $dt->subDay();/*pad(40)*/)}} // {{addsub12_eval}}
-{{addsub13::exec(echo $dt->subDays(29);/*pad(40)*/)}} // {{addsub13_eval}}
+{{::exec(echo $dt->addDays(29);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addDay();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subDay();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subDays(29);/*pad(40)*/)}} // {{eval}}
 
-{{addsub14::exec(echo $dt->addWeekdays(4);/*pad(40)*/)}} // {{addsub14_eval}}
-{{addsub15::exec(echo $dt->addWeekday();/*pad(40)*/)}} // {{addsub15_eval}}
-{{addsub16::exec(echo $dt->subWeekday();/*pad(40)*/)}} // {{addsub16_eval}}
-{{addsub17::exec(echo $dt->subWeekdays(4);/*pad(40)*/)}} // {{addsub17_eval}}
+{{::exec(echo $dt->addWeekdays(4);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addWeekday();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subWeekday();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subWeekdays(4);/*pad(40)*/)}} // {{eval}}
 
-{{addsub18::exec(echo $dt->addWeeks(3);/*pad(40)*/)}} // {{addsub18_eval}}
-{{addsub19::exec(echo $dt->addWeek();/*pad(40)*/)}} // {{addsub19_eval}}
-{{addsub20::exec(echo $dt->subWeek();/*pad(40)*/)}} // {{addsub20_eval}}
-{{addsub21::exec(echo $dt->subWeeks(3);/*pad(40)*/)}} // {{addsub21_eval}}
+{{::exec(echo $dt->addWeeks(3);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addWeek();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subWeek();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subWeeks(3);/*pad(40)*/)}} // {{eval}}
 
-{{addsub22::exec(echo $dt->addHours(24);/*pad(40)*/)}} // {{addsub22_eval}}
-{{addsub23::exec(echo $dt->addHour();/*pad(40)*/)}} // {{addsub23_eval}}
-{{addsub24::exec(echo $dt->subHour();/*pad(40)*/)}} // {{addsub24_eval}}
-{{addsub25::exec(echo $dt->subHours(24);/*pad(40)*/)}} // {{addsub25_eval}}
+{{::exec(echo $dt->addHours(24);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addHour();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subHour();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subHours(24);/*pad(40)*/)}} // {{eval}}
 
-{{addsub26::exec(echo $dt->addMinutes(61);/*pad(40)*/)}} // {{addsub26_eval}}
-{{addsub27::exec(echo $dt->addMinute();/*pad(40)*/)}} // {{addsub27_eval}}
-{{addsub28::exec(echo $dt->subMinute();/*pad(40)*/)}} // {{addsub28_eval}}
-{{addsub29::exec(echo $dt->subMinutes(61);/*pad(40)*/)}} // {{addsub29_eval}}
+{{::exec(echo $dt->addMinutes(61);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addMinute();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMinute();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMinutes(61);/*pad(40)*/)}} // {{eval}}
 
-{{addsub30::exec(echo $dt->addSeconds(61);/*pad(40)*/)}} // {{addsub30_eval}}
-{{addsub31::exec(echo $dt->addSecond();/*pad(40)*/)}} // {{addsub31_eval}}
-{{addsub32::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{addsub32_eval}}
-{{addsub33::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{addsub33_eval}}
+{{::exec(echo $dt->addSeconds(61);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addSecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
@@ -811,8 +833,8 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 
 <p><pre><code class="php">{{::lint($dt = Carbon::create(2017, 1, 31, 0);)}}
 
-{{addoverflow1::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{addoverflow1_eval}}
-{{addoverflow2::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow2_eval}}
+{{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
@@ -821,8 +843,8 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
-{{addoverflow3::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{addoverflow3_eval}}
-{{addoverflow4::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{addoverflow4_eval}}
+{{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
 
 // Call the method with true to allow overflow again
 {{reset1::exec(Carbon::resetMonthsOverflow();)}} // same as Carbon::useMonthsOverflow(true);
@@ -839,29 +861,29 @@ to explicitly add/sub months with or without overflow no matter the current mode
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
-{{addoverflow5::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow5_eval}}
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
 // plural addMonthsWithOverflow() method is also available
-{{addoverflow6::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow6_eval}}
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
 // singular subMonthWithOverflow() method is also available
-{{addoverflow7::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{addoverflow7_eval}}
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
 // plural addMonthsNoOverflow() method is also available
-{{addoverflow8::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{addoverflow8_eval}}
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
 // singular subMonthNoOverflow() method is also available
 
-{{addoverflowremind1::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind1_eval}}
-{{addoverflowremind2::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind2_eval}}
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
 
 {{::lint(Carbon::useMonthsOverflow(true);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
-{{addoverflow9::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{addoverflow9_eval}}
-{{addoverflow10::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{addoverflow10_eval}}
-{{addoverflow11::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{addoverflow11_eval}}
-{{addoverflow12::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{addoverflow12_eval}}
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
 
-{{addoverflowremind3::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{addoverflowremind3_eval}}
-{{addoverflowremind4::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{addoverflowremind4_eval}}
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
 
 {{reset2::exec(Carbon::resetMonthsOverflow();)}}
 </code></pre></p>
@@ -872,33 +894,33 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
-{{shouldyearoverflow1::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{shouldyearoverflow1_eval}}
+{{::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{eval}}
 
-{{addyearoverflow5::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow5_eval}}
+{{::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{eval}}
 // plural addYearsWithOverflow() method is also available
-{{addyearoverflow6::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow6_eval}}
+{{::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
 // singular subYearWithOverflow() method is also available
-{{addyearoverflow7::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow7_eval}}
+{{::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{eval}}
 // plural addYearsNoOverflow() method is also available
-{{addyearoverflow8::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow8_eval}}
+{{::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
 // singular subYearNoOverflow() method is also available
 
-{{addyearoverflowremind1::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind1_eval}}
-{{addyearoverflowremind2::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind2_eval}}
+{{::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{eval}}
 
 {{::lint(Carbon::useYearsOverflow(true);
 
 $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
-{{shouldyearoverflow2::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{shouldyearoverflow2_eval}}
+{{::exec(var_dump(Carbon::shouldOverflowYears());/*pad(50)*/)}} // {{eval}}
 
-{{addyearoverflow9::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{addyearoverflow9_eval}}
-{{addyearoverflow10::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{addyearoverflow10_eval}}
-{{addyearoverflow11::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{addyearoverflow11_eval}}
-{{addyearoverflow12::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{addyearoverflow12_eval}}
+{{::exec(echo $dt->copy()->addYearWithOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subYearsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->addYearNoOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subYearsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
 
-{{addyearoverflowremind3::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{addyearoverflowremind3_eval}}
-{{addyearoverflowremind4::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{addyearoverflowremind4_eval}}
+{{::exec(echo $dt->copy()->addYear();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{eval}}
 
 {{reset3::exec(Carbon::resetYearsOverflow();)}}
 </code></pre></p>
@@ -911,53 +933,53 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
 <p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
 
-<p><pre><code class="php">{{diff1::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{diff1_eval}}
+<p><pre><code class="php">{{::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{eval}}
 
 {{::lint($dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');)}}
-{{diff4::exec(echo $dtOttawa->diffInHours($dtVancouver);/*pad(70)*/)}} // {{diff4_eval}}
-{{diff4b::exec(echo $dtVancouver->diffInHours($dtOttawa);/*pad(70)*/)}} // {{diff4b_eval}}
+{{::exec(echo $dtOttawa->diffInHours($dtVancouver);/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dtVancouver->diffInHours($dtOttawa);/*pad(70)*/)}} // {{eval}}
 
-{{diff5::exec(echo $dtOttawa->diffInHours($dtVancouver, false);/*pad(70)*/)}} // {{diff5_eval}}
-{{diff6::exec(echo $dtVancouver->diffInHours($dtOttawa, false);/*pad(70)*/)}} // {{diff6_eval}}
+{{::exec(echo $dtOttawa->diffInHours($dtVancouver, false);/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dtVancouver->diffInHours($dtOttawa, false);/*pad(70)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::createMidnightDate(2012, 1, 31);)}}
-{{diff8::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{diff8_eval}}
-{{diff9::exec(echo $dt->diffInDays($dt->copy()->subMonth(), false);/*pad(70)*/)}} // {{diff9_eval}}
+{{::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dt->diffInDays($dt->copy()->subMonth(), false);/*pad(70)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::createMidnightDate(2012, 4, 30);)}}
-{{diff11::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{diff11_eval}}
-{{diff12::exec(echo $dt->diffInDays($dt->copy()->addWeek());/*pad(70)*/)}} // {{diff12_eval}}
+{{::exec(echo $dt->diffInDays($dt->copy()->addMonth());/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dt->diffInDays($dt->copy()->addWeek());/*pad(70)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::createMidnightDate(2012, 1, 1);)}}
-{{diff14::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(59));/*pad(70)*/)}} // {{diff14_eval}}
-{{diff15::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(60));/*pad(70)*/)}} // {{diff15_eval}}
-{{diff16::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{diff16_eval}}
-{{diff17::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{diff17_eval}}
+{{::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(59));/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(60));/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(119));/*pad(70)*/)}} // {{eval}}
+{{::exec(echo $dt->diffInMinutes($dt->copy()->addSeconds(120));/*pad(70)*/)}} // {{eval}}
 
-{{diff18::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{diff18_eval}}
+{{::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{eval}}
 
 {{::lint($interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);)}}
-{{diffinterval::exec(echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;/*pad(70)*/)}} // {{diffinterval_eval}}
+{{::exec(echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;/*pad(70)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
 
 <p><pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
-{{dstmodify::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{dstmodify_eval}} (DST on, 24 hours only have been actually added)
+{{::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{eval}} (DST on, 24 hours only have been actually added)
 </code></pre></p>
 
 <p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works with <em>real</em> hours using timestamp:</p>
 
 <p><pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
-{{realhours1::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours1_eval}} (DST on)
-{{realhours2::exec(echo $date->diffInRealHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours2_eval}}
-{{realhours3::exec(echo $date->diffInHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours3_eval}}
-{{realhours4::exec(echo $date->diffInRealMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours4_eval}}
-{{realhours5::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours5_eval}}
-{{realhours6::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours6_eval}}
-{{realhours7::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{realhours7_eval}}
-{{realhours8::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{realhours8_eval}} (DST off)
+{{::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST on)
+{{::exec(echo $date->diffInRealHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInRealMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
 </code></pre></p>
 
 <p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>, <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
@@ -972,7 +994,7 @@ $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
 }, $dt2);
 )}}
 
-{{daysForExtraCoding::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{daysForExtraCoding_eval}}
+{{::exec(echo $daysForExtraCoding;/*pad(30)*/)}} // {{eval}}
 
 {{::lint(
 $dt = Carbon::create(2014, 1, 1)->endOfDay();
@@ -982,38 +1004,38 @@ $littleHandRotations = $dt->diffFiltered(CarbonInterval::minute(), function(Carb
 }, $dt2, true); // true as last parameter returns absolute value
 )}}
 
-{{littleHandRotations::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{littleHandRotations_eval}}
+{{::exec(echo $littleHandRotations;/*pad(30)*/)}} // {{eval}}
 
 {{::lint($date = Carbon::now()->addSeconds(3666);)}}
 
-{{diffin1::exec(echo $date->diffInSeconds();/*pad(50)*/)}} // {{diffin1_eval}}
-{{diffin2::exec(echo $date->diffInMinutes();/*pad(50)*/)}} // {{diffin2_eval}}
-{{diffin3::exec(echo $date->diffInHours();/*pad(50)*/)}} // {{diffin3_eval}}
-{{diffin4::exec(echo $date->diffInDays();/*pad(50)*/)}} // {{diffin4_eval}}
+{{::exec(echo $date->diffInSeconds();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date->diffInMinutes();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date->diffInHours();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date->diffInDays();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($date = Carbon::create(2016, 1, 5, 22, 40, 32);)}}
 
-{{diffin5::exec(echo $date->secondsSinceMidnight();/*pad(50)*/)}} // {{diffin5_eval}}
-{{diffin6::exec(echo $date->secondsUntilEndOfDay();/*pad(50)*/)}} // {{diffin6_eval}}
+{{::exec(echo $date->secondsSinceMidnight();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date->secondsUntilEndOfDay();/*pad(50)*/)}} // {{eval}}
 
 {{::lint(
 $date1 = Carbon::createMidnightDate(2016, 1, 5);
 $date2 = Carbon::createMidnightDate(2017, 3, 15);
 )}}
 
-{{diffin7::exec(echo $date1->diffInDays($date2);/*pad(50)*/)}} // {{diffin7_eval}}
-{{diffin8::exec(echo $date1->diffInWeekdays($date2);/*pad(50)*/)}} // {{diffin8_eval}}
-{{diffin9::exec(echo $date1->diffInWeekendDays($date2);/*pad(50)*/)}} // {{diffin9_eval}}
-{{diffin10::exec(echo $date1->diffInWeeks($date2);/*pad(50)*/)}} // {{diffin10_eval}}
-{{diffin11::exec(echo $date1->diffInMonths($date2);/*pad(50)*/)}} // {{diffin11_eval}}
-{{diffin12::exec(echo $date1->diffInYears($date2);/*pad(50)*/)}} // {{diffin12_eval}}
+{{::exec(echo $date1->diffInDays($date2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date1->diffInWeekdays($date2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date1->diffInWeekendDays($date2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date1->diffInWeeks($date2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date1->diffInMonths($date2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $date1->diffInYears($date2);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
 <p id="weekend">For advanced handle of the week/weekend days, use the following tools:</p>
 
-<p><pre><code class="php">{{week1::exec(echo implode(', ', Carbon::getDays());/*pad(60)*/)}} // {{week1_eval}}
+<p><pre><code class="php">{{::exec(echo implode(', ', Carbon::getDays());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
 $saturday = new Carbon('first saturday of 2019');
@@ -1021,10 +1043,10 @@ $sunday = new Carbon('first sunday of 2019');
 $monday = new Carbon('first monday of 2019');
 )}}
 
-{{weekend1::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{weekend1_eval}}
-{{weekend2::exec(var_dump($saturday->isWeekend());/*pad(60)*/)}} // {{weekend2_eval}}
-{{weekend3::exec(var_dump($sunday->isWeekend());/*pad(60)*/)}} // {{weekend3_eval}}
-{{weekend4::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{weekend4_eval}}
+{{::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($saturday->isWeekend());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($sunday->isWeekend());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
 Carbon::setWeekendDays(array(
@@ -1033,10 +1055,10 @@ Carbon::setWeekendDays(array(
 ));
 )}}
 
-{{weekend5::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{weekend5_eval}}
-{{weekend6::exec(var_dump($saturday->isWeekend());/*pad(60)*/)}} // {{weekend6_eval}}
-{{weekend7::exec(var_dump($sunday->isWeekend());/*pad(60)*/)}} // {{weekend7_eval}}
-{{weekend8::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{weekend8_eval}}
+{{::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($saturday->isWeekend());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($sunday->isWeekend());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
 Carbon::setWeekendDays(array(
@@ -1048,18 +1070,18 @@ Carbon::setWeekStartsAt(Carbon::FRIDAY);
 Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to precede the start
 )}}
 
-{{week2::exec(var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);/*pad(60)*/)}} // {{week2_eval}}
-{{week3::exec(var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);/*pad(60)*/)}} // {{week3_eval}}
-{{week4::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{week4_eval}}
-{{week5::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{week5_eval}}
+{{::exec(var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);/*pad(60)*/)}} // {{eval}}
+{{::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 )}}
 
-{{week6::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{week6_eval}}
-{{week7::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{week7_eval}}
+{{::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
@@ -1102,24 +1124,24 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 <p><pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
-{{humandiff1::exec(echo Carbon::now()->subDays(5)->diffForHumans();/*pad(62)*/)}} // {{humandiff1_eval}}
+{{::exec(echo Carbon::now()->subDays(5)->diffForHumans();/*pad(62)*/)}} // {{eval}}
 
-{{humandiff2::exec(echo Carbon::now()->diffForHumans(Carbon::now()->subYear());/*pad(62)*/)}} // {{humandiff2_eval}}
+{{::exec(echo Carbon::now()->diffForHumans(Carbon::now()->subYear());/*pad(62)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::createFromDate(2011, 8, 1);)}}
 
-{{humandiff4::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(72)*/)}} // {{humandiff4_eval}}
-{{humandiff5::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(72)*/)}} // {{humandiff5_eval}}
+{{::exec(echo $dt->diffForHumans($dt->copy()->addMonth());/*pad(72)*/)}} // {{eval}}
+{{::exec(echo $dt->diffForHumans($dt->copy()->subMonth());/*pad(72)*/)}} // {{eval}}
 
-{{humandiff6::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{humandiff6_eval}}
+{{::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{eval}}
 
-{{humandiff7::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{humandiff7_eval}}
-{{humandiff8::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{humandiff8_eval}}
+{{::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{eval}}
 
-{{humandiffstr1::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{humandiffstr1_eval}}
-{{humandiffstr2::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{humandiffstr2_eval}}
+{{::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{eval}}
 
-{{humandiff9::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{humandiff9_eval}}
+{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{eval}}
 </code></pre></p>
 
 <p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
@@ -1127,9 +1149,9 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 <p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
 
 <p><pre><code class="php">{{::lint(Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{humandiffopt1::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{humandiffopt1_eval}}
+{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}
 {{::lint(Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{humandiffopt2::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{humandiffopt2_eval}}</code></pre></p>
+{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}</code></pre></p>
 
 <p>Available options are:</p>
 
@@ -1153,105 +1175,105 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 <p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
 
 <p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
-{{startofminute::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{startofminute_eval}}
+{{::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
-{{endofminute::exec(echo $dt->endOfMinute();/*pad(50)*/)}} // {{endofminute_eval}}
+{{::exec(echo $dt->endOfMinute();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
-{{startofhour::exec(echo $dt->startOfHour();/*pad(50)*/)}} // {{startofhour_eval}}
+{{::exec(echo $dt->startOfHour();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
-{{endofhour::exec(echo $dt->endOfHour();/*pad(50)*/)}} // {{endofhour_eval}}
+{{::exec(echo $dt->endOfHour();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
-{{midday1::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{midday1_eval}}
-{{midday2::exec(echo $dt->midDay();/*pad(50)*/)}} // {{midday2_eval}}
+{{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
 {{::lint(Carbon::setMidDayAt(13);/*pad(40)*/)}}
-{{midday3::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{midday3_eval}}
-{{midday4::exec(echo $dt->midDay();/*pad(50)*/)}} // {{midday4_eval}}
+{{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
 {{::lint(Carbon::setMidDayAt(12);/*pad(40)*/)}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier1::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{modifier1_eval}}
+{{::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier2::exec(echo $dt->endOfDay();/*pad(50)*/)}} // {{modifier2_eval}}
+{{::exec(echo $dt->endOfDay();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier3::exec(echo $dt->startOfMonth();/*pad(50)*/)}} // {{modifier3_eval}}
+{{::exec(echo $dt->startOfMonth();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier4::exec(echo $dt->endOfMonth();/*pad(50)*/)}} // {{modifier4_eval}}
+{{::exec(echo $dt->endOfMonth();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier15::exec(echo $dt->startOfYear();/*pad(50)*/)}} // {{modifier15_eval}}
+{{::exec(echo $dt->startOfYear();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier16::exec(echo $dt->endOfYear();/*pad(50)*/)}} // {{modifier16_eval}}
+{{::exec(echo $dt->endOfYear();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier17::exec(echo $dt->startOfDecade();/*pad(50)*/)}} // {{modifier17_eval}}
+{{::exec(echo $dt->startOfDecade();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier18::exec(echo $dt->endOfDecade();/*pad(50)*/)}} // {{modifier18_eval}}
+{{::exec(echo $dt->endOfDecade();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier19::exec(echo $dt->startOfCentury();/*pad(50)*/)}} // {{modifier19_eval}}
+{{::exec(echo $dt->startOfCentury();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier20::exec(echo $dt->endOfCentury();/*pad(50)*/)}} // {{modifier20_eval}}
+{{::exec(echo $dt->endOfCentury();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier5::exec(echo $dt->startOfWeek();/*pad(50)*/)}} // {{modifier5_eval}}
-{{modifier6::exec(var_dump($dt->dayOfWeek == Carbon::MONDAY);/*pad(50)*/)}} // {{modifier6_eval}} : ISO8601 week starts on Monday
+{{::exec(echo $dt->startOfWeek();/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($dt->dayOfWeek == Carbon::MONDAY);/*pad(50)*/)}} // {{eval}} : ISO8601 week starts on Monday
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier7::exec(echo $dt->endOfWeek();/*pad(50)*/)}} // {{modifier7_eval}}
-{{modifier8::exec(var_dump($dt->dayOfWeek == Carbon::SUNDAY);/*pad(50)*/)}} // {{modifier8_eval}} : ISO8601 week ends on Sunday
+{{::exec(echo $dt->endOfWeek();/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($dt->dayOfWeek == Carbon::SUNDAY);/*pad(50)*/)}} // {{eval}} : ISO8601 week ends on Sunday
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier9::exec(echo $dt->next(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier9_eval}}
-{{modifier10::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier10_eval}}
+{{::exec(echo $dt->next(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
-{{modifier11::exec(echo $dt->next();/*pad(50)*/)}} // {{modifier11_eval}}
+{{::exec(echo $dt->next();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
-{{modifier12::exec(echo $dt->previous(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier12_eval}}
-{{modifier13::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{modifier13_eval}}
+{{::exec(echo $dt->previous(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
-{{modifier14::exec(echo $dt->previous();/*pad(50)*/)}} // {{modifier14_eval}}
+{{::exec(echo $dt->previous();/*pad(50)*/)}} // {{eval}}
 
 {{::lint($start = Carbon::create(2014, 1, 1, 0, 0, 0);)}}
 {{::lint($end = Carbon::create(2014, 1, 30, 0, 0, 0);)}}
-{{modifierAverage::exec(echo $start->average($end);/*pad(50)*/)}} // {{modifierAverage_eval}}
+{{::exec(echo $start->average($end);/*pad(50)*/)}} // {{eval}}
 
-{{firstOfMonth1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth();/*pad(80)*/)}} // {{firstOfMonth1_eval}}
-{{firstOfMonth2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfMonth2_eval}}
-{{lastOfMonth1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth();/*pad(80)*/)}} // {{lastOfMonth1_eval}}
-{{lastOfMonth2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfMonth2_eval}}
-{{nthOfMonth::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfMonth(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfMonth_eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfMonth(Carbon::MONDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfMonth(Carbon::TUESDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfMonth(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{eval}}
 
-{{firstOfQuarter1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter();/*pad(80)*/)}} // {{firstOfQuarter1_eval}}
-{{firstOfQuarter2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfQuarter2_eval}}
-{{lastOfQuarter1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter();/*pad(80)*/)}} // {{lastOfQuarter1_eval}}
-{{lastOfQuarter2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfQuarter2_eval}}
-{{nthOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfQuarter(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfQuarter_eval}}
-{{startOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->startOfQuarter();/*pad(80)*/)}} // {{startOfQuarter_eval}}
-{{endOfQuarter::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->endOfQuarter();/*pad(80)*/)}} // {{endOfQuarter_eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfQuarter(Carbon::MONDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfQuarter(Carbon::TUESDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfQuarter(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->startOfQuarter();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->endOfQuarter();/*pad(80)*/)}} // {{eval}}
 
-{{firstOfYear1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear();/*pad(80)*/)}} // {{firstOfYear1_eval}}
-{{firstOfYear2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear(Carbon::MONDAY);/*pad(80)*/)}} // {{firstOfYear2_eval}}
-{{lastOfYear1::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear();/*pad(80)*/)}} // {{lastOfYear1_eval}}
-{{lastOfYear2::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear(Carbon::TUESDAY);/*pad(80)*/)}} // {{lastOfYear2_eval}}
-{{nthOfYear::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfYear(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{nthOfYear_eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->firstOfYear(Carbon::MONDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->lastOfYear(Carbon::TUESDAY);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2014, 5, 30, 0, 0, 0)->nthOfYear(2, Carbon::SATURDAY);/*pad(80)*/)}} // {{eval}}
 
-{{nextWeekday::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->nextWeekday();/*pad(80)*/)}} // {{nextWeekday_eval}}
-{{previousWeekday::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();/*pad(80)*/)}} // {{previousWeekday_eval}}
-{{nextWeekendDay::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();/*pad(80)*/)}} // {{nextWeekendDay_eval}}
-{{previousWeekendDay::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();/*pad(80)*/)}} // {{previousWeekendDay_eval}}
+{{::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->nextWeekday();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();/*pad(80)*/)}} // {{eval}}
 </code></pre></p>
 
 <h1 id="api-constants">Constants</h1>
@@ -1259,22 +1281,22 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 <p>The following constants are defined in the Carbon class.</p>
 
 <p><pre><code class="php">// These getters specifically return integers, ie intval()
-{{constSunday::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{constSunday_eval}}
-{{constMonday::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{constMonday_eval}}
-{{constTuesday::exec(var_dump(Carbon::TUESDAY);/*pad(50)*/)}} // {{constTuesday_eval}}
-{{constWednesday::exec(var_dump(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{constWednesday_eval}}
-{{constThursday::exec(var_dump(Carbon::THURSDAY);/*pad(50)*/)}} // {{constThursday_eval}}
-{{constFriday::exec(var_dump(Carbon::FRIDAY);/*pad(50)*/)}} // {{constFriday_eval}}
-{{constSaturday::exec(var_dump(Carbon::SATURDAY);/*pad(50)*/)}} // {{constSaturday_eval}}
+{{::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::TUESDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::THURSDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::FRIDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::SATURDAY);/*pad(50)*/)}} // {{eval}}
 
-{{constYearsPerCentury::exec(var_dump(Carbon::YEARS_PER_CENTURY);/*pad(50)*/)}} // {{constYearsPerCentury_eval}}
-{{constYearsPerDecade::exec(var_dump(Carbon::YEARS_PER_DECADE);/*pad(50)*/)}} // {{constYearsPerDecade_eval}}
-{{constMonthsPerYear::exec(var_dump(Carbon::MONTHS_PER_YEAR);/*pad(50)*/)}} // {{constMonthsPerYear_eval}}
-{{constWeeksPerYear::exec(var_dump(Carbon::WEEKS_PER_YEAR);/*pad(50)*/)}} // {{constWeeksPerYear_eval}}
-{{constDaysPerWeek::exec(var_dump(Carbon::DAYS_PER_WEEK);/*pad(50)*/)}} // {{constDaysPerWeek_eval}}
-{{constHoursPerDay::exec(var_dump(Carbon::HOURS_PER_DAY);/*pad(50)*/)}} // {{constHoursPerDay_eval}}
-{{constMinutesPerHour::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{constMinutesPerHour_eval}}
-{{constSecondsPerMinute::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{constSecondsPerMinute_eval}}
+{{::exec(var_dump(Carbon::YEARS_PER_CENTURY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::YEARS_PER_DECADE);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::MONTHS_PER_YEAR);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::WEEKS_PER_YEAR);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::DAYS_PER_WEEK);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::HOURS_PER_DAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p><pre><code class="php">{{::lint(
@@ -1293,17 +1315,17 @@ if ($dt->dayOfWeek === Carbon::SATURDAY) {
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 )}}
 
-{{serialize1::exec(echo serialize($dt);/*pad(65)*/)}} // {{serialize1_eval}}
+{{::exec(echo serialize($dt);/*pad(65)*/)}} // {{eval}}
 // same as:
-{{serialize2::exec(echo $dt->serialize();/*pad(65)*/)}} // {{serialize2_eval}}
+{{::exec(echo $dt->serialize();/*pad(65)*/)}} // {{eval}}
 
 {{::lint(
 $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:13:"Europe/Moscow";}';
 )}}
 
-{{unserialize1::exec(echo unserialize($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize1_eval}}
+{{::exec(echo unserialize($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{eval}}
 // same as:
-{{unserialize2::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{unserialize2_eval}}
+{{::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{eval}}
 
 </code></pre></p>
 
@@ -1314,15 +1336,15 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 <p><pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 )}}
-{{json1::exec(echo json_encode($dt);)}}
-// {{json1_eval}}
+{{::exec(echo json_encode($dt);)}}
+// {{eval}}
 
 {{::lint(
 $json = '{"date":"2012-12-25 20:30:00.000000","timezone_type":3,"timezone":"Europe\/Moscow"}';
 $dt = Carbon::__set_state(json_decode($json, true));
 )}}
-{{json2::exec(echo $dt->format('Y-m-d\TH:i:s.uP T');)}}
-// {{json2_eval}}
+{{::exec(echo $dt->format('Y-m-d\TH:i:s.uP T');)}}
+// {{eval}}
 </code></pre></p>
 
 <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
@@ -1333,9 +1355,9 @@ Carbon::serializeUsing(function ($date) {
     return $date->getTimestamp();
 });
 )}}
-{{json3::exec(echo json_encode($dt);)}}
+{{::exec(echo json_encode($dt);)}}
 /*
-{{json3_eval}}
+{{eval}}
 */
 
 // Call serializeUsing with null to reset the serializer:
@@ -1349,13 +1371,13 @@ Carbon::serializeUsing(null);
 <p><pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 )}}
-{{json4::exec(echo json_encode($dt->jsonSerialize());)}}
-// {{json4_eval}}
+{{::exec(echo json_encode($dt->jsonSerialize());)}}
+// {{eval}}
 // This is equivalent to the first json_encode example but works with PHP 5.3.
 
 // And it can be used separately:
-{{json5::exec(var_dump($dt->jsonSerialize());)}}
-// {{json5_eval}}
+{{::exec(var_dump($dt->jsonSerialize());)}}
+// {{eval}}
 </code></pre></p>
 
 <h1 id="api-macro">Macro</h1>
@@ -1375,7 +1397,7 @@ Carbon::macro('diffFromYear', function ($year, $self = null) {
     return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
 });
 )}}
-{{macro1::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{macro1_eval}}
+{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>The compatibility chunk allow you to ensure a full compatibility for your macro. A macro on <code>Illuminate\Support\Carbon</code> (the Laravel wrapper class), <code>$self</code> will not be defined, and as mentioned above in PHP 5.3 <code>$this</code> will not be defined. So to make your macros work everywhere, just paste this if-statement testing if <code>$this</code> is defined but not <code>$self</code> and copying it if so, then use <code>$self</code> in your function body.</p>
@@ -1393,10 +1415,10 @@ Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false
 });
 )}}
 
-{{macro2::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{macro2_eval}}
-{{macro3::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{macro3_eval}}
-{{macro4::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{macro4_eval}}
-{{macro5::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{macro5_eval}}
+{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
@@ -1434,15 +1456,15 @@ Carbon::mixin(new BeerDayCarbonMixin());
 $date = Carbon::parse('First saturday of December 2018');
 )}}
 
-{{mixin1::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{mixin1_eval}}
-{{mixin2::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{mixin2_eval}}
+{{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+{{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
 
-<p><pre><code class="php">{{hasmacro1::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{hasmacro1_eval}}
-{{hasmacro2::exec(var_dump(Carbon::hasMacro('diffFromYear'));/*pad(78)*/)}} // {{hasmacro2_eval}}
-{{hasmacro3::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{hasmacro3_eval}}
+<p><pre><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::hasMacro('diffFromYear'));/*pad(78)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>And guess what? all macro methods are also available on <a href="#api-interval"><code>CarbonInterval</code></a> and <a href="#api-period"><code>CarbonPeriod</code></a> classes.</p>
@@ -1452,8 +1474,8 @@ CarbonInterval::macro('twice', function ($self = null) {
     return $self->times(2);
 });
 )}}
-{{intervaltwice1::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{intervaltwice1_eval}}
-{{intervaltwice2::exec(echo CarbonInterval::hours(2)->minutes(15)->twice()->forHumans(true);/*pad(72)*/)}} // {{intervaltwice2_eval}}
+{{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::hours(2)->minutes(15)->twice()->forHumans(true);/*pad(72)*/)}} // {{eval}}
 </code></pre></p>
 
 <p><pre><code class="php">{{::lint(
@@ -1461,8 +1483,8 @@ CarbonPeriod::macro('countWeekdays', function ($self = null) {
     return $self->filter('isWeekday')->count();
 });
 )}}
-{{periodwd1::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{periodwd1_eval}}
-{{periodwd2::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{periodwd2_eval}}
+{{::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{eval}}
+{{::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Here are some useful macros proposed by the community:</p>
@@ -1481,9 +1503,9 @@ Carbon::macro('isHoliday', function ($self = null) {
     ]);
 });
 )}}
-{{holiday1::exec(var_dump(Carbon::createMidnightDate(2012, 12, 25)->isHoliday());/*pad(65)*/)}} // {{holiday1_eval}}
-{{holiday2::exec(var_dump(Carbon::createMidnightDate(2017, 6, 25)->isHoliday());/*pad(65)*/)}} // {{holiday2_eval}}
-{{holiday3::exec(var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());/*pad(65)*/)}} // {{holiday3_eval}}
+{{::exec(var_dump(Carbon::createMidnightDate(2012, 12, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createMidnightDate(2017, 6, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());/*pad(65)*/)}} // {{eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
@@ -1551,10 +1573,10 @@ function dumpDateList($dates) {
 }
 )}}
 
-{{currentdays1::exec(dumpDateList(Carbon::getCurrentWeekDays());/*pad(65)*/)}} // {{currentdays1_eval}}
-{{currentdays2::exec(dumpDateList(Carbon::getCurrentMonthDays());/*pad(65)*/)}} // {{currentdays2_eval}}
-{{currentdays3::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());/*pad(65)*/)}} // {{currentdays3_eval}}
-{{currentdays4::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());/*pad(65)*/)}} // {{currentdays4_eval}}
+{{::exec(dumpDateList(Carbon::getCurrentWeekDays());/*pad(65)*/)}} // {{eval}}
+{{::exec(dumpDateList(Carbon::getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
+{{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());/*pad(65)*/)}} // {{eval}}
+{{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
@@ -1569,7 +1591,7 @@ Carbon::macro('toAtomStringWithNoTimezone', function ($self = null) {
     return $self->format('Y-m-d\TH:i:s');
 });
 )}}
-{{atomntz::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{atomntz_eval}}
+{{::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/afrojuju1">afrojuju1</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1063">#1063</a>).</em></p>
@@ -1579,11 +1601,11 @@ Carbon::macro('easterDate', function ($year) {
     return Carbon::createMidnightDate($year, 3, 21)->addDays(easter_days($year));
 });
 )}}
-{{easter1::exec(echo Carbon::easterDate(2015)->format('d/m');)}} // {{easter1_eval}}
-{{easter2::exec(echo Carbon::easterDate(2016)->format('d/m');)}} // {{easter2_eval}}
-{{easter3::exec(echo Carbon::easterDate(2017)->format('d/m');)}} // {{easter3_eval}}
-{{easter4::exec(echo Carbon::easterDate(2018)->format('d/m');)}} // {{easter4_eval}}
-{{easter5::exec(echo Carbon::easterDate(2019)->format('d/m');)}} // {{easter5_eval}}
+{{::exec(echo Carbon::easterDate(2015)->format('d/m');)}} // {{eval}}
+{{::exec(echo Carbon::easterDate(2016)->format('d/m');)}} // {{eval}}
+{{::exec(echo Carbon::easterDate(2017)->format('d/m');)}} // {{eval}}
+{{::exec(echo Carbon::easterDate(2018)->format('d/m');)}} // {{eval}}
+{{::exec(echo Carbon::easterDate(2019)->format('d/m');)}} // {{eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
@@ -1595,11 +1617,11 @@ Carbon::macro('range', function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 });
 )}}
-{{range::exec(foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
+{{::exec(foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
     echo "$date\n";
 })}}
 /*
-{{range_eval}}*/
+{{eval}}*/
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
@@ -1655,13 +1677,13 @@ Carbon::mixin(new UserTimezoneCarbonMixin());
 
 Carbon::setUserTimezone('Europe/Berlin');
 )}}
-{{usertz1::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{usertz1_eval}}
-{{usertz2::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{usertz2_eval}}
+{{::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
+{{::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
 {{::lint(
 Carbon::setUserTimezone('America/Toronto');
 )}}
-{{usertz3::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{usertz3_eval}}
-{{usertz4::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{usertz4_eval}}
+{{::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
+{{::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/thiagocordeiro">thiagocordeiro</a> (<a href="https://github.com/briannesbitt/Carbon/pull/927">#927</a>).</em></p>
@@ -1681,31 +1703,31 @@ class CarbonInterval extends \DateInterval
 
 <p><pre><code class="php">{{cicreate1::exec(
 echo CarbonInterval::year();/*pad(54)*/)}} // {{cicreate1_eval}}
-{{cicreate2::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{cicreate2_eval}}
-{{cicreate3::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(54)*/)}} // {{cicreate3_eval}}
-{{cicreate4::exec(echo CarbonInterval::weeks(3);/*pad(54)*/)}} // {{cicreate4_eval}}
-{{cicreate5::exec(echo CarbonInterval::days(23);/*pad(54)*/)}} // {{cicreate5_eval}}
-{{cicreate6::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(54)*/)}} // {{cicreate6_eval}}
+{{::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::weeks(3);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(23);/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
 
 <p><pre><code class="php">{{::lint($di = new \DateInterval('P1Y2M');)}} // <== instance from another API
 {{::lint($ci = CarbonInterval::instance($di);)}}
-{{ciinstance1::exec(echo get_class($ci);/*pad(54)*/)}} // '{{ciinstance1_eval}}'
-{{ciinstance2::exec(echo $ci;/*pad(54)*/)}} // {{ciinstance2_eval}}
+{{::exec(echo get_class($ci);/*pad(54)*/)}} // '{{eval}}'
+{{::exec(echo $ci;/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
 
 <p><pre><code class="php">{{cihelper1::exec(
 echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
-{{cihelper2::exec(echo CarbonInterval::year()->dayz;/*pad(54)*/)}} // {{cihelper2_eval}}
-{{cihelper3::exec(echo CarbonInterval::days(24)->dayz;/*pad(54)*/)}} // {{cihelper3_eval}}
-{{cihelper4::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(54)*/)}} // {{cihelper4_eval}}
-{{cihelper5::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{cihelper5_eval}}  <-- days setter overwrites the current value
-{{cihelper6::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{cihelper6_eval}}
-{{cihelper7::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{cihelper7_eval}}
+{{::exec(echo CarbonInterval::year()->dayz;/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(24)->dayz;/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(24)->daysExcludeWeeks;/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{eval}}  <-- days setter overwrites the current value
+{{::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
@@ -1726,8 +1748,8 @@ CarbonInterval::fromString('2m 15s'); // or abbreviated
 
 <p><pre><code class="php">{{::lint(
 CarbonInterval::setLocale('fr');)}}
-{{interval2::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(54)*/)}} // {{interval2_eval}}
-{{interval3::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{interval3_eval}}
+{{::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(54)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{eval}}
 {{::lint(CarbonInterval::setLocale('en');)}}
 </code></pre></p>
 
@@ -1739,12 +1761,12 @@ CarbonInterval::setLocale('fr');)}}
 $dateInterval = new DateInterval('P2D');
 $carbonInterval = CarbonInterval::month();
 )}}
-{{intervalmake1::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake1_eval}}
-{{intervalmake2::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{intervalmake2_eval}}
-{{intervalmake3::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{intervalmake3_eval}}
-{{intervalmake4::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{intervalmake4_eval}}
+{{::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{eval}}
 // Pass true to get short format
-{{interval2s::exec(echo CarbonInterval::make('1h 15m')->forHumans(true);/*pad(60)*/)}} // {{interval2s_eval}}
+{{::exec(echo CarbonInterval::make('1h 15m')->forHumans(true);/*pad(60)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
@@ -1754,14 +1776,14 @@ $interval = CarbonInterval::make('7h 55m');
 $interval->add(CarbonInterval::make('17h 35m'));
 $interval->times(3);
 )}}
-{{intervalmake5::exec(echo $interval->forHumans();)}} // {{intervalmake5_eval}}
+{{::exec(echo $interval->forHumans();)}} // {{eval}}
 </code></pre></p>
 
 <p>You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use the cascade method:</p>
 
 <p><pre><code class="php">
-{{cascade1::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{cascade1_eval}}
-{{cascade2::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{cascade2_eval}}
+{{::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Default factors are:</p>
@@ -1789,19 +1811,19 @@ CarbonInterval::setCascadeFactors(array(
 ));
 )}}
 
-{{cascade3::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade3_eval}}
-{{cascade4::exec(echo CarbonInterval::fromString('10d')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade4_eval}}
-{{cascade5::exec(echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();/*pad(76)*/)}} // {{cascade5_eval}}
+{{::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::fromString('10d')->cascade()->forHumans();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::fromString('3w 18d 53h 159m')->cascade()->forHumans();/*pad(76)*/)}} // {{eval}}
 
 // You can see currently set factors with getFactor:
-{{cascade6::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hour');/*pad(76)*/)}} // {{cascade6_eval}}
-{{cascade7::exec(echo CarbonInterval::getFactor('days', 'week');/*pad(76)*/)}} // {{cascade7_eval}}
+{{::exec(echo CarbonInterval::getFactor('minutes', /* per */ 'hour');/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getFactor('days', 'week');/*pad(76)*/)}} // {{eval}}
 
 // And common factors can be get with short-cut methods:
-{{cascade8::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{cascade8_eval}}
-{{cascade9::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{cascade9_eval}}
-{{cascade10::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{cascade10_eval}}
-{{cascade11::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{cascade11_eval}}
+{{::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{eval}}
 
 {{::lint(
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
@@ -1810,20 +1832,20 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
 
 <p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
 
-<p><pre><code class="php">{{total1::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{total1_eval}}
-{{total2::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{total2_eval}}
-{{total3::exec(echo CarbonInterval::months(6)->totalWeeks;/*pad(58)*/)}} // {{total3_eval}}
-{{total4::exec(echo CarbonInterval::year()->totalDays;/*pad(58)*/)}} // {{total4_eval}}
+<p><pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::months(6)->totalWeeks;/*pad(58)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::year()->totalDays;/*pad(58)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
 
-<p><pre><code class="php">{{cispec1::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{cispec1_eval}}
+<p><pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{eval}}
 </code></pre></p>
 
 <p>It's also possible to get it from a DateInterval object since to the static helper:</p>
 
-<p><pre><code class="php">{{cispec2::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{cispec2_eval}}
+<p><pre><code class="php">{{::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{eval}}
 </code></pre></p>
 
 <p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code> methods:</p>
@@ -1834,19 +1856,19 @@ $oneDay = CarbonInterval::day();
 $twoDay = CarbonInterval::days(2);
 )}}
 
-{{cicomparedi1::exec(echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);/*pad(62)*/)}} // {{cicomparedi1_eval}}
-{{cicompare1::exec(echo $oneDay->compare($oneDay);/*pad(62)*/)}} // {{cicompare1_eval}}
-{{cicomparedi2::exec(echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);/*pad(62)*/)}} // {{cicomparedi2_eval}}
-{{cicompare2::exec(echo $oneDay->compare($halfDay);/*pad(62)*/)}} // {{cicompare2_eval}}
-{{cicomparedi3::exec(echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);/*pad(62)*/)}} // {{cicomparedi3_eval}}
-{{cicompare3::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{cicompare3_eval}}
+{{::exec(echo CarbonInterval::compareDateIntervals($oneDay, $oneDay);/*pad(62)*/)}} // {{eval}}
+{{::exec(echo $oneDay->compare($oneDay);/*pad(62)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::compareDateIntervals($oneDay, $halfDay);/*pad(62)*/)}} // {{eval}}
+{{::exec(echo $oneDay->compare($halfDay);/*pad(62)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::compareDateIntervals($oneDay, $twoDay);/*pad(62)*/)}} // {{eval}}
+{{::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{eval}}
 
 {{::lint(
 $list = array($twoDay, $halfDay, $oneDay);
 usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
 )}}
 
-{{cicompare4::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{cicompare4_eval}}
+{{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling <code>toPeriod()</code> with complementary arguments.</p>
@@ -1885,7 +1907,7 @@ $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 )}}
-{{cpiterator1::exec(
+{{::exec(
 foreach ($period as $key => $date) {
     if ($key) {
         echo ', ';
@@ -1893,10 +1915,10 @@ foreach ($period as $key => $date) {
     echo $date->format('m-d');
 }
 )}}
-// {{cpiterator1_eval}}
+// {{eval}}
 
 // Here is what happens under the hood:
-{{cpiterator2::exec(
+{{::exec(
 $period->rewind(); // restart the iteration
 while ($period->valid()) { // check if current item is valid
     if ($period->key()) { // echo comma if current key is greater than 0
@@ -1906,7 +1928,7 @@ while ($period->valid()) { // check if current item is valid
     $period->next(); // move to the next item
 }
 )}}
-// {{cpiterator2_eval}}
+// {{eval}}
 </code></pre></p>
 
 <p>Parameters can be modified during the iteration:</p>
@@ -1922,7 +1944,7 @@ foreach ($period as $key => $date) {
 }
 )}}
 
-{{cpiterator3::exec(echo implode(', ', $dates);)}} // {{cpiterator3_eval}}
+{{::exec(echo implode(', ', $dates);)}} // {{eval}}
 </code></pre></p>
 
 <p>Just as DatePeriod, the CarbonPeriod supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
@@ -1939,7 +1961,7 @@ foreach ($period as $date) {
 }
 )}}
 
-{{cpiso::exec(echo implode(', ', $dates);)}} // {{cpiso_eval}}
+{{::exec(echo implode(', ', $dates);)}} // {{eval}}
 </code></pre></p>
 
 <p>You can retrieve data from the period with variety of getters:</p>
@@ -1950,16 +1972,16 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE
 $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 )}}
 
-{{cpget1::exec(echo $period->getStartDate();/*pad(40)*/)}} // {{cpget1_eval}}
-{{cpget2::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{cpget2_eval}}
-{{cpget3::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{cpget3_eval}}
-{{cpget4::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{cpget4_eval}}
+{{::exec(echo $period->getStartDate();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{eval}}
 
-{{cpis1::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpis1_eval}}
-{{cpis2::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpis2_eval}}
+{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
 
-{{cpget5::exec(echo $period->toString();/*pad(40)*/)}} // {{cpget5_eval}}
-{{cpget6::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{cpget6_eval}}
+{{::exec(echo $period->toString();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Additional getters let you access the results as an array:</p>
@@ -1968,10 +1990,10 @@ $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 $period = CarbonPeriod::create('2010-05-11', '2010-05-13');
 )}}
 
-{{cparray1::exec(echo $period->count();/*pad(40)*/)}} // {{cparray1_eval}}, equivalent to count($period)
-{{cparray2::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cparray2_eval}}
-{{cparray3::exec(echo $period->first();/*pad(40)*/)}} // {{cparray3_eval}}
-{{cparray4::exec(echo $period->last();/*pad(40)*/)}} // {{cparray4_eval}}
+{{::exec(echo $period->count();/*pad(40)*/)}} // {{eval}}, equivalent to count($period)
+{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $period->first();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $period->last();/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Note that if you intend to work using the above functions it's a good idea to store the result of <code>toArray()</code> call to a variable and use it instead, because each call performs a full iteration internally.</p>
@@ -1983,18 +2005,18 @@ $period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE
 )}}
 
 {{::lint($period->setStartDate('2010-05-11');)}}
-{{cpset1::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset1_eval}}
+{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
 
 // Second argument can be optionally used to exclude the date from the results.
 {{::lint($period->setStartDate('2010-05-11', false);)}}
 {{::lint($period->setEndDate('2010-05-14', true);)}}
-{{cpset2::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset2_eval}}
+{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
 
 {{::lint($period->setRecurrences(2);)}}
-{{cpset3::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset3_eval}}
+{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
 
 {{::lint($period->setDateInterval('PT12H');)}}
-{{cpset4::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{cpset4_eval}}
+{{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>You can change options using <code>setOptions()</code> to replace all options but you also can change them separately:</p>
@@ -2003,20 +2025,20 @@ $period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 )}}
 
-{{cpopts1::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpopts1_eval}}
-{{cpopts2::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts2_eval}}
+{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
 
 {{::lint($period->toggleOptions(CarbonPeriod::EXCLUDE_START_DATE, true);)}} // true, false or nothing to invert the option
-{{cpopts3::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpopts3_eval}}
-{{cpopts4::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts4_eval}} (unchanged)
+{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}} (unchanged)
 
 {{::lint($period->excludeEndDate();/*pad(40)*/)}} // specify false to include, true or omit to exclude
-{{cpopts5::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpopts5_eval}} (unchanged)
-{{cpopts6::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts6_eval}}
+{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}} (unchanged)
+{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
 
 {{::lint($period->excludeStartDate(false);/*pad(40)*/)}} // specify false to include, true or omit to exclude
-{{cpopts7::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{cpopts7_eval}}
-{{cpopts8::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{cpopts8_eval}}
+{{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:</p>
@@ -2029,8 +2051,8 @@ foreach ($period as $date) {
 }
 )}}
 
-{{cprec1::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{cprec1_eval}}
-{{cprec2::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec2_eval}}
+{{::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
 $days = array();
@@ -2040,8 +2062,8 @@ foreach ($period as $date) {
 }
 )}}
 
-{{cprec3::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{cprec3_eval}}
-{{cprec4::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec4_eval}}
+{{::exec(echo $period->getRecurrences();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
 $days = array();
@@ -2051,7 +2073,7 @@ foreach ($period as $date) {
 }
 )}}
 
-{{cprec5::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{cprec5_eval}}
+{{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
@@ -2069,7 +2091,23 @@ foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 )}}
-{{cpfilter1::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter1_eval}}
+{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
+</code></pre></p>
+
+<p>You also can skip one or more value(s) inside the loop.</p>
+
+<p><pre><code class="php">{{::lint(
+$period = CarbonPeriod::between('2000-01-01', '2000-01-10');
+$days = array();
+foreach ($period as $date) {
+    $day = $date->format('m-d');
+    $days[] = $day;
+    if ($day === '01-04') {
+        $period->skip(3);
+    }
+}
+)}}
+{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p><code>getFilters()</code> allow you to retrieve all the stored filters in a period. But be aware the recurrences limit and the end date will appear in the returned array as they are stored internally as filters.</p>
@@ -2077,9 +2115,9 @@ foreach ($period as $date) {
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::end('2000-01-01')->recurrences(3);
 )}}
-{{cpfilter2::exec(var_export($period->getFilters());)}}
+{{::exec(var_export($period->getFilters());)}}
 /*
-{{cpfilter2_eval}}
+{{eval}}
 */
 </code></pre></p>
 
@@ -2092,20 +2130,20 @@ $weekendFilter = function ($date) {
 };
 )}}
 
-{{cpfilter3::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter3_eval}}
+{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
 {{::lint($period->addFilter($weekendFilter);)}}
-{{cpfilter4::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter4_eval}}
+{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
 {{::lint($period->removeFilter($weekendFilter);)}}
-{{cpfilter5::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{cpfilter5_eval}}
+{{::exec(var_dump($period->hasFilter($weekendFilter));/*pad(50)*/)}} // {{eval}}
 
 // To avoid storing filters as variables you can name your filters:
 {{::lint($period->prependFilter(function ($date) {
     return $date->isWeekend();
 }, 'weekend');)}}
 
-{{cpfilter6::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{cpfilter6_eval}}
+{{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
 {{::lint($period->removeFilter('weekend');)}}
-{{cpfilter7::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{cpfilter7_eval}}
+{{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
@@ -2129,7 +2167,7 @@ foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 )}}
-{{cpfilter9::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter9_eval}}
+{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
 
 {{::lint(
 $attempts = 0;
@@ -2140,7 +2178,7 @@ foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 )}}
-{{cpfilter10::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{cpfilter10_eval}}
+{{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
 </code></pre></p>
 
 <p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is incremented only once per item, no matter how many dates have to be checked before a valid date is found. This trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
@@ -2183,8 +2221,8 @@ CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInte
 <p><pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
 )}}
-{{cpstring1::exec(echo $period->toString();/*pad(36)*/)}} // {{cpstring1_eval}}
-{{cpstring2::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{cpstring2_eval}}
+{{::exec(echo $period->toString();/*pad(36)*/)}} // {{eval}}
+{{::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{eval}}
 </code></pre></p>
 
 </div>

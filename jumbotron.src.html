@@ -30,13 +30,13 @@ if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
 )}}
-{{intro::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}} // '{{intro_eval}}'
+{{::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}} // '{{eval}}'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
 
 {{::lint(CarbonInterval::setLocale('fr');)}}
-{{interval::exec(echo CarbonInterval::years(2)->minutes(2);)}} // '{{interval_eval}}'
+{{::exec(echo CarbonInterval::years(2)->minutes(2);)}} // '{{eval}}'
 
 {{::lint(
 $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
