@@ -4661,4 +4661,47 @@ class Carbon extends DateTime implements JsonSerializable
 
         return call_user_func_array($macro, $parameters);
     }
+
+    /**
+     * Use Carbon::now() to determine day of week as a string.
+     *
+     *
+     * @return string $day
+     */
+    public function dayOfWeek()
+    {
+        switch ($this->dayOfWeek) {
+            case 0:
+                return self::$days[0];
+                break;
+
+            case 1:
+                return self::$days[1];
+                break;
+
+            case 2:
+                return self::$days[2];
+                break;
+
+            case 3:
+                return self::$days[3];
+                break;
+
+            case 4:
+                return self::$days[4];
+                break;
+
+            case 5:
+                return self::$days[5];
+                break;
+
+            case 6:
+                return self::$days[6];
+                break;
+
+            default:
+                return 'Wrong date format';
+                break;
+        }
+    }
 }
