@@ -155,34 +155,6 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(Carbon::SUNDAY, $d->dayOfWeek);
     }
 
-    public function testStringGetters()
-    {
-        $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
-        }
-        $d = Carbon::create(2012, 1, 9, 7, 8, 9);
-        $this->assertSame('Monday', $d->englishDayOfWeek);
-        $this->assertSame('Mon', $d->shortEnglishDayOfWeek);
-        $this->assertSame('January', $d->englishMonth);
-        $this->assertSame('Jan', $d->shortEnglishMonth);
-        setlocale(LC_ALL, $currentLocale);
-    }
-
-    public function testLocalizedGetters()
-    {
-        $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
-        }
-        $d = Carbon::create(2012, 2, 6, 7, 8, 9);
-        $this->assertSame('lundi', $d->localeDayOfWeek);
-        $this->assertSame('lun.', $d->shortLocaleDayOfWeek);
-        $this->assertSame('février', $d->localeMonth);
-        $this->assertSame('févr.', $d->shortLocaleMonth);
-        setlocale(LC_ALL, $currentLocale);
-    }
-
     public function testDayOfWeekIsoGetter()
     {
         $d = Carbon::create(2012, 5, 7, 7, 8, 9);
