@@ -1095,7 +1095,8 @@ class Carbon extends DateTime implements JsonSerializable
         );
 
         switch (true) {
-            case isset($formats[$name]):$format = $formats[$name];
+            case isset($formats[$name]):
+                $format = $formats[$name];
                 $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
                 $value = $this->$method($format);
 
