@@ -30,6 +30,15 @@ class CascadeTest extends AbstractTestCase
         ];
     }
 
+    public function testCascadesWithMicroseconds()
+    {
+        $interval = CarbonInterval::fromString('1040ms 3012µs')->cascade();
+
+        $this->assertSame('PT1S', $interval->spec());
+        $this->assertSame(43, $interval->milliseconds);
+        $this->assertSame(43012, $interval->microseconds);
+    }
+
     /**
      * @dataProvider provideCustomIntervalSpecs
      */

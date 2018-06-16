@@ -17,7 +17,7 @@ class FromStringTest extends AbstractTestCase
     {
         $result = CarbonInterval::fromString($string);
 
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result, "'$string' does not return expected interval.");
     }
 
     public function provideValidStrings()
@@ -43,7 +43,7 @@ class FromStringTest extends AbstractTestCase
             ['1 w', new CarbonInterval(0, 0, 1)],
 
             // fractions with integer result
-            ['0.571428572w', new CarbonInterval(0, 0, 0, 4)],
+            ['0.571428571429w', new CarbonInterval(0, 0, 0, 4)],
             ['0.5d', new CarbonInterval(0, 0, 0, 0, 12)],
             ['0.5h', new CarbonInterval(0, 0, 0, 0, 0, 30)],
             ['0.5m', new CarbonInterval(0, 0, 0, 0, 0, 0, 30)],
@@ -52,9 +52,10 @@ class FromStringTest extends AbstractTestCase
             ['1.5w', new CarbonInterval(0, 0, 1, 3, 12)],
             ['2.34d', new CarbonInterval(0, 0, 0, 2, 8, 9, 36)],
             ['3.12h', new CarbonInterval(0, 0, 0, 0, 3, 7, 12)],
-            ['3.129h', new CarbonInterval(0, 0, 0, 0, 3, 7, 44)],
-            ['4.24m', new CarbonInterval(0, 0, 0, 0, 0, 4, 14)],
+            ['3.129h', new CarbonInterval(0, 0, 0, 0, 3, 7, 44, 400000)],
+            ['4.24m', new CarbonInterval(0, 0, 0, 0, 0, 4, 14, 400000)],
             ['3.56s', new CarbonInterval(0, 0, 0, 0, 0, 0, 3, 560000)],
+            ['3.56ms', new CarbonInterval(0, 0, 0, 0, 0, 0, 0, 3560)],
 
             // combinations
             ['2w 3d', new CarbonInterval(0, 0, 0, 17)],
@@ -90,7 +91,7 @@ class FromStringTest extends AbstractTestCase
             ['Hello! Please add 1y2w to ...', new CarbonInterval(1, 0, 2)],
             ['nothing to parse :(', new CarbonInterval(0)],
 
-            // case insenstive
+            // case insensitive
             ['1Y 3MO 1W 3D 12H 23M 42S', new CarbonInterval(1, 3, 1, 3, 12, 23, 42)],
         ];
     }
@@ -105,13 +106,11 @@ class FromStringTest extends AbstractTestCase
     public function testThrowsExceptionForUnknownValues($string, $part)
     {
         try {
-            $ci = CarbonInterval::fromString($string);
+            CarbonInterval::fromString($string);
         } catch (\InvalidArgumentException $exception) {
             $this->assertContains($part, $exception->getMessage());
             throw $exception;
         }
-        var_dump($ci);
-        exit;
     }
 
     public function provideInvalidStrings()

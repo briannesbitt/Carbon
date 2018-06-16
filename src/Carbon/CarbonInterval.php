@@ -139,7 +139,8 @@ class CarbonInterval extends DateInterval
     public static function getCascadeFactors()
     {
         return static::$cascadeFactors ?: [
-            'seconds' => [Carbon::MICROSECONDS_PER_SECOND, 'microseconds'],
+            'milliseconds' => [1000, 'microseconds'],
+            'seconds' => [1000, 'milliseconds'],
             'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
             'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
             'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
@@ -310,9 +311,19 @@ class CarbonInterval extends DateInterval
      *
      * @return int
      */
-    public static function getMicrosecondsPerSecond()
+    public static function getMillisecondsPerSecond()
     {
-        return static::getFactor('microseconds', 'seconds') ?: Carbon::MICROSECONDS_PER_SECOND;
+        return static::getFactor('milliseconds', 'seconds') ?: 1000;
+    }
+
+    /**
+     * Returns current config for microseconds per second.
+     *
+     * @return int
+     */
+    public static function getMicrosecondsPerMillisecond()
+    {
+        return static::getFactor('microseconds', 'milliseconds') ?: 1000;
     }
 
     /**
@@ -445,6 +456,7 @@ class CarbonInterval extends DateInterval
         $hours = 0;
         $minutes = 0;
         $seconds = 0;
+        $milliseconds = 0;
         $microseconds = 0;
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
@@ -453,8 +465,17 @@ class CarbonInterval extends DateInterval
             list($part, $value, $unit) = $match;
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
-            $lowerUnit = $unit === 'µs' ? $unit : strtolower($unit);
-            switch ($lowerUnit) {
+            // Fix calculation precision
+            switch (round($fraction, 6)) {
+                case 1:
+                    $fraction = 0;
+                    $intValue++;
+                    break;
+                case 0:
+                    $fraction = 0;
+                    break;
+            }
+            switch ($unit === 'µs' ? 'µs' : strtolower($unit)) {
                 case 'year':
                 case 'years':
                 case 'y':
@@ -499,7 +520,7 @@ class CarbonInterval extends DateInterval
                 case 'm':
                     $minutes += $intValue;
                     if ($fraction) {
-                        $seconds += round($fraction * static::getSecondsPerMinute());
+                        $parts[] = [null, $fraction * static::getSecondsPerMinute(), 's'];
                     }
                     break;
 
@@ -508,7 +529,7 @@ class CarbonInterval extends DateInterval
                 case 's':
                     $seconds += $intValue;
                     if ($fraction) {
-                        $microseconds += round($fraction * static::getMicrosecondsPerSecond());
+                        $parts[] = [null, $fraction * static::getMillisecondsPerSecond(), 'ms'];
                     }
                     break;
 
@@ -516,7 +537,11 @@ class CarbonInterval extends DateInterval
                 case 'milliseconds':
                 case 'milli':
                 case 'ms':
-                    $intValue *= 1000;
+                    $milliseconds += $intValue;
+                    if ($fraction) {
+                        $microseconds += round($fraction * static::getMicrosecondsPerMillisecond());
+                    }
+                    break;
 
                 case 'microsecond':
                 case 'microseconds':
@@ -532,7 +557,7 @@ class CarbonInterval extends DateInterval
             }
         }
 
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * 1000 + $microseconds);
     }
 
     /**
@@ -738,7 +763,7 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'millisecond':
-                $this->f = $value * 1000;
+                $this->f = $value * 1000 + $this->f % 1000;
                 break;
 
             case 'micro':
