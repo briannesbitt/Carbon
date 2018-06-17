@@ -10,6 +10,7 @@ $tags = [
     ['call', 'setUnit'],
     ['call', 'addUnit'],
     ['call', 'addRealUnit'],
+    ['call', 'roundUnit'],
 ];
 $nativeMethods = [
     'format' => 'string',
@@ -303,6 +304,46 @@ foreach ($tags as $tag) {
                         '$this',
                         'subReal'.ucFirst($unit).'()',
                         "Sub one $unit to the instance (using timestamp).",
+                    ];
+                    break;
+                case 'roundUnit':
+                    $unit = $vars->name;
+                    $plUnit = pluralize($unit);
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'round'.ucFirst($unit).'(double $precision = 1, string $function = "round")',
+                        "Round the current instance $unit with given precision using the given function.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'round'.ucFirst($plUnit).'(double $precision = 1, string $function = "round")',
+                        "Round the current instance $unit with given precision using the given function.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'floor'.ucFirst($unit).'(double $precision = 1)',
+                        "Truncate the current instance $unit with given precision.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'floor'.ucFirst($plUnit).'(double $precision = 1)',
+                        "Truncate the current instance $unit with given precision.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'ceil'.ucFirst($unit).'(double $precision = 1)',
+                        "Ceil the current instance $unit with given precision.",
+                    ];
+                    $autoDocLines[] = [
+                        '@method',
+                        '$this',
+                        'ceil'.ucFirst($plUnit).'(double $precision = 1)',
+                        "Ceil the current instance $unit with given precision.",
                     ];
                     break;
             }
