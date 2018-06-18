@@ -313,37 +313,37 @@ foreach ($tags as $tag) {
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'round'.ucFirst($unit).'(double $precision = 1, string $function = "round")',
+                        'round'.ucFirst($unit).'(float $precision = 1, string $function = "round")',
                         "Round the current instance $unit with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'round'.ucFirst($plUnit).'(double $precision = 1, string $function = "round")',
+                        'round'.ucFirst($plUnit).'(float $precision = 1, string $function = "round")',
                         "Round the current instance $unit with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'floor'.ucFirst($unit).'(double $precision = 1)',
+                        'floor'.ucFirst($unit).'(float $precision = 1)',
                         "Truncate the current instance $unit with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'floor'.ucFirst($plUnit).'(double $precision = 1)',
+                        'floor'.ucFirst($plUnit).'(float $precision = 1)',
                         "Truncate the current instance $unit with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'ceil'.ucFirst($unit).'(double $precision = 1)',
+                        'ceil'.ucFirst($unit).'(float $precision = 1)',
                         "Ceil the current instance $unit with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
-                        'ceil'.ucFirst($plUnit).'(double $precision = 1)',
+                        'ceil'.ucFirst($plUnit).'(float $precision = 1)',
                         "Ceil the current instance $unit with given precision.",
                     ];
                     break;
