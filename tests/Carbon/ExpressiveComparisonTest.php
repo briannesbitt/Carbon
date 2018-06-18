@@ -54,11 +54,13 @@ class ExpressiveComparisonTest extends AbstractTestCase
     public function testGreaterThanTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->greaterThan(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->isAfter(Carbon::createFromDate(1999, 12, 31)));
     }
 
     public function testGreaterThanFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->greaterThan(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->isAfter(Carbon::createFromDate(2000, 1, 2)));
     }
 
     public function testGreaterThanWithTimezoneTrue()
@@ -93,11 +95,13 @@ class ExpressiveComparisonTest extends AbstractTestCase
     public function testLessThanTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->lessThan(Carbon::createFromDate(2000, 1, 2)));
+        $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->isBefore(Carbon::createFromDate(2000, 1, 2)));
     }
 
     public function testLessThanFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->lessThan(Carbon::createFromDate(1999, 12, 31)));
+        $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->isBefore(Carbon::createFromDate(1999, 12, 31)));
     }
 
     public function testLessThanOrEqualTrue()

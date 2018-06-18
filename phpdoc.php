@@ -15,8 +15,6 @@ $tags = [
 $nativeMethods = [
     'format' => 'string',
     'modify' => 'static',
-    'add' => 'static',
-    'sub' => 'static',
     'getTimezone' => '\DateTimeZone',
     'getOffset' => 'int',
     'getTimestamp' => 'int',
@@ -44,7 +42,10 @@ $interface = __DIR__.'/src/Carbon/CarbonInterface.php';
 file_put_contents($interface, preg_replace('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', "$1\n\n    // $3", file_get_contents($interface), 1));
 include_once __DIR__.'/vendor/autoload.php';
 $trait = __DIR__.'/src/Carbon/Traits/Date.php';
-$code = file_get_contents($trait);
+$code = '';
+foreach (glob(__DIR__.'/src/Carbon/Traits/*.php') as $file) {
+    $code .= file_get_contents($file);
+}
 
 function pluralize($word)
 {
@@ -408,7 +409,9 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
 }
 
 $methods = '';
-foreach (get_class_methods(\Carbon\Carbon::class) as $method) {
+$carbonMethods = get_class_methods(\Carbon\Carbon::class);
+sort($carbonMethods);
+foreach ($carbonMethods as $method) {
     if (method_exists(\Carbon\CarbonImmutable::class, $method) && !method_exists(DateTimeInterface::class, $method)) {
         $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
         $static = $function->isStatic() ? ' static' : '';

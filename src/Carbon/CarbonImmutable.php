@@ -66,10 +66,6 @@ use DateTimeImmutable;
  *                                                                                                   http://php.net/manual/en/datetime.format.php
  * @method        static        modify($modify)                                                      call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
  *                                                                                                   http://php.net/manual/en/datetime.modify.php
- * @method        static        add($interval)                                                       call \DateTime::add if mutable or \DateTimeImmutable::add else.
- *                                                                                                   http://php.net/manual/en/datetime.add.php
- * @method        static        sub($interval)                                                       call \DateTime::sub if mutable or \DateTimeImmutable::sub else.
- *                                                                                                   http://php.net/manual/en/datetime.sub.php
  * @method        \DateTimeZone getTimezone()                                                        call \DateTime::getTimezone if mutable or \DateTimeImmutable::getTimezone else.
  *                                                                                                   http://php.net/manual/en/datetime.gettimezone.php
  * @method        int           getOffset()                                                          call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
@@ -457,6 +453,6 @@ class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 
         return $this
             ->setDate($values['year'], $values['month'], $values['day'])
-            ->setTime($values['hour'], $values['minute'], $values['second']);
+            ->setTime($values['hour'], $values['minute'], $values['second'], $values['microsecond']);
     }
 }

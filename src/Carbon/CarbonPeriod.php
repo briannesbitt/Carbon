@@ -15,7 +15,6 @@ use BadMethodCallException;
 use Closure;
 use Countable;
 use DateInterval;
-use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -26,7 +25,6 @@ use RuntimeException;
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
- * Fully compatible with PHP 5.3+!
  *
  * @method static CarbonPeriod start($date, $inclusive = null) Create instance specifying start date.
  * @method static CarbonPeriod since($date, $inclusive = null) Alias for start().
@@ -169,14 +167,14 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Period start date. Applied on rewind. Always present, now by default.
      *
-     * @var Carbon
+     * @var CarbonInterface
      */
     protected $startDate;
 
     /**
      * Period end date. For inverted interval should be before the start date. Applied via a filter.
      *
-     * @var Carbon|null
+     * @var CarbonInterface|null
      */
     protected $endDate;
 
@@ -206,7 +204,7 @@ class CarbonPeriod implements Iterator, Countable
      * Current date. May temporarily hold unaccepted value when looking for a next valid date.
      * Equal to null only before the first iteration.
      *
-     * @var Carbon
+     * @var CarbonInterface
      */
     protected $current;
 

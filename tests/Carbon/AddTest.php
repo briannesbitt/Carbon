@@ -12,6 +12,7 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
@@ -203,6 +204,9 @@ class AddTest extends AbstractTestCase
     public function testAddYearPassingArg()
     {
         $this->assertSame(1977, Carbon::createFromDate(1975)->addYear(2)->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'years')->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(CarbonInterval::years(2))->year);
     }
 
     public function testAddDayPassingArg()

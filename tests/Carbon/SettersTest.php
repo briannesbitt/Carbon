@@ -37,6 +37,18 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('millennia', Carbon::pluralUnit('millennium'));
     }
 
+    public function testSet()
+    {
+        $d = Carbon::create(2000, 1, 12);
+        $d->set([
+            'year' => 1995,
+            'month' => 4,
+        ]);
+        $this->assertSame(1995, $d->year);
+        $this->assertSame(4, $d->month);
+        $this->assertSame(12, $d->day);
+    }
+
     public function testYearSetter()
     {
         $d = Carbon::now();
@@ -357,6 +369,8 @@ class SettersTest extends AbstractTestCase
     public function testMidDayAtSetter()
     {
         $d = Carbon::now();
+        $d->setMidDayAt(11);
+        $this->assertSame(11, $d->getMidDayAt());
         $d->setMidDayAt(12);
         $this->assertSame(12, $d->getMidDayAt());
     }
