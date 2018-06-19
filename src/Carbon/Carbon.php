@@ -41,6 +41,8 @@ use DateTime;
  * @property      int           $millisecond
  * @property      int           $milli
  * @property      int           $age                                                                does a diffInYears() with default parameters
+ * @property      int           $offset                                                             the timezone offset in seconds from UTC
+ * @property      int           $offsetMinutes                                                      the timezone offset in minutes from UTC
  * @property      int           $offsetHours                                                        the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                                           the current timezone
  * @property      \DateTimeZone $tz                                                                 alias of $timezone
@@ -55,12 +57,11 @@ use DateTime;
  * @property-read int           $decade                                                             the decade of this instance
  * @property-read int           $century                                                            the century of this instance
  * @property-read int           $millennium                                                         the millennium of this instance
- * @property-read int           $offset                                                             the timezone offset in seconds from UTC
  * @property-read bool          $dst                                                                daylight savings time indicator, true if DST, false otherwise
  * @property-read bool          $local                                                              checks if the timezone is local, true if local, false otherwise
  * @property-read bool          $utc                                                                checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read \DateTimeZone $timezoneName                                                       the current timezone name
- * @property-read \DateTimeZone $tzName                                                             alias of $timezoneName
+ * @property-read string        $timezoneName                                                       the current timezone name
+ * @property-read string        $tzName                                                             alias of $timezoneName
  *
  * @method        string        format($format)                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                  http://php.net/manual/en/datetime.format.php

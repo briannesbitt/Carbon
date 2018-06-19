@@ -32,6 +32,8 @@ use JsonSerializable;
  * @property      int           $millisecond
  * @property      int           $milli
  * @property      int           $age                                                                does a diffInYears() with default parameters
+ * @property      int           $offset                                                             the timezone offset in seconds from UTC
+ * @property      int           $offsetMinutes                                                      the timezone offset in minutes from UTC
  * @property      int           $offsetHours                                                        the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                                           the current timezone
  * @property      \DateTimeZone $tz                                                                 alias of $timezone
@@ -46,12 +48,11 @@ use JsonSerializable;
  * @property-read int           $decade                                                             the decade of this instance
  * @property-read int           $century                                                            the century of this instance
  * @property-read int           $millennium                                                         the millennium of this instance
- * @property-read int           $offset                                                             the timezone offset in seconds from UTC
  * @property-read bool          $dst                                                                daylight savings time indicator, true if DST, false otherwise
  * @property-read bool          $local                                                              checks if the timezone is local, true if local, false otherwise
  * @property-read bool          $utc                                                                checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read \DateTimeZone $timezoneName                                                       the current timezone name
- * @property-read \DateTimeZone $tzName                                                             alias of $timezoneName
+ * @property-read string        $timezoneName                                                       the current timezone name
+ * @property-read string        $tzName                                                             alias of $timezoneName
  *
  * @method        string        format($format)                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                  http://php.net/manual/en/datetime.format.php
@@ -582,6 +583,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function enableHumanDiffOption($humanDiffOption);
 
+    public function endOf($unit);
+
     public function endOfCentury();
 
     public function endOfDay();
@@ -856,6 +859,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function singularUnit(string $unit): string;
 
+    public function startOf($unit);
+
     public function startOfCentury();
 
     public function startOfDay();
@@ -881,6 +886,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function subRealUnit($unit, $value = 1);
 
     public function subUnit($unit, $value = 1, $overflow = null);
+
+    public function subtract($unit, $value = 1, $overflow = null);
 
     public function timestamp($value);
 
@@ -928,13 +935,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function tomorrow($tz = null);
 
-    public function tz($value);
+    public function tz($value = null);
 
     public static function useMonthsOverflow($monthsOverflow = true);
 
     public static function useStrictMode($strictModeEnabled = true);
 
     public static function useYearsOverflow($yearsOverflow = true);
+
+    public function utcOffset(int $offset = null);
 
     public static function yesterday($tz = null);
 

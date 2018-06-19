@@ -431,4 +431,42 @@ class StartEndOfTest extends AbstractTestCase
         $dt2 = Carbon::create(2000, 1, 1, 1, 1, 1)->average($dt1);
         $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
     }
+
+    public function testStartOf()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOf('day'));
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOf('Months'));
+        $this->assertCarbon($dt, $dt->year, $dt->month, 1, 0, 0, 0, 0);
+    }
+
+    public function testEndOf()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOf('day'));
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOf('Months'));
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->daysInMonth, 23, 59, 59, 999999);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'microsecond'
+     */
+    public function testStartOfInvalidUnit()
+    {
+        Carbon::now()->startOf('microsecond');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'microsecond'
+     */
+    public function testEndOfInvalidUnit()
+    {
+        Carbon::now()->endOf('microsecond');
+    }
 }

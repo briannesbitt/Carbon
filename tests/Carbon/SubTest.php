@@ -38,6 +38,9 @@ class SubTest extends AbstractTestCase
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'years')->year);
         $this->assertSame(1973, Carbon::createFromDate(1975)->sub(CarbonInterval::years(2))->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(CarbonInterval::years(2))->year);
     }
 
     public function testSubMonthsPositive()

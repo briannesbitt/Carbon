@@ -51,6 +51,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property      int           $millisecond
  * @property      int           $milli
  * @property      int           $age                                                                does a diffInYears() with default parameters
+ * @property      int           $offset                                                             the timezone offset in seconds from UTC
+ * @property      int           $offsetMinutes                                                      the timezone offset in minutes from UTC
  * @property      int           $offsetHours                                                        the timezone offset in hours from UTC
  * @property      \DateTimeZone $timezone                                                           the current timezone
  * @property      \DateTimeZone $tz                                                                 alias of $timezone
@@ -65,12 +67,11 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read int           $decade                                                             the decade of this instance
  * @property-read int           $century                                                            the century of this instance
  * @property-read int           $millennium                                                         the millennium of this instance
- * @property-read int           $offset                                                             the timezone offset in seconds from UTC
  * @property-read bool          $dst                                                                daylight savings time indicator, true if DST, false otherwise
  * @property-read bool          $local                                                              checks if the timezone is local, true if local, false otherwise
  * @property-read bool          $utc                                                                checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read \DateTimeZone $timezoneName                                                       the current timezone name
- * @property-read \DateTimeZone $tzName                                                             alias of $timezoneName
+ * @property-read string        $timezoneName                                                       the current timezone name
+ * @property-read string        $tzName                                                             alias of $timezoneName
  *
  * @method        string        format($format)                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                  http://php.net/manual/en/datetime.format.php
@@ -1550,9 +1551,13 @@ trait Date
 
                 return (int) ($factor * ceil($year / static::YEARS_PER_MILLENNIUM));
 
-            // @property-read int the timezone offset in seconds from UTC
+            // @property int the timezone offset in seconds from UTC
             case $name === 'offset':
                 return $this->getOffset();
+
+            // @property int the timezone offset in minutes from UTC
+            case $name === 'offsetMinutes':
+                return $this->getOffset() / static::SECONDS_PER_MINUTE;
 
             // @property int the timezone offset in hours from UTC
             case $name === 'offsetHours':
@@ -1575,8 +1580,8 @@ trait Date
             case $name === 'timezone' || $name === 'tz':
                 return $this->getTimezone();
 
-            // @property-read \DateTimeZone $timezoneName the current timezone name
-            // @property-read \DateTimeZone $tzName alias of $timezoneName
+            // @property-read string $timezoneName the current timezone name
+            // @property-read string $tzName alias of $timezoneName
             case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
 
@@ -1677,6 +1682,18 @@ trait Date
                 parent::setTimestamp($value);
                 break;
 
+            case 'offset':
+                $this->setTimezone(static::safeCreateDateTimeZone($value / static::SECONDS_PER_MINUTE / static::MINUTES_PER_HOUR));
+                break;
+
+            case 'offsetMinutes':
+                $this->setTimezone(static::safeCreateDateTimeZone($value / static::MINUTES_PER_HOUR));
+                break;
+
+            case 'offsetHours':
+                $this->setTimezone(static::safeCreateDateTimeZone($value));
+                break;
+
             case 'timezone':
             case 'tz':
                 $this->setTimezone($value);
@@ -1691,6 +1708,22 @@ trait Date
         }
 
         return $this;
+    }
+
+    /**
+     * Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.
+     *
+     * @param int|null $offset
+     *
+     * @return int|static
+     */
+    public function utcOffset(int $offset = null)
+    {
+        if (func_num_args() < 1) {
+            return $this->offsetMinutes;
+        }
+
+        return $this->setTimezone(static::safeCreateDateTimeZone($offset / static::MINUTES_PER_HOUR));
     }
 
     /**
@@ -1771,14 +1804,18 @@ trait Date
     }
 
     /**
-     * Alias for setTimezone()
+     * Set the timezone or returns the timezone name if no arguments passed.
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return CarbonInterface|string
      */
-    public function tz($value)
+    public function tz($value = null)
     {
+        if (func_num_args() < 1) {
+            return $this->tzName;
+        }
+
         return $this->setTimezone($value);
     }
 
@@ -1791,6 +1828,7 @@ trait Date
      */
     public function setTimezone($value)
     {
+        /** @var static $date */
         $date = parent::setTimezone(static::safeCreateDateTimeZone($value));
         // https://bugs.php.net/bug.php?id=72338
         // just workaround on this bug
@@ -3213,6 +3251,22 @@ trait Date
     }
 
     /**
+     * Subtract given units or interval to the current instance.
+     *
+     * @see sub()
+     *
+     * @param string    $unit
+     * @param int       $value
+     * @param bool|null $overflow
+     *
+     * @return CarbonInterface
+     */
+    public function subtract($unit, $value = 1, $overflow = null)
+    {
+        return $this->sub($unit, $value, $overflow);
+    }
+
+    /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
      * @param string $unit
@@ -3608,6 +3662,42 @@ trait Date
     public function endOfSecond()
     {
         return $this->setTime($this->hour, $this->minute, $this->second, static::MICROSECONDS_PER_SECOND - 1);
+    }
+
+    /**
+     * Modify to start of current given unit.
+     *
+     * @param string $unit
+     *
+     * @return static
+     */
+    public function startOf($unit)
+    {
+        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $method = "startOf$ucfUnit";
+        if (!method_exists($this, $method)) {
+            throw new InvalidArgumentException("Unknown unit '$unit'");
+        }
+
+        return $this->$method();
+    }
+
+    /**
+     * Modify to end of current given unit.
+     *
+     * @param string $unit
+     *
+     * @return static
+     */
+    public function endOf($unit)
+    {
+        $ucfUnit = ucfirst(static::singularUnit($unit));
+        $method = "endOf$ucfUnit";
+        if (!method_exists($this, $method)) {
+            throw new InvalidArgumentException("Unknown unit '$unit'");
+        }
+
+        return $this->$method();
     }
 
     /**

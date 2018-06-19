@@ -289,9 +289,39 @@ class SettersTest extends AbstractTestCase
         $d = Carbon::now();
         $d->tz = 'America/Toronto';
         $this->assertSame('America/Toronto', $d->tzName);
+        $this->assertSame('America/Toronto', $d->tz());
 
         $d->tz('America/Vancouver');
         $this->assertSame('America/Vancouver', $d->tzName);
+        $this->assertSame('America/Vancouver', $d->tz());
+    }
+
+    public function testTzUsingOffset()
+    {
+        $d = Carbon::create(2000, 8, 1, 0, 0, 0);
+        $d->offset = 7200;
+        $this->assertSame(7200, $d->offset);
+        $this->assertSame(120, $d->offsetMinutes);
+        $this->assertSame(2, $d->offsetHours);
+        $this->assertSame(120, $d->utcOffset());
+
+        $d->utcOffset(-180);
+        $this->assertSame(-10800, $d->offset);
+        $this->assertSame(-180, $d->offsetMinutes);
+        $this->assertSame(-3, $d->offsetHours);
+        $this->assertSame(-180, $d->utcOffset());
+
+        $d->offsetMinutes = -240;
+        $this->assertSame(-14400, $d->offset);
+        $this->assertSame(-240, $d->offsetMinutes);
+        $this->assertSame(-4, $d->offsetHours);
+        $this->assertSame(-240, $d->utcOffset());
+
+        $d->offsetHours = 1;
+        $this->assertSame(3600, $d->offset);
+        $this->assertSame(60, $d->offsetMinutes);
+        $this->assertSame(1, $d->offsetHours);
+        $this->assertSame(60, $d->utcOffset());
     }
 
     public function testSetTimezoneUsingDateTimeZone()
