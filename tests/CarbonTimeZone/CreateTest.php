@@ -21,6 +21,10 @@ class CreateTest extends AbstractTestCase
         $tz = new CarbonTimeZone(6);
 
         $this->assertSame('Asia/Yekaterinburg', $tz->getName());
+
+        $tz = CarbonTimeZone::create(6);
+
+        $this->assertSame('Asia/Yekaterinburg', $tz->getName());
     }
 
     public function testInstance()

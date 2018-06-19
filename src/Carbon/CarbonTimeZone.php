@@ -33,6 +33,13 @@ class CarbonTimeZone extends DateTimeZone
         return @timezone_open($name = (string) $name);
     }
 
+    /**
+     * Create a CarbonTimeZone from mixed input.
+     *
+     * @param DateTimeZone|string|int|null $object
+     *
+     * @return false|static
+     */
     public static function instance($object = null)
     {
         $tz = $object;
@@ -58,5 +65,17 @@ class CarbonTimeZone extends DateTimeZone
         }
 
         return new static($tz->getName());
+    }
+
+    /**
+     * Create a CarbonTimeZone from mixed input.
+     *
+     * @param DateTimeZone|string|int|null $object
+     *
+     * @return false|static
+     */
+    public static function create($object = null)
+    {
+        return static::instance($object);
     }
 }

@@ -12,6 +12,7 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
 class SubTest extends AbstractTestCase
@@ -34,6 +35,9 @@ class SubTest extends AbstractTestCase
     public function testSubYear()
     {
         $this->assertSame(1974, Carbon::createFromDate(1975)->subYear()->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(CarbonInterval::years(2))->year);
     }
 
     public function testSubMonthsPositive()

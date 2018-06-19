@@ -24,6 +24,12 @@ class GettersTest extends AbstractTestCase
         Carbon::create(1234, 5, 6, 7, 8, 9)->doesNotExit;
     }
 
+    public function testGet()
+    {
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $this->assertSame(5, $d->get('month'));
+    }
+
     public function testMillenniumGetter()
     {
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
