@@ -28,7 +28,7 @@ return array(
     'from_now' => 'em :time',
     'after' => 'após :time',
     'before' => ':time atrás',
-    'diff_now' => 'hoje',
+    'diff_now' => 'agora',
     'diff_yesterday' => 'ontem',
     'diff_tomorrow' => 'amanhã',
     'diff_before_yesterday' => 'anteontem',
