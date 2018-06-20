@@ -28,4 +28,13 @@ return array(
     'from_now' => 'em :time',
     'after' => 'após :time',
     'before' => ':time atrás',
+    'diff_now' => 'agora',
+    'diff_yesterday' => 'ontem',
+    'diff_tomorrow' => 'amanhã',
+    'diff_before_yesterday' => 'anteontem',
+    'diff_after_tomorrow' => 'depois de amanhã',
+    'period_recurrences' => 'uma|:count vez',
+    'period_interval' => 'toda :interval',
+    'period_start_date' => 'de :date',
+    'period_end_date' => 'até :date',
 );
