@@ -1,15 +1,17 @@
 parameters:
-	ignoreErrors:
-		- '#Static call to instance method Carbon\\CarbonInterval::#'
-		- '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
-		- '#Static method DateTime::__set_state()#'
-		- '#Static call to instance method Carbon\\CarbonPeriod::#'
-		- '#Call to an undefined static method Carbon\\CarbonPeriod::foobar()#'
-	excludes_analyse:
-		- '*/tests/Carbon/MacroTest.php'
-		- '*/tests/Carbon/SettersTest.php'
-		- '*/tests/Carbon/GettersTest.php'
-		- '*/tests/CarbonInterval/GettersTest.php'
-		- '*/tests/CarbonInterval/MacroTest.php'
-		- '*/tests/CarbonPeriod/MacroTest.php'
-		- '*/tests/CarbonPeriod/Fixtures/filters.php'
+    ignoreErrors:
+        - '#Static call to instance method Carbon\\CarbonInterval::#'
+        - '#Call to an undefined static method Carbon\\CarbonInterval::anything()#'
+        - '#Static method DateTime::__set_state()#'
+        - '#Static call to instance method Carbon\\CarbonPeriod::#'
+        - '#Call to an undefined static method Carbon\\CarbonPeriod::foobar()#'
+    excludes_analyse:
+        - '*/src/Carbon/Laravel/ServiceProvider.php'
+        - '*/tests/Carbon/MacroTest.php'
+        - '*/tests/Carbon/SettersTest.php'
+        - '*/tests/Carbon/GettersTest.php'
+        - '*/tests/CarbonInterval/GettersTest.php'
+        - '*/tests/CarbonInterval/MacroTest.php'
+        - '*/tests/CarbonPeriod/MacroTest.php'
+        - '*/tests/CarbonPeriod/Fixtures/filters.php'
+        - '*/tests/Laravel/*.php'
