@@ -76,5 +76,4 @@ class MyTest extends AbstractTestCase
             $scope->assertSame('2 စက္ကန့်', $d2->diffForHumans($d->addSecond(), true));
         });
     }
-
 }
