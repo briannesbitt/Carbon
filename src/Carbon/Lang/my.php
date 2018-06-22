@@ -33,5 +33,5 @@ return array(
     'diff_tomorrow' => 'မနက်ဖြန်',
     'diff_before_yesterday' => 'တမြန်နေ့က',
     'diff_after_tomorrow' => 'တဘက်ခါ',
-    'period_recurrences' => 'once|:count ကြိမ်',
+    'period_recurrences' => ':count ကြိမ်',
 );
