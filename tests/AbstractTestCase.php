@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Translator;
 use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
@@ -47,8 +48,18 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
         Carbon::resetMonthsOverflow();
+        Carbon::setTranslator(new Translator('en'));
+        Carbon::setLocale('en');
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
         CarbonImmutable::setTestNow();
         CarbonImmutable::resetMonthsOverflow();
+        CarbonImmutable::setTranslator(new Translator('en'));
+        Carbon::setLocale('en');
+        /** @var Translator $translator */
+        $translator = CarbonImmutable::getTranslator();
+        $translator->resetMessages();
     }
 
     public function assertCarbon(CarbonInterface $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
