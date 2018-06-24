@@ -219,7 +219,11 @@ echo Carbon::now()->micro; // microtime in all PHP version
 
 <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
 
-<p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'German');)}}
+<p><pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
+if ($newLocale === false) {
+    echo '"German" locale is not installed on your machine, it may have a different name a different name on your machine or you may need to install it.';
+}
+)}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, 'English');)}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
@@ -234,6 +238,25 @@ echo Carbon::now()->micro; // microtime in all PHP version
 
 {{::lint(Carbon::setLocale('en');)}}
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
+</code></pre></p>
+
+<p>Or you can isolate some code with a given locale:</p>
+
+<p><pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
+    // You can optionally get $newLocale as the first argument of the closure
+    // It will be set to the new locale or false if the locale was not found.
+
+    echo Carbon::now()->addYear()->diffForHumans();
+});)}} // {{eval}}
+
+// outside the function the locale did not change
+{{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
+
+// or same using a return statement
+{{::int($french = Carbon::executeWithLocale('fr', function () {
+    return Carbon::now()->addYear()->diffForHumans();
+});)}}
+{{::exec(echo $french;)}} // {{eval}}
 </code></pre></p>
 
 <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code> mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
@@ -274,6 +297,56 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 </code></pre></p>
 
 <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
+
+<p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code> and short variants is driven by locales installed in your operating system. For other translations, it's supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+
+<p><pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
+
+// Support diff syntax (before, after, from now, ago)
+{{::exec(var_dump(Carbon::localeHasDiffSyntax('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support 1-day diff words (just now, yesterday, tomorrow)
+{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support 2-days diff words (before yesterday, after tomorrow)
+{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support short units (1y = 1 year, 1mo = 1 month, etc.)
+{{::exec(var_dump(Carbon::localeHasShortUnits('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasShortUnits('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support period syntax (X times, every X, from X, to X)
+{{::exec(var_dump(Carbon::localeHasPeriodSyntax('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
+</code></pre></p>
+
+<p>Here is a overview of the {{eval(echo count(Carbon::getAvailableLocales());)}} locales supported by the last Carbon version:</p>
+
+<table class="info-table">
+    <thead>
+    <tr>
+        <th>Locale</th>
+        <th>Diff syntax</th>
+        <th>1-day diff</th>
+        <th>2-days diff</th>
+        <th>Short units</th>
+        <th>Period</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{locale::each(Carbon::getAvailableLocales())}}
+    <tr>
+        <td>{{eval(echo $locale;)}}</td>
+        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
+        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
+        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
+        <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
+        <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
+    </tr>
+    {{::endEach}}
+    </tbody>
+</table>
+
+<p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code> execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code> in some middleware to get <code>formatLocalized</code> working properly.</p>
 
 <h1 id="api-testing">Testing Aids</h1>
 

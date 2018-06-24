@@ -11,7 +11,8 @@ a {outline:0}
 pre {border:0;border-radius:4px;margin:0;padding:0;background-color:#1d1f21}
 pre code.hljs {padding:15px;overflow-x:auto;overflow:auto;word-wrap:normal;white-space:pre}
 
-p {line-height: 1.6;margin-bottom:16px;font-size:16px}
+p {line-height: 1.6;}
+p, .info-table {margin-bottom:16px;font-size:16px}
 code {color: #38932c;font-size:90%}
 .page {margin-bottom:30px}
 
@@ -20,3 +21,8 @@ code {color: #38932c;font-size:90%}
 #affix-nav li a {color:#777;font-size:90%;padding:5px 0 5px 10px}
 #affix-nav li a:hover {background-color:#f1ffe6}
 #affix-nav li.active {border-left:3px solid #38932c;color:#38932c;font-weight:700}
+
+.info-table{border-collapse: collapse}
+.info-table tr td, .info-table tr th{padding:4px 8px;border:1px solid silver}
+.info-table tr:nth-child(even) td{background:#f6f8fa}
+.compatibility-check{text-align:center}
