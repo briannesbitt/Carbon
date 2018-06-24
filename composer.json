@@ -49,5 +49,12 @@
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Carbon\\Laravel\\ServiceProvider"
+            ]
+        }
     }
 }

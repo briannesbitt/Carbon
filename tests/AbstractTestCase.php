@@ -44,6 +44,7 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
         Carbon::resetMonthsOverflow();
+        Carbon::setLocale('en');
     }
 
     public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
