@@ -51,5 +51,12 @@
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
         "phpdoc": "php phpdoc.php"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Carbon\\Laravel\\ServiceProvider"
+            ]
+        }
     }
 }

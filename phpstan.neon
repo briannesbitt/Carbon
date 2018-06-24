@@ -4,6 +4,8 @@ parameters:
 		- '#^Static call to instance method#'
 		- '#^Method Carbon\\Carbon(Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
 	excludes_analyse:
+	    - '*/src/Carbon/Laravel/ServiceProvider.php'
+	    - '*/tests/Laravel/*.php'
 		- '*/tests/Carbon/MacroTest.php'
 		- '*/tests/Carbon/SettersTest.php'
 		- '*/tests/Carbon/GettersTest.php'
