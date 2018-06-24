@@ -1671,6 +1671,7 @@ class Carbon extends DateTime implements JsonSerializable
 
     /**
      * Returns true if the given locale is internally supported and has short-units support.
+     * Support is considered enabled if either year, day or hour has a short variant translated.
      *
      * @param string $locale locale ex. en
      *
@@ -1680,13 +1681,22 @@ class Carbon extends DateTime implements JsonSerializable
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&
-                ($y = $translator->trans('y')) !== 'y' &&
-                $y !== $translator->trans('year');
+                (
+                    ($y = $translator->trans('y')) !== 'y' &&
+                    $y !== $translator->trans('year')
+                ) || (
+                    ($y = $translator->trans('d')) !== 'd' &&
+                    $y !== $translator->trans('day')
+                ) || (
+                    ($y = $translator->trans('h')) !== 'h' &&
+                    $y !== $translator->trans('hour')
+                );
         });
     }
 
     /**
      * Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
+     * Support is considered enabled if the 4 sentences are translated in the given locale.
      *
      * @param string $locale locale ex. en
      *
@@ -1705,6 +1715,7 @@ class Carbon extends DateTime implements JsonSerializable
 
     /**
      * Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
+     * Support is considered enabled if the 3 words are translated in the given locale.
      *
      * @param string $locale locale ex. en
      *
@@ -1722,6 +1733,7 @@ class Carbon extends DateTime implements JsonSerializable
 
     /**
      * Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
+     * Support is considered enabled if the 2 words are translated in the given locale.
      *
      * @param string $locale locale ex. en
      *
@@ -1738,6 +1750,7 @@ class Carbon extends DateTime implements JsonSerializable
 
     /**
      * Returns true if the given locale is internally supported and has period syntax support (X times, every X, from X, to X).
+     * Support is considered enabled if the 4 sentences are translated in the given locale.
      *
      * @param string $locale locale ex. en
      *

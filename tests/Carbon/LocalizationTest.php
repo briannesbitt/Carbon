@@ -253,6 +253,14 @@ class LocalizationTest extends AbstractTestCase
             'year' => 'foo',
             'y' => 'bar',
         );
+        $withShortHourOnly = array(
+            'year' => 'foo',
+            'y' => 'foo',
+            'day' => 'foo',
+            'd' => 'foo',
+            'hour' => 'foo',
+            'h' => 'bar',
+        );
         $withoutShortUnit = array(
             'year' => 'foo',
         );
@@ -260,17 +268,20 @@ class LocalizationTest extends AbstractTestCase
             'year' => 'foo',
             'y' => 'foo',
         );
-        $withShortUnitLocale = 'zz_'.ucfirst(strtolower('WithShortUnit'));
-        $withoutShortUnitLocale = 'zz_'.ucfirst(strtolower('WithoutShortUnit'));
-        $withSameShortUnitLocale = 'zz_'.ucfirst(strtolower('WithSameShortUnit'));
+        $withShortHourOnlyLocale = 'zz_'.ucfirst(strtolower('withShortHourOnly'));
+        $withShortUnitLocale = 'zz_'.ucfirst(strtolower('withShortUnit'));
+        $withoutShortUnitLocale = 'zz_'.ucfirst(strtolower('withoutShortUnit'));
+        $withSameShortUnitLocale = 'zz_'.ucfirst(strtolower('withSameShortUnit'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $translator->setMessages($withShortUnitLocale, $withShortUnit);
+        $translator->setMessages($withShortHourOnlyLocale, $withShortHourOnly);
         $translator->setMessages($withoutShortUnitLocale, $withoutShortUnit);
         $translator->setMessages($withSameShortUnitLocale, $withSameShortUnit);
 
         $this->assertTrue(Carbon::localeHasShortUnits($withShortUnitLocale));
+        $this->assertTrue(Carbon::localeHasShortUnits($withShortHourOnlyLocale));
         $this->assertFalse(Carbon::localeHasShortUnits($withoutShortUnitLocale));
         $this->assertFalse(Carbon::localeHasShortUnits($withSameShortUnitLocale));
     }
