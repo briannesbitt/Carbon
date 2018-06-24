@@ -367,4 +367,17 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(Carbon::localeHasPeriodSyntax($withPeriodSyntaxLocale));
         $this->assertFalse(Carbon::localeHasPeriodSyntax($withoutPeriodSyntaxLocale));
     }
+
+    public function testGetAvailableLocales()
+    {
+        $this->assertCount(count(glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->setMessages('zz_ZZ', array());
+        $this->assertTrue(in_array('zz_ZZ', Carbon::getAvailableLocales()));
+
+        Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
+        $this->assertSame(array(), Carbon::getAvailableLocales());
+    }
 }

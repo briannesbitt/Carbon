@@ -1663,7 +1663,7 @@ class Carbon extends DateTime implements JsonSerializable
     public static function executeWithLocale($locale, $func)
     {
         $currentLocale = static::getLocale();
-        $result = call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::getTranslator());
+        $result = call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::translator());
         static::setLocale($currentLocale);
 
         return $result;
@@ -1752,6 +1752,27 @@ class Carbon extends DateTime implements JsonSerializable
                 $translator->trans('period_start_date') !== 'period_start_date' &&
                 $translator->trans('period_end_date') !== 'period_end_date';
         });
+    }
+
+    /**
+     * Returns the list of internally available locales and already loaded custom locales.
+     * (It will ignore custom translator dynamic loading.)
+     *
+     * @return array
+     */
+    public static function getAvailableLocales()
+    {
+        $translator = static::translator();
+        $locales = array();
+        if ($translator instanceof Translator) {
+            foreach (glob(__DIR__.'/Lang/*.php') as $file) {
+                $locales[] = substr($file, strrpos($file, '/') + 1, -4);
+            }
+
+            $locales = array_unique(array_merge($locales, array_keys($translator->getMessages())));
+        }
+
+        return $locales;
     }
 
     ///////////////////////////////////////////////////////////////////

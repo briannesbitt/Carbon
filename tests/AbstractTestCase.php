@@ -13,6 +13,7 @@ namespace Tests;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use Carbon\Translator;
 use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
@@ -44,7 +45,11 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
         Carbon::resetMonthsOverflow();
+        Carbon::setTranslator(new Translator('en'));
         Carbon::setLocale('en');
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $translator->resetMessages();
     }
 
     public function assertCarbon(Carbon $d, $year, $month, $day, $hour = null, $minute = null, $second = null, $micro = null)
