@@ -31,6 +31,51 @@ function genHtml($page, $out, $jumbotron = '')
     file_put_contents($out, $html);
 }
 
+function evaluateCode(&$__state, $__code) {
+    ob_start();
+    $result = call_user_func(function () use (&$__state, $__code) {
+        foreach ($__state as $__key => &$__value) {
+            $$__key = &$__value;
+        }
+        unset($__key);
+        unset($__value);
+        try {
+            $lastResult = eval($__code);
+        } catch (Throwable $e) {
+            echo "$__code\n\n";
+
+            throw $e;
+        }
+        foreach (get_defined_vars() as $__key => $__value) {
+            $__state[$__key] = &$$__key;
+        }
+        unset($__state['__state']);
+        unset($__state['__code']);
+
+        return $lastResult;
+    });
+    $ob = ob_get_clean();
+
+    if ($result === false) {
+        echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
+        $error = error_get_last();
+
+        if ($error != null) {
+            echo $error['message'].' on line '.$error['line'].PHP_EOL.PHP_EOL;
+        }
+
+        echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
+        $i = 1;
+        foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
+            printf('%3s : %s%s', $i++, $ln, PHP_EOL);
+        }
+
+        exit(1);
+    }
+
+    return $ob;
+}
+
 function compile($src, $dest)
 {
     $code = file_get_contents($src);
@@ -45,10 +90,17 @@ function compile($src, $dest)
     while ($oldCode !== $code) {
         $namesCache = array();
         $oldCode = $code;
-        $code = preg_replace_callback('@{{(?:(\w*)::(\w+)\((.+)\)|((?:(\w+)_)?eval))}}@sU', function ($matches) use ($imports, &$lastCode, &$codes, &$namesCache, &$__state) {
-            list($orig, $name, $cmd, $src, $eval, $evalName) = array_pad($matches, 6, null);
+        $code = preg_replace_callback('@{{(\w*)::each\((.+)\)}}([\s\S]+){{::endEach}}@isU', function ($matches) use ($imports, &$__state) {
+            list(, $name, $items, $contents) = $matches;
+
+            return evaluateCode($__state, "$imports foreach ($items as \$item) { ?>{{eval(\$$name = <?php var_export(\$item); ?>;)}}$contents<?php }");
+        }, $code);
+        $code = preg_replace_callback('@{{(?:(\w*)::(\w+)\((.+)\)|((?:(\w+)_)?eval(?:\((.+)\))?))}}@sU', function ($matches) use ($imports, &$lastCode, &$codes, &$namesCache, &$__state) {
+            list($orig, $name, $cmd, $src, $eval, $evalName, $evalContent) = array_pad($matches, 7, null);
 
             $src = trim($src, "\n\r");
+            $code = empty($evalContent) ? $src : $evalContent;
+            $code = trim($code, "\n\r");
 
             if (strlen($name) > 0) {
                 if (in_array($name, $namesCache)) {
@@ -59,61 +111,25 @@ function compile($src, $dest)
                 $namesCache[] = $name;
             }
 
-            ob_start();
-            $__code = $imports.$src;
-            $result = call_user_func(function () use (&$__state, $__code) {
-                foreach ($__state as $__key => &$__value) {
-                    $$__key = &$__value;
-                }
-                unset($__key);
-                unset($__value);
-                try {
-                    $lastResult = eval($__code);
-                } catch (Throwable $e) {
-                    echo "$__code\n\n";
-
-                    throw $e;
-                }
-                foreach (get_defined_vars() as $__key => $__value) {
-                    $__state[$__key] = &$$__key;
-                }
-                unset($__state['__state']);
-                unset($__state['__code']);
-
-                return $lastResult;
-            });
-            $ob = ob_get_clean();
-
-            if ($result === false) {
-                echo 'Failed lint check.'.PHP_EOL.PHP_EOL;
-                $error = error_get_last();
-
-                if ($error != null) {
-                    echo $error['message'].' on line '.$error['line'].PHP_EOL.PHP_EOL;
-                }
-
-                echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
-                $i = 1;
-                foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
-                    printf('%3s : %s%s', $i++, $ln, PHP_EOL);
-                }
-
-                exit(1);
-            }
+            $ob = evaluateCode($__state, $imports.$code);
 
             // remove the extra newline from a var_dump
             if (strpos($src, 'var_dump(') === 0) {
                 $ob = trim($ob);
             }
 
+            if (!empty($eval)) {
+                if (!empty($evalContent)) {
+                    return $ob;
+                }
+
+                return empty($evalName) ? $lastCode : (isset($codes[$evalName]) ? $codes[$evalName] : $orig);
+            }
+
             // Add any necessary padding to lineup comments
             if (preg_match('@/\*pad\(([0-9]+)\)\*/@', $src, $matches)) {
                 $src = preg_replace('@/\*pad\(([0-9]+)\)\*/@', '', $src);
                 $src = str_pad($src, intval($matches[1]));
-            }
-
-            if (!empty($eval)) {
-                return empty($evalName) ? $lastCode : (isset($codes[$evalName]) ? $codes[$evalName] : $orig);
             }
 
             // Inject the eval'd result
