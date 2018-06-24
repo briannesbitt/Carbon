@@ -321,25 +321,25 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasShortUnits()
     {
-        $withShortUnit = array(
+        $withShortUnit = [
             'year' => 'foo',
             'y' => 'bar',
-        );
-        $withShortHourOnly = array(
+        ];
+        $withShortHourOnly = [
             'year' => 'foo',
             'y' => 'foo',
             'day' => 'foo',
             'd' => 'foo',
             'hour' => 'foo',
             'h' => 'bar',
-        );
-        $withoutShortUnit = array(
+        ];
+        $withoutShortUnit = [
             'year' => 'foo',
-        );
-        $withSameShortUnit = array(
+        ];
+        $withSameShortUnit = [
             'year' => 'foo',
             'y' => 'foo',
-        );
+        ];
         $withShortHourOnlyLocale = 'zz_'.ucfirst(strtolower('withShortHourOnly'));
         $withShortUnitLocale = 'zz_'.ucfirst(strtolower('withShortUnit'));
         $withoutShortUnitLocale = 'zz_'.ucfirst(strtolower('withoutShortUnit'));
@@ -360,16 +360,16 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasDiffSyntax()
     {
-        $withDiffSyntax = array(
+        $withDiffSyntax = [
             'year' => 'foo',
             'ago' => ':time ago',
             'from_now' => ':time from now',
             'after' => ':time after',
             'before' => ':time before',
-        );
-        $withoutDiffSyntax = array(
+        ];
+        $withoutDiffSyntax = [
             'year' => 'foo',
-        );
+        ];
         $withDiffSyntaxLocale = 'zz_'.ucfirst(strtolower('withDiffSyntax'));
         $withoutDiffSyntaxLocale = 'zz_'.ucfirst(strtolower('withoutDiffSyntax'));
 
@@ -384,15 +384,15 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasDiffOneDayWords()
     {
-        $withOneDayWords = array(
+        $withOneDayWords = [
             'year' => 'foo',
             'diff_now' => 'just now',
             'diff_yesterday' => 'yesterday',
             'diff_tomorrow' => 'tomorrow',
-        );
-        $withoutOneDayWords = array(
+        ];
+        $withoutOneDayWords = [
             'year' => 'foo',
-        );
+        ];
         $withOneDayWordsLocale = 'zz_'.ucfirst(strtolower('withOneDayWords'));
         $withoutOneDayWordsLocale = 'zz_'.ucfirst(strtolower('withoutOneDayWords'));
 
@@ -407,14 +407,14 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasDiffTwoDayWords()
     {
-        $withTwoDayWords = array(
+        $withTwoDayWords = [
             'year' => 'foo',
             'diff_before_yesterday' => 'before yesterday',
             'diff_after_tomorrow' => 'after tomorrow',
-        );
-        $withoutTwoDayWords = array(
+        ];
+        $withoutTwoDayWords = [
             'year' => 'foo',
-        );
+        ];
         $withTwoDayWordsLocale = 'zz_'.ucfirst(strtolower('withTwoDayWords'));
         $withoutTwoDayWordsLocale = 'zz_'.ucfirst(strtolower('withoutTwoDayWords'));
 
@@ -429,16 +429,16 @@ class LocalizationTest extends AbstractTestCase
 
     public function testLocaleHasPeriodSyntax()
     {
-        $withPeriodSyntax = array(
+        $withPeriodSyntax = [
             'year' => 'foo',
             'period_recurrences' => 'once|:count times',
             'period_interval' => 'every :interval',
             'period_start_date' => 'from :date',
             'period_end_date' => 'to :date',
-        );
-        $withoutPeriodSyntax = array(
+        ];
+        $withoutPeriodSyntax = [
             'year' => 'foo',
-        );
+        ];
         $withPeriodSyntaxLocale = 'zz_'.ucfirst(strtolower('withPeriodSyntax'));
         $withoutPeriodSyntaxLocale = 'zz_'.ucfirst(strtolower('withoutPeriodSyntax'));
 
@@ -457,10 +457,10 @@ class LocalizationTest extends AbstractTestCase
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
-        $translator->setMessages('zz_ZZ', array());
+        $translator->setMessages('zz_ZZ', []);
         $this->assertTrue(in_array('zz_ZZ', Carbon::getAvailableLocales()));
 
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
-        $this->assertSame(array(), Carbon::getAvailableLocales());
+        $this->assertSame([], Carbon::getAvailableLocales());
     }
 }

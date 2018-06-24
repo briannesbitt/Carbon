@@ -12,7 +12,7 @@ class EventDispatcher
     public function listen($name, $listener)
     {
         if (!isset($this->listeners[$name])) {
-            $this->listeners[$name] = array();
+            $this->listeners[$name] = [];
         }
 
         $this->listeners[$name][] = $listener;

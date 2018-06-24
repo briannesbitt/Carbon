@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count နှစ်|:count နှစ်',
     'y' => ':count နှစ်|:count နှစ်',
     'month' => ':count လ|:count လ',
@@ -34,4 +34,4 @@ return array(
     'diff_before_yesterday' => 'တမြန်နေ့က',
     'diff_after_tomorrow' => 'တဘက်ခါ',
     'period_recurrences' => ':count ကြိမ်',
-);
+];

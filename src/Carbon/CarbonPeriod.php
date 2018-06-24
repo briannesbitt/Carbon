@@ -77,7 +77,7 @@ use RuntimeException;
  * @method CarbonPeriod filter($callback, $name = null) Add a filter to the stack.
  * @method CarbonPeriod push($callback, $name = null) Alias for filter().
  * @method CarbonPeriod prepend($callback, $name = null) Prepend a filter to the stack.
- * @method CarbonPeriod filters(array $filters = array()) Set filters stack.
+ * @method CarbonPeriod filters(array $filters = []) Set filters stack.
  * @method CarbonPeriod interval($interval) Change the period date interval.
  * @method CarbonPeriod invert() Invert the period date interval.
  * @method CarbonPeriod years($years = 1) Set the years portion of the date interval.
