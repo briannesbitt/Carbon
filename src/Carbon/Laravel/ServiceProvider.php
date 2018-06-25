@@ -13,7 +13,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $service = $this;
         /** @var EventDispatcher $events */
         $events = $this->app['events'];
-        $events->listen(version_compare(\App::version(), '5.5') >= 0 ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
+        $events->listen(version_compare($this->app->version(), '5.5') >= 0 ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
             $service->updateLocale();
         });
         $service->updateLocale();
