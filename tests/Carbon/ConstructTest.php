@@ -71,7 +71,7 @@ class ConstructTest extends AbstractTestCase
 
         $c = new Carbon('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame((int) $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     public function testParseSettingTimezone()
@@ -83,7 +83,7 @@ class ConstructTest extends AbstractTestCase
 
         $c = Carbon::parse('now', $dtz);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(0 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame((int) $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     public function testSettingTimezoneWithString()
@@ -95,7 +95,7 @@ class ConstructTest extends AbstractTestCase
 
         $c = new Carbon('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame(9 + (int) $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     public function testParseSettingTimezoneWithString()
@@ -107,7 +107,7 @@ class ConstructTest extends AbstractTestCase
 
         $c = Carbon::parse('now', $timezone);
         $this->assertSame($timezone, $c->tzName);
-        $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
+        $this->assertSame(9 + (int) $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
     public function testMockingWithMicroseconds()

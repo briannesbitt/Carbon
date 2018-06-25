@@ -941,12 +941,12 @@ class CarbonInterval extends DateInterval
             $factor = -$factor;
         }
 
-        $this->years = round($this->years * $factor);
-        $this->months = round($this->months * $factor);
-        $this->dayz = round($this->dayz * $factor);
-        $this->hours = round($this->hours * $factor);
-        $this->minutes = round($this->minutes * $factor);
-        $this->seconds = round($this->seconds * $factor);
+        $this->years = (int) round($this->years * $factor);
+        $this->months = (int) round($this->months * $factor);
+        $this->dayz = (int) round($this->dayz * $factor);
+        $this->hours = (int) round($this->hours * $factor);
+        $this->minutes = (int) round($this->minutes * $factor);
+        $this->seconds = (int) round($this->seconds * $factor);
 
         return $this;
     }
