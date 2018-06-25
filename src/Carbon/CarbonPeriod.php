@@ -1018,8 +1018,6 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Handle change of the parameters.
-     *
-     * @return void
      */
     protected function handleChangedParameters()
     {

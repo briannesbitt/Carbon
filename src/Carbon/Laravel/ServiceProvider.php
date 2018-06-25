@@ -11,19 +11,18 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $service = $this;
-        /** @var EventDispatcher $events */
-        $events = $this->app['events'];
-        $events->listen(version_compare(\App::version(), '5.5') >= 0 ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
+        if (($events = $this->app['events']) instanceof EventDispatcher) {
+            $events->listen(version_compare($this->app->version(), '5.5') >= 0 ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
+                $service->updateLocale();
+            });
             $service->updateLocale();
-        });
-        $service->updateLocale();
+        }
     }
 
     public function updateLocale()
     {
-        /** @var Translator $translator */
-        $translator = $this->app['translator'];
-        $locale = $translator->getLocale();
-        Carbon::setLocale($locale);
+        if (($translator = $this->app['translator']) instanceof Translator) {
+            Carbon::setLocale($translator->getLocale());
+        }
     }
 }
