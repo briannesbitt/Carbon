@@ -311,23 +311,25 @@ trait Difference
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
+     * @param int         $syntax difference modifiers (ago, after, etc) rules
+     * @param bool        $short  displays short format of time units
+     * @param int         $parts  displays number of parts in the interval
      *
      * @return string
      */
-    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $syntax = CarbonInterface::DIFF_RELATIVE_AUTO, $short = false, $parts = 1)
     {
         /* @var CarbonInterface $this */
-        $isNow = $other === null;
         $interval = [];
+        $syntax = (int) $syntax;
+        $absolute = ($syntax === CarbonInterface::DIFF_ABSOLUTE);
+        $isNow = $syntax === CarbonInterface::DIFF_RELATIVE_TO_NOW || $syntax === CarbonInterface::DIFF_RELATIVE_AUTO && $other === null;
 
         $parts = min(6, max(1, (int) $parts));
         $count = 1;
         $unit = $short ? 's' : 'second';
 
-        if ($isNow) {
+        if ($other === null) {
             $other = $this->nowWithSameTz();
         } elseif (!$other instanceof DateTimeInterface) {
             $other = static::parse($other);

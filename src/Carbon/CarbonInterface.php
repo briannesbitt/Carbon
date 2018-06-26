@@ -434,10 +434,21 @@ use JsonSerializable;
  */
 interface CarbonInterface extends DateTimeInterface, JsonSerializable
 {
+    /**
+     * Diff wording options.
+     */
     public const NO_ZERO_DIFF = 01;
     public const JUST_NOW = 02;
     public const ONE_DAY_WORDS = 04;
     public const TWO_DAY_WORDS = 010;
+
+    /**
+     * Diff syntax options.
+     */
+    public const DIFF_ABSOLUTE = 1; // backward compatibility with true
+    public const DIFF_RELATIVE_AUTO = 0; // backward compatibility with false
+    public const DIFF_RELATIVE_TO_NOW = 2;
+    public const DIFF_RELATIVE_TO_OTHER = 3;
 
     /**
      * The day constants.
