@@ -1178,6 +1178,47 @@ class DiffTest extends AbstractTestCase
         });
     }
 
+    public function testDiffForHumansWithMagicMethods()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('1 year', Carbon::now()->longAbsoluteDiffForHumans(Carbon::now()->subYears(1)->subMonth()));
+            $this->assertSame('1 year 1 month', Carbon::now()->longAbsoluteDiffForHumans(2, Carbon::now()->subYears(1)->subMonth()));
+            $this->assertSame('1 year 1 month', Carbon::now()->longAbsoluteDiffForHumans(Carbon::now()->subYears(1)->subMonth(), 2));
+            $this->assertSame('1 year', Carbon::now()->longAbsoluteDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1 year', Carbon::now()->longAbsoluteDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1yr', Carbon::now()->shortAbsoluteDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1yr', Carbon::now()->shortAbsoluteDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1 year after', Carbon::now()->longRelativeDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1 year before', Carbon::now()->longRelativeDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1yr after', Carbon::now()->shortRelativeDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1yr before', Carbon::now()->shortRelativeDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1 year from now', Carbon::now()->longRelativeToNowDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1 year ago', Carbon::now()->longRelativeToNowDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1yr from now', Carbon::now()->shortRelativeToNowDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1yr ago', Carbon::now()->shortRelativeToNowDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1 year after', Carbon::now()->longRelativeToOtherDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1 year before', Carbon::now()->longRelativeToOtherDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1yr after', Carbon::now()->shortRelativeToOtherDiffForHumans(Carbon::now()->subYears(1)));
+            $this->assertSame('1yr before', Carbon::now()->shortRelativeToOtherDiffForHumans(Carbon::now()->addYears(1)));
+            $this->assertSame('1 year', Carbon::now()->subYears(1)->longAbsoluteDiffForHumans());
+            $this->assertSame('1 year', Carbon::now()->addYears(1)->longAbsoluteDiffForHumans());
+            $this->assertSame('1yr', Carbon::now()->subYears(1)->shortAbsoluteDiffForHumans());
+            $this->assertSame('1yr', Carbon::now()->addYears(1)->shortAbsoluteDiffForHumans());
+            $this->assertSame('1 year ago', Carbon::now()->subYears(1)->longRelativeDiffForHumans());
+            $this->assertSame('1 year from now', Carbon::now()->addYears(1)->longRelativeDiffForHumans());
+            $this->assertSame('1yr ago', Carbon::now()->subYears(1)->shortRelativeDiffForHumans());
+            $this->assertSame('1yr from now', Carbon::now()->addYears(1)->shortRelativeDiffForHumans());
+            $this->assertSame('1 year ago', Carbon::now()->subYears(1)->longRelativeToNowDiffForHumans());
+            $this->assertSame('1 year from now', Carbon::now()->addYears(1)->longRelativeToNowDiffForHumans());
+            $this->assertSame('1yr ago', Carbon::now()->subYears(1)->shortRelativeToNowDiffForHumans());
+            $this->assertSame('1yr from now', Carbon::now()->addYears(1)->shortRelativeToNowDiffForHumans());
+            $this->assertSame('1 year before', Carbon::now()->subYears(1)->longRelativeToOtherDiffForHumans());
+            $this->assertSame('1 year after', Carbon::now()->addYears(1)->longRelativeToOtherDiffForHumans());
+            $this->assertSame('1yr before', Carbon::now()->subYears(1)->shortRelativeToOtherDiffForHumans());
+            $this->assertSame('1yr after', Carbon::now()->addYears(1)->shortRelativeToOtherDiffForHumans());
+        });
+    }
+
     public function testDiffForHumansWithShorterMonthShouldStillBeAMonth()
     {
         $feb15 = Carbon::parse('2015-02-15');
