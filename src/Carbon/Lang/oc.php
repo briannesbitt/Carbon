@@ -37,4 +37,8 @@ return array(
     'diff_tomorrow' => 'deman',
     'diff_before_yesterday' => 'ièr delà',
     'diff_after_tomorrow' => 'deman passat',
+    'period_recurrences' => ':count còp|:count còps',
+    'period_interval' => 'cada :interval',
+    'period_start_date' => 'de :date',
+    'period_end_date' => 'fins a :date',
 );
