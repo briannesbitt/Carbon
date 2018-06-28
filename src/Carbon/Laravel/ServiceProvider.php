@@ -3,10 +3,10 @@
 namespace Carbon\Laravel;
 
 use Carbon\Carbon;
-use Illuminate\Events\EventDispatcher;
 use Illuminate\Events\Dispatcher;
-use Symfony\Component\Translation\Translator;
+use Illuminate\Events\EventDispatcher;
 use Illuminate\Translation\Translator as IlluminateTranslator;
+use Symfony\Component\Translation\Translator;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -21,6 +21,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $service->updateLocale();
         }
     }
+
     public function updateLocale()
     {
         $translator = $this->app['translator'];
