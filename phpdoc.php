@@ -5,12 +5,14 @@ $tags = [
     'property-read',
     PHP_EOL,
     'native-method',
+    'mode',
     ['call', 'isDayOfWeek'],
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
     ['call', 'addUnit'],
     ['call', 'addRealUnit'],
     ['call', 'roundUnit'],
+    ['call', 'diffForHumans'],
 ];
 $nativeMethods = [
     'format' => 'string',
@@ -35,6 +37,7 @@ $defaultValues = [
         'day' => 1,
     ],
 ];
+$modes = [];
 $autoDocLines = [];
 $carbon = __DIR__.'/src/Carbon/Carbon.php';
 $immutable = __DIR__.'/src/Carbon/CarbonImmutable.php';
@@ -123,8 +126,32 @@ foreach ($tags as $tag) {
         $vars = (object) $match;
         $vars->name = $vars->name ?: $vars->name2;
         $vars->description = $vars->description ?: $vars->description2;
+        if ($tag === 'mode') {
+            if (!isset($modes[$vars->type])) {
+                $modes[$vars->type] = [];
+            }
+            $modes[$vars->type][] = $vars->name;
+
+            continue;
+        }
         if ($tag === 'call') {
             switch ($vars->type) {
+                case 'diffForHumans':
+                    foreach ($modes[$vars->type] as $mode) {
+                        $autoDocLines[] = [
+                            '@method',
+                            'string',
+                            "$mode{$vars->name}DiffForHumans(\DateTimeInterface \$other = null, int \$parts = 1)",
+                            "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale.",
+                        ];
+                        $autoDocLines[] = [
+                            '@method',
+                            'string',
+                            "$mode{$vars->name}DiffForHumans(int \$parts = 1, \DateTimeInterface \$other = null)",
+                            "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale.",
+                        ];
+                    }
+                    break;
                 case 'isDayOfWeek':
                     $autoDocLines[] = [
                         '@method',

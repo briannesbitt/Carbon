@@ -311,23 +311,31 @@ trait Difference
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
+     * @param int         $syntax difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short  displays short format of time units
+     * @param int         $parts  displays number of parts in the interval
      *
      * @return string
      */
-    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1)
     {
         /* @var CarbonInterface $this */
-        $isNow = $other === null;
         $interval = [];
+        $syntax = (int) ($syntax === null ? static::DIFF_RELATIVE_AUTO : $syntax);
+        $absolute = ($syntax === static::DIFF_ABSOLUTE);
+        $relativeToNow = $syntax === static::DIFF_RELATIVE_TO_NOW || $syntax === static::DIFF_RELATIVE_AUTO && $other === null;
 
         $parts = min(6, max(1, (int) $parts));
         $count = 1;
         $unit = $short ? 's' : 'second';
 
-        if ($isNow) {
+        if ($other === null) {
             $other = $this->nowWithSameTz();
         } elseif (!$other instanceof DateTimeInterface) {
             $other = static::parse($other);
@@ -375,7 +383,7 @@ trait Difference
         }
 
         if (count($interval) === 0) {
-            if ($isNow && static::getHumanDiffOptions() & self::JUST_NOW) {
+            if ($relativeToNow && static::getHumanDiffOptions() & self::JUST_NOW) {
                 $key = 'diff_now';
                 $translation = static::translator()->trans($key);
                 if ($translation !== $key) {
@@ -398,10 +406,10 @@ trait Difference
 
         $isFuture = $diffInterval->invert === 1;
 
-        $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
+        $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
         if ($parts === 1) {
-            if ($isNow && $unit === 'day') {
+            if ($relativeToNow && $unit === 'day') {
                 if ($count === 1 && static::getHumanDiffOptions() & self::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
                     $translation = static::translator()->trans($key);

@@ -18,5 +18,6 @@ class ServiceProviderTest extends TestCase
         $this->assertSame('de', Carbon::getLocale());
         $service->app->setLocale('fr');
         $this->assertSame('fr', Carbon::getLocale());
+        $this->assertNull($service->register());
     }
 }
