@@ -29,4 +29,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             Carbon::setLocale($translator->getLocale());
         }
     }
+
+    public function register()
+    {
+        // Needed for Laravel < 5.3 compatibility
+    }
 }
