@@ -12,6 +12,7 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonInterface;
 use DateTime;
 use DateTimeZone;
 use Tests\AbstractTestCase;
@@ -75,5 +76,29 @@ class InstanceTest extends AbstractTestCase
         $deserialized = eval($serialized);
 
         $this->assertInstanceOf(Carbon::class, $deserialized);
+    }
+
+    public function testMutableConversions()
+    {
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $copy = $carbon->toImmutable();
+
+        self::assertEquals($copy, $carbon);
+        self::assertNotSame($copy, $carbon);
+        self::assertTrue($copy->isImmutable());
+        self::assertFalse($copy->isMutable());
+        self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
+        self::assertSame('Europe/Paris', $copy->tzName);
+        self::assertNotSame($copy, $copy->modify('+1 day'));
+
+        $copy = $carbon->toMutable();
+
+        self::assertEquals($copy, $carbon);
+        self::assertNotSame($copy, $carbon);
+        self::assertFalse($copy->isImmutable());
+        self::assertTrue($copy->isMutable());
+        self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
+        self::assertSame('Europe/Paris', $copy->tzName);
+        self::assertSame($copy, $copy->modify('+1 day'));
     }
 }

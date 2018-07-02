@@ -12,6 +12,8 @@
 namespace Carbon\Traits;
 
 use BadMethodCallException;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
@@ -700,6 +702,26 @@ trait Date
     public static function isImmutable()
     {
         return !static::isMutable();
+    }
+
+    /**
+     * Return a mutable copy of the instance.
+     *
+     * @return Carbon
+     */
+    public function toMutable()
+    {
+        return Carbon::instance($this);
+    }
+
+    /**
+     * Return a immutable copy of the instance.
+     *
+     * @return CarbonImmutable
+     */
+    public function toImmutable()
+    {
+        return CarbonImmutable::instance($this);
     }
 
     /**
