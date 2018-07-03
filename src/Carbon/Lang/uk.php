@@ -28,4 +28,13 @@ return array(
     'from_now' => 'через :time',
     'after' => ':time після',
     'before' => ':time до',
+    'diff_now' => 'щойно',
+    'diff_yesterday' => 'вчора',
+    'diff_tomorrow' => 'завтра',
+    'diff_before_yesterday' => 'позавчора',
+    'diff_after_tomorrow' => 'післязавтра',
+    'period_recurrences' => 'один раз|:count рази|:count разів',
+    'period_interval' => 'кожні :interval',
+    'period_start_date' => 'з :date',
+    'period_end_date' => 'до :date',
 );
