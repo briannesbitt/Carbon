@@ -1447,10 +1447,16 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @param int $day week start day
      *
+     * @throws InvalidArgumentException
+     *
      * @return void
      */
     public static function setWeekStartsAt($day)
     {
+        if ($day > static::SATURDAY || $day < static::SUNDAY) {
+            throw new InvalidArgumentException('Day of a week should be greater than or equal to 0 and less than or equal to 6.');
+        }
+
         static::$weekStartsAt = $day;
     }
 
@@ -1469,10 +1475,16 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @param int $day
      *
+     * @throws InvalidArgumentException
+     *
      * @return void
      */
     public static function setWeekEndsAt($day)
     {
+        if ($day > static::SATURDAY || $day < static::SUNDAY) {
+            throw new InvalidArgumentException('Day of a week should be greater than or equal to 0 and less than or equal to 6.');
+        }
+
         static::$weekEndsAt = $day;
     }
 
