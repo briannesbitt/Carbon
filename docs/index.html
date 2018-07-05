@@ -312,7 +312,7 @@ echo $french; // dans 1 an
 <p><pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miï¿½rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -1547,7 +1547,7 @@ var_dump($overTheHill->isBirthday());              // bool(true) -> default comp
 
 <h1 id="api-addsub">Addition and Subtraction</h1>
 
-<p>The default DateTime provides a couple of different methods for easily adding and subtracting time.  There is <code>modify()</code>, <code>add()</code> and <code>sub()</code>.  <code>modify()</code> takes a <i>magical</i> date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification while <code>add()</code> and <code>sub()</code> use a <code>DateInterval</code> class thats not so obvious, <code>new \DateInterval('P6YT5M')</code>.  Hopefully using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.  But of course I don't make you choose since the base class functions are still available.</p>
+<p>The default DateTime provides a couple of different methods for easily adding and subtracting time.  There is <code>modify()</code>, <code>add()</code> and <code>sub()</code>.  <code>modify()</code> takes a <i>magical</i> date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>).  Hopefully using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.  But of course I don't make you choose since the base class functions are still available.</p>
 
 <p><pre><code class="php">$dt = Carbon::create(2012, 1, 31, 0);
 
