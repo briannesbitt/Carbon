@@ -16,15 +16,21 @@ use Tests\AbstractTestCase;
 
 class SetStartEndOfWeekTest extends AbstractTestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
+     */
     public function testSetStartOfWeekLessThanMin()
     {
-        $this->expectException(\InvalidArgumentException::class);
         Carbon::setWeekStartsAt(Carbon::SUNDAY-1);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
+     */
     public function testSetStartOfWeekMoreThanMax()
     {
-        $this->expectException(\InvalidArgumentException::class);
         Carbon::setWeekStartsAt(Carbon::SATURDAY+1);
     }
 
@@ -36,15 +42,21 @@ class SetStartEndOfWeekTest extends AbstractTestCase
         }
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
+     */
     public function testSetEndOfWeekLessThanMin()
     {
-        $this->expectException(\InvalidArgumentException::class);
         Carbon::setWeekEndsAt(Carbon::SUNDAY-1);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
+     */
     public function testSetEndOfWeekMoreThanMax()
     {
-        $this->expectException(\InvalidArgumentException::class);
         Carbon::setWeekEndsAt(Carbon::SATURDAY+1);
     }
 
