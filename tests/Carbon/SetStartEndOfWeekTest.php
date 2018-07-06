@@ -22,7 +22,7 @@ class SetStartEndOfWeekTest extends AbstractTestCase
      */
     public function testSetStartOfWeekLessThanMin()
     {
-        Carbon::setWeekStartsAt(Carbon::SUNDAY-1);
+        Carbon::setWeekStartsAt(Carbon::SUNDAY - 1);
     }
 
     /**
@@ -31,7 +31,7 @@ class SetStartEndOfWeekTest extends AbstractTestCase
      */
     public function testSetStartOfWeekMoreThanMax()
     {
-        Carbon::setWeekStartsAt(Carbon::SATURDAY+1);
+        Carbon::setWeekStartsAt(Carbon::SATURDAY + 1);
     }
 
     public function testSetStartOfWeekValid()
@@ -48,7 +48,7 @@ class SetStartEndOfWeekTest extends AbstractTestCase
      */
     public function testSetEndOfWeekLessThanMin()
     {
-        Carbon::setWeekEndsAt(Carbon::SUNDAY-1);
+        Carbon::setWeekEndsAt(Carbon::SUNDAY - 1);
     }
 
     /**
@@ -57,7 +57,7 @@ class SetStartEndOfWeekTest extends AbstractTestCase
      */
     public function testSetEndOfWeekMoreThanMax()
     {
-        Carbon::setWeekEndsAt(Carbon::SATURDAY+1);
+        Carbon::setWeekEndsAt(Carbon::SATURDAY + 1);
     }
 
     public function testSetEndOfWeekValid()
