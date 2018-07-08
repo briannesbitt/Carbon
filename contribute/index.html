@@ -123,6 +123,20 @@ echo 6;              // 6
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   <script>
+      $('.live-editor').each(function () {
+          var $pre = $(this);
+          console.log($pre);
+          var code = $pre.find('code').text();
+          $pre.replaceWith('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=xcode&border=silver&input=' +
+              encodeURIComponent(code) +
+              '" style="width: ' +
+              $pre.width() +
+              'px; height: ' +
+              $pre.height() +
+              'px; border: none;"></iframe>')
+      })
+   </script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
    <script>hljs.initHighlightingOnLoad();</script>
 </body>

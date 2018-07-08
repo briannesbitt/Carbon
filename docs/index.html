@@ -76,7 +76,7 @@ class Carbon extends \DateTime
 
 <p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
 
-<p><pre><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
+<p><pre class="live-editor"><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
 $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 
 echo $dtVancouver->diffInHours($dtToronto); // 3
@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-06-24 12:02:02
+echo $now;                               // 2018-07-08 04:37:16
 $today = Carbon::today();
-echo $today;                             // 2018-06-24 00:00:00
+echo $today;                             // 2018-07-08 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-06-25 00:00:00
+echo $tomorrow;                          // 2018-07-09 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-06-23 00:00:00
+echo $yesterday;                         // 2018-07-07 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:02 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 10:37 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -1065,7 +1065,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-06-24 12:02:02
+echo Carbon::now();                                    // 2018-07-08 04:37:16
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -1445,8 +1445,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-06-24 12:02:02
-echo $dt1->maximum();                              // 2018-06-24 12:02:02
+echo $dt1->max();                                  // 2018-07-08 04:37:16
+echo $dt1->maximum();                              // 2018-07-08 04:37:16
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1839,14 +1839,14 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 
 var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);      // bool(true)
 var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 01-Jun-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 06-Jun-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 06-Jul-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 11-Jul-18 23:59:59 EDT
 
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 28-May-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 03-Jun-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 02-Jul-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 08-Jul-18 23:59:59 EDT
 </code></pre></p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
@@ -2315,10 +2315,10 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-06-18 00:00:00, 2018-06-19 00:00:00, 2018-06-20 00:00:00, 2018-06-21 00:00:00, 2018-06-22 00:00...
-dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-06-01 00:00:00, 2018-06-02 00:00:00, 2018-06-03 00:00:00, 2018-06-04 00:00:00, 2018-06-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-05-21 00:00:00, 2018-05-22 00:00:00, 2018-05-23 00:00:00, 2018-05-24 00:00:00, 2018-05-25 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-05-01 00:00:00, 2018-05-02 00:00:00, 2018-05-03 00:00:00, 2018-05-04 00:00:00, 2018-05-05 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00:00, 2018-07-06 00:00...
+dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-06-04 00:00:00, 2018-06-05 00:00:00, 2018-06-06 00:00:00, 2018-06-07 00:00:00, 2018-06-08 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-06-01 00:00:00, 2018-06-02 00:00:00, 2018-06-03 00:00:00, 2018-06-04 00:00:00, 2018-06-05 00:00...
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
@@ -2770,7 +2770,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-06-24, 2018-06-25, 2018-06-26
+echo implode(', ', $days);               // 2018-07-08, 2018-07-09, 2018-07-10
 </code></pre></p>
 
 <p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
@@ -2955,6 +2955,20 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00-05:00/P3DT12H/2000-0
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   <script>
+      $('.live-editor').each(function () {
+          var $pre = $(this);
+          console.log($pre);
+          var code = $pre.find('code').text();
+          $pre.replaceWith('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=xcode&border=silver&input=' +
+              encodeURIComponent(code) +
+              '" style="width: ' +
+              $pre.width() +
+              'px; height: ' +
+              $pre.height() +
+              'px; border: none;"></iframe>')
+      })
+   </script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
    <script>hljs.initHighlightingOnLoad();</script>
 </body>

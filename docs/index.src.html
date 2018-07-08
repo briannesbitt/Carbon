@@ -23,7 +23,7 @@ class Carbon extends \DateTime
 
 <p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
 
-<p><pre><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
+<p><pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
 
 {{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
