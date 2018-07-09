@@ -1,83 +1,95 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-   <title>Carbon - A simple PHP API extension for DateTime.</title>
-   <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
-   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
-   <link href="/carbon.css" rel="stylesheet">
-   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <title>Carbon - A simple PHP API extension for DateTime.</title>
+        <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
+        <link href="/carbon.css" rel="stylesheet">
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-27020320-3', 'auto');
-    ga('send', 'pageview');
+            ga('create', 'UA-27020320-3', 'auto');
+            ga('send', 'pageview');
 
-  </script>
-</head>
-<body data-spy="scroll" data-target="#affix-nav">
-   <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
-         </div>
-         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-               <li><a href="/#gettingstarted">Getting Started</a></li>
-               <li><a href="/docs/">Docs</a></li>
-               <li><a href="/history/">History</a></li>
-               <li><a href="/contribute/">Contribute</a></li>
-               <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
-            </ul>
-         </div>
-      </div>
-   </nav>
+        </script>
+    </head>
+    <body data-spy="scroll" data-target="#affix-nav">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/#gettingstarted">Getting Started</a></li>
+                    <li><a href="/docs/">Docs</a></li>
+                    <li><a href="/history/">History</a></li>
+                    <li><a href="/contribute/">Contribute</a></li>
+                    <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-   
+    
 
-   <div class="container page">
-      <div class="row">
-         <div class="col-md-9">
-            <h1>1.31.0 / 2018-06-24</h1>
-  <ul>
+    <div class="container page">
+        <div class="row">
+            <div class="col-md-9">
+                <h1>1.31.0 / 2018-06-24</h1>
+<ul>
     <li>Add executeWithLocale method</li>
-    <li>Add localization support checking methods: getAvailableLocales, localeHasShortUnits, localeHasDiffSyntax, localeHasDiffOneDayWords, localeHasDiffTwoDayWords, localeHasPeriodSyntax</li>
+    <li>Add localization support checking methods: getAvailableLocales, localeHasShortUnits, localeHasDiffSyntax,
+        localeHasDiffOneDayWords, localeHasDiffTwoDayWords, localeHasPeriodSyntax
+    </li>
     <li>Add automated synchronization with Laravel locale</li>
     <li>Add/update translations for my, fr, pt_BR</li>
-  </ul>
+</ul>
 <h1>1.30.0 / 2018-06-15</h1>
-  <ul>
+<ul>
     <li>Add CarbonPeriod skip method</li>
-    <li>Add calculated read-only properties englishDayOfWeek, shortEnglishDayOfWeek, englishMonth, shortEnglishMonth, localeDayOfWeek, shortLocaleDayOfWeek, localeMonth, shortLocaleMonth</li>
-  </ul>
+    <li>Add calculated read-only properties englishDayOfWeek, shortEnglishDayOfWeek, englishMonth, shortEnglishMonth,
+        localeDayOfWeek, shortLocaleDayOfWeek, localeMonth, shortLocaleMonth
+    </li>
+</ul>
 <h1>1.29.2 / 2018-05-29</h1>
-  <ul>
+<ul>
     <li>Add german now/tomorrow/yesterday translations</li>
     <li>Add compareYearWithMonth and shouldCompareYearWithMonth</li>
-  </ul>
+</ul>
 <h1>1.29.1 / 2018-05-29</h1>
-  <ul>
+<ul>
     <li>Allowed to configure is(Same|Current)(Month|Quarter) behavior</li>
-  </ul>
+</ul>
 <h1>1.29.0 / 2018-05-24</h1>
-  <ul>
+<ul>
     <li>Added CarbonPeriod and related methods in Carbon and CarbonInterval</li>
-  </ul>
+</ul>
 <h1>1.28.0 / 2018-05-22</h1>
-  <ul>
+<ul>
     <li>Added isStartOfDay, isEndOfDay, isMidnight, isMidday methods</li>
     <li>Added make methods to Carbon and CarbonInterval</li>
     <li>Added workaround for timezone bug: https://bugs.php.net/bug.php?id=45528</li>
@@ -90,37 +102,41 @@
     <li>Added diff translations for ca, es, nl, no, pl, sl, sr*</li>
     <li>Fixed createFromFormat with partial format and mock now instance</li>
     <li>Fixed ko, pl translations</li>
-  </ul>
+</ul>
 <h1>1.27.0 / 2018-04-23</h1>
-  <ul>
+<ul>
     <li>Added isSameQuarter, isCurrentQuarter, isNextQuarter and isLastQuarter methods</li>
     <li>Added isSameHour, isSameMinute, isSameSecond, isCurrentHour, isCurrentMinute and isCurrentSecond methods</li>
     <li>Added CarbonInterval::times method</li>
     <li>Added italian translation for diff words</li>
-  </ul>
+</ul>
 <h1>1.26.4 / 2018-04-17</h1>
-  <ul>
+<ul>
     <li>Always pass $self at its position even if previous arguments miss</li>
-  </ul>
+</ul>
 <h1>1.26.2 / 2018-04-16</h1>
-  <ul>
+<ul>
     <li>Fixed Laravel's compatibility</li>
-  </ul>
+</ul>
 <h1>1.26.1 / 2018-04-16</h1>
-  <ul>
+<ul>
     <li>Fixed Laravel's compatibility</li>
-  </ul>
+</ul>
 <h1>1.26.0 / 2018-04-16</h1>
-  <ul>
+<ul>
     <li>Added setDateFrom and setTimeFrom methods</li>
     <li>Allowed DateTimeInterface in instance method</li>
     <li>Added macro, hasMacro and mixin methods</li>
     <li>Added welsh language</li>
-    <li>Added CarbonInterval::getDateIntervalSpec (similar to CarbonInterval::spec but static and able to take any DateInterval instance as argument)</li>
-    <li>Added options for `diffForHumans` to support now/yesterday/tomorrow (<a href="/docs/#diff-for-humans-options">see the doc.</a>)</li>
-  </ul>
+    <li>Added CarbonInterval::getDateIntervalSpec (similar to CarbonInterval::spec but static and able to take any
+        DateInterval instance as argument)
+    </li>
+    <li>Added options for `diffForHumans` to support now/yesterday/tomorrow (<a href="/docs/#diff-for-humans-options">see
+        the doc.</a>)
+    </li>
+</ul>
 <h1>1.25.0 / 2018-03-20</h1>
-  <ul>
+<ul>
     <li>Allowed date/time strings in diffIn* and diffForHumans methods</li>
     <li>Added addRealHours()/addRealHour()/subRealHours()/subRealHour() method</li>
     <li>Added addRealMinutes()/addRealMinute()/subRealMinutes()/subRealMinute() method</li>
@@ -131,20 +147,22 @@
     <li>Added Carbon::createFromTimeString() method</li>
     <li>Added CarbonInterval::fromString() method</li>
     <li>Allowed spec string as CarbonInterval constructor and in CarbonInterval::parse()</li>
-    <li>Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds work-around in PHP < 7.1</li>
+    <li>Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds
+        work-around in PHP < 7.1
+    </li>
     <li>Added dayOfWeekIso property</li>
     <li>Allowed editing/adding languages and translations</li>
-  </ul>
+</ul>
 <h1>1.24.2 / 2018-03-09</h1>
-  <ul>
+<ul>
     <li>Prevent from negative values in microtime</li>
-  </ul>
+</ul>
 <h1>1.24.1 / 2018-03-09</h1>
-  <ul>
+<ul>
     <li>Re-align __set_state on DateTime method to ease Laravel compatibility</li>
-  </ul>
+</ul>
 <h1>1.24.0 / 2018-03-09</h1>
-  <ul>
+<ul>
     <li>Added createMidnightDate() method</li>
     <li>Added isLastOfMonth() method</li>
     <li>Added isDayOfWeek() method</li>
@@ -159,14 +177,21 @@
     <li>Added midDay() dynamic method, and getMidDayAt, setMidDayAt static methods</li>
     <li>Added nowWithSameTz() method</li>
     <li>Added CarbonInterval::compare() method</li>
-    <li>Added year overflow support (addYearsNoOverflow, addYearNoOverflow, addYearsWithOverflow, addYearWithOverflow, subYearNoOverflow, subYearsNoOverflow, subYearWithOverflow, subYearsWithOverflow dynamic methods and useYearsOverflow, resetYearsOverflow, shouldOverflowYears static methods)</li>
+    <li>Added year overflow support (addYearsNoOverflow, addYearNoOverflow, addYearsWithOverflow, addYearWithOverflow,
+        subYearNoOverflow, subYearsNoOverflow, subYearWithOverflow, subYearsWithOverflow dynamic methods and
+        useYearsOverflow, resetYearsOverflow, shouldOverflowYears static methods)
+    </li>
     <li>Added microseconds on calling <strong>now</strong> with PHP < 7.1 (PHP >= 7.1 still support it natively)</li>
-    <li>Fixed hasRelativeKeywords() that no longer guess if the string is relative but test if it really produces a relative date, making it more accurate</li>
-    <li>Fixed createSafe(), now throws an exception with PHP >= 5.4 if the time is in a hour skipped by daylight saving time</li>
+    <li>Fixed hasRelativeKeywords() that no longer guess if the string is relative but test if it really produces a
+        relative date, making it more accurate
+    </li>
+    <li>Fixed createSafe(), now throws an exception with PHP >= 5.4 if the time is in a hour skipped by daylight saving
+        time
+    </li>
     <li>Allowed DateTime and DateTimeInterface in diff methods</li>
-  </ul>
+</ul>
 <h1>1.23.0 / 2018-02-28</h1>
-  <ul>
+<ul>
     <li>Added ->weekNumberInMonth property</li>
     <li>Added $parts arguments to diffForHumans() to allow components diff like "1 week 2 days 11 hours"</li>
     <li>Added createFromTimestampMs method to create from timestamp in milliseconds</li>
@@ -182,14 +207,14 @@
     <li>Allow formatLocalized no matter if a custom toStringFormat has been set</li>
     <li>isSame*() methods now also accept DateTime instances</li>
     <li>Handle daylight saving time in a better way</li>
-  </ul>
+</ul>
 <h1>1.22.1 / 2017-01-16</h1>
-  <ul>
+<ul>
     <li>Fix diffForHumans()</li>
     <li>Let extended classes access lastErrors</li>
-  </ul>
+</ul>
 <h1>1.22.0 / 2017-01-15</h1>
-  <ul>
+<ul>
     <li>Added new langs and fixed up others</li>
     <li>Various style fixes and small internal code improvements</li>
     <li>Use atom format for iso8601 as suggested by php docs</li>
@@ -202,9 +227,9 @@
     <li>New is methods for next/last week, month and year</li>
     <li>Add number of parts in the diffForHumans() interval</li>
     <li>Added codecov</li>
-  </ul>
+</ul>
 <h1>1.21.0 / 2015-11-04</h1>
-  <ul>
+<ul>
     <li>Added new langs and fixed up others</li>
     <li>Improved race conditions in tests</li>
     <li>Allow CarbonInterval to hold a 0 interval</li>
@@ -212,46 +237,46 @@
     <li>Added closest() and farthest() comparison methods.</li>
     <li>Made isBirthday() arg optional to allow for easy comparison to today</li>
     <li>Bumped class loading to psr4</li>
-  </ul>
+</ul>
 <h1>1.20.0 / 2015-06-25</h1>
-  <ul>
+<ul>
     <li>Added ms, uz, bn, he, lv langs and fixed up others</li>
     <li>Added day of week helpers, isSunday(), isMonday() etc.</li>
     <li>Made first and last day of week dynamic</li>
     <li>Bumped to symfony/translation ~2.6|~3.0</li>
-  </ul>
+</ul>
 <h1>1.19.0 / 2015-05-08</h1>
-  <ul>
+<ul>
     <li>Added fa, az langs and fixed up others</li>
     <li>Bumped to symfony/translation ~2.6</li>
-  </ul>
+</ul>
 <h1>1.18.0 / 2015-03-25</h1>
-  <ul>
+<ul>
     <li>Localization of diffForHumans()</li>
     <li>Added a CarbonInterval class with localization</li>
     <li>Added diffInHours() and diffFiltered()</li>
     <li>Updated addXXXX()/subXXXX() to be an alias for addXXXXs()/subXXXXs() with default params of 1</li>
-  </ul>
+</ul>
 <h1>1.17.0 / 2015-03-08</h1>
-  <ul>
+<ul>
     <li>Fixed diff tests that didn't obey TestNow (diffInHours, diffInMinutes, diffInSeconds).</li>
     <li>Fixed edge case tests</li>
-  </ul>
+</ul>
 <h1>1.16.0 / 2015-03-03</h1>
-  <ul>
+<ul>
     <li>Avoid Bug #52063 for PHP &lt;5.3.6</li>
     <li>Improve diffForHumans()</li>
-  </ul>
+</ul>
 <h1>1.15.0 / 2015-03-02</h1>
-  <ul>
+<ul>
     <li>New Site !</li>
     <li>Let safeCreateDateTimeZone handles null tz</li>
     <li>Various refactorings</li>
     <li>Added yearIso getter</li>
     <li>Improved diffForHumans() to be more accurate (handles daylight savings and Feb)</li>
-  </ul>
+</ul>
 <h1>1.14.0 / 2015-02-06</h1>
-  <ul>
+<ul>
     <li>Added isBirthday()</li>
     <li>Various refactorings</li>
     <li>Merged MonthsNoOverflow helpers</li>
@@ -260,80 +285,86 @@
     <li>Simplified __get method</li>
     <li>timezone support for method formatLocalized</li>
     <li>Added helpers secondsSinceMidnight() / secondsUntilEndOfDay()</li>
-  </ul>
+</ul>
 <h1>1.13.0 / 2014-09-25</h1>
-  <ul>
+<ul>
     <li>Fixed diffInDaysFiltered() bug.</li>
     <li>Removed default param from formatLocalized() (thanks @vlakoff)</li>
     <li>Various refactorings (thanks @lucasmichot @euromark)</li>
     <li>Updated toXXXString() methods to be camel cased (thanks @euromark)</li>
     <li>Now using 4 spaces for indent. (thanks @lucasmichot @euromark)</li>
-  </ul>
+</ul>
 <h1>1.12.0 / 2014-09-09</h1>
-  <ul>
+<ul>
     <li>Add new functions diffInDaysFiltered(), diffInWeekdays() and diffInWeekendDays() (thanks @m4tthumphrey)</li>
     <li>Fixed XofQuarter methods when moving to a month that doesn&#39;t have that day it jumps forward #168</li>
-    <li>Support for microseconds during instantiation and copy.  Be aware that microseconds are ignored for doing any of the math.</li>
+    <li>Support for microseconds during instantiation and copy. Be aware that microseconds are ignored for doing any of
+        the math.
+    </li>
     <li>Microsecond getter.</li>
     <li>Various refactorings (thanks @lucasmichot @lorenzo)</li>
-  </ul>
+</ul>
 <h1>1.11.0 / 2014-08-25</h1>
-  <ul>
+<ul>
     <li>Added isSameDay() (thanks @enkelmedia)</li>
     <li>Added diffInWeeks(), maxValue() and minValue() (thanks @lucasmichot)</li>
-    <li>Improved accuracy of diffForHumans() by using 30/7 for weeks and moving the floor() call to outside the loop.  Fixed tests that just look better now as a result.</li>
+    <li>Improved accuracy of diffForHumans() by using 30/7 for weeks and moving the floor() call to outside the loop.
+        Fixed tests that just look better now as a result.
+    </li>
     <li>Improved readme with common formats example output (thanks @troyharvey)</li>
     <li>Various internal refactors (thanks @lucasmichot)</li>
-  </ul>
+</ul>
 <h1>1.10.0 / 2014-07-17</h1>
-  <ul>
+<ul>
     <li>Changed @return Carbon phpdocs to static for better IDE typehint when extending Carbon</li>
     <li>Fixed Carbon.php download link</li>
     <li>Added 5.6 and HHVM to test coverage</li>
     <li>Fixed issue with isPast() returning true for now()</li>
     <li>Added getter for weekOfMonth</li>
-  </ul>
+</ul>
 <h1>1.9.0 / 2014-05-12</h1>
-  <ul>
+<ul>
     <li>Changed self references to static to allow for easier child classes</li>
     <li>Fixed a couple of tests to account for London DST</li>
     <li>Fixed a test that failed due to inconsistent DateTime COOKIE strings</li>
-  </ul>
+</ul>
 <h1>1.8.0 / 2014-01-06</h1>
-  <ul>
+<ul>
     <li>Added .gitattributes file to to ignore some files on export (thanks @lucasmichot)</li>
     <li>Removed unnecessary __set tz/timezone switch</li>
     <li>Added min() / max() (thanks @lucasmichot)</li>
     <li>Fixed startOfWeek() / endOfWeek() when crossing year boundary.</li>
     <li>Fixed bug in detecting relative keywords in ctor parameter when using a test now</li>
-  </ul>
+</ul>
 <h1>1.7.0 / 2013-12-04</h1>
-  <ul>
+<ul>
     <li>Added startOfYear() / endOfYear() (thanks @semalead)</li>
     <li>Added average() (thanks @semalead)</li>
-  </ul>
+</ul>
 <h1>1.6.0 / 2013-11-23</h1>
-  <ul>
-    <li>Fixed &quot;Cannot access property ::$toStringFormat&quot; when extending Carbon and type juggling to a string occurs</li>
-  </ul>
+<ul>
+    <li>Fixed &quot;Cannot access property ::$toStringFormat&quot; when extending Carbon and type juggling to a string
+        occurs
+    </li>
+</ul>
 <h1>1.5.0 / 2013-11-21</h1>
-  <ul>
+<ul>
     <li>Diff for humans now shows 2 weeks ago instead of 14 days ago</li>
     <li>Added a local getter to test if the instance is in the local timezone</li>
     <li>Added a utc getter to check if the instance is in UTC timezone</li>
     <li>Fixed dst comment / phpdoc and psr issues</li>
     <li>Optimize timezone getters (thanks @semalead)</li>
     <li>Added static __toString formatting (thanks @cviebrock and @anlutro)</li>
-  </ul>
+</ul>
 <h1>1.4.0 / 2013-09-08</h1>
-  <ul>
+<ul>
     <li>Corrected various PHPdocs</li>
     <li>formatLocalized() is now more OS independent</li>
     <li>Improved diff methods</li>
     <li>Test now can be mocked using a relative term</li>
-  </ul>
+</ul>
 <h1>1.3.0 / 2013-08-21</h1>
-  <ul>
+<ul>
     <li>Added modifier methods firstOfMonth(), lastOfMonth(), nthOfMonth(), next(), previous(), and so on</li>
     <li>Added modifiers startOfWeek() and endOfWeek()</li>
     <li>Added testing helpers to allow mocking of new Carbon(), new Carbon(&#39;now&#39;) and Carbon::now()</li>
@@ -344,72 +375,89 @@
     <li>Magic class properties</li>
     <li>Added PHP 5.5 to travis test coverage</li>
     <li>General Code cleanup</li>
-  </ul>
+</ul>
 <h1>1.2.0 / 2012-10-14</h1>
-  <ul>
+<ul>
     <li>Added history.md</li>
     <li>Implemented __isset() (thanks @flevour)</li>
     <li>Simplified tomorrow()/yesterday() to rely on today()... more DRY</li>
     <li>Simplified __set() and fixed exception text</li>
     <li>Updated readme</li>
-  </ul>
+</ul>
 <h1>1.1.0 / 2012-09-16</h1>
-  <ul>
+<ul>
     <li>Updated composer.json</li>
     <li>Added better error messaging for failed readme generation</li>
     <li>Fixed readme typos</li>
     <li>Added static helpers <code>today()</code>, <code>tomorrow()</code>, <code>yesterday()</code></li>
     <li>Simplified <code>now()</code> code</li>
-  </ul>
+</ul>
 <h1>1.0.1 / 2012-09-10</h1>
-  <ul>
+<ul>
     <li>Added travis-ci.org</li>
-  </ul>
+</ul>
 <h1>1.0.0 / 2012-09-10</h1>
-  <ul>
+<ul>
     <li>Initial release</li>
-  </ul>
-         </div>
-         
-      </div>
-   </div>
+</ul>
+            </div>
+            
+        </div>
+    </div>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-   <script>
-       var callbacks = {};
-      $('.live-editor').each(function (index) {
-          var $pre = $(this);
-          var code = $pre.find('code').text();
-          var token = 'live-editor-' + index;
-          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-              encodeURIComponent(code) +
-              '&token=' + token +
-              '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
-          (callbacks[token] || (callbacks[token] = {})).ready = function () {
-              $iframe.css({
-                  opacity: 1,
-                  pointerEvents: 'all',
-                  position: '',
-                  height: $pre.outerHeight() + 'px',
-              });
-              $pre.hide();
-          };
-      });
-      window.addEventListener('message', function (event) {
-          var data = event.data;
-          if (typeof data === 'string') {
-              data = JSON.parse(data);
-          }
-          if (data && data.sender === 'try-carbon') {
-              var callback = (callbacks[data.token] || {})[data.event];
-              if (typeof callback === 'function') {
-                  callback();
-              }
-          }
-      });
-   </script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-   <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+
+        var callbacks = {};
+        var $document = $(document);
+
+        function scrollCheck() {
+            $('.live-editor').each(function (index) {
+                var $pre = $(this);
+                var scrollTop = $document.scrollTop();
+                var scrollBottom = scrollTop + $(window).height();
+                var viewMargin = 400;
+                var top = $pre.offset().top;
+                if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+                    $pre.removeClass('live-editor');
+                    var code = $pre.find('code').text();
+                    var token = 'live-editor-' + index;
+                    var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                        encodeURIComponent(code) +
+                        '&token=' + token +
+                        '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                    (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                        $iframe.css({
+                            opacity: 1,
+                            pointerEvents: 'all',
+                            position: '',
+                            height: $pre.outerHeight() + 'px',
+                        });
+                        $pre.hide();
+                    };
+                }
+            });
+        }
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+            if (typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            if (data && data.sender === 'try-carbon') {
+                var callback = (callbacks[data.token] || {})[data.event];
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }
+        });
+
+        scrollCheck();
+        $document.scroll(scrollCheck);
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
