@@ -187,18 +187,37 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
    <script>
-      $('.live-editor').each(function () {
+       var callbacks = {};
+      $('.live-editor').each(function (index) {
           var $pre = $(this);
-          console.log($pre);
           var code = $pre.find('code').text();
-          $pre.replaceWith('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=xcode&border=silver&input=' +
+          var token = 'live-editor-' + index;
+          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=%23d0d0d0&input=' +
               encodeURIComponent(code) +
-              '" style="width: ' +
-              $pre.width() +
-              'px; height: ' +
-              $pre.height() +
-              'px; border: none;"></iframe>')
-      })
+              '&token=' + token +
+              '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+          (callbacks[token] || (callbacks[token] = {})).ready = function () {
+              $iframe.css({
+                  opacity: 1,
+                  pointerEvents: 'all',
+                  position: '',
+                  height: $pre.outerHeight() + 'px',
+              });
+              $pre.hide();
+          };
+      });
+      window.addEventListener('message', function (event) {
+          var data = event.data;
+          if (typeof data === 'string') {
+              data = JSON.parse(data);
+          }
+          if (data && data.sender === 'try-carbon') {
+              var callback = (callbacks[data.token] || {})[data.event];
+              if (typeof callback === 'function') {
+                  callback();
+              }
+          }
+      });
    </script>
    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
    <script>hljs.initHighlightingOnLoad();</script>
