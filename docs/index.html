@@ -129,7 +129,7 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-07-09 08:14:38
+echo $now;                               // 2018-07-09 09:12:28
 $today = Carbon::today();
 echo $today;                             // 2018-07-09 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:14 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:12 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -1065,7 +1065,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-07-09 08:14:38
+echo Carbon::now();                                    // 2018-07-09 09:12:28
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -1445,8 +1445,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-07-09 08:14:38
-echo $dt1->maximum();                              // 2018-07-09 08:14:38
+echo $dt1->max();                                  // 2018-07-09 09:12:28
+echo $dt1->maximum();                              // 2018-07-09 09:12:28
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2961,7 +2961,7 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00-05:00/P3DT12H/2000-0
           var $pre = $(this);
           var code = $pre.find('code').text();
           var token = 'live-editor-' + index;
-          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=%23d0d0d0&input=' +
+          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
               encodeURIComponent(code) +
               '&token=' + token +
               '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);

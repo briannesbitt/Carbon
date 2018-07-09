@@ -382,7 +382,7 @@
           var $pre = $(this);
           var code = $pre.find('code').text();
           var token = 'live-editor-' + index;
-          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=%23d0d0d0&input=' +
+          var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
               encodeURIComponent(code) +
               '&token=' + token +
               '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
