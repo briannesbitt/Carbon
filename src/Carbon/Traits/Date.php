@@ -1936,7 +1936,7 @@ trait Date
      */
     public static function setWeekStartsAt($day)
     {
-        static::$weekStartsAt = $day;
+        static::$weekStartsAt = max(0, (7 + $day) % 7);
     }
 
     /**
@@ -1958,7 +1958,7 @@ trait Date
      */
     public static function setWeekEndsAt($day)
     {
-        static::$weekEndsAt = $day;
+        static::$weekEndsAt = max(0, (7 + $day) % 7);
     }
 
     /**
