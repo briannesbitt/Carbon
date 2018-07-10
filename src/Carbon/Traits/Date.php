@@ -777,6 +777,10 @@ trait Date
     }
 
     /**
+     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
+     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
      * Indicates if months should be calculated with overflow.
      *
      * @param bool $monthsOverflow
@@ -809,6 +813,10 @@ trait Date
     }
 
     /**
+     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
+     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
      * Indicates if years should be calculated with overflow.
      *
      * @param bool $yearsOverflow
@@ -1928,6 +1936,9 @@ trait Date
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             Use $weekEndsAt optional parameter instead when using endOfWeek method
+     *
      * Set the first day of week
      *
      * @param int $day week start day
@@ -1950,6 +1961,10 @@ trait Date
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
+     *             or roundWeek method
+     *
      * Set the last day of week
      *
      * @param int $day
@@ -1972,6 +1987,26 @@ trait Date
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather consider week-end is always saturday and sunday, and if you have some custom
+     *             week-end days to handle, give to those days an other name and create a macro for them:
+     *
+     *             ```
+     *             Carbon::macro('isDayOff', function ($date) {
+     *                 return $date->isSunday() || $date->isMonday();
+     *             });
+     *             Carbon::macro('isNotDayOff', function ($date) {
+     *                 return !$date->isDayOff();
+     *             });
+     *             if ($someDate->isDayOff()) ...
+     *             if ($someDate->isNotDayOff()) ...
+     *             // Add 5 not-off days
+     *             $count = 5;
+     *             while ($someDate->isDayOff() || ($count-- > 0)) {
+     *                 $someDate->addDay();
+     *             }
+     *             ```
+     *
      * Set weekend days
      *
      * @param array $days
@@ -1994,6 +2029,13 @@ trait Date
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
+     *             hour, test it explicitly:
+     *                 $date->format('G') == 13
+     *             or to set explicitly to a given hour:
+     *                 $date->setTime(13, 0, 0, 0)
+     *
      * Set midday/noon hour
      *
      * @param int $hour midday hour
@@ -2045,7 +2087,7 @@ trait Date
     }
 
     /**
-     * Get the translator instance in use
+     * Get the translator instance in use.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -2055,7 +2097,7 @@ trait Date
     }
 
     /**
-     * Set the translator instance to use
+     * Set the translator instance to use.
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
@@ -2067,7 +2109,7 @@ trait Date
     }
 
     /**
-     * Get the current translator locale
+     * Get the current translator locale.
      *
      * @return string
      */
@@ -2271,7 +2313,10 @@ trait Date
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Set if UTF8 will be used for localized date/time
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use UTF-8 language packages on every machine.
+     *
+     * Set if UTF8 will be used for localized date/time.
      *
      * @param bool $utf8
      */
@@ -2311,6 +2356,11 @@ trait Date
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather let Carbon object being casted to string with DEFAULT_TO_STRING_FORMAT, and
+     *             use other method or custom format passed to format() method if you need to dump an other string
+     *             format.
+     *
      * Set the default format used when type juggling a Carbon instance to a string
      *
      * @param string $format
@@ -3585,31 +3635,49 @@ trait Date
     /**
      * Round the current instance week.
      *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
      * @return CarbonInterface
      */
-    public function roundWeek()
+    public function roundWeek($weekStartsAt = null)
     {
-        return $this->closest($this->copy()->floorWeek(), $this->copy()->ceilWeek());
+        return $this->closest($this->copy()->floorWeek($weekStartsAt), $this->copy()->ceilWeek($weekStartsAt));
     }
 
     /**
      * Truncate the current instance week.
      *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
      * @return CarbonInterface
      */
-    public function floorWeek()
+    public function floorWeek($weekStartsAt = null)
     {
-        return $this->startOfWeek();
+        return $this->startOfWeek($weekStartsAt);
     }
 
     /**
      * Ceil the current instance week.
      *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
      * @return CarbonInterface
      */
-    public function ceilWeek()
+    public function ceilWeek($weekStartsAt = null)
     {
-        return $this->endOfWeek()->roundDay();
+        if ($this->isMutable()) {
+            $startOfWeek = $this->copy()->startOfWeek($weekStartsAt);
+
+            return $startOfWeek != $this ?
+                $this->startOfWeek($weekStartsAt)->addWeek() :
+                $this;
+        }
+
+        $startOfWeek = $this->startOfWeek($weekStartsAt);
+
+        return $startOfWeek != $this ?
+            $startOfWeek->addWeek() :
+            $this->copy();
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -3751,12 +3819,14 @@ trait Date
     /**
      * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
      *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
      * @return static
      */
-    public function startOfWeek()
+    public function startOfWeek($weekStartsAt = null)
     {
         $date = $this;
-        while ($date->dayOfWeek !== static::$weekStartsAt) {
+        while ($date->dayOfWeek !== ($weekStartsAt ?? static::$weekStartsAt)) {
             $date = $date->subDay();
         }
 
@@ -3766,12 +3836,14 @@ trait Date
     /**
      * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
      *
+     * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
+     *
      * @return static
      */
-    public function endOfWeek()
+    public function endOfWeek($weekEndsAt = null)
     {
         $date = $this;
-        while ($date->dayOfWeek !== static::$weekEndsAt) {
+        while ($date->dayOfWeek !== ($weekEndsAt ?? static::$weekEndsAt)) {
             $date = $date->addDay();
         }
 
@@ -3845,7 +3917,7 @@ trait Date
      *
      * @return static
      */
-    public function startOf($unit)
+    public function startOf($unit, ...$params)
     {
         $ucfUnit = ucfirst(static::singularUnit($unit));
         $method = "startOf$ucfUnit";
@@ -3853,7 +3925,7 @@ trait Date
             throw new InvalidArgumentException("Unknown unit '$unit'");
         }
 
-        return $this->$method();
+        return $this->$method(...$params);
     }
 
     /**
@@ -3863,7 +3935,7 @@ trait Date
      *
      * @return static
      */
-    public function endOf($unit)
+    public function endOf($unit, ...$params)
     {
         $ucfUnit = ucfirst(static::singularUnit($unit));
         $method = "endOf$ucfUnit";
@@ -3871,7 +3943,7 @@ trait Date
             throw new InvalidArgumentException("Unknown unit '$unit'");
         }
 
-        return $this->$method();
+        return $this->$method(...$params);
     }
 
     /**
