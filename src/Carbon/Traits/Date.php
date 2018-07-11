@@ -1557,7 +1557,7 @@ trait Date
 
             // @property-read int 1 through 5
             case $name === 'weekNumberInMonth':
-                return (int) ceil(($this->day + $this->copy()->startOfMonth()->dayOfWeek - 1) / static::DAYS_PER_WEEK);
+                return (int) ceil(($this->day + $this->copy()->startOfMonth()->dayOfWeekIso - 1) / static::DAYS_PER_WEEK);
 
             // @property int does a diffInYears() with default parameters
             case $name === 'age':
