@@ -530,4 +530,33 @@ trait Difference
     {
         return $this->to(null, $syntax, $short, $parts);
     }
+
+    public function calendar($referenceTime = null, array $formats = [])
+    {
+        $diff = $this->copy()->startOfDay()->diffInDays(
+            $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay(),
+            false
+        );
+        $format = $diff < -6 ? 'sameElse' :
+            $diff < -1 ? 'lastWeek' :
+                $diff < 0 ? 'lastDay' :
+                    $diff < 1 ? 'sameDay' :
+                        $diff < 2 ? 'nextDay' :
+                            $diff < 7 ? 'nextWeek' : 'sameElse';
+
+        return strftime(array_merge([
+//            'lastDay' => '[Yesterday at] LT',
+//            'sameDay' => '[Today at] LT',
+//            'nextDay' => '[Tomorrow at] LT',
+//            'lastWeek' => '[last] dddd [at] LT',
+//            'nextWeek' => 'dddd [at] LT',
+//            'sameElse' => 'L',
+            'lastDay' => 'Yesterday at %H:%M',
+            'sameDay' => 'Today at %H:%M',
+            'nextDay' => 'Tomorrow at %H:%M',
+            'lastWeek' => 'last %A at %H:%M',
+            'nextWeek' => '%A at %H:%M',
+            'sameElse' => '%d/%m/%Y',
+        ], $formats)[$format]);
+    }
 }
