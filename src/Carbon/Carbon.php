@@ -3316,7 +3316,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @return static
      */
-    public function addMonthsNoOverflow($value)
+    public function addDaysNoOverflow($value)
     {
         $month = $this->month;
 

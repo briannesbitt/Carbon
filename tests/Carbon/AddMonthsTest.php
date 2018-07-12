@@ -39,6 +39,17 @@ class AddMonthsTest extends AbstractTestCase
         );
     }
 
+    public function providerTestAddDayNoOverflow()
+    {
+        return array(
+            array(-2, 2016, 1, 29),
+            array(-1, 2016, 1, 30),
+            array(0, 2016, 1, 31),
+            array(1, 2016, 1, 31),
+            array(2, 2016, 1, 31),
+        );
+    }
+
     /**
      * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddMonthNoOverflow
      *
@@ -50,6 +61,19 @@ class AddMonthsTest extends AbstractTestCase
     public function testAddMonthNoOverflow($months, $y, $m, $d)
     {
         $this->assertCarbon($this->carbon->addMonthNoOverflow($months), $y, $m, $d);
+    }
+
+    /**
+     * @dataProvider \Tests\Carbon\AddMonthsTest::providerTestAddDayNoOverflow
+     *
+     * @param int $days
+     * @param int $y
+     * @param int $m
+     * @param int $d
+     */
+    public function testAddDaysNoOverflow($days, $y, $m, $d)
+    {
+        $this->assertCarbon($this->carbon->addDaysNoOverflow($days), $y, $m, $d);
     }
 
     /**
