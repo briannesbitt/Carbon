@@ -3341,7 +3341,7 @@ class Carbon extends DateTime implements JsonSerializable
         $year = $this->year;
         $month = $this->month;
 
-        $this->day((int)$value);
+        $this->day((int) $value);
 
         if ($month !== $this->month) {
             $this->year = $year;
