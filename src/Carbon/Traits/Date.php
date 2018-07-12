@@ -471,6 +471,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 trait Date
 {
+    use Boundaries;
     use Difference;
     use Test;
 
@@ -1757,6 +1758,62 @@ trait Date
     }
 
     /**
+     * Set any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        new value for the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static
+     */
+    public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
+    {
+        try {
+            $original = $this->copy();
+            $date = $this->$valueUnit($value);
+            $end = $original->copy()->endOf($overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            if ($date < $start) {
+                $date = $date->setDateTimeFrom($start);
+            } elseif ($date > $end) {
+                $date = $date->setDateTimeFrom($end);
+            }
+
+            return $date;
+        } catch (BadMethodCallException $exception) {
+            throw new InvalidArgumentException("Unknown unit '$valueUnit'", 0, $exception);
+        }
+    }
+
+    /**
+     * Add any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        amount to add to the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static
+     */
+    public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
+    {
+        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit + $value, $overflowUnit);
+    }
+
+    /**
+     * Subtract any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        amount to subtract to the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static
+     */
+    public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
+    {
+        return $this->setUnitNoOverflow($valueUnit, $this->$valueUnit - $value, $overflowUnit);
+    }
+
+    /**
      * Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.
      *
      * @param int|null $offset
@@ -1886,29 +1943,43 @@ trait Date
     /**
      * Set the year, month, and date for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date
+     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
      *
      * @return static
      */
-    public function setDateFrom($date)
+    public function setDateFrom($date = null)
     {
-        $date = static::instance($date);
+        $date = $this->resolveCarbon($date);
 
         return $this->setDate($date->year, $date->month, $date->day);
     }
 
     /**
-     * Set the hour, day, and time for this instance to that of the passed instance.
+     * Set the hour, minute, second and microseconds for this instance to that of the passed instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     *
+     * @return static
+     */
+    public function setTimeFrom($date = null)
+    {
+        $date = $this->resolveCarbon($date);
+
+        return $this->setTime($date->hour, $date->minute, $date->second, $date->microsecond);
+    }
+
+    /**
+     * Set the date and time for this instance to that of the passed instance.
      *
      * @param \Carbon\Carbon|\DateTimeInterface $date
      *
      * @return static
      */
-    public function setTimeFrom($date)
+    public function setDateTimeFrom($date = null)
     {
-        $date = static::instance($date);
+        $date = $this->resolveCarbon($date);
 
-        return $this->setTime($date->hour, $date->minute, $date->second);
+        return $this->modify('@'.$date->format('U.u'));
     }
 
     /**
@@ -3236,6 +3307,18 @@ trait Date
     {
         switch ($unit) {
             // @call addRealUnit
+            case 'micro':
+            case 'microsecond':
+                /* @var CarbonInterface $this */
+                $diff = $this->microsecond + $value;
+                $time = $this->getTimestamp();
+                $seconds = floor($diff / static::MICROSECONDS_PER_SECOND);
+                $time += $seconds;
+                $diff -= $seconds * static::MICROSECONDS_PER_SECOND;
+                $microtime = str_pad($diff, 6, '0', STR_PAD_LEFT);
+
+                return $this->modify("@$time.$microtime");
+            // @call addRealUnit
             case 'second':
                 break;
             // @call addRealUnit
@@ -3415,7 +3498,7 @@ trait Date
             if ($microseconds < 0) {
                 $microseconds += static::MICROSECONDS_PER_SECOND;
             }
-            $this->micro = $microseconds;
+            $date = $date->microseconds($microseconds);
             $unit = 'second';
             $value = $second;
         }
@@ -3683,268 +3766,6 @@ trait Date
     ///////////////////////////////////////////////////////////////////
     //////////////////////////// MODIFIERS ////////////////////////////
     ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Resets the time to 00:00:00 start of day
-     *
-     * @return static
-     */
-    public function startOfDay()
-    {
-        /* @var CarbonInterface $this */
-        return $this->setTime(0, 0, 0, 0);
-    }
-
-    /**
-     * Resets the time to 23:59:59 end of day
-     *
-     * @return static
-     */
-    public function endOfDay()
-    {
-        /* @var CarbonInterface $this */
-        return $this->setTime(static::HOURS_PER_DAY - 1, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
-    }
-
-    /**
-     * Resets the date to the first day of the month and the time to 00:00:00
-     *
-     * @return static
-     */
-    public function startOfMonth()
-    {
-        return $this->setDate($this->year, $this->month, 1)->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the month and time to 23:59:59
-     *
-     * @return static
-     */
-    public function endOfMonth()
-    {
-        return $this->setDate($this->year, $this->month, $this->daysInMonth)->endOfDay();
-    }
-
-    /**
-     * Resets the date to the first day of the quarter and the time to 00:00:00
-     *
-     * @return static
-     */
-    public function startOfQuarter()
-    {
-        $month = ($this->quarter - 1) * static::MONTHS_PER_QUARTER + 1;
-
-        return $this->setDate($this->year, $month, 1)->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the quarter and time to 23:59:59
-     *
-     * @return static
-     */
-    public function endOfQuarter()
-    {
-        return $this->startOfQuarter()->addMonths(static::MONTHS_PER_QUARTER - 1)->endOfMonth();
-    }
-
-    /**
-     * Resets the date to the first day of the year and the time to 00:00:00
-     *
-     * @return static
-     */
-    public function startOfYear()
-    {
-        return $this->setDate($this->year, 1, 1)->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the year and time to 23:59:59
-     *
-     * @return static
-     */
-    public function endOfYear()
-    {
-        return $this->setDate($this->year, 12, 31)->endOfDay();
-    }
-
-    /**
-     * Resets the date to the first day of the decade and the time to 00:00:00
-     *
-     * @return static
-     */
-    public function startOfDecade()
-    {
-        $year = $this->year - $this->year % static::YEARS_PER_DECADE;
-
-        return $this->setDate($year, 1, 1)->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the decade and time to 23:59:59
-     *
-     * @return static
-     */
-    public function endOfDecade()
-    {
-        $year = $this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1;
-
-        return $this->setDate($year, 12, 31)->endOfDay();
-    }
-
-    /**
-     * Resets the date to the first day of the century and the time to 00:00:00
-     *
-     * @return static
-     */
-    public function startOfCentury()
-    {
-        $year = $this->year - ($this->year - 1) % static::YEARS_PER_CENTURY;
-
-        return $this->setDate($year, 1, 1)->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of the century and time to 23:59:59
-     *
-     * @return static
-     */
-    public function endOfCentury()
-    {
-        $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
-
-        return $this->setDate($year, 12, 31)->endOfDay();
-    }
-
-    /**
-     * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
-     *
-     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
-     *
-     * @return static
-     */
-    public function startOfWeek($weekStartsAt = null)
-    {
-        $date = $this;
-        while ($date->dayOfWeek !== ($weekStartsAt ?? static::$weekStartsAt)) {
-            $date = $date->subDay();
-        }
-
-        return $date->startOfDay();
-    }
-
-    /**
-     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
-     *
-     * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
-     *
-     * @return static
-     */
-    public function endOfWeek($weekEndsAt = null)
-    {
-        $date = $this;
-        while ($date->dayOfWeek !== ($weekEndsAt ?? static::$weekEndsAt)) {
-            $date = $date->addDay();
-        }
-
-        return $date->endOfDay();
-    }
-
-    /**
-     * Modify to start of current hour, minutes and seconds become 0
-     *
-     * @return static
-     */
-    public function startOfHour()
-    {
-        return $this->setTime($this->hour, 0, 0, 0);
-    }
-
-    /**
-     * Modify to end of current hour, minutes and seconds become 59
-     *
-     * @return static
-     */
-    public function endOfHour()
-    {
-        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
-    }
-
-    /**
-     * Modify to start of current minute, seconds become 0
-     *
-     * @return static
-     */
-    public function startOfMinute()
-    {
-        return $this->setTime($this->hour, $this->minute, 0, 0);
-    }
-
-    /**
-     * Modify to end of current minute, seconds become 59
-     *
-     * @return static
-     */
-    public function endOfMinute()
-    {
-        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
-    }
-
-    /**
-     * Modify to start of current second, microseconds become 0
-     *
-     * @return static
-     */
-    public function startOfSecond()
-    {
-        return $this->setTime($this->hour, $this->minute, $this->second, 0);
-    }
-
-    /**
-     * Modify to end of current second, microseconds become 999999
-     *
-     * @return static
-     */
-    public function endOfSecond()
-    {
-        return $this->setTime($this->hour, $this->minute, $this->second, static::MICROSECONDS_PER_SECOND - 1);
-    }
-
-    /**
-     * Modify to start of current given unit.
-     *
-     * @param string $unit
-     *
-     * @return static
-     */
-    public function startOf($unit, ...$params)
-    {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
-        $method = "startOf$ucfUnit";
-        if (!method_exists($this, $method)) {
-            throw new InvalidArgumentException("Unknown unit '$unit'");
-        }
-
-        return $this->$method(...$params);
-    }
-
-    /**
-     * Modify to end of current given unit.
-     *
-     * @param string $unit
-     *
-     * @return static
-     */
-    public function endOf($unit, ...$params)
-    {
-        $ucfUnit = ucfirst(static::singularUnit($unit));
-        $method = "endOf$ucfUnit";
-        if (!method_exists($this, $method)) {
-            throw new InvalidArgumentException("Unknown unit '$unit'");
-        }
-
-        return $this->$method(...$params);
-    }
 
     /**
      * Modify to midday, default to self::$midDayAt
@@ -4382,6 +4203,14 @@ trait Date
         return call_user_func_array(static::$localMacros[$method], $parameters);
     }
 
+    /**
+     * Set specified unit to new given value.
+     *
+     * @param string $unit  year, month, day, hour, minute, second or microsecond
+     * @param int    $value new value for given unit
+     *
+     * @return static
+     */
     public function setUnit($unit, $value = null)
     {
         $unit = static::singularUnit($unit);

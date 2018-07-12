@@ -246,10 +246,30 @@ trait Difference
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
-        $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
-            $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
-            $diff->i * static::SECONDS_PER_MINUTE +
+        $value = ((($diff->days * static::HOURS_PER_DAY) +
+            $diff->h) * static::MINUTES_PER_HOUR +
+            $diff->i) * static::SECONDS_PER_MINUTE +
             $diff->s;
+
+        return $absolute || !$diff->invert ? $value : -$value;
+    }
+
+    /**
+     * Get the difference in microseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMicroseconds($date = null, $absolute = true)
+    {
+        $diff = $this->diff($this->resolveCarbon($date));
+        $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
+            $diff->h) * static::MINUTES_PER_HOUR +
+            $diff->i) * static::SECONDS_PER_MINUTE +
+            $diff->s) * static::MICROSECONDS_PER_SECOND +
+            $diff->f);
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
@@ -267,6 +287,23 @@ trait Difference
         /** @var CarbonInterface $date */
         $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
+
+        return $absolute ? abs($value) : $value;
+    }
+
+    /**
+     * Get the difference in microseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInRealMicroseconds($date = null, $absolute = true)
+    {
+        /** @var CarbonInterface $date */
+        $date = $this->resolveCarbon($date);
+        $value = (int) round(($date->format('U.u') - $this->format('U.u')) * static::MICROSECONDS_PER_SECOND);
 
         return $absolute ? abs($value) : $value;
     }

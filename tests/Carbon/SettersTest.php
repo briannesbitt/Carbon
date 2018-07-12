@@ -404,4 +404,76 @@ class SettersTest extends AbstractTestCase
         $d->setMidDayAt(12);
         $this->assertSame(12, $d->getMidDayAt());
     }
+
+    /**
+     * @group i
+     */
+    public function testSetUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < 10000; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $micro = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
+            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $micro / 1000000);
+            $original = $date->copy();
+            $date->setUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $date->copy()->startOf($overflowUnit);
+            $end = $date->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $method = method_exists($date, "diffInReal$unit") ? "diffInReal$unit" : "diffIn$unit";
+            if ($date->$valueUnit === $value || $date->$method($original) + $$valueUnit === $value) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            var_dump($year, $month, $day, $hour, $minute, $second, $micro);
+            echo "---\n";
+            var_dump($valueUnit, $value, $overflowUnit, Carbon::create($year, $month, $day, $hour, $minute, $second + $micro / 1000000));
+            echo "---\n";
+            var_dump($date);
+            throw new \Exception('Unhandled result');
+        }
+
+        var_dump($results);
+        exit;
+    }
 }

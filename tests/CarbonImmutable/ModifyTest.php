@@ -76,5 +76,89 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame('02:00:00', $a->format('H:i:s'));
         $a = $a->subRealSecond();
         $this->assertSame('00:59:59', $a->format('H:i:s'));
+
+        $a = new Carbon('2014-03-30 00:59:59.999990', 'Europe/London');
+        $a = $a->addRealMicroseconds(20);
+        $this->assertSame('02:00:00.000010', $a->format('H:i:s.u'));
+        $a = $a->subRealMicroseconds(20);
+        $this->assertSame('00:59:59.999990', $a->format('H:i:s.u'));
+
+        $a = new Carbon('2014-03-30 00:59:59.999999', 'Europe/London');
+        $a = $a->addRealMicrosecond();
+        $this->assertSame('02:00:00.000000', $a->format('H:i:s.u'));
+        $a = $a->subRealMicrosecond();
+        $this->assertSame('00:59:59.999999', $a->format('H:i:s.u'));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealDay();
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealWeeks(1 / 7);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealMonths(1 / 30);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealQuarters(1 / 90);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealYears(1 / 365);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealDecades(1 / 3650);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealCenturies(1 / 36500);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
+
+        $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
+        $b = $a->addRealMillennia(1 / 365000);
+        $this->assertSame(-24, $b->diffInRealHours($a, false));
+        $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
+        $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
+        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        $this->assertSame(-25, $b->diffInHours($a, false));
     }
 }

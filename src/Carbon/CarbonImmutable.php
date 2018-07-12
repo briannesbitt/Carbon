@@ -460,16 +460,4 @@ use DateTimeImmutable;
 class CarbonImmutable extends DateTimeImmutable implements CarbonInterface
 {
     use Date;
-
-    public function setUnit($unit, $value = null)
-    {
-        $values = [];
-        foreach (static::$units as $unitName) {
-            $values[$unitName] = $unitName === $unit ? $value : $this->$unitName;
-        }
-
-        return $this
-            ->setDate($values['year'], $values['month'], $values['day'])
-            ->setTime($values['hour'], $values['minute'], $values['second'], $values['microsecond']);
-    }
 }
