@@ -292,7 +292,8 @@ trait Difference
     }
 
     /**
-     * Get the difference in a human readable format in the current locale.
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
      *
      * When comparing a value in the past to default now:
      * 1 hour ago
@@ -433,5 +434,100 @@ trait Difference
         }
 
         return static::translator()->trans($transId, [':time' => $time]);
+    }
+
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     */
+    public function from($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        return $this->diffForHumans($other, $syntax, $short, $parts);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short  displays short format of time units
+     * @param int         $parts  displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function to($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        if (!$syntax && !$other) {
+            $syntax = CarbonInterface::DIFF_RELATIVE_TO_NOW;
+        }
+
+        return $this->resolveCarbon($other)->diffForHumans($this, $syntax, $short, $parts);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from current
+     * instance to now.
+     *
+     * @param int  $syntax difference modifiers (ago, after, etc) rules
+     *                     Possible values:
+     *                     - CarbonInterface::DIFF_ABSOLUTE
+     *                     - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                     - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                     - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                     Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool $short  displays short format of time units
+     * @param int  $parts  displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function fromNow($syntax = null, $short = false, $parts = 1)
+    {
+        return $this->from(null, $syntax, $short, $parts);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int  $syntax difference modifiers (ago, after, etc) rules
+     *                     Possible values:
+     *                     - CarbonInterface::DIFF_ABSOLUTE
+     *                     - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                     - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                     - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                     Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool $short  displays short format of time units
+     * @param int  $parts  displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function toNow($syntax = null, $short = false, $parts = 1)
+    {
+        return $this->to(null, $syntax, $short, $parts);
     }
 }

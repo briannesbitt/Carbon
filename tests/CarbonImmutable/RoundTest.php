@@ -107,6 +107,11 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->ceilWeek(), 2315, 7, 19, 0, 0, 0, 0);
         $this->assertCarbon($dt->copy()->roundWeek(), 2315, 7, 19, 0, 0, 0, 0);
 
+        $dt = Carbon::create(2315, 7, 19, 0, 0, 0, 0);
+        $this->assertCarbon($dt->copy()->floorWeek(), 2315, 7, 19, 0, 0, 0, 0);
+        $this->assertCarbon($dt->copy()->ceilWeek(), 2315, 7, 19, 0, 0, 0, 0);
+        $this->assertCarbon($dt->copy()->roundWeek(), 2315, 7, 19, 0, 0, 0, 0);
+
         Carbon::setWeekStartsAt(Carbon::SUNDAY);
         Carbon::setWeekEndsAt(Carbon::SATURDAY);
 

@@ -407,6 +407,13 @@ class GettersTest extends AbstractTestCase
         $this->assertSame(2, Carbon::createFromDate(2017, 2, 12)->weekNumberInMonth);
         $this->assertSame(2, Carbon::createFromDate(2017, 2, 6)->weekNumberInMonth);
         $this->assertSame(1, Carbon::createFromDate(2017, 2, 1)->weekNumberInMonth);
+        $this->assertSame(1, Carbon::createFromDate(2018, 7, 1)->weekNumberInMonth);
+        $this->assertSame(2, Carbon::createFromDate(2018, 7, 2)->weekNumberInMonth);
+        $this->assertSame(2, Carbon::createFromDate(2018, 7, 5)->weekNumberInMonth);
+        $this->assertSame(2, Carbon::createFromDate(2018, 7, 8)->weekNumberInMonth);
+        $this->assertSame(3, Carbon::createFromDate(2018, 7, 9)->weekNumberInMonth);
+        $this->assertSame(5, Carbon::createFromDate(2018, 7, 29)->weekNumberInMonth);
+        $this->assertSame(6, Carbon::createFromDate(2018, 7, 30)->weekNumberInMonth);
     }
 
     public function testWeekOfYearFirstWeek()
