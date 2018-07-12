@@ -3309,6 +3309,27 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Add days without overflowing to the instance. Positive $value
+     * travels forward while negative $value travels into the past.
+     *
+     * @param int $value
+     *
+     * @return static
+     */
+    public function addMonthsNoOverflow($value)
+    {
+        $month = $this->month;
+
+        $this->modify((int) $value.' day');
+
+        if ($month !== $this->month) {
+            $this->modify('last day of previous month');
+        }
+
+        return $this;
+    }
+
+    /**
      * Add a day to the instance
      *
      * @param int $value
