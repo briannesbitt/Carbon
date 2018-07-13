@@ -334,10 +334,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this         addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this         subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this         subWeekday()                                                                        Sub one weekday to the instance (using date interval).
- * @method        $this         addRealMicros(int $value = 1)                                                       Add micros (the $value count passed in) to the instance (using timestamp).
- * @method        $this         addRealMicro()                                                                      Add one micro to the instance (using timestamp).
- * @method        $this         subRealMicros(int $value = 1)                                                       Sub micros (the $value count passed in) to the instance (using timestamp).
- * @method        $this         subRealMicro()                                                                      Sub one micro to the instance (using timestamp).
+ * @method        $this         addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
+ * @method        $this         subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
  * @method        $this         addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this         addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this         subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
@@ -3311,8 +3311,8 @@ trait Date
     public function addRealUnit($unit, $value = 1)
     {
         switch ($unit) {
-            // @call addRealUnit
             case 'micro':
+                // @call addRealUnit
             case 'microsecond':
                 /* @var CarbonInterface $this */
                 $diff = $this->microsecond + $value;
