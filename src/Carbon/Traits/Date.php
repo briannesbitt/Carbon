@@ -334,6 +334,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this         addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this         subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this         subWeekday()                                                                        Sub one weekday to the instance (using date interval).
+ * @method        $this         addRealMicros(int $value = 1)                                                       Add micros (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         addRealMicro()                                                                      Add one micro to the instance (using timestamp).
+ * @method        $this         subRealMicros(int $value = 1)                                                       Sub micros (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         subRealMicro()                                                                      Sub one micro to the instance (using timestamp).
  * @method        $this         addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this         addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this         subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
@@ -1770,6 +1774,7 @@ trait Date
     {
         try {
             $original = $this->copy();
+            /** @var CarbonInterface $date */
             $date = $this->$valueUnit($value);
             $end = $original->copy()->endOf($overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
@@ -1780,7 +1785,7 @@ trait Date
             }
 
             return $date;
-        } catch (BadMethodCallException $exception) {
+        } catch (BadMethodCallException | ReflectionException $exception) {
             throw new InvalidArgumentException("Unknown unit '$valueUnit'", 0, $exception);
         }
     }
@@ -1979,7 +1984,7 @@ trait Date
     {
         $date = $this->resolveCarbon($date);
 
-        return $this->modify('@'.$date->format('U.u'));
+        return $this->modify($date->format('Y-m-d H:i:s.u'));
     }
 
     /**

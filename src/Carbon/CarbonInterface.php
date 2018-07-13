@@ -313,6 +313,10 @@ use JsonSerializable;
  * @method        $this         addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this         subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this         subWeekday()                                                                        Sub one weekday to the instance (using date interval).
+ * @method        $this         addRealMicros(int $value = 1)                                                       Add micros (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         addRealMicro()                                                                      Add one micro to the instance (using timestamp).
+ * @method        $this         subRealMicros(int $value = 1)                                                       Sub micros (the $value count passed in) to the instance (using timestamp).
+ * @method        $this         subRealMicro()                                                                      Sub one micro to the instance (using timestamp).
  * @method        $this         addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this         addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this         subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
@@ -538,15 +542,20 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function addUnit($unit, $value = 1, $overflow = null);
 
+    public function addUnitNoOverflow($valueUnit, $value, $overflowUnit);
+
     public function average($date = null);
 
     public function between($date1, $date2, $equal = true);
+
+    public function calendar($referenceTime = null, array $formats = array (
+));
 
     public function ceil($precision = 1);
 
     public function ceilUnit($unit, $precision = 1);
 
-    public function ceilWeek();
+    public function ceilWeek($weekStartsAt = null);
 
     public function closest($date1, $date2);
 
@@ -586,11 +595,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function diffInHoursFiltered(\Closure $callback, $date = null, $absolute = true);
 
+    public function diffInMicroseconds($date = null, $absolute = true);
+
     public function diffInMinutes($date = null, $absolute = true);
 
     public function diffInMonths($date = null, $absolute = true);
 
     public function diffInRealHours($date = null, $absolute = true);
+
+    public function diffInRealMicroseconds($date = null, $absolute = true);
 
     public function diffInRealMinutes($date = null, $absolute = true);
 
@@ -610,7 +623,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function enableHumanDiffOption($humanDiffOption);
 
-    public function endOf($unit);
+    public function endOf($unit, ...$params);
 
     public function endOfCentury();
 
@@ -620,6 +633,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function endOfHour();
 
+    public function endOfMillennium();
+
     public function endOfMinute();
 
     public function endOfMonth();
@@ -628,7 +643,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function endOfSecond();
 
-    public function endOfWeek();
+    public function endOfWeek($weekEndsAt = null);
 
     public function endOfYear();
 
@@ -650,9 +665,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function floorUnit($unit, $precision = 1);
 
-    public function floorWeek();
+    public function floorWeek($weekStartsAt = null);
 
     public function formatLocalized($format);
+
+    public function from($other = null, $syntax = null, $short = false, $parts = 1);
+
+    public function fromNow($syntax = null, $short = false, $parts = 1);
 
     public static function fromSerialized($value);
 
@@ -842,7 +861,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function roundUnit($unit, $precision = 1, $function = 'round');
 
-    public function roundWeek();
+    public function roundWeek($weekStartsAt = null);
 
     public function secondsSinceMidnight();
 
@@ -856,9 +875,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function setDate($year, $month, $day);
 
-    public function setDateFrom($date);
+    public function setDateFrom($date = null);
 
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0);
+
+    public function setDateTimeFrom($date = null);
 
     public static function setHumanDiffOptions($humanDiffOptions);
 
@@ -872,7 +893,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function setTime($hour, $minute, $second, $microseconds);
 
-    public function setTimeFrom($date);
+    public function setTimeFrom($date = null);
 
     public function setTimeFromTimeString($time);
 
@@ -885,6 +906,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
 
     public function setUnit($unit, $value = null);
+
+    public function setUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
     public static function setUtf8($utf8);
 
@@ -900,7 +923,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function singularUnit(string $unit): string;
 
-    public function startOf($unit);
+    public function startOf($unit, ...$params);
 
     public function startOfCentury();
 
@@ -910,6 +933,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function startOfHour();
 
+    public function startOfMillennium();
+
     public function startOfMinute();
 
     public function startOfMonth();
@@ -918,7 +943,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function startOfSecond();
 
-    public function startOfWeek();
+    public function startOfWeek($weekStartsAt = null);
 
     public function startOfYear();
 
@@ -928,11 +953,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function subUnit($unit, $value = 1, $overflow = null);
 
+    public function subUnitNoOverflow($valueUnit, $value, $overflowUnit);
+
     public function subtract($unit, $value = 1, $overflow = null);
 
     public function timestamp($value);
 
     public function timezone($value);
+
+    public function to($other = null, $syntax = null, $short = false, $parts = 1);
 
     public function toArray();
 
@@ -948,9 +977,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function toFormattedDateString();
 
+    public function toImmutable();
+
     public function toIso8601String();
 
     public function toIso8601ZuluString();
+
+    public function toMutable();
+
+    public function toNow($syntax = null, $short = false, $parts = 1);
 
     public function toRfc1036String();
 

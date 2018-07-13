@@ -84,6 +84,9 @@ foreach ($tags as $tag) {
             $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($defaultValues, $method) {
                 $name = $parameter->getName();
                 $output = '$'.$name;
+                if ($parameter->isVariadic()) {
+                    $output = "...$output";
+                }
                 if ($parameter->getType()) {
                     $name = $parameter->getType()->getName();
                     if (preg_match('/^[A-Z]/', $name)) {
@@ -444,6 +447,9 @@ foreach ($carbonMethods as $method) {
         $static = $function->isStatic() ? ' static' : '';
         $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
             $output = '$'.$parameter->getName();
+            if ($parameter->isVariadic()) {
+                $output = "...$output";
+            }
             if ($parameter->getType()) {
                 $name = $parameter->getType()->getName();
                 if (preg_match('/^[A-Z]/', $name)) {

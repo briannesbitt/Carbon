@@ -405,9 +405,6 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(12, $d->getMidDayAt());
     }
 
-    /**
-     * @group i
-     */
     public function testSetUnitNoOverflow()
     {
         $results = [
@@ -424,7 +421,7 @@ class SettersTest extends AbstractTestCase
             $hour = mt_rand(0, 23);
             $minute = mt_rand(0, 59);
             $second = mt_rand(0, 59);
-            $micro = mt_rand(0, 999999);
+            $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
             $overflowUnit = $units[mt_rand(0, count($units) - 1)];
             $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
@@ -433,11 +430,11 @@ class SettersTest extends AbstractTestCase
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
 
-            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $micro / 1000000);
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
             $original = $date->copy();
             $date->setUnitNoOverflow($valueUnit, $value, $overflowUnit);
-            $start = $date->copy()->startOf($overflowUnit);
-            $end = $date->copy()->endOf($overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
 
             if ($date < $start || $date > $end) {
                 $results['failure']++;
@@ -446,8 +443,10 @@ class SettersTest extends AbstractTestCase
             }
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
-            $method = method_exists($date, "diffInReal$unit") ? "diffInReal$unit" : "diffIn$unit";
-            if ($date->$valueUnit === $value || $date->$method($original) + $$valueUnit === $value) {
+            if ($date->$valueUnit === $value ||
+                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
+                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
+            ) {
                 $results['current']++;
 
                 continue;
@@ -465,15 +464,13 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            var_dump($year, $month, $day, $hour, $minute, $second, $micro);
-            echo "---\n";
-            var_dump($valueUnit, $value, $overflowUnit, Carbon::create($year, $month, $day, $hour, $minute, $second + $micro / 1000000));
-            echo "---\n";
-            var_dump($date);
             throw new \Exception('Unhandled result');
         }
 
-        var_dump($results);
-        exit;
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan(100, $results['start']);
+        $this->assertGreaterThan(100, $results['end']);
+        $this->assertGreaterThan(100, $results['current']);
+        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
     }
 }
