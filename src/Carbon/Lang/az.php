@@ -28,4 +28,13 @@ return array(
     'from_now' => ':time sonra',
     'after' => ':time sonra',
     'before' => ':time əvvəl',
+    'diff_now' => 'indi',
+    'diff_yesterday' => 'dünən',
+    'diff_tomorrow' => 'sabah',
+    'diff_before_yesterday' => 'srağagün',
+    'diff_after_tomorrow' => 'birisi gün',
+    'period_recurrences' => ':count dəfədən bir',
+    'period_interval' => 'hər :interval',
+    'period_start_date' => ':date tarixindən başlayaraq',
+    'period_end_date' => ':date tarixinədək',
 );
