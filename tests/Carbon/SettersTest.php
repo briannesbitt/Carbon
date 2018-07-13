@@ -464,7 +464,12 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result');
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::create('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
         $this->assertSame(0, $results['failure']);
@@ -533,7 +538,12 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result');
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::create('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
         $this->assertSame(0, $results['failure']);
@@ -602,7 +612,12 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            throw new \Exception('Unhandled result');
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::create('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
         $this->assertSame(0, $results['failure']);
