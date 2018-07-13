@@ -473,4 +473,142 @@ class SettersTest extends AbstractTestCase
         $this->assertGreaterThan(100, $results['current']);
         $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
     }
+
+    public function testAddUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < 10000; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $microsecond = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
+            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $original = $date->copy();
+            $date->addUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            if ($date->$valueUnit === $value ||
+                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
+                -$date->{"diffIn$unit"}($original, false) === $value
+            ) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            throw new \Exception('Unhandled result');
+        }
+
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan(100, $results['start']);
+        $this->assertGreaterThan(100, $results['end']);
+        $this->assertGreaterThan(100, $results['current']);
+        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
+    }
+
+    public function testSubUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < 10000; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $microsecond = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
+            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $original = $date->copy();
+            $date->subUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            if ($date->$valueUnit === $value ||
+                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
+                $date->{"diffIn$unit"}($original, false) === $value
+            ) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            throw new \Exception('Unhandled result');
+        }
+
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan(100, $results['start']);
+        $this->assertGreaterThan(100, $results['end']);
+        $this->assertGreaterThan(100, $results['current']);
+        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
+    }
 }
