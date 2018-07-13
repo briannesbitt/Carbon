@@ -8,7 +8,12 @@ cache:
 addons:
   apt:
     packages:
+      - language-pack-ar
       - language-pack-fr
+      - language-pack-sr
+      - language-pack-zh-hans
+      - language-pack-zh-hant
+      - language-pack-yo
 
 env:
   global:

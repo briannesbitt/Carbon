@@ -548,8 +548,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function between($date1, $date2, $equal = true);
 
-    public function calendar($referenceTime = null, array $formats = array (
-));
+    public function calendar($referenceTime = null, array $formats = []);
 
     public function ceil($precision = 1);
 

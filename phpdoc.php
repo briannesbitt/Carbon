@@ -65,7 +65,10 @@ function dumpValue($value)
         return 'null';
     }
 
-    return var_export($value, true);
+    $value = preg_replace('/^array\s*\(\s*\)$/', '[]', var_export($value, true));
+    $value = preg_replace('/^array\s*\(([\s\S]+)\)$/', '[$1]', $value);
+
+    return $value;
 }
 
 foreach ($tags as $tag) {
