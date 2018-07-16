@@ -284,8 +284,8 @@ trait Boundaries
     /**
      * Modify to start of current given unit.
      *
-     * @param string $unit
-     * @param array  $params
+     * @param string            $unit
+     * @param array<int, mixed> $params
      *
      * @return static
      */
@@ -303,8 +303,8 @@ trait Boundaries
     /**
      * Modify to end of current given unit.
      *
-     * @param string $unit
-     * @param array  $params
+     * @param string            $unit
+     * @param array<int, mixed> $params
      *
      * @return static
      */

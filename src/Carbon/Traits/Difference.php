@@ -303,8 +303,8 @@ trait Difference
     {
         /** @var CarbonInterface $date */
         $date = $this->resolveCarbon($date);
-        $value = intval($date->format('U') - $this->format('U')) * static::MICROSECONDS_PER_SECOND +
-            intval($date->format('u') - $this->format('u'));
+        $value = ($date->timestamp - $this->timestamp) * static::MICROSECONDS_PER_SECOND +
+            $date->micro - $this->micro;
 
         return $absolute ? abs($value) : $value;
     }
