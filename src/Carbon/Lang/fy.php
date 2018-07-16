@@ -1,0 +1,43 @@
+<?php
+
+/*
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+return [
+    'year' => 'ien jier|:count jierren',
+    'month' => 'ien moanne|:count moannen',
+    'day' => 'ien dei|:count dagen',
+    'hour' => 'ien oere|:count oeren',
+    'minute' => 'ien minút|:count minuten',
+    'second' => 'in pear sekonden|:count sekonden',
+    'ago' => ':time lyn',
+    'from_now' => 'oer :time',
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'DD-MM-YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd D MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[hjoed om] LT',
+        'nextDay' => '[moarn om] LT',
+        'nextWeek' => 'dddd [om] LT',
+        'lastDay' => '[juster om] LT',
+        'lastWeek' => '[ôfrûne] dddd [om] LT',
+        'sameElse' => 'L',
+    ],
+    'months' => ['jannewaris', 'febrewaris', 'maart', 'april', 'maaie', 'juny', 'july', 'augustus', 'septimber', 'oktober', 'novimber', 'desimber'],
+    'months_short' => [
+    ],
+    'weekdays' => ['snein', 'moandei', 'tiisdei', 'woansdei', 'tongersdei', 'freed', 'sneon'],
+    'weekdays_short' => ['si.', 'mo.', 'ti.', 'wo.', 'to.', 'fr.', 'so.'],
+    'weekdays_min' => ['Si', 'Mo', 'Ti', 'Wo', 'To', 'Fr', 'So'],
+];

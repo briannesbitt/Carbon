@@ -477,6 +477,7 @@ trait Date
 {
     use Boundaries;
     use Difference;
+    use Macro;
     use Test;
 
     /**
@@ -614,13 +615,6 @@ trait Date
      * @var callable|null
      */
     protected static $serializer;
-
-    /**
-     * The registered string macros.
-     *
-     * @var array
-     */
-    protected static $localMacros = [];
 
     /**
      * Will UTF8 encoding be used to print localized date/time ?
@@ -4130,54 +4124,6 @@ trait Date
         static::$serializer = $callback;
     }
 
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////////////// MACRO /////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Register a custom macro.
-     *
-     * @param string          $name
-     * @param object|callable $macro
-     *
-     * @return void
-     */
-    public static function macro($name, $macro)
-    {
-        static::$localMacros[$name] = $macro;
-    }
-
-    /**
-     * Mix another object into the class.
-     *
-     * @param object $mixin
-     *
-     * @return void
-     */
-    public static function mixin($mixin)
-    {
-        $methods = (new \ReflectionClass($mixin))->getMethods(
-            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
-    }
-
-    /**
-     * Checks if macro is registered.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public static function hasMacro($name)
-    {
-        return isset(static::$localMacros[$name]);
-    }
 
     /**
      * Dynamically handle calls to the class.
@@ -4389,7 +4335,7 @@ trait Date
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
             } catch (InvalidArgumentException $exception) {
-                // Try macros
+                // Try next
             }
         }
 

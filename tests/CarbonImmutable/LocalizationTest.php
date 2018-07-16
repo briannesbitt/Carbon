@@ -16,6 +16,7 @@ use Carbon\Translator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Tests\AbstractTestCase;
+use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
 class LocalizationTest extends AbstractTestCase
 {
@@ -28,6 +29,13 @@ class LocalizationTest extends AbstractTestCase
     public function testGetTranslator()
     {
         $t = Carbon::getTranslator();
+        $this->assertNotNull($t);
+        $this->assertSame('en', $t->getLocale());
+    }
+
+    public function testResetTranslator()
+    {
+        $t = MyCarbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
     }

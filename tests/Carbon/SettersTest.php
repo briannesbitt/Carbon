@@ -495,6 +495,24 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'anyUnit'
+     */
+    public function testSetUnitNoOverflowInputUnitException()
+    {
+        Carbon::now()->setUnitNoOverflow('anyUnit', 1, 'year');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'anyUnit'
+     */
+    public function testSetUnitNoOverflowOverflowUnitException()
+    {
+        Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
+    }
+
     public function testAddUnitNoOverflow()
     {
         $results = [

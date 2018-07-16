@@ -15,6 +15,7 @@ use Carbon\CarbonInterval;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
 use Tests\AbstractTestCase;
+use Tests\CarbonInterval\Fixtures\MyCarbonInterval;
 
 class ForHumansTest extends AbstractTestCase
 {
@@ -27,6 +28,13 @@ class ForHumansTest extends AbstractTestCase
     public function testGetTranslator()
     {
         $t = CarbonInterval::getTranslator();
+        $this->assertNotNull($t);
+        $this->assertSame('en', $t->getLocale());
+    }
+
+    public function testResetTranslator()
+    {
+        $t = MyCarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
     }

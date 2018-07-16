@@ -575,26 +575,21 @@ trait Difference
             $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay(),
             false
         );
-        $format = $diff < -6 ? 'sameElse' :
-            $diff < -1 ? 'lastWeek' :
-                $diff < 0 ? 'lastDay' :
-                    $diff < 1 ? 'sameDay' :
-                        $diff < 2 ? 'nextDay' :
-                            $diff < 7 ? 'nextWeek' : 'sameElse';
+        $format = $diff < -6 ? 'sameElse' : (
+            $diff < -1 ? 'lastWeek' : (
+                $diff < 0 ? 'lastDay' : (
+                    $diff < 1 ? 'sameDay' : (
+                        $diff < 2 ? 'nextDay' : (
+                            $diff < 7 ? 'nextWeek' : 'sameElse'
+                        )
+                    )
+                )
+            )
+        );
 
-        return strftime(array_merge([
-//            'lastDay' => '[Yesterday at] LT',
-//            'sameDay' => '[Today at] LT',
-//            'nextDay' => '[Tomorrow at] LT',
-//            'lastWeek' => '[last] dddd [at] LT',
-//            'nextWeek' => 'dddd [at] LT',
-//            'sameElse' => 'L',
-            'lastDay' => 'Yesterday at %H:%M',
-            'sameDay' => 'Today at %H:%M',
-            'nextDay' => 'Tomorrow at %H:%M',
-            'lastWeek' => 'last %A at %H:%M',
-            'nextWeek' => '%A at %H:%M',
-            'sameElse' => '%d/%m/%Y',
-        ], $formats)[$format]);
+        var_dump(static::translator()->getMessages());
+        exit;
+
+        return $this->formatLocalized(array_merge(static::translator()->trans('formats'), $formats)[$format]);
     }
 }

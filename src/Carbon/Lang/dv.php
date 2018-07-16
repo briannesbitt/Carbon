@@ -1,0 +1,46 @@
+<?php
+
+/*
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+return [
+    'year' => 'އަހަރެއް|އަހަރު :count',
+    'month' => 'މަހެއް|މަސް :count',
+    'day' => 'ދުވަހެއް|ދުވަސް :count',
+    'hour' => 'ގަޑިއިރެއް|ގަޑިއިރު :count',
+    'minute' => 'މިނިޓެއް|މިނިޓު :count',
+    'second' => 'ސިކުންތުކޮޅެއް|d% ސިކުންތު',
+    'ago' => 'ކުރިން :time',
+    'from_now' => 'ތެރޭގައި :time',
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'D/M/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd D MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[މިއަދު] LT',
+        'nextDay' => '[މާދަމާ] LT',
+        'nextWeek' => 'dddd LT',
+        'lastDay' => '[އިއްޔެ] LT',
+        'lastWeek' => '[ފާއިތުވި] dddd LT',
+        'sameElse' => 'L',
+    ],
+    'months' => [
+    ],
+    'months_short' => [
+    ],
+    'weekdays' => [
+    ],
+    'weekdays_short' => [
+    ],
+    'weekdays_min' => ['އާދި', 'ހޯމަ', 'އަން', 'ބުދަ', 'ބުރާ', 'ހުކު', 'ހޮނި'],
+];
