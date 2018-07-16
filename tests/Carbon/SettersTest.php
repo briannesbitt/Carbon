@@ -17,6 +17,8 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
+    const SET_UNIT_NO_OVERFLOW_SAMPLE = 10000;
+
     public function testSingularUnit()
     {
         $this->assertSame('year', Carbon::singularUnit('year'));
@@ -414,7 +416,7 @@ class SettersTest extends AbstractTestCase
             'failure' => 0,
         ];
 
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
             $year = mt_rand(2000, 3000);
             $month = mt_rand(1, 12);
             $day = mt_rand(1, 28);
@@ -424,8 +426,16 @@ class SettersTest extends AbstractTestCase
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
             $overflowUnit = $units[mt_rand(0, count($units) - 1)];
-            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
-            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
@@ -443,7 +453,12 @@ class SettersTest extends AbstractTestCase
             }
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = $value % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
             if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
                 $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
             ) {
@@ -472,11 +487,12 @@ class SettersTest extends AbstractTestCase
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
         $this->assertSame(0, $results['failure']);
-        $this->assertGreaterThan(100, $results['start']);
-        $this->assertGreaterThan(100, $results['end']);
-        $this->assertGreaterThan(100, $results['current']);
-        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
     public function testAddUnitNoOverflow()
@@ -488,7 +504,7 @@ class SettersTest extends AbstractTestCase
             'failure' => 0,
         ];
 
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
             $year = mt_rand(2000, 3000);
             $month = mt_rand(1, 12);
             $day = mt_rand(1, 28);
@@ -498,8 +514,16 @@ class SettersTest extends AbstractTestCase
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
             $overflowUnit = $units[mt_rand(0, count($units) - 1)];
-            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
-            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
@@ -517,7 +541,12 @@ class SettersTest extends AbstractTestCase
             }
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = ($$valueUnit + $value) % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
             if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
                 -$date->{"diffIn$unit"}($original, false) === $value
             ) {
@@ -546,11 +575,12 @@ class SettersTest extends AbstractTestCase
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
         $this->assertSame(0, $results['failure']);
-        $this->assertGreaterThan(100, $results['start']);
-        $this->assertGreaterThan(100, $results['end']);
-        $this->assertGreaterThan(100, $results['current']);
-        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
     public function testSubUnitNoOverflow()
@@ -562,7 +592,7 @@ class SettersTest extends AbstractTestCase
             'failure' => 0,
         ];
 
-        for ($i = 0; $i < 10000; $i++) {
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
             $year = mt_rand(2000, 3000);
             $month = mt_rand(1, 12);
             $day = mt_rand(1, 28);
@@ -572,8 +602,16 @@ class SettersTest extends AbstractTestCase
             $microsecond = mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
             $overflowUnit = $units[mt_rand(0, count($units) - 1)];
-            $units = ['year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond'];
-            $valueUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
             $value = mt_rand() > 0.5 ?
                 mt_rand(-9999, 9999) :
                 mt_rand(-60, 60);
@@ -591,7 +629,12 @@ class SettersTest extends AbstractTestCase
             }
 
             $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = ($$valueUnit - $value) % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
             if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
                 (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
                 $date->{"diffIn$unit"}($original, false) === $value
             ) {
@@ -620,10 +663,11 @@ class SettersTest extends AbstractTestCase
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
         $this->assertSame(0, $results['failure']);
-        $this->assertGreaterThan(100, $results['start']);
-        $this->assertGreaterThan(100, $results['end']);
-        $this->assertGreaterThan(100, $results['current']);
-        $this->assertSame(10000, $results['end'] + $results['start'] + $results['current']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 }
