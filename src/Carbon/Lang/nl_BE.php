@@ -37,8 +37,8 @@ return [
         'sameElse' => 'L',
     ],
     'months' => ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
-    'months_short' => [
-    ],
+    'months_short' => ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+    'mmm_suffix' => '.',
     'weekdays' => ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
     'weekdays_short' => ['zo.', 'ma.', 'di.', 'wo.', 'do.', 'vr.', 'za.'],
     'weekdays_min' => ['zo', 'ma', 'di', 'wo', 'do', 'vr', 'za'],

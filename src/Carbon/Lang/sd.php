@@ -9,6 +9,31 @@
  * file that was distributed with this source code.
  */
 
+$months = [
+    'جنوري',
+    'فيبروري',
+    'مارچ',
+    'اپريل',
+    'مئي',
+    'جون',
+    'جولاءِ',
+    'آگسٽ',
+    'سيپٽمبر',
+    'آڪٽوبر',
+    'نومبر',
+    'ڊسمبر'
+];
+
+$weekdays = [
+    'آچر',
+    'سومر',
+    'اڱارو',
+    'اربع',
+    'خميس',
+    'جمع',
+    'ڇنڇر'
+];
+
 return [
     'year' => 'هڪ سال|:count سال',
     'month' => 'هڪ مهينو|:count مهينا',
@@ -36,14 +61,12 @@ return [
         'lastWeek' => '[گزريل هفتي] dddd [تي] LT',
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
-    'months_short' => [
-    ],
-    'weekdays' => [
-    ],
-    'weekdays_short' => [
-    ],
-    'weekdays_min' => [
-    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? 'صبح' : 'شام';
+    },
+    'months' => $months,
+    'months_short' => $months,
+    'weekdays' => $weekdays,
+    'weekdays_short' => $weekdays,
+    'weekdays_min' => $weekdays,
 ];

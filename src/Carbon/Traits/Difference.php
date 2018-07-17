@@ -18,6 +18,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
 use DateTimeInterface;
+use InvalidArgumentException;
 
 /**
  * Trait Difference.
@@ -486,6 +487,17 @@ trait Difference
     }
 
     /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     */
+    public function since($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        return $this->diffForHumans($other, $syntax, $short, $parts);
+    }
+
+    /**
      * Get the difference in a human readable format in the current locale from an other
      * instance given (or now if null given) to current instance.
      *
@@ -525,6 +537,17 @@ trait Difference
         }
 
         return $this->resolveCarbon($other)->diffForHumans($this, $syntax, $short, $parts);
+    }
+
+    /**
+     * @alias to
+     *
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     */
+    public function until($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        return $this->to($other, $syntax, $short, $parts);
     }
 
     /**
@@ -587,9 +610,6 @@ trait Difference
             )
         );
 
-        var_dump(static::translator()->getMessages());
-        exit;
-
-        return $this->formatLocalized(array_merge(static::translator()->trans('formats'), $formats)[$format]);
+        return $this->isoFormat(array_merge(static::getIsoFormats(), $formats)[$format]);
     }
 }

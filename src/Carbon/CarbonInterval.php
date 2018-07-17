@@ -603,6 +603,11 @@ class CarbonInterval extends DateInterval
             if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
                 return static::fromString($var);
             }
+
+            /** @var static $interval */
+            $interval = static::createFromDateString($var);
+
+            return $interval->isEmpty() ? null : $interval;
         }
     }
 
@@ -793,6 +798,25 @@ class CarbonInterval extends DateInterval
         $this->dayz = ($weeks * static::getDaysPerWeek()) + $days;
 
         return $this;
+    }
+
+    /**
+     * Returns true if the interval is empty for each unit.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        if (static::wasCreatedFromDiff($this)) {
+            return $this->dayz === 0;
+        }
+
+        return $this->years === 0 &&
+            $this->months === 0 &&
+            $this->dayz === 0 &&
+            $this->hours === 0 &&
+            $this->minutes === 0 &&
+            $this->seconds === 0;
     }
 
     /**

@@ -17,7 +17,6 @@ $tags = [
 $nativeMethods = [
     'format' => 'string',
     'modify' => 'static',
-    'getTimezone' => '\DateTimeZone',
     'getOffset' => 'int',
     'getTimestamp' => 'int',
     'setTime' => 'static',

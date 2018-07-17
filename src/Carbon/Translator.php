@@ -43,6 +43,36 @@ class Translator extends Translation\Translator
     }
 
     /**
+     * Adds a Resource.
+     *
+     * @param string $format   The name of the loader (@see addLoader())
+     * @param mixed  $resource The resource name
+     * @param string $locale   The locale
+     * @param string $domain   The domain
+     *
+     * @throws \InvalidArgumentException If the locale contains invalid characters
+     */
+    public function addResource($format, $resource, $locale, $domain = null)
+    {
+//        if ($format === 'array') {
+//            $source = $resource;
+//            $resource = [];
+//            foreach ($source as $key => $value) {
+//                if (is_array($value)) {
+//                    foreach ($value as $subKey => $subValue) {
+//                        $resource["$key.$subKey"] = $subValue;
+//                    }
+//
+//                    continue;
+//                }
+//
+//                $resource[$key] = $value;
+//            }
+//        }
+        parent::addResource($format, $resource, $locale, $domain);
+    }
+
+    /**
      * Reset messages of a locale (all locale if no locale passed).
      * Remove custom messages and reload initial messages from matching
      * file in Lang directory.
@@ -59,7 +89,7 @@ class Translator extends Translation\Translator
             return true;
         }
 
-        if (file_exists($filename = __DIR__.'/Lang/'.$locale.'.php')) {
+        if (file_exists($filename = __DIR__."/Lang/$locale.php")) {
             static::$messages[$locale] = require $filename;
             $this->addResource('array', static::$messages[$locale], $locale);
 

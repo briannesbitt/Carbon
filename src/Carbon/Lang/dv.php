@@ -9,6 +9,31 @@
  * file that was distributed with this source code.
  */
 
+$months = [
+    'ޖެނުއަރީ',
+    'ފެބްރުއަރީ',
+    'މާރިޗު',
+    'އޭޕްރީލު',
+    'މޭ',
+    'ޖޫން',
+    'ޖުލައި',
+    'އޯގަސްޓު',
+    'ސެޕްޓެމްބަރު',
+    'އޮކްޓޯބަރު',
+    'ނޮވެމްބަރު',
+    'ޑިސެމްބަރު',
+];
+
+$weekdays = [
+    'އާދިއްތަ',
+    'ހޯމަ',
+    'އަންގާރަ',
+    'ބުދަ',
+    'ބުރާސްފަތި',
+    'ހުކުރު',
+    'ހޮނިހިރު',
+];
+
 return [
     'year' => 'އަހަރެއް|އަހަރު :count',
     'month' => 'މަހެއް|މަސް :count',
@@ -36,13 +61,9 @@ return [
         'lastWeek' => '[ފާއިތުވި] dddd LT',
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
-    'months_short' => [
-    ],
-    'weekdays' => [
-    ],
-    'weekdays_short' => [
-    ],
+    'months' => $months,
+    'months_short' => $months,
+    'weekdays' => $weekdays,
+    'weekdays_short' => $weekdays,
     'weekdays_min' => ['އާދި', 'ހޯމަ', 'އަން', 'ބުދަ', 'ބުރާ', 'ހުކު', 'ހޮނި'],
 ];

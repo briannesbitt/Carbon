@@ -58,4 +58,20 @@ return [
     'weekdays' => ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'],
     'weekdays_short' => ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            default:
+            case 'D':
+            case 'M':
+            case 'Q':
+            case 'DDD':
+            case 'd':
+                return $number . ($number === 1 ? 'er' : 'e');
+
+            // Words with feminine grammatical gender: semaine
+            case 'w':
+            case 'W':
+                return $number . ($number === 1 ? 're' : 'e');
+        }
+    },
 ];

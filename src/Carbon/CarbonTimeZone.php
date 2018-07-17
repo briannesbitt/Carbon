@@ -68,6 +68,36 @@ class CarbonTimeZone extends DateTimeZone
     }
 
     /**
+     * Returns abbreviated name of the current timezone according to DST setting.
+     *
+     * @param bool $dst
+     *
+     * @return string
+     */
+    public function getAbbreviatedName($dst = false)
+    {
+        $name = $this->getName();
+
+        foreach ($this->listAbbreviations() as $abbreviation => $zones) {
+            foreach ($zones as $zone) {
+                if ($zone['timezone_id'] === $name && $zone['dst'] == $dst) {
+                    return $abbreviation;
+                }
+            }
+        }
+    }
+
+    /**
+     * @alias getAbbreviatedName
+     *
+     * Returns abbreviated name of the current timezone according to DST setting.
+     */
+    public function getAbbr($dst = false)
+    {
+        return $this->getAbbreviatedName($dst);
+    }
+
+    /**
      * Create a CarbonTimeZone from mixed input.
      *
      * @param DateTimeZone|string|int|null $object

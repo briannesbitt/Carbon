@@ -36,14 +36,9 @@ return [
         'lastWeek' => 'dddd [seo chaidh] [aig] LT',
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
-    'months_short' => [
-    ],
-    'weekdays' => [
-    ],
-    'weekdays_short' => [
-    ],
-    'weekdays_min' => [
-    ],
+    'months' => ['Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'],
+    'months_short' => ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'],
+    'weekdays' => ['Didòmhnaich', 'Diluain', 'Dimàirt', 'Diciadain', 'Diardaoin', 'Dihaoine', 'Disathairne'],
+    'weekdays_short' => ['Did', 'Dil', 'Dim', 'Dic', 'Dia', 'Dih', 'Dis'],
+    'weekdays_min' => [['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'],
 ];

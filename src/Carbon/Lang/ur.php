@@ -9,6 +9,31 @@
  * file that was distributed with this source code.
  */
 
+$months = [
+    'جنوری',
+    'فروری',
+    'مارچ',
+    'اپریل',
+    'مئی',
+    'جون',
+    'جولائی',
+    'اگست',
+    'ستمبر',
+    'اکتوبر',
+    'نومبر',
+    'دسمبر',
+];
+
+$weekdays = [
+    'اتوار',
+    'پیر',
+    'منگل',
+    'بدھ',
+    'جمعرات',
+    'جمعہ',
+    'ہفتہ',
+];
+
 return [
     'year' => 'ایک سال|:count سال',
     'month' => 'ایک ماہ|:count ماہ',
@@ -37,14 +62,9 @@ return [
         'lastWeek' => '[گذشتہ] dddd [بوقت] LT',
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
-    'months_short' => [
-    ],
-    'weekdays' => [
-    ],
-    'weekdays_short' => [
-    ],
-    'weekdays_min' => [
-    ],
+    'months' => $months,
+    'months_short' => $months,
+    'weekdays' => $weekdays,
+    'weekdays_short' => $weekdays,
+    'weekdays_min' => $weekdays,
 ];
