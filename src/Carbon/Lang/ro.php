@@ -28,6 +28,8 @@ return [
     'from_now' => 'peste :time',
     'after' => 'peste :time',
     'before' => 'acum :time',
+    'diff_yesterday' => 'ieri',
+    'diff_tomorrow' => 'mâine',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

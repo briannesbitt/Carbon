@@ -28,6 +28,8 @@ return [
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time före',
+    'diff_yesterday' => 'Igår',
+    'diff_tomorrow' => 'Imorgon',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

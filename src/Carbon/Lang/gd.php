@@ -18,6 +18,8 @@ return [
     'second' => 'beagan diogan|:count diogan',
     'ago' => 'bho chionn :time',
     'from_now' => 'ann an :time',
+    'diff_yesterday' => 'An-dè',
+    'diff_tomorrow' => 'A-màireach',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -18,6 +18,8 @@ return [
     'second' => 'nekoliko sekundi|',
     'ago' => 'prije :time',
     'from_now' => 'za :time',
+    'diff_yesterday' => 'juče',
+    'diff_tomorrow' => 'sjutra',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

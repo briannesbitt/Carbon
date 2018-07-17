@@ -28,6 +28,8 @@ return [
     'from_now' => ':time পরে',
     'after' => ':time পরে',
     'before' => ':time আগে',
+    'diff_yesterday' => 'গতকাল',
+    'diff_tomorrow' => 'আগামীকাল',
     'formats' => [
         'LT' => 'A h:mm সময়',
         'LTS' => 'A h:mm:ss সময়',

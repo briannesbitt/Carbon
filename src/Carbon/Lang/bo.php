@@ -18,6 +18,8 @@ return [
     'second' => 'ལམ་སང|:count སྐར་ཆ།',
     'ago' => ':time སྔན་ལ',
     'from_now' => ':time ལ་',
+    'diff_yesterday' => 'ཁ་སང',
+    'diff_tomorrow' => 'སང་ཉིན',
     'formats' => [
         'LT' => 'A h:mm',
         'LTS' => 'A h:mm:ss',

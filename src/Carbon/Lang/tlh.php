@@ -18,6 +18,8 @@ return [
     'second' => 'puS lup|',
     'ago' => '',
     'from_now' => '',
+    'diff_yesterday' => 'wa’Hu’',
+    'diff_tomorrow' => 'wa’leS',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

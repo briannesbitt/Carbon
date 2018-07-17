@@ -18,6 +18,8 @@ return [
     'second' => 'moadde sekunddat|:count sekunddat',
     'ago' => 'maŋit :time',
     'from_now' => ':time geažes',
+    'diff_yesterday' => 'ikte',
+    'diff_tomorrow' => 'ihttin',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

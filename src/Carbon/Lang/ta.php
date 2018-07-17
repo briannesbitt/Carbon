@@ -18,6 +18,8 @@ return [
     'second' => 'ஒரு சில விநாடிகள்|:count விநாடிகள்',
     'ago' => ':time முன்',
     'from_now' => ':time இல்',
+    'diff_yesterday' => 'நேற்று',
+    'diff_tomorrow' => 'நாளை',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

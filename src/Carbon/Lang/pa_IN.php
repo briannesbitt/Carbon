@@ -18,6 +18,8 @@ return [
     'second' => 'ਕੁਝ ਸਕਿੰਟ|:count ਸਕਿੰਟ',
     'ago' => ':time ਪਿਛਲੇ',
     'from_now' => ':time ਵਿੱਚ',
+    'diff_yesterday' => 'ਕਲ',
+    'diff_tomorrow' => 'ਕਲ',
     'formats' => [
         'LT' => 'A h:mm ਵਜੇ',
         'LTS' => 'A h:mm:ss ਵਜੇ',

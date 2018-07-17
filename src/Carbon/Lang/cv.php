@@ -18,6 +18,8 @@ return [
     'second' => 'пӗр-ик ҫеккунт|:count ҫеккунт',
     'ago' => ':time каялла',
     'from_now' => '',
+    'diff_yesterday' => 'Ӗнер',
+    'diff_tomorrow' => 'Ыран',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

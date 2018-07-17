@@ -28,6 +28,8 @@ return [
     'from_now' => ':time barru',
     'after' => ':time geroago',
     'before' => ':time lehenago',
+    'diff_yesterday' => 'atzo',
+    'diff_tomorrow' => 'bihar',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -28,6 +28,8 @@ return [
     'from_now' => ':time में',
     'after' => ':time के बाद',
     'before' => ':time के पहले',
+    'diff_yesterday' => 'कल',
+    'diff_tomorrow' => 'कल',
     'formats' => [
         'LT' => 'A h:mm बजे',
         'LTS' => 'A h:mm:ss बजे',

@@ -18,6 +18,8 @@ return [
     'second' => 'te hēkona ruarua|:count hēkona',
     'ago' => ':time i mua',
     'from_now' => 'i roto i :time',
+    'diff_yesterday' => 'inanahi',
+    'diff_tomorrow' => 'apopo',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

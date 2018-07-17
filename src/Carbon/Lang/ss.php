@@ -18,6 +18,8 @@ return [
     'second' => 'emizuzwana lomcane|:count mzuzwana',
     'ago' => 'wenteka nga :time',
     'from_now' => 'nga :time',
+    'diff_yesterday' => 'Itolo',
+    'diff_tomorrow' => 'Kusasa',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

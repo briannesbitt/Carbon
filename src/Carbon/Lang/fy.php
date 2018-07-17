@@ -18,6 +18,8 @@ return [
     'second' => 'in pear sekonden|:count sekonden',
     'ago' => ':time lyn',
     'from_now' => 'oer :time',
+    'diff_yesterday' => 'juster',
+    'diff_tomorrow' => 'moarn',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

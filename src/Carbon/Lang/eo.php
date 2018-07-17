@@ -28,6 +28,8 @@ return [
     'from_now' => 'post :time',
     'after' => ':time poste',
     'before' => ':time antaŭe',
+    'diff_yesterday' => 'Hieraŭ',
+    'diff_tomorrow' => 'Morgaŭ',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

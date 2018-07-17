@@ -28,6 +28,8 @@ return [
     'from_now' => '',
     'after' => ':time შემდეგ',
     'before' => ':time უკან',
+    'diff_yesterday' => 'გუშინ',
+    'diff_tomorrow' => 'ხვალ',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

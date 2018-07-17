@@ -18,6 +18,8 @@ return [
     'second' => 'కొన్ని క్షణాలు|:count సెకన్లు',
     'ago' => ':time క్రితం',
     'from_now' => ':time లో',
+    'diff_yesterday' => 'నిన్న',
+    'diff_tomorrow' => 'రేపు',
     'formats' => [
         'LT' => 'A h:mm',
         'LTS' => 'A h:mm:ss',

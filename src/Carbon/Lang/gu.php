@@ -28,6 +28,8 @@ return [
     'from_now' => ':time મા',
     'after' => ':time પછી',
     'before' => ':time પહેલા',
+    'diff_yesterday' => 'ગઇકાલે',
+    'diff_tomorrow' => 'કાલે',
     'formats' => [
         'LT' => 'A h:mm વાગ્યે',
         'LTS' => 'A h:mm:ss વાગ્યે',

@@ -18,6 +18,8 @@ return [
     'second' => '几秒|:count 秒',
     'ago' => ':time前',
     'from_now' => ':time内',
+    'diff_yesterday' => '昨天',
+    'diff_tomorrow' => '明天',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

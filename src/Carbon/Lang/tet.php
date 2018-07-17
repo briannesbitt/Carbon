@@ -18,6 +18,8 @@ return [
     'second' => 'minutu balun|minutu :count',
     'ago' => ':time liuba',
     'from_now' => 'iha :time',
+    'diff_yesterday' => 'Horiseik',
+    'diff_tomorrow' => 'Aban',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

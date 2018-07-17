@@ -28,6 +28,8 @@ return [
     'from_now' => 'oor :time',
     'after' => ':time na',
     'before' => ':time voor',
+    'diff_yesterday' => 'Gister',
+    'diff_tomorrow' => 'Môre',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

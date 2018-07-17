@@ -18,6 +18,8 @@ return [
     'second' => 'soniya|:count soniya',
     'ago' => 'Bir necha :time oldin',
     'from_now' => 'Yaqin :time ichida',
+    'diff_yesterday' => 'Kecha',
+    'diff_tomorrow' => 'Ertaga',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

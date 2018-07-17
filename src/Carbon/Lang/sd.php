@@ -18,6 +18,8 @@ return [
     'second' => 'چند سيڪنڊ|:count سيڪنڊ',
     'ago' => ':time اڳ',
     'from_now' => ':time پوء',
+    'diff_yesterday' => 'ڪالهه',
+    'diff_tomorrow' => 'سڀاڻي',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

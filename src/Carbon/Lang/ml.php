@@ -18,6 +18,8 @@ return [
     'second' => 'അൽപ നിമിഷങ്ങൾ|:count സെക്കൻഡ്',
     'ago' => ':time മുൻപ്',
     'from_now' => ':time കഴിഞ്ഞ്',
+    'diff_yesterday' => 'ഇന്നലെ',
+    'diff_tomorrow' => 'നാളെ',
     'formats' => [
         'LT' => 'A h:mm -നു',
         'LTS' => 'A h:mm:ss -നു',

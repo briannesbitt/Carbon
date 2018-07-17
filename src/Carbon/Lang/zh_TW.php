@@ -28,6 +28,8 @@ return [
     'from_now' => ':time內',
     'after' => ':time後',
     'before' => ':time前',
+    'diff_yesterday' => '昨天',
+    'diff_tomorrow' => '明天',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

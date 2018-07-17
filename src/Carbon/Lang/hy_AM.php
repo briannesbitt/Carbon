@@ -18,6 +18,8 @@ return [
     'second' => 'մի քանի վայրկյան|:count վայրկյան',
     'ago' => ':time առաջ',
     'from_now' => ':time հետո',
+    'diff_yesterday' => 'երեկ',
+    'diff_tomorrow' => 'վաղը',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

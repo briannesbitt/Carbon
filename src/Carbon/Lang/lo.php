@@ -18,6 +18,8 @@ return [
     'second' => 'ບໍ່ເທົ່າໃດວິນາທີ|:count ວິນາທີ',
     'ago' => ':timeຜ່ານມາ',
     'from_now' => 'ອີກ :time',
+    'diff_yesterday' => 'ມື້ວານນີ້ເວລາ',
+    'diff_tomorrow' => 'ມື້ອື່ນເວລາ',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

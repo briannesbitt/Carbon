@@ -18,6 +18,8 @@ return [
     'second' => 'තත්පර කිහිපය|තත්පර :count',
     'ago' => ':timeකට පෙර',
     'from_now' => ':timeකින්',
+    'diff_yesterday' => 'ඊයේ',
+    'diff_tomorrow' => 'හෙට',
     'formats' => [
         'LT' => 'a h:mm',
         'LTS' => 'a h:mm:ss',

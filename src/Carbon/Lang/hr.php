@@ -28,6 +28,8 @@ return [
     'from_now' => 'za :time',
     'after' => 'za :time',
     'before' => 'prije :time',
+    'diff_yesterday' => 'jučer',
+    'diff_tomorrow' => 'sutra',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

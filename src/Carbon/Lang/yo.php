@@ -18,6 +18,8 @@ return [
     'second' => 'ìsẹjú aayá die|aayá :count',
     'ago' => ':time kọjá',
     'from_now' => 'ní :time',
+    'diff_yesterday' => 'Àna',
+    'diff_tomorrow' => 'Ọ̀la',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

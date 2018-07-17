@@ -28,6 +28,8 @@ return [
     'from_now' => 'Якин :time ичида',
     'after' => ':time keyin',
     'before' => ':time oldin',
+    'diff_yesterday' => 'Кеча',
+    'diff_tomorrow' => 'Эртага',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

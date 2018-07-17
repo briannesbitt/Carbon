@@ -18,6 +18,8 @@ return [
     'second' => 'een paar seconden|:count seconden',
     'ago' => ':time geleden',
     'from_now' => 'over :time',
+    'diff_yesterday' => 'gisteren',
+    'diff_tomorrow' => 'morgen',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

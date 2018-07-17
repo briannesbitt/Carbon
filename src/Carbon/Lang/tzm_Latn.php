@@ -18,6 +18,8 @@ return [
     'second' => 'imik|:count imik',
     'ago' => 'yan :time',
     'from_now' => 'dadkh s yan :time',
+    'diff_yesterday' => 'assant',
+    'diff_tomorrow' => 'aska',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
