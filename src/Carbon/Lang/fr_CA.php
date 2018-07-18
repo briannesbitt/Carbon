@@ -47,12 +47,12 @@ return [
             case 'Q':
             case 'DDD':
             case 'd':
-                return $number . ($number === 1 ? 'er' : 'e');
+                return $number.($number === 1 ? 'er' : 'e');
 
             // Words with feminine grammatical gender: semaine
             case 'w':
             case 'W':
-                return $number . ($number === 1 ? 're' : 'e');
+                return $number.($number === 1 ? 're' : 'e');
         }
     },
 ];

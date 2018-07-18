@@ -44,6 +44,29 @@ return [
         'lastWeek' => '',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        $lastDigit = $number % 10;
+        $last2Digits = $number % 100;
+        if ($number === 0) {
+            return "$number-ев";
+        }
+        if ($last2Digits === 0) {
+            return "$number-ен";
+        }
+        if ($last2Digits > 10 && $last2Digits < 20) {
+            return "$number-ти";
+        }
+        if ($lastDigit === 1) {
+            return "$number-ви";
+        }
+        if ($lastDigit === 2) {
+            return "$number-ри";
+        }
+        if ($lastDigit === 7 || $lastDigit === 8) {
+            return "$number-ми";
+        }
+        return "$number-ти";
+    },
     'months' => ['януари', 'февруари', 'март', 'април', 'май', 'юни', 'юли', 'август', 'септември', 'октомври', 'ноември', 'декември'],
     'months_short' => ['янр', 'фев', 'мар', 'апр', 'май', 'юни', 'юли', 'авг', 'сеп', 'окт', 'ное', 'дек'],
     'weekdays' => ['неделя', 'понеделник', 'вторник', 'сряда', 'четвъртък', 'петък', 'събота'],

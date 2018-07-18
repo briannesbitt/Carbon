@@ -46,6 +46,7 @@ return [
         'lastWeek' => '[aurreko] dddd LT[etan]',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':number.',
     'months' => ['urtarrila', 'otsaila', 'martxoa', 'apirila', 'maiatza', 'ekaina', 'uztaila', 'abuztua', 'iraila', 'urria', 'azaroa', 'abendua'],
     'months_short' => ['urt.', 'ots.', 'mar.', 'api.', 'mai.', 'eka.', 'uzt.', 'abu.', 'ira.', 'urr.', 'aza.', 'abe.'],
     'weekdays' => ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'],

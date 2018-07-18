@@ -44,6 +44,24 @@ return [
         'lastWeek' => '지난주 dddd LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return $number.'일';
+            case 'M':
+                return $number.'월';
+            case 'w':
+            case 'W':
+                return $number.'주';
+            default:
+                return $number;
+        }
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? '오전' : '오후';
+    },
     'months' => ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     'months_short' => ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     'weekdays' => ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],

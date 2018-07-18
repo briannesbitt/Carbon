@@ -47,7 +47,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number, $period) {
-        return $number . (($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
+        return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
     'meridiem' => function ($hour, $minute, $isLower) {
         $meridiem = $hour < 12 ? 'VM' : 'NM';

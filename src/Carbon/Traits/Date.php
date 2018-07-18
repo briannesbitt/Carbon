@@ -1592,14 +1592,22 @@ trait Date
                 return (static::getTranslationMessage('months_short') ?: [])[$this->month - 1] ?? $this->shortEnglishMonth;
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
-                $meridiem = static::getTranslationMessage('meridiem');
+                $meridiem = static::translate('meridiem', [
+                    'hour' => $this->hour,
+                    'minute' => $this->minute,
+                    'isLower' => true,
+                ]);
 
-                return is_callable($meridiem) ? $meridiem($this->hour, $this->minute, true) : $this->latinMeridiem;
+                return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
-                $meridiem = static::getTranslationMessage('meridiem');
+                $meridiem = static::translate('meridiem', [
+                    'hour' => $this->hour,
+                    'minute' => $this->minute,
+                    'isLower' => false,
+                ]);
 
-                return is_callable($meridiem) ? $meridiem($this->hour, $this->minute, false) : $this->latinUpperMeridiem;
+                return $meridiem === 'meridiem' ? $this->latinUpperMeridiem : $meridiem;
             // @property-read int current hour from 1 to 24
             case $name === 'noZeroHour':
                 return $this->hour ?: 24;
@@ -2411,11 +2419,21 @@ trait Date
     public static function localeHasDiffSyntax($locale)
     {
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                $translator->trans('ago') !== 'ago' &&
-                $translator->trans('from_now') !== 'from_now' &&
-                $translator->trans('before') !== 'before' &&
-                $translator->trans('after') !== 'after';
+            if (!$newLocale) {
+                return false;
+            }
+
+            foreach (['ago', 'from_now', 'before', 'after'] as $key) {
+                if (method_exists($translator, 'getMessages') && (($translator->getMessages() ?: [])[$key] ?? null) instanceof Closure) {
+                    continue;
+                }
+
+                if ($translator->trans($key) === $key) {
+                    return false;
+                }
+            }
+
+            return true;
         });
     }
 
@@ -2896,6 +2914,27 @@ trait Date
     }
 
     /**
+     * Translate using translation string or callback available.
+     *
+     * @param string $key
+     * @param array  $parameters
+     * @param null   $number
+     *
+     * @return string
+     */
+    public static function translate(string $key, array $parameters = [], $number = null): string
+    {
+        $message = static::getTranslationMessage($key);
+        if ($message instanceof Closure) {
+            return $message(...array_values($parameters));
+        }
+
+        return $number === null
+            ? static::translator()->trans($key, $parameters)
+            : static::translator()->transChoice($key, $number, $parameters);
+    }
+
+    /**
      * Return a property with its ordinal.
      *
      * @param string      $key
@@ -2905,12 +2944,10 @@ trait Date
      */
     public function ordinal($key, $period = null)
     {
-        $output = $this->$key;
-        if ($ordinal = static::getTranslationMessage('ordinal')) {
-            $output = $ordinal($output, $period);
-        }
-
-        return $output;
+        return static::translate('ordinal', [
+            'number' => $this->$key,
+            'period' => $period,
+        ]);
     }
 
     /**

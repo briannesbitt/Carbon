@@ -53,6 +53,46 @@ return [
         'lastWeek' => '[keçən həftə] dddd [saat] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        if ($number === 0) {  // special case for zero
+            return "$number-ıncı";
+        }
+
+        static $suffixes = [
+            1 => '-inci',
+            5 => '-inci',
+            8 => '-inci',
+            70 => '-inci',
+            80 => '-inci',
+            2 => '-nci',
+            7 => '-nci',
+            20 => '-nci',
+            50 => '-nci',
+            3 => '-üncü',
+            4 => '-üncü',
+            100 => '-üncü',
+            6 => '-ncı',
+            9 => '-uncu',
+            10 => '-uncu',
+            30 => '-uncu',
+            60 => '-ıncı',
+            90 => '-ıncı',
+        ];
+
+        return $number.($suffixes[$number % 10] ?: $suffixes[$number % 100 - $a] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 4) {
+            return 'gecə';
+        }
+        if ($hour < 12) {
+            return 'səhər';
+        }
+        if ($hour < 17) {
+            return 'gündüz';
+        }
+        return 'axşam';
+    },
     'months' => ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'],
     'months_short' => ['yan', 'fev', 'mar', 'apr', 'may', 'iyn', 'iyl', 'avq', 'sen', 'okt', 'noy', 'dek'],
     'weekdays' => ['Bazar', 'Bazar ertəsi', 'Çərşənbə axşamı', 'Çərşənbə', 'Cümə axşamı', 'Cümə', 'Şənbə'],

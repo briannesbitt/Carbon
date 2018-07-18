@@ -50,7 +50,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number) {
-        return $number . (($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
+        return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
     'months' => ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
     'months_short' => ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],

@@ -44,6 +44,18 @@ return [
         'lastWeek' => 'dddd [lalu pukul] LT',
         'sameElse' => 'L',
     ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 11) {
+            return 'pagi';
+        }
+        if ($hour < 15) {
+            return 'siang';
+        }
+        if ($hour < 19) {
+            return 'sore';
+        }
+        return 'malam';
+    },
     'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
     'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
     'weekdays' => ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],

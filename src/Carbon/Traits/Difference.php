@@ -594,10 +594,11 @@ trait Difference
 
     public function calendar($referenceTime = null, array $formats = [])
     {
-        $diff = $this->copy()->startOfDay()->diffInDays(
-            $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay(),
-            false
-        );
+        /** @var CarbonInterface $current */
+        $current = $this->copy()->startOfDay();
+        /** @var CarbonInterface $other */
+        $other = $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay();
+        $diff = $current->diffInDays($other, false);
         $format = $diff < -6 ? 'sameElse' : (
             $diff < -1 ? 'lastWeek' : (
                 $diff < 0 ? 'lastDay' : (
@@ -609,7 +610,11 @@ trait Difference
                 )
             )
         );
+        $format = array_merge(static::getIsoFormats(), $formats)[$format];
+        if ($format instanceof Closure) {
+            $format = $format($current, $other);
+        }
 
-        return $this->isoFormat(array_merge(static::getIsoFormats(), $formats)[$format]);
+        return $this->isoFormat($format);
     }
 }

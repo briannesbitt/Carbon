@@ -41,11 +41,34 @@ return [
     'calendar' => [
         'sameDay' => '[今日] LT',
         'nextDay' => '[明日] LT',
-        'nextWeek' => '',
+        'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+            if ($other->weekOfYear !== $current->weekOfYear) {
+                return '[来週]dddd LT';
+            }
+            return 'dddd LT';
+        },
         'lastDay' => '[昨日] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+            if ($other->weekOfYear !== $current->weekOfYear) {
+                return '[先週]dddd LT';
+            }
+            return 'dddd LT';
+        },
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return $number.'日';
+            default:
+                return $number;
+        }
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? '午前' : '午後';
+    },
     'months' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'months_short' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'weekdays' => ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],

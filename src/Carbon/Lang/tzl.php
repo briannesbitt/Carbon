@@ -50,7 +50,7 @@ return [
     ],
 
     'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = 'D\'' . ($hour > 11 ? 'O' : 'A');
+        $meridiem = 'D\''.($hour > 11 ? 'O' : 'A');
 
         return $isLower ? strtolower($meridiem) : $meridiem;
     },

@@ -18,7 +18,13 @@ return [
     'minute' => 'un minuto|:count minutos',
     'second' => 'uns segundos|:count segundos',
     'ago' => 'hai :time',
-    'from_now' => '',
+    'from_now' => function ($time) {
+        if (substr($time, 0, 2) === 'un') {
+            return "n$time";
+        }
+
+        return "en $time";
+    },
     'after' => ':time despois',
     'before' => ':time antes',
     'formats' => [
@@ -37,6 +43,7 @@ return [
         'lastWeek' => '',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':numberº',
     'months' => ['xaneiro', 'febreiro', 'marzo', 'abril', 'maio', 'xuño', 'xullo', 'agosto', 'setembro', 'outubro', 'novembro', 'decembro'],
     'months_short' => ['xan.', 'feb.', 'mar.', 'abr.', 'mai.', 'xuñ.', 'xul.', 'ago.', 'set.', 'out.', 'nov.', 'dec.'],
     'weekdays' => ['domingo', 'luns', 'martes', 'mércores', 'xoves', 'venres', 'sábado'],

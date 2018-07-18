@@ -34,6 +34,18 @@ return [
         'lastWeek' => 'dddd [kepengker pukul] LT',
         'sameElse' => 'L',
     ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 11) {
+            return 'enjing';
+        }
+        if ($hour < 15) {
+            return 'siyang';
+        }
+        if ($hour < 19) {
+            return 'sonten';
+        }
+        return 'ndalu';
+    },
     'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'],
     'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt', 'Nop', 'Des'],
     'weekdays' => ['Minggu', 'Senen', 'Seloso', 'Rebu', 'Kemis', 'Jemuwah', 'Septu'],

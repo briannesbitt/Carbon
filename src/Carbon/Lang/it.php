@@ -25,7 +25,9 @@ return [
     'second' => 'alcuni secondi|:count secondi',
     's' => ':count secondo|:count secondi',
     'ago' => ':time fa',
-    'from_now' => '',
+    'from_now' => function ($time) {
+        return (preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
+    },
     'after' => ':time dopo',
     'before' => ':time prima',
     'diff_now' => 'proprio ora',
@@ -45,7 +47,14 @@ return [
         'sameDay' => '[Oggi alle] LT',
         'nextDay' => '[Domani alle] LT',
         'nextWeek' => 'dddd [alle] LT',
-        'lastDay' => '[Ieri alle] LT',
+        'lastDay' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 0:
+                    return '[la scorsa] dddd [alle] LT';
+                default:
+                    return '[lo scorso] dddd [alle] LT';
+            }
+        },
         'lastWeek' => '',
         'sameElse' => 'L',
     ],

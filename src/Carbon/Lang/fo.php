@@ -44,6 +44,7 @@ return [
         'lastWeek' => '[síðstu] dddd [kl] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':number.',
     'months' => ['januar', 'februar', 'mars', 'apríl', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des'],
     'weekdays' => ['sunnudagur', 'mánadagur', 'týsdagur', 'mikudagur', 'hósdagur', 'fríggjadagur', 'leygardagur'],
