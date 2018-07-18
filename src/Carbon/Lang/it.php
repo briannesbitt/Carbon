@@ -18,7 +18,7 @@ return [
     'w' => ':count settimana|:count settimane',
     'day' => 'un giorno|:count giorni',
     'd' => ':count giorno|:count giorni',
-    'hour' => 'un\\|:count ore',
+    'hour' => 'un\'ora|:count ore',
     'h' => ':count ora|:count ore',
     'minute' => 'un minuto|:count minuti',
     'min' => ':count minuto|:count minuti',

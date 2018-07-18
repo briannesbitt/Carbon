@@ -31,7 +31,7 @@ return [
     'calendar' => [
         'sameDay' => '[Ònì ni] LT',
         'nextDay' => '[Ọ̀la ni] LT',
-        'nextWeek' => 'dddd [Ọsẹ̀ tón\\',
+        'nextWeek' => 'dddd [Ọsẹ̀ tón\'bọ] [ni] LT',
         'lastDay' => '[Àna ni] LT',
         'lastWeek' => 'dddd [Ọsẹ̀ tólọ́] [ni] LT',
         'sameElse' => 'L',

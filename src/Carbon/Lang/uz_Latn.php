@@ -33,7 +33,7 @@ return [
         'nextDay' => '[Ertaga] LT [da]',
         'nextWeek' => 'dddd [kuni soat] LT [da]',
         'lastDay' => '[Kecha soat] LT [da]',
-        'lastWeek' => '[O\\',
+        'lastWeek' => '[O\'tgan] dddd [kuni soat] LT [da]',
         'sameElse' => 'L',
     ],
     'months' => ['Yanvar', 'Fevral', 'Mart', 'Aprel', 'May', 'Iyun', 'Iyul', 'Avgust', 'Sentabr', 'Oktabr', 'Noyabr', 'Dekabr'],
