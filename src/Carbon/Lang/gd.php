@@ -40,5 +40,5 @@ return [
     'months_short' => ['Faoi', 'Gear', 'Màrt', 'Gibl', 'Cèit', 'Ògmh', 'Iuch', 'Lùn', 'Sult', 'Dàmh', 'Samh', 'Dùbh'],
     'weekdays' => ['Didòmhnaich', 'Diluain', 'Dimàirt', 'Diciadain', 'Diardaoin', 'Dihaoine', 'Disathairne'],
     'weekdays_short' => ['Did', 'Dil', 'Dim', 'Dic', 'Dia', 'Dih', 'Dis'],
-    'weekdays_min' => [['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'],
+    'weekdays_min' => ['Dò', 'Lu', 'Mà', 'Ci', 'Ar', 'Ha', 'Sa'],
 ];
