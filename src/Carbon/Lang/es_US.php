@@ -27,11 +27,21 @@ return [
         'LLLL' => 'dddd, MMMM [de] D [de] YYYY h:mm A',
     ],
     'calendar' => [
-        'sameDay' => '',
-        'nextDay' => '',
-        'nextWeek' => '',
-        'lastDay' => '',
-        'lastWeek' => '',
+        'sameDay' => function (\Carbon\CarbonInterface $current) {
+            return '[hoy a la'.($current->hour !== 1 ? 's' : '').'] LT';
+        },
+        'nextDay' => function (\Carbon\CarbonInterface $current) {
+            return '[mañana a la'.($current->hour !== 1 ? 's' : '').'] LT';
+        },
+        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+            return 'dddd [a la'.($current->hour !== 1 ? 's' : '').'] LT';
+        },
+        'lastDay' => function (\Carbon\CarbonInterface $current) {
+            return '[ayer a la'.($current->hour !== 1 ? 's' : '').'] LT';
+        },
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            return '[el] dddd [pasado a la'.($current->hour !== 1 ? 's' : '').'] LT';
+        },
         'sameElse' => 'L',
     ],
     'months' => ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],

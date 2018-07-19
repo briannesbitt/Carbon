@@ -10,11 +10,11 @@
  */
 
 return [
-    'year' => 'ur bloaz|',
-    'month' => 'ur miz|',
-    'day' => 'un devezh|',
+    'year' => 'ur bloaz|{1,3,4,5,9}:count bloaz|:count vloaz',
+    'month' => 'ur miz|{2} viz|:count miz',
+    'day' => 'un devezh|{2} zevezh|:count devezh',
     'hour' => 'un eur|:count eur',
-    'minute' => 'ur vunutenn|',
+    'minute' => 'ur vunutenn|{2} vunutenn|:count munutenn',
     'second' => 'un nebeud segondennoù|:count eilenn',
     'ago' => ':time \'zo',
     'from_now' => 'a-benn :time',
@@ -35,7 +35,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number, $period) {
-        return $number.($number === 1) ? 'añ' : 'vet';
+        return $number.($number === 1 ? 'añ' : 'vet');
     },
     'months' => ['Genver', 'C\'hwevrer', 'Meurzh', 'Ebrel', 'Mae', 'Mezheven', 'Gouere', 'Eost', 'Gwengolo', 'Here', 'Du', 'Kerzu'],
     'months_short' => ['Gen', 'C\'hwe', 'Meu', 'Ebr', 'Mae', 'Eve', 'Gou', 'Eos', 'Gwe', 'Her', 'Du', 'Ker'],

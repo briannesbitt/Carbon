@@ -60,8 +60,12 @@ return [
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'je', 've', 'sa'],
     'ordinal' => function ($number, $period) {
         switch ($period) {
-            default:
+            // In french, only the first has be ordinal, other number remains cardinal
+            // @link https://fr.wikihow.com/%C3%A9crire-la-date-en-fran%C3%A7ais
             case 'D':
+                return $number.($number === 1 ? 'er' : '');
+
+            default:
             case 'M':
             case 'Q':
             case 'DDD':

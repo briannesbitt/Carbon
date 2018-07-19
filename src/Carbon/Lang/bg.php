@@ -41,7 +41,16 @@ return [
         'nextDay' => '[Утре в] LT',
         'nextWeek' => 'dddd [в] LT',
         'lastDay' => '[Вчера в] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 0:
+                case 3:
+                case 6:
+                    return '[В изминалата] dddd [в] LT';
+                default:
+                    return '[В изминалия] dddd [в] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number, $period) {

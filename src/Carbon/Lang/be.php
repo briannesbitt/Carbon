@@ -10,14 +10,24 @@
  */
 
 return [
-    'year' => 'год|',
-    'month' => 'месяц|',
-    'day' => 'дзень|',
-    'hour' => '|',
-    'minute' => '|',
-    'second' => 'некалькі секунд|',
+    'year' => ':count год|:count гады|:count гадоў',
+    'y' => ':count год|:count гады|:count гадоў',
+    'month' => ':count месяц|:count месяцы|:count месяцаў',
+    'm' => ':count месяц|:count месяцы|:count месяцаў',
+    'week' => ':count тыдзень|:count тыдні|:count тыдняў',
+    'w' => ':count тыдзень|:count тыдні|:count тыдняў',
+    'day' => ':count дзень|:count ні|:count дзён',
+    'd' => ':count дзень|:count ні|:count дзён',
+    'hour' => ':count гадзіну|:count гадзіны|:count гадзін',
+    'h' => ':count гадзіну|:count гадзіны|:count гадзін',
+    'minute' => ':count хвіліну|:count хвіліны|:count хвілін',
+    'min' => ':count хвіліну|:count хвіліны|:count хвілін',
+    'second' => ':count секунду|:count секунды|:count секунд',
+    's' => ':count секунду|:count секунды|:count секунд',
     'ago' => ':time таму',
     'from_now' => 'праз :time',
+    'after' => ':time пасля',
+    'before' => ':time да',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -29,18 +39,45 @@ return [
     'calendar' => [
         'sameDay' => '[Сёння ў] LT',
         'nextDay' => '[Заўтра ў] LT',
-        'nextWeek' => '',
+        'nextWeek' => '[У] dddd [ў] LT',
         'lastDay' => '[Учора ў] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 1:
+                case 2:
+                case 4:
+                    return '[У мінулы] dddd [ў] LT';
+                default:
+                    return '[У мінулую] dddd [ў] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number, $period) {
-        return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
+        switch ($period) {
+            case 'M':
+            case 'd':
+            case 'DDD':
+            case 'w':
+            case 'W':
+                return ($number % 10 === 2 || $number % 10 === 3) && ($number % 100 !== 12 && $number % 100 !== 13) ? $number.'-і' : $number.'-ы';
+            case 'D':
+                return $number.'-га';
+            default:
+                return $number;
+        }
     },
     'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = $hour < 12 ? 'VM' : 'NM';
-
-        return $isLower ? strtolower($meridiem) : $meridiem;
+        if ($hour < 4) {
+            return 'ночы';
+        }
+        if ($hour < 12) {
+            return 'раніцы';
+        }
+        if ($hour < 17) {
+            return 'дня';
+        }
+        return 'вечара';
     },
     'months' => ['студзеня', 'лютага', 'сакавіка', 'красавіка', 'траўня', 'чэрвеня', 'ліпеня', 'жніўня', 'верасня', 'кастрычніка', 'лістапада', 'снежня'],
     'months_standalone' => ['студзень', 'люты', 'сакавік', 'красавік', 'травень', 'чэрвень', 'ліпень', 'жнівень', 'верасень', 'кастрычнік', 'лістапад', 'снежань'],

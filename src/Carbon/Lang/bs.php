@@ -41,9 +41,30 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => '',
+        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 0:
+                    return '[u] [nedjelju] [u] LT';
+                case 3:
+                    return '[u] [srijedu] [u] LT';
+                case 6:
+                    return '[u] [subotu] [u] LT';
+                default:
+                    return '[u] dddd [u] LT';
+            }
+        },
         'lastDay' => '[jučer u] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 0:
+                case 3:
+                    return '[prošlu] dddd [u] LT';
+                case 6:
+                    return '[prošle] [subote] [u] LT';
+                default:
+                    return '[prošli] dddd [u] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => ':number.',

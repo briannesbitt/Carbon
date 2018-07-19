@@ -41,7 +41,14 @@ return [
         'nextDay' => '[Αύριο {}] LT',
         'nextWeek' => 'dddd [{}] LT',
         'lastDay' => '[Χθες {}] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 6:
+                    return '[το προηγούμενο] dddd [{}] LT';
+                default:
+                    return '[την προηγούμενη] dddd [{}] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberη',
