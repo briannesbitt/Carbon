@@ -11,11 +11,19 @@
 
 return [
     'year' => 'տարի|:count տարի',
+    'y' => ':countտ',
     'month' => 'ամիս|:count ամիս',
+    'm' => ':countամ',
+    'week' => ':count շաբաթ',
+    'w' => ':countշ',
     'day' => 'օր|:count օր',
+    'd' => ':countօր',
     'hour' => 'ժամ|:count ժամ',
+    'h' => ':countժ',
     'minute' => 'րոպե|:count րոպե',
+    'min' => ':countր',
     'second' => 'մի քանի վայրկյան|:count վայրկյան',
+    's' => ':countվրկ',
     'ago' => ':time առաջ',
     'from_now' => ':time հետո',
     'diff_yesterday' => 'երեկ',
@@ -31,9 +39,9 @@ return [
     'calendar' => [
         'sameDay' => '[այսօր] LT',
         'nextDay' => '[վաղը] LT',
-        'nextWeek' => '',
+        'nextWeek' => 'dddd [օրը ժամը] LT',
         'lastDay' => '[երեկ] LT',
-        'lastWeek' => '',
+        'lastWeek' => '[անցած] dddd [օրը ժամը] LT',
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number, $period) {
@@ -43,9 +51,9 @@ return [
             case 'W':
             case 'DDDo':
                 if ($number === 1) {
-                    return $number + '-ին';
+                    return $number.'-ին';
                 }
-                return $number + '-րդ';
+                return $number.'-րդ';
             default:
                 return $number;
         }

@@ -9,6 +9,22 @@
  * file that was distributed with this source code.
  */
 
+$months = [
+    // @TODO add shakl to months
+    'يناير',
+    'فبراير',
+    'مارس',
+    'أبريل',
+    'مايو',
+    'يونيو',
+    'يوليو',
+    'أغسطس',
+    'سبتمبر',
+    'أكتوبر',
+    'نوفمبر',
+    'ديسمبر',
+];
+
 return [
     'year' => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
     'y' => '[0,1] سَنَة|{2} سَنَتَيْن|[3,10]:count سَنَوَات|[11,Inf]:count سَنَة',
@@ -28,4 +44,30 @@ return [
     'from_now' => 'مِنَ الْآن :time',
     'after' => 'بَعْدَ :time',
     'before' => 'قَبْلَ :time',
+
+    // @TODO add shakl to translations below
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'D/M/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd D MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[اليوم عند الساعة] LT',
+        'nextDay' => '[غدًا عند الساعة] LT',
+        'nextWeek' => 'dddd [عند الساعة] LT',
+        'lastDay' => '[أمس عند الساعة] LT',
+        'lastWeek' => 'dddd [عند الساعة] LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? 'ص' : 'م';
+    },
+    'weekdays' => ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+    'weekdays_short' => ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
+    'weekdays_min' => ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
+    'months' => $months,
+    'months_short' => $months,
 ];

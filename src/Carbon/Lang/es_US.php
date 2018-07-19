@@ -12,6 +12,7 @@
 return [
     'year' => 'un año|:count años',
     'month' => 'un mes|:count meses',
+    'week' => ':count semana|:count semanas',
     'day' => 'un día|:count días',
     'hour' => 'una hora|:count horas',
     'minute' => 'un minuto|:count minutos',

@@ -10,19 +10,19 @@
  */
 
 return [
-    'year' => 'год|',
+    'year' => ':count год|:count года|:count лет',
     'y' => ':count год|:count года|:count лет',
-    'month' => 'месяц|',
+    'month' => ':count месяц|:count месяца|:count месяцев',
     'm' => ':count месяц|:count месяца|:count месяцев',
     'week' => ':count неделю|:count недели|:count недель',
     'w' => ':count неделю|:count недели|:count недель',
-    'day' => 'день|',
+    'day' => ':count день|:count дня|:count дней',
     'd' => ':count день|:count дня|:count дней',
-    'hour' => 'час|',
+    'hour' => ':count час|:count часа|:count часов',
     'h' => ':count час|:count часа|:count часов',
-    'minute' => '|',
+    'minute' => ':count минуту|:count минуты|:count минут',
     'min' => ':count минуту|:count минуты|:count минут',
-    'second' => 'несколько секунд|',
+    'second' => ':count секунду|:count секунды|:count секунд',
     's' => ':count секунду|:count секунды|:count секунд',
     'ago' => ':time назад',
     'from_now' => 'через :time',
@@ -91,12 +91,12 @@ return [
             case 'M':
             case 'd':
             case 'DDD':
-                return $number + '-й';
+                return $number.'-й';
             case 'D':
-                return $number + '-го';
+                return $number.'-го';
             case 'w':
             case 'W':
-                return $number + '-я';
+                return $number.'-я';
             default:
                 return $number;
         }

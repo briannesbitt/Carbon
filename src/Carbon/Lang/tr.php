@@ -10,19 +10,19 @@
  */
 
 return [
-    'year' => 'bir yıl|:count yıl',
+    'year' => '{1}bir yıl|]1,Inf[:count yıl',
     'y' => ':count yıl',
-    'month' => 'bir ay|:count ay',
+    'month' => '{1}bir ay|]1,Inf[:count ay',
     'm' => ':count ay',
-    'week' => ':count hafta',
+    'week' => '{1}bir hafta|]1,Inf[:count hafta',
     'w' => ':count hafta',
-    'day' => 'bir gün|:count gün',
+    'day' => '{1}bir gün|]1,Inf[:count gün',
     'd' => ':count gün',
-    'hour' => 'bir saat|:count saat',
+    'hour' => '{1}bir saat|]1,Inf[:count saat',
     'h' => ':count saat',
-    'minute' => 'bir dakika|:count dakika',
+    'minute' => '{1}bir dakika|]1,Inf[:count dakika',
     'min' => ':count dakika',
-    'second' => 'birkaç saniye|:count saniye',
+    'second' => '{1}birkaç saniye|]1,Inf[:count saniye',
     's' => ':count saniye',
     'ago' => ':time önce',
     'from_now' => ':time sonra',
@@ -44,6 +44,44 @@ return [
         'lastWeek' => '[geçen] dddd [saat] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'Do':
+            case 'DD':
+                return $number;
+            default:
+                if ($number === 0) {  // special case for zero
+                    return "$number'ıncı";
+                }
+
+                static $suffixes = [
+                    1 => '\'inci',
+                    5 => '\'inci',
+                    8 => '\'inci',
+                    70 => '\'inci',
+                    80 => '\'inci',
+                    2 => '\'nci',
+                    7 => '\'nci',
+                    20 => '\'nci',
+                    50 => '\'nci',
+                    3 => '\'üncü',
+                    4 => '\'üncü',
+                    100 => '\'üncü',
+                    6 => '\'ncı',
+                    9 => '\'uncu',
+                    10 => '\'uncu',
+                    30 => '\'uncu',
+                    60 => '\'ıncı',
+                    90 => '\'ıncı',
+                ];
+
+                $lastDigit = $number % 10;
+
+                return $number.($suffixes[$lastDigit] ?: $suffixes[$number % 100 - $lastDigit] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+        }
+    },
     'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
     'months_short' => ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
     'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],

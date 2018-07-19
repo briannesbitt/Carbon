@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'kk');
+
 return [
     'year' => 'бір жыл|:count жыл',
     'y' => ':count жыл',

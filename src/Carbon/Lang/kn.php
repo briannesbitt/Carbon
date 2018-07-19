@@ -10,12 +10,13 @@
  */
 
 return [
-    'year' => 'ಒಂದು ವರ್ಷ|:count ವರ್ಷ',
-    'month' => 'ಒಂದು ತಿಂಗಳು|:count ತಿಂಗಳು',
-    'day' => 'ಒಂದು ದಿನ|:count ದಿನ',
-    'hour' => 'ಒಂದು ಗಂಟೆ|:count ಗಂಟೆ',
-    'minute' => 'ಒಂದು ನಿಮಿಷ|:count ನಿಮಿಷ',
-    'second' => 'ಕೆಲವು ಕ್ಷಣಗಳು|:count ಸೆಕೆಂಡುಗಳು',
+    'year' => '{1}ಒಂದು ವರ್ಷ|]1,Inf[:count ವರ್ಷ',
+    'month' => '{1}ಒಂದು ತಿಂಗಳು|]1,Inf[:count ತಿಂಗಳು',
+    'week' => '{1}ಒಂದು ವಾರ|]1,Inf[:count ವಾರಗಳು',
+    'day' => '{1}ಒಂದು ದಿನ|]1,Inf[:count ದಿನ',
+    'hour' => '{1}ಒಂದು ಗಂಟೆ|]1,Inf[:count ಗಂಟೆ',
+    'minute' => '{1}ಒಂದು ನಿಮಿಷ|]1,Inf[:count ನಿಮಿಷ',
+    'second' => '{1}ಕೆಲವು ಕ್ಷಣಗಳು|]1,Inf[:count ಸೆಕೆಂಡುಗಳು',
     'ago' => ':time ಹಿಂದೆ',
     'from_now' => ':time ನಂತರ',
     'diff_yesterday' => 'ನಿನ್ನೆ',

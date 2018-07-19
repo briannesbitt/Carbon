@@ -9,20 +9,24 @@
  * file that was distributed with this source code.
  */
 
+$processHoursFunction = function (\Carbon\CarbonInterface $date, string $format) {
+    return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
+};
+
 return [
-    'year' => 'рік|',
+    'year' => ':count рік|:count роки|:count років',
     'y' => ':count рік|:count роки|:count років',
-    'month' => 'місяць|',
+    'month' => ':count місяць|:count місяці|:count місяців',
     'm' => ':count місяць|:count місяці|:count місяців',
     'week' => ':count тиждень|:count тижні|:count тижнів',
     'w' => ':count тиждень|:count тижні|:count тижнів',
-    'day' => 'день|',
+    'day' => ':count день|:count дні|:count днів',
     'd' => ':count день|:count дні|:count днів',
-    'hour' => 'годину|',
+    'hour' => ':count година|:count години|:count годин',
     'h' => ':count година|:count години|:count годин',
-    'minute' => '|',
+    'minute' => ':count хвилину|:count хвилини|:count хвилин',
     'min' => ':count хвилину|:count хвилини|:count хвилин',
-    'second' => 'декілька секунд|',
+    'second' => ':count секунду|:count секунди|:count секунд',
     's' => ':count секунду|:count секунди|:count секунд',
     'ago' => ':time тому',
     'from_now' => 'за :time',
@@ -46,18 +50,61 @@ return [
         'LLLL' => 'dddd, D MMMM YYYY р., HH:mm',
     ],
     'calendar' => [
-        'sameDay' => '',
-        'nextDay' => '',
-        'nextWeek' => '',
-        'lastDay' => '',
-        'lastWeek' => '',
+        'sameDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+            $processHoursFunction($date, '[Сьогодні ');
+        },
+        'nextDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+            $processHoursFunction($date, '[Завтра ');
+        },
+        'nextWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+            $processHoursFunction($date, '[У] dddd [');
+        },
+        'lastDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+            $processHoursFunction($date, '[Вчора ');
+        },
+        'lastWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                case 3:
+                case 5:
+                case 6:
+                    return $processHoursFunction($date, '[Минулої] dddd [');
+                default:
+                    return $processHoursFunction($date, '[Минулого] dddd [');
+            }
+        },
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'M':
+            case 'd':
+            case 'DDD':
+            case 'w':
+            case 'W':
+                return $number.'-й';
+            case 'D':
+                return $number.'-го';
+            default:
+                return $number;
+        }
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 4) {
+            return 'ночі';
+        }
+        if ($hour < 12) {
+            return 'ранку';
+        }
+        if ($hour < 17) {
+            return 'дня';
+        }
+        return 'вечора';
+    },
+    'months' => ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'],
+    'months_standalone' => ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'],
     'months_short' => ['січ', 'лют', 'бер', 'квіт', 'трав', 'черв', 'лип', 'серп', 'вер', 'жовт', 'лист', 'груд'],
-    'weekdays' => [
-    ],
+    'weekdays' => ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п’ятниця', 'субота'],
     'weekdays_short' => ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
     'weekdays_min' => ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
 ];

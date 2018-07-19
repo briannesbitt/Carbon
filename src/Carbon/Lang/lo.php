@@ -9,12 +9,17 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'lo');
+
 return [
-    'year' => '1 ປີ|:count ປີ',
-    'month' => '1 ເດືອນ|:count ເດືອນ',
-    'day' => '1 ມື້|:count ມື້',
-    'hour' => '1 ຊົ່ວໂມງ|:count ຊົ່ວໂມງ',
-    'minute' => '1 ນາທີ|:count ນາທີ',
+    'year' => ':count ປີ',
+    'month' => ':count ເດືອນ',
+    'week' => ':count ອາທິດ',
+    'day' => ':count ມື້',
+    'hour' => ':count ຊົ່ວໂມງ',
+    'minute' => ':count ນາທີ',
     'second' => 'ບໍ່ເທົ່າໃດວິນາທີ|:count ວິນາທີ',
     'ago' => ':timeຜ່ານມາ',
     'from_now' => 'ອີກ :time',

@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'tzm');
+
 return [
     'year' => 'ⴰⵙⴳⴰⵙ|:count ⵉⵙⴳⴰⵙⵏ',
     'month' => 'ⴰⵢoⵓⵔ|:count ⵉⵢⵢⵉⵔⵏ',
+    'week' => ':count ⵉⵎⴰⵍⴰⵙⵙ',
     'day' => 'ⴰⵙⵙ|:count oⵙⵙⴰⵏ',
     'hour' => 'ⵙⴰⵄⴰ|:count ⵜⴰⵙⵙⴰⵄⵉⵏ',
     'minute' => 'ⵎⵉⵏⵓⴺ|:count ⵎⵉⵏⵓⴺ',

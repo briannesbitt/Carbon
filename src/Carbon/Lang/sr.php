@@ -10,19 +10,19 @@
  */
 
 return [
-    'year' => 'godinu|',
+    'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
-    'month' => 'mesec|',
+    'month' => ':count mesec|:count meseca|:count meseci',
     'm' => ':count mesec|:count meseca|:count meseci',
     'week' => ':count nedelja|:count nedelje|:count nedelja',
     'w' => ':count nedelja|:count nedelje|:count nedelja',
-    'day' => 'dan|',
+    'day' => ':count dan|:count dana|:count dana',
     'd' => ':count dan|:count dana|:count dana',
-    'hour' => '|',
+    'hour' => ':count sat|:count sata|:count sati',
     'h' => ':count sat|:count sata|:count sati',
-    'minute' => '|',
+    'minute' => ':count minut|:count minuta |:count minuta',
     'min' => ':count minut|:count minuta |:count minuta',
-    'second' => 'nekoliko sekundi|',
+    'second' => ':count sekund|:count sekunde|:count sekunde',
     's' => ':count sekund|:count sekunde|:count sekunde',
     'ago' => 'pre :time',
     'from_now' => 'za :time',
@@ -45,11 +45,40 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sutra u] LT',
-        'nextWeek' => '',
+        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                    return '[у недељу у] LT';
+                case 3:
+                    return '[у среду у] LT';
+                case 6:
+                    return '[у суботу у] LT';
+                default:
+                    return '[у] dddd [у] LT';
+            }
+        },
         'lastDay' => '[juče u] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                    return '[прошле недеље у] LT';
+                case 1:
+                    return '[прошлог понедељка у] LT';
+                case 2:
+                    return '[прошлог уторка у] LT';
+                case 3:
+                    return '[прошле среде у] LT';
+                case 4:
+                    return '[прошлог четвртка у] LT';
+                case 5:
+                    return '[прошлог петка у] LT';
+                default:
+                    return '[прошле суботе у] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
+    'ordinal' => ':number.',
     'months' => ['januar', 'februar', 'mart', 'april', 'maj', 'jun', 'jul', 'avgust', 'septembar', 'oktobar', 'novembar', 'decembar'],
     'months_short' => ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun', 'jul', 'avg.', 'sep.', 'okt.', 'nov.', 'dec.'],
     'weekdays' => ['nedelja', 'ponedeljak', 'utorak', 'sreda', 'četvrtak', 'petak', 'subota'],

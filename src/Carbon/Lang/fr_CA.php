@@ -11,11 +11,19 @@
 
 return [
     'year' => 'un an|:count ans',
+    'y' => ':count an|:count ans',
     'month' => 'un mois|:count mois',
+    'm' => ':count mois',
+    'week' => ':count semaine|:count semaines',
+    'w' => ':count sem.',
     'day' => 'un jour|:count jours',
+    'd' => ':count j.',
     'hour' => 'une heure|:count heures',
+    'h' => ':count h.',
     'minute' => 'une minute|:count minutes',
+    'min' => ':count min.',
     'second' => 'quelques secondes|:count secondes',
+    's' => ':count sec.',
     'ago' => 'il y a :time',
     'from_now' => 'dans :time',
     'formats' => [

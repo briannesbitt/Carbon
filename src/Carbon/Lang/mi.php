@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'mi');
+
 return [
     'year' => 'he tau|:count tau',
     'month' => 'he marama|:count marama',
+    'week' => 'he wiki|:count wiki',
     'day' => 'he ra|:count ra',
     'hour' => 'te haora|:count haora',
     'minute' => 'he meneti|:count meneti',

@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'tet');
+
 return [
     'year' => 'tinan ida|tinan :count',
     'month' => 'fulan ida|fulan :count',
+    'week' => 'semana ida|semana :count',
     'day' => 'loron ida|loron :count',
     'hour' => 'oras ida|oras :count',
     'minute' => 'minutu ida|minutu :count',
@@ -36,6 +41,7 @@ return [
         'lastWeek' => 'dddd [semana kotuk] [iha] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':numberº',
     'months' => ['Janeiru', 'Fevereiru', 'Marsu', 'Abril', 'Maiu', 'Juñu', 'Jullu', 'Agustu', 'Setembru', 'Outubru', 'Novembru', 'Dezembru'],
     'months_short' => ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
     'weekdays' => ['Domingu', 'Segunda', 'Tersa', 'Kuarta', 'Kinta', 'Sesta', 'Sabadu'],

@@ -9,21 +9,25 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'my');
+
 return [
     'year' => 'တစ်နှစ်|:count နှစ်',
-    'y' => ':count နှစ်|:count နှစ်',
+    'y' => ':count နှစ်',
     'month' => 'တစ်လ|:count လ',
-    'm' => ':count လ|:count လ',
-    'week' => ':count ပတ်|:count ပတ်',
-    'w' => ':count ပတ်|:count ပတ်',
+    'm' => ':count လ',
+    'week' => ':count ပတ်',
+    'w' => ':count ပတ်',
     'day' => 'တစ်ရက်|:count ရက်',
-    'd' => ':count ရက်|:count ရက်',
+    'd' => ':count ရက်',
     'hour' => 'တစ်နာရီ|:count နာရီ',
-    'h' => ':count နာရီ|:count နာရီ',
+    'h' => ':count နာရီ',
     'minute' => 'တစ်မိနစ်|:count မိနစ်',
-    'min' => ':count မိနစ်|:count မိနစ်',
+    'min' => ':count မိနစ်',
     'second' => 'စက္ကန်.အနည်းငယ်|:count စက္ကန့်',
-    's' => ':count စက္ကန့်|:count စက္ကန့်',
+    's' => ':count စက္ကန့်',
     'ago' => 'လွန်ခဲ့သော :time က',
     'from_now' => 'လာမည့် :time မှာ',
     'after' => ':time ကြာပြီးနောက်',

@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'ss');
+
 return [
     'year' => 'umnyaka|:count iminyaka',
     'month' => 'inyanga|:count tinyanga',
+    'week' => ':count liviki|:count emaviki',
     'day' => 'lilanga|:count emalanga',
     'hour' => 'lihora|:count emahora',
     'minute' => 'umzuzu|:count emizuzu',
@@ -36,8 +41,28 @@ return [
         'lastWeek' => 'dddd [leliphelile] [nga] LT',
         'sameElse' => 'L',
     ],
-    'months' => [
-    ],
+    'ordinal' => function ($number, $period) {
+        $lastDigit = $number % 10;
+
+        return $number.(
+            (~~($number % 100 / 10) === 1) ? 'e' : (
+                ($lastDigit === 1 || $lastDigit === 2) ? 'a' : 'e'
+            )
+        );
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 11) {
+            return 'ekuseni';
+        }
+        if ($hour < 15) {
+            return 'emini';
+        }
+        if ($hour < 19) {
+            return 'entsambama';
+        }
+        return 'ebusuku';
+    },
+    'months' => ['Bhimbidvwane', 'Indlovana', 'Indlov\'lenkhulu', 'Mabasa', 'Inkhwekhweti', 'Inhlaba', 'Kholwane', 'Ingci', 'Inyoni', 'Imphala', 'Lweti', 'Ingongoni'],
     'months_short' => ['Bhi', 'Ina', 'Inu', 'Mab', 'Ink', 'Inh', 'Kho', 'Igc', 'Iny', 'Imp', 'Lwe', 'Igo'],
     'weekdays' => ['Lisontfo', 'Umsombuluko', 'Lesibili', 'Lesitsatfu', 'Lesine', 'Lesihlanu', 'Umgcibelo'],
     'weekdays_short' => ['Lis', 'Umb', 'Lsb', 'Les', 'Lsi', 'Lsh', 'Umg'],

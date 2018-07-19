@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return \Symfony\Component\Translation\PluralizationRules::get($number, 'sr');
+}, 'me');
+
 return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
@@ -39,9 +44,37 @@ return [
     'calendar' => [
         'sameDay' => '[danas u] LT',
         'nextDay' => '[sjutra u] LT',
-        'nextWeek' => '',
+        'nextWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                    return '[u nedjelju u] LT';
+                case 3:
+                    return '[u srijedu u] LT';
+                case 6:
+                    return '[u subotu u] LT';
+                default:
+                    return '[u] dddd [u] LT';
+            }
+        },
         'lastDay' => '[juče u] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                    return '[prošle nedjelje u] LT';
+                case 1:
+                    return '[prošle nedjelje u] LT';
+                case 2:
+                    return '[prošlog utorka u] LT';
+                case 3:
+                    return '[prošle srijede u] LT';
+                case 4:
+                    return '[prošlog četvrtka u] LT';
+                case 5:
+                    return '[prošlog petka u] LT';
+                default:
+                    return '[prošle subote u] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => ':number.',

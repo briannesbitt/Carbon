@@ -34,9 +34,14 @@ $weekdays = [
     'ڇنڇر'
 ];
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'sd');
+
 return [
     'year' => 'هڪ سال|:count سال',
     'month' => 'هڪ مهينو|:count مهينا',
+    'week' => 'ھڪ ھفتو|:count هفتا',
     'day' => 'هڪ ڏينهن|:count ڏينهن',
     'hour' => 'هڪ ڪلاڪ|:count ڪلاڪ',
     'minute' => 'هڪ منٽ|:count منٽ',

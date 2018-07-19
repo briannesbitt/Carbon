@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'tl');
+
 return [
     'year' => 'isang taon|:count taon',
     'month' => 'isang buwan|:count buwan',
+    'week' => 'isang linggo|:count linggo',
     'day' => 'isang araw|:count araw',
     'hour' => 'isang oras|:count oras',
     'minute' => 'isang minuto|:count minuto',

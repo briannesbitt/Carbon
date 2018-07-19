@@ -12,6 +12,7 @@
 return [
     'year' => 'sena|:count sni',
     'month' => 'xahar|:count xhur',
+    'week' => 'gimgħa|:count ġimgħat',
     'day' => 'ġurnata|:count ġranet',
     'hour' => 'siegħa|:count siegħat',
     'minute' => 'minuta|:count minuti',

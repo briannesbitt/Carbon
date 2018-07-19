@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number > 1 ? 1 : 0;
+}, 'tzl');
+
 return [
     'year' => ':count ar|:count ars',
     'y' => ':count ar|:count ars',

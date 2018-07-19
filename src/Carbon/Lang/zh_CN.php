@@ -10,12 +10,20 @@
  */
 
 return [
-    'year' => '1 年|:count 年',
-    'month' => '1 个月|:count 个月',
-    'day' => '1 天|:count 天',
-    'hour' => '1 小时|:count 小时',
-    'minute' => '1 分钟|:count 分钟',
-    'second' => '几秒|:count 秒',
+    'year' => ':count 年',
+    'y' => ':count年',
+    'month' => ':count 个月',
+    'm' => ':count个月',
+    'week' => ':count 周',
+    'w' => ':count周',
+    'day' => ':count 天',
+    'd' => ':count天',
+    'hour' => ':count 小时',
+    'h' => ':count小时',
+    'minute' => ':count 分钟',
+    'min' => ':count分钟',
+    'second' => '{1}几秒|]1,Inf[:count 秒',
+    's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time内',
     'diff_yesterday' => '昨天',
@@ -36,6 +44,40 @@ return [
         'lastWeek' => '[上]ddddLT',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'DDD':
+                return $number.'日';
+            case 'M':
+                return $number.'月';
+            case 'w':
+            case 'W':
+                return $number.'周';
+            default:
+                return $number;
+        }
+    },
+    'meridiem' => function ($hour, $minute, $isLower) {
+        $time = $hour * 100 + $minute;
+        if ($time < 600) {
+            return '凌晨';
+        }
+        if ($time < 900) {
+            return '早上';
+        }
+        if ($time < 1130) {
+            return '上午';
+        }
+        if ($time < 1230) {
+            return '中午';
+        }
+        if ($time < 1800) {
+            return '下午';
+        }
+        return '晚上';
+    },
     'months' => ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     'months_short' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'weekdays' => ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],

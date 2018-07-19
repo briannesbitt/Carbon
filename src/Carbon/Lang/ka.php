@@ -10,19 +10,19 @@
  */
 
 return [
-    'year' => 'წელი|:count წელი',
+    'year' => '{1}წელი|]1,Inf[:count წელი',
     'y' => ':count წლის',
-    'month' => 'თვე|:count თვე',
+    'month' => '{1}თვე|]1,Inf[:count თვე',
     'm' => ':count თვის',
     'week' => ':count კვირის',
     'w' => ':count კვირის',
-    'day' => 'დღე|:count დღე',
+    'day' => '{1}დღე|]1,Inf[:count დღე',
     'd' => ':count დღის',
-    'hour' => 'საათი|:count საათი',
+    'hour' => '{1}საათი|]1,Inf[:count საათი',
     'h' => ':count საათის',
-    'minute' => 'წუთი|:count წუთი',
+    'minute' => '{1}წუთი|]1,Inf[:count წუთი',
     'min' => ':count წუთის',
-    'second' => 'რამდენიმე წამი|:count წამი',
+    'second' => '{1}რამდენიმე წამი|]1,Inf[:count წამი',
     's' => ':count წამის',
     'ago' => function ($time) {
         return (preg_match('/(წამი|წუთი|საათი|წელი)/', $time) ?

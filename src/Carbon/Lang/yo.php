@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'yo');
+
 return [
     'year' => 'ọdún kan|ọdún :count',
     'month' => 'osù kan|osù :count',
+    'week' => 'ọsẹ kan|ọsẹ :count',
     'day' => 'ọjọ́ kan|ọjọ́ :count',
     'hour' => 'wákati kan|wákati :count',
     'minute' => 'ìsẹjú kan|ìsẹjú :count',
@@ -36,6 +41,7 @@ return [
         'lastWeek' => 'dddd [Ọsẹ̀ tólọ́] [ni] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => 'ọjọ́ :number',
     'months' => ['Sẹ́rẹ́', 'Èrèlè', 'Ẹrẹ̀nà', 'Ìgbé', 'Èbibi', 'Òkùdu', 'Agẹmo', 'Ògún', 'Owewe', 'Ọ̀wàrà', 'Bélú', 'Ọ̀pẹ̀̀'],
     'months_short' => ['Sẹ́r', 'Èrl', 'Ẹrn', 'Ìgb', 'Èbi', 'Òkù', 'Agẹ', 'Ògú', 'Owe', 'Ọ̀wà', 'Bél', 'Ọ̀pẹ̀̀'],
     'weekdays' => ['Àìkú', 'Ajé', 'Ìsẹ́gun', 'Ọjọ́rú', 'Ọjọ́bọ', 'Ẹtì', 'Àbámẹ́ta'],

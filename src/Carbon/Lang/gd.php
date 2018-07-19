@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'gd');
+
 return [
     'year' => 'bliadhna|:count bliadhna',
     'month' => 'mìos|:count mìosan',
+    'week' => 'seachdain|:count seachdainean',
     'day' => 'latha|:count latha',
     'hour' => 'uair|:count uairean',
     'minute' => 'mionaid|:count mionaidean',

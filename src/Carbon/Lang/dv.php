@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'dv');
+
 $months = [
     'ޖެނުއަރީ',
     'ފެބްރުއަރީ',
@@ -37,6 +41,7 @@ $weekdays = [
 return [
     'year' => 'އަހަރެއް|އަހަރު :count',
     'month' => 'މަހެއް|މަސް :count',
+    'week' => 'ހަފްތާ :count',
     'day' => 'ދުވަހެއް|ދުވަސް :count',
     'hour' => 'ގަޑިއިރެއް|ގަޑިއިރު :count',
     'minute' => 'މިނިޓެއް|މިނިޓު :count',

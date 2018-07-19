@@ -36,11 +36,21 @@ return [
         'LLLL' => 'dddd, D [de] MMMM [de] YYYY H:mm',
     ],
     'calendar' => [
-        'sameDay' => '',
-        'nextDay' => '',
-        'nextWeek' => '',
-        'lastDay' => '',
-        'lastWeek' => '',
+        'sameDay' => function (\Carbon\CarbonInterface $current) {
+            return '[hoxe '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
+        },
+        'nextDay' => function (\Carbon\CarbonInterface $current) {
+            return '[mañá '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
+        },
+        'nextWeek' => function (\Carbon\CarbonInterface $current) {
+            return 'dddd ['.($current->hour !== 1 ? 'ás' : 'á').'] LT';
+        },
+        'lastDay' => function (\Carbon\CarbonInterface $current) {
+            return '[onte '.($current->hour !== 1 ? 'á' : 'a').'] LT';
+        },
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            return '[o] dddd [pasado '.($current->hour !== 1 ? 'ás' : 'á').'] LT';
+        },
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberº',

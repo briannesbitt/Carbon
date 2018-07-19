@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'se');
+
 return [
     'year' => 'okta jahki|:count jagit',
     'month' => 'okta mánnu|:count mánut',
+    'week' => 'okta vahkku|:count vahkku',
     'day' => 'okta beaivi|:count beaivvit',
     'hour' => 'okta diimmu|:count diimmut',
     'minute' => 'okta minuhta|:count minuhtat',
@@ -36,6 +41,7 @@ return [
         'lastWeek' => '[ovddit] dddd [ti] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':number.',
     'months' => ['ođđajagemánnu', 'guovvamánnu', 'njukčamánnu', 'cuoŋománnu', 'miessemánnu', 'geassemánnu', 'suoidnemánnu', 'borgemánnu', 'čakčamánnu', 'golggotmánnu', 'skábmamánnu', 'juovlamánnu'],
     'months_short' => ['ođđj', 'guov', 'njuk', 'cuo', 'mies', 'geas', 'suoi', 'borg', 'čakč', 'golg', 'skáb', 'juov'],
     'weekdays' => ['sotnabeaivi', 'vuossárga', 'maŋŋebárga', 'gaskavahkku', 'duorastat', 'bearjadat', 'lávvardat'],

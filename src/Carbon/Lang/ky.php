@@ -9,9 +9,14 @@
  * file that was distributed with this source code.
  */
 
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'ky');
+
 return [
     'year' => 'бир жыл|:count жыл',
     'month' => 'бир ай|:count ай',
+    'week' => 'бир жума|:count жума',
     'day' => 'бир күн|:count күн',
     'hour' => 'бир саат|:count саат',
     'minute' => 'бир мүнөт|:count мүнөт',

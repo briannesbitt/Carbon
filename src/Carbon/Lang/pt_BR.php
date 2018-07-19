@@ -50,9 +50,18 @@ return [
         'nextDay' => '[Amanhã às] LT',
         'nextWeek' => 'dddd [às] LT',
         'lastDay' => '[Ontem às] LT',
-        'lastWeek' => '',
+        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                case 6:
+                    return '[Último] dddd [às] LT';
+                default:
+                    return '[Última] dddd [às] LT';
+            }
+        },
         'sameElse' => 'L',
     ],
+    'ordinal' => ':numberº',
     'months' => ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
     'months_short' => ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'],
     'weekdays' => ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],

@@ -10,19 +10,19 @@
  */
 
 return [
-    'year' => 'bir il|:count il',
+    'year' => '{1}bir il|]1,Inf[:count il',
     'y' => ':count il',
-    'month' => 'bir ay|:count ay',
+    'month' => '{1}bir ay|]1,Inf[:count ay',
     'm' => ':count ay',
     'week' => ':count həftə',
     'w' => ':count həftə',
-    'day' => 'bir gün|:count gün',
+    'day' => '{1}bir gün|]1,Inf[:count gün',
     'd' => ':count gün',
-    'hour' => 'bir saat|:count saat',
+    'hour' => '{1}bir saat|]1,Inf[:count saat',
     'h' => ':count saat',
-    'minute' => 'bir dəqiqə|:count dəqiqə',
+    'minute' => '{1}bir dəqiqə|]1,Inf[:count dəqiqə',
     'min' => ':count dəqiqə',
-    'second' => 'birneçə saniyə|:count saniyə',
+    'second' => '{1}birneçə saniyə|]1,Inf[:count saniyə',
     's' => ':count saniyə',
     'ago' => ':time əvvəl',
     'from_now' => ':time sonra',
@@ -79,7 +79,9 @@ return [
             90 => '-ıncı',
         ];
 
-        return $number.($suffixes[$number % 10] ?: $suffixes[$number % 100 - $a] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+        $lastDigit = $number % 10;
+
+        return $number.($suffixes[$lastDigit] ?: $suffixes[$number % 100 - $lastDigit] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
     },
     'meridiem' => function ($hour, $minute, $isLower) {
         if ($hour < 4) {
