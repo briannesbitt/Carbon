@@ -34,6 +34,7 @@ return [
         'lastWeek' => '[Føregåande] dddd [klokka] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => ':number.',
     'months' => ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des'],
     'weekdays' => ['sundag', 'måndag', 'tysdag', 'onsdag', 'torsdag', 'fredag', 'laurdag'],

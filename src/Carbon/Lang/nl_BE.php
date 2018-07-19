@@ -11,15 +11,28 @@
 
 return [
     'year' => 'één jaar|:count jaar',
+    'y' => ':countj',
     'month' => 'één maand|:count maanden',
+    'm' => ':countma',
+    'week' => ':count week|:count weken',
+    'w' => ':countw',
     'day' => 'één dag|:count dagen',
+    'd' => ':countd',
     'hour' => 'één uur|:count uur',
+    'h' => ':countu',
     'minute' => 'één minuut|:count minuten',
+    'min' => ':countmi',
     'second' => 'een paar seconden|:count seconden',
+    's' => ':counts',
     'ago' => ':time geleden',
     'from_now' => 'over :time',
+    'after' => ':time later',
+    'before' => ':time eerder',
+    'diff_now' => 'nu',
     'diff_yesterday' => 'gisteren',
     'diff_tomorrow' => 'morgen',
+    'diff_after_tomorrow' => 'overmorgen',
+    'diff_before_yesterday' => 'eergisteren',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -36,6 +49,9 @@ return [
         'lastWeek' => '[afgelopen] dddd [om] LT',
         'sameElse' => 'L',
     ],
+    'ordinal' => function ($number, $period) {
+        return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
+    },
     'months' => ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
     'months_short' => ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
     'mmm_suffix' => '.',
