@@ -2794,12 +2794,15 @@ trait Date
     /**
      * Returns raw translation message for a given key.
      *
+     * @param string      $key    key to find
+     * @param string|null $locale current locale used if null
+     *
      * @return array
      */
-    public static function getTranslationMessage($key)
+    public static function getTranslationMessage($key, $locale = null)
     {
         $translator = static::translator();
-        $locale = $translator->getLocale();
+        $locale = $locale ?? $translator->getLocale();
         if (!method_exists($translator, 'getMessages')) {
             throw new InvalidArgumentException("Translator used does not provide getMessages() method.");
         }
@@ -2811,9 +2814,11 @@ trait Date
     /**
      * Returns list of locale formats for ISO formatting.
      *
+     * @param string|null $locale current locale used if null
+     *
      * @return array
      */
-    public static function getIsoFormats()
+    public static function getIsoFormats($locale = null)
     {
         return array_merge([
             'LT' => 'h:mm A',
@@ -2822,7 +2827,26 @@ trait Date
             'LL' => 'MMMM D, YYYY',
             'LLL' => 'MMMM D, YYYY h:mm A',
             'LLLL' => 'dddd, MMMM D, YYYY h:mm A',
-        ], static::getTranslationMessage('formats') ?: []);
+        ], static::getTranslationMessage('formats', $locale) ?: []);
+    }
+
+    /**
+     * Returns list of calendar formats for ISO formatting.
+     *
+     * @param string|null $locale current locale used if null
+     *
+     * @return array
+     */
+    public static function getCalendarFormats($locale = null)
+    {
+        return array_merge([
+            'sameDay' => '[Today at] LT',
+            'nextDay' => '[Tomorrow at] LT',
+            'nextWeek' => 'dddd [at] LT',
+            'lastDay' => '[Yesterday at] LT',
+            'lastWeek' => '[Last] dddd [at] LT',
+            'sameElse' => 'L',
+        ], static::getTranslationMessage('calendar', $locale) ?: []);
     }
 
     /**
@@ -2843,7 +2867,7 @@ trait Date
                 'ddd' => 'shortDayName',
                 'dddd' => 'dayName',
                 'DDD' => 'dayOfYear',
-                'DDDD' => ['getPaddedUnit', 'dayOfYear', 3],
+                'DDDD' => ['getPaddedUnit', ['dayOfYear', 3]],
                 'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
                 'e' => 'dayOfWeek',
                 'E' => 'dayOfWeekIso',
@@ -2852,7 +2876,7 @@ trait Date
                 'h' => ['format', ['g']],
                 'hh' => ['format', ['h']],
                 'k' => 'noZeroHour',
-                'kk' => ['getPaddedUnit', 'noZeroHour'],
+                'kk' => ['getPaddedUnit', ['noZeroHour']],
                 'hmm' => ['format', ['gi']],
                 'hmmss' => ['format', ['gis']],
                 'Hmm' => ['format', ['Gi']],
@@ -2861,6 +2885,8 @@ trait Date
                 'mm' => ['format', ['i']],
                 'a' => 'meridiem',
                 'A' => 'upperMeridiem',
+                's' => 'second',
+                'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
                     return (int) round($date->micro / 100000);
                 },
@@ -2875,9 +2901,9 @@ trait Date
                     return (int) round($date->micro / 10);
                 },
                 'SSSSSS' => 'micro',
-                'SSSSSSS' => ['getPaddedUnit', 'micro', 7],
-                'SSSSSSSS' => ['getPaddedUnit', 'micro', 8],
-                'SSSSSSSSS' => ['getPaddedUnit', 'micro', 9],
+                'SSSSSSS' => ['getPaddedUnit', ['micro', 7]],
+                'SSSSSSSS' => ['getPaddedUnit', ['micro', 8]],
+                'SSSSSSSSS' => ['getPaddedUnit', ['micro', 9]],
                 'M' => 'month',
                 'MM' => ['format', ['m']],
                 'MMM' => function (CarbonInterface $date) {
@@ -2890,8 +2916,25 @@ trait Date
                 },
                 'MMMM' => 'monthName',
                 'Mo' => ['ordinal', ['month', 'M']],
+                'Q' => 'quarter',
+                'Qo' => ['ordinal', ['quarter', 'M']],
+                'G' => 'weekOfYear',
+                'GG' => ['weekOfYear', ['micro', 2]],
+                'GGG' => ['weekOfYear', ['micro', 3]],
+                'GGGG' => ['weekOfYear', ['micro', 4]],
+                'GGGGG' => ['weekOfYear', ['micro', 5]],
+                // @TODO use dow/doy
+                'g' => 'weekOfYear',
+                'gg' => ['weekOfYear', ['micro', 2]],
+                'ggg' => ['weekOfYear', ['micro', 3]],
+                'gggg' => ['weekOfYear', ['micro', 4]],
+                'ggggg' => ['weekOfYear', ['micro', 5]],
+                'x' => ['getPreciseTimestamp', [3]],
+                'X' => 'timestamp',
                 'z' => 'tzAbbrName',
                 'zz' => 'tzName',
+                'Z' => ['getOffsetString', []],
+                'ZZ' => ['getOffsetString', ['']],
             ];
         }
 
@@ -2961,6 +3004,7 @@ trait Date
         $length = mb_strlen($format);
         $inEscaped = false;
         $formats = null;
+        $units = null;
 
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($format, $i, 1);
@@ -3010,15 +3054,24 @@ trait Date
 
             if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
                 $code = $match[0];
-                if ($formats === null) {
-                    $formats = static::getIsoUnits();
+                if ($units === null) {
+                    $units = static::getIsoUnits();
                 }
 
-                $sequence = $formats[$code] ?? '';
+                $sequence = $units[$code] ?? '';
                 if ($sequence instanceof Closure) {
-                    $sequence = $sequence();
+                    $sequence = $sequence($this);
+                } elseif (is_array($sequence)) {
+                    $sequence = $this->{$sequence[0]}(...$sequence[1]);
+                } elseif (is_string($sequence)) {
+                    if (!isset($this->$sequence)) {
+                        var_dump($sequence, $code);
+                        exit;
+                    }
+                    $sequence = $this->$sequence;
                 }
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
+                $i += mb_strlen($sequence) - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -3027,6 +3080,89 @@ trait Date
         }
 
         return $result;
+    }
+
+    /**
+     * Returns the offset hour and minute formatted with +/- and a given separator (":" by default).
+     * For example, if the time zone is 9 hours 30 minutes, you'll get "+09:30", with "@@" as first
+     * argument, "+09@@30", with "" as first argument, "+0930". Negative offset will return something
+     * like "-12:00".
+     *
+     * @param string $separator string to place between hours and minutes (":" by default)
+     *
+     * @return string
+     */
+    public function getOffsetString($separator = ':')
+    {
+        $second = $this->getOffset();
+        $symbol = $second < 0 ? '-' : '+';
+        $minute = abs($second) / static::SECONDS_PER_MINUTE;
+        $hour = str_pad(floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $minute = str_pad($minute % static::MINUTES_PER_HOUR, 2, '0', STR_PAD_LEFT);
+
+        return "$symbol$hour$separator$minute";
+    }
+
+    /**
+     * Returns a timestamp rounded with the given precision (6 by default).
+     *
+     * @example getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
+     * @example getPreciseTimestamp(6)  1532087464437474
+     * @example getPreciseTimestamp(5)  153208746443747  (1/100000 second precision)
+     * @example getPreciseTimestamp(4)  15320874644375   (1/10000 second precision)
+     * @example getPreciseTimestamp(3)  1532087464437    (millisecond precision)
+     * @example getPreciseTimestamp(2)  153208746444     (1/100 second precision)
+     * @example getPreciseTimestamp(1)  15320874644      (1/10 second precision)
+     * @example getPreciseTimestamp(0)  1532087464       (second precision)
+     * @example getPreciseTimestamp(-1) 153208746        (10 second precision)
+     * @example getPreciseTimestamp(-2) 15320875         (100 second precision)
+     *
+     * @param int $precision
+     *
+     * @return float
+     */
+    public function getPreciseTimestamp($precision = 6)
+    {
+        return round($this->format('Uu') / pow(10, 6 - $precision));
+    }
+
+    public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
+    {
+        return $this->weekYear(
+            $year,
+            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+        );
+    }
+
+    public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
+    {
+        if ($year !== null) {
+            $day = $this->dayOfWeek;
+            $date = $this->year($year);
+
+            return $date->closest($date->previous($day), $date->next());
+        }
+
+        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 6;
+        $year = $this->year;
+        $day = $this->dayOfYear;
+        $date = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        if ($date->year !== $year) {
+            if ($day < $date->addWeek()->dayOfYear) {
+                $year--;
+            }
+        } elseif ($day < $date->dayOfYear) {
+            $year--;
+        } else {
+            $date = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+            if ($date->year !== $year && $day >= $date->dayOfYear) {
+                $year++;
+            }
+        }
+
+        return $year;
     }
 
     ///////////////////////////////////////////////////////////////////

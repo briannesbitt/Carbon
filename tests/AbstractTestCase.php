@@ -40,7 +40,7 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set('America/Toronto');
 
         Carbon::setTestNow($this->now = Carbon::now());
-        CarbonImmutable::setTestNow($this->now = CarbonImmutable::now());
+        CarbonImmutable::setTestNow($this->immutableNow = CarbonImmutable::now());
     }
 
     protected function tearDown()

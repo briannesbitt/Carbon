@@ -1376,15 +1376,6 @@ class DiffTest extends AbstractTestCase
     }
 
     /**
-     * @group i
-     */
-    public function testCalendar()
-    {
-        Carbon::setLocale('en');
-        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->calendar());
-    }
-
-    /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, integer given
      */
