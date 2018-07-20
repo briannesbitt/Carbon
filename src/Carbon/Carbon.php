@@ -1847,7 +1847,7 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Set the default format used when type juggling a Carbon instance to a string
      *
-     * @param mixed $format
+     * @param string|Closure $format
      *
      * @return void
      */
