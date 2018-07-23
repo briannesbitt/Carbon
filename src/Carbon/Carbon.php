@@ -1025,7 +1025,7 @@ class Carbon extends DateTime implements JsonSerializable
     {
         if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
             throw new InvalidArgumentException(
-                'Expected null, string, DateTime or DateTimeInterface, '.
+                'Expected DateTime or DateTimeInterface, '.
                 (is_object($date) ? get_class($date) : gettype($date)).' given'
             );
         }
