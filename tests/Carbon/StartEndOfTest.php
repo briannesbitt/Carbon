@@ -327,13 +327,13 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfSecondFromFirstSecond()
     {
-        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->modify("01:01:01.1")->endOfSecond();
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->modify('01:01:01.1')->endOfSecond();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
     }
 
     public function testEndOfSecondFromLastSecond()
     {
-        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->modify("23:59:59.1")->endOfSecond();
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->modify('23:59:59.1')->endOfSecond();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
     }
 

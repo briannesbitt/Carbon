@@ -4365,7 +4365,6 @@ class Carbon extends DateTime implements JsonSerializable
     public function endOfSecond()
     {
         return $this->modify("$this->hour:$this->minute:$this->second.999999");
-
     }
 
     /**
