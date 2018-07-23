@@ -1018,7 +1018,7 @@ class Carbon extends DateTime implements JsonSerializable
      * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface
      * and not in $other.
      *
-     * @param mixed $date
+     * @param mixed        $date
      * @param string|array $other
      *
      * @throws \InvalidArgumentException
