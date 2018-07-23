@@ -20,18 +20,14 @@ class StartEndOfTest extends AbstractTestCase
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->startOfDay());
-        version_compare(PHP_VERSION, '7.1.0-dev', '<')
-            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0)
-            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 0, 0, 0, 0);
     }
 
     public function testEndOfDay()
     {
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOfDay());
-        version_compare(PHP_VERSION, '7.1.0-dev', '<')
-            ? $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59)
-            : $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, 23, 59, 59, 999999);
     }
 
     public function testStartOfMonthIsFluid()
@@ -85,13 +81,13 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfMonth()
     {
         $dt = Carbon::create(2000, 1, 1, 2, 3, 4)->endOfMonth();
-        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfMonthFromLastDay()
     {
         $dt = Carbon::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
-        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfYearIsFluid()
@@ -103,19 +99,19 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfYearFromNow()
     {
         $dt = Carbon::now()->endOfYear();
-        $this->assertCarbon($dt, $dt->year, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, $dt->year, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfYearFromFirstDay()
     {
         $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfYear();
-        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfYearFromLastDay()
     {
         $dt = Carbon::create(2000, 12, 31, 23, 59, 59)->endOfYear();
-        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testStartOfDecadeIsFluid()
@@ -151,19 +147,19 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfDecadeFromNow()
     {
         $dt = Carbon::now()->endOfDecade();
-        $this->assertCarbon($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfDecadeFromFirstDay()
     {
         $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfDecade();
-        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfDecadeFromLastDay()
     {
         $dt = Carbon::create(2009, 12, 31, 23, 59, 59)->endOfDecade();
-        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testStartOfCenturyIsFluid()
@@ -226,19 +222,19 @@ class StartEndOfTest extends AbstractTestCase
     {
         $now = Carbon::now();
         $dt = Carbon::now()->endOfHour();
-        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, 59, 59);
+        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, 59, 59, 999999);
     }
 
     public function testEndOfHourFromFirstMinute()
     {
         $dt = Carbon::create(2001, 1, 1, 1, 1, rand(0, 59))->endOfHour();
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59, 999999);
     }
 
     public function testEndOfHourFromLastMinute()
     {
         $dt = Carbon::create(2100, 12, 31, 23, 59, rand(0, 59))->endOfHour();
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59, 999999);
     }
 
     public function testStartOfMinuteIsFluid()
@@ -276,19 +272,69 @@ class StartEndOfTest extends AbstractTestCase
     {
         $now = Carbon::now();
         $dt = Carbon::now()->endOfMinute();
-        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, $now->minute, 59);
+        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, $now->minute, 59, 999999);
     }
 
     public function testEndOfMinuteFromFirstSecond()
     {
         $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->endOfMinute();
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59);
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59, 999999);
     }
 
     public function testEndOfMinuteFromLastSecond()
     {
-        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfHour();
-        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59);
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfMinute();
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59, 999999);
+    }
+
+    public function testStartOfSecondIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfSecond());
+    }
+
+    public function testStartOfSecondFromNow()
+    {
+        $now = Carbon::now();
+        $dt = Carbon::now()->startOfSecond();
+        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second, 0);
+    }
+
+    public function testStartOfSecondFromFirstSecond()
+    {
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->startOfSecond();
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 0);
+    }
+
+    public function testStartOfSecondFromLastSecond()
+    {
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->startOfSecond();
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 0);
+    }
+
+    public function testEndOfSecondIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->endOfSecond());
+    }
+
+    public function testEndOfSecondFromNow()
+    {
+        $now = Carbon::now();
+        $dt = Carbon::now()->endOfSecond();
+        $this->assertCarbon($dt, $now->year, $now->month, $now->day, $now->hour, $now->minute, $now->second, 999999);
+    }
+
+    public function testEndOfSecondFromFirstSecond()
+    {
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->modify("01:01:01.1")->endOfSecond();
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
+    }
+
+    public function testEndOfSecondFromLastSecond()
+    {
+        $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->modify("23:59:59.1")->endOfSecond();
+        $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
     }
 
     public function testMidDayIsFluid()
@@ -314,19 +360,19 @@ class StartEndOfTest extends AbstractTestCase
     {
         $now = Carbon::now();
         $dt = Carbon::now()->endOfCentury();
-        $this->assertCarbon($dt, $now->year - $now->year % 100 + 100, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, $now->year - $now->year % 100 + 100, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfCenturyFromFirstDay()
     {
         $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
-        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testEndOfCenturyFromLastDay()
     {
         $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
-        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59);
+        $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59, 999999);
     }
 
     public function testStartOfQuarterIsFluid()
@@ -399,7 +445,7 @@ class StartEndOfTest extends AbstractTestCase
     public function testEndOfQuarter($month, $endOfQuarterMonth, $endOfQuarterDay)
     {
         $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
-        $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59);
+        $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59, 999999);
     }
 
     public function testAverageIsFluid()

@@ -4166,7 +4166,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfDay()
     {
-        return $this->modify('23.59.59.999999');
+        return $this->modify('23:59:59.999999');
     }
 
     /**
@@ -4324,7 +4324,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfHour()
     {
-        return $this->setTime($this->hour, 59, 59);
+        return $this->modify("$this->hour:59:59.999999");
     }
 
     /**
@@ -4344,7 +4344,28 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function endOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, 59);
+        return $this->modify("$this->hour:$this->minute:59.999999");
+    }
+
+    /**
+     * Modify to start of current minute, seconds become 0
+     *
+     * @return static
+     */
+    public function startOfSecond()
+    {
+        return $this->modify("$this->hour:$this->minute:$this->second.0");
+    }
+
+    /**
+     * Modify to end of current minute, seconds become 59
+     *
+     * @return static
+     */
+    public function endOfSecond()
+    {
+        return $this->modify("$this->hour:$this->minute:$this->second.999999");
+
     }
 
     /**
