@@ -81,7 +81,7 @@ abstract class AbstractTestCase extends TestCase
             $actual['seconds'] = $second;
         }
 
-        if ($micro !== null) {
+        if (version_compare(PHP_VERSION, '7.1.0-dev', '>=') && $micro !== null) {
             $expected['micro'] = $d->micro;
             $actual['micro'] = $micro;
         }
