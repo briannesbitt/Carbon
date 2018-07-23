@@ -2918,17 +2918,20 @@ trait Date
                 'Mo' => ['ordinal', ['month', 'M']],
                 'Q' => 'quarter',
                 'Qo' => ['ordinal', ['quarter', 'M']],
-                'G' => 'weekOfYear',
-                'GG' => ['weekOfYear', ['micro', 2]],
-                'GGG' => ['weekOfYear', ['micro', 3]],
-                'GGGG' => ['weekOfYear', ['micro', 4]],
-                'GGGGG' => ['weekOfYear', ['micro', 5]],
-                // @TODO use dow/doy
-                'g' => 'weekOfYear',
-                'gg' => ['weekOfYear', ['micro', 2]],
-                'ggg' => ['weekOfYear', ['micro', 3]],
-                'gggg' => ['weekOfYear', ['micro', 4]],
-                'ggggg' => ['weekOfYear', ['micro', 5]],
+                'G' => 'isoWeekYear',
+                'GG' => ['getPaddedUnit', ['isoWeekYear', 2]],
+                'GGG' => ['getPaddedUnit', ['isoWeekYear', 3]],
+                'GGGG' => ['getPaddedUnit', ['isoWeekYear', 4]],
+                'GGGGG' => ['getPaddedUnit', ['isoWeekYear', 5]],
+                'g' => 'weekYear',
+                'gg' => ['getPaddedUnit', ['weekYear', 2]],
+                'ggg' => ['getPaddedUnit', ['weekYear', 3]],
+                'gggg' => ['getPaddedUnit', ['weekYear', 4]],
+                'ggggg' => ['getPaddedUnit', ['weekYear', 5]],
+                'W' => 'isoWeek',
+                'WW' => ['getPaddedUnit', ['isoWeek', 2]],
+                'w' => 'week',
+                'ww' => ['getPaddedUnit', ['week', 2]],
                 'x' => ['getPreciseTimestamp', [3]],
                 'X' => 'timestamp',
                 'z' => 'tzAbbrName',
@@ -3126,6 +3129,17 @@ trait Date
         return round($this->format('Uu') / pow(10, 6 - $precision));
     }
 
+    /**
+     * Set/get the week number of year using given first day of week and first
+     * day of year included in the first week. Or use ISO format if no settings
+     * given.
+     *
+     * @param int|null $year      if null, act as a getter, if not null, set the year and return current instance.
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int|static
+     */
     public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
         return $this->weekYear(
@@ -3135,6 +3149,17 @@ trait Date
         );
     }
 
+    /**
+     * Set/get the week number of year using given first day of week and first
+     * day of year included in the first week. Or use US format if no settings
+     * given (Sunday / Jan 6).
+     *
+     * @param int|null $year      if null, act as a getter, if not null, set the year and return current instance.
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int|static
+     */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
         if ($year !== null) {
@@ -3157,12 +3182,65 @@ trait Date
             $year--;
         } else {
             $date = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
-            if ($date->year !== $year && $day >= $date->dayOfYear) {
+            if ($date->year === $year && $day >= $date->dayOfYear) {
                 $year++;
             }
         }
 
         return $year;
+    }
+
+    /**
+     * Get the number of weeks of the current week-year using given first day of week and first
+     * day of year included in the first week. Or use ISO format if no settings
+     * given.
+     *
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int
+     */
+    public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null)
+    {
+        return $this->weeksInYear(
+            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+        );
+    }
+
+    /**
+     * Get the number of weeks of the current week-year using given first day of week and first
+     * day of year included in the first week. Or use US format if no settings
+     * given (Sunday / Jan 6).
+     *
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int
+     */
+    public function weeksInYear($dayOfWeek = null, $dayOfYear = null)
+    {
+        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 6;
+        $down = $this->copy()->startOfWeek($dayOfWeek);
+        $up = $down->copy()->addWeek();
+        $year = $down->weekYear(null, $dayOfWeek, $dayOfYear);
+        $count = 0;
+        while ($down->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
+            $down = $down->subWeek();
+            $count++;
+        }
+        while ($up->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
+            $up = $up->addWeek();
+            $count++;
+        }
+
+        return $count;
+    }
+
+    public function week($week = null)
+    {
+
     }
 
     ///////////////////////////////////////////////////////////////////
