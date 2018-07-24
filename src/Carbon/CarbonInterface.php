@@ -54,6 +54,7 @@ use JsonSerializable;
  * @property-read int            $noZeroHour                                                                         current hour from 1 to 24
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
  * @property-read int            $century                                                                            the century of this instance
@@ -690,11 +691,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getAvailableLocales();
 
+    public static function getCalendarFormats($locale = null);
+
     public static function getDays();
 
     public static function getHumanDiffOptions();
 
-    public static function getIsoFormats();
+    public static function getIsoFormats($locale = null);
 
     public static function getIsoUnits();
 
@@ -704,11 +707,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getMidDayAt();
 
+    public function getOffsetString($separator = ':');
+
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = 0);
+
+    public function getPreciseTimestamp($precision = 6);
 
     public static function getTestNow();
 
-    public static function getTranslationMessage($key);
+    public static function getTranslationMessage(string $key, string $locale = null);
 
     public static function getTranslator();
 
@@ -794,7 +801,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function isoFormat(string $format): string;
 
+    public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
+
     public function isoWeekday($value = null);
+
+    public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null);
 
     public function jsonSerialize();
 
@@ -1038,6 +1049,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function tomorrow($tz = null);
 
+    public static function translate(string $key, array $parameters = [], $number = null): string;
+
     public function tz($value = null);
 
     public function until($other = null, $syntax = null, $short = false, $parts = 1);
@@ -1050,7 +1063,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function utcOffset(int $offset = null);
 
+    public function week($week = null);
+
+    public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
+
     public function weekday($value = null);
+
+    public function weeksInYear($dayOfWeek = null, $dayOfYear = null);
 
     public static function yesterday($tz = null);
 

@@ -11,90 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class HiTest extends AbstractTestCase
+class HiTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInHindi()
-    {
-        Carbon::setLocale('hi');
+    const LOCALE = 'hi'; // Hindi
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1 मिनट पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 मिनटों पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1 घंटा पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 घंटे पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1 दिन पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 दिनों पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1 सप्ताह पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 सप्ताह पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1 माह पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 महीने पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(0);
-            $scope->assertSame('1 सेकंड पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1 वर्ष पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 वर्षों पूर्व', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 सेकंड से', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('1 सेकंड के बाद', $d->diffForHumans($d2));
-            $scope->assertSame('1 सेकंड के पहले', $d2->diffForHumans($d));
-
-            $scope->assertSame('1 सेकंड', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 सेकंड', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'पिछले शनिवार, रात 12:00 बजे',
+        // Carbon::now()->subDays(2)->calendar()
+        'रविवार, रात 8:49 बजे',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'कल रात 10:00 बजे',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'आज दोपहर 10:00 बजे',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'आज रात 2:00 बजे',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'कल रात 1:00 बजे',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'पिछले मंगलवार, रात 12:00 बजे',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'मंगलवार, रात 12:00 बजे',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'शुक्रवार, रात 12:00 बजे',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'कुछ ही क्षण पहले',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 सेकंड पहले',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        '2 सेकंड पहले',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        '2 सेकंड पहले',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'एक मिनट पहले',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 मिनट पहले',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        '2 मिनट पहले',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        '2 मिनटों पहले',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'एक घंटा पहले',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1 घंटा पहले',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        '2 घंटे पहले',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        '2 घंटे पहले',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'एक दिन पहले',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 दिन पहले',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        '2 दिन पहले',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        '2 दिनों पहले',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        '1 सप्ताह पहले',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        '1 सप्ताह पहले',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        '2 सप्ताह पहले',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        '2 सप्ताह पहले',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'एक महीने पहले',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1 माह पहले',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        '2 महीने पहले',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        '2 महीने पहले',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'एक वर्ष पहले',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 वर्ष पहले',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        '2 वर्ष पहले',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        '2 वर्षों पहले',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'कुछ ही क्षण में',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1 सेकंड में',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'कुछ ही क्षण के बाद',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 सेकंड के बाद',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'कुछ ही क्षण के पहले',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 सेकंड के पहले',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'कुछ ही क्षण',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 सेकंड',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 सेकंड',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 सेकंड',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        '1 सेकंड में',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'एक मिनट कुछ ही क्षण',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 वर्षों 3 महीने 1 दिन 1 सेकंड',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 सप्ताह 10 घंटे',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 सप्ताह 6 दिन',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 सप्ताह 6 दिन',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 सप्ताह एक घंटा',
+    ];
 }

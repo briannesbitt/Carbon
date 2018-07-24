@@ -63,6 +63,7 @@ use DateTime;
  * @property-read int            $noZeroHour                                                                         current hour from 1 to 24
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
  * @property-read int            $century                                                                            the century of this instance

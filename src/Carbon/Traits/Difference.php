@@ -612,9 +612,9 @@ trait Difference
         );
         $format = array_merge(static::getCalendarFormats(), $formats)[$format];
         if ($format instanceof Closure) {
-            $format = $format($current, $other);
+            $format = $format($current, $other) ?? '';
         }
 
-        return $this->isoFormat($format);
+        return $this->isoFormat(strval($format));
     }
 }

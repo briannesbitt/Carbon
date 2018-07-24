@@ -48,6 +48,8 @@ return [
     'second' => 'ސިކުންތުކޮޅެއް|d% ސިކުންތު',
     'ago' => 'ކުރިން :time',
     'from_now' => 'ތެރޭގައި :time',
+    'after' => ':time ފަހުން',
+    'before' => ':time ކުރި',
     'diff_yesterday' => 'އިއްޔެ',
     'diff_tomorrow' => 'މާދަމާ',
     'formats' => [

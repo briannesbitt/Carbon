@@ -979,7 +979,10 @@ class CarbonInterval extends DateInterval
         foreach ($periods as $unit => $options) {
             list($shortUnit, $count) = $options;
             if ($count > 0) {
-                $parts[] = static::translator()->transChoice($short ? $shortUnit : $unit, $count, [':count' => $count]);
+                $part = static::translator()->transChoice($short ? $shortUnit : $unit, $count, [':count' => $count]);
+                $parts[] = $short && $part === $shortUnit
+                    ? static::translator()->transChoice($unit, $count, [':count' => $count])
+                    : $part;
             }
         }
 

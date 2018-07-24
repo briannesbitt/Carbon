@@ -1,0 +1,128 @@
+<?php
+
+/*
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Tests\Localization;
+
+class SiTest extends LocalizationTestCase
+{
+    const LOCALE = 'si'; // Sinhalese
+
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'පසුගිය සෙනසුරාදා පෙ.ව. 12:00ට',
+        // Carbon::now()->subDays(2)->calendar()
+        'ඉරිදා ප.ව. 8:49ට',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'හෙට ප.ව. 10:00ට',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'අද පෙ.ව. 10:00ට',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'අද පෙ.ව. 2:00ට',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'ඊයේ පෙ.ව. 1:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'පසුගිය අඟහරුවාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'සිකුරාදා පෙ.ව. 12:00ට',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'තත්පර කිහිපයකට පෙර',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'sකට පෙර',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'තත්පර 2කට පෙර',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        'sකට පෙර',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'මිනිත්තුවකට පෙර',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'minකට පෙර',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'මිනිත්තු 2කට පෙර',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'minකට පෙර',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'පැයකට පෙර',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'hකට පෙර',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'පැය 2කට පෙර',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'hකට පෙර',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'දිනයකට පෙර',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'dකට පෙර',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'දින 2කට පෙර',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'dකට පෙර',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'සතියක්කට පෙර',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'wකට පෙර',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'සති 2 යිකට පෙර',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'wකට පෙර',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'මාසයකට පෙර',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'mකට පෙර',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'මාස 2කට පෙර',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'mකට පෙර',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'වසරකට පෙර',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'yකට පෙර',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'වසර 2කට පෙර',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'yකට පෙර',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'තත්පර කිහිපයකින්',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'sකින්',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'after',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'after',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'before',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'before',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'තත්පර කිහිපය',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        's',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        'තත්පර 2',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        's',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'sකින්',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'මිනිත්තුව තත්පර කිහිපය',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        'y m d s',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        'සතියක් පැය 10',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'සතියක් දින 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'සතියක් දින 6',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        'සති 2 යි පැය',
+    ];
+}

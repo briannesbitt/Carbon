@@ -19,6 +19,13 @@ return [
     'second' => 'unos segundos|:count segundos',
     'ago' => 'hace :time',
     'from_now' => 'en :time',
+    'after' => ':time después',
+    'before' => ':time antes',
+    'diff_now' => 'ahora mismo',
+    'diff_yesterday' => 'ayer',
+    'diff_tomorrow' => 'mañana',
+    'diff_before_yesterday' => 'anteayer',
+    'diff_after_tomorrow' => 'pasado mañana',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

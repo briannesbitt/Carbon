@@ -11,69 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class ZhTwTest extends AbstractTestCase
+class ZhTwTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInZhTw()
-    {
-        Carbon::setLocale('zh_TW');
+    const LOCALE = 'zh_TW'; // Chinese
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1秒前', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2秒前', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1分鐘前', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2分鐘前', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1小時前', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2小時前', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1天前', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2天前', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1週前', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2週前', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1月前', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2月前', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1年前', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2年前', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('距現在1秒', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('1秒後', $d->diffForHumans($d2));
-            $scope->assertSame('1秒前', $d2->diffForHumans($d));
-
-            $scope->assertSame('1秒', $d->diffForHumans($d2, true));
-            $scope->assertSame('2秒', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '上星期六 00:00',
+        // Carbon::now()->subDays(2)->calendar()
+        '下星期日 20:49',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '明天 22:00',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        '今天 10:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '今天 02:00',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        '昨天 01:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '上星期二 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '下星期二 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '下星期五 00:00',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        '幾秒前',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1秒前',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        '2 秒前',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        '2秒前',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        '1 分鐘前',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1分鐘前',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        '2 分鐘前',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        '2分鐘前',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        '1 小時前',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1小時前',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        '2 小時前',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        '2小時前',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        '1 天前',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1天前',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        '2 天前',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        '2天前',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        '1週前',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        '1週前',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        '2週前',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        '2週前',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        '1 個月前',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1月前',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        '2 個月前',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        '2月前',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        '1 年前',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1年前',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        '2 年前',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        '2年前',
+        // Carbon::now()->addSecond()->diffForHumans()
+        '幾秒內',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1秒內',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        '幾秒後',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1秒後',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        '幾秒前',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1秒前',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        '幾秒',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1秒',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 秒',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2秒',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        '1秒內',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        '1 分鐘 幾秒',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2年 3月 1天 1秒',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1週 10 小時',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1週 6 天',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1週 6 天',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2週 1 小時',
+    ];
 }

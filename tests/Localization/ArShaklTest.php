@@ -11,153 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class ArShaklTest extends AbstractTestCase
+class ArShaklTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInArb()
-    {
-        Carbon::setLocale('ar_Shakl');
+    const LOCALE = 'ar_Shakl'; // Arabic
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('مُنْذُ ثَانِيَتَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(3);
-            $scope->assertSame('مُنْذُ 3 ثَوَان', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(10);
-            $scope->assertSame('مُنْذُ 10 ثَوَان', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(11);
-            $scope->assertSame('مُنْذُ 11 ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('مُنْذُ دَقِيقَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('مُنْذُ دَقِيقَتَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(3);
-            $scope->assertSame('مُنْذُ 3 دَقَائِق', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(10);
-            $scope->assertSame('مُنْذُ 10 دَقَائِق', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(11);
-            $scope->assertSame('مُنْذُ 11 دَقِيقَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('مُنْذُ سَاعَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('مُنْذُ سَاعَتَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(3);
-            $scope->assertSame('مُنْذُ 3 سَاعَات', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(10);
-            $scope->assertSame('مُنْذُ 10 سَاعَات', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(11);
-            $scope->assertSame('مُنْذُ 11 سَاعَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('مُنْذُ يَوْم', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('مُنْذُ يَوْمَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(3);
-            $scope->assertSame('مُنْذُ 3 أَيَّام', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(10);
-            $scope->assertSame('مُنْذُ أُسْبُوع', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(11);
-            $scope->assertSame('مُنْذُ أُسْبُوع', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('مُنْذُ أُسْبُوع', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('مُنْذُ أُسْبُوعَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(3);
-            $scope->assertSame('مُنْذُ 3 أَسَابِيع', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(10);
-            $scope->assertSame('مُنْذُ شَهْرَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(11);
-            $scope->assertSame('مُنْذُ شَهْرَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('مُنْذُ شَهْرَ', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('مُنْذُ شَهْرَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(3);
-            $scope->assertSame('مُنْذُ 3 أَشْهُر', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(10);
-            $scope->assertSame('مُنْذُ 10 أَشْهُر', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(11);
-            $scope->assertSame('مُنْذُ 11 شَهْرَ', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(0);
-            $scope->assertSame('مُنْذُ ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('مُنْذُ سَنَة', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('مُنْذُ سَنَتَيْن', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(3);
-            $scope->assertSame('مُنْذُ 3 سَنَوَات', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(10);
-            $scope->assertSame('مُنْذُ 10 سَنَوَات', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(11);
-            $scope->assertSame('مُنْذُ 11 سَنَة', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('مِنَ الْآن ثَانِيَة', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('بَعْدَ ثَانِيَة', $d->diffForHumans($d2));
-            $scope->assertSame('قَبْلَ ثَانِيَة', $d2->diffForHumans($d));
-
-            $scope->assertSame('ثَانِيَة', $d->diffForHumans($d2, true));
-            $scope->assertSame('ثَانِيَتَيْن', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'السبت عند الساعة 00:00',
+        // Carbon::now()->subDays(2)->calendar()
+        'الأحد عند الساعة 20:49',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'غدًا عند الساعة 22:00',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'اليوم عند الساعة 10:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'اليوم عند الساعة 02:00',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'أمس عند الساعة 01:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'الثلاثاء عند الساعة 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'الثلاثاء عند الساعة 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'الجمعة عند الساعة 00:00',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'مُنْذُ ثَانِيَة',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'مُنْذُ ثَانِيَة',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'مُنْذُ ثَانِيَتَيْن',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        'مُنْذُ ثَانِيَتَيْن',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'مُنْذُ دَقِيقَة',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'مُنْذُ دَقِيقَة',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'مُنْذُ دَقِيقَتَيْن',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'مُنْذُ دَقِيقَتَيْن',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'مُنْذُ سَاعَة',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'مُنْذُ سَاعَة',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'مُنْذُ سَاعَتَيْن',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'مُنْذُ سَاعَتَيْن',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'مُنْذُ يَوْم',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'مُنْذُ يَوْم',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'مُنْذُ يَوْمَيْن',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'مُنْذُ يَوْمَيْن',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'مُنْذُ أُسْبُوع',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'مُنْذُ أُسْبُوع',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'مُنْذُ أُسْبُوعَيْن',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'مُنْذُ أُسْبُوعَيْن',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'مُنْذُ شَهْرَ',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'مُنْذُ شَهْرَ',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'مُنْذُ شَهْرَيْن',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'مُنْذُ شَهْرَيْن',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'مُنْذُ سَنَة',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'مُنْذُ سَنَة',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'مُنْذُ سَنَتَيْن',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'مُنْذُ سَنَتَيْن',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'مِنَ الْآن ثَانِيَة',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'مِنَ الْآن ثَانِيَة',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'بَعْدَ ثَانِيَة',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'بَعْدَ ثَانِيَة',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'قَبْلَ ثَانِيَة',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'قَبْلَ ثَانِيَة',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'ثَانِيَة',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        'ثَانِيَة',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        'ثَانِيَتَيْن',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        'ثَانِيَتَيْن',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'مِنَ الْآن ثَانِيَة',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'دَقِيقَة ثَانِيَة',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        'سَنَتَيْن 3 أَشْهُر يَوْم ثَانِيَة',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        'أُسْبُوع 10 سَاعَات',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'أُسْبُوع 6 أَيَّام',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'أُسْبُوع 6 أَيَّام',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        'أُسْبُوعَيْن سَاعَة',
+    ];
 }

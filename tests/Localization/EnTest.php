@@ -13,11 +13,27 @@ namespace Tests\Localization;
 
 class EnTest extends LocalizationTestCase
 {
-    const LOCALE = 'en';
+    const LOCALE = 'en'; // English
 
     const CASES = [
-        // Carbon::parse('2018-01-02 00:00:00')->addDays(2)->calendar()
-        '2 days ago',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Last Saturday at 12:00 AM',
+        // Carbon::now()->subDays(2)->calendar()
+        'Sunday at 8:49 PM',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tomorrow at 10:00 PM',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Today at 10:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Today at 2:00 AM',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Yesterday at 1:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Last Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Friday at 12:00 AM',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 second ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -105,7 +121,7 @@ class EnTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '3 weeks 3 days',
+        '1 week 6 days',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 weeks 1 hour',
     ];

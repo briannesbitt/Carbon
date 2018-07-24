@@ -26,6 +26,8 @@ return [
     's' => ':countվրկ',
     'ago' => ':time առաջ',
     'from_now' => ':time հետո',
+    'after' => ':time հետո',
+    'before' => ':time առաջ',
     'diff_yesterday' => 'երեկ',
     'diff_tomorrow' => 'վաղը',
     'formats' => [

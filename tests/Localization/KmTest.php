@@ -11,69 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class KmTest extends AbstractTestCase
+class KmTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInKhmer()
-    {
-        Carbon::setLocale('km');
+    const LOCALE = 'km'; // Khmer
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1 វិនាទីមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 វិនាទីមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1 នាទីមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 នាទីមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1 ម៉ោងមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 ម៉ោងមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1 ថ្ងៃមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 ថ្ងៃមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1 សប្ដាហ៍មុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 សប្ដាហ៍មុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1 ខែមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 ខែមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1 ឆ្នាំមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 ឆ្នាំមុន', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 វិនាទីពី​ឥឡូវ', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('នៅ​ក្រោយ 1 វិនាទី', $d->diffForHumans($d2));
-            $scope->assertSame('នៅ​មុន 1 វិនាទី', $d2->diffForHumans($d));
-
-            $scope->assertSame('1 វិនាទី', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 វិនាទី', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'សៅរ៍ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::now()->subDays(2)->calendar()
+        'អាទិត្យ ម៉ោង 20:49',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ស្អែក ម៉ោង 22:00',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'ថ្ងៃនេះ ម៉ោង 10:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ថ្ងៃនេះ ម៉ោង 02:00',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'ម្សិលមិញ ម៉ោង 01:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'អង្គារ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'អង្គារ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'សុក្រ ម៉ោង 00:00',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'ប៉ុន្មានវិនាទីមុន',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 វិនាទីមុន',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        '2 វិនាទីមុន',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        '2 វិនាទីមុន',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'មួយនាទីមុន',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 នាទីមុន',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        '2 នាទីមុន',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        '2 នាទីមុន',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'មួយម៉ោងមុន',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1 ម៉ោងមុន',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        '2 ម៉ោងមុន',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        '2 ម៉ោងមុន',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'មួយថ្ងៃមុន',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 ថ្ងៃមុន',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        '2 ថ្ងៃមុន',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        '2 ថ្ងៃមុន',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        '1 សប្ដាហ៍មុន',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        '1 សប្ដាហ៍មុន',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        '2 សប្ដាហ៍មុន',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        '2 សប្ដាហ៍មុន',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'មួយខែមុន',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1 ខែមុន',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        '2 ខែមុន',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        '2 ខែមុន',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'មួយឆ្នាំមុន',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 ឆ្នាំមុន',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        '2 ឆ្នាំមុន',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        '2 ឆ្នាំមុន',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'ប៉ុន្មានវិនាទីទៀត',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1 វិនាទីទៀត',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'នៅ​ក្រោយ ប៉ុន្មានវិនាទី',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'នៅ​ក្រោយ 1 វិនាទី',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'នៅ​មុន ប៉ុន្មានវិនាទី',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'នៅ​មុន 1 វិនាទី',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'ប៉ុន្មានវិនាទី',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 វិនាទី',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 វិនាទី',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 វិនាទី',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        '1 វិនាទីទៀត',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'មួយនាទី ប៉ុន្មានវិនាទី',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 ឆ្នាំ 3 ខែ 1 ថ្ងៃ 1 វិនាទី',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 សប្ដាហ៍ 10 ម៉ោង',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 សប្ដាហ៍ 6 ថ្ងៃ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 សប្ដាហ៍ 6 ថ្ងៃ',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 សប្ដាហ៍ មួយម៉ោង',
+    ];
 }

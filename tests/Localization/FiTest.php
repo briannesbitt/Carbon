@@ -11,69 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class FiTest extends AbstractTestCase
+class FiTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInFinnish()
-    {
-        Carbon::setLocale('fi');
+    const LOCALE = 'fi'; // Finnish
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1 sekunti sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 sekuntia sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1 minuutti sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 minuuttia sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1 tunti sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 tuntia sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1 päivä sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 päivää sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1 viikko sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 viikkoa sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1 kuukausi sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 kuukautta sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1 vuosi sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 vuotta sitten', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 sekunti tästä hetkestä', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('1 sekunti sen jälkeen', $d->diffForHumans($d2));
-            $scope->assertSame('1 sekunti ennen', $d2->diffForHumans($d));
-
-            $scope->assertSame('1 sekunti', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 sekuntia', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Last Saturday at 12:00 AM',
+        // Carbon::now()->subDays(2)->calendar()
+        'Sunday at 8:49 PM',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tomorrow at 10:00 PM',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Today at 10:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Today at 2:00 AM',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Yesterday at 1:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Last Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Friday at 12:00 AM',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        '1 sekunti sitten',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 sekunti sitten',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        '2 sekuntia sitten',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        '2 sekuntia sitten',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        '1 minuutti sitten',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 minuutti sitten',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        '2 minuuttia sitten',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        '2 minuuttia sitten',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        '1 tunti sitten',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1 tunti sitten',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        '2 tuntia sitten',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        '2 tuntia sitten',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        '1 päivä sitten',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 päivä sitten',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        '2 päivää sitten',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        '2 päivää sitten',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        '1 viikko sitten',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        '1 viikko sitten',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        '2 viikkoa sitten',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        '2 viikkoa sitten',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        '1 kuukausi sitten',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1 kuukausi sitten',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        '2 kuukautta sitten',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        '2 kuukautta sitten',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        '1 vuosi sitten',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 vuosi sitten',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        '2 vuotta sitten',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        '2 vuotta sitten',
+        // Carbon::now()->addSecond()->diffForHumans()
+        '1 sekunti tästä hetkestä',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1 sekunti tästä hetkestä',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        '1 sekunti sen jälkeen',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 sekunti sen jälkeen',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        '1 sekunti ennen',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 sekunti ennen',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        '1 sekunti',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 sekunti',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 sekuntia',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 sekuntia',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        '1 sekunti tästä hetkestä',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        '1 minuutti 1 sekunti',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 vuotta 3 kuukautta 1 päivä 1 sekunti',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 viikko 10 tuntia',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 viikko 6 päivää',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 viikko 6 päivää',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 viikkoa 1 tunti',
+    ];
 }

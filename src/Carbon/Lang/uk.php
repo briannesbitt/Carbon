@@ -51,16 +51,16 @@ return [
     ],
     'calendar' => [
         'sameDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
-            $processHoursFunction($date, '[Сьогодні ');
+            return $processHoursFunction($date, '[Сьогодні ');
         },
         'nextDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
-            $processHoursFunction($date, '[Завтра ');
+            return $processHoursFunction($date, '[Завтра ');
         },
         'nextWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
-            $processHoursFunction($date, '[У] dddd [');
+            return $processHoursFunction($date, '[У] dddd [');
         },
         'lastDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
-            $processHoursFunction($date, '[Вчора ');
+            return $processHoursFunction($date, '[Вчора ');
         },
         'lastWeek' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
             switch ($date->dayOfWeek) {

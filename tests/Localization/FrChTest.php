@@ -1,0 +1,128 @@
+<?php
+
+/*
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Tests\Localization;
+
+class FrChTest extends LocalizationTestCase
+{
+    const LOCALE = 'fr_CH'; // French
+
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'samedi dernier à 00:00',
+        // Carbon::now()->subDays(2)->calendar()
+        'dimanche à 20:49',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Demain à 22:00',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Aujourd’hui à 10:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Aujourd’hui à 02:00',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Hier à 01:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'mardi dernier à 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'mardi à 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'vendredi à 00:00',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'il y a quelques secondes',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'il y a 1 sec.',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'il y a 2 secondes',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        'il y a 2 sec.',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'il y a une minute',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'il y a 1 min.',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'il y a 2 minutes',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'il y a 2 min.',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'il y a une heure',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'il y a 1 h.',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'il y a 2 heures',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'il y a 2 h.',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'il y a un jour',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'il y a 1 j.',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'il y a 2 jours',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'il y a 2 j.',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'il y a 1 semaine',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'il y a 1 sem.',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'il y a 2 semaines',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'il y a 2 sem.',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'il y a un mois',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'il y a 1 mois',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'il y a 2 mois',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'il y a 2 mois',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'il y a un an',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'il y a 1 an',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'il y a 2 ans',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'il y a 2 ans',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'dans quelques secondes',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'dans 1 sec.',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'quelques secondes après',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 sec. après',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'quelques secondes avant',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 sec. avant',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'quelques secondes',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 sec.',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 secondes',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 sec.',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'dans 1 sec.',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'une minute quelques secondes',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 ans 3 mois 1 j. 1 sec.',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 semaine 10 heures',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 semaine 6 jours',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 semaine 6 jours',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 semaines une heure',
+    ];
+}

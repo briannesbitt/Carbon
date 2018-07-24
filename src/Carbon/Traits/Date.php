@@ -25,6 +25,7 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use ReflectionException;
+use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -76,6 +77,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read int            $noZeroHour                                                                         current hour from 1 to 24
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
  * @property-read int            $century                                                                            the century of this instance
@@ -1577,19 +1579,19 @@ trait Date
 
             // @property-read string long name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'dayName':
-                return (static::getTranslationMessage('weekdays') ?: [])[$this->dayOfWeek] ?? $this->englishDayOfWeek;
+                return static::getTranslationMessage('weekdays.'.$this->dayOfWeek, null, $this->englishDayOfWeek);
             // @property-read string short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortDayName':
-                return (static::getTranslationMessage('weekdays_short') ?: [])[$this->dayOfWeek] ?? $this->shortEnglishDayOfWeek;
+                return static::getTranslationMessage('weekdays_short.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
             // @property-read string very short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'minDayName':
-                return (static::getTranslationMessage('weekdays_min') ?: [])[$this->dayOfWeek] ?? $this->shortEnglishDayOfWeek;
+                return static::getTranslationMessage('weekdays_min.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
             // @property-read string long name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'monthName':
-                return (static::getTranslationMessage('months') ?: [])[$this->month - 1] ?? $this->englishMonth;
+                return static::getTranslationMessage('months.'.($this->month - 1), null, $this->englishMonth);
             // @property-read string short name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortMonthName':
-                return (static::getTranslationMessage('months_short') ?: [])[$this->month - 1] ?? $this->shortEnglishMonth;
+                return static::getTranslationMessage('months_short.'.($this->month - 1), null, $this->shortEnglishMonth);
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
                 $meridiem = static::translate('meridiem', [
@@ -1630,6 +1632,10 @@ trait Date
             // @property int 1 through 366
             case $name === 'dayOfYear':
                 return 1 + intval($this->format('z'));
+
+            // @property-read int 365 or 366
+            case $name === 'daysInYear':
+                return $this->isLeapYear() ? 366 : 365;
 
             // @property int does a diffInYears() with default parameters
             case $name === 'age':
@@ -2424,7 +2430,7 @@ trait Date
             }
 
             foreach (['ago', 'from_now', 'before', 'after'] as $key) {
-                if (method_exists($translator, 'getMessages') && (($translator->getMessages() ?: [])[$key] ?? null) instanceof Closure) {
+                if ($translator instanceof TranslatorBagInterface && $translator->getCatalogue($newLocale)->get($key) instanceof Closure) {
                     continue;
                 }
 
@@ -2797,18 +2803,20 @@ trait Date
      * @param string      $key    key to find
      * @param string|null $locale current locale used if null
      *
-     * @return array
+     * @return string
      */
-    public static function getTranslationMessage($key, $locale = null)
+    public static function getTranslationMessage(string $key, string $locale = null, ...$defaults)
     {
         $translator = static::translator();
-        $locale = $locale ?? $translator->getLocale();
-        if (!method_exists($translator, 'getMessages')) {
-            throw new InvalidArgumentException("Translator used does not provide getMessages() method.");
+        if (!($translator instanceof TranslatorBagInterface)) {
+            throw new InvalidArgumentException('Translator does not implement'.TranslatorBagInterface::class.'.');
         }
-        $messages = $translator->getMessages();
+        $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
+        if ($result === $key && count($defaults)) {
+            return current($defaults);
+        }
 
-        return ($messages[$locale] ?? [])[$key] ?? null;
+        return $result;
     }
 
     /**
@@ -2820,14 +2828,14 @@ trait Date
      */
     public static function getIsoFormats($locale = null)
     {
-        return array_merge([
-            'LT' => 'h:mm A',
-            'LTS' => 'h:mm:ss A',
-            'L' => 'MM/DD/YYYY',
-            'LL' => 'MMMM D, YYYY',
-            'LLL' => 'MMMM D, YYYY h:mm A',
-            'LLLL' => 'dddd, MMMM D, YYYY h:mm A',
-        ], static::getTranslationMessage('formats', $locale) ?: []);
+        return [
+            'LT' => static::getTranslationMessage('formats.LT', $locale, 'h:mm A'),
+            'LTS' => static::getTranslationMessage('formats.LTS', $locale, 'h:mm:ss A'),
+            'L' => static::getTranslationMessage('formats.L', $locale, 'MM/DD/YYYY'),
+            'LL' => static::getTranslationMessage('formats.LL', $locale, 'MMMM D, YYYY'),
+            'LLL' => static::getTranslationMessage('formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
+            'LLLL' => static::getTranslationMessage('formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+        ];
     }
 
     /**
@@ -2839,14 +2847,14 @@ trait Date
      */
     public static function getCalendarFormats($locale = null)
     {
-        return array_merge([
-            'sameDay' => '[Today at] LT',
-            'nextDay' => '[Tomorrow at] LT',
-            'nextWeek' => 'dddd [at] LT',
-            'lastDay' => '[Yesterday at] LT',
-            'lastWeek' => '[Last] dddd [at] LT',
-            'sameElse' => 'L',
-        ], static::getTranslationMessage('calendar', $locale) ?: []);
+        return [
+            'sameDay' => static::getTranslationMessage('calendar.sameDay', $locale, '[Today at] LT'),
+            'nextDay' => static::getTranslationMessage('calendar.nextDay', $locale, '[Tomorrow at] LT'),
+            'nextWeek' => static::getTranslationMessage('calendar.nextWeek', $locale, 'dddd [at] LT'),
+            'lastDay' => static::getTranslationMessage('calendar.lastDay', $locale, '[Yesterday at] LT'),
+            'lastWeek' => static::getTranslationMessage('calendar.lastWeek', $locale, '[Last] dddd [at] LT'),
+            'sameElse' => static::getTranslationMessage('calendar.sameElse', $locale, 'L'),
+        ];
     }
 
     /**
@@ -2919,21 +2927,30 @@ trait Date
                 'Q' => 'quarter',
                 'Qo' => ['ordinal', ['quarter', 'M']],
                 'G' => 'isoWeekYear',
-                'GG' => ['getPaddedUnit', ['isoWeekYear', 2]],
+                'GG' => ['getPaddedUnit', ['isoWeekYear']],
                 'GGG' => ['getPaddedUnit', ['isoWeekYear', 3]],
                 'GGGG' => ['getPaddedUnit', ['isoWeekYear', 4]],
                 'GGGGG' => ['getPaddedUnit', ['isoWeekYear', 5]],
                 'g' => 'weekYear',
-                'gg' => ['getPaddedUnit', ['weekYear', 2]],
+                'gg' => ['getPaddedUnit', ['weekYear']],
                 'ggg' => ['getPaddedUnit', ['weekYear', 3]],
                 'gggg' => ['getPaddedUnit', ['weekYear', 4]],
                 'ggggg' => ['getPaddedUnit', ['weekYear', 5]],
                 'W' => 'isoWeek',
-                'WW' => ['getPaddedUnit', ['isoWeek', 2]],
+                'WW' => ['getPaddedUnit', ['isoWeek']],
+                'Wo' => ['ordinal', ['isoWeek', 'W']],
                 'w' => 'week',
-                'ww' => ['getPaddedUnit', ['week', 2]],
+                'ww' => ['getPaddedUnit', ['week']],
+                'wo' => ['ordinal', ['week', 'w']],
                 'x' => ['getPreciseTimestamp', [3]],
                 'X' => 'timestamp',
+                'Y' => ['format', 'Y'],
+                'YY' => ['format', 'y'],
+                'YYYY' => ['getPaddedUnit', ['year', 4]],
+                'YYYYY' => ['getPaddedUnit', ['year', 5]],
+                'YYYYYY' => function (CarbonInterface $date) {
+                    return ($date->year < 0 ? '' : '+').$date->getPaddedUnit('year', 6);
+                },
                 'z' => 'tzAbbrName',
                 'zz' => 'tzName',
                 'Z' => ['getOffsetString', []],
@@ -3067,11 +3084,7 @@ trait Date
                 } elseif (is_array($sequence)) {
                     $sequence = $this->{$sequence[0]}(...$sequence[1]);
                 } elseif (is_string($sequence)) {
-                    if (!isset($this->$sequence)) {
-                        var_dump($sequence, $code);
-                        exit;
-                    }
-                    $sequence = $this->$sequence;
+                    $sequence = $this->$sequence ?? $code;
                 }
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
                 $i += mb_strlen($sequence) - 1;
@@ -3162,29 +3175,39 @@ trait Date
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
+        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
+
         if ($year !== null) {
+            $week = $this->week(null, $dayOfWeek, $dayOfYear);
             $day = $this->dayOfWeek;
             $date = $this->year($year);
+            switch ($date->weekYear(null, $dayOfWeek, $dayOfYear) - $year) {
+                case 1:
+                    $date = $date->subWeeks(26);
+                    break;
+                case -1:
+                    $date = $date->addWeeks(26);
+                    break;
+            }
 
-            return $date->closest($date->previous($day), $date->next());
+            return $date->addWeeks($week - $date->week(null, $dayOfWeek, $dayOfYear))
+                ->startOfWeek($dayOfWeek)
+                ->next($day);
         }
 
-        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
-        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 6;
         $year = $this->year;
         $day = $this->dayOfYear;
         $date = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
-        if ($date->year !== $year) {
-            if ($day < $date->addWeek()->dayOfYear) {
-                $year--;
-            }
-        } elseif ($day < $date->dayOfYear) {
-            $year--;
-        } else {
-            $date = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
-            if ($date->year === $year && $day >= $date->dayOfYear) {
-                $year++;
-            }
+
+        if ($date->year === $year && $day < $date->dayOfYear) {
+            return $year - 1;
+        }
+
+        $date = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+
+        if ($date->year === $year && $day >= $date->dayOfYear) {
+            return $year + 1;
         }
 
         return $year;
@@ -3221,26 +3244,61 @@ trait Date
     public function weeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
         $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
-        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 6;
-        $down = $this->copy()->startOfWeek($dayOfWeek);
-        $up = $down->copy()->addWeek();
-        $year = $down->weekYear(null, $dayOfWeek, $dayOfYear);
-        $count = 0;
-        while ($down->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
-            $down = $down->subWeek();
-            $count++;
+        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
+        $year = $this->year;
+        $start = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $startDay = $start->dayOfYear;
+        if ($start->year !== $year) {
+            $startDay -= $start->daysInYear;
         }
-        while ($up->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
-            $up = $up->addWeek();
-            $count++;
+        $end = $this->copy()->addYear()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $endDay = $end->dayOfYear;
+        if ($end->year !== $year) {
+            $endDay += $this->daysInYear;
         }
 
-        return $count;
+        return (int) round(($endDay - $startDay) / 7);
     }
 
-    public function week($week = null)
+    public function week($week = null, $dayOfWeek = null, $dayOfYear = null)
     {
+        $date = $this;
+        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
+        if ($week !== null) {
+            while ($week < 1) {
+                $max = $this->weekYear($this->weekYear(null, $dayOfWeek, $dayOfYear) - 1, $dayOfWeek, $dayOfYear)->weeksInYear($dayOfWeek, $dayOfYear);
+                $date = $date->subWeeks($max);
+                $week += $max;
+            }
+            $max = $date->weeksInYear($dayOfWeek, $dayOfYear);
+            while ($week > $max) {
+                $date = $date->addWeeks($max);
+                $week -= $max;
+                $max = $date->weeksInYear($dayOfWeek, $dayOfYear);
+            }
+
+            return $date;
+        }
+
+        $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        $end = $date->copy()->startOfWeek($dayOfWeek);
+        if ($start > $end) {
+            $start = $start->subWeeks(26)->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
+        }
+        $week = (int) ($start->diffInDays($end) / 7 + 1);
+
+        return $week > $end->weeksInYear($dayOfWeek, $dayOfYear) ? 1 : $week;
+    }
+
+    public function isoWeek($week = null, $dayOfWeek = null, $dayOfYear = null)
+    {
+        return $this->week(
+            $week,
+            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+        );
     }
 
     ///////////////////////////////////////////////////////////////////

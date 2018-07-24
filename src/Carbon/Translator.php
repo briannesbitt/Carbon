@@ -2,6 +2,7 @@
 
 namespace Carbon;
 
+use Closure;
 use Symfony\Component\Translation;
 
 class Translator extends Translation\Translator
@@ -42,34 +43,19 @@ class Translator extends Translation\Translator
         parent::__construct($locale, $formatter, $cacheDir, $debug);
     }
 
-    /**
-     * Adds a Resource.
-     *
-     * @param string $format   The name of the loader (@see addLoader())
-     * @param mixed  $resource The resource name
-     * @param string $locale   The locale
-     * @param string $domain   The domain
-     *
-     * @throws \InvalidArgumentException If the locale contains invalid characters
-     */
-    public function addResource($format, $resource, $locale, $domain = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
-//        if ($format === 'array') {
-//            $source = $resource;
-//            $resource = [];
-//            foreach ($source as $key => $value) {
-//                if (is_array($value)) {
-//                    foreach ($value as $subKey => $subValue) {
-//                        $resource["$key.$subKey"] = $subValue;
-//                    }
-//
-//                    continue;
-//                }
-//
-//                $resource[$key] = $value;
-//            }
-//        }
-        parent::addResource($format, $resource, $locale, $domain);
+        if (null === $domain) {
+            $domain = 'messages';
+        }
+
+        $format = $this->getCatalogue($locale)->get((string) $id, $domain);
+
+        if ($format instanceof Closure) {
+            return $format(...array_values($parameters));
+        }
+
+        return parent::trans($id, $parameters, $domain, $locale);
     }
 
     /**

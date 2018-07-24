@@ -1,0 +1,128 @@
+<?php
+
+/*
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Tests\Localization;
+
+class YoTest extends LocalizationTestCase
+{
+    const LOCALE = 'yo'; // Yoruba
+
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Àbámẹ́ta Ọsẹ̀ tólọ́ ni 12:00 AM',
+        // Carbon::now()->subDays(2)->calendar()
+        'Àìkú Ọsẹ̀ tón\'bọ ni 8:49 PM',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ọ̀la ni 10:00 PM',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Ònì ni 10:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ònì ni 2:00 AM',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Àna ni 1:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ìsẹ́gun Ọsẹ̀ tólọ́ ni 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'ìsẹjú aayá die kọjá',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        's kọjá',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'aayá 2 kọjá',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        's kọjá',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'ìsẹjú kan kọjá',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'min kọjá',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'ìsẹjú 2 kọjá',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'min kọjá',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'wákati kan kọjá',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'h kọjá',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'wákati 2 kọjá',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'h kọjá',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'ọjọ́ kan kọjá',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'd kọjá',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'ọjọ́ 2 kọjá',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'd kọjá',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'ọsẹ kan kọjá',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'w kọjá',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'ọsẹ 2 kọjá',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'w kọjá',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'osù kan kọjá',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'm kọjá',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'osù 2 kọjá',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'm kọjá',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'ọdún kan kọjá',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'y kọjá',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'ọdún 2 kọjá',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'y kọjá',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'ní ìsẹjú aayá die',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'ní s',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'after',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'after',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'before',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'before',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'ìsẹjú aayá die',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        's',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        'aayá 2',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        's',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'ní s',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'ìsẹjú kan ìsẹjú aayá die',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        'y m d s',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        'ọsẹ kan wákati 10',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'ọsẹ kan ọjọ́ 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'ọsẹ kan ọjọ́ 6',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        'ọsẹ 2 wákati kan',
+    ];
+}

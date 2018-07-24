@@ -11,69 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class SlTest extends AbstractTestCase
+class SlTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInSlovenian()
-    {
-        Carbon::setLocale('sl');
+    const LOCALE = 'sl'; // Slovenian
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('pred 1 sekundo', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('pred 2 sekundama', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('pred 1 minuto', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('pred 2 minutama', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('pred 1 uro', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('pred 2 urama', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('pred 1 dnem', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('pred 2 dnevoma', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('pred 1 tednom', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('pred 2 tednoma', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('pred 1 mesecem', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('pred 2 meseci', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('pred 1 letom', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('pred 2 leti', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('čez 1 sekundo', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('čez 1 sekundo', $d->diffForHumans($d2));
-            $scope->assertSame('pred 1 sekundo', $d2->diffForHumans($d));
-
-            $scope->assertSame('1 sekundo', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 sekundi', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Last Saturday at 12:00 AM',
+        // Carbon::now()->subDays(2)->calendar()
+        'Sunday at 8:49 PM',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tomorrow at 10:00 PM',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Today at 10:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Today at 2:00 AM',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Yesterday at 1:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Last Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Tuesday at 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Friday at 12:00 AM',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'pred 1 sekundo',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'pred 1 sekundo',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'pred 2 sekundama',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        'pred 2 sekundi',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'pred 1 minuto',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'pred 1 minuto',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'pred 2 minutama',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'pred 2 minuti',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'pred 1 uro',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'pred 1 uro',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'pred 2 urama',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'pred 2 uri',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'pred 1 dnem',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'pred 1 dan',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'pred 2 dnevoma',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'pred 2 dni',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'pred 1 tednom',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'pred 1 teden',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'pred 2 tednoma',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'pred 2 tedna',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'pred 1 mesecem',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'pred 1 mesec',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'pred 2 meseci',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'pred 2 meseca',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'pred 1 letom',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'pred 1 leto',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'pred 2 leti',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'pred 2 leti',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'čez 1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'čez 1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'čez 1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'čez 1 sekundo',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'pred 1 sekundo',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'pred 1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        '1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 sekundo',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 sekundi',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 sekundi',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'čez 1 sekundo',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        '1 minuto 1 sekundo',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 leti 3 mesece 1 dan 1 sekundo',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 teden 10 ur',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 teden 6 dni',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 teden 6 dni',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 tedna 1 uro',
+    ];
 }

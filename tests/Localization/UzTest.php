@@ -11,67 +11,118 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class UzTest extends AbstractTestCase
+class UzTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInUzbek()
-    {
-        Carbon::setLocale('uz');
+    const LOCALE = 'uz'; // Uzbek
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1 soniya avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 soniya avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1 daqiqa avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 daqiqa avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1 soat avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 soat avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1 kun avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 kun avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1 hafta avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 hafta avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1 oy avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 oy avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1 yil avval', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 yil avval', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 soniya dan keyin', $d->diffForHumans());
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('1 soniya keyin', $d->diffForHumans($d2));
-            $scope->assertSame('1 soniya oldin', $d2->diffForHumans($d));
-            $scope->assertSame('1 soniya', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 soniya', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Утган Шанба куни соат 00:00 да',
+        // Carbon::now()->subDays(2)->calendar()
+        'Якшанба куни соат 20:49 да',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Эртага 22:00 да',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'Бугун соат 10:00 да',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Бугун соат 02:00 да',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'Кеча соат 01:00 да',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Утган Сешанба куни соат 00:00 да',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Сешанба куни соат 00:00 да',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Жума куни соат 00:00 да',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'Бир неча фурсат олдин',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'Бир неча 1 s олдин',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        'Бир неча 2 фурсат олдин',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        'Бир неча 2 s олдин',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'Бир неча бир дакика олдин',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'Бир неча 1 daq олдин',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        'Бир неча 2 дакика олдин',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        'Бир неча 2 daq олдин',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'Бир неча бир соат олдин',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'Бир неча 1 soat олдин',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        'Бир неча 2 соат олдин',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        'Бир неча 2 soat олдин',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'Бир неча бир кун олдин',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'Бир неча 1 kun олдин',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        'Бир неча 2 кун олдин',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'Бир неча 2 kun олдин',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        'Бир неча бир ҳафта олдин',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'Бир неча 1 ҳафта олдин',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        'Бир неча 2 ҳафта олдин',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        'Бир неча 2 ҳафта олдин',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'Бир неча бир ой олдин',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'Бир неча 1 oy олдин',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        'Бир неча 2 ой олдин',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        'Бир неча 2 oy олдин',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'Бир неча бир йил олдин',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'Бир неча 1 yil олдин',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        'Бир неча 2 йил олдин',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        'Бир неча 2 yil олдин',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'Якин фурсат ичида',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'Якин 1 s ичида',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'фурсат keyin',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 s keyin',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'фурсат oldin',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 s oldin',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'фурсат',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 s',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 фурсат',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 s',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        'Якин 1 s ичида',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'бир дакика фурсат',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 yil 3 oy 1 kun 1 s',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        'бир ҳафта 10 соат',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'бир ҳафта 6 кун',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        'бир ҳафта 6 кун',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 ҳафта бир соат',
+    ];
 }
