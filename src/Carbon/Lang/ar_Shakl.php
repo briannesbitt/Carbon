@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+// Same for long and short
 $months = [
     // @TODO add shakl to months
     'يناير',

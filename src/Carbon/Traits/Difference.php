@@ -18,7 +18,6 @@ use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
 use DateTimeInterface;
-use InvalidArgumentException;
 
 /**
  * Trait Difference.

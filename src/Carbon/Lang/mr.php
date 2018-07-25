@@ -37,7 +37,7 @@ return [
         'L' => 'DD/MM/YYYY',
         'LL' => 'D MMMM YYYY',
         'LLL' => 'D MMMM YYYY, A h:mm वाजता',
-        'LLLL' => 'dddd, D MMMM YYYY, A h:mm वाजता'
+        'LLLL' => 'dddd, D MMMM YYYY, A h:mm वाजता',
     ],
 
     'calendar' => [
@@ -46,7 +46,7 @@ return [
         'nextWeek' => 'dddd, LT',
         'lastDay' => '[काल] LT',
         'lastWeek' => '[मागील] dddd, LT',
-        'sameElse' => 'L'
+        'sameElse' => 'L',
     ],
 
     'meridiem' => function ($hour, $minute, $isLower) {
@@ -62,6 +62,7 @@ return [
         if ($hour < 20) {
             return 'सायंकाळी';
         }
+
         return 'रात्री';
     },
 

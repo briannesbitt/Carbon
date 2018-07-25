@@ -45,6 +45,7 @@ return [
         if ($hour < 19) {
             return 'sonten';
         }
+
         return 'ndalu';
     },
     'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'],

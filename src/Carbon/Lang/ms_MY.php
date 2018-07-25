@@ -45,6 +45,7 @@ return [
         if ($hour < 19) {
             return 'petang';
         }
+
         return 'malam';
     },
     'months' => ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'],

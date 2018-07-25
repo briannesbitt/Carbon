@@ -67,6 +67,7 @@ return [
         if ($hour < 20) {
             return 'sanje';
         }
+
         return 'rati';
     },
 ];

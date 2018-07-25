@@ -2342,21 +2342,22 @@ trait Date
             $files = array_map(function ($file) {
                 return preg_replace('/^.*[\/\\\\]([^\/\\\\]+)\.php$/', '$1', $file);
             }, $files);
-            $localeLength = strlen($completeLocale);
-            $getScore = function ($language) use ($completeLocale, $localeLength) {
-                $count = 0;
-                for ($i = 2; $i < min(strlen($language), $localeLength); $i++) {
-                    $char = substr($language, $i, 1);
-                    if ($char !== substr($completeLocale, $i, 1)) {
-                        break;
-                    }
+            $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
+            $getScore = function ($language) use ($completeLocaleChunks) {
+                $chunks = preg_split('/[_.-]+/', $language);
+                $score = 0;
+                foreach ($completeLocaleChunks as $index => $chunk) {
+                    if (!isset($chunks[$index])) {
+                        $score++;
 
-                    if ($char !== '_') {
-                        $count++;
+                        continue;
+                    }
+                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                        $score += 10;
                     }
                 }
 
-                return $count;
+                return $score;
             };
             usort($files, function ($a, $b) use ($getScore) {
                 $a = $getScore($a);
@@ -4774,7 +4775,6 @@ trait Date
     {
         static::$serializer = $callback;
     }
-
 
     /**
      * Dynamically handle calls to the class.

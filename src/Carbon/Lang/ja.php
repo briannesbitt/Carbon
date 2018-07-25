@@ -45,6 +45,7 @@ return [
             if ($other->weekOfYear !== $current->weekOfYear) {
                 return '[来週]dddd LT';
             }
+
             return 'dddd LT';
         },
         'lastDay' => '[昨日] LT',
@@ -52,6 +53,7 @@ return [
             if ($other->weekOfYear !== $current->weekOfYear) {
                 return '[先週]dddd LT';
             }
+
             return 'dddd LT';
         },
         'sameElse' => 'L',

@@ -60,6 +60,7 @@ return [
         if ($hour < 19) {
             return 'entsambama';
         }
+
         return 'ebusuku';
     },
     'months' => ['Bhimbidvwane', 'Indlovana', 'Indlov\'lenkhulu', 'Mabasa', 'Inkhwekhweti', 'Inhlaba', 'Kholwane', 'Ingci', 'Inyoni', 'Imphala', 'Lweti', 'Ingongoni'],

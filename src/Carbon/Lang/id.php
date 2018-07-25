@@ -54,6 +54,7 @@ return [
         if ($hour < 19) {
             return 'sore';
         }
+
         return 'malam';
     },
     'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],

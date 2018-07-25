@@ -52,10 +52,7 @@ return [
             case 'w':
             case 'W':
             case 'DDDo':
-                if ($number === 1) {
-                    return $number.'-ին';
-                }
-                return $number.'-րդ';
+                return $number.($number === 1 ? '-ին' : '-րդ');
             default:
                 return $number;
         }
@@ -70,6 +67,7 @@ return [
         if ($hour < 17) {
             return 'ցերեկվա';
         }
+
         return 'երեկոյան';
     },
     'months' => ['հունվարի', 'փետրվարի', 'մարտի', 'ապրիլի', 'մայիսի', 'հունիսի', 'հուլիսի', 'օգոստոսի', 'սեպտեմբերի', 'հոկտեմբերի', 'նոյեմբերի', 'դեկտեմբերի'],

@@ -9,7 +9,6 @@
  * file that was distributed with this source code.
  */
 
-
 \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
     return \Symfony\Component\Translation\PluralizationRules::get($number, 'sr');
 }, 'me');

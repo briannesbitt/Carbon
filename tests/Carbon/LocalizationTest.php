@@ -51,7 +51,7 @@ class LocalizationTest extends AbstractTestCase
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
         setlocale(LC_ALL, $currentLocale);
 
-        $this->assertSame('fr', $locale);
+        $this->assertSame('fr_FR', $locale);
         $this->assertSame('il y a 2 secondes', $diff);
 
         if (setlocale(LC_ALL, 'ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar') === false) {
@@ -87,10 +87,6 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('zh_TW', $locale);
         $this->assertSame('2秒前', $diff);
 
-        if (setlocale(LC_ALL, 'zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh') === false) {
-            $this->markTestSkipped('testSetLocaleToAuto test need zh_CN.UTF-8.');
-        }
-        Carbon::setLocale('en');
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $directories = $translator->getDirectories();
@@ -100,6 +96,24 @@ class LocalizationTest extends AbstractTestCase
 
         copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/zh.php");
         copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/zh_TW.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/fr.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/fr_CA.php");
+
+        $currentLocale = setlocale(LC_ALL, '0');
+        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
+            $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
+        }
+        Carbon::setLocale('auto');
+        $locale = Carbon::getLocale();
+        $diff = Carbon::now()->subSeconds(2)->diffForHumans();
+        setlocale(LC_ALL, $currentLocale);
+
+        $this->assertSame('fr', $locale);
+        $this->assertSame('il y a 2 secondes', $diff);
+
+        if (setlocale(LC_ALL, 'zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh') === false) {
+            $this->markTestSkipped('testSetLocaleToAuto test need zh_CN.UTF-8.');
+        }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -123,6 +137,8 @@ class LocalizationTest extends AbstractTestCase
         $translator->setDirectories($directories);
         unlink("$directory/zh.php");
         unlink("$directory/zh_TW.php");
+        unlink("$directory/fr.php");
+        unlink("$directory/fr_CA.php");
         rmdir($directory);
     }
 

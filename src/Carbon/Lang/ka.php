@@ -37,6 +37,7 @@ return [
         if (preg_match('/წელი/', $time)) {
             return preg_replace('/წელი$/', 'წლის წინ', $time);
         }
+
         return $time;
     },
     'after' => ':time შემდეგ',
@@ -69,6 +70,7 @@ return [
         if (($number < 20) || ($number <= 100 && ($number % 20 === 0)) || ($number % 100 === 0)) {
             return 'მე-'.$number;
         }
+
         return $number.'-ე';
     },
     'months' => ['იანვარს', 'თებერვალს', 'მარტს', 'აპრილის', 'მაისს', 'ივნისს', 'ივლისს', 'აგვისტს', 'სექტემბერს', 'ოქტომბერს', 'ნოემბერს', 'დეკემბერს'],

@@ -93,6 +93,7 @@ return [
         if ($hour < 17) {
             return 'gündüz';
         }
+
         return 'axşam';
     },
     'months' => ['yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun', 'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr'],

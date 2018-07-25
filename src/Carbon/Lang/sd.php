@@ -21,7 +21,7 @@ $months = [
     'سيپٽمبر',
     'آڪٽوبر',
     'نومبر',
-    'ڊسمبر'
+    'ڊسمبر',
 ];
 
 $weekdays = [
@@ -31,7 +31,7 @@ $weekdays = [
     'اربع',
     'خميس',
     'جمع',
-    'ڇنڇر'
+    'ڇنڇر',
 ];
 
 \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
