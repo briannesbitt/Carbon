@@ -220,6 +220,24 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::parse(\'2018-01-07 00:00:00\')->addDays(2)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(2)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-07 00:00:00\')->subDays(2)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-01 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-02 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-03 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-04 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-05 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-06 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-07 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-01-11 00:00:00\')->isoFormat(\'Do wo\')',
+        '{class}::parse(\'2018-02-09 00:00:00\')->isoFormat(\'DDDo\')',
+        '{class}::parse(\'2018-02-10 00:00:00\')->isoFormat(\'DDDo\')',
+        '{class}::parse(\'2018-02-10 00:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 01:30:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 02:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 06:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 10:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 12:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 17:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 23:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::now()->subSeconds(1)->diffForHumans()',
         '{class}::now()->subSeconds(1)->diffForHumans(null, false, true)',
         '{class}::now()->subSeconds(2)->diffForHumans()',
@@ -269,6 +287,9 @@ abstract class LocalizationTestCase extends AbstractTestCase
 
     const CASES = [];
 
+    /**
+     * @group language
+     */
     public function testLanguage()
     {
         $this->wrapWithNonDstDate(function () {

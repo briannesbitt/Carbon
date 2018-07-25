@@ -79,7 +79,7 @@ return [
 
                 $lastDigit = $number % 10;
 
-                return $number.($suffixes[$lastDigit] ?: $suffixes[$number % 100 - $lastDigit] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+                return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
         }
     },
     'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],

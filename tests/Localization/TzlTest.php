@@ -34,6 +34,42 @@ class TzlTest extends LocalizationTestCase
         'Maitzi à 00.00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Viénerçi à 00.00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1. :1.',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2. :1.',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3. :1.',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4. :1.',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5. :1.',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6. :1.',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7. :2.',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11. :2.',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40.',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41.',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 D\'A, 12:00 d\'a',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 D\'A, 1:30 d\'a',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 D\'A, 2:00 d\'a',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 D\'A, 6:00 d\'a',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 D\'A, 10:00 d\'a',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 D\'O, 12:00 d\'o',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 D\'O, 5:00 d\'o',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 D\'O, 11:00 d\'o',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ja1 secunds',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

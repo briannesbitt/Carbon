@@ -34,6 +34,42 @@ class UgCnTest extends LocalizationTestCase
         'كېلەركى سەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'كېلەركى جۈمە سائەت 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7-كۈنى 2-ھەپتە',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11-كۈنى 2-ھەپتە',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40-كۈنى',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41-كۈنى',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 يېرىم كېچە, 12:00 يېرىم كېچە',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 يېرىم كېچە, 1:30 يېرىم كېچە',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 يېرىم كېچە, 2:00 يېرىم كېچە',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 سەھەر, 6:00 سەھەر',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 چۈشتىن بۇرۇن, 10:00 چۈشتىن بۇرۇن',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 چۈش, 12:00 چۈش',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 چۈشتىن كېيىن, 5:00 چۈشتىن كېيىن',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 كەچ, 11:00 كەچ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

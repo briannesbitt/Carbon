@@ -78,7 +78,7 @@ class Translator extends Translation\Translator
     /**
      * Add a directory to the list translation files are searched in.
      *
-     * @param array $directories new directories list
+     * @param string $directory new directory
      *
      * @return $this
      */
@@ -92,7 +92,7 @@ class Translator extends Translation\Translator
     /**
      * Remove a directory from the list translation files are searched in.
      *
-     * @param array $directories new directories list
+     * @param string $directories directory path
      *
      * @return $this
      */

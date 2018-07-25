@@ -34,6 +34,42 @@ class ThTest extends LocalizationTestCase
         'อังคารหน้า เวลา 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ศุกร์หน้า เวลา 0:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ก่อนเที่ยง, 12:00 ก่อนเที่ยง',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 ก่อนเที่ยง, 1:30 ก่อนเที่ยง',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 ก่อนเที่ยง, 2:00 ก่อนเที่ยง',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 ก่อนเที่ยง, 6:00 ก่อนเที่ยง',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 ก่อนเที่ยง, 10:00 ก่อนเที่ยง',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 หลังเที่ยง, 12:00 หลังเที่ยง',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 หลังเที่ยง, 5:00 หลังเที่ยง',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 หลังเที่ยง, 11:00 หลังเที่ยง',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ไม่กี่วินาทีที่แล้ว',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

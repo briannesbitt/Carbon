@@ -34,6 +34,42 @@ class SdTest extends LocalizationTestCase
         'اڱارو اڳين هفتي تي 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'جمع اڳين هفتي تي 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 صبح, 12:00 صبح',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 صبح, 1:30 صبح',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 صبح, 2:00 صبح',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 صبح, 6:00 صبح',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 صبح, 10:00 صبح',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 شام, 12:00 شام',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 شام, 5:00 شام',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 شام, 11:00 شام',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'چند سيڪنڊ اڳ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -34,6 +34,42 @@ class BnTest extends LocalizationTestCase
         'মঙ্গলবার, রাত 12:00 সময়',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'শুক্রবার, রাত 12:00 সময়',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 রাত, 12:00 রাত',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 রাত, 1:30 রাত',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 রাত, 2:00 রাত',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 সকাল, 6:00 সকাল',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 দুপুর, 10:00 দুপুর',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 দুপুর, 12:00 দুপুর',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 বিকাল, 5:00 বিকাল',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 রাত, 11:00 রাত',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'কয়েক সেকেন্ড আগে',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

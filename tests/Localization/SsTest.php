@@ -34,6 +34,42 @@ class SsTest extends LocalizationTestCase
         'Lesibili nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Lesihlanu nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1a 1a',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2a 1a',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3e 1a',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4e 1a',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5e 1a',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6e 1a',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7e 2a',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11e 2a',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40e',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41a',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ekuseni, 12:00 ekuseni',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 ekuseni, 1:30 ekuseni',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 ekuseni, 2:00 ekuseni',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 ekuseni, 6:00 ekuseni',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 ekuseni, 10:00 ekuseni',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 emini, 12:00 emini',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 entsambama, 5:00 entsambama',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 ebusuku, 11:00 ebusuku',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

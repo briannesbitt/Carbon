@@ -34,6 +34,42 @@ class TaTest extends LocalizationTestCase
         'செவ்வாய்கிழமை, 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'வெள்ளிக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1வது :1வது',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2வது :1வது',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3வது :1வது',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4வது :1வது',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5வது :1வது',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6வது :1வது',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7வது :2வது',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11வது :2வது',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40வது',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41வது',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00  யாமம், 12:00  யாமம்',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30  யாமம், 1:30  யாமம்',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00  வைகறை, 2:00  வைகறை',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00  காலை, 6:00  காலை',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00  நண்பகல், 10:00  நண்பகல்',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00  நண்பகல், 12:00  நண்பகல்',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00  எற்பாடு, 5:00  எற்பாடு',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00  யாமம், 11:00  யாமம்',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ஒரு சில விநாடிகள் முன்',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

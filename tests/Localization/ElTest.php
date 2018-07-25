@@ -34,6 +34,42 @@ class ElTest extends LocalizationTestCase
         'Τρίτη {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Παρασκευή {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1η :1η',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2η :1η',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3η :1η',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4η :1η',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5η :1η',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6η :1η',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7η :2η',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11η :2η',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40η',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41η',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ΠΜ, 12:00 πμ',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 ΠΜ, 1:30 πμ',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 ΠΜ, 2:00 πμ',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 ΠΜ, 6:00 πμ',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 ΠΜ, 10:00 πμ',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ΜΜ, 12:00 μμ',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 ΜΜ, 5:00 μμ',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 ΜΜ, 11:00 μμ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'λίγα δευτερόλεπτα πριν',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

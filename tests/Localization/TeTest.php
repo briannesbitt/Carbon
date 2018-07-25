@@ -34,6 +34,42 @@ class TeTest extends LocalizationTestCase
         'మంగళవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'శుక్రవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1వ :1వ',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2వ :1వ',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3వ :1వ',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4వ :1వ',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5వ :1వ',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6వ :1వ',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7వ :2వ',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11వ :2వ',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40వ',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41వ',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 రాత్రి, 12:00 రాత్రి',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 రాత్రి, 1:30 రాత్రి',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 రాత్రి, 2:00 రాత్రి',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 ఉదయం, 6:00 ఉదయం',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 మధ్యాహ్నం, 10:00 మధ్యాహ్నం',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 మధ్యాహ్నం, 12:00 మధ్యాహ్నం',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 సాయంత్రం, 5:00 సాయంత్రం',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00  రాత్రి, 11:00  రాత్రి',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'కొన్ని క్షణాలు క్రితం',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -34,6 +34,42 @@ class ViTest extends LocalizationTestCase
         'thứ ba tuần tới lúc 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'thứ sáu tuần tới lúc 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        'ordinal ordinal',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 SA, 12:00 sa',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 SA, 1:30 sa',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 SA, 2:00 sa',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 SA, 6:00 sa',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 SA, 10:00 sa',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 CH, 12:00 ch',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 CH, 5:00 ch',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 CH, 11:00 ch',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'vài giây trước',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

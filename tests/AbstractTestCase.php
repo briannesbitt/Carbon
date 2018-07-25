@@ -23,9 +23,14 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @var \Carbon\CarbonInterface
+     * @var \Carbon\Carbon
      */
     protected $now;
+
+    /**
+     * @var \Carbon\CarbonImmutable
+     */
+    protected $immutableNow;
 
     /**
      * @var string

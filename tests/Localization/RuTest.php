@@ -34,6 +34,42 @@ class RuTest extends LocalizationTestCase
         'Во вторник, в 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'В пятницу, в 0:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1-го 1-я',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2-го 1-я',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3-го 1-я',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4-го 1-я',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5-го 1-я',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6-го 1-я',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7-го 2-я',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11-го 2-я',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40-й',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41-й',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ночи, 12:00 ночи',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 ночи, 1:30 ночи',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 ночи, 2:00 ночи',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 утра, 6:00 утра',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 утра, 10:00 утра',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 дня, 12:00 дня',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 вечера, 5:00 вечера',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 вечера, 11:00 вечера',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 секунду назад',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

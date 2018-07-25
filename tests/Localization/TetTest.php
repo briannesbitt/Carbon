@@ -34,6 +34,42 @@ class TetTest extends LocalizationTestCase
         'Tersa iha 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Sesta iha 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1º :1º',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2º :1º',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3º :1º',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4º :1º',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5º :1º',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6º :1º',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7º :2º',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11º :2º',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40º',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41º',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 AM, 12:00 am',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 AM, 1:30 am',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 AM, 2:00 am',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 AM, 6:00 am',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 AM, 10:00 am',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 PM, 12:00 pm',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 PM, 11:00 pm',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'minutu balun liuba',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

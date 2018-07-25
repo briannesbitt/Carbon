@@ -34,6 +34,42 @@ class ZhTest extends LocalizationTestCase
         '下星期二00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         '下星期五00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1日 1周',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2日 1周',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3日 1周',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4日 1周',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5日 1周',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6日 1周',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7日 2周',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11日 2周',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40日',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41日',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 凌晨, 12:00 凌晨',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 凌晨, 1:30 凌晨',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 凌晨, 2:00 凌晨',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 早上, 6:00 早上',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 上午, 10:00 上午',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 中午, 12:00 中午',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 下午, 5:00 下午',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 晚上, 11:00 晚上',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1秒前',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

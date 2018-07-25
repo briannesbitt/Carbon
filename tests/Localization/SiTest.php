@@ -34,6 +34,42 @@ class SiTest extends LocalizationTestCase
         'අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'සිකුරාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        ':1 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        ':2 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        ':3 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        ':4 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        ':5 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        ':6 වැනි :1 වැනි',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        ':7 වැනි :2 වැනි',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        ':11 වැනි :2 වැනි',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        ':40 වැනි',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        ':41 වැනි',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 පෙර වරු, 12:00 පෙ.ව.',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 පෙර වරු, 1:30 පෙ.ව.',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 පෙර වරු, 2:00 පෙ.ව.',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 පෙර වරු, 6:00 පෙ.ව.',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 පෙර වරු, 10:00 පෙ.ව.',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 පස් වරු, 12:00 ප.ව.',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 පස් වරු, 5:00 ප.ව.',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 පස් වරු, 11:00 ප.ව.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

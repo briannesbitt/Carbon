@@ -34,6 +34,42 @@ class LoTest extends LocalizationTestCase
         'ວັນອັງຄານໜ້າເວລາ 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ວັນສຸກໜ້າເວລາ 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        'ທີ່:1 ທີ່:1',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        'ທີ່:2 ທີ່:1',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        'ທີ່:3 ທີ່:1',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        'ທີ່:4 ທີ່:1',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        'ທີ່:5 ທີ່:1',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        'ທີ່:6 ທີ່:1',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        'ທີ່:7 ທີ່:2',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        'ທີ່:11 ທີ່:2',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        'ທີ່:40',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        'ທີ່:41',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ຕອນເຊົ້າ, 12:00 ຕອນເຊົ້າ',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 ຕອນເຊົ້າ, 1:30 ຕອນເຊົ້າ',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 ຕອນເຊົ້າ, 2:00 ຕອນເຊົ້າ',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 ຕອນເຊົ້າ, 6:00 ຕອນເຊົ້າ',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 ຕອນເຊົ້າ, 10:00 ຕອນເຊົ້າ',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ຕອນແລງ, 12:00 ຕອນແລງ',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 ຕອນແລງ, 5:00 ຕອນແລງ',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 ຕອນແລງ, 11:00 ຕອນແລງ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

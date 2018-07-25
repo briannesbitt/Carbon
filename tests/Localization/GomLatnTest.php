@@ -34,6 +34,42 @@ class GomLatnTest extends LocalizationTestCase
         'Ieta to Mongllar, rati 12:00 vazta',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Ieta to Sukrar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1er 1',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2er 1',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3er 1',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4er 1',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5er 1',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6er 1',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7er 2',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11er 2',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 rati, 12:00 rati',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 rati, 1:30 rati',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 rati, 2:00 rati',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 sokalli, 6:00 sokalli',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 sokalli, 10:00 sokalli',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 donparam, 12:00 donparam',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 sanje, 5:00 sanje',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 rati, 11:00 rati',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

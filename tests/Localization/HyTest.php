@@ -34,6 +34,42 @@ class HyTest extends LocalizationTestCase
         'երեքշաբթի օրը ժամը 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ուրբաթ օրը ժամը 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1 1-ին',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2 1-ին',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3 1-ին',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4 1-ին',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5 1-ին',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6 1-ին',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7 2-րդ',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11 2-րդ',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40-րդ',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41-րդ',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 գիշերվա, 12:00 գիշերվա',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 գիշերվա, 1:30 գիշերվա',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 գիշերվա, 2:00 գիշերվա',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 առավոտվա, 6:00 առավոտվա',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 առավոտվա, 10:00 առավոտվա',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 ցերեկվա, 12:00 ցերեկվա',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 երեկոյան, 5:00 երեկոյան',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 երեկոյան, 11:00 երեկոյան',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'մի քանի վայրկյան առաջ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

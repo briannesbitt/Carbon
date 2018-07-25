@@ -72,7 +72,7 @@ return [
             100 => '-ші',
         ];
 
-        return $number.($suffixes[$number] ?: $suffixes[$number % 10] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+        return $number.($suffixes[$number] ?? $suffixes[$number % 10] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
     },
     'months' => ['қаңтар', 'ақпан', 'наурыз', 'сәуір', 'мамыр', 'маусым', 'шілде', 'тамыз', 'қыркүйек', 'қазан', 'қараша', 'желтоқсан'],
     'months_short' => ['қаң', 'ақп', 'нау', 'сәу', 'мам', 'мау', 'шіл', 'там', 'қыр', 'қаз', 'қар', 'жел'],

@@ -34,6 +34,42 @@ class AfTest extends LocalizationTestCase
         'Dinsdag om 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Vrydag om 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
+        '1ste 1ste',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2de 1ste',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3de 1ste',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4de 1ste',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5de 1ste',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6de 1ste',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7de 2de',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11de 2de',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40ste',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41ste',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 VM, 12:00 vm',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 VM, 1:30 vm',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 VM, 2:00 vm',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 VM, 6:00 vm',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 VM, 10:00 vm',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 NM, 12:00 nm',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 NM, 5:00 nm',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 NM, 11:00 nm',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '\'n paar sekondes gelede',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

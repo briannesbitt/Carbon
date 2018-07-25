@@ -1621,6 +1621,14 @@ trait Date
             case $name === 'milli':
                 return (int) floor($this->format('u') / 1000);
 
+            // @property int 1 through 53
+            case $name === 'week':
+                return (int) $this->week();
+
+            // @property int 1 through 53
+            case $name === 'isoWeek':
+                return (int) $this->isoWeek();
+
             // @property-read int 1 through 5
             case $name === 'weekOfMonth':
                 return (int) ceil($this->day / static::DAYS_PER_WEEK);
@@ -1808,6 +1816,12 @@ trait Date
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
                 break;
 
+            case 'week':
+                return $this->week($value);
+
+            case 'isoWeek':
+                return $this->isoWeek($value);
+
             case 'dayOfYear':
                 return $this->addDays($value - $this->dayOfYear);
 
@@ -1846,7 +1860,7 @@ trait Date
     /**
      * Get/set the day of year.
      *
-     * @param int|null new value for day of year if using as setter.
+     * @param int|null $value new value for day of year if using as setter.
      *
      * @return static|int
      */
@@ -1860,7 +1874,7 @@ trait Date
     /**
      * Get/set the weekday from 0 (Sunday) to 6 (Saturday).
      *
-     * @param int|null new value for weekday if using as setter.
+     * @param int|null $value new value for weekday if using as setter.
      *
      * @return static|int
      */
@@ -1874,7 +1888,7 @@ trait Date
     /**
      * Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
      *
-     * @param int|null new value for weekday if using as setter.
+     * @param int|null $value new value for weekday if using as setter.
      *
      * @return static|int
      */
@@ -3007,10 +3021,13 @@ trait Date
      */
     public function ordinal($key, $period = null)
     {
-        return static::translate('ordinal', [
-            'number' => $this->$key,
+        $number = $this->$key;
+        $result = static::translate('ordinal', [
+            'number' => $number,
             'period' => $period,
         ]);
+
+        return $result === $key ? $number : $result;
     }
 
     /**

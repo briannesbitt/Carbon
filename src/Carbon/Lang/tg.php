@@ -69,7 +69,7 @@ return [
             100 => '-ум',
         ];
 
-        return $number.($suffixes[$number] ?: $suffixes[$number % 10] ?: $suffixes[$number >= 100 ? 100 : -1] ?: '');
+        return $number.($suffixes[$number] ?? $suffixes[$number % 10] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
     },
     'meridiem' => function ($hour, $minute, $isLower) {
         if ($hour < 4) {
