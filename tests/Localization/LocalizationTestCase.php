@@ -272,58 +272,6 @@ abstract class LocalizationTestCase extends AbstractTestCase
     public function testLanguage()
     {
         $this->wrapWithNonDstDate(function () {
-//            foreach (Carbon::getAvailableLocales() as $locale) {
-//                Carbon::setLocale('en');
-//
-//                Carbon::setTestNow($this->now = Carbon::parse('2018-05-15 20:49:13.881726'));
-//                CarbonImmutable::setTestNow($this->immutableNow = CarbonImmutable::parse('2018-05-15 20:49:13.881726'));
-//
-//                if (!Carbon::setLocale($locale) || Carbon::getLocale() !== $locale) {
-//                    throw new \InvalidArgumentException('Locale '.$locale.' not found');
-//                }
-//                if (!CarbonImmutable::setLocale($locale) || CarbonImmutable::getLocale() !== $locale) {
-//                    throw new \InvalidArgumentException('Locale '.$locale.' not found');
-//                }
-//
-//                $localeName = static::LOCALES[preg_replace('/^([^_]+)_.*$/', '$1', $locale)] ?? null;
-//                $comment = $localeName ? " // $localeName" : '';
-//                $code = '';
-//                foreach (static::TESTS as $index => $test) {
-//                    $code .= "\n        // ".str_replace('{class}', 'Carbon', $test)."\n        ";
-//                    $test = str_replace('{class}', Carbon::class, $test);
-//                    $result = eval("return $test;");
-//                    $code .= var_export($result, true).',';
-//                }
-//                $testClass = ucfirst(preg_replace_callback('/_([a-z])/', function ($match) {
-//                        return strtoupper($match[1]);
-//                    }, strtolower($locale))).'Test';
-//                file_put_contents(__DIR__."/$testClass.php", <<<EOS
-//<?php
-//
-///*
-// * This file is part of the Carbon package.
-// *
-// * (c) Brian Nesbitt <brian@nesbot.com>
-// *
-// * For the full copyright and license information, please view the LICENSE
-// * file that was distributed with this source code.
-// */
-//
-//namespace Tests\Localization;
-//
-//class $testClass extends LocalizationTestCase
-//{
-//    const LOCALE = '$locale';$comment
-//
-//    const CASES = [$code
-//    ];
-//}
-//
-//EOS
-//                );
-//            }
-//            exit('end');
-
             Carbon::setTestNow($this->now = Carbon::parse('2018-05-15 20:49:13.881726'));
             CarbonImmutable::setTestNow($this->immutableNow = CarbonImmutable::parse('2018-05-15 20:49:13.881726'));
 
