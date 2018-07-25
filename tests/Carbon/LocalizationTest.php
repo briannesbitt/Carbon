@@ -91,6 +91,15 @@ class LocalizationTest extends AbstractTestCase
             $this->markTestSkipped('testSetLocaleToAuto test need zh_CN.UTF-8.');
         }
         Carbon::setLocale('en');
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        $directories = $translator->getDirectories();
+        $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
+        mkdir($directory);
+        $translator->setDirectories([$directory]);
+
+        copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/zh.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/zh_TW.php");
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
@@ -110,6 +119,11 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertSame('en', $locale);
         $this->assertSame('2 seconds ago', $diff);
+
+        $translator->setDirectories($directories);
+        unlink("$directory/zh.php");
+        unlink("$directory/zh_TW.php");
+        rmdir($directory);
     }
 
     /**
@@ -123,50 +137,107 @@ class LocalizationTest extends AbstractTestCase
         return [
             ['af'],
             ['ar'],
+            ['ar_DZ'],
+            ['ar_KW'],
+            ['ar_LY'],
+            ['ar_MA'],
+            ['ar_SA'],
             ['ar_Shakl'],
+            ['ar_TN'],
             ['az'],
+            ['be'],
             ['bg'],
+            ['bm'],
             ['bn'],
+            ['bo'],
+            ['br'],
+            ['bs'],
+            ['bs_BA'],
             ['ca'],
             ['cs'],
+            ['cv'],
+            ['cy'],
             ['da'],
             ['de'],
+            ['de_AT'],
+            ['de_CH'],
+            ['dv'],
             ['dv_MV'],
             ['el'],
             ['en'],
+            ['en_AU'],
+            ['en_CA'],
+            ['en_GB'],
+            ['en_IE'],
+            ['en_IL'],
+            ['en_NZ'],
             ['eo'],
             ['es'],
+            ['es_DO'],
+            ['es_US'],
             ['et'],
             ['eu'],
             ['fa'],
             ['fi'],
             ['fo'],
             ['fr'],
+            ['fr_CA'],
+            ['fr_CH'],
+            ['fy'],
+            ['gd'],
             ['gl'],
+            ['gom_Latn'],
+            ['gu'],
             ['he'],
+            ['hi'],
             ['hr'],
             ['hu'],
             ['hy'],
+            ['hy_AM'],
             ['id'],
+            ['is'],
             ['it'],
             ['ja'],
+            ['jv'],
             ['ka'],
             ['kk'],
             ['km'],
+            ['kn'],
             ['ko'],
+            ['ku'],
+            ['ky'],
+            ['lb'],
+            ['lo'],
             ['lt'],
             ['lv'],
+            ['me'],
+            ['mi'],
             ['mk'],
+            ['ml'],
             ['mn'],
+            ['mr'],
             ['ms'],
+            ['ms_MY'],
+            ['mt'],
+            ['my'],
+            ['nb'],
+            ['ne'],
             ['nl'],
+            ['nl_BE'],
+            ['nn'],
             ['no'],
+            ['oc'],
+            ['pa_IN'],
             ['pl'],
+            ['ps'],
             ['pt'],
             ['pt_BR'],
-            ['ps'],
             ['ro'],
             ['ru'],
+            ['sd'],
+            ['se'],
+            ['sh'],
+            ['si'],
             ['sk'],
             ['sl'],
             ['sq'],
@@ -175,14 +246,30 @@ class LocalizationTest extends AbstractTestCase
             ['sr_Cyrl_ME'],
             ['sr_Latn_ME'],
             ['sr_ME'],
+            ['ss'],
             ['sv'],
+            ['sw'],
+            ['ta'],
+            ['te'],
+            ['tet'],
+            ['tg'],
             ['th'],
+            ['tl_PH'],
+            ['tlh'],
             ['tr'],
+            ['tzl'],
+            ['tzm'],
+            ['tzm_Latn'],
+            ['ug_CN'],
             ['uk'],
             ['ur'],
             ['uz'],
+            ['uz_Latn'],
             ['vi'],
+            ['yo'],
             ['zh'],
+            ['zh_CN'],
+            ['zh_HK'],
             ['zh_TW'],
         ];
     }
@@ -469,6 +556,6 @@ class LocalizationTest extends AbstractTestCase
         $this->assertTrue(in_array('zz_ZZ', Carbon::getAvailableLocales()));
 
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
-        $this->assertSame([], Carbon::getAvailableLocales());
+        $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 }

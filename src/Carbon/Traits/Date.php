@@ -2328,10 +2328,12 @@ trait Date
      */
     public static function setLocale($locale)
     {
-        if ($locale === 'auto') {
+        $translator = static::translator();
+
+        if ($locale === 'auto' && $translator instanceof Translator) {
             $completeLocale = setlocale(LC_TIME, 0);
-            $locale = substr($completeLocale, 0, 2);
-            $files = glob(__DIR__."/../Lang/$locale*.php");
+            $locale = preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
+            $files = $translator->getLocalesFiles($locale);
 
             if (!count($files)) {
                 return false;
@@ -2369,7 +2371,12 @@ trait Date
             $locale = $files[0];
         }
 
-        return static::translator()->setLocale($locale) !== false;
+        // If subtag (en_CA) first load the macro (en) to have a fallback
+        if (strpos($locale, '_') !== false) {
+            $translator->setLocale(preg_replace('/^([^_]+).*$/', '$1', $locale));
+        }
+
+        return $translator->setLocale($locale) !== false;
     }
 
     /**
@@ -2506,16 +2513,10 @@ trait Date
     public static function getAvailableLocales()
     {
         $translator = static::translator();
-        $locales = [];
-        if ($translator instanceof Translator) {
-            foreach (glob(__DIR__.'/../Lang/*.php') as $file) {
-                $locales[] = substr($file, strrpos($file, '/') + 1, -4);
-            }
 
-            $locales = array_unique(array_merge($locales, array_keys($translator->getMessages())));
-        }
-
-        return $locales;
+        return $translator instanceof Translator
+            ? $translator->getAvailableLocales()
+            : [$translator->getLocale()];
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -2800,23 +2801,21 @@ trait Date
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string      $key    key to find
-     * @param string|null $locale current locale used if null
+     * @param string      $key     key to find
+     * @param string|null $locale  current locale used if null
+     * @param string|null $default default value if translation returns the key
      *
      * @return string
      */
-    public static function getTranslationMessage(string $key, string $locale = null, ...$defaults)
+    public static function getTranslationMessage(string $key, string $locale = null, string $default = null)
     {
         $translator = static::translator();
         if (!($translator instanceof TranslatorBagInterface)) {
             throw new InvalidArgumentException('Translator does not implement'.TranslatorBagInterface::class.'.');
         }
         $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
-        if ($result === $key && count($defaults)) {
-            return current($defaults);
-        }
 
-        return $result;
+        return $result === $key ? $default : $result;
     }
 
     /**
@@ -2987,7 +2986,7 @@ trait Date
      */
     public static function translate(string $key, array $parameters = [], $number = null): string
     {
-        $message = static::getTranslationMessage($key);
+        $message = static::getTranslationMessage($key, null, $key);
         if ($message instanceof Closure) {
             return $message(...array_values($parameters));
         }

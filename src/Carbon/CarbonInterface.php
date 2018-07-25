@@ -715,7 +715,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getTestNow();
 
-    public static function getTranslationMessage(string $key, string $locale = null);
+    public static function getTranslationMessage(string $key, string $locale = null, string $default = null);
 
     public static function getTranslator();
 
@@ -800,6 +800,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isYesterday();
 
     public function isoFormat(string $format): string;
+
+    public function isoWeek($week = null, $dayOfWeek = null, $dayOfYear = null);
 
     public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
 
@@ -1063,7 +1065,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function utcOffset(int $offset = null);
 
-    public function week($week = null);
+    public function week($week = null, $dayOfWeek = null, $dayOfYear = null);
 
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
 

@@ -269,9 +269,6 @@ abstract class LocalizationTestCase extends AbstractTestCase
 
     const CASES = [];
 
-    /**
-     * @group i
-     */
     public function testLanguage()
     {
         $this->wrapWithNonDstDate(function () {

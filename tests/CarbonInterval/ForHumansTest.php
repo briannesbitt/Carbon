@@ -100,7 +100,7 @@ class ForHumansTest extends AbstractTestCase
     public function testYearsAndMonthInFrench()
     {
         CarbonInterval::setLocale('fr');
-        $this->assertSame('2 ans 1 mois', CarbonInterval::create(2, 1)->forHumans());
+        $this->assertSame('2 ans un mois', CarbonInterval::create(2, 1)->forHumans());
     }
 
     public function testYearsAndMonthInGerman()
@@ -113,15 +113,15 @@ class ForHumansTest extends AbstractTestCase
     public function testYearsAndMonthInBulgarian()
     {
         CarbonInterval::setLocale('bg');
-        $this->assertSame('1 година 1 месец', CarbonInterval::create(1, 1)->forHumans());
-        $this->assertSame('2 години 1 месец', CarbonInterval::create(2, 1)->forHumans());
+        $this->assertSame('година месец', CarbonInterval::create(1, 1)->forHumans());
+        $this->assertSame('2 години месец', CarbonInterval::create(2, 1)->forHumans());
     }
 
     public function testYearsAndMonthInCatalan()
     {
         CarbonInterval::setLocale('ca');
-        $this->assertSame('1 any 1 mes', CarbonInterval::create(1, 1)->forHumans());
-        $this->assertSame('2 anys 1 mes', CarbonInterval::create(2, 1)->forHumans());
+        $this->assertSame('un any un mes', CarbonInterval::create(1, 1)->forHumans());
+        $this->assertSame('2 anys un mes', CarbonInterval::create(2, 1)->forHumans());
     }
 
     public function testYearsAndMonthInCzech()
@@ -134,14 +134,14 @@ class ForHumansTest extends AbstractTestCase
     public function testYearsAndMonthInGreek()
     {
         CarbonInterval::setLocale('el');
-        $this->assertSame('1 χρόνος 1 μήνας', CarbonInterval::create(1, 1)->forHumans());
-        $this->assertSame('2 χρόνια 1 μήνας', CarbonInterval::create(2, 1)->forHumans());
+        $this->assertSame('ένας χρόνος ένας μήνας', CarbonInterval::create(1, 1)->forHumans());
+        $this->assertSame('2 χρόνια ένας μήνας', CarbonInterval::create(2, 1)->forHumans());
     }
 
     public function testYearsAndMonthsInDanish()
     {
         CarbonInterval::setLocale('da');
-        $this->assertSame('1 år 1 måned', CarbonInterval::create(1, 1)->forHumans());
-        $this->assertSame('2 år 1 måned', CarbonInterval::create(2, 1)->forHumans());
+        $this->assertSame('et år en måned', CarbonInterval::create(1, 1)->forHumans());
+        $this->assertSame('2 år en måned', CarbonInterval::create(2, 1)->forHumans());
     }
 }

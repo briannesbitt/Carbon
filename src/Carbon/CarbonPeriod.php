@@ -432,7 +432,13 @@ class CarbonPeriod implements Iterator, Countable
         }
 
         foreach ($arguments as $argument) {
-            if ($this->dateInterval === null && $parsed = CarbonInterval::make($argument)) {
+            if ($this->dateInterval === null &&
+                (
+                    is_string($argument) && preg_match('/^(\d.*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i', $argument) ||
+                    $argument instanceof DateInterval
+                ) &&
+                $parsed = CarbonInterval::make($argument)
+            ) {
                 $this->setDateInterval($parsed);
             } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
                 $this->setStartDate($parsed);

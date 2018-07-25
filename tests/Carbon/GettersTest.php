@@ -205,7 +205,7 @@ class GettersTest extends AbstractTestCase
     public function testDayOfYearGetter()
     {
         $d = Carbon::createFromDate(2012, 5, 7);
-        $this->assertSame(127, $d->dayOfYear);
+        $this->assertSame(128, $d->dayOfYear);
     }
 
     public function testDaysInMonthGetter()

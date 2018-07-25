@@ -573,6 +573,11 @@ class CarbonInterval extends DateInterval
     {
         $instance = new static(static::getDateIntervalSpec($di));
         $instance->invert = $di->invert;
+        foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
+            if ($di->$unit < 0) {
+                $instance->$unit *= -1;
+            }
+        }
 
         return $instance;
     }
@@ -593,22 +598,27 @@ class CarbonInterval extends DateInterval
             return static::instance($var);
         }
 
-        if (is_string($var)) {
-            $var = trim($var);
-
-            if (substr($var, 0, 1) === 'P') {
-                return new static($var);
-            }
-
-            if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
-                return static::fromString($var);
-            }
-
-            /** @var static $interval */
-            $interval = static::createFromDateString($var);
-
-            return $interval->isEmpty() ? null : $interval;
+        if (!is_string($var)) {
+            return null;
         }
+
+        $var = trim($var);
+
+        if (preg_match('/^P[T0-9]/', $var)) {
+            return new static($var);
+        }
+
+        if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
+            return static::fromString($var);
+        }
+
+        /** @var static $interval */
+        $interval = static::createFromDateString($var);
+        if ($interval instanceof DateInterval && !($interval instanceof static)) {
+            $interval = static::instance($interval);
+        }
+
+        return $interval->isEmpty() ? null : $interval;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -1081,15 +1091,15 @@ class CarbonInterval extends DateInterval
     public static function getDateIntervalSpec(DateInterval $interval)
     {
         $date = array_filter([
-            static::PERIOD_YEARS => $interval->y,
-            static::PERIOD_MONTHS => $interval->m,
-            static::PERIOD_DAYS => $interval->d,
+            static::PERIOD_YEARS => abs($interval->y),
+            static::PERIOD_MONTHS => abs($interval->m),
+            static::PERIOD_DAYS => abs($interval->d),
         ]);
 
         $time = array_filter([
-            static::PERIOD_HOURS => $interval->h,
-            static::PERIOD_MINUTES => $interval->i,
-            static::PERIOD_SECONDS => $interval->s,
+            static::PERIOD_HOURS => abs($interval->h),
+            static::PERIOD_MINUTES => abs($interval->i),
+            static::PERIOD_SECONDS => abs($interval->s),
         ]);
 
         $specString = static::PERIOD_PREFIX;

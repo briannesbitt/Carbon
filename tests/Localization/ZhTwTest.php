@@ -39,31 +39,31 @@ class ZhTwTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 秒前',
+        '2秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2秒前',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 分鐘前',
+        '1分鐘前',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1分鐘前',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 分鐘前',
+        '2分鐘前',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2分鐘前',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 小時前',
+        '1小時前',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1小時前',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 小時前',
+        '2小時前',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2小時前',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 天前',
+        '1天前',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1天前',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 天前',
+        '2天前',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2天前',
         // Carbon::now()->subWeeks(1)->diffForHumans()
@@ -75,19 +75,19 @@ class ZhTwTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2週前',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 個月前',
+        '1個月前',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1月前',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 個月前',
+        '2個月前',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2月前',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 年前',
+        '1年前',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1年前',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 年前',
+        '2年前',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2年前',
         // Carbon::now()->addSecond()->diffForHumans()
@@ -107,22 +107,22 @@ class ZhTwTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 秒',
+        '2秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2秒',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1秒內',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 分鐘 幾秒',
+        '1分鐘 幾秒',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2年 3月 1天 1秒',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1週 10 小時',
+        '1週 10小時',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1週 6 天',
+        '1週 6天',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1週 6 天',
+        '1週 6天',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2週 1 小時',
+        '2週 1小時',
     ];
 }
