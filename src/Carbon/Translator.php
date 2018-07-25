@@ -92,7 +92,7 @@ class Translator extends Translation\Translator
     /**
      * Remove a directory from the list translation files are searched in.
      *
-     * @param string $directories directory path
+     * @param string $directory directory path
      *
      * @return $this
      */
