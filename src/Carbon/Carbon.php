@@ -40,6 +40,10 @@ use DateTime;
  * @property      int            $milliseconds
  * @property      int            $millisecond
  * @property      int            $milli
+ * @property      int            $week                                                                               1 through 53
+ * @property      int            $isoWeek                                                                            1 through 53
+ * @property      int            $weekYear                                                                           year according to week format
+ * @property      int            $isoWeekYear                                                                        year according to ISO week format
  * @property      int            $dayOfYear                                                                          1 through 366
  * @property      int            $age                                                                                does a diffInYears() with default parameters
  * @property      int            $offset                                                                             the timezone offset in seconds from UTC
@@ -61,6 +65,8 @@ use DateTime;
  * @property-read string         $meridiem                                                                           lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read string         $upperMeridiem                                                                      uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
  * @property-read int            $noZeroHour                                                                         current hour from 1 to 24
+ * @property-read int            $weeksInYear                                                                        51 through 53
+ * @property-read int            $isoWeeksInYear                                                                     51 through 53
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
  * @property-read int            $daysInYear                                                                         365 or 366
