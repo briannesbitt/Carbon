@@ -16,8 +16,20 @@ class MlTest extends LocalizationTestCase
     const LOCALE = 'ml'; // Malayalam
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ഇന്നലെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'കഴിഞ്ഞ ശനിയാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'കഴിഞ്ഞ തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'കഴിഞ്ഞ ബുധനാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'കഴിഞ്ഞ വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::now()->subDays(2)->calendar()
         'ഞായറാഴ്ച, രാത്രി 8:49 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class MlTest extends LocalizationTestCase
         'ഇന്നലെ രാത്രി 1:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'നാളെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ഞായറാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ordinal ordinal ordinal ordinal ordinal',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ordinal ordinal',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class MlTest extends LocalizationTestCase
         'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ordinal',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 രാത്രി, 12:00 രാത്രി',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class MlTest extends LocalizationTestCase
         '5:00 വൈകുന്നേരം, 5:00 വൈകുന്നേരം',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 രാത്രി, 11:00 രാത്രി',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ordinal',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'അൽപ നിമിഷങ്ങൾ മുൻപ്',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -16,8 +16,20 @@ class UgCnTest extends LocalizationTestCase
     const LOCALE = 'ug_CN'; // Uighur
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'تۆنۈگۈن 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ئالدىنقى شەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ئالدىنقى يەكشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ئالدىنقى دۈشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ئالدىنقى سەيشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ئالدىنقى چارشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'ئالدىنقى پەيشەنبە سائەت 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'كېلەركى يەكشەنبە سائەت 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class UgCnTest extends LocalizationTestCase
         'تۆنۈگۈن 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ئالدىنقى سەيشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ئەتە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'كېلەركى سەيشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'كېلەركى دۈشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'كېلەركى يەكشەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'كېلەركى شەنبە سائەت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'كېلەركى جۈمە سائەت 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'كېلەركى پەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'كېلەركى جۈمە سائەت 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1-كۈنى 1-ھەپتە',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1 1 1-كۈنى 1-ھەپتە 1-ھەپتە',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class UgCnTest extends LocalizationTestCase
         '40-كۈنى',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-كۈنى',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-كۈنى',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 يېرىم كېچە, 12:00 يېرىم كېچە',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class UgCnTest extends LocalizationTestCase
         '5:00 چۈشتىن كېيىن, 5:00 چۈشتىن كېيىن',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 كەچ, 11:00 كەچ',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

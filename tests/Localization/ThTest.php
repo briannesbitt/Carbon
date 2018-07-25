@@ -16,8 +16,20 @@ class ThTest extends LocalizationTestCase
     const LOCALE = 'th'; // Thai
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'เมื่อวานนี้ เวลา 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'วันเสาร์ที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'วันอาทิตย์ที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'วันจันทร์ที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'วันอังคารที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'วันพุธที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'วันพฤหัสบดีที่แล้ว เวลา 0:00',
         // Carbon::now()->subDays(2)->calendar()
         'อาทิตย์หน้า เวลา 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class ThTest extends LocalizationTestCase
         'เมื่อวานนี้ เวลา 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'วันอังคารที่แล้ว เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'พรุ่งนี้ เวลา 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'อังคารหน้า เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'จันทร์หน้า เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'อาทิตย์หน้า เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'เสาร์หน้า เวลา 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ศุกร์หน้า เวลา 0:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'พฤหัสบดีหน้า เวลา 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ศุกร์หน้า เวลา 0:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ordinal ordinal ordinal ordinal ordinal',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ordinal ordinal',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class ThTest extends LocalizationTestCase
         'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ordinal',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ก่อนเที่ยง, 12:00 ก่อนเที่ยง',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class ThTest extends LocalizationTestCase
         '5:00 หลังเที่ยง, 5:00 หลังเที่ยง',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 หลังเที่ยง, 11:00 หลังเที่ยง',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ordinal',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ไม่กี่วินาทีที่แล้ว',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

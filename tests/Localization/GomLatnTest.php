@@ -16,8 +16,20 @@ class GomLatnTest extends LocalizationTestCase
     const LOCALE = 'gom_Latn'; // Konkani Latin script
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Kal rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Fatlo Son\'var, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Fatlo Aitar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Fatlo Somar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Fatlo Mongllar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Fatlo Budvar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'Fatlo Brestar, rati 12:00 vazta',
         // Carbon::now()->subDays(2)->calendar()
         'Ieta to Aitar, rati 8:49 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class GomLatnTest extends LocalizationTestCase
         'Kal rati 1:00 vazta',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Fatlo Mongllar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Faleam rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ieta to Mongllar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ieta to Somar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ieta to Aitar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ieta to Son\'var, rati 12:00 vazta',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ieta to Sukrar, rati 12:00 vazta',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Ieta to Brestar, rati 12:00 vazta',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Ieta to Sukrar, rati 12:00 vazta',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1er 1',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1 1 1er 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2er 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class GomLatnTest extends LocalizationTestCase
         '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 rati, 12:00 rati',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class GomLatnTest extends LocalizationTestCase
         '5:00 sanje, 5:00 sanje',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 rati, 11:00 rati',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

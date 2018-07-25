@@ -16,8 +16,20 @@ class LbTest extends LocalizationTestCase
     const LOCALE = 'lb'; // Luxembourgish
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Gëschter um 0:00 Auer',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Leschte Samschdeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Leschte Sonndeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Leschte Méindeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Leschten Dënschdeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Leschte Mëttwoch um 0:00 Auer',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'Leschten Donneschdeg um 0:00 Auer',
         // Carbon::now()->subDays(2)->calendar()
         'Sonndeg um 20:49 Auer',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class LbTest extends LocalizationTestCase
         'Gëschter um 1:00 Auer',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Leschten Dënschdeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Muer um 0:00 Auer',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Dënschdeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Méindeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Sonndeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Samschdeg um 0:00 Auer',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Freideg um 0:00 Auer',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Donneschdeg um 0:00 Auer',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Freideg um 0:00 Auer',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        ':1. :1.',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        ':1. :1. :1. :1. :1.',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         ':2. :1.',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class LbTest extends LocalizationTestCase
         ':40.',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         ':41.',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        ':100.',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class LbTest extends LocalizationTestCase
         '5:00 PM, 5:00 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        ':0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

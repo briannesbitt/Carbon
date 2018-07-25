@@ -16,8 +16,20 @@ class KyTest extends LocalizationTestCase
     const LOCALE = 'ky'; // Kirghiz
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Кече саат 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Өткен аптанын Ишемби күнү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Өткен аптанын Жекшемби күнү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Өткен аптанын Дүйшөмбү күнү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Өткен аптанын Шейшемби күнү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Өткен аптанын Шаршемби күнү саат 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'Өткен аптанын Бейшемби күнү саат 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'Жекшемби саат 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class KyTest extends LocalizationTestCase
         'Кече саат 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Өткен аптанын Шейшемби күнү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Эртең саат 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Шейшемби саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Дүйшөмбү саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Жекшемби саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ишемби саат 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Жума саат 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Бейшемби саат 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Жума саат 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1-чи 1-чи',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1-чи 1-чи 1-чи 1-чи 1-чи',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2-чи 1-чи',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class KyTest extends LocalizationTestCase
         '40-чы',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-чи',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-чү',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class KyTest extends LocalizationTestCase
         '5:00 PM, 5:00 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0-чү',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'бирнече секунд мурун',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

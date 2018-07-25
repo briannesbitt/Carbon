@@ -16,8 +16,20 @@ class DvMvTest extends LocalizationTestCase
     const LOCALE = 'dv_MV'; // Divehi
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'އިއްޔެ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ފާއިތުވި ހޮނިހިރު 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ފާއިތުވި އާދިއްތަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ފާއިތުވި ހޯމަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ފާއިތުވި އަންގާރަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ފާއިތުވި ބުދަ 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'ފާއިތުވި ބުރާސްފަތި 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'އާދިއްތަ 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class DvMvTest extends LocalizationTestCase
         'އިއްޔެ 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ފާއިތުވި އަންގާރަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'މާދަމާ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'އަންގާރަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ހޯމަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'އާދިއްތަ 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ހޮނިހިރު 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ހުކުރު 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'ބުރާސްފަތި 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ހުކުރު 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ordinal ordinal ordinal ordinal ordinal',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ordinal ordinal',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class DvMvTest extends LocalizationTestCase
         'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ordinal',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 މކ, 12:00 މކ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class DvMvTest extends LocalizationTestCase
         '5:00 މފ, 5:00 މފ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 މފ, 11:00 މފ',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ordinal',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 ސިކުންތު ކުރިން',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

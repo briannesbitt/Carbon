@@ -16,8 +16,20 @@ class GuTest extends LocalizationTestCase
     const LOCALE = 'gu'; // Gujarati
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ગઇકાલે રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'પાછલા શનિવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'પાછલા રવિવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'પાછલા સોમવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'પાછલા મંગળવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'પાછલા બુધ્વાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'પાછલા ગુરુવાર, રાત 12:00 વાગ્યે',
         // Carbon::now()->subDays(2)->calendar()
         'રવિવાર, રાત 8:49 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class GuTest extends LocalizationTestCase
         'ગઇકાલે રાત 1:00 વાગ્યે',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'પાછલા મંગળવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'કાલે રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'મંગળવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'સોમવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'રવિવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'શનિવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'શુક્રવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'ગુરુવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'શુક્રવાર, રાત 12:00 વાગ્યે',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ordinal ordinal ordinal ordinal ordinal',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ordinal ordinal',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class GuTest extends LocalizationTestCase
         'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ordinal',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 રાત, 12:00 રાત',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class GuTest extends LocalizationTestCase
         '5:00 સાંજ, 5:00 સાંજ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 રાત, 11:00 રાત',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ordinal',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'અમુક પળો પેહલા',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

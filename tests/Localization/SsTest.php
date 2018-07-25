@@ -16,8 +16,20 @@ class SsTest extends LocalizationTestCase
     const LOCALE = 'ss'; // Swati
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Itolo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Umgcibelo leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lisontfo leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Umsombuluko leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lesibili leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lesitsatfu leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'Lesine leliphelile nga 12:00 ekuseni',
         // Carbon::now()->subDays(2)->calendar()
         'Lisontfo nga 8:49 ebusuku',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class SsTest extends LocalizationTestCase
         'Itolo nga 1:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Lesibili leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Kusasa nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Lesibili nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Umsombuluko nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lisontfo nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Umgcibelo nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lesihlanu nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Lesine nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Lesihlanu nga 12:00 ekuseni',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1a 1a',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1a 1a 1a 1a 1a',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2a 1a',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class SsTest extends LocalizationTestCase
         '40e',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41a',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100e',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ekuseni, 12:00 ekuseni',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class SsTest extends LocalizationTestCase
         '5:00 entsambama, 5:00 entsambama',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ebusuku, 11:00 ebusuku',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0e',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

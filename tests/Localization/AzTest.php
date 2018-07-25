@@ -16,8 +16,20 @@ class AzTest extends LocalizationTestCase
     const LOCALE = 'az'; // Azerbaijani
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'dünən 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'keçən həftə Şənbə saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Bazar saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Bazar ertəsi saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Çərşənbə saat 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'keçən həftə Cümə axşamı saat 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'gələn həftə Bazar saat 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class AzTest extends LocalizationTestCase
         'dünən 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'keçən həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sabah saat 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'gələn həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Bazar ertəsi saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Bazar saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Şənbə saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Cümə saat 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'gələn həftə Cümə axşamı saat 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'gələn həftə Cümə saat 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1-inci 1-inci',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1-inci 1-inci 1-inci 1-inci 1-inci',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2-nci 1-inci',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class AzTest extends LocalizationTestCase
         '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-inci',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-üncü',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 gecə, 12:00 gecə',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class AzTest extends LocalizationTestCase
         '5:00 axşam, 5:00 axşam',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 axşam, 11:00 axşam',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0-ıncı',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'birneçə saniyə əvvəl',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

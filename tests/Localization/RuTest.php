@@ -16,8 +16,20 @@ class RuTest extends LocalizationTestCase
     const LOCALE = 'ru'; // Russian
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Вчера, в 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'В субботу, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В воскресенье, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В прошлый понедельник, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В прошлый вторник, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В прошлую среду, в 0:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'В прошлый четверг, в 0:00',
         // Carbon::now()->subDays(2)->calendar()
         'В следующее воскресенье, в 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class RuTest extends LocalizationTestCase
         'Вчера, в 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'В прошлый вторник, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Завтра, в 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Во вторник, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В понедельник, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В следующее воскресенье, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В следующую субботу, в 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'В следующую пятницу, в 0:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'В следующий четверг, в 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'В пятницу, в 0:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1-го 1-я',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1-й 1-й 1-го 1-я 1-я',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2-го 1-я',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class RuTest extends LocalizationTestCase
         '40-й',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-й',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-й',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ночи, 12:00 ночи',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class RuTest extends LocalizationTestCase
         '5:00 вечера, 5:00 вечера',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 вечера, 11:00 вечера',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 секунду назад',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

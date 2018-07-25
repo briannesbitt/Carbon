@@ -16,8 +16,20 @@ class TzlTest extends LocalizationTestCase
     const LOCALE = 'tzl';
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ieiri à 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'sür el Sáturi lasteu à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sür el Súladi lasteu à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sür el Lúneçi lasteu à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sür el Maitzi lasteu à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sür el Márcuri lasteu à 00.00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'sür el Xhúadi lasteu à 00.00',
         // Carbon::now()->subDays(2)->calendar()
         'Súladi à 20.49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class TzlTest extends LocalizationTestCase
         'ieiri à 01.00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'sür el Maitzi lasteu à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'demà à 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Maitzi à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lúneçi à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Súladi à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Sáturi à 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Viénerçi à 00.00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Xhúadi à 00.00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Viénerçi à 00.00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        ':1. :1.',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        ':1. :1. :1. :1. :1.',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         ':2. :1.',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class TzlTest extends LocalizationTestCase
         ':40.',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         ':41.',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        ':100.',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 D\'A, 12:00 d\'a',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class TzlTest extends LocalizationTestCase
         '5:00 D\'O, 5:00 d\'o',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 D\'O, 11:00 d\'o',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        ':0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ja1 secunds',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

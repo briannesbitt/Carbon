@@ -16,8 +16,20 @@ class KnTest extends LocalizationTestCase
     const LOCALE = 'kn'; // Kannada
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ನಿನ್ನೆ ರಾತ್ರಿ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ಕೊನೆಯ ಶನಿವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಕೊನೆಯ ಭಾನುವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಕೊನೆಯ ಸೋಮವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಕೊನೆಯ ಮಂಗಳವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಕೊನೆಯ ಬುಧವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'ಕೊನೆಯ ಗುರುವಾರ, ರಾತ್ರಿ 12:00',
         // Carbon::now()->subDays(2)->calendar()
         'ಭಾನುವಾರ, ರಾತ್ರಿ 8:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class KnTest extends LocalizationTestCase
         'ನಿನ್ನೆ ರಾತ್ರಿ 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ಕೊನೆಯ ಮಂಗಳವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ನಾಳೆ ರಾತ್ರಿ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ಮಂಗಳವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಸೋಮವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಭಾನುವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಶನಿವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ಶುಕ್ರವಾರ, ರಾತ್ರಿ 12:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'ಗುರುವಾರ, ರಾತ್ರಿ 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ಶುಕ್ರವಾರ, ರಾತ್ರಿ 12:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        ':1ನೇ :1ನೇ',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        ':1ನೇ :1ನೇ :1ನೇ :1ನೇ :1ನೇ',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         ':2ನೇ :1ನೇ',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class KnTest extends LocalizationTestCase
         ':40ನೇ',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         ':41ನೇ',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        ':100ನೇ',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ರಾತ್ರಿ, 12:00 ರಾತ್ರಿ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class KnTest extends LocalizationTestCase
         '5:00 ಸಂಜೆ, 5:00 ಸಂಜೆ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ರಾತ್ರಿ, 11:00 ರಾತ್ರಿ',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        ':0ನೇ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -16,8 +16,20 @@ class KmTest extends LocalizationTestCase
     const LOCALE = 'km'; // Khmer
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ម្សិលមិញ ម៉ោង 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'សៅរ៍ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'អាទិត្យ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ច័ន្ទ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'អង្គារ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ពុធ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'ព្រហស្បតិ៍ សប្តាហ៍មុន ម៉ោង 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'អាទិត្យ ម៉ោង 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class KmTest extends LocalizationTestCase
         'ម្សិលមិញ ម៉ោង 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'អង្គារ សប្តាហ៍មុន ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ស្អែក ម៉ោង 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'អង្គារ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ច័ន្ទ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'អាទិត្យ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'សៅរ៍ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'សុក្រ ម៉ោង 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'ព្រហស្បតិ៍ ម៉ោង 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'សុក្រ ម៉ោង 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ទី:1 ទី:1',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ទី:1 ទី:1 ទី:1 ទី:1 ទី:1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ទី:2 ទី:1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class KmTest extends LocalizationTestCase
         'ទី:40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ទី:41',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ទី:100',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ព្រឹក, 12:00 ព្រឹក',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class KmTest extends LocalizationTestCase
         '5:00 ល្ងាច, 5:00 ល្ងាច',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ល្ងាច, 11:00 ល្ងាច',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ទី:0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ប៉ុន្មានវិនាទីមុន',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

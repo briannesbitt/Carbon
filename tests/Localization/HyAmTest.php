@@ -16,8 +16,20 @@ class HyAmTest extends LocalizationTestCase
     const LOCALE = 'hy_AM'; // Armenian
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'երեկ 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'անցած շաբաթ օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'անցած կիրակի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'անցած երկուշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'անցած երեքշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'անցած չորեքշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'անցած հինգշաբթի օրը ժամը 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'կիրակի օրը ժամը 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class HyAmTest extends LocalizationTestCase
         'երեկ 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'անցած երեքշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'վաղը 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'երեքշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'երկուշաբթի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'կիրակի օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'շաբաթ օրը ժամը 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ուրբաթ օրը ժամը 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'հինգշաբթի օրը ժամը 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ուրբաթ օրը ժամը 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1 1-ին',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1 1 1 1-ին 1-ին',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2 1-ին',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class HyAmTest extends LocalizationTestCase
         '40-րդ',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-րդ',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-րդ',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 գիշերվա, 12:00 գիշերվա',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class HyAmTest extends LocalizationTestCase
         '5:00 երեկոյան, 5:00 երեկոյան',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 երեկոյան, 11:00 երեկոյան',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'մի քանի վայրկյան առաջ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

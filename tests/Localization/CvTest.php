@@ -16,8 +16,20 @@ class CvTest extends LocalizationTestCase
     const LOCALE = 'cv'; // Chuvash
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ӗнер 00:00 сехетре',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Иртнӗ шӑматкун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Иртнӗ вырсарникун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Иртнӗ тунтикун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Иртнӗ ытларикун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Иртнӗ юнкун 00:00 сехетре',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'Иртнӗ кӗҫнерникун 00:00 сехетре',
         // Carbon::now()->subDays(2)->calendar()
         'Ҫитес вырсарникун 20:49 сехетре',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class CvTest extends LocalizationTestCase
         'Ӗнер 01:00 сехетре',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Иртнӗ ытларикун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ыран 00:00 сехетре',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ҫитес ытларикун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ҫитес тунтикун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ҫитес вырсарникун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ҫитес шӑматкун 00:00 сехетре',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ҫитес эрнекун 00:00 сехетре',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'Ҫитес кӗҫнерникун 00:00 сехетре',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Ҫитес эрнекун 00:00 сехетре',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        ':1-мӗш :1-мӗш',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        ':1-мӗш :1-мӗш :1-мӗш :1-мӗш :1-мӗш',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         ':2-мӗш :1-мӗш',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class CvTest extends LocalizationTestCase
         ':40-мӗш',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         ':41-мӗш',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        ':100-мӗш',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class CvTest extends LocalizationTestCase
         '5:00 PM, 5:00 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        ':0-мӗш',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'пӗр-ик ҫеккунт каялла',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

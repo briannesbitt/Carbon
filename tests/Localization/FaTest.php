@@ -16,8 +16,20 @@ class FaTest extends LocalizationTestCase
     const LOCALE = 'fa'; // Persian
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'دیروز ساعت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'شنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'یکu200cشنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'دوشنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'سهu200cشنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'چهارشنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'پنجu200cشنبه پیش ساعت 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'یکu200cشنبه ساعت 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class FaTest extends LocalizationTestCase
         'دیروز ساعت 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'سهu200cشنبه پیش ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'فردا ساعت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'سهu200cشنبه ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'دوشنبه ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'یکu200cشنبه ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'شنبه ساعت 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'جمعه ساعت 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'پنجu200cشنبه ساعت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'جمعه ساعت 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        ':timeم :timeم',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        ':timeم :timeم :timeم :timeم :timeم',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         ':timeم :timeم',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class FaTest extends LocalizationTestCase
         ':timeم',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         ':timeم',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        ':timeم',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 قبل از ظهر, 12:00 قبل از ظهر',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class FaTest extends LocalizationTestCase
         '5:00 بعد از ظهر, 5:00 بعد از ظهر',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 بعد از ظهر, 11:00 بعد از ظهر',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        ':timeم',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'چند ثانیه پیش',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

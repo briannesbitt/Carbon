@@ -16,8 +16,20 @@ class BoTest extends LocalizationTestCase
     const LOCALE = 'bo'; // Tibetan
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ཁ་སང མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'བདུན་ཕྲག་མཐའ་མ གཟའ་སྤེན་པ་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཉི་མ་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཟླ་བ་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་མིག་དམར་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ལྷག་པ་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཕུར་བུ, མཚན་མོ 12:00',
         // Carbon::now()->subDays(2)->calendar()
         'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 8:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class BoTest extends LocalizationTestCase
         'ཁ་སང མཚན་མོ 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'བདུན་ཕྲག་མཐའ་མ གཟའ་མིག་དམར་, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'སང་ཉིན མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        'ordinal ordinal ordinal ordinal ordinal',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         'ordinal ordinal',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class BoTest extends LocalizationTestCase
         'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         'ordinal',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        'ordinal',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 མཚན་མོ, 12:00 མཚན་མོ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class BoTest extends LocalizationTestCase
         '5:00 དགོང་དག, 5:00 དགོང་དག',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 མཚན་མོ, 11:00 མཚན་མོ',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        'ordinal',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ལམ་སང སྔན་ལ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

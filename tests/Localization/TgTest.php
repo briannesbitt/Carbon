@@ -16,8 +16,20 @@ class TgTest extends LocalizationTestCase
     const LOCALE = 'tg'; // Tajik
 
     const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Дирӯз соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'шанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'якшанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'душанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'сешанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'чоршанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'панҷшанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'якшанбеи ҳафтаи оянда соати 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,12 +42,24 @@ class TgTest extends LocalizationTestCase
         'Дирӯз соати 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'сешанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Пагоҳ соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'сешанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'душанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'якшанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'шанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ҷумъаи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'панҷшанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ҷумъаи ҳафтаи оянда соати 00:00',
-        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Do wo')
-        '1-ум 1-ум',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1-ум 1-ум 1-ум 1-ум 1-ум',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2-юм 1-ум',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
@@ -54,6 +78,8 @@ class TgTest extends LocalizationTestCase
         '40-ум',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
         '41-ум',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-ум',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 шаб, 12:00 шаб',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -70,6 +96,8 @@ class TgTest extends LocalizationTestCase
         '5:00 бегоҳ, 5:00 бегоҳ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 шаб, 11:00 шаб',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0-ıncı',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'якчанд сония пеш',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
