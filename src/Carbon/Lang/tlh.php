@@ -63,4 +63,6 @@ return [
     'weekdays' => ['lojmItjaj', 'DaSjaj', 'povjaj', 'ghItlhjaj', 'loghjaj', 'buqjaj', 'ghInjaj'],
     'weekdays_short' => ['lojmItjaj', 'DaSjaj', 'povjaj', 'ghItlhjaj', 'loghjaj', 'buqjaj', 'ghInjaj'],
     'weekdays_min' => ['lojmItjaj', 'DaSjaj', 'povjaj', 'ghItlhjaj', 'loghjaj', 'buqjaj', 'ghInjaj'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

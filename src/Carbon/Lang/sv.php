@@ -60,4 +60,6 @@ return [
     'weekdays' => ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'],
     'weekdays_short' => ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'],
     'weekdays_min' => ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

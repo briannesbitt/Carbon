@@ -597,7 +597,7 @@ trait Difference
         $current = $this->copy()->startOfDay();
         /** @var CarbonInterface $other */
         $other = $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay();
-        $diff = $current->diffInDays($other, false);
+        $diff = $other->diffInDays($current, false);
         $format = $diff < -6 ? 'sameElse' : (
             $diff < -1 ? 'lastWeek' : (
                 $diff < 0 ? 'lastDay' : (

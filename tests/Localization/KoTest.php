@@ -17,47 +17,63 @@ class KoTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '어제 오전 12:00',
+        '내일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '지난주 토요일 오전 12:00',
+        '토요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '지난주 일요일 오전 12:00',
+        '일요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '지난주 월요일 오전 12:00',
+        '월요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '지난주 화요일 오전 12:00',
+        '화요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '지난주 수요일 오전 12:00',
+        '수요일 오전 12:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        '지난주 목요일 오전 12:00',
+        '목요일 오전 12:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        '금요일 오전 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '화요일 오전 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '수요일 오전 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '목요일 오전 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '금요일 오전 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        '토요일 오전 12:00',
         // Carbon::now()->subDays(2)->calendar()
-        '일요일 오후 8:49',
+        '지난주 일요일 오후 8:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '내일 오후 10:00',
+        '어제 오후 10:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         '오늘 오전 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         '오늘 오전 2:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        '어제 오전 1:00',
+        '내일 오전 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        '지난주 화요일 오전 12:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '내일 오전 12:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         '화요일 오전 12:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        '어제 오전 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '어제 오전 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        '지난주 화요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '월요일 오전 12:00',
+        '지난주 월요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '일요일 오전 12:00',
+        '지난주 일요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '토요일 오전 12:00',
+        '지난주 토요일 오전 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        '금요일 오전 12:00',
+        '지난주 금요일 오전 12:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        '목요일 오전 12:00',
+        '지난주 목요일 오전 12:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        '지난주 수요일 오전 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        '금요일 오전 12:00',
+        '지난주 금요일 오전 12:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1월 1월 1일 1주 1주',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -80,6 +96,8 @@ class KoTest extends LocalizationTestCase
         '41일',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100일',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 오전 cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 오전, 12:00 오전',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class KoTest extends LocalizationTestCase
         '12:00 오후, 12:00 오후',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 오후, 5:00 오후',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 오후, 9:30 오후',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 오후, 11:00 오후',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class KoTest extends LocalizationTestCase
         '1분 몇 초',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 년 3 개월 1 일 1 초',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3년 후',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        '5 개월 전',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        '2 년 3 개월 1 일 1 초 전',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 주일 10시간',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class KoTest extends LocalizationTestCase
         '1 주일 6일',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 주일 한 시간',
+        // CarbonInterval::days(2)->forHumans()
+        '2일',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 일 3 시간',
     ];
 }

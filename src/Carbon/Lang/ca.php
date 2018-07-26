@@ -82,4 +82,6 @@ return [
     'weekdays' => ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous', 'divendres', 'dissabte'],
     'weekdays_short' => ['dg.', 'dl.', 'dt.', 'dc.', 'dj.', 'dv.', 'ds.'],
     'weekdays_min' => ['dg', 'dl', 'dt', 'dc', 'dj', 'dv', 'ds'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

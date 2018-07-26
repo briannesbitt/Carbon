@@ -12,14 +12,14 @@ class Translator extends Translation\Translator
      *
      * @var static
      */
-    protected static $singleton;
+    protected static $singleton = null;
 
     /**
      * List of custom localized messages.
      *
      * @var array
      */
-    protected static $messages = [];
+    protected $messages = [];
 
     /**
      * List of custom directories that contain translation files.
@@ -98,10 +98,10 @@ class Translator extends Translation\Translator
      */
     public function removeDirectory(string $directory)
     {
-        $search = rtrim(preg_replace('\\', '/', $directory), '/');
+        $search = rtrim(strtr($directory, '\\', '/'), '/');
 
         return $this->setDirectories(array_filter($this->getDirectories(), function ($item) use ($search) {
-            return rtrim(preg_replace('\\', '/', $item), '/') !== $search;
+            return rtrim(strtr($item, '\\', '/'), '/') !== $search;
         }));
     }
 
@@ -132,7 +132,7 @@ class Translator extends Translation\Translator
     public function resetMessages($locale = null)
     {
         if ($locale === null) {
-            static::$messages = [];
+            $this->messages = [];
 
             return true;
         }
@@ -140,8 +140,8 @@ class Translator extends Translation\Translator
         foreach ($this->getDirectories() as $directory) {
             $directory = rtrim($directory, '\\/');
             if (file_exists($filename = "$directory/$locale.php")) {
-                static::$messages[$locale] = require $filename;
-                $this->addResource('array', static::$messages[$locale], $locale);
+                $this->messages[$locale] = require $filename;
+                $this->addResource('array', $this->messages[$locale], $locale);
 
                 return true;
             }
@@ -185,7 +185,7 @@ class Translator extends Translation\Translator
             $locales[] = substr($file, strrpos($file, '/') + 1, -4);
         }
 
-        return array_unique(array_merge($locales, array_keys(static::$messages)));
+        return array_unique(array_merge($locales, array_keys($this->messages)));
     }
 
     /**
@@ -197,7 +197,7 @@ class Translator extends Translation\Translator
      */
     protected function loadMessagesFromFile($locale)
     {
-        if (isset(static::$messages[$locale])) {
+        if (isset($this->messages[$locale])) {
             return true;
         }
 
@@ -216,8 +216,8 @@ class Translator extends Translation\Translator
     {
         $this->loadMessagesFromFile($locale);
         $this->addResource('array', $messages, $locale);
-        static::$messages[$locale] = array_merge(
-            isset(static::$messages[$locale]) ? static::$messages[$locale] : [],
+        $this->messages[$locale] = array_merge(
+            isset($this->messages[$locale]) ? $this->messages[$locale] : [],
             $messages
         );
 
@@ -234,7 +234,7 @@ class Translator extends Translation\Translator
      */
     public function getMessages($locale = null)
     {
-        return $locale === null ? static::$messages : static::$messages[$locale];
+        return $locale === null ? $this->messages : $this->messages[$locale];
     }
 
     /**
@@ -250,6 +250,52 @@ class Translator extends Translation\Translator
             // _2-letters is a region, _3+-letters is a variant
             return '_'.call_user_func(strlen($matches[1]) > 2 ? 'ucfirst' : 'strtoupper', $matches[1]);
         }, strtolower($locale));
+
+        if ($this->getLocale() === $locale) {
+            return true;
+        }
+
+        if ($locale === 'auto') {
+            $completeLocale = setlocale(LC_TIME, 0);
+            $locale = preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
+            $locales = $this->getAvailableLocales($locale);
+
+            $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
+            $getScore = function ($language) use ($completeLocaleChunks) {
+                $chunks = preg_split('/[_.-]+/', $language);
+                $score = 0;
+                foreach ($completeLocaleChunks as $index => $chunk) {
+                    if (!isset($chunks[$index])) {
+                        $score++;
+
+                        continue;
+                    }
+                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                        $score += 10;
+                    }
+                }
+
+                return $score;
+            };
+            usort($locales, function ($a, $b) use ($getScore) {
+                $a = $getScore($a);
+                $b = $getScore($b);
+
+                if ($a === $b) {
+                    return 0;
+                }
+
+                return $a < $b ? 1 : -1;
+            });
+            $locale = $locales[0];
+        }
+
+        // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
+        if (strpos($locale, '_') !== false) {
+            if ($this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))) {
+                parent::setLocale($macroLocale);
+            }
+        }
 
         if ($this->loadMessagesFromFile($locale)) {
             parent::setLocale($locale);

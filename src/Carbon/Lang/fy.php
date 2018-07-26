@@ -46,4 +46,6 @@ return [
     'weekdays' => ['snein', 'moandei', 'tiisdei', 'woansdei', 'tongersdei', 'freed', 'sneon'],
     'weekdays_short' => ['si.', 'mo.', 'ti.', 'wo.', 'to.', 'fr.', 'so.'],
     'weekdays_min' => ['Si', 'Mo', 'Ti', 'Wo', 'To', 'Fr', 'So'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

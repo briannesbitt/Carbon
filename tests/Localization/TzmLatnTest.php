@@ -17,7 +17,7 @@ class TzmLatnTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'assant g 00:00',
+        'aska g 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'asiḍyas g 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -30,20 +30,34 @@ class TzmLatnTest extends LocalizationTestCase
         'akras g 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         'akwas g 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'asimwas g 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'asinas g 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'akras g 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'akwas g 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'asimwas g 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'asiḍyas g 00:00',
         // Carbon::now()->subDays(2)->calendar()
         'asamas g 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'aska g 22:00',
+        'assant g 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'asdkh g 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'asdkh g 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'assant g 01:00',
+        'aska g 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'asinas g 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'assant g 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'aska g 00:00',
+        'assant g 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'asinas g 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -56,30 +70,34 @@ class TzmLatnTest extends LocalizationTestCase
         'asimwas g 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         'akwas g 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'akras g 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'asimwas g 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 52 52',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 52',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 52',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 52',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 52',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 1',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class TzmLatnTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'yan imik',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class TzmLatnTest extends LocalizationTestCase
         'minuḍ imik',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'dadkh s yan 3 isgasn',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'yan m',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'yan y m d s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ⵉⵎⴰⵍⴰⵙⵙ 10 tassaɛin',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class TzmLatnTest extends LocalizationTestCase
         '1 ⵉⵎⴰⵍⴰⵙⵙ 6 ossan',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ⵉⵎⴰⵍⴰⵙⵙ saɛa',
+        // CarbonInterval::days(2)->forHumans()
+        '2 ossan',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ass 3 tassaɛin',
     ];
 }

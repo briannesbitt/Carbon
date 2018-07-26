@@ -28,6 +28,7 @@ class DiffTest extends AbstractTestCase
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertCarbonInterval($dt->diffAsCarbonInterval($dt->copy()->addYear()), 1, 0, 0, 0, 0, 0);
+        $this->assertTrue($dt->diffAsCarbonInterval($dt)->isEmpty());
     }
 
     public function testDiffInYearsPositive()

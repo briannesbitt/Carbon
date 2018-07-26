@@ -17,47 +17,63 @@ class MkTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Вчера во 0:00',
+        'Утре во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Изминатата сабота во 0:00',
+        'Во сабота во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Изминатата недела во 0:00',
+        'Во недела во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Изминатиот понеделник во 0:00',
+        'Во понеделник во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Изминатиот вторник во 0:00',
+        'Во вторник во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Изминатата среда во 0:00',
+        'Во среда во 0:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Изминатиот четврток во 0:00',
+        'Во четврток во 0:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Во петок во 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Во вторник во 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Во среда во 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Во четврток во 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Во петок во 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Во сабота во 0:00',
         // Carbon::now()->subDays(2)->calendar()
-        'Во недела во 20:49',
+        'Изминатата недела во 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Утре во 22:00',
+        'Вчера во 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Денес во 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Денес во 2:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Вчера во 1:00',
+        'Утре во 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Изминатиот вторник во 0:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Утре во 0:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Во вторник во 0:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Вчера во 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Вчера во 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Изминатиот вторник во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Во понеделник во 0:00',
+        'Изминатиот понеделник во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Во недела во 0:00',
+        'Изминатата недела во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Во сабота во 0:00',
+        'Изминатата сабота во 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Во петок во 0:00',
+        'Изминатиот петок во 0:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Во четврток во 0:00',
+        'Изминатиот четврток во 0:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'Изминатата среда во 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Во петок во 0:00',
+        'Изминатиот петок во 0:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1-ви 1-ви 1-ви 1-ви 1-ви',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class MkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6-ти 1-ви',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7-ми 2-ри',
+        '7-ми 1-ви',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11-ти 2-ри',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class MkTest extends LocalizationTestCase
         '41-ви',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100-ен',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class MkTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class MkTest extends LocalizationTestCase
         'минута неколку секунди',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'после 3 години',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'пред m',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'пред y m d s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 седмица 10 часа',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class MkTest extends LocalizationTestCase
         '1 седмица 6 дена',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 седмици час',
+        // CarbonInterval::days(2)->forHumans()
+        '2 дена',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ден 3 часа',
     ];
 }

@@ -17,69 +17,87 @@ class JvTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Kala wingi pukul 00.00',
+        'Mbenjang pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Septu kepengker pukul 00.00',
+        'Septu pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Minggu kepengker pukul 00.00',
+        'Minggu pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Senen kepengker pukul 00.00',
+        'Senen pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Seloso kepengker pukul 00.00',
+        'Seloso pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Rebu kepengker pukul 00.00',
+        'Rebu pukul 00.00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Kemis kepengker pukul 00.00',
+        'Kemis pukul 00.00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Jemuwah pukul 00.00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Seloso pukul 00.00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Rebu pukul 00.00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Kemis pukul 00.00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Jemuwah pukul 00.00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Septu pukul 00.00',
         // Carbon::now()->subDays(2)->calendar()
-        'Minggu pukul 20.49',
+        'Minggu kepengker pukul 20.49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Mbenjang pukul 22.00',
+        'Kala wingi pukul 22.00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Dinten puniko pukul 10.00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Dinten puniko pukul 02.00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Kala wingi pukul 01.00',
+        'Mbenjang pukul 01.00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Seloso kepengker pukul 00.00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Mbenjang pukul 00.00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Seloso pukul 00.00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Kala wingi pukul 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Kala wingi pukul 00.00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Seloso kepengker pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Senen pukul 00.00',
+        'Senen kepengker pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Minggu pukul 00.00',
+        'Minggu kepengker pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Septu pukul 00.00',
+        'Septu kepengker pukul 00.00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Jemuwah pukul 00.00',
+        'Jemuwah kepengker pukul 00.00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Kemis pukul 00.00',
+        'Kemis kepengker pukul 00.00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'Rebu kepengker pukul 00.00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Jemuwah pukul 00.00',
+        'Jemuwah kepengker pukul 00.00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 enjing cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 enjing, 12:00 enjing',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class JvTest extends LocalizationTestCase
         '12:00 siyang, 12:00 siyang',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 sonten, 5:00 sonten',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 ndalu, 9:30 ndalu',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ndalu, 11:00 ndalu',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'sawetawis detik ingkang kepengker',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class JvTest extends LocalizationTestCase
         'setunggal menit sawetawis detik',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'wonten ing 3 taun',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm ingkang kepengker',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s ingkang kepengker',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'sakminggu 10 jam',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class JvTest extends LocalizationTestCase
         'sakminggu 6 dinten',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 minggu setunggal jam',
+        // CarbonInterval::days(2)->forHumans()
+        '2 dinten',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'sedinten 3 jam',
     ];
 }

@@ -17,47 +17,63 @@ class ElTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Χθες {} 12:00 ΠΜ',
+        'Αύριο {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'το προηγούμενο Σάββατο {} 12:00 ΠΜ',
+        'Σάββατο {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'την προηγούμενη Κυριακή {} 12:00 ΠΜ',
+        'Κυριακή {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'την προηγούμενη Δευτέρα {} 12:00 ΠΜ',
+        'Δευτέρα {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'την προηγούμενη Τρίτη {} 12:00 ΠΜ',
+        'Τρίτη {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'την προηγούμενη Τετάρτη {} 12:00 ΠΜ',
+        'Τετάρτη {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'την προηγούμενη Πέμπτη {} 12:00 ΠΜ',
+        'Πέμπτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Παρασκευή {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Τρίτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Τετάρτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Πέμπτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Παρασκευή {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Σάββατο {} 12:00 ΠΜ',
         // Carbon::now()->subDays(2)->calendar()
-        'Κυριακή {} 8:49 ΜΜ',
+        'την προηγούμενη Κυριακή {} 8:49 ΜΜ',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Αύριο {} 10:00 ΜΜ',
+        'Χθες {} 10:00 ΜΜ',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Σήμερα {} 10:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Σήμερα {} 2:00 ΠΜ',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Χθες {} 1:00 ΠΜ',
+        'Αύριο {} 1:00 ΠΜ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'την προηγούμενη Τρίτη {} 12:00 ΠΜ',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Αύριο {} 12:00 ΠΜ',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Τρίτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Χθες {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Χθες {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'την προηγούμενη Τρίτη {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Δευτέρα {} 12:00 ΠΜ',
+        'την προηγούμενη Δευτέρα {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Κυριακή {} 12:00 ΠΜ',
+        'την προηγούμενη Κυριακή {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Σάββατο {} 12:00 ΠΜ',
+        'το προηγούμενο Σάββατο {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Παρασκευή {} 12:00 ΠΜ',
+        'την προηγούμενη Παρασκευή {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Πέμπτη {} 12:00 ΠΜ',
+        'την προηγούμενη Πέμπτη {} 12:00 ΠΜ',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'την προηγούμενη Τετάρτη {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Παρασκευή {} 12:00 ΠΜ',
+        'την προηγούμενη Παρασκευή {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1η :1η :1η :1η :1η',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class ElTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         ':6η :1η',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7η :2η',
+        ':7η :1η',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         ':11η :2η',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class ElTest extends LocalizationTestCase
         ':41η',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100η',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 πμ cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ΠΜ, 12:00 πμ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class ElTest extends LocalizationTestCase
         '12:00 ΜΜ, 12:00 μμ',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 ΜΜ, 5:00 μμ',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 ΜΜ, 9:30 μμ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ΜΜ, 11:00 μμ',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class ElTest extends LocalizationTestCase
         'ένα λεπτό λίγα δευτερόλεπτα',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 χρόνια 3 μήνες 1 μέρα 1 δευτερόλεπτο',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'σε 3 χρόνια',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        '5 μήνες πριν',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        '2 χρόνια 3 μήνες 1 μέρα 1 δευτερόλεπτο πριν',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 10 ώρες',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class ElTest extends LocalizationTestCase
         '1 εβδομάδα 6 μέρες',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 εβδομάδες μία ώρα',
+        // CarbonInterval::days(2)->forHumans()
+        '2 μέρες',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 μέρα 3 ώρες',
     ];
 }

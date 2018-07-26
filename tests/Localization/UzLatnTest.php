@@ -17,69 +17,87 @@ class UzLatnTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Kecha soat 00:00 da',
+        'Ertaga 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O\'tgan Shanba kuni soat 00:00 da',
+        'Shanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O\'tgan Yakshanba kuni soat 00:00 da',
+        'Yakshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O\'tgan Dushanba kuni soat 00:00 da',
+        'Dushanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O\'tgan Seshanba kuni soat 00:00 da',
+        'Seshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O\'tgan Chorshanba kuni soat 00:00 da',
+        'Chorshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'O\'tgan Payshanba kuni soat 00:00 da',
+        'Payshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Juma kuni soat 00:00 da',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Seshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Chorshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Payshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Juma kuni soat 00:00 da',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Shanba kuni soat 00:00 da',
         // Carbon::now()->subDays(2)->calendar()
-        'Yakshanba kuni soat 20:49 da',
+        'O\'tgan Yakshanba kuni soat 20:49 da',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ertaga 22:00 da',
+        'Kecha soat 22:00 da',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Bugun soat 10:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Bugun soat 02:00 da',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Kecha soat 01:00 da',
+        'Ertaga 01:00 da',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'O\'tgan Seshanba kuni soat 00:00 da',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ertaga 00:00 da',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Seshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Kecha soat 00:00 da',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Kecha soat 00:00 da',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'O\'tgan Seshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Dushanba kuni soat 00:00 da',
+        'O\'tgan Dushanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yakshanba kuni soat 00:00 da',
+        'O\'tgan Yakshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Shanba kuni soat 00:00 da',
+        'O\'tgan Shanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Juma kuni soat 00:00 da',
+        'O\'tgan Juma kuni soat 00:00 da',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Payshanba kuni soat 00:00 da',
+        'O\'tgan Payshanba kuni soat 00:00 da',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'O\'tgan Chorshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Juma kuni soat 00:00 da',
+        'O\'tgan Juma kuni soat 00:00 da',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class UzLatnTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'Bir necha soniya oldin',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class UzLatnTest extends LocalizationTestCase
         'bir daqiqa soniya',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 yil 3 oy 1 kun 1 s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'Yaqin 3 yil ichida',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'Bir necha 5 oy oldin',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'Bir necha 2 yil 3 oy 1 kun 1 s oldin',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'bir hafta 10 soat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class UzLatnTest extends LocalizationTestCase
         'bir hafta 6 kun',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 hafta bir soat',
+        // CarbonInterval::days(2)->forHumans()
+        '2 kun',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 kun 3 soat',
     ];
 }

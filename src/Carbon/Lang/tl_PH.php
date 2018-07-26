@@ -44,4 +44,6 @@ return [
     'weekdays' => ['Linggo', 'Lunes', 'Martes', 'Miyerkules', 'Huwebes', 'Biyernes', 'Sabado'],
     'weekdays_short' => ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab'],
     'weekdays_min' => ['Li', 'Lu', 'Ma', 'Mi', 'Hu', 'Bi', 'Sab'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

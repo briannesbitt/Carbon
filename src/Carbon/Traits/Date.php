@@ -2370,56 +2370,7 @@ trait Date
      */
     public static function setLocale($locale)
     {
-        $translator = static::translator();
-
-        if ($locale === 'auto' && $translator instanceof Translator) {
-            $completeLocale = setlocale(LC_TIME, 0);
-            $locale = preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
-            $files = $translator->getLocalesFiles($locale);
-
-            if (!count($files)) {
-                return false;
-            }
-
-            $files = array_map(function ($file) {
-                return preg_replace('/^.*[\/\\\\]([^\/\\\\]+)\.php$/', '$1', $file);
-            }, $files);
-            $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
-            $getScore = function ($language) use ($completeLocaleChunks) {
-                $chunks = preg_split('/[_.-]+/', $language);
-                $score = 0;
-                foreach ($completeLocaleChunks as $index => $chunk) {
-                    if (!isset($chunks[$index])) {
-                        $score++;
-
-                        continue;
-                    }
-                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
-                        $score += 10;
-                    }
-                }
-
-                return $score;
-            };
-            usort($files, function ($a, $b) use ($getScore) {
-                $a = $getScore($a);
-                $b = $getScore($b);
-
-                if ($a === $b) {
-                    return 0;
-                }
-
-                return $a < $b ? 1 : -1;
-            });
-            $locale = $files[0];
-        }
-
-        // If subtag (en_CA) first load the macro (en) to have a fallback
-        if (strpos($locale, '_') !== false) {
-            $translator->setLocale(preg_replace('/^([^_]+).*$/', '$1', $locale));
-        }
-
-        return $translator->setLocale($locale) !== false;
+        return static::translator()->setLocale($locale) !== false;
     }
 
     /**
@@ -3047,7 +2998,7 @@ trait Date
      *
      * @return string
      */
-    public function ordinal($key, $period = null)
+    public function ordinal(string $key, string $period = null): string
     {
         $number = $this->$key;
         $result = static::translate('ordinal', [
@@ -3055,7 +3006,7 @@ trait Date
             'period' => $period,
         ]);
 
-        return $result === $key ? $number : $result;
+        return strval($result === 'ordinal' ? $number : $result);
     }
 
     /**
@@ -4976,9 +4927,22 @@ trait Date
 
         $unit = rtrim($method, 's');
         if (substr($unit, 0, 2) === 'is') {
-            $day = substr($unit, 2);
-            if (in_array($day, static::$days)) {
-                return $this->isDayOfWeek($day);
+            $word = substr($unit, 2);
+            if (in_array($word, static::$days)) {
+                return $this->isDayOfWeek($word);
+            }
+            switch ($word) {
+                // @call is true if the current instance has UTC timezone
+                case 'Utc':
+                // @call is true if the current instance has UTC timezone
+                case 'UTC':
+                    return $this->utc;
+                // @call is true if the current instance has non-UTC timezone
+                case 'Local':
+                    return $this->local;
+                // @call is true if the current instance is a valid date
+                case 'Valid':
+                    return $this->year !== 0;
             }
         }
 

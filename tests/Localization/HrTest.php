@@ -17,47 +17,63 @@ class HrTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'jučer u 0:00',
+        'sutra u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'prošle subote u 0:00',
+        'u subotu u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'prošlu nedjelja u 0:00',
+        'u nedjelju u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'prošli ponedjeljak u 0:00',
+        'u ponedjeljak u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'prošli utorak u 0:00',
+        'u utorak u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'prošlu srijeda u 0:00',
+        'u srijedu u 0:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'prošli četvrtak u 0:00',
+        'u četvrtak u 0:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'u petak u 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'u utorak u 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'u srijedu u 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'u četvrtak u 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'u petak u 0:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'u subotu u 0:00',
         // Carbon::now()->subDays(2)->calendar()
-        'u nedjelju u 20:49',
+        'prošlu nedjelja u 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sutra u 22:00',
+        'jučer u 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'danas u 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'danas u 2:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'jučer u 1:00',
+        'sutra u 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'prošli utorak u 0:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sutra u 0:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'u utorak u 0:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'jučer u 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'jučer u 0:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'prošli utorak u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'u ponedjeljak u 0:00',
+        'prošli ponedjeljak u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'u nedjelju u 0:00',
+        'prošlu nedjelja u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'u subotu u 0:00',
+        'prošle subote u 0:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'u petak u 0:00',
+        'prošli petak u 0:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'u četvrtak u 0:00',
+        'prošli četvrtak u 0:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'prošlu srijeda u 0:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'u petak u 0:00',
+        'prošli petak u 0:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1. :1. :1. :1. :1.',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class HrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         ':6. :1.',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7. :2.',
+        ':7. :1.',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         ':11. :2.',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class HrTest extends LocalizationTestCase
         ':41.',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100.',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class HrTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class HrTest extends LocalizationTestCase
         '1 minutu 1 sekundu',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 godine 3 mjeseca 1 dan 1 sekundu',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'za 3 godine',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'prije 5 mjeseci',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'prije 2 godine 3 mjeseca 1 dan 1 sekundu',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 tjedan 10 sati',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class HrTest extends LocalizationTestCase
         '1 tjedan 6 dana',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 tjedna 1 sat',
+        // CarbonInterval::days(2)->forHumans()
+        '2 dana',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 dan 3 sata',
     ];
 }

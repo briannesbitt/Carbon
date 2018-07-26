@@ -89,6 +89,8 @@ class LocalizationTest extends AbstractTestCase
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
+        $translator->resetMessages();
+        $translator->setLocale('en');
         $directories = $translator->getDirectories();
         $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
         mkdir($directory);
@@ -96,8 +98,8 @@ class LocalizationTest extends AbstractTestCase
 
         copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/zh.php");
         copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/zh_TW.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/fr.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/fr_CA.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/fr.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/fr_CA.php', "$directory/fr_CA.php");
 
         $currentLocale = setlocale(LC_ALL, '0');
         if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
@@ -426,6 +428,67 @@ class LocalizationTest extends AbstractTestCase
         $translator->resetMessages();
 
         $this->assertSame([], $translator->getMessages());
+
+        $this->assertTrue(Carbon::setLocale('en'));
+    }
+
+    public function testCustomWeekStart()
+    {
+        $this->assertTrue(Carbon::setLocale('ru'));
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+
+        $translator->setMessages('ru', [
+            'first_day_of_week' => 1,
+        ]);
+
+        $calendar = Carbon::parse('2018-07-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-07-07 00:00:00'));
+        $this->assertSame('В следующий вторник, в 0:00', $calendar);
+        $calendar = Carbon::parse('2018-07-12 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-07-12 00:00:00'));
+        $this->assertSame('В воскресенье, в 0:00', $calendar);
+
+        $translator->setMessages('ru', [
+            'first_day_of_week' => 5,
+        ]);
+
+        $calendar = Carbon::parse('2018-07-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-07-07 00:00:00'));
+        $this->assertSame('Во вторник, в 0:00', $calendar);
+        $calendar = Carbon::parse('2018-07-12 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-07-12 00:00:00'));
+        $this->assertSame('В следующее воскресенье, в 0:00', $calendar);
+
+        $translator->resetMessages('ru');
+
+        $this->assertTrue(Carbon::setLocale('en'));
+    }
+
+    public function testAddAndRemoveDirectory()
+    {
+        $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
+        mkdir($directory);
+        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/foo.php");
+        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/bar.php");
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+        Carbon::setLocale('en');
+
+        $this->assertFalse(Carbon::setLocale('foo'));
+        $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
+
+        $translator->addDirectory($directory);
+
+        $this->assertTrue(Carbon::setLocale('foo'));
+        $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
+
+        Carbon::setLocale('en');
+        $translator->removeDirectory($directory);
+
+        $this->assertFalse(Carbon::setLocale('bar'));
+        $this->assertSame('Saturday', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
+
+        $this->assertTrue(Carbon::setLocale('foo'));
+        $this->assertSame('samedi', Carbon::parse('2018-07-07 00:00:00')->isoFormat('dddd'));
 
         $this->assertTrue(Carbon::setLocale('en'));
     }

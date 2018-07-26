@@ -17,47 +17,63 @@ class GdTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'An-dè aig 00:00',
+        'A-màireach aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Disathairne seo chaidh aig 00:00',
+        'Disathairne aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Didòmhnaich seo chaidh aig 00:00',
+        'Didòmhnaich aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Diluain seo chaidh aig 00:00',
+        'Diluain aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Dimàirt seo chaidh aig 00:00',
+        'Dimàirt aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Diciadain seo chaidh aig 00:00',
+        'Diciadain aig 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Diardaoin seo chaidh aig 00:00',
+        'Diardaoin aig 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Dihaoine aig 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Dimàirt aig 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Diciadain aig 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Diardaoin aig 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Dihaoine aig 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Disathairne aig 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'Didòmhnaich aig 20:49',
+        'Didòmhnaich seo chaidh aig 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'A-màireach aig 22:00',
+        'An-dè aig 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'An-diugh aig 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'An-diugh aig 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'An-dè aig 01:00',
+        'A-màireach aig 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Dimàirt seo chaidh aig 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'A-màireach aig 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Dimàirt aig 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'An-dè aig 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'An-dè aig 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Dimàirt seo chaidh aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Diluain aig 00:00',
+        'Diluain seo chaidh aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Didòmhnaich aig 00:00',
+        'Didòmhnaich seo chaidh aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Disathairne aig 00:00',
+        'Disathairne seo chaidh aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Dihaoine aig 00:00',
+        'Dihaoine seo chaidh aig 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Diardaoin aig 00:00',
+        'Diardaoin seo chaidh aig 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'Diciadain seo chaidh aig 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Dihaoine aig 00:00',
+        'Dihaoine seo chaidh aig 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1d 1d 1d 1d 1d',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class GdTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6mh 1d',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7mh 2na',
+        '7mh 1d',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11mh 2na',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class GdTest extends LocalizationTestCase
         '41mh',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100mh',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class GdTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class GdTest extends LocalizationTestCase
         'mionaid beagan diogan',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'ann an 3 bliadhna',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'bho chionn m',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'bho chionn y m d s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'seachdain 10 uairean',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class GdTest extends LocalizationTestCase
         'seachdain 6 latha',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 seachdainean uair',
+        // CarbonInterval::days(2)->forHumans()
+        '2 latha',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'latha 3 uairean',
     ];
 }

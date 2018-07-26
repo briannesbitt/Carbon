@@ -17,47 +17,63 @@ class EoTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hieraŭ je 00:00',
+        'Morgaŭ je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pasinta sabato je 00:00',
+        'sabato je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pasinta dimanĉo je 00:00',
+        'dimanĉo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pasinta lundo je 00:00',
+        'lundo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pasinta mardo je 00:00',
+        'mardo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'pasinta merkredo je 00:00',
+        'merkredo je 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'pasinta ĵaŭdo je 00:00',
+        'ĵaŭdo je 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'vendredo je 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'mardo je 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'merkredo je 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ĵaŭdo je 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'vendredo je 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'sabato je 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'dimanĉo je 20:49',
+        'pasinta dimanĉo je 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Morgaŭ je 22:00',
+        'Hieraŭ je 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Hodiaŭ je 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Hodiaŭ je 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Hieraŭ je 01:00',
+        'Morgaŭ je 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'pasinta mardo je 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Morgaŭ je 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'mardo je 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Hieraŭ je 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Hieraŭ je 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'pasinta mardo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'lundo je 00:00',
+        'pasinta lundo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'dimanĉo je 00:00',
+        'pasinta dimanĉo je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sabato je 00:00',
+        'pasinta sabato je 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'vendredo je 00:00',
+        'pasinta vendredo je 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'ĵaŭdo je 00:00',
+        'pasinta ĵaŭdo je 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'pasinta merkredo je 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'vendredo je 00:00',
+        'pasinta vendredo je 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1a :1a :1a :1a :1a',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class EoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         ':6a :1a',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7a :2a',
+        ':7a :1a',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         ':11a :2a',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class EoTest extends LocalizationTestCase
         ':41a',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100a',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 a.t.m. cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 a.t.m., 12:00 a.t.m.',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class EoTest extends LocalizationTestCase
         '12:00 p.t.m., 12:00 p.t.m.',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 p.t.m., 5:00 p.t.m.',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 p.t.m., 9:30 p.t.m.',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 p.t.m., 11:00 p.t.m.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class EoTest extends LocalizationTestCase
         'minuto sekundoj',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 jaroj 3 monatoj 1 tago 1 sekundo',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'post 3 jaroj',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'antaŭ 5 monatoj',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'antaŭ 2 jaroj 3 monatoj 1 tago 1 sekundo',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 semajno 10 horoj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class EoTest extends LocalizationTestCase
         '1 semajno 6 tagoj',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 semajnoj horo',
+        // CarbonInterval::days(2)->forHumans()
+        '2 tagoj',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 tago 3 horoj',
     ];
 }

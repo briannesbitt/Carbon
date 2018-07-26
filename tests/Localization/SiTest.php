@@ -17,47 +17,63 @@ class SiTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ඊයේ පෙ.ව. 12:00ට',
+        'හෙට පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'පසුගිය සෙනසුරාදා පෙ.ව. 12:00ට',
+        'සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'පසුගිය ඉරිදා පෙ.ව. 12:00ට',
+        'ඉරිදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'පසුගිය සඳුදා පෙ.ව. 12:00ට',
+        'සඳුදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'පසුගිය අඟහරුවාදා පෙ.ව. 12:00ට',
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'පසුගිය බදාදා පෙ.ව. 12:00ට',
+        'බදාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'පසුගිය බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
+        'බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'සිකුරාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'බදාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'සිකුරාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::now()->subDays(2)->calendar()
-        'ඉරිදා ප.ව. 8:49ට',
+        'පසුගිය ඉරිදා ප.ව. 8:49ට',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'හෙට ප.ව. 10:00ට',
+        'ඊයේ ප.ව. 10:00ට',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'අද පෙ.ව. 10:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'අද පෙ.ව. 2:00ට',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'ඊයේ පෙ.ව. 1:00ට',
+        'හෙට පෙ.ව. 1:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'පසුගිය අඟහරුවාදා පෙ.ව. 12:00ට',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'හෙට පෙ.ව. 12:00ට',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'අඟහරුවාදා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'ඊයේ පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ඊයේ පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'පසුගිය අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'සඳුදා පෙ.ව. 12:00ට',
+        'පසුගිය සඳුදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ඉරිදා පෙ.ව. 12:00ට',
+        'පසුගිය ඉරිදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'සෙනසුරාදා පෙ.ව. 12:00ට',
+        'පසුගිය සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'සිකුරාදා පෙ.ව. 12:00ට',
+        'පසුගිය සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
+        'පසුගිය බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'පසුගිය බදාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'සිකුරාදා පෙ.ව. 12:00ට',
+        'පසුගිය සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1 වැනි :1 වැනි :1 වැනි :1 වැනි :1 වැනි',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -80,6 +96,8 @@ class SiTest extends LocalizationTestCase
         ':41 වැනි',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100 වැනි',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 පෙ.ව. cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 පෙර වරු, 12:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class SiTest extends LocalizationTestCase
         '12:00 පස් වරු, 12:00 ප.ව.',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 පස් වරු, 5:00 ප.ව.',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 පස් වරු, 9:30 ප.ව.',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 පස් වරු, 11:00 ප.ව.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class SiTest extends LocalizationTestCase
         'මිනිත්තුව තත්පර කිහිපය',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'වසර 3කින්',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'mකට පෙර',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d sකට පෙර',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'සතියක් පැය 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class SiTest extends LocalizationTestCase
         'සතියක් දින 6',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'සති 2 යි පැය',
+        // CarbonInterval::days(2)->forHumans()
+        'දින 2',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'දිනය පැය 3',
     ];
 }

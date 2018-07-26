@@ -47,4 +47,6 @@ return [
     'weekdays' => ['Rātapu', 'Mane', 'Tūrei', 'Wenerei', 'Tāite', 'Paraire', 'Hātarei'],
     'weekdays_short' => ['Ta', 'Ma', 'Tū', 'We', 'Tāi', 'Pa', 'Hā'],
     'weekdays_min' => ['Ta', 'Ma', 'Tū', 'We', 'Tāi', 'Pa', 'Hā'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

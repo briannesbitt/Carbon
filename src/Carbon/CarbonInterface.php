@@ -883,7 +883,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function nthOfYear($nth, $dayOfWeek);
 
-    public function ordinal($key, $period = null);
+    public function ordinal(string $key, string $period = null): string;
 
     public static function parse($time = null, $tz = null);
 

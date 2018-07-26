@@ -86,4 +86,6 @@ return [
     'weekdays' => ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     'weekdays_short' => ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

@@ -40,4 +40,6 @@ return [
     'diff_tomorrow' => 'sutra',
     'diff_before_yesterday' => 'prekjuče',
     'diff_after_tomorrow' => 'preksutra',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 7,
 ];

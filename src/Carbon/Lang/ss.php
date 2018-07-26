@@ -68,4 +68,6 @@ return [
     'weekdays' => ['Lisontfo', 'Umsombuluko', 'Lesibili', 'Lesitsatfu', 'Lesine', 'Lesihlanu', 'Umgcibelo'],
     'weekdays_short' => ['Lis', 'Umb', 'Lsb', 'Les', 'Lsi', 'Lsh', 'Umg'],
     'weekdays_min' => ['Li', 'Us', 'Lb', 'Lt', 'Ls', 'Lh', 'Ug'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

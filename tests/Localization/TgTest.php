@@ -17,47 +17,63 @@ class TgTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Дирӯз соати 00:00',
+        'Пагоҳ соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'шанбеи ҳафтаи гузашта соати 00:00',
+        'шанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'якшанбеи ҳафтаи гузашта соати 00:00',
+        'якшанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'душанбеи ҳафтаи гузашта соати 00:00',
+        'душанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'сешанбеи ҳафтаи гузашта соати 00:00',
+        'сешанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'чоршанбеи ҳафтаи гузашта соати 00:00',
+        'чоршанбеи ҳафтаи оянда соати 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'панҷшанбеи ҳафтаи гузашта соати 00:00',
+        'панҷшанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'ҷумъаи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'сешанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'чоршанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'панҷшанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ҷумъаи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'шанбеи ҳафтаи оянда соати 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'якшанбеи ҳафтаи оянда соати 20:49',
+        'якшанбеи ҳафтаи гузашта соати 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Пагоҳ соати 22:00',
+        'Дирӯз соати 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Имрӯз соати 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Имрӯз соати 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Дирӯз соати 01:00',
+        'Пагоҳ соати 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'сешанбеи ҳафтаи гузашта соати 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Пагоҳ соати 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'сешанбеи ҳафтаи оянда соати 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Дирӯз соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Дирӯз соати 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'сешанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'душанбеи ҳафтаи оянда соати 00:00',
+        'душанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'якшанбеи ҳафтаи оянда соати 00:00',
+        'якшанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'шанбеи ҳафтаи оянда соати 00:00',
+        'шанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ҷумъаи ҳафтаи оянда соати 00:00',
+        'ҷумъаи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'панҷшанбеи ҳафтаи оянда соати 00:00',
+        'панҷшанбеи ҳафтаи гузашта соати 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'чоршанбеи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'ҷумъаи ҳафтаи оянда соати 00:00',
+        'ҷумъаи ҳафтаи гузашта соати 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1-ум 1-ум 1-ум 1-ум 1-ум',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class TgTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6-ум 1-ум',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7-ум 2-юм',
+        '7-ум 1-ум',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11-ум 2-юм',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class TgTest extends LocalizationTestCase
         '41-ум',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100-ум',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 шаб cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 шаб, 12:00 шаб',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class TgTest extends LocalizationTestCase
         '12:00 рӯз, 12:00 рӯз',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 бегоҳ, 5:00 бегоҳ',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 шаб, 9:30 шаб',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 шаб, 11:00 шаб',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class TgTest extends LocalizationTestCase
         'як дақиқа якчанд сония',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'баъди 3 сол',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm пеш',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s пеш',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'як ҳафта 10 соат',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class TgTest extends LocalizationTestCase
         'як ҳафта 6 рӯз',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ҳафта як соат',
+        // CarbonInterval::days(2)->forHumans()
+        '2 рӯз',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'як рӯз 3 соат',
     ];
 }

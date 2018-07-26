@@ -46,4 +46,6 @@ return [
     'weekdays' => ['Yakshanba', 'Dushanba', 'Seshanba', 'Chorshanba', 'Payshanba', 'Juma', 'Shanba'],
     'weekdays_short' => ['Yak', 'Dush', 'Sesh', 'Chor', 'Pay', 'Jum', 'Shan'],
     'weekdays_min' => ['Ya', 'Du', 'Se', 'Cho', 'Pa', 'Ju', 'Sha'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 7,
 ];

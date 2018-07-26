@@ -17,47 +17,63 @@ class DeChTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'gestern um 00:00 Uhr',
+        'morgen um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'letzten Samstag um 00:00 Uhr',
+        'Samstag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'letzten Sonntag um 00:00 Uhr',
+        'Sonntag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'letzten Montag um 00:00 Uhr',
+        'Montag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'letzten Dienstag um 00:00 Uhr',
+        'Dienstag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'letzten Mittwoch um 00:00 Uhr',
+        'Mittwoch um 00:00 Uhr',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'letzten Donnerstag um 00:00 Uhr',
+        'Donnerstag um 00:00 Uhr',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Freitag um 00:00 Uhr',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Dienstag um 00:00 Uhr',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Mittwoch um 00:00 Uhr',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Donnerstag um 00:00 Uhr',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Freitag um 00:00 Uhr',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Samstag um 00:00 Uhr',
         // Carbon::now()->subDays(2)->calendar()
-        'Sonntag um 20:49 Uhr',
+        'letzten Sonntag um 20:49 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'morgen um 22:00 Uhr',
+        'gestern um 22:00 Uhr',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'heute um 10:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'heute um 02:00 Uhr',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'gestern um 01:00 Uhr',
+        'morgen um 01:00 Uhr',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'letzten Dienstag um 00:00 Uhr',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'morgen um 00:00 Uhr',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Dienstag um 00:00 Uhr',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'gestern um 00:00 Uhr',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gestern um 00:00 Uhr',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'letzten Dienstag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Montag um 00:00 Uhr',
+        'letzten Montag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Sonntag um 00:00 Uhr',
+        'letzten Sonntag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Samstag um 00:00 Uhr',
+        'letzten Samstag um 00:00 Uhr',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Freitag um 00:00 Uhr',
+        'letzten Freitag um 00:00 Uhr',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Donnerstag um 00:00 Uhr',
+        'letzten Donnerstag um 00:00 Uhr',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'letzten Mittwoch um 00:00 Uhr',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Freitag um 00:00 Uhr',
+        'letzten Freitag um 00:00 Uhr',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1. :1. :1. :1. :1.',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class DeChTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         ':6. :1.',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7. :2.',
+        ':7. :1.',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         ':11. :2.',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class DeChTest extends LocalizationTestCase
         ':41.',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100.',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class DeChTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class DeChTest extends LocalizationTestCase
         '1 Minute 1 Sekunde',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2J 3Mon 1Tg 1Sek',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'in 3 Jahre',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'vor 5Mon',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'vor 2J 3Mon 1Tg 1Sek',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 Woche 10 Stunden',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class DeChTest extends LocalizationTestCase
         '1 Woche 6 Tage',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 Wochen 1 Stunde',
+        // CarbonInterval::days(2)->forHumans()
+        '2 Tage',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1Tg 3Std',
     ];
 }

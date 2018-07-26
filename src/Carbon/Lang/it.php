@@ -71,4 +71,6 @@ return [
     'weekdays' => ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'],
     'weekdays_short' => ['dom', 'lun', 'mar', 'mer', 'gio', 'ven', 'sab'],
     'weekdays_min' => ['do', 'lu', 'ma', 'me', 'gi', 've', 'sa'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

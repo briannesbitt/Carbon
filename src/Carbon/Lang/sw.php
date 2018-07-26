@@ -49,4 +49,6 @@ return [
     'weekdays' => ['Jumapili', 'Jumatatu', 'Jumanne', 'Jumatano', 'Alhamisi', 'Ijumaa', 'Jumamosi'],
     'weekdays_short' => ['Jpl', 'Jtat', 'Jnne', 'Jtan', 'Alh', 'Ijm', 'Jmos'],
     'weekdays_min' => ['J2', 'J3', 'J4', 'J5', 'Al', 'Ij', 'J1'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 7,
 ];

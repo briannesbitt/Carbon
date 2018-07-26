@@ -41,4 +41,6 @@ return [
     'weekdays' => ['Il-Ħadd', 'It-Tnejn', 'It-Tlieta', 'L-Erbgħa', 'Il-Ħamis', 'Il-Ġimgħa', 'Is-Sibt'],
     'weekdays_short' => ['Ħad', 'Tne', 'Tli', 'Erb', 'Ħam', 'Ġim', 'Sib'],
     'weekdays_min' => ['Ħa', 'Tn', 'Tl', 'Er', 'Ħa', 'Ġi', 'Si'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

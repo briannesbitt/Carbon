@@ -17,47 +17,63 @@ class SsTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Itolo nga 12:00 ekuseni',
+        'Kusasa nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Umgcibelo leliphelile nga 12:00 ekuseni',
+        'Umgcibelo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Lisontfo leliphelile nga 12:00 ekuseni',
+        'Lisontfo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Umsombuluko leliphelile nga 12:00 ekuseni',
+        'Umsombuluko nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Lesibili leliphelile nga 12:00 ekuseni',
+        'Lesibili nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Lesitsatfu leliphelile nga 12:00 ekuseni',
+        'Lesitsatfu nga 12:00 ekuseni',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Lesine leliphelile nga 12:00 ekuseni',
+        'Lesine nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Lesihlanu nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Lesibili nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Lesitsatfu nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Lesine nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Lesihlanu nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Umgcibelo nga 12:00 ekuseni',
         // Carbon::now()->subDays(2)->calendar()
-        'Lisontfo nga 8:49 ebusuku',
+        'Lisontfo leliphelile nga 8:49 ebusuku',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Kusasa nga 10:00 ebusuku',
+        'Itolo nga 10:00 ebusuku',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Namuhla nga 10:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Namuhla nga 2:00 ekuseni',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Itolo nga 1:00 ekuseni',
+        'Kusasa nga 1:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Lesibili leliphelile nga 12:00 ekuseni',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Kusasa nga 12:00 ekuseni',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Lesibili nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Itolo nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Itolo nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Lesibili leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Umsombuluko nga 12:00 ekuseni',
+        'Umsombuluko leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Lisontfo nga 12:00 ekuseni',
+        'Lisontfo leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Umgcibelo nga 12:00 ekuseni',
+        'Umgcibelo leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Lesihlanu nga 12:00 ekuseni',
+        'Lesihlanu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Lesine nga 12:00 ekuseni',
+        'Lesine leliphelile nga 12:00 ekuseni',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'Lesitsatfu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Lesihlanu nga 12:00 ekuseni',
+        'Lesihlanu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1a 1a 1a 1a 1a',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class SsTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6e 1a',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7e 2a',
+        '7e 1a',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11e 2a',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class SsTest extends LocalizationTestCase
         '41a',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100e',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 ekuseni cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ekuseni, 12:00 ekuseni',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class SsTest extends LocalizationTestCase
         '12:00 emini, 12:00 emini',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 entsambama, 5:00 entsambama',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 ebusuku, 9:30 ebusuku',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ebusuku, 11:00 ebusuku',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class SsTest extends LocalizationTestCase
         'umzuzu emizuzwana lomcane',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'nga 3 iminyaka',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'wenteka nga m',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'wenteka nga y m d s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 liviki 10 emahora',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class SsTest extends LocalizationTestCase
         '1 liviki 6 emalanga',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 emaviki lihora',
+        // CarbonInterval::days(2)->forHumans()
+        '2 emalanga',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'lilanga 3 emahora',
     ];
 }

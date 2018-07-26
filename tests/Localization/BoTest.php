@@ -17,69 +17,87 @@ class BoTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ཁ་སང མཚན་མོ 12:00',
+        'སང་ཉིན མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་སྤེན་པ་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཉི་མ་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཟླ་བ་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་མིག་དམར་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་ལྷག་པ་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཕུར་བུ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
         // Carbon::now()->subDays(2)->calendar()
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 8:49',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཉི་མ་, མཚན་མོ 8:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'སང་ཉིན མཚན་མོ 10:00',
+        'ཁ་སང མཚན་མོ 10:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'དི་རིང ཉིན་གུང 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'དི་རིང མཚན་མོ 2:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'ཁ་སང མཚན་མོ 1:00',
+        'སང་ཉིན མཚན་མོ 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'བདུན་ཕྲག་མཐའ་མ གཟའ་མིག་དམར་, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'ཁ་སང མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'སང་ཉིན མཚན་མོ 12:00',
+        'ཁ་སང མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་མིག་དམར་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཟླ་བ་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཉི་མ་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་སྤེན་པ་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་པ་སངས་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ཕུར་བུ, མཚན་མོ 12:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་ལྷག་པ་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'བདུན་ཕྲག་རྗེས་མ, མཚན་མོ 12:00',
+        'བདུན་ཕྲག་མཐའ་མ གཟའ་པ་སངས་, མཚན་མོ 12:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 མཚན་མོ cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 མཚན་མོ, 12:00 མཚན་མོ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class BoTest extends LocalizationTestCase
         '12:00 ཉིན་གུང, 12:00 ཉིན་གུང',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 དགོང་དག, 5:00 དགོང་དག',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 མཚན་མོ, 9:30 མཚན་མོ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 མཚན་མོ, 11:00 མཚན་མོ',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ལམ་སང སྔན་ལ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class BoTest extends LocalizationTestCase
         'སྐར་མ་གཅིག ལམ་སང',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 ལོ ལ་',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm སྔན་ལ',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s སྔན་ལ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 བདུན་ཕྲག 10 ཆུ་ཚོད',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class BoTest extends LocalizationTestCase
         '1 བདུན་ཕྲག 6 ཉིན་',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 བདུན་ཕྲག ཆུ་ཚོད་གཅིག',
+        // CarbonInterval::days(2)->forHumans()
+        '2 ཉིན་',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ཉིན་གཅིག 3 ཆུ་ཚོད',
     ];
 }

@@ -17,47 +17,63 @@ class TeTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'నిన్న రాత్రి 12:00',
+        'రేపు రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'గత శనివారం, రాత్రి 12:00',
+        'శనివారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'గత ఆదివారం, రాత్రి 12:00',
+        'ఆదివారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'గత సోమవారం, రాత్రి 12:00',
+        'సోమవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'గత మంగళవారం, రాత్రి 12:00',
+        'మంగళవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'గత బుధవారం, రాత్రి 12:00',
+        'బుధవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'గత గురువారం, రాత్రి 12:00',
+        'గురువారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'శుక్రవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'మంగళవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'బుధవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'గురువారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'శుక్రవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'శనివారం, రాత్రి 12:00',
         // Carbon::now()->subDays(2)->calendar()
-        'ఆదివారం,  రాత్రి 8:49',
+        'గత ఆదివారం,  రాత్రి 8:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'రేపు  రాత్రి 10:00',
+        'నిన్న  రాత్రి 10:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'నేడు మధ్యాహ్నం 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'నేడు రాత్రి 2:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'నిన్న రాత్రి 1:00',
+        'రేపు రాత్రి 1:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'గత మంగళవారం, రాత్రి 12:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'రేపు రాత్రి 12:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'మంగళవారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'నిన్న రాత్రి 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'నిన్న రాత్రి 12:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'గత మంగళవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'సోమవారం, రాత్రి 12:00',
+        'గత సోమవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ఆదివారం, రాత్రి 12:00',
+        'గత ఆదివారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'శనివారం, రాత్రి 12:00',
+        'గత శనివారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'శుక్రవారం, రాత్రి 12:00',
+        'గత శుక్రవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'గురువారం, రాత్రి 12:00',
+        'గత గురువారం, రాత్రి 12:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'గత బుధవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'శుక్రవారం, రాత్రి 12:00',
+        'గత శుక్రవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1వ :1వ :1వ :1వ :1వ',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -80,6 +96,8 @@ class TeTest extends LocalizationTestCase
         ':41వ',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100వ',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 రాత్రి cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 రాత్రి, 12:00 రాత్రి',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class TeTest extends LocalizationTestCase
         '12:00 మధ్యాహ్నం, 12:00 మధ్యాహ్నం',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 సాయంత్రం, 5:00 సాయంత్రం',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30  రాత్రి, 9:30  రాత్రి',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00  రాత్రి, 11:00  రాత్రి',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class TeTest extends LocalizationTestCase
         'ఒక నిమిషం కొన్ని క్షణాలు',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 సంవత్సరాలు లో',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm క్రితం',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s క్రితం',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ఒక వారం 10 గంటలు',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class TeTest extends LocalizationTestCase
         'ఒక వారం 6 రోజులు',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 వారాలు ఒక గంట',
+        // CarbonInterval::days(2)->forHumans()
+        '2 రోజులు',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ఒక రోజు 3 గంటలు',
     ];
 }

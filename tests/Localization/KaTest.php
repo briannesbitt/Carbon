@@ -17,47 +17,63 @@ class KaTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'გუშინ 12:00 AM-ზე',
+        'ხვალ 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა შაბათს 12:00 AM-ზე',
+        'შემდეგ შაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა კვირას 12:00 AM-ზე',
+        'შემდეგ კვირას 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა ორშაბათს 12:00 AM-ზე',
+        'შემდეგ ორშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა სამშაბათს 12:00 AM-ზე',
+        'შემდეგ სამშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა ოთხშაბათს 12:00 AM-ზე',
+        'შემდეგ ოთხშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'წინა ხუთშაბათს 12:00 AM-ზე',
+        'შემდეგ ხუთშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'შემდეგ პარასკევს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'შემდეგ სამშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'შემდეგ ოთხშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'შემდეგ ხუთშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'შემდეგ პარასკევს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'შემდეგ შაბათს 12:00 AM-ზე',
         // Carbon::now()->subDays(2)->calendar()
-        'შემდეგ კვირას 8:49 PM-ზე',
+        'წინა კვირას 8:49 PM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ხვალ 10:00 PM-ზე',
+        'გუშინ 10:00 PM-ზე',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'დღეს 10:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'დღეს 2:00 AM-ზე',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'გუშინ 1:00 AM-ზე',
+        'ხვალ 1:00 AM-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'წინა სამშაბათს 12:00 AM-ზე',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ხვალ 12:00 AM-ზე',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'შემდეგ სამშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'გუშინ 12:00 AM-ზე',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'გუშინ 12:00 AM-ზე',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'წინა სამშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ ორშაბათს 12:00 AM-ზე',
+        'წინა ორშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ კვირას 12:00 AM-ზე',
+        'წინა კვირას 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ შაბათს 12:00 AM-ზე',
+        'წინა შაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ პარასკევს 12:00 AM-ზე',
+        'წინა პარასკევს 12:00 AM-ზე',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'შემდეგ ხუთშაბათს 12:00 AM-ზე',
+        'წინა ხუთშაბათს 12:00 AM-ზე',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'წინა ოთხშაბათს 12:00 AM-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ პარასკევს 12:00 AM-ზე',
+        'წინა პარასკევს 12:00 AM-ზე',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1-ლი 1-ლი 1-ლი 1-ლი 1-ლი',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class KaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         'მე-6 1-ლი',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'მე-7 მე-2',
+        'მე-7 1-ლი',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         'მე-11 მე-2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class KaTest extends LocalizationTestCase
         '41-ე',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         'მე-100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class KaTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class KaTest extends LocalizationTestCase
         'წუთი რამდენიმე წამი',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 წლის 3 თვის 1 დღის 1 წამის',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 წლის წინ',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        '5 თვისში',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        '2 წლის 3 თვის 1 დღის 1 წამისში',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 კვირის 10 საათი',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class KaTest extends LocalizationTestCase
         '1 კვირის 6 დღე',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 კვირის საათი',
+        // CarbonInterval::days(2)->forHumans()
+        '2 დღე',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 დღის 3 საათის',
     ];
 }

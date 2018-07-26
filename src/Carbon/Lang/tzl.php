@@ -65,4 +65,6 @@ return [
     'weekdays_short' => ['Súl', 'Lún', 'Mai', 'Már', 'Xhú', 'Vié', 'Sát'],
     'weekdays_min' => ['Sú', 'Lú', 'Ma', 'Má', 'Xh', 'Vi', 'Sá'],
     'ordinal' => ':number.',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

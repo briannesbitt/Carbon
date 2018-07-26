@@ -50,4 +50,6 @@ return [
     'weekdays' => ['sunnudagur', 'mánadagur', 'týsdagur', 'mikudagur', 'hósdagur', 'fríggjadagur', 'leygardagur'],
     'weekdays_short' => ['sun', 'mán', 'týs', 'mik', 'hós', 'frí', 'ley'],
     'weekdays_min' => ['su', 'má', 'tý', 'mi', 'hó', 'fr', 'le'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

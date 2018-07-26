@@ -51,4 +51,6 @@ return [
     'weekdays' => ['duminică', 'luni', 'marți', 'miercuri', 'joi', 'vineri', 'sâmbătă'],
     'weekdays_short' => ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
     'weekdays_min' => ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 7,
 ];

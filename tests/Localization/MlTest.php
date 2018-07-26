@@ -17,69 +17,87 @@ class MlTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ഇന്നലെ രാത്രി 12:00 -നു',
+        'നാളെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'കഴിഞ്ഞ ശനിയാഴ്ച, രാത്രി 12:00 -നു',
+        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 12:00 -നു',
+        'ഞായറാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'കഴിഞ്ഞ തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
+        'തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'കഴിഞ്ഞ ബുധനാഴ്ച, രാത്രി 12:00 -നു',
+        'ബുധനാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'കഴിഞ്ഞ വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
+        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ബുധനാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::now()->subDays(2)->calendar()
-        'ഞായറാഴ്ച, രാത്രി 8:49 -നു',
+        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 8:49 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'നാളെ രാത്രി 10:00 -നു',
+        'ഇന്നലെ രാത്രി 10:00 -നു',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'ഇന്ന് രാവിലെ 10:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ഇന്ന് രാത്രി 2:00 -നു',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'ഇന്നലെ രാത്രി 1:00 -നു',
+        'നാളെ രാത്രി 1:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'നാളെ രാത്രി 12:00 -നു',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'ഇന്നലെ രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ഇന്നലെ രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ഞായറാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'കഴിഞ്ഞ ബുധനാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
+        'കഴിഞ്ഞ വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 രാത്രി cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 രാത്രി, 12:00 രാത്രി',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class MlTest extends LocalizationTestCase
         '12:00 ഉച്ച കഴിഞ്ഞ്, 12:00 ഉച്ച കഴിഞ്ഞ്',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 വൈകുന്നേരം, 5:00 വൈകുന്നേരം',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 രാത്രി, 9:30 രാത്രി',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 രാത്രി, 11:00 രാത്രി',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'അൽപ നിമിഷങ്ങൾ മുൻപ്',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class MlTest extends LocalizationTestCase
         'ഒരു മിനിറ്റ് അൽപ നിമിഷങ്ങൾ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 വർഷം കഴിഞ്ഞ്',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm മുൻപ്',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s മുൻപ്',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ഒരാഴ്ച 10 മണിക്കൂർ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class MlTest extends LocalizationTestCase
         'ഒരാഴ്ച 6 ദിവസം',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ആഴ്ച ഒരു മണിക്കൂർ',
+        // CarbonInterval::days(2)->forHumans()
+        '2 ദിവസം',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ഒരു ദിവസം 3 മണിക്കൂർ',
     ];
 }

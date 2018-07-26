@@ -42,7 +42,7 @@ return [
         'sameDay' => '[今日] LT',
         'nextDay' => '[明日] LT',
         'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
-            if ($other->weekOfYear !== $current->weekOfYear) {
+            if ($other->week !== $current->week) {
                 return '[来週]dddd LT';
             }
 
@@ -50,7 +50,7 @@ return [
         },
         'lastDay' => '[昨日] LT',
         'lastWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
-            if ($other->weekOfYear !== $current->weekOfYear) {
+            if ($other->week !== $current->week) {
                 return '[先週]dddd LT';
             }
 

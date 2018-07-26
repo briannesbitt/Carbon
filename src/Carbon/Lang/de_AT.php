@@ -68,4 +68,6 @@ return [
     'weekdays_short' => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
     'weekdays_min' => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
     'ordinal' => ':number.',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

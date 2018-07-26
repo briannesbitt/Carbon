@@ -17,47 +17,63 @@ class YoTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àna ni 12:00 AM',
+        'Ọ̀la ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àbámẹ́ta Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Àbámẹ́ta Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àìkú Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Àìkú Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ajé Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Ajé Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ìsẹ́gun Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ọjọ́rú Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Ọjọ́rú Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Ọjọ́bọ Ọsẹ̀ tólọ́ ni 12:00 AM',
+        'Ọjọ́bọ Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ọjọ́rú Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ọjọ́bọ Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'Àbámẹ́ta Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::now()->subDays(2)->calendar()
-        'Àìkú Ọsẹ̀ tón\'bọ ni 8:49 PM',
+        'Àìkú Ọsẹ̀ tólọ́ ni 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ọ̀la ni 10:00 PM',
+        'Àna ni 10:00 PM',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Ònì ni 10:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ònì ni 2:00 AM',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Àna ni 1:00 AM',
+        'Ọ̀la ni 1:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ìsẹ́gun Ọsẹ̀ tólọ́ ni 12:00 AM',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ọ̀la ni 12:00 AM',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'Àna ni 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Àna ni 12:00 AM',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'Ìsẹ́gun Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ajé Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Ajé Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àìkú Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Àìkú Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àbámẹ́ta Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Àbámẹ́ta Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Ẹtì Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Ọjọ́bọ Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Ọjọ́bọ Ọsẹ̀ tólọ́ ni 12:00 AM',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'Ọjọ́rú Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
+        'Ẹtì Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         'ọjọ́ :1 ọjọ́ :1 ọjọ́ :1 ọjọ́ :1 ọjọ́ :1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -71,7 +87,7 @@ class YoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         'ọjọ́ :6 ọjọ́ :1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :7 ọjọ́ :2',
+        'ọjọ́ :7 ọjọ́ :1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         'ọjọ́ :11 ọjọ́ :2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
@@ -80,6 +96,8 @@ class YoTest extends LocalizationTestCase
         'ọjọ́ :41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         'ọjọ́ :100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 AM, 12:00 am',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class YoTest extends LocalizationTestCase
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 PM, 5:00 pm',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class YoTest extends LocalizationTestCase
         'ìsẹjú kan ìsẹjú aayá die',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        'ní ọdún 3',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm kọjá',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s kọjá',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ọsẹ kan wákati 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class YoTest extends LocalizationTestCase
         'ọsẹ kan ọjọ́ 6',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'ọsẹ 2 wákati kan',
+        // CarbonInterval::days(2)->forHumans()
+        'ọjọ́ 2',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ọjọ́ kan wákati 3',
     ];
 }

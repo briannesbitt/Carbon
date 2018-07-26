@@ -17,69 +17,87 @@ class GuTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ગઇકાલે રાત 12:00 વાગ્યે',
+        'કાલે રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'પાછલા શનિવાર, રાત 12:00 વાગ્યે',
+        'શનિવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'પાછલા રવિવાર, રાત 12:00 વાગ્યે',
+        'રવિવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'પાછલા સોમવાર, રાત 12:00 વાગ્યે',
+        'સોમવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'પાછલા મંગળવાર, રાત 12:00 વાગ્યે',
+        'મંગળવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'પાછલા બુધ્વાર, રાત 12:00 વાગ્યે',
+        'બુધ્વાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'પાછલા ગુરુવાર, રાત 12:00 વાગ્યે',
+        'ગુરુવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'શુક્રવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'મંગળવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'બુધ્વાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'ગુરુવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'શુક્રવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'શનિવાર, રાત 12:00 વાગ્યે',
         // Carbon::now()->subDays(2)->calendar()
-        'રવિવાર, રાત 8:49 વાગ્યે',
+        'પાછલા રવિવાર, રાત 8:49 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'કાલે રાત 10:00 વાગ્યે',
+        'ગઇકાલે રાત 10:00 વાગ્યે',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'આજ બપોર 10:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'આજ રાત 2:00 વાગ્યે',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'ગઇકાલે રાત 1:00 વાગ્યે',
+        'કાલે રાત 1:00 વાગ્યે',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'પાછલા મંગળવાર, રાત 12:00 વાગ્યે',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'કાલે રાત 12:00 વાગ્યે',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'મંગળવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'ગઇકાલે રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'ગઇકાલે રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'પાછલા મંગળવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'સોમવાર, રાત 12:00 વાગ્યે',
+        'પાછલા સોમવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'રવિવાર, રાત 12:00 વાગ્યે',
+        'પાછલા રવિવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'શનિવાર, રાત 12:00 વાગ્યે',
+        'પાછલા શનિવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'શુક્રવાર, રાત 12:00 વાગ્યે',
+        'પાછલા શુક્રવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'ગુરુવાર, રાત 12:00 વાગ્યે',
+        'પાછલા ગુરુવાર, રાત 12:00 વાગ્યે',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'પાછલા બુધ્વાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'શુક્રવાર, રાત 12:00 વાગ્યે',
+        'પાછલા શુક્રવાર, રાત 12:00 વાગ્યે',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ordinal ordinal ordinal ordinal ordinal',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ordinal ordinal',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ordinal',
+        '100',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 રાત cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 રાત, 12:00 રાત',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,10 +112,12 @@ class GuTest extends LocalizationTestCase
         '12:00 બપોર, 12:00 બપોર',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 સાંજ, 5:00 સાંજ',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 રાત, 9:30 રાત',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 રાત, 11:00 રાત',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ordinal',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'અમુક પળો પેહલા',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
@@ -180,6 +200,12 @@ class GuTest extends LocalizationTestCase
         'એક મિનિટ અમુક પળો',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2વર્ષો 3મહિના 1દિ. 1સે.',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 વર્ષ મા',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        '5મહિના પેહલા',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        '2વર્ષો 3મહિના 1દિ. 1સે. પેહલા',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 અઠવાડિયું 10 કલાક',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class GuTest extends LocalizationTestCase
         '1 અઠવાડિયું 6 દિવસ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 અઠવાડિયા એક કલાક',
+        // CarbonInterval::days(2)->forHumans()
+        '2 દિવસ',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1દિ. 3ક.',
     ];
 }

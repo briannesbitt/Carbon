@@ -47,4 +47,6 @@ return [
     'weekdays' => ['sotnabeaivi', 'vuossárga', 'maŋŋebárga', 'gaskavahkku', 'duorastat', 'bearjadat', 'lávvardat'],
     'weekdays_short' => ['sotn', 'vuos', 'maŋ', 'gask', 'duor', 'bear', 'láv'],
     'weekdays_min' => ['s', 'v', 'm', 'g', 'd', 'b', 'L'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

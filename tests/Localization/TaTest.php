@@ -17,47 +17,63 @@ class TaTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'நேற்று 00:00',
+        'நாளை 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'கடந்த வாரம் சனிக்கிழமை, 00:00',
+        'சனிக்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'கடந்த வாரம் ஞாயிற்றுக்கிழமை, 00:00',
+        'ஞாயிற்றுக்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'கடந்த வாரம் திங்கட்கிழமை, 00:00',
+        'திங்கட்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'கடந்த வாரம் செவ்வாய்கிழமை, 00:00',
+        'செவ்வாய்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'கடந்த வாரம் புதன்கிழமை, 00:00',
+        'புதன்கிழமை, 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'கடந்த வாரம் வியாழக்கிழமை, 00:00',
+        'வியாழக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'வெள்ளிக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'செவ்வாய்கிழமை, 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'புதன்கிழமை, 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'வியாழக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'வெள்ளிக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'சனிக்கிழமை, 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'ஞாயிற்றுக்கிழமை, 20:49',
+        'கடந்த வாரம் ஞாயிற்றுக்கிழமை, 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'நாளை 22:00',
+        'நேற்று 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'இன்று 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'இன்று 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'நேற்று 01:00',
+        'நாளை 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'கடந்த வாரம் செவ்வாய்கிழமை, 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'நாளை 00:00',
-        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'செவ்வாய்கிழமை, 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'நேற்று 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'நேற்று 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'கடந்த வாரம் செவ்வாய்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'திங்கட்கிழமை, 00:00',
+        'கடந்த வாரம் திங்கட்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ஞாயிற்றுக்கிழமை, 00:00',
+        'கடந்த வாரம் ஞாயிற்றுக்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'சனிக்கிழமை, 00:00',
+        'கடந்த வாரம் சனிக்கிழமை, 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'வெள்ளிக்கிழமை, 00:00',
+        'கடந்த வாரம் வெள்ளிக்கிழமை, 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'வியாழக்கிழமை, 00:00',
+        'கடந்த வாரம் வியாழக்கிழமை, 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'கடந்த வாரம் புதன்கிழமை, 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'வெள்ளிக்கிழமை, 00:00',
+        'கடந்த வாரம் வெள்ளிக்கிழமை, 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         ':1வது :1வது :1வது :1வது :1வது',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -80,6 +96,8 @@ class TaTest extends LocalizationTestCase
         ':41வது',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         ':100வது',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00  யாமம் cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00  யாமம், 12:00  யாமம்',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -94,6 +112,8 @@ class TaTest extends LocalizationTestCase
         '12:00  நண்பகல், 12:00  நண்பகல்',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00  எற்பாடு, 5:00  எற்பாடு',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30  மாலை, 9:30  மாலை',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00  யாமம், 11:00  யாமம்',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
@@ -180,6 +200,12 @@ class TaTest extends LocalizationTestCase
         'ஒரு நிமிடம் ஒரு சில விநாடிகள்',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'y m d s',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 ஆண்டுகள் இல்',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        'm முன்',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        'y m d s முன்',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ஒரு வாரம் 10 மணி நேரம்',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -188,5 +214,9 @@ class TaTest extends LocalizationTestCase
         'ஒரு வாரம் 6 நாட்கள்',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 வாரங்கள் ஒரு மணி நேரம்',
+        // CarbonInterval::days(2)->forHumans()
+        '2 நாட்கள்',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        'ஒரு நாள் 3 மணி நேரம்',
     ];
 }

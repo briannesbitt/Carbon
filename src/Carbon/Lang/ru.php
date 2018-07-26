@@ -40,7 +40,7 @@ return [
         'sameDay' => '[Сегодня, в] LT',
         'nextDay' => '[Завтра, в] LT',
         'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
-            if ($current->weekOfYear !== $other->weekOfYear) {
+            if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
                         return '[В следующее] dddd, [в] LT';
@@ -63,7 +63,7 @@ return [
         },
         'lastDay' => '[Вчера, в] LT',
         'lastWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
-            if ($current->weekOfYear !== $other->weekOfYear) {
+            if ($current->week !== $other->week) {
                 switch ($current->dayOfWeek) {
                     case 0:
                         return '[В прошлое] dddd, [в] LT';
@@ -122,4 +122,6 @@ return [
     'weekdays_standalone' => ['воскресенье', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота'],
     'weekdays_short' => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
     'weekdays_min' => ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

@@ -52,4 +52,6 @@ return [
     'weekdays' => ['igandea', 'astelehena', 'asteartea', 'asteazkena', 'osteguna', 'ostirala', 'larunbata'],
     'weekdays_short' => ['ig.', 'al.', 'ar.', 'az.', 'og.', 'ol.', 'lr.'],
     'weekdays_min' => ['ig', 'al', 'ar', 'az', 'og', 'ol', 'lr'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 7,
 ];

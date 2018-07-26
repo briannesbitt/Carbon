@@ -13,6 +13,7 @@ namespace Tests\Localization;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
 abstract class LocalizationTestCase extends AbstractTestCase
@@ -218,12 +219,19 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::parse(\'2018-01-04 00:00:00\')->addDays(5)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->addDays(6)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-05 00:00:00\')->addDays(6)->calendar({class}::parse(\'2018-01-05 00:00:00\'))',
+        '{class}::parse(\'2018-01-06 00:00:00\')->addDays(6)->calendar({class}::parse(\'2018-01-06 00:00:00\'))',
+        '{class}::parse(\'2018-01-07 00:00:00\')->addDays(2)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-07 00:00:00\')->addDays(3)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-07 00:00:00\')->addDays(4)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-07 00:00:00\')->addDays(5)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-07 00:00:00\')->addDays(6)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
         '{class}::now()->subDays(2)->calendar()',
         '{class}::parse(\'2018-01-04 00:00:00\')->subHours(2)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 12:00:00\')->subHours(2)->calendar({class}::parse(\'2018-01-04 12:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->addHours(2)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 23:00:00\')->addHours(2)->calendar({class}::parse(\'2018-01-04 23:00:00\'))',
         '{class}::parse(\'2018-01-07 00:00:00\')->addDays(2)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
+        '{class}::parse(\'2018-01-08 00:00:00\')->subDay()->calendar({class}::parse(\'2018-01-08 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(1)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(2)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(3)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
@@ -231,6 +239,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(5)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-04 00:00:00\')->subDays(6)->calendar({class}::parse(\'2018-01-04 00:00:00\'))',
         '{class}::parse(\'2018-01-03 00:00:00\')->subDays(6)->calendar({class}::parse(\'2018-01-03 00:00:00\'))',
+        '{class}::parse(\'2018-01-02 00:00:00\')->subDays(6)->calendar({class}::parse(\'2018-01-02 00:00:00\'))',
         '{class}::parse(\'2018-01-07 00:00:00\')->subDays(2)->calendar({class}::parse(\'2018-01-07 00:00:00\'))',
         '{class}::parse(\'2018-01-01 00:00:00\')->isoFormat(\'Qo Mo Do Wo wo\')',
         '{class}::parse(\'2018-01-02 00:00:00\')->isoFormat(\'Do wo\')',
@@ -243,6 +252,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::parse(\'2018-02-09 00:00:00\')->isoFormat(\'DDDo\')',
         '{class}::parse(\'2018-02-10 00:00:00\')->isoFormat(\'DDDo\')',
         '{class}::parse(\'2018-04-10 00:00:00\')->isoFormat(\'DDDo\')',
+        '{class}::parse(\'2018-02-10 00:00:00\', \'Europe/Paris\')->isoFormat(\'h:mm a z\')',
         '{class}::parse(\'2018-02-10 00:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-02-10 01:30:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-02-10 02:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
@@ -250,6 +260,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::parse(\'2018-02-10 10:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-02-10 12:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-02-10 17:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
+        '{class}::parse(\'2018-02-10 21:30:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-02-10 23:00:00\')->isoFormat(\'h:mm A, h:mm a\')',
         '{class}::parse(\'2018-01-01 00:00:00\')->ordinal(\'hour\')',
         '{class}::now()->subSeconds(1)->diffForHumans()',
@@ -293,10 +304,15 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::now()->addSecond()->diffForHumans(null, false, true, 1)',
         '{class}::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)',
         '{class}::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)',
+        '{class}::now()->addYears(3)->diffForHumans(null, null, false, 4)',
+        '{class}::now()->subMonths(5)->diffForHumans(null, null, true, 4)',
+        '{class}::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)',
         '{class}::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)',
+        'CarbonInterval::days(2)->forHumans()',
+        'CarbonInterval::create(\'P1DT3H\')->forHumans(true)',
     ];
 
     const CASES = [];
@@ -316,11 +332,14 @@ abstract class LocalizationTestCase extends AbstractTestCase
             if (!CarbonImmutable::setLocale(static::LOCALE) || CarbonImmutable::getLocale() !== static::LOCALE) {
                 throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
             }
+            if (!CarbonInterval::setLocale(static::LOCALE) || CarbonInterval::getLocale() !== static::LOCALE) {
+                throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
+            }
 
             foreach (static::TESTS as $index => $test) {
                 foreach ([Carbon::class, CarbonImmutable::class] as $class) {
                     $test = str_replace('{class}', $class, $test);
-                    $result = eval("return $test;");
+                    $result = eval("use Carbon\CarbonInterval; return $test;");
                     $expected = static::CASES[$index];
                     $locale = static::LOCALE;
                     $key = preg_replace('/^([^_]+)_.*$/', '$1', static::LOCALE);
