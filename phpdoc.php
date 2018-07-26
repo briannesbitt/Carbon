@@ -6,6 +6,7 @@ $tags = [
     PHP_EOL,
     'native-method',
     'mode',
+    ['call', 'is'],
     ['call', 'isDayOfWeek'],
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
@@ -163,6 +164,14 @@ foreach ($tags as $tag) {
                         'bool',
                         'is'.ucFirst($vars->name).'()',
                         'Checks if the instance day is '.strtolower($vars->name).'.',
+                    ];
+                    break;
+                case 'is':
+                    $autoDocLines[] = [
+                        '@method',
+                        'bool',
+                        'is'.ucFirst($vars->name).'()',
+                        $vars->description,
                     ];
                     break;
                 case 'isSameUnit':

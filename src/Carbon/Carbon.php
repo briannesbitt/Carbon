@@ -98,6 +98,10 @@ use DateTime;
  *                                                                                                                   http://php.net/manual/en/datetime.settimestamp.php
  * @method        \DateInterval  diff($object, $absolute = true)                                                     call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
  *                                                                                                                   http://php.net/manual/en/datetime.diff.php
+ * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
+ * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
+ * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
+ * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
  * @method        bool           isSunday()                                                                          Checks if the instance day is sunday.
  * @method        bool           isMonday()                                                                          Checks if the instance day is monday.
  * @method        bool           isTuesday()                                                                         Checks if the instance day is tuesday.
