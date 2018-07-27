@@ -25,7 +25,7 @@ return array(
     'second' => ':count segon|:count segons',
     's' => ':count segon|:count segons',
     'ago' => 'fa :time',
-    'from_now' => 'dins de :time',
+    'from_now' => 'd\'aquí :time',
     'after' => ':time després',
     'before' => ':time abans',
     'diff_now' => 'ara mateix',
