@@ -8,11 +8,11 @@ use Symfony\Component\Translation;
 class Translator extends Translation\Translator
 {
     /**
-     * Singleton for Translator.
+     * Translator singletons for each language.
      *
      * @var static
      */
-    protected static $singleton = null;
+    protected static $singletons = [];
 
     /**
      * List of custom localized messages.
@@ -37,11 +37,13 @@ class Translator extends Translation\Translator
      */
     public static function get($locale = null)
     {
-        if (static::$singleton === null) {
-            static::$singleton = new static($locale ?: 'en');
+        $locale = $locale ?: 'en';
+
+        if (!isset(static::$singletons[$locale])) {
+            static::$singletons[$locale] = new static($locale ?: 'en');
         }
 
-        return static::$singleton;
+        return static::$singletons[$locale];
     }
 
     public function __construct($locale, Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false)

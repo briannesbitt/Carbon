@@ -60,6 +60,8 @@ use JsonSerializable;
  * @property-read int            $isoWeeksInYear                                                                     51 through 53
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $firstWeekDay                                                                       0 through 6
+ * @property-read int            $lastWeekDay                                                                        0 through 6
  * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
@@ -72,6 +74,7 @@ use JsonSerializable;
  * @property-read string         $tzName                                                                             alias of $timezoneName
  * @property-read string         $timezoneAbbreviatedName                                                            the current timezone abbreviated name
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
+ * @property-read string         $locale                                                                             locale of the current instance
  *
  * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                                   http://php.net/manual/en/datetime.format.php
@@ -93,6 +96,7 @@ use JsonSerializable;
  * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
+ * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
  * @method        bool           isSunday()                                                                          Checks if the instance day is sunday.
  * @method        bool           isMonday()                                                                          Checks if the instance day is monday.
  * @method        bool           isTuesday()                                                                         Checks if the instance day is tuesday.
@@ -553,7 +557,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function __set($name, $value);
 
-    public static function __set_state($array);
+    public static function __set_state($dump);
+
+    public function __sleep();
 
     public function __toString();
 
@@ -576,6 +582,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function ceilUnit($unit, $precision = 1);
 
     public function ceilWeek($weekStartsAt = null);
+
+    public function clone();
 
     public function closest($date1, $date2);
 
@@ -701,17 +709,19 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getAvailableLocales();
 
-    public static function getCalendarFormats($locale = null);
+    public function getCalendarFormats($locale = null);
 
     public static function getDays();
 
     public static function getHumanDiffOptions();
 
-    public static function getIsoFormats($locale = null);
+    public function getIsoFormats($locale = null);
 
     public static function getIsoUnits();
 
     public static function getLastErrors();
+
+    public function getLocalTranslator();
 
     public static function getLocale();
 
@@ -725,7 +735,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getTestNow();
 
-    public static function getTranslationMessage(string $key, string $locale = null, string $default = null);
+    public function getTranslationMessage(string $key, string $locale = null, string $default = null);
 
     public static function getTranslator();
 
@@ -831,6 +841,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function lessThanOrEqualTo($date);
 
+    public function locale(string $locale = null);
+
     public static function localeHasDiffOneDayWords($locale);
 
     public static function localeHasDiffSyntax($locale);
@@ -933,6 +945,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function setISODate($year, $week, $day);
 
+    public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+
     public static function setLocale($locale);
 
     public static function setMidDayAt($hour);
@@ -1019,7 +1033,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function toCookieString();
 
+    public function toDate();
+
     public function toDateString();
+
+    public function toDateTime();
 
     public function toDateTimeString();
 
@@ -1027,15 +1045,21 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function toFormattedDateString();
 
+    public function toISOString($keepOffset = false);
+
     public function toImmutable();
 
     public function toIso8601String();
 
     public function toIso8601ZuluString();
 
+    public function toJSON();
+
     public function toMutable();
 
     public function toNow($syntax = null, $short = false, $parts = 1);
+
+    public function toObject();
 
     public function toRfc1036String();
 
@@ -1053,6 +1077,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function toRssString();
 
+    public function toString();
+
     public function toTimeString();
 
     public function toW3cString();
@@ -1061,9 +1087,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function tomorrow($tz = null);
 
-    public static function translate(string $key, array $parameters = [], $number = null): string;
+    public function translate(string $key, array $parameters = [], $number = null): string;
 
     public function tz($value = null);
+
+    public function unix();
 
     public function until($other = null, $syntax = null, $short = false, $parts = 1);
 
@@ -1073,7 +1101,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function useYearsOverflow($yearsOverflow = true);
 
+    public function utc();
+
     public function utcOffset(int $offset = null);
+
+    public function valueOf();
 
     public function week($week = null, $dayOfWeek = null, $dayOfYear = null);
 

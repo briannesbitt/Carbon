@@ -1179,7 +1179,7 @@ class CarbonPeriod implements Iterator, Countable
         $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
         if ($this->timezone) {
-            $this->current = $this->current->setTimezone('UTC');
+            $this->current = $this->current->utc();
         }
 
         $this->validationResult = null;

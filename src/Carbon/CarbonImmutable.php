@@ -69,6 +69,8 @@ use DateTimeImmutable;
  * @property-read int            $isoWeeksInYear                                                                     51 through 53
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $firstWeekDay                                                                       0 through 6
+ * @property-read int            $lastWeekDay                                                                        0 through 6
  * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
@@ -81,6 +83,7 @@ use DateTimeImmutable;
  * @property-read string         $tzName                                                                             alias of $timezoneName
  * @property-read string         $timezoneAbbreviatedName                                                            the current timezone abbreviated name
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
+ * @property-read string         $locale                                                                             locale of the current instance
  *
  * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                                   http://php.net/manual/en/datetime.format.php
@@ -102,6 +105,7 @@ use DateTimeImmutable;
  * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
+ * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
  * @method        bool           isSunday()                                                                          Checks if the instance day is sunday.
  * @method        bool           isMonday()                                                                          Checks if the instance day is monday.
  * @method        bool           isTuesday()                                                                         Checks if the instance day is tuesday.

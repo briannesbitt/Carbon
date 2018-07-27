@@ -83,6 +83,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read int            $isoWeeksInYear                                                                     51 through 53
  * @property-read int            $weekOfMonth                                                                        1 through 5
  * @property-read int            $weekNumberInMonth                                                                  1 through 5
+ * @property-read int            $firstWeekDay                                                                       0 through 6
+ * @property-read int            $lastWeekDay                                                                        0 through 6
  * @property-read int            $daysInYear                                                                         365 or 366
  * @property-read int            $quarter                                                                            the quarter of this instance, 1 - 4
  * @property-read int            $decade                                                                             the decade of this instance
@@ -95,6 +97,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read string         $tzName                                                                             alias of $timezoneName
  * @property-read string         $timezoneAbbreviatedName                                                            the current timezone abbreviated name
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
+ * @property-read string         $locale                                                                             locale of the current instance
  *
  * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                                   http://php.net/manual/en/datetime.format.php
@@ -116,6 +119,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
+ * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
  * @method        bool           isSunday()                                                                          Checks if the instance day is sunday.
  * @method        bool           isMonday()                                                                          Checks if the instance day is monday.
  * @method        bool           isTuesday()                                                                         Checks if the instance day is tuesday.
@@ -619,11 +623,18 @@ trait Date
     ];
 
     /**
-     * A translator to ... er ... translate stuff.
+     * Default translator.
      *
      * @var \Symfony\Component\Translation\TranslatorInterface
      */
     protected static $translator;
+
+    /**
+     * Specific translator of the current instance.
+     *
+     * @var \Symfony\Component\Translation\TranslatorInterface
+     */
+    protected $localTranslator;
 
     /**
      * The errors that can occur.
@@ -705,6 +716,13 @@ trait Date
         // @call addUnit
         'microsecond',
     ];
+
+    /**
+     * Locale to dump comes here before serialization.
+     *
+     * @var string
+     */
+    protected $dumpLocale = null;
 
     /**
      * Return true if the current class/instance is mutable.
@@ -1449,6 +1467,18 @@ trait Date
     }
 
     /**
+     * @alias copy
+     *
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function clone()
+    {
+        return clone $this;
+    }
+
+    /**
      * Returns a present instance in the same timezone.
      *
      * @return static
@@ -1589,19 +1619,19 @@ trait Date
 
             // @property-read string long name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'dayName':
-                return static::getTranslationMessage('weekdays.'.$this->dayOfWeek, null, $this->englishDayOfWeek);
+                return $this->getTranslationMessage('weekdays.'.$this->dayOfWeek, null, $this->englishDayOfWeek);
             // @property-read string short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortDayName':
-                return static::getTranslationMessage('weekdays_short.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
+                return $this->getTranslationMessage('weekdays_short.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
             // @property-read string very short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'minDayName':
-                return static::getTranslationMessage('weekdays_min.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
+                return $this->getTranslationMessage('weekdays_min.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
             // @property-read string long name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'monthName':
-                return static::getTranslationMessage('months.'.($this->month - 1), null, $this->englishMonth);
+                return $this->getTranslationMessage('months.'.($this->month - 1), null, $this->englishMonth);
             // @property-read string short name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortMonthName':
-                return static::getTranslationMessage('months_short.'.($this->month - 1), null, $this->shortEnglishMonth);
+                return $this->getTranslationMessage('months_short.'.($this->month - 1), null, $this->shortEnglishMonth);
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
                 $meridiem = static::translate('meridiem', [
@@ -1662,6 +1692,14 @@ trait Date
             // @property-read int 1 through 5
             case $name === 'weekNumberInMonth':
                 return (int) ceil(($this->day + $this->copy()->startOfMonth()->dayOfWeekIso - 1) / static::DAYS_PER_WEEK);
+
+            // @property-read int 0 through 6
+            case $name === 'firstWeekDay':
+                return $this->localTranslator ? ($this->getTranslationMessage('first_day_of_week') ?? 0) : static::getWeekStartsAt();
+
+            // @property-read int 0 through 6
+            case $name === 'lastWeekDay':
+                return $this->localTranslator ? (($this->getTranslationMessage('first_day_of_week') ?? 0) + static::DAYS_PER_WEEK - 1) % static::DAYS_PER_WEEK : static::getWeekEndsAt();
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
@@ -1747,6 +1785,10 @@ trait Date
             // @property-read string $tzAbbrName alias of $timezoneAbbreviatedName
             case $name === 'timezoneAbbreviatedName' || $name === 'tzAbbrName':
                 return CarbonTimeZone::instance($this->getTimezone())->getAbbr($this->dst);
+
+            // @property-read string locale of the current instance
+            case $name === 'locale':
+                return $this->getLocalTranslator()->getLocale();
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
@@ -2006,7 +2048,7 @@ trait Date
 
     /**
      * Sets the current date of the DateTime object to a different date.
-     * Calls modify as a workaround for a php bug
+     * Calls modify as a workaround for a php bug.
      *
      * @param int $year
      * @param int $month
@@ -2025,7 +2067,7 @@ trait Date
     }
 
     /**
-     * Set the date and time all together
+     * Set the date and time all together.
      *
      * @param int $year
      * @param int $month
@@ -2042,7 +2084,7 @@ trait Date
     }
 
     /**
-     * Set the time by time string
+     * Set the time by time string.
      *
      * @param string $time
      *
@@ -2058,7 +2100,7 @@ trait Date
     }
 
     /**
-     * Set the instance's timestamp
+     * Set the instance's timestamp.
      *
      * @param int $value
      *
@@ -2070,7 +2112,7 @@ trait Date
     }
 
     /**
-     * Alias for setTimezone()
+     * @alias setTimezone
      *
      * @param \DateTimeZone|string $value
      *
@@ -2098,7 +2140,7 @@ trait Date
     }
 
     /**
-     * Set the instance's timezone from a string or object
+     * Set the instance's timezone from a string or object.
      *
      * @param \DateTimeZone|string $value
      *
@@ -2113,6 +2155,16 @@ trait Date
         $date->getTimestamp();
 
         return $date;
+    }
+
+    /**
+     * Set the instance's timezone to UTC.
+     *
+     * @return static
+     */
+    public function utc()
+    {
+        return $this->setTimezone('UTC');
     }
 
     /**
@@ -2183,7 +2235,9 @@ trait Date
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekEndsAt optional parameter instead when using endOfWeek method
+     *             Use $weekEndsAt optional parameter instead when using endOfWeek method. You can also use the
+     *             'first_day_of_week' locale setting to change the start of week according to current locale
+     *             selected and implicitly the end of week.
      *
      * Set the first day of week
      *
@@ -2209,7 +2263,8 @@ trait Date
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
-     *             or roundWeek method
+     *             or roundWeek method. You can also use the 'first_day_of_week' locale setting to change the
+     *             start of week according to current locale selected and implicitly the end of week.
      *
      * Set the last day of week
      *
@@ -2319,7 +2374,7 @@ trait Date
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Initialize the translator instance if necessary.
+     * Initialize the default translator instance if necessary.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -2333,7 +2388,7 @@ trait Date
     }
 
     /**
-     * Get the translator instance in use.
+     * Get the default translator instance in use.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
      */
@@ -2343,7 +2398,7 @@ trait Date
     }
 
     /**
-     * Set the translator instance to use.
+     * Set the default translator instance to use.
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
@@ -2352,6 +2407,48 @@ trait Date
     public static function setTranslator(TranslatorInterface $translator)
     {
         static::$translator = $translator;
+    }
+
+    /**
+     * Get the translator of the current instance or the default if none set.
+     *
+     * @return \Symfony\Component\Translation\TranslatorInterface
+     */
+    public function getLocalTranslator()
+    {
+        return $this->localTranslator ?: static::translator();
+    }
+
+    /**
+     * Set the translator for the current instance.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     *
+     * @return void
+     */
+    public function setLocalTranslator(TranslatorInterface $translator)
+    {
+        $this->localTranslator = $translator;
+    }
+
+    /**
+     * Get/set the locale for the current instance.
+     *
+     * @param string|null $locale
+     *
+     * @return $this|string
+     */
+    public function locale(string $locale = null)
+    {
+        if ($locale === null) {
+            return $this->getLocalTranslator()->getLocale();
+        }
+
+        if (!$this->localTranslator || $this->localTranslator->getLocale() !== $locale) {
+            $this->setLocalTranslator(Translator::get($locale));
+        }
+
+        return $this;
     }
 
     /**
@@ -2688,7 +2785,7 @@ trait Date
      */
     public function toIso8601ZuluString()
     {
-        return $this->copy()->setTimezone('UTC')->format('Y-m-d\TH:i:s\Z');
+        return $this->copy()->utc()->format('Y-m-d\TH:i:s\Z');
     }
 
     /**
@@ -2774,7 +2871,7 @@ trait Date
     }
 
     /**
-     * Get default array representation
+     * Get default array representation.
      *
      * @return array
      */
@@ -2797,6 +2894,80 @@ trait Date
     }
 
     /**
+     * Get default object representation.
+     *
+     * @return object
+     */
+    public function toObject()
+    {
+        return (object) $this->toArray();
+    }
+
+    /**
+     * Returns english human readable complete date string.
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->copy()->locale('en')->isoFormat('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+    }
+
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z, if $keepOffset truthy, offset will be kept:
+     * 1977-04-22T01:00:00-05:00).
+     *
+     * @param bool $keepOffset Pass true to keep the date offset. Else forced to UTC.
+     *
+     * @return null|string
+     */
+    public function toISOString($keepOffset = false)
+    {
+        if (!$this->isValid()) {
+            return null;
+        }
+
+        $keepOffset = (bool) $keepOffset;
+        $yearFormat = true ? 'YYYY' : 'YYYYYY';
+        $tzFormat = $keepOffset ? 'Z' : '[Z]';
+        $date = $keepOffset ? $this : $this->copy()->utc();
+
+        return $date->isoFormat("$yearFormat-MM-DD[T]HH:mm:ss.SSSSSS$tzFormat");
+    }
+
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z) with UTC timezone.
+     *
+     * @return null|string
+     */
+    public function toJSON()
+    {
+        return $this->toISOString();
+    }
+
+    /**
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @return DateTime
+     */
+    public function toDateTime()
+    {
+        return new DateTime($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
+     * @alias toDateTime
+     *
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @return DateTime
+     */
+    public function toDate()
+    {
+        return $this->toDateTime();
+    }
+
+    /**
      * Returns raw translation message for a given key.
      *
      * @param string      $key     key to find
@@ -2805,9 +2976,9 @@ trait Date
      *
      * @return string
      */
-    public static function getTranslationMessage(string $key, string $locale = null, string $default = null)
+    public function getTranslationMessage(string $key, string $locale = null, string $default = null)
     {
-        $translator = static::translator();
+        $translator = $this->getLocalTranslator();
         if (!($translator instanceof TranslatorBagInterface)) {
             throw new InvalidArgumentException('Translator does not implement'.TranslatorBagInterface::class.'.');
         }
@@ -2823,15 +2994,15 @@ trait Date
      *
      * @return array
      */
-    public static function getIsoFormats($locale = null)
+    public function getIsoFormats($locale = null)
     {
         return [
-            'LT' => static::getTranslationMessage('formats.LT', $locale, 'h:mm A'),
-            'LTS' => static::getTranslationMessage('formats.LTS', $locale, 'h:mm:ss A'),
-            'L' => static::getTranslationMessage('formats.L', $locale, 'MM/DD/YYYY'),
-            'LL' => static::getTranslationMessage('formats.LL', $locale, 'MMMM D, YYYY'),
-            'LLL' => static::getTranslationMessage('formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
-            'LLLL' => static::getTranslationMessage('formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+            'LT' => $this->getTranslationMessage('formats.LT', $locale, 'h:mm A'),
+            'LTS' => $this->getTranslationMessage('formats.LTS', $locale, 'h:mm:ss A'),
+            'L' => $this->getTranslationMessage('formats.L', $locale, 'MM/DD/YYYY'),
+            'LL' => $this->getTranslationMessage('formats.LL', $locale, 'MMMM D, YYYY'),
+            'LLL' => $this->getTranslationMessage('formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
+            'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
         ];
     }
 
@@ -2842,15 +3013,15 @@ trait Date
      *
      * @return array
      */
-    public static function getCalendarFormats($locale = null)
+    public function getCalendarFormats($locale = null)
     {
         return [
-            'sameDay' => static::getTranslationMessage('calendar.sameDay', $locale, '[Today at] LT'),
-            'nextDay' => static::getTranslationMessage('calendar.nextDay', $locale, '[Tomorrow at] LT'),
-            'nextWeek' => static::getTranslationMessage('calendar.nextWeek', $locale, 'dddd [at] LT'),
-            'lastDay' => static::getTranslationMessage('calendar.lastDay', $locale, '[Yesterday at] LT'),
-            'lastWeek' => static::getTranslationMessage('calendar.lastWeek', $locale, '[Last] dddd [at] LT'),
-            'sameElse' => static::getTranslationMessage('calendar.sameElse', $locale, 'L'),
+            'sameDay' => $this->getTranslationMessage('calendar.sameDay', $locale, '[Today at] LT'),
+            'nextDay' => $this->getTranslationMessage('calendar.nextDay', $locale, '[Tomorrow at] LT'),
+            'nextWeek' => $this->getTranslationMessage('calendar.nextWeek', $locale, 'dddd [at] LT'),
+            'lastDay' => $this->getTranslationMessage('calendar.lastDay', $locale, '[Yesterday at] LT'),
+            'lastWeek' => $this->getTranslationMessage('calendar.lastWeek', $locale, '[Last] dddd [at] LT'),
+            'sameElse' => $this->getTranslationMessage('calendar.sameElse', $locale, 'L'),
         ];
     }
 
@@ -2893,19 +3064,21 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return (int) round($date->micro / 100000);
+                    return strval(round($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
-                    return (int) round($date->micro / 10000);
+                    return str_pad(round($date->micro / 10000), 2, '0', STR_PAD_LEFT);
                 },
-                'SSS' => 'milli',
+                'SSS' => function (CarbonInterface $date) {
+                    return str_pad(round($date->micro / 1000), 3, '0', STR_PAD_LEFT);
+                },
                 'SSSS' => function (CarbonInterface $date) {
-                    return (int) round($date->micro / 100);
+                    return str_pad(round($date->micro / 100), 4, '0', STR_PAD_LEFT);
                 },
                 'SSSSS' => function (CarbonInterface $date) {
-                    return (int) round($date->micro / 10);
+                    return str_pad(round($date->micro / 10), 5, '0', STR_PAD_LEFT);
                 },
-                'SSSSSS' => 'micro',
+                'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
                 'SSSSSSS' => ['getPaddedUnit', ['micro', 7]],
                 'SSSSSSSS' => ['getPaddedUnit', ['micro', 8]],
                 'SSSSSSSSS' => ['getPaddedUnit', ['micro', 9]],
@@ -2913,7 +3086,7 @@ trait Date
                 'MM' => ['format', ['m']],
                 'MMM' => function (CarbonInterface $date) {
                     $month = $date->shortMonthName;
-                    if ($suffix = static::getTranslationMessage('mmm_suffix') && $month !== $date->monthName) {
+                    if ($suffix = $date->getTranslationMessage('mmm_suffix') && $month !== $date->monthName) {
                         $month .= $suffix;
                     }
 
@@ -2939,7 +3112,7 @@ trait Date
                 'w' => 'week',
                 'ww' => ['getPaddedUnit', ['week']],
                 'wo' => ['ordinal', ['week', 'w']],
-                'x' => ['getPreciseTimestamp', [3]],
+                'x' => ['valueOf'],
                 'X' => 'timestamp',
                 'Y' => ['format', 'Y'],
                 'YY' => ['format', 'y'],
@@ -2982,16 +3155,16 @@ trait Date
      *
      * @return string
      */
-    public static function translate(string $key, array $parameters = [], $number = null): string
+    public function translate(string $key, array $parameters = [], $number = null): string
     {
-        $message = static::getTranslationMessage($key, null, $key);
+        $message = $this->getTranslationMessage($key, null, $key);
         if ($message instanceof Closure) {
             return $message(...array_values($parameters));
         }
 
         return $number === null
-            ? static::translator()->trans($key, $parameters)
-            : static::translator()->transChoice($key, $number, $parameters);
+            ? $this->getLocalTranslator()->trans($key, $parameters)
+            : $this->getLocalTranslator()->transChoice($key, $number, $parameters);
     }
 
     /**
@@ -3055,7 +3228,7 @@ trait Date
             $input = mb_substr($format, $i);
             if (preg_match('/^(LTS|LT|LL?L?L?|l{1,4})/', $input, $match)) {
                 if ($formats === null) {
-                    $formats = static::getIsoFormats();
+                    $formats = $this->getIsoFormats();
                 }
 
                 $code = $match[0];
@@ -3143,6 +3316,28 @@ trait Date
     }
 
     /**
+     * Returns the milliseconds timestamps used amongst other by Date javascript objects.
+     *
+     * @return float
+     */
+    public function valueOf()
+    {
+        return $this->getPreciseTimestamp(3);
+    }
+
+    /**
+     * @alias getTimestamp
+     *
+     * Returns the UNIX timestamp for the current date.
+     *
+     * @return int
+     */
+    public function unix()
+    {
+        return $this->getTimestamp();
+    }
+
+    /**
      * Set/get the week number of year using given first day of week and first
      * day of year included in the first week. Or use ISO format if no settings
      * given.
@@ -3157,8 +3352,8 @@ trait Date
     {
         return $this->weekYear(
             $year,
-            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
         );
     }
 
@@ -3175,8 +3370,8 @@ trait Date
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {
-        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
-        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
+        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($year !== null) {
             $week = $this->week(null, $dayOfWeek, $dayOfYear);
@@ -3226,8 +3421,8 @@ trait Date
     public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
         return $this->weeksInYear(
-            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
         );
     }
 
@@ -3243,8 +3438,8 @@ trait Date
      */
     public function weeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
-        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
-        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
+        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
         $year = $this->year;
         $start = $this->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
         $startDay = $start->dayOfYear;
@@ -3263,8 +3458,8 @@ trait Date
     public function week($week = null, $dayOfWeek = null, $dayOfYear = null)
     {
         $date = $this;
-        $dayOfWeek = $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 0;
-        $dayOfYear = $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 1;
+        $dayOfWeek = $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 0;
+        $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($week !== null) {
             while ($week < 1) {
@@ -3296,8 +3491,8 @@ trait Date
     {
         return $this->week(
             $week,
-            $dayOfWeek ?? static::getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? static::getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
+            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
         );
     }
 
@@ -4737,13 +4932,43 @@ trait Date
     /**
      * The __set_state handler.
      *
-     * @param array $array
+     * @param string|$array $dump
      *
      * @return static
      */
-    public static function __set_state($array)
+    public static function __set_state($dump)
     {
-        return static::instance(parent::__set_state($array));
+        return is_string($dump) ? static::parse($dump) : static::instance(parent::__set_state($dump));
+    }
+
+    /**
+     * Returns the list of properties to dump on serialize() called on.
+     *
+     * @return array
+     */
+    public function __sleep()
+    {
+        $properties = ['date', 'timezone_type', 'timezone'];
+        if ($this->localTranslator) {
+            $properties[] = 'dumpLocale';
+            $this->dumpLocale = $this->locale;
+        }
+
+        return $properties;
+    }
+
+    /**
+     * Set locale if specified on unserialize() called.
+     */
+    public function __wakeup()
+    {
+        if (method_exists(parent::class, '__wakeup')) {
+            parent::__wakeup();
+        }
+        if (isset($this->dumpLocale)) {
+            $this->locale($this->dumpLocale);
+            $this->dumpLocale = null;
+        }
     }
 
     /**
@@ -4757,11 +4982,7 @@ trait Date
             return call_user_func(static::$serializer, $this);
         }
 
-        $carbon = $this;
-
-        return call_user_func(function () use ($carbon) {
-            return get_object_vars($carbon);
-        });
+        return $this->toJSON();
     }
 
     /**
@@ -4947,6 +5168,12 @@ trait Date
                 // @call is Check if the current instance is a valid date.
                 case 'Valid':
                     return $this->year !== 0;
+                // @call is Check if the current instance is in a daylight saving time.
+                case 'DST':
+                    $offset = $this->utcOffset();
+
+                    return $offset > $this->copy()->setMonth(1)->utcOffset() ||
+                        $offset > $this->copy()->setMonth(6)->utcOffset();
             }
         }
 
