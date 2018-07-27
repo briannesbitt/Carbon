@@ -23,6 +23,13 @@ class CopyTest extends AbstractTestCase
         $this->assertNotSame($dating, $dating2);
     }
 
+    public function testClone()
+    {
+        $dating = Carbon::now();
+        $dating2 = $dating->clone();
+        $this->assertNotSame($dating, $dating2);
+    }
+
     public function testCopyEnsureTzIsCopied()
     {
         $dating = Carbon::createFromDate(2000, 1, 1, 'Europe/London');

@@ -3245,7 +3245,7 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
                 $code = $match[0];
                 if ($units === null) {
                     $units = static::getIsoUnits();
@@ -3474,7 +3474,7 @@ trait Date
                 $max = $date->weeksInYear($dayOfWeek, $dayOfYear);
             }
 
-            return $date;
+            return $date->addWeeks($week - $this->week(null, $dayOfWeek, $dayOfYear));
         }
 
         $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
@@ -4932,7 +4932,7 @@ trait Date
     /**
      * The __set_state handler.
      *
-     * @param string|$array $dump
+     * @param string|array $dump
      *
      * @return static
      */
@@ -5170,10 +5170,7 @@ trait Date
                     return $this->year !== 0;
                 // @call is Check if the current instance is in a daylight saving time.
                 case 'DST':
-                    $offset = $this->utcOffset();
-
-                    return $offset > $this->copy()->setMonth(1)->utcOffset() ||
-                        $offset > $this->copy()->setMonth(6)->utcOffset();
+                    return $this->dst;
             }
         }
 

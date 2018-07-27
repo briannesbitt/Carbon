@@ -249,11 +249,13 @@ class GettersTest extends AbstractTestCase
     public function testGetDstFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
+        $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetDstTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
+        $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetMidDayAt()

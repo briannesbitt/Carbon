@@ -294,41 +294,59 @@ class GettersTest extends AbstractTestCase
         // Default timezone has been set to America/Toronto in AbstractTestCase.php
         // @see : http://en.wikipedia.org/wiki/List_of_UTC_time_offsets
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->local);
+        $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->isLocal());
         $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->local);
+        $this->assertTrue(Carbon::createFromDate(2012, 1, 1, 'America/New_York')->isLocal());
     }
 
     public function testGetLocalFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'UTC')->local);
+        $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'UTC')->isLocal());
         $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->local);
+        $this->assertFalse(Carbon::createFromDate(2012, 7, 1, 'Europe/London')->isLocal());
     }
 
     public function testGetUtcFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
+        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->isUtc());
+        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->isUTC());
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
+        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->isUtc());
+        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->isUTC());
     }
 
     public function testGetUtcTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Atlantic/Reykjavik')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Lisbon')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Lisbon')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Casablanca')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Casablanca')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Dakar')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Africa/Dakar')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Dublin')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/Dublin')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/London')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'Europe/London')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'UTC')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'UTC')->isUtc());
         $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'GMT')->utc);
+        $this->assertTrue(Carbon::createFromDate(2013, 1, 1, 'GMT')->isUtc());
     }
 
     public function testGetDstFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
+        $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetDstTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
+        $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetMidDayAt()

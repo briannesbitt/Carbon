@@ -82,7 +82,7 @@ return [
                 return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
         }
     },
-    'meridiem' => function($hours, $minutes, $isLower) {
+    'meridiem' => function ($hours, $minutes, $isLower) {
         if ($hours < 12) {
             return $isLower ? 'öö' : 'ÖÖ';
         }

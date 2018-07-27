@@ -204,4 +204,14 @@ class StringsTest extends AbstractTestCase
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 19:15:16 GMT', $d->toRfc7231String());
     }
+
+    public function testIsoFormat()
+    {
+        $d = Carbon::parse('midnight');
+        $this->assertSame('24', $d->isoFormat('k'));
+
+        $d = Carbon::parse('2017-01-01');
+        $this->assertSame('2017', $d->isoFormat('g'));
+        $this->assertSame('2016', $d->isoFormat('G'));
+    }
 }

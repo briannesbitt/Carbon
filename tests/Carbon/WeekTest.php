@@ -5313,4 +5313,44 @@ class WeekTest extends AbstractTestCase
             $this->assertSame($isoWeeksInYear, $date->isoWeeksInYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeeksInYear() should return $isoWeeksInYear");
         }
     }
+
+    public function testSetters()
+    {
+        $d = Carbon::parse('2018-01-01');
+        $this->assertSame(52, $d->weeksInYear);
+        $this->assertSame(52, $d->isoWeeksInYear);
+
+        $d2 = $d->week(3);
+
+        $this->assertSame($d, $d2);
+        $this->assertSame('2018-01-15', $d2->format('Y-m-d'));
+
+        $d2->week = 34;
+
+        $this->assertSame('2018-08-20', $d2->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d->week = 34;
+
+        $this->assertSame('2017-08-20', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d->isoWeek = 34;
+
+        $this->assertSame('2016-08-28', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d->weekYear = 2015;
+
+        $this->assertSame('2015-01-04', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d->isoWeekYear = 2015;
+
+        $this->assertSame('2015-12-27', $d->format('Y-m-d'));
+
+        $d->dayOfYear = 300;
+
+        $this->assertSame('2015-10-27', $d->format('Y-m-d'));
+    }
 }
