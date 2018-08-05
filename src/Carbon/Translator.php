@@ -10,7 +10,7 @@ class Translator extends Translation\Translator
     /**
      * Translator singletons for each language.
      *
-     * @var static array
+     * @var array
      */
     protected static $singletons = [];
 

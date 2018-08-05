@@ -637,4 +637,11 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
+
+    public function testGeorgianSpecialFromNowTranslation()
+    {
+        $diff = Carbon::now()->locale('ka')->subWeeks(3)->diffForHumans();
+
+        $this->assertSame('3 კვირისში', $diff);
+    }
 }

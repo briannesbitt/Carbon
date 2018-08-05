@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Traits\Options;
 use Closure;
 use Countable;
 use DateInterval;
@@ -98,6 +99,8 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable
 {
+    use Options;
+
     /**
      * Built-in filters.
      *

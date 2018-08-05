@@ -370,7 +370,7 @@ trait Difference
         $absolute = ($syntax === static::DIFF_ABSOLUTE);
         $relativeToNow = $syntax === static::DIFF_RELATIVE_TO_NOW || $syntax === static::DIFF_RELATIVE_AUTO && $other === null;
 
-        $parts = min(6, max(1, (int) $parts));
+        $parts = min(7, max(1, (int) $parts));
         $count = 1;
         $unit = $short ? 's' : 'second';
 
@@ -381,6 +381,9 @@ trait Difference
         }
 
         $diffInterval = $this->diff($other);
+
+        /** @var \Symfony\Component\Translation\Translator $translator */
+        $translator = $this->getLocalTranslator();
 
         $diffIntervalArray = [
             ['value' => $diffInterval->y, 'unit' => 'year',    'unitShort' => 'y'],
@@ -400,7 +403,7 @@ trait Difference
                     $unit = $short ? 'w' : 'week';
                     $count = (int) ($count / static::DAYS_PER_WEEK);
 
-                    $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
+                    $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
 
                     // get the count days excluding weeks (might be zero)
                     $numOfDaysCount = (int) ($diffIntervalData['value'] - ($count * static::DAYS_PER_WEEK));
@@ -408,10 +411,10 @@ trait Difference
                     if ($numOfDaysCount > 0 && count($interval) < $parts) {
                         $unit = $short ? 'd' : 'day';
                         $count = $numOfDaysCount;
-                        $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
+                        $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
                     }
                 } else {
-                    $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
+                    $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
                 }
             }
 
@@ -422,16 +425,16 @@ trait Difference
         }
 
         if (count($interval) === 0) {
-            if ($relativeToNow && static::getHumanDiffOptions() & self::JUST_NOW) {
+            if ($relativeToNow && static::getHumanDiffOptions() & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
-                $translation = static::translator()->trans($key);
+                $translation = $translator->trans($key);
                 if ($translation !== $key) {
                     return $translation;
                 }
             }
-            $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
+            $count = static::getHumanDiffOptions() & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
+            $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
         }
 
         // join the interval parts by a space
@@ -449,16 +452,16 @@ trait Difference
 
         if ($parts === 1) {
             if ($relativeToNow && $unit === 'day') {
-                if ($count === 1 && static::getHumanDiffOptions() & self::ONE_DAY_WORDS) {
+                if ($count === 1 && static::getHumanDiffOptions() & CarbonInterface::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = static::translator()->trans($key);
+                    $translation = $translator->trans($key);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
-                if ($count === 2 && static::getHumanDiffOptions() & self::TWO_DAY_WORDS) {
+                if ($count === 2 && static::getHumanDiffOptions() & CarbonInterface::TWO_DAY_WORDS) {
                     $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
-                    $translation = static::translator()->trans($key);
+                    $translation = $translator->trans($key);
                     if ($translation !== $key) {
                         return $translation;
                     }
@@ -466,12 +469,12 @@ trait Difference
             }
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            if ($key !== static::translator()->transChoice($key, $count)) {
-                $time = static::translator()->transChoice($key, $count, [':count' => $count]);
+            if ($key !== $translator->transChoice($key, $count)) {
+                $time = $translator->transChoice($key, $count, [':count' => $count]);
             }
         }
 
-        return static::translator()->trans($transId, [':time' => $time]);
+        return $translator->trans($transId, [':time' => $time]);
     }
 
     /**

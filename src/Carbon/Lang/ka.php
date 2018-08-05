@@ -38,7 +38,7 @@ return [
             return preg_replace('/წელი$/', 'წლის წინ', $time);
         }
 
-        return $time;
+        return preg_replace('/კვირის/', 'კვირაა', $time);
     },
     'after' => ':time შემდეგ',
     'before' => ':time უკან',

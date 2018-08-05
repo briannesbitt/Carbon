@@ -505,6 +505,7 @@ trait Date
     use Boundaries;
     use Difference;
     use Macro;
+    use Options;
     use Test;
 
     /**
@@ -528,114 +529,6 @@ trait Date
         // @call isDayOfWeek
         self::SATURDAY => 'Saturday',
     ];
-
-    /**
-     * Customizable PHP_INT_SIZE override.
-     *
-     * @var int
-     */
-    public static $PHPIntSize = PHP_INT_SIZE;
-
-    /**
-     * Format to use for __toString method when type juggling occurs.
-     *
-     * @var string
-     */
-    protected static $toStringFormat = self::DEFAULT_TO_STRING_FORMAT;
-
-    /**
-     * First day of week.
-     *
-     * @var int
-     */
-    protected static $weekStartsAt = self::MONDAY;
-
-    /**
-     * Last day of week.
-     *
-     * @var int
-     */
-    protected static $weekEndsAt = self::SUNDAY;
-
-    /**
-     * Days of weekend.
-     *
-     * @var array
-     */
-    protected static $weekendDays = [
-        self::SATURDAY,
-        self::SUNDAY,
-    ];
-
-    /**
-     * Midday/noon hour.
-     *
-     * @var int
-     */
-    protected static $midDayAt = 12;
-
-    /**
-     * Format regex patterns.
-     *
-     * @var array
-     */
-    protected static $regexFormats = [
-        'd' => '(3[01]|[12][0-9]|0[1-9])',
-        'D' => '([a-zA-Z]{3})',
-        'j' => '([123][0-9]|[1-9])',
-        'l' => '([a-zA-Z]{2,})',
-        'N' => '([1-7])',
-        'S' => '([a-zA-Z]{2})',
-        'w' => '([0-6])',
-        'z' => '(36[0-5]|3[0-5][0-9]|[12][0-9]{2}|[1-9]?[0-9])',
-        'W' => '(5[012]|[1-4][0-9]|[1-9])',
-        'F' => '([a-zA-Z]{2,})',
-        'm' => '(1[012]|0[1-9])',
-        'M' => '([a-zA-Z]{3})',
-        'n' => '(1[012]|[1-9])',
-        't' => '(2[89]|3[01])',
-        'L' => '(0|1)',
-        'o' => '([1-9][0-9]{0,4})',
-        'Y' => '([1-9][0-9]{0,4})',
-        'y' => '([0-9]{2})',
-        'a' => '(am|pm)',
-        'A' => '(AM|PM)',
-        'B' => '([0-9]{3})',
-        'g' => '(1[012]|[1-9])',
-        'G' => '(2[0-3]|1?[0-9])',
-        'h' => '(1[012]|0[1-9])',
-        'H' => '(2[0-3]|[01][0-9])',
-        'i' => '([0-5][0-9])',
-        's' => '([0-5][0-9])',
-        'u' => '([0-9]{1,6})',
-        'v' => '([0-9]{1,3})',
-        'e' => '([a-zA-Z]{1,5})|([a-zA-Z]*\/[a-zA-Z]*)',
-        'I' => '(0|1)',
-        'O' => '([\+\-](1[012]|0[0-9])[0134][05])',
-        'P' => '([\+\-](1[012]|0[0-9]):[0134][05])',
-        'T' => '([a-zA-Z]{1,5})',
-        'Z' => '(-?[1-5]?[0-9]{1,4})',
-        'U' => '([0-9]*)',
-
-        // The formats below are combinations of the above formats.
-        'c' => '(([1-9][0-9]{0,4})\-(1[012]|0[1-9])\-(3[01]|[12][0-9]|0[1-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])[\+\-](1[012]|0[0-9]):([0134][05]))', // Y-m-dTH:i:sP
-        'r' => '(([a-zA-Z]{3}), ([123][0-9]|[1-9]) ([a-zA-Z]{3}) ([1-9][0-9]{0,4}) (2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9]) [\+\-](1[012]|0[0-9])([0134][05]))', // D, j M Y H:i:s O
-    ];
-
-    /**
-     * Default translator.
-     *
-     * @var \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected static $translator;
-
-    /**
-     * Specific translator of the current instance.
-     *
-     * @var \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected $localTranslator;
-
     /**
      * The errors that can occur.
      *
@@ -656,34 +549,6 @@ trait Date
      * @var bool
      */
     protected static $utf8 = false;
-
-    /**
-     * Indicates if months should be calculated with overflow.
-     *
-     * @var bool
-     */
-    protected static $monthsOverflow = true;
-
-    /**
-     * Indicates if years should be calculated with overflow.
-     *
-     * @var bool
-     */
-    protected static $yearsOverflow = true;
-
-    /**
-     * Indicates if the strict mode is in use.
-     *
-     * @var bool
-     */
-    protected static $strictModeEnabled = true;
-
-    /**
-     * Options for diffForHumans().
-     *
-     * @var int
-     */
-    protected static $humanDiffOptions = self::NO_ZERO_DIFF;
 
     /**
      * List of unit and magic methods associated as doc-comments.
@@ -762,130 +627,6 @@ trait Date
     public function toImmutable()
     {
         return CarbonImmutable::instance($this);
-    }
-
-    /**
-     * @param int $humanDiffOptions
-     */
-    public static function setHumanDiffOptions($humanDiffOptions)
-    {
-        static::$humanDiffOptions = $humanDiffOptions;
-    }
-
-    /**
-     * @param int $humanDiffOption
-     */
-    public static function enableHumanDiffOption($humanDiffOption)
-    {
-        static::$humanDiffOptions = static::getHumanDiffOptions() | $humanDiffOption;
-    }
-
-    /**
-     * @param int $humanDiffOption
-     */
-    public static function disableHumanDiffOption($humanDiffOption)
-    {
-        static::$humanDiffOptions = static::getHumanDiffOptions() & ~$humanDiffOption;
-    }
-
-    /**
-     * @return int
-     */
-    public static function getHumanDiffOptions()
-    {
-        return static::$humanDiffOptions;
-    }
-
-    /**
-     * Enable the strict mode (or disable with passing false).
-     *
-     * @param bool $strictModeEnabled
-     */
-    public static function useStrictMode($strictModeEnabled = true)
-    {
-        static::$strictModeEnabled = $strictModeEnabled;
-    }
-
-    /**
-     * Returns true if the strict mode is in use, false else.
-     *
-     * @return bool
-     */
-    public static function isStrictModeEnabled()
-    {
-        return static::$strictModeEnabled;
-    }
-
-    /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
-     * Indicates if months should be calculated with overflow.
-     *
-     * @param bool $monthsOverflow
-     *
-     * @return void
-     */
-    public static function useMonthsOverflow($monthsOverflow = true)
-    {
-        static::$monthsOverflow = $monthsOverflow;
-    }
-
-    /**
-     * Reset the month overflow behavior.
-     *
-     * @return void
-     */
-    public static function resetMonthsOverflow()
-    {
-        static::$monthsOverflow = true;
-    }
-
-    /**
-     * Get the month overflow behavior.
-     *
-     * @return bool
-     */
-    public static function shouldOverflowMonths()
-    {
-        return static::$monthsOverflow;
-    }
-
-    /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
-     * Indicates if years should be calculated with overflow.
-     *
-     * @param bool $yearsOverflow
-     *
-     * @return void
-     */
-    public static function useYearsOverflow($yearsOverflow = true)
-    {
-        static::$yearsOverflow = $yearsOverflow;
-    }
-
-    /**
-     * Reset the month overflow behavior.
-     *
-     * @return void
-     */
-    public static function resetYearsOverflow()
-    {
-        static::$yearsOverflow = true;
-    }
-
-    /**
-     * Get the month overflow behavior.
-     *
-     * @return bool
-     */
-    public static function shouldOverflowYears()
-    {
-        return static::$yearsOverflow;
     }
 
     /**
@@ -1634,7 +1375,7 @@ trait Date
                 return $this->getTranslationMessage('months_short.'.($this->month - 1), null, $this->shortEnglishMonth);
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
-                $meridiem = static::translate('meridiem', [
+                $meridiem = $this->translate('meridiem', [
                     'hour' => $this->hour,
                     'minute' => $this->minute,
                     'isLower' => true,
@@ -1643,7 +1384,7 @@ trait Date
                 return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
-                $meridiem = static::translate('meridiem', [
+                $meridiem = $this->translate('meridiem', [
                     'hour' => $this->hour,
                     'minute' => $this->minute,
                     'isLower' => false,
@@ -1791,6 +1532,10 @@ trait Date
                 return $this->getLocalTranslator()->getLocale();
 
             default:
+                if (static::hasMacro($macro = 'get'.ucfirst($name))) {
+                    return $this->$macro();
+                }
+
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
         }
     }
@@ -1921,6 +1666,12 @@ trait Date
                 break;
 
             default:
+                if (static::hasMacro($macro = 'set'.ucfirst($name))) {
+                    $this->$macro($value);
+
+                    break;
+                }
+
                 if (static::isStrictModeEnabled()) {
                     throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
                 }
@@ -2367,251 +2118,6 @@ trait Date
         $date2->modify($time);
 
         return $date1 != $date2;
-    }
-
-    ///////////////////////////////////////////////////////////////////
-    /////////////////////// LOCALIZATION //////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Initialize the default translator instance if necessary.
-     *
-     * @return \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected static function translator()
-    {
-        if (static::$translator === null) {
-            static::$translator = Translator::get();
-        }
-
-        return static::$translator;
-    }
-
-    /**
-     * Get the default translator instance in use.
-     *
-     * @return \Symfony\Component\Translation\TranslatorInterface
-     */
-    public static function getTranslator()
-    {
-        return static::translator();
-    }
-
-    /**
-     * Set the default translator instance to use.
-     *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     *
-     * @return void
-     */
-    public static function setTranslator(TranslatorInterface $translator)
-    {
-        static::$translator = $translator;
-    }
-
-    /**
-     * Get the translator of the current instance or the default if none set.
-     *
-     * @return \Symfony\Component\Translation\TranslatorInterface
-     */
-    public function getLocalTranslator()
-    {
-        return $this->localTranslator ?: static::translator();
-    }
-
-    /**
-     * Set the translator for the current instance.
-     *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     *
-     * @return void
-     */
-    public function setLocalTranslator(TranslatorInterface $translator)
-    {
-        $this->localTranslator = $translator;
-    }
-
-    /**
-     * Get/set the locale for the current instance.
-     *
-     * @param string|null $locale
-     *
-     * @return $this|string
-     */
-    public function locale(string $locale = null)
-    {
-        if ($locale === null) {
-            return $this->getLocalTranslator()->getLocale();
-        }
-
-        if (!$this->localTranslator || $this->localTranslator->getLocale() !== $locale) {
-            $this->setLocalTranslator(Translator::get($locale));
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get the current translator locale.
-     *
-     * @return string
-     */
-    public static function getLocale()
-    {
-        return static::translator()->getLocale();
-    }
-
-    /**
-     * Set the current translator locale and indicate if the source locale file exists.
-     * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function setLocale($locale)
-    {
-        return static::translator()->setLocale($locale) !== false;
-    }
-
-    /**
-     * Set the current locale to the given, execute the passed function, reset the locale to previous one,
-     * then return the result of the closure (or null if the closure was void).
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return mixed
-     */
-    public static function executeWithLocale($locale, $func)
-    {
-        $currentLocale = static::getLocale();
-        $result = call_user_func($func, static::setLocale($locale) ? static::getLocale() : false, static::translator());
-        static::setLocale($currentLocale);
-
-        return $result;
-    }
-
-    /**
-     * Returns true if the given locale is internally supported and has short-units support.
-     * Support is considered enabled if either year, day or hour has a short variant translated.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function localeHasShortUnits($locale)
-    {
-        return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                (
-                    ($y = $translator->trans('y')) !== 'y' &&
-                    $y !== $translator->trans('year')
-                ) || (
-                    ($y = $translator->trans('d')) !== 'd' &&
-                    $y !== $translator->trans('day')
-                ) || (
-                    ($y = $translator->trans('h')) !== 'h' &&
-                    $y !== $translator->trans('hour')
-                );
-        });
-    }
-
-    /**
-     * Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
-     * Support is considered enabled if the 4 sentences are translated in the given locale.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function localeHasDiffSyntax($locale)
-    {
-        return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            if (!$newLocale) {
-                return false;
-            }
-
-            foreach (['ago', 'from_now', 'before', 'after'] as $key) {
-                if ($translator instanceof TranslatorBagInterface && $translator->getCatalogue($newLocale)->get($key) instanceof Closure) {
-                    continue;
-                }
-
-                if ($translator->trans($key) === $key) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
-    }
-
-    /**
-     * Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
-     * Support is considered enabled if the 3 words are translated in the given locale.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function localeHasDiffOneDayWords($locale)
-    {
-        return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                $translator->trans('diff_now') !== 'diff_now' &&
-                $translator->trans('diff_yesterday') !== 'diff_yesterday' &&
-                $translator->trans('diff_tomorrow') !== 'diff_tomorrow';
-        });
-    }
-
-    /**
-     * Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
-     * Support is considered enabled if the 2 words are translated in the given locale.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function localeHasDiffTwoDayWords($locale)
-    {
-        return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                $translator->trans('diff_before_yesterday') !== 'diff_before_yesterday' &&
-                $translator->trans('diff_after_tomorrow') !== 'diff_after_tomorrow';
-        });
-    }
-
-    /**
-     * Returns true if the given locale is internally supported and has period syntax support (X times, every X, from X, to X).
-     * Support is considered enabled if the 4 sentences are translated in the given locale.
-     *
-     * @param string $locale locale ex. en
-     *
-     * @return bool
-     */
-    public static function localeHasPeriodSyntax($locale)
-    {
-        return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
-            return $newLocale &&
-                $translator->trans('period_recurrences') !== 'period_recurrences' &&
-                $translator->trans('period_interval') !== 'period_interval' &&
-                $translator->trans('period_start_date') !== 'period_start_date' &&
-                $translator->trans('period_end_date') !== 'period_end_date';
-        });
-    }
-
-    /**
-     * Returns the list of internally available locales and already loaded custom locales.
-     * (It will ignore custom translator dynamic loading.)
-     *
-     * @return array
-     */
-    public static function getAvailableLocales()
-    {
-        $translator = static::translator();
-
-        return $translator instanceof Translator
-            ? $translator->getAvailableLocales()
-            : [$translator->getLocale()];
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -3178,7 +2684,7 @@ trait Date
     public function ordinal(string $key, string $period = null): string
     {
         $number = $this->$key;
-        $result = static::translate('ordinal', [
+        $result = $this->translate('ordinal', [
             'number' => $number,
             'period' => $period,
         ]);

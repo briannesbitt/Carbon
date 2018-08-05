@@ -102,6 +102,44 @@ class MacroTest extends AbstractTestCase
         $this->assertSame('06:00 America/Belize', $date->userFormat('H:i e'));
     }
 
+    public function testMacroProperties()
+    {
+        // Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
+        // Then you can create get/set method this way:
+        Carbon::macro('setSchoolYear', function ($schoolYear) {
+            $this->year = $schoolYear;
+            if ($this->month > 7) {
+                $this->year--;
+            }
+        });
+        Carbon::macro('getSchoolYear', function () {
+            $schoolYear = $this->year;
+            if ($this->month > 7) {
+                $schoolYear++;
+            }
+
+            return $schoolYear;
+        });
+        // This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
+        // getter and setter for the ->schoolYear property
+
+        $date = Carbon::parse('2016-06-01');
+
+        $this->assertSame(2016, $date->schoolYear);
+
+        $date->addMonths(3);
+
+        $this->assertSame(2017, $date->schoolYear);
+
+        $date->schoolYear++;
+
+        $this->assertSame('2017-09-01', $date->format('Y-m-d'));
+
+        $date->schoolYear = 2020;
+
+        $this->assertSame('2019-09-01', $date->format('Y-m-d'));
+    }
+
     /**
      * @expectedException \BadMethodCallException
      * @expectedExceptionMessage Method Carbon\Carbon::nonExistingStaticMacro does not exist.

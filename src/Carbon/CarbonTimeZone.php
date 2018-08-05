@@ -85,6 +85,8 @@ class CarbonTimeZone extends DateTimeZone
                 }
             }
         }
+
+        return 'unknown';
     }
 
     /**

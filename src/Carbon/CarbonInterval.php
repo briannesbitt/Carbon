@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
 use InvalidArgumentException;
@@ -87,6 +88,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class CarbonInterval extends DateInterval
 {
+    use Options;
+
     /**
      * Interval spec period designators
      */
@@ -122,12 +125,6 @@ class CarbonInterval extends DateInterval
      * @var array
      */
     protected static $macros = [];
-
-    /**
-     * Before PHP 5.4.20/5.5.4 instead of FALSE days will be set to -99999 when the interval instance
-     * was created by DateTime::diff().
-     */
-    const PHP_DAYS_FALSE = -99999;
 
     /**
      * Mapping of units and factors for cascading.
@@ -177,18 +174,6 @@ class CarbonInterval extends DateInterval
     {
         self::$flipCascadeFactors = null;
         static::$cascadeFactors = $cascadeFactors;
-    }
-
-    /**
-     * Determine if the interval was created via DateTime:diff() or not.
-     *
-     * @param DateInterval $interval
-     *
-     * @return bool
-     */
-    private static function wasCreatedFromDiff(DateInterval $interval)
-    {
-        return $interval->days !== false && $interval->days !== static::PHP_DAYS_FALSE;
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -817,16 +802,14 @@ class CarbonInterval extends DateInterval
      */
     public function isEmpty()
     {
-        if (static::wasCreatedFromDiff($this)) {
-            return $this->dayz === 0;
-        }
-
         return $this->years === 0 &&
             $this->months === 0 &&
             $this->dayz === 0 &&
+            !$this->days &&
             $this->hours === 0 &&
             $this->minutes === 0 &&
-            $this->seconds === 0;
+            $this->seconds === 0 &&
+            $this->microseconds === 0;
     }
 
     /**
@@ -967,36 +950,136 @@ class CarbonInterval extends DateInterval
     /**
      * Get the current interval in a human readable format in the current locale.
      *
-     * @param bool $short (false by default), returns short units if true
+     * @param int         $syntax add modifiers:
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                            Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool        $short  displays short format of time units
+     * @param int         $parts  maximum number of parts to display (default value: -1: no limits)
      *
      * @return string
      */
-    public function forHumans($short = false)
+    public function forHumans($syntax = null, $short = false, $parts = -1)
     {
-        $periods = [
-            'year' => ['y', $this->years],
-            'month' => ['m', $this->months],
-            'week' => ['w', $this->weeks],
-            'day' => ['d', $this->daysExcludeWeeks],
-            'hour' => ['h', $this->hours],
-            'minute' => ['min', $this->minutes],
-            'second' => ['s', $this->seconds],
-            'millisecond' => ['ms', $this->milliseconds],
-            'microsecond' => ['µs', $this->microseconds % 1000],
+        if (is_int($short)) {
+            $parts = $short;
+            $short = false;
+        }
+        if (is_bool($syntax)) {
+            $short = $syntax;
+            $syntax = CarbonInterface::DIFF_ABSOLUTE;
+        }
+        if (is_null($syntax)) {
+            $syntax = CarbonInterface::DIFF_ABSOLUTE;
+        }
+        if ($parts === -1) {
+            $parts = INF;
+        }
+
+        $interval = [];
+        $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
+        $absolute = $syntax === CarbonInterface::DIFF_ABSOLUTE;
+        $relativeToNow = $syntax === CarbonInterface::DIFF_RELATIVE_TO_NOW;
+
+        /** @var \Symfony\Component\Translation\Translator $translator */
+        $translator = $this->getLocalTranslator();
+
+        $weeks = 0;
+        $days = $this->d;
+        if ($days > 0) {
+            $weeks = (int) ($this->d / CarbonInterface::DAYS_PER_WEEK);
+            $days %= CarbonInterface::DAYS_PER_WEEK;
+        }
+
+        $diffIntervalArray = [
+            ['value' => $this->y, 'unit' => 'year',    'unitShort' => 'y'],
+            ['value' => $this->m, 'unit' => 'month',   'unitShort' => 'm'],
+            ['value' => $weeks,   'unit' => 'week',    'unitShort' => 'w'],
+            ['value' => $days,    'unit' => 'day',     'unitShort' => 'd'],
+            ['value' => $this->h, 'unit' => 'hour',    'unitShort' => 'h'],
+            ['value' => $this->i, 'unit' => 'minute',  'unitShort' => 'min'],
+            ['value' => $this->s, 'unit' => 'second',  'unitShort' => 's'],
         ];
 
-        $parts = [];
-        foreach ($periods as $unit => $options) {
-            list($shortUnit, $count) = $options;
-            if ($count > 0) {
-                $part = static::translator()->transChoice($short ? $shortUnit : $unit, $count, [':count' => $count]);
-                $parts[] = $short && $part === $shortUnit
-                    ? static::translator()->transChoice($unit, $count, [':count' => $count])
-                    : $part;
+        $transChoice = function ($short, $unitData) use ($translator) {
+            if ($short) {
+                $count = $unitData['value'];
+                $result = $translator->transChoice($unitData['unitShort'], $count, [':count' => $count]);
+
+                if ($result !== $unitData['unitShort']) {
+                    return $result;
+                }
+            }
+
+            return $translator->transChoice($unitData['unit'], $count, [':count' => $count]);
+        };
+
+        foreach ($diffIntervalArray as $diffIntervalData) {
+            if ($diffIntervalData['value'] > 0) {
+                $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
+                $count = $diffIntervalData['value'];
+                $interval[] = $transChoice($short, $diffIntervalData);
+            }
+
+            // break the loop after we get the required number of parts in array
+            if (count($interval) >= $parts) {
+                break;
             }
         }
 
-        return implode(' ', $parts);
+        if (count($interval) === 0) {
+            if ($relativeToNow && static::getHumanDiffOptions() & CarbonInterface::JUST_NOW) {
+                $key = 'diff_now';
+                $translation = $translator->trans($key);
+                if ($translation !== $key) {
+                    return $translation;
+                }
+            }
+            $count = static::getHumanDiffOptions() & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
+            $unit = $short ? 's' : 'second';
+            $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
+        }
+
+        // join the interval parts by a space
+        $time = implode(' ', $interval);
+
+        unset($diffIntervalArray, $interval);
+
+        if ($absolute) {
+            return $time;
+        }
+
+        $isFuture = $this->invert === 1;
+
+        $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
+
+        if ($parts === 1) {
+            if ($relativeToNow && $unit === 'day') {
+                if ($count === 1 && static::getHumanDiffOptions() & CarbonInterface::ONE_DAY_WORDS) {
+                    $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
+                    $translation = $translator->trans($key);
+                    if ($translation !== $key) {
+                        return $translation;
+                    }
+                }
+                if ($count === 2 && static::getHumanDiffOptions() & CarbonInterface::TWO_DAY_WORDS) {
+                    $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
+                    $translation = $translator->trans($key);
+                    if ($translation !== $key) {
+                        return $translation;
+                    }
+                }
+            }
+            // Some languages have special pluralization for past and future tense.
+            $key = $unit.'_'.$transId;
+            if ($key !== $translator->transChoice($key, $count)) {
+                $time = $translator->transChoice($key, $count, [':count' => $count]);
+            }
+        }
+
+        return $translator->trans($transId, [':time' => $time]);
     }
 
     /**
@@ -1041,17 +1124,12 @@ class CarbonInterval extends DateInterval
     public function add(DateInterval $interval)
     {
         $sign = $interval->invert === 1 ? -1 : 1;
-
-        if (static::wasCreatedFromDiff($interval)) {
-            $this->dayz += $interval->days * $sign;
-        } else {
-            $this->years += $interval->y * $sign;
-            $this->months += $interval->m * $sign;
-            $this->dayz += $interval->d * $sign;
-            $this->hours += $interval->h * $sign;
-            $this->minutes += $interval->i * $sign;
-            $this->seconds += $interval->s * $sign;
-        }
+        $this->years += $interval->y * $sign;
+        $this->months += $interval->m * $sign;
+        $this->dayz += ($interval->days === false ? $interval->d : $interval->days) * $sign;
+        $this->hours += $interval->h * $sign;
+        $this->minutes += $interval->i * $sign;
+        $this->seconds += $interval->s * $sign;
 
         return $this;
     }
