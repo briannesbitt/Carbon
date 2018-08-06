@@ -2484,11 +2484,12 @@ trait Date
      */
     public function getTranslationMessage(string $key, string $locale = null, string $default = null)
     {
-        /** @var TranslatorInterface|TranslatorBagInterface $translator */
         $translator = $this->getLocalTranslator();
         if (!($translator instanceof TranslatorBagInterface)) {
             throw new InvalidArgumentException('Translator does not implement'.TranslatorBagInterface::class.'.');
         }
+
+        /* @var TranslatorInterface|TranslatorBagInterface $translator */
         $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
 
         return $result === $key ? $default : $result;
