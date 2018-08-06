@@ -121,63 +121,63 @@ class MlTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'അൽപ നിമിഷങ്ങൾ മുൻപ്',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's മുൻപ്',
+        'അൽപ നിമിഷങ്ങൾ മുൻപ്',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's മുൻപ്',
+        '2 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ഒരു മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min മുൻപ്',
+        'ഒരു മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min മുൻപ്',
+        '2 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subHours(1)->diffForHumans()
         'ഒരു മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h മുൻപ്',
+        'ഒരു മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h മുൻപ്',
+        '2 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ഒരു ദിവസം മുൻപ്',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd മുൻപ്',
+        'ഒരു ദിവസം മുൻപ്',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ദിവസം മുൻപ്',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd മുൻപ്',
+        '2 ദിവസം മുൻപ്',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'ഒരാഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w മുൻപ്',
+        'ഒരാഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ആഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w മുൻപ്',
+        '2 ആഴ്ച മുൻപ്',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ഒരു മാസം മുൻപ്',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm മുൻപ്',
+        'ഒരു മാസം മുൻപ്',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 മാസം മുൻപ്',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm മുൻപ്',
+        '2 മാസം മുൻപ്',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ഒരു വർഷം മുൻപ്',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y മുൻപ്',
+        'ഒരു വർഷം മുൻപ്',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 വർഷം മുൻപ്',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y മുൻപ്',
+        '2 വർഷം മുൻപ്',
         // Carbon::now()->addSecond()->diffForHumans()
         'അൽപ നിമിഷങ്ങൾ കഴിഞ്ഞ്',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's കഴിഞ്ഞ്',
+        'അൽപ നിമിഷങ്ങൾ കഴിഞ്ഞ്',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class MlTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'അൽപ നിമിഷങ്ങൾ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'അൽപ നിമിഷങ്ങൾ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 സെക്കൻഡ്',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 സെക്കൻഡ്',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's കഴിഞ്ഞ്',
+        'അൽപ നിമിഷങ്ങൾ കഴിഞ്ഞ്',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ഒരു മിനിറ്റ് അൽപ നിമിഷങ്ങൾ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 വർഷം 3 മാസം ഒരു ദിവസം അൽപ നിമിഷങ്ങൾ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 വർഷം കഴിഞ്ഞ്',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm മുൻപ്',
+        '5 മാസം മുൻപ്',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s മുൻപ്',
+        '2 വർഷം 3 മാസം ഒരു ദിവസം അൽപ നിമിഷങ്ങൾ മുൻപ്',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ഒരാഴ്ച 10 മണിക്കൂർ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

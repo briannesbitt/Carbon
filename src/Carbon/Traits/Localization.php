@@ -240,11 +240,13 @@ trait Localization
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
-     * @return void
+     * @return $this
      */
     public function setLocalTranslator(TranslatorInterface $translator)
     {
         $this->localTranslator = $translator;
+
+        return $this;
     }
 
     /**

@@ -121,63 +121,63 @@ class UgCnTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's بۇرۇن',
+        'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's بۇرۇن',
+        '2 سېكونت بۇرۇن',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'بىر مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min بۇرۇن',
+        'بىر مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min بۇرۇن',
+        '2 مىنۇت بۇرۇن',
         // Carbon::now()->subHours(1)->diffForHumans()
         'بىر سائەت بۇرۇن',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h بۇرۇن',
+        'بىر سائەت بۇرۇن',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 سائەت بۇرۇن',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h بۇرۇن',
+        '2 سائەت بۇرۇن',
         // Carbon::now()->subDays(1)->diffForHumans()
         'بىر كۈن بۇرۇن',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd بۇرۇن',
+        'بىر كۈن بۇرۇن',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 كۈن بۇرۇن',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd بۇرۇن',
+        '2 كۈن بۇرۇن',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'بىر ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w بۇرۇن',
+        'بىر ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w بۇرۇن',
+        '2 ھەپتە بۇرۇن',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'بىر ئاي بۇرۇن',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm بۇرۇن',
+        'بىر ئاي بۇرۇن',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ئاي بۇرۇن',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm بۇرۇن',
+        '2 ئاي بۇرۇن',
         // Carbon::now()->subYears(1)->diffForHumans()
         'بىر يىل بۇرۇن',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y بۇرۇن',
+        'بىر يىل بۇرۇن',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 يىل بۇرۇن',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y بۇرۇن',
+        '2 يىل بۇرۇن',
         // Carbon::now()->addSecond()->diffForHumans()
         'نەچچە سېكونت كېيىن',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's كېيىن',
+        'نەچچە سېكونت كېيىن',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class UgCnTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'نەچچە سېكونت',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'نەچچە سېكونت',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 سېكونت',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 سېكونت',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's كېيىن',
+        'نەچچە سېكونت كېيىن',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'بىر مىنۇت نەچچە سېكونت',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 يىل 3 ئاي بىر كۈن نەچچە سېكونت',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 يىل كېيىن',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm بۇرۇن',
+        '5 ئاي بۇرۇن',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s بۇرۇن',
+        '2 يىل 3 ئاي بىر كۈن نەچچە سېكونت بۇرۇن',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'بىر ھەپتە 10 سائەت',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

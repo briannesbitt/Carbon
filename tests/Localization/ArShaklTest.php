@@ -121,91 +121,91 @@ class ArShaklTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'مُنْذُ ثَانِيَة',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'مُنْذُ s',
+        'مُنْذُ ثَانِيَة',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'مُنْذُ ثَانِيَتَيْن',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'مُنْذُ s',
+        'مُنْذُ ثَانِيَتَيْن',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'مُنْذُ دَقِيقَة',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'مُنْذُ min',
+        'مُنْذُ دَقِيقَة',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'مُنْذُ دَقِيقَتَيْن',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'مُنْذُ min',
+        'مُنْذُ دَقِيقَتَيْن',
         // Carbon::now()->subHours(1)->diffForHumans()
         'مُنْذُ سَاعَة',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'مُنْذُ h',
+        'مُنْذُ سَاعَة',
         // Carbon::now()->subHours(2)->diffForHumans()
         'مُنْذُ سَاعَتَيْن',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'مُنْذُ h',
+        'مُنْذُ سَاعَتَيْن',
         // Carbon::now()->subDays(1)->diffForHumans()
         'مُنْذُ يَوْم',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'مُنْذُ d',
+        'مُنْذُ يَوْم',
         // Carbon::now()->subDays(2)->diffForHumans()
         'مُنْذُ يَوْمَيْن',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'مُنْذُ d',
+        'مُنْذُ يَوْمَيْن',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'مُنْذُ أُسْبُوع',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'مُنْذُ w',
+        'مُنْذُ أُسْبُوع',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'مُنْذُ أُسْبُوعَيْن',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'مُنْذُ w',
+        'مُنْذُ أُسْبُوعَيْن',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'مُنْذُ شَهْرَ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'مُنْذُ m',
+        'مُنْذُ شَهْرَ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'مُنْذُ شَهْرَيْن',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'مُنْذُ m',
+        'مُنْذُ شَهْرَيْن',
         // Carbon::now()->subYears(1)->diffForHumans()
         'مُنْذُ سَنَة',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'مُنْذُ y',
+        'مُنْذُ سَنَة',
         // Carbon::now()->subYears(2)->diffForHumans()
         'مُنْذُ سَنَتَيْن',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'مُنْذُ y',
+        'مُنْذُ سَنَتَيْن',
         // Carbon::now()->addSecond()->diffForHumans()
         'مِنَ الْآن ثَانِيَة',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'مِنَ الْآن s',
+        'مِنَ الْآن ثَانِيَة',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'بَعْدَ ثَانِيَة',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'بَعْدَ s',
+        'بَعْدَ ثَانِيَة',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'قَبْلَ ثَانِيَة',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'قَبْلَ s',
+        'قَبْلَ ثَانِيَة',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ثَانِيَة',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'ثَانِيَة',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'ثَانِيَتَيْن',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        'ثَانِيَتَيْن',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'مِنَ الْآن s',
+        'مِنَ الْآن ثَانِيَة',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'دَقِيقَة ثَانِيَة',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        'سَنَتَيْن أَشْهُر 3 يَوْم ثَانِيَة',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'مِنَ الْآن سَنَوَات 3',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'مُنْذُ m',
+        'مُنْذُ أَشْهُر 5',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'مُنْذُ y m d s',
+        'مُنْذُ سَنَتَيْن أَشْهُر 3 يَوْم ثَانِيَة',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'أُسْبُوع سَاعَات 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

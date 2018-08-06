@@ -121,63 +121,63 @@ class LoTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'sຜ່ານມາ',
+        'ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 ວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'sຜ່ານມາ',
+        '2 ວິນາທີຜ່ານມາ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 ນາທີຜ່ານມາ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'minຜ່ານມາ',
+        '1 ນາທີຜ່ານມາ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 ນາທີຜ່ານມາ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'minຜ່ານມາ',
+        '2 ນາທີຜ່ານມາ',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 ຊົ່ວໂມງຜ່ານມາ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hຜ່ານມາ',
+        '1 ຊົ່ວໂມງຜ່ານມາ',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 ຊົ່ວໂມງຜ່ານມາ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hຜ່ານມາ',
+        '2 ຊົ່ວໂມງຜ່ານມາ',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 ມື້ຜ່ານມາ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'dຜ່ານມາ',
+        '1 ມື້ຜ່ານມາ',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ມື້ຜ່ານມາ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'dຜ່ານມາ',
+        '2 ມື້ຜ່ານມາ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 ອາທິດຜ່ານມາ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'wຜ່ານມາ',
+        '1 ອາທິດຜ່ານມາ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ອາທິດຜ່ານມາ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'wຜ່ານມາ',
+        '2 ອາທິດຜ່ານມາ',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 ເດືອນຜ່ານມາ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'mຜ່ານມາ',
+        '1 ເດືອນຜ່ານມາ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ເດືອນຜ່ານມາ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'mຜ່ານມາ',
+        '2 ເດືອນຜ່ານມາ',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 ປີຜ່ານມາ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'yຜ່ານມາ',
+        '1 ປີຜ່ານມາ',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ປີຜ່ານມາ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'yຜ່ານມາ',
+        '2 ປີຜ່ານມາ',
         // Carbon::now()->addSecond()->diffForHumans()
         'ອີກ ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ອີກ s',
+        'ອີກ ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class LoTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ວິນາທີ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 ວິນາທີ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ອີກ s',
+        'ອີກ ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ນາທີ ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 ປີ 3 ເດືອນ 1 ມື້ ບໍ່ເທົ່າໃດວິນາທີ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'ອີກ 3 ປີ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'mຜ່ານມາ',
+        '5 ເດືອນຜ່ານມາ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d sຜ່ານມາ',
+        '2 ປີ 3 ເດືອນ 1 ມື້ ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ອາທິດ 10 ຊົ່ວໂມງ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

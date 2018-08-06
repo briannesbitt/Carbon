@@ -121,63 +121,63 @@ class TlhTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'puS lup ret',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's ret',
+        'puS lup ret',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 lup ret',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's ret',
+        '2 lup ret',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'wa’ tup ret',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min ret',
+        'wa’ tup ret',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 tup ret',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min ret',
+        '2 tup ret',
         // Carbon::now()->subHours(1)->diffForHumans()
         'wa’ rep ret',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h ret',
+        'wa’ rep ret',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 rep ret',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h ret',
+        '2 rep ret',
         // Carbon::now()->subDays(1)->diffForHumans()
         'wa’ Hu’',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd ret',
+        'wa’ Hu’',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 Hu’',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd ret',
+        '2 Hu’',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'wa’ hogh ret',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w ret',
+        'wa’ hogh ret',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 hogh ret',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w ret',
+        '2 hogh ret',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'wa’ wen',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm ret',
+        'wa’ wen',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 wen',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm ret',
+        '2 wen',
         // Carbon::now()->subYears(1)->diffForHumans()
         'wa’ ben',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y ret',
+        'wa’ ben',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ben',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y ret',
+        '2 ben',
         // Carbon::now()->addSecond()->diffForHumans()
         'puS lup pIq',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's pIq',
+        'puS lup pIq',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class TlhTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'puS lup',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'puS lup',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 lup',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 lup',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's pIq',
+        'puS lup pIq',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'wa’ tup puS lup',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 DIS 3 jar wa’ jaj puS lup',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 nem',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm ret',
+        '5 wen',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s ret',
+        '2 ben 3 wen wa’ Hu’ puS lup',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'wa’ hogh 10 rep',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

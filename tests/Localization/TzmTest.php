@@ -121,63 +121,63 @@ class TzmTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ⵢⴰⵏ ⵉⵎⵉⴽ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ s',
+        'ⵢⴰⵏ ⵉⵎⵉⴽ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵉⵎⵉⴽ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ s',
+        'ⵢⴰⵏ 2 ⵉⵎⵉⴽ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ⵢⴰⵏ ⵎⵉⵏⵓⴺ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ min',
+        'ⵢⴰⵏ ⵎⵉⵏⵓⴺ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵎⵉⵏⵓⴺ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ min',
+        'ⵢⴰⵏ 2 ⵎⵉⵏⵓⴺ',
         // Carbon::now()->subHours(1)->diffForHumans()
         'ⵢⴰⵏ ⵙⴰⵄⴰ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ h',
+        'ⵢⴰⵏ ⵙⴰⵄⴰ',
         // Carbon::now()->subHours(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵜⴰⵙⵙⴰⵄⵉⵏ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ h',
+        'ⵢⴰⵏ 2 ⵜⴰⵙⵙⴰⵄⵉⵏ',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ⵢⴰⵏ ⴰⵙⵙ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ d',
+        'ⵢⴰⵏ ⴰⵙⵙ',
         // Carbon::now()->subDays(2)->diffForHumans()
         'ⵢⴰⵏ 2 oⵙⵙⴰⵏ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ d',
+        'ⵢⴰⵏ 2 oⵙⵙⴰⵏ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'ⵢⴰⵏ 1 ⵉⵎⴰⵍⴰⵙⵙ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ w',
+        'ⵢⴰⵏ 1 ⵉⵎⴰⵍⴰⵙⵙ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵉⵎⴰⵍⴰⵙⵙ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ w',
+        'ⵢⴰⵏ 2 ⵉⵎⴰⵍⴰⵙⵙ',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ⵢⴰⵏ ⴰⵢoⵓⵔ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ m',
+        'ⵢⴰⵏ ⴰⵢoⵓⵔ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵉⵢⵢⵉⵔⵏ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ m',
+        'ⵢⴰⵏ 2 ⵉⵢⵢⵉⵔⵏ',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ⵢⴰⵏ ⴰⵙⴳⴰⵙ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ y',
+        'ⵢⴰⵏ ⴰⵙⴳⴰⵙ',
         // Carbon::now()->subYears(2)->diffForHumans()
         'ⵢⴰⵏ 2 ⵉⵙⴳⴰⵙⵏ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'ⵢⴰⵏ y',
+        'ⵢⴰⵏ 2 ⵉⵙⴳⴰⵙⵏ',
         // Carbon::now()->addSecond()->diffForHumans()
         'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵉⵎⵉⴽ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ s',
+        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵉⵎⵉⴽ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class TzmTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ⵉⵎⵉⴽ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'ⵉⵎⵉⴽ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ⵉⵎⵉⴽ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 ⵉⵎⵉⴽ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ s',
+        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵉⵎⵉⴽ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ⵎⵉⵏⵓⴺ ⵉⵎⵉⴽ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 ⵉⵙⴳⴰⵙⵏ 3 ⵉⵢⵢⵉⵔⵏ ⴰⵙⵙ ⵉⵎⵉⴽ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ 3 ⵉⵙⴳⴰⵙⵏ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'ⵢⴰⵏ m',
+        'ⵢⴰⵏ 5 ⵉⵢⵢⵉⵔⵏ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'ⵢⴰⵏ y m d s',
+        'ⵢⴰⵏ 2 ⵉⵙⴳⴰⵙⵏ 3 ⵉⵢⵢⵉⵔⵏ ⴰⵙⵙ ⵉⵎⵉⴽ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ⵉⵎⴰⵍⴰⵙⵙ 10 ⵜⴰⵙⵙⴰⵄⵉⵏ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

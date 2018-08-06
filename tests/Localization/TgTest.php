@@ -121,63 +121,63 @@ class TgTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'якчанд сония пеш',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's пеш',
+        'якчанд сония пеш',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 сония пеш',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's пеш',
+        '2 сония пеш',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'як дақиқа пеш',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min пеш',
+        'як дақиқа пеш',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 дақиқа пеш',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min пеш',
+        '2 дақиқа пеш',
         // Carbon::now()->subHours(1)->diffForHumans()
         'як соат пеш',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h пеш',
+        'як соат пеш',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 соат пеш',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h пеш',
+        '2 соат пеш',
         // Carbon::now()->subDays(1)->diffForHumans()
         'як рӯз пеш',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd пеш',
+        'як рӯз пеш',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 рӯз пеш',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd пеш',
+        '2 рӯз пеш',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'як ҳафта пеш',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w пеш',
+        'як ҳафта пеш',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ҳафта пеш',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w пеш',
+        '2 ҳафта пеш',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'як моҳ пеш',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm пеш',
+        'як моҳ пеш',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 моҳ пеш',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm пеш',
+        '2 моҳ пеш',
         // Carbon::now()->subYears(1)->diffForHumans()
         'як сол пеш',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y пеш',
+        'як сол пеш',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 сол пеш',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y пеш',
+        '2 сол пеш',
         // Carbon::now()->addSecond()->diffForHumans()
         'баъди якчанд сония',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'баъди s',
+        'баъди якчанд сония',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class TgTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'якчанд сония',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'якчанд сония',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 сония',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 сония',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'баъди s',
+        'баъди якчанд сония',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'як дақиқа якчанд сония',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 сол 3 моҳ як рӯз якчанд сония',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'баъди 3 сол',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm пеш',
+        '5 моҳ пеш',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s пеш',
+        '2 сол 3 моҳ як рӯз якчанд сония пеш',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'як ҳафта 10 соат',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

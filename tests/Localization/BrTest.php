@@ -121,63 +121,63 @@ class BrTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'un nebeud segondennoù \'zo',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's \'zo',
+        'un nebeud segondennoù \'zo',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 eilenn \'zo',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's \'zo',
+        '2 eilenn \'zo',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ur vunutenn \'zo',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min \'zo',
+        'ur vunutenn \'zo',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 vunutenn \'zo',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min \'zo',
+        '2 vunutenn \'zo',
         // Carbon::now()->subHours(1)->diffForHumans()
         'un eur \'zo',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h \'zo',
+        'un eur \'zo',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 eur \'zo',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h \'zo',
+        '2 eur \'zo',
         // Carbon::now()->subDays(1)->diffForHumans()
         'un devezh \'zo',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd \'zo',
+        'un devezh \'zo',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 zevezh \'zo',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd \'zo',
+        '2 zevezh \'zo',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 sizhun \'zo',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w \'zo',
+        '1 sizhun \'zo',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 sizhun \'zo',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w \'zo',
+        '2 sizhun \'zo',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ur miz \'zo',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm \'zo',
+        'ur miz \'zo',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 viz \'zo',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm \'zo',
+        '2 viz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 bloaz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y \'zo',
+        '1 bloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 vloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y \'zo',
+        '2 vloaz \'zo',
         // Carbon::now()->addSecond()->diffForHumans()
         'a-benn un nebeud segondennoù',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'a-benn s',
+        'a-benn un nebeud segondennoù',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class BrTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'un nebeud segondennoù',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'un nebeud segondennoù',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 eilenn',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 eilenn',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'a-benn s',
+        'a-benn un nebeud segondennoù',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ur vunutenn un nebeud segondennoù',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 vloaz 3 miz un devezh un nebeud segondennoù',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'a-benn 3 bloaz',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm \'zo',
+        '5 miz \'zo',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s \'zo',
+        '2 vloaz 3 miz un devezh un nebeud segondennoù \'zo',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 sizhun 10 eur',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

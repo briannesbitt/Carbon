@@ -121,63 +121,63 @@ class SsTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'wenteka nga s',
+        'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'wenteka nga 2 mzuzwana',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'wenteka nga s',
+        'wenteka nga 2 mzuzwana',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'wenteka nga umzuzu',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'wenteka nga min',
+        'wenteka nga umzuzu',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'wenteka nga 2 emizuzu',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'wenteka nga min',
+        'wenteka nga 2 emizuzu',
         // Carbon::now()->subHours(1)->diffForHumans()
         'wenteka nga lihora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'wenteka nga h',
+        'wenteka nga lihora',
         // Carbon::now()->subHours(2)->diffForHumans()
         'wenteka nga 2 emahora',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'wenteka nga h',
+        'wenteka nga 2 emahora',
         // Carbon::now()->subDays(1)->diffForHumans()
         'wenteka nga lilanga',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'wenteka nga d',
+        'wenteka nga lilanga',
         // Carbon::now()->subDays(2)->diffForHumans()
         'wenteka nga 2 emalanga',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'wenteka nga d',
+        'wenteka nga 2 emalanga',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'wenteka nga 1 liviki',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'wenteka nga w',
+        'wenteka nga 1 liviki',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'wenteka nga 2 emaviki',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'wenteka nga w',
+        'wenteka nga 2 emaviki',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'wenteka nga inyanga',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'wenteka nga m',
+        'wenteka nga inyanga',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'wenteka nga 2 tinyanga',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'wenteka nga m',
+        'wenteka nga 2 tinyanga',
         // Carbon::now()->subYears(1)->diffForHumans()
         'wenteka nga umnyaka',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'wenteka nga y',
+        'wenteka nga umnyaka',
         // Carbon::now()->subYears(2)->diffForHumans()
         'wenteka nga 2 iminyaka',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'wenteka nga y',
+        'wenteka nga 2 iminyaka',
         // Carbon::now()->addSecond()->diffForHumans()
         'nga emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'nga s',
+        'nga emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class SsTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'emizuzwana lomcane',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 mzuzwana',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 mzuzwana',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'nga s',
+        'nga emizuzwana lomcane',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'umzuzu emizuzwana lomcane',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 iminyaka 3 tinyanga lilanga emizuzwana lomcane',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'nga 3 iminyaka',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'wenteka nga m',
+        'wenteka nga 5 tinyanga',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'wenteka nga y m d s',
+        'wenteka nga 2 iminyaka 3 tinyanga lilanga emizuzwana lomcane',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 liviki 10 emahora',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

@@ -121,63 +121,63 @@ class MiTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'te hēkona ruarua i mua',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's i mua',
+        'te hēkona ruarua i mua',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 hēkona i mua',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's i mua',
+        '2 hēkona i mua',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'he meneti i mua',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min i mua',
+        'he meneti i mua',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 meneti i mua',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min i mua',
+        '2 meneti i mua',
         // Carbon::now()->subHours(1)->diffForHumans()
         'te haora i mua',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h i mua',
+        'te haora i mua',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 haora i mua',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h i mua',
+        '2 haora i mua',
         // Carbon::now()->subDays(1)->diffForHumans()
         'he ra i mua',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd i mua',
+        'he ra i mua',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ra i mua',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd i mua',
+        '2 ra i mua',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'he wiki i mua',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w i mua',
+        'he wiki i mua',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 wiki i mua',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w i mua',
+        '2 wiki i mua',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'he marama i mua',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm i mua',
+        'he marama i mua',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 marama i mua',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm i mua',
+        '2 marama i mua',
         // Carbon::now()->subYears(1)->diffForHumans()
         'he tau i mua',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y i mua',
+        'he tau i mua',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 tau i mua',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y i mua',
+        '2 tau i mua',
         // Carbon::now()->addSecond()->diffForHumans()
         'i roto i te hēkona ruarua',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'i roto i s',
+        'i roto i te hēkona ruarua',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class MiTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'te hēkona ruarua',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'te hēkona ruarua',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 hēkona',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 hēkona',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'i roto i s',
+        'i roto i te hēkona ruarua',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'he meneti te hēkona ruarua',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 tau 3 marama he ra te hēkona ruarua',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'i roto i 3 tau',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm i mua',
+        '5 marama i mua',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s i mua',
+        '2 tau 3 marama he ra te hēkona ruarua i mua',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'he wiki 10 haora',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

@@ -121,91 +121,91 @@ class GlTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'hai uns segundos',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'hai s',
+        'hai uns segundos',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'hai 2 segundos',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'hai s',
+        'hai 2 segundos',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'hai un minuto',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'hai min',
+        'hai un minuto',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'hai 2 minutos',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'hai min',
+        'hai 2 minutos',
         // Carbon::now()->subHours(1)->diffForHumans()
         'hai unha hora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hai h',
+        'hai unha hora',
         // Carbon::now()->subHours(2)->diffForHumans()
         'hai 2 horas',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hai h',
+        'hai 2 horas',
         // Carbon::now()->subDays(1)->diffForHumans()
         'hai un día',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'hai d',
+        'hai un día',
         // Carbon::now()->subDays(2)->diffForHumans()
         'hai 2 días',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'hai d',
+        'hai 2 días',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'hai 1 semana',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'hai w',
+        'hai 1 semana',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'hai 2 semanas',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'hai w',
+        'hai 2 semanas',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'hai un mes',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'hai m',
+        'hai un mes',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'hai 2 meses',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'hai m',
+        'hai 2 meses',
         // Carbon::now()->subYears(1)->diffForHumans()
         'hai un ano',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'hai y',
+        'hai un ano',
         // Carbon::now()->subYears(2)->diffForHumans()
         'hai 2 anos',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'hai y',
+        'hai 2 anos',
         // Carbon::now()->addSecond()->diffForHumans()
         'nuns segundos',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'en s',
+        'nuns segundos',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'uns segundos despois',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        's despois',
+        'uns segundos despois',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'uns segundos antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        's antes',
+        'uns segundos antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'uns segundos',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'uns segundos',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 segundos',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 segundos',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'en s',
+        'nuns segundos',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'un minuto uns segundos',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 anos 3 meses un día uns segundos',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'en 3 anos',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'hai m',
+        'hai 5 meses',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'hai y m d s',
+        'hai 2 anos 3 meses un día uns segundos',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 semana 10 horas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

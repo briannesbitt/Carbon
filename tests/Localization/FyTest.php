@@ -121,63 +121,63 @@ class FyTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'in pear sekonden lyn',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's lyn',
+        'in pear sekonden lyn',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 sekonden lyn',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's lyn',
+        '2 sekonden lyn',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ien minút lyn',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min lyn',
+        'ien minút lyn',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minuten lyn',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min lyn',
+        '2 minuten lyn',
         // Carbon::now()->subHours(1)->diffForHumans()
         'ien oere lyn',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h lyn',
+        'ien oere lyn',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 oeren lyn',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h lyn',
+        '2 oeren lyn',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ien dei lyn',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd lyn',
+        'ien dei lyn',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 dagen lyn',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd lyn',
+        '2 dagen lyn',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'in wike lyn',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w lyn',
+        'in wike lyn',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 wiken lyn',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w lyn',
+        '2 wiken lyn',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ien moanne lyn',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm lyn',
+        'ien moanne lyn',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 moannen lyn',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm lyn',
+        '2 moannen lyn',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ien jier lyn',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y lyn',
+        'ien jier lyn',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 jierren lyn',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y lyn',
+        '2 jierren lyn',
         // Carbon::now()->addSecond()->diffForHumans()
         'oer in pear sekonden',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'oer s',
+        'oer in pear sekonden',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class FyTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'in pear sekonden',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'in pear sekonden',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekonden',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 sekonden',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'oer s',
+        'oer in pear sekonden',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ien minút in pear sekonden',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 jierren 3 moannen ien dei in pear sekonden',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'oer 3 jierren',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm lyn',
+        '5 moannen lyn',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s lyn',
+        '2 jierren 3 moannen ien dei in pear sekonden lyn',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'in wike 10 oeren',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

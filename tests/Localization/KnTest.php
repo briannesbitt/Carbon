@@ -121,63 +121,63 @@ class KnTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's ಹಿಂದೆ',
+        'ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 ಸೆಕೆಂಡುಗಳು ಹಿಂದೆ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's ಹಿಂದೆ',
+        '2 ಸೆಕೆಂಡುಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ಒಂದು ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min ಹಿಂದೆ',
+        'ಒಂದು ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min ಹಿಂದೆ',
+        '2 ನಿಮಿಷ ಹಿಂದೆ',
         // Carbon::now()->subHours(1)->diffForHumans()
         'ಒಂದು ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h ಹಿಂದೆ',
+        'ಒಂದು ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h ಹಿಂದೆ',
+        '2 ಗಂಟೆ ಹಿಂದೆ',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ಒಂದು ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd ಹಿಂದೆ',
+        'ಒಂದು ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd ಹಿಂದೆ',
+        '2 ದಿನ ಹಿಂದೆ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'ಒಂದು ವಾರ ಹಿಂದೆ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w ಹಿಂದೆ',
+        'ಒಂದು ವಾರ ಹಿಂದೆ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ವಾರಗಳು ಹಿಂದೆ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w ಹಿಂದೆ',
+        '2 ವಾರಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ಒಂದು ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm ಹಿಂದೆ',
+        'ಒಂದು ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm ಹಿಂದೆ',
+        '2 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ಒಂದು ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y ಹಿಂದೆ',
+        'ಒಂದು ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y ಹಿಂದೆ',
+        '2 ವರ್ಷ ಹಿಂದೆ',
         // Carbon::now()->addSecond()->diffForHumans()
         'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's ನಂತರ',
+        'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class KnTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ಕೆಲವು ಕ್ಷಣಗಳು',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'ಕೆಲವು ಕ್ಷಣಗಳು',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ಸೆಕೆಂಡುಗಳು',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 ಸೆಕೆಂಡುಗಳು',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's ನಂತರ',
+        'ಕೆಲವು ಕ್ಷಣಗಳು ನಂತರ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ಒಂದು ನಿಮಿಷ ಕೆಲವು ಕ್ಷಣಗಳು',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 ವರ್ಷ 3 ತಿಂಗಳು ಒಂದು ದಿನ ಕೆಲವು ಕ್ಷಣಗಳು',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ವರ್ಷ ನಂತರ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm ಹಿಂದೆ',
+        '5 ತಿಂಗಳು ಹಿಂದೆ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s ಹಿಂದೆ',
+        '2 ವರ್ಷ 3 ತಿಂಗಳು ಒಂದು ದಿನ ಕೆಲವು ಕ್ಷಣಗಳು ಹಿಂದೆ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ಒಂದು ವಾರ 10 ಗಂಟೆ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

@@ -950,18 +950,19 @@ class CarbonInterval extends DateInterval
     /**
      * Get the current interval in a human readable format in the current locale.
      *
-     * @param int         $syntax add modifiers:
-     *                            Possible values:
-     *                            - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                            Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short  displays short format of time units
-     * @param int         $parts  maximum number of parts to display (default value: -1: no limits)
+     * @param int         $syntax  add modifiers:
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   maximum number of parts to display (default value: -1: no limits)
+     * @param int         $options human diff options
      *
      * @return string
      */
-    public function forHumans($syntax = null, $short = false, $parts = -1)
+    public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
         if (is_int($short)) {
             $parts = $short;
@@ -977,6 +978,9 @@ class CarbonInterval extends DateInterval
         if ($parts === -1) {
             $parts = INF;
         }
+        if (is_null($options)) {
+            $options = static::getHumanDiffOptions();
+        }
 
         $interval = [];
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
@@ -986,21 +990,14 @@ class CarbonInterval extends DateInterval
         /** @var \Symfony\Component\Translation\Translator $translator */
         $translator = $this->getLocalTranslator();
 
-        $weeks = 0;
-        $days = $this->d;
-        if ($days > 0) {
-            $weeks = (int) ($this->d / CarbonInterface::DAYS_PER_WEEK);
-            $days %= CarbonInterface::DAYS_PER_WEEK;
-        }
-
         $diffIntervalArray = [
-            ['value' => $this->y, 'unit' => 'year',    'unitShort' => 'y'],
-            ['value' => $this->m, 'unit' => 'month',   'unitShort' => 'm'],
-            ['value' => $weeks,   'unit' => 'week',    'unitShort' => 'w'],
-            ['value' => $days,    'unit' => 'day',     'unitShort' => 'd'],
-            ['value' => $this->h, 'unit' => 'hour',    'unitShort' => 'h'],
-            ['value' => $this->i, 'unit' => 'minute',  'unitShort' => 'min'],
-            ['value' => $this->s, 'unit' => 'second',  'unitShort' => 's'],
+            ['value' => $this->years,            'unit' => 'year',   'unitShort' => 'y'],
+            ['value' => $this->months,           'unit' => 'month',  'unitShort' => 'm'],
+            ['value' => $this->weeks,            'unit' => 'week',   'unitShort' => 'w'],
+            ['value' => $this->daysExcludeWeeks, 'unit' => 'day',    'unitShort' => 'd'],
+            ['value' => $this->hours,            'unit' => 'hour',   'unitShort' => 'h'],
+            ['value' => $this->minutes,          'unit' => 'minute', 'unitShort' => 'min'],
+            ['value' => $this->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
         $transChoice = function ($short, $unitData) use ($translator) {
@@ -1031,14 +1028,14 @@ class CarbonInterval extends DateInterval
         }
 
         if (count($interval) === 0) {
-            if ($relativeToNow && static::getHumanDiffOptions() & CarbonInterface::JUST_NOW) {
+            if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
                 $translation = $translator->trans($key);
                 if ($translation !== $key) {
                     return $translation;
                 }
             }
-            $count = static::getHumanDiffOptions() & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
+            $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
             $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
         }
@@ -1058,14 +1055,14 @@ class CarbonInterval extends DateInterval
 
         if ($parts === 1) {
             if ($relativeToNow && $unit === 'day') {
-                if ($count === 1 && static::getHumanDiffOptions() & CarbonInterface::ONE_DAY_WORDS) {
+                if ($count === 1 && $options & CarbonInterface::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
                     $translation = $translator->trans($key);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
-                if ($count === 2 && static::getHumanDiffOptions() & CarbonInterface::TWO_DAY_WORDS) {
+                if ($count === 2 && $options & CarbonInterface::TWO_DAY_WORDS) {
                     $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
                     $translation = $translator->trans($key);
                     if ($translation !== $key) {

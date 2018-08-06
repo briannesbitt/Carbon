@@ -121,63 +121,63 @@ class TetTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'minutu balun liuba',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's liuba',
+        'minutu balun liuba',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'minutu 2 liuba',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's liuba',
+        'minutu 2 liuba',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'minutu ida liuba',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min liuba',
+        'minutu ida liuba',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'minutu 2 liuba',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min liuba',
+        'minutu 2 liuba',
         // Carbon::now()->subHours(1)->diffForHumans()
         'oras ida liuba',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h liuba',
+        'oras ida liuba',
         // Carbon::now()->subHours(2)->diffForHumans()
         'oras 2 liuba',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h liuba',
+        'oras 2 liuba',
         // Carbon::now()->subDays(1)->diffForHumans()
         'loron ida liuba',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd liuba',
+        'loron ida liuba',
         // Carbon::now()->subDays(2)->diffForHumans()
         'loron 2 liuba',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd liuba',
+        'loron 2 liuba',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'semana ida liuba',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w liuba',
+        'semana ida liuba',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'semana 2 liuba',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w liuba',
+        'semana 2 liuba',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'fulan ida liuba',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm liuba',
+        'fulan ida liuba',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'fulan 2 liuba',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm liuba',
+        'fulan 2 liuba',
         // Carbon::now()->subYears(1)->diffForHumans()
         'tinan ida liuba',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y liuba',
+        'tinan ida liuba',
         // Carbon::now()->subYears(2)->diffForHumans()
         'tinan 2 liuba',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y liuba',
+        'tinan 2 liuba',
         // Carbon::now()->addSecond()->diffForHumans()
         'iha minutu balun',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'iha s',
+        'iha minutu balun',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class TetTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'minutu balun',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'minutu balun',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'minutu 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        'minutu 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'iha s',
+        'iha minutu balun',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'minutu ida minutu balun',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        'tinan 2 fulan 3 loron ida minutu balun',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'iha tinan 3',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm liuba',
+        'fulan 5 liuba',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s liuba',
+        'tinan 2 fulan 3 loron ida minutu balun liuba',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'semana ida oras 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

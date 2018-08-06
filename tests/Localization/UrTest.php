@@ -121,91 +121,91 @@ class UrTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'چند سیکنڈ قبل',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's قبل',
+        'چند سیکنڈ قبل',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 سیکنڈ قبل',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's قبل',
+        '2 سیکنڈ قبل',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ایک منٹ قبل',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min قبل',
+        'ایک منٹ قبل',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 منٹ قبل',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min قبل',
+        '2 منٹ قبل',
         // Carbon::now()->subHours(1)->diffForHumans()
         'ایک گھنٹہ قبل',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h قبل',
+        'ایک گھنٹہ قبل',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 گھنٹے قبل',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h قبل',
+        '2 گھنٹے قبل',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ایک دن قبل',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd قبل',
+        'ایک دن قبل',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 دن قبل',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd قبل',
+        '2 دن قبل',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 ہفتے قبل',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w قبل',
+        '1 ہفتے قبل',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ہفتے قبل',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w قبل',
+        '2 ہفتے قبل',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'ایک ماہ قبل',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm قبل',
+        'ایک ماہ قبل',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ماہ قبل',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm قبل',
+        '2 ماہ قبل',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ایک سال قبل',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y قبل',
+        'ایک سال قبل',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 سال قبل',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y قبل',
+        '2 سال قبل',
         // Carbon::now()->addSecond()->diffForHumans()
         'چند سیکنڈ بعد',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's بعد',
+        'چند سیکنڈ بعد',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'چند سیکنڈ بعد',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        's بعد',
+        'چند سیکنڈ بعد',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'چند سیکنڈ پہلے',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        's پہلے',
+        'چند سیکنڈ پہلے',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'چند سیکنڈ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'چند سیکنڈ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 سیکنڈ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        '2 سیکنڈ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's بعد',
+        'چند سیکنڈ بعد',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ایک منٹ چند سیکنڈ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        '2 سال 3 ماہ ایک دن چند سیکنڈ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 سال بعد',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm قبل',
+        '5 ماہ قبل',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s قبل',
+        '2 سال 3 ماہ ایک دن چند سیکنڈ قبل',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ہفتے 10 گھنٹے',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

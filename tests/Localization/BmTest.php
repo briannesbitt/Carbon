@@ -121,63 +121,63 @@ class BmTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'a bɛ sanga dama dama bɔ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'a bɛ s bɔ',
+        'a bɛ sanga dama dama bɔ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'a bɛ sekondi 2 bɔ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'a bɛ s bɔ',
+        'a bɛ sekondi 2 bɔ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'a bɛ miniti kelen bɔ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'a bɛ min bɔ',
+        'a bɛ miniti kelen bɔ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'a bɛ miniti 2 bɔ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'a bɛ min bɔ',
+        'a bɛ miniti 2 bɔ',
         // Carbon::now()->subHours(1)->diffForHumans()
         'a bɛ lɛrɛ kelen bɔ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'a bɛ h bɔ',
+        'a bɛ lɛrɛ kelen bɔ',
         // Carbon::now()->subHours(2)->diffForHumans()
         'a bɛ lɛrɛ 2 bɔ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'a bɛ h bɔ',
+        'a bɛ lɛrɛ 2 bɔ',
         // Carbon::now()->subDays(1)->diffForHumans()
         'a bɛ tile kelen bɔ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'a bɛ d bɔ',
+        'a bɛ tile kelen bɔ',
         // Carbon::now()->subDays(2)->diffForHumans()
         'a bɛ tile 2 bɔ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'a bɛ d bɔ',
+        'a bɛ tile 2 bɔ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'a bɛ dɔgɔkun 1 bɔ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'a bɛ w bɔ',
+        'a bɛ dɔgɔkun 1 bɔ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'a bɛ dɔgɔkun 2 bɔ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'a bɛ w bɔ',
+        'a bɛ dɔgɔkun 2 bɔ',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'a bɛ kalo kelen bɔ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'a bɛ m bɔ',
+        'a bɛ kalo kelen bɔ',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'a bɛ kalo 2 bɔ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'a bɛ m bɔ',
+        'a bɛ kalo 2 bɔ',
         // Carbon::now()->subYears(1)->diffForHumans()
         'a bɛ san kelen bɔ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'a bɛ y bɔ',
+        'a bɛ san kelen bɔ',
         // Carbon::now()->subYears(2)->diffForHumans()
         'a bɛ san 2 bɔ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'a bɛ y bɔ',
+        'a bɛ san 2 bɔ',
         // Carbon::now()->addSecond()->diffForHumans()
         'sanga dama dama kɔnɔ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        's kɔnɔ',
+        'sanga dama dama kɔnɔ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class BmTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'sanga dama dama',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'sanga dama dama',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'sekondi 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        'sekondi 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        's kɔnɔ',
+        'sanga dama dama kɔnɔ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'miniti kelen sanga dama dama',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        'san 2 kalo 3 tile kelen sanga dama dama',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'san 3 kɔnɔ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'a bɛ m bɔ',
+        'a bɛ kalo 5 bɔ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'a bɛ y m d s bɔ',
+        'a bɛ san 2 kalo 3 tile kelen sanga dama dama bɔ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'dɔgɔkun 1 lɛrɛ 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

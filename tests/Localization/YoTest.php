@@ -121,63 +121,63 @@ class YoTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ìsẹjú aayá die kọjá',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        's kọjá',
+        'ìsẹjú aayá die kọjá',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'aayá 2 kọjá',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        's kọjá',
+        'aayá 2 kọjá',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'ìsẹjú kan kọjá',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'min kọjá',
+        'ìsẹjú kan kọjá',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'ìsẹjú 2 kọjá',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'min kọjá',
+        'ìsẹjú 2 kọjá',
         // Carbon::now()->subHours(1)->diffForHumans()
         'wákati kan kọjá',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'h kọjá',
+        'wákati kan kọjá',
         // Carbon::now()->subHours(2)->diffForHumans()
         'wákati 2 kọjá',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'h kọjá',
+        'wákati 2 kọjá',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ọjọ́ kan kọjá',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'd kọjá',
+        'ọjọ́ kan kọjá',
         // Carbon::now()->subDays(2)->diffForHumans()
         'ọjọ́ 2 kọjá',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'd kọjá',
+        'ọjọ́ 2 kọjá',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'ọsẹ kan kọjá',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'w kọjá',
+        'ọsẹ kan kọjá',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'ọsẹ 2 kọjá',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'w kọjá',
+        'ọsẹ 2 kọjá',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'osù kan kọjá',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'm kọjá',
+        'osù kan kọjá',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'osù 2 kọjá',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'm kọjá',
+        'osù 2 kọjá',
         // Carbon::now()->subYears(1)->diffForHumans()
         'ọdún kan kọjá',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'y kọjá',
+        'ọdún kan kọjá',
         // Carbon::now()->subYears(2)->diffForHumans()
         'ọdún 2 kọjá',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'y kọjá',
+        'ọdún 2 kọjá',
         // Carbon::now()->addSecond()->diffForHumans()
         'ní ìsẹjú aayá die',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ní s',
+        'ní ìsẹjú aayá die',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class YoTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ìsẹjú aayá die',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'ìsẹjú aayá die',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'aayá 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        'aayá 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ní s',
+        'ní ìsẹjú aayá die',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'ìsẹjú kan ìsẹjú aayá die',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        'ọdún 2 osù 3 ọjọ́ kan ìsẹjú aayá die',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'ní ọdún 3',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'm kọjá',
+        'osù 5 kọjá',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d s kọjá',
+        'ọdún 2 osù 3 ọjọ́ kan ìsẹjú aayá die kọjá',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'ọsẹ kan wákati 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

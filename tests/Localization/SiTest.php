@@ -121,63 +121,63 @@ class SiTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'sකට පෙර',
+        'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'තත්පර 2කට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'sකට පෙර',
+        'තත්පර 2කට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'මිනිත්තුවකට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'minකට පෙර',
+        'මිනිත්තුවකට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'මිනිත්තු 2කට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'minකට පෙර',
+        'මිනිත්තු 2කට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans()
         'පැයකට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hකට පෙර',
+        'පැයකට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans()
         'පැය 2කට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hකට පෙර',
+        'පැය 2කට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans()
         'දිනයකට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'dකට පෙර',
+        'දිනයකට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans()
         'දින 2කට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'dකට පෙර',
+        'දින 2කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'සතියක්කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'wකට පෙර',
+        'සතියක්කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'සති 2 යිකට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'wකට පෙර',
+        'සති 2 යිකට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'මාසයකට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'mකට පෙර',
+        'මාසයකට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'මාස 2කට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'mකට පෙර',
+        'මාස 2කට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans()
         'වසරකට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'yකට පෙර',
+        'වසරකට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans()
         'වසර 2කට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'yකට පෙර',
+        'වසර 2කට පෙර',
         // Carbon::now()->addSecond()->diffForHumans()
         'තත්පර කිහිපයකින්',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'sකින්',
+        'තත්පර කිහිපයකින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -189,23 +189,23 @@ class SiTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'තත්පර කිහිපය',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        's',
+        'තත්පර කිහිපය',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'තත්පර 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        's',
+        'තත්පර 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'sකින්',
+        'තත්පර කිහිපයකින්',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'මිනිත්තුව තත්පර කිහිපය',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'y m d s',
+        'වසර 2 මාස 3 දිනය තත්පර කිහිපය',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'වසර 3කින්',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'mකට පෙර',
+        'මාස 5කට පෙර',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'y m d sකට පෙර',
+        'වසර 2 මාස 3 දිනය තත්පර කිහිපයකට පෙර',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'සතියක් පැය 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
