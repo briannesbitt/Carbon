@@ -986,6 +986,8 @@ class CarbonInterval extends DateInterval
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
         $absolute = $syntax === CarbonInterface::DIFF_ABSOLUTE;
         $relativeToNow = $syntax === CarbonInterface::DIFF_RELATIVE_TO_NOW;
+        $count = 1;
+        $unit = $short ? 's' : 'second';
 
         /** @var \Symfony\Component\Translation\Translator $translator */
         $translator = $this->getLocalTranslator();
