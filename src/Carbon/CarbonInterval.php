@@ -607,64 +607,6 @@ class CarbonInterval extends DateInterval
     }
 
     ///////////////////////////////////////////////////////////////////
-    /////////////////////// LOCALIZATION //////////////////////////////
-    ///////////////////////////////////////////////////////////////////
-
-    /**
-     * Initialize the translator instance if necessary.
-     *
-     * @return \Symfony\Component\Translation\TranslatorInterface
-     */
-    protected static function translator()
-    {
-        if (static::$translator === null) {
-            static::$translator = Translator::get();
-        }
-
-        return static::$translator;
-    }
-
-    /**
-     * Get the translator instance in use.
-     *
-     * @return \Symfony\Component\Translation\TranslatorInterface
-     */
-    public static function getTranslator()
-    {
-        return static::translator();
-    }
-
-    /**
-     * Set the translator instance to use.
-     *
-     * @param TranslatorInterface $translator
-     */
-    public static function setTranslator(TranslatorInterface $translator)
-    {
-        static::$translator = $translator;
-    }
-
-    /**
-     * Get the current translator locale.
-     *
-     * @return string
-     */
-    public static function getLocale()
-    {
-        return static::translator()->getLocale();
-    }
-
-    /**
-     * Set the current translator locale.
-     *
-     * @param string $locale
-     */
-    public static function setLocale($locale)
-    {
-        return static::translator()->setLocale($locale) !== false;
-    }
-
-    ///////////////////////////////////////////////////////////////////
     ///////////////////////// GETTERS AND SETTERS /////////////////////
     ///////////////////////////////////////////////////////////////////
 

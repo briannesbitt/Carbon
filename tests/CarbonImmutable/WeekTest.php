@@ -12,6 +12,7 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonInterface;
 use Tests\AbstractTestCase;
 
 class WeekTest extends AbstractTestCase
@@ -5324,5 +5325,28 @@ class WeekTest extends AbstractTestCase
 
         $this->assertNotSame($d, $d2);
         $this->assertSame('2018-01-15', $d2->format('Y-m-d'));
+    }
+
+    public function testWeekday()
+    {
+        $d = Carbon::parse('2018-08-08');
+        $this->assertSame(CarbonInterface::WEDNESDAY, $d->weekday());
+        $this->assertSame(CarbonInterface::WEDNESDAY, $d->isoWeekday());
+        $date = $d->weekday(CarbonInterface::SUNDAY);
+        $this->assertSame('08-05', $date->format('m-d'));
+        $this->assertSame(CarbonInterface::SUNDAY, $date->weekday());
+        $this->assertSame(7, $date->isoWeekday());
+        $date = $d->isoWeekday(7);
+        $this->assertSame('08-12', $date->format('m-d'));
+        $this->assertSame(CarbonInterface::SUNDAY, $date->weekday());
+        $this->assertSame(7, $date->isoWeekday());
+        $date = $d->weekday(CarbonInterface::MONDAY);
+        $this->assertSame('08-06', $date->format('m-d'));
+        $this->assertSame(CarbonInterface::MONDAY, $date->weekday());
+        $this->assertSame(CarbonInterface::MONDAY, $date->isoWeekday());
+        $date = $d->isoWeekday(CarbonInterface::MONDAY);
+        $this->assertSame('08-06', $date->format('m-d'));
+        $this->assertSame(CarbonInterface::MONDAY, $date->weekday());
+        $this->assertSame(CarbonInterface::MONDAY, $date->isoWeekday());
     }
 }

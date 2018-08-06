@@ -482,6 +482,27 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Chicago', $dt->timezoneName);
     }
 
+    public function testShortDayName()
+    {
+        $dt = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame('Mon', $dt->shortDayName);
+        $this->assertSame('lun.', $dt->locale('fr')->shortDayName);
+    }
+
+    public function testMinDayName()
+    {
+        $dt = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame('Mo', $dt->minDayName);
+        $this->assertSame('lu', $dt->locale('fr')->minDayName);
+    }
+
+    public function testShortMonthName()
+    {
+        $dt = Carbon::createFromDate(2018, 7, 6);
+        $this->assertSame('Jul', $dt->shortMonthName);
+        $this->assertSame('juil.', $dt->locale('fr')->shortMonthName);
+    }
+
     public function testGetDays()
     {
         $days = [

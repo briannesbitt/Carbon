@@ -11,6 +11,7 @@
 
 namespace Tests\CarbonInterval;
 
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\Translator;
@@ -30,6 +31,7 @@ class ForHumansTest extends AbstractTestCase
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
+        $this->assertSame('en', CarbonInterval::day()->locale());
     }
 
     public function testResetTranslator()
@@ -37,6 +39,7 @@ class ForHumansTest extends AbstractTestCase
         $t = MyCarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
+        $this->assertSame('en', CarbonInterval::day()->locale());
     }
 
     public function testSetTranslator()
@@ -64,6 +67,13 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('en', CarbonInterval::getLocale());
         CarbonInterval::setLocale('fr');
         $this->assertSame('fr', CarbonInterval::getLocale());
+    }
+
+    public function testOptions()
+    {
+        CarbonInterval::setLocale('en');
+        $this->assertSame('1 year 2 months ago', CarbonInterval::year()->add(CarbonInterval::months(2))->forHumans(CarbonInterface::DIFF_RELATIVE_TO_NOW));
+        $this->assertSame('1 year before', CarbonInterval::year()->add(CarbonInterval::months(2))->forHumans(CarbonInterface::DIFF_RELATIVE_TO_OTHER, 1));
     }
 
     public function testYear()

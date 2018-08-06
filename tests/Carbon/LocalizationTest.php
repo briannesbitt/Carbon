@@ -318,6 +318,7 @@ class LocalizationTest extends AbstractTestCase
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame($locale, $t->getLocale());
+        $this->assertSame($locale, Carbon::now()->locale());
         Carbon::setTranslator($ori);
     }
 
@@ -554,6 +555,9 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertTrue(Carbon::localeHasDiffSyntax($withDiffSyntaxLocale));
         $this->assertFalse(Carbon::localeHasDiffSyntax($withoutDiffSyntaxLocale));
+
+        $this->assertTrue(Carbon::localeHasDiffSyntax('ka'));
+        $this->assertFalse(Carbon::localeHasDiffSyntax('foobar'));
     }
 
     public function testLocaleHasDiffOneDayWords()
@@ -640,8 +644,8 @@ class LocalizationTest extends AbstractTestCase
 
     public function testGeorgianSpecialFromNowTranslation()
     {
-        $diff = Carbon::now()->locale('ka')->subWeeks(3)->diffForHumans();
+        $diff = Carbon::now()->locale('ka')->addWeeks(3)->diffForHumans();
 
-        $this->assertSame('3 კვირისში', $diff);
+        $this->assertSame('3 კვირაა', $diff);
     }
 }
