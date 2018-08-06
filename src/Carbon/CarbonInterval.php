@@ -1004,8 +1004,9 @@ class CarbonInterval extends DateInterval
         ];
 
         $transChoice = function ($short, $unitData) use ($translator) {
+            $count = $unitData['value'];
+
             if ($short) {
-                $count = $unitData['value'];
                 $result = $translator->transChoice($unitData['unitShort'], $count, [':count' => $count]);
 
                 if ($result !== $unitData['unitShort']) {
