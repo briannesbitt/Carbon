@@ -65,7 +65,7 @@ class CaTest extends AbstractTestCase
             $scope->assertSame('fa 2 anys', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
-            $scope->assertSame('dins de 1 segon', $d->diffForHumans());
+            $scope->assertSame('d\'aquí 1 segon', $d->diffForHumans());
 
             $d = Carbon::now()->addSecond();
             $d2 = Carbon::now();
