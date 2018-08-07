@@ -31,7 +31,7 @@ return [
     'diff_now' => 'ahora mismo',
     'diff_yesterday' => 'ayer',
     'diff_tomorrow' => 'mañana',
-    'diff_before_yesterday' => 'anteayer',
+    'diff_before_yesterday' => 'antier',
     'diff_after_tomorrow' => 'pasado mañana',
     'formats' => [
         'LT' => 'H:mm',

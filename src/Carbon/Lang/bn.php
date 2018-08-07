@@ -28,8 +28,13 @@ return [
     'from_now' => ':time পরে',
     'after' => ':time পরে',
     'before' => ':time আগে',
+    'diff_now' => 'এখন',
     'diff_yesterday' => 'গতকাল',
     'diff_tomorrow' => 'আগামীকাল',
+    'period_recurrences' => ':count বার|:count বার',
+    'period_interval' => 'প্রতি :interval',
+    'period_start_date' => ':date থেকে',
+    'period_end_date' => ':date পর্যন্ত',
     'formats' => [
         'LT' => 'A h:mm সময়',
         'LTS' => 'A h:mm:ss সময়',
