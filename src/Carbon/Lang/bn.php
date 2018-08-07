@@ -31,8 +31,6 @@ return array(
     'diff_now' => 'এখন',
     'diff_yesterday' => 'গতকাল',
     'diff_tomorrow' => 'আগামীকাল',
-    'diff_before_yesterday' => 'গত পরশু',
-    'diff_after_tomorrow' => 'পরশু',
     'period_recurrences' => ':count বার|:count বার',
     'period_interval' => 'প্রতি :interval',
     'period_start_date' => ':date থেকে',
