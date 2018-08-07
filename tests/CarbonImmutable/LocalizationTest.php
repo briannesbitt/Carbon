@@ -13,8 +13,10 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Carbon\Translator;
+use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\MessageSelector;
 use Tests\AbstractTestCase;
 use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
@@ -253,5 +255,17 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame([], $translator->getMessages());
 
         $this->assertTrue(Carbon::setLocale('en'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Translator does not implement Symfony\Component\Translation\TranslatorInterface and Symfony\Component\Translation\TranslatorBagInterface.
+     */
+    public function testTranslationCustomWithCustomTranslator()
+    {
+        $date = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date->setLocalTranslator(new IdentityTranslator(new MessageSelector()));
+
+        $date->getTranslationMessage('foo');
     }
 }

@@ -1705,7 +1705,7 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - ($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        $dayOfWeek = ($this->dayOfWeek + 7 - intval($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
 
         return is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
@@ -2652,7 +2652,7 @@ trait Date
      */
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = STR_PAD_LEFT)
     {
-        return str_pad($this->$unit, $length, $padString, $padType);
+        return ($this->$unit < 0 ? '-' : '').str_pad(abs($this->$unit), $length, $padString, $padType);
     }
 
     /**
@@ -2735,7 +2735,7 @@ trait Date
             }
 
             $input = mb_substr($format, $i);
-            if (preg_match('/^(LTS|LT|LL?L?L?|l{1,4})/', $input, $match)) {
+            if (preg_match('/^(LTS|LT|[Ll]{1,4})/', $input, $match)) {
                 if ($formats === null) {
                     $formats = $this->getIsoFormats();
                 }
@@ -2744,7 +2744,7 @@ trait Date
                 $sequence = $formats[$code] ?? preg_replace_callback(
                     '/MMMM|MM|DD|dddd/',
                     function ($code) {
-                        return mb_substr($code, 1);
+                        return mb_substr($code[0], 1);
                     },
                     $formats[strtoupper($code)] ?? ''
                 );
