@@ -58,5 +58,5 @@ return [
     'weekdays_short' => ['dim', 'lun', 'mard', 'merk', 'ĵaŭ', 'ven', 'sab'],
     'weekdays_min' => ['di', 'lu', 'ma', 'me', 'ĵa', 've', 'sa'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

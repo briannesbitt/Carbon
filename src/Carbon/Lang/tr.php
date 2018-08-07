@@ -95,5 +95,5 @@ return [
     'weekdays_short' => ['Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts'],
     'weekdays_min' => ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

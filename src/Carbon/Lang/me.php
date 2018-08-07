@@ -83,5 +83,5 @@ return [
     'weekdays_short' => ['ned.', 'pon.', 'uto.', 'sri.', 'čet.', 'pet.', 'sub.'],
     'weekdays_min' => ['ne', 'po', 'ut', 'sr', 'če', 'pe', 'su'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

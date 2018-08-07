@@ -54,5 +54,5 @@ return [
     'weekdays_short' => ['Min', 'Sen', 'Sel', 'Reb', 'Kem', 'Jem', 'Sep'],
     'weekdays_min' => ['Mg', 'Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sp'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

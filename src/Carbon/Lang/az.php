@@ -78,7 +78,7 @@ return [
             60 => '-ıncı',
             90 => '-ıncı',
             'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];
 
         $lastDigit = $number % 10;
@@ -104,5 +104,5 @@ return [
     'weekdays_short' => ['Baz', 'BzE', 'ÇAx', 'Çər', 'CAx', 'Cüm', 'Şən'],
     'weekdays_min' => ['Bz', 'BE', 'ÇA', 'Çə', 'CA', 'Cü', 'Şə'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

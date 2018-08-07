@@ -71,5 +71,5 @@ return [
     'weekdays_short' => ['Жек', 'Дүй', 'Шей', 'Шар', 'Бей', 'Жум', 'Ише'],
     'weekdays_min' => ['Жк', 'Дй', 'Шй', 'Шр', 'Бй', 'Жм', 'Иш'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 7,
+    'day_of_first_week_of_year' => 1,
 ];

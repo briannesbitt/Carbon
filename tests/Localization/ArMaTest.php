@@ -75,21 +75,21 @@ class ArMaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'الجمعة على الساعة 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1 1 1 52 52',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2 52',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3 52',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4 52',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5 52',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6 1',
+        '6 2',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7 1',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11 1',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
         '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')

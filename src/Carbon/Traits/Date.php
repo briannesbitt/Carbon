@@ -2884,6 +2884,12 @@ trait Date
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($year !== null) {
+            $year = (int) round($year);
+
+            if ($this->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
+                return $this->copy();
+            }
+
             $week = $this->week(null, $dayOfWeek, $dayOfYear);
             $day = $this->dayOfWeek;
             $date = $this->year($year);
@@ -2896,9 +2902,13 @@ trait Date
                     break;
             }
 
-            return $date->addWeeks($week - $date->week(null, $dayOfWeek, $dayOfYear))
-                ->startOfWeek($dayOfWeek)
-                ->next($day);
+            $date = $date->addWeeks($week - $date->week(null, $dayOfWeek, $dayOfYear))->startOfWeek($dayOfWeek);
+
+            if ($date->dayOfWeek === $day) {
+                return $date;
+            }
+
+            return $date->next($day);
         }
 
         $year = $this->year;
@@ -2972,19 +2982,7 @@ trait Date
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($week !== null) {
-            while ($week < 1) {
-                $max = $this->weekYear($this->weekYear(null, $dayOfWeek, $dayOfYear) - 1, $dayOfWeek, $dayOfYear)->weeksInYear($dayOfWeek, $dayOfYear);
-                $date = $date->subWeeks($max);
-                $week += $max;
-            }
-            $max = $date->weeksInYear($dayOfWeek, $dayOfYear);
-            while ($week > $max) {
-                $date = $date->addWeeks($max);
-                $week -= $max;
-                $max = $date->weeksInYear($dayOfWeek, $dayOfYear);
-            }
-
-            return $date->addWeeks($week - $this->week(null, $dayOfWeek, $dayOfYear));
+            return $date->addWeeks(round($week) - $this->week(null, $dayOfWeek, $dayOfYear));
         }
 
         $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);
@@ -3926,6 +3924,10 @@ trait Date
      */
     public function subtract($unit, $value = 1, $overflow = null)
     {
+        if (is_string($unit) && func_num_args() === 1) {
+            $unit = CarbonInterval::make($unit);
+        }
+
         return $this->sub($unit, $value, $overflow);
     }
 

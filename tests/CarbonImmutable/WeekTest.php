@@ -5325,6 +5325,83 @@ class WeekTest extends AbstractTestCase
 
         $this->assertNotSame($d, $d2);
         $this->assertSame('2018-01-15', $d2->format('Y-m-d'));
+
+        $d2 = $d2->week(34);
+
+        $this->assertSame('2018-08-20', $d2->format('Y-m-d'));
+
+        $d2 = $d2->week(0);
+
+        $this->assertSame('2017-12-25', $d2->format('Y-m-d'));
+
+        $d = Carbon::parse('2018-01-01');
+        $d = $d->week(-1);
+
+        $this->assertSame('2017-12-18', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2018-01-01');
+        $d = $d->week(-5);
+
+        $this->assertSame('2017-11-20', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2018-01-01');
+        $d = $d->week(-55);
+
+        $this->assertSame('2016-12-05', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d = $d->week(34);
+
+        $this->assertSame('2017-08-20', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d = $d->isoWeek(34);
+
+        $this->assertSame('2016-08-28', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d = $d->weekYear(2015);
+
+        $this->assertSame('2014-12-28', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2012-12-31');
+        $d = $d->weekYear(2013);
+
+        $this->assertSame('2012-12-31', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2012-12-30');
+        $d = $d->weekYear(2014);
+
+        $this->assertSame('2013-12-29', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2015-12-31');
+        $d = $d->weekYear(2013);
+
+        $this->assertSame('2013-01-03', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01');
+        $d = $d->isoWeekYear(2015);
+
+        $this->assertSame('2015-12-27', $d->format('Y-m-d'));
+
+        $d = $d->dayOfYear(300);
+
+        $this->assertSame('2015-10-27', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01')->locale('fr');
+        $d = $d->weekYear(2015);
+
+        $this->assertSame('2015-12-27', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01')->locale('sr');
+        $d = $d->weekYear(2017);
+
+        $this->assertSame('2017-01-01', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2017-01-01')->locale('fr');
+        $d = $d->weekYear(2012);
+
+        $this->assertSame('2012-12-30', $d->format('Y-m-d'));
     }
 
     public function testWeekday()
