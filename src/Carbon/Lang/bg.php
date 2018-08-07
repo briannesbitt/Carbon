@@ -10,22 +10,78 @@
  */
 
 return [
-    'year' => ':count година|:count години',
+    'year' => 'година|:count години',
     'y' => ':count година|:count години',
-    'month' => ':count месец|:count месеца',
+    'month' => 'месец|:count месеца',
     'm' => ':count месец|:count месеца',
     'week' => ':count седмица|:count седмици',
     'w' => ':count седмица|:count седмици',
-    'day' => ':count ден|:count дни',
+    'day' => 'ден|:count дни',
     'd' => ':count ден|:count дни',
-    'hour' => ':count час|:count часа',
+    'hour' => 'час|:count часа',
     'h' => ':count час|:count часа',
-    'minute' => ':count минута|:count минути',
+    'minute' => 'минута|:count минути',
     'min' => ':count минута|:count минути',
-    'second' => ':count секунда|:count секунди',
+    'second' => 'няколко секунди|:count секунди',
     's' => ':count секунда|:count секунди',
     'ago' => 'преди :time',
-    'from_now' => ':time от сега',
+    'from_now' => 'след :time',
     'after' => 'след :time',
     'before' => 'преди :time',
+    'formats' => [
+        'LT' => 'H:mm',
+        'LTS' => 'H:mm:ss',
+        'L' => 'D.MM.YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY H:mm',
+        'LLLL' => 'dddd, D MMMM YYYY H:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[Днес в] LT',
+        'nextDay' => '[Утре в] LT',
+        'nextWeek' => 'dddd [в] LT',
+        'lastDay' => '[Вчера в] LT',
+        'lastWeek' => function (\Carbon\CarbonInterface $current) {
+            switch ($current->dayOfWeek) {
+                case 0:
+                case 3:
+                case 6:
+                    return '[В изминалата] dddd [в] LT';
+                default:
+                    return '[В изминалия] dddd [в] LT';
+            }
+        },
+        'sameElse' => 'L',
+    ],
+    'ordinal' => function ($number, $period) {
+        $lastDigit = $number % 10;
+        $last2Digits = $number % 100;
+        if ($number === 0) {
+            return "$number-ев";
+        }
+        if ($last2Digits === 0) {
+            return "$number-ен";
+        }
+        if ($last2Digits > 10 && $last2Digits < 20) {
+            return "$number-ти";
+        }
+        if ($lastDigit === 1) {
+            return "$number-ви";
+        }
+        if ($lastDigit === 2) {
+            return "$number-ри";
+        }
+        if ($lastDigit === 7 || $lastDigit === 8) {
+            return "$number-ми";
+        }
+
+        return "$number-ти";
+    },
+    'months' => ['януари', 'февруари', 'март', 'април', 'май', 'юни', 'юли', 'август', 'септември', 'октомври', 'ноември', 'декември'],
+    'months_short' => ['янр', 'фев', 'мар', 'апр', 'май', 'юни', 'юли', 'авг', 'сеп', 'окт', 'ное', 'дек'],
+    'weekdays' => ['неделя', 'понеделник', 'вторник', 'сряда', 'четвъртък', 'петък', 'събота'],
+    'weekdays_short' => ['нед', 'пон', 'вто', 'сря', 'чет', 'пет', 'съб'],
+    'weekdays_min' => ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 1,
 ];

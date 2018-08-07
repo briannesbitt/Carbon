@@ -35,4 +35,6 @@ return [
     'hour_ago' => 'hodinou|:count hodinami|:count hodinami',
     'minute_ago' => 'minútou|:count minútami|:count minútami',
     'second_ago' => 'sekundou|:count sekundami|:count sekundami',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

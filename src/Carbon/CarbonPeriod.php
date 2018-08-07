@@ -12,6 +12,7 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Traits\Options;
 use Closure;
 use Countable;
 use DateInterval;
@@ -98,6 +99,8 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable
 {
+    use Options;
+
     /**
      * Built-in filters.
      *
@@ -432,7 +435,13 @@ class CarbonPeriod implements Iterator, Countable
         }
 
         foreach ($arguments as $argument) {
-            if ($this->dateInterval === null && $parsed = CarbonInterval::make($argument)) {
+            if ($this->dateInterval === null &&
+                (
+                    is_string($argument) && preg_match('/^(\d.*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i', $argument) ||
+                    $argument instanceof DateInterval
+                ) &&
+                $parsed = CarbonInterval::make($argument)
+            ) {
                 $this->setDateInterval($parsed);
             } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
                 $this->setStartDate($parsed);
@@ -1173,7 +1182,7 @@ class CarbonPeriod implements Iterator, Countable
         $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
         if ($this->timezone) {
-            $this->current = $this->current->setTimezone('UTC');
+            $this->current = $this->current->utc();
         }
 
         $this->validationResult = null;

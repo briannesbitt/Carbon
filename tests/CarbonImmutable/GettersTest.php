@@ -130,7 +130,7 @@ class GettersTest extends AbstractTestCase
     public function testDayOfYearGetter()
     {
         $d = Carbon::createFromDate(2012, 5, 7);
-        $this->assertSame(127, $d->dayOfYear);
+        $this->assertSame(128, $d->dayOfYear);
     }
 
     public function testDaysInMonthGetter()
@@ -249,11 +249,13 @@ class GettersTest extends AbstractTestCase
     public function testGetDstFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->dst);
+        $this->assertFalse(Carbon::createFromDate(2012, 1, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetDstTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->dst);
+        $this->assertTrue(Carbon::createFromDate(2012, 7, 1, 'America/Toronto')->isDST());
     }
 
     public function testGetMidDayAt()
@@ -380,6 +382,27 @@ class GettersTest extends AbstractTestCase
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
         $this->assertSame('America/Chicago', $dt->timezoneName);
+    }
+
+    public function testShortDayName()
+    {
+        $dt = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame('Mon', $dt->shortDayName);
+        $this->assertSame('lun.', $dt->locale('fr')->shortDayName);
+    }
+
+    public function testMinDayName()
+    {
+        $dt = Carbon::createFromDate(2018, 8, 6);
+        $this->assertSame('Mo', $dt->minDayName);
+        $this->assertSame('lu', $dt->locale('fr')->minDayName);
+    }
+
+    public function testShortMonthName()
+    {
+        $dt = Carbon::createFromDate(2018, 7, 6);
+        $this->assertSame('Jul', $dt->shortMonthName);
+        $this->assertSame('juil.', $dt->locale('fr')->shortMonthName);
     }
 
     public function testGetDays()

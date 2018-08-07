@@ -120,4 +120,10 @@ class ConstructTest extends AbstractTestCase
 
         Carbon::setTestNow();
     }
+
+    public function testTimestamp()
+    {
+        $date = new Carbon(1367186296);
+        $this->assertSame('Sunday 28 April 2013 21:58:16', $date->format('l j F Y H:i:s'));
+    }
 }

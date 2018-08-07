@@ -11,69 +11,212 @@
 
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-use Tests\AbstractTestCase;
-
-class AzTest extends AbstractTestCase
+class AzTest extends LocalizationTestCase
 {
-    public function testDiffForHumansLocalizedInAzerbaijani()
-    {
-        Carbon::setLocale('az');
+    const LOCALE = 'az'; // Azerbaijani
 
-        $scope = $this;
-        $this->wrapWithNonDstDate(function () use ($scope) {
-            $d = Carbon::now()->subSeconds(1);
-            $scope->assertSame('1 saniyə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subSeconds(2);
-            $scope->assertSame('2 saniyə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(1);
-            $scope->assertSame('1 dəqiqə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subMinutes(2);
-            $scope->assertSame('2 dəqiqə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(1);
-            $scope->assertSame('1 saat əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subHours(2);
-            $scope->assertSame('2 saat əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(1);
-            $scope->assertSame('1 gün əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subDays(2);
-            $scope->assertSame('2 gün əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(1);
-            $scope->assertSame('1 həftə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subWeeks(2);
-            $scope->assertSame('2 həftə əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(1);
-            $scope->assertSame('1 ay əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subMonths(2);
-            $scope->assertSame('2 ay əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(1);
-            $scope->assertSame('1 il əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->subYears(2);
-            $scope->assertSame('2 il əvvəl', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $scope->assertSame('1 saniyə sonra', $d->diffForHumans());
-
-            $d = Carbon::now()->addSecond();
-            $d2 = Carbon::now();
-            $scope->assertSame('1 saniyə sonra', $d->diffForHumans($d2));
-            $scope->assertSame('1 saniyə əvvəl', $d2->diffForHumans($d));
-
-            $scope->assertSame('1 saniyə', $d->diffForHumans($d2, true));
-            $scope->assertSame('2 saniyə', $d2->diffForHumans($d->addSecond(), true));
-        });
-    }
+    const CASES = [
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'sabah saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Şənbə saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Bazar saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Bazar ertəsi saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'gələn həftə Çərşənbə saat 00:00',
+        // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
+        'gələn həftə Cümə axşamı saat 00:00',
+        // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
+        'gələn həftə Cümə saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Çərşənbə saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Cümə axşamı saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Cümə saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Şənbə saat 00:00',
+        // Carbon::now()->subDays(2)->calendar()
+        'keçən həftə Bazar saat 20:49',
+        // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'dünən 22:00',
+        // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
+        'bugün saat 10:00',
+        // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'bugün saat 02:00',
+        // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
+        'sabah saat 01:00',
+        // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'gələn həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
+        'dünən 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'dünən 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Çərşənbə axşamı saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Bazar ertəsi saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Bazar saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Şənbə saat 00:00',
+        // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
+        'keçən həftə Cümə saat 00:00',
+        // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
+        'keçən həftə Cümə axşamı saat 00:00',
+        // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
+        'keçən həftə Çərşənbə saat 00:00',
+        // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
+        'keçən həftə Cümə saat 00:00',
+        // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
+        '1-inci 1-inci 1-inci 1-inci 1-inci',
+        // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
+        '2-nci 1-inci',
+        // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
+        '3-üncü 1-inci',
+        // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
+        '4-üncü 1-inci',
+        // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
+        '5-inci 1-inci',
+        // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
+        '6-ncı 1-inci',
+        // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
+        '7-nci 1-inci',
+        // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
+        '11-inci 2-nci',
+        // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
+        '40',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
+        '41-inci',
+        // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
+        '100-üncü',
+        // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
+        '12:00 gecə cet',
+        // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 gecə, 12:00 gecə',
+        // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
+        '1:30 gecə, 1:30 gecə',
+        // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
+        '2:00 gecə, 2:00 gecə',
+        // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
+        '6:00 səhər, 6:00 səhər',
+        // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
+        '10:00 səhər, 10:00 səhər',
+        // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
+        '12:00 gündüz, 12:00 gündüz',
+        // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
+        '5:00 axşam, 5:00 axşam',
+        // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
+        '9:30 axşam, 9:30 axşam',
+        // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
+        '11:00 axşam, 11:00 axşam',
+        // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
+        '0-ıncı',
+        // Carbon::now()->subSeconds(1)->diffForHumans()
+        'birneçə saniyə əvvəl',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 saniyə əvvəl',
+        // Carbon::now()->subSeconds(2)->diffForHumans()
+        '2 saniyə əvvəl',
+        // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
+        '2 saniyə əvvəl',
+        // Carbon::now()->subMinutes(1)->diffForHumans()
+        'bir dəqiqə əvvəl',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 dəqiqə əvvəl',
+        // Carbon::now()->subMinutes(2)->diffForHumans()
+        '2 dəqiqə əvvəl',
+        // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
+        '2 dəqiqə əvvəl',
+        // Carbon::now()->subHours(1)->diffForHumans()
+        'bir saat əvvəl',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1 saat əvvəl',
+        // Carbon::now()->subHours(2)->diffForHumans()
+        '2 saat əvvəl',
+        // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
+        '2 saat əvvəl',
+        // Carbon::now()->subDays(1)->diffForHumans()
+        'bir gün əvvəl',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 gün əvvəl',
+        // Carbon::now()->subDays(2)->diffForHumans()
+        '2 gün əvvəl',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        '2 gün əvvəl',
+        // Carbon::now()->subWeeks(1)->diffForHumans()
+        '1 həftə əvvəl',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        '1 həftə əvvəl',
+        // Carbon::now()->subWeeks(2)->diffForHumans()
+        '2 həftə əvvəl',
+        // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
+        '2 həftə əvvəl',
+        // Carbon::now()->subMonths(1)->diffForHumans()
+        'bir ay əvvəl',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1 ay əvvəl',
+        // Carbon::now()->subMonths(2)->diffForHumans()
+        '2 ay əvvəl',
+        // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
+        '2 ay əvvəl',
+        // Carbon::now()->subYears(1)->diffForHumans()
+        'bir il əvvəl',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 il əvvəl',
+        // Carbon::now()->subYears(2)->diffForHumans()
+        '2 il əvvəl',
+        // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
+        '2 il əvvəl',
+        // Carbon::now()->addSecond()->diffForHumans()
+        'birneçə saniyə sonra',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1 saniyə sonra',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
+        'birneçə saniyə sonra',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 saniyə sonra',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
+        'birneçə saniyə əvvəl',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 saniyə əvvəl',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
+        'birneçə saniyə',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 saniyə',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
+        '2 saniyə',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
+        '2 saniyə',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
+        '1 saniyə sonra',
+        // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
+        'bir dəqiqə birneçə saniyə',
+        // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
+        '2 il 3 ay 1 gün 1 saniyə',
+        // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
+        '3 il sonra',
+        // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
+        '5 ay əvvəl',
+        // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
+        '2 il 3 ay 1 gün 1 saniyə əvvəl',
+        // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
+        '1 həftə 10 saat',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 həftə 6 gün',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
+        '1 həftə 6 gün',
+        // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
+        '2 həftə bir saat',
+        // CarbonInterval::days(2)->forHumans()
+        '2 gün',
+        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        '1 gün 3 saat',
+    ];
 }

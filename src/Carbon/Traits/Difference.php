@@ -246,10 +246,30 @@ trait Difference
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
-        $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
-            $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
-            $diff->i * static::SECONDS_PER_MINUTE +
+        $value = ((($diff->days * static::HOURS_PER_DAY) +
+            $diff->h) * static::MINUTES_PER_HOUR +
+            $diff->i) * static::SECONDS_PER_MINUTE +
             $diff->s;
+
+        return $absolute || !$diff->invert ? $value : -$value;
+    }
+
+    /**
+     * Get the difference in microseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMicroseconds($date = null, $absolute = true)
+    {
+        $diff = $this->diff($this->resolveCarbon($date));
+        $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
+            $diff->h) * static::MINUTES_PER_HOUR +
+            $diff->i) * static::SECONDS_PER_MINUTE +
+            $diff->s) * static::MICROSECONDS_PER_SECOND +
+            $diff->f);
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
@@ -267,6 +287,24 @@ trait Difference
         /** @var CarbonInterface $date */
         $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
+
+        return $absolute ? abs($value) : $value;
+    }
+
+    /**
+     * Get the difference in microseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInRealMicroseconds($date = null, $absolute = true)
+    {
+        /** @var CarbonInterface $date */
+        $date = $this->resolveCarbon($date);
+        $value = ($date->timestamp - $this->timestamp) * static::MICROSECONDS_PER_SECOND +
+            $date->micro - $this->micro;
 
         return $absolute ? abs($value) : $value;
     }
@@ -312,29 +350,26 @@ trait Difference
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param int         $syntax difference modifiers (ago, after, etc) rules
-     *                            Possible values:
-     *                            - CarbonInterface::DIFF_ABSOLUTE
-     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short  displays short format of time units
-     * @param int         $parts  displays number of parts in the interval
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
      *
      * @return string
      */
-    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
         /* @var CarbonInterface $this */
-        $interval = [];
         $syntax = (int) ($syntax === null ? static::DIFF_RELATIVE_AUTO : $syntax);
-        $absolute = ($syntax === static::DIFF_ABSOLUTE);
-        $relativeToNow = $syntax === static::DIFF_RELATIVE_TO_NOW || $syntax === static::DIFF_RELATIVE_AUTO && $other === null;
+        $syntax = $syntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $syntax;
 
-        $parts = min(6, max(1, (int) $parts));
-        $count = 1;
-        $unit = $short ? 's' : 'second';
+        $parts = min(7, max(1, (int) $parts));
 
         if ($other === null) {
             $other = $this->nowWithSameTz();
@@ -342,98 +377,13 @@ trait Difference
             $other = static::parse($other);
         }
 
-        $diffInterval = $this->diff($other);
-
-        $diffIntervalArray = [
-            ['value' => $diffInterval->y, 'unit' => 'year',    'unitShort' => 'y'],
-            ['value' => $diffInterval->m, 'unit' => 'month',   'unitShort' => 'm'],
-            ['value' => $diffInterval->d, 'unit' => 'day',     'unitShort' => 'd'],
-            ['value' => $diffInterval->h, 'unit' => 'hour',    'unitShort' => 'h'],
-            ['value' => $diffInterval->i, 'unit' => 'minute',  'unitShort' => 'min'],
-            ['value' => $diffInterval->s, 'unit' => 'second',  'unitShort' => 's'],
-        ];
-
-        foreach ($diffIntervalArray as $diffIntervalData) {
-            if ($diffIntervalData['value'] > 0) {
-                $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
-                $count = $diffIntervalData['value'];
-
-                if ($diffIntervalData['unit'] === 'day' && $count >= static::DAYS_PER_WEEK) {
-                    $unit = $short ? 'w' : 'week';
-                    $count = (int) ($count / static::DAYS_PER_WEEK);
-
-                    $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
-
-                    // get the count days excluding weeks (might be zero)
-                    $numOfDaysCount = (int) ($diffIntervalData['value'] - ($count * static::DAYS_PER_WEEK));
-
-                    if ($numOfDaysCount > 0 && count($interval) < $parts) {
-                        $unit = $short ? 'd' : 'day';
-                        $count = $numOfDaysCount;
-                        $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
-                    }
-                } else {
-                    $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
-                }
-            }
-
-            // break the loop after we get the required number of parts in array
-            if (count($interval) >= $parts) {
-                break;
-            }
+        if (is_null($options)) {
+            $options = static::getHumanDiffOptions();
         }
 
-        if (count($interval) === 0) {
-            if ($relativeToNow && static::getHumanDiffOptions() & self::JUST_NOW) {
-                $key = 'diff_now';
-                $translation = static::translator()->trans($key);
-                if ($translation !== $key) {
-                    return $translation;
-                }
-            }
-            $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
-            $unit = $short ? 's' : 'second';
-            $interval[] = static::translator()->transChoice($unit, $count, [':count' => $count]);
-        }
-
-        // join the interval parts by a space
-        $time = implode(' ', $interval);
-
-        unset($diffIntervalArray, $interval);
-
-        if ($absolute) {
-            return $time;
-        }
-
-        $isFuture = $diffInterval->invert === 1;
-
-        $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
-
-        if ($parts === 1) {
-            if ($relativeToNow && $unit === 'day') {
-                if ($count === 1 && static::getHumanDiffOptions() & self::ONE_DAY_WORDS) {
-                    $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = static::translator()->trans($key);
-                    if ($translation !== $key) {
-                        return $translation;
-                    }
-                }
-                if ($count === 2 && static::getHumanDiffOptions() & self::TWO_DAY_WORDS) {
-                    $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
-                    $translation = static::translator()->trans($key);
-                    if ($translation !== $key) {
-                        return $translation;
-                    }
-                }
-            }
-            // Some languages have special pluralization for past and future tense.
-            $key = $unit.'_'.$transId;
-            if ($key !== static::translator()->transChoice($key, $count)) {
-                $time = static::translator()->transChoice($key, $count, [':count' => $count]);
-            }
-        }
-
-        return static::translator()->trans($transId, [':time' => $time]);
+        return $this->diffAsCarbonInterval($other, false)
+            ->setLocalTranslator($this->getLocalTranslator())
+            ->forHumans($syntax, (bool) $short, $parts, $options);
     }
 
     /**
@@ -443,6 +393,17 @@ trait Difference
      * instance given (or now if null given).
      */
     public function from($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        return $this->diffForHumans($other, $syntax, $short, $parts);
+    }
+
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     */
+    public function since($other = null, $syntax = null, $short = false, $parts = 1)
     {
         return $this->diffForHumans($other, $syntax, $short, $parts);
     }
@@ -490,6 +451,17 @@ trait Difference
     }
 
     /**
+     * @alias to
+     *
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     */
+    public function until($other = null, $syntax = null, $short = false, $parts = 1)
+    {
+        return $this->to($other, $syntax, $short, $parts);
+    }
+
+    /**
      * Get the difference in a human readable format in the current locale from current
      * instance to now.
      *
@@ -529,5 +501,31 @@ trait Difference
     public function toNow($syntax = null, $short = false, $parts = 1)
     {
         return $this->to(null, $syntax, $short, $parts);
+    }
+
+    public function calendar($referenceTime = null, array $formats = [])
+    {
+        /** @var CarbonInterface $current */
+        $current = $this->copy()->startOfDay();
+        /** @var CarbonInterface $other */
+        $other = $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay();
+        $diff = $other->diffInDays($current, false);
+        $format = $diff < -6 ? 'sameElse' : (
+            $diff < -1 ? 'lastWeek' : (
+                $diff < 0 ? 'lastDay' : (
+                    $diff < 1 ? 'sameDay' : (
+                        $diff < 2 ? 'nextDay' : (
+                            $diff < 7 ? 'nextWeek' : 'sameElse'
+                        )
+                    )
+                )
+            )
+        );
+        $format = array_merge($this->getCalendarFormats(), $formats)[$format];
+        if ($format instanceof Closure) {
+            $format = $format($current, $other) ?? '';
+        }
+
+        return $this->isoFormat(strval($format));
     }
 }

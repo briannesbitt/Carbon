@@ -17,6 +17,16 @@ use Tests\AbstractTestCase;
 
 class SubTest extends AbstractTestCase
 {
+    public function testSubMethod()
+    {
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub('2 years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('2 years')->year);
+    }
+
     public function testSubYearsPositive()
     {
         $this->assertSame(1974, Carbon::createFromDate(1975)->subYears(1)->year);

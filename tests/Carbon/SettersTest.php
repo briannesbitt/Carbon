@@ -17,6 +17,8 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
+    const SET_UNIT_NO_OVERFLOW_SAMPLE = 1000;
+
     public function testSingularUnit()
     {
         $this->assertSame('year', Carbon::singularUnit('year'));
@@ -403,5 +405,287 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(11, $d->getMidDayAt());
         $d->setMidDayAt(12);
         $this->assertSame(12, $d->getMidDayAt());
+    }
+
+    public function testSetUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $microsecond = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $original = $date->copy();
+            $date->setUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = $value % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
+            if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
+                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
+                $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
+            ) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+        }
+
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'anyUnit'
+     */
+    public function testSetUnitNoOverflowInputUnitException()
+    {
+        Carbon::now()->setUnitNoOverflow('anyUnit', 1, 'year');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown unit 'anyUnit'
+     */
+    public function testSetUnitNoOverflowOverflowUnitException()
+    {
+        Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
+    }
+
+    public function testAddUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $microsecond = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $original = $date->copy();
+            $date->addUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = ($$valueUnit + $value) % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
+            if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
+                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
+                -$date->{"diffIn$unit"}($original, false) === $value
+            ) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+        }
+
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
+    }
+
+    public function testSubUnitNoOverflow()
+    {
+        $results = [
+            'current' => 0,
+            'start' => 0,
+            'end' => 0,
+            'failure' => 0,
+        ];
+
+        for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
+            $year = mt_rand(2000, 3000);
+            $month = mt_rand(1, 12);
+            $day = mt_rand(1, 28);
+            $hour = mt_rand(0, 23);
+            $minute = mt_rand(0, 59);
+            $second = mt_rand(0, 59);
+            $microsecond = mt_rand(0, 999999);
+            $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
+            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $units = [
+                'year' => 10,
+                'month' => 12,
+                'day' => 9999,
+                'hour' => 24,
+                'minute' => 60,
+                'second' => 60,
+                'microsecond' => 1000000,
+            ];
+            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
+            $value = mt_rand() > 0.5 ?
+                mt_rand(-9999, 9999) :
+                mt_rand(-60, 60);
+
+            $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
+            $original = $date->copy();
+            $date->subUnitNoOverflow($valueUnit, $value, $overflowUnit);
+            $start = $original->copy()->startOf($overflowUnit);
+            $end = $original->copy()->endOf($overflowUnit);
+
+            if ($date < $start || $date > $end) {
+                $results['failure']++;
+
+                continue;
+            }
+
+            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $modulo = ($$valueUnit - $value) % $units[$valueUnit];
+            if ($modulo < 0) {
+                $modulo += $units[$valueUnit];
+            }
+            if ($date->$valueUnit === $value ||
+                $date->$valueUnit === $modulo ||
+                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
+                $date->{"diffIn$unit"}($original, false) === $value
+            ) {
+                $results['current']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $start->$valueUnit) {
+                $results['start']++;
+
+                continue;
+            }
+
+            if ($date->$valueUnit === $end->$valueUnit) {
+                $results['end']++;
+
+                continue;
+            }
+
+            throw new \Exception('Unhandled result for: '.
+                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                var_export($original->timezoneName, true).
+                ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {
+                    return var_export($value, true);
+                }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
+        }
+
+        $minimum = static::SET_UNIT_NO_OVERFLOW_SAMPLE / 100;
+        $this->assertSame(0, $results['failure']);
+        $this->assertGreaterThan($minimum, $results['start']);
+        $this->assertGreaterThan($minimum, $results['end']);
+        $this->assertGreaterThan($minimum, $results['current']);
+        $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 }

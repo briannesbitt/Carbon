@@ -23,9 +23,14 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractTestCase extends TestCase
 {
     /**
-     * @var \Carbon\CarbonInterface
+     * @var \Carbon\Carbon
      */
     protected $now;
+
+    /**
+     * @var \Carbon\CarbonImmutable
+     */
+    protected $immutableNow;
 
     /**
      * @var string
@@ -40,7 +45,7 @@ abstract class AbstractTestCase extends TestCase
         date_default_timezone_set('America/Toronto');
 
         Carbon::setTestNow($this->now = Carbon::now());
-        CarbonImmutable::setTestNow($this->now = CarbonImmutable::now());
+        CarbonImmutable::setTestNow($this->immutableNow = CarbonImmutable::now());
     }
 
     protected function tearDown()

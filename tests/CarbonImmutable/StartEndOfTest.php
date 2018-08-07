@@ -187,6 +187,31 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
     }
 
+    public function testStartOfMillenniumIsFluid()
+    {
+        $dt = Carbon::now();
+        $this->assertInstanceOfCarbon($dt->startOfMillennium());
+    }
+
+    public function testStartOfMillenniumFromNow()
+    {
+        $now = Carbon::now();
+        $dt = Carbon::now()->startOfMillennium();
+        $this->assertCarbon($dt, $now->year - $now->year % 1000 + 1, 1, 1, 0, 0, 0);
+    }
+
+    public function testStartOfMillenniumFromFirstDay()
+    {
+        $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->startOfMillennium();
+        $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
+    }
+
+    public function testStartOfMillenniumFromLastDay()
+    {
+        $dt = Carbon::create(3000, 12, 31, 23, 59, 59)->startOfMillennium();
+        $this->assertCarbon($dt, 2001, 1, 1, 0, 0, 0);
+    }
+
     public function testStartOfHourIsFluid()
     {
         $dt = Carbon::now();

@@ -47,6 +47,10 @@ class SerializationTest extends AbstractTestCase
     public function testSerialization()
     {
         $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
+        $dt = Carbon::parse('2018-07-11 18:30:11.654321', 'Europe/Paris')->locale('fr_FR');
+        $copy = unserialize(serialize($dt));
+        $this->assertSame('fr_FR', $copy->locale);
+        $this->assertSame('mercredi 18:30:11.654321', $copy->tz('Europe/Paris')->isoFormat('dddd HH:mm:ss.SSSSSS'));
     }
 
     public function providerTestFromUnserializedWithInvalidValue()

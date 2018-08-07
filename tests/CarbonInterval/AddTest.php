@@ -37,4 +37,18 @@ class AddTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
+
+    public function testAddWithRawDiffDateInterval()
+    {
+        $diff = (new \DateTime())->diff(new \DateTime('3 weeks'));
+        $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
+        $this->assertCarbonInterval($ci, 4, 3, 70, 8, 10, 11);
+    }
+
+    public function testAddWithRawNegativeDiffDateInterval()
+    {
+        $diff = (new \DateTime())->diff(new \DateTime('-3 weeks'));
+        $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
+        $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
+    }
 }

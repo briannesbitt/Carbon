@@ -1238,7 +1238,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('0 seconds before', $date->diffForHumans($date));
 
         Carbon::setLocale('fr');
-        $this->assertSame('0 seconde avant', $date->diffForHumans($date));
+        $this->assertSame('quelques secondes avant', $date->diffForHumans($date));
 
         Carbon::setLocale('en');
         Carbon::setHumanDiffOptions(Carbon::JUST_NOW);

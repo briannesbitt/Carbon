@@ -6,6 +6,7 @@ $tags = [
     PHP_EOL,
     'native-method',
     'mode',
+    ['call', 'is'],
     ['call', 'isDayOfWeek'],
     ['call', 'isSameUnit'],
     ['call', 'setUnit'],
@@ -17,7 +18,6 @@ $tags = [
 $nativeMethods = [
     'format' => 'string',
     'modify' => 'static',
-    'getTimezone' => '\DateTimeZone',
     'getOffset' => 'int',
     'getTimestamp' => 'int',
     'setTime' => 'static',
@@ -65,7 +65,10 @@ function dumpValue($value)
         return 'null';
     }
 
-    return var_export($value, true);
+    $value = preg_replace('/^array\s*\(\s*\)$/', '[]', var_export($value, true));
+    $value = preg_replace('/^array\s*\(([\s\S]+)\)$/', '[$1]', $value);
+
+    return $value;
 }
 
 foreach ($tags as $tag) {
@@ -84,6 +87,9 @@ foreach ($tags as $tag) {
             $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($defaultValues, $method) {
                 $name = $parameter->getName();
                 $output = '$'.$name;
+                if ($parameter->isVariadic()) {
+                    $output = "...$output";
+                }
                 if ($parameter->getType()) {
                     $name = $parameter->getType()->getName();
                     if (preg_match('/^[A-Z]/', $name)) {
@@ -158,6 +164,14 @@ foreach ($tags as $tag) {
                         'bool',
                         'is'.ucFirst($vars->name).'()',
                         'Checks if the instance day is '.strtolower($vars->name).'.',
+                    ];
+                    break;
+                case 'is':
+                    $autoDocLines[] = [
+                        '@method',
+                        'bool',
+                        'is'.ucFirst($vars->name).'()',
+                        $vars->description,
                     ];
                     break;
                 case 'isSameUnit':
@@ -444,6 +458,9 @@ foreach ($carbonMethods as $method) {
         $static = $function->isStatic() ? ' static' : '';
         $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
             $output = '$'.$parameter->getName();
+            if ($parameter->isVariadic()) {
+                $output = "...$output";
+            }
             if ($parameter->getType()) {
                 $name = $parameter->getType()->getName();
                 if (preg_match('/^[A-Z]/', $name)) {

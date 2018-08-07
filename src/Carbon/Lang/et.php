@@ -35,4 +35,6 @@ return [
     'hour_from_now' => ':count tunni',
     'minute_from_now' => ':count minuti',
     'second_from_now' => ':count sekundi',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
 ];

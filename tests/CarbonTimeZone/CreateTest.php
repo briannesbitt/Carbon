@@ -13,6 +13,7 @@ namespace Tests\CarbonTimeZone;
 
 use Carbon\CarbonTimeZone;
 use Tests\AbstractTestCase;
+use Tests\CarbonTimeZone\Fixtures\UnknownZone;
 
 class CreateTest extends AbstractTestCase
 {
@@ -32,5 +33,12 @@ class CreateTest extends AbstractTestCase
         $tz = new CarbonTimeZone();
 
         $this->assertSame($tz, CarbonTimeZone::instance($tz));
+    }
+
+    public function testUnknown()
+    {
+        $tz = new UnknownZone();
+
+        $this->assertSame('unknown', $tz->getAbbreviatedName());
     }
 }
