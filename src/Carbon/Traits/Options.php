@@ -10,6 +10,7 @@
  */
 
 namespace Carbon\Traits;
+
 use Carbon\CarbonInterface;
 
 /**

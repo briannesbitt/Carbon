@@ -2595,7 +2595,8 @@ trait Date
                 'MM' => ['format', ['m']],
                 'MMM' => function (CarbonInterface $date) {
                     $month = $date->shortMonthName;
-                    if ($suffix = $date->getTranslationMessage('mmm_suffix') && $month !== $date->monthName) {
+                    $suffix = $date->getTranslationMessage('mmm_suffix');
+                    if ($suffix && $month !== $date->monthName) {
                         $month .= $suffix;
                     }
 

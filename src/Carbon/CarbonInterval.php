@@ -18,7 +18,6 @@ use DateInterval;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionMethod;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * A simple API extension for DateInterval.
@@ -892,15 +891,15 @@ class CarbonInterval extends DateInterval
     /**
      * Get the current interval in a human readable format in the current locale.
      *
-     * @param int         $syntax  add modifiers:
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   maximum number of parts to display (default value: -1: no limits)
-     * @param int         $options human diff options
+     * @param int  $syntax  add modifiers:
+     *                      Possible values:
+     *                      - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                      Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool $short   displays short format of time units
+     * @param int  $parts   maximum number of parts to display (default value: -1: no limits)
+     * @param int  $options human diff options
      *
      * @return string
      */

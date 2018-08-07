@@ -10,6 +10,7 @@
  */
 
 namespace Carbon\Traits;
+
 use Carbon\CarbonInterface;
 use Carbon\Translator;
 use Closure;

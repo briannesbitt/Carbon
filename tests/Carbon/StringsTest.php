@@ -219,9 +219,6 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('Thu, 25 Dec 1975 19:15:16 GMT', $d->toRfc7231String());
     }
 
-    /**
-     * @group m
-     */
     public function testIsoFormat()
     {
         $d = Carbon::parse('midnight');
