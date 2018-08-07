@@ -1232,15 +1232,21 @@ trait Date
     /**
      * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
      *
-     * @param mixed $date
+     * @param mixed        $date
+     * @param string|array $other
      *
      * @throws \InvalidArgumentException
      */
-    protected static function expectDateTime($date)
+    protected static function expectDateTime($date, $other = [])
     {
-        if (!$date instanceof DateTimeInterface) {
+        $message = 'Expected ';
+        foreach ((array) $other as $expect) {
+            $message .= "$expect, ";
+        }
+
+        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
             throw new InvalidArgumentException(
-                'Expected null, string, DateTime or DateTimeInterface, '.
+                $message.'DateTime or DateTimeInterface, '.
                 (is_object($date) ? get_class($date) : gettype($date)).' given'
             );
         }
@@ -1264,7 +1270,7 @@ trait Date
             return static::parse($date, $this->getTimezone());
         }
 
-        static::expectDateTime($date);
+        static::expectDateTime($date, ['null', 'string']);
 
         return $date instanceof self ? $date : static::instance($date);
     }
@@ -2191,7 +2197,9 @@ trait Date
      */
     public function __toString()
     {
-        return $this->format(static::$toStringFormat);
+        $format = static::$toStringFormat;
+
+        return $this->format($format instanceof Closure ? $format($this) : $format);
     }
 
     /**
@@ -3259,7 +3267,7 @@ trait Date
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
      * @return static
      */
@@ -3273,7 +3281,7 @@ trait Date
     /**
      * Get the minimum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
      * @see min()
      *
@@ -3287,7 +3295,7 @@ trait Date
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
      * @return static
      */
@@ -3301,7 +3309,7 @@ trait Date
     /**
      * Get the maximum instance between a given instance (default now) and the current instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
      * @see max()
      *
@@ -3419,7 +3427,7 @@ trait Date
         /** @var DateTimeInterface $date */
         $date = $date ?: static::now($this->tz);
 
-        static::expectDateTime($date);
+        static::expectDateTime($date, 'null');
 
         /* @var CarbonInterface $this */
         return $this->format($format) === $date->format($format);
@@ -3501,7 +3509,7 @@ trait Date
     {
         $date = $date ? static::instance($date) : static::now($this->tz);
 
-        static::expectDateTime($date);
+        static::expectDateTime($date, 'null');
 
         return $this->quarter === $date->quarter && (!$ofSameYear || $this->isSameYear($date));
     }

@@ -490,65 +490,6 @@ class Carbon extends DateTime implements CarbonInterface
 {
     use Date;
 
-    /**
-     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface
-     * and not in $other.
-     *
-     * @param mixed        $date
-     * @param string|array $other
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected static function expectDateTime($date, $other = array())
-    {
-        $message = 'Expected ';
-        foreach ((array) $other as $expect) {
-            $message .= "{$expect}, ";
-        }
-
-        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
-            throw new InvalidArgumentException(
-                $message.'DateTime or DateTimeInterface, '.
-                (is_object($date) ? get_class($date) : gettype($date)).' given'
-            );
-        }
-    }
-
-    /**
-     * Return the Carbon instance passed through, a now instance in the same timezone
-     * if null given or parse the input if string given.
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     *
-     * @return static
-     */
-    protected function resolveCarbon($date = null)
-    {
-        if (!$date) {
-            return $this->nowWithSameTz();
-        }
-
-        if (is_string($date)) {
-            return static::parse($date, $this->getTimezone());
-        }
-
-        static::expectDateTime($date, array('null', 'string'));
-
-        return $date instanceof self ? $date : static::instance($date);
-    }
-
-    /**
-     * Format the instance as a string using the set format
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $format = static::$toStringFormat;
-
-        return $this->format($format instanceof Closure ? $format($this) : $format);
-    }
-
     public static function isMutable()
     {
         return true;
