@@ -1247,25 +1247,31 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
 <p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+<p><pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->startOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->endOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->endOfMinute();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfHour();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->endOfHour();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setMidDayAt(13);/*pad(40)*/)}}
+{{::lint(Carbon::setMidDayAt(13);)}}
 {{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setMidDayAt(12);/*pad(40)*/)}}
+{{::lint(Carbon::setMidDayAt(12);)}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{eval}}
