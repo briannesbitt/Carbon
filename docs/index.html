@@ -129,13 +129,13 @@ if (strtotime($string) === false) {
 <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
 
 <p><pre><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-07-05 03:37:11
+echo $now;                               // 2018-08-07 04:41:45
 $today = Carbon::today();
-echo $today;                             // 2018-07-05 00:00:00
+echo $today;                             // 2018-08-07 00:00:00
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-07-06 00:00:00
+echo $tomorrow;                          // 2018-08-08 00:00:00
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-07-04 00:00:00
+echo $yesterday;                         // 2018-08-06 00:00:00
 </code></pre></p>
 
 <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
@@ -204,7 +204,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 09:37 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 10:41 right now in Johannesburg.
 </code></pre></p>
 
 <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
@@ -410,10 +410,10 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
     <tr>
         <td>az</td>
         <td class="compatibility-check">✅</td>
+        <td class="compatibility-check">✅</td>
+        <td class="compatibility-check">✅</td>
         <td class="compatibility-check">❌</td>
-        <td class="compatibility-check">❌</td>
-        <td class="compatibility-check">❌</td>
-        <td class="compatibility-check">❌</td>
+        <td class="compatibility-check">✅</td>
     </tr>
     
     <tr>
@@ -428,10 +428,10 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
     <tr>
         <td>bn</td>
         <td class="compatibility-check">✅</td>
+        <td class="compatibility-check">✅</td>
         <td class="compatibility-check">❌</td>
         <td class="compatibility-check">❌</td>
-        <td class="compatibility-check">❌</td>
-        <td class="compatibility-check">❌</td>
+        <td class="compatibility-check">✅</td>
     </tr>
     
     <tr>
@@ -1065,7 +1065,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-07-05 03:37:12
+echo Carbon::now();                                    // 2018-08-07 04:41:46
 </code></pre></p>
 
 <p>A more meaning full example:</p>
@@ -1353,7 +1353,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#118 (2) {
+  object(DateTimeZone)#119 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -1445,8 +1445,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-07-05 03:37:12
-echo $dt1->maximum();                              // 2018-07-05 03:37:12
+echo $dt1->max();                                  // 2018-08-07 04:41:46
+echo $dt1->maximum();                              // 2018-08-07 04:41:46
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1839,14 +1839,14 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 
 var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);      // bool(true)
 var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 06-Jul-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 11-Jul-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 03-Aug-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 08-Aug-18 23:59:59 EDT
 
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 02-Jul-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 08-Jul-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 30-Jul-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 05-Aug-18 23:59:59 EDT
 </code></pre></p>
 
 <h1 id="api-humandiff">Difference for Humans</h1>
@@ -1939,7 +1939,13 @@ var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool
 
 <p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
 
-<p><pre><code class="php">$dt = Carbon::create(2012, 1, 31, 15, 32, 45);
+<p><pre><code class="php">$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->startOfSecond()->format('s.u');          // 45.000000
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->endOfSecond()->format('s.u');            // 45.999999
+
+$dt = Carbon::create(2012, 1, 31, 15, 32, 45);
 echo $dt->startOfMinute();                         // 2012-01-31 15:32:00
 
 $dt = Carbon::create(2012, 1, 31, 15, 32, 45);
@@ -1954,10 +1960,10 @@ echo $dt->endOfHour();                             // 2012-01-31 15:59:59
 $dt = Carbon::create(2012, 1, 31, 15, 32, 45);
 echo Carbon::getMidDayAt();                        // 12
 echo $dt->midDay();                                // 2012-01-31 12:00:00
-Carbon::setMidDayAt(13);                
+Carbon::setMidDayAt(13);
 echo Carbon::getMidDayAt();                        // 13
 echo $dt->midDay();                                // 2012-01-31 13:00:00
-Carbon::setMidDayAt(12);                
+Carbon::setMidDayAt(12);
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfDay();                            // 2012-01-31 00:00:00
@@ -2315,10 +2321,10 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00:00, 2018-07-06 00:00...
-dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-06-04 00:00:00, 2018-06-05 00:00:00, 2018-06-06 00:00:00, 2018-06-07 00:00:00, 2018-06-08 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-06-01 00:00:00, 2018-06-02 00:00:00, 2018-06-03 00:00:00, 2018-06-04 00:00:00, 2018-06-05 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-08-06 00:00:00, 2018-08-07 00:00:00, 2018-08-08 00:00:00, 2018-08-09 00:00:00, 2018-08-10 00:00...
+dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-08-01 00:00:00, 2018-08-02 00:00:00, 2018-08-03 00:00:00, 2018-08-04 00:00:00, 2018-08-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00:00, 2018-07-06 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
 </code></pre></p>
 
 <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
@@ -2770,7 +2776,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-07-05, 2018-07-06, 2018-07-07
+echo implode(', ', $days);               // 2018-08-07, 2018-08-08, 2018-08-09
 </code></pre></p>
 
 <p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
