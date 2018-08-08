@@ -484,6 +484,56 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
         execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code>
         in some middleware to get <code>formatLocalized</code> working properly.</p>
 
+    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code> and short variants is driven by locales installed in your operating system. For other translations, it's supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+
+    <p><pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
+
+// Support diff syntax (before, after, from now, ago)
+{{::exec(var_dump(Carbon::localeHasDiffSyntax('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support 1-day diff words (just now, yesterday, tomorrow)
+{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support 2-days diff words (before yesterday, after tomorrow)
+{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support short units (1y = 1 year, 1mo = 1 month, etc.)
+{{::exec(var_dump(Carbon::localeHasShortUnits('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasShortUnits('zh_TW'));/*pad(80)*/)}} // {{eval}}
+// Support period syntax (X times, every X, from X, to X)
+{{::exec(var_dump(Carbon::localeHasPeriodSyntax('en'));/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
+</code></pre></p>
+
+    <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableLocales());)}} locales supported by the last Carbon version:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Locale</th>
+            <th>Diff syntax</th>
+            <th>1-day diff</th>
+            <th>2-days diff</th>
+            <th>Short units</th>
+            <th>Period</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{locale::each(Carbon::getAvailableLocales())}}
+        <tr>
+            <td>{{eval(echo $locale;)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code> execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code> in some middleware to get <code>formatLocalized</code> working properly.</p>
+
     <h1 id="api-testing">Testing Aids</h1>
 
     <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is
@@ -1037,13 +1087,7 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 
     <h1 id="api-addsub">Addition and Subtraction</h1>
 
-    <p>The default DateTime provides a couple of different methods for easily adding and subtracting time. There is
-        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>modify()</code> takes a <i>magical</i>
-        date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
-        while <code>add()</code> and <code>sub()</code> use a <code>DateInterval</code> class thats not so obvious,
-        <code>new \DateInterval('P6YT5M')</code>. Hopefully using these fluent functions will be more clear and easier
-        to read after not seeing your code for a few weeks. But of course I don't make you choose since the base class
-        functions are still available.</p>
+<p>The default DateTime provides a couple of different methods for easily adding and subtracting time.  There is <code>modify()</code>, <code>add()</code> and <code>sub()</code>.  <code>modify()</code> takes a <i>magical</i> date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>).  Hopefully using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.  But of course I don't make you choose since the base class functions are still available.</p>
 
     <p>
     <pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
@@ -1519,25 +1563,31 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
         between itself and the provided Carbon argument.</p>
 
     <p>
-    <pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+    <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->startOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->endOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->endOfMinute();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfHour();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->endOfHour();/*pad(50)*/)}} // {{eval}}
 
-{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);/*pad(40)*/)}}
+{{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setMidDayAt(13);/*pad(40)*/)}}
+{{::lint(Carbon::setMidDayAt(13);)}}
 {{::exec(echo Carbon::getMidDayAt();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt->midDay();/*pad(50)*/)}} // {{eval}}
-{{::lint(Carbon::setMidDayAt(12);/*pad(40)*/)}}
+{{::lint(Carbon::setMidDayAt(12);)}}
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{::exec(echo $dt->startOfDay();/*pad(50)*/)}} // {{eval}}
