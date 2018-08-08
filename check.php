@@ -4,6 +4,7 @@ define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require 'vendor/autoload.php';
+require 'tools/methods.php';
 
 $documentation = file_get_contents('docs/index.src.html');
 
@@ -20,65 +21,6 @@ function display($message)
     echo $message;
 }
 
-function methods()
-{
-    $records = [];
-    $carbonObjects = [
-        [
-            new \Carbon\Carbon(),
-            new \DateTime()
-        ],
-        [
-            new \Carbon\CarbonInterval('P1D'),
-            new \DateInterval('P1D'),
-        ],
-        [
-            new \Carbon\CarbonPeriod(),
-            new \stdClass(),
-        ],
-    ];
-
-    foreach ($carbonObjects as $tuple) {
-        list($carbonObject, $dateTimeObject) = $tuple;
-        $className = get_class($carbonObject);
-        $dateTimeMethods = get_class_methods($dateTimeObject);
-
-        foreach (get_class_methods($carbonObject) as $method) {
-            if (
-                in_array($method, $dateTimeMethods) ||
-                $method === '__call' ||
-                $method === '__callStatic'
-            ) {
-                continue;
-            }
-
-            if (isset($records["$className::$method"])) {
-                continue;
-            }
-
-            $records["$className::$method"] = true;
-
-            yield [$carbonObject, $className, $method, null];
-        }
-    }
-
-    $className = \Carbon\Carbon::class;
-    $carbonObject = new $className();
-    $rc = new ReflectionClass($className);
-    preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
-    foreach ($matches as list($all, $return, $method, $parameters)) {
-        $parameters = trim($parameters);
-
-        if (isset($records["$className::$method"])) {
-            continue;
-        }
-
-        $records["$className::$method"] = true;
-
-        yield [$carbonObject, $className, $method, $parameters === '' ? [] : explode(',', $parameters)];
-    }
-}
-
 foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $methodsCount++;
     $pattern = preg_quote($method, '/');
@@ -92,7 +34,7 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-    $argumentsCount = $parameters === null ? count((new \ReflectionMethod($carbonObject, $method))->getParameters()) : count($parameters);
+    $argumentsCount = count($parameters === null ? (new \ReflectionMethod($carbonObject, $method))->getParameters() : $parameters);
     $argumentsDocumented = true;
 
     if (
