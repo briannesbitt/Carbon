@@ -180,16 +180,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-07-09 09:32:37
+echo $now;                               // 2018-08-08 07:59:49
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-07-09 00:00:00
+echo $today;                             // 2018-08-08 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-07-10 00:00:00
+echo $tomorrow;                          // 2018-08-09 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-07-08 00:00:00
+echo $yesterday;                         // 2018-08-07 00:00:00
 </code></pre>
     </p>
 
@@ -299,7 +299,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:32 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:59 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -552,10 +552,10 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
         <tr>
             <td>az</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -570,10 +570,715 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
         <tr>
             <td>bn</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>bs_BA</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ca</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>cs</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>cy</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>da</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>de</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>dv_MV</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>el</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>en</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>eo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>es</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>et</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>eu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>fa</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>fi</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>fo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>fr</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>gl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>gu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>he</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>hi</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>hr</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>hu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>hy</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>id</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>is</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>it</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ja</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ka</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>kk</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>km</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ko</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>lt</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>lv</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>mk</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>mn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ms</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>my</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ne</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>nl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>no</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>oc</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>pl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ps</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>pt</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>pt_BR</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ro</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ru</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sk</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sr</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sr_Cyrl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sr_Cyrl_ME</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sr_Latn_ME</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sr_ME</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sv</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>sw</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>th</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>tr</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>uk</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ur</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>uz</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>vi</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>zh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>zh_TW</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code>
+        execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code>
+        in some middleware to get <code>formatLocalized</code> working properly.</p>
+
+    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
+        and short variants is driven by locales installed in your operating system. For other translations, it's
+        supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+
+    <p>
+    <pre><code class="php">echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';      // af, ar, ar_Shakl...
+
+// Support diff syntax (before, after, from now, ago)
+var_dump(Carbon::localeHasDiffSyntax('en'));                                     // bool(true)
+var_dump(Carbon::localeHasDiffSyntax('zh_TW'));                                  // bool(true)
+// Support 1-day diff words (just now, yesterday, tomorrow)
+var_dump(Carbon::localeHasDiffOneDayWords('en'));                                // bool(true)
+var_dump(Carbon::localeHasDiffOneDayWords('zh_TW'));                             // bool(false)
+// Support 2-days diff words (before yesterday, after tomorrow)
+var_dump(Carbon::localeHasDiffTwoDayWords('en'));                                // bool(true)
+var_dump(Carbon::localeHasDiffTwoDayWords('zh_TW'));                             // bool(false)
+// Support short units (1y = 1 year, 1mo = 1 month, etc.)
+var_dump(Carbon::localeHasShortUnits('en'));                                     // bool(true)
+var_dump(Carbon::localeHasShortUnits('zh_TW'));                                  // bool(false)
+// Support period syntax (X times, every X, from X, to X)
+var_dump(Carbon::localeHasPeriodSyntax('en'));                                   // bool(true)
+var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                                // bool(false)
+</code></pre>
+    </p>
+
+    <p>Here is a overview of the 73 locales supported by the last
+        Carbon version:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Locale</th>
+            <th>Diff syntax</th>
+            <th>1-day diff</th>
+            <th>2-days diff</th>
+            <th>Short units</th>
+            <th>Period</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr>
+            <td>af</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ar</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ar_Shakl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>az</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>bg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>bn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -1211,7 +1916,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-07-09 09:32:38
+echo Carbon::now();                                    // 2018-08-08 07:59:50
 </code></pre>
     </p>
 
@@ -1540,7 +2245,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(DateTimeZone)#118 (2) {
+  object(DateTimeZone)#119 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -1644,8 +2349,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-07-09 09:32:38
-echo $dt1->maximum();                              // 2018-07-09 09:32:38
+echo $dt1->max();                                  // 2018-08-08 07:59:50
+echo $dt1->maximum();                              // 2018-08-08 07:59:50
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -1754,10 +2459,10 @@ var_dump($overTheHill->isBirthday());              // bool(true) -> default comp
     <p>The default DateTime provides a couple of different methods for easily adding and subtracting time. There is
         <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>modify()</code> takes a <i>magical</i>
         date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
-        while <code>add()</code> and <code>sub()</code> use a <code>DateInterval</code> class thats not so obvious,
-        <code>new \DateInterval('P6YT5M')</code>. Hopefully using these fluent functions will be more clear and easier
-        to read after not seeing your code for a few weeks. But of course I don't make you choose since the base class
-        functions are still available.</p>
+        while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so
+        obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>). Hopefully
+        using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.
+        But of course I don't make you choose since the base class functions are still available.</p>
 
     <p>
     <pre><code class="php">$dt = Carbon::create(2012, 1, 31, 0);
@@ -2095,14 +2800,14 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 
 var_dump(Carbon::getWeekStartsAt() === Carbon::FRIDAY);      // bool(true)
 var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 06-Jul-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 11-Jul-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 03-Aug-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 08-Aug-18 23:59:59 EDT
 
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
-echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 02-Jul-18 00:00:00 EDT
-echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 08-Jul-18 23:59:59 EDT
+echo $saturday->copy()->startOfWeek()->toRfc850String();     // Monday, 30-Jul-18 00:00:00 EDT
+echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 05-Aug-18 23:59:59 EDT
 </code></pre>
     </p>
 
@@ -2219,7 +2924,13 @@ var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool
         between itself and the provided Carbon argument.</p>
 
     <p>
-    <pre><code class="php">$dt = Carbon::create(2012, 1, 31, 15, 32, 45);
+    <pre><code class="php">$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->startOfSecond()->format('s.u');          // 45.000000
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->endOfSecond()->format('s.u');            // 45.999999
+
+$dt = Carbon::create(2012, 1, 31, 15, 32, 45);
 echo $dt->startOfMinute();                         // 2012-01-31 15:32:00
 
 $dt = Carbon::create(2012, 1, 31, 15, 32, 45);
@@ -2234,10 +2945,10 @@ echo $dt->endOfHour();                             // 2012-01-31 15:59:59
 $dt = Carbon::create(2012, 1, 31, 15, 32, 45);
 echo Carbon::getMidDayAt();                        // 12
 echo $dt->midDay();                                // 2012-01-31 12:00:00
-Carbon::setMidDayAt(13);                
+Carbon::setMidDayAt(13);
 echo Carbon::getMidDayAt();                        // 13
 echo $dt->midDay();                                // 2012-01-31 13:00:00
-Carbon::setMidDayAt(12);                
+Carbon::setMidDayAt(12);
 
 $dt = Carbon::create(2012, 1, 31, 12, 0, 0);
 echo $dt->startOfDay();                            // 2012-01-31 00:00:00
@@ -2639,10 +3350,10 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-07-09 00:00:00, 2018-07-10 00:00:00, 2018-07-11 00:00:00, 2018-07-12 00:00:00, 2018-07-13 00:00...
-dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-06-04 00:00:00, 2018-06-05 00:00:00, 2018-06-06 00:00:00, 2018-06-07 00:00:00, 2018-06-08 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-06-01 00:00:00, 2018-06-02 00:00:00, 2018-06-03 00:00:00, 2018-06-04 00:00:00, 2018-06-05 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-08-06 00:00:00, 2018-08-07 00:00:00, 2018-08-08 00:00:00, 2018-08-09 00:00:00, 2018-08-10 00:00...
+dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-08-01 00:00:00, 2018-08-02 00:00:00, 2018-08-03 00:00:00, 2018-08-04 00:00:00, 2018-08-05 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00:00, 2018-07-06 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
 </code></pre>
     </p>
 
@@ -3184,7 +3895,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-07-09, 2018-07-10, 2018-07-11
+echo implode(', ', $days);               // 2018-08-08, 2018-08-09, 2018-08-10
 </code></pre>
     </p>
 
