@@ -69,6 +69,14 @@ class InstanceTest extends AbstractTestCase
             'timezone' => 'UTC',
         ]);
         $this->assertInstanceOf(Carbon::class, $carbon);
+        $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testInstanceStateSetBySetStateString()
+    {
+        $carbon = Carbon::__set_state('2017-05-18 13:02:15.273420');
+        $this->assertInstanceOf(Carbon::class, $carbon);
+        $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
     }
 
     public function testDeserializationOccursCorrectly()

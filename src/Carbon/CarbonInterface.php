@@ -573,7 +573,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function average($date = null);
 
-    public function between($date1, $date2, $equal = true);
+    public function between($date1, $date2, $equal = true): bool;
 
     public function calendar($referenceTime = null, array $formats = []);
 
@@ -615,7 +615,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date = null, $absolute = true);
 
-    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1);
+    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
     public function diffInDays($date = null, $absolute = true);
 
@@ -677,9 +677,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function endOfYear();
 
-    public function eq($date);
+    public function eq($date): bool;
 
-    public function equalTo($date);
+    public function equalTo($date): bool;
 
     public static function executeWithLocale($locale, $func);
 
@@ -745,13 +745,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getWeekendDays();
 
-    public function greaterThan($date);
+    public function greaterThan($date): bool;
 
-    public function greaterThanOrEqualTo($date);
+    public function greaterThanOrEqualTo($date): bool;
 
-    public function gt($date);
+    public function gt($date): bool;
 
-    public function gte($date);
+    public function gte($date): bool;
 
     public static function hasFormat($date, $format);
 
@@ -763,11 +763,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function instance($date);
 
-    public function isAfter($date);
+    public function isAfter($date): bool;
 
-    public function isBefore($date);
+    public function isBefore($date): bool;
 
-    public function isBetween($date1, $date2, $equal = true);
+    public function isBetween($date1, $date2, $equal = true): bool;
 
     public function isBirthday($date = null);
 
@@ -837,9 +837,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function lastOfYear($dayOfWeek = null);
 
-    public function lessThan($date);
+    public function lessThan($date): bool;
 
-    public function lessThanOrEqualTo($date);
+    public function lessThanOrEqualTo($date): bool;
 
     public function locale(string $locale = null);
 
@@ -853,9 +853,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function localeHasShortUnits($locale);
 
-    public function lt($date);
+    public function lt($date): bool;
 
-    public function lte($date);
+    public function lte($date): bool;
 
     public static function macro($name, $macro);
 
@@ -879,7 +879,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function modify($modify);
 
-    public function ne($date);
+    public function ne($date): bool;
 
     public function next($dayOfWeek = null);
 
@@ -887,7 +887,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function nextWeekendDay();
 
-    public function notEqualTo($date);
+    public function notEqualTo($date): bool;
 
     public static function now($tz = null);
 

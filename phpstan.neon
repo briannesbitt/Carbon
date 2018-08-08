@@ -6,6 +6,7 @@ parameters:
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Laravel/*.php'
+        - '*/tests/Carbon/InstanceTest.php'
         - '*/tests/Carbon/MacroTest.php'
         - '*/tests/Carbon/SettersTest.php'
         - '*/tests/Carbon/GettersTest.php'
@@ -13,6 +14,7 @@ parameters:
         - '*/tests/Carbon/ObjectsTest.php'
         - '*/tests/Carbon/StrictModeTest.php'
         - '*/tests/Carbon/Fixtures/Mixin.php'
+        - '*/tests/CarbonImmutable/InstanceTest.php'
         - '*/tests/CarbonImmutable/MacroTest.php'
         - '*/tests/CarbonImmutable/ObjectsTest.php'
         - '*/tests/CarbonImmutable/SettersTest.php'
