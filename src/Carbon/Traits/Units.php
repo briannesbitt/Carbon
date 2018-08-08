@@ -23,13 +23,12 @@ use InvalidArgumentException;
  */
 trait Units
 {
-
     /**
      * Add seconds to the instance using timestamp. Positive $value travels
      * forward while negative $value travels into the past.
      *
-     * @param     $unit
-     * @param int $value
+     * @param string $unit
+     * @param int    $value
      *
      * @return static
      */

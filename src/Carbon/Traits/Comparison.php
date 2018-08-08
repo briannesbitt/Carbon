@@ -250,6 +250,7 @@ trait Comparison
     {
         return $this->between($date1, $date2, $equal);
     }
+
     /**
      * Determines if the instance is a weekday.
      *
