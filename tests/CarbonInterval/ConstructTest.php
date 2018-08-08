@@ -200,6 +200,32 @@ class ConstructTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 3);
     }
 
+    public function testMilliseconds()
+    {
+        $ci = CarbonInterval::milliseconds(2);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(2, $ci->milliseconds);
+
+        $ci = CarbonInterval::millisecond();
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(1, $ci->milliseconds);
+    }
+
+    public function testMicroseconds()
+    {
+        $ci = CarbonInterval::microseconds(2);
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(2, $ci->microseconds);
+
+        $ci = CarbonInterval::microsecond();
+        $this->assertInstanceOfCarbonInterval($ci);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
+        $this->assertSame(1, $ci->microseconds);
+    }
+
     public function testYearsAndHours()
     {
         $ci = new CarbonInterval(5, 0, 0, 0, 3, 0, 0);
@@ -226,7 +252,7 @@ class ConstructTest extends AbstractTestCase
         $ci = CarbonInterval::instance(new DateInterval('P2Y1M5DT22H33M44S'));
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
+        $this->assertFalse($ci->days);
     }
 
     public function testInstanceWithNegativeDateInterval()
@@ -236,7 +262,7 @@ class ConstructTest extends AbstractTestCase
         $ci = CarbonInterval::instance($di);
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2, 1, 5, 22, 33, 44);
-        $this->assertTrue($ci->days === false || $ci->days === CarbonInterval::PHP_DAYS_FALSE);
+        $this->assertFalse($ci->days);
         $this->assertSame(1, $ci->invert);
     }
 
@@ -263,8 +289,12 @@ class ConstructTest extends AbstractTestCase
         $this->assertNull(CarbonInterval::make(3));
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Unknown fluent constructor 'anything'
+     */
     public function testCallInvalidStaticMethod()
     {
-        $this->assertNull(CarbonInterval::anything());
+        CarbonInterval::anything();
     }
 }

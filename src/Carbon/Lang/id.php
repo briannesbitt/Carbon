@@ -9,23 +9,59 @@
  * file that was distributed with this source code.
  */
 
-return array(
-    'year' => ':count tahun',
+return [
+    'year' => '{1}setahun|]1,Inf[:count tahun',
     'y' => ':count tahun',
-    'month' => ':count bulan',
+    'month' => '{1}sebulan|]1,Inf[:count bulan',
     'm' => ':count bulan',
     'week' => ':count minggu',
     'w' => ':count minggu',
-    'day' => ':count hari',
+    'day' => '{1}sehari|]1,Inf[:count hari',
     'd' => ':count hari',
-    'hour' => ':count jam',
+    'hour' => '{1}sejam|]1,Inf[:count jam',
     'h' => ':count jam',
-    'minute' => ':count menit',
+    'minute' => '{1}semenit|]1,Inf[:count menit',
     'min' => ':count menit',
-    'second' => ':count detik',
+    'second' => '{1}beberapa detik|]1,Inf[:count detik',
     's' => ':count detik',
     'ago' => ':time yang lalu',
-    'from_now' => ':time dari sekarang',
+    'from_now' => 'dalam :time',
     'after' => ':time setelah',
     'before' => ':time sebelum',
-);
+    'formats' => [
+        'LT' => 'HH.mm',
+        'LTS' => 'HH.mm.ss',
+        'L' => 'DD/MM/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY [pukul] HH.mm',
+        'LLLL' => 'dddd, D MMMM YYYY [pukul] HH.mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[Hari ini pukul] LT',
+        'nextDay' => '[Besok pukul] LT',
+        'nextWeek' => 'dddd [pukul] LT',
+        'lastDay' => '[Kemarin pukul] LT',
+        'lastWeek' => 'dddd [lalu pukul] LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 11) {
+            return 'pagi';
+        }
+        if ($hour < 15) {
+            return 'siang';
+        }
+        if ($hour < 19) {
+            return 'sore';
+        }
+
+        return 'malam';
+    },
+    'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+    'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+    'weekdays' => ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+    'weekdays_short' => ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+    'weekdays_min' => ['Mg', 'Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sb'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 1,
+];

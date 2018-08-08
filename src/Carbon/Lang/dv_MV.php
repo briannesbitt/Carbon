@@ -9,7 +9,36 @@
  * file that was distributed with this source code.
  */
 
-return array(
+\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+    return $number === 1 ? 0 : 1;
+}, 'dv');
+
+$months = [
+    'ޖެނުއަރީ',
+    'ފެބްރުއަރީ',
+    'މާރިޗު',
+    'އޭޕްރީލު',
+    'މޭ',
+    'ޖޫން',
+    'ޖުލައި',
+    'އޯގަސްޓު',
+    'ސެޕްޓެމްބަރު',
+    'އޮކްޓޯބަރު',
+    'ނޮވެމްބަރު',
+    'ޑިސެމްބަރު',
+];
+
+$weekdays = [
+    'އާދިއްތަ',
+    'ހޯމަ',
+    'އަންގާރަ',
+    'ބުދަ',
+    'ބުރާސްފަތި',
+    'ހުކުރު',
+    'ހޮނިހިރު',
+];
+
+return [
     'year' => '{0}އަހަރެއް|[1,Inf]:count އަހަރު',
     'y' => '{0}އަހަރެއް|[1,Inf]:count އަހަރު',
     'month' => '{0}މައްސަރެއް|[1,Inf]:count މަސް',
@@ -28,4 +57,30 @@ return array(
     'from_now' => ':time ފަހުން',
     'after' => ':time ފަހުން',
     'before' => ':time ކުރި',
-);
+    'diff_yesterday' => 'އިއްޔެ',
+    'diff_tomorrow' => 'މާދަމާ',
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'D/M/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd D MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[މިއަދު] LT',
+        'nextDay' => '[މާދަމާ] LT',
+        'nextWeek' => 'dddd LT',
+        'lastDay' => '[އިއްޔެ] LT',
+        'lastWeek' => '[ފާއިތުވި] dddd LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? 'މކ' : 'މފ';
+    },
+    'months' => $months,
+    'months_short' => $months,
+    'weekdays' => $weekdays,
+    'weekdays_short' => $weekdays,
+    'weekdays_min' => ['އާދި', 'ހޯމަ', 'އަން', 'ބުދަ', 'ބުރާ', 'ހުކު', 'ހޮނި'],
+];

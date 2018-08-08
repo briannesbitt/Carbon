@@ -13,7 +13,7 @@
     return $number == 1 ? 0 : 1;
 }, 'oc');
 
-return array(
+return [
     'year' => ':count an|:count ans',
     'y' => ':count an|:count ans',
     'month' => ':count mes|:count meses',
@@ -41,4 +41,4 @@ return array(
     'period_interval' => 'cada :interval',
     'period_start_date' => 'de :date',
     'period_end_date' => 'fins a :date',
-);
+];

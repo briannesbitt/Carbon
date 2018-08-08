@@ -39,14 +39,14 @@ class MacroTest extends AbstractTestCase
 
     public function testCarbonIsMacroableWhenNotCalledStatically()
     {
-        CarbonInterval::macro('twice', function ($self = null) {
-            return $self->times(2);
+        CarbonInterval::macro('twice', function () {
+            return $this->times(2);
         });
 
         $this->assertSame('2 days', CarbonInterval::day()->twice()->forHumans());
 
-        CarbonInterval::macro('repeatInvert', function ($count = 0, $self = null) {
-            return $count % 2 ? $self->invert() : $self;
+        CarbonInterval::macro('repeatInvert', function ($count = 0) {
+            return $count % 2 ? $this->invert() : $this;
         });
 
         $this->assertSame(0, CarbonInterval::day()->repeatInvert()->invert);
@@ -62,10 +62,6 @@ class MacroTest extends AbstractTestCase
 
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
-        }
-
         CarbonInterval::macro('repeatInvert2', function ($count = 0) {
             return $count % 2 ? $this->invert() : $this;
         });

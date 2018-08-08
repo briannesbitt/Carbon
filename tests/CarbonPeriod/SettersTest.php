@@ -12,6 +12,7 @@
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateInterval;
@@ -84,6 +85,40 @@ class SettersTest extends AbstractTestCase
         $this->assertSame($options, $period->getOptions());
     }
 
+    public function testSetDateClass()
+    {
+        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+
+        $period->setDateClass(CarbonImmutable::class);
+
+        $this->assertNotSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
+
+        $period->setDateClass(Carbon::class);
+
+        $this->assertSame(0, $period->getOptions() & CarbonPeriod::IMMUTABLE);
+        $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
+
+        $period->toggleOptions(CarbonPeriod::IMMUTABLE, true);
+        $this->assertSame(CarbonImmutable::class, $period->getDateClass());
+        $this->assertInstanceOf(CarbonImmutable::class, $period->toArray()[0]);
+
+        $period->toggleOptions(CarbonPeriod::IMMUTABLE, false);
+        $this->assertSame(Carbon::class, $period->getDateClass());
+        $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval
+     */
+    public function testSetDateClassInvalidArgumentException()
+    {
+        $period = new CarbonPeriod('2001-01-01', '2001-01-02');
+
+        $period->setDateClass(CarbonInterval::class);
+    }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Invalid interval.
@@ -135,7 +170,7 @@ class SettersTest extends AbstractTestCase
      */
     public function testInvalidConstructorParameters()
     {
-        CarbonPeriod::create(array());
+        CarbonPeriod::create([]);
     }
 
     /**
@@ -242,7 +277,7 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(0, $period->getDateInterval()->invert);
 
         $period = CarbonPeriod::create('2018-04-29', 7);
-        $dates = array();
+        $dates = [];
         foreach ($period as $key => $date) {
             if ($key === 3) {
                 $period->invert()->start($date);
@@ -250,9 +285,9 @@ class SettersTest extends AbstractTestCase
             $dates[] = $date->format('m-d');
         }
 
-        $this->assertSame(array(
+        $this->assertSame([
             '04-29', '04-30', '05-01', '05-02', '05-01', '04-30', '04-29',
-        ), $dates);
+        ], $dates);
     }
 
     public function testExcludeStartDate()
@@ -296,33 +331,34 @@ class SettersTest extends AbstractTestCase
     public function testFluentSetters()
     {
         $period = CarbonInterval::days(3)->toPeriod()->since('2018-04-21')->until('2018-04-27');
-        $dates = array();
+        $dates = [];
         foreach ($period as $date) {
             $dates[] = $date->format('m-d');
         }
 
-        $this->assertSame(array('04-21', '04-24', '04-27'), $dates);
+        $this->assertSame(['04-21', '04-24', '04-27'], $dates);
 
         $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
-        $dates = array();
+        $dates = [];
         foreach ($period as $date) {
             $dates[] = $date->format('m-d');
         }
 
-        $this->assertSame(array('04-21', '04-24', '04-27'), $dates);
+        $this->assertSame(['04-21', '04-24', '04-27'], $dates);
 
         $someDateTime = new DateTime('2010-05-06 02:00:00');
         $someCarbon = new Carbon('2010-05-06 13:00:00');
+
         $period = CarbonPeriod::every('2 hours')->between($someDateTime, $someCarbon)->options(CarbonPeriod::EXCLUDE_START_DATE);
-        $hours = array();
+        $hours = [];
         foreach ($period as $date) {
             $hours[] = $date->format('H');
         }
 
-        $this->assertSame(array('04', '06', '08', '10', '12'), $hours);
+        $this->assertSame(['04', '06', '08', '10', '12'], $hours);
 
         $period = CarbonPeriod::options(CarbonPeriod::EXCLUDE_START_DATE)->stepBy(CarbonInterval::hours(2))->since('yesterday 19:00')->until('tomorrow 03:30');
-        $hours = array();
+        $hours = [];
         foreach ($period as $date) {
             $hours[] = $date->format('j H');
         }
@@ -330,7 +366,7 @@ class SettersTest extends AbstractTestCase
         $d2 = Carbon::today()->day;
         $d3 = Carbon::tomorrow()->day;
 
-        $this->assertSame(array(
+        $this->assertSame([
             "$d1 21",
             "$d1 23",
             "$d2 01",
@@ -347,7 +383,7 @@ class SettersTest extends AbstractTestCase
             "$d2 23",
             "$d3 01",
             "$d3 03",
-        ), $hours);
+        ], $hours);
 
         $period = CarbonPeriod::between('first day of january this year', 'first day of next month')->interval('1 week');
 

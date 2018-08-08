@@ -20,13 +20,14 @@
             "homepage": "http://nesbot.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.9",
-        "symfony/translation": "~2.6 || ~3.0 || ~4.0"
+        "php": "^7.1.8",
+        "symfony/translation": "^4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "~2",
-        "phpunit/phpunit": "^4.8.35 || ^5.7"
+        "friendsofphp/php-cs-fixer": "^2.11",
+        "phpunit/phpunit": "^7.1.5"
     },
     "autoload": {
         "psr-4": {
@@ -48,7 +49,8 @@
         ],
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests"
+        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
+        "phpdoc": "php phpdoc.php"
     },
     "extra": {
         "laravel": {

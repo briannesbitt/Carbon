@@ -176,14 +176,12 @@ class CreateSafeTest extends AbstractTestCase
         $date = null;
         try {
             // 1h jumped to 2h because of the DST, so 1h30 is not a safe date in PHP 5.4+
-            $date = Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London');
+            Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London');
         } catch (InvalidDateException $exception) {
             $message = $exception->getMessage();
         }
 
-        version_compare(PHP_VERSION, '5.4.0-dev', '<')
-            ? $this->assertCarbon($date, 2014, 3, 30, 1, 30, 0)
-            : $this->assertContains('hour : 1 is not a valid value.', $message);
+        $this->assertContains('hour : 1 is not a valid value.', $message);
     }
 
     public function testCreateSafePassesForValidDSTTime()

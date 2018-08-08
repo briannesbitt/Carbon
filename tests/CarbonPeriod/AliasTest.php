@@ -58,18 +58,18 @@ class AliasTest extends AbstractTestCase
         };
 
         $period = CarbonPeriod::filter($filter, 'foo');
-        $this->assertSame(array(array($filter, 'foo')), $period->getFilters());
+        $this->assertSame([[$filter, 'foo']], $period->getFilters());
 
         $period = $period->push($filter, 'bar');
-        $this->assertSame(array(array($filter, 'foo'), array($filter, 'bar')), $period->getFilters());
+        $this->assertSame([[$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
         $period = $period->prepend($filter, 'pre');
-        $this->assertSame(array(array($filter, 'pre'), array($filter, 'foo'), array($filter, 'bar')), $period->getFilters());
+        $this->assertSame([[$filter, 'pre'], [$filter, 'foo'], [$filter, 'bar']], $period->getFilters());
 
         $period = $period->filters();
         $this->assertEmpty($period->getFilters());
 
-        $period = $period->filters($filters = array(array($filter, null)));
+        $period = $period->filters($filters = [[$filter, null]]);
         $this->assertSame($filters, $period->getFilters());
     }
 
@@ -158,9 +158,9 @@ class AliasTest extends AbstractTestCase
             ->times(2);
 
         $this->assertSame(
-            $this->standardizeDates(array(
+            $this->standardizeDates([
                 Carbon::now()->subDays(3)->subHours(5), Carbon::now()->subDays(6)->subHours(10),
-            )),
+            ]),
             $this->standardizeDates($period)
         );
     }

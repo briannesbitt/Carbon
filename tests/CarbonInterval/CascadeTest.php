@@ -14,19 +14,29 @@ class CascadeTest extends AbstractTestCase
     public function testCascadesOverflowedValues($spec, $expected)
     {
         $this->assertSame(
-            $expected, CarbonInterval::fromString($spec)->cascade()->spec()
+            $expected,
+            CarbonInterval::fromString($spec)->cascade()->spec()
         );
     }
 
     public function provideIntervalSpecs()
     {
-        return array(
-            array('3600s',                        'PT1H'),
-            array('10000s',                       'PT2H46M40S'),
-            array('1276d',                        'P3Y9M16D'),
-            array('47d 14h',                      'P1M19DT14H'),
-            array('2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'),
-        );
+        return [
+            ['3600s',                        'PT1H'],
+            ['10000s',                       'PT2H46M40S'],
+            ['1276d',                        'P3Y9M16D'],
+            ['47d 14h',                      'P1M19DT14H'],
+            ['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'],
+        ];
+    }
+
+    public function testCascadesWithMicroseconds()
+    {
+        $interval = CarbonInterval::fromString('1040ms 3012µs')->cascade();
+
+        $this->assertSame('PT1S', $interval->spec());
+        $this->assertSame(43, $interval->milliseconds);
+        $this->assertSame(43012, $interval->microseconds);
     }
 
     /**
@@ -35,12 +45,12 @@ class CascadeTest extends AbstractTestCase
     public function testCustomCascadesOverflowedValues($spec, $expected)
     {
         $cascades = CarbonInterval::getCascadeFactors();
-        CarbonInterval::setCascadeFactors(array(
-            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
-            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
-            'dayz' => array(8, 'hours'),
-            'weeks' => array(5, 'dayz'),
-        ));
+        CarbonInterval::setCascadeFactors([
+            'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
+            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
+            'dayz' => [8, 'hours'],
+            'weeks' => [5, 'dayz'],
+        ]);
         $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(true);
         CarbonInterval::setCascadeFactors($cascades);
 
@@ -49,13 +59,13 @@ class CascadeTest extends AbstractTestCase
 
     public function provideCustomIntervalSpecs()
     {
-        return array(
-            array('3600s',                        '1h'),
-            array('10000s',                       '2h 46m 40s'),
-            array('1276d',                        '255w 1d'),
-            array('47d 14h',                      '9w 3d 6h'),
-            array('2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'),
-        );
+        return [
+            ['3600s',                        '1h'],
+            ['10000s',                       '2h 46m 40s'],
+            ['1276d',                        '255w 1d'],
+            ['47d 14h',                      '9w 3d 6h'],
+            ['2y 123mo 5w 6d 47h 160m 217s', '2yrs 123mos 7w 2d 1h 43m 37s'],
+        ];
     }
 
     /**
@@ -64,12 +74,12 @@ class CascadeTest extends AbstractTestCase
     public function testCustomCascadesOverflowedValuesLongFormat($spec, $expected)
     {
         $cascades = CarbonInterval::getCascadeFactors();
-        CarbonInterval::setCascadeFactors(array(
-            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
-            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
-            'dayz' => array(8, 'hours'),
-            'weeks' => array(5, 'dayz'),
-        ));
+        CarbonInterval::setCascadeFactors([
+            'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
+            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
+            'dayz' => [8, 'hours'],
+            'weeks' => [5, 'dayz'],
+        ]);
         $actual = CarbonInterval::fromString($spec)->cascade()->forHumans(false);
         CarbonInterval::setCascadeFactors($cascades);
 
@@ -78,24 +88,24 @@ class CascadeTest extends AbstractTestCase
 
     public function provideCustomIntervalSpecsLongFormat()
     {
-        return array(
-            array('3600s',                        '1 hour'),
-            array('10000s',                       '2 hours 46 minutes 40 seconds'),
-            array('1276d',                        '255 weeks 1 day'),
-            array('47d 14h',                      '9 weeks 3 days 6 hours'),
-            array('2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'),
-        );
+        return [
+            ['3600s',                        '1 hour'],
+            ['10000s',                       '2 hours 46 minutes 40 seconds'],
+            ['1276d',                        '255 weeks 1 day'],
+            ['47d 14h',                      '9 weeks 3 days 6 hours'],
+            ['2y 123mo 5w 6d 47h 160m 217s', '2 years 123 months 7 weeks 2 days 1 hour 43 minutes 37 seconds'],
+        ];
     }
 
     public function testMultipleAdd()
     {
         $cascades = CarbonInterval::getCascadeFactors();
-        CarbonInterval::setCascadeFactors(array(
-            'minutes' => array(Carbon::SECONDS_PER_MINUTE, 'seconds'),
-            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
-            'days' => array(8, 'hours'),
-            'weeks' => array(5, 'days'),
-        ));
+        CarbonInterval::setCascadeFactors([
+            'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
+            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
+            'days' => [8, 'hours'],
+            'weeks' => [5, 'days'],
+        ]);
         $actual = CarbonInterval::fromString('3d')
             ->add(CarbonInterval::fromString('1d 5h'))
             ->add(CarbonInterval::fromString('7h'))
@@ -108,10 +118,10 @@ class CascadeTest extends AbstractTestCase
     public function testFactorsGroups()
     {
         $cascades = CarbonInterval::getCascadeFactors();
-        CarbonInterval::setCascadeFactors(array(
-            'hours' => array(Carbon::MINUTES_PER_HOUR, 'minutes'),
-            'weeks' => array(5, 'days'),
-        ));
+        CarbonInterval::setCascadeFactors([
+            'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
+            'weeks' => [5, 'days'],
+        ]);
         $actual = CarbonInterval::fromString('3d 50m')
             ->add(CarbonInterval::fromString('1d 5h 30m'))
             ->add(CarbonInterval::fromString('7h 45m'))

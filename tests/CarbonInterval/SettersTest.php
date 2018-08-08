@@ -86,6 +86,28 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(1, $ci->seconds);
     }
 
+    public function testMillisecondsSetter()
+    {
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $ci->milliseconds = 34;
+        $this->assertSame(34, $ci->milliseconds);
+        $ci->milliseconds(59);
+        $this->assertSame(59, $ci->milliseconds);
+        $ci->millisecond(1);
+        $this->assertSame(1, $ci->milliseconds);
+    }
+
+    public function testMicrosecondsSetter()
+    {
+        $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
+        $ci->microseconds = 34;
+        $this->assertSame(34, $ci->microseconds);
+        $ci->microseconds(59);
+        $this->assertSame(59, $ci->microseconds);
+        $ci->microsecond(1);
+        $this->assertSame(1, $ci->microseconds);
+    }
+
     public function testFluentSetters()
     {
         $ci = CarbonInterval::years(4)->months(2)->dayz(5)->hours(3)->minute()->seconds(59);
@@ -127,5 +149,34 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame($ci, $ci->invert());
         $this->assertSame(0, $ci->invert);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown setter 'doesNotExit'
+     */
+    public function testInvalidSetter()
+    {
+        $ci = new CarbonInterval;
+        $ci->doesNotExit = 123;
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Unknown fluent setter 'doesNotExit'
+     */
+    public function testInvalidFluentSetter()
+    {
+        $ci = new CarbonInterval;
+        $ci->doesNotExit(123);
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Unknown fluent constructor 'doesNotExit'
+     */
+    public function testInvalidStaticFluentSetter()
+    {
+        CarbonInterval::doesNotExit(123);
     }
 }

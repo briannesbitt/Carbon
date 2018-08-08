@@ -12,10 +12,21 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
 class SubTest extends AbstractTestCase
 {
+    public function testSubMethod()
+    {
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub('2 years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('year', 2)->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract('2 years')->year);
+    }
+
     public function testSubYearsPositive()
     {
         $this->assertSame(1974, Carbon::createFromDate(1975)->subYears(1)->year);
@@ -34,6 +45,12 @@ class SubTest extends AbstractTestCase
     public function testSubYear()
     {
         $this->assertSame(1974, Carbon::createFromDate(1975)->subYear()->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(2, 'years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->sub(CarbonInterval::years(2))->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'year')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(2, 'years')->year);
+        $this->assertSame(1973, Carbon::createFromDate(1975)->subtract(CarbonInterval::years(2))->year);
     }
 
     public function testSubMonthsPositive()

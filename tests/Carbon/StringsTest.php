@@ -18,10 +18,24 @@ use Tests\Carbon\Fixtures\MyCarbon;
 
 class StringsTest extends AbstractTestCase
 {
-    public function testToString()
+    public function testToStringCast()
     {
         $d = Carbon::now();
         $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
+    }
+
+    public function testToString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('Thu Dec 25 1975 14:15:16 GMT-0500', $d->toString());
+    }
+
+    public function testToISOString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(0);
+        $this->assertNull($d->toISOString());
     }
 
     public function testSetToStringFormatString()
@@ -218,5 +232,30 @@ class StringsTest extends AbstractTestCase
 
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('Thu, 25 Dec 1975 19:15:16 GMT', $d->toRfc7231String());
+    }
+
+    public function testIsoFormat()
+    {
+        $d = Carbon::parse('midnight');
+        $this->assertSame('24', $d->isoFormat('k'));
+
+        $d = Carbon::parse('2017-01-01');
+        $this->assertSame('2017', $d->isoFormat('g'));
+        $this->assertSame('2016', $d->isoFormat('G'));
+
+        $d = Carbon::parse('2017-01-01 22:25:24.182937');
+        $this->assertSame('2 18 183 1829 18294 182937', $d->isoFormat('S SS SSS SSSS SSSSS SSSSSS'));
+
+        $this->assertSame('02017 +002017', $d->isoFormat('YYYYY YYYYYY'));
+        $this->assertSame(-117, Carbon::create(-117, 1, 1)->year);
+        $this->assertSame('-00117 -000117', Carbon::create(-117, 1, 1)->isoFormat('YYYYY YYYYYY'));
+
+        $this->assertSame('M01', $d->isoFormat('\\MMM'));
+
+        $this->assertSame('Jan', $d->isoFormat('MMM'));
+        $this->assertSame('janv.', $d->locale('fr')->isoFormat('MMM'));
+        $this->assertSame('ene.', $d->locale('es')->isoFormat('MMM'));
+        $this->assertSame('1 de enero de 2017', $d->locale('es')->isoFormat('LL'));
+        $this->assertSame('1 de ene. de 2017', $d->locale('es')->isoFormat('ll'));
     }
 }

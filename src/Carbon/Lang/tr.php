@@ -9,23 +9,91 @@
  * file that was distributed with this source code.
  */
 
-return array(
-    'year' => ':count yıl',
+return [
+    'year' => '{1}bir yıl|]1,Inf[:count yıl',
     'y' => ':count yıl',
-    'month' => ':count ay',
+    'month' => '{1}bir ay|]1,Inf[:count ay',
     'm' => ':count ay',
-    'week' => ':count hafta',
+    'week' => '{1}bir hafta|]1,Inf[:count hafta',
     'w' => ':count hafta',
-    'day' => ':count gün',
+    'day' => '{1}bir gün|]1,Inf[:count gün',
     'd' => ':count gün',
-    'hour' => ':count saat',
+    'hour' => '{1}bir saat|]1,Inf[:count saat',
     'h' => ':count saat',
-    'minute' => ':count dakika',
+    'minute' => '{1}bir dakika|]1,Inf[:count dakika',
     'min' => ':count dakika',
-    'second' => ':count saniye',
+    'second' => '{1}birkaç saniye|]1,Inf[:count saniye',
     's' => ':count saniye',
     'ago' => ':time önce',
     'from_now' => ':time sonra',
     'after' => ':time sonra',
     'before' => ':time önce',
-);
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd, D MMMM YYYY HH:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[bugün saat] LT',
+        'nextDay' => '[yarın saat] LT',
+        'nextWeek' => '[gelecek] dddd [saat] LT',
+        'lastDay' => '[dün] LT',
+        'lastWeek' => '[geçen] dddd [saat] LT',
+        'sameElse' => 'L',
+    ],
+    'ordinal' => function ($number, $period) {
+        switch ($period) {
+            case 'd':
+            case 'D':
+            case 'Do':
+            case 'DD':
+                return $number;
+            default:
+                if ($number === 0) {  // special case for zero
+                    return "$number'ıncı";
+                }
+
+                static $suffixes = [
+                    1 => '\'inci',
+                    5 => '\'inci',
+                    8 => '\'inci',
+                    70 => '\'inci',
+                    80 => '\'inci',
+                    2 => '\'nci',
+                    7 => '\'nci',
+                    20 => '\'nci',
+                    50 => '\'nci',
+                    3 => '\'üncü',
+                    4 => '\'üncü',
+                    100 => '\'üncü',
+                    6 => '\'ncı',
+                    9 => '\'uncu',
+                    10 => '\'uncu',
+                    30 => '\'uncu',
+                    60 => '\'ıncı',
+                    90 => '\'ıncı',
+                ];
+
+                $lastDigit = $number % 10;
+
+                return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
+        }
+    },
+    'meridiem' => function ($hours, $minutes, $isLower) {
+        if ($hours < 12) {
+            return $isLower ? 'öö' : 'ÖÖ';
+        }
+
+        return $isLower ? 'ös' : 'ÖS';
+    },
+    'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+    'months_short' => ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+    'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+    'weekdays_short' => ['Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts'],
+    'weekdays_min' => ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 1,
+];

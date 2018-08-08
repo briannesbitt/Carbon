@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count ปี',
     'y' => ':count ปี',
     'month' => ':count เดือน',
@@ -22,10 +22,34 @@ return array(
     'h' => ':count ชั่วโมง',
     'minute' => ':count นาที',
     'min' => ':count นาที',
-    'second' => ':count วินาที',
+    'second' => '{1}ไม่กี่วินาที|]1,Inf[:count วินาที',
     's' => ':count วินาที',
     'ago' => ':timeที่แล้ว',
-    'from_now' => ':timeต่อจากนี้',
+    'from_now' => 'อีก :time',
     'after' => ':timeหลังจากนี้',
     'before' => ':timeก่อน',
-);
+    'formats' => [
+        'LT' => 'H:mm',
+        'LTS' => 'H:mm:ss',
+        'L' => 'DD/MM/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY เวลา H:mm',
+        'LLLL' => 'วันddddที่ D MMMM YYYY เวลา H:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[วันนี้ เวลา] LT',
+        'nextDay' => '[พรุ่งนี้ เวลา] LT',
+        'nextWeek' => 'dddd[หน้า เวลา] LT',
+        'lastDay' => '[เมื่อวานนี้ เวลา] LT',
+        'lastWeek' => '[วัน]dddd[ที่แล้ว เวลา] LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        return $hour < 12 ? 'ก่อนเที่ยง' : 'หลังเที่ยง';
+    },
+    'months' => ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+    'months_short' => ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
+    'weekdays' => ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
+    'weekdays_short' => ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'],
+    'weekdays_min' => ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
+];

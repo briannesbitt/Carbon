@@ -26,6 +26,12 @@ class CreateTest extends AbstractTestCase
     public function testCreateWithDefaults()
     {
         $d = Carbon::create();
+        $this->assertSame($d->getTimestamp(), Carbon::create('0000-01-01 00:00:00')->getTimestamp());
+    }
+
+    public function testCreateWithNull()
+    {
+        $d = Carbon::create(null, null, null, null, null, null);
         $this->assertSame($d->getTimestamp(), Carbon::now()->getTimestamp());
     }
 
@@ -61,10 +67,20 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unexpected data found.
      */
     public function testCreateWithInvalidMonth()
     {
         Carbon::create(null, -5);
+    }
+
+    public function testCreateWithInvalidMonthNonStrictMode()
+    {
+        Carbon::useStrictMode(false);
+        $this->assertFalse(Carbon::isStrictModeEnabled());
+        $this->assertFalse(Carbon::create(null, -5));
+        Carbon::useStrictMode(true);
+        $this->assertTrue(Carbon::isStrictModeEnabled());
     }
 
     public function testCreateMonthWraps()

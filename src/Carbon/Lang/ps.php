@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count کال|:count کاله',
     'y' => ':countکال|:countکاله',
     'month' => ':count مياشت|:count مياشتي',
@@ -28,4 +28,4 @@ return array(
     'from_now' => ':time له اوس څخه',
     'after' => ':time وروسته',
     'before' => ':time دمخه',
-);
+];

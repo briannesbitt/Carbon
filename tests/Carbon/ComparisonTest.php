@@ -118,11 +118,13 @@ class ComparisonTest extends AbstractTestCase
     public function testBetweenEqualTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
+        $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
     }
 
     public function testBetweenNotEqualTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
+        $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->isBetween(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), false));
     }
 
     public function testBetweenEqualFalse()

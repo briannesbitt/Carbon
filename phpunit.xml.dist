@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -20,11 +20,17 @@
         <testsuite name="carbon">
             <directory>tests/Carbon</directory>
         </testsuite>
+        <testsuite name="immutable">
+            <directory>tests/CarbonImmutable</directory>
+        </testsuite>
         <testsuite name="interval">
             <directory>tests/CarbonInterval</directory>
         </testsuite>
         <testsuite name="period">
             <directory>tests/CarbonPeriod</directory>
+        </testsuite>
+        <testsuite name="timezone">
+            <directory>tests/CarbonTimeZone</directory>
         </testsuite>
         <testsuite name="localization">
             <directory>tests/Localization</directory>

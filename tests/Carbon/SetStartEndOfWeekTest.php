@@ -16,22 +16,18 @@ use Tests\AbstractTestCase;
 
 class SetStartEndOfWeekTest extends AbstractTestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
-     */
     public function testSetStartOfWeekLessThanMin()
     {
         Carbon::setWeekStartsAt(Carbon::SUNDAY - 1);
+
+        $this->assertSame(Carbon::SATURDAY, Carbon::getWeekStartsAt());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
-     */
     public function testSetStartOfWeekMoreThanMax()
     {
         Carbon::setWeekStartsAt(Carbon::SATURDAY + 1);
+
+        $this->assertSame(Carbon::SUNDAY, Carbon::getWeekStartsAt());
     }
 
     public function testSetStartOfWeekValid()
@@ -42,22 +38,18 @@ class SetStartEndOfWeekTest extends AbstractTestCase
         }
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
-     */
     public function testSetEndOfWeekLessThanMin()
     {
         Carbon::setWeekEndsAt(Carbon::SUNDAY - 1);
+
+        $this->assertSame(Carbon::SATURDAY, Carbon::getWeekEndsAt());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Day of a week should be greater than or equal to 0 and less than or equal to 6.
-     */
     public function testSetEndOfWeekMoreThanMax()
     {
         Carbon::setWeekEndsAt(Carbon::SATURDAY + 1);
+
+        $this->assertSame(Carbon::SUNDAY, Carbon::getWeekEndsAt());
     }
 
     public function testSetEndOfWeekValid()

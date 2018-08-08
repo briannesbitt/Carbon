@@ -12,10 +12,18 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Tests\AbstractTestCase;
 
 class AddTest extends AbstractTestCase
 {
+    public function testAddMethod()
+    {
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add('year', 2)->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add('2 years')->year);
+    }
+
     public function testAddYearsPositive()
     {
         $this->assertSame(1976, Carbon::createFromDate(1975)->addYears(1)->year);
@@ -66,6 +74,35 @@ class AddTest extends AbstractTestCase
         $this->assertSame(13, $dt->hour);
         $this->assertSame(2, $dt->minute);
         $this->assertSame(1, $dt->second);
+    }
+
+    public function testAddCustomWeekdays()
+    {
+        $date = Carbon::createMidnightDate(2018, 5, 25);
+
+        $weekendDays = Carbon::getWeekendDays();
+        Carbon::setWeekendDays([
+            Carbon::WEDNESDAY,
+        ]);
+
+        $date->addWeekdays(2);
+        $this->assertSame(27, $date->day);
+        $date->subWeekdays(-3);
+        $this->assertSame(31, $date->day);
+        $date->addWeekdays(-3);
+        $this->assertSame(27, $date->day);
+        $date->subWeekdays(2);
+        $this->assertSame(25, $date->day);
+        $date->addWeekdays(14);
+        $this->assertSame(10, $date->day);
+        $date->subWeekdays(14);
+        $this->assertSame(25, $date->day);
+        $date->addWeekdays(12);
+        $this->assertSame(8, $date->day);
+        $date->subWeekdays(12);
+        $this->assertSame(25, $date->day);
+
+        Carbon::setWeekendDays($weekendDays);
     }
 
     public function testAddWeekdaysZero()
@@ -168,12 +205,36 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addSecond()->second);
     }
 
+    public function testAddMicrosecondsPositive()
+    {
+        $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addMicroseconds(1)->microsecond);
+    }
+
+    public function testAddMicrosecondsZero()
+    {
+        $this->assertSame(100000, Carbon::createFromTime(0, 0, 0.1)->addMicroseconds(0)->microsecond);
+    }
+
+    public function testAddMicrosecondsNegative()
+    {
+        $this->assertSame(999999, Carbon::createFromTime(0, 0, 0)->addMicroseconds(-1)->microsecond);
+        $this->assertSame(99999, Carbon::createFromTime(0, 0, 0.1)->addMicroseconds(-1)->microsecond);
+    }
+
+    public function testAddMicrosecond()
+    {
+        $this->assertSame(100001, Carbon::createFromTime(0, 0, 0.1)->addMicrosecond()->microsecond);
+    }
+
     /**
      * Test non plural methods with non default args.
      */
     public function testAddYearPassingArg()
     {
         $this->assertSame(1977, Carbon::createFromDate(1975)->addYear(2)->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'years')->year);
+        $this->assertSame(1977, Carbon::createFromDate(1975)->add(CarbonInterval::years(2))->year);
     }
 
     public function testAddDayPassingArg()

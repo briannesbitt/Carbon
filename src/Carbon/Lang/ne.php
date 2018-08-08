@@ -9,23 +9,62 @@
  * file that was distributed with this source code.
  */
 
-return array(
-    'year' => ':count वर्ष',
+return [
+    'year' => 'एक बर्ष|:count बर्ष',
     'y' => ':count वर्ष',
-    'month' => ':count महिना',
+    'month' => 'एक महिना|:count महिना',
     'm' => ':count महिना',
     'week' => ':count हप्ता',
     'w' => ':count हप्ता',
-    'day' => ':count दिन',
+    'day' => 'एक दिन|:count दिन',
     'd' => ':count दिन',
-    'hour' => ':count घण्टा',
+    'hour' => 'एक घण्टा|:count घण्टा',
     'h' => ':count घण्टा',
-    'minute' => ':count मिनेट',
+    'minute' => 'एक मिनेट|:count मिनेट',
     'min' => ':count मिनेट',
-    'second' => ':count सेकेण्ड',
+    'second' => 'केही क्षण|:count सेकेण्ड',
     's' => ':count सेकेण्ड',
-    'ago' => ':time पहिले',
-    'from_now' => ':time देखि',
+    'ago' => ':time अगाडि',
+    'from_now' => ':timeमा',
     'after' => ':time पछि',
     'before' => ':time अघि',
-);
+    'diff_yesterday' => 'हिजो',
+    'diff_tomorrow' => 'भोलि',
+    'formats' => [
+        'LT' => 'Aको h:mm बजे',
+        'LTS' => 'Aको h:mm:ss बजे',
+        'L' => 'DD/MM/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY, Aको h:mm बजे',
+        'LLLL' => 'dddd, D MMMM YYYY, Aको h:mm बजे',
+    ],
+    'calendar' => [
+        'sameDay' => '[आज] LT',
+        'nextDay' => '[भोलि] LT',
+        'nextWeek' => '[आउँदो] dddd[,] LT',
+        'lastDay' => '[हिजो] LT',
+        'lastWeek' => '[गएको] dddd[,] LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 3) {
+            return 'राति';
+        }
+        if ($hour < 12) {
+            return 'बिहान';
+        }
+        if ($hour < 16) {
+            return 'दिउँसो';
+        }
+        if ($hour < 20) {
+            return 'साँझ';
+        }
+
+        return 'राति';
+    },
+    'months' => ['जनवरी', 'फेब्रुवरी', 'मार्च', 'अप्रिल', 'मई', 'जुन', 'जुलाई', 'अगष्ट', 'सेप्टेम्बर', 'अक्टोबर', 'नोभेम्बर', 'डिसेम्बर'],
+    'months_short' => ['जन.', 'फेब्रु.', 'मार्च', 'अप्रि.', 'मई', 'जुन', 'जुलाई.', 'अग.', 'सेप्ट.', 'अक्टो.', 'नोभे.', 'डिसे.'],
+    'weekdays' => ['आइतबार', 'सोमबार', 'मङ्गलबार', 'बुधबार', 'बिहिबार', 'शुक्रबार', 'शनिबार'],
+    'weekdays_short' => ['आइत.', 'सोम.', 'मङ्गल.', 'बुध.', 'बिहि.', 'शुक्र.', 'शनि.'],
+    'weekdays_min' => ['आ.', 'सो.', 'मं.', 'बु.', 'बि.', 'शु.', 'श.'],
+];

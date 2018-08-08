@@ -9,23 +9,62 @@
  * file that was distributed with this source code.
  */
 
-return array(
-    'year' => ':count વર્ષ|:count વર્ષો',
+return [
+    'year' => 'એક વર્ષ|:count વર્ષ',
     'y' => ':countવર્ષ|:countવર્ષો',
-    'month' => ':count મહિનો|:count મહિના',
+    'month' => 'એક મહિનો|:count મહિનો',
     'm' => ':countમહિનો|:countમહિના',
     'week' => ':count અઠવાડિયું|:count અઠવાડિયા',
     'w' => ':countઅઠ.|:countઅઠ.',
-    'day' => ':count દિવસ|:count દિવસો',
+    'day' => 'એક દિવસ|:count દિવસ',
     'd' => ':countદિ.|:countદિ.',
-    'hour' => ':count કલાક|:count કલાકો',
+    'hour' => 'એક કલાક|:count કલાક',
     'h' => ':countક.|:countક.',
-    'minute' => ':count મિનિટ|:count મિનિટ',
+    'minute' => 'એક મિનિટ|:count મિનિટ',
     'min' => ':countમિ.|:countમિ.',
-    'second' => ':count સેકેન્ડ|:count સેકેન્ડ',
+    'second' => 'અમુક પળો|:count સેકંડ',
     's' => ':countસે.|:countસે.',
-    'ago' => ':time પહેલા',
-    'from_now' => ':time અત્યારથી',
+    'ago' => ':time પેહલા',
+    'from_now' => ':time મા',
     'after' => ':time પછી',
     'before' => ':time પહેલા',
-);
+    'diff_yesterday' => 'ગઇકાલે',
+    'diff_tomorrow' => 'કાલે',
+    'formats' => [
+        'LT' => 'A h:mm વાગ્યે',
+        'LTS' => 'A h:mm:ss વાગ્યે',
+        'L' => 'DD/MM/YYYY',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY, A h:mm વાગ્યે',
+        'LLLL' => 'dddd, D MMMM YYYY, A h:mm વાગ્યે',
+    ],
+    'calendar' => [
+        'sameDay' => '[આજ] LT',
+        'nextDay' => '[કાલે] LT',
+        'nextWeek' => 'dddd, LT',
+        'lastDay' => '[ગઇકાલે] LT',
+        'lastWeek' => '[પાછલા] dddd, LT',
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hour, $minute, $isLower) {
+        if ($hour < 4) {
+            return 'રાત';
+        }
+        if ($hour < 10) {
+            return 'સવાર';
+        }
+        if ($hour < 17) {
+            return 'બપોર';
+        }
+        if ($hour < 20) {
+            return 'સાંજ';
+        }
+
+        return 'રાત';
+    },
+    'months' => ['જાન્યુઆરી', 'ફેબ્રુઆરી', 'માર્ચ', 'એપ્રિલ', 'મે', 'જૂન', 'જુલાઈ', 'ઑગસ્ટ', 'સપ્ટેમ્બર', 'ઑક્ટ્બર', 'નવેમ્બર', 'ડિસેમ્બર'],
+    'months_short' => ['જાન્યુ.', 'ફેબ્રુ.', 'માર્ચ', 'એપ્રિ.', 'મે', 'જૂન', 'જુલા.', 'ઑગ.', 'સપ્ટે.', 'ઑક્ટ્.', 'નવે.', 'ડિસે.'],
+    'weekdays' => ['રવિવાર', 'સોમવાર', 'મંગળવાર', 'બુધ્વાર', 'ગુરુવાર', 'શુક્રવાર', 'શનિવાર'],
+    'weekdays_short' => ['રવિ', 'સોમ', 'મંગળ', 'બુધ્', 'ગુરુ', 'શુક્ર', 'શનિ'],
+    'weekdays_min' => ['ર', 'સો', 'મં', 'બુ', 'ગુ', 'શુ', 'શ'],
+];

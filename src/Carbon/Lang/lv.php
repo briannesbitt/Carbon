@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => '0 gadiem|:count gada|:count gadiem',
     'y' => '0 gadiem|:count gada|:count gadiem',
     'month' => '0 mēnešiem|:count mēneša|:count mēnešiem',
@@ -44,4 +44,6 @@ return array(
     'hour_before' => '0 stundas|:count stundu|:count stundas',
     'minute_before' => '0 minūtes|:count minūti|:count minūtes',
     'second_before' => '0 sekundes|:count sekundi|:count sekundes',
-);
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
+];

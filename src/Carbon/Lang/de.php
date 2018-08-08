@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array(
+return [
     'year' => ':count Jahr|:count Jahre',
     'y' => ':countJ|:countJ',
     'month' => ':count Monat|:count Monate',
@@ -43,4 +43,31 @@ return array(
     'diff_tomorrow' => 'Heute',
     'diff_before_yesterday' => 'Vorgestern',
     'diff_after_tomorrow' => 'Übermorgen',
-);
+
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D. MMMM YYYY',
+        'LLL' => 'D. MMMM YYYY HH:mm',
+        'LLLL' => 'dddd, D. MMMM YYYY HH:mm',
+    ],
+
+    'calendar' => [
+        'sameDay' => '[heute um] LT [Uhr]',
+        'nextDay' => '[morgen um] LT [Uhr]',
+        'nextWeek' => 'dddd [um] LT [Uhr]',
+        'lastDay' => '[gestern um] LT [Uhr]',
+        'lastWeek' => '[letzten] dddd [um] LT [Uhr]',
+        'sameElse' => 'L',
+    ],
+
+    'months' => ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+    'months_short' => ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'],
+    'weekdays' => ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+    'weekdays_short' => ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
+    'weekdays_min' => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    'ordinal' => ':number.',
+    'first_day_of_week' => 1,
+    'day_of_first_week_of_year' => 4,
+];

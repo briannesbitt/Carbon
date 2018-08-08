@@ -28,6 +28,13 @@ class FluidSettersTest extends AbstractTestCase
         $d = Carbon::now();
         $this->assertInstanceOfCarbon($d->month(3));
         $this->assertSame(3, $d->month);
+        // Can go to september 1 to 30 (but if it's the 31, it will overflow)
+        $this->assertInstanceOfCarbon($d->startOfMonth()->setMonth(9));
+        $this->assertSame(9, $d->month);
+        $this->assertInstanceOfCarbon($d->months(3));
+        $this->assertSame(3, $d->month);
+        $this->assertInstanceOfCarbon($d->setMonths(9));
+        $this->assertSame(9, $d->month);
     }
 
     public function testFluidMonthSetterWithWrap()
