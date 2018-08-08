@@ -14,6 +14,7 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use DateTime;
 use Tests\AbstractTestCase;
+use Tests\Carbon\Fixtures\BadIsoCarbon;
 use Tests\Carbon\Fixtures\MyCarbon;
 
 class StringsTest extends AbstractTestCase
@@ -257,5 +258,12 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('ene.', $d->locale('es')->isoFormat('MMM'));
         $this->assertSame('1 de enero de 2017', $d->locale('es')->isoFormat('LL'));
         $this->assertSame('1 de ene. de 2017', $d->locale('es')->isoFormat('ll'));
+    }
+
+    public function testBadIsoFormat()
+    {
+        $d = BadIsoCarbon::parse('midnight');
+
+        $this->assertSame('', $d->isoFormat('MMM'));
     }
 }

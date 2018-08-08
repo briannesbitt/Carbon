@@ -30,13 +30,6 @@ trait Options
     public static $PHPIntSize = PHP_INT_SIZE;
 
     /**
-     * Format to use for __toString method when type juggling occurs.
-     *
-     * @var string
-     */
-    protected static $toStringFormat = CarbonInterface::DEFAULT_TO_STRING_FORMAT;
-
-    /**
      * First day of week.
      *
      * @var int
@@ -59,13 +52,6 @@ trait Options
         CarbonInterface::SATURDAY,
         CarbonInterface::SUNDAY,
     ];
-
-    /**
-     * Midday/noon hour.
-     *
-     * @var int
-     */
-    protected static $midDayAt = 12;
 
     /**
      * Format regex patterns.
