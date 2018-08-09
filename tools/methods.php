@@ -12,7 +12,7 @@ function methods()
     }
     if (class_exists(\Carbon\CarbonInterval::class)) {
         $carbonObjects[] = [
-            new \Carbon\CarbonInterval('P1D'),
+            new \Carbon\CarbonInterval(0, 0, 0, 1),
             new \DateInterval('P1D'),
         ];
     }
