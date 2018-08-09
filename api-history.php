@@ -30,7 +30,9 @@ if ($target === 'current') {
                     $type = ' '.$hint;
                 }
                 try {
-                    $defaultValue .= ' = '.$parameter->getDefaultValue();
+                    if ($value = $parameter->getDefaultValue()) {
+                        $defaultValue .= ' = '.var_export($value, true);
+                    }
                 } catch (\Throwable $e) {
                 }
                 $parameters[] = $type.$parameter->getName().$defaultValue;
@@ -39,7 +41,16 @@ if ($target === 'current') {
         $methods["$className::$method"] = $parameters;
     }
 
-    echo json_encode($methods);
+    $data = @json_encode($methods);
+
+    if (json_last_error()) {
+        $data = json_encode([
+            'error' => json_last_error(),
+            'message' => json_last_error_msg(),
+        ]);
+    }
+
+    echo $data;
 
     exit;
 }
@@ -72,8 +83,13 @@ foreach (array_reverse($versions) as $version) {
     $out = shell_exec('php '.__FILE__.' current');
     $data = json_decode($out);
     if (!is_array($data) && !is_object($data)) {
-        var_dump($data);
-        continue;
+        var_dump($version, $data);
+        exit;
+    }
+    $data = (array) $data;
+    if (isset($data['error'])) {
+        var_dump($version, $data);
+        exit;
     }
     foreach ($data as $method => $parameters) {
         $methods[$method][$version] = $parameters;
