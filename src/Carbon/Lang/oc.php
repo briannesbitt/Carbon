@@ -29,7 +29,7 @@ return [
     'second' => ':count segonda|:count segondas',
     's' => ':count segonda|:count segondas',
     'ago' => 'fa :time',
-    'from_now' => 'dins :time',
+    'from_now' => 'd\'aquí :time',
     'after' => ':time aprèp',
     'before' => ':time abans',
     'diff_now' => 'ara meteis',
