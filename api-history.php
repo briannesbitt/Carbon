@@ -20,6 +20,18 @@ function loadDependencies()
     require 'tools/methods.php';
 }
 
+function nameAlias($name)
+{
+    switch ($name) {
+        case 'dt':
+            return 'date';
+        case 'abs':
+            return 'absolute';
+        default:
+            return $name;
+    }
+}
+
 $methods = [];
 
 if ($target === 'current') {
@@ -39,7 +51,7 @@ if ($target === 'current') {
                 $defaultValue = '';
                 $type = '';
                 if ($hint = @$parameter->getType()) {
-                    $type = "$hint ";
+                    $type = ltrim($hint, '\\').' ';
                 }
                 try {
                     if ($value = $parameter->getDefaultValue()) {
@@ -47,7 +59,7 @@ if ($target === 'current') {
                     }
                 } catch (\Throwable $e) {
                 }
-                $parameters[] = $type.$parameter->getName().$defaultValue;
+                $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
             }
         }
         $methods["$className::$method"] = $parameters;

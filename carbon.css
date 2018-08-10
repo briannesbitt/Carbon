@@ -26,3 +26,83 @@ code {color: #38932c;font-size:90%}
 .info-table tr td, .info-table tr th{padding:4px 8px;border:1px solid silver}
 .info-table tr:nth-child(even) td{background:#f6f8fa}
 .compatibility-check{text-align:center}
+
+blockquote{font-size:15px;color: #656565}
+
+@media (min-width: 1600px) {
+    .main-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+    .main-wrapper > section {
+        flex: 1;
+    }
+    .main-wrapper > aside {
+        flex: 0;
+        height: 100%;
+        overflow: hidden;
+    }
+    .main-wrapper > aside,
+    .main-wrapper > aside .search-wrapper {
+        min-width: 0;
+        width: 0;
+        transition: 0.2s all;
+    }
+    .main-wrapper > aside .search-wrapper {
+        background: #e8e8e8;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        overflow: hidden;
+    }
+    .main-wrapper > aside .search-wrapper .close {
+        position: absolute;
+        top: 9px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+        text-align: center;
+        line-height: 32px;
+        outline: none;
+        border-radius: 100%;
+        background: #a6a6a6;
+        border: none;
+    }
+    .main-wrapper > aside .search,
+    .main-wrapper.open > aside .search-wrapper,
+    .main-wrapper.open > aside {
+        min-width: calc(100vw - 1200px);
+        width: calc(100vw - 1200px);
+    }
+    .main-wrapper > aside .search {
+        padding: 15px;
+        margin-top: 50px;
+        height: calc(100vh - 50px);
+        overflow: auto;
+    }
+    .main-wrapper > aside .search .doc-method {
+        padding: 15px 0;
+    }
+    .main-wrapper > aside .search .info-table.method-history {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) th {
+        background: #ededed;
+    }
+    .main-wrapper > aside .search-bar {
+        height: 50px;
+        padding: 9px 15px;
+        box-shadow: 0 1px 1px silver;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    .main-wrapper > aside .search-bar .input-group {
+        width: 66%;
+    }
+}

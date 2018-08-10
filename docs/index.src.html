@@ -60,7 +60,6 @@ class Carbon extends \DateTime
     <pre class="live-editor"><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
-{{::lint($carbon = Carbon::now(-5);)}}
 </code></pre>
     </p>
 
@@ -80,7 +79,7 @@ $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
 )}}
-{{::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->tzName;/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -408,9 +407,9 @@ if ($newLocale === false) {
     <pre><code class="php">{{::lint(
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
-$translator->setMessages('en', array(
+$translator->setMessages('en', [
     'day' => ':count boring day|:count boring days',
-));
+]);
 
 $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
 $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
@@ -430,8 +429,8 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
     <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
         and short variants is driven by locales installed in your operating system. For other translations, it's
         supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
-
     <p>
+
     <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
 
 // Support diff syntax (before, after, from now, ago)
@@ -452,7 +451,7 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 </code></pre>
     </p>
 
-    <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableLocales());)}} locales supported by the last
+    <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
         Carbon version:</p>
 
     <table class="info-table">
@@ -467,7 +466,7 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
         </tr>
         </thead>
         <tbody>
-        {{locale::each(Carbon::getAvailableLocales())}}
+        {{locale::each(Carbon::getAvailableMacroLocales())}}
         <tr>
             <td>{{eval(echo $locale;)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
@@ -480,66 +479,9 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
         </tbody>
     </table>
 
-    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code>
-        execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code>
-        in some middleware to get <code>formatLocalized</code> working properly.</p>
-
-    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
-        and short variants is driven by locales installed in your operating system. For other translations, it's
-        supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
-
-    <p>
-    <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
-
-// Support diff syntax (before, after, from now, ago)
-{{::exec(var_dump(Carbon::localeHasDiffSyntax('en'));/*pad(80)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::localeHasDiffSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
-// Support 1-day diff words (just now, yesterday, tomorrow)
-{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('en'));/*pad(80)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::localeHasDiffOneDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
-// Support 2-days diff words (before yesterday, after tomorrow)
-{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('en'));/*pad(80)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::localeHasDiffTwoDayWords('zh_TW'));/*pad(80)*/)}} // {{eval}}
-// Support short units (1y = 1 year, 1mo = 1 month, etc.)
-{{::exec(var_dump(Carbon::localeHasShortUnits('en'));/*pad(80)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::localeHasShortUnits('zh_TW'));/*pad(80)*/)}} // {{eval}}
-// Support period syntax (X times, every X, from X, to X)
-{{::exec(var_dump(Carbon::localeHasPeriodSyntax('en'));/*pad(80)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
-</code></pre>
-    </p>
-
-    <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableLocales());)}} locales supported by the last
-        Carbon version:</p>
-
-    <table class="info-table">
-        <thead>
-        <tr>
-            <th>Locale</th>
-            <th>Diff syntax</th>
-            <th>1-day diff</th>
-            <th>2-days diff</th>
-            <th>Short units</th>
-            <th>Period</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{locale::each(Carbon::getAvailableLocales())}}
-        <tr>
-            <td>{{eval(echo $locale;)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
-        </tr>
-        {{::endEach}}
-        </tbody>
-    </table>
-
-    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code>
-        execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code>
-        in some middleware to get <code>formatLocalized</code> working properly.</p>
+    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last
+        <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code> and localized
+        properties such as <code>->dayName</code> or <code>->monthName</code> will be localized transparently.</p>
 
     <h1 id="api-testing">Testing Aids</h1>
 
@@ -1427,10 +1369,10 @@ $monday = new Carbon('first monday of 2019');
 {{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
-Carbon::setWeekendDays(array(
+Carbon::setWeekendDays([
     Carbon::SUNDAY,
     Carbon::MONDAY,
-));
+]);
 )}}
 
 {{::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{eval}}
@@ -1439,10 +1381,10 @@ Carbon::setWeekendDays(array(
 {{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
-Carbon::setWeekendDays(array(
+Carbon::setWeekendDays([
     Carbon::SATURDAY,
     Carbon::SUNDAY,
-));
+]);
 // weekend days and start/end of week or not linked
 Carbon::setWeekStartsAt(Carbon::FRIDAY);
 Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to precede the start
@@ -1812,43 +1754,10 @@ $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
         closure as second. This make the closure action available on all Carbon instance (and also as Carbon static
         method) as a method with the given name.</p>
 
-    <p>From PHP 5.4, <code>$this</code> can be used in closures to refer the current instance. For PHP 5.3
-        compatibility, we also add a `$self` attribute to the closure. Example:</p>
-
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $self = null) {
-    // this chunk is needed to be compatible on both stand-alone Carbon with PHP versions < 5.4 and Laravel
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-    // end of the compatibility chunk
-
-    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
-});
-)}}
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
-</code></pre>
-    </p>
-
-    <p>The compatibility chunk allow you to ensure a full compatibility for your macro. A macro on <code>Illuminate\Support\Carbon</code>
-        (the Laravel wrapper class), <code>$self</code> will not be defined, and as mentioned above in PHP 5.3 <code>$this</code>
-        will not be defined. So to make your macros work everywhere, just paste this if-statement testing if
-        <code>$this</code> is defined but not <code>$self</code> and copying it if so, then use <code>$self</code> in
-        your function body.</p>
-
-    <p>No matter if you omit some optional arguments as long as <code>$self</code> has exactly this name and is the last
-        argument:</p>
-
-    <p>
-    <pre><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1, $self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
+Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
+    return $this->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 )}}
 
@@ -1867,25 +1776,15 @@ Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            return $self->modify('next wednesday');
+        return function () {
+            return $this->modify('next wednesday');
         };
     }
 
     public function previousBeerDay()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            return $self->modify('previous wednesday');
+        return function () {
+            return $this->modify('previous wednesday');
         };
     }
 }
@@ -1914,8 +1813,8 @@ $date = Carbon::parse('First saturday of December 2018');
 
     <p>
     <pre><code class="php">{{::lint(
-CarbonInterval::macro('twice', function ($self = null) {
-    return $self->times(2);
+CarbonInterval::macro('twice', function () {
+    return $this->times(2);
 });
 )}}
 {{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{eval}}
@@ -1925,8 +1824,8 @@ CarbonInterval::macro('twice', function ($self = null) {
 
     <p>
     <pre><code class="php">{{::lint(
-CarbonPeriod::macro('countWeekdays', function ($self = null) {
-    return $self->filter('isWeekday')->count();
+CarbonPeriod::macro('countWeekdays', function () {
+    return $this->filter('isWeekday')->count();
 });
 )}}
 {{::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{eval}}
@@ -1938,13 +1837,8 @@ CarbonPeriod::macro('countWeekdays', function ($self = null) {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('isHoliday', function ($self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return in_array($self->format('d/m'), [
+Carbon::macro('isHoliday', function () {
+    return in_array($this->format('d/m'), [
         '25/12', // Christmas
         '01/01', // New Year
         // ...
@@ -1974,14 +1868,9 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentWeekDays()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            $startOfWeek = ($self ?: static::now())->startOfWeek()->subDay();
-            $weekDays = array();
+        return function () {
+            $startOfWeek = (isset($this) ? $this : static::now())->startOfWeek()->subDay();
+            $weekDays = [];
 
             for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
                 $weekDays[] = $startOfWeek->addDay()->startOfDay()->copy();
@@ -1998,15 +1887,10 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentMonthDays()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            $startOfMonth = ($self ?: static::now())->startOfMonth()->subDay();
-            $endOfMonth = ($self ?: static::now())->endOfMonth()->format('d');
-            $monthDays = array();
+        return function () {
+            $startOfMonth = (isset($this) ? $this : static::now())->startOfMonth()->subDay();
+            $endOfMonth = (isset($this) ? $this : static::now())->endOfMonth()->format('d');
+            $monthDays = [];
 
             for ($i = 0; $i < $endOfMonth; $i++)
             {
@@ -2037,13 +1921,8 @@ function dumpDateList($dates) {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('toAtomStringWithNoTimezone', function ($self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return $self->format('Y-m-d\TH:i:s');
+Carbon::macro('toAtomStringWithNoTimezone', function () {
+    return $this->format('Y-m-d\TH:i:s');
 });
 )}}
 {{::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{eval}}
@@ -2123,17 +2002,12 @@ class UserTimezoneCarbonMixin
     {
         $mixin = $this;
 
-        return function ($format, $self = null) use ($mixin) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
+        return function ($format) use ($mixin) {
             if (!is_null($mixin->userTimeZone)) {
-                $self->timezone($mixin->userTimeZone);
+                $this->timezone($mixin->userTimeZone);
             }
 
-            return $self->format($format);
+            return $this->format($format);
         };
     }
 }
@@ -2299,13 +2173,13 @@ $interval->times(3);
     <pre><code class="php">{{::lint(
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
 
-CarbonInterval::setCascadeFactors(array(
-    'minute' => array(60, 'seconds'),
-    'hour' => array(60, 'minutes'),
-    'day' => array(8, 'hours'),
-    'week' => array(5, 'days'),
+CarbonInterval::setCascadeFactors([
+    'minute' => [60, 'seconds'],
+    'hour' => [60, 'minutes'],
+    'day' => [8, 'hours'],
+    'week' => [5, 'days'],
     // in this example the cascade won't go farther than week unit
-));
+]);
 )}}
 
 {{::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{eval}}
@@ -2319,8 +2193,8 @@ CarbonInterval::setCascadeFactors(array(
 // And common factors can be get with short-cut methods:
 {{::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getMinutesPerHour();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getSecondsPerMinute();/*pad(76)*/)}} // {{eval}}
 
 {{::lint(
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
@@ -2370,8 +2244,8 @@ $twoDay = CarbonInterval::days(2);
 {{::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{eval}}
 
 {{::lint(
-$list = array($twoDay, $halfDay, $oneDay);
-usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
+$list = [$twoDay, $halfDay, $oneDay];
+usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 )}}
 
 {{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
@@ -2455,7 +2329,7 @@ while ($period->valid()) { // check if current item is valid
     <p>
     <pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2018-04-29', 7);
-$dates = array();
+$dates = [];
 foreach ($period as $key => $date) {
     if ($key === 3) {
         $period->invert()->start($date); // invert() is an alias for invertDateInterval()
@@ -2481,7 +2355,7 @@ foreach ($period as $key => $date) {
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
 // Default value is 0 which will have the same effect as when no options are given.
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', CarbonPeriod::EXCLUDE_START_DATE);
-$dates = array();
+$dates = [];
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
 }
@@ -2587,7 +2461,7 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
     <p>
     <pre><code class="php">{{::lint(
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('d');
 }
@@ -2597,7 +2471,7 @@ foreach ($period as $date) {
 {{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
-$days = array();
+$days = [];
 $period->setRecurrences(3)->excludeStartDate();
 foreach ($period as $date) {
     $days[] = $date->format('d');
@@ -2608,7 +2482,7 @@ foreach ($period as $date) {
 {{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
-$days = array();
+$days = [];
 $period = CarbonPeriod::recurrences(3)->sinceNow();
 foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
@@ -2633,7 +2507,7 @@ $weekendFilter = function ($date) {
 $period->filter($weekendFilter);)}}
 
 {{::lint(
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
@@ -2647,7 +2521,7 @@ foreach ($period as $date) {
     <p>
     <pre><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-10');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $day = $date->format('m-d');
     $days[] = $day;
@@ -2723,7 +2597,7 @@ $attemptsFilter = function () use (&$attempts) {
 };
 
 $period->prependFilter($attemptsFilter, 'attempts');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
@@ -2734,7 +2608,7 @@ foreach ($period as $date) {
 $attempts = 0;
 
 $period->removeFilter($attemptsFilter)->addFilter($attemptsFilter, 'attempts');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }

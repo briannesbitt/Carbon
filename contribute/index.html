@@ -56,10 +56,35 @@
 
     
 
-    <div class="container page">
-        <div class="row">
-            <div class="col-md-9">
-                <h1>How to Contribute</h1>
+    <div class="main-wrapper">
+        <aside>
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search" id="search-filter">
+                    </div>
+                    <button class="close">&lt;</button>
+                </div>
+                <div class="search">
+                    {{method::each(Carbon::getAllMethods())}}
+                    <div class="doc-method" id="doc-method-{{eval(echo $method['name'];)}}">
+                        <h2>{{eval(echo $method['name'];)}}</h2>
+                        <p>{{eval(echo $method['description'];)}}</p>
+                        {{eval(echo $method['prototype'];)}}
+                        {{eval(echo $method['history'];)}}
+                    </div>
+                    {{::endEach}}
+                </div>
+            </div>
+        </aside>
+        <section>
+            <div class="container page">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h1>How to Contribute</h1>
 
 <p>I hate reading documentation that has code errors and/or sample output that is incorrect. I tried something new with
     this project and wrote a quick parser that can <b>lint</b> sample source code or <b>execute</b> and inject the
@@ -146,9 +171,11 @@ echo 6;              // 6
     <li>Relax and play Castle Crashers</li>
 </ul>
 
+                    </div>
+                    
+                </div>
             </div>
-            
-        </div>
+        </section>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -169,7 +196,7 @@ echo 6;              // 6
                     $pre.removeClass('live-editor');
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
                         '&token=' + token +
                         '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
@@ -186,21 +213,64 @@ echo 6;              // 6
             });
         }
 
+        function openDoc(selection)
+        {
+            var element = $('#doc-method-' + selection)[0];
+            if (element) {
+                $('#search-filter').val('');
+                refreshDoc();
+                $('.main-wrapper').addClass('open');
+                element.scrollIntoView();
+            }
+        }
+
+        function refreshDoc()
+        {
+            var search = $('#search-filter').val().toLowerCase();
+            $('.doc-method').each(function () {
+                var $method = $(this);
+                $method[~$method.find('h2:first').text().toLowerCase().indexOf(search) ? 'show' : 'hide']();
+            });
+        }
+
+        $('#search-filter').on('keyup change input', refreshDoc);
+
         window.addEventListener('message', function (event) {
             var data = event.data;
             if (typeof data === 'string') {
                 data = JSON.parse(data);
             }
             if (data && data.sender === 'try-carbon') {
-                var callback = (callbacks[data.token] || {})[data.event];
-                if (typeof callback === 'function') {
-                    callback();
+                switch (data.event) {
+                    case 'ready':
+                        var callback = (callbacks[data.token] || {})[data.event];
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                        break;
+                    case 'input':
+                        // data.input
+                        break;
+                    case 'selection':
+                        openDoc(data.selection);
+                        break;
                 }
             }
         });
 
         scrollCheck();
         $document.scroll(scrollCheck);
+
+        $('.search-wrapper .close').click(function () {
+            $('.main-wrapper').removeClass('open');
+        });
+
+        $('pre code').on('mouseup select', function () {
+            var s = window.getSelection();
+            if (s.anchorOffset && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
+                openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
+            }
+        });
 
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>

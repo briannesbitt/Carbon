@@ -9,9 +9,84 @@ if (function_exists('xdebug_disable')) {
 }
 
 require 'vendor/autoload.php';
+require 'tools/methods.php';
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+
+function isHistoryUpToDate()
+{
+    if (!file_exists('history.json')) {
+        return false;
+    }
+
+    $versions = json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'];
+    $maxVersion = '1.0.0';
+    foreach ($versions as $version => $data) {
+        if (version_compare($version, $maxVersion) > 0) {
+            $maxVersion = $version;
+        }
+    }
+    $versionData = $versions[$maxVersion];
+
+    return Carbon::parse($versionData['time'])->timestamp < filemtime('history.json');
+}
+
+function historyLine($event, $version, $ref)
+{
+    $ref = empty($ref) ? '<em>no arguments</em>' : "<code>$ref</code>";
+
+    return "<tr><td>$event</td><td>$version</td><td>$ref</td></tr>";
+}
+
+if (!isHistoryUpToDate()) {
+    echo "Your history.json is not up to date. You should first run:\nphp api-history.php\n";
+    exit(1);
+}
+
+$globalHistory = @json_decode(file_get_contents('history.json'), JSON_OBJECT_AS_ARRAY);
+
+Carbon::macro('getAvailableMacroLocales', function () {
+    $locales = [];
+
+    foreach (Carbon::getAvailableLocales() as $locale) {
+        $locales[explode('_', $locale)[0]] = 1;
+    }
+
+    return array_keys($locales);
+});
+
+Carbon::macro('getAllMethods', function () use ($globalHistory) {
+    foreach (@methods() as list($carbonObject, $className, $method, $parameters, $description)) {
+        $history = '';
+        $key = "$className::$method";
+        $parameters = implode(', ', $parameters ?: []);
+        if (is_array($globalHistory) && isset($globalHistory[$key])) {
+            $ref = implode(', ', reset($globalHistory[$key]));
+            $parameters = $ref;
+            $version = key($globalHistory[$key]);
+
+            while (($prototype = next($globalHistory[$key])) !== false) {
+                $prototype = implode(', ', $prototype);
+                if ($prototype !== $ref) {
+                    $history .= historyLine('Prototype changed', $version, $ref);
+                    $ref = $prototype;
+                }
+                $version = key($globalHistory[$key]);
+            }
+
+            $history .= historyLine('Method added', $version, $ref);
+        }
+
+        yield [
+            'name' => $method,
+            'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
+            'className' => $className,
+            'description' => $description,
+            'history' => "<table class='info-table method-history'>$history</table>",
+        ];
+    }
+});
 
 $template = file_get_contents('template.src.html');
 

@@ -1,5 +1,15 @@
 <?php
 
+function getMethodsFromObject($object)
+{
+    foreach (get_class_methods($object) as $method) {
+        yield $method;
+    }
+    foreach (get_class_methods(get_class($object)) as $method) {
+        yield $method;
+    }
+}
+
 function methods()
 {
     $records = [];
@@ -28,7 +38,7 @@ function methods()
         $className = get_class($carbonObject);
         $dateTimeMethods = get_class_methods($dateTimeObject);
 
-        foreach (get_class_methods($carbonObject) as $method) {
+        foreach (getMethodsFromObject($carbonObject) as $method) {
             if (
                 in_array($method, $dateTimeMethods) ||
                 $method === '__call' ||
@@ -42,16 +52,27 @@ function methods()
             }
 
             $records["$className::$method"] = true;
+            $rc = new \ReflectionMethod($carbonObject, $method);
+            $docComment = ($rc->getDocComment()
+                ?: (method_exists(\Carbon\CarbonImmutable::class, $method)
+                    ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
+                    : null
+                )
+            ) ?: null;
+            if ($docComment) {
+                $docComment = preg_replace('/^\s*\/\*+\s*\n([\s\S]+)\n\s*\*\/\s*$/', '$1', $docComment);
+                $docComment = explode("\n\n", preg_replace('/^\s*\*[\t ]*/m', '', $docComment))[0];
+            }
 
-            yield [$carbonObject, $className, $method, null];
+            yield [$carbonObject, $className, $method, null, $docComment];
         }
     }
 
     $className = \Carbon\Carbon::class;
     $carbonObject = new $className();
     $rc = new \ReflectionClass($className);
-    preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
-    foreach ($matches as list($all, $return, $method, $parameters)) {
+    preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
+    foreach ($matches as list($all, $return, $method, $parameters, $description)) {
         $parameters = trim($parameters);
 
         if (isset($records["$className::$method"])) {
@@ -60,6 +81,6 @@ function methods()
 
         $records["$className::$method"] = true;
 
-        yield [$carbonObject, $className, $method, $parameters === '' ? [] : explode(',', $parameters)];
+        yield [$carbonObject, $className, $method, $parameters === '' ? [] : explode(',', $parameters), $description];
     }
 }
