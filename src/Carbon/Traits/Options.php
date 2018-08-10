@@ -103,6 +103,7 @@ trait Options
 
     /**
      * Indicates if months should be calculated with overflow.
+     * Global setting.
      *
      * @var bool
      */
@@ -110,6 +111,7 @@ trait Options
 
     /**
      * Indicates if years should be calculated with overflow.
+     * Global setting.
      *
      * @var bool
      */
@@ -117,10 +119,35 @@ trait Options
 
     /**
      * Indicates if the strict mode is in use.
+     * Global setting.
      *
      * @var bool
      */
     protected static $strictModeEnabled = true;
+
+    /**
+     * Indicates if months should be calculated with overflow.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localMonthsOverflow = null;
+
+    /**
+     * Indicates if years should be calculated with overflow.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localYearsOverflow = null;
+
+    /**
+     * Indicates if the strict mode is in use.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localStrictModeEnabled = null;
 
     /**
      * Enable the strict mode (or disable with passing false).
@@ -212,5 +239,24 @@ trait Options
     public static function shouldOverflowYears()
     {
         return static::$yearsOverflow;
+    }
+
+    /**
+     * Set specific options.
+     *
+     * @param array $options
+     *
+     * @return $this
+     */
+    public function options(array $options)
+    {
+        $this->localStrictModeEnabled = $options['strictMode'] ?? null;
+        $this->localMonthsOverflow = $options['monthOverflow'] ?? null;
+        $this->localYearsOverflow = $options['yearOverflow'] ?? null;
+        if (isset($options['locale'])) {
+            $this->locale($options['locale']);
+        }
+
+        return $this;
     }
 }
