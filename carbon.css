@@ -90,7 +90,8 @@ blockquote{font-size:15px;color: #656565}
         margin-top: 15px;
         font-size: 14px;
     }
-    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) th {
+    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) th,
+    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) td {
         background: #ededed;
     }
     .main-wrapper > aside .search-bar {
