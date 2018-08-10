@@ -23,7 +23,7 @@ use DateTimeInterface;
 trait Mutability
 {
     /**
-     * Return true if the current class/instance is mutable.
+     * Returns true if the current class/instance is mutable.
      *
      * @return bool
      */
@@ -33,7 +33,7 @@ trait Mutability
     }
 
     /**
-     * Return true if the current class/instance is immutable.
+     * Returns true if the current class/instance is immutable.
      *
      * @return bool
      */
