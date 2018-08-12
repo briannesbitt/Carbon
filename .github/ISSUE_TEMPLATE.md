@@ -2,7 +2,7 @@ Hello,
 
 I encountered an issue with the following code:
 ```php
-p Some example
+echo Carbon::parse('2018-06-01')->subDay()->month;
 ```
 Carbon version: **PUT HERE YOUR COMPOSER CARBON VERSION**
 PHP version: **PUT HERE YOUR PHP VERSION**
@@ -27,7 +27,7 @@ your issue.
 
 I expected to get:
 ```
-Expected output
+6
 ```
 <!--
 Always give your expectations. Each use has their owns.
@@ -38,7 +38,7 @@ to be used in comparisons, someone else may not, etc.
 
 But I actually get:
 ```
-Actual output
+5
 ```
 <!--
 If you did not succeed to get the same result in
