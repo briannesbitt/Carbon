@@ -30,6 +30,8 @@ trait Test
      * To clear the test instance call this method using the default
      * parameter of null.
      *
+     * /!\ Use this method for unit tests only.
+     *
      * @param \Carbon\Carbon|string|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null)

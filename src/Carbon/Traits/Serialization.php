@@ -142,6 +142,9 @@ trait Serialization
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather transform Carbon object before the serialization.
+     *
      * JSON serialize all Carbon instances using the given callback.
      *
      * @param callable $callback

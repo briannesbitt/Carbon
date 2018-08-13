@@ -150,6 +150,18 @@ trait Options
     protected $localStrictModeEnabled = null;
 
     /**
+     * Options for diffForHumans and forHumans methods.
+     *
+     * @var bool|null
+     */
+    protected $localHumanDiffOptions = null;
+
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *
+     * @see settings
+     *
      * Enable the strict mode (or disable with passing false).
      *
      * @param bool $strictModeEnabled
@@ -160,7 +172,8 @@ trait Options
     }
 
     /**
-     * Returns true if the strict mode is in use, false else.
+     * Returns true if the strict mode is globally in use, false else.
+     * (It can be overridden in specific instances.)
      *
      * @return bool
      */
@@ -170,9 +183,12 @@ trait Options
     }
 
     /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
+     * @see settings
      *
      * Indicates if months should be calculated with overflow.
      *
@@ -186,6 +202,13 @@ trait Options
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
+     * @see settings
+     *
      * Reset the month overflow behavior.
      *
      * @return void
@@ -196,7 +219,7 @@ trait Options
     }
 
     /**
-     * Get the month overflow behavior.
+     * Get the month overflow global behavior (can be overridden in specific instances).
      *
      * @return bool
      */
@@ -206,9 +229,12 @@ trait Options
     }
 
     /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
+     * @see settings
      *
      * Indicates if years should be calculated with overflow.
      *
@@ -222,6 +248,13 @@ trait Options
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     *
+     * @see settings
+     *
      * Reset the month overflow behavior.
      *
      * @return void
@@ -232,7 +265,7 @@ trait Options
     }
 
     /**
-     * Get the month overflow behavior.
+     * Get the month overflow global behavior (can be overridden in specific instances).
      *
      * @return bool
      */
@@ -244,17 +277,21 @@ trait Options
     /**
      * Set specific options.
      *
-     * @param array $options
+     * @param array $settings
      *
      * @return $this
      */
-    public function options(array $options)
+    public function settings(array $settings)
     {
-        $this->localStrictModeEnabled = $options['strictMode'] ?? null;
-        $this->localMonthsOverflow = $options['monthOverflow'] ?? null;
-        $this->localYearsOverflow = $options['yearOverflow'] ?? null;
-        if (isset($options['locale'])) {
-            $this->locale($options['locale']);
+        $this->localStrictModeEnabled = $settings['strictMode'] ?? null;
+        $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;
+        $this->localYearsOverflow = $settings['yearOverflow'] ?? null;
+        $this->localHumanDiffOptions = $settings['humanDiffOptions'] ?? null;
+        if (isset($settings['locale'])) {
+            $this->locale($settings['locale']);
+        }
+        if (isset($settings['timezone'])) {
+            $this->setTimezone($settings['timezone']);
         }
 
         return $this;
