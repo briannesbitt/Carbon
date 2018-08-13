@@ -217,7 +217,11 @@ trait Units
         } elseif ($canOverflow = in_array($unit, [
                 'month',
                 'year',
-            ]) && ($overflow === false || ($overflow === null && !static::{'shouldOverflow'.ucfirst($unit).'s'}()))) {
+            ]) && ($overflow === false || (
+                $overflow === null &&
+                ($ucUnit = ucfirst($unit).'s') &&
+                !($this->{'local'.$ucUnit.'Overflow'} ?? static::{'shouldOverflow'.$ucUnit}())
+            ))) {
             $day = $date->day;
         }
 

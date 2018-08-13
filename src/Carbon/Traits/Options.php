@@ -17,6 +17,10 @@ use Carbon\CarbonInterface;
  * Trait Options.
  *
  * Embed base methods to change settings of Carbon classes.
+ *
+ * Depends on the following methods:
+ *
+ * @method \Carbon\Carbon|\Carbon\CarbonImmutable setTimezone($timezone) Set the timezone
  */
 trait Options
 {
@@ -103,6 +107,7 @@ trait Options
 
     /**
      * Indicates if months should be calculated with overflow.
+     * Global setting.
      *
      * @var bool
      */
@@ -110,6 +115,7 @@ trait Options
 
     /**
      * Indicates if years should be calculated with overflow.
+     * Global setting.
      *
      * @var bool
      */
@@ -117,12 +123,48 @@ trait Options
 
     /**
      * Indicates if the strict mode is in use.
+     * Global setting.
      *
      * @var bool
      */
     protected static $strictModeEnabled = true;
 
     /**
+     * Indicates if months should be calculated with overflow.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localMonthsOverflow = null;
+
+    /**
+     * Indicates if years should be calculated with overflow.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localYearsOverflow = null;
+
+    /**
+     * Indicates if the strict mode is in use.
+     * Specific setting.
+     *
+     * @var bool|null
+     */
+    protected $localStrictModeEnabled = null;
+
+    /**
+     * Options for diffForHumans and forHumans methods.
+     *
+     * @var bool|null
+     */
+    protected $localHumanDiffOptions = null;
+
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
      * Enable the strict mode (or disable with passing false).
      *
      * @param bool $strictModeEnabled
@@ -133,7 +175,8 @@ trait Options
     }
 
     /**
-     * Returns true if the strict mode is in use, false else.
+     * Returns true if the strict mode is globally in use, false else.
+     * (It can be overridden in specific instances.)
      *
      * @return bool
      */
@@ -143,9 +186,11 @@ trait Options
     }
 
     /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
      *
      * Indicates if months should be calculated with overflow.
      *
@@ -159,6 +204,12 @@ trait Options
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
      * Reset the month overflow behavior.
      *
      * @return void
@@ -169,7 +220,7 @@ trait Options
     }
 
     /**
-     * Get the month overflow behavior.
+     * Get the month overflow global behavior (can be overridden in specific instances).
      *
      * @return bool
      */
@@ -179,9 +230,11 @@ trait Options
     }
 
     /**
-     * @deprecated  To avoid conflict between different third-party libraries, static setters should not be used.
-     *              You should rather use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
-     *              are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
      *
      * Indicates if years should be calculated with overflow.
      *
@@ -195,6 +248,12 @@ trait Options
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
      * Reset the month overflow behavior.
      *
      * @return void
@@ -205,12 +264,36 @@ trait Options
     }
 
     /**
-     * Get the month overflow behavior.
+     * Get the month overflow global behavior (can be overridden in specific instances).
      *
      * @return bool
      */
     public static function shouldOverflowYears()
     {
         return static::$yearsOverflow;
+    }
+
+    /**
+     * Set specific options.
+     *
+     * @param array $settings
+     *
+     * @return $this
+     */
+    public function settings(array $settings)
+    {
+        $this->localStrictModeEnabled = $settings['strictMode'] ?? null;
+        $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;
+        $this->localYearsOverflow = $settings['yearOverflow'] ?? null;
+        $this->localHumanDiffOptions = $settings['humanDiffOptions'] ?? null;
+        $date = $this;
+        if (isset($settings['locale'])) {
+            $date = $date->locale($settings['locale']);
+        }
+        if (isset($settings['timezone'])) {
+            $date = $date->shiftTimezone($settings['timezone']);
+        }
+
+        return $date;
     }
 }

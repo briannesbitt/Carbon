@@ -378,7 +378,7 @@ trait Difference
         }
 
         if (is_null($options)) {
-            $options = static::getHumanDiffOptions();
+            $options = $this->localHumanDiffOptions ?? static::getHumanDiffOptions();
         }
 
         return $this->diffAsCarbonInterval($other, false)

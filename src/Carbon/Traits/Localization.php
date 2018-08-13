@@ -39,27 +39,6 @@ trait Localization
     protected $localTranslator;
 
     /**
-     * Indicates if months should be calculated with overflow.
-     *
-     * @var bool
-     */
-    protected static $monthsOverflow = true;
-
-    /**
-     * Indicates if years should be calculated with overflow.
-     *
-     * @var bool
-     */
-    protected static $yearsOverflow = true;
-
-    /**
-     * Indicates if the strict mode is in use.
-     *
-     * @var bool
-     */
-    protected static $strictModeEnabled = true;
-
-    /**
      * Options for diffForHumans().
      *
      * @var int
@@ -67,6 +46,10 @@ trait Localization
     protected static $humanDiffOptions = CarbonInterface::NO_ZERO_DIFF;
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
      * @param int $humanDiffOptions
      */
     public static function setHumanDiffOptions($humanDiffOptions)
@@ -75,6 +58,10 @@ trait Localization
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
      * @param int $humanDiffOption
      */
     public static function enableHumanDiffOption($humanDiffOption)
@@ -83,6 +70,10 @@ trait Localization
     }
 
     /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
      * @param int $humanDiffOption
      */
     public static function disableHumanDiffOption($humanDiffOption)

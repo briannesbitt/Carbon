@@ -409,36 +409,44 @@ foreach ($tags as $tag) {
     }
 }
 
-$autoDoc = '';
-$columnsMaxLengths = [];
-foreach ($autoDocLines as $line) {
-    if (is_array($line)) {
-        foreach ($line as $column => $text) {
-            $length = strlen($text);
-            $max = $columnsMaxLengths[$column] ?? 0;
-            if ($length > $max) {
-                $columnsMaxLengths[$column] = $length;
+function compileDoc($autoDocLines)
+{
+    $autoDoc = '';
+    $columnsMaxLengths = [];
+    foreach ($autoDocLines as $line) {
+        if (is_array($line)) {
+            foreach ($line as $column => $text) {
+                $length = strlen($text);
+                $max = $columnsMaxLengths[$column] ?? 0;
+                if ($length > $max) {
+                    $columnsMaxLengths[$column] = $length;
+                }
             }
         }
     }
-}
-foreach ($autoDocLines as $line) {
-    $autoDoc .= "\n *";
-    if (is_string($line)) {
-        if (!empty($line)) {
-            $autoDoc .= " $line";
+
+    foreach ($autoDocLines as $line) {
+        $autoDoc .= "\n *";
+        if (is_string($line)) {
+            if (!empty($line)) {
+                $autoDoc .= " $line";
+            }
+
+            continue;
         }
 
-        continue;
+        $computedLine = ' ';
+        foreach ($line as $column => $text) {
+            $computedLine .= str_pad($text, $columnsMaxLengths[$column] + 1, ' ', STR_PAD_RIGHT);
+        }
+
+        $autoDoc .= rtrim($computedLine);
     }
 
-    $computedLine = ' ';
-    foreach ($line as $column => $text) {
-        $computedLine .= str_pad($text, $columnsMaxLengths[$column] + 1, ' ', STR_PAD_RIGHT);
-    }
-
-    $autoDoc .= rtrim($computedLine);
+    return $autoDoc;
 }
+
+$autoDoc = compileDoc($autoDocLines);
 
 $files = new stdClass();
 
@@ -449,6 +457,8 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
     }, $content, 1);
 }
 
+$staticMethods = [];
+$staticImmutableMethods = [];
 $methods = '';
 $carbonMethods = get_class_methods(\Carbon\Carbon::class);
 sort($carbonMethods);
@@ -477,6 +487,28 @@ foreach ($carbonMethods as $method) {
 
             return $output;
         }, $function->getParameters()));
+        if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
+            $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $function->getDocComment());
+            $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
+            $doc = explode("\n@", $doc, 2);
+            $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
+            $staticMethods[] = [
+                '@method',
+                $function->getReturnType() ?: 'Carbon',
+                "$method($parameters)",
+                $doc[0],
+            ];
+            $staticImmutableMethods[] = [
+                '@method',
+                $function->getReturnType() ?: 'CarbonImmutable',
+                "$method($parameters)",
+                $doc[0],
+            ];
+            for ($i = 1; $i < count($doc); $i++) {
+                $staticMethods[] = ['', '', '', $doc[$i]];
+                $staticImmutableMethods[] = ['', '', '', $doc[$i]];
+            }
+        }
         $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
         $methods .= "\n\n    public$static function $method($parameters)$return;";
     }
@@ -486,6 +518,19 @@ $files->$interface = preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\
     return $matches[1]."$methods\n\n    // ".$matches[3];
 }, $files->$interface, 1);
 
-foreach ([$trait, $carbon, $immutable, $interface] as $file) {
-    file_put_contents($file, $files->$file);
+$factories = [
+    __DIR__.'/src/Carbon/Factory.php' => $staticMethods,
+    __DIR__.'/src/Carbon/FactoryImmutable.php' => $staticImmutableMethods,
+];
+
+foreach ($factories as $file => $methods) {
+    $autoDoc = compileDoc($methods);
+    $content = file_get_contents($file);
+    $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDoc) {
+        return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
+    }, $content, 1);
+}
+
+foreach ($files as $file => $contents) {
+    file_put_contents($file, $contents);
 }
