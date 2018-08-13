@@ -45,7 +45,8 @@ foreach ($tags as $tag) {
     shell_exec('git stash');
     shell_exec("git branch -d $branch");
     shell_exec("git checkout tags/$tag -b $branch");
-    shell_exec('composer config platform.php 5.3.9');
+    $phpVersion = version_compare($tag, '2.0.0-dev', '<') ? '5.3.9' : '7.1.8';
+    shell_exec("composer config platform.php $phpVersion");
     shell_exec('composer update --no-interaction --no-dev --optimize-autoloader');
     $zip = new ZipArchive();
 
