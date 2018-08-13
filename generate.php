@@ -227,6 +227,7 @@ genHtml(file_get_contents('index.src.html'), 'index.o.html', file_get_contents('
 genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
+compile('reference/index.src.html', 'reference/index.html');
 
 compile('index.o.html', 'index.html');
 unlink('index.o.html');

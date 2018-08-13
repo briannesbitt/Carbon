@@ -1,3 +1,4 @@
+*{box-sizing:border-box}
 body {font-family:"Open sans","Helvetica Neue",Helvetica,Arial,sans-serif}
 a {outline:0}
 
@@ -5,9 +6,10 @@ a {outline:0}
 .navbar-brand {height:70px;padding:10px 15px;}
 .navbar-nav > li > a {line-height:40px;}
 
-.jumbotron {background-color:#7ac35f;padding:10px 15px 30px;text-align:center}
+.jumbotron {background-color:#7ac35f;padding:10px 15px 30px}
 .jumbotron h1 {color:#f6f6f6;font-size:36px;margin-bottom:20px;}
 .jumbotron code, .jumbotron pre {display:inline-block;text-align:left}
+.jumbotron pre {width:100%}
 pre {border:0;border-radius:4px;margin:0;padding:0;background-color:#1d1f21}
 pre code.hljs {padding:15px;overflow-x:auto;overflow:auto;word-wrap:normal;white-space:pre}
 
@@ -27,83 +29,108 @@ code {color: #38932c;font-size:90%}
 .info-table tr:nth-child(even) td{background:#f6f8fa}
 .compatibility-check{text-align:center}
 
-blockquote{font-size:15px;color: #656565}
+blockquote{font-size:15px;color:#656565}
 
-@media (min-width: 1600px) {
-    .main-wrapper {
-        display: flex;
-        flex-direction: row;
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+.main-wrapper > section {
+    flex: 1;
+}
+.main-wrapper > aside {
+    flex: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.main-wrapper > aside,
+.main-wrapper > aside .search-wrapper {
+    min-width: 0;
+    width: 0;
+    transition: 0.2s all;
+}
+.main-wrapper > aside .search-wrapper {
+    background: #e8e8e8;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    overflow: hidden;
+}
+.main-wrapper > aside .search-wrapper .close {
+    position: absolute;
+    top: 9px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    outline: none;
+    border-radius: 100%;
+    background: #a6a6a6;
+    border: none;
+}
+.main-wrapper > aside .search,
+.main-wrapper.open > aside .search-wrapper,
+.main-wrapper.open > aside {
+    min-width: calc(100vw - 1220px);
+    width: calc(100vw - 1220px);
+}
+.main-wrapper > aside .search {
+    padding: 15px;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+    overflow: auto;
+}
+.main-wrapper > aside .search .doc-method {
+    padding: 15px 0;
+}
+.main-wrapper > aside .search .info-table.method-history {
+    margin-top: 15px;
+    font-size: 14px;
+}
+.main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) th,
+.main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) td {
+    background: #ededed;
+}
+.main-wrapper > aside .search-bar {
+    height: 50px;
+    padding: 9px 15px;
+    box-shadow: 0 1px 1px silver;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.main-wrapper > aside .search-bar .input-group {
+    width: 66%;
+}
+
+@media (max-width: 1600px) {
+    html,
+    body {
+        height: 100%;
+        overflow: auto;
+    }
+    .main-wrapper.open {
+        overflow: hidden;
+    }
+    .main-wrapper.open > aside {
+        overflow: visible;
     }
     .main-wrapper > section {
-        flex: 1;
+        min-width: calc(100vw - 17px);
     }
-    .main-wrapper > aside {
-        flex: 0;
-        height: 100%;
+    .main-wrapper.open > section {
         overflow: hidden;
-    }
-    .main-wrapper > aside,
-    .main-wrapper > aside .search-wrapper {
-        min-width: 0;
-        width: 0;
-        transition: 0.2s all;
-    }
-    .main-wrapper > aside .search-wrapper {
-        background: #e8e8e8;
-        position: fixed;
-        z-index: 9999;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        overflow: hidden;
-    }
-    .main-wrapper > aside .search-wrapper .close {
-        position: absolute;
-        top: 9px;
-        right: 15px;
-        width: 32px;
-        height: 32px;
-        text-align: center;
-        line-height: 32px;
-        outline: none;
-        border-radius: 100%;
-        background: #a6a6a6;
-        border: none;
     }
     .main-wrapper > aside .search,
     .main-wrapper.open > aside .search-wrapper,
     .main-wrapper.open > aside {
-        min-width: calc(100vw - 1200px);
-        width: calc(100vw - 1200px);
-    }
-    .main-wrapper > aside .search {
-        padding: 15px;
-        margin-top: 50px;
-        height: calc(100vh - 50px);
-        overflow: auto;
-    }
-    .main-wrapper > aside .search .doc-method {
-        padding: 15px 0;
-    }
-    .main-wrapper > aside .search .info-table.method-history {
-        margin-top: 15px;
-        font-size: 14px;
-    }
-    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) th,
-    .main-wrapper > aside .search .info-table.method-history tr:nth-child(odd) td {
-        background: #ededed;
-    }
-    .main-wrapper > aside .search-bar {
-        height: 50px;
-        padding: 9px 15px;
-        box-shadow: 0 1px 1px silver;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-    }
-    .main-wrapper > aside .search-bar .input-group {
-        width: 66%;
+        min-width: 100vw;
+        max-width: 100vw;
+        width: 100vw;
     }
 }

@@ -1,0 +1,8 @@
+{{method::each(Carbon::getAllMethods())}}
+<div class="doc-method" id="doc-method-{{eval(echo $method['name'];)}}">
+    <h2>{{eval(echo $method['name'];)}}</h2>
+    <p>{{eval(echo $method['description'];)}}</p>
+    {{eval(echo $method['prototype'];)}}
+    {{eval(echo $method['history'];)}}
+</div>
+{{::endEach}}
