@@ -713,7 +713,7 @@ class CarbonInterval extends DateInterval
                 break;
 
             default:
-                if (Carbon::isStrictModeEnabled()) {
+                if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
                     throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
                 }
 
@@ -880,7 +880,7 @@ class CarbonInterval extends DateInterval
                 break;
 
             default:
-                if (Carbon::isStrictModeEnabled()) {
+                if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
                     throw new BadMethodCallException(sprintf("Unknown fluent setter '%s'", $method));
                 }
         }

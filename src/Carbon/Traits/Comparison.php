@@ -404,7 +404,7 @@ trait Comparison
                 return $this->$unit === $date->$unit;
             }
 
-            if (static::isStrictModeEnabled()) {
+            if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
                 throw new InvalidArgumentException("Bad comparison unit: '$unit'");
             }
 

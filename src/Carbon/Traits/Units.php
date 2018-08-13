@@ -91,7 +91,7 @@ trait Units
                 $value *= static::YEARS_PER_MILLENNIUM * 365 * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE;
                 break;
             default:
-                if (static::isStrictModeEnabled()) {
+                if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
                     throw new InvalidArgumentException("Invalid unit for real timestamp add/sub: '$unit'");
                 }
 

@@ -1478,7 +1478,7 @@ class CarbonPeriod implements Iterator, Countable
                 ));
         }
 
-        if (Carbon::isStrictModeEnabled()) {
+        if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
             throw new BadMethodCallException("Method $method does not exist.");
         }
 

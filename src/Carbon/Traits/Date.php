@@ -1105,7 +1105,7 @@ trait Date
                     break;
                 }
 
-                if (static::isStrictModeEnabled()) {
+                if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
                     throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
                 }
 
@@ -2116,7 +2116,7 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
-            if (static::isStrictModeEnabled()) {
+            if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
                 throw new BadMethodCallException("Method $method does not exist.");
             }
 
