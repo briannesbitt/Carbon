@@ -32,6 +32,6 @@ class SettingsTest extends AbstractTestCase
         ]);
 
         $this->assertSame('un jour 19 heures avant', $paris->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
-        $this->assertSame('4 dias 19 horas antes', $chicago->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
+        $this->assertSame('4 dias 18 horas antes', $chicago->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
     }
 }
