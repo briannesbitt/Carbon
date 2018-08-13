@@ -11,8 +11,6 @@
 
 namespace Carbon\Traits;
 
-use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 
 /**
@@ -22,7 +20,7 @@ use Carbon\CarbonInterface;
  *
  * Depends on the following methods:
  *
- * @method static Carbon|CarbonImmutable setTimezone
+ * @method \Carbon\Carbon|\Carbon\CarbonImmutable setTimezone($timezone) Set the timezone
  */
 trait Options
 {
@@ -165,7 +163,6 @@ trait Options
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
-     *
      * @see settings
      *
      * Enable the strict mode (or disable with passing false).
@@ -193,7 +190,6 @@ trait Options
      *             You should rather use the ->settings() method.
      *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
      *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
      * @see settings
      *
      * Indicates if months should be calculated with overflow.
@@ -212,7 +208,6 @@ trait Options
      *             You should rather use the ->settings() method.
      *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
      *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
      * @see settings
      *
      * Reset the month overflow behavior.
@@ -239,7 +234,6 @@ trait Options
      *             You should rather use the ->settings() method.
      *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
      *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
      * @see settings
      *
      * Indicates if years should be calculated with overflow.
@@ -258,7 +252,6 @@ trait Options
      *             You should rather use the ->settings() method.
      *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
      *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
-     *
      * @see settings
      *
      * Reset the month overflow behavior.

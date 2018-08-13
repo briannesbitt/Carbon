@@ -48,4 +48,3 @@ class FactoryTest extends AbstractTestCase
         $this->assertSame('01/01/2018', $factory->parse('2018-01-01')->format('d/m/Y'));
     }
 }
-

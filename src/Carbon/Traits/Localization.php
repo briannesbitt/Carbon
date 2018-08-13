@@ -38,7 +38,6 @@ trait Localization
      */
     protected $localTranslator;
 
-
     /**
      * Options for diffForHumans().
      *
@@ -49,7 +48,6 @@ trait Localization
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
-     *
      * @see settings
      *
      * @param int $humanDiffOptions
@@ -62,7 +60,6 @@ trait Localization
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
-     *
      * @see settings
      *
      * @param int $humanDiffOption
@@ -75,7 +72,6 @@ trait Localization
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
-     *
      * @see settings
      *
      * @param int $humanDiffOption
