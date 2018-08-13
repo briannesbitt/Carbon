@@ -18,20 +18,20 @@ class SettingsTest extends AbstractTestCase
 {
     public function testSettings()
     {
-        $paris = Carbon::parse('2018-01-31')->settings([
+        $paris = Carbon::parse('2018-01-31 00:00:00')->settings([
             'timezone' => 'Europe/Paris',
             'locale' => 'fr_FR',
             'monthOverflow' => true,
             'yearOverflow' => true,
         ]);
-        $chicago = Carbon::parse('2018-01-31')->settings([
+        $saoPaulo = Carbon::parse('2018-01-31 00:00:00')->settings([
             'timezone' => 'America/Sao_Paulo',
             'locale' => 'pt',
             'monthOverflow' => false,
             'yearOverflow' => false,
         ]);
 
-        $this->assertSame('un jour 19 heures avant', $paris->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
-        $this->assertSame('4 dias 18 horas antes', $chicago->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
+        $this->assertSame('2 jours une heure avant', $paris->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
+        $this->assertSame('4 dias 21 horas antes', $saoPaulo->addMonth()->from(Carbon::parse('2018-03-05', 'UTC'), null, false, 3));
     }
 }

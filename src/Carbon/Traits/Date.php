@@ -1330,6 +1330,21 @@ trait Date
     }
 
     /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return static
+     */
+    public function shiftTimezone($value)
+    {
+        $offset = $this->offset;
+        $date = $this->setTimezone($value);
+
+        return $date->addRealSeconds($offset - $date->offset);
+    }
+
+    /**
      * Set the instance's timezone to UTC.
      *
      * @return static

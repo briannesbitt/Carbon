@@ -981,6 +981,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function settings(array $settings);
 
+    public function shiftTimezone($value);
+
     public static function shouldOverflowMonths();
 
     public static function shouldOverflowYears();

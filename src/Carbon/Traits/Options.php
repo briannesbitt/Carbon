@@ -11,12 +11,18 @@
 
 namespace Carbon\Traits;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 
 /**
  * Trait Options.
  *
  * Embed base methods to change settings of Carbon classes.
+ *
+ * Depends on the following methods:
+ *
+ * @method static Carbon|CarbonImmutable setTimezone
  */
 trait Options
 {
@@ -287,13 +293,14 @@ trait Options
         $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;
         $this->localYearsOverflow = $settings['yearOverflow'] ?? null;
         $this->localHumanDiffOptions = $settings['humanDiffOptions'] ?? null;
+        $date = $this;
         if (isset($settings['locale'])) {
-            $this->locale($settings['locale']);
+            $date = $date->locale($settings['locale']);
         }
         if (isset($settings['timezone'])) {
-            $this->setTimezone($settings['timezone']);
+            $date = $date->shiftTimezone($settings['timezone']);
         }
 
-        return $this;
+        return $date;
     }
 }
