@@ -1231,26 +1231,6 @@ trait Date
     }
 
     /**
-     * Sets the current date of the DateTime object to a different date.
-     * Calls modify as a workaround for a php bug.
-     *
-     * @param int $year
-     * @param int $month
-     * @param int $day
-     *
-     * @return static
-     *
-     * @see https://github.com/briannesbitt/Carbon/issues/539
-     * @see https://bugs.php.net/bug.php?id=63863
-     */
-    public function setDate($year, $month, $day)
-    {
-        $this->modify('+0 day');
-
-        return parent::setDate($year, $month, $day);
-    }
-
-    /**
      * Set the date and time all together.
      *
      * @param int $year
