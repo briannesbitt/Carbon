@@ -1,5 +1,6 @@
 .idea
 .vscode
 vendor
+sandbox
 composer.phar
 composer.lock

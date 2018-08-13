@@ -57,7 +57,26 @@ Carbon::macro('getAvailableMacroLocales', function () {
 });
 
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
-    foreach (@methods() as list($carbonObject, $className, $method, $parameters, $description)) {
+    foreach (@methods(false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject)) {
+
+        if (method_exists($dateTimeObject, $method)) {
+            $dateClass = get_class($dateTimeObject);
+            $rcCarbon = new ReflectionMethod($className, $method);
+            $rcDate = new ReflectionMethod($dateClass, $method);
+            if ($rcCarbon == $rcDate) {
+                $dateClass = trim($dateClass, '/\\');
+
+                yield [
+                    'name'      => $method,
+                    'prototype' => '<em>Native PHP method</em>',
+                    'className' => preg_replace('/^Carbon\\\\/', '', $className),
+                    'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
+                    'history' => '',
+                ];
+
+                continue;
+            }
+        }
         $history = '';
         $key = "$className::$method";
         $parameters = implode(', ', $parameters ?: []);
@@ -81,8 +100,8 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         yield [
             'name' => $method,
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
-            'className' => $className,
-            'description' => $description,
+            'className' => preg_replace('/^Carbon\\\\/', '', $className),
+            'description' => nl2br($description),
             'history' => "<table class='info-table method-history'>$history</table>",
         ];
     }
@@ -151,7 +170,7 @@ function evaluateCode(&$__state, $__code) {
     return $ob;
 }
 
-function compile($src, $dest)
+function compile($src, $dest = null)
 {
     $code = file_get_contents($src);
 
@@ -218,12 +237,12 @@ function compile($src, $dest)
     }
 
     // allow for escaping a command
-    $code = str_replace('\{\{', '{{', $code);
+    $code = trim(str_replace('\{\{', '{{', $code))."\n";
 
-    file_put_contents($dest, trim($code)."\n");
+    return $dest ? file_put_contents($dest, $code) : $code;
 }
 
-genHtml(file_get_contents('index.src.html'), 'index.o.html', file_get_contents('jumbotron.src.html'));
+genHtml(file_get_contents('index.src.html'), 'index.o.html', compile('jumbotron.src.html'));
 genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');

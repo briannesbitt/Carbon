@@ -32,7 +32,7 @@
     <body data-spy="scroll" data-target="#affix-nav">
 
     <div class="main-wrapper">
-        <aside>
+        <aside id="reference">
             <div class="search-wrapper">
                 <div class="search-bar">
                     <div class="input-group">
@@ -63,6 +63,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/#gettingstarted">Getting Started</a></li>
                             <li><a href="/docs/">Docs</a></li>
+                            <li><a href="#reference">Reference</a></li>
                             <li><a href="/history/">History</a></li>
                             <li><a href="/contribute/">Contribute</a></li>
                             <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
@@ -95,7 +96,9 @@ class Carbon extends \DateTime
     </p>
 
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
-        base functionality if you see anything missing in Carbon but is there in DateTime.</p>
+        base functionality if you see anything missing in Carbon but is there in DateTime such as
+        <a href="http://php.net/manual/en/datetime.format.php">format</a> or
+        <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
 
     <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
         import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
@@ -196,7 +199,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-13 08:19:34
+echo $now;                               // 2018-08-13 11:15:49
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-13 00:00:00
@@ -315,7 +318,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:19 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:15 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1488,7 +1491,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-13 08:19:35
+echo Carbon::now();                                    // 2018-08-13 11:15:49
 </code></pre>
     </p>
 
@@ -1817,7 +1820,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#274 (2) {
+  object(Carbon\CarbonTimeZone)#293 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -1921,8 +1924,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-13 08:19:35
-echo $dt1->maximum();                              // 2018-08-13 08:19:35
+echo $dt1->max();                                  // 2018-08-13 11:15:49
+echo $dt1->maximum();                              // 2018-08-13 11:15:49
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3642,13 +3645,17 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00-05:00/P3DT12H/2000-0
 
         function openDoc(selection)
         {
-            var element = $('#doc-method-' + selection)[0];
-            if (element) {
-                $('#search-filter').val('');
-                refreshDoc();
-                $('.main-wrapper').addClass('open');
-                element.scrollIntoView();
-            }
+            $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                var element = $('#doc-method-' + className + '-' + selection)[0];
+                if (element) {
+                    $('#search-filter').val('');
+                    refreshDoc();
+                    $('.main-wrapper').addClass('open');
+                    element.scrollIntoView();
+
+                    return false;
+                }
+            });
         }
 
         function refreshDoc()
@@ -3699,8 +3706,15 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00-05:00/P3DT12H/2000-0
             }
         });
 
+        $('[href="#reference"]').click(function (event) {
+            event.preventDefault();
+            if ($('.main-wrapper').toggleClass('open').hasClass('open')) {
+                $('#search-filter').focus();
+            }
+        });
+
         $(function () {
-            $.ajax('reference', {
+            $.ajax('/reference', {
                 success: function (data) {
                     $('.search').html(data);
                 },

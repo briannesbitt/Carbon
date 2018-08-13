@@ -44,7 +44,7 @@ if ($target === 'current') {
 
     loadDependencies();
 
-    foreach (@methods() as list($carbonObject, $className, $method, $parameters)) {
+    foreach (@methods(false) as list($carbonObject, $className, $method, $parameters)) {
         if ($parameters === null) {
             $parameters = [];
             foreach ((new \ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
@@ -54,8 +54,8 @@ if ($target === 'current') {
                     $type = ltrim($hint, '\\').' ';
                 }
                 try {
-                    if ($value = $parameter->getDefaultValue()) {
-                        $defaultValue .= ' = '.var_export($value, true);
+                    if ($parameter->isDefaultValueAvailable()) {
+                        $defaultValue .= ' = '.var_export($parameter->getDefaultValue(), true);
                     }
                 } catch (\Throwable $e) {
                 }

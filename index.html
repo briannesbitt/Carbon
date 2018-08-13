@@ -32,7 +32,7 @@
     <body data-spy="scroll" data-target="#affix-nav">
 
     <div class="main-wrapper">
-        <aside>
+        <aside id="reference">
             <div class="search-wrapper">
                 <div class="search-bar">
                     <div class="input-group">
@@ -63,6 +63,7 @@
                         <ul class="nav navbar-nav">
                             <li><a href="/#gettingstarted">Getting Started</a></li>
                             <li><a href="/docs/">Docs</a></li>
+                            <li><a href="#reference">Reference</a></li>
                             <li><a href="/history/">History</a></li>
                             <li><a href="/contribute/">Contribute</a></li>
                             <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
@@ -72,18 +73,33 @@
             </nav>
 
             <div class="jumbotron">
-   <div class="container">
-      <h1>A simple PHP API extension for DateTime.</h1>
-      <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
-printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
+    <div class="container">
+        <h1>A simple PHP API extension for DateTime.</h1>
+        <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
+printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
 
-// Carbon embed {{eval(echo count(Carbon::getAvailableMacroLocales()); languages:
-echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm')."\n";
-echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm')."\n";
+// Carbon embed 137 languages:
+echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
+echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
+
+$officialDate = Carbon::now()->toRfc2822String();
+
+$howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
+
+$noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
+
+$internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
+
+if (Carbon::now()->isWeekend()) {
+    echo 'Party!';
+}
+echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
+
+// Want to know more about diffForHumans? Double-click on the method name!
 </code></pre>
-   </div>
+    </div>
 </div>
 
 
@@ -219,13 +235,17 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
         function openDoc(selection)
         {
-            var element = $('#doc-method-' + selection)[0];
-            if (element) {
-                $('#search-filter').val('');
-                refreshDoc();
-                $('.main-wrapper').addClass('open');
-                element.scrollIntoView();
-            }
+            $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                var element = $('#doc-method-' + className + '-' + selection)[0];
+                if (element) {
+                    $('#search-filter').val('');
+                    refreshDoc();
+                    $('.main-wrapper').addClass('open');
+                    element.scrollIntoView();
+
+                    return false;
+                }
+            });
         }
 
         function refreshDoc()
@@ -276,8 +296,15 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
             }
         });
 
+        $('[href="#reference"]').click(function (event) {
+            event.preventDefault();
+            if ($('.main-wrapper').toggleClass('open').hasClass('open')) {
+                $('#search-filter').focus();
+            }
+        });
+
         $(function () {
-            $.ajax('reference', {
+            $.ajax('/reference', {
                 success: function (data) {
                     $('.search').html(data);
                 },

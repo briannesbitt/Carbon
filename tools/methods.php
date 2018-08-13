@@ -10,7 +10,7 @@ function getMethodsFromObject($object)
     }
 }
 
-function methods()
+function methods($excludeNatives = false)
 {
     $records = [];
     $carbonObjects = [];
@@ -40,7 +40,7 @@ function methods()
 
         foreach (getMethodsFromObject($carbonObject) as $method) {
             if (
-                in_array($method, $dateTimeMethods) ||
+                ($excludeNatives && in_array($method, $dateTimeMethods)) ||
                 $method === '__call' ||
                 $method === '__callStatic'
             ) {
@@ -60,16 +60,24 @@ function methods()
                 )
             ) ?: null;
             if ($docComment) {
+                preg_match_all('/@example\s+([^\n]+)\n/', "$docComment\n", $matches, PREG_PATTERN_ORDER);
                 $docComment = preg_replace('/^\s*\/\*+\s*\n([\s\S]+)\n\s*\*\/\s*$/', '$1', $docComment);
-                $docComment = explode("\n\n", preg_replace('/^\s*\*[\t ]*/m', '', $docComment))[0];
+                $docComment = trim(explode("\n@", preg_replace('/^\s*\*[\t ]*/m', '', $docComment))[0]);
+                if (count($matches[1])) {
+                    $docComment .= '<p><strong>Examples:</strong></p>';
+                    foreach ($matches[1] as $example) {
+                        $docComment .= '<p><code>'.str_replace(' ', '&nbsp;', $example).'</code></p>';
+                    }
+                }
             }
 
-            yield [$carbonObject, $className, $method, null, $docComment];
+            yield [$carbonObject, $className, $method, null, $docComment, $dateTimeObject];
         }
     }
 
     $className = \Carbon\Carbon::class;
     $carbonObject = new $className();
+    $dateTimeObject = new \DateTime();
     $rc = new \ReflectionClass($className);
     preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
     foreach ($matches as list($all, $return, $method, $parameters, $description)) {
@@ -81,6 +89,6 @@ function methods()
 
         $records["$className::$method"] = true;
 
-        yield [$carbonObject, $className, $method, $parameters === '' ? [] : explode(',', $parameters), $description];
+        yield [$carbonObject, $className, $method, $parameters === '' ? [] : explode(',', $parameters), $description, $dateTimeObject];
     }
 }

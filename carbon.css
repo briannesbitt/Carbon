@@ -30,6 +30,7 @@ code {color: #38932c;font-size:90%}
 .compatibility-check{text-align:center}
 
 blockquote{font-size:15px;color:#656565}
+.class-name {color: #8f8f8f}
 
 .main-wrapper {
     display: flex;
@@ -86,6 +87,9 @@ blockquote{font-size:15px;color:#656565}
 }
 .main-wrapper > aside .search .doc-method {
     padding: 15px 0;
+}
+.main-wrapper > aside .search .doc-method h2 {
+    font-size: 20px;
 }
 .main-wrapper > aside .search .info-table.method-history {
     margin-top: 15px;
