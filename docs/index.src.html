@@ -28,27 +28,23 @@ class Carbon extends \DateTime
     <pre><code class="php">use Carbon\Carbon;</code></pre>
     </p>
 
-    <blockquote>Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the
-        default of 'America/Toronto' is to be assumed. Typically Ottawa is -0500 but when daylight savings time is on we
-        are -0400.
-    </blockquote>
-
-    <p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the
-        underlying DateTime implementation. For example all comparisons are done in UTC or in the timezone of the
-        datetime being used.</p>
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
+        see how cool is this doc.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
+// Try to replace the 4th number (hours) or the last argument (timezone) with
+// Europe/paris for example and see the actual result on the right hand.
+// It's alive!
 
 {{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
+// Now, try to double-click on "diffInHours" or "create" to open
+// the References panel.
+// Once the references panel is open, you can use the search field to
+// filter the list or click the (<) button to close it.
 </code></pre>
     </p>
-
-    Also <code>is</code> comparisons are done in the timezone of the provided Carbon instance. For example my current
-    timezone is -13 hours from Tokyo. So <code>Carbon::now('Asia/Tokyo')->isToday()</code> would only return false for
-    any time past 1 PM my time. This doesn't make sense since <code>now()</code> in tokyo is always today in Tokyo. Thus
-    the comparison to <code>now()</code> is done in the same timezone as the current instance.</p>
 
     <h1 id="api-instantiation">Instantiation</h1>
 
@@ -65,14 +61,16 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
-    <p>You'll notice above that the timezone (2nd) parameter was passed as a string and an integer rather than a <code>\DateTimeZone</code>
+    <p>You'll notice above that the timezone (2nd) parameter was passed as a string rather than a <code>\DateTimeZone</code>
         instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance, string or
         integer offset to GMT and the timezone will be created for you. This is again shown in the next example which
         also introduces the <code>now()</code> function.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-$now = Carbon::now();
+$now = Carbon::now(); // will use timezone as set with date_default_timezone_set
+// PS: we recommend you to work with UTC as default timezone and only use
+// other timezones (such as the user timezone) on display
 
 $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 
@@ -81,7 +79,7 @@ $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
 )}}
-{{::exec(echo Carbon::now()->tzName;/*pad(40)*/)}} // {{eval}}
+{{::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -94,10 +92,6 @@ echo "\n";
 {{::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{eval}}
 </code></pre>
     </p>
-
-    <p>Note: before PHP 5.4 <code>(new MyClass())->method()</code> trigger a syntax error, if you use PHP 5.3, you need
-        to create a variable then call the method on it: <code>$date = new Carbon('first day of December 2008'); echo
-            $date->addWeeks(2)</code></p>
 
     <p>The string passed to <code>Carbon::parse</code> or to <code>new Carbon</code> can represent a relative time (next
         sunday, tomorrow, first day of next month, last year) or an absolute time (first day of December 2008,

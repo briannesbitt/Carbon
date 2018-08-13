@@ -91,6 +91,17 @@ blockquote{font-size:15px;color:#656565}
 .main-wrapper > aside .search .doc-method h2 {
     font-size: 20px;
 }
+.main-wrapper > aside .search .doc-method.deprecated h2 {
+    opacity: 0.6;
+}
+.main-wrapper > aside .search .doc-method.deprecated h2:after {
+    content: '(deprecated)';
+    text-decoration: none;
+    position: relative;
+    top: -4px;
+    left: 10px;
+    font-size: 15px;
+}
 .main-wrapper > aside .search .info-table.method-history {
     margin-top: 15px;
     font-size: 14px;

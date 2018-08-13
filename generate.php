@@ -1,6 +1,6 @@
 <?php
 
-date_default_timezone_set('America/Toronto');
+date_default_timezone_set('UTC');
 setlocale(LC_ALL, 'en');
 ini_set('html_errors', 0);
 if (function_exists('xdebug_disable')) {
@@ -99,9 +99,12 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
 
         yield [
             'name' => $method,
+            'classes' => trim(implode(' ', [
+                strpos($description, '@deprecated') !== false ? 'deprecated' : '',
+            ])),
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
             'className' => preg_replace('/^Carbon\\\\/', '', $className),
-            'description' => nl2br($description),
+            'description' => preg_replace('/\n *\n/', '<br><br>', preg_replace('/@deprecated\s(([^\n]+)(\n [^\n])*)/', '<div class="alert alert-warning">$1</div>', $description)),
             'history' => "<table class='info-table method-history'>$history</table>",
         ];
     }

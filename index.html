@@ -235,17 +235,19 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
         function openDoc(selection)
         {
-            $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
-                var element = $('#doc-method-' + className + '-' + selection)[0];
-                if (element) {
-                    $('#search-filter').val('');
-                    refreshDoc();
-                    $('.main-wrapper').addClass('open');
-                    element.scrollIntoView();
+            if (/[a-zA-Z0-9_-]+$/.test(selection)) {
+                $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                    var element = $('#doc-method-' + className + '-' + selection)[0];
+                    if (element) {
+                        $('#search-filter').val('');
+                        refreshDoc();
+                        $('.main-wrapper').addClass('open');
+                        element.scrollIntoView();
 
-                    return false;
-                }
-            });
+                        return false;
+                    }
+                });
+            }
         }
 
         function refreshDoc()
