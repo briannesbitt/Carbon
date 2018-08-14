@@ -28,7 +28,7 @@ use InvalidArgumentException;
  * Depends on the following methods:
  *
  * @method string|static locale(string $locale = null)
- * @method string        toJson()
+ * @method string        toJSON()
  */
 trait Serialization
 {
