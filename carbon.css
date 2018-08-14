@@ -32,6 +32,18 @@ code {color: #38932c;font-size:90%}
 blockquote{font-size:15px;color:#656565}
 .class-name {color: #8f8f8f}
 
+.live-editor-new-window {
+    float: right;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    margin-bottom: -32px;
+    color: #cbcbcb;
+}
+.live-editor-new-window:hover {
+    color: white;
+}
 .main-wrapper {
     display: flex;
     flex-direction: row;

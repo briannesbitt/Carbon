@@ -193,16 +193,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-13 16:26:18
+echo $now;                               // 2018-08-14 07:23:49
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-13 00:00:00
+echo $today;                             // 2018-08-14 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-14 00:00:00
+echo $tomorrow;                          // 2018-08-15 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-12 00:00:00
+echo $yesterday;                         // 2018-08-13 00:00:00
 </code></pre>
     </p>
 
@@ -312,7 +312,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:26 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 09:23 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1485,7 +1485,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-13 16:26:18
+echo Carbon::now();                                    // 2018-08-14 07:23:49
 </code></pre>
     </p>
 
@@ -1918,8 +1918,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-13 16:26:18
-echo $dt1->maximum();                              // 2018-08-13 16:26:18
+echo $dt1->max();                                  // 2018-08-14 07:23:49
+echo $dt1->maximum();                              // 2018-08-14 07:23:49
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3391,7 +3391,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-13, 2018-08-14, 2018-08-15
+echo implode(', ', $days);               // 2018-08-14, 2018-08-15, 2018-08-16
 </code></pre>
     </p>
 
@@ -3620,10 +3620,12 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00+00:00/P3DT12H/2000-0
                     $pre.removeClass('live-editor');
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
-                        '&token=' + token +
-                        '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                        '&token=' + token;
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                    var $iframe = $('<iframe src="' + link +
+                        '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
                     (callbacks[token] || (callbacks[token] = {})).ready = function () {
                         $iframe.css({
                             opacity: 1,

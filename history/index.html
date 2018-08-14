@@ -463,10 +463,12 @@
                     $pre.removeClass('live-editor');
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var $iframe = $('<iframe src="https://try-carbon.herokuapp.com/?embed&hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
-                        '&token=' + token +
-                        '" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                        '&token=' + token;
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                    var $iframe = $('<iframe src="' + link +
+                        '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
                     (callbacks[token] || (callbacks[token] = {})).ready = function () {
                         $iframe.css({
                             opacity: 1,
