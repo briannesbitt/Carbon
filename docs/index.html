@@ -193,7 +193,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-14 07:23:49
+echo $now;                               // 2018-08-14 15:55:15
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-14 00:00:00
@@ -214,10 +214,13 @@ echo $yesterday;                         // 2018-08-13 00:00:00
         call.</p>
 
     <p>
-    <pre><code class="php">Carbon::createFromDate($year, $month, $day, $tz);
-Carbon::createFromTime($hour, $minute, $second, $tz);
-Carbon::createFromTimeString("$hour:$minute:$second", $tz);
-Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
+    <pre class="live-editor"><code class="php">$year = 2000; $month = 4; $day = 19;
+$hour = 20; $minute = 30; $second = 15; $tz = 'Europe/Madrid';
+echo Carbon::createFromDate($year, $month, $day, $tz)."\n";
+echo Carbon::createMidnightDate($year, $month, $day, $tz)."\n";
+echo Carbon::createFromTime($hour, $minute, $second, $tz)."\n";
+echo Carbon::createFromTimeString("$hour:$minute:$second", $tz)."\n";
+echo Carbon::create($year, $month, $day, $hour, $minute, $second, $tz)."\n";
 </code></pre>
     </p>
 
@@ -257,9 +260,8 @@ try {
 
     <p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
 
-    <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception since
-        PHP 5.4 because this time is in an hour skipped by the daylight saving time, but before PHP 5.4, it will just
-        create this invalid date as it has existed.</p>
+    <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
+        this time is in an hour skipped by the daylight saving time.</p>
 
     <p>
     <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
@@ -312,7 +314,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 09:23 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:55 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1485,7 +1487,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-14 07:23:49
+echo Carbon::now();                                    // 2018-08-14 15:55:15
 </code></pre>
     </p>
 
@@ -1918,8 +1920,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-14 07:23:49
-echo $dt1->maximum();                              // 2018-08-14 07:23:49
+echo $dt1->max();                                  // 2018-08-14 15:55:15
+echo $dt1->maximum();                              // 2018-08-14 15:55:15
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2657,8 +2659,7 @@ echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');    // 2012-12-25T
 
     <h1 id="api-json">JSON</h1>
 
-    <p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+, see
-        below notes about PHP 5.3).</p>
+    <p>The Carbon instances can be encoded to and decoded from JSON.</p>
 
     <p>
     <pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
@@ -2689,20 +2690,9 @@ Carbon::serializeUsing(null);
 </code></pre>
     </p>
 
-    <p>The <code>jsonSerialize()</code> method returns the intermediate turned into string by `json_encode`, it can also
-        allow you to work with PHP 5.3 compatibility.</p>
-
-    <p>
-    <pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
-echo json_encode($dt->jsonSerialize());
-// "2012-12-25T16:30:00.000000Z"
-// This is equivalent to the first json_encode example but works with PHP 5.3.
-
-// And it can be used separately:
-var_dump($dt->jsonSerialize());
-// string(27) "2012-12-25T16:30:00.000000Z"
-</code></pre>
-    </p>
+    <p>The <code>jsonSerialize()</code> method allow you to call the function given to
+        <code>Carbon::serializeUsing()</code> or the result of <code>toJson()</code> if no custom
+        serialization specified.</p>
 
     <h1 id="api-macro">Macro</h1>
 

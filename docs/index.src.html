@@ -137,10 +137,15 @@ echo "\n";
         call.</p>
 
     <p>
-    <pre><code class="php">Carbon::createFromDate($year, $month, $day, $tz);
-Carbon::createFromTime($hour, $minute, $second, $tz);
-Carbon::createFromTimeString("$hour:$minute:$second", $tz);
-Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
+    <pre class="live-editor"><code class="php">{{::lint(
+$year = 2000; $month = 4; $day = 19;
+$hour = 20; $minute = 30; $second = 15; $tz = 'Europe/Madrid';
+echo Carbon::createFromDate($year, $month, $day, $tz)."\n";
+echo Carbon::createMidnightDate($year, $month, $day, $tz)."\n";
+echo Carbon::createFromTime($hour, $minute, $second, $tz)."\n";
+echo Carbon::createFromTimeString("$hour:$minute:$second", $tz)."\n";
+echo Carbon::create($year, $month, $day, $hour, $minute, $second, $tz)."\n";
+)}}
 </code></pre>
     </p>
 
@@ -182,9 +187,8 @@ echo "\n";
 
     <p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
 
-    <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception since
-        PHP 5.4 because this time is in an hour skipped by the daylight saving time, but before PHP 5.4, it will just
-        create this invalid date as it has existed.</p>
+    <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
+        this time is in an hour skipped by the daylight saving time.</p>
 
     <p>
     <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
@@ -1684,8 +1688,7 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 
     <h1 id="api-json">JSON</h1>
 
-    <p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+, see
-        below notes about PHP 5.3).</p>
+    <p>The Carbon instances can be encoded to and decoded from JSON.</p>
 
     <p>
     <pre><code class="php">{{::lint(
@@ -1724,22 +1727,9 @@ Carbon::serializeUsing(null);
 </code></pre>
     </p>
 
-    <p>The <code>jsonSerialize()</code> method returns the intermediate turned into string by `json_encode`, it can also
-        allow you to work with PHP 5.3 compatibility.</p>
-
-    <p>
-    <pre><code class="php">{{::lint(
-$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
-)}}
-{{::exec(echo json_encode($dt->jsonSerialize());)}}
-// {{eval}}
-// This is equivalent to the first json_encode example but works with PHP 5.3.
-
-// And it can be used separately:
-{{::exec(var_dump($dt->jsonSerialize());)}}
-// {{eval}}
-</code></pre>
-    </p>
+    <p>The <code>jsonSerialize()</code> method allow you to call the function given to
+        <code>Carbon::serializeUsing()</code> or the result of <code>toJson()</code> if no custom
+        serialization specified.</p>
 
     <h1 id="api-macro">Macro</h1>
 
