@@ -12,7 +12,13 @@ require 'vendor/autoload.php';
 require 'tools/methods.php';
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\CarbonPeriod;
+use Carbon\CarbonTimeZone;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
 
 function isHistoryUpToDate()
 {
@@ -177,7 +183,21 @@ function compile($src, $dest = null)
 {
     $code = file_get_contents($src);
 
-    $imports = 'use Carbon\Carbon; use Carbon\CarbonInterval; use Carbon\CarbonPeriod; ';
+    static $imports = null;
+    if (is_null($imports)) {
+        $imports = implode('', array_map(function ($import) {
+            return "use $import; ";
+        }, [
+            Carbon::class,
+            CarbonImmutable::class,
+            CarbonInterface::class,
+            CarbonInterval::class,
+            CarbonTimeZone::class,
+            CarbonPeriod::class,
+            Factory::class,
+            FactoryImmutable::class,
+        ]));
+    }
 
     $__state = array();
     $lastCode = '';

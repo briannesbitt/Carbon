@@ -16,8 +16,45 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
+    <p>We also provide CarbonImmutable class extending <a
+            href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
+        The same methods are available on both classes but when you use a modifier on a Carbon
+        instance, it modify it and returns the same instance, when you use it on CarbonImmutable,
+        it returns a new instances with the new value.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($mutable = Carbon::now();)}}
+{{::lint($immutable = CarbonImmutable::now();)}}
+{{::lint($modifiedMutable = $mutable->add(1, 'day');)}}
+{{::lint($modifiedImmutable = CarbonImmutable::now()->add(1, 'day');)}}
+
+{{::exec(var_dump($modifiedMutable === $mutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedMutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// So it means $mutable and $modifiedMutable are the same object
+// both set to now + 1 day.
+{{::exec(var_dump($modifiedImmutable === $immutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedImmutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// While $immutable is still set to now and cannot be changed and
+// $modifiedImmutable is a new instance created from $immutable
+// set to now + 1 day.
+</code></pre>
+    </p>
+
+    <p>As CarbonInterface class extends <a
+            href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
+            href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
+        CarbonInterval class extends <a
+                href="http://www.php.net/manual/en/class.datetinterval.php">DateTimeInterface</a>,
+        CarbonTimeZone class extends <a
+                href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
+        and CarbonPeriod class polyfills <a
+                href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
+
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
         base functionality if you see anything missing in Carbon but is there in DateTime such as
+        <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
 

@@ -95,8 +95,37 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
+    <p>We also provide CarbonImmutable class extending <a
+            href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
+        The same methods are available on both classes but when you use a modifier on a Carbon
+        instance, it modify it and returns the same instance, when you use it on CarbonImmutable,
+        it returns a new instances with the new value.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$mutable = Carbon::now();
+$immutable = CarbonImmutable::now();
+$modifiedMutable = $mutable->add(1, 'day');
+$modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
+
+var_dump($modifiedMutable === $mutable);             // bool(true)
+var_dump($mutable->isoFormat('dddd D'));             // string(11) "Thursday 16"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Thursday 16"
+// So it means $mutable and $modifiedMutable are the same object
+// both set to now + 1 day.
+var_dump($modifiedImmutable === $immutable);         // bool(false)
+var_dump($immutable->isoFormat('dddd D'));           // string(12) "Wednesday 15"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Thursday 16"
+// While $immutable is still set to now and cannot be changed and
+// $modifiedImmutable is a new instance created from $immutable
+// set to now + 1 day.
+</code></pre>
+    </p>
+
+    CarbonInterface extends DateTimeInterface, JsonSerializable
+
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
         base functionality if you see anything missing in Carbon but is there in DateTime such as
+        <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
 
@@ -193,16 +222,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-14 15:55:15
+echo $now;                               // 2018-08-15 05:59:15
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-14 00:00:00
+echo $today;                             // 2018-08-15 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-15 00:00:00
+echo $tomorrow;                          // 2018-08-16 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-13 00:00:00
+echo $yesterday;                         // 2018-08-14 00:00:00
 </code></pre>
     </p>
 
@@ -314,7 +343,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:55 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 07:59 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1487,7 +1516,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-14 15:55:15
+echo Carbon::now();                                    // 2018-08-15 05:59:15
 </code></pre>
     </p>
 
@@ -1816,7 +1845,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#293 (2) {
+  object(Carbon\CarbonTimeZone)#303 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -1920,8 +1949,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-14 15:55:15
-echo $dt1->maximum();                              // 2018-08-14 15:55:15
+echo $dt1->max();                                  // 2018-08-15 05:59:15
+echo $dt1->maximum();                              // 2018-08-15 05:59:15
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3381,7 +3410,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-14, 2018-08-15, 2018-08-16
+echo implode(', ', $days);               // 2018-08-15, 2018-08-16, 2018-08-17
 </code></pre>
     </p>
 
