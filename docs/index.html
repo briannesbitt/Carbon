@@ -95,6 +95,16 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
+    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+    <p>
+    <pre><code class="php">use Carbon\Carbon;</code></pre>
+    </p>
+
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
+        see how cool is this doc.</p>
+
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
@@ -121,23 +131,21 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Thursday 16"
 </code></pre>
     </p>
 
-    CarbonInterface extends DateTimeInterface, JsonSerializable
+    <p>The library also provides CarbonInterface interface extends <a
+            href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
+            href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
+        <a href="#api-interval">CarbonInterval</a> class extends <a
+                href="http://www.php.net/manual/en/class.datetinterval.php">DateTimeInterface</a>,
+        CarbonTimeZone class extends <a
+                href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
+        and <a href="#api-period">CarbonPeriod</a> class polyfills <a
+                href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
         base functionality if you see anything missing in Carbon but is there in DateTime such as
         <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
-
-    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
-        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
-
-    <p>
-    <pre><code class="php">use Carbon\Carbon;</code></pre>
-    </p>
-
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
 
     <p>
     <pre class="live-editor"><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
@@ -222,7 +230,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-15 05:59:15
+echo $now;                               // 2018-08-15 16:59:42
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-15 00:00:00
@@ -343,7 +351,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 07:59 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:59 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1516,7 +1524,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-15 05:59:15
+echo Carbon::now();                                    // 2018-08-15 16:59:42
 </code></pre>
     </p>
 
@@ -1949,8 +1957,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-15 05:59:15
-echo $dt1->maximum();                              // 2018-08-15 05:59:15
+echo $dt1->max();                                  // 2018-08-15 16:59:42
+echo $dt1->maximum();                              // 2018-08-15 16:59:42
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);

@@ -16,6 +16,16 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
+    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+    <p>
+    <pre><code class="php">use Carbon\Carbon;</code></pre>
+    </p>
+
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
+        see how cool is this doc.</p>
+
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
@@ -42,14 +52,14 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
-    <p>As CarbonInterface class extends <a
+    <p>The library also provides CarbonInterface interface extends <a
             href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
             href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
-        CarbonInterval class extends <a
+        <a href="#api-interval">CarbonInterval</a> class extends <a
                 href="http://www.php.net/manual/en/class.datetinterval.php">DateTimeInterface</a>,
         CarbonTimeZone class extends <a
                 href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
-        and CarbonPeriod class polyfills <a
+        and <a href="#api-period">CarbonPeriod</a> class polyfills <a
                 href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
@@ -57,16 +67,6 @@ class Carbon extends \DateTime
         <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
-
-    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
-        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
-
-    <p>
-    <pre><code class="php">use Carbon\Carbon;</code></pre>
-    </p>
-
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
