@@ -1478,15 +1478,32 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
         </li>
     </ul>
 
-    <p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc :
-        <code>diffForHumans($other, true)</code>.</p>
+    <p>You may also pass <code>CarbonInterface::DIFF_ABSOLUTE</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc :
+        <code>diffForHumans($other, CarbonInterface::DIFF_ABSOLUTE)</code>, <code>CarbonInterface::DIFF_RELATIVE_TO_NOW</code>
+        to get modifiers <i>ago</i>or <i>from now</i>, <code>CarbonInterface::DIFF_RELATIVE_TO_OTHER</code> to get the modifiers
+        <i>before</i>or <i>after</i> or <code>CarbonInterface::DIFF_RELATIVE_AUTO</code> (default mode) to get the modifiers
+        either <i>ago</i>/<i>from now</i> if the 2 second argument is null or <i>before</i>/<i>after</i> if not.</p>
     <p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other,
-        false, true)</code>.</p>
+        CarbonInterface::DIFF_RELATIVE_AUTO, true)</code>.</p>
     <p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise
-        diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
+        diff) : <code>diffForHumans($other, CarbonInterface::DIFF_RELATIVE_AUTO, false, 4)</code>.</p>
     <p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement
         DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is
         passed, <code>Carbon::now()</code> will be used instead.</p>
+    <p>To avoid having too much argument and mix the order, you can use the verbose methods:</p>
+
+    <ul>
+        <li><code>shortAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+    </ul>
+
+    <p>PS: <code>$other</code> and <code>$parts</code> arguments can be swapped as need.</p>
 
     <p>
     <pre><code class="php">// The most typical usage is for comments
@@ -1503,12 +1520,12 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 {{::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{eval}}
 
 {{::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{eval}}
-{{::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(24)->longAbsoluteDiffForHumans();/*pad(72)*/)}} // {{eval}}
 
 {{::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{eval}}
 {{::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{eval}}
 
-{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{eval}}
+{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), 6);)}} // {{eval}}
 </code></pre>
     </p>
 

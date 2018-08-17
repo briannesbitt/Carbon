@@ -95,16 +95,6 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
-    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
-        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
-
-    <p>
-    <pre><code class="php">use Carbon\Carbon;</code></pre>
-    </p>
-
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
-
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
@@ -118,27 +108,27 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(11) "Thursday 16"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Thursday 16"
+var_dump($mutable->isoFormat('dddd D'));             // string(11) "Saturday 18"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Saturday 18"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(12) "Wednesday 15"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Thursday 16"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Friday 17"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 18"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
 </code></pre>
     </p>
 
-    <p>The library also provides CarbonInterface interface extends <a
+    <p>As CarbonInterface class extends <a
             href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
             href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
-        <a href="#api-interval">CarbonInterval</a> class extends <a
+        CarbonInterval class extends <a
                 href="http://www.php.net/manual/en/class.datetinterval.php">DateTimeInterface</a>,
         CarbonTimeZone class extends <a
                 href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
-        and <a href="#api-period">CarbonPeriod</a> class polyfills <a
+        and CarbonPeriod class polyfills <a
                 href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
@@ -146,6 +136,16 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Thursday 16"
         <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
+
+    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+    <p>
+    <pre><code class="php">use Carbon\Carbon;</code></pre>
+    </p>
+
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
+        see how cool is this doc.</p>
 
     <p>
     <pre class="live-editor"><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
@@ -230,16 +230,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-15 16:59:42
+echo $now;                               // 2018-08-17 14:32:28
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-15 00:00:00
+echo $today;                             // 2018-08-17 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-16 00:00:00
+echo $tomorrow;                          // 2018-08-18 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-14 00:00:00
+echo $yesterday;                         // 2018-08-16 00:00:00
 </code></pre>
     </p>
 
@@ -351,7 +351,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:59 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:32 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1524,7 +1524,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-15 16:59:42
+echo Carbon::now();                                    // 2018-08-17 14:32:28
 </code></pre>
     </p>
 
@@ -1957,8 +1957,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-15 16:59:42
-echo $dt1->maximum();                              // 2018-08-15 16:59:42
+echo $dt1->max();                                  // 2018-08-17 14:32:28
+echo $dt1->maximum();                              // 2018-08-17 14:32:28
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2455,15 +2455,32 @@ echo $saturday->copy()->endOfWeek()->toRfc850String();       // Sunday, 05-Aug-1
         </li>
     </ul>
 
-    <p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc :
-        <code>diffForHumans($other, true)</code>.</p>
+    <p>You may also pass <code>CarbonInterface::DIFF_ABSOLUTE</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc :
+        <code>diffForHumans($other, CarbonInterface::DIFF_ABSOLUTE)</code>, <code>CarbonInterface::DIFF_RELATIVE_TO_NOW</code>
+        to get modifiers <i>ago</i>or <i>from now</i>, <code>CarbonInterface::DIFF_RELATIVE_TO_OTHER</code> to get the modifiers
+        <i>before</i>or <i>after</i> or <code>CarbonInterface::DIFF_RELATIVE_AUTO</code> (default mode) to get the modifiers
+        either <i>ago</i>/<i>from now</i> if the 2 second argument is null or <i>before</i>/<i>after</i> if not.</p>
     <p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other,
-        false, true)</code>.</p>
+        CarbonInterface::DIFF_RELATIVE_AUTO, true)</code>.</p>
     <p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise
-        diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
+        diff) : <code>diffForHumans($other, CarbonInterface::DIFF_RELATIVE_AUTO, false, 4)</code>.</p>
     <p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement
         DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is
         passed, <code>Carbon::now()</code> will be used instead.</p>
+    <p>To avoid having too much argument and mix the order, you can use the verbose methods:</p>
+
+    <ul>
+        <li><code>shortAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+    </ul>
+
+    <p>PS: <code>$other</code> and <code>$parts</code> arguments can be swapped as need.</p>
 
     <p>
     <pre><code class="php">// The most typical usage is for comments
@@ -2480,12 +2497,12 @@ echo $dt->diffForHumans($dt->copy()->subMonth());                        // 1 mo
 echo Carbon::now()->addSeconds(5)->diffForHumans();                      // 5 seconds from now
 
 echo Carbon::now()->subDays(24)->diffForHumans();                        // 3 weeks ago
-echo Carbon::now()->subDays(24)->diffForHumans(null, true);              // 3 weeks
+echo Carbon::now()->subDays(24)->longAbsoluteDiffForHumans();            // 3 weeks
 
 echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');           // 1 week before
 echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');  // 50 minutes after
 
-echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
+echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), 6); // 1 year 8 months 5 days 4 hours 29 minutes 43 seconds after
 </code></pre>
     </p>
 
@@ -2885,7 +2902,7 @@ function dumpDateList($dates) {
 
 dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-08-13 00:00:00, 2018-08-14 00:00:00, 2018-08-15 00:00:00, 2018-08-16 00:00:00, 2018-08-17 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-08-01 00:00:00, 2018-08-02 00:00:00, 2018-08-03 00:00:00, 2018-08-04 00:00:00, 2018-08-05 00:00...
-dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-07-09 00:00:00, 2018-07-10 00:00:00, 2018-07-11 00:00:00, 2018-07-12 00:00:00, 2018-07-13 00:00...
+dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-07-16 00:00:00, 2018-07-17 00:00:00, 2018-07-18 00:00:00, 2018-07-19 00:00:00, 2018-07-20 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
 </code></pre>
     </p>
@@ -3418,7 +3435,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-15, 2018-08-16, 2018-08-17
+echo implode(', ', $days);               // 2018-08-17, 2018-08-18, 2018-08-19
 </code></pre>
     </p>
 
