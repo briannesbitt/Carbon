@@ -24,7 +24,14 @@ function display($message)
 foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $methodsCount++;
     $pattern = preg_quote($method, '/');
-    $exclusion = !!preg_match('/^(floor|ceil|round|sub|add)/', $method);
+    $upperUnit = '(Unit|Micro(second)?s?|Milli(second)?s?|Seconds?|Minutes?|Hours?|Days?|Weeks?|Months?|Quarters?|Years?|Decades?|Centur(y|ies)|Millenni(um|a))';
+    $lowerUnit = '(micro(second)?s?|milli(second)?s?|seconds?|minutes?|hours?|days?|weeks?|months?|quarters?|years?|decades?|centur(y|ies)|millenni(um|a))';
+    $exclusion = !!preg_match("/^(
+        (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
+        (set|get)$upperUnit |
+        (startOf|endOf)$upperUnit |
+        $lowerUnit
+    )$/x", $method);
     $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
     if (!$documented) {
         $missingMethodsCount++;
@@ -35,7 +42,9 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-    $argumentsCount = count($parameters === null ? (new \ReflectionMethod($carbonObject, $method))->getParameters() : $parameters);
+    $argumentsCount = count($parameters === null ? array_filter((new \ReflectionMethod($carbonObject, $method))->getParameters(), function (ReflectionParameter $parameter) {
+        return !$parameter->isVariadic();
+    }) : $parameters);
     $argumentsDocumented = true;
 
     if (

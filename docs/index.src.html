@@ -721,7 +721,25 @@ $dt->timestamp = 169957925;  // This will not change the timezone
 $dt->timezone = new DateTimeZone('Europe/London');
 $dt->timezone = 'Europe/London';
 $dt->tz = 'Europe/London';
+
+// verbose way:
+$dt->setYear(2001);
 )}}
+{{::exec(echo $dt->year;/*pad(20)*/)}} // {{eval}}
+
+{{::lint(
+// set/get method:
+$dt->year(2002);
+)}}
+{{::exec(echo $dt->year();/*pad(20)*/)}} // {{eval}}
+
+{{::lint(
+// dynamic way:
+$dt->set('year', 2003);
+)}}
+{{::exec(echo $dt->get('year');/*pad(20)*/)}} // {{eval}}
+
+// these methods exist for every units.
 </code></pre>
     </p>
 
@@ -913,6 +931,7 @@ Carbon::resetToStringFormat();
 
 {{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->isAfter($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first > $second);/*pad(50)*/)}} // {{eval}}
 
 {{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
@@ -921,6 +940,7 @@ Carbon::resetToStringFormat();
 
 {{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->isBefore($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first < $second);/*pad(50)*/)}} // {{eval}}
 
 {{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
@@ -933,7 +953,7 @@ Carbon::resetToStringFormat();
         milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
 
     <p>To determine if the current instance is between two other instances you can use the aptly named
-        <code>between()</code> method. The third parameter indicates if an equal to comparison should be done. The
+        <code>between()</code> method (or <code>isBetween()</code> alias). The third parameter indicates if an equal to comparison should be done. The
         default is true which determines if its between or equal to the boundaries.</p>
 
     <p>
@@ -1068,6 +1088,8 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{eval}} -> default compare it to today!
+
+// isCurrentX, isSameX, isNextX and isLastX are available for each unit
 </code></pre>
     </p>
 
@@ -1139,11 +1161,11 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 // and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
 // hour, minute, second, microsecond.
 
-// Generic methods add/sub can take many different arguments:
-{{::exec(echo $dt->add(61, 'seconds');/*pad(40)*/)}} // {{eval}}
-{{::exec(echo $dt->sub('1 day');/*pad(40)*/)}} // {{eval}}
-{{::exec(echo $dt->add(CarbonInterval::months(2));/*pad(40)*/)}} // {{eval}}
-{{::exec(echo $dt->sub(new DateInterval('PT1H'));/*pad(40)*/)}} // {{eval}}
+// Generic methods add/sub (or subtract alias) can take many different arguments:
+{{::exec(echo $dt->add(61, 'seconds');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->sub('1 day');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->add(CarbonInterval::months(2));/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->subtract(new DateInterval('PT1H'));/*pad(50)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -1336,6 +1358,8 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInRealMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
 </code></pre>
     </p>

@@ -230,7 +230,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-17 15:04:28
+echo $now;                               // 2018-08-17 15:31:18
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-17 00:00:00
@@ -351,7 +351,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:04 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:31 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -495,7 +495,7 @@ echo $french; // dans un an
     <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miï¿½rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -1524,7 +1524,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-17 15:04:28
+echo Carbon::now();                                    // 2018-08-17 15:31:18
 </code></pre>
     </p>
 
@@ -1697,6 +1697,20 @@ $dt->timestamp = 169957925;  // This will not change the timezone
 $dt->timezone = new DateTimeZone('Europe/London');
 $dt->timezone = 'Europe/London';
 $dt->tz = 'Europe/London';
+
+// verbose way:
+$dt->setYear(2001);
+echo $dt->year;      // 2001
+
+// set/get method:
+$dt->year(2002);
+echo $dt->year();    // 0000-05-22 03:32:05
+
+// dynamic way:
+$dt->set('year', 2003);
+echo $dt->get('year'); // 2003
+
+// these methods exist for every units.
 </code></pre>
     </p>
 
@@ -1957,8 +1971,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-17 15:04:28
-echo $dt1->maximum();                              // 2018-08-17 15:04:28
+echo $dt1->max();                                  // 2018-08-17 15:31:18
+echo $dt1->maximum();                              // 2018-08-17 15:31:18
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2059,6 +2073,8 @@ $overTheHill = Carbon::now()->subYears(50);
 var_dump($born->isBirthday($noCake));              // bool(false)
 var_dump($born->isBirthday($yesCake));             // bool(true)
 var_dump($overTheHill->isBirthday());              // bool(true) -> default compare it to today!
+
+// isCurrentX, isSameX, isNextX and isLastX are available for each unit
 </code></pre>
     </p>
 
@@ -2134,7 +2150,7 @@ echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
 echo $dt->add(61, 'seconds');            // 2012-02-03 00:01:01
 echo $dt->sub('1 day');                  // 2012-02-02 00:01:01
 echo $dt->add(CarbonInterval::months(2)); // 2012-04-02 00:01:01
-echo $dt->sub(new DateInterval('PT1H')); // 2012-04-01 23:01:01
+echo $dt->subtract(new DateInterval('PT1H')); // 2012-04-01 23:01:01
 </code></pre>
     </p>
 
@@ -2327,6 +2343,8 @@ echo $date->diffInRealMinutes('2014-03-30 00:00:00');             // 1500
 echo $date->diffInMinutes('2014-03-30 00:00:00');                 // 1560
 echo $date->diffInRealSeconds('2014-03-30 00:00:00');             // 90000
 echo $date->diffInSeconds('2014-03-30 00:00:00');                 // 93600
+echo $date->diffInRealMicroseconds('2014-03-30 00:00:00');        // 90000000000
+echo $date->diffInMicroseconds('2014-03-30 00:00:00');            // 93600000000
 echo $date->subRealHours(25)->format('H:i');                      // 00:00 (DST off)
 </code></pre>
     </p>
