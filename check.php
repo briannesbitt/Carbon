@@ -24,7 +24,8 @@ function display($message)
 foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $methodsCount++;
     $pattern = preg_quote($method, '/');
-    $documented = !!preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
+    $exclusion = !!preg_match('/^(floor|ceil|round|sub|add)/', $method);
+    $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
     if (!$documented) {
         $missingMethodsCount++;
     }
@@ -38,7 +39,7 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $argumentsDocumented = true;
 
     if (
-        $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
+        $exclusion ||
         $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
         $argumentsCount === 4 && $method === 'diffFiltered' ||
         $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||

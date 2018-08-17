@@ -95,6 +95,16 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
+    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+
+    <p>
+    <pre><code class="php">use Carbon\Carbon;</code></pre>
+    </p>
+
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
+        see how cool is this doc.</p>
+
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
@@ -121,14 +131,14 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 18"
 </code></pre>
     </p>
 
-    <p>As CarbonInterface class extends <a
+    <p>The library also provides CarbonInterface interface extends <a
             href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
             href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
-        CarbonInterval class extends <a
+        <a href="#api-interval">CarbonInterval</a> class extends <a
                 href="http://www.php.net/manual/en/class.datetinterval.php">DateTimeInterface</a>,
         CarbonTimeZone class extends <a
                 href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
-        and CarbonPeriod class polyfills <a
+        and <a href="#api-period">CarbonPeriod</a> class polyfills <a
                 href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
 
     <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
@@ -136,16 +146,6 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 18"
         <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
         <a href="http://php.net/manual/en/datetime.format.php">format</a> or
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
-
-    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
-        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
-
-    <p>
-    <pre><code class="php">use Carbon\Carbon;</code></pre>
-    </p>
-
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
 
     <p>
     <pre class="live-editor"><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
@@ -230,7 +230,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-17 14:32:28
+echo $now;                               // 2018-08-17 15:04:28
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-17 00:00:00
@@ -351,7 +351,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:32 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:04 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -1524,7 +1524,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-17 14:32:28
+echo Carbon::now();                                    // 2018-08-17 15:04:28
 </code></pre>
     </p>
 
@@ -1957,8 +1957,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-17 14:32:28
-echo $dt1->maximum();                              // 2018-08-17 14:32:28
+echo $dt1->max();                                  // 2018-08-17 15:04:28
+echo $dt1->maximum();                              // 2018-08-17 15:04:28
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2126,6 +2126,15 @@ echo $dt->addSeconds(61);                // 2012-02-03 00:01:01
 echo $dt->addSecond();                   // 2012-02-03 00:01:02
 echo $dt->subSecond();                   // 2012-02-03 00:01:01
 echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
+
+// and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
+// hour, minute, second, microsecond.
+
+// Generic methods add/sub can take many different arguments:
+echo $dt->add(61, 'seconds');            // 2012-02-03 00:01:01
+echo $dt->sub('1 day');                  // 2012-02-02 00:01:01
+echo $dt->add(CarbonInterval::months(2)); // 2012-04-02 00:01:01
+echo $dt->sub(new DateInterval('PT1H')); // 2012-04-01 23:01:01
 </code></pre>
     </p>
 
@@ -2160,12 +2169,13 @@ Carbon::resetMonthsOverflow(); // same as Carbon::useMonthsOverflow(true);
 </code></pre>
     </p>
 
-    The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
+    <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
 
-    You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
-    <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-    (or the singular methods with no <code>s</code> to "month")
-    to explicitly add/sub months with or without overflow no matter the current mode.
+    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+        (or the singular methods with no <code>s</code> to "month")
+        to explicitly add/sub months with or without overflow no matter the current mode
+        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
 
     <p>
     <pre><code class="php">Carbon::useMonthsOverflow(false);
@@ -2321,10 +2331,7 @@ echo $date->subRealHours(25)->format('H:i');                      // 00:00 (DST 
 </code></pre>
     </p>
 
-    <p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>,
-        <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>,
-        <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>,
-        <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+    <p>The same way you can use <code>addRealX()</code> and <code>subRealX()</code> on any unit.</p>
 
     <p>There are also special filter functions <code>diffInDaysFiltered()</code>, <code>diffInHoursFiltered()</code> and
         <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval. For example
@@ -2543,7 +2550,8 @@ var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool
 
     <p>These group of methods perform helpful modifications to the current instance. Most of them are self explanatory
         from their names... or at least should be. You'll also notice that the startOfXXX(), next() and previous()
-        methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.</p>
+        methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59 for unit bigger than
+        days.</p>
 
     <p>The only one slightly different is the <code>average()</code> function. It moves your instance to the middle date
         between itself and the provided Carbon argument.</p>
@@ -2552,8 +2560,16 @@ var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool
     <pre><code class="php">$dt = new Carbon('2012-01-31 15:32:45.654321');
 echo $dt->startOfSecond()->format('s.u');          // 45.000000
 
+
 $dt = new Carbon('2012-01-31 15:32:45.654321');
 echo $dt->endOfSecond()->format('s.u');            // 45.999999
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->startOf('second')->format('s.u');        // 45.000000
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->endOf('second')->format('s.u');          // 45.999999
+// ->startOf() and ->endOf() are dynamic equivalents to those methods
 
 $dt = Carbon::create(2012, 1, 31, 15, 32, 45);
 echo $dt->startOfMinute();                         // 2012-01-31 15:32:00
@@ -2655,6 +2671,48 @@ echo Carbon::create(2018, 2, 23, 0, 0, 0)->nextWeekday();                       
 echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();                    // 2018-02-22 00:00:00
 echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();                     // 2018-02-24 00:00:00
 echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();                 // 2018-02-18 00:00:00
+</code></pre>
+    </p>
+
+    <p>Rounding is also available for any unit:</p>
+
+    <p>
+    <pre><code class="php">$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->roundMillisecond()->format('H:i:s.u');   // 15:32:45.654000
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->roundSecond()->format('H:i:s.u');        // 15:32:46.000000
+
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->floorSecond()->format('H:i:s.u');        // 15:32:45.000000
+
+$dt = new Carbon('2012-01-31 15:32:15');
+echo $dt->roundMinute()->format('H:i:s');          // 15:32:00
+
+$dt = new Carbon('2012-01-31 15:32:15');
+echo $dt->ceilMinute()->format('H:i:s');           // 15:33:00
+
+// and so on up to millennia!
+
+// precision rounding can be set, example: rounding to ten minutes
+$dt = new Carbon('2012-01-31 15:32:15');
+echo $dt->roundMinute(10)->format('H:i:s');        // 15:30:00
+
+// and round, floor and ceil methods are shortcut for second rounding:
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->round()->format('H:i:s.u');              // 15:32:46.000000
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->floor()->format('H:i:s.u');              // 15:32:45.000000
+$dt = new Carbon('2012-01-31 15:32:45.654321');
+echo $dt->ceil()->format('H:i:s.u');               // 15:32:46.000000
+
+// you can also pass the unit dynamically (and still precision as second argument):
+$dt = new Carbon('2012-01-31');
+echo $dt->roundUnit('month', 2)->format('Y-m-d');  // 2012-03-01
+$dt = new Carbon('2012-01-31');
+echo $dt->floorUnit('month')->format('Y-m-d');     // 2012-03-01
+$dt = new Carbon('2012-01-31');
+echo $dt->ceilUnit('month', 4)->format('Y-m-d');   // 2012-05-01
 </code></pre>
     </p>
 

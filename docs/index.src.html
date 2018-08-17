@@ -1135,6 +1135,15 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(echo $dt->addSecond();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{eval}}
+
+// and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
+// hour, minute, second, microsecond.
+
+// Generic methods add/sub can take many different arguments:
+{{::exec(echo $dt->add(61, 'seconds');/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->sub('1 day');/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->add(CarbonInterval::months(2));/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->sub(new DateInterval('PT1H'));/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -1169,12 +1178,13 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 </code></pre>
     </p>
 
-    The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
+    <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
 
-    You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
-    <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-    (or the singular methods with no <code>s</code> to "month")
-    to explicitly add/sub months with or without overflow no matter the current mode.
+    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+        (or the singular methods with no <code>s</code> to "month")
+        to explicitly add/sub months with or without overflow no matter the current mode
+        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
 
     <p>
     <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
@@ -1330,10 +1340,7 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 </code></pre>
     </p>
 
-    <p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>,
-        <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>,
-        <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>,
-        <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+    <p>The same way you can use <code>addRealX()</code> and <code>subRealX()</code> on any unit.</p>
 
     <p>There are also special filter functions <code>diffInDaysFiltered()</code>, <code>diffInHoursFiltered()</code> and
         <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval. For example
@@ -1566,7 +1573,8 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
     <p>These group of methods perform helpful modifications to the current instance. Most of them are self explanatory
         from their names... or at least should be. You'll also notice that the startOfXXX(), next() and previous()
-        methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.</p>
+        methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59 for unit bigger than
+        days.</p>
 
     <p>The only one slightly different is the <code>average()</code> function. It moves your instance to the middle date
         between itself and the provided Carbon argument.</p>
@@ -1575,8 +1583,16 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
     <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
 {{::exec(echo $dt->startOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
 
+
 {{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
 {{::exec(echo $dt->endOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->startOf('second')->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->endOf('second')->format('s.u');/*pad(50)*/)}} // {{eval}}
+// ->startOf() and ->endOf() are dynamic equivalents to those methods
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{eval}}
@@ -1678,6 +1694,48 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 {{::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();/*pad(80)*/)}} // {{eval}}
 {{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();/*pad(80)*/)}} // {{eval}}
 {{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();/*pad(80)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Rounding is also available for any unit:</p>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->roundMillisecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->roundSecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->floorSecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->roundMinute()->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->ceilMinute()->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+// and so on up to millennia!
+
+// precision rounding can be set, example: rounding to ten minutes
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->roundMinute(10)->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+// and round, floor and ceil methods are shortcut for second rounding:
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->round()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->floor()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->ceil()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+// you can also pass the unit dynamically (and still precision as second argument):
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->roundUnit('month', 2)->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->floorUnit('month')->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->ceilUnit('month', 4)->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
 </code></pre>
     </p>
 
