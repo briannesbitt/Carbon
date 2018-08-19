@@ -32,6 +32,14 @@ code {color: #38932c;font-size:90%}
 blockquote{font-size:15px;color:#656565}
 .class-name {color: #8f8f8f}
 
+.old-way {
+    display: none;
+    border-left: 1px solid silver;
+    margin-left: 15px;
+    padding-left: 15px;
+    color: #4b4b4b;
+}
+
 .live-editor-new-window {
     float: right;
     width: 32px;

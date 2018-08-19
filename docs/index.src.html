@@ -23,8 +23,7 @@ class Carbon extends \DateTime
     <pre><code class="php">use Carbon\Carbon;</code></pre>
     </p>
 
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way.</p>
 
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
@@ -69,6 +68,9 @@ class Carbon extends \DateTime
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
 
     <p>
+
+    <p>Now, let see how cool is this doc.</p>
+
     <pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
 // Try to replace the 4th number (hours) or the last argument (timezone) with
@@ -82,6 +84,10 @@ class Carbon extends \DateTime
 // filter the list or click the (<) button to close it.
 </code></pre>
     </p>
+
+    <p>Some examples are static snippets, some other are editable (when it's split into 2 input and output
+        pannels). You can also note a top right hand corner button allow you to open the snippet in a
+        new tab. You can double-click on methods name in both static and dynamic examples.</p>
 
     <h1 id="api-instantiation">Instantiation</h1>
 
@@ -227,6 +233,11 @@ echo "\n";
     <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
         this time is in an hour skipped by the daylight saving time.</p>
 
+    <p>Note 3: The PHP native API allow consider there is a year <code>0</code> between <code>-1</code>
+        and <code>1</code> even if it doesn't regarding to Gregorian calendar. That's why years lower than
+        1 will throw an exception using <code>createSafe</code>. Check
+        <a href="#doc-method-Carbon-isValid" data-open-doc="isValid">isValid()</a> for year-0 detection.</p>
+
     <p>
     <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
     </p>
@@ -362,14 +373,23 @@ echo Carbon::now()->micro; // microtime in all PHP version
 
     <h1 id="api-localization">Localization</h1>
 
-    <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
-        <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
-                href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
-        the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
-        returned will be formatted in the correct locale.</p>
+    <p>With Carbon 2, localization changed a lot, {{eval(echo count(Carbon::getAvailableLocales()) - 73;)}} new locales
+        supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
+        and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
+        and language packages for advanced translation, you now benefit of a wide internationalization support. You
+        still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Else you still
+        read the <a href="#localization-v1" data-slide-down="#localization-v1">version 1 documentation of Localization
+        by clicking here</a>.</p>
 
-    <p>
-    <pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
+    <div id="localization-v1" class="old-way">
+        <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
+            <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
+                    href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
+            the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
+            returned will be formatted in the correct locale.</p>
+
+        <p>
+        <pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
 if ($newLocale === false) {
     echo '"German" locale is not installed on your machine, it may have a different name a different name on your machine or you may need to install it.';
 }
@@ -379,25 +399,28 @@ if ($newLocale === false) {
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, ''); // reset locale)}}
 </code></pre>
-    </p>
+        </p>
 
-    <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
-        function and get the current setting with <code>Carbon::getLocale()</code>.</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-    <p>
-    <pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
+        <p>
+        <pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{eval}}
 
 {{::lint(Carbon::setLocale('en');)}}
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
 </code></pre>
-    </p>
+        </p>
 
-    <p>Or you can isolate some code with a given locale:</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-    <p>
-    <pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
+        <p>Or you can isolate some code with a given locale:</p>
+
+        <p>
+        <pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
     // You can optionally get $newLocale as the first argument of the closure
     // It will be set to the new locale or false if the locale was not found.
 
@@ -413,14 +436,14 @@ if ($newLocale === false) {
 });)}}
 {{::exec(echo $french;)}} // {{eval}}
 </code></pre>
-    </p>
+        </p>
 
-    <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
-        mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
-        formatLocalized() call to the utf8 charset.</p>
+        <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
+            mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
+            formatLocalized() call to the utf8 charset.</p>
 
-    <p>
-    <pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
+        <p>
+        <pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
 {{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
 {{::lint(Carbon::setUtf8(false);)}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
@@ -429,19 +452,19 @@ if ($newLocale === false) {
 {{::lint(Carbon::setUtf8(false);)}}
 {{::lint(setlocale(LC_TIME, '');)}}
 </code></pre>
-    </p>
+        </p>
 
-    <blockquote><p><strong>on Linux</strong><br>
-        If you have trouble with translations, check locales installed in your system (local and production).<br>
-        <code>locale -a</code> to list locales enabled.<br>
-        <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
-        <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
-        And reboot your system.</p></blockquote>
+        <blockquote><p><strong>on Linux</strong><br>
+            If you have trouble with translations, check locales installed in your system (local and production).<br>
+            <code>locale -a</code> to list locales enabled.<br>
+            <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
+            <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
+            And reboot your system.</p></blockquote>
 
-    <p>You can customize a existing language the following way:</p>
+        <p>You can customize a existing language the following way:</p>
 
-    <p>
-    <pre><code class="php">{{::lint(
+        <p>
+        <pre><code class="php">{{::lint(
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
 $translator->setMessages('en', [
@@ -456,19 +479,19 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 
 {{::lint($translator->resetMessages('en'); // reset language customizations for en language)}}
 </code></pre>
-    </p>
+        </p>
 
-    <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
-        given translator implements <a
-                href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
-    </p>
+        <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
+            given translator implements <a
+                    href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+        </p>
 
-    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
-        and short variants is driven by locales installed in your operating system. For other translations, it's
-        supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
-    <p>
+        <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
+            and short variants is driven by locales installed in your operating system. For other translations, it's
+            supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+        <p>
 
-    <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
+        <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
 
 // Support diff syntax (before, after, from now, ago)
 {{::exec(var_dump(Carbon::localeHasDiffSyntax('en'));/*pad(80)*/)}} // {{eval}}
@@ -486,7 +509,11 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 {{::exec(var_dump(Carbon::localeHasPeriodSyntax('en'));/*pad(80)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
 </code></pre>
-    </p>
+        </p>
+
+    </div>
+
+    <p>So, here</p>
 
     <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
         Carbon version:</p>
@@ -677,10 +704,16 @@ $product = new SeasonalProduct(100);
 // Indicates if day light savings time is on
 {{::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->isDST());/*pad(60)*/)}} // {{eval}}
 
 // Indicates if the instance is in the same timezone as the local timezone
 {{::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now()->isLocal());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('America/Vancouver')->isLocal());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now()->isUtc());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('America/Vancouver')->isUtc());/*pad(60)*/)}} // {{eval}}
+// can also be written ->isUTC()
 
 // Indicates if the instance is in the UTC timezone
 {{::exec(var_dump(Carbon::now()->utc);/*pad(60)*/)}} // {{eval}}

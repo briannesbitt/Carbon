@@ -102,8 +102,7 @@ class Carbon extends \DateTime
     <pre><code class="php">use Carbon\Carbon;</code></pre>
     </p>
 
-    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way. Now, let
-        see how cool is this doc.</p>
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way.</p>
 
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
@@ -118,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(11) "Saturday 18"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Saturday 18"
+var_dump($mutable->isoFormat('dddd D'));             // string(9) "Monday 20"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Monday 20"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(9) "Friday 17"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 18"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Sunday 19"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Monday 20"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -148,6 +147,9 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Saturday 18"
         <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
 
     <p>
+
+    <p>Now, let see how cool is this doc.</p>
+
     <pre class="live-editor"><code class="php">$dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
 $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 // Try to replace the 4th number (hours) or the last argument (timezone) with
@@ -161,6 +163,10 @@ echo $dtVancouver->diffInHours($dtToronto); // 3
 // filter the list or click the (<) button to close it.
 </code></pre>
     </p>
+
+    <p>Some examples are static snippets, some other are editable (when it's split into 2 input and output
+        pannels). You can also note a top right hand corner button allow you to open the snippet in a
+        new tab. You can double-click on methods name in both static and dynamic examples.</p>
 
     <h1 id="api-instantiation">Instantiation</h1>
 
@@ -230,16 +236,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-17 15:31:18
+echo $now;                               // 2018-08-19 17:42:07
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-17 00:00:00
+echo $today;                             // 2018-08-19 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-18 00:00:00
+echo $tomorrow;                          // 2018-08-20 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-16 00:00:00
+echo $yesterday;                         // 2018-08-18 00:00:00
 </code></pre>
     </p>
 
@@ -300,6 +306,11 @@ try {
     <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
         this time is in an hour skipped by the daylight saving time.</p>
 
+    <p>Note 3: The PHP native API allow consider there is a year <code>0</code> between <code>-1</code>
+        and <code>1</code> even if it doesn't regarding to Gregorian calendar. That's why years lower than
+        1 will throw an exception using <code>createSafe</code>. Check
+        <a href="#doc-method-Carbon-isValid" data-open-doc="isValid">isValid()</a> for year-0 detection.</p>
+
     <p>
     <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
     </p>
@@ -351,7 +362,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:31 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:42 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -435,14 +446,23 @@ echo Carbon::minValue();                               // '0001-01-01 00:00:00'
 
     <h1 id="api-localization">Localization</h1>
 
-    <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
-        <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
-                href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
-        the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
-        returned will be formatted in the correct locale.</p>
+    <p>With Carbon 2, localization changed a lot, 64 new locales
+        supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
+        and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
+        and language packages for advanced translation, you now benefit of a wide internationalization support. You
+        still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Else you still
+        read the <a href="#localization-v1" data-slide-down="#localization-v1">version 1 documentation of Localization
+        by clicking here</a>.</p>
 
-    <p>
-    <pre><code class="php">$newLocale = setlocale(LC_TIME, 'German');
+    <div id="localization-v1" class="old-way">
+        <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
+            <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
+                    href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
+            the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
+            returned will be formatted in the correct locale.</p>
+
+        <p>
+        <pre><code class="php">$newLocale = setlocale(LC_TIME, 'German');
 if ($newLocale === false) {
     echo '"German" locale is not installed on your machine, it may have a different name a different name on your machine or you may need to install it.';
 }
@@ -451,25 +471,28 @@ setlocale(LC_TIME, 'English');
 echo $dt->formatLocalized('%A %d %B %Y');          // Wednesday 21 May 1975
 setlocale(LC_TIME, ''); // reset locale
 </code></pre>
-    </p>
+        </p>
 
-    <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
-        function and get the current setting with <code>Carbon::getLocale()</code>.</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-    <p>
-    <pre><code class="php">Carbon::setLocale('de');
+        <p>
+        <pre><code class="php">Carbon::setLocale('de');
 echo Carbon::getLocale();                          // de
 echo Carbon::now()->addYear()->diffForHumans();    // in 1 Jahr
 
 Carbon::setLocale('en');
 echo Carbon::getLocale();                          // en
 </code></pre>
-    </p>
+        </p>
 
-    <p>Or you can isolate some code with a given locale:</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-    <p>
-    <pre><code class="php">Carbon::executeWithLocale('de', function ($newLocale) {
+        <p>Or you can isolate some code with a given locale:</p>
+
+        <p>
+        <pre><code class="php">Carbon::executeWithLocale('de', function ($newLocale) {
     // You can optionally get $newLocale as the first argument of the closure
     // It will be set to the new locale or false if the locale was not found.
 
@@ -485,35 +508,35 @@ $french = Carbon::executeWithLocale('fr', function () {
 });
 echo $french; // dans un an
 </code></pre>
-    </p>
+        </p>
 
-    <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
-        mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
-        formatLocalized() call to the utf8 charset.</p>
+        <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
+            mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
+            formatLocalized() call to the utf8 charset.</p>
 
-    <p>
-    <pre><code class="php">setlocale(LC_TIME, 'Spanish');
+        <p>
+        <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miÔøΩrcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miÈrcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // mi√©rcoles 06 enero 2016
 Carbon::setUtf8(false);
 setlocale(LC_TIME, '');
 </code></pre>
-    </p>
+        </p>
 
-    <blockquote><p><strong>on Linux</strong><br>
-        If you have trouble with translations, check locales installed in your system (local and production).<br>
-        <code>locale -a</code> to list locales enabled.<br>
-        <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
-        <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
-        And reboot your system.</p></blockquote>
+        <blockquote><p><strong>on Linux</strong><br>
+            If you have trouble with translations, check locales installed in your system (local and production).<br>
+            <code>locale -a</code> to list locales enabled.<br>
+            <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
+            <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
+            And reboot your system.</p></blockquote>
 
-    <p>You can customize a existing language the following way:</p>
+        <p>You can customize a existing language the following way:</p>
 
-    <p>
-    <pre><code class="php">Carbon::setLocale('en');
+        <p>
+        <pre><code class="php">Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
 $translator->setMessages('en', [
     'day' => ':count boring day|:count boring days',
@@ -526,19 +549,19 @@ echo $date1->diffForHumans($date2, true, false, 2); // 3 boring days 4 hours
 
 $translator->resetMessages('en'); // reset language customizations for en language
 </code></pre>
-    </p>
+        </p>
 
-    <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
-        given translator implements <a
-                href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
-    </p>
+        <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
+            given translator implements <a
+                    href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+        </p>
 
-    <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
-        and short variants is driven by locales installed in your operating system. For other translations, it's
-        supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
-    <p>
+        <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
+            and short variants is driven by locales installed in your operating system. For other translations, it's
+            supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+        <p>
 
-    <pre><code class="php">echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';      // af, ar, ar_DZ...
+        <pre><code class="php">echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';      // af, ar, ar_DZ...
 
 // Support diff syntax (before, after, from now, ago)
 var_dump(Carbon::localeHasDiffSyntax('en'));                                     // bool(true)
@@ -556,7 +579,9 @@ var_dump(Carbon::localeHasShortUnits('zh_TW'));                                 
 var_dump(Carbon::localeHasPeriodSyntax('en'));                                   // bool(true)
 var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                                // bool(false)
 </code></pre>
-    </p>
+        </p>
+
+    </div>
 
     <p>Here is a overview of the 102 locales (and 137 regional variants) supported by the last
         Carbon version:</p>
@@ -1524,7 +1549,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-17 15:31:18
+echo Carbon::now();                                    // 2018-08-19 17:42:08
 </code></pre>
     </p>
 
@@ -1654,10 +1679,16 @@ var_dump(Carbon::createFromTimestamp(0)->offsetHours);       // int(0)
 // Indicates if day light savings time is on
 var_dump(Carbon::createFromDate(2012, 1, 1)->dst);           // bool(false)
 var_dump(Carbon::createFromDate(2012, 9, 1)->dst);           // bool(false)
+var_dump(Carbon::createFromDate(2012, 9, 1)->isDST());       // bool(false)
 
 // Indicates if the instance is in the same timezone as the local timezone
 var_dump(Carbon::now()->local);                              // bool(true)
 var_dump(Carbon::now('America/Vancouver')->local);           // bool(false)
+var_dump(Carbon::now()->isLocal());                          // bool(true)
+var_dump(Carbon::now('America/Vancouver')->isLocal());       // bool(false)
+var_dump(Carbon::now()->isUtc());                            // bool(true)
+var_dump(Carbon::now('America/Vancouver')->isUtc());         // bool(false)
+// can also be written ->isUTC()
 
 // Indicates if the instance is in the UTC timezone
 var_dump(Carbon::now()->utc);                                // bool(true)
@@ -1867,7 +1898,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#303 (2) {
+  object(Carbon\CarbonTimeZone)#305 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -1922,6 +1953,7 @@ var_dump($first != $second);                       // bool(true)
 
 var_dump($first->gt($second));                     // bool(false)
 var_dump($first->greaterThan($second));            // bool(false)
+var_dump($first->isAfter($second));                // bool(false)
 var_dump($first > $second);                        // bool(false)
 
 var_dump($first->gte($second));                    // bool(false)
@@ -1930,6 +1962,7 @@ var_dump($first >= $second);                       // bool(false)
 
 var_dump($first->lt($second));                     // bool(true)
 var_dump($first->lessThan($second));               // bool(true)
+var_dump($first->isBefore($second));               // bool(true)
 var_dump($first < $second);                        // bool(true)
 
 var_dump($first->lte($second));                    // bool(true)
@@ -1942,7 +1975,7 @@ var_dump($first <= $second);                       // bool(true)
         milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
 
     <p>To determine if the current instance is between two other instances you can use the aptly named
-        <code>between()</code> method. The third parameter indicates if an equal to comparison should be done. The
+        <code>between()</code> method (or <code>isBetween()</code> alias). The third parameter indicates if an equal to comparison should be done. The
         default is true which determines if its between or equal to the boundaries.</p>
 
     <p>
@@ -1971,8 +2004,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-17 15:31:18
-echo $dt1->maximum();                              // 2018-08-17 15:31:18
+echo $dt1->max();                                  // 2018-08-19 17:42:08
+echo $dt1->maximum();                              // 2018-08-19 17:42:08
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -2146,11 +2179,11 @@ echo $dt->subSeconds(61);                // 2012-02-03 00:00:00
 // and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
 // hour, minute, second, microsecond.
 
-// Generic methods add/sub can take many different arguments:
-echo $dt->add(61, 'seconds');            // 2012-02-03 00:01:01
-echo $dt->sub('1 day');                  // 2012-02-02 00:01:01
-echo $dt->add(CarbonInterval::months(2)); // 2012-04-02 00:01:01
-echo $dt->subtract(new DateInterval('PT1H')); // 2012-04-01 23:01:01
+// Generic methods add/sub (or subtract alias) can take many different arguments:
+echo $dt->add(61, 'seconds');                      // 2012-02-03 00:01:01
+echo $dt->sub('1 day');                            // 2012-02-02 00:01:01
+echo $dt->add(CarbonInterval::months(2));          // 2012-04-02 00:01:01
+echo $dt->subtract(new DateInterval('PT1H'));      // 2012-04-01 23:01:01
 </code></pre>
     </p>
 
@@ -3511,7 +3544,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-17, 2018-08-18, 2018-08-19
+echo implode(', ', $days);               // 2018-08-19, 2018-08-20, 2018-08-21
 </code></pre>
     </p>
 
@@ -3775,6 +3808,21 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00+00:00/P3DT12H/2000-0
                 });
             }
         }
+
+        $(document)
+            .on('click', 'a[data-open-doc]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                openDoc($(event.target).data('open-doc'));
+            })
+            .on('click', '[data-slide-down]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('slide-down')).slideDown();
+            })
+        ;
 
         function refreshDoc()
         {

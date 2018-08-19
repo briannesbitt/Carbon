@@ -224,6 +224,21 @@ echo 6;              // 6
             }
         }
 
+        $(document)
+            .on('click', 'a[data-open-doc]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                openDoc($(event.target).data('open-doc'));
+            })
+            .on('click', '[data-slide-down]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('slide-down')).slideDown();
+            })
+        ;
+
         function refreshDoc()
         {
             var search = $('#search-filter').val().toLowerCase();
