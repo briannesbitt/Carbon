@@ -598,11 +598,27 @@ class CarbonInterval extends DateInterval
 
         /** @var static $interval */
         $interval = static::createFromDateString($var);
+
+        return $interval->isEmpty() ? null : $interval;
+    }
+
+    /**
+     * Sets up a DateInterval from the relative parts of the string.
+     *
+     * @param string $time
+     *
+     * @return static
+     *
+     * @link http://php.net/manual/en/dateinterval.createfromdatestring.php
+     */
+    public static function createFromDateString($time)
+    {
+        $interval = parent::createFromDateString($time);
         if ($interval instanceof DateInterval && !($interval instanceof static)) {
             $interval = static::instance($interval);
         }
 
-        return $interval->isEmpty() ? null : $interval;
+        return static::instance($interval);
     }
 
     ///////////////////////////////////////////////////////////////////
