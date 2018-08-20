@@ -127,6 +127,13 @@ var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Tuesday 21"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
+
+$mutable = CarbonImmutable::now()->toMutable();
+var_dump($mutable->isMutable());                     // bool(true)
+var_dump($mutable->isImmutable());                   // bool(false)
+$immutable = Carbon::now()->toImmutable();
+var_dump($immutable->isMutable());                   // bool(false)
+var_dump($immutable->isImmutable());                 // bool(true)
 </code></pre>
     </p>
 
@@ -236,7 +243,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-20 15:40:18
+echo $now;                               // 2018-08-20 19:02:41
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-20 00:00:00
@@ -362,7 +369,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:40 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:02 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -601,7 +608,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 20 août 2018 15:40
+echo $date->isoFormat('LLLL');   // lundi 20 août 2018 19:02
 </code></pre>
     </p>
 
@@ -631,14 +638,14 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
     $johnDateFactory->make($move)->calendar()."\n";
 echo $toDisplay;
 /*
-15 juin 2018 14:34
-Aujourd’hui à 17:40
+15 juin 2018 12:34
+Aujourd’hui à 19:02
 */
 
 echo $notificationForJohn;
 /*
-Jun 15, 2018 7:34 AM
-Today at 10:40 AM
+Jun 15, 2018 12:34 PM
+Today at 7:02 PM
 */
 </code></pre>
     </p>
@@ -854,7 +861,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>S</td>
-            <td>1</td>
+            <td>0</td>
             <td>Second tenth</td>
         </tr>
         
@@ -866,7 +873,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>SSS</td>
-            <td>085</td>
+            <td>084</td>
             <td>Millisecond (on 3 digits with trailing zeros)</td>
         </tr>
         
@@ -1301,21 +1308,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 3:40 PM
+echo $date->calendar();                                      // Today at 7:02 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 12:40 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:02 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 5:17 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 8:39 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/12/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 6:40 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:02 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 2:03 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 5:25 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 08/28/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 15:40
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:02
 </code></pre>
     </p>
 
@@ -2304,7 +2311,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-20 15:40:18
+echo Carbon::now();                                    // 2018-08-20 19:02:42
 </code></pre>
     </p>
 
@@ -2656,7 +2663,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#348 (2) {
+  object(Carbon\CarbonTimeZone)#349 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2763,8 +2770,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-20 15:40:18
-echo $dt1->maximum();                              // 2018-08-20 15:40:18
+echo $dt1->max();                                  // 2018-08-20 19:02:42
+echo $dt1->maximum();                              // 2018-08-20 19:02:42
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3326,16 +3333,33 @@ echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::c
     <p>You can also change the locale of the string using <code>$date->locale('fr')</code> before the
         diffForHumans() call. See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-    <p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
+    <p id="diff-for-humans-options">Options can be passed as fifth argument of diffForHumans():</p>
 
     <p>
-    <pre><code class="php">Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);
-var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool(true)
-Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);
-var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool(false)</code></pre>
+    <pre class="live-editor"><code class="php">echo Carbon::now()->diffForHumans(null, null, false, 1, 0); // 0 seconds ago
+echo "\n";
+echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::NO_ZERO_DIFF); // 1 second ago
+echo "\n";
+echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::JUST_NOW); // just now
+echo "\n";
+echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, 0); // 1 day ago
+echo "\n";
+echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, Carbon::ONE_DAY_WORDS); // yesterday
+echo "\n";
+echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, 0); // 2 days ago
+echo "\n";
+echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, Carbon::TWO_DAY_WORDS); // before yesterday
+echo "\n";
+
+// Options can be combined with pipes
+$date = Carbon::now();
+
+echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS); // just now
+</code></pre>
     </p>
 
-    <p>Available options are:</p>
+    <p>If the argument is omitted or set to <code>null</code>, only <code>Carbon::NO_ZERO_DIFF</code> is enabled.
+        Available options are:</p>
 
     <ul>
         <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
@@ -3353,8 +3377,22 @@ var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF)); // bool
     <p>Use the pipe operator to enable/disable multiple option at once, example: <code>Carbon::ONE_DAY_WORDS |
         Carbon::TWO_DAY_WORDS</code></p>
 
-    <p>You also can use <code>setHumanDiffOptions($options)</code> to disable all options then activate only the ones
-        passed as arguments.</p>
+    <p>You also can use <code>Carbon::enableHumanDiffOption($option)</code>,
+        <code>Carbon::disableHumanDiffOption($option)</code>, <code>Carbon::setHumanDiffOptions($options)</code> to
+        change the default options and <code>Carbon::getHumanDiffOptions()</code>
+        to get default options but you should avoid using it as being static it may conflict with calls
+        from other code parts/third-party libraries.</p>
+
+    <p>Aliases and reverse methods are provided for semantic purpose:</p>
+
+    <ul>
+        <li><code>from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHuman)</li>
+        <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHuman)</li>
+        <li><code>to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (inverse result, swap before and future diff)</li>
+        <li><code>until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to)</li>
+        <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted, now used instead)</li>
+        <li><code>toNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to with first argument omitted, now used instead)</li>
+    </ul>
 
     <h1 id="api-modifiers">Modifiers</h1>
 
@@ -3952,7 +3990,9 @@ echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);   // 2 weeks 5 days 3 minut
 
     <p>
     <pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
+var_dump($ci->isEmpty()); // bool(false)
 $ci = new CarbonInterval('PT0S');
+var_dump($ci->isEmpty()); // bool(true)
 </code></pre>
     </p>
 
@@ -4668,7 +4708,7 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
             $('.main-wrapper').removeClass('open');
         });
 
-        $('pre code').on('mouseup select', function () {
+        $('code').on('mouseup select', function () {
             var s = window.getSelection();
             if (s.anchorOffset && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
                 openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));

@@ -555,7 +555,7 @@
             $('.main-wrapper').removeClass('open');
         });
 
-        $('pre code').on('mouseup select', function () {
+        $('code').on('mouseup select', function () {
             var s = window.getSelection();
             if (s.anchorOffset && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
                 openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));

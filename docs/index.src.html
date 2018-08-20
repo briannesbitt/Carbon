@@ -48,6 +48,13 @@ class Carbon extends \DateTime
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
+
+{{::lint($mutable = CarbonImmutable::now()->toMutable();)}}
+{{::exec(var_dump($mutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+{{::lint($immutable = Carbon::now()->toImmutable();)}}
+{{::exec(var_dump($immutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isImmutable());/*pad(52)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -1815,16 +1822,35 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
     <p>You can also change the locale of the string using <code>$date->locale('fr')</code> before the
         diffForHumans() call. See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-    <p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
+    <p id="diff-for-humans-options">Options can be passed as fifth argument of diffForHumans():</p>
 
     <p>
-    <pre><code class="php">{{::lint(Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}
-{{::lint(Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}</code></pre>
+    <pre class="live-editor"><code class="php">{{::exec(
+echo Carbon::now()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::NO_ZERO_DIFF);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::JUST_NOW);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, Carbon::ONE_DAY_WORDS);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+echo "\n";
+
+{{::lint(// Options can be combined with pipes
+$date = Carbon::now();
+)}}
+
+{{::exec(echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+</code></pre>
     </p>
 
-    <p>Available options are:</p>
+    <p>If the argument is omitted or set to <code>null</code>, only <code>Carbon::NO_ZERO_DIFF</code> is enabled.
+        Available options are:</p>
 
     <ul>
         <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
@@ -1842,8 +1868,22 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
     <p>Use the pipe operator to enable/disable multiple option at once, example: <code>Carbon::ONE_DAY_WORDS |
         Carbon::TWO_DAY_WORDS</code></p>
 
-    <p>You also can use <code>setHumanDiffOptions($options)</code> to disable all options then activate only the ones
-        passed as arguments.</p>
+    <p>You also can use <code>Carbon::enableHumanDiffOption($option)</code>,
+        <code>Carbon::disableHumanDiffOption($option)</code>, <code>Carbon::setHumanDiffOptions($options)</code> to
+        change the default options and <code>Carbon::getHumanDiffOptions()</code>
+        to get default options but you should avoid using it as being static it may conflict with calls
+        from other code parts/third-party libraries.</p>
+
+    <p>Aliases and reverse methods are provided for semantic purpose:</p>
+
+    <ul>
+        <li><code>from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
+        <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
+        <li><code>to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (inverse result, swap before and future diff)</li>
+        <li><code>until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to)</li>
+        <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted, now used instead)</li>
+        <li><code>toNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to with first argument omitted, now used instead)</li>
+    </ul>
 
     <h1 id="api-modifiers">Modifiers</h1>
 
@@ -2472,16 +2512,18 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
             href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
 
     <p>
-    <pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
-$ci = new CarbonInterval('PT0S');
+    <pre><code class="php">{{::lint($ci = CarbonInterval::create('P1Y2M3D');)}}
+{{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
+{{::lint($ci = new CarbonInterval('PT0S');)}}
+{{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
 </code></pre>
     </p>
 
     <p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
 
     <p>
-    <pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
-CarbonInterval::fromString('2m 15s'); // or abbreviated
+    <pre><code class="php">{{::lint(CarbonInterval::fromString('2 minutes 15 seconds');
+CarbonInterval::fromString('2m 15s'); // or abbreviated)}}
 </code></pre>
     </p>
 
