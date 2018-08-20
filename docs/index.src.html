@@ -317,11 +317,16 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
-        afterwards, this means:</p>
+    <p>If you use Carbon 1 and PHP < 7.1. Read our
+        <a href="#partial-microseconds-support-v1" data-slide-down="#partial-microseconds-support-v1">section about partial microseconds
+            support</a>.</p>
 
-    <p>
-    <pre><code class="php">$date = new DateTime('now');
+    <div id="partial-microseconds-support-v1">
+        <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
+            afterwards, this means:</p>
+
+        <p>
+        <pre><code class="php">$date = new DateTime('now');
 echo $date->format('u');
 // display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
 // display 000000 before PHP 7.1
@@ -335,13 +340,13 @@ echo $date->format('u');
 // display 987654 in PHP >= 7.1
 // display 123456 before PHP 7.1
 </code></pre>
-    </p>
+        </p>
 
-    <p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but
-        this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+        <p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but
+            this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
 
-    <p>
-    <pre><code class="php">Carbon::useMicrosecondsFallback(false);
+        <p>
+        <pre><code class="php">Carbon::useMicrosecondsFallback(false);
 var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
 
 echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
@@ -351,7 +356,8 @@ var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
 
 echo Carbon::now()->micro; // microtime in all PHP version
 </code></pre>
-    </p>
+        </p>
+    </div>
 
     <p>Ever need to loop through some dates to find the earliest or latest date? Didn't know what to set your initial
         maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
@@ -369,7 +375,8 @@ echo Carbon::now()->micro; // microtime in all PHP version
         constant <code>PHP_INT_MAX</code>.</p>
 
     <p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31
-        23:59:59.</p>
+        23:59:59. It's even possible to use negative year up to -9999 but be aware you may not have accurate results
+        with some operations as the year 0 exists in PHP but not in the Gregorian calendar.</p>
 
     <h1 id="api-localization">Localization</h1>
 
@@ -513,9 +520,190 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 
     </div>
 
-    <p>So, here</p>
+    <p>So, here is the new recommended way to handle internationalization with Carbon.</p>
 
-    <p>Here is a overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = Carbon::now()->locale('fr_FR');)}}
+
+{{::exec(echo $date->locale();/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->diffForHumans();/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->monthName;/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('LLLL');/*pad(32)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The <code>->locale()</code> method only change the language for the current instance and has precedence
+        over global settings. We recommend you this approach so you can't have conflict with other places or
+        third-party libraries that could use Carbon. Nevertheless, to avoid calling <code>->locale()</code>
+        each time, you can use factories.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(// Let say Martin from Paris and John from Chicago play chess
+$martinDateFactory = new Factory([
+    'locale' => 'fr_FR',
+    'timezone' => 'Europe/Paris',
+]);
+$johnDateFactory = new Factory([
+    'locale' => 'en_US',
+    'timezone' => 'America/Chicago',
+]);
+// Each one will see date in his own language and timezone
+
+// When Martin moves, we display things in French, but we notify John in English:
+$gameStart = Carbon::parse('2018-06-15 12:34:00', 'UTC');
+$move = Carbon::now('UTC');
+$toDisplay = $martinDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $martinDateFactory->make($move)->calendar()."\n";
+$notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $johnDateFactory->make($move)->calendar()."\n";)}}
+{{::exec(echo $toDisplay;)}}
+/*
+{{eval}}*/
+
+{{::exec(echo $notificationForJohn;)}}
+/*
+{{eval}}*/
+</code></pre>
+    </p>
+
+    <p>You can call any static Carbon method on a factory (make, now, yesterday, tomorrow, parse, create, etc.)
+        Factory (FactoryImmutable that generate CarbonImmutable instances) are the best way to keep things
+        organized and isolated. As often as possible we recommend you to work with UTC dates, then apply
+        locally (or with a factory) the timezone and the language before displaying dates to the user.</p>
+
+    <p>Previously there was <code>Carbon::setLocale</code> that set globally the locale. But as for our other
+        static setters, we highly discourage you to use it. It breaks the principle of isolation because the
+        configuration will apply for every class that uses Carbon.</p>
+
+    <p>You also may know <code>formatLocalized()</code> method from Carbon 1. This method still works the same
+        in Carbon 2 but you should better use <code>isoFormat()</code> instead.</p>
+
+    <p><code>->isoFormat(string $format): string</code> use ISO format rather than PHP-specific format and
+        use inner translations rather than package you need to install on every machine where you deploy your
+        application. <code>isoFormat</code> method is compatible with
+        <a href="https://momentjs.com/" target="_blank">momentjs format method</a>, it means you can use same
+        format strings as you may have used in moment from front-end or node.js. Here are some examples:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = Carbon::parse('2018-06-15 17:34:15.984512', 'UTC');)}}
+{{::exec(echo $date->isoFormat('MMMM Do YYYY, h:mm:ss a');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('dddd');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('MMM Do YY');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('YYYY [escaped] YYYY');/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Here is the complete list of available replacements (examples given with
+        <code class="php">{{::lint($date = Carbon::parse('2017-01-05 17:04:05.084512');)}}</code>):</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Example</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{code::each(array_filter(array_keys(Carbon::getIsoUnits()), function ($code) {
+            return !preg_match('/^hmm/i', $code);
+        }))}}
+        <tr>
+            <td>{{eval(echo $code;)}}</td>
+            <td>{{eval(echo $date->isoFormat($code);)}}</td>
+            <td>{{eval(echo $date->describeIsoFormat($code);)}}</td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>Some macro-formats are also available. Here is examples of each in few languages:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            {{locale::each($sampleLocales = ['en', 'fr', 'ja', 'hr'])}}
+            <th>{{eval(echo $locale;)}}</th>
+            {{::endEach}}
+        </tr>
+        </thead>
+        <tbody>
+        {{code::each(array_keys($isoFormats = ($date = Carbon::parse('2017-01-05 17:04:05.084512'))->getIsoFormats()))}}
+        <tr>
+            <td>
+                <code>{{eval(echo $code;)}}</code><br>
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br><code>'.strtolower($code).'</code>' : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[0])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[1])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[2])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[3])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>An other usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = CarbonImmutable::now();)}}
+{{::exec(echo $date->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('1 day 3 hours')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('3 days 10 hours 23 minutes')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('8 days')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('1 day 3 hours')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('3 days 10 hours 23 minutes')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('8 days')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->locale('fr')->calendar();/*pad(60)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>If you know momentjs, then it works the same way. You can pass a reference date as second argument, else
+        now is used. And you can customize one or more formats using the second argument (formats to pass
+        as array keys are: sameDay, nextDay, nextWeek, lastDay, lastWeek and sameElse):</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date1 = CarbonImmutable::parse('2018-01-01 12:00:00');
+$date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
+
+{{::exec(echo $date1->calendar($date2, [
+    'lastDay' => '[Previous day at] LT',
+]);)}}
+// {{eval}}
+</code></pre>
+    </p>
+
+    <p>Here is an overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
         Carbon version:</p>
 
     <table class="info-table">

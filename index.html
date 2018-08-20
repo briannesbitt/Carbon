@@ -278,7 +278,7 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
                 event.preventDefault();
                 event.stopPropagation();
 
-                $($(event.target).data('slide-down')).slideDown();
+                $($(event.target).data('slide-down')).slideToggle();
             })
         ;
 

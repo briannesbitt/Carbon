@@ -29,8 +29,8 @@ code {color: #38932c;font-size:90%}
 .info-table tr:nth-child(even) td{background:#f6f8fa}
 .compatibility-check{text-align:center}
 
-blockquote{font-size:15px;color:#656565}
-.class-name {color: #8f8f8f}
+blockquote, .doc-comment{font-size:15px;color:#656565}
+.class-name, .doc-comment {color: #8f8f8f}
 
 .old-way {
     display: none;

@@ -117,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(9) "Monday 20"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Monday 20"
+var_dump($mutable->isoFormat('dddd D'));             // string(10) "Tuesday 21"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Tuesday 21"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(9) "Sunday 19"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Monday 20"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Monday 20"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Tuesday 21"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -236,16 +236,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-19 17:42:07
+echo $now;                               // 2018-08-20 13:56:08
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-19 00:00:00
+echo $today;                             // 2018-08-20 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-20 00:00:00
+echo $tomorrow;                          // 2018-08-21 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-18 00:00:00
+echo $yesterday;                         // 2018-08-19 00:00:00
 </code></pre>
     </p>
 
@@ -362,7 +362,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:42 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:56 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -390,11 +390,16 @@ echo $dt->copy()->micro;                               // 123456
 </code></pre>
     </p>
 
-    <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
-        afterwards, this means:</p>
+    <p>If you use Carbon 1 and PHP < 7.1. Read our
+        <a href="#partial-microseconds-support-v1" data-slide-down="#partial-microseconds-support-v1">section about partial microseconds
+            support</a>.</p>
 
-    <p>
-    <pre><code class="php">$date = new DateTime('now');
+    <div id="partial-microseconds-support-v1">
+        <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
+            afterwards, this means:</p>
+
+        <p>
+        <pre><code class="php">$date = new DateTime('now');
 echo $date->format('u');
 // display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
 // display 000000 before PHP 7.1
@@ -408,13 +413,13 @@ echo $date->format('u');
 // display 987654 in PHP >= 7.1
 // display 123456 before PHP 7.1
 </code></pre>
-    </p>
+        </p>
 
-    <p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but
-        this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+        <p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but
+            this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
 
-    <p>
-    <pre><code class="php">Carbon::useMicrosecondsFallback(false);
+        <p>
+        <pre><code class="php">Carbon::useMicrosecondsFallback(false);
 var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
 
 echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
@@ -424,7 +429,8 @@ var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
 
 echo Carbon::now()->micro; // microtime in all PHP version
 </code></pre>
-    </p>
+        </p>
+    </div>
 
     <p>Ever need to loop through some dates to find the earliest or latest date? Didn't know what to set your initial
         maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
@@ -442,7 +448,8 @@ echo Carbon::minValue();                               // '0001-01-01 00:00:00'
         constant <code>PHP_INT_MAX</code>.</p>
 
     <p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31
-        23:59:59.</p>
+        23:59:59. It's even possible to use negative year up to -9999 but be aware you may not have accurate results
+        with some operations as the year 0 exists in PHP but not in the Gregorian calendar.</p>
 
     <h1 id="api-localization">Localization</h1>
 
@@ -583,7 +590,729 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
 
     </div>
 
-    <p>Here is a overview of the 102 locales (and 137 regional variants) supported by the last
+    <p>So, here is the new recommended way to handle internationalization with Carbon.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::now()->locale('fr_FR');
+
+echo $date->locale();            // fr_FR
+echo "\n";
+echo $date->diffForHumans();     // il y a quelques secondes
+echo "\n";
+echo $date->monthName;           // août
+echo "\n";
+echo $date->isoFormat('LLLL');   // lundi 20 août 2018 13:56
+</code></pre>
+    </p>
+
+    <p>The <code>->locale()</code> method only change the language for the current instance and has precedence
+        over global settings. We recommend you this approach so you can't have conflict with other places or
+        third-party libraries that could use Carbon. Nevertheless, to avoid calling <code>->locale()</code>
+        each time, you can use factories.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">// Let say Martin from Paris and John from Chicago play chess
+$martinDateFactory = new Factory([
+    'locale' => 'fr_FR',
+    'timezone' => 'Europe/Paris',
+]);
+$johnDateFactory = new Factory([
+    'locale' => 'en_US',
+    'timezone' => 'America/Chicago',
+]);
+// Each one will see date in his own language and timezone
+
+// When Martin moves, we display things in French, but we notify John in English:
+$gameStart = Carbon::parse('2018-06-15 12:34:00', 'UTC');
+$move = Carbon::now('UTC');
+$toDisplay = $martinDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $martinDateFactory->make($move)->calendar()."\n";
+$notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $johnDateFactory->make($move)->calendar()."\n";
+echo $toDisplay;
+/*
+15 juin 2018 14:34
+Aujourd’hui à 15:56
+*/
+
+echo $notificationForJohn;
+/*
+Jun 15, 2018 7:34 AM
+Today at 8:56 AM
+*/
+</code></pre>
+    </p>
+
+    <p>You can call any static Carbon method on a factory (make, now, yesterday, tomorrow, parse, create, etc.)
+        Factory (FactoryImmutable that generate CarbonImmutable instances) are the best way to keep things
+        organized and isolated. As often as possible we recommend you to work with UTC dates, then apply
+        locally (or with a factory) the timezone and the language before displaying dates to the user.</p>
+
+    <p>Previously there was <code>Carbon::setLocale</code> that set globally the locale. But as for our other
+        static setters, we highly discourage you to use it. It breaks the principle of isolation because the
+        configuration will apply for every class that uses Carbon.</p>
+
+    <p>You also may know <code>formatLocalized()</code> method from Carbon 1. This method still works the same
+        in Carbon 2 but you should better use <code>isoFormat()</code> instead.</p>
+
+    <p><code>->isoFormat(string $format): string</code> use ISO format rather than PHP-specific format and
+        use inner translations rather than package you need to install on every machine where you deploy your
+        application. <code>isoFormat</code> method is compatible with
+        <a href="https://momentjs.com/" target="_blank">momentjs format method</a>, it means you can use same
+        format strings as you may have used in moment from front-end or node.js. Here are some examples:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::parse('2018-06-15 17:34:15.984512', 'UTC');
+echo $date->isoFormat('MMMM Do YYYY, h:mm:ss a'); // June 15th 2018, 5:34:15 pm
+echo "\n";
+echo $date->isoFormat('dddd');           // Friday
+echo "\n";
+echo $date->isoFormat('MMM Do YY');      // Jun 15th 18
+echo "\n";
+echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
+</code></pre>
+    </p>
+
+    <p>Here is the complete list of available replacements (examples given with
+        <code class="php">$date = Carbon::parse('2017-01-05 17:04:05.084512');</code>):</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Example</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr>
+            <td>D</td>
+            <td>5</td>
+            <td>Day of month number (from 1 to 31)</td>
+        </tr>
+        
+        <tr>
+            <td>DD</td>
+            <td>05</td>
+            <td>Day of month number with trailing zero (from 01 to 31)</td>
+        </tr>
+        
+        <tr>
+            <td>Do</td>
+            <td>5th</td>
+            <td>Day of month with ordinal suffix (from 1st to 31th), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>d</td>
+            <td>4</td>
+            <td>Day of week number (from 0 (Sunday) to 6 (Saturday))</td>
+        </tr>
+        
+        <tr>
+            <td>dd</td>
+            <td>Th</td>
+            <td>Minified day name (from Su to Sa), transatable</td>
+        </tr>
+        
+        <tr>
+            <td>ddd</td>
+            <td>Thu</td>
+            <td>Short day name (from Sun to Sat), transatable</td>
+        </tr>
+        
+        <tr>
+            <td>dddd</td>
+            <td>Thursday</td>
+            <td>Day name (from Sunday to Saturday), transatable</td>
+        </tr>
+        
+        <tr>
+            <td>DDD</td>
+            <td>5</td>
+            <td>Day of year number (from 1 to 366)</td>
+        </tr>
+        
+        <tr>
+            <td>DDDD</td>
+            <td>005</td>
+            <td>Day of year number with trailing zeros (3 digits, from 001 to 366)</td>
+        </tr>
+        
+        <tr>
+            <td>DDDo</td>
+            <td>5th</td>
+            <td>Day of year number with ordinal suffix (from 1st to 366th), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>e</td>
+            <td>4</td>
+            <td>Day of week number (from 0 (Sunday) to 6 (Saturday)), similar to "d" but this one is translatable (takes first day of week of the current locale)</td>
+        </tr>
+        
+        <tr>
+            <td>E</td>
+            <td>4</td>
+            <td>Day of week number (from 1 (Monday) to 7 (Sunday))</td>
+        </tr>
+        
+        <tr>
+            <td>H</td>
+            <td>17</td>
+            <td>Hour from 0 to 23</td>
+        </tr>
+        
+        <tr>
+            <td>HH</td>
+            <td>17</td>
+            <td>Hour with trailing zero from 00 to 23</td>
+        </tr>
+        
+        <tr>
+            <td>h</td>
+            <td>5</td>
+            <td>Hour from 0 to 12</td>
+        </tr>
+        
+        <tr>
+            <td>hh</td>
+            <td>05</td>
+            <td>Hour with trailing zero from 00 to 12</td>
+        </tr>
+        
+        <tr>
+            <td>k</td>
+            <td>17</td>
+            <td>Hour from 1 to 24</td>
+        </tr>
+        
+        <tr>
+            <td>kk</td>
+            <td>17</td>
+            <td>Hour with trailing zero from 01 to 24</td>
+        </tr>
+        
+        <tr>
+            <td>m</td>
+            <td>4</td>
+            <td>Minute from 0 to 59</td>
+        </tr>
+        
+        <tr>
+            <td>mm</td>
+            <td>04</td>
+            <td>Minute with trailing zero from 00 to 59</td>
+        </tr>
+        
+        <tr>
+            <td>a</td>
+            <td>pm</td>
+            <td>Meridiem am/pm</td>
+        </tr>
+        
+        <tr>
+            <td>A</td>
+            <td>PM</td>
+            <td>Meridiem AM/PM</td>
+        </tr>
+        
+        <tr>
+            <td>s</td>
+            <td>5</td>
+            <td>Second from 0 to 59</td>
+        </tr>
+        
+        <tr>
+            <td>ss</td>
+            <td>05</td>
+            <td>Second with trailing zero from 00 to 59</td>
+        </tr>
+        
+        <tr>
+            <td>S</td>
+            <td>1</td>
+            <td>Second tenth</td>
+        </tr>
+        
+        <tr>
+            <td>SS</td>
+            <td>08</td>
+            <td>Second hundredth (on 2 digits with trailing zero)</td>
+        </tr>
+        
+        <tr>
+            <td>SSS</td>
+            <td>085</td>
+            <td>Millisecond (on 3 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSS</td>
+            <td>0845</td>
+            <td>Second ten thousandth (on 4 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSSS</td>
+            <td>08451</td>
+            <td>Second hundred thousandth (on 5 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSSSS</td>
+            <td>084512</td>
+            <td>Microsecond (on 6 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSSSSS</td>
+            <td>0845120</td>
+            <td>Second ten millionth (on 7 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSSSSSS</td>
+            <td>08451200</td>
+            <td>Second hundred millionth (on 8 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>SSSSSSSSS</td>
+            <td>084512000</td>
+            <td>Nanosecond (on 9 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>M</td>
+            <td>1</td>
+            <td>Month from 1 to 12</td>
+        </tr>
+        
+        <tr>
+            <td>MM</td>
+            <td>01</td>
+            <td>Month with trailing zero from 01 to 12</td>
+        </tr>
+        
+        <tr>
+            <td>MMM</td>
+            <td>Jan</td>
+            <td>Short month name, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>MMMM</td>
+            <td>January</td>
+            <td>Month name, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>Mo</td>
+            <td>1st</td>
+            <td>Month with ordinal suffix from 1st to 12th, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>Q</td>
+            <td>1</td>
+            <td>Quarter from 1 to 4</td>
+        </tr>
+        
+        <tr>
+            <td>Qo</td>
+            <td>1st</td>
+            <td>Quarter with ordinal suffix from 1st to 4th, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>G</td>
+            <td>2017</td>
+            <td>ISO week year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)</td>
+        </tr>
+        
+        <tr>
+            <td>GG</td>
+            <td>2017</td>
+            <td>ISO week year (on 2 digits with trailing zero)</td>
+        </tr>
+        
+        <tr>
+            <td>GGG</td>
+            <td>2017</td>
+            <td>ISO week year (on 3 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>GGGG</td>
+            <td>2017</td>
+            <td>ISO week year (on 4 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>GGGGG</td>
+            <td>02017</td>
+            <td>ISO week year (on 5 digits with trailing zeros)</td>
+        </tr>
+        
+        <tr>
+            <td>g</td>
+            <td>2017</td>
+            <td>Week year according to locale settings, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>gg</td>
+            <td>2017</td>
+            <td>Week year according to locale settings (on 2 digits with trailing zero), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>ggg</td>
+            <td>2017</td>
+            <td>Week year according to locale settings (on 3 digits with trailing zeros), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>gggg</td>
+            <td>2017</td>
+            <td>Week year according to locale settings (on 4 digits with trailing zeros), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>ggggg</td>
+            <td>02017</td>
+            <td>Week year according to locale settings (on 5 digits with trailing zeros), translatable</td>
+        </tr>
+        
+        <tr>
+            <td>W</td>
+            <td>1</td>
+            <td>ISO week number in the year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)</td>
+        </tr>
+        
+        <tr>
+            <td>WW</td>
+            <td>01</td>
+            <td>ISO week number in the year (on 2 digits with trailing zero)</td>
+        </tr>
+        
+        <tr>
+            <td>Wo</td>
+            <td>1st</td>
+            <td>ISO week number in the year with ordinal suffix, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>w</td>
+            <td>1</td>
+            <td>Week number in the year according to locale settings, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>ww</td>
+            <td>01</td>
+            <td>Week number in the year according to locale settings (on 2 digits with trailing zero)</td>
+        </tr>
+        
+        <tr>
+            <td>wo</td>
+            <td>1st</td>
+            <td>Week number in the year according to locale settings with ordinal suffix, translatable</td>
+        </tr>
+        
+        <tr>
+            <td>x</td>
+            <td>1483635845085</td>
+            <td>Millisecond-precision timestamp (same as <code>date.getTime()</code> in JavaScript)</td>
+        </tr>
+        
+        <tr>
+            <td>X</td>
+            <td>1483635845</td>
+            <td>Timestamp (number of seconds since 1970-01-01)</td>
+        </tr>
+        
+        <tr>
+            <td>Y</td>
+            <td>2017</td>
+            <td>Full year from -9999 to 9999</td>
+        </tr>
+        
+        <tr>
+            <td>YY</td>
+            <td>17</td>
+            <td>Year on 2 digits from 00 to 99</td>
+        </tr>
+        
+        <tr>
+            <td>YYYY</td>
+            <td>2017</td>
+            <td>Year on 4 digits from 0000 to 9999</td>
+        </tr>
+        
+        <tr>
+            <td>YYYYY</td>
+            <td>02017</td>
+            <td>Year on 5 digits from 00000 to 09999</td>
+        </tr>
+        
+        <tr>
+            <td>YYYYYY</td>
+            <td>+002017</td>
+            <td>Year on 5 digits with sign from -09999 to +09999</td>
+        </tr>
+        
+        <tr>
+            <td>z</td>
+            <td>utc</td>
+            <td>Abbreviated time zone name</td>
+        </tr>
+        
+        <tr>
+            <td>zz</td>
+            <td>UTC</td>
+            <td>Time zone name</td>
+        </tr>
+        
+        <tr>
+            <td>Z</td>
+            <td>+00:00</td>
+            <td>Time zone offset HH:mm</td>
+        </tr>
+        
+        <tr>
+            <td>ZZ</td>
+            <td>+0000</td>
+            <td>Time zone offset HHmm</td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    <p>Some macro-formats are also available. Here is examples of each in few languages:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            
+            <th>en</th>
+            
+            <th>fr</th>
+            
+            <th>ja</th>
+            
+            <th>hr</th>
+            
+        </tr>
+        </thead>
+        <tbody>
+        
+        <tr>
+            <td>
+                <code>LT</code><br>
+                
+            </td>
+            <td>
+                <span class="doc-comment">h:mm A</span><br>
+                5:04 PM
+                
+            </td>
+            <td>
+                <span class="doc-comment">HH:mm</span><br>
+                17:04
+                
+            </td>
+            <td>
+                <span class="doc-comment">HH:mm</span><br>
+                17:04
+                
+            </td>
+            <td>
+                <span class="doc-comment">H:mm</span><br>
+                17:04
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <code>LTS</code><br>
+                
+            </td>
+            <td>
+                <span class="doc-comment">h:mm:ss A</span><br>
+                5:04:05 PM
+                
+            </td>
+            <td>
+                <span class="doc-comment">HH:mm:ss</span><br>
+                17:04:05
+                
+            </td>
+            <td>
+                <span class="doc-comment">HH:mm:ss</span><br>
+                17:04:05
+                
+            </td>
+            <td>
+                <span class="doc-comment">H:mm:ss</span><br>
+                17:04:05
+                
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <code>L</code><br>
+                <br><code>l</code>
+            </td>
+            <td>
+                <span class="doc-comment">MM/DD/YYYY</span><br>
+                01/05/2017
+                <br>1/5/2017
+            </td>
+            <td>
+                <span class="doc-comment">DD/MM/YYYY</span><br>
+                05/01/2017
+                <br>5/1/2017
+            </td>
+            <td>
+                <span class="doc-comment">YYYY/MM/DD</span><br>
+                2017/01/05
+                <br>2017/1/5
+            </td>
+            <td>
+                <span class="doc-comment">DD.MM.YYYY</span><br>
+                05.01.2017
+                <br>5.1.2017
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <code>LL</code><br>
+                <br><code>ll</code>
+            </td>
+            <td>
+                <span class="doc-comment">MMMM D, YYYY</span><br>
+                January 5, 2017
+                <br>Jan 5, 2017
+            </td>
+            <td>
+                <span class="doc-comment">D MMMM YYYY</span><br>
+                5 janvier 2017
+                <br>5 janv. 2017
+            </td>
+            <td>
+                <span class="doc-comment">YYYY年M月D日</span><br>
+                2017年1月5日
+                <br>2017年1月5日
+            </td>
+            <td>
+                <span class="doc-comment">D. MMMM YYYY</span><br>
+                5. siječnja 2017
+                <br>5. sij. 2017
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <code>LLL</code><br>
+                <br><code>lll</code>
+            </td>
+            <td>
+                <span class="doc-comment">MMMM D, YYYY h:mm A</span><br>
+                January 5, 2017 5:04 PM
+                <br>Jan 5, 2017 5:04 PM
+            </td>
+            <td>
+                <span class="doc-comment">D MMMM YYYY HH:mm</span><br>
+                5 janvier 2017 17:04
+                <br>5 janv. 2017 17:04
+            </td>
+            <td>
+                <span class="doc-comment">YYYY年M月D日 HH:mm</span><br>
+                2017年1月5日 17:04
+                <br>2017年1月5日 17:04
+            </td>
+            <td>
+                <span class="doc-comment">D. MMMM YYYY H:mm</span><br>
+                5. siječnja 2017 17:04
+                <br>5. sij. 2017 17:04
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <code>LLLL</code><br>
+                <br><code>llll</code>
+            </td>
+            <td>
+                <span class="doc-comment">dddd, MMMM D, YYYY h:mm A</span><br>
+                Thursday, January 5, 2017 5:04 PM
+                <br>Thu, Jan 5, 2017 5:04 PM
+            </td>
+            <td>
+                <span class="doc-comment">dddd D MMMM YYYY HH:mm</span><br>
+                jeudi 5 janvier 2017 17:04
+                <br>jeu. 5 janv. 2017 17:04
+            </td>
+            <td>
+                <span class="doc-comment">YYYY年M月D日 dddd HH:mm</span><br>
+                2017年1月5日 木曜日 17:04
+                <br>2017年1月5日 木 17:04
+            </td>
+            <td>
+                <span class="doc-comment">dddd, D. MMMM YYYY H:mm</span><br>
+                četvrtak, 5. siječnja 2017 17:04
+                <br>čet., 5. sij. 2017 17:04
+            </td>
+        </tr>
+        
+        </tbody>
+    </table>
+
+    <p>An other usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
+echo $date->calendar();                                      // Today at 1:56 PM
+echo "\n";
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 10:56 AM
+echo "\n";
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 3:33 AM
+echo "\n";
+echo $date->sub('8 days')->calendar();                       // 08/12/2018
+echo "\n";
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 4:56 PM
+echo "\n";
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 12:19 AM
+echo "\n";
+echo $date->add('8 days')->calendar();                       // 08/28/2018
+echo "\n";
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 13:56
+</code></pre>
+    </p>
+
+    <p>If you know momentjs, then it works the same way. You can pass a reference date as second argument, else
+        now is used. And you can customize one or more formats using the second argument (formats to pass
+        as array keys are: sameDay, nextDay, nextWeek, lastDay, lastWeek and sameElse):</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date1 = CarbonImmutable::parse('2018-01-01 12:00:00');
+$date2 = CarbonImmutable::parse('2018-01-02 8:00:00');
+
+echo $date1->calendar($date2, [
+    'lastDay' => '[Previous day at] LT',
+]);
+// Previous day at 12:00 PM
+</code></pre>
+    </p>
+
+    <p>Here is an overview of the 102 locales (and 137 regional variants) supported by the last
         Carbon version:</p>
 
     <table class="info-table">
@@ -1549,7 +2278,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-19 17:42:08
+echo Carbon::now();                                    // 2018-08-20 13:56:08
 </code></pre>
     </p>
 
@@ -1898,7 +2627,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#305 (2) {
+  object(Carbon\CarbonTimeZone)#348 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2004,8 +2733,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-19 17:42:08
-echo $dt1->maximum();                              // 2018-08-19 17:42:08
+echo $dt1->max();                                  // 2018-08-20 13:56:08
+echo $dt1->maximum();                              // 2018-08-20 13:56:08
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3009,7 +3738,7 @@ function dumpDateList($dates) {
     echo substr(implode(', ', $dates), 0, 100).'...';
 }
 
-dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-08-13 00:00:00, 2018-08-14 00:00:00, 2018-08-15 00:00:00, 2018-08-16 00:00:00, 2018-08-17 00:00...
+dumpDateList(Carbon::getCurrentWeekDays());                       // 2018-08-20 00:00:00, 2018-08-21 00:00:00, 2018-08-22 00:00:00, 2018-08-23 00:00:00, 2018-08-24 00:00...
 dumpDateList(Carbon::getCurrentMonthDays());                      // 2018-08-01 00:00:00, 2018-08-02 00:00:00, 2018-08-03 00:00:00, 2018-08-04 00:00:00, 2018-08-05 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());    // 2018-07-16 00:00:00, 2018-07-17 00:00:00, 2018-07-18 00:00:00, 2018-07-19 00:00:00, 2018-07-20 00:00...
 dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());   // 2018-07-01 00:00:00, 2018-07-02 00:00:00, 2018-07-03 00:00:00, 2018-07-04 00:00:00, 2018-07-05 00:00...
@@ -3544,7 +4273,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-19, 2018-08-20, 2018-08-21
+echo implode(', ', $days);               // 2018-08-20, 2018-08-21, 2018-08-22
 </code></pre>
     </p>
 
@@ -3820,7 +4549,7 @@ echo $period->toIso8601String();     // 2000-01-01T12:00:00+00:00/P3DT12H/2000-0
                 event.preventDefault();
                 event.stopPropagation();
 
-                $($(event.target).data('slide-down')).slideDown();
+                $($(event.target).data('slide-down')).slideToggle();
             })
         ;
 
