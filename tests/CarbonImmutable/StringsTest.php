@@ -216,7 +216,7 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('2016', $d->isoFormat('G'));
 
         $d = Carbon::parse('2017-01-01 22:25:24.182937');
-        $this->assertSame('2 18 183 1829 18294 182937', $d->isoFormat('S SS SSS SSSS SSSSS SSSSSS'));
+        $this->assertSame('1 18 182 1829 18293 182937', $d->isoFormat('S SS SSS SSSS SSSSS SSSSSS'));
 
         $this->assertSame('02017 +002017', $d->isoFormat('YYYYY YYYYYY'));
         $this->assertSame(-117, Carbon::create(-117, 1, 1)->year);

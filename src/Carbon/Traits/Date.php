@@ -1644,29 +1644,29 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return strval(round($date->micro / 100000));
+                    return strval(floor($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro / 10000), 2, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
                 },
                 'SSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro / 1000), 3, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
                 },
                 'SSSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro / 100), 4, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
                 },
                 'SSSSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro / 10), 5, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
                 },
                 'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
                 'SSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro * 10), 7, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro * 100), 8, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(round($date->micro * 1000), 9, '0', STR_PAD_LEFT);
+                    return str_pad(floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
                 },
                 'M' => 'month',
                 'MM' => ['format', ['m']],
