@@ -918,10 +918,19 @@ $product = new SeasonalProduct(100);
 
 // Returns an int of seconds difference from UTC (+/- sign included)
 {{::exec(var_dump(Carbon::createFromTimestampUTC(0)->offset);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::createFromTimestamp(0)->offset);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offset);/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffset());/*pad(80)*/)}} // {{eval}}
 
 // Returns an int of hours difference from UTC (+/- sign included)
-{{::exec(var_dump(Carbon::createFromTimestamp(0)->offsetHours);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetMinutes);/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetHours);/*pad(80)*/)}} // {{eval}}
+
+// Returns timezone offset as string
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());/*pad(80)*/)}} // {{eval}}
+
+// Returns timezone as CarbonTimeZone
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());)}}
+/* {{eval}} */
 
 // Indicates if day light savings time is on
 {{::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{eval}}
@@ -1024,25 +1033,28 @@ $dt->timezone('Europe/London')->tz('America/Toronto')->setTimezone('America/Vanc
 </code></pre>
     </p>
 
-    <p>You also can set date and time separatly from other DateTime/Carbon objects:</p>
+    <p>You also can set date and time separately from other DateTime/Carbon objects:</p>
 
     <p>
     <pre><code class="php">{{::lint(
-$source1 = new Carbon('2010-05-16 22:40:10');
+$source1 = new Carbon('2010-05-16 22:40:10.1');
 
-$dt = new Carbon('2001-01-01 01:01:01');
+$dt = new Carbon('2001-01-01 01:01:01.2');
 $dt->setTimeFrom($source1);
 )}}
 
 {{::exec(echo $dt;)}} // {{eval}}
 
 {{::lint(
-$source2 = new DateTime('2013-09-01 09:22:56');
+$source2 = new DateTime('2013-09-01 09:22:56.2');
 
 $dt->setDateFrom($source2);
 )}}
 
 {{::exec(echo $dt;)}} // {{eval}}
+
+{{::lint($dt->setDateTimeFrom($source2);)}} // set date and time including microseconds
+// bot not settings as locale, timezone, options.
 </code></pre>
     </p>
 
@@ -1139,6 +1151,16 @@ Carbon::resetToStringFormat();
 {{::exec(echo $dt->toW3cString();/*pad(32)*/)}} // {{eval}}
 
 {{::exec(var_dump($dt->toArray());)}}
+/*
+{{eval}}
+*/
+
+{{::exec(var_dump($dt->toObject());)}}
+/*
+{{eval}}
+*/
+
+{{::exec(var_dump($dt->toDate()); // Same as $dt->toDateTime())}}
 /*
 {{eval}}
 */
@@ -1591,6 +1613,10 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{eval}}
 
 {{::lint($interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);)}}
+// diffAsCarbonInterval use same arguments as diff($other, $absolute)
+// (native method from \DateTime)
+// except $absolute is true by default for diffAsCarbonInterval and false for diff
+// $absolute parameter allow to get signed value if false, or always positive if true
 {{::exec(echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;/*pad(70)*/)}} // {{eval}}
 </code></pre>
     </p>

@@ -243,7 +243,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-20 19:02:41
+echo $now;                               // 2018-08-20 19:46:19
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-20 00:00:00
@@ -369,7 +369,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:02 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:46 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -608,7 +608,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 20 août 2018 19:02
+echo $date->isoFormat('LLLL');   // lundi 20 août 2018 19:46
 </code></pre>
     </p>
 
@@ -639,13 +639,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 19:02
+Aujourd’hui à 19:46
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 7:02 PM
+Today at 7:46 PM
 */
 </code></pre>
     </p>
@@ -1308,21 +1308,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 7:02 PM
+echo $date->calendar();                                      // Today at 7:46 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:02 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:46 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 8:39 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 9:23 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/12/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:02 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:46 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 5:25 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 6:09 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 08/28/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:02
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:46
 </code></pre>
     </p>
 
@@ -2311,7 +2311,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-20 19:02:42
+echo Carbon::now();                                    // 2018-08-20 19:46:19
 </code></pre>
     </p>
 
@@ -2433,10 +2433,24 @@ var_dump($dt->quarter);                                      // int(4)
 
 // Returns an int of seconds difference from UTC (+/- sign included)
 var_dump(Carbon::createFromTimestampUTC(0)->offset);         // int(0)
-var_dump(Carbon::createFromTimestamp(0)->offset);            // int(0)
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offset);                // int(3600)
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffset());           // int(3600)
 
 // Returns an int of hours difference from UTC (+/- sign included)
-var_dump(Carbon::createFromTimestamp(0)->offsetHours);       // int(0)
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetMinutes);         // int(60)
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetHours);           // int(1)
+
+// Returns timezone offset as string
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());     // string(6) "+01:00"
+
+// Returns timezone as CarbonTimeZone
+var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());
+/* object(Carbon\CarbonTimeZone)#72 (2) {
+  ["timezone_type"]=>
+  int(3)
+  ["timezone"]=>
+  string(12) "Europe/Paris"
+} */
 
 // Indicates if day light savings time is on
 var_dump(Carbon::createFromDate(2012, 1, 1)->dst);           // bool(false)
@@ -2531,21 +2545,24 @@ $dt->timezone('Europe/London')->tz('America/Toronto')->setTimezone('America/Vanc
 </code></pre>
     </p>
 
-    <p>You also can set date and time separatly from other DateTime/Carbon objects:</p>
+    <p>You also can set date and time separately from other DateTime/Carbon objects:</p>
 
     <p>
-    <pre><code class="php">$source1 = new Carbon('2010-05-16 22:40:10');
+    <pre><code class="php">$source1 = new Carbon('2010-05-16 22:40:10.1');
 
-$dt = new Carbon('2001-01-01 01:01:01');
+$dt = new Carbon('2001-01-01 01:01:01.2');
 $dt->setTimeFrom($source1);
 
 echo $dt; // 2001-01-01 22:40:10
 
-$source2 = new DateTime('2013-09-01 09:22:56');
+$source2 = new DateTime('2013-09-01 09:22:56.2');
 
 $dt->setDateFrom($source2);
 
 echo $dt; // 2013-09-01 22:40:10
+
+$dt->setDateTimeFrom($source2); // set date and time including microseconds
+// bot not settings as locale, timezone, options.
 </code></pre>
     </p>
 
@@ -2663,12 +2680,59 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#349 (2) {
+  object(Carbon\CarbonTimeZone)#72 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
     string(3) "UTC"
   }
+}
+*/
+
+var_dump($dt->toObject());
+/*
+object(stdClass)#72 (12) {
+  ["year"]=>
+  int(2019)
+  ["month"]=>
+  int(2)
+  ["day"]=>
+  int(1)
+  ["dayOfWeek"]=>
+  int(5)
+  ["dayOfYear"]=>
+  int(32)
+  ["hour"]=>
+  int(3)
+  ["minute"]=>
+  int(45)
+  ["second"]=>
+  int(27)
+  ["micro"]=>
+  int(612584)
+  ["timestamp"]=>
+  int(1548992727)
+  ["formatted"]=>
+  string(19) "2019-02-01 03:45:27"
+  ["timezone"]=>
+  object(Carbon\CarbonTimeZone)#346 (2) {
+    ["timezone_type"]=>
+    int(3)
+    ["timezone"]=>
+    string(3) "UTC"
+  }
+}
+*/
+
+var_dump($dt->toDate()); // Same as $dt->toDateTime()
+/*
+object(DateTime)#72 (3) {
+  ["date"]=>
+  string(26) "2019-02-01 03:45:27.612584"
+  ["timezone_type"]=>
+  int(3)
+  ["timezone"]=>
+  string(3) "UTC"
 }
 */
 </code></pre>
@@ -2770,8 +2834,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-20 19:02:42
-echo $dt1->maximum();                              // 2018-08-20 19:02:42
+echo $dt1->max();                                  // 2018-08-20 19:46:19
+echo $dt1->maximum();                              // 2018-08-20 19:46:19
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3116,6 +3180,10 @@ echo $dt->diffInMinutes($dt->copy()->addSeconds(120));                 // 2
 echo $dt->addSeconds(120)->secondsSinceMidnight();                     // 120
 
 $interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);
+// diffAsCarbonInterval use same arguments as diff($other, $absolute)
+// (native method from \DateTime)
+// except $absolute is true by default for diffAsCarbonInterval and false for diff
+// $absolute parameter allow to get signed value if false, or always positive if true
 echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;      // minus 3
 </code></pre>
     </p>
@@ -3386,8 +3454,8 @@ echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_D
     <p>Aliases and reverse methods are provided for semantic purpose:</p>
 
     <ul>
-        <li><code>from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHuman)</li>
-        <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHuman)</li>
+        <li><code>from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
+        <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
         <li><code>to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (inverse result, swap before and future diff)</li>
         <li><code>until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to)</li>
         <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted, now used instead)</li>
