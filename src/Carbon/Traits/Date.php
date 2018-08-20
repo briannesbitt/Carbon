@@ -1659,9 +1659,15 @@ trait Date
                     return str_pad(round($date->micro / 10), 5, '0', STR_PAD_LEFT);
                 },
                 'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
-                'SSSSSSS' => ['getPaddedUnit', ['micro', 7]],
-                'SSSSSSSS' => ['getPaddedUnit', ['micro', 8]],
-                'SSSSSSSSS' => ['getPaddedUnit', ['micro', 9]],
+                'SSSSSSS' => function (CarbonInterface $date) {
+                    return str_pad(round($date->micro * 10), 7, '0', STR_PAD_LEFT);
+                },
+                'SSSSSSSS' => function (CarbonInterface $date) {
+                    return str_pad(round($date->micro * 100), 8, '0', STR_PAD_LEFT);
+                },
+                'SSSSSSSSS' => function (CarbonInterface $date) {
+                    return str_pad(round($date->micro * 1000), 9, '0', STR_PAD_LEFT);
+                },
                 'M' => 'month',
                 'MM' => ['format', ['m']],
                 'MMM' => function (CarbonInterface $date) {
