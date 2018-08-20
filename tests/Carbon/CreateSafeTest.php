@@ -116,6 +116,15 @@ class CreateSafeTest extends AbstractTestCase
 
     /**
      * @expectedException \Carbon\Exceptions\InvalidDateException
+     * @expectedExceptionMessage year : 0 is not a valid value.
+     */
+    public function testCreateSafeThrowsExceptionForYearEqualToZero()
+    {
+        Carbon::createSafe(0);
+    }
+
+    /**
+     * @expectedException \Carbon\Exceptions\InvalidDateException
      * @expectedExceptionMessage year : -5 is not a valid value.
      */
     public function testCreateSafeThrowsExceptionForYearLowerThanZero()
