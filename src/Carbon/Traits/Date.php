@@ -1699,10 +1699,10 @@ trait Date
                 'w' => 'week',
                 'ww' => ['getPaddedUnit', ['week']],
                 'wo' => ['ordinal', ['week', 'w']],
-                'x' => ['valueOf'],
+                'x' => ['valueOf', []],
                 'X' => 'timestamp',
-                'Y' => ['format', 'Y'],
-                'YY' => ['format', 'y'],
+                'Y' => 'year',
+                'YY' => ['format', ['y']],
                 'YYYY' => ['getPaddedUnit', ['year', 4]],
                 'YYYYY' => ['getPaddedUnit', ['year', 5]],
                 'YYYYYY' => function (CarbonInterface $date) {
@@ -1832,7 +1832,7 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
                 $code = $match[0];
                 if ($units === null) {
                     $units = static::getIsoUnits();
