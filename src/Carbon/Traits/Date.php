@@ -1625,7 +1625,7 @@ trait Date
                 'DDD' => 'dayOfYear',
                 'DDDD' => ['getPaddedUnit', ['dayOfYear', 3]],
                 'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
-                'e' => 'dayOfWeek',
+                'e' => ['weekday', []],
                 'E' => 'dayOfWeekIso',
                 'H' => ['format', ['G']],
                 'HH' => ['format', ['H']],
