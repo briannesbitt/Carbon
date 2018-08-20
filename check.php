@@ -27,6 +27,8 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $upperUnit = '(Unit|Micro(second)?s?|Milli(second)?s?|Seconds?|Minutes?|Hours?|Days?|Weeks?|Months?|Quarters?|Years?|Decades?|Centur(y|ies)|Millenni(um|a))';
     $lowerUnit = '(micro(second)?s?|milli(second)?s?|seconds?|minutes?|hours?|days?|weeks?|months?|quarters?|years?|decades?|centur(y|ies)|millenni(um|a))';
     $exclusion = !!preg_match("/^(
+        (use|is)StrictMode(Enabled)? |
+        __(sleep|wakeup|construct) |
         (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
         (set|get)$upperUnit |
         (startOf|endOf)$upperUnit |
@@ -88,9 +90,9 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
         }
 
         if ($documented) {
-            $missingArguments += $argumentsCount - $coveredArgs;
+            $missingArguments += max(0, $argumentsCount - $coveredArgs);
         }
-        $argumentsDocumented = $argumentsCount === $coveredArgs;
+        $argumentsDocumented = $argumentsCount <= $coveredArgs;
         $color = $argumentsDocumented ? 32 : 31;
         $message = $documented ? 'documented' : 'missing';
 
