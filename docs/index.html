@@ -255,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-21 15:58:57
+echo $now;                               // 2018-08-21 16:02:43
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-21 00:00:00
@@ -381,7 +381,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:58 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:02 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -620,7 +620,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 21 août 2018 15:58
+echo $date->isoFormat('LLLL');   // mardi 21 août 2018 16:02
 </code></pre>
     </p>
 
@@ -651,13 +651,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 17:58
+Aujourd’hui à 18:02
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 10:58 AM
+Today at 11:02 AM
 */
 </code></pre>
     </p>
@@ -1320,21 +1320,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 3:58 PM
+echo $date->calendar();                                      // Today at 4:02 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 12:58 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 1:02 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 5:35 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 5:39 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/13/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 6:58 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 7:02 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 2:21 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 2:25 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 08/29/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 15:58
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 16:02
 </code></pre>
     </p>
 
@@ -2323,7 +2323,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-21 15:58:57
+echo Carbon::now();                                    // 2018-08-21 16:02:44
 </code></pre>
     </p>
 
@@ -2937,8 +2937,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-21 15:58:57
-echo $dt1->maximum();                              // 2018-08-21 15:58:57
+echo $dt1->max();                                  // 2018-08-21 16:02:44
+echo $dt1->maximum();                              // 2018-08-21 16:02:44
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3159,7 +3159,7 @@ echo $dt->subMonths(2);                  // 2016-11-30 00:00:00
         <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
 
         <p>
-        <pre class="live-editor"><code class="php">Carbon::useMonthsOverflow(false);
+        <pre><code class="php">Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);
 
