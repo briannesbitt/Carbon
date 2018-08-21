@@ -1007,6 +1007,99 @@ $dt->set('year', 2003);
 </code></pre>
     </p>
 
+    <h1 id="api-week">Weeks methods</h1>
+
+    <p>If you are familiar with momentjs, you will find all week methods working the same.
+        Most of them have an iso{Method} variant. Week methods follow the rules of the
+        current locale (for example with en_US, the default locale, the first day of the
+        week is Sunday, and the first week of the year is the one that contains January 1st).
+        ISO methods follow the ISO 8601 norm, meaning weeks start with Monday and the first
+        week of the year is the one containing January 4th.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$en = CarbonImmutable::now()->locale('en_US');
+$ar = CarbonImmutable::now()->locale('ar');
+)}}
+
+{{::exec(var_dump($en->firstWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->lastWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->startOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->endOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+echo "-----------\n";
+
+// We still can force to use an other day as start/end of week
+$start = $en->startOfWeek(Carbon::TUESDAY);
+$end = $en->endOfWeek(Carbon::MONDAY);
+)}}
+{{::exec(var_dump($start->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($end->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($ar->firstWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->lastWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->startOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->endOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weeksInYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeeksInYear());/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2017-02-05');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->week());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->week(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weekYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2016)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2016)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2015)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2015)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+// Note you still can force first day of week and year to use:
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weeksInYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeeksInYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->week(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2015, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2015, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+// Then you can see using a method or its ISO variant return identical results
+</code></pre>
+    </p>
+
     <h1 id="api-settersfluent">Fluent Setters</h1>
 
     <p>You can call any base unit as a setter or some grouped setters:</p>
@@ -2195,15 +2288,18 @@ Carbon::serializeUsing(null);
         method) as a method with the given name.</p>
 
     <p>
-    <pre><code class="php">{{::lint(
+    <pre class="live-editor"><code class="php">{{::lint(
 Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
     return $this->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 )}}
 
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
 </code></pre>
     </p>
@@ -2211,7 +2307,7 @@ Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false
     <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
 
     <p>
-    <pre><code class="php">{{::lint(
+    <pre class="live-editor"><code class="php">{{::lint(
 Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
@@ -2235,6 +2331,7 @@ $date = Carbon::parse('First saturday of December 2018');
 )}}
 
 {{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
 </code></pre>
     </p>
@@ -2242,9 +2339,46 @@ $date = Carbon::parse('First saturday of December 2018');
     <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
 
     <p>
-    <pre><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
+    <pre class="live-editor"><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::hasMacro('diffFromYear'));/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Macro starting with <code>get</code> followed by an uppercase letter will automatically provide a dynamic
+        getter, and same for <code>set</code> providing a dynamic setter:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(// Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
+// Then you can create get/set method this way:
+Carbon::macro('setSchoolYear', function ($schoolYear) {
+    $this->year = $schoolYear;
+    if ($this->month > 7) {
+        $this->year--;
+    }
+});
+Carbon::macro('getSchoolYear', function () {
+    $schoolYear = $this->year;
+    if ($this->month > 7) {
+        $schoolYear++;
+    }
+
+return $schoolYear;
+});
+// This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
+// getter and setter for the ->schoolYear property
+
+$date = Carbon::parse('2016-06-01');
+)}}
+
+{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
+{{::lint($date->addMonths(3);)}}
+{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
+{{::lint($date->schoolYear++;)}}
+{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
+{{::lint($date->schoolYear = 2020;)}}
+{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -3167,6 +3301,7 @@ echo "\n";
                 <li><a href="#api-testing">Testing Aids</a></li>
                 <li><a href="#api-getters">Getters</a></li>
                 <li><a href="#api-setters">Setters</a></li>
+                <li><a href="#api-week">Weeks methods</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
                 <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>

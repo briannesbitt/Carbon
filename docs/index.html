@@ -117,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(10) "Tuesday 21"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Tuesday 21"
+var_dump($mutable->isoFormat('dddd D'));             // string(12) "Wednesday 22"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(12) "Wednesday 22"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(9) "Monday 20"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Tuesday 21"
+var_dump($immutable->isoFormat('dddd D'));           // string(10) "Tuesday 21"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(12) "Wednesday 22"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -243,16 +243,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-20 19:46:19
+echo $now;                               // 2018-08-21 14:07:54
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2018-08-20 00:00:00
+echo $today;                             // 2018-08-21 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2018-08-21 00:00:00
+echo $tomorrow;                          // 2018-08-22 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2018-08-19 00:00:00
+echo $yesterday;                         // 2018-08-20 00:00:00
 </code></pre>
     </p>
 
@@ -369,7 +369,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:46 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:07 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -608,7 +608,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 20 août 2018 19:46
+echo $date->isoFormat('LLLL');   // mardi 21 août 2018 14:07
 </code></pre>
     </p>
 
@@ -638,14 +638,14 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
     $johnDateFactory->make($move)->calendar()."\n";
 echo $toDisplay;
 /*
-15 juin 2018 12:34
-Aujourd’hui à 19:46
+15 juin 2018 14:34
+Aujourd’hui à 16:07
 */
 
 echo $notificationForJohn;
 /*
-Jun 15, 2018 12:34 PM
-Today at 7:46 PM
+Jun 15, 2018 7:34 AM
+Today at 9:07 AM
 */
 </code></pre>
     </p>
@@ -672,8 +672,8 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 20/08 9h Asia/Tokyo
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 20/08 0h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 21/08 9h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 21/08 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -861,7 +861,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>S</td>
-            <td>0</td>
+            <td>1</td>
             <td>Second tenth</td>
         </tr>
         
@@ -873,7 +873,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>SSS</td>
-            <td>084</td>
+            <td>085</td>
             <td>Millisecond (on 3 digits with trailing zeros)</td>
         </tr>
         
@@ -1308,21 +1308,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 7:46 PM
+echo $date->calendar();                                      // Today at 2:07 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:46 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 11:07 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 9:23 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 3:44 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 08/12/2018
+echo $date->sub('8 days')->calendar();                       // 08/13/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:46 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 5:07 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 6:09 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 12:30 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 08/28/2018
+echo $date->add('8 days')->calendar();                       // 08/29/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:46
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 14:07
 </code></pre>
     </p>
 
@@ -2311,7 +2311,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-20 19:46:19
+echo Carbon::now();                                    // 2018-08-21 14:07:54
 </code></pre>
     </p>
 
@@ -2521,6 +2521,85 @@ echo $dt->get('year'); // 2003
 </code></pre>
     </p>
 
+    <h1 id="api-week">Weeks methods</h1>
+
+    <p>If you are familiar with momentjs, you will find all week methods working the same.
+        Most of them have an iso{Method} variant. Week methods follow the rules of the
+        current locale (for example with en_US, the default locale, the first day of the
+        week is Sunday, and the first week of the year is the one that contains January 1st).
+        ISO methods follow the ISO 8601 norm, meaning weeks start with Monday and the first
+        week of the year is the one containing January 4th.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$en = CarbonImmutable::now()->locale('en_US');
+$ar = CarbonImmutable::now()->locale('ar');
+
+var_dump($en->firstWeekDay);                           // int(0)
+var_dump($en->lastWeekDay);                            // int(6)
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2018-08-19 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2018-08-25 23:59"
+
+echo "-----------\n";
+
+// We still can force to use an other day as start/end of week
+$start = $en->startOfWeek(Carbon::TUESDAY);
+$end = $en->endOfWeek(Carbon::MONDAY);
+var_dump($start->format('Y-m-d H:i'));                 // string(16) "2018-08-21 00:00"
+var_dump($end->format('Y-m-d H:i'));                   // string(16) "2018-08-27 23:59"
+
+echo "-----------\n";
+
+var_dump($ar->firstWeekDay);                           // int(6)
+var_dump($ar->lastWeekDay);                            // int(5)
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2018-08-18 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2018-08-24 23:59"
+
+$en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
+
+echo "-----------\n";
+
+var_dump($en->weeksInYear());                          // int(52)
+var_dump($en->isoWeeksInYear());                       // int(53)
+
+$en = CarbonImmutable::parse('2017-02-05');
+
+echo "-----------\n";
+
+var_dump($en->week());                                 // int(6)
+var_dump($en->isoWeek());                              // int(5)
+var_dump($en->week(1)->format('Y-m-d H:i'));           // string(16) "2017-01-01 00:00"
+var_dump($en->isoWeek(1)->format('Y-m-d H:i'));        // string(16) "2017-01-08 00:00"
+
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+
+var_dump($en->weekYear());                             // int(2017)
+var_dump($en->isoWeekYear());                          // int(2016)
+var_dump($en->weekYear(2016)->format('Y-m-d H:i'));    // string(16) "2015-12-27 00:00"
+var_dump($en->isoWeekYear(2016)->format('Y-m-d H:i')); // string(16) "2017-01-01 00:00"
+var_dump($en->weekYear(2015)->format('Y-m-d H:i'));    // string(16) "2014-12-28 00:00"
+var_dump($en->isoWeekYear(2015)->format('Y-m-d H:i')); // string(16) "2015-12-27 00:00"
+
+// Note you still can force first day of week and year to use:
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+
+var_dump($en->weeksInYear(null, 6, 12));               // int(52)
+var_dump($en->isoWeeksInYear(null, 6, 12));            // int(52)
+var_dump($en->week(null, 6, 12));                      // int(52)
+var_dump($en->isoWeek(null, 6, 12));                   // int(52)
+var_dump($en->weekYear(null, 6, 12));                  // int(2016)
+var_dump($en->isoWeekYear(null, 6, 12));               // int(2016)
+var_dump($en->weekYear(2016, 6, 12)->format('Y-m-d H:i')); // string(16) "2017-01-01 00:00"
+var_dump($en->isoWeekYear(2016, 6, 12)->format('Y-m-d H:i')); // string(16) "2017-01-01 00:00"
+var_dump($en->weekYear(2015, 6, 12)->format('Y-m-d H:i')); // string(16) "2016-01-03 00:00"
+var_dump($en->isoWeekYear(2015, 6, 12)->format('Y-m-d H:i')); // string(16) "2016-01-03 00:00"
+// Then you can see using a method or its ISO variant return identical results
+</code></pre>
+    </p>
+
     <h1 id="api-settersfluent">Fluent Setters</h1>
 
     <p>You can call any base unit as a setter or some grouped setters:</p>
@@ -2680,7 +2759,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#72 (2) {
+  object(Carbon\CarbonTimeZone)#356 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2691,7 +2770,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#72 (12) {
+object(stdClass)#356 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -2715,7 +2794,7 @@ object(stdClass)#72 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#346 (2) {
+  object(Carbon\CarbonTimeZone)#355 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2726,7 +2805,7 @@ object(stdClass)#72 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#72 (3) {
+object(DateTime)#356 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -2834,8 +2913,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-20 19:46:19
-echo $dt1->maximum();                              // 2018-08-20 19:46:19
+echo $dt1->max();                                  // 2018-08-21 14:07:54
+echo $dt1->maximum();                              // 2018-08-21 14:07:54
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3732,13 +3811,16 @@ Carbon::serializeUsing(null);
         method) as a method with the given name.</p>
 
     <p>
-    <pre><code class="php">Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
+    <pre class="live-editor"><code class="php">Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
     return $this->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);                 // 1 year after
+echo "\n";
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);           // 1 year
+echo "\n";
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);     // 1yr
+echo "\n";
 echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  // 1yr 1w 4d 12h
 </code></pre>
     </p>
@@ -3746,7 +3828,7 @@ echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);  /
     <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
 
     <p>
-    <pre><code class="php">Class BeerDayCarbonMixin
+    <pre class="live-editor"><code class="php">Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
@@ -3768,6 +3850,7 @@ Carbon::mixin(new BeerDayCarbonMixin());
 $date = Carbon::parse('First saturday of December 2018');
 
 echo $date->previousBeerDay();                                                 // 2018-11-28 00:00:00
+echo "\n";
 echo $date->nextBeerDay();                                                     // 2018-12-05 00:00:00
 </code></pre>
     </p>
@@ -3775,9 +3858,45 @@ echo $date->nextBeerDay();                                                     /
     <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
 
     <p>
-    <pre><code class="php">var_dump(Carbon::hasMacro('previousBeerDay'));                                 // bool(true)
+    <pre class="live-editor"><code class="php">var_dump(Carbon::hasMacro('previousBeerDay'));                                 // bool(true)
 var_dump(Carbon::hasMacro('diffFromYear'));                                    // bool(true)
+echo "\n";
 var_dump(Carbon::hasMacro('dontKnowWhat'));                                    // bool(false)
+</code></pre>
+    </p>
+
+    <p>Macro starting with <code>get</code> followed by an uppercase letter will automatically provide a dynamic
+        getter, and same for <code>set</code> providing a dynamic setter:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">// Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
+// Then you can create get/set method this way:
+Carbon::macro('setSchoolYear', function ($schoolYear) {
+    $this->year = $schoolYear;
+    if ($this->month > 7) {
+        $this->year--;
+    }
+});
+Carbon::macro('getSchoolYear', function () {
+    $schoolYear = $this->year;
+    if ($this->month > 7) {
+        $schoolYear++;
+    }
+
+return $schoolYear;
+});
+// This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
+// getter and setter for the ->schoolYear property
+
+$date = Carbon::parse('2016-06-01');
+
+var_dump($date->schoolYear);                   // int(2016)
+$date->addMonths(3);
+var_dump($date->schoolYear);                   // int(2017)
+$date->schoolYear++;
+var_dump($date->format('Y-m-d'));              // string(10) "2017-09-01"
+$date->schoolYear = 2020;
+var_dump($date->format('Y-m-d'));              // string(10) "2019-09-01"
 </code></pre>
     </p>
 
@@ -4439,7 +4558,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2018-08-20, 2018-08-21, 2018-08-22
+echo implode(', ', $days);               // 2018-08-21, 2018-08-22, 2018-08-23
 </code></pre>
     </p>
 
@@ -4642,6 +4761,7 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
                 <li><a href="#api-testing">Testing Aids</a></li>
                 <li><a href="#api-getters">Getters</a></li>
                 <li><a href="#api-setters">Setters</a></li>
+                <li><a href="#api-week">Weeks methods</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
                 <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>
