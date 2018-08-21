@@ -206,7 +206,19 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
-echo Carbon::now(1)->tzName;             // Europe/London
+$date = Carbon::now(1);
+echo $date->tzName;                      // Europe/London
+echo "\n";
+
+// Get/set minutes offset from UTC
+echo $date->utcOffset();                 // 60
+echo "\n";
+
+$date->utcOffset(180);
+
+echo $date->tzName;                      // Europe/Helsinki
+echo "\n";
+echo $date->utcOffset();                 // 180
 </code></pre>
     </p>
 
@@ -243,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-21 14:07:54
+echo $now;                               // 2018-08-21 15:58:57
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-21 00:00:00
@@ -369,7 +381,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:07 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 17:58 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -608,7 +620,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 21 août 2018 14:07
+echo $date->isoFormat('LLLL');   // mardi 21 août 2018 15:58
 </code></pre>
     </p>
 
@@ -639,13 +651,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 14:34
-Aujourd’hui à 16:07
+Aujourd’hui à 17:58
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 7:34 AM
-Today at 9:07 AM
+Today at 10:58 AM
 */
 </code></pre>
     </p>
@@ -1308,21 +1320,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 2:07 PM
+echo $date->calendar();                                      // Today at 3:58 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 11:07 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 12:58 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 3:44 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 5:35 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/13/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 5:07 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 6:58 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 12:30 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 2:21 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 08/29/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 14:07
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 15:58
 </code></pre>
     </p>
 
@@ -2311,7 +2323,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-21 14:07:54
+echo Carbon::now();                                    // 2018-08-21 15:58:57
 </code></pre>
     </p>
 
@@ -2428,6 +2440,10 @@ var_dump($dt->weekOfMonth);                                  // int(1)
 var_dump($dt->weekOfYear);                                   // int(40)
 var_dump($dt->daysInMonth);                                  // int(31)
 var_dump($dt->timestamp);                                    // int(1349479571)
+// Millisecond-precise timestamp (useful to pass it to JavaScript)
+var_dump($dt->valueOf());                                    // float(1349479571124)
+// Custom-precision timestamp
+var_dump($dt->getPreciseTimestamp(6));                       // float(1.3494795711238E+15)
 var_dump(Carbon::createFromDate(1975, 5, 21)->age);          // int(43) calculated vs now in the same tz
 var_dump($dt->quarter);                                      // int(4)
 
@@ -2499,6 +2515,9 @@ $dt->minute = 32;
 $dt->second = 5;
 
 $dt->timestamp = 169957925;  // This will not change the timezone
+// Same as:
+$dt->setTimestamp(169957925);
+$dt->timestamp(169957925);
 
 // Set the timezone via DateTimeZone instance or string
 $dt->timezone = new DateTimeZone('Europe/London');
@@ -2521,7 +2540,7 @@ echo $dt->get('year'); // 2003
 </code></pre>
     </p>
 
-    <h1 id="api-week">Weeks methods</h1>
+    <h1 id="api-week">Weeks</h1>
 
     <p>If you are familiar with momentjs, you will find all week methods working the same.
         Most of them have an iso{Method} variant. Week methods follow the rules of the
@@ -2569,6 +2588,10 @@ var_dump($en->week());                                 // int(6)
 var_dump($en->isoWeek());                              // int(5)
 var_dump($en->week(1)->format('Y-m-d H:i'));           // string(16) "2017-01-01 00:00"
 var_dump($en->isoWeek(1)->format('Y-m-d H:i'));        // string(16) "2017-01-08 00:00"
+var_dump($en->weekday());                              // int(0)
+var_dump($en->isoWeekday());                           // int(7)
+var_dump($en->weekday(3)->format('Y-m-d H:i'));        // string(16) "2017-02-08 00:00"
+var_dump($en->isoWeekday(3)->format('Y-m-d H:i'));     // string(16) "2017-02-01 00:00"
 
 $en = CarbonImmutable::parse('2017-01-01');
 
@@ -2594,8 +2617,6 @@ var_dump($en->weekYear(null, 6, 12));                  // int(2016)
 var_dump($en->isoWeekYear(null, 6, 12));               // int(2016)
 var_dump($en->weekYear(2016, 6, 12)->format('Y-m-d H:i')); // string(16) "2017-01-01 00:00"
 var_dump($en->isoWeekYear(2016, 6, 12)->format('Y-m-d H:i')); // string(16) "2017-01-01 00:00"
-var_dump($en->weekYear(2015, 6, 12)->format('Y-m-d H:i')); // string(16) "2016-01-03 00:00"
-var_dump($en->isoWeekYear(2015, 6, 12)->format('Y-m-d H:i')); // string(16) "2016-01-03 00:00"
 // Then you can see using a method or its ISO variant return identical results
 </code></pre>
     </p>
@@ -2722,6 +2743,9 @@ echo $dt->toIso8601String();     // 2019-02-01T03:45:27+00:00
 // format, but you still can use it this way:
 echo $dt->format(DateTime::ISO8601); // 2019-02-01T03:45:27+0000
 
+echo $dt->toISOString();         // 2019-02-01T03:45:27.612584Z
+echo $dt->toJSON();              // 2019-02-01T03:45:27.612584Z
+
 echo $dt->toIso8601ZuluString(); // 2019-02-01T03:45:27Z
 echo $dt->toRfc822String();      // Fri, 01 Feb 19 03:45:27 +0000
 echo $dt->toRfc850String();      // Friday, 01-Feb-19 03:45:27 UTC
@@ -2759,7 +2783,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#356 (2) {
+  object(Carbon\CarbonTimeZone)#354 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2770,7 +2794,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#356 (12) {
+object(stdClass)#354 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -2794,7 +2818,7 @@ object(stdClass)#356 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#355 (2) {
+  object(Carbon\CarbonTimeZone)#351 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2805,7 +2829,7 @@ object(stdClass)#356 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#356 (3) {
+object(DateTime)#354 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -2913,8 +2937,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-21 14:07:54
-echo $dt1->maximum();                              // 2018-08-21 14:07:54
+echo $dt1->max();                                  // 2018-08-21 15:58:57
+echo $dt1->maximum();                              // 2018-08-21 15:58:57
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3105,38 +3129,53 @@ echo $dt->subtract(new DateInterval('PT1H'));      // 2012-04-01 23:01:01
         months can overflow, example:</p>
 
     <p>
-    <pre><code class="php">$dt = Carbon::create(2017, 1, 31, 0);
+    <pre class="live-editor"><code class="php">$dt = CarbonImmutable::create(2017, 1, 31, 0);
 
-echo $dt->copy()->addMonth();            // 2017-03-03 00:00:00
-echo $dt->copy()->subMonths(2);          // 2016-12-01 00:00:00
+echo $dt->addMonth();                    // 2017-03-03 00:00:00
+echo "\n";
+echo $dt->subMonths(2);                  // 2016-12-01 00:00:00
 </code></pre>
     </p>
 
-    <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+    <p>Since Carbon 2, you can set a local overflow behavior for each instance:</p>
 
     <p>
-    <pre><code class="php">Carbon::useMonthsOverflow(false);
+    <pre class="live-editor"><code class="php">$dt = CarbonImmutable::create(2017, 1, 31, 0);
+$dt->settings([
+    'monthOverflow' => false,
+]);
+
+echo $dt->addMonth();                    // 2017-02-28 00:00:00
+echo "\n";
+echo $dt->subMonths(2);                  // 2016-11-30 00:00:00
+</code></pre>
+    </p>
+
+    <p>Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version
+        1 of Carbon, you <a href="#overflow-static-helpers" data-slide-down="#overflow-static-helpers">check the
+            overflow static helpers section</a></p>
+
+    <div id="overflow-static-helpers" class="old-way">
+        <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+
+        <p>
+        <pre class="live-editor"><code class="php">Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);
 
 echo $dt->copy()->addMonth();            // 2017-02-28 00:00:00
+echo "\n";
 echo $dt->copy()->subMonths(2);          // 2016-11-30 00:00:00
 
 // Call the method with true to allow overflow again
 Carbon::resetMonthsOverflow(); // same as Carbon::useMonthsOverflow(true);
 </code></pre>
-    </p>
+        </p>
 
-    <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
+        <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
 
-    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
-        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-        (or the singular methods with no <code>s</code> to "month")
-        to explicitly add/sub months with or without overflow no matter the current mode
-        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
-
-    <p>
-    <pre><code class="php">Carbon::useMonthsOverflow(false);
+        <p>
+        <pre><code class="php">Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);
 
@@ -3166,12 +3205,12 @@ echo $dt->copy()->subMonths(2);                    // 2016-12-01 00:00:00
 
 Carbon::resetMonthsOverflow();
 </code></pre>
-    </p>
+        </p>
 
-    <p>From version 1.23.0, overflow control is also available on years:</p>
+        <p>From version 1.23.0, overflow control is also available on years:</p>
 
-    <p>
-    <pre><code class="php">Carbon::useYearsOverflow(false);
+        <p>
+        <pre><code class="php">Carbon::useYearsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2020, 2, 29);
 
@@ -3204,6 +3243,115 @@ echo $dt->copy()->addYear();                       // 2021-03-01 00:00:00
 echo $dt->copy()->subYears(2);                     // 2018-03-01 00:00:00
 
 Carbon::resetYearsOverflow();
+</code></pre>
+        </p>
+    </div>
+
+    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+        (or the singular methods with no <code>s</code> to "month")
+        to explicitly add/sub months with or without overflow no matter the current mode
+        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
+
+    <p>
+    <pre><code class="php">$dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => false,
+]);
+
+echo $dt->copy()->addMonthWithOverflow();          // 2017-03-03 00:00:00
+// plural addMonthsWithOverflow() method is also available
+echo $dt->copy()->subMonthsWithOverflow(2);        // 2016-12-01 00:00:00
+// singular subMonthWithOverflow() method is also available
+echo $dt->copy()->addMonthNoOverflow();            // 2017-02-28 00:00:00
+// plural addMonthsNoOverflow() method is also available
+echo $dt->copy()->subMonthsNoOverflow(2);          // 2016-11-30 00:00:00
+// singular subMonthNoOverflow() method is also available
+
+echo $dt->copy()->addMonth();                      // 2017-02-28 00:00:00
+echo $dt->copy()->subMonths(2);                    // 2016-11-30 00:00:00
+
+$dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => true,
+]);
+
+echo $dt->copy()->addMonthWithOverflow();          // 2017-03-03 00:00:00
+echo $dt->copy()->subMonthsWithOverflow(2);        // 2016-12-01 00:00:00
+echo $dt->copy()->addMonthNoOverflow();            // 2017-02-28 00:00:00
+echo $dt->copy()->subMonthsNoOverflow(2);          // 2016-11-30 00:00:00
+
+echo $dt->copy()->addMonth();                      // 2017-03-03 00:00:00
+echo $dt->copy()->subMonths(2);                    // 2016-12-01 00:00:00
+</code></pre>
+    </p>
+
+    <p>The same is available for years.</p>
+
+    <p>You also can control overflow for any unit when working with unknown inputs:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$dt = CarbonImmutable::create(2018, 8, 30, 12, 00, 00);
+
+// Add hours without overflowing day
+echo $dt->addUnitNoOverflow('hour', 7, 'day');     // 2018-08-30 19:00:00
+echo "\n";
+echo $dt->addUnitNoOverflow('hour', 14, 'day');    // 2018-08-30 23:59:59
+echo "\n";
+echo $dt->addUnitNoOverflow('hour', 48, 'day');    // 2018-08-30 23:59:59
+
+echo "\n-------\n";
+
+// Substract hours without overflowing day
+echo $dt->subUnitNoOverflow('hour', 7, 'day');     // 2018-08-30 05:00:00
+echo "\n";
+echo $dt->subUnitNoOverflow('hour', 14, 'day');    // 2018-08-30 00:00:00
+echo "\n";
+echo $dt->subUnitNoOverflow('hour', 48, 'day');    // 2018-08-30 00:00:00
+
+echo "\n-------\n";
+
+// Set hours without overflowing day
+echo $dt->setUnitNoOverflow('hour', -7, 'day');    // 2018-08-30 00:00:00
+echo "\n";
+echo $dt->setUnitNoOverflow('hour', 14, 'day');    // 2018-08-30 14:00:00
+echo "\n";
+echo $dt->setUnitNoOverflow('hour', 25, 'day');    // 2018-08-30 23:59:59
+
+echo "\n-------\n";
+
+// Adding hours without overflowing month
+echo $dt->addUnitNoOverflow('hour', 7, 'month');   // 2018-08-30 19:00:00
+echo "\n";
+echo $dt->addUnitNoOverflow('hour', 14, 'month');  // 2018-08-31 02:00:00
+echo "\n";
+echo $dt->addUnitNoOverflow('hour', 48, 'month');  // 2018-08-31 23:59:59
+</code></pre>
+    </p>
+
+    <p>Any modifiable unit can be passed as argument of those methods:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$units = [];
+foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week', 'weekday', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'] as $unit) {
+    $units[$unit] = Carbon::isModifiableUnit($unit);
+}
+
+echo json_encode($units, JSON_PRETTY_PRINT);
+/* {
+    "millennium": true,
+    "century": true,
+    "decade": true,
+    "year": true,
+    "quarter": true,
+    "month": true,
+    "week": true,
+    "weekday": true,
+    "day": true,
+    "hour": true,
+    "minute": true,
+    "second": true,
+    "millisecond": false,
+    "microsecond": true
+} */
 </code></pre>
     </p>
 
@@ -4761,7 +4909,7 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
                 <li><a href="#api-testing">Testing Aids</a></li>
                 <li><a href="#api-getters">Getters</a></li>
                 <li><a href="#api-setters">Setters</a></li>
-                <li><a href="#api-week">Weeks methods</a></li>
+                <li><a href="#api-week">Weeks</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
                 <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>

@@ -128,8 +128,21 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
+$date = Carbon::now(1);
 )}}
-{{::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $date->tzName;/*pad(40)*/)}} // {{eval}}
+{{::lint(echo "\n";
+
+// Get/set minutes offset from UTC
+)}}
+{{::exec(echo $date->utcOffset();/*pad(40)*/)}} // {{eval}}
+echo "\n";
+
+{{::lint($date->utcOffset(180);)}}
+
+{{::exec(echo $date->tzName;/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->utcOffset();/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
@@ -913,6 +926,10 @@ $product = new SeasonalProduct(100);
 {{::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{eval}}
+// Millisecond-precise timestamp (useful to pass it to JavaScript)
+{{::exec(var_dump($dt->valueOf());/*pad(60)*/)}} // {{eval}}
+// Custom-precision timestamp
+{{::exec(var_dump($dt->getPreciseTimestamp(6));/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createFromDate(1975, 5, 21)->age);/*pad(60)*/)}} // {{eval}} calculated vs now in the same tz
 {{::exec(var_dump($dt->quarter);/*pad(60)*/)}} // {{eval}}
 
@@ -980,6 +997,9 @@ $dt->minute = 32;
 $dt->second = 5;
 
 $dt->timestamp = 169957925;  // This will not change the timezone
+// Same as:
+$dt->setTimestamp(169957925);
+$dt->timestamp(169957925);
 
 // Set the timezone via DateTimeZone instance or string
 $dt->timezone = new DateTimeZone('Europe/London');
@@ -1007,7 +1027,7 @@ $dt->set('year', 2003);
 </code></pre>
     </p>
 
-    <h1 id="api-week">Weeks methods</h1>
+    <h1 id="api-week">Weeks</h1>
 
     <p>If you are familiar with momentjs, you will find all week methods working the same.
         Most of them have an iso{Method} variant. Week methods follow the rules of the
@@ -1065,6 +1085,10 @@ echo "-----------\n";
 {{::exec(var_dump($en->isoWeek());/*pad(54)*/)}} // {{eval}}
 {{::exec(var_dump($en->week(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
 {{::exec(var_dump($en->isoWeek(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekday());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekday());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekday(3)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekday(3)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
 
 {{::lint(
 $en = CarbonImmutable::parse('2017-01-01');
@@ -1094,8 +1118,6 @@ echo "-----------\n";
 {{::exec(var_dump($en->isoWeekYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
 {{::exec(var_dump($en->weekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
 {{::exec(var_dump($en->isoWeekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
-{{::exec(var_dump($en->weekYear(2015, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
-{{::exec(var_dump($en->isoWeekYear(2015, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
 // Then you can see using a method or its ISO variant return identical results
 </code></pre>
     </p>
@@ -1231,6 +1253,9 @@ Carbon::resetToStringFormat();
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
 {{::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{eval}}
+
+{{::exec(echo $dt->toISOString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toJSON();/*pad(32)*/)}} // {{eval}}
 
 {{::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{eval}}
 {{::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{eval}}
@@ -1552,38 +1577,54 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
         months can overflow, example:</p>
 
     <p>
-    <pre><code class="php">{{::lint($dt = Carbon::create(2017, 1, 31, 0);)}}
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2017, 1, 31, 0);)}}
 
-{{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
-{{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subMonths(2);/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 
-    <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+    <p>Since Carbon 2, you can set a local overflow behavior for each instance:</p>
 
     <p>
-    <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2017, 1, 31, 0);
+$dt->settings([
+    'monthOverflow' => false,
+]);
+)}}
+
+{{::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subMonths(2);/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version
+        1 of Carbon, you <a href="#overflow-static-helpers" data-slide-down="#overflow-static-helpers">check the
+            overflow static helpers section</a></p>
+
+    <div id="overflow-static-helpers" class="old-way">
+        <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+
+        <p>
+        <pre class="live-editor"><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
 
 // Call the method with true to allow overflow again
 {{reset1::exec(Carbon::resetMonthsOverflow();)}} // same as Carbon::useMonthsOverflow(true);
 </code></pre>
-    </p>
+        </p>
 
-    <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
+        <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
 
-    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
-        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-        (or the singular methods with no <code>s</code> to "month")
-        to explicitly add/sub months with or without overflow no matter the current mode
-        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
-
-    <p>
-    <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+        <p>
+        <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
@@ -1613,12 +1654,12 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{reset2::exec(Carbon::resetMonthsOverflow();)}}
 </code></pre>
-    </p>
+        </p>
 
-    <p>From version 1.23.0, overflow control is also available on years:</p>
+        <p>From version 1.23.0, overflow control is also available on years:</p>
 
-    <p>
-    <pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
+        <p>
+        <pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
@@ -1651,6 +1692,101 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{eval}}
 
 {{reset3::exec(Carbon::resetYearsOverflow();)}}
+</code></pre>
+        </p>
+    </div>
+
+    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+        (or the singular methods with no <code>s</code> to "month")
+        to explicitly add/sub months with or without overflow no matter the current mode
+        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => false,
+]);)}}
+
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
+// plural addMonthsWithOverflow() method is also available
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+// singular subMonthWithOverflow() method is also available
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
+// plural addMonthsNoOverflow() method is also available
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
+// singular subMonthNoOverflow() method is also available
+
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => true,
+]);)}}
+
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
+
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The same is available for years.</p>
+
+    <p>You also can control overflow for any unit when working with unknown inputs:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2018, 8, 30, 12, 00, 00);)}}
+
+// Add hours without overflowing day
+{{::exec(echo $dt->addUnitNoOverflow('hour', 7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 48, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Substract hours without overflowing day
+{{::exec(echo $dt->subUnitNoOverflow('hour', 7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subUnitNoOverflow('hour', 48, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Set hours without overflowing day
+{{::exec(echo $dt->setUnitNoOverflow('hour', -7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->setUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->setUnitNoOverflow('hour', 25, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Adding hours without overflowing month
+{{::exec(echo $dt->addUnitNoOverflow('hour', 7, 'month');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 14, 'month');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 48, 'month');/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Any modifiable unit can be passed as argument of those methods:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($units = [];
+foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week', 'weekday', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'] as $unit) {
+    $units[$unit] = Carbon::isModifiableUnit($unit);
+}
+)}}
+
+{{::exec(echo json_encode($units, JSON_PRETTY_PRINT);)}}
+/* {{eval}} */
 </code></pre>
     </p>
 
@@ -3301,7 +3437,7 @@ echo "\n";
                 <li><a href="#api-testing">Testing Aids</a></li>
                 <li><a href="#api-getters">Getters</a></li>
                 <li><a href="#api-setters">Setters</a></li>
-                <li><a href="#api-week">Weeks methods</a></li>
+                <li><a href="#api-week">Weeks</a></li>
                 <li><a href="#api-settersfluent">Fluent Setters</a></li>
                 <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>
