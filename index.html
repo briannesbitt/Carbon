@@ -323,9 +323,9 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
             $('.main-wrapper').removeClass('open');
         });
 
-        $('code').on('mouseup select', function () {
+        $('code').on('mouseup select dblclick', function () {
             var s = window.getSelection();
-            if (s.anchorOffset && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
+            if ((s.anchorOffset || s.anchorOffset === 0) && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
                 openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
             }
         });
