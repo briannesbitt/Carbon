@@ -52,6 +52,7 @@ abstract class AbstractTestCase extends TestCase
     {
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();
+        Carbon::resetToStringFormat();
         Carbon::resetMonthsOverflow();
         Carbon::setTranslator(new Translator('en'));
         Carbon::setLocale('en');
@@ -59,6 +60,7 @@ abstract class AbstractTestCase extends TestCase
         $translator = Carbon::getTranslator();
         $translator->resetMessages();
         CarbonImmutable::setTestNow();
+        CarbonImmutable::resetToStringFormat();
         CarbonImmutable::resetMonthsOverflow();
         CarbonImmutable::setTranslator(new Translator('en'));
         Carbon::setLocale('en');

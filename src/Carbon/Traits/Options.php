@@ -168,6 +168,13 @@ trait Options
     protected $localToStringFormat = null;
 
     /**
+     * Format to use on JSON serialization.
+     *
+     * @var string|null
+     */
+    protected $localSerializer = null;
+
+    /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings

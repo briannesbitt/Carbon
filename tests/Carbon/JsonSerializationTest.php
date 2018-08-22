@@ -47,6 +47,22 @@ class JsonSerializationTest extends AbstractTestCase
         $this->assertSame(1498569255, $result);
     }
 
+    public function testCarbonAllowsCustomSerializerString()
+    {
+        Carbon::serializeUsing('Y-m-d');
+
+        $this->assertSame('"2017-06-27"', json_encode($this->now));
+    }
+
+    public function testCarbonAllowsCustomSerializerViaSettings()
+    {
+        $date = Carbon::now()->settings([
+            'toJsonFormat' => 'H:i:s',
+        ]);
+
+        $this->assertSame('"13:14:15"', json_encode($date));
+    }
+
     public function testCarbonCanSerializeToJson()
     {
         $this->assertSame('2017-06-27T13:14:15.000000Z', $this->now->jsonSerialize());

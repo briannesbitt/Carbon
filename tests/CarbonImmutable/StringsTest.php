@@ -12,6 +12,8 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\CarbonInterface;
+use Carbon\FactoryImmutable;
 use DateTime;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
@@ -25,11 +27,39 @@ class StringsTest extends AbstractTestCase
         $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
     }
 
-    public function testSetToStringFormat()
+    public function testSetToStringFormatString()
     {
         Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
+    }
+
+    public function testSetToStringFormatClosure()
+    {
+        Carbon::setToStringFormat(function (CarbonInterface $d) {
+            return $d->format($d->year === 1976 ?
+                'jS \o\f F g:i:s a' :
+                'jS \o\f F, Y g:i:s a'
+            );
+        });
+
+        $d = Carbon::create(1976, 12, 25, 14, 15, 16);
+        $this->assertSame('25th of December 2:15:16 pm', ''.$d);
+
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
+    }
+
+    public function testSetToStringFormatViaSettings()
+    {
+        $factory = new FactoryImmutable([
+            'toStringFormat' => function (CarbonInterface $d) {
+                return $d->isoFormat('dddd');
+            },
+        ]);
+
+        $d = $factory->create(1976, 12, 25, 14, 15, 16);
+        $this->assertSame('Saturday', ''.$d);
     }
 
     public function testResetToStringFormat()

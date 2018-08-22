@@ -73,10 +73,12 @@ trait Converter
     {
         $format = $this->localToStringFormat ?? static::$toStringFormat;
 
-        return $this->format($format instanceof Closure
+        return $format instanceof Closure
             ? $format($this)
-            : ($format ?: (defined('static::DEFAULT_TO_STRING_FORMAT') ? static::DEFAULT_TO_STRING_FORMAT : CarbonInterface::DEFAULT_TO_STRING_FORMAT))
-        );
+            : $this->format(($format ?: (defined('static::DEFAULT_TO_STRING_FORMAT')
+                ? static::DEFAULT_TO_STRING_FORMAT
+                : CarbonInterface::DEFAULT_TO_STRING_FORMAT
+            )));
     }
 
     /**

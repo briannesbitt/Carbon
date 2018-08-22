@@ -12,6 +12,8 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
+use Carbon\Factory;
 use DateTime;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\BadIsoCarbon;
@@ -48,10 +50,11 @@ class StringsTest extends AbstractTestCase
 
     public function testSetToStringFormatClosure()
     {
-        Carbon::setToStringFormat(function ($d) {
-            return $d->year === 1976 ?
+        Carbon::setToStringFormat(function (CarbonInterface $d) {
+            return $d->format($d->year === 1976 ?
                 'jS \o\f F g:i:s a' :
-                'jS \o\f F, Y g:i:s a';
+                'jS \o\f F, Y g:i:s a'
+            );
         });
 
         $d = Carbon::create(1976, 12, 25, 14, 15, 16);
@@ -59,6 +62,18 @@ class StringsTest extends AbstractTestCase
 
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('25th of December, 1975 2:15:16 pm', ''.$d);
+    }
+
+    public function testSetToStringFormatViaSettings()
+    {
+        $factory = new Factory([
+            'toStringFormat' => function (CarbonInterface $d) {
+                return $d->isoFormat('dddd');
+            },
+        ]);
+
+        $d = $factory->create(1976, 12, 25, 14, 15, 16);
+        $this->assertSame('Saturday', ''.$d);
     }
 
     public function testResetToStringFormat()
