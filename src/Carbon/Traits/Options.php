@@ -290,7 +290,15 @@ trait Options
     /**
      * Set specific options.
      *
-     * @param array $settings
+     * @param array $settings Options:
+     *                        - strictMode: true|false|null
+     *                        - monthOverflow: true|false|null
+     *                        - yearOverflow: true|false|null
+     *                        - humanDiffOptions: int|null
+     *                        - toStringFormat: string|Closure|null
+     *                        - toJsonFormat: string|Closure|null
+     *                        - locale: string|null
+     *                        - timezone: \DateTimeZone|string|int|null
      *
      * @return $this
      */
