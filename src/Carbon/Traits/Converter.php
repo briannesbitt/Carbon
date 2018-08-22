@@ -71,7 +71,7 @@ trait Converter
      */
     public function __toString()
     {
-        $format = static::$toStringFormat;
+        $format = $this->localeToStringFormat ?? static::$toStringFormat;
 
         return $this->format($format instanceof Closure
             ? $format($this)
