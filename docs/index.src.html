@@ -588,10 +588,11 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
         (<a href="#doc-method-Carbon-settings" data-open-doc="settings">See references for complete list.</a>)</p>
 
     <p>
-    <pre><code class="php">{{::lint((new Factory([
+    <pre><code class="php">{{::lint($factory = new Factory([
     'locale' => 'fr_FR',
     'timezone' => 'Europe/Paris',
-]))->now();
+]);
+$factory->now(); // You can recall $factory as needed to generate new instances with same settings
 // is equivalent to:
 Carbon::now()->settings([
     'locale' => 'fr_FR',
@@ -613,7 +614,7 @@ Carbon::now()->settings([
         in Carbon 2 but you should better use <code>isoFormat()</code> instead.</p>
 
     <p><code>->isoFormat(string $format): string</code> use ISO format rather than PHP-specific format and
-        use inner translations rather than package you need to install on every machine where you deploy your
+        use inner translations rather than language packages you need to install on every machine where you deploy your
         application. <code>isoFormat</code> method is compatible with
         <a href="https://momentjs.com/" target="_blank">momentjs format method</a>, it means you can use same
         format strings as you may have used in moment from front-end or node.js. Here are some examples:</p>
@@ -654,7 +655,7 @@ echo "\n";
         </tbody>
     </table>
 
-    <p>Some macro-formats are also available. Here is examples of each in few languages:</p>
+    <p>Some macro-formats are also available. Here are examples of each in some languages:</p>
 
     <table class="info-table">
         <thead>
