@@ -165,7 +165,7 @@ trait Options
      *
      * @var string|null
      */
-    protected $localeToStringFormat = null;
+    protected $localToStringFormat = null;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -293,7 +293,8 @@ trait Options
         $this->localMonthsOverflow = $settings['monthOverflow'] ?? null;
         $this->localYearsOverflow = $settings['yearOverflow'] ?? null;
         $this->localHumanDiffOptions = $settings['humanDiffOptions'] ?? null;
-        $this->localeToStringFormat = $settings['toStringFormat'] ?? null;
+        $this->localToStringFormat = $settings['toStringFormat'] ?? null;
+        $this->localSerializer = $settings['toJsonFormat'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
             $date = $date->locale($settings['locale']);

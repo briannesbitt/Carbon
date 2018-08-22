@@ -134,8 +134,9 @@ trait Serialization
      */
     public function jsonSerialize()
     {
-        if (static::$serializer) {
-            return call_user_func(static::$serializer, $this);
+        $serializer = $this->localSerializer ?? static::$serializer;
+        if ($serializer) {
+            return call_user_func($serializer, $this);
         }
 
         return $this->toJSON();
