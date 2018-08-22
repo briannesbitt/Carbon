@@ -1010,7 +1010,7 @@ $unit = Carbon::singularUnit('seconds');)}}
         instance. Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
 
     <p>
-    <pre><code class="php">{{::lint(
+    <pre class="live-editor"><code class="php">{{::lint(
 $dt = Carbon::now();
 
 $dt->year = 1975;
@@ -1035,20 +1035,24 @@ $dt->tz = 'Europe/London';
 $dt->setYear(2001);
 )}}
 {{::exec(echo $dt->year;/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
 {{::lint(
 // set/get method:
 $dt->year(2002);
 )}}
 {{::exec(echo $dt->year();/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
 {{::lint(
 // dynamic way:
 $dt->set('year', 2003);
 )}}
 {{::exec(echo $dt->get('year');/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
-// these methods exist for every units.
+// these methods exist for every units even for calculated properties such as:
+{{::exec(echo $dt->dayOfYear(35)->format('Y-m-d');/*pad(20)*/)}} // {{eval}}
 </code></pre>
     </p>
 
