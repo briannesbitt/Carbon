@@ -255,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-08-22 10:33:33
+echo $now;                               // 2018-08-22 12:49:55
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-08-22 00:00:00
@@ -381,7 +381,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 12:33 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:49 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -620,7 +620,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // mercredi 22 août 2018 10:33
+echo $date->isoFormat('LLLL');   // mercredi 22 août 2018 12:49
 </code></pre>
     </p>
 
@@ -650,14 +650,14 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
     $johnDateFactory->make($move)->calendar()."\n";
 echo $toDisplay;
 /*
-15 juin 2018 14:34
-Aujourd’hui à 12:33
+15 juin 2018 12:34
+Aujourd’hui à 12:49
 */
 
 echo $notificationForJohn;
 /*
-Jun 15, 2018 7:34 AM
-Today at 5:33 AM
+Jun 15, 2018 12:34 PM
+Today at 12:49 PM
 */
 </code></pre>
     </p>
@@ -873,7 +873,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>S</td>
-            <td>1</td>
+            <td>0</td>
             <td>Second tenth</td>
         </tr>
         
@@ -885,7 +885,7 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
         
         <tr>
             <td>SSS</td>
-            <td>085</td>
+            <td>084</td>
             <td>Millisecond (on 3 digits with trailing zeros)</td>
         </tr>
         
@@ -1320,21 +1320,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 10:33 AM
+echo $date->calendar();                                      // Today at 12:49 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:33 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 9:49 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Sunday at 12:10 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Sunday at 2:26 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/14/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 1:33 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 3:49 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 8:56 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 11:12 PM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 08/30/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 10:33
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 12:49
 </code></pre>
     </p>
 
@@ -2323,7 +2323,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-08-22 10:33:33
+echo Carbon::now();                                    // 2018-08-22 12:49:55
 </code></pre>
     </p>
 
@@ -2510,12 +2510,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(33)
+var_dump(Carbon::now()->get($unit));                         // int(55)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(33)
+var_dump(Carbon::now()->$unit);                              // int(55)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(33)
+var_dump(Carbon::now()->get($unit));                         // int(55)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -2742,8 +2742,25 @@ var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i
             href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
 
     <p>
-    <pre><code class="php">Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+    <pre class="live-editor"><code class="php">echo $dt;                                          // 1975-12-25 14:15:16
+echo "\n";
+$dt->settings([
+    'toStringFormat' => 'jS \o\f F, Y g:i:s a',
+]);
 echo $dt;                                          // 25th of December, 1975 2:15:16 pm
+</code></pre>
+    </p>
+
+    <p>As part of the settings <code>'toStringFormat'</code> can be used in factories too. It also may be a
+        closure, so you can run any code on string cast.</p>
+
+    <p>If you use Carbon 1 or want to apply it globally as default format, you can use:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
+Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
+echo $dt;                                          // 25th of December, 1975 2:15:16 pm
+echo "\n";
 Carbon::resetToStringFormat();
 echo $dt;                                          // 1975-12-25 14:15:16
 </code></pre>
@@ -2812,7 +2829,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#359 (2) {
+  object(Carbon\CarbonTimeZone)#357 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2823,7 +2840,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#359 (12) {
+object(stdClass)#357 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -2847,7 +2864,7 @@ object(stdClass)#359 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#357 (2) {
+  object(Carbon\CarbonTimeZone)#348 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -2858,7 +2875,7 @@ object(stdClass)#359 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#359 (3) {
+object(DateTime)#357 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -2966,8 +2983,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-08-22 10:33:33
-echo $dt1->maximum();                              // 2018-08-22 10:33:33
+echo $dt1->max();                                  // 2018-08-22 12:49:55
+echo $dt1->maximum();                              // 2018-08-22 12:49:55
 
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
 $dt2 = Carbon::createMidnightDate(2010, 3, 28);
@@ -3006,26 +3023,14 @@ $dt->isLastYear();
 $dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
 $dt->isLeapYear();
 
-$dt->isSameQuarter($dt2); // same quarter (3 months) no matter the year of the given date
-$dt->isSameQuarter($dt2, true); // same quarter of the same year of the given date
-/*
-    Alternatively, you can run Carbon::compareYearWithMonth() to compare both quarter and year by default,
-    In this case you can use $dt->isSameQuarter($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameQuarter($dt2); // same quarter of the same year of the given date
+$dt->isSameQuarter($dt2, false); // same quarter (3 months) no matter the year of the given date
 $dt->isCurrentQuarter();
 $dt->isNextQuarter(); // date is in the next quarter
 $dt->isLastQuarter(); // in previous quarter
 
-$dt->isSameMonth($dt2); // same month no matter the year of the given date
-$dt->isSameMonth($dt2, true); // same month of the same year of the given date
-/*
-    As for isSameQuarter, you can run Carbon::compareYearWithMonth() to compare both month and year by default,
-    In this case you can use $dt->isSameMonth($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameMonth($dt2); // same month of the same year of the given date
+$dt->isSameMonth($dt2, false); // same month no matter the year of the given date
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
@@ -3559,6 +3564,9 @@ var_dump(Carbon::getWeekEndsAt() === Carbon::WEDNESDAY);     // bool(true)
 echo $saturday->copy()->startOfWeek()->toRfc850String();     // Friday, 03-Aug-18 00:00:00 UTC
 echo $saturday->copy()->endOfWeek()->toRfc850String();       // Wednesday, 08-Aug-18 23:59:59 UTC
 
+// Be very careful with those global setters, remember, some other
+// code or third-party library in your app may expect initial weekend
+// days to work properly.
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 
@@ -3960,14 +3968,23 @@ echo $dt->format('Y-m-d\TH:i:s.uP T');
     <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
 
     <p>
+    <pre class="live-editor"><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow')->settings([
+    'toJsonFormat' => function ($date) {
+        return $date->getTimestamp();
+    },
+]);
+echo json_encode($dt); // 1356453000
+</code></pre>
+    </p>
+
+    <p>If you wan to apply this globally, first consider using factory, else or i you use Carbon 1 you can use:</p>
+
+    <p>
     <pre><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 Carbon::serializeUsing(function ($date) {
-    return $date->getTimestamp();
+    return $date->valueOf();
 });
-echo json_encode($dt);
-/*
-1356453000
-*/
+echo json_encode($dt); // 1356453000000
 
 // Call serializeUsing with null to reset the serializer:
 Carbon::serializeUsing(null);

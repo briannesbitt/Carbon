@@ -1249,10 +1249,29 @@ $dt->setDateFrom($source2);
             href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
 
     <p>
-    <pre><code class="php">{{::lint(
+    <pre class="live-editor"><code class="php">{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::lint(
+$dt->settings([
+    'toStringFormat' => 'jS \o\f F, Y g:i:s a',
+]);
+)}}
+{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>As part of the settings <code>'toStringFormat'</code> can be used in factories too. It also may be a
+        closure, so you can run any code on string cast.</p>
+
+    <p>If you use Carbon 1 or want to apply it globally as default format, you can use:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
 Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
 )}}
 {{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+echo "\n";
 {{::lint(
 Carbon::resetToStringFormat();
 )}}
@@ -1453,26 +1472,14 @@ $dt->isLastYear();
 $dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
 $dt->isLeapYear();
 
-$dt->isSameQuarter($dt2); // same quarter (3 months) no matter the year of the given date
-$dt->isSameQuarter($dt2, true); // same quarter of the same year of the given date
-/*
-    Alternatively, you can run Carbon::compareYearWithMonth() to compare both quarter and year by default,
-    In this case you can use $dt->isSameQuarter($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameQuarter($dt2); // same quarter of the same year of the given date
+$dt->isSameQuarter($dt2, false); // same quarter (3 months) no matter the year of the given date
 $dt->isCurrentQuarter();
 $dt->isNextQuarter(); // date is in the next quarter
 $dt->isLastQuarter(); // in previous quarter
 
-$dt->isSameMonth($dt2); // same month no matter the year of the given date
-$dt->isSameMonth($dt2, true); // same month of the same year of the given date
-/*
-    As for isSameQuarter, you can run Carbon::compareYearWithMonth() to compare both month and year by default,
-    In this case you can use $dt->isSameMonth($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameMonth($dt2); // same month of the same year of the given date
+$dt->isSameMonth($dt2, false); // same month no matter the year of the given date
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
@@ -2007,6 +2014,9 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 {{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
+// Be very careful with those global setters, remember, some other
+// code or third-party library in your app may expect initial weekend
+// days to work properly.
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 )}}
@@ -2421,16 +2431,27 @@ $dt = Carbon::__set_state(json_decode($json, true));
     <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
 
     <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow')->settings([
+    'toJsonFormat' => function ($date) {
+        return $date->getTimestamp();
+    },
+]);
+)}}
+{{::exec(echo json_encode($dt);)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>If you wan to apply this globally, first consider using factory, else or i you use Carbon 1 you can use:</p>
+
+    <p>
     <pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 Carbon::serializeUsing(function ($date) {
-    return $date->getTimestamp();
+    return $date->valueOf();
 });
 )}}
-{{::exec(echo json_encode($dt);)}}
-/*
-{{eval}}
-*/
+{{::exec(echo json_encode($dt);)}} // {{eval}}
 
 // Call serializeUsing with null to reset the serializer:
 {{::lint(
