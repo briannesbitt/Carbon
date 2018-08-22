@@ -892,7 +892,7 @@ $product = new SeasonalProduct(100);
         was a property rather than a function call.</p>
 
     <p>
-    <pre><code class="php">{{::lint($dt = Carbon::parse('2012-10-5 23:26:11.123789');)}}
+    <pre class="live-editor"><code class="php">{{::lint($dt = Carbon::parse('2012-10-5 23:26:11.123789');)}}
 
 // These getters specifically return integers, ie intval()
 {{::exec(var_dump($dt->year);/*pad(60)*/)}} // {{eval}}
@@ -906,16 +906,25 @@ $product = new SeasonalProduct(100);
 {{::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{eval}}
 // dayOfWeekIso returns a number between 1 (monday) and 7 (sunday)
 {{::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{eval}}
-{{::lint(setlocale(LC_TIME, 'German');)}}
 {{::exec(var_dump($dt->englishDayOfWeek);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortEnglishDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->dayName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->shortDayName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->minDayName);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->englishMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortEnglishMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->monthName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->shortMonthName);/*pad(60)*/)}} // {{eval}}
+
+// Following are deprecated, locale* and shortLocale* properties
+// are translated using formatLocalized() based on LC_TIME language.
+{{::lint(setlocale(LC_TIME, 'German');)}}
+{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->localeMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortLocaleMonth);/*pad(60)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, '');)}}
+
 {{::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{eval}}
 // weekNumberInMonth consider weeks from monday to sunday, so the week 1 will
@@ -970,11 +979,27 @@ $product = new SeasonalProduct(100);
 
 // Gets the DateTimeZone instance
 {{::exec(echo get_class(Carbon::now()->timezone);/*pad(60)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo get_class(Carbon::now()->tz);/*pad(60)*/)}} // {{eval}}
+echo "\n";
 
 // Gets the DateTimeZone instance name, shortcut for ->timezone->getName()
 {{::exec(echo Carbon::now()->timezoneName;/*pad(60)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::now()->tzName;/*pad(60)*/)}} // {{eval}}
+echo "\n";
+
+{{::lint(// You can get any property dynamically too:
+$unit = 'second';)}}
+{{::exec(var_dump(Carbon::now()->get($unit));/*pad(60)*/)}} // {{eval}}
+// equivalent to:
+{{::exec(var_dump(Carbon::now()->$unit);/*pad(60)*/)}} // {{eval}}
+{{::lint(// If you have plural unit name, use singularUnit()
+$unit = Carbon::singularUnit('seconds');)}}
+{{::exec(var_dump(Carbon::now()->get($unit));/*pad(60)*/)}} // {{eval}}
+// Prefer using singularUnit() because some plurals are not the word with S:
+{{::exec(var_dump(Carbon::pluralUnit('century'));/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::pluralUnit('millennium'));/*pad(60)*/)}} // {{eval}}
 </code></pre>
     </p>
 
