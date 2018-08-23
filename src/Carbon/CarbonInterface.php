@@ -699,9 +699,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function formatLocalized($format);
 
-    public function from($other = null, $syntax = null, $short = false, $parts = 1);
+    public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
-    public function fromNow($syntax = null, $short = false, $parts = 1);
+    public function fromNow($syntax = null, $short = false, $parts = 1, $options = null);
 
     public static function fromSerialized($value);
 
@@ -987,7 +987,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function shouldOverflowYears();
 
-    public function since($other = null, $syntax = null, $short = false, $parts = 1);
+    public function since($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
     public static function singularUnit(string $unit): string;
 
@@ -1029,7 +1029,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function timezone($value);
 
-    public function to($other = null, $syntax = null, $short = false, $parts = 1);
+    public function to($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
     public function toArray();
 
@@ -1061,7 +1061,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function toMutable();
 
-    public function toNow($syntax = null, $short = false, $parts = 1);
+    public function toNow($syntax = null, $short = false, $parts = 1, $options = null);
 
     public function toObject();
 
@@ -1097,7 +1097,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function unix();
 
-    public function until($other = null, $syntax = null, $short = false, $parts = 1);
+    public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
     public static function useMonthsOverflow($monthsOverflow = true);
 

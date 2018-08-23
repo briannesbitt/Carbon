@@ -492,15 +492,20 @@ foreach ($carbonMethods as $method) {
             $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
             $doc = explode("\n@", $doc, 2);
             $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
+            $returnType = $function->getReturnType();
+            if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $function->getDocComment(), $match)) {
+                $returnType = $match[1];
+            }
+            $returnType = $returnType ?: 'static';
             $staticMethods[] = [
                 '@method',
-                $function->getReturnType() ?: 'Carbon',
+                str_replace('static', 'Carbon', $returnType),
                 "$method($parameters)",
                 $doc[0],
             ];
             $staticImmutableMethods[] = [
                 '@method',
-                $function->getReturnType() ?: 'CarbonImmutable',
+                str_replace('static', 'CarbonImmutable', $returnType),
                 "$method($parameters)",
                 $doc[0],
             ];
