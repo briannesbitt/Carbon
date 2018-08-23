@@ -4,6 +4,7 @@ define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
 require 'vendor/autoload.php';
+require 'tools/methods.php';
 
 $documentation = file_get_contents('docs/index.src.html');
 
@@ -20,104 +21,89 @@ function display($message)
     echo $message;
 }
 
-$carbonObjects = array(
-    array(
-        new \Carbon\Carbon(),
-        new \DateTime()
-    ),
-    array(
-        new \Carbon\CarbonInterval('P1D'),
-        new \DateInterval('P1D'),
-    ),
-    array(
-        new \Carbon\CarbonPeriod(),
-        new \stdClass(),
-    ),
-);
-foreach ($carbonObjects as $tuple) {
-    list($carbonObject, $dateTimeObject) = $tuple;
-    $className = get_class($carbonObject);
-    $dateTimeMethods = get_class_methods($dateTimeObject);
+foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
+    $methodsCount++;
+    $pattern = preg_quote($method, '/');
+    $upperUnit = '(Unit|Micro(second)?s?|Milli(second)?s?|Seconds?|Minutes?|Hours?|Days?|Weeks?|Months?|Quarters?|Years?|Decades?|Centur(y|ies)|Millenni(um|a))';
+    $lowerUnit = '(micro(second)?s?|milli(second)?s?|seconds?|minutes?|hours?|days?|weeks?|months?|quarters?|years?|decades?|centur(y|ies)|millenni(um|a))';
+    $exclusion = !!preg_match("/^(
+        clone|setISODate |
+        getTranslationMessage|getCalendarFormats|getPaddedUnit|translate|ordinal |
+        (use|is)StrictMode(Enabled)? |
+        __(sleep|wakeup|construct) |
+        (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
+        (set|get)$upperUnit |
+        (startOf|endOf)$upperUnit |
+        $lowerUnit
+    )$/x", $method);
+    $documented = $exclusion || preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
+    if (!$documented) {
+        $missingMethodsCount++;
+    }
+    $color = $documented ? 32 : 31;
+    $message = $documented ? 'documented' : 'missing';
+    $methodPad = str_pad("$className::$method", 25);
 
-    foreach (get_class_methods($carbonObject) as $method) {
-        if (
-            in_array($method, $dateTimeMethods)  ||
-            $method === '__call' ||
-            $method === '__callStatic'
-        ) {
-            continue;
-        }
+    $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 
-        $methodsCount++;
-        $pattern = preg_quote($method, '/');
-        $documented = !!preg_match("/[>:]$pattern(?!\w)| $pattern\(/", $documentation);
-        if (!$documented) {
-            $missingMethodsCount++;
-        }
-        $color = $documented ? 32 : 31;
-        $message = $documented ? 'documented' : 'missing';
-        $methodPad = str_pad("$className::$method", 25);
+    $argumentsCount = count($parameters === null ? array_filter((new \ReflectionMethod($carbonObject, $method))->getParameters(), function (ReflectionParameter $parameter) {
+        return !$parameter->isVariadic();
+    }) : $parameters);
+    $argumentsDocumented = true;
 
-        $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
+    if (
+        $exclusion ||
+        $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
+        $argumentsCount === 4 && $method === 'diffFiltered' ||
+        $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
+        $method === '__set'
+    ) {
+        $argumentsCount = 0;
+    }
 
-        $reflexion = new \ReflectionMethod($carbonObject, $method);
-        $argumentsCount = count($reflexion->getParameters());
-        $argumentsDocumented = true;
-
-        if (
-            $argumentsCount === 1 && preg_match('/^(sub|add)[A-Z].*[^s]$/', $method) ||
-            $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
-            $argumentsCount === 4 && $method === 'diffFiltered' ||
-            $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
-            $method === '__set'
-        ) {
-            $argumentsCount = 0;
-        }
-
-        if ($argumentsCount) {
-            preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
-            $coveredArgs = 0;
-            if (!empty($matches[0])) {
-                foreach ($matches[0] as $data) {
-                    if (preg_match('/^(
-                    [^"\'\\(\\)]+ |
-                    "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-                    \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                    (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
-                        $argumentsString = substr($match[0], 0, -1);
-                        $argumentsString = preg_replace('/(
-                            "(?:\\\\[\\S\\s]|[^"\\\\])*" |
-                            \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
-                        )*/x', '', $argumentsString);
-                        $argumentsString = preg_replace('/(\\(
-                            (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-                            (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                            (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                            [^\\{\\}\\(\\)\\[\\]\'"]+
-                        \\))*/x', '', $argumentsString);
-                        $count = count(explode(',', $argumentsString));
-                        if ($count > $coveredArgs) {
-                            $coveredArgs = $count;
-                        }
+    if ($argumentsCount) {
+        preg_match_all('/'.preg_quote($method, '/').'\s*\\(/', $documentation, $matches, PREG_PATTERN_ORDER | PREG_OFFSET_CAPTURE);
+        $coveredArgs = 0;
+        if (!empty($matches[0])) {
+            foreach ($matches[0] as $data) {
+                if (preg_match('/^(
+                [^"\'\\(\\)]+ |
+                "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
+                (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+            )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
+                    $argumentsString = substr($match[0], 0, -1);
+                    $argumentsString = preg_replace('/(
+                        "(?:\\\\[\\S\\s]|[^"\\\\])*" |
+                        \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
+                    )*/x', '', $argumentsString);
+                    $argumentsString = preg_replace('/(\\(
+                        (\\[([^\\[\\]\'"]+|(?1))*\\]) |
+                        (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+                        (\\{([^\\{\\}\'"]+|(?1))*\\}) |
+                        [^\\{\\}\\(\\)\\[\\]\'"]+
+                    \\))*/x', '', $argumentsString);
+                    $count = count(explode(',', $argumentsString));
+                    if ($count > $coveredArgs) {
+                        $coveredArgs = $count;
                     }
                 }
             }
-
-            if ($documented) {
-                $missingArguments += $argumentsCount - $coveredArgs;
-            }
-            $argumentsDocumented = $argumentsCount === $coveredArgs;
-            $color = $argumentsDocumented ? 32 : 31;
-            $message = $documented ? 'documented' : 'missing';
-
-            if (VERBOSE || $documented) {
-                $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
-            }
         }
-        if (!$documented || !$argumentsDocumented || VERBOSE) {
-            display($output);
+
+        if ($documented) {
+            $missingArguments += max(0, $argumentsCount - $coveredArgs);
         }
+        $argumentsDocumented = $argumentsCount <= $coveredArgs;
+        $color = $argumentsDocumented ? 32 : 31;
+        $message = $documented ? 'documented' : 'missing';
+
+        if (VERBOSE || $documented) {
+            $output .= "   `- \033[0;{$color}m{$coveredArgs}/{$argumentsCount} documented arguments\033[0m\n";
+        }
+    }
+    if (!$documented || !$argumentsDocumented || VERBOSE) {
+        display($output);
     }
 }
 

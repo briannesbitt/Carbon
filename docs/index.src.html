@@ -1,50 +1,126 @@
 <div id="docs">
 
-<h1 id="api-introduction">Introduction</h1>
+    <h1 id="api-introduction">Introduction</h1>
 
-<p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
+    <p>The Carbon class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
+            href="http://www.php.net/manual/en/class.datetime.php">DateTime</a> class.</p>
 
-<p><pre><code class="php">&lt;?php
+    <p>
+    <pre><code class="php">&lt;?php
 namespace Carbon;
 
 class Carbon extends \DateTime
 {
     // code here
 }
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Carbon has all of the functions inherited from the base DateTime class.  This approach allows you to access the base functionality if you see anything missing in Carbon but is there in DateTime.</p>
+    <p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace. You need to
+        import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
 
-<p>You can see from the code snippet above that the Carbon class is declared in the Carbon namespace.  You need to import the namespace to use Carbon without having to provide its fully qualified name each time.</p>
+    <p>
+    <pre><code class="php">use Carbon\Carbon;</code></pre>
+    </p>
 
-<p><pre><code class="php">use Carbon\Carbon;</code></pre></p>
+    <p>Examples in this documentation will assume you imported classes of the Carbon namespace this way.</p>
 
-<blockquote>Note: I live in Ottawa, Ontario, Canada and if the timezone is not specified in the examples then the default of 'America/Toronto' is to be assumed.  Typically Ottawa is -0500 but when daylight savings time is on we are -0400.</blockquote>
+    <p>We also provide CarbonImmutable class extending <a
+            href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
+        The same methods are available on both classes but when you use a modifier on a Carbon
+        instance, it modify it and returns the same instance, when you use it on CarbonImmutable,
+        it returns a new instances with the new value.</p>
 
-<p>Special care has been taken to ensure timezones are handled correctly, and where appropriate are based on the underlying DateTime implementation.  For example all comparisons are done in UTC or in the timezone of the datetime being used.</p>
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($mutable = Carbon::now();)}}
+{{::lint($immutable = CarbonImmutable::now();)}}
+{{::lint($modifiedMutable = $mutable->add(1, 'day');)}}
+{{::lint($modifiedImmutable = CarbonImmutable::now()->add(1, 'day');)}}
 
-<p><pre><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
+{{::exec(var_dump($modifiedMutable === $mutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedMutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// So it means $mutable and $modifiedMutable are the same object
+// both set to now + 1 day.
+{{::exec(var_dump($modifiedImmutable === $immutable);/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($modifiedImmutable->isoFormat('dddd D'));/*pad(52)*/)}} // {{eval}}
+// While $immutable is still set to now and cannot be changed and
+// $modifiedImmutable is a new instance created from $immutable
+// set to now + 1 day.
+
+{{::lint($mutable = CarbonImmutable::now()->toMutable();)}}
+{{::exec(var_dump($mutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($mutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+{{::lint($immutable = Carbon::now()->toImmutable();)}}
+{{::exec(var_dump($immutable->isMutable());/*pad(52)*/)}} // {{eval}}
+{{::exec(var_dump($immutable->isImmutable());/*pad(52)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The library also provides CarbonInterface interface extends <a
+            href="http://www.php.net/manual/en/class.datetimeinterface.php">DateTimeInterface</a> and <a
+            href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
+        <a href="#api-interval">CarbonInterval</a> class extends <a
+                href="http://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
+        CarbonTimeZone class extends <a
+                href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
+        and <a href="#api-period">CarbonPeriod</a> class polyfills <a
+                href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
+
+    <p>Carbon has all of the functions inherited from the base DateTime class. This approach allows you to access the
+        base functionality such as
+        <a href="http://php.net/manual/en/datetime.modify.php">modify</a>,
+        <a href="http://php.net/manual/en/datetime.format.php">format</a> or
+        <a href="http://php.net/manual/en/datetime.diff.php">diff</a>.</p>
+
+    <p>
+
+    <p>Now, let see how cool is this doc.</p>
+
+    <pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
+// Try to replace the 4th number (hours) or the last argument (timezone) with
+// Europe/Paris for example and see the actual result on the right hand.
+// It's alive!
 
 {{::exec(echo $dtVancouver->diffInHours($dtToronto);)}} // {{eval}}
-</code></pre></p>
+// Now, try to double-click on "diffInHours" or "create" to open
+// the References panel.
+// Once the references panel is open, you can use the search field to
+// filter the list or click the (<) button to close it.
+</code></pre>
+    </p>
 
-Also <code>is</code> comparisons are done in the timezone of the provided Carbon instance.  For example my current timezone is -13 hours from Tokyo.  So <code>Carbon::now('Asia/Tokyo')->isToday()</code> would only return false for any time past 1 PM my time.  This doesn't make sense since <code>now()</code> in tokyo is always today in Tokyo.  Thus the comparison to <code>now()</code> is done in the same timezone as the current instance.</p>
+    <p>Some examples are static snippets, some other are editable (when it's split into 2 input and output
+        pannels). You can also note a top right hand corner button allow you to open the snippet in a
+        new tab. You can double-click on methods name in both static and dynamic examples.</p>
 
-<h1 id="api-instantiation">Instantiation</h1>
+    <h1 id="api-instantiation">Instantiation</h1>
 
-<p>There are several different methods available to create a new instance of Carbon. First there is a constructor. It overrides the <a href="http://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you are best to read about the first parameter from the PHP manual and understand the date/time string formats it accepts. You'll hopefully find yourself rarely using the constructor but rather relying on the explicit static methods for improved readability.</p>
+    <p>There are several different methods available to create a new instance of Carbon. First there is a constructor.
+        It overrides the <a href="http://www.php.net/manual/en/datetime.construct.php">parent constructor</a> and you
+        are best to read about the first parameter from the PHP manual and understand the date/time string formats it
+        accepts. You'll hopefully find yourself rarely using the constructor but rather relying on the explicit static
+        methods for improved readability.</p>
 
-<p><pre><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
-{{::lint($carbon = Carbon::now(-5);)}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You'll notice above that the timezone (2nd) parameter was passed as a string and an integer rather than a <code>\DateTimeZone</code> instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance, string or integer offset to GMT and the timezone will be created for you.  This is again shown in the next example which also introduces the <code>now()</code> function.</p>
+    <p>You'll notice above that the timezone (2nd) parameter was passed as a string rather than a <code>\DateTimeZone</code>
+        instance. All DateTimeZone parameters have been augmented so you can pass a DateTimeZone instance, string or
+        integer offset to GMT and the timezone will be created for you. This is again shown in the next example which
+        also introduces the <code>now()</code> function.</p>
 
-<p><pre><code class="php">{{::lint(
-$now = Carbon::now();
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$now = Carbon::now(); // will use timezone as set with date_default_timezone_set
+// PS: we recommend you to work with UTC as default timezone and only use
+// other timezones (such as the user timezone) on display
 
 $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 
@@ -52,52 +128,98 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 $nowInLondonTz = Carbon::now('Europe/London');
 
 // or to create a date with a timezone of +1 to GMT during DST then just pass an integer
+$date = Carbon::now(1);
 )}}
-{{::exec(echo Carbon::now(1)->tzName;/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+{{::exec(echo $date->tzName;/*pad(40)*/)}} // {{eval}}
+{{::lint(echo "\n";
 
-<p>If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets necessary when using the constructor you'll enjoy the <code>parse</code> method.</p>
+// Get/set minutes offset from UTC
+)}}
+{{::exec(echo $date->utcOffset();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
-<p><pre><code class="php">{{::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{eval}}
+{{::lint($date->utcOffset(180);)}}
+
+{{::exec(echo $date->tzName;/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->utcOffset();/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>If you really love your fluid method calls and get frustrated by the extra line or ugly pair of brackets
+        necessary when using the constructor you'll enjoy the <code>parse</code> method.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(echo (new Carbon('first day of December 2008'))->addWeeks(2);/*pad(65)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('first day of December 2008')->addWeeks(2);/*pad(65)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Note: before PHP 5.4 <code>(new MyClass())->method()</code> trigger a syntax error, if you use PHP 5.3, you need to create a variable then call the method on it: <code>$date = new Carbon('first day of December 2008'); echo $date->addWeeks(2)</code></p>
+    <p>The string passed to <code>Carbon::parse</code> or to <code>new Carbon</code> can represent a relative time (next
+        sunday, tomorrow, first day of next month, last year) or an absolute time (first day of December 2008,
+        2017-01-06). You can test if a string will produce a relative or absolute date with <code>Carbon::hasRelativeKeywords()</code>.
+    </p>
 
-<p>The string passed to <code>Carbon::parse</code> or to <code>new Carbon</code> can represent a relative time (next sunday, tomorrow, first day of next month, last year) or an absolute time (first day of December 2008, 2017-01-06). You can test if a string will produce a relative or absolute date with <code>Carbon::hasRelativeKeywords()</code>.</p>
-
-<p><pre><code class="php">$string = 'first day of next month';
+    <p>
+    <pre><code class="php">$string = 'first day of next month';
 if (strtotime($string) === false) {
     echo "'$string' is not a valid date/time string.";
 } elseif (Carbon::hasRelativeKeywords($string)) {
     echo "'$string' is a relative valid date/time string, it will returns different dates depending on the current date.";
 } else {
     echo "'$string' is an absolute date/time string, it will always returns the same date.";
-}</code></pre></p>
+}</code></pre>
+    </p>
 
-<p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.  The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time value set to <code>00:00:00</code>.</p>
+    <p>To accompany <code>now()</code>, a few other static instantiation helpers exist to create widely known instances.
+        The only thing to really notice here is that <code>today()</code>, <code>tomorrow()</code> and
+        <code>yesterday()</code>, besides behaving as expected, all accept a timezone parameter and each has their time
+        value set to <code>00:00:00</code>.</p>
 
-<p><pre><code class="php">{{::lint($now = Carbon::now();)}}
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($now = Carbon::now();)}}
 {{::exec(echo $now;/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::lint($today = Carbon::today();)}}
 {{::exec(echo $today;/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::lint($tomorrow = Carbon::tomorrow('Europe/London');)}}
 {{::exec(echo $tomorrow;/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::lint($yesterday = Carbon::yesterday();)}}
 {{::exec(echo $yesterday;/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code> functions allow you to provide as many or as few arguments as you want and will provide default values for all others.  Generally default values are the current date, time or timezone.  Higher values will wrap appropriately but invalid values will throw an <code>InvalidArgumentException</code> with an informative message.  The message is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a> call.</p>
+    <p>The next group of static helpers are the <code>createXXX()</code> helpers. Most of the static <code>create</code>
+        functions allow you to provide as many or as few arguments as you want and will provide default values for all
+        others. Generally default values are the current date, time or timezone. Higher values will wrap appropriately
+        but invalid values will throw an <code>InvalidArgumentException</code> with an informative message. The message
+        is obtained from an <a href="http://php.net/manual/en/datetime.getlasterrors.php">DateTime::getLastErrors()</a>
+        call.</p>
 
-<p><pre><code class="php">Carbon::createFromDate($year, $month, $day, $tz);
-Carbon::createFromTime($hour, $minute, $second, $tz);
-Carbon::createFromTimeString("$hour:$minute:$second", $tz);
-Carbon::create($year, $month, $day, $hour, $minute, $second, $tz);
-</code></pre></p>
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$year = 2000; $month = 4; $day = 19;
+$hour = 20; $minute = 30; $second = 15; $tz = 'Europe/Madrid';
+echo Carbon::createFromDate($year, $month, $day, $tz)."\n";
+echo Carbon::createMidnightDate($year, $month, $day, $tz)."\n";
+echo Carbon::createFromTime($hour, $minute, $second, $tz)."\n";
+echo Carbon::createFromTimeString("$hour:$minute:$second", $tz)."\n";
+echo Carbon::create($year, $month, $day, $hour, $minute, $second, $tz)."\n";
+)}}
+</code></pre>
+    </p>
 
-<p><code>createFromDate()</code> will default the time to now.  <code>createFromTime()</code> will default the date to today. <code>create()</code> will default any null parameter to the current respective value. As before, the <code>$tz</code> defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a string timezone value.  The only special case for default values (mimicking the underlying PHP library) occurs when an hour value is specified but no minutes or seconds, they will get defaulted to 0.</p>
+    <p><code>createFromDate()</code> will default the time to now. <code>createFromTime()</code> will default the date
+        to today. <code>create()</code> will default any null parameter to the current respective value. As before, the
+        <code>$tz</code> defaults to the current timezone and otherwise can be a DateTimeZone instance or simply a
+        string timezone value. The only special case is for <code>create()</code> that has minimum value as default
+        for missing argument but default on current value when you pass explicitly <code>null</code>.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $xmasThisYear = Carbon::createFromDate(null, 12, 25);  // Year defaults to current year
 $Y2K = Carbon::create(2000, 1, 1, 0, 0, 0); // equivalent to Carbon::createMidnightDate(2000, 1, 1)
 $alsoY2K = Carbon::create(1999, 12, 31, 24);
@@ -105,77 +227,114 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 )}}
 
-// {{createFromDateException_eval}}
-{{createFromDateException::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); })}}
-</code></pre></p>
-
-<p>Create exceptions occurs on such negative values but not on overflow, to get exceptions on overflow, use <code>createSafe()</code></p>
-
-<p><pre><code class="php">{{::exec(echo Carbon::create(2000, 1, 35, 13, 0, 0);)}}
+{{::exec(try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); })}}
 // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Create exceptions occurs on such negative values but not on overflow, to get exceptions on overflow, use <code>createSafe()</code>
+    </p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(echo Carbon::create(2000, 1, 35, 13, 0, 0);)}}
+// {{eval}}
+echo "\n";
 
 {{::exec(try {
     Carbon::createSafe(2000, 1, 35, 13, 0, 0);
 } catch (\Carbon\Exceptions\InvalidDateException $exp) {
     echo $exp->getMessage();
 })}}
-// {{eval}}</code></pre></p>
+// {{eval}}</code></pre>
+    </p>
 
-<p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
+    <p>Note 1: 2018-02-29 produces also an exception while 2020-02-29 does not since 2020 is a leap year.</p>
 
-<p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception since PHP 5.4 because this time is in an hour skipped by the daylight saving time, but before PHP 5.4, it will just create this invalid date as it has existed.</p>
+    <p>Note 2: <code>Carbon::createSafe(2014, 3, 30, 1, 30, 0, 'Europe/London')</code> also produces an exception as
+        this time is in an hour skipped by the daylight saving time.</p>
 
-<p><pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre></p>
+    <p>Note 3: The PHP native API allow consider there is a year <code>0</code> between <code>-1</code>
+        and <code>1</code> even if it doesn't regarding to Gregorian calendar. That's why years lower than
+        1 will throw an exception using <code>createSafe</code>. Check
+        <a href="#doc-method-Carbon-isValid" data-open-doc="isValid">isValid()</a> for year-0 detection.</p>
 
-<p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>.  The difference being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value.  Also, if there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and then throw a <code>InvalidArgumentException</code> with the errors as the message.  If you look at the source for the <code>createXX()</code> functions above, they all make a call to <code>createFromFormat()</code>.</p>
+    <p>
+    <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
+    </p>
 
-<p><pre><code class="php">{{::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{eval}}</code></pre></p>
+    <p><code>createFromFormat()</code> is mostly a wrapper for the base php function <a
+            href="http://php.net/manual/en/datetime.createfromformat.php">DateTime::createFromFormat</a>. The difference
+        being again the <code>$tz</code> argument can be a DateTimeZone instance or a string timezone value. Also, if
+        there are errors with the format this function will call the <code>DateTime::getLastErrors()</code> method and
+        then throw a <code>InvalidArgumentException</code> with the errors as the message.</p>
 
-<p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix timestamps</a>.  The first will create a Carbon instance equal to the given timestamp and will set the timezone as well or default it to the current timezone.  The second, <code>createFromTimestampUTC()</code>, is different in that the timezone will remain UTC (GMT).  The second acts the same as <code>Carbon::createFromFormat('@'.$timestamp)</code> but I have just made it a little more explicit.  The third, <code>createFromTimestampMs()</code>,  accepts a timestamp in milliseconds instead of seconds.  Negative timestamps are also allowed.</p>
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::createFromFormat('Y-m-d H', '1975-05-21 22')->toDateTimeString();)}} // {{eval}}</code></pre>
+    </p>
 
-<p><pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
+    <p>The final three create functions are for working with <a href="http://en.wikipedia.org/wiki/Unix_time">unix
+        timestamps</a>. The first will create a Carbon instance equal to the given timestamp and will set the timezone
+        as well or default it to the current timezone. The second, <code>createFromTimestampUTC()</code>, is different
+        in that the timezone will remain UTC (GMT), it acts the same as <code>Carbon::parse('@'.$timestamp)</code>
+        but I have just made it a little more explicit. The third, <code>createFromTimestampMs()</code>, accepts a
+        timestamp in milliseconds instead of seconds. Negative timestamps are also allowed.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::createFromTimestamp(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
 {{::exec(echo Carbon::createFromTimestamp(-1, 'Europe/London')->toDateTimeString();/*pad(90)*/)}} // {{eval}}
 {{::exec(echo Carbon::createFromTimestampUTC(-1)->toDateTimeString();/*pad(90)*/)}} // {{eval}}
 {{::exec(echo Carbon::createFromTimestampMs(1)->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
 {{::exec(echo Carbon::createFromTimestampMs(1, 'Europe/London')->format('Y-m-d\TH:i:s.uP T');/*pad(90)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can also create a <code>copy()</code> of an existing Carbon instance.  As expected the date, time and timezone values are all copied to the new instance.</p>
+    <p>You can also create a <code>copy()</code> of an existing Carbon instance. As expected the date, time and timezone
+        values are all copied to the new instance.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::now();)}}
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::now();)}}
 {{::exec(echo $dt->diffInYears($dt->copy()->addYear());)}}  // {{eval}}
 
 // $dt was unchanged and still holds the value of Carbon:now()
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can use <code>nowWithSameTz()</code> on an existing Carbon instance to get a new instance at now in the same timezone.</p>
+    <p>You can use <code>nowWithSameTz()</code> on an existing Carbon instance to get a new instance at now in the same
+        timezone.</p>
 
-<p><pre><code class="php">{{::lint($meeting = Carbon::createFromTime(19, 15, 00, 'Africa/Johannesburg');)}}
+    <p>
+    <pre><code class="php">{{::lint($meeting = Carbon::createFromTime(19, 15, 00, 'Africa/Johannesburg');)}}
 
 // 19:15 in Johannesburg
 {{::exec(echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';/*pad(86)*/)}}  // {{eval}}
 // now in Johannesburg
 {{::exec(echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';/*pad(86)*/)}}  // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not!  You can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method.  Or use the even more flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a string, else it just returns null.</p>
+    <p>Finally, if you find yourself inheriting a <code>\DateTime</code> instance from another library, fear not! You
+        can create a <code>Carbon</code> instance via a friendly <code>instance()</code> method. Or use the even more
+        flexible method <code>make()</code> which can return a new Carbon instance from a DateTime, Carbon or from a
+        string, else it just returns null.</p>
 
-<p><pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
+    <p>
+    <pre><code class="php">{{::lint($dt = new \DateTime('first day of January 2008');)}} // <== instance from another API
 {{::lint($carbon = Carbon::instance($dt);)}}
 {{::exec(echo get_class($carbon);/*pad(54)*/)}} // '{{eval}}'
 {{::exec(echo $carbon->toDateTimeString();/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p id="note-about-microseconds">A quick note about microseconds.  The PHP DateTime object allows you to set a microsecond value but ignores it for all of its date math.  As of 1.12.0 Carbon now supports microseconds during instantiation or copy operations as well as by default with the <code>format()</code> method.</p>
+    <p>Carbon 2 (requiring PHP >= 7.1) perfectly supports microseconds. But if you use Carbon 1 and PHP < 7.1, read our
+        <a href="#partial-microseconds-support-v1" data-slide-down="#partial-microseconds-support-v1">section about partial microseconds
+            support</a>.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::parse('1975-05-21 22:23:00.123456');)}}
-{{::exec(echo $dt->micro;/*pad(54)*/)}} // {{eval}}
-{{::exec(echo $dt->copy()->micro;/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+    <div id="partial-microseconds-support-v1" class="old-way">
+        <p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed
+            afterwards, this means:</p>
 
-<p>Before PHP 7.1 DateTime microseconds are not added to <code>"now"</code> instances and cannot be changed afterwards, this means:</p>
-
-<p><pre><code class="php">$date = new DateTime('now');
+        <p>
+        <pre><code class="php">$date = new DateTime('now');
 echo $date->format('u');
 // display current microtime in PHP >= 7.1 (expect a bug in PHP 7.1.3 only)
 // display 000000 before PHP 7.1
@@ -188,11 +347,14 @@ $date->modify('00:00:00.987654');
 echo $date->format('u');
 // display 987654 in PHP >= 7.1
 // display 123456 before PHP 7.1
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
+        <p>To work around this limitation in Carbon, we append microseconds when calling <code>now</code> in PHP < 7.1, but
+            this feature can be disabled on demand (no effect in PHP >= 7.1):</p>
 
-<p><pre><code class="php">Carbon::useMicrosecondsFallback(false);
+        <p>
+        <pre><code class="php">Carbon::useMicrosecondsFallback(false);
 var_dump(Carbon::isMicrosecondsFallbackEnabled()); // false
 
 echo Carbon::now()->micro; // 0 in PHP < 7.1, microtime in PHP >= 7.1
@@ -201,25 +363,49 @@ Carbon::useMicrosecondsFallback(true); // default value
 var_dump(Carbon::isMicrosecondsFallbackEnabled()); // true
 
 echo Carbon::now()->micro; // microtime in all PHP version
-</code></pre></p>
+</code></pre>
+        </p>
+    </div>
 
-<p>Ever need to loop through some dates to find the earliest or latest date?  Didn't know what to set your initial maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
+    <p>Ever need to loop through some dates to find the earliest or latest date? Didn't know what to set your initial
+        maximum/minimum values to? There are now two helpers for this to make your decision simple:</p>
 
-<p><pre><code class="php">{{::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{eval}}'
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::maxValue();/*pad(54)*/)}} // '{{eval}}'
 {{::exec(echo Carbon::minValue();/*pad(54)*/)}} // '{{eval}}'
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Min and max value mainly depends on the system (32 or 64 bit).</p>
+    <p>Min and max value mainly depends on the system (32 or 64 bit).</p>
 
-<p>With a 32-bit OS system or 32-bit version of PHP (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>), the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the constant <code>PHP_INT_MAX</code>.</p>
+    <p>With a 32-bit OS system or 32-bit version of PHP (you can check it in PHP with <code>PHP_INT_SIZE === 4</code>),
+        the minimum value is the 0-unix-timestamp (1970-01-01 00:00:00) and the maximum is the timestamp given by the
+        constant <code>PHP_INT_MAX</code>.</p>
 
-<p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31 23:59:59.</p>
+    <p>With a 64-bit OS system and 64-bit version of PHP, the minimum is 01-01-01 00:00:00 and maximum is 9999-12-31
+        23:59:59. It's even possible to use negative year up to -9999 but be aware you may not have accurate results
+        with some operations as the year 0 exists in PHP but not in the Gregorian calendar.</p>
 
-<h1 id="api-localization">Localization</h1>
+    <h1 id="api-localization">Localization</h1>
 
-<p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a <code>formatLocalized($format)</code> method was added.  The implementation makes a call to <a href="http://www.php.net/strftime">strftime</a> using the current instance timestamp.  If you first set the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string returned will be formatted in the correct locale.</p>
+    <p>With Carbon 2, localization changed a lot, {{eval(echo count(Carbon::getAvailableLocales()) - 73;)}} new locales
+        are supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
+        and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
+        and language packages for advanced translation, you now benefit of a wide internationalization support. You
+        still use Carbon 1? I hope you would consider to upgrade, version 2 has really cool new features. Else you still
+        read the <a href="#localization-v1" data-slide-down="#localization-v1">version 1 documentation of Localization
+        by clicking here</a>.</p>
 
-<p><pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
+    <div id="localization-v1" class="old-way">
+        <p>Unfortunately the base class DateTime does not have any localization support. To begin localization support a
+            <code>formatLocalized($format)</code> method was added. The implementation makes a call to <a
+                    href="http://www.php.net/strftime">strftime</a> using the current instance timestamp. If you first set
+            the current locale with PHP function <a href="http://www.php.net/setlocale">setlocale()</a> then the string
+            returned will be formatted in the correct locale.</p>
+
+        <p>
+        <pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
+$dt = Carbon::parse('1975-05-21 22:23:00.123456');
 if ($newLocale === false) {
     echo '"German" locale is not installed on your machine, it may have a different name a different name on your machine or you may need to install it.';
 }
@@ -228,21 +414,29 @@ if ($newLocale === false) {
 {{::lint(setlocale(LC_TIME, 'English');)}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, ''); // reset locale)}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code> function and get the current setting with <code>Carbon::getLocale()</code>.</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-<p><pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
+        <p>
+        <pre><code class="php">{{::lint(Carbon::setLocale('de');)}}
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo Carbon::now()->addYear()->diffForHumans();/*pad(50)*/)}} // {{eval}}
 
 {{::lint(Carbon::setLocale('en');)}}
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>Or you can isolate some code with a given locale:</p>
+        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
+            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
-<p><pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
+        <p>Or you can isolate some code with a given locale:</p>
+
+        <p>
+        <pre><code class="php">{{::exec(Carbon::executeWithLocale('de', function ($newLocale) {
     // You can optionally get $newLocale as the first argument of the closure
     // It will be set to the new locale or false if the locale was not found.
 
@@ -257,11 +451,15 @@ if ($newLocale === false) {
     return Carbon::now()->addYear()->diffForHumans();
 });)}}
 {{::exec(echo $french;)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code> mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the formatLocalized() call to the utf8 charset.</p>
+        <p>Some languages require utf8 encoding to be printed (locale packages that does not ends with <code>.UTF8</code>
+            mainly). In this case you can use the static method <code>Carbon::setUtf8()</code> to encode the result of the
+            formatLocalized() call to the utf8 charset.</p>
 
-<p><pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
+        <p>
+        <pre><code class="php">{{::lint(setlocale(LC_TIME, 'Spanish');)}}
 {{::lint($dt = Carbon::create(2016, 01, 06, 00, 00, 00);)}}
 {{::lint(Carbon::setUtf8(false);)}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
@@ -269,23 +467,25 @@ if ($newLocale === false) {
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
 {{::lint(Carbon::setUtf8(false);)}}
 {{::lint(setlocale(LC_TIME, '');)}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<blockquote><p><strong>on Linux</strong><br>
-If you have trouble with translations, check locales installed in your system (local and production).<br>
-<code>locale -a</code> to list locales enabled.<br>
-<code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
-<code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
-And reboot your system.</p></blockquote>
+        <blockquote><p><strong>on Linux</strong><br>
+            If you have trouble with translations, check locales installed in your system (local and production).<br>
+            <code>locale -a</code> to list locales enabled.<br>
+            <code>sudo locale-gen fr_FR.UTF-8</code> to install a new locale.<br>
+            <code>sudo dpkg-reconfigure locales</code> to publish all locale enabled.<br>
+            And reboot your system.</p></blockquote>
 
-<p>You can customize a existing language the following way:</p>
+        <p>You can customize a existing language the following way:</p>
 
-<p><pre><code class="php">{{::lint(
+        <p>
+        <pre><code class="php">{{::lint(
 Carbon::setLocale('en');
 $translator = Carbon::getTranslator();
-$translator->setMessages('en', array(
+$translator->setMessages('en', [
     'day' => ':count boring day|:count boring days',
-));
+]);
 
 $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
 $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
@@ -294,13 +494,20 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 {{::exec(echo $date1->diffForHumans($date2, true, false, 2);)}} // {{eval}}
 
 {{::lint($translator->resetMessages('en'); // reset language customizations for en language)}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the given translator implements <a href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.</p>
+        <p>Note that you also can use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
+            given translator implements <a
+                    href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+        </p>
 
-<p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code> and short variants is driven by locales installed in your operating system. For other translations, it's supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+        <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
+            and short variants is driven by locales installed in your operating system. For other translations, it's
+            supported internally thanks to Carbon community. You can check what's supported with the following methods:</p>
+        <p>
 
-<p><pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
+        <pre><code class="php">{{::exec(echo implode(', ', array_slice(Carbon::getAvailableLocales(), 0, 3)).'...';/*pad(80)*/)}} // {{eval}}
 
 // Support diff syntax (before, after, from now, ago)
 {{::exec(var_dump(Carbon::localeHasDiffSyntax('en'));/*pad(80)*/)}} // {{eval}}
@@ -317,49 +524,267 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 // Support period syntax (X times, every X, from X, to X)
 {{::exec(var_dump(Carbon::localeHasPeriodSyntax('en'));/*pad(80)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));/*pad(80)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>Here is a overview of the {{eval(echo count(Carbon::getAvailableLocales());)}} locales supported by the last Carbon version:</p>
+    </div>
 
-<table class="info-table">
-    <thead>
-    <tr>
-        <th>Locale</th>
-        <th>Diff syntax</th>
-        <th>1-day diff</th>
-        <th>2-days diff</th>
-        <th>Short units</th>
-        <th>Period</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{locale::each(Carbon::getAvailableLocales())}}
-    <tr>
-        <td>{{eval(echo $locale;)}}</td>
-        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
-        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
-        <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
-        <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
-        <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
-    </tr>
-    {{::endEach}}
-    </tbody>
-</table>
+    <p>So, here is the new recommended way to handle internationalization with Carbon.</p>
 
-<p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last <code>App:setLocale</code> execution. So <code>diffForHumans</code> will be localized transparently. You still may need to run <code>setlocale</code> in some middleware to get <code>formatLocalized</code> working properly.</p>
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = Carbon::now()->locale('fr_FR');)}}
 
-<h1 id="api-testing">Testing Aids</h1>
+{{::exec(echo $date->locale();/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->diffForHumans();/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->monthName;/*pad(32)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('LLLL');/*pad(32)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is created.  The provided instance will be returned specifically under the following conditions:</p>
+    <p>The <code>->locale()</code> method only change the language for the current instance and has precedence
+        over global settings. We recommend you this approach so you can't have conflict with other places or
+        third-party libraries that could use Carbon. Nevertheless, to avoid calling <code>->locale()</code>
+        each time, you can use factories.</p>
 
-<ul>
-  <li>A call to the static now() method, ex. Carbon::now()</li>
-  <li>When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)</li>
-  <li>When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')</li>
-  <li>The given instance will also be used as default relative moment for diff methods</li>
-</ul>
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(// Let say Martin from Paris and John from Chicago play chess
+$martinDateFactory = new Factory([
+    'locale' => 'fr_FR',
+    'timezone' => 'Europe/Paris',
+]);
+$johnDateFactory = new Factory([
+    'locale' => 'en_US',
+    'timezone' => 'America/Chicago',
+]);
+// Each one will see date in his own language and timezone
 
-<p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+// When Martin moves, we display things in French, but we notify John in English:
+$gameStart = Carbon::parse('2018-06-15 12:34:00', 'UTC');
+$move = Carbon::now('UTC');
+$toDisplay = $martinDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $martinDateFactory->make($move)->calendar()."\n";
+$notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n".
+    $johnDateFactory->make($move)->calendar()."\n";)}}
+{{::exec(echo $toDisplay;)}}
+/*
+{{eval}}*/
+
+{{::exec(echo $notificationForJohn;)}}
+/*
+{{eval}}*/
+</code></pre>
+    </p>
+
+    <p>You can call any static Carbon method on a factory (make, now, yesterday, tomorrow, parse, create, etc.)
+        Factory (and FactoryImmutable that generates CarbonImmutable instances) are the best way to keep things
+        organized and isolated. As often as possible we recommend you to work with UTC dates, then apply
+        locally (or with a factory) the timezone and the language before displaying dates to the user.</p>
+
+    <p>What factory actually do is using the method name as static constructor then call <code>settings()</code>
+        method which is a way to group in one call settings of locale, timezone, months/year overflow, etc.
+        (<a href="#doc-method-Carbon-settings" data-open-doc="settings">See references for complete list.</a>)</p>
+
+    <p>
+    <pre><code class="php">{{::lint($factory = new Factory([
+    'locale' => 'fr_FR',
+    'timezone' => 'Europe/Paris',
+]);
+$factory->now(); // You can recall $factory as needed to generate new instances with same settings
+// is equivalent to:
+Carbon::now()->settings([
+    'locale' => 'fr_FR',
+    'timezone' => 'Europe/Paris',
+]);
+// Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
+// It means it does not just set the timezone, but shift the time too:
+)}}
+{{::exec(echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
+{{::exec(echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Previously there was <code>Carbon::setLocale</code> that set globally the locale. But as for our other
+        static setters, we highly discourage you to use it. It breaks the principle of isolation because the
+        configuration will apply for every class that uses Carbon.</p>
+
+    <p>You also may know <code>formatLocalized()</code> method from Carbon 1. This method still works the same
+        in Carbon 2 but you should better use <code>isoFormat()</code> instead.</p>
+
+    <p><code>->isoFormat(string $format): string</code> use ISO format rather than PHP-specific format and
+        use inner translations rather than language packages you need to install on every machine where you deploy your
+        application. <code>isoFormat</code> method is compatible with
+        <a href="https://momentjs.com/" target="_blank">momentjs format method</a>, it means you can use same
+        format strings as you may have used in moment from front-end or node.js. Here are some examples:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = Carbon::parse('2018-06-15 17:34:15.984512', 'UTC');)}}
+{{::exec(echo $date->isoFormat('MMMM Do YYYY, h:mm:ss a');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('dddd');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('MMM Do YY');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->isoFormat('YYYY [escaped] YYYY');/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Here is the complete list of available replacements (examples given with
+        <code class="php">{{::lint($date = Carbon::parse('2017-01-05 17:04:05.084512');)}}</code>):</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Example</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{code::each(array_filter(array_keys(Carbon::getIsoUnits()), function ($code) {
+            return !preg_match('/^hmm/i', $code);
+        }))}}
+        <tr>
+            <td>{{eval(echo $code;)}}</td>
+            <td>{{eval(echo $date->isoFormat($code);)}}</td>
+            <td>{{eval(echo $date->describeIsoFormat($code);)}}</td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>Some macro-formats are also available. Here are examples of each in some languages:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            {{locale::each($sampleLocales = ['en', 'fr', 'ja', 'hr'])}}
+            <th>{{eval(echo $locale;)}}</th>
+            {{::endEach}}
+        </tr>
+        </thead>
+        <tbody>
+        {{code::each(array_keys($isoFormats = ($date = Carbon::parse('2017-01-05 17:04:05.084512'))->getIsoFormats()))}}
+        <tr>
+            <td>
+                <code>{{eval(echo $code;)}}</code><br>
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br><code>'.strtolower($code).'</code>' : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[0])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[1])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[2])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+            <td>
+                <span class="doc-comment">{{eval(echo $date->locale($sampleLocales[3])->getIsoFormats()[$code];)}}</span><br>
+                {{eval(echo $date->isoFormat($code);)}}
+                {{eval(echo preg_match('/^L+$/', $code) ? '<br>'.$date->isoFormat(strtolower($code)) : '';)}}
+            </td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>An other usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = CarbonImmutable::now();)}}
+{{::exec(echo $date->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('1 day 3 hours')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('3 days 10 hours 23 minutes')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->sub('8 days')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('1 day 3 hours')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('3 days 10 hours 23 minutes')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->add('8 days')->calendar();/*pad(60)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->locale('fr')->calendar();/*pad(60)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>If you know momentjs, then it works the same way. You can pass a reference date as second argument, else
+        now is used. And you can customize one or more formats using the second argument (formats to pass
+        as array keys are: sameDay, nextDay, nextWeek, lastDay, lastWeek and sameElse):</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date1 = CarbonImmutable::parse('2018-01-01 12:00:00');
+$date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
+
+{{::exec(echo $date1->calendar($date2, [
+    'lastDay' => '[Previous day at] LT',
+]);)}}
+// {{eval}}
+</code></pre>
+    </p>
+
+    <p>Here is an overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
+        Carbon version:</p>
+
+    <table class="info-table">
+        <thead>
+        <tr>
+            <th>Locale</th>
+            <th>Diff syntax</th>
+            <th>1-day diff</th>
+            <th>2-days diff</th>
+            <th>Short units</th>
+            <th>Period</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{locale::each(Carbon::getAvailableMacroLocales())}}
+        <tr>
+            <td>{{eval(echo $locale;)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
+        </tr>
+        {{::endEach}}
+        </tbody>
+    </table>
+
+    <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last
+        <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code> and localized
+        properties such as <code>->dayName</code> or <code>->monthName</code> will be localized transparently.</p>
+
+    <p>Each Carbon, CarbonImmutable, CarbonInterval or CarbonPeriod instance is linked by default to a
+        <code>Carbon\Translator</code> instance according to its locale set. You can get and/or change it
+        using <code>getLocalTranslator()</code>/<code>setLocalTranslator(Translator $translator)</code>.</p>
+
+    <h1 id="api-testing">Testing Aids</h1>
+
+    <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is
+        created. The provided instance will be returned specifically under the following conditions:</p>
+
+    <ul>
+        <li>A call to the static now() method, ex. Carbon::now()</li>
+        <li>When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)</li>
+        <li>When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')</li>
+        <li>The given instance will also be used as default relative moment for diff methods</li>
+    </ul>
+
+    <p>
+    <pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock (of course this could be a real mock object)
 {{::exec(echo Carbon::getTestNow();/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
@@ -372,11 +797,13 @@ $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
 {{::lint(Carbon::setTestNow();/*pad(54)*/)}} // clear the mock
 {{::exec(var_dump(Carbon::hasTestNow());/*pad(54)*/)}} // {{eval}}
 {{::exec(echo Carbon::now();/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>A more meaning full example:</p>
+    <p>A more meaning full example:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 class SeasonalProduct
 {
     protected $price;
@@ -405,11 +832,13 @@ $product = new SeasonalProduct(100);
 {{::lint(Carbon::setTestNow(Carbon::parse('first day of May 2000'));/*pad(40)*/)}}
 {{::exec(echo $product->getPrice();/*pad(70)*/)}} // {{eval}}
 {{::lint(Carbon::setTestNow();)}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Relative phrases are also mocked according to the given "now" instance.</p>
+    <p>Relative phrases are also mocked according to the given "now" instance.</p>
 
-<p><pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
+    <p>
+    <pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
 {{::lint(Carbon::setTestNow($knownDate);/*pad(54)*/)}} // set the mock
 {{::exec(echo new Carbon('tomorrow');/*pad(54)*/)}} // {{eval}}  ... notice the time !
 {{::exec(echo new Carbon('yesterday');/*pad(54)*/)}} // {{eval}}
@@ -417,35 +846,42 @@ $product = new SeasonalProduct(100);
 {{::exec(echo new Carbon('last friday');/*pad(54)*/)}} // {{eval}}
 {{::exec(echo new Carbon('this thursday');/*pad(54)*/)}} // {{eval}}
 {{::exec(Carbon::setTestNow();/*pad(54)*/)}} // always clear it !
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>The list of words that are considered to be relative modifiers are:</p>
+    <p>The list of words that are considered to be relative modifiers are:</p>
 
-<ul>
-  <li>+</li>
-  <li>-</li>
-  <li>ago</li>
-  <li>first</li>
-  <li>next</li>
-  <li>last</li>
-  <li>this</li>
-  <li>today</li>
-  <li>tomorrow</li>
-  <li>yesterday</li>
-</ul>
+    <ul>
+        <li>+</li>
+        <li>-</li>
+        <li>ago</li>
+        <li>first</li>
+        <li>next</li>
+        <li>last</li>
+        <li>this</li>
+        <li>today</li>
+        <li>tomorrow</li>
+        <li>yesterday</li>
+    </ul>
 
-<p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set the time to 00:00:00.</p>
+    <p>Be aware that similar to the next(), previous() and modify() methods some of these relative modifiers will set
+        the time to 00:00:00.</p>
 
-<p><code>Carbon::parse($time, $tz)</code> and <code>new Carbon($time, $tz)</code> both can take a timezone as second argument.</p>
+    <p><code>Carbon::parse($time, $tz)</code> and <code>new Carbon($time, $tz)</code> both can take a timezone as second
+        argument.</p>
 
-<p><pre><code class="php">{{::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{eval}}
-</code></pre></p>
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{eval}}
+</code></pre>
+    </p>
 
-<h1 id="api-getters">Getters</h1>
+    <h1 id="api-getters">Getters</h1>
 
-<p>The getters are implemented via PHP's <code>__get()</code> method.  This enables you to access the value as if it was a property rather than a function call.</p>
+    <p>The getters are implemented via PHP's <code>__get()</code> method. This enables you to access the value as if it
+        was a property rather than a function call.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::parse('2012-10-5 23:26:11.123789');)}}
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($dt = Carbon::parse('2012-10-5 23:26:11.123789');)}}
 
 // These getters specifically return integers, ie intval()
 {{::exec(var_dump($dt->year);/*pad(60)*/)}} // {{eval}}
@@ -459,16 +895,25 @@ $product = new SeasonalProduct(100);
 {{::exec(var_dump($dt->dayOfWeek);/*pad(60)*/)}} // {{eval}}
 // dayOfWeekIso returns a number between 1 (monday) and 7 (sunday)
 {{::exec(var_dump($dt->dayOfWeekIso);/*pad(60)*/)}} // {{eval}}
-{{::lint(setlocale(LC_TIME, 'German');)}}
 {{::exec(var_dump($dt->englishDayOfWeek);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortEnglishDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->dayName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->shortDayName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->minDayName);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->englishMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortEnglishMonth);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->monthName);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->locale('de')->shortMonthName);/*pad(60)*/)}} // {{eval}}
+
+// Following are deprecated, locale* and shortLocale* properties
+// are translated using formatLocalized() based on LC_TIME language.
+{{::lint(setlocale(LC_TIME, 'German');)}}
+{{::exec(var_dump($dt->localeDayOfWeek);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump($dt->shortLocaleDayOfWeek);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->localeMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->shortLocaleMonth);/*pad(60)*/)}} // {{eval}}
 {{::lint(setlocale(LC_TIME, '');)}}
+
 {{::exec(var_dump($dt->dayOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->weekNumberInMonth);/*pad(60)*/)}} // {{eval}}
 // weekNumberInMonth consider weeks from monday to sunday, so the week 1 will
@@ -479,23 +924,42 @@ $product = new SeasonalProduct(100);
 {{::exec(var_dump($dt->weekOfYear);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->daysInMonth);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump($dt->timestamp);/*pad(60)*/)}} // {{eval}}
+// Millisecond-precise timestamp (useful to pass it to JavaScript)
+{{::exec(var_dump($dt->valueOf());/*pad(60)*/)}} // {{eval}}
+// Custom-precision timestamp
+{{::exec(var_dump($dt->getPreciseTimestamp(6));/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createFromDate(1975, 5, 21)->age);/*pad(60)*/)}} // {{eval}} calculated vs now in the same tz
 {{::exec(var_dump($dt->quarter);/*pad(60)*/)}} // {{eval}}
 
 // Returns an int of seconds difference from UTC (+/- sign included)
 {{::exec(var_dump(Carbon::createFromTimestampUTC(0)->offset);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::createFromTimestamp(0)->offset);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offset);/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffset());/*pad(80)*/)}} // {{eval}}
 
 // Returns an int of hours difference from UTC (+/- sign included)
-{{::exec(var_dump(Carbon::createFromTimestamp(0)->offsetHours);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetMinutes);/*pad(80)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->offsetHours);/*pad(80)*/)}} // {{eval}}
+
+// Returns timezone offset as string
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());/*pad(80)*/)}} // {{eval}}
+
+// Returns timezone as CarbonTimeZone
+{{::exec(var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());)}}
+/* {{eval}} */
 
 // Indicates if day light savings time is on
 {{::exec(var_dump(Carbon::createFromDate(2012, 1, 1)->dst);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->dst);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::createFromDate(2012, 9, 1)->isDST());/*pad(60)*/)}} // {{eval}}
 
 // Indicates if the instance is in the same timezone as the local timezone
 {{::exec(var_dump(Carbon::now()->local);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::now('America/Vancouver')->local);/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now()->isLocal());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('America/Vancouver')->isLocal());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now()->isUtc());/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::now('America/Vancouver')->isUtc());/*pad(60)*/)}} // {{eval}}
+// can also be written ->isUTC()
 
 // Indicates if the instance is in the UTC timezone
 {{::exec(var_dump(Carbon::now()->utc);/*pad(60)*/)}} // {{eval}}
@@ -504,18 +968,38 @@ $product = new SeasonalProduct(100);
 
 // Gets the DateTimeZone instance
 {{::exec(echo get_class(Carbon::now()->timezone);/*pad(60)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo get_class(Carbon::now()->tz);/*pad(60)*/)}} // {{eval}}
+echo "\n";
 
 // Gets the DateTimeZone instance name, shortcut for ->timezone->getName()
 {{::exec(echo Carbon::now()->timezoneName;/*pad(60)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::now()->tzName;/*pad(60)*/)}} // {{eval}}
-</code></pre></p>
+echo "\n";
 
-<h1 id="api-setters">Setters</h1>
+{{::lint(// You can get any property dynamically too:
+$unit = 'second';)}}
+{{::exec(var_dump(Carbon::now()->get($unit));/*pad(60)*/)}} // {{eval}}
+// equivalent to:
+{{::exec(var_dump(Carbon::now()->$unit);/*pad(60)*/)}} // {{eval}}
+{{::lint(// If you have plural unit name, use singularUnit()
+$unit = Carbon::singularUnit('seconds');)}}
+{{::exec(var_dump(Carbon::now()->get($unit));/*pad(60)*/)}} // {{eval}}
+// Prefer using singularUnit() because some plurals are not the word with S:
+{{::exec(var_dump(Carbon::pluralUnit('century'));/*pad(60)*/)}} // {{eval}}
+{{::exec(var_dump(Carbon::pluralUnit('millennium'));/*pad(60)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>The following setters are implemented via PHP's <code>__set()</code> method.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
+    <h1 id="api-setters">Setters</h1>
 
-<p><pre><code class="php">{{::lint(
+    <p>The following setters are implemented via PHP's <code>__set()</code> method. Its good to take note here that none
+        of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the
+        instance. Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $dt = Carbon::now();
 
 $dt->year = 1975;
@@ -527,19 +1011,141 @@ $dt->minute = 32;
 $dt->second = 5;
 
 $dt->timestamp = 169957925;  // This will not change the timezone
+// Same as:
+$dt->setTimestamp(169957925);
+$dt->timestamp(169957925);
 
 // Set the timezone via DateTimeZone instance or string
 $dt->timezone = new DateTimeZone('Europe/London');
 $dt->timezone = 'Europe/London';
 $dt->tz = 'Europe/London';
+
+// verbose way:
+$dt->setYear(2001);
 )}}
-</code></pre></p>
+{{::exec(echo $dt->year;/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
-<h1 id="api-settersfluent">Fluent Setters</h1>
+{{::lint(
+// set/get method:
+$dt->year(2002);
+)}}
+{{::exec(echo $dt->year();/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
-<p>No arguments are optional for the setters, but there are enough variety in the function definitions that you shouldn't need them anyway.  Its good to take note here that none of the setters, with the obvious exception of explicitly setting the timezone, will change the timezone of the instance.  Specifically, setting the timestamp will not set the corresponding timezone to UTC.</p>
+{{::lint(
+// dynamic way:
+$dt->set('year', 2003);
+)}}
+{{::exec(echo $dt->get('year');/*pad(20)*/)}} // {{eval}}
+echo "\n";
 
-<p><pre><code class="php">{{::lint(
+// these methods exist for every units even for calculated properties such as:
+{{::exec(echo $dt->dayOfYear(35)->format('Y-m-d');/*pad(20)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <h1 id="api-week">Weeks</h1>
+
+    <p>If you are familiar with momentjs, you will find all week methods working the same.
+        Most of them have an iso{Method} variant. Week methods follow the rules of the
+        current locale (for example with en_US, the default locale, the first day of the
+        week is Sunday, and the first week of the year is the one that contains January 1st).
+        ISO methods follow the ISO 8601 norm, meaning weeks start with Monday and the first
+        week of the year is the one containing January 4th.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$en = CarbonImmutable::now()->locale('en_US');
+$ar = CarbonImmutable::now()->locale('ar');
+)}}
+
+{{::exec(var_dump($en->firstWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->lastWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->startOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->endOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+echo "-----------\n";
+
+// We still can force to use an other day as start/end of week
+$start = $en->startOfWeek(Carbon::TUESDAY);
+$end = $en->endOfWeek(Carbon::MONDAY);
+)}}
+{{::exec(var_dump($start->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($end->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($ar->firstWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->lastWeekDay);/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->startOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($ar->endOfWeek()->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weeksInYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeeksInYear());/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2017-02-05');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->week());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->week(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek(1)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekday());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekday());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekday(3)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekday(3)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weekYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear());/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2016)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2016)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2015)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2015)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+
+{{::lint(
+// Note you still can force first day of week and year to use:
+$en = CarbonImmutable::parse('2017-01-01');
+
+echo "-----------\n";
+)}}
+
+{{::exec(var_dump($en->weeksInYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeeksInYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->week(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeek(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(null, 6, 12));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->weekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($en->isoWeekYear(2016, 6, 12)->format('Y-m-d H:i'));/*pad(54)*/)}} // {{eval}}
+// Then you can see using a method or its ISO variant return identical results
+</code></pre>
+    </p>
+
+    <h1 id="api-settersfluent">Fluent Setters</h1>
+
+    <p>You can call any base unit as a setter or some grouped setters:</p>
+
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::now();
 
 $dt->year(1975)->month(5)->day(21)->hour(22)->minute(32)->second(5)->toDateTimeString();
@@ -547,47 +1153,71 @@ $dt->setDate(1975, 5, 21)->setTime(22, 32, 5)->toDateTimeString();
 $dt->setDate(1975, 5, 21)->setTimeFromTimeString('22:32:05')->toDateTimeString();
 $dt->setDateTime(1975, 5, 21, 22, 32, 5)->toDateTimeString();
 
-$dt->timestamp(169957925)->timezone('Europe/London');
+// All allow microsecond as optional argument
+$dt->year(1975)->month(5)->day(21)->hour(22)->minute(32)->second(5)->microsecond(123456)->toDateTimeString();
+$dt->setDate(1975, 5, 21)->setTime(22, 32, 5, 123456)->toDateTimeString();
+$dt->setDate(1975, 5, 21)->setTimeFromTimeString('22:32:05.123456')->toDateTimeString();
+$dt->setDateTime(1975, 5, 21, 22, 32, 5, 123456)->toDateTimeString();
 
-$dt->tz('America/Toronto')->setTimezone('America/Vancouver');
+$dt->timestamp(169957925); // Note: timestamps are UTC but do not change the date timezone
+
+$dt->timezone('Europe/London')->tz('America/Toronto')->setTimezone('America/Vancouver');
 )}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You also can set date and time separatly from other DateTime/Carbon objects:</p>
+    <p>You also can set date and time separately from other DateTime/Carbon objects:</p>
 
-<p><pre><code class="php">{{::lint(
-$source1 = new Carbon('2010-05-16 22:40:10');
+    <p>
+    <pre><code class="php">{{::lint(
+$source1 = new Carbon('2010-05-16 22:40:10.1');
 
-$dt = new Carbon('2001-01-01 01:01:01');
+$dt = new Carbon('2001-01-01 01:01:01.2');
 $dt->setTimeFrom($source1);
 )}}
 
 {{::exec(echo $dt;)}} // {{eval}}
 
 {{::lint(
-$source2 = new DateTime('2013-09-01 09:22:56');
+$source2 = new DateTime('2013-09-01 09:22:56.2');
 
 $dt->setDateFrom($source2);
 )}}
 
 {{::exec(echo $dt;)}} // {{eval}}
-</code></pre></p>
 
-<h1 id="api-isset">IsSet</h1>
+{{::lint($dt->setDateTimeFrom($source2);)}} // set date and time including microseconds
+// bot not settings as locale, timezone, options.
+</code></pre>
+    </p>
 
-<p>The PHP function <code>__isset()</code> is implemented.  This was done as some external systems (ex. <a href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the existence of a property before using it.  This is done using the <code>isset()</code> or <code>empty()</code> method.  You can read more about these on the PHP site: <a href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
+    <h1 id="api-isset">IsSet</h1>
 
-<p><pre><code class="php">{{::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
+    <p>The PHP function <code>__isset()</code> is implemented. This was done as some external systems (ex. <a
+            href="http://twig.sensiolabs.org/doc/recipes.html#using-dynamic-object-properties">Twig</a>) validate the
+        existence of a property before using it. This is done using the <code>isset()</code> or <code>empty()</code>
+        method. You can read more about these on the PHP site: <a
+                href="http://www.php.net/manual/en/language.oop5.overloading.php#object.isset">__isset()</a>, <a
+                href="http://www.php.net/manual/en/function.isset.php">isset()</a>, <a
+                href="http://www.php.net/manual/en/function.empty.php">empty()</a>.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(var_dump(isset(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(isset(Carbon::now()->hour));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(empty(Carbon::now()->iDoNotExist));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(empty(Carbon::now()->year));/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<h1 id="api-formatting">String Formatting</h1>
+    <h1 id="api-formatting">String Formatting</h1>
 
-<p>All of the available <code>toXXXString()</code> methods rely on the base class method <a href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>.  You'll notice the <code>__toString()</code> method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a string context.</p>
+    <p>All of the available <code>toXXXString()</code> methods rely on the base class method <a
+            href="http://php.net/manual/en/datetime.format.php">DateTime::format()</a>. You'll notice the <code>__toString()</code>
+        method is defined which allows a Carbon instance to be printed as a pretty date time string when used in a
+        string context.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::create(1975, 12, 25, 14, 15, 16);)}}
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::create(1975, 12, 25, 14, 15, 16);)}}
 
 {{::exec(var_dump($dt->toDateTimeString() == $dt);/*pad(50)*/)}} // {{eval}} => uses __toString()
 {{::exec(echo $dt->toDateString();/*pad(50)*/)}} // {{eval}}
@@ -601,27 +1231,52 @@ $dt->setDateFrom($source2);
 
 // The reverse hasFormat method allows you to test if a string looks like a given format
 {{::exec(var_dump($dt->hasFormat('Thursday 25th December 1975 02:15:16 PM', 'l jS F Y h:i:s A'));/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
+    <p>You can also set the default __toString() format (which defaults to <code>Y-m-d H:i:s</code>) thats used when <a
+            href="http://php.net/manual/en/language.types.type-juggling.php">type juggling</a> occurs.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::lint(
+$dt->settings([
+    'toStringFormat' => 'jS \o\f F, Y g:i:s a',
+]);
+)}}
+{{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>As part of the settings <code>'toStringFormat'</code> can be used in factories too. It also may be a
+        closure, so you can run any code on string cast.</p>
+
+    <p>If you use Carbon 1 or want to apply it globally as default format, you can use:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$dt = Carbon::create(1975, 12, 25, 14, 15, 16);
 Carbon::setToStringFormat('jS \o\f F, Y g:i:s a');
 )}}
 {{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+echo "\n";
 {{::lint(
 Carbon::resetToStringFormat();
 )}}
 {{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Note: For localization support see the <a href="#api-localization">Localization</a> section.</p>
+    <p>Note: For localization support see the <a href="#api-localization">Localization</a> section.</p>
 
-<h1 id="api-commonformats">Common Formats</h1>
+    <h1 id="api-commonformats">Common Formats</h1>
 
-<p>The following are wrappers for the common formats provided in the <a href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
+    <p>The following are wrappers for the common formats provided in the <a
+            href="http://www.php.net/manual/en/class.datetime.php">DateTime class</a>.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
 {{::exec(echo $dt->toAtomString();/*pad(32)*/)}} // {{eval}}
@@ -635,6 +1290,9 @@ Carbon::resetToStringFormat();
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
 {{::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{eval}}
+
+{{::exec(echo $dt->toISOString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toJSON();/*pad(32)*/)}} // {{eval}}
 
 {{::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{eval}}
 {{::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{eval}}
@@ -651,13 +1309,26 @@ Carbon::resetToStringFormat();
 /*
 {{eval}}
 */
-</code></pre></p>
 
-<h1 id="api-comparison">Comparison</h1>
+{{::exec(var_dump($dt->toObject());)}}
+/*
+{{eval}}
+*/
 
-<p>Simple comparison is offered up via the following functions.  Remember that the comparison is done in the UTC timezone so things aren't always as they seem.</p>
+{{::exec(var_dump($dt->toDate()); // Same as $dt->toDateTime())}}
+/*
+{{eval}}
+*/
+</code></pre>
+    </p>
 
-<p><pre><code class="php">{{::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{eval}}
+    <h1 id="api-comparison">Comparison</h1>
+
+    <p>Simple comparison is offered up via the following functions. Remember that the comparison is done in the UTC
+        timezone so things aren't always as they seem.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::now()->tzName;/*pad(50)*/)}} // {{eval}}
 {{::lint($first = Carbon::create(2012, 9, 5, 23, 26, 11);)}}
 {{::lint($second = Carbon::create(2012, 9, 5, 20, 26, 11, 'America/Vancouver');)}}
 
@@ -695,6 +1366,7 @@ Carbon::resetToStringFormat();
 
 {{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->isAfter($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first > $second);/*pad(50)*/)}} // {{eval}}
 
 {{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
@@ -703,27 +1375,38 @@ Carbon::resetToStringFormat();
 
 {{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->isBefore($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first < $second);/*pad(50)*/)}} // {{eval}}
 
 {{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first <= $second);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
+    <p>Those methods use natural comparisons offered by PHP <code>$date1 == $date2</code> so all of them will ignore
+        milli/micro-seconds before PHP 7.1, then take them into account starting with 7.1.</p>
 
-<p>To determine if the current instance is between two other instances you can use the aptly named <code>between()</code> method.  The third parameter indicates if an equal to comparison should be done.  The default is true which determines if its between or equal to the boundaries.</p>
+    <p>To determine if the current instance is between two other instances you can use the aptly named
+        <code>between()</code> method (or <code>isBetween()</code> alias). The third parameter indicates if an equal to comparison should be done. The
+        default is true which determines if its between or equal to the boundaries.</p>
 
-<p><pre><code class="php">{{::lint($first = Carbon::create(2012, 9, 5, 1);)}}
+    <p>
+    <pre><code class="php">{{::lint($first = Carbon::create(2012, 9, 5, 1);)}}
 {{::lint($second = Carbon::create(2012, 9, 5, 5);)}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 3)->between($first, $second));/*pad(75)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{eval}}
-</code></pre></p>
+{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->isBetween($first, $second, false));/*pad(75)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and <code>max()</code> methods or <code>minimum()</code> and <code>maximum()</code> aliases.  As usual the default parameter is now if null is specified.</p>
+    <p>Woah! Did you forget min() and max() ? Nope. That is covered as well by the suitably named <code>min()</code> and
+        <code>max()</code> methods or <code>minimum()</code> and <code>maximum()</code> aliases. As usual the default
+        parameter is now if null is specified.</p>
 
-<p><pre><code class="php">{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
+    <p>
+    <pre><code class="php">{{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
 {{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
 {{::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{eval}}
@@ -753,11 +1436,15 @@ $dt3 = Carbon::createMidnightDate(2010, 4, 16);
 {{::exec(echo $dt1->farthest($dt2, $dt3);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt2->farthest($dt1, $dt3);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt3->farthest($dt2, $dt1);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.  For the methods that compare to <code>now()</code> (ex. isToday()) in some manner, the <code>now()</code> is created in the same timezone as the instance.</p>
+    <p>To handle the most used cases there are some simple helper functions that hopefully are obvious from their names.
+        For the methods that compare to <code>now()</code> (ex. isToday()) in some manner, the <code>now()</code> is
+        created in the same timezone as the instance.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::now();
 $dt2 = Carbon::createFromDate(1987, 4, 23);
 
@@ -774,26 +1461,14 @@ $dt->isLastYear();
 $dt->isLongYear(); // see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
 $dt->isLeapYear();
 
-$dt->isSameQuarter($dt2); // same quarter (3 months) no matter the year of the given date
-$dt->isSameQuarter($dt2, true); // same quarter of the same year of the given date
-/*
-    Alternatively, you can run Carbon::compareYearWithMonth() to compare both quarter and year by default,
-    In this case you can use $dt->isSameQuarter($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameQuarter($dt2); // same quarter of the same year of the given date
+$dt->isSameQuarter($dt2, false); // same quarter (3 months) no matter the year of the given date
 $dt->isCurrentQuarter();
 $dt->isNextQuarter(); // date is in the next quarter
 $dt->isLastQuarter(); // in previous quarter
 
-$dt->isSameMonth($dt2); // same month no matter the year of the given date
-$dt->isSameMonth($dt2, true); // same month of the same year of the given date
-/*
-    As for isSameQuarter, you can run Carbon::compareYearWithMonth() to compare both month and year by default,
-    In this case you can use $dt->isSameMonth($dt2, false) to compare ignoring the year
-    Run Carbon::compareYearWithMonth(false) to reset to the default behavior
-    Run Carbon::shouldCompareYearWithMonth() to get the current setting
-*/
+$dt->isSameMonth($dt2); // same month of the same year of the given date
+$dt->isSameMonth($dt2, false); // same month no matter the year of the given date
 $dt->isCurrentMonth();
 $dt->isNextMonth();
 $dt->isLastMonth();
@@ -837,13 +1512,23 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(var_dump($born->isBirthday($noCake));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($born->isBirthday($yesCake));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($overTheHill->isBirthday());/*pad(50)*/)}} // {{eval}} -> default compare it to today!
-</code></pre></p>
 
-<h1 id="api-addsub">Addition and Subtraction</h1>
+// isCurrentX, isSameX, isNextX and isLastX are available for each unit
+</code></pre>
+    </p>
 
-<p>The default DateTime provides a couple of different methods for easily adding and subtracting time.  There is <code>modify()</code>, <code>add()</code> and <code>sub()</code>.  <code>modify()</code> takes a <i>magical</i> date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>).  Hopefully using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.  But of course I don't make you choose since the base class functions are still available.</p>
+    <h1 id="api-addsub">Addition and Subtraction</h1>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
+    <p>The default DateTime provides a couple of different methods for easily adding and subtracting time. There is
+        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>modify()</code> takes a <i>magical</i>
+        date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
+        while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so
+        obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>). Hopefully
+        using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.
+        But of course I don't make you choose since the base class functions are still available.</p>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
 
 {{::exec(echo $dt->toDateTimeString();/*pad(40)*/)}} // {{eval}}
 
@@ -896,41 +1581,75 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(echo $dt->addSecond();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
 
-<p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is implemented.</p>
+// and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
+// hour, minute, second, microsecond.
 
-<p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
+// Generic methods add/sub (or subtract alias) can take many different arguments:
+{{::exec(echo $dt->add(61, 'seconds');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->sub('1 day');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->add(CarbonInterval::months(2));/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->subtract(new DateInterval('PT1H'));/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>By default, Carbon relies on the underlying parent class PHP DateTime behavior. As a result adding or subtracting months can overflow, example:</p>
+    <p>For fun you can also pass negative values to <code>addXXX()</code>, in fact that's how <code>subXXX()</code> is
+        implemented.</p>
 
-<p><pre><code class="php">{{::lint($dt = Carbon::create(2017, 1, 31, 0);)}}
+    <p>P.S. Don't worry if you forget and use <code>addDay(5)</code> or <code>subYear(3)</code>, I have your back ;)</p>
 
-{{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
-{{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+    <p>By default, Carbon relies on the underlying parent class PHP DateTime behavior. As a result adding or subtracting
+        months can overflow, example:</p>
 
-<p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2017, 1, 31, 0);)}}
 
-<p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+{{::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subMonths(2);/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Since Carbon 2, you can set a local overflow behavior for each instance:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2017, 1, 31, 0);
+$dt->settings([
+    'monthOverflow' => false,
+]);
+)}}
+
+{{::exec(echo $dt->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subMonths(2);/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version
+        1 of Carbon, you <a href="#overflow-static-helpers" data-slide-down="#overflow-static-helpers">check the
+            overflow static helpers section</a></p>
+
+    <div id="overflow-static-helpers" class="old-way">
+        <p>You can prevent the overflow with <code>Carbon::useMonthsOverflow(false)</code></p>
+
+        <p>
+        <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
 {{::exec(echo $dt->copy()->addMonth();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $dt->copy()->subMonths(2);/*pad(40)*/)}} // {{eval}}
 
 // Call the method with true to allow overflow again
 {{reset1::exec(Carbon::resetMonthsOverflow();)}} // same as Carbon::useMonthsOverflow(true);
-</code></pre></p>
+</code></pre>
+        </p>
 
-The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.
+        <p>The method <code>Carbon::shouldOverflowMonths()</code> allows you to know if the overflow is currently enabled.</p>
 
-You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
-<code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
-(or the singular methods with no <code>s</code> to "month")
-to explicitly add/sub months with or without overflow no matter the current mode.
-
-<p><pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
+        <p>
+        <pre><code class="php">{{::lint(Carbon::useMonthsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 
@@ -959,11 +1678,13 @@ $dt = Carbon::createMidnightDate(2017, 1, 31);)}}
 {{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
 
 {{reset2::exec(Carbon::resetMonthsOverflow();)}}
-</code></pre></p>
+</code></pre>
+        </p>
 
-<p>From version 1.23.0, overflow control is also available on years:</p>
+        <p>From version 1.23.0, overflow control is also available on years:</p>
 
-<p><pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
+        <p>
+        <pre><code class="php">{{::lint(Carbon::useYearsOverflow(false);
 
 $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 
@@ -996,17 +1717,130 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $dt->copy()->subYears(2);/*pad(50)*/)}} // {{eval}}
 
 {{reset3::exec(Carbon::resetYearsOverflow();)}}
-</code></pre></p>
+</code></pre>
+        </p>
+    </div>
 
-<h1 id="api-difference">Difference</h1>
+    <p>You also can use <code>-&gt;addMonthsNoOverflow</code>, <code>-&gt;subMonthsNoOverflow</code>,
+        <code>-&gt;addMonthsWithOverflow</code> and <code>-&gt;subMonthsWithOverflow</code>
+        (or the singular methods with no <code>s</code> to "month")
+        to explicitly add/sub months with or without overflow no matter the current mode
+        and the same for any bigger unit (quarter, year, decade, century, millennium).</p>
 
-<p>As <code>Carbon</code> extends <code>DateTime</code> it inherit its methods such as <code>diff()</code> that take a second date object as argument and returns a <code>DateInterval</code> instance.</p>
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => false,
+]);)}}
 
-<p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code> instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code> and <code>diffIn*()</code> methods all can take 2 optional arguments: date to compare with (if missing, now is used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative value when the instance the method is called on is greater than the compared date (first argument or now). Note that <code>diff()</code> prototype is different: its first argument (the date) is mandatory and its second argument (the absolute option) defaults to <code>false</code>.</p>
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
+// plural addMonthsWithOverflow() method is also available
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+// singular subMonthWithOverflow() method is also available
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
+// plural addMonthsNoOverflow() method is also available
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
+// singular subMonthNoOverflow() method is also available
 
-<p>These functions always return the <b>total difference</b> expressed in the specified time requested.  This differs from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes and 2 seconds via a <code>DateInterval</code> instance.  The <code>diffInMinutes()</code> function would simply return 2 while <code>diffInSeconds()</code> would return 122.  All values are truncated and not rounded.  Each function below has a default first parameter which is the Carbon instance to compare to, or null if you want to use <code>now()</code>.  The 2nd parameter again is optional and indicates if you want the return value to be the absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is less than the current instance.  This will default to true, return the absolute value.</p>
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
 
-<p><pre><code class="php">{{::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{eval}}
+{{::lint($dt = Carbon::createMidnightDate(2017, 1, 31)->settings([
+    'monthOverflow' => true,
+]);)}}
+
+{{::exec(echo $dt->copy()->addMonthWithOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsWithOverflow(2);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->addMonthNoOverflow();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonthsNoOverflow(2);/*pad(50)*/)}} // {{eval}}
+
+{{::exec(echo $dt->copy()->addMonth();/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->copy()->subMonths(2);/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The same is available for years.</p>
+
+    <p>You also can control overflow for any unit when working with unknown inputs:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($dt = CarbonImmutable::create(2018, 8, 30, 12, 00, 00);)}}
+
+// Add hours without overflowing day
+{{::exec(echo $dt->addUnitNoOverflow('hour', 7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 48, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Substract hours without overflowing day
+{{::exec(echo $dt->subUnitNoOverflow('hour', 7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->subUnitNoOverflow('hour', 48, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Set hours without overflowing day
+{{::exec(echo $dt->setUnitNoOverflow('hour', -7, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->setUnitNoOverflow('hour', 14, 'day');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->setUnitNoOverflow('hour', 25, 'day');/*pad(50)*/)}} // {{eval}}
+
+echo "\n-------\n";
+
+// Adding hours without overflowing month
+{{::exec(echo $dt->addUnitNoOverflow('hour', 7, 'month');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 14, 'month');/*pad(50)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $dt->addUnitNoOverflow('hour', 48, 'month');/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Any modifiable unit can be passed as argument of those methods:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($units = [];
+foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week', 'weekday', 'day', 'hour', 'minute', 'second', 'millisecond', 'microsecond'] as $unit) {
+    $units[$unit] = Carbon::isModifiableUnit($unit);
+}
+)}}
+
+{{::exec(echo json_encode($units, JSON_PRETTY_PRINT);)}}
+/* {{eval}} */
+</code></pre>
+    </p>
+
+    <h1 id="api-difference">Difference</h1>
+
+    <p>As <code>Carbon</code> extends <code>DateTime</code> it inherit its methods such as <code>diff()</code> that take
+        a second date object as argument and returns a <code>DateInterval</code> instance.</p>
+
+    <p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code>
+        instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods
+        for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code>
+        and <code>diffIn*()</code> methods all can take 2 optional arguments: date to compare with (if missing, now is
+        used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an
+        absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative
+        value when the instance the method is called on is greater than the compared date (first argument or now). Note
+        that <code>diff()</code> prototype is different: its first argument (the date) is mandatory and its second
+        argument (the absolute option) defaults to <code>false</code>.</p>
+
+    <p>These functions always return the <b>total difference</b> expressed in the specified time requested. This differs
+        from the base class <code>diff()</code> function where an interval of 122 seconds would be returned as 2 minutes
+        and 2 seconds via a <code>DateInterval</code> instance. The <code>diffInMinutes()</code> function would simply
+        return 2 while <code>diffInSeconds()</code> would return 122. All values are truncated and not rounded. Each
+        function below has a default first parameter which is the Carbon instance to compare to, or null if you want to
+        use <code>now()</code>. The 2nd parameter again is optional and indicates if you want the return value to be the
+        absolute value or a relative value that might have a <code>-</code> (negative) sign if the passed in date is
+        less than the current instance. This will default to true, return the absolute value.</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::now('America/Vancouver')->diffInSeconds(Carbon::now('Europe/London'));)}} // {{eval}}
 
 {{::lint($dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');)}}
@@ -1033,18 +1867,29 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $dt->addSeconds(120)->secondsSinceMidnight();/*pad(70)*/)}} // {{eval}}
 
 {{::lint($interval = $dt->diffAsCarbonInterval($dt->copy()->subYears(3), false);)}}
+// diffAsCarbonInterval use same arguments as diff($other, $absolute)
+// (native method from \DateTime)
+// except $absolute is true by default for diffAsCarbonInterval and false for diff
+// $absolute parameter allow to get signed value if false, or always positive if true
 {{::exec(echo ($interval->invert ? 'minus ' : 'plus ') . $interval->years;/*pad(70)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account, that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24 hours long.</p>
+    <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account,
+        that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24
+        hours long.</p>
 
-<p><pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
+    <p>
+    <pre><code class="php">{{::lint($date = new DateTime('2014-03-30 00:00:00', new DateTimeZone('Europe/London'));/*pad(65)*/)}} // DST off
 {{::exec(echo $date->modify('+25 hours')->format('H:i');/*pad(65)*/)}} // {{eval}} (DST on, 24 hours only have been actually added)
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works with <em>real</em> hours using timestamp:</p>
+    <p>Carbon follow this behavior too for add/sub/diff seconds/minutes/hours. But we provide methods to works with <em>real</em>
+        hours using timestamp:</p>
 
-<p><pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
+    <p>
+    <pre><code class="php">{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}} // DST off
 {{::exec(echo $date->addRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST on)
 {{::exec(echo $date->diffInRealHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInHours('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
@@ -1052,14 +1897,20 @@ $dt = Carbon::createMidnightDate(2020, 2, 29);)}}
 {{::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInRealMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>The same way you can use <code>addRealMinutes()</code>, <code>subRealMinutes()</code>, <code>addRealSeconds()</code>, <code>subRealSeconds()</code>, and all their singular shortcuts: <code>addRealHour()</code>, <code>subRealHour()</code>, <code>addRealMinute()</code>, <code>subRealMinute()</code>, <code>addRealSecond()</code>, <code>subRealSecond()</code>.</p>
+    <p>The same way you can use <code>addRealX()</code> and <code>subRealX()</code> on any unit.</p>
 
-<p>There are also special filter functions <code>diffInDaysFiltered()</code>,  <code>diffInHoursFiltered()</code> and <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval.  For example to count the weekend days between two instances:</p>
+    <p>There are also special filter functions <code>diffInDaysFiltered()</code>, <code>diffInHoursFiltered()</code> and
+        <code>diffFiltered()</code>, to help you filter the difference by days, hours or a custom interval. For example
+        to count the weekend days between two instances:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::create(2014, 1, 1);
 $dt2 = Carbon::create(2014, 12, 31);
 $daysForExtraCoding = $dt->diffInDaysFiltered(function(Carbon $date) {
@@ -1102,13 +1953,16 @@ $date2 = Carbon::createMidnightDate(2017, 3, 15);
 {{::exec(echo $date1->diffInWeeks($date2);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $date1->diffInMonths($date2);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $date1->diffInYears($date2);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
+    <p>All diffIn*Filtered method take 1 callable filter as required parameter and a date object as optional second
+        parameter, if missing, now is used. You may also pass true as third parameter to get absolute values.</p>
 
-<p id="weekend">For advanced handle of the week/weekend days, use the following tools:</p>
+    <p id="weekend">For advanced handle of the week/weekend days, use the following tools:</p>
 
-<p><pre><code class="php">{{::exec(echo implode(', ', Carbon::getDays());/*pad(60)*/)}} // {{eval}}
+    <p>
+    <pre><code class="php">{{::exec(echo implode(', ', Carbon::getDays());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
 $saturday = new Carbon('first saturday of 2019');
@@ -1122,10 +1976,10 @@ $monday = new Carbon('first monday of 2019');
 {{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
-Carbon::setWeekendDays(array(
+Carbon::setWeekendDays([
     Carbon::SUNDAY,
     Carbon::MONDAY,
-));
+]);
 )}}
 
 {{::exec(echo implode(', ', Carbon::getWeekendDays());/*pad(60)*/)}} // {{eval}}
@@ -1134,10 +1988,10 @@ Carbon::setWeekendDays(array(
 {{::exec(var_dump($monday->isWeekend());/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
-Carbon::setWeekendDays(array(
+Carbon::setWeekendDays([
     Carbon::SATURDAY,
     Carbon::SUNDAY,
-));
+]);
 // weekend days and start/end of week or not linked
 Carbon::setWeekStartsAt(Carbon::FRIDAY);
 Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to precede the start
@@ -1149,53 +2003,83 @@ Carbon::setWeekEndsAt(Carbon::WEDNESDAY); // and it does not need neither to pre
 {{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
 
 {{::lint(
+// Be very careful with those global setters, remember, some other
+// code or third-party library in your app may expect initial weekend
+// days to work properly.
 Carbon::setWeekStartsAt(Carbon::MONDAY);
 Carbon::setWeekEndsAt(Carbon::SUNDAY);
 )}}
 
 {{::exec(echo $saturday->copy()->startOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
 {{::exec(echo $saturday->copy()->endOfWeek()->toRfc850String();/*pad(60)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<h1 id="api-humandiff">Difference for Humans</h1>
+    <h1 id="api-humandiff">Difference for Humans</h1>
 
-<p>It is easier for humans to read <code>1 month ago</code> compared to 30 days ago.  This is a common function seen in most date libraries so I thought I would add it here as well. The lone argument for the function is the other Carbon instance to diff against, and of course it defaults to <code>now()</code> if not specified.</p>
+    <p>It is easier for humans to read <code>1 month ago</code> compared to 30 days ago. This is a common function seen
+        in most date libraries so I thought I would add it here as well. The lone argument for the function is the other
+        Carbon instance to diff against, and of course it defaults to <code>now()</code> if not specified.</p>
 
-<p>This method will add a phrase after the difference value relative to the instance and the passed in instance.  There are 4 possibilities:</p>
+    <p>This method will add a phrase after the difference value relative to the instance and the passed in instance.
+        There are 4 possibilities:</p>
 
-<ul>
-   <li>When comparing a value in the past to default now:
-   <ul>
-      <li>1 hour ago</li>
-      <li>5 months ago</li>
-   </ul>
-   </li>
-   <li>When comparing a value in the future to default now:
-   <ul>
-      <li>1 hour from now</li>
-      <li>5 months from now</li>
-   </ul>
-   </li>
-   <li>When comparing a value in the past to another value:
-   <ul>
-      <li>1 hour before</li>
-      <li>5 months before</li>
+    <ul>
+        <li>When comparing a value in the past to default now:
+            <ul>
+                <li>1 hour ago</li>
+                <li>5 months ago</li>
+            </ul>
+        </li>
+        <li>When comparing a value in the future to default now:
+            <ul>
+                <li>1 hour from now</li>
+                <li>5 months from now</li>
+            </ul>
+        </li>
+        <li>When comparing a value in the past to another value:
+            <ul>
+                <li>1 hour before</li>
+                <li>5 months before</li>
+            </ul>
+        </li>
+        <li>When comparing a value in the future to another value:
+            <ul>
+                <li>1 hour after</li>
+                <li>5 months after</li>
+            </ul>
+        </li>
     </ul>
-   </li>
-   <li>When comparing a value in the future to another value:
-   <ul>
-      <li>1 hour after</li>
-      <li>5 months after</li>
-   </ul>
-   </li>
-</ul>
 
-<p>You may also pass <code>true</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc : <code>diffForHumans($other, true)</code>.</p>
-<p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other, false, true)</code>.</p>
-<p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise diff) : <code>diffForHumans($other, false, false, 4)</code>.</p>
-<p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is passed, <code>Carbon::now()</code> will be used instead.</p>
+    <p>You may also pass <code>CarbonInterface::DIFF_ABSOLUTE</code> as a 2nd parameter to remove the modifiers <i>ago</i>, <i>from now</i>, etc :
+        <code>diffForHumans($other, CarbonInterface::DIFF_ABSOLUTE)</code>, <code>CarbonInterface::DIFF_RELATIVE_TO_NOW</code>
+        to get modifiers <i>ago</i>or <i>from now</i>, <code>CarbonInterface::DIFF_RELATIVE_TO_OTHER</code> to get the modifiers
+        <i>before</i>or <i>after</i> or <code>CarbonInterface::DIFF_RELATIVE_AUTO</code> (default mode) to get the modifiers
+        either <i>ago</i>/<i>from now</i> if the 2 second argument is null or <i>before</i>/<i>after</i> if not.</p>
+    <p>You may pass <code>true</code> as a 3rd parameter to use short syntax if available in the locale used : <code>diffForHumans($other,
+        CarbonInterface::DIFF_RELATIVE_AUTO, true)</code>.</p>
+    <p>You may pass a number between 1 and 6 as a 4th parameter to get the difference in multiple parts (more precise
+        diff) : <code>diffForHumans($other, CarbonInterface::DIFF_RELATIVE_AUTO, false, 4)</code>.</p>
+    <p>The <code>$other</code> instance can be a DateTime, a Carbon instance or any object that implement
+        DateTimeInterface, if a string is passed it will be parsed to get a Carbon instance and if <code>null</code> is
+        passed, <code>Carbon::now()</code> will be used instead.</p>
+    <p>To avoid having too much argument and mix the order, you can use the verbose methods:</p>
 
-<p><pre><code class="php">// The most typical usage is for comments
+    <ul>
+        <li><code>shortAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longAbsoluteDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToNowDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>shortRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+        <li><code>longRelativeToOtherDiffForHumans(DateTimeInterface | null $other = null, int $parts = 1)</code></li>
+    </ul>
+
+    <p>PS: <code>$other</code> and <code>$parts</code> arguments can be swapped as need.</p>
+
+    <p>
+    <pre><code class="php">// The most typical usage is for comments
 // The instance is the date the comment was created and its being compared to default now()
 {{::exec(echo Carbon::now()->subDays(5)->diffForHumans();/*pad(62)*/)}} // {{eval}}
 
@@ -1209,49 +2093,105 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 {{::exec(echo Carbon::now()->addSeconds(5)->diffForHumans();/*pad(72)*/)}} // {{eval}}
 
 {{::exec(echo Carbon::now()->subDays(24)->diffForHumans();/*pad(72)*/)}} // {{eval}}
-{{::exec(echo Carbon::now()->subDays(24)->diffForHumans(null, true);/*pad(72)*/)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(24)->longAbsoluteDiffForHumans();/*pad(72)*/)}} // {{eval}}
 
 {{::exec(echo Carbon::parse('2019-08-03')->diffForHumans('2019-08-13');/*pad(72)*/)}} // {{eval}}
 {{::exec(echo Carbon::parse('2000-01-01 00:50:32')->diffForHumans('@946684800');/*pad(72)*/)}} // {{eval}}
 
-{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->diffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), false, false, 6);)}} // {{eval}}
-</code></pre></p>
+{{::exec(echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::create(2016, 6, 21, 0, 0, 0), 6);)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>You can also change the locale of the string using <code>Carbon::setLocale('fr')</code> before the diffForHumans() call.  See the <a href="#api-localization">localization</a> section for more detail.</p>
+    <p>You can also change the locale of the string using <code>$date->locale('fr')</code> before the
+        diffForHumans() call. See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-<p id="diff-for-humans-options">Options for diffForHumans() can be enabled/disabled with:</p>
+    <p id="diff-for-humans-options">Options can be passed as fifth argument of diffForHumans():</p>
 
-<p><pre><code class="php">{{::lint(Carbon::enableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}
-{{::lint(Carbon::disableHumanDiffOption(Carbon::NO_ZERO_DIFF);)}}
-{{::exec(var_dump((bool) (Carbon::getHumanDiffOptions() & Carbon::NO_ZERO_DIFF));)}} // {{eval}}</code></pre></p>
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(
+echo Carbon::now()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::NO_ZERO_DIFF);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::JUST_NOW);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, Carbon::ONE_DAY_WORDS);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+echo "\n";
 
-<p>Available options are:</p>
+{{::lint(// Options can be combined with pipes
+$date = Carbon::now();
+)}}
 
-<ul>
-    <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
-    <li><code>Carbon::JUST_NOW</code> disabled by default): turns diff from now to now into "just now"</li>
-    <li><code>Carbon::ONE_DAY_WORDS</code> (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"</li>
-    <li><code>Carbon::TWO_DAY_WORDS</code> (disabled by default): turns "2 days from now/ago" to "before yesterday/after </li>
-</ul>
+{{::exec(echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>Carbon::JUST_NOW, Carbon::ONE_DAY_WORDS and Carbon::TWO_DAY_WORDS are now only available with en and fr languages, other languages will fallback to previous behavior until missing translations are added.</p>
+    <p>If the argument is omitted or set to <code>null</code>, only <code>Carbon::NO_ZERO_DIFF</code> is enabled.
+        Available options are:</p>
 
-<p>Use the pipe operator to enable/disable multiple option at once, example: <code>Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS</code></p>
+    <ul>
+        <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
+        <li><code>Carbon::JUST_NOW</code> disabled by default): turns diff from now to now into "just now"</li>
+        <li><code>Carbon::ONE_DAY_WORDS</code> (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"
+        </li>
+        <li><code>Carbon::TWO_DAY_WORDS</code> (disabled by default): turns "2 days from now/ago" to "before
+            yesterday/after
+        </li>
+    </ul>
 
-<p>You also can use <code>setHumanDiffOptions($options)</code> to disable all options then activate only the ones passed as arguments.</p>
+    <p>Carbon::JUST_NOW, Carbon::ONE_DAY_WORDS and Carbon::TWO_DAY_WORDS are now only available with en and fr
+        languages, other languages will fallback to previous behavior until missing translations are added.</p>
 
-<h1 id="api-modifiers">Modifiers</h1>
+    <p>Use the pipe operator to enable/disable multiple option at once, example: <code>Carbon::ONE_DAY_WORDS |
+        Carbon::TWO_DAY_WORDS</code></p>
 
-<p>These group of methods perform helpful modifications to the current instance.  Most of them are self explanatory from their names... or at least should be.  You'll also notice that the startOfXXX(), next() and previous() methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59.</p>
+    <p>You also can use <code>Carbon::enableHumanDiffOption($option)</code>,
+        <code>Carbon::disableHumanDiffOption($option)</code>, <code>Carbon::setHumanDiffOptions($options)</code> to
+        change the default options and <code>Carbon::getHumanDiffOptions()</code>
+        to get default options but you should avoid using it as being static it may conflict with calls
+        from other code parts/third-party libraries.</p>
 
-<p>The only one slightly different is the <code>average()</code> function.  It moves your instance to the middle date between itself and the provided Carbon argument.</p>
+    <p>Aliases and reverse methods are provided for semantic purpose:</p>
 
-<p><pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+    <ul>
+        <li><code>from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
+        <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
+        <li><code>to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (inverse result, swap before and future diff)</li>
+        <li><code>until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to)</li>
+        <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted, now used instead)</li>
+        <li><code>toNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to with first argument omitted, now used instead)</li>
+    </ul>
+
+    <h1 id="api-modifiers">Modifiers</h1>
+
+    <p>These group of methods perform helpful modifications to the current instance. Most of them are self explanatory
+        from their names... or at least should be. You'll also notice that the startOfXXX(), next() and previous()
+        methods set the time to 00:00:00 and the endOfXXX() methods set the time to 23:59:59 for unit bigger than
+        days.</p>
+
+    <p>The only one slightly different is the <code>average()</code> function. It moves your instance to the middle date
+        between itself and the provided Carbon argument.</p>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
 {{::exec(echo $dt->startOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
 
 {{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
 {{::exec(echo $dt->endOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->startOf('second')->format('s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->endOf('second')->format('s.u');/*pad(50)*/)}} // {{eval}}
+// ->startOf() and ->endOf() are dynamic equivalents to those methods
 
 {{::lint($dt = Carbon::create(2012, 1, 31, 15, 32, 45);)}}
 {{::exec(echo $dt->startOfMinute();/*pad(50)*/)}} // {{eval}}
@@ -1353,13 +2293,57 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 {{::exec(echo Carbon::create(2018, 2, 23, 0, 0, 0)->previousWeekday();/*pad(80)*/)}} // {{eval}}
 {{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->nextWeekendDay();/*pad(80)*/)}} // {{eval}}
 {{::exec(echo Carbon::create(2018, 2, 21, 0, 0, 0)->previousWeekendDay();/*pad(80)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<h1 id="api-constants">Constants</h1>
+    <p>Rounding is also available for any unit:</p>
 
-<p>The following constants are defined in the Carbon class.</p>
+    <p>
+    <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->roundMillisecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
 
-<p><pre><code class="php">// These getters specifically return integers, ie intval()
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->roundSecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->floorSecond()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->roundMinute()->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->ceilMinute()->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+// and so on up to millennia!
+
+// precision rounding can be set, example: rounding to ten minutes
+{{::lint($dt = new Carbon('2012-01-31 15:32:15');)}}
+{{::exec(echo $dt->roundMinute(10)->format('H:i:s');/*pad(50)*/)}} // {{eval}}
+
+// and round, floor and ceil methods are shortcut for second rounding:
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->round()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->floor()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
+{{::exec(echo $dt->ceil()->format('H:i:s.u');/*pad(50)*/)}} // {{eval}}
+
+// you can also pass the unit dynamically (and still precision as second argument):
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->roundUnit('month', 2)->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->floorUnit('month')->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
+{{::lint($dt = new Carbon('2012-01-31');)}}
+{{::exec(echo $dt->ceilUnit('month', 4)->format('Y-m-d');/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <h1 id="api-constants">Constants</h1>
+
+    <p>The following constants are defined in the Carbon class.</p>
+
+    <p>
+    <pre><code class="php">// These getters specifically return integers, ie intval()
 {{::exec(var_dump(Carbon::SUNDAY);/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::MONDAY);/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::TUESDAY);/*pad(50)*/)}} // {{eval}}
@@ -1376,21 +2360,25 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
 {{::exec(var_dump(Carbon::HOURS_PER_DAY);/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::MINUTES_PER_HOUR);/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::SECONDS_PER_MINUTE);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::createFromDate(2012, 10, 6);
 if ($dt->dayOfWeek === Carbon::SATURDAY) {
     echo 'Place bets on Ottawa Senators Winning!';
 }
 )}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<h1 id="api-serialization">Serialization</h1>
+    <h1 id="api-serialization">Serialization</h1>
 
-<p>The Carbon instances can be serialized.</p>
+    <p>The Carbon instances can be serialized (including CarbonImmutable, CarbonInterval and CarbonPeriod).</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 )}}
 
@@ -1406,13 +2394,15 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
 // same as:
 {{::exec(echo Carbon::fromSerialized($dt)->format('Y-m-d\TH:i:s.uP T');/*pad(65)*/)}} // {{eval}}
 
-</code></pre></p>
+</code></pre>
+    </p>
 
-<h1 id="api-json">JSON</h1>
+    <h1 id="api-json">JSON</h1>
 
-<p>The Carbon instances can be encoded to and decoded from JSON (these feature is available only from PHP 5.4+, see below notes about PHP 5.3).</p>
+    <p>The Carbon instances can be encoded to and decoded from JSON.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 )}}
 {{::exec(echo json_encode($dt);)}}
@@ -1424,108 +2414,88 @@ $dt = Carbon::__set_state(json_decode($json, true));
 )}}
 {{::exec(echo $dt->format('Y-m-d\TH:i:s.uP T');)}}
 // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
+    <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow')->settings([
+    'toJsonFormat' => function ($date) {
+        return $date->getTimestamp();
+    },
+]);
+)}}
+{{::exec(echo json_encode($dt);)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>If you wan to apply this globally, first consider using factory, else or i you use Carbon 1 you can use:</p>
+
+    <p>
+    <pre><code class="php">{{::lint(
 $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
 Carbon::serializeUsing(function ($date) {
-    return $date->getTimestamp();
+    return $date->valueOf();
 });
 )}}
-{{::exec(echo json_encode($dt);)}}
-/*
-{{eval}}
-*/
+{{::exec(echo json_encode($dt);)}} // {{eval}}
 
 // Call serializeUsing with null to reset the serializer:
 {{::lint(
 Carbon::serializeUsing(null);
 )}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>The <code>jsonSerialize()</code> method returns the intermediate turned into string by `json_encode`, it can also allow you to work with PHP 5.3 compatibility.</p>
+    <p>The <code>jsonSerialize()</code> method allow you to call the function given to
+        <code>Carbon::serializeUsing()</code> or the result of <code>toJson()</code> if no custom
+        serialization specified.</p>
 
-<p><pre><code class="php">{{::lint(
-$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow');
-)}}
-{{::exec(echo json_encode($dt->jsonSerialize());)}}
-// {{eval}}
-// This is equivalent to the first json_encode example but works with PHP 5.3.
+    <h1 id="api-macro">Macro</h1>
 
-// And it can be used separately:
-{{::exec(var_dump($dt->jsonSerialize());)}}
-// {{eval}}
-</code></pre></p>
+    <p>You may be familiar with the macro concept if you are used to work with Laravel and objects such as <a
+            href="https://laravel.com/docs/5.6/responses#response-macros">response</a> or <a
+            href="https://laravel.com/docs/5.6/collections#extending-collections">collections</a>. The Carbon <code>macro()</code>
+        works the exact same way than the Laravel MacroableTrait one, it take a method name as first argument and a
+        closure as second. This make the closure action available on all Carbon instance (and also as Carbon static
+        method) as a method with the given name.</p>
 
-<h1 id="api-macro">Macro</h1>
-
-<p>You may be familiar with the macro concept if you are used to work with Laravel and objects such as <a href="https://laravel.com/docs/5.6/responses#response-macros">response</a> or <a href="https://laravel.com/docs/5.6/collections#extending-collections">collections</a>. The Carbon <code>macro()</code> works the exact same way than the Laravel MacroableTrait one, it take a method name as first argument and a closure as second. This make the closure action available on all Carbon instance (and also as Carbon static method) as a method with the given name.</p>
-
-<p>From PHP 5.4, <code>$this</code> can be used in closures to refer the current instance. For PHP 5.3 compatibility, we also add a `$self` attribute to the closure. Example:</p>
-
-<p><pre><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $self = null) {
-    // this chunk is needed to be compatible on both stand-alone Carbon with PHP versions < 5.4 and Laravel
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-    // end of the compatibility chunk
-
-    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), false, false, 3);
-});
-)}}
-{{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
-</code></pre></p>
-
-<p>The compatibility chunk allow you to ensure a full compatibility for your macro. A macro on <code>Illuminate\Support\Carbon</code> (the Laravel wrapper class), <code>$self</code> will not be defined, and as mentioned above in PHP 5.3 <code>$this</code> will not be defined. So to make your macros work everywhere, just paste this if-statement testing if <code>$this</code> is defined but not <code>$self</code> and copying it if so, then use <code>$self</code> in your function body.</p>
-
-<p>No matter if you omit some optional arguments as long as <code>$self</code> has exactly this name and is the last argument:</p>
-
-<p><pre><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1, $self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return $self->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
+    return $this->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 )}}
 
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
+    <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            return $self->modify('next wednesday');
+        return function () {
+            return $this->modify('next wednesday');
         };
     }
 
     public function previousBeerDay()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            return $self->modify('previous wednesday');
+        return function () {
+            return $this->modify('previous wednesday');
         };
     }
 }
@@ -1536,46 +2506,93 @@ $date = Carbon::parse('First saturday of December 2018');
 )}}
 
 {{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
+    <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
 
-<p><pre><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::hasMacro('diffFromYear'));/*pad(78)*/)}} // {{eval}}
+echo "\n";
 {{::exec(var_dump(Carbon::hasMacro('dontKnowWhat'));/*pad(78)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>And guess what? all macro methods are also available on <a href="#api-interval"><code>CarbonInterval</code></a> and <a href="#api-period"><code>CarbonPeriod</code></a> classes.</p>
+    <p>Macro starting with <code>get</code> followed by an uppercase letter will automatically provide a dynamic
+        getter, and same for <code>set</code> providing a dynamic setter:</p>
 
-<p><pre><code class="php">{{::lint(
-CarbonInterval::macro('twice', function ($self = null) {
-    return $self->times(2);
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(// Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
+// Then you can create get/set method this way:
+Carbon::macro('setSchoolYear', function ($schoolYear) {
+    $this->year = $schoolYear;
+    if ($this->month > 7) {
+        $this->year--;
+    }
+});
+Carbon::macro('getSchoolYear', function () {
+    $schoolYear = $this->year;
+    if ($this->month > 7) {
+        $schoolYear++;
+    }
+
+return $schoolYear;
+});
+// This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
+// getter and setter for the ->schoolYear property
+
+$date = Carbon::parse('2016-06-01');
+)}}
+
+{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
+{{::lint($date->addMonths(3);)}}
+{{::exec(var_dump($date->schoolYear);/*pad(46)*/)}} // {{eval}}
+{{::lint($date->schoolYear++;)}}
+{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
+{{::lint($date->schoolYear = 2020;)}}
+{{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>And guess what? all macro methods are also available on <a href="#api-interval"><code>CarbonInterval</code></a>
+        and <a href="#api-period"><code>CarbonPeriod</code></a> classes.</p>
+
+    <p>
+    <pre><code class="php">{{::lint(
+CarbonInterval::macro('twice', function () {
+    return $this->times(2);
 });
 )}}
-{{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(72)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::hours(2)->minutes(15)->twice()->forHumans(true);/*pad(72)*/)}} // {{eval}}
-</code></pre></p>
+{{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(42)*/)}} // {{eval}}
+{{::lint($interval = CarbonInterval::hours(2)->minutes(15)->twice();)}}
+{{::exec(echo $interval->forHumans(true);/*pad(42)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p><pre><code class="php">{{::lint(
-CarbonPeriod::macro('countWeekdays', function ($self = null) {
-    return $self->filter('isWeekday')->count();
+    <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
+        <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
+    </p>
+
+    <p>
+    <pre><code class="php">{{::lint(
+CarbonPeriod::macro('countWeekdays', function () {
+    return $this->filter('isWeekday')->count();
 });
 )}}
 {{::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{eval}}
 {{::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Here are some useful macros proposed by the community:</p>
+    <p>Here are some useful macros proposed by the community:</p>
 
-<p><pre><code class="php">{{::lint(
-Carbon::macro('isHoliday', function ($self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return in_array($self->format('d/m'), [
+    <p>
+    <pre><code class="php">{{::lint(
+Carbon::macro('isHoliday', function () {
+    return in_array($this->format('d/m'), [
         '25/12', // Christmas
         '01/01', // New Year
         // ...
@@ -1585,13 +2602,17 @@ Carbon::macro('isHoliday', function ($self = null) {
 {{::exec(var_dump(Carbon::createMidnightDate(2012, 12, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createMidnightDate(2017, 6, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());/*pad(65)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a
+            href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
 
-<p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete business days handler.</p>
+    <p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete business
+        days handler.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 Class CurrentDaysCarbonMixin
 {
     /**
@@ -1601,14 +2622,9 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentWeekDays()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            $startOfWeek = ($self ?: static::now())->startOfWeek()->subDay();
-            $weekDays = array();
+        return function () {
+            $startOfWeek = (isset($this) ? $this : static::now())->startOfWeek()->subDay();
+            $weekDays = [];
 
             for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
                 $weekDays[] = $startOfWeek->addDay()->startOfDay()->copy();
@@ -1625,15 +2641,10 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentMonthDays()
     {
-        return function ($self = null) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
-            $startOfMonth = ($self ?: static::now())->startOfMonth()->subDay();
-            $endOfMonth = ($self ?: static::now())->endOfMonth()->format('d');
-            $monthDays = array();
+        return function () {
+            $startOfMonth = (isset($this) ? $this : static::now())->startOfMonth()->subDay();
+            $endOfMonth = (isset($this) ? $this : static::now())->endOfMonth()->format('d');
+            $monthDays = [];
 
             for ($i = 0; $i < $endOfMonth; $i++)
             {
@@ -1656,26 +2667,27 @@ function dumpDateList($dates) {
 {{::exec(dumpDateList(Carbon::getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
 {{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentWeekDays());/*pad(65)*/)}} // {{eval}}
 {{::exec(dumpDateList(Carbon::now()->subMonth()->getCurrentMonthDays());/*pad(65)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/meteguerlek">meteguerlek</a> (<a
+            href="https://github.com/briannesbitt/Carbon/pull/1191">#1191</a>).</em></p>
 
-<p><pre><code class="php">{{::lint(
-Carbon::macro('toAtomStringWithNoTimezone', function ($self = null) {
-    // compatibility chunk
-    if (!isset($self) && isset($this)) {
-        $self = $this;
-    }
-
-    return $self->format('Y-m-d\TH:i:s');
+    <p>
+    <pre><code class="php">{{::lint(
+Carbon::macro('toAtomStringWithNoTimezone', function () {
+    return $this->format('Y-m-d\TH:i:s');
 });
 )}}
 {{::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/afrojuju1">afrojuju1</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1063">#1063</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/afrojuju1">afrojuju1</a> (<a
+            href="https://github.com/briannesbitt/Carbon/pull/1063">#1063</a>).</em></p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 Carbon::macro('easterDate', function ($year) {
     return Carbon::createMidnightDate($year, 3, 21)->addDays(easter_days($year));
 });
@@ -1685,13 +2697,17 @@ Carbon::macro('easterDate', function ($year) {
 {{::exec(echo Carbon::easterDate(2017)->format('d/m');)}} // {{eval}}
 {{::exec(echo Carbon::easterDate(2018)->format('d/m');)}} // {{eval}}
 {{::exec(echo Carbon::easterDate(2019)->format('d/m');)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a> (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/andreisena">andreisena</a>, <a href="https://github.com/36864">36864</a>
+        (<a href="https://github.com/briannesbitt/Carbon/pull/1052">#1052</a>).</em></p>
 
-<p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete holidays handler.</p>
+    <p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete holidays
+        handler.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 Carbon::macro('range', function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 });
@@ -1701,11 +2717,14 @@ Carbon::macro('range', function ($startDate, $endDate) {
 })}}
 /*
 {{eval}}*/
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/reinink">reinink</a> (<a
+            href="https://github.com/briannesbitt/Carbon/pull/132">#132</a>).</em></p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 class UserTimezoneCarbonMixin
 {
     public $userTimeZone;
@@ -1737,17 +2756,12 @@ class UserTimezoneCarbonMixin
     {
         $mixin = $this;
 
-        return function ($format, $self = null) use ($mixin) {
-            // compatibility chunk
-            if (!isset($self) && isset($this)) {
-                $self = $this;
-            }
-
+        return function ($format) use ($mixin) {
             if (!is_null($mixin->userTimeZone)) {
-                $self->timezone($mixin->userTimeZone);
+                $this->timezone($mixin->userTimeZone);
             }
 
-            return $self->format($format);
+            return $this->format($format);
         };
     }
 }
@@ -1763,43 +2777,62 @@ Carbon::setUserTimezone('America/Toronto');
 )}}
 {{::exec(echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
 {{::exec(echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i');)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><em>Credit: <a href="https://github.com/thiagocordeiro">thiagocordeiro</a> (<a href="https://github.com/briannesbitt/Carbon/pull/927">#927</a>).</em></p>
+    <p><em>Credit: <a href="https://github.com/thiagocordeiro">thiagocordeiro</a> (<a
+            href="https://github.com/briannesbitt/Carbon/pull/927">#927</a>).</em></p>
 
-<h1 id="api-interval">CarbonInterval</h1>
+    <h1 id="api-interval">CarbonInterval</h1>
 
-<p>The CarbonInterval class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
+    <p>The CarbonInterval class is <a href="http://php.net/manual/en/keyword.extends.php">inherited</a> from the PHP <a
+            href="http://php.net/manual/en/class.dateinterval.php">DateInterval</a> class.</p>
 
-<p><pre><code class="php">&lt;?php
+    <p>
+    <pre><code class="php">&lt;?php
 class CarbonInterval extends \DateInterval
 {
     // code here
 }
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can create an instance in the following ways:</p>
+    <p>You can create an instance in the following ways:</p>
 
-<p><pre><code class="php">{{cicreate1::exec(
-echo CarbonInterval::year();/*pad(54)*/)}} // {{cicreate1_eval}}
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec(
+echo CarbonInterval::year();/*pad(54)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo CarbonInterval::days(3)->seconds(32);/*pad(54)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo CarbonInterval::weeks(3);/*pad(54)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo CarbonInterval::days(23);/*pad(54)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+echo "\n";
+{{::exec(echo CarbonInterval::createFromDateString('3 months');/*pad(54)*/)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not!  You can create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
+    <p>If you find yourself inheriting a <code>\DateInterval</code> instance from another library, fear not! You can
+        create a <code>CarbonInterval</code> instance via a friendly <code>instance()</code> function.</p>
 
-<p><pre><code class="php">{{::lint($di = new \DateInterval('P1Y2M');)}} // <== instance from another API
+    <p>
+    <pre><code class="php">{{::lint($di = new \DateInterval('P1Y2M');)}} // <== instance from another API
 {{::lint($ci = CarbonInterval::instance($di);)}}
 {{::exec(echo get_class($ci);/*pad(54)*/)}} // '{{eval}}'
 {{::exec(echo $ci;/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved.  Weeks are calculated based on the total days of the current instance.</p>
+    <p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved. Weeks are
+        calculated based on the total days of the current instance.</p>
 
-<p><pre><code class="php">{{cihelper1::exec(
+    <p>
+    <pre><code class="php">{{cihelper1::exec(
 echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{::exec(echo CarbonInterval::year()->dayz;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::days(24)->dayz;/*pad(54)*/)}} // {{eval}}
@@ -1807,36 +2840,49 @@ echo CarbonInterval::year()->years;/*pad(54)*/)}} // {{cihelper1_eval}}
 {{::exec(echo CarbonInterval::weeks(3)->days(14)->weeks;/*pad(54)*/)}} // {{eval}}  <-- days setter overwrites the current value
 {{::exec(echo CarbonInterval::weeks(3)->weeks;/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::minutes(3)->weeksAndDays(2, 5);/*pad(54)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>CarbonInterval extends DateInterval and you can create both using <a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
+    <p>CarbonInterval extends DateInterval and you can create both using <a
+            href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO-8601 duration format</a>:</p>
 
-<p><pre><code class="php">$ci = CarbonInterval::create('P1Y2M3D');
-$ci = new CarbonInterval('PT0S');
-</code></pre></p>
+    <p>
+    <pre><code class="php">{{::lint($ci = CarbonInterval::create('P1Y2M3D');)}}
+{{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
+{{::lint($ci = new CarbonInterval('PT0S');)}}
+{{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
+    <p>Carbon intervals can be created from human-friendly strings thanks to <code>fromString()</code> method.</p>
 
-<p><pre><code class="php">CarbonInterval::fromString('2 minutes 15 seconds');
-CarbonInterval::fromString('2m 15s'); // or abbreviated
-</code></pre></p>
+    <p>
+    <pre><code class="php">{{::lint(CarbonInterval::fromString('2 minutes 15 seconds');
+CarbonInterval::fromString('2m 15s'); // or abbreviated)}}
+</code></pre>
+    </p>
 
-<p>Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.</p>
+    <p>Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.</p>
 
-<p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation, that prints the interval for humans.</p>
+    <p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation,
+        that prints the interval for humans.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 CarbonInterval::setLocale('fr');)}}
 {{::exec(echo CarbonInterval::create(2, 1)->forHumans();/*pad(54)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{eval}}
 {{::lint(CarbonInterval::setLocale('en');)}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
+    <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
 
-<p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or strings:</p>
+    <p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or
+        strings:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $dateInterval = new DateInterval('P2D');
 $carbonInterval = CarbonInterval::month();
 )}}
@@ -1846,48 +2892,57 @@ $carbonInterval = CarbonInterval::month();
 {{::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{eval}}
 // Pass true to get short format
 {{::exec(echo CarbonInterval::make('1h 15m')->forHumans(true);/*pad(60)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
+    <p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $interval = CarbonInterval::make('7h 55m');
 $interval->add(CarbonInterval::make('17h 35m'));
 $interval->times(3);
 )}}
 {{::exec(echo $interval->forHumans();)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use the cascade method:</p>
+    <p>You get pure calculation from your input unit by unit. To cascade minutes into hours, hours into days etc. Use
+        the cascade method:</p>
 
-<p><pre><code class="php">
+    <p>
+    <pre><code class="php">
 {{::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Default factors are:</p>
+    <p>Default factors are:</p>
 
-<ul>
-    <li>1 minute = 60 seconds</li>
-    <li>1 hour = 60 minutes</li>
-    <li>1 day = 24 hour</li>
-    <li>1 week = 7 days</li>
-    <li>1 month = 4 weeks</li>
-    <li>1 year = 12 months</li>
-</ul>
+    <ul>
+        <li>1 minute = 60 seconds</li>
+        <li>1 hour = 60 minutes</li>
+        <li>1 day = 24 hour</li>
+        <li>1 week = 7 days</li>
+        <li>1 month = 4 weeks</li>
+        <li>1 year = 12 months</li>
+    </ul>
 
-<p>CarbonIntervals do not carry context so they cannot be more precise (no DST, no leap year, no real month length or year length consideration). But you can completely customize those factors. For example to deal with work time logs:</p>
+    <p>CarbonIntervals do not carry context so they cannot be more precise (no DST, no leap year, no real month length
+        or year length consideration). But you can completely customize those factors. For example to deal with work
+        time logs:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $cascades = CarbonInterval::getCascadeFactors(); // save initial factors
 
-CarbonInterval::setCascadeFactors(array(
-    'minute' => array(60, 'seconds'),
-    'hour' => array(60, 'minutes'),
-    'day' => array(8, 'hours'),
-    'week' => array(5, 'days'),
+CarbonInterval::setCascadeFactors([
+    'minute' => [60, 'seconds'],
+    'hour' => [60, 'minutes'],
+    'day' => [8, 'hours'],
+    'week' => [5, 'days'],
     // in this example the cascade won't go farther than week unit
-));
+]);
 )}}
 
 {{::exec(echo CarbonInterval::fromString('20h')->cascade()->forHumans();/*pad(76)*/)}} // {{eval}}
@@ -1901,35 +2956,46 @@ CarbonInterval::setCascadeFactors(array(
 // And common factors can be get with short-cut methods:
 {{::exec(echo CarbonInterval::getDaysPerWeek();/*pad(76)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::getHoursPerDay();/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::getMinutesPerHours();/*pad(76)*/)}} // {{eval}}
-{{::exec(echo CarbonInterval::getSecondsPerMinutes();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getMinutesPerHour();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getSecondsPerMinute();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getMillisecondsPerSecond();/*pad(76)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::getMicrosecondsPerMillisecond();/*pad(76)*/)}} // {{eval}}
 
 {{::lint(
 CarbonInterval::setCascadeFactors($cascades); // restore original factors
 )}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
+    <p>Is it possible to convert an interval into a given unit (using provided cascade factors).</p>
 
-<p><pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{eval}}
+    <p>
+    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->total('hours');/*pad(58)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::days(3)->hours(5)->totalHours;/*pad(58)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::months(6)->totalWeeks;/*pad(58)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::year()->totalDays;/*pad(58)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
+    <p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
 
-<p><pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{eval}}
-</code></pre></p>
+    <p>
+    <pre><code class="php">{{::exec(echo CarbonInterval::days(3)->hours(5)->spec();)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>It's also possible to get it from a DateInterval object since to the static helper:</p>
+    <p>It's also possible to get it from a DateInterval object since to the static helper:</p>
 
-<p><pre><code class="php">{{::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{eval}}
-</code></pre></p>
+    <p>
+    <pre><code class="php">{{::exec(echo CarbonInterval::getDateIntervalSpec(new DateInterval('P3DT6M10S'));)}} // {{eval}}
+</code></pre>
+    </p>
 
-<p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code> methods:</p>
+    <p>List of date intervals can be sorted thanks to the <code>compare()</code> and <code>compareDateIntervals()</code>
+        methods:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $halfDay = CarbonInterval::hours(12);
 $oneDay = CarbonInterval::day();
 $twoDay = CarbonInterval::days(2);
@@ -1943,22 +3009,26 @@ $twoDay = CarbonInterval::days(2);
 {{::exec(echo $oneDay->compare($twoDay);/*pad(62)*/)}} // {{eval}}
 
 {{::lint(
-$list = array($twoDay, $halfDay, $oneDay);
-usort($list, array('Carbon\CarbonInterval', 'compareDateIntervals'));
+$list = [$twoDay, $halfDay, $oneDay];
+usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 )}}
 
 {{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling <code>toPeriod()</code> with complementary arguments.</p>
+    <p>Last, a CarbonInterval instance can be converted into a CarbonPeriod instance by calling <code>toPeriod()</code>
+        with complementary arguments.</p>
 
-<p>I hear you ask what is a CarbonPeriod instance. Oh! Perfect transition to our next chapter.</p>
+    <p>I hear you ask what is a CarbonPeriod instance. Oh! Perfect transition to our next chapter.</p>
 
-<h1 id="api-period">CarbonPeriod</h1>
+    <h1 id="api-period">CarbonPeriod</h1>
 
-<p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a> with many shortcuts.</p>
+    <p>CarbonPeriod is a human-friendly version of the <a href="http://php.net/manual/en/class.dateperiod.php">DatePeriod</a>
+        with many shortcuts.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 // Create a new instance:
 $period = new CarbonPeriod('2018-04-21', '3 days', '2018-04-27');
 // Use static constructor:
@@ -1968,22 +3038,30 @@ $period = CarbonPeriod::since('2018-04-21')->days(3)->until('2018-04-27');
 // Start from a CarbonInterval:
 $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
 )}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>A CarbonPeriod can be constructed in a number of ways:</p>
-<ul>
-	<li>start date, end date and optional interval (by default 1 day),</li>
-	<li>start date, number of recurrences and optional interval,</li>
-	<li>an ISO 8601 interval specification.</li>
-</ul>
+    <p>A CarbonPeriod can be constructed in a number of ways:</p>
+    <ul>
+        <li>start date, end date and optional interval (by default 1 day),</li>
+        <li>start date, number of recurrences and optional interval,</li>
+        <li>an ISO 8601 interval specification.</li>
+    </ul>
 
-<p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings, for example "next monday". Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval specification like "P4D", or human readable string, for example "4 days".</p>
+    <p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings,
+        for example "next monday". Interval can be given as DateInterval/CarbonInterval instance, ISO 8601 interval
+        specification like "P4D", or human readable string, for example "4 days".</p>
 
-<p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so if you want to be more precise the fluent syntax is recommended. On the other hand you can pass dynamic array of values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given array as a list of arguments.</p>
+    <p>Default constructor and <code>create()</code> methods are very forgiving in terms of argument types and order, so
+        if you want to be more precise the fluent syntax is recommended. On the other hand you can pass dynamic array of
+        values to <code>createFromArray()</code> which will do the job of constructing a new instance with the given
+        array as a list of arguments.</p>
 
-<p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It means that it can be passed directly to a <code>foreach</code> loop:</p>
+    <p>CarbonPeriod implements the <a href="http://php.net/manual/en/class.iterator.php">Iterator</a> interface. It
+        means that it can be passed directly to a <code>foreach</code> loop:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 )}}
 {{::exec(
@@ -1995,6 +3073,7 @@ foreach ($period as $key => $date) {
 }
 )}}
 // {{eval}}
+echo "\n";
 
 // Here is what happens under the hood:
 {{::exec(
@@ -2008,13 +3087,15 @@ while ($period->valid()) { // check if current item is valid
 }
 )}}
 // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Parameters can be modified during the iteration:</p>
+    <p>Parameters can be modified during the iteration:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2018-04-29', 7);
-$dates = array();
+$dates = [];
 foreach ($period as $key => $date) {
     if ($key === 3) {
         $period->invert()->start($date); // invert() is an alias for invertDateInterval()
@@ -2024,83 +3105,113 @@ foreach ($period as $key => $date) {
 )}}
 
 {{::exec(echo implode(', ', $dates);)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Just as DatePeriod, the CarbonPeriod supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO 8601 time interval specification</a>.</p>
+    <p>Just as DatePeriod, the CarbonPeriod supports <a href="https://en.wikipedia.org/wiki/ISO_8601#Time_intervals">ISO
+        8601 time interval specification</a>.</p>
 
-<p>Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even more difficult to know the number of results. For that reason we changed the implementation slightly, and recurrences are treated as an overall limit for number of returned dates.</p>
+    <p>Note that the native DatePeriod treats recurrences as a number of times to repeat the interval. Thus it will give
+        one less result when the start date is excluded. Introduction of custom filters in CarbonPeriod made it even
+        more difficult to know the number of results. For that reason we changed the implementation slightly, and
+        recurrences are treated as an overall limit for number of returned dates.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 // Possible options are: CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE
 // Default value is 0 which will have the same effect as when no options are given.
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D', CarbonPeriod::EXCLUDE_START_DATE);
-$dates = array();
+$dates = [];
 foreach ($period as $date) {
     $dates[] = $date->format('m-d');
 }
 )}}
 
 {{::exec(echo implode(', ', $dates);)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can retrieve data from the period with variety of getters:</p>
+    <p>You can retrieve data from the period with variety of getters:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25', CarbonPeriod::EXCLUDE_START_DATE);
 
 $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 )}}
 
 {{::exec(echo $period->getStartDate();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
 {{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
 {{::exec(echo $period->toString();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period; /*implicit toString*//*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Additional getters let you access the results as an array:</p>
+    <p>Additional getters let you access the results as an array:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-11', '2010-05-13');
 )}}
 
 {{::exec(echo $period->count();/*pad(40)*/)}} // {{eval}}, equivalent to count($period)
+echo "\n";
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period->first();/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period->last();/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Note that if you intend to work using the above functions it's a good idea to store the result of <code>toArray()</code> call to a variable and use it instead, because each call performs a full iteration internally.</p>
+    <p>Note that if you intend to work using the above functions it's a good idea to store the result of
+        <code>toArray()</code> call to a variable and use it instead, because each call performs a full iteration
+        internally.</p>
 
-<p>To change the parameters you can use setter methods:</p>
+    <p>To change the parameters you can use setter methods:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-01', '2010-05-14', CarbonPeriod::EXCLUDE_END_DATE);
 )}}
 
 {{::lint($period->setStartDate('2010-05-11');)}}
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
 // Second argument can be optionally used to exclude the date from the results.
 {{::lint($period->setStartDate('2010-05-11', false);)}}
 {{::lint($period->setEndDate('2010-05-14', true);)}}
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
 {{::lint($period->setRecurrences(2);)}}
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 
 {{::lint($period->setDateInterval('PT12H');)}}
 {{::exec(echo implode(', ', $period->toArray());/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You can change options using <code>setOptions()</code> to replace all options but you also can change them separately:</p>
+    <p>You can change options using <code>setOptions()</code> to replace all options but you also can change them
+        separately:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 )}}
 
@@ -2118,13 +3229,18 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 {{::lint($period->excludeStartDate(false);/*pad(40)*/)}} // specify false to include, true or omit to exclude
 {{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
 {{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats recurrences as an overall limit for number of returned dates:</p>
+    <p>As mentioned earlier, per ISO 8601 specification, recurrences is a number of times the interval should be
+        repeated. The native DatePeriod will thus vary the number of returned dates depending on the exclusion of the
+        start date. Meanwhile CarbonPeriod being more forgiving in terms of input and allowing custom filters, treats
+        recurrences as an overall limit for number of returned dates:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $period = CarbonPeriod::createFromIso('R4/2012-07-01T00:00:00Z/P7D');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('d');
 }
@@ -2134,7 +3250,7 @@ foreach ($period as $date) {
 {{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
-$days = array();
+$days = [];
 $period->setRecurrences(3)->excludeStartDate();
 foreach ($period as $date) {
     $days[] = $date->format('d');
@@ -2145,7 +3261,7 @@ foreach ($period as $date) {
 {{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
 
 {{::lint(
-$days = array();
+$days = [];
 $period = CarbonPeriod::recurrences(3)->sinceNow();
 foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
@@ -2153,11 +3269,16 @@ foreach ($period as $date) {
 )}}
 
 {{::exec(echo implode(', ', $days);/*pad(40)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date, <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the iteration.</p>
+    <p>Dates returned by the DatePeriod can be easily filtered. Filters can be used for example to skip certain dates or
+        iterate only over working days or weekends. A filter function should return <code>true</code> to accept a date,
+        <code>false</code> to skip it but continue searching or <code>CarbonPeriod::END_ITERATION</code> to end the
+        iteration.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
     return $date->isWeekend();
@@ -2165,19 +3286,21 @@ $weekendFilter = function ($date) {
 $period->filter($weekendFilter);)}}
 
 {{::lint(
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 )}}
 {{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>You also can skip one or more value(s) inside the loop.</p>
+    <p>You also can skip one or more value(s) inside the loop.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-10');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $day = $date->format('m-d');
     $days[] = $day;
@@ -2187,22 +3310,27 @@ foreach ($period as $date) {
 }
 )}}
 {{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p><code>getFilters()</code> allow you to retrieve all the stored filters in a period. But be aware the recurrences limit and the end date will appear in the returned array as they are stored internally as filters.</p>
+    <p><code>getFilters()</code> allow you to retrieve all the stored filters in a period. But be aware the recurrences
+        limit and the end date will appear in the returned array as they are stored internally as filters.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $period = CarbonPeriod::end('2000-01-01')->recurrences(3);
 )}}
 {{::exec(var_export($period->getFilters());)}}
 /*
 {{eval}}
 */
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Filters are stored in a stack and can be managed using a special set of methods:</p>
+    <p>Filters are stored in a stack and can be managed using a special set of methods:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
 $period = CarbonPeriod::between('2000-01-01', '2000-01-15');
 $weekendFilter = function ($date) {
     return $date->isWeekend();
@@ -2223,13 +3351,20 @@ $weekendFilter = function ($date) {
 {{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
 {{::lint($period->removeFilter('weekend');)}}
 {{::exec(var_dump($period->hasFilter('weekend'));/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code> to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning. You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use <code>resetFilters()</code> method and then add new filters one by one.</p>
+    <p>Order in which filters are added can have an impact on the performance and on the result, so you can use <code>addFilter()</code>
+        to add a filter in the end of stack; and you can use <code>prependFilter()</code> to add one at the beginning.
+        You can even use <code>setFilters()</code> to replace all filters. Note that you'll have to keep correct format
+        of the stack and remember about internal filters for recurrences limit and end date. Alternatively you can use
+        <code>resetFilters()</code> method and then add new filters one by one.</p>
 
-<p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different if you add it before or after the weekday filter.</p>
+    <p>For example, when you add a custom filter that limits the number of attempted dates, the result will be different
+        if you add it before or after the weekday filter.</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 // Note that you can pass a name of any Carbon method starting with "is", including macros
 $period = CarbonPeriod::between('2018-05-03', '2018-05-25')->filter('isWeekday');
 )}}
@@ -2241,7 +3376,7 @@ $attemptsFilter = function () use (&$attempts) {
 };
 
 $period->prependFilter($attemptsFilter, 'attempts');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
@@ -2252,19 +3387,23 @@ foreach ($period as $date) {
 $attempts = 0;
 
 $period->removeFilter($attemptsFilter)->addFilter($attemptsFilter, 'attempts');
-$days = array();
+$days = [];
 foreach ($period as $date) {
     $days[] = $date->format('m-d');
 }
 )}}
 {{::exec(echo implode(', ', $days);/*pad(50)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is incremented only once per item, no matter how many dates have to be checked before a valid date is found. This trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
+    <p>Note that the built-in recurrences filter doesn't work this way. It is instead based on the current key which is
+        incremented only once per item, no matter how many dates have to be checked before a valid date is found. This
+        trick makes it work the same both if you put it at the beginning or at the end of the stack.</p>
 
-<p>A number of aliases has been added to simplify building the CarbonPeriod:</p>
+    <p>A number of aliases has been added to simplify building the CarbonPeriod:</p>
 
-<p><pre><code class="php">// "start", "since", "sinceNow":
+    <p>
+    <pre><code class="php">// "start", "since", "sinceNow":
 CarbonPeriod::start('2017-03-10') == CarbonPeriod::create()->setStartDate('2017-03-10');
 // Same with optional boolean argument $inclusive to change the option about include/exclude start date:
 CarbonPeriod::start('2017-03-10', true) == CarbonPeriod::create()->setStartDate('2017-03-10', true);
@@ -2293,45 +3432,67 @@ CarbonPeriod::invert() == CarbonPeriod::create()->invertDateInterval();
 // "year", "months", "month", "weeks", "week", "days", "dayz", "day",
 // "hours", "hour", "minutes", "minute", "seconds", "second":
 CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInterval::hours(5));
-</code></pre></p>
+</code></pre>
+    </p>
 
-<p>CarbonPeriod can be easily converted to a human readable string and ISO 8601 specification:</p>
+    <p>CarbonPeriod can be easily converted to a human readable string and ISO 8601 specification:</p>
 
-<p><pre><code class="php">{{::lint(
+    <p>
+    <pre><code class="php">{{::lint(
 $period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
 )}}
 {{::exec(echo $period->toString();/*pad(36)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo $period->toIso8601String();/*pad(36)*/)}} // {{eval}}
-</code></pre></p>
+</code></pre>
+    </p>
 
+    <p>Period use and return Carbon instance by default, bu you can easily set/get the date class to use
+        in order to get immutable dates for example or any class implementing CarbonInterface.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$period = new CarbonPeriod;
+$period->setDateClass(CarbonImmutable::class);
+$period->every('3 days 12 hours')->since('2000-01-01 12:00')->until('2000-01-15 12:00');
+)}}
+
+{{::exec(echo $period->getDateClass();/*pad(42)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $period->getStartDate();/*pad(42)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo get_class($period->getStartDate());/*pad(42)*/)}} // {{eval}}
+</code></pre>
+    </p>
 </div>
 
 <nav>
     <div class="col-md-3">
-      <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
-        <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
-          <li><a href="#api-introduction">Introduction</a></li>
-          <li><a href="#api-instantiation">Instantiation</a></li>
-          <li><a href="#api-localization">Localization</a></li>
-          <li><a href="#api-testing">Testing Aids</a></li>
-          <li><a href="#api-getters">Getters</a></li>
-          <li><a href="#api-setters">Setters</a></li>
-          <li><a href="#api-settersfluent">Fluent Setters</a></li>
-          <li><a href="#api-isset">IsSet</a></li>
-          <li><a href="#api-formatting">String Formatting</a></li>
-          <li><a href="#api-commonformats">Common Formats</a></li>
-          <li><a href="#api-comparison">Comparison</a></li>
-          <li><a href="#api-addsub">Addition and Subtraction</a></li>
-          <li><a href="#api-difference">Difference</a></li>
-          <li><a href="#api-humandiff">Difference for Humans</a></li>
-          <li><a href="#api-modifiers">Modifiers</a></li>
-          <li><a href="#api-constants">Constants</a></li>
-          <li><a href="#api-serialization">Serialization</a></li>
-          <li><a href="#api-json">JSON</a></li>
-          <li><a href="#api-macro">Macro</a></li>
-          <li><a href="#api-interval">CarbonInterval</a></li>
-          <li><a href="#api-period">CarbonPeriod</a></li>
-        </ul>
-      </div>
+        <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
+            <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
+                <li><a href="#api-introduction">Introduction</a></li>
+                <li><a href="#api-instantiation">Instantiation</a></li>
+                <li><a href="#api-localization">Localization</a></li>
+                <li><a href="#api-testing">Testing Aids</a></li>
+                <li><a href="#api-getters">Getters</a></li>
+                <li><a href="#api-setters">Setters</a></li>
+                <li><a href="#api-week">Weeks</a></li>
+                <li><a href="#api-settersfluent">Fluent Setters</a></li>
+                <li><a href="#api-isset">IsSet</a></li>
+                <li><a href="#api-formatting">String Formatting</a></li>
+                <li><a href="#api-commonformats">Common Formats</a></li>
+                <li><a href="#api-comparison">Comparison</a></li>
+                <li><a href="#api-addsub">Addition and Subtraction</a></li>
+                <li><a href="#api-difference">Difference</a></li>
+                <li><a href="#api-humandiff">Difference for Humans</a></li>
+                <li><a href="#api-modifiers">Modifiers</a></li>
+                <li><a href="#api-constants">Constants</a></li>
+                <li><a href="#api-serialization">Serialization</a></li>
+                <li><a href="#api-json">JSON</a></li>
+                <li><a href="#api-macro">Macro</a></li>
+                <li><a href="#api-interval">CarbonInterval</a></li>
+                <li><a href="#api-period">CarbonPeriod</a></li>
+            </ul>
+        </div>
     </div>
 </nav>

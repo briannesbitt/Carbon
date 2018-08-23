@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": "^7.1",
         "nesbot/carbon": "dev-master"
     }
 }

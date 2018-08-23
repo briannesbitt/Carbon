@@ -1,59 +1,88 @@
 <!DOCTYPE html>
 <html>
-<head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-   <title>Carbon - A simple PHP API extension for DateTime.</title>
-   <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
-   <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
-   <link href="/carbon.css" rel="stylesheet">
-   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <title>Carbon - A simple PHP API extension for DateTime.</title>
+        <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
+        <link href="/carbon.css" rel="stylesheet">
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-27020320-3', 'auto');
-    ga('send', 'pageview');
+            ga('create', 'UA-27020320-3', 'auto');
+            ga('send', 'pageview');
 
-  </script>
-</head>
-<body data-spy="scroll" data-target="#affix-nav">
-   <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-               <span class="sr-only">Toggle navigation</span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-               <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
-         </div>
-         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-               <li><a href="/#gettingstarted">Getting Started</a></li>
-               <li><a href="/docs/">Docs</a></li>
-               <li><a href="/history/">History</a></li>
-               <li><a href="/contribute/">Contribute</a></li>
-               <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
-            </ul>
-         </div>
-      </div>
-   </nav>
+        </script>
+    </head>
+    <body data-spy="scroll" data-target="#affix-nav">
 
-   <div class="jumbotron">
-   <div class="container">
-      <h1>A simple PHP API extension for DateTime.</h1>
-      <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
-printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
+    <div class="main-wrapper">
+        <aside id="reference">
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search" id="search-filter">
+                    </div>
+                    <button class="close">&lt;</button>
+                </div>
+                <div class="search"></div>
+            </div>
+        </aside>
+        <section>
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/#gettingstarted">Getting Started</a></li>
+                            <li><a href="/docs/">Docs</a></li>
+                            <li><a href="#reference">Reference</a></li>
+                            <li><a href="/history/">History</a></li>
+                            <li><a href="/contribute/">Contribute</a></li>
+                            <li><a href="//github.com/briannesbitt/carbon">Github</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="jumbotron">
+    <div class="container">
+        <h1>A simple PHP API extension for DateTime.</h1>
+        <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
+printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
-$nextSummerOlympics = Carbon::createFromDate(2016)->addYears(4);
+
+// Carbon embed 137 languages:
+echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
+echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 
 $officialDate = Carbon::now()->toRfc2822String();
 
@@ -63,38 +92,21 @@ $noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 $internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
 
-// Don't really want this to happen so mock now
-Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
-
-// comparisons are always done in UTC
-if (Carbon::now()->gte($internetWillBlowUpOn)) {
-    die();
-}
-
-// Phew! Return to normal behaviour
-Carbon::setTestNow();
-
 if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
-// ... but also does 'from now', 'after' and 'before'
-// rolling up to seconds, minutes, hours, days, months, years
-
-CarbonInterval::setLocale('fr');
-echo CarbonInterval::years(2)->minutes(2); // '2 ans 2 minutes'
-
-$daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
+// Want to know more about diffForHumans? Double-click on the method name!
 </code></pre>
-   </div>
+    </div>
 </div>
 
 
-   <div class="container page">
-      <div class="row">
-         <div class="col-md-9">
-            <ul class="list-inline">
+            <div class="container page">
+                <div class="row">
+                    <div class="col-md-9">
+                        <ul class="list-inline">
     <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></a></li>
     <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></a></li>
     <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></a></li>
@@ -104,7 +116,7 @@ $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 
 <h1 id="gettingstarted">Getting Started</h1>
 
-<p>1.x is compatible with PHP 5.3+.<br>A 2.x version is in the works and will require PHP 5.4+.</p>
+<p>1.x is compatible with PHP 5.3+.<br>2.x version requires PHP 7.1.8+.</p>
 
 <h3>Installing</h3>
 <p>The easiest and recommended method to install Carbon is via <a href="http://getcomposer.org/">composer</a>.</p>
@@ -133,11 +145,28 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
 
-            <p><pre><code class="php">{
+            <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "~1.18"
+        "nesbot/carbon": "^1.33"
     }
 }</code></pre></p>
+
+            <p>Carbon 2 is not yet officially supported by Laravel but if you want to give it a try in your Laravel project, you can follow those steps.
+
+            <p>Set explicitly the Carbon version and add the adapter in your <strong>composer.json</strong>:</p>
+
+            <p><pre><code class="js">{
+    "require": {
+        "nesbot/carbon": "2.0.0-beta.4 as 1.25.0"
+        "kylekatarnls/laravel-carbon-2": "^1.0.0"
+    }
+}</code></pre></p>
+
+            <p><em>The <code>as 1.25.0</code> part is not needed for Laravel 5.7+</em></p>
+
+            <p>Then update your dependencies by running.</p>
+
+            <p><pre><code>$ composer update</code></pre></p>
 
         </div>
         <div role="tabpanel" class="tab-pane" id="nocomposer">
@@ -179,14 +208,147 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
 <h2>Why the name Carbon?</h2>
 <p>Read about <a href="http://en.wikipedia.org/wiki/Radiocarbon_dating">Carbon Dating</a>.</p>
-         </div>
-         
-      </div>
-   </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-   <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+
+        var callbacks = {};
+        var $document = $(document);
+
+        function scrollCheck() {
+            $('.live-editor').each(function (index) {
+                var $pre = $(this);
+                var scrollTop = $document.scrollTop();
+                var scrollBottom = scrollTop + $(window).height();
+                var viewMargin = 400;
+                var top = $pre.offset().top;
+                if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+                    $pre.removeClass('live-editor');
+                    var code = $pre.find('code').text();
+                    var token = 'live-editor-' + index;
+                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                        encodeURIComponent(code) +
+                        '&token=' + token;
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                    var $iframe = $('<iframe src="' + link +
+                        '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                    (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                        $iframe.css({
+                            opacity: 1,
+                            pointerEvents: 'all',
+                            position: '',
+                            height: $pre.outerHeight() + 'px',
+                        });
+                        $pre.hide();
+                    };
+                }
+            });
+        }
+
+        function openDoc(selection)
+        {
+            if (/[a-zA-Z0-9_-]+$/.test(selection)) {
+                $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                    var element = $('#doc-method-' + className + '-' + selection)[0];
+                    if (element) {
+                        $('#search-filter').val('');
+                        refreshDoc();
+                        $('.main-wrapper').addClass('open');
+                        element.scrollIntoView();
+
+                        return false;
+                    }
+                });
+            }
+        }
+
+        $(document)
+            .on('click', 'a[data-open-doc]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                openDoc($(event.target).data('open-doc'));
+            })
+            .on('click', '[data-slide-down]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('slide-down')).slideToggle();
+            })
+        ;
+
+        function refreshDoc()
+        {
+            var search = $('#search-filter').val().toLowerCase();
+            $('.doc-method').each(function () {
+                var $method = $(this);
+                $method[~$method.find('h2:first').text().toLowerCase().indexOf(search) ? 'show' : 'hide']();
+            });
+        }
+
+        $('#search-filter').on('keyup change input', refreshDoc);
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+            if (typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            if (data && data.sender === 'try-carbon') {
+                switch (data.event) {
+                    case 'ready':
+                        var callback = (callbacks[data.token] || {})[data.event];
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                        break;
+                    case 'input':
+                        // data.input
+                        break;
+                    case 'selection':
+                        openDoc(data.selection);
+                        break;
+                }
+            }
+        });
+
+        scrollCheck();
+        $document.scroll(scrollCheck);
+
+        $('.search-wrapper .close').click(function () {
+            $('.main-wrapper').removeClass('open');
+        });
+
+        $('code').on('mouseup select dblclick', function () {
+            var s = window.getSelection();
+            if ((s.anchorOffset || s.anchorOffset === 0) && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
+                openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
+            }
+        });
+
+        $('[href="#reference"]').click(function (event) {
+            event.preventDefault();
+            if ($('.main-wrapper').toggleClass('open').hasClass('open')) {
+                $('#search-filter').focus();
+            }
+        });
+
+        $(function () {
+            $.ajax('/reference', {
+                success: function (data) {
+                    $('.search').html(data);
+                },
+            });
+        });
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>

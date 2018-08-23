@@ -1,11 +1,14 @@
 <div class="jumbotron">
-   <div class="container">
-      <h1>A simple PHP API extension for DateTime.</h1>
-      <pre><code class="php">{{::lint(printf("Right now is %s", Carbon::now()->toDateTimeString());
-printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver'));  //implicit __toString()
+    <div class="container">
+        <h1>A simple PHP API extension for DateTime.</h1>
+        <pre><code class="php">{{::lint(printf("Right now is %s", Carbon::now()->toDateTimeString());
+printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
 $tomorrow = Carbon::now()->addDay();
-$lastWeek = Carbon::now()->subWeek();
-$nextSummerOlympics = Carbon::createFromDate(2016)->addYears(4);
+$lastWeek = Carbon::now()->subWeek();)}}
+
+// Carbon embed {{eval(echo count(Carbon::getAvailableLocales());)}} languages:
+{{::lint(echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
+echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 
 $officialDate = Carbon::now()->toRfc2822String();
 
@@ -15,32 +18,12 @@ $noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 
 $internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
 
-// Don't really want this to happen so mock now
-Carbon::setTestNow(Carbon::createFromDate(2000, 1, 1));
-
-// comparisons are always done in UTC
-if (Carbon::now()->gte($internetWillBlowUpOn)) {
-    die();
-}
-
-// Phew! Return to normal behaviour
-Carbon::setTestNow();
-
 if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
-)}}
-{{::exec(echo Carbon::now()->subMinutes(2)->diffForHumans();)}} // '{{eval}}'
+echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago')}}
 
-// ... but also does 'from now', 'after' and 'before'
-// rolling up to seconds, minutes, hours, days, months, years
-
-{{::lint(CarbonInterval::setLocale('fr');)}}
-{{::exec(echo CarbonInterval::years(2)->minutes(2);)}} // '{{eval}}'
-
-{{::lint(
-$daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
-)}}
+// Want to know more about diffForHumans? Double-click on the method name!
 </code></pre>
-   </div>
+    </div>
 </div>
