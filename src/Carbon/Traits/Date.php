@@ -1905,11 +1905,11 @@ trait Date
             return null;
         }
 
-        if (static::$localMacros[$method] instanceof Closure) {
-            return call_user_func_array(Closure::bind(static::$localMacros[$method], null, get_called_class()), $parameters);
+        if (static::$globalMacros[$method] instanceof Closure) {
+            return call_user_func_array(Closure::bind(static::$globalMacros[$method], null, get_called_class()), $parameters);
         }
 
-        return call_user_func_array(static::$localMacros[$method], $parameters);
+        return call_user_func_array(static::$globalMacros[$method], $parameters);
     }
 
     /**
@@ -2129,7 +2129,7 @@ trait Date
             return null;
         }
 
-        $macro = static::$localMacros[$method];
+        $macro = ($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method];
 
         if ($macro instanceof Closure) {
             return call_user_func_array($macro->bindTo($this, static::class), $parameters);

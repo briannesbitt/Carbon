@@ -175,6 +175,13 @@ trait Options
     protected $localSerializer = null;
 
     /**
+     * Instance-specific macros.
+     *
+     * @var array|null
+     */
+    protected $localMacros = null;
+
+    /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings
@@ -297,6 +304,7 @@ trait Options
      *  - toJsonFormat: string|Closure|null
      *  - locale: string|null
      *  - timezone: \DateTimeZone|string|int|null
+     *  - macros: array|null
      *
      * @param array $settings
      *
@@ -310,6 +318,7 @@ trait Options
         $this->localHumanDiffOptions = $settings['humanDiffOptions'] ?? null;
         $this->localToStringFormat = $settings['toStringFormat'] ?? null;
         $this->localSerializer = $settings['toJsonFormat'] ?? null;
+        $this->localMacros = $settings['macros'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
             $date = $date->locale($settings['locale']);

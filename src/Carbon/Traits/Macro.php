@@ -36,7 +36,7 @@ trait Macro
      *
      * @var array
      */
-    protected static $localMacros = [];
+    protected static $globalMacros = [];
 
     /**
      * Register a custom macro.
@@ -48,7 +48,7 @@ trait Macro
      */
     public static function macro($name, $macro)
     {
-        static::$localMacros[$name] = $macro;
+        static::$globalMacros[$name] = $macro;
     }
 
     /**
@@ -80,6 +80,6 @@ trait Macro
      */
     public static function hasMacro($name)
     {
-        return isset(static::$localMacros[$name]);
+        return isset(static::$globalMacros[$name]);
     }
 }
