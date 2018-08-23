@@ -47,4 +47,36 @@ class FactoryTest extends AbstractTestCase
         $this->assertInstanceOf(CarbonImmutable::class, $factory->parse('2018-01-01'));
         $this->assertSame('01/01/2018', $factory->parse('2018-01-01')->format('d/m/Y'));
     }
+
+    public function testFactoryModification()
+    {
+        $factory = new Factory();
+
+        $this->assertSame(Carbon::class, $factory->className());
+        $this->assertSame($factory, $factory->className(MyCarbon::class));
+        $this->assertSame(MyCarbon::class, $factory->className());
+
+        $this->assertSame([], $factory->settings());
+        $this->assertSame($factory, $factory->settings([
+            'locale' => 'fr',
+        ]));
+        $this->assertSame([
+            'locale' => 'fr',
+        ], $factory->settings());
+
+        $this->assertSame($factory, $factory->mergeSettings([
+            'timezone' => 'Europe/Paris',
+        ]));
+        $this->assertSame([
+            'locale' => 'fr',
+            'timezone' => 'Europe/Paris',
+        ], $factory->settings());
+
+        $this->assertSame($factory, $factory->settings([
+            'timezone' => 'Europe/Paris',
+        ]));
+        $this->assertSame([
+            'timezone' => 'Europe/Paris',
+        ], $factory->settings());
+    }
 }
