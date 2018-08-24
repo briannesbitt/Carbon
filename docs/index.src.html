@@ -588,7 +588,7 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
         (<a href="#doc-method-Carbon-settings" data-open-doc="settings">See references for complete list.</a>)</p>
 
     <p>
-    <pre><code class="php">{{::lint($factory = new Factory([
+    <pre class="live-editor"><code class="php">{{::lint($factory = new Factory([
     'locale' => 'fr_FR',
     'timezone' => 'Europe/Paris',
 ]);
@@ -602,7 +602,27 @@ Carbon::now()->settings([
 // It means it does not just set the timezone, but shift the time too:
 )}}
 {{::exec(echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
+echo "\n";
 {{::exec(echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');/*pad(76)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Factory settings can be changed afterward with <code>setSettings(array $settings)</code> or to merge
+        new settings with existing ones <code>mergeSettings(array $settings)</code> and the class to generate
+        can be initialized as the second argument of the construct then changed later with
+        <code>setClassName(string $className)</code>.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($factory = new Factory(['locale' => 'ja'], CarbonImmutable::class);
+)}}
+{{::exec(var_dump($factory->now()->locale);/*pad(76)*/)}} // {{eval}}
+{{::exec(var_dump(get_class($factory->now()));/*pad(76)*/)}} // {{eval}}
+
+{{::lint(class MyCustomCarbonSubClass extends Carbon { /* ... */ }
+$factory->setSettings(['locale' => 'zh_CN'])->setClassName(MyCustomCarbonSubClass::class);
+)}}
+{{::exec(var_dump($factory->now()->locale);/*pad(76)*/)}} // {{eval}}
+{{::exec(var_dump(get_class($factory->now()));/*pad(76)*/)}} // {{eval}}
 </code></pre>
     </p>
 
