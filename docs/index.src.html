@@ -619,7 +619,9 @@ echo "\n";
 {{::exec(var_dump(get_class($factory->now()));/*pad(76)*/)}} // {{eval}}
 
 {{::lint(class MyCustomCarbonSubClass extends Carbon { /* ... */ }
-$factory->setSettings(['locale' => 'zh_CN'])->setClassName(MyCustomCarbonSubClass::class);
+$factory
+    ->setSettings(['locale' => 'zh_CN'])
+    ->setClassName(MyCustomCarbonSubClass::class);
 )}}
 {{::exec(var_dump($factory->now()->locale);/*pad(76)*/)}} // {{eval}}
 {{::exec(var_dump(get_class($factory->now()));/*pad(76)*/)}} // {{eval}}
