@@ -220,4 +220,3 @@ class SlTest extends LocalizationTestCase
         '1 dan 3 ure',
     ];
 }
-
