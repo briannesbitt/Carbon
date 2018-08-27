@@ -42,4 +42,13 @@ return [
     'diff_after_tomorrow' => 'pojutrišnjem',
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'period_recurrences' => 'enkrat|:count krat',
+    'period_interval' => 'vsakih :interval',
+    'period_start_date' => 'od :date',
+    'period_end_date' => 'do :date',
+    'months' => ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December'],
+    'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
+    'weekdays' => ['Nedelja', 'Ponedeljek', 'Torek', 'Sreda', 'Četrtek', 'Petek', 'Sobota'],
+    'weekdays_short' => ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
+    'weekdays_min' => ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'],
 ];
