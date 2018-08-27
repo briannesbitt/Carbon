@@ -46,6 +46,32 @@ return [
     'period_interval' => 'vsakih :interval',
     'period_start_date' => 'od :date',
     'period_end_date' => 'do :date',
+    'formats' => [
+        'LT' => 'H:mm',
+        'LTS' => 'H:mm:ss',
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D. MMMM YYYY',
+        'LLL' => 'D. MMMM YYYY H:mm',
+        'LLLL' => 'dddd, D. MMMM YYYY H:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[danes ob u] LT',
+        'nextDay' => '[jutri ob] LT',
+        'nextWeek' => '[v] dddd [ob] LT',
+        'lastDay' => '[včeraj ob] LT',
+        'lastWeek' => function (\Carbon\CarbonInterface $date) {
+            switch ($date->dayOfWeek) {
+                case 0:
+                case 3:
+                case 6:
+                    return '[preteklo] dddd [ob] LT';
+                default:
+                    return '[pretekli] dddd [ob] LT';
+            }
+        },
+        'sameElse' => 'L',
+    ],
+    'ordinal' => ':number.',
     'months' => ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December'],
     'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
     'weekdays' => ['Nedelja', 'Ponedeljek', 'Torek', 'Sreda', 'Četrtek', 'Petek', 'Sobota'],
