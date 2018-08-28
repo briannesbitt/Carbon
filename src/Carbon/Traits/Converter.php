@@ -75,7 +75,8 @@ trait Converter
 
         return $format instanceof Closure
             ? $format($this)
-            : $this->format(($format ?: (defined('static::DEFAULT_TO_STRING_FORMAT')
+            : $this->format(($format ?: (
+                defined('static::DEFAULT_TO_STRING_FORMAT')
                 ? static::DEFAULT_TO_STRING_FORMAT
                 : CarbonInterface::DEFAULT_TO_STRING_FORMAT
             )));
@@ -119,6 +120,16 @@ trait Converter
     public function toDateTimeString()
     {
         return $this->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Format the instance as date and time local
+     *
+     * @return string
+     */
+    public function toDateTimeLocalString()
+    {
+        return $this->format('Y-m-d\TH:i:s');
     }
 
     /**
