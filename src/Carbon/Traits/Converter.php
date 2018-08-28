@@ -75,11 +75,11 @@ trait Converter
 
         return $format instanceof Closure
             ? $format($this)
-            : $this->format(($format ?: (
+            : $this->format($format ?: (
                 defined('static::DEFAULT_TO_STRING_FORMAT')
-                ? static::DEFAULT_TO_STRING_FORMAT
-                : CarbonInterface::DEFAULT_TO_STRING_FORMAT
-            )));
+                    ? static::DEFAULT_TO_STRING_FORMAT
+                    : CarbonInterface::DEFAULT_TO_STRING_FORMAT
+            ));
     }
 
     /**
