@@ -123,7 +123,7 @@ trait Converter
     }
 
     /**
-     * Format the instance as date and time local
+     * Format the instance as date and time T-separated with no timezone
      *
      * @return string
      */
