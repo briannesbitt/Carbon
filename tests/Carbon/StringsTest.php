@@ -96,6 +96,12 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('1975-12-25', $d->toDateString());
     }
 
+    public function testToDateTimeLocalString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T14:15:16', $d->toDateTimeLocalString());
+    }
+
     public function testToFormattedDateString()
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
