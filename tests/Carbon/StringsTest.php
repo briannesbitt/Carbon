@@ -51,8 +51,7 @@ class StringsTest extends AbstractTestCase
     public function testSetToStringFormatClosure()
     {
         Carbon::setToStringFormat(function (CarbonInterface $d) {
-            return $d->format(
-                $d->year === 1976 ?
+            return $d->format($d->year === 1976 ?
                 'jS \o\f F g:i:s a' :
                 'jS \o\f F, Y g:i:s a'
             );
