@@ -631,14 +631,14 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansNowAndMonths()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('2 months ago', Carbon::now()->subMonths(2)->diffForHumans());
+            $this->assertSame('2 months ago', Carbon::now()->subMonthsNoOverflow(2)->diffForHumans());
         });
     }
 
     public function testDiffForHumansNowAndNearlyYear()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('11 months ago', Carbon::now()->subMonths(11)->diffForHumans());
+            $this->assertSame('11 months ago', Carbon::now()->subMonthsNoOverflow(11)->diffForHumans());
         });
     }
 
@@ -1075,14 +1075,14 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansOtherAndFutureMonths()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('2 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonths(2)));
+            $this->assertSame('2 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonthsNoOverflow(2)));
         });
     }
 
     public function testDiffForHumansOtherAndNearlyFutureYear()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('11 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonths(11)));
+            $this->assertSame('11 months after', Carbon::now()->diffForHumans(Carbon::now()->subMonthsNoOverflow(11)));
         });
     }
 
@@ -1143,8 +1143,8 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansAbsoluteMonths()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->subMonths(2), true));
-            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->addMonths(2), true));
+            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->subMonthsNoOverflow(2), true));
+            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->addMonthsNoOverflow(2), true));
         });
     }
 

@@ -1144,8 +1144,8 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansAbsoluteMonths()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->subMonths(2), true));
-            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->addMonths(2), true));
+            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->subMonthsNoOverflow(2), true));
+            $this->assertSame('2 months', Carbon::now()->diffForHumans(Carbon::now()->addMonthsNoOverflow(2), true));
         });
     }
 
