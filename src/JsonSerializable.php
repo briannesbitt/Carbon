@@ -1,6 +1,6 @@
 <?php
 
-if (!interface_exists('JsonSerializable')) {    
+if (!interface_exists('JsonSerializable')) {
     interface JsonSerializable
     {
         /**
