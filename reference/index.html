@@ -988,6 +988,13 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-toDateTimeLocalString">
+    <h2><span class="class-name">Carbon::</span>toDateTimeLocalString</h2>
+    <em>no arguments</em>
+    <p>Format the instance as date and time T-separated with no timezone</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-toDayDateTimeString">
     <h2><span class="class-name">Carbon::</span>toDayDateTimeString</h2>
     <em>no arguments</em>
@@ -1479,6 +1486,20 @@ instance given to now</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$name, $macro</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-resetMacros">
+    <h2><span class="class-name">Carbon::</span>resetMacros</h2>
+    <em>no arguments</em>
+    <p>Remove all macros and generic macros.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-genericMacro">
+    <h2><span class="class-name">Carbon::</span>genericMacro</h2>
+    <em>no arguments</em>
+    <p>Register a custom macro.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-mixin">
     <h2><span class="class-name">Carbon::</span>mixin</h2>
     <code>$mixin</code>
@@ -1809,7 +1830,8 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 - toJsonFormat: string|Closure|null
 - locale: string|null
 - timezone: \DateTimeZone|string|int|null
-- macros: array|null</p>
+- macros: array|null
+- genericMacros: array|null</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>array $settings</code></td></tr></table>
 </div>
 
@@ -2597,7 +2619,8 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 - toJsonFormat: string|Closure|null
 - locale: string|null
 - timezone: \DateTimeZone|string|int|null
-- macros: array|null</p>
+- macros: array|null
+- genericMacros: array|null</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>array $settings</code></td></tr></table>
 </div>
 
@@ -3149,7 +3172,8 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 - toJsonFormat: string|Closure|null
 - locale: string|null
 - timezone: \DateTimeZone|string|int|null
-- macros: array|null</p>
+- macros: array|null
+- genericMacros: array|null</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>array $settings</code></td></tr></table>
 </div>
 
