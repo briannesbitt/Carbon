@@ -1883,6 +1883,15 @@ trait Date
         return "$symbol$hour$separator$minute";
     }
 
+    protected static function executeStaticCallable($macro, ...$parameters)
+    {
+        if ($macro instanceof Closure) {
+            return call_user_func_array(Closure::bind($macro, null, get_called_class()), $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
     /**
      * Dynamically handle calls to the class.
      *
@@ -1896,6 +1905,13 @@ trait Date
     public static function __callStatic($method, $parameters)
     {
         if (!static::hasMacro($method)) {
+            foreach (static::getGenericMacros() as $callback) {
+                try {
+                    return static::executeStaticCallable($callback, $method, ...$parameters);
+                } catch (BadMethodCallException $exception) {
+                    continue;
+                }
+            }
             if (static::isStrictModeEnabled()) {
                 throw new BadMethodCallException(sprintf(
                     'Method %s::%s does not exist.', static::class, $method
@@ -1905,11 +1921,7 @@ trait Date
             return null;
         }
 
-        if (static::$globalMacros[$method] instanceof Closure) {
-            return call_user_func_array(Closure::bind(static::$globalMacros[$method], null, get_called_class()), $parameters);
-        }
-
-        return call_user_func_array(static::$globalMacros[$method], $parameters);
+        return static::executeStaticCallable(static::$globalMacros[$method], ...$parameters);
     }
 
     /**
@@ -1982,6 +1994,24 @@ trait Date
         }
 
         return "${unit}s";
+    }
+
+    protected function executeCallable($macro, ...$parameters)
+    {
+        if ($macro instanceof Closure) {
+            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
+    protected static function getGenericMacros()
+    {
+        foreach (static::$globalGenericMacros as $list) {
+            foreach ($list as $macro) {
+                yield $macro;
+            }
+        }
     }
 
     /**
@@ -2122,6 +2152,15 @@ trait Date
         }
 
         if (!static::hasMacro($method)) {
+            foreach ([$this->localGenericMacros ?: [], static::getGenericMacros()] as $list) {
+                foreach ($list as $callback) {
+                    try {
+                        return $this->executeCallable($callback, $method, ...$parameters);
+                    } catch (BadMethodCallException $exception) {
+                        continue;
+                    }
+                }
+            }
             if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
                 throw new BadMethodCallException("Method $method does not exist.");
             }
@@ -2129,12 +2168,6 @@ trait Date
             return null;
         }
 
-        $macro = ($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method];
-
-        if ($macro instanceof Closure) {
-            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
-        }
-
-        return call_user_func_array($macro, $parameters);
+        return $this->executeCallable(($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method], ...$parameters);
     }
 }

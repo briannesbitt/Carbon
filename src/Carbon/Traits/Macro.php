@@ -32,11 +32,18 @@ namespace Carbon\Traits;
 trait Macro
 {
     /**
-     * The registered string macros.
+     * The registered macros.
      *
      * @var array
      */
     protected static $globalMacros = [];
+
+    /**
+     * The registered generic macros.
+     *
+     * @var array
+     */
+    protected static $globalGenericMacros = [];
 
     /**
      * Register a custom macro.
@@ -49,6 +56,33 @@ trait Macro
     public static function macro($name, $macro)
     {
         static::$globalMacros[$name] = $macro;
+    }
+
+    /**
+     * Remove all macros and generic macros.
+     */
+    public static function resetMacros()
+    {
+        static::$globalMacros = [];
+        static::$globalGenericMacros = [];
+    }
+
+    /**
+     * Register a custom macro.
+     *
+     * @param object|callable $macro
+     * @param int             $priority marco with higher priority is tried first
+     *
+     * @return void
+     */
+    public static function genericMacro($macro, $priority = 0)
+    {
+        if (!isset(static::$globalGenericMacros[$priority])) {
+            static::$globalGenericMacros[$priority] = [];
+            krsort(static::$globalGenericMacros, SORT_NUMERIC);
+        }
+
+        static::$globalGenericMacros[$priority][] = $macro;
     }
 
     /**
