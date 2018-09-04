@@ -1301,31 +1301,32 @@ Carbon::resetToStringFormat();
     <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
 // $dt->toAtomString() is the same as $dt->format(DateTime::ATOM);
-{{::exec(echo $dt->toAtomString();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toCookieString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toAtomString();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toCookieString();/*pad(35)*/)}} // {{eval}}
 
-{{::exec(echo $dt->toIso8601String();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toIso8601String();/*pad(35)*/)}} // {{eval}}
 // Be aware we chose to use the full-extended format of the ISO 8601 norm
 // Natively, DateTime::ISO8601 format is not compatible with ISO-8601 as it
 // is explained here in the PHP documentation:
 // https://php.net/manual/class.datetime.php#datetime.constants.iso8601
 // We consider it as a PHP mistake and chose not to provide method for this
 // format, but you still can use it this way:
-{{::exec(echo $dt->format(DateTime::ISO8601);/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->format(DateTime::ISO8601);/*pad(35)*/)}} // {{eval}}
 
-{{::exec(echo $dt->toISOString();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toJSON();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toISOString();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toJSON();/*pad(35)*/)}} // {{eval}}
 
-{{::exec(echo $dt->toIso8601ZuluString();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc822String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc850String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc1036String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc1123String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc2822String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc3339String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRfc7231String();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toRssString();/*pad(32)*/)}} // {{eval}}
-{{::exec(echo $dt->toW3cString();/*pad(32)*/)}} // {{eval}}
+{{::exec(echo $dt->toIso8601ZuluString();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toDateTimeLocalString();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc822String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc850String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc1036String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc1123String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc2822String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc3339String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRfc7231String();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toRssString();/*pad(35)*/)}} // {{eval}}
+{{::exec(echo $dt->toW3cString();/*pad(35)*/)}} // {{eval}}
 
 {{::exec(var_dump($dt->toArray());)}}
 /*
@@ -2576,6 +2577,48 @@ $date = Carbon::parse('2016-06-01');
 {{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
 {{::lint($date->schoolYear = 2020;)}}
 {{::exec(var_dump($date->format('Y-m-d'));/*pad(46)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>You can also intercept any other call with generic macro:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+Carbon::genericMacro(function ($method) {
+    // As an example we will convert firstMondayOfDecember into first Monday Of December to get strings that
+    // DateTime can parse.
+    $time = preg_replace('/[A-Z]/', ' $0', $method);
+
+    try {
+        // isset($this) means called dynamically like ->myMacro()
+        if (isset($this)) {
+            return $this->modify($time);
+        }
+
+        // else means called statically like ::myMacro()
+        return new static($time);
+    } catch (\Throwable $exception) {
+        if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
+            // When trowhing BadMethodCallException from inside a generic macro will go to next generic macro
+            // if there are other registered.
+            throw new \BadMethodCallException('Try next macro', 0, $exception);
+        }
+
+        // Other exceptions thrown will not be caught
+        throw $exception;
+    }
+}, 1 /* you can optionally pass a priority as a second argument, 0 by default, can be negative, higher priority ran first */);
+// Generic macro get the asked method name as first argument, and method arguments as others.
+// They can return any value.
+// They can be added via "genericMacros" setting and this setting has precedence over statically declared generic macros.
+
+$date = Carbon::parse('2016-06-01');
+)}}
+
+{{::exec(echo $date->nextSunday();/*pad(42)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->lastMondayOfPreviousMonth();/*pad(42)*/)}} // {{eval}}
+{{::lint(Carbon::resetMacros();)}} // resetMacros remove all macros and generic macro declared statically
 </code></pre>
     </p>
 
