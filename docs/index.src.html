@@ -1433,6 +1433,8 @@ Carbon::resetToStringFormat();
 {{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
 {{::exec(echo $dt1->min($dt2);/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt1->minimum($dt2);/*pad(50)*/)}} // {{eval}}
+// Also works with string
+{{::exec(echo $dt1->minimum('2014-01-30');/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt1 = Carbon::createMidnightDate(2012, 1, 1);)}}
 {{::lint($dt2 = Carbon::createMidnightDate(2014, 1, 30);)}}
@@ -1443,6 +1445,11 @@ Carbon::resetToStringFormat();
 {{::lint($dt1 = Carbon::createMidnightDate(2000, 1, 1);)}}
 {{::exec(echo $dt1->max();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $dt1->maximum();/*pad(50)*/)}} // {{eval}}
+
+// Remember min and max PHP native function work fine with dates too:
+{{::exec(echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));/*pad(50)*/)}} // {{eval}}
+{{::exec(echo min(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25'));/*pad(50)*/)}} // {{eval}}
+// This way you can pass as many dates as you want and get no ambiguities about parameters order
 
 {{::lint(
 $dt1 = Carbon::createMidnightDate(2010, 4, 1);
@@ -3529,6 +3536,73 @@ echo "\n";
 {{::exec(echo get_class($period->getStartDate());/*pad(42)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
+
+    <p>If you plan to migrate from Carbon 1 to Carbon 2, please not the following breaking changes you should
+        take care of.</p>
+
+    <ul>
+        <li>Default values (when parameters are omitted) for <code>$month</code> and <code>$day</code> in the
+            <code>::create()</code> method are now <code>1</code> (were values from current date in Carbon 1).
+            And default values for <code>$hour</code>, <code>$minute</code> and <code>$second</code> are now
+            <code>0</code>, this goes for omitted values, but you still can pass explicitly <code>null</code>
+            to get the current value from <em>now</em> (similar behavior as in Carbon 1).
+        </li>
+        <li>Now you get microsecond precision everywhere, it also means 2 dates in the same second but not in the
+            same microsecond are no longer equal.
+        </li>
+        <li><code>$date->jsonSerialize()</code> and <code>json_encode($date)</code> no longer returns arrays but simple
+            strings: <code>"2017-06-27T13:14:15.000000Z"</code>. This allows to create dates from it easier in JavaScript.
+            You still can get the previous behavior using: <pre><code class="php">{{::lint(Carbon::serializeUsing(function ($date) {
+    return [
+        'date' => $date->toDateTimeString(),
+        'timezone_type' => $date->timezone_type,
+        'timezone' => $date->tzName,
+    ];
+});}})</code></pre>
+        </li>
+        <li><code>$date->setToStringFormat()</code> with a closure no longer return a format but a final string. So you can
+            return any string and the following in Carbon 1: <pre><code class="php">{{::lint(
+Carbon::setToStringFormat(function ($date) {
+    return $date->year === 1976 ?
+        'jS \o\f F g:i:s a' :
+        'jS \o\f F, Y g:i:s a';
+});}})</code></pre>
+            would become in Carbon 2:
+            <pre><code class="php">{{::lint(
+Carbon::setToStringFormat(function ($date) {
+    return $date->formatLocalized($date->year === 1976 ?
+        'jS \o\f F g:i:s a' :
+        'jS \o\f F, Y g:i:s a';
+}));}})</code></pre>
+        </li>
+        <li><code>setWeekStartsAt</code> and <code>setWeekEndsAt</code> no longer throw exceptions on values out of
+            ranges, but they are also deprecated.
+        </li>
+        <li><code>isSameMonth</code> and <code>isCurrentMonth</code> now returns <code>false</code> for same month in
+            different year but you can pass <code>false</code> as a second parameter of <code>isSameMonth</code> or
+            first parameter of <code>isCurrentMonth</code> to compare ignoring the year.
+        </li>
+        <li><code>::compareYearWithMonth()</code> and <code>::compareYearWithMonth()</code> have been removed. Strict
+            comparisons are now the default. And you can use the next parameter of isSame/isCurrent set to false to
+            get month-only comparisons.
+        </li>
+        <li>As we dropped PHP 5, <code>$self</code> is no longer needed in mixins you should just use <code>$this</code>
+            instead.
+        </li>
+        <li>As PHP 7.1+ perfectly supports microseconds, <code>useMicrosecondsFallback</code> and
+            <code>isMicrosecondsFallbackEnabled</code> are no longer needed and so have been removed.
+        </li>
+        <li>In Carbon 1, calls of an unknown method on <code>CarbonInterval</code>
+            (ex: <code>CarbonInterval::anything()</code>) just returned null. Now they throw an exception.
+        </li>
+        <li>In Carbon 1, <code>dayOfYear</code> started from <code>0</code>. Now it starts from <code>1</code>.
+        </li>
+        <li>That's all folks! Every other methods you used in Carbon 1 should continue to work just the same with
+            Carbon 2.
+        </li>
+    </ul>
 </div>
 
 <nav>
@@ -3557,6 +3631,7 @@ echo "\n";
                 <li><a href="#api-macro">Macro</a></li>
                 <li><a href="#api-interval">CarbonInterval</a></li>
                 <li><a href="#api-period">CarbonPeriod</a></li>
+                <li><a href="#api-carbon-2">Carbon 2</a></li>
             </ul>
         </div>
     </div>
