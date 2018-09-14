@@ -3543,8 +3543,11 @@ echo "\n";
         take care of.</p>
 
     <ul>
-        <li>Now you get microsecond precision everywhere, it also means 2 dates in the same second but not in the
-            same microsecond are no longer equal.
+        <li>Default values (when parameters are omitted) for <code>$month</code> and <code>$day</code> in the
+            <code>::create()</code> method are now <code>1</code> (were values from current date in Carbon 1).
+            And default values for <code>$hour</code>, <code>$minute</code> and <code>$second</code> are now
+            <code>0</code>, this goes for omitted values, but you still can pass explicitly <code>null</code>
+            to get the current value from <em>now</em> (similar behavior as in Carbon 1).
         </li>
         <li>Now you get microsecond precision everywhere, it also means 2 dates in the same second but not in the
             same microsecond are no longer equal.
@@ -3575,10 +3578,30 @@ Carbon::setToStringFormat(function ($date) {
 }));}})</code></pre>
         </li>
         <li><code>setWeekStartsAt</code> and <code>setWeekEndsAt</code> no longer throw exceptions on values out of
-            ranges, but they are also deprecated.</li>
-        <li><code>isSameMonth</code> and <code>isCurrentMonth</code> now returns <code>false</code> for same month in different year
-            but you can pass <code>false</code> as a second parameter to compare ignoring the year.</li>
-        <li>As we dropped PHP 5, <code>$self</code> is no longer needed in mixins you should just use <code>$this</code> instead.</li>
+            ranges, but they are also deprecated.
+        </li>
+        <li><code>isSameMonth</code> and <code>isCurrentMonth</code> now returns <code>false</code> for same month in
+            different year but you can pass <code>false</code> as a second parameter of <code>isSameMonth</code> or
+            first parameter of <code>isCurrentMonth</code> to compare ignoring the year.
+        </li>
+        <li><code>::compareYearWithMonth()</code> and <code>::compareYearWithMonth()</code> have been removed. Strict
+            comparisons are now the default. And you can use the next parameter of isSame/isCurrent set to false to
+            get month-only comparisons.
+        </li>
+        <li>As we dropped PHP 5, <code>$self</code> is no longer needed in mixins you should just use <code>$this</code>
+            instead.
+        </li>
+        <li>As PHP 7.1+ perfectly supports microseconds, <code>useMicrosecondsFallback</code> and
+            <code>isMicrosecondsFallbackEnabled</code> are no longer needed and so have been removed.
+        </li>
+        <li>In Carbon 1, calls of an unknown method on <code>CarbonInterval</code>
+            (ex: <code>CarbonInterval::anything()</code>) just returned null. Now they throw an exception.
+        </li>
+        <li>In Carbon 1, <code>dayOfYear</code> started from <code>0</code>. Now it starts from <code>1</code>.
+        </li>
+        <li>That's all folks! Every other methods you used in Carbon 1 should continue to work just the same with
+            Carbon 2.
+        </li>
     </ul>
 </div>
 
