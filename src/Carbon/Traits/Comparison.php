@@ -34,11 +34,13 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
+     * @see equalTo()
+     *
      * @return bool
      */
     public function eq($date): bool
     {
-        return $this == $date;
+        return $this->equalTo($date);
     }
 
     /**
@@ -46,25 +48,25 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see eq()
-     *
      * @return bool
      */
     public function equalTo($date): bool
     {
-        return $this->eq($date);
+        return $this == $date;
     }
 
     /**
      * Determines if the instance is not equal to another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see notEqualTo()
      *
      * @return bool
      */
     public function ne($date): bool
     {
-        return !$this->eq($date);
+        return $this->notEqualTo($date);
     }
 
     /**
@@ -72,13 +74,25 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see ne()
-     *
      * @return bool
      */
     public function notEqualTo($date): bool
     {
-        return $this->ne($date);
+        return !$this->equalTo($date);
+    }
+
+    /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see greaterThan()
+     *
+     * @return bool
+     */
+    public function gt($date): bool
+    {
+        return $this->greaterThan($date);
     }
 
     /**
@@ -88,7 +102,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function gt($date): bool
+    public function greaterThan($date): bool
     {
         return $this > $date;
     }
@@ -98,39 +112,27 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see gt()
-     *
-     * @return bool
-     */
-    public function greaterThan($date): bool
-    {
-        return $this->gt($date);
-    }
-
-    /**
-     * Determines if the instance is greater (after) than another
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see gt()
+     * @see greaterThan()
      *
      * @return bool
      */
     public function isAfter($date): bool
     {
-        return $this->gt($date);
+        return $this->greaterThan($date);
     }
 
     /**
      * Determines if the instance is greater (after) than or equal to another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see greaterThanOrEqualTo()
      *
      * @return bool
      */
     public function gte($date): bool
     {
-        return $this >= $date;
+        return $this->greaterThanOrEqualTo($date);
     }
 
     /**
@@ -138,13 +140,25 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see gte()
-     *
      * @return bool
      */
     public function greaterThanOrEqualTo($date): bool
     {
-        return $this->gte($date);
+        return $this >= $date;
+    }
+
+    /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lessThan()
+     *
+     * @return bool
+     */
+    public function lt($date): bool
+    {
+        return $this->lessThan($date);
     }
 
     /**
@@ -154,7 +168,7 @@ trait Comparison
      *
      * @return bool
      */
-    public function lt($date): bool
+    public function lessThan($date): bool
     {
         return $this < $date;
     }
@@ -164,39 +178,27 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see lt()
-     *
-     * @return bool
-     */
-    public function lessThan($date): bool
-    {
-        return $this->lt($date);
-    }
-
-    /**
-     * Determines if the instance is less (before) than another
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
-     *
-     * @see lt()
+     * @see lessThan()
      *
      * @return bool
      */
     public function isBefore($date): bool
     {
-        return $this->lt($date);
+        return $this->lessThan($date);
     }
 
     /**
      * Determines if the instance is less (before) or equal to another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lessThanOrEqualTo()
      *
      * @return bool
      */
     public function lte($date): bool
     {
-        return $this <= $date;
+        return $this->lessThanOrEqualTo($date);
     }
 
     /**
@@ -204,13 +206,11 @@ trait Comparison
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @see lte()
-     *
      * @return bool
      */
     public function lessThanOrEqualTo($date): bool
     {
-        return $this->lte($date);
+        return $this <= $date;
     }
 
     /**
@@ -224,17 +224,17 @@ trait Comparison
      */
     public function between($date1, $date2, $equal = true): bool
     {
-        if ($date1->gt($date2)) {
+        if ($date1->greaterThan($date2)) {
             $temp = $date1;
             $date1 = $date2;
             $date2 = $temp;
         }
 
         if ($equal) {
-            return $this->gte($date1) && $this->lte($date2);
+            return $this->greaterThanOrEqualTo($date1) && $this->lessThanOrEqualTo($date2);
         }
 
-        return $this->gt($date1) && $this->lt($date2);
+        return $this->greaterThan($date1) && $this->lessThan($date2);
     }
 
     /**
@@ -308,7 +308,7 @@ trait Comparison
      */
     public function isFuture()
     {
-        return $this->gt($this->nowWithSameTz());
+        return $this->greaterThan($this->nowWithSameTz());
     }
 
     /**
@@ -318,7 +318,7 @@ trait Comparison
      */
     public function isPast()
     {
-        return $this->lt($this->nowWithSameTz());
+        return $this->lessThan($this->nowWithSameTz());
     }
 
     /**
