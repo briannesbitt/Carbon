@@ -255,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-09-14 12:16:03
+echo $now;                               // 2018-09-14 12:21:20
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-09-14 00:00:00
@@ -380,7 +380,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:16 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:21 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -609,7 +609,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // septembre
 echo "\n";
-echo $date->isoFormat('LLLL');   // vendredi 14 septembre 2018 12:16
+echo $date->isoFormat('LLLL');   // vendredi 14 septembre 2018 12:21
 </code></pre>
     </p>
 
@@ -640,13 +640,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 12:16
+Aujourd’hui à 12:21
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 12:16 PM
+Today at 12:21 PM
 */
 </code></pre>
     </p>
@@ -1329,21 +1329,21 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 12:16 PM
+echo $date->calendar();                                      // Today at 12:21 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 9:16 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 9:21 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Tuesday at 1:53 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Tuesday at 1:58 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 09/06/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 3:16 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 3:21 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 10:39 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 10:44 PM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 09/22/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 12:16
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 12:21
 </code></pre>
     </p>
 
@@ -2332,7 +2332,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-09-14 12:16:03
+echo Carbon::now();                                    // 2018-09-14 12:21:20
 </code></pre>
     </p>
 
@@ -2519,12 +2519,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(3)
+var_dump(Carbon::now()->get($unit));                         // int(20)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(3)
+var_dump(Carbon::now()->$unit);                              // int(20)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(3)
+var_dump(Carbon::now()->get($unit));                         // int(20)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -2995,8 +2995,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-09-14 12:16:03
-echo $dt1->maximum();                              // 2018-09-14 12:16:03
+echo $dt1->max();                                  // 2018-09-14 12:21:20
+echo $dt1->maximum();                              // 2018-09-14 12:21:20
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -5015,28 +5015,27 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
         </li>
         <li><code>$date->jsonSerialize()</code> and <code>json_encode($date)</code> no longer returns arrays but simple
             strings: <code>"2017-06-27T13:14:15.000000Z"</code>. This allows to create dates from it easier in JavaScript.
-            You still can get the previous behavior using: <pre><code class="php">{{::lint(Carbon::serializeUsing(function ($date) {
+            You still can get the previous behavior using: <pre><code class="php">Carbon::serializeUsing(function ($date) {
     return [
         'date' => $date->toDateTimeString(),
         'timezone_type' => $date->timezone_type,
         'timezone' => $date->tzName,
     ];
-});}})</code></pre>
+});</code></pre>
         </li>
         <li><code>$date->setToStringFormat()</code> with a closure no longer return a format but a final string. So you can
-            return any string and the following in Carbon 1: <pre><code class="php">{{::lint(
-Carbon::setToStringFormat(function ($date) {
+            return any string and the following in Carbon 1: <pre><code class="php">Carbon::setToStringFormat(function ($date) {
     return $date->year === 1976 ?
         'jS \o\f F g:i:s a' :
         'jS \o\f F, Y g:i:s a';
-});}})</code></pre>
+});</code></pre>
             would become in Carbon 2:
-            <pre><code class="php">{{::lint(
-Carbon::setToStringFormat(function ($date) {
+            <pre><code class="php">Carbon::setToStringFormat(function ($date) {
     return $date->formatLocalized($date->year === 1976 ?
         'jS \o\f F g:i:s a' :
-        'jS \o\f F, Y g:i:s a';
-}));}})</code></pre>
+        'jS \o\f F, Y g:i:s a'
+    );
+});</code></pre>
         </li>
         <li><code>setWeekStartsAt</code> and <code>setWeekEndsAt</code> no longer throw exceptions on values out of
             ranges, but they are also deprecated.

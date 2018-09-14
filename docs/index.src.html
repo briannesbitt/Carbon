@@ -3554,13 +3554,15 @@ echo "\n";
         </li>
         <li><code>$date->jsonSerialize()</code> and <code>json_encode($date)</code> no longer returns arrays but simple
             strings: <code>"2017-06-27T13:14:15.000000Z"</code>. This allows to create dates from it easier in JavaScript.
-            You still can get the previous behavior using: <pre><code class="php">{{::lint(Carbon::serializeUsing(function ($date) {
+            You still can get the previous behavior using: <pre><code class="php">{{::lint(
+Carbon::serializeUsing(function ($date) {
     return [
         'date' => $date->toDateTimeString(),
         'timezone_type' => $date->timezone_type,
         'timezone' => $date->tzName,
     ];
-});}})</code></pre>
+});
+)}}</code></pre>
         </li>
         <li><code>$date->setToStringFormat()</code> with a closure no longer return a format but a final string. So you can
             return any string and the following in Carbon 1: <pre><code class="php">{{::lint(
@@ -3568,14 +3570,17 @@ Carbon::setToStringFormat(function ($date) {
     return $date->year === 1976 ?
         'jS \o\f F g:i:s a' :
         'jS \o\f F, Y g:i:s a';
-});}})</code></pre>
+});
+)}}</code></pre>
             would become in Carbon 2:
             <pre><code class="php">{{::lint(
 Carbon::setToStringFormat(function ($date) {
     return $date->formatLocalized($date->year === 1976 ?
         'jS \o\f F g:i:s a' :
-        'jS \o\f F, Y g:i:s a';
-}));}})</code></pre>
+        'jS \o\f F, Y g:i:s a'
+    );
+});
+)}}</code></pre>
         </li>
         <li><code>setWeekStartsAt</code> and <code>setWeekEndsAt</code> no longer throw exceptions on values out of
             ranges, but they are also deprecated.
