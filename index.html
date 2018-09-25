@@ -221,33 +221,33 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
         var $document = $(document);
 
         function scrollCheck() {
-            $('.live-editor').each(function (index) {
-                var $pre = $(this);
-                var scrollTop = $document.scrollTop();
-                var scrollBottom = scrollTop + $(window).height();
-                var viewMargin = 400;
-                var top = $pre.offset().top;
-                if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
-                    $pre.removeClass('live-editor');
-                    var code = $pre.find('code').text();
-                    var token = 'live-editor-' + index;
-                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                        encodeURIComponent(code) +
-                        '&token=' + token;
-                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
-                    var $iframe = $('<iframe src="' + link +
-                        '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
-                    (callbacks[token] || (callbacks[token] = {})).ready = function () {
-                        $iframe.css({
-                            opacity: 1,
-                            pointerEvents: 'all',
-                            position: '',
-                            height: $pre.outerHeight() + 'px',
-                        });
-                        $pre.hide();
-                    };
-                }
-            });
+            // $('.live-editor').each(function (index) {
+            //     var $pre = $(this);
+            //     var scrollTop = $document.scrollTop();
+            //     var scrollBottom = scrollTop + $(window).height();
+            //     var viewMargin = 400;
+            //     var top = $pre.offset().top;
+            //     if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+            //         $pre.removeClass('live-editor');
+            //         var code = $pre.find('code').text();
+            //         var token = 'live-editor-' + index;
+            //         var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+            //             encodeURIComponent(code) +
+            //             '&token=' + token;
+            //         $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            //         var $iframe = $('<iframe src="' + link +
+            //             '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+            //         (callbacks[token] || (callbacks[token] = {})).ready = function () {
+            //             $iframe.css({
+            //                 opacity: 1,
+            //                 pointerEvents: 'all',
+            //                 position: '',
+            //                 height: $pre.outerHeight() + 'px',
+            //             });
+            //             $pre.hide();
+            //         };
+            //     }
+            // });
         }
 
         function openDoc(selection)
