@@ -126,6 +126,18 @@ class CarbonInterval extends DateInterval
     protected static $macros = [];
 
     /**
+     * Timezone handler for settings() method.
+     *
+     * @var mixed
+     */
+    protected $tzName;
+
+    public function shiftTimezone($tzName)
+    {
+        $this->tzName = $tzName;
+    }
+
+    /**
      * Mapping of units and factors for cascading.
      *
      * Should only be modified by changing the factors or referenced constants.
@@ -673,6 +685,9 @@ class CarbonInterval extends DateInterval
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
                 return $this->d % static::getDaysPerWeek();
+
+            case 'locale':
+                return $this->getLocalTranslator()->getLocale();
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));

@@ -516,4 +516,19 @@ class IteratorTest extends AbstractTestCase
         $this->assertFalse($period->skip());
         $this->assertFalse($period->skip(7));
     }
+
+    public function testLocale()
+    {
+        /** @var CarbonPeriod $period */
+        $period = CarbonPeriodFactory::withStackFilter()->locale('de');
+        $str = '';
+        foreach ($period as $key => $date) {
+            if ($key) {
+                $str .= ', ';
+            }
+            $str .= $date->isoFormat('MMMM dddd');
+        }
+
+        $this->assertSame('Januar Montag, Januar Mittwoch', $str);
+    }
 }
