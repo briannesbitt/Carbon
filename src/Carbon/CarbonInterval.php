@@ -135,6 +135,8 @@ class CarbonInterval extends DateInterval
     public function shiftTimezone($tzName)
     {
         $this->tzName = $tzName;
+
+        return $this;
     }
 
     /**

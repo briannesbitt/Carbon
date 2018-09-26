@@ -531,4 +531,17 @@ class IteratorTest extends AbstractTestCase
 
         $this->assertSame('Januar Montag, Januar Mittwoch', $str);
     }
+
+    public function testTimezone()
+    {
+        /** @var CarbonPeriod $period */
+        $period = CarbonPeriodFactory::withStackFilter()->shiftTimezone('America/Toronto');
+        $str = null;
+        foreach ($period as $key => $date) {
+            $str = $date->format('H e');
+            break;
+        }
+
+        $this->assertSame('00 America/Toronto', $str);
+    }
 }

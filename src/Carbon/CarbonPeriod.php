@@ -1502,5 +1502,7 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->tzName = $timezone;
         $this->timezone = $timezone;
+
+        return $this;
     }
 }
