@@ -179,4 +179,20 @@ class SettersTest extends AbstractTestCase
     {
         CarbonInterval::doesNotExit(123);
     }
+
+    public function testLocale()
+    {
+        /** @var CarbonInterval $period */
+        $interval = CarbonInterval::hour()->locale('de');
+
+        $this->assertSame('de', $interval->locale);
+    }
+
+    public function testTimezone()
+    {
+        /** @var CarbonInterval $period */
+        $interval = CarbonInterval::hour()->shiftTimezone('America/Toronto');
+
+        $this->assertSame('America/Toronto', $interval->getSettings()['timezone']);
+    }
 }

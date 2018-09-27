@@ -705,6 +705,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function fromSerialized($value);
 
+    public static function genericMacro($macro, $priority = 0);
+
     public function get($name);
 
     public static function getAvailableLocales();
@@ -732,6 +734,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = 0);
 
     public function getPreciseTimestamp($precision = 6);
+
+    public function getSettings();
 
     public static function getTestNow();
 
@@ -911,6 +915,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function previousWeekendDay();
 
+    public static function resetMacros();
+
     public static function resetMonthsOverflow();
 
     public static function resetToStringFormat();
@@ -1042,6 +1048,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function toDateString();
 
     public function toDateTime();
+
+    public function toDateTimeLocalString();
 
     public function toDateTimeString();
 

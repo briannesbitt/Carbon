@@ -226,6 +226,13 @@ class CarbonPeriod implements Iterator, Countable
     protected $validationResult;
 
     /**
+     * Timezone handler for settings() method.
+     *
+     * @var mixed
+     */
+    protected $tzName;
+
+    /**
      * Create a new instance.
      *
      * @return static
@@ -1179,6 +1186,12 @@ class CarbonPeriod implements Iterator, Countable
     {
         $this->key = 0;
         $this->current = call_user_func([$this->dateClass, 'make'], $this->startDate);
+        $settings = $this->getSettings();
+        $locale = $this->getLocalTranslator()->getLocale();
+        if ($locale) {
+            $settings['locale'] = $locale;
+        }
+        $this->current->settings($settings);
         $this->timezone = static::intervalHasTime($this->dateInterval) ? $this->current->getTimezone() : null;
 
         if ($this->timezone) {
@@ -1481,6 +1494,14 @@ class CarbonPeriod implements Iterator, Countable
         if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
             throw new BadMethodCallException("Method $method does not exist.");
         }
+
+        return $this;
+    }
+
+    public function shiftTimezone($timezone)
+    {
+        $this->tzName = $timezone;
+        $this->timezone = $timezone;
 
         return $this;
     }

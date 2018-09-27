@@ -20,7 +20,7 @@ use Carbon\CarbonInterface;
  *
  * Depends on the following methods:
  *
- * @method \Carbon\Carbon|\Carbon\CarbonImmutable setTimezone($timezone) Set the timezone
+ * @method \Carbon\Carbon|\Carbon\CarbonImmutable shiftTimezone($timezone) Set the timezone
  */
 trait Options
 {
@@ -337,5 +337,35 @@ trait Options
         }
 
         return $date;
+    }
+
+    /**
+     * Returns current local settings.
+     *
+     * @return array
+     */
+    public function getSettings()
+    {
+        $settings = [];
+        $map = [
+            'localStrictModeEnabled' => 'strictMode',
+            'localMonthsOverflow' => 'monthOverflow',
+            'localYearsOverflow' => 'yearOverflow',
+            'localHumanDiffOptions' => 'humanDiffOptions',
+            'localToStringFormat' => 'toStringFormat',
+            'localSerializer' => 'toJsonFormat',
+            'localMacros' => 'macros',
+            'localGenericMacros' => 'genericMacros',
+            'locale' => 'locale',
+            'tzName' => 'timezone',
+        ];
+        foreach ($map as $property => $key) {
+            $value = $this->$property ?? null;
+            if ($value !== null) {
+                $settings[$key] = $value;
+            }
+        }
+
+        return $settings;
     }
 }
