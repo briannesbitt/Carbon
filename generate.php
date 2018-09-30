@@ -65,6 +65,10 @@ Carbon::macro('getAvailableMacroLocales', function () {
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
     foreach (@methods(false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject)) {
 
+        $classes = trim(implode(' ', [
+            strpos($description, '@deprecated') !== false ? 'deprecated' : '',
+        ]));
+
         if (method_exists($dateTimeObject, $method)) {
             $dateClass = get_class($dateTimeObject);
             $rcCarbon = new ReflectionMethod($className, $method);
@@ -73,7 +77,8 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 $dateClass = trim($dateClass, '/\\');
 
                 yield [
-                    'name'      => $method,
+                    'name' => $method,
+                    'classes' => $classes,
                     'prototype' => '<em>Native PHP method</em>',
                     'className' => preg_replace('/^Carbon\\\\/', '', $className),
                     'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
@@ -105,9 +110,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
 
         yield [
             'name' => $method,
-            'classes' => trim(implode(' ', [
-                strpos($description, '@deprecated') !== false ? 'deprecated' : '',
-            ])),
+            'classes' => $classes,
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
             'className' => preg_replace('/^Carbon\\\\/', '', $className),
             'description' => preg_replace('/\n *\n/', '<br><br>', preg_replace('/@deprecated\s(([^\n]+)(\n [^\n])*)/', '<div class="alert alert-warning">$1</div>', $description)),
