@@ -1270,6 +1270,11 @@ $dt->settings([
 ]);
 )}}
 {{::exec(echo $dt;/*pad(50)*/)}} // {{eval}}
+
+// As any setting, you can get the current value for a given date using:
+{{::exec(var_dump($dt->getSettings());)}}
+/*
+{{eval}}*/
 </code></pre>
     </p>
 
