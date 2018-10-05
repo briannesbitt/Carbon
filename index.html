@@ -147,17 +147,17 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "^1.33"
+        "nesbot/carbon": "^2.3"
     }
 }</code></pre></p>
 
-            <p>Carbon 2 is not yet officially supported by Laravel but if you want to give it a try in your Laravel project, you can follow those steps.
+            <p>Carbon 2 is officially supported by Laravel since the version 5.8, if you want to use it on a lower version, you can follow those steps:</p>
 
             <p>Set explicitly the Carbon version and add the adapter in your <strong>composer.json</strong>:</p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "2.0.0-beta.4 as 1.25.0"
+        "nesbot/carbon": "2.3.0 as 1.25.0"
         "kylekatarnls/laravel-carbon-2": "^1.0.0"
     }
 }</code></pre></p>
