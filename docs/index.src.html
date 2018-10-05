@@ -1367,24 +1367,24 @@ Carbon::resetToStringFormat();
 {{::exec(echo $second->toDateTimeString();/*pad(50)*/)}} // {{eval}}
 {{::exec(echo $second->tzName;/*pad(50)*/)}} // {{eval}}
 
-{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
 
 {{::lint($first->setDateTime(2012, 1, 1, 0, 0, 0);)}}
 {{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(50)*/)}} // Remember tz is 'America/Vancouver'
 
-{{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->ne($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->gt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->gte($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lt($second));/*pad(50)*/)}} // {{eval}}
-{{::exec(var_dump($first->lte($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
 
-// All have verbose aliases and PHP equivalent code:
+// All have short hand aliases and PHP equivalent code:
 
 {{::exec(var_dump($first->eq($second));/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
