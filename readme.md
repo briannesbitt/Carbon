@@ -79,11 +79,11 @@ printf("Now: %s", Carbon::now());
 
 ### Without Composer
 
-Why are you not using [composer](http://getcomposer.org/)? Download [Carbon.php](https://github.com/briannesbitt/Carbon/blob/master/src/Carbon/Carbon.php) from the repo and save the file into your project path somewhere.
+Why are you not using [composer](http://getcomposer.org/)? Download the Carbon source code from the [latest release](https://github.com/briannesbitt/Carbon/releases) and put the contents of the src directory into your project. Please note, that you need to configure your autoloader to find the Carbon namespace in the directory `src/Carbon`.
 
 ```php
 <?php
-require 'path/to/Carbon.php';
+require 'your_autoloader.php';
 
 use Carbon\Carbon;
 
