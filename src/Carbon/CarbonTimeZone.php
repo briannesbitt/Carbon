@@ -95,6 +95,7 @@ class CarbonTimeZone extends DateTimeZone
      * Returns abbreviated name of the current timezone according to DST setting.
      *
      * @param bool $dst
+     *
      * @return string
      */
     public function getAbbr($dst = false)

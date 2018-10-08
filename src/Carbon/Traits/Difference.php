@@ -395,8 +395,9 @@ trait Difference
      * @param null $other
      * @param null $syntax
      * @param bool $short
-     * @param int $parts
+     * @param int  $parts
      * @param null $options
+     *
      * @return string
      */
     public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
@@ -467,8 +468,9 @@ trait Difference
      * @param null $other
      * @param null $syntax
      * @param bool $short
-     * @param int $parts
+     * @param int  $parts
      * @param null $options
+     *
      * @return string
      */
     public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)

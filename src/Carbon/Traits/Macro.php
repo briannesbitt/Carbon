@@ -89,8 +89,10 @@ trait Macro
      * Mix another object into the class.
      *
      * @param object $mixin
-     * @return void
+     *
      * @throws \ReflectionException
+     *
+     * @return void
      */
     public static function mixin($mixin)
     {

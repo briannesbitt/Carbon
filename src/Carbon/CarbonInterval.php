@@ -204,6 +204,7 @@ class CarbonInterval extends DateInterval
      * @param int $minutes
      * @param int $seconds
      * @param int $microseconds
+     *
      * @throws \Exception
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
