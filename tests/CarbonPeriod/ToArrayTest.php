@@ -70,7 +70,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
-        $this->assertSame(3, count($period));
+        $this->assertCount(3, $period);
     }
 
     public function testFirst()

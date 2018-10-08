@@ -636,7 +636,7 @@ class LocalizationTest extends AbstractTestCase
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $translator->setMessages('zz_ZZ', []);
-        $this->assertTrue(in_array('zz_ZZ', Carbon::getAvailableLocales()));
+        $this->assertContains('zz_ZZ', Carbon::getAvailableLocales());
 
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
