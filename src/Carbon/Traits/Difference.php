@@ -391,6 +391,13 @@ trait Difference
      *
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
+     *
+     * @param null $other
+     * @param null $syntax
+     * @param bool $short
+     * @param int $parts
+     * @param null $options
+     * @return string
      */
     public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
@@ -456,6 +463,13 @@ trait Difference
      *
      * Get the difference in a human readable format in the current locale from an other
      * instance given (or now if null given) to current instance.
+     *
+     * @param null $other
+     * @param null $syntax
+     * @param bool $short
+     * @param int $parts
+     * @param null $options
+     * @return string
      */
     public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
