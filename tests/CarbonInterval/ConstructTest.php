@@ -270,9 +270,14 @@ class ConstructTest extends AbstractTestCase
 
     public function testNegativeHour()
     {
-        $before = new Carbon('2018-10-08 14:53:00');
-        $after = new Carbon('2018-11-15 14:00:00');
+        $before = new Carbon('2018-10-08 14:53:00', 'UTC');
+        $after = new Carbon('2018-11-15 14:00:00', 'UTC');
 
-        $this->assertCarbonInterval($after->diffAsCarbonInterval($before, false), 0, 1, 7, -1, 7, 0);
+        $this->assertCarbonInterval($after->diffAsCarbonInterval($before, false), 0, 1, 6, 23, 7, 0);
+
+        $before = new Carbon('2018-10-08 14:53:00', 'Europe/Prague');
+        $after = new Carbon('2018-11-15 14:00:00', 'Europe/Prague');
+
+        $this->assertSame(23, (24 + $after->diffAsCarbonInterval($before, false)->h) % 24);
     }
 }
