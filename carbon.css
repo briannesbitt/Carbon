@@ -40,6 +40,16 @@ blockquote, .doc-comment{font-size:15px;color:#656565}
     color: #4b4b4b;
 }
 
+.live-editor-loading:before {
+    content: 'Loading live editor...';
+    color: white;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px;
+    margin: auto;
+    width: 100%;
+    display: block;
+}
 .live-editor-new-window {
     float: right;
     width: 32px;
