@@ -48,7 +48,7 @@ return [
     'period_end_date' => 'iki :date',
     'months' => ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
     'months_short' => ['Sau', 'Vas', 'Kov', 'Bal', 'Geg', 'Bir', 'Lie', 'Rgp', 'Rgs', 'Spa', 'Lap', 'Gru'],
-    'weekdays' => ['Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis', 'Sekmadienis'],
-    'weekdays_short' => ['Pir', 'Ant', 'Tre', 'Ket', 'Pen', 'Šeš', 'Sek'],
-    'weekdays_min' => ['Pi', 'An', 'Tr', 'Ke', 'Pe', 'Še', 'Se'],
+    'weekdays' => ['Sekmadienis', 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis'],
+    'weekdays_short' => ['Sek', 'Pir', 'Ant', 'Tre', 'Ket', 'Pen', 'Šeš'],
+    'weekdays_min' => ['Se', 'Pi', 'An', 'Tr', 'Ke', 'Pe', 'Še'],
 ];
