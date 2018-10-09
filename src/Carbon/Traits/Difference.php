@@ -391,6 +391,20 @@ trait Difference
      *
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
      */
     public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
@@ -456,6 +470,20 @@ trait Difference
      *
      * Get the difference in a human readable format in the current locale from an other
      * instance given (or now if null given) to current instance.
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
      */
     public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {

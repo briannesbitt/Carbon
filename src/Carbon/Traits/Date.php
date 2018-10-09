@@ -1239,6 +1239,7 @@ trait Date
      * @param int $hour
      * @param int $minute
      * @param int $second
+     * @param int $microseconds
      *
      * @return static
      */

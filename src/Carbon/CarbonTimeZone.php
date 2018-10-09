@@ -93,6 +93,10 @@ class CarbonTimeZone extends DateTimeZone
      * @alias getAbbreviatedName
      *
      * Returns abbreviated name of the current timezone according to DST setting.
+     *
+     * @param bool $dst
+     *
+     * @return string
      */
     public function getAbbr($dst = false)
     {
