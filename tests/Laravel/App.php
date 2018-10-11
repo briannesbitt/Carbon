@@ -20,7 +20,7 @@ class App implements ArrayAccess
      */
     public $events;
 
-    public function __construct()
+    public function register()
     {
         include_once __DIR__.'/EventDispatcher.php';
         $this->translator = new Translator('de');
