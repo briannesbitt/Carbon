@@ -47,6 +47,11 @@ class App implements ArrayAccess
         $this->events->dispatch(static::getLocaleChangeEventName());
     }
 
+    public function bound($service)
+    {
+        return isset($this->{$service});
+    }
+
     public function offsetExists($offset)
     {
         return isset($this->$offset);
