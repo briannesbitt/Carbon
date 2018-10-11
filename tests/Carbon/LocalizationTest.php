@@ -655,5 +655,7 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertSame('в среду', $date->isoFormat('[в] dddd'));
         $this->assertSame('среда, 10 октября 2018', $date->isoFormat('dddd, D MMMM YYYY'));
+        $this->assertSame('среда', $date->dayName);
+        $this->assertSame('ср', $date->isoFormat('dd'));
     }
 }
