@@ -20,7 +20,7 @@ class App implements ArrayAccess
      */
     public $events;
 
-    public function __construct()
+    public function register()
     {
         include_once __DIR__.'/EventDispatcher.php';
         $this->translator = new Translator('de');
@@ -45,6 +45,11 @@ class App implements ArrayAccess
     {
         $this->translator->setLocale($locale);
         $this->events->dispatch(static::getLocaleChangeEventName());
+    }
+
+    public function bound($service)
+    {
+        return isset($this->{$service});
     }
 
     public function offsetExists($offset)
