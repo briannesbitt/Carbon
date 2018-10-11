@@ -739,6 +739,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getTestNow();
 
+    public function getTranslatedDayName($context = null);
+
+    public function getTranslatedMinDayName($context = null);
+
+    public function getTranslatedMonthName($context = null);
+
+    public function getTranslatedShortDayName($context = null);
+
+    public function getTranslatedShortMonthName($context = null);
+
     public function getTranslationMessage(string $key, string $locale = null, string $default = null);
 
     public static function getTranslator();
