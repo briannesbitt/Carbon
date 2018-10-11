@@ -648,4 +648,14 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertSame('3 კვირაა', $diff);
     }
+
+    public function testWeekDayMultipleForms()
+    {
+        $date = Carbon::parse('2018-10-10')->locale('ru');
+
+        $this->assertSame('в среду', $date->isoFormat('[в] dddd'));
+        $this->assertSame('среда, 10 октября 2018', $date->isoFormat('dddd, D MMMM YYYY'));
+        $this->assertSame('среда', $date->dayName);
+        $this->assertSame('ср', $date->isoFormat('dd'));
+    }
 }

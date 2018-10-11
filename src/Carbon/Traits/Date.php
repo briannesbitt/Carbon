@@ -791,19 +791,19 @@ trait Date
 
             // @property-read string long name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'dayName':
-                return $this->getTranslationMessage('weekdays.'.$this->dayOfWeek, null, $this->englishDayOfWeek);
+                return $this->getTranslatedDayName();
             // @property-read string short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortDayName':
-                return $this->getTranslationMessage('weekdays_short.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
+                return $this->getTranslatedShortDayName();
             // @property-read string very short name of weekday translated according to Carbon locale, in english if no translation available for current language
             case $name === 'minDayName':
-                return $this->getTranslationMessage('weekdays_min.'.$this->dayOfWeek, null, $this->shortEnglishDayOfWeek);
+                return $this->getTranslatedMinDayName();
             // @property-read string long name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'monthName':
-                return $this->getTranslationMessage('months.'.($this->month - 1), null, $this->englishMonth);
+                return $this->getTranslatedMonthName();
             // @property-read string short name of month translated according to Carbon locale, in english if no translation available for current language
             case $name === 'shortMonthName':
-                return $this->getTranslationMessage('months_short.'.($this->month - 1), null, $this->shortEnglishMonth);
+                return $this->getTranslatedShortMonthName();
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
                 $meridiem = $this->translate('meridiem', [
@@ -1113,6 +1113,84 @@ trait Date
         }
 
         return $this;
+    }
+
+    protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
+    {
+        $key = $baseKey.$keySuffix;
+        $standaloneKey = "${key}_standalone";
+        if (
+            $this->getTranslationMessage("$standaloneKey.$subKey") &&
+            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
+        ) {
+            $key = $standaloneKey;
+        }
+
+        return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
+    }
+
+    /**
+     * Get the translation of the current week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context      whole format string
+     * @param string      $keySuffix    "", "_short" or "_min"
+     * @param string|null $defaultValue default value if translation missing
+     *
+     * @return string
+     */
+    public function getTranslatedDayName($context = null, $keySuffix = '', $defaultValue = null)
+    {
+        return $this->getTranslatedFormByRegExp('weekdays', $keySuffix, $context, $this->dayOfWeek, $defaultValue ?: $this->englishDayOfWeek);
+    }
+
+    /**
+     * Get the translation of the current short week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
+    public function getTranslatedShortDayName($context = null)
+    {
+        return $this->getTranslatedDayName($context, '_short', $this->shortEnglishDayOfWeek);
+    }
+
+    /**
+     * Get the translation of the current abbreviated week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
+    public function getTranslatedMinDayName($context = null)
+    {
+        return $this->getTranslatedDayName($context, '_min', $this->shortEnglishDayOfWeek);
+    }
+
+    /**
+     * Get the translation of the current month day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context      whole format string
+     * @param string      $keySuffix    "" or "_short"
+     * @param string|null $defaultValue default value if translation missing
+     *
+     * @return string
+     */
+    public function getTranslatedMonthName($context = null, $keySuffix = '', $defaultValue = null)
+    {
+        return $this->getTranslatedFormByRegExp('months', $keySuffix, $context, $this->month - 1, $defaultValue ?: $this->englishMonth);
+    }
+
+    /**
+     * Get the translation of the current short month day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
+    public function getTranslatedShortMonthName($context = null)
+    {
+        return $this->getTranslatedMonthName($context, '_short', $this->shortEnglishMonth);
     }
 
     /**
@@ -1620,9 +1698,15 @@ trait Date
                 'DD' => ['format', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
                 'd' => 'dayOfWeek',
-                'dd' => 'minDayName',
-                'ddd' => 'shortDayName',
-                'dddd' => 'dayName',
+                'dd' => function (CarbonInterface $date, $originalFormat = null) {
+                    return $date->getTranslatedMinDayName($originalFormat);
+                },
+                'ddd' => function (CarbonInterface $date, $originalFormat = null) {
+                    return $date->getTranslatedShortDayName($originalFormat);
+                },
+                'dddd' => function (CarbonInterface $date, $originalFormat = null) {
+                    return $date->getTranslatedDayName($originalFormat);
+                },
                 'DDD' => 'dayOfYear',
                 'DDDD' => ['getPaddedUnit', ['dayOfYear', 3]],
                 'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
@@ -1671,8 +1755,8 @@ trait Date
                 },
                 'M' => 'month',
                 'MM' => ['format', ['m']],
-                'MMM' => function (CarbonInterface $date) {
-                    $month = $date->shortMonthName;
+                'MMM' => function (CarbonInterface $date, $originalFormat = null) {
+                    $month = $date->getTranslatedShortMonthName($originalFormat);
                     $suffix = $date->getTranslationMessage('mmm_suffix');
                     if ($suffix && $month !== $date->monthName) {
                         $month .= $suffix;
@@ -1680,7 +1764,9 @@ trait Date
 
                     return $month;
                 },
-                'MMMM' => 'monthName',
+                'MMMM' => function (CarbonInterface $date, $originalFormat = null) {
+                    return $date->getTranslatedMonthName($originalFormat);
+                },
                 'Mo' => ['ordinal', ['month', 'M']],
                 'Q' => 'quarter',
                 'Qo' => ['ordinal', ['quarter', 'M']],
@@ -1783,6 +1869,7 @@ trait Date
     {
         $result = '';
         $length = mb_strlen($format);
+        $originalFormat = $format;
         $inEscaped = false;
         $formats = null;
         $units = null;
@@ -1841,7 +1928,7 @@ trait Date
 
                 $sequence = $units[$code] ?? '';
                 if ($sequence instanceof Closure) {
-                    $sequence = $sequence($this);
+                    $sequence = $sequence($this, $originalFormat);
                 } elseif (is_array($sequence)) {
                     try {
                         $sequence = $this->{$sequence[0]}(...$sequence[1]);
