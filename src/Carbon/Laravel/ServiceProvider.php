@@ -12,7 +12,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     public function boot()
     {
-        if (! $this->app->bound('events') || ! $this->app->bound('translator')) {
+        if (!$this->app->bound('events') || !$this->app->bound('translator')) {
             return;
         }
         $service = $this;
