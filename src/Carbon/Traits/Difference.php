@@ -12,6 +12,7 @@
 namespace Carbon\Traits;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
@@ -24,6 +25,7 @@ use DateTimeInterface;
  *
  * Depends on the following methods:
  *
+ * @method bool lessThan($date)
  * @method \DateInterval diff(\DateTimeInterface $date)
  * @method CarbonInterface copy()
  * @method static Translator translator()
@@ -310,6 +312,266 @@ trait Difference
     }
 
     /**
+     * Get the difference in seconds as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInSeconds($date = null, $absolute = true)
+    {
+        return $this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND;
+    }
+
+    /**
+     * Get the difference in minutes as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInMinutes($date = null, $absolute = true)
+    {
+        return $this->floatDiffInSeconds($date, $absolute) / static::SECONDS_PER_MINUTE;
+    }
+
+    /**
+     * Get the difference in hours as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInHours($date = null, $absolute = true)
+    {
+        return $this->floatDiffInMinutes($date, $absolute) / static::MINUTES_PER_HOUR;
+    }
+
+    /**
+     * Get the difference in days as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInDays($date = null, $absolute = true)
+    {
+        $hoursDiff = $this->floatDiffInHours($date, $absolute);
+
+        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + ($hoursDiff % static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+    }
+
+    /**
+     * Get the difference in months as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInMonths($date = null, $absolute = true)
+    {
+        $start = $this;
+        $end = $this->resolveCarbon($date);
+        $ascending = ($start <= $end);
+        $sign = $absolute || $ascending ? 1 : -1;
+        if (!$ascending) {
+            $_end = $start;
+            $start = $end;
+            $end = $_end;
+            unset($_end);
+        }
+        $monthsDiff = $start->diffInMonths($end);
+        /** @var Carbon|CarbonImmutable $floorEnd */
+        $floorEnd = $start->copy()->addMonths($monthsDiff);
+
+        if ($floorEnd >= $end) {
+            return $sign * $monthsDiff;
+        }
+
+        /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
+        $startOfMonthAfterFloorEnd = $floorEnd->copy()->addMonth()->startOfMonth();
+
+        if ($startOfMonthAfterFloorEnd > $end) {
+            return $sign * ($monthsDiff + $floorEnd->floatDiffInDays($end) / $floorEnd->daysInMonth);
+        }
+
+        return $sign * ($monthsDiff + $floorEnd->floatDiffInDays($startOfMonthAfterFloorEnd) / $floorEnd->daysInMonth + $startOfMonthAfterFloorEnd->floatDiffInDays($end) / $end->daysInMonth);
+    }
+
+    /**
+     * Get the difference in year as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInYears($date = null, $absolute = true)
+    {
+        $start = $this;
+        $end = $this->resolveCarbon($date);
+        $ascending = ($start <= $end);
+        $sign = $absolute || $ascending ? 1 : -1;
+        if (!$ascending) {
+            $_end = $start;
+            $start = $end;
+            $end = $_end;
+            unset($_end);
+        }
+        $yearsDiff = $start->diffInYears($end);
+        /** @var Carbon|CarbonImmutable $floorEnd */
+        $floorEnd = $start->copy()->addYears($yearsDiff);
+
+        if ($floorEnd >= $end) {
+            return $sign * $yearsDiff;
+        }
+
+        /** @var Carbon|CarbonImmutable $startOfYearAfterFloorEnd */
+        $startOfYearAfterFloorEnd = $floorEnd->copy()->addYear()->startOfYear();
+
+        if ($startOfYearAfterFloorEnd > $end) {
+            return $sign * ($yearsDiff + $floorEnd->floatDiffInDays($end) / $floorEnd->daysInYear);
+        }
+
+        return $sign * ($yearsDiff + $floorEnd->floatDiffInDays($startOfYearAfterFloorEnd) / $floorEnd->daysInYear + $startOfYearAfterFloorEnd->floatDiffInDays($end) / $end->daysInYear);
+    }
+
+    /**
+     * Get the difference in seconds as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealSeconds($date = null, $absolute = true)
+    {
+        return $this->diffInRealMicroseconds($date, $absolute) / static::MICROSECONDS_PER_SECOND;
+    }
+
+    /**
+     * Get the difference in minutes as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealMinutes($date = null, $absolute = true)
+    {
+        return $this->floatDiffInRealSeconds($date, $absolute) / static::SECONDS_PER_MINUTE;
+    }
+
+    /**
+     * Get the difference in hours as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealHours($date = null, $absolute = true)
+    {
+        return $this->floatDiffInRealMinutes($date, $absolute) / static::MINUTES_PER_HOUR;
+    }
+
+    /**
+     * Get the difference in days as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealDays($date = null, $absolute = true)
+    {
+        $hoursDiff = $this->floatDiffInRealHours($date, $absolute);
+
+        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + ($hoursDiff % static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+    }
+
+    /**
+     * Get the difference in months as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealMonths($date = null, $absolute = true)
+    {
+        $start = $this;
+        $end = $this->resolveCarbon($date);
+        $ascending = ($start <= $end);
+        $sign = $absolute || $ascending ? 1 : -1;
+        if (!$ascending) {
+            $_end = $start;
+            $start = $end;
+            $end = $_end;
+            unset($_end);
+        }
+        $monthsDiff = $start->diffInMonths($end);
+        /** @var Carbon|CarbonImmutable $floorEnd */
+        $floorEnd = $start->copy()->addMonths($monthsDiff);
+
+        if ($floorEnd >= $end) {
+            return $sign * $monthsDiff;
+        }
+
+        /** @var Carbon|CarbonImmutable $startOfMonthAfterFloorEnd */
+        $startOfMonthAfterFloorEnd = $floorEnd->copy()->addMonth()->startOfMonth();
+
+        if ($startOfMonthAfterFloorEnd > $end) {
+            return $sign * ($monthsDiff + $floorEnd->floatDiffInRealDays($end) / $floorEnd->daysInMonth);
+        }
+
+        return $sign * ($monthsDiff + $floorEnd->floatDiffInRealDays($startOfMonthAfterFloorEnd) / $floorEnd->daysInMonth + $startOfMonthAfterFloorEnd->floatDiffInRealDays($end) / $end->daysInMonth);
+    }
+
+    /**
+     * Get the difference in year as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
+    public function floatDiffInRealYears($date = null, $absolute = true)
+    {
+        $start = $this;
+        $end = $this->resolveCarbon($date);
+        $ascending = ($start <= $end);
+        $sign = $absolute || $ascending ? 1 : -1;
+        if (!$ascending) {
+            $_end = $start;
+            $start = $end;
+            $end = $_end;
+            unset($_end);
+        }
+        $yearsDiff = $start->diffInYears($end);
+        /** @var Carbon|CarbonImmutable $floorEnd */
+        $floorEnd = $start->copy()->addYears($yearsDiff);
+
+        if ($floorEnd >= $end) {
+            return $sign * $yearsDiff;
+        }
+
+        /** @var Carbon|CarbonImmutable $startOfYearAfterFloorEnd */
+        $startOfYearAfterFloorEnd = $floorEnd->copy()->addYear()->startOfYear();
+
+        if ($startOfYearAfterFloorEnd > $end) {
+            return $sign * ($yearsDiff + $floorEnd->floatDiffInRealDays($end) / $floorEnd->daysInYear);
+        }
+
+        return $sign * ($yearsDiff + $floorEnd->floatDiffInRealDays($startOfYearAfterFloorEnd) / $floorEnd->daysInYear + $startOfYearAfterFloorEnd->floatDiffInRealDays($end) / $end->daysInYear);
+    }
+
+    /**
      * The number of seconds since midnight.
      *
      * @return int
@@ -534,6 +796,14 @@ trait Difference
         return $this->to(null, $syntax, $short, $parts, $options);
     }
 
+    /**
+     * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $referenceTime
+     * @param array                                         $formats
+     *
+     * @return string
+     */
     public function calendar($referenceTime = null, array $formats = [])
     {
         /** @var CarbonInterface $current */
