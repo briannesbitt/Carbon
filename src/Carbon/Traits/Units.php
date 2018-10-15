@@ -272,9 +272,9 @@ trait Units
      * @example $date->sub(15, 'days')
      * @example $date->sub(CarbonInterval::days(4))
      *
-     * @param string    $unit
-     * @param int       $value
-     * @param bool|null $overflow
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     * @param bool|null           $overflow
      *
      * @return CarbonInterface
      */
@@ -303,9 +303,9 @@ trait Units
      *
      * @see sub()
      *
-     * @param string    $unit
-     * @param int       $value
-     * @param bool|null $overflow
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     * @param bool|null           $overflow
      *
      * @return CarbonInterface
      */

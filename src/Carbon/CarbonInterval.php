@@ -1093,12 +1093,34 @@ class CarbonInterval extends DateInterval
     /**
      * Add the passed interval to the current instance.
      *
-     * @param DateInterval $interval
+     * @param string|DateInterval $unit
+     * @param int                 $value
      *
      * @return static
      */
-    public function add(DateInterval $interval)
+    public function add($unit, $value = 1)
     {
+        if (is_numeric($unit)) {
+            $_unit = $value;
+            $value = $unit;
+            $unit = $_unit;
+            unset($_unit);
+        }
+
+        if (is_string($unit) && !preg_match('/^\s*\d/', $unit)) {
+            $unit = "$value $unit";
+            $value = 1;
+        }
+
+        $interval = static::make($unit);
+
+        if (!$interval) {
+            throw new InvalidArgumentException('This type of data cannot be added/subtracted.');
+        }
+
+        if ($value !== 1) {
+            $interval->times($value);
+        }
         $sign = $interval->invert === 1 ? -1 : 1;
         $this->years += $interval->y * $sign;
         $this->months += $interval->m * $sign;
@@ -1108,6 +1130,39 @@ class CarbonInterval extends DateInterval
         $this->seconds += $interval->s * $sign;
 
         return $this;
+    }
+
+    /**
+     * Subtract the passed interval to the current instance.
+     *
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     *
+     * @return static
+     */
+    public function sub($unit, $value = 1)
+    {
+        if (is_numeric($unit)) {
+            $_unit = $value;
+            $value = $unit;
+            $unit = $_unit;
+            unset($_unit);
+        }
+
+        return $this->add($unit, -floatval($value));
+    }
+
+    /**
+     * Subtract the passed interval to the current instance.
+     *
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     *
+     * @return static
+     */
+    public function subtract($unit, $value = 1)
+    {
+        return $this->sub($unit, $value);
     }
 
     /**
