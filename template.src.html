@@ -93,14 +93,16 @@
         var $document = $(document);
         var editorAutoLoad = false;
 
-        function transformEditor($pre, index) {
+        function transformEditor($pre, index, code, token, link) {
             $pre.removeClass('live-editor').addClass('live-editor-loading');
-            var code = $pre.find('code').text();
-            var token = 'live-editor-' + index;
-            var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                encodeURIComponent(code) +
-                '&token=' + token;
-            $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            if (!code) {
+                code = $pre.find('code').text();
+                token = 'live-editor-' + index;
+                link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    encodeURIComponent(code) +
+                    '&token=' + token;
+                $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            }
             var $iframe = $('<iframe src="' + link +
                 '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
             (callbacks[token] || (callbacks[token] = {})).ready = function () {
@@ -118,9 +120,15 @@
             $('.live-editor').each(function (index) {
                 var $pre = $(this);
                 if (!editorAutoLoad) {
+                    var code = $pre.find('code').text();
+                    var token = 'live-editor-' + index;
+                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                        encodeURIComponent(code) +
+                        '&token=' + token;
                     $pre.css('cursor', 'pointer').click(function () {
-                        transformEditor($pre, index);
+                        transformEditor($pre, index, code, token, link);
                     });
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
 
                     return;
                 }
