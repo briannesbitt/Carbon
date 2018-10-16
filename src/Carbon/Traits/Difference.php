@@ -270,8 +270,7 @@ trait Difference
         $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
-            $diff->s) * static::MICROSECONDS_PER_SECOND +
-            $diff->f);
+            ($diff->f + $diff->s)) * static::MICROSECONDS_PER_SECOND);
 
         return $absolute || !$diff->invert ? $value : -$value;
     }

@@ -1436,6 +1436,8 @@ class DiffTest extends AbstractTestCase
     {
         date_default_timezone_set('UTC');
 
+        $this->assertSame(8986.665965, Carbon::parse('2018-03-31 23:55:12.321456')->floatDiffInSeconds(Carbon::parse('2018-04-01 02:24:58.987421')));
+
         $this->assertSame(0.9707885304659498, Carbon::parse('2018-03-13 20:55:12.321456')->floatDiffInMonths(Carbon::parse('2018-04-12 14:24:58.987421')));
         $this->assertSame(0.9707885304659498, Carbon::parse('2018-04-12 14:24:58.987421')->floatDiffInMonths(Carbon::parse('2018-03-13 20:55:12.321456')));
         $this->assertSame(0.9707885304659498, Carbon::parse('2018-03-13 20:55:12.321456')->floatDiffInMonths(Carbon::parse('2018-04-12 14:24:58.987421'), false));
