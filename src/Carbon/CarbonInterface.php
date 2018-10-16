@@ -691,6 +691,30 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function firstOfYear($dayOfWeek = null);
 
+    public function floatDiffInDays($date = null, $absolute = true);
+
+    public function floatDiffInHours($date = null, $absolute = true);
+
+    public function floatDiffInMinutes($date = null, $absolute = true);
+
+    public function floatDiffInMonths($date = null, $absolute = true);
+
+    public function floatDiffInRealDays($date = null, $absolute = true);
+
+    public function floatDiffInRealHours($date = null, $absolute = true);
+
+    public function floatDiffInRealMinutes($date = null, $absolute = true);
+
+    public function floatDiffInRealMonths($date = null, $absolute = true);
+
+    public function floatDiffInRealSeconds($date = null, $absolute = true);
+
+    public function floatDiffInRealYears($date = null, $absolute = true);
+
+    public function floatDiffInSeconds($date = null, $absolute = true);
+
+    public function floatDiffInYears($date = null, $absolute = true);
+
     public function floor($precision = 1);
 
     public function floorUnit($unit, $precision = 1);
@@ -739,11 +763,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public static function getTestNow();
 
-    public function getTranslatedDayName($context = null);
+    public function getTranslatedDayName($context = null, $keySuffix = '', $defaultValue = null);
 
     public function getTranslatedMinDayName($context = null);
 
-    public function getTranslatedMonthName($context = null);
+    public function getTranslatedMonthName($context = null, $keySuffix = '', $defaultValue = null);
 
     public function getTranslatedShortDayName($context = null);
 
