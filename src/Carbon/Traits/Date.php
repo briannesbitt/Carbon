@@ -1119,6 +1119,12 @@ trait Date
     {
         $key = $baseKey.$keySuffix;
         $standaloneKey = "${key}_standalone";
+        $baseTranslation = $this->getTranslationMessage($key);
+
+        if ($baseTranslation instanceof Closure) {
+            return $baseTranslation($this, $context, $subKey) ?: $defaultValue;
+        }
+
         if (
             $this->getTranslationMessage("$standaloneKey.$subKey") &&
             (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))

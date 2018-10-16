@@ -13,8 +13,10 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\Translator;
+use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
+use Symfony\Component\Translation\MessageSelector;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -657,5 +659,23 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('среда, 10 октября 2018', $date->isoFormat('dddd, D MMMM YYYY'));
         $this->assertSame('среда', $date->dayName);
         $this->assertSame('ср', $date->isoFormat('dd'));
+
+        $date = Carbon::parse('2018-10-10')->locale('uk');
+
+        $this->assertSame('середа, 10', $date->isoFormat('dddd, D'));
+        $this->assertSame('в середу', $date->isoFormat('[в] dddd'));
+        $this->assertSame('минулої середи', $date->isoFormat('[минулої] dddd'));
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Translator does not implement Symfony\Component\Translation\TranslatorInterface and Symfony\Component\Translation\TranslatorBagInterface.
+     */
+    public function testTranslationCustomWithCustomTranslator()
+    {
+        $date = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date->setLocalTranslator(new IdentityTranslator(new MessageSelector()));
+
+        $date->getTranslationMessage('foo');
     }
 }
