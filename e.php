@@ -4,14 +4,18 @@ use Carbon\Carbon;
 
 include __DIR__ . '/vendor/autoload.php';
 
-$date = new Carbon('2014-03-30 01:00:00', 'Europe/London');
-echo $date->floatDiffInRealHours('2014-03-30 02:30:00');          // 2.5
+$date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');
+echo $date->floatDiffInRealHours('2019-10-28 12:30:00');          // 2.5
 echo "\n";
-echo $date->floatDiffInHours('2014-03-30 02:30:00');              // 2.5
+echo $date->diffInRealHours('2019-10-28 12:30:00');          // 2.5
 echo "\n";
-echo $date->floatDiffInRealMinutes('2014-03-30 03:00:30');        // 120.5
+echo $date->floatDiffInHours('2019-10-28 12:30:00');              // 2.5
 echo "\n";
-echo $date->floatDiffInMinutes('2014-03-30 03:00:30');            // 120.5
+echo $date->diffInHours('2019-10-28 12:30:00');              // 2.5
+echo "\n";
+echo $date->floatDiffInRealMinutes('2019-10-28 12:00:30');        // 120.5
+echo "\n";
+echo $date->floatDiffInMinutes('2019-10-28 12:00:30');            // 120.5
 echo "\n";
 echo $date->floatDiffInRealSeconds('2014-03-30 03:00:00.5');      // 7200.5
 echo "\n";

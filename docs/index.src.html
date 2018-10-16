@@ -1992,20 +1992,20 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
 
 // with float diff:
-{{::lint($date = new Carbon('2014-03-30 00:00:00', 'Europe/London');/*pad(65)*/)}}
-{{::exec(echo $date->floatDiffInRealHours('2014-03-30 03:30:00');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInHours('2014-03-30 03:30:00');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInRealMinutes('2014-03-30 03:00:30');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInMinutes('2014-03-30 03:00:30');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInRealSeconds('2014-03-30 03:00:00.5');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInSeconds('2014-03-30 03:00:00.5');/*pad(65)*/)}} // {{eval}}
+{{::lint($date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');/*pad(65)*/)}}
+{{::exec(echo $date->floatDiffInRealHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealMinutes('2019-10-28 12:00:30');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInMinutes('2019-10-28 12:00:30');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealSeconds('2019-10-28 12:00:00.5');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInSeconds('2019-10-28 12:00:00.5');/*pad(65)*/)}} // {{eval}}
 // above day unit, "real" will affect the decimal part based on hours and smaller units
-{{::exec(echo $date->floatDiffInRealDays('2014-03-31 03:30:00');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInDays('2014-03-31 03:30:00');/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInRealMonths('2014-04-30 03:30:00') - 1;/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInMonths('2014-04-30 03:30:00') - 1;/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInRealYears('2015-03-30 03:30:00') - 1;/*pad(65)*/)}} // {{eval}}
-{{::exec(echo $date->floatDiffInYears('2015-03-30 03:30:00') - 1;/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealYears('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInYears('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 </code></pre>
     </p>
 
