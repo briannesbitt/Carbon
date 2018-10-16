@@ -25,7 +25,7 @@ return [
     'second' => 'få sekunder|:count sekunder',
     's' => ':count sekund|:count sekunder',
     'ago' => ':time siden',
-    'from_now' => 'om :time',
+    'from_now' => ':time siden',
     'after' => ':time efter',
     'before' => ':time før',
     'formats' => [
