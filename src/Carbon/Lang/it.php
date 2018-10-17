@@ -47,14 +47,7 @@ return [
         'sameDay' => '[Oggi alle] LT',
         'nextDay' => '[Domani alle] LT',
         'nextWeek' => 'dddd [alle] LT',
-        'lastDay' => function (\Carbon\CarbonInterface $current) {
-            switch ($current->dayOfWeek) {
-                case 0:
-                    return '[la scorsa] dddd [alle] LT';
-                default:
-                    return '[lo scorso] dddd [alle] LT';
-            }
-        },
+        'lastDay' => '[Ieri alle] LT',
         'lastWeek' => function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
