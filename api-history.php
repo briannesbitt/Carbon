@@ -9,7 +9,11 @@ use Carbon\CarbonTimeZone;
 use Carbon\Laravel\ServiceProvider;
 
 const MASTER_BRANCH = 'dev-master';
-const MASTER_VERSION = '2.0.0';
+const MASTER_VERSION = '2.5.0';
+const BLACKLIST = [
+    '1.23.1',
+    '1.23.2',
+];
 
 $arguments = $argv ?? [];
 $target = $arguments[1] ?? null;
@@ -84,7 +88,7 @@ loadDependencies();
 $versions = array_filter(array_map(function ($version) {
     return $version === MASTER_BRANCH ? MASTER_VERSION : $version;
 }, array_keys(json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'])), function ($version) {
-    return !preg_match('/(dev-|-beta|-alpha)/', $version);
+    return !preg_match('/(dev-|-beta|-alpha)/', $version) && !in_array($version, BLACKLIST);
 });
 
 usort($versions, 'version_compare');
