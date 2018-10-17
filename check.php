@@ -54,8 +54,9 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     if (
         $exclusion ||
         $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
+        $argumentsCount === 3 && preg_match('/^getTranslated(Day|Month)Name$/', $method) ||
         $argumentsCount === 4 && $method === 'diffFiltered' ||
-        $argumentsCount === 2 && preg_match('/^diffIn[A-Z].*s$/', $method) ||
+        $argumentsCount === 2 && preg_match('/^(diff|floatDiff)In[A-Z].*s$/', $method) ||
         $method === '__set'
     ) {
         $argumentsCount = 0;

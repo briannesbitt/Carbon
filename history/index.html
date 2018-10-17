@@ -77,7 +77,16 @@
             <div class="container page">
                 <div class="row">
                     <div class="col-md-9">
-                        <h1>2.3.0 / 2018-09-30</h1>
+                        <h1>2.4.0 / 2018-10-16</h1>
+<ul>
+    <li>Added lithuanian translations for: differences, period, months and day names</li>
+    <li>Added czech translations for: months and day names</li>
+    <li>Dropped support for PHP without JSON extension: removed JsonSerializable interface polyfill and require ext-json in composer</li>
+    <li>Added PHPDoc comments and auto-completion hints</li>
+    <li>Added translation methods to handle multiple forms of days and months names: getTranslatedDayName, getTranslatedMinDayName, getTranslatedShortDayName, getTranslatedMonthName, getTranslatedShortMonthName</li>
+    <li>Allowed Laravel to run with Carbon without registering the Carbon service</li>
+</ul>
+<h1>2.3.0 / 2018-09-30</h1>
 <ul>
     <li>Propagated locale from CarbonPeriod to iterated dates</li>
     <li>Added getSettings method to get options applied with settings method</li>
@@ -511,14 +520,16 @@
         var $document = $(document);
         var editorAutoLoad = false;
 
-        function transformEditor($pre, index) {
+        function transformEditor($pre, index, code, token, link) {
             $pre.removeClass('live-editor').addClass('live-editor-loading');
-            var code = $pre.find('code').text();
-            var token = 'live-editor-' + index;
-            var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                encodeURIComponent(code) +
-                '&token=' + token;
-            $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            if (!code) {
+                code = $pre.find('code').text();
+                token = 'live-editor-' + index;
+                link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    encodeURIComponent(code) +
+                    '&token=' + token;
+                $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            }
             var $iframe = $('<iframe src="' + link +
                 '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
             (callbacks[token] || (callbacks[token] = {})).ready = function () {
@@ -536,9 +547,15 @@
             $('.live-editor').each(function (index) {
                 var $pre = $(this);
                 if (!editorAutoLoad) {
+                    var code = $pre.find('code').text();
+                    var token = 'live-editor-' + index;
+                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                        encodeURIComponent(code) +
+                        '&token=' + token;
                     $pre.css('cursor', 'pointer').click(function () {
-                        transformEditor($pre, index);
+                        transformEditor($pre, index, code, token, link);
                     });
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
 
                     return;
                 }

@@ -76,8 +76,7 @@ class Carbon extends \DateTime
 
     <p>
 
-    <!--
-    <p>Now, let see how cool is this doc.</p>
+    <p>Now, let see how cool is this doc. Click on the code below:</p>
 
     <pre class="live-editor"><code class="php">{{::lint($dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');)}}
 {{::lint($dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');)}}
@@ -93,10 +92,9 @@ class Carbon extends \DateTime
 </code></pre>
     </p>
 
-    <p>Some examples are static snippets, some other are editable (when it's split into 2 input and output
-        pannels). You can also note a top right hand corner button allow you to open the snippet in a
+    <p>Some examples are static snippets, some other are editable (when there is a top right hand corner expand button).
+        You can also click on this button to open the snippet in a
         new tab. You can double-click on methods name in both static and dynamic examples.</p>
-    -->
 
     <h1 id="api-instantiation">Instantiation</h1>
 
@@ -652,6 +650,39 @@ echo "\n";
 {{::exec(echo $date->isoFormat('MMM Do YY');/*pad(40)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo $date->isoFormat('YYYY [escaped] YYYY');/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p><code>->isoFormat</code> use contextualized methods for day names and month names as they can have multiple
+        forms in some languages, see the following examples:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($date = Carbon::parse('2018-03-16')->locale('uk');)}}
+{{::exec(echo $date->getTranslatedDayName('[в] dddd');/*pad(40)*/)}} // {{eval}}
+// By providing a context, we're saying translate day name like in a format such as [в] dddd
+// So the context itself has to be translated first consistently.
+echo "\n";
+{{::exec(echo $date->getTranslatedDayName('[наступної] dddd');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->getTranslatedDayName('dddd, MMM');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+// The same goes for short/minified variants:
+{{::exec(echo $date->getTranslatedShortDayName('[наступної] dd');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->getTranslatedMinDayName('[наступної] ddd');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+
+// And the same goes for months
+{{::lint($date->locale('ru');)}}
+{{::exec(echo $date->getTranslatedMonthName('Do MMMM');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->getTranslatedMonthName('MMMM YYYY');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+// Short variant
+{{::exec(echo $date->getTranslatedShortMonthName('Do MMM');/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->getTranslatedShortMonthName('MMM YYYY');/*pad(40)*/)}} // {{eval}}
+echo "\n";
 </code></pre>
     </p>
 
@@ -1860,7 +1891,8 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
     <p>We also provide <code>diffAsCarbonInterval()</code> act like <code>diff()</code> but returns a <code>CarbonInterval</code>
         instance. Check <a href="#api-interval">CarbonInterval chapter</a> for more information. Carbon add diff methods
         for each unit too such as <code>diffInYears()</code>, <code>diffInMonths()</code> and so on. <code>diffAsCarbonInterval()</code>
-        and <code>diffIn*()</code> methods all can take 2 optional arguments: date to compare with (if missing, now is
+        and <code>diffIn*()</code> and <code>floatDiffIn*()</code> methods all can take 2 optional arguments: date to
+        compare with (if missing, now is
         used instead), and an absolute boolean option (<code>true</code> by default) that make the method return an
         absolute value no matter which date is greater than the other. If set to <code>false</code>, it returns negative
         value when the instance the method is called on is greater than the compared date (first argument or now). Note
@@ -1912,6 +1944,27 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 </code></pre>
     </p>
 
+    <p>These methods have int-truncated results. That means <code>diffInMinutes</code> returns 1 for any difference
+        between 1 included and 2 excluded. But same methods are available for float results:</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo Carbon::parse('06:01:23.252987')->floatDiffInSeconds('06:02:34.321450');/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('06:01:23')->floatDiffInMinutes('06:02:34');/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('06:01:23')->floatDiffInHours('06:02:34');/*pad(80)*/)}} // {{eval}}
+// Those methods are absolute by default but can return negative value
+// setting the second argument to false when start date is greater than end date
+{{::exec(echo Carbon::parse('12:01:23')->floatDiffInHours('06:02:34', false);/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');/*pad(80)*/)}} // {{eval}}
+{{::exec(echo Carbon::parse('2000-01-15 12:00')->floatDiffInMonths('2000-02-24 06:00');/*pad(80)*/)}} // {{eval}}
+// floatDiffInMonths count as many full months as possible from the start date, then consider the number
+// of days in the months for ending chunks to reach the end date
+// So the following result (ending with 24 march is different from previous one with 24 february):
+{{::exec(echo Carbon::parse('2000-02-15 12:00')->floatDiffInMonths('2000-03-24 06:00');/*pad(80)*/)}} // {{eval}}
+// floatDiffInYears apply the same logic (and so different results with leap years)
+{{::exec(echo Carbon::parse('2000-02-15 12:00')->floatDiffInYears('2010-03-24 06:00');/*pad(80)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>Important note about the daylight saving times (DST), by default PHP DateTime does not take DST into account,
         that means for example that a day with only 23 hours like March the 30th 2014 in London will be counted as 24
         hours long.</p>
@@ -1937,6 +1990,22 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 {{::exec(echo $date->diffInRealMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
+
+// with float diff:
+{{::lint($date = new Carbon('2019-10-27 00:00:00', 'Europe/Paris');/*pad(65)*/)}}
+{{::exec(echo $date->floatDiffInRealHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInHours('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealMinutes('2019-10-28 12:00:30');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInMinutes('2019-10-28 12:00:30');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealSeconds('2019-10-28 12:00:00.5');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInSeconds('2019-10-28 12:00:00.5');/*pad(65)*/)}} // {{eval}}
+// above day unit, "real" will affect the decimal part based on hours and smaller units
+{{::exec(echo $date->floatDiffInRealDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInDays('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInMonths('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInRealYears('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->floatDiffInYears('2019-10-28 12:30:00');/*pad(65)*/)}} // {{eval}}
 </code></pre>
     </p>
 
