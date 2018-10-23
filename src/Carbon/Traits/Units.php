@@ -169,9 +169,9 @@ trait Units
     /**
      * Add given units to the current instance.
      *
-     * @param string|DateInterval $unit
-     * @param int                 $value
-     * @param bool|null           $overflow
+     * @param string    $unit
+     * @param int       $value
+     * @param bool|null $overflow
      *
      * @return CarbonInterface
      */
@@ -226,7 +226,7 @@ trait Units
         }
 
         $value = (int) $value;
-        // Wor-around for bug https://bugs.php.net/bug.php?id=75642
+        // Work-around for bug https://bugs.php.net/bug.php?id=75642
         if ($unit === 'micro' || $unit === 'microsecond') {
             $microseconds = $this->micro + $value;
             $second = floor($microseconds / static::MICROSECONDS_PER_SECOND);
