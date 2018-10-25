@@ -106,7 +106,7 @@ class Translator extends Translation\Translator
             return rtrim(strtr($item, '\\', '/'), '/') !== $search;
         }));
     }
-    
+
     /**
      * Returns the translation.
      *
