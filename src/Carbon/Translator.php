@@ -110,8 +110,8 @@ class Translator extends Translation\Translator
     /**
      * Returns the translation.
      *
-     * @param int $id
-     * @param array $directory
+     * @param int    $id
+     * @param array  $directory
      * @param string $domain
      * @param string $locale
      *
