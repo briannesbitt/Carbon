@@ -106,7 +106,17 @@ class Translator extends Translation\Translator
             return rtrim(strtr($item, '\\', '/'), '/') !== $search;
         }));
     }
-
+    
+    /**
+     * Returns the translation.
+     *
+     * @param int $id
+     * @param array $directory
+     * @param string $domain
+     * @param string $locale
+     *
+     * @return string
+     */
     public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         if (null === $domain) {
