@@ -107,6 +107,16 @@ class Translator extends Translation\Translator
         }));
     }
 
+    /**
+     * Returns the translation.
+     *
+     * @param string $id
+     * @param array  $parameters
+     * @param string $domain
+     * @param string $locale
+     *
+     * @return string
+     */
     public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         if (null === $domain) {
