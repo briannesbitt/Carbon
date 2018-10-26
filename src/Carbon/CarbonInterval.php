@@ -1133,7 +1133,7 @@ class CarbonInterval extends DateInterval
         $this->hours += $interval->h * $sign;
         $this->minutes += $interval->i * $sign;
         $this->seconds += $interval->s * $sign;
-        $this->f += $interval->f * $sign;
+        $this->microseconds += $interval->microseconds * $sign;
 
         return $this;
     }
