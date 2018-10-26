@@ -682,11 +682,11 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'milliseconds':
-                return (int) floor($this->f * 1000);
+                return (int) floor(round($this->f * 1000000) / 1000);
 
             case 'micro':
             case 'microseconds':
-                return (int) floor($this->f * 1000000);
+                return (int) round($this->f * 1000000);
 
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());
