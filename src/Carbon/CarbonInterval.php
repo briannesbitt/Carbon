@@ -239,7 +239,7 @@ class CarbonInterval extends DateInterval
         parent::__construct($spec);
 
         if (!is_null($microseconds)) {
-            $this->f = $microseconds;
+            $this->f = $microseconds / 1000000;
         }
     }
 
@@ -339,12 +339,13 @@ class CarbonInterval extends DateInterval
      * @param int $hours
      * @param int $minutes
      * @param int $seconds
+     * @param int $microseconds
      *
      * @return static
      */
-    public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
     }
 
     /**
@@ -571,7 +572,11 @@ class CarbonInterval extends DateInterval
      */
     public static function instance(DateInterval $di)
     {
+        $microseconds = $di->f;
         $instance = new static(static::getDateIntervalSpec($di));
+        if ($microseconds) {
+            $instance->f = $microseconds;
+        }
         $instance->invert = $di->invert;
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
             if ($di->$unit < 0) {
@@ -677,11 +682,11 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'milliseconds':
-                return (int) floor($this->f / 1000);
+                return (int) floor(round($this->f * 1000000) / 1000);
 
             case 'micro':
             case 'microseconds':
-                return (int) $this->f;
+                return (int) round($this->f * 1000000);
 
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());
@@ -739,12 +744,12 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'millisecond':
-                $this->f = $value * 1000 + $this->f % 1000;
+                $this->microseconds = $value * 1000 + $this->microseconds % 1000;
                 break;
 
             case 'micro':
             case 'microsecond':
-                $this->f = $value;
+                $this->f = $value / 1000000;
                 break;
 
             default:
@@ -1128,6 +1133,7 @@ class CarbonInterval extends DateInterval
         $this->hours += $interval->h * $sign;
         $this->minutes += $interval->i * $sign;
         $this->seconds += $interval->s * $sign;
+        $this->microseconds += $interval->microseconds * $sign;
 
         return $this;
     }
@@ -1310,7 +1316,7 @@ class CarbonInterval extends DateInterval
 
         if (in_array($unit, ['days', 'weeks'])) {
             $realUnit = 'dayz';
-        } elseif (!in_array($unit, ['seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
+        } elseif (!in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 
@@ -1323,7 +1329,13 @@ class CarbonInterval extends DateInterval
 
             if ($source === $realUnit) {
                 $unitFound = true;
-                $result += $this->$source;
+                $value = $this->$source;
+                if ($source === 'microseconds') {
+                    $value %= 1000;
+                }
+                if ($source !== 'milliseconds') {
+                    $result += $value;
+                }
                 $cumulativeFactor = 1;
             }
 
