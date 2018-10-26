@@ -51,6 +51,8 @@ class TotalTest extends AbstractTestCase
     {
         $interval = CarbonInterval::create(0, 0, 0, 0, 150, 0, 0);
 
+        $this->assertSame(150 * 60 * 60 * 1000 * 1000, $interval->totalMicroseconds);
+        $this->assertSame(150 * 60 * 60 * 1000, $interval->totalMilliseconds);
         $this->assertSame(150 * 60 * 60, $interval->totalSeconds);
         $this->assertSame(150 * 60, $interval->totalMinutes);
         $this->assertSame(150, $interval->totalHours);
@@ -58,6 +60,11 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(150 / 24 / 7, $interval->totalWeeks);
         $this->assertSame(150 / 24 / 7 / 4, $interval->totalMonths);
         $this->assertSame(150 / 24 / 7 / 4 / 12, $interval->totalYears);
+
+        $interval = CarbonInterval::milliseconds(12312);
+
+        $this->assertSame(12312000, $interval->totalMicroseconds);
+        $this->assertSame(12312, $interval->totalMilliseconds);
     }
 
     public function testGetTotalsViaGettersWithCustomFactors()

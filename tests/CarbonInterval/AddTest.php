@@ -38,6 +38,19 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
+    public function testAddMicroseconds()
+    {
+        $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
+        $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0, 222333)->add($diff);
+        $this->assertCarbonInterval($ci, 1, 0, 5, 0, 0, 0, 333555);
+        $diff = Carbon::now()->diff(Carbon::now()->addDays(3));
+        $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0, 222333)->add($diff);
+        $this->assertCarbonInterval($ci, 1, 0, 5, 0, 0, 0, 222333);
+        $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
+        $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0)->add($diff);
+        $this->assertCarbonInterval($ci, 1, 0, 5, 0, 0, 0, 111222);
+    }
+
     public function testAddWithRawDiffDateInterval()
     {
         $diff = (new \DateTime())->diff(new \DateTime('3 weeks'));
@@ -52,9 +65,6 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
-    /**
-     * @group i
-     */
     public function testAddAndSubMultipleFormats()
     {
         $this->assertCarbonInterval(CarbonInterval::day()->add('hours', 3), 0, 0, 1, 3, 0, 0);
@@ -74,7 +84,6 @@ class AddTest extends AbstractTestCase
     }
 
     /**
-     * @group i
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage This type of data cannot be added/subtracted.
      */

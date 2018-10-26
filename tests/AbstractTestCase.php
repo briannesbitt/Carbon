@@ -140,7 +140,7 @@ abstract class AbstractTestCase extends TestCase
         $this->assertInstanceOf(CarbonInterface::class, $d);
     }
 
-    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null)
+    public function assertCarbonInterval(CarbonInterval $ci, $years, $months = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
         $actual = ['years' => $ci->years];
 
@@ -169,6 +169,11 @@ abstract class AbstractTestCase extends TestCase
         if ($seconds !== null) {
             $actual['seconds'] = $ci->seconds;
             $expected['seconds'] = $seconds;
+        }
+
+        if ($microseconds !== null) {
+            $actual['microseconds'] = $ci->microseconds;
+            $expected['microseconds'] = $microseconds;
         }
 
         $this->assertSame($expected, $actual);
