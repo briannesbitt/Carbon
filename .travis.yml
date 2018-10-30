@@ -19,12 +19,13 @@ env:
   global:
     - setup=basic
     - coverage=false
+    - xdebug=true
     - phpstan=false
 
 sudo: false
 
 before_install:
-  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $coverage = 'false' && $xdebug = 'true' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan; fi
@@ -59,11 +60,20 @@ matrix:
     - php: 7.2
       env: setup=lowest
     - php: 7.2
+      env: setup=stable
+
+    - php: 7.3
+      env: xdebug=false
+    - php: 7.3
       env:
+        - xdebug=false
+        - setup=lowest
+    - php: 7.3
+      env:
+        - xdebug=false
         - setup=stable
         - coverage=true
         - phpstan=true
-    - php: 7.3
 
 notifications:
   slack:
