@@ -63,6 +63,7 @@ matrix:
         - setup=stable
         - coverage=true
         - phpstan=true
+    - php: 7.3
 
 notifications:
   slack:
