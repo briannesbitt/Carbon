@@ -27,8 +27,10 @@
         "symfony/translation": "^4.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.11",
         "phpunit/phpunit": "^7.1.5"
+    },
+    "suggest": {
+        "friendsofphp/php-cs-fixer": "Needed for the `composer phpcs` command. Allow to automatically fix code style."
     },
     "autoload": {
         "psr-4": {
