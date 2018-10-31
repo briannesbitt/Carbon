@@ -367,7 +367,7 @@ class IsTest extends AbstractTestCase
     public function testIsSameMonthFalseWithDateTime()
     {
         $dt = new DateTime();
-        $dt->modify('-1 month');
+        $dt->modify('-2 months');
         $this->assertFalse(Carbon::now()->isSameMonth($dt));
     }
 

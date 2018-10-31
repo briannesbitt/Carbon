@@ -622,10 +622,9 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansNowAndMonth()
     {
-        $this->wrapWithTestNow(function () {
-            $this->assertSame('4 weeks ago', Carbon::now()->subWeeks(4)->diffForHumans());
-            $this->assertSame('1 month ago', Carbon::now()->subMonth()->diffForHumans());
-        });
+        Carbon::setTestNow('2018-12-01');
+        $this->assertSame('4 weeks ago', Carbon::now()->subWeeks(4)->diffForHumans());
+        $this->assertSame('1 month ago', Carbon::now()->subMonth()->diffForHumans());
     }
 
     public function testDiffForHumansNowAndMonths()
@@ -1066,10 +1065,9 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansOtherAndFutureMonth()
     {
-        $this->wrapWithTestNow(function () {
-            $this->assertSame('4 weeks after', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(4)));
-            $this->assertSame('1 month after', Carbon::now()->diffForHumans(Carbon::now()->subMonth()));
-        });
+        Carbon::setTestNow('2018-12-01');
+        $this->assertSame('4 weeks after', Carbon::now()->diffForHumans(Carbon::now()->subWeeks(4)));
+        $this->assertSame('1 month after', Carbon::now()->diffForHumans(Carbon::now()->subMonth()));
     }
 
     public function testDiffForHumansOtherAndFutureMonths()
