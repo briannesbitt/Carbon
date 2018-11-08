@@ -1018,7 +1018,10 @@ $product = new SeasonalProduct(100);
 
 // Indicates if the instance is in the UTC timezone
 {{::exec(var_dump(Carbon::now()->utc);/*pad(60)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::now('Europe/London')->utc);/*pad(60)*/)}} // {{eval}}
+// London is not UTC on summer time
+{{::exec(var_dump(Carbon::parse('2018-10-01', 'Europe/London')->utc);/*pad(60)*/)}} // {{eval}}
+// London is UTC on winter time
+{{::exec(var_dump(Carbon::parse('2018-11-01', 'Europe/London')->utc);/*pad(60)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::createFromTimestampUTC(0)->utc);/*pad(60)*/)}} // {{eval}}
 
 // Gets the DateTimeZone instance
