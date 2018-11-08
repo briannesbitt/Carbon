@@ -105,7 +105,6 @@ matrix:
         - setup=stable
         - xdebug=false
 
-
   fast_finish: true
 
 notifications:
