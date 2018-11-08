@@ -42,6 +42,10 @@ class AddTest extends AbstractTestCase
     {
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3)->addMicroseconds(111222));
         $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0, 222333)->add($diff);
+        if ($ci->seconds === 1) {
+            $ci->seconds--;
+            $ci->microseconds += 1000000;
+        }
         $this->assertCarbonInterval($ci, 1, 0, 5, 0, 0, 0, 333555);
         $diff = Carbon::now()->diff(Carbon::now()->addDays(3));
         $ci = CarbonInterval::create(1, 0, 0, 2, 0, 0, 0, 222333)->add($diff);

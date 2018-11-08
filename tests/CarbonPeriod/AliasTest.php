@@ -152,6 +152,7 @@ class AliasTest extends AbstractTestCase
 
     public function testChainAliases()
     {
+        Carbon::setTestNow('2018-05-15');
         $period = CarbonPeriod::days(3)->hours(5)->invert()
             ->sinceNow()->until(Carbon::now()->subDays(10))
             ->options(CarbonPeriod::EXCLUDE_START_DATE)
