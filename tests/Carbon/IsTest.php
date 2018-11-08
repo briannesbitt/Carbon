@@ -804,5 +804,6 @@ class IsTest extends AbstractTestCase
 
         // Regex failure
         $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
+        $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
     }
 }
