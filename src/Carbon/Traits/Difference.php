@@ -251,7 +251,7 @@ trait Difference
         $value = ((($diff->days * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
-            $diff->s;
+            $diff->s - ($diff->f < 0 ? 1 : 0);
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
