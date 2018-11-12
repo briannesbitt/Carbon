@@ -399,7 +399,8 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInHoursWithTimezones()
     {
-        Carbon::setTestNow(Carbon::create(2012, 1, 15, 10, 30, 0, 'America/Toronto'));
+        date_default_timezone_set('Africa/Algiers');
+        Carbon::setTestNow();
 
         $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
         $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
@@ -1401,5 +1402,13 @@ class DiffTest extends AbstractTestCase
         $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
 
         $this->assertSame(0, $startDate->diffInSeconds($endDate));
+
+        $interval = $startDate->diffAsCarbonInterval($endDate);
+        $this->assertSame('00:00:00.32276', substr($interval->format('%H:%I:%S.%F'), 0, -1));
+
+        $startDate = Carbon::parse('2017-12-31 23:59:59.914653');
+        $endDate = Carbon::parse('2018-01-01 00:00:00.237419');
+        $interval = $startDate->diffAsCarbonInterval($endDate);
+        $this->assertSame('00:00:00.32276', substr($interval->format('%H:%I:%S.%F'), 0, -1));
     }
 }

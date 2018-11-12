@@ -400,7 +400,8 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInHoursWithTimezones()
     {
-        Carbon::setTestNow(Carbon::create(2012, 1, 15, 10, 30, 0, 'America/Toronto'));
+        date_default_timezone_set('Africa/Algiers');
+        Carbon::setTestNow();
 
         $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
         $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
