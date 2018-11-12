@@ -408,6 +408,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(3, $dtVancouver->diffInHours($dtToronto), 'Midnight in Toronto is 3 hours from midnight in Vancouver');
 
         $dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');
+        sleep(2);
         $dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
 
         $this->assertSame(0, $dtVancouver->diffInHours($dtToronto) % 24);
