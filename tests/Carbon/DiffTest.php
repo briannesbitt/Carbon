@@ -400,13 +400,16 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInHoursWithTimezones()
     {
+        date_default_timezone_set('Africa/Algiers');
         Carbon::setTestNow();
+
         $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
         $dtVancouver = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Vancouver');
 
         $this->assertSame(3, $dtVancouver->diffInHours($dtToronto), 'Midnight in Toronto is 3 hours from midnight in Vancouver');
 
         $dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');
+        sleep(2);
         $dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
 
         $this->assertSame(0, $dtVancouver->diffInHours($dtToronto) % 24);
@@ -1514,5 +1517,19 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(-1, Carbon::parse('2018-11-01 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-01 00:00:00', 'Europe/Paris'), false));
         $this->assertSame(-1, Carbon::parse('2018-11-28 00:00:00')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00'), false));
         $this->assertSame(-1, Carbon::parse('2018-11-28 00:00:00', 'Europe/Paris')->floatDiffInRealMonths(Carbon::parse('2018-10-28 00:00:00', 'Europe/Paris'), false));
+    }
+
+    /**
+     * https://bugs.php.net/bug.php?id=77007
+     * https://github.com/briannesbitt/Carbon/issues/1503
+     */
+    public function testPhpBug77007()
+    {
+        $this->assertSame(3, Carbon::now()->addMinutes(3)->diffInMinutes());
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
+
+        $this->assertSame(0, $startDate->diffInSeconds($endDate));
     }
 }
