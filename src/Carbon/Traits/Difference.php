@@ -42,7 +42,29 @@ trait Difference
      */
     public function diffAsCarbonInterval($date = null, $absolute = true)
     {
-        return CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
+        $diff = CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
+        // Work-around for https://github.com/briannesbitt/Carbon/issues/1503
+        if ($diff->f < 0) {
+            $diff->f++;
+            $diff->s--;
+
+            if ($diff->s < 0) {
+                $diff->s += 60;
+                $diff->i--;
+
+                if ($diff->i < 0) {
+                    $diff->i += 60;
+                    $diff->h--;
+
+                    if ($diff->h < 0) {
+                        $diff->i += 24;
+                        $diff->d--;
+                    }
+                }
+            }
+        }
+
+        return $diff;
     }
 
     /**
