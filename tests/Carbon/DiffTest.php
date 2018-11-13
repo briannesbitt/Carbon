@@ -1388,4 +1388,48 @@ class DiffTest extends AbstractTestCase
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13-08:00:00');
     }
+
+    /**
+     * https://bugs.php.net/bug.php?id=77007
+     * https://github.com/briannesbitt/Carbon/issues/1503
+     */
+    public function testPhpBug77007()
+    {
+        $this->assertSame(3, Carbon::now()->addMinutes(3)->diffInMinutes());
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
+
+        $this->assertSame(0, $startDate->diffInSeconds($endDate));
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
+
+        $this->assertSame('+ 00-00-00 00:00:00.322766', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(0, $startDate->diffInSeconds($endDate));
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:05.237419');
+
+        $this->assertSame('+ 00-00-00 00:00:01.677234', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(1, $startDate->diffInSeconds($endDate));
+
+        $this->assertSame('- 00-00-00 00:00:01.677234', $startDate->diffAsCarbonInterval($endDate, false)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(-1, $startDate->diffInSeconds($endDate, false));
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:06.237419');
+
+        $this->assertSame('+ 00-00-00 00:00:00.677234', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(0, $startDate->diffInSeconds($endDate));
+
+        $this->assertSame('- 00-00-00 00:00:00.677234', $startDate->diffAsCarbonInterval($endDate, false)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(0, $startDate->diffInSeconds($endDate, false));
+
+        $startDate = Carbon::parse('2017-12-31 23:59:59.914653');
+        $endDate = Carbon::parse('2018-01-01 00:00:00.237419');
+
+        $this->assertSame('+ 00-00-00 00:00:00.322766', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+        $this->assertSame(0, $startDate->diffInSeconds($endDate));
+    }
 }
