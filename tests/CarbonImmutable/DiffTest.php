@@ -1404,12 +1404,19 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(0, $startDate->diffInSeconds($endDate));
 
-        $interval = $startDate->diffAsCarbonInterval($endDate);
-        $this->assertSame('00:00:00.32276', substr($interval->format('%H:%I:%S.%F'), 0, -1));
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
+
+        $this->assertSame('+ 00-00-00 00:00:00.322766', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
+
+        $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
+        $endDate = Carbon::parse('2018-10-11 20:59:06.237419');
+
+        $this->assertSame('- 00-00-00 00:00:00.677234', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
 
         $startDate = Carbon::parse('2017-12-31 23:59:59.914653');
         $endDate = Carbon::parse('2018-01-01 00:00:00.237419');
-        $interval = $startDate->diffAsCarbonInterval($endDate);
-        $this->assertSame('00:00:00.32276', substr($interval->format('%H:%I:%S.%F'), 0, -1));
+
+        $this->assertSame('+ 00-00-00 00:00:00.322766', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
     }
 }

@@ -44,25 +44,32 @@ trait Difference
     {
         $diff = CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
         // Work-around for https://github.com/briannesbitt/Carbon/issues/1503
+        // @codeCoverageIgnoreStart
         if ($diff->f < 0) {
-            $diff->f++;
-            $diff->s--;
+            if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0) {
+                $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
+                $diff->s--;
 
-            if ($diff->s < 0) {
-                $diff->s += 60;
-                $diff->i--;
+                if ($diff->s < 0) {
+                    $diff->s += 60;
+                    $diff->i--;
 
-                if ($diff->i < 0) {
-                    $diff->i += 60;
-                    $diff->h--;
+                    if ($diff->i < 0) {
+                        $diff->i += 60;
+                        $diff->h--;
 
-                    if ($diff->h < 0) {
-                        $diff->i += 24;
-                        $diff->d--;
+                        if ($diff->h < 0) {
+                            $diff->i += 24;
+                            $diff->d--;
+                        }
                     }
                 }
+            } elseif ($diff->m === 0 && $diff->y === 0) {
+                $diff->f *= -1;
+                $diff->invert();
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $diff;
     }
