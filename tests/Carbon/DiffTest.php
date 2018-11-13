@@ -1397,6 +1397,10 @@ class DiffTest extends AbstractTestCase
     {
         $this->assertSame(3, Carbon::now()->addMinutes(3)->diffInMinutes());
 
+        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
+            $this->markTestSkipped('PHP 7.1.0 or higher required for this test');
+        }
+
         $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
         $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
 
