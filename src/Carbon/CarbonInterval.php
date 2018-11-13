@@ -496,7 +496,11 @@ class CarbonInterval extends DateInterval
      */
     public static function instance(DateInterval $di)
     {
+        $microseconds = version_compare(PHP_VERSION, '7.1.0-dev', '<') ? 0 : $di->f;
         $instance = new static(static::getDateIntervalSpec($di));
+        if ($microseconds) {
+            $instance->f = $microseconds;
+        }
         $instance->invert = $di->invert;
         foreach (array('y', 'm', 'd', 'h', 'i', 's') as $unit) {
             if ($di->$unit < 0) {

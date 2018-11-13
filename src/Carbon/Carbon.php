@@ -13,6 +13,7 @@ namespace Carbon;
 
 use Carbon\Exceptions\InvalidDateException;
 use Closure;
+use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
@@ -3754,6 +3755,67 @@ class Carbon extends DateTime implements JsonSerializable
     ///////////////////////////////////////////////////////////////////
 
     /**
+     * @param DateInterval $diff
+     * @param bool         $absolute
+     *
+     * @return CarbonInterval
+     */
+    protected static function fixDiffInterval(DateInterval $diff, $absolute)
+    {
+        $diff = CarbonInterval::instance($diff);
+
+        // @codeCoverageIgnoreStart
+        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
+            return $diff;
+        }
+
+        // Work-around for https://bugs.php.net/bug.php?id=77145
+        if ($diff->f > 0 && $diff->y === -1 && $diff->m === 11 && $diff->d === 29 && $diff->h === 23 && $diff->i === 59 && $diff->s === 59) {
+            $diff->y = 0;
+            $diff->m = 0;
+            $diff->d = 0;
+            $diff->h = 0;
+            $diff->i = 0;
+            $diff->s = 0;
+            $diff->f = (1000000 - round($diff->f * 1000000)) / 1000000;
+            $diff->invert();
+        } elseif ($diff->f < 0) {
+            if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0 || $diff->m !== 0 || $diff->y !== 0) {
+                $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
+                $diff->s--;
+                if ($diff->s < 0) {
+                    $diff->s += 60;
+                    $diff->i--;
+                    if ($diff->i < 0) {
+                        $diff->i += 60;
+                        $diff->h--;
+                        if ($diff->h < 0) {
+                            $diff->i += 24;
+                            $diff->d--;
+                            if ($diff->d < 0) {
+                                $diff->d += 30;
+                                $diff->m--;
+                                if ($diff->m < 0) {
+                                    $diff->m += 12;
+                                    $diff->y--;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                $diff->f *= -1;
+                $diff->invert();
+            }
+        }
+        // @codeCoverageIgnoreEnd
+        if ($absolute && $diff->invert) {
+            $diff->invert();
+        }
+        return $diff;
+    }
+
+    /**
      * Get the difference as a CarbonInterval instance
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
@@ -3763,7 +3825,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function diffAsCarbonInterval($date = null, $absolute = true)
     {
-        return CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
+        return static::fixDiffInterval(CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute)), $absolute);
     }
 
     /**
@@ -3973,16 +4035,13 @@ class Carbon extends DateTime implements JsonSerializable
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
+        if (!$diff->days) {
+            $diff = static::fixDiffInterval($diff, $absolute);
+        }
         $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->i * static::SECONDS_PER_MINUTE +
-            $diff->s - (
-                version_compare(PHP_VERSION, '7.1.8-dev', '>=') &&
-                property_exists($diff, 'f') &&
-                $diff->f < 0
-                    ? 1
-                    : 0
-            );
+            $diff->s;
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
