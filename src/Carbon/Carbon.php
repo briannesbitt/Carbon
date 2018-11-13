@@ -3976,7 +3976,13 @@ class Carbon extends DateTime implements JsonSerializable
         $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->i * static::SECONDS_PER_MINUTE +
-            $diff->s - (property_exists($diff, 'f') && $diff->f < 0 ? 1 : 0);
+            $diff->s - (
+                version_compare(PHP_VERSION, '7.1.0-dev', '>=') &&
+                property_exists($diff, 'f') &&
+                $diff->f < 0
+                    ? 1
+                    : 0
+            );
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
