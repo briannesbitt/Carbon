@@ -18,6 +18,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
+use DateInterval;
 use DateTimeInterface;
 
 /**
@@ -26,27 +27,34 @@ use DateTimeInterface;
  * Depends on the following methods:
  *
  * @method bool lessThan($date)
- * @method \DateInterval diff(\DateTimeInterface $date)
+ * @method DateInterval diff(\DateTimeInterface $date)
  * @method CarbonInterface copy()
  * @method static Translator translator()
  */
 trait Difference
 {
     /**
-     * Get the difference as a CarbonInterval instance
-     *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param DateInterval $diff
+     * @param bool         $absolute
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, $absolute = true)
+    protected static function fixDiffInterval(DateInterval $diff, $absolute)
     {
-        $diff = CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute));
-        // Work-around for https://github.com/briannesbitt/Carbon/issues/1503
+        $diff = CarbonInterval::instance($diff);
+        // Work-around for https://bugs.php.net/bug.php?id=77145
         // @codeCoverageIgnoreStart
-        if ($diff->f < 0) {
-            if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0) {
+        if ($diff->f > 0 && $diff->y === -1 && $diff->m === 11 && $diff->d === 29 && $diff->h === 23 && $diff->i === 59 && $diff->s === 59) {
+            $diff->y = 0;
+            $diff->m = 0;
+            $diff->d = 0;
+            $diff->h = 0;
+            $diff->i = 0;
+            $diff->s = 0;
+            $diff->f = (1000000 - round($diff->f * 1000000)) / 1000000;
+            $diff->invert();
+        } elseif ($diff->f < 0) {
+            if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0 || $diff->m !== 0 || $diff->y !== 0) {
                 $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
                 $diff->s--;
 
@@ -61,17 +69,44 @@ trait Difference
                         if ($diff->h < 0) {
                             $diff->i += 24;
                             $diff->d--;
+
+                            if ($diff->d < 0) {
+                                $diff->d += 30;
+                                $diff->m--;
+
+                                if ($diff->m < 0) {
+                                    $diff->m += 12;
+                                    $diff->y--;
+                                }
+                            }
                         }
                     }
                 }
-            } elseif ($diff->m === 0 && $diff->y === 0) {
+            } else {
                 $diff->f *= -1;
                 $diff->invert();
             }
         }
         // @codeCoverageIgnoreEnd
 
+        if ($absolute && $diff->invert) {
+            $diff->invert();
+        }
+
         return $diff;
+    }
+
+    /**
+     * Get the difference as a CarbonInterval instance
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
+    public function diffAsCarbonInterval($date = null, $absolute = true)
+    {
+        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute);
     }
 
     /**
@@ -277,10 +312,13 @@ trait Difference
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
+        if ($diff->days === 0) {
+            $diff = static::fixDiffInterval($diff, $absolute);
+        }
         $value = ((($diff->days * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
-            $diff->s - ($diff->f < 0 ? 1 : 0);
+            $diff->s;
 
         return $absolute || !$diff->invert ? $value : -$value;
     }

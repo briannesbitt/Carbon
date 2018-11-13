@@ -325,7 +325,8 @@ trait Modifiers
     }
 
     /**
-     * Modify the current instance to the average of a given instance (default now) and the current instance.
+     * Modify the current instance to the average of a given instance (default now) and the current instance
+     * (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
@@ -333,11 +334,11 @@ trait Modifiers
      */
     public function average($date = null)
     {
-        return $this->addSeconds((int) ($this->diffInSeconds($this->resolveCarbon($date), false) / 2));
+        return $this->addRealSeconds((int) ($this->diffInRealSeconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**
-     * Get the closest date from the instance.
+     * Get the closest date from the instance (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
@@ -346,11 +347,11 @@ trait Modifiers
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) < $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealSeconds($date1) < $this->diffInRealSeconds($date2) ? $date1 : $date2;
     }
 
     /**
-     * Get the farthest date from the instance.
+     * Get the farthest date from the instance (second-precision).
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
@@ -359,7 +360,7 @@ trait Modifiers
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) > $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealSeconds($date1) > $this->diffInRealSeconds($date2) ? $date1 : $date2;
     }
 
     /**
