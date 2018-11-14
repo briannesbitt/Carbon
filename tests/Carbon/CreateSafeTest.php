@@ -195,9 +195,9 @@ class CreateSafeTest extends AbstractTestCase
 
     /**
      * @expectedException \Carbon\Exceptions\InvalidDateException
-     * @expectedExceptionMessage second : 15.1 is not a valid value.
+     * @expectedExceptionMessageRegExp /second : 15[,.]1 is not a valid value\./
      */
-    public function testCreateSafeThrowsExceptionForWithNonIntegerValue()
+    public function testCreateSafeThrowsExceptionForNonIntegerValue()
     {
         Carbon::createSafe(2015, 2, 10, 17, 16, 15.1);
     }
