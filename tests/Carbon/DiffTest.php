@@ -1562,4 +1562,17 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('+ 00-00-00 00:00:00.322766', $startDate->diffAsCarbonInterval($endDate)->format('%R %Y-%M-%D %H:%I:%S.%F'));
         $this->assertSame(0, $startDate->diffInSeconds($endDate));
     }
+
+    public function testDiffWithZeroAndNonZeroMicroseconds()
+    {
+        $requestTime = new Carbon('2018-11-14 18:23:12.0 +00:00');
+        $serverTime = new Carbon('2018-11-14 18:23:12.307628 +00:00');
+
+        $this->assertSame(0, $serverTime->diffInSeconds($requestTime));
+
+        $requestTime = new Carbon('2019-02-10 18:23:12.0 +00:00');
+        $serverTime = new Carbon('2019-02-10 18:23:12.307628 +00:00');
+
+        $this->assertSame(0, $serverTime->diffInSeconds($requestTime));
+    }
 }
