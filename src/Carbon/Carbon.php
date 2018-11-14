@@ -3771,7 +3771,7 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         // Work-around for https://bugs.php.net/bug.php?id=77145
-        if ($diff->f > 0 && $diff->y === -1 && $diff->m === 11 && $diff->d === 29 && $diff->h === 23 && $diff->i === 59 && $diff->s === 59) {
+        if ($diff->f > 0 && $diff->y === -1 && $diff->m === 11 && $diff->d >= 29 && $diff->h === 23 && $diff->i === 59 && $diff->s === 59) {
             $diff->y = 0;
             $diff->m = 0;
             $diff->d = 0;
