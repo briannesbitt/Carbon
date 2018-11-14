@@ -3831,7 +3831,15 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function diffAsCarbonInterval($date = null, $absolute = true, $trimMicroseconds = true)
     {
-        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute, $trimMicroseconds);
+        $from = $this;
+        $to = $this->resolveCarbon($date);
+
+        if ($trimMicroseconds) {
+            $from = $from->copy()->startOfSecond();
+            $to = $to->copy()->startOfSecond();
+        }
+
+        return static::fixDiffInterval($from->diff($to, $absolute), $absolute, $trimMicroseconds);
     }
 
     /**
