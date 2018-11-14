@@ -3757,12 +3757,13 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * @param DateInterval $diff
      * @param bool         $absolute
+     * @param bool         $trimMicroseconds
      *
      * @return CarbonInterval
      */
-    protected static function fixDiffInterval(DateInterval $diff, $absolute)
+    protected static function fixDiffInterval(DateInterval $diff, $absolute, $trimMicroseconds)
     {
-        $diff = CarbonInterval::instance($diff);
+        $diff = CarbonInterval::instance($diff, $trimMicroseconds);
 
         // @codeCoverageIgnoreStart
         if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
@@ -3817,16 +3818,20 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
-     * Get the difference as a CarbonInterval instance
+     * Get the difference as a CarbonInterval instance.
+     *
+     * Pass false as second argument to get a microseconds-precise interval. Else
+     * microseconds in the original interval will not be kept.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param bool                                          $absolute         Get the absolute of the difference
+     * @param bool                                          $trimMicroseconds (true by default)
      *
      * @return CarbonInterval
      */
-    public function diffAsCarbonInterval($date = null, $absolute = true)
+    public function diffAsCarbonInterval($date = null, $absolute = true, $trimMicroseconds = true)
     {
-        return static::fixDiffInterval(CarbonInterval::instance($this->diff($this->resolveCarbon($date), $absolute)), $absolute);
+        return static::fixDiffInterval($this->diff($this->resolveCarbon($date), $absolute), $absolute, $trimMicroseconds);
     }
 
     /**
@@ -4037,7 +4042,7 @@ class Carbon extends DateTime implements JsonSerializable
     {
         $diff = $this->diff($this->resolveCarbon($date));
         if (!$diff->days && version_compare(PHP_VERSION, '5.4.0-dev', '>=')) {
-            $diff = static::fixDiffInterval($diff, $absolute);
+            $diff = static::fixDiffInterval($diff, $absolute, false);
         }
         $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
             $diff->h * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
