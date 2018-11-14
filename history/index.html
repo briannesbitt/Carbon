@@ -77,13 +77,41 @@
             <div class="container page">
                 <div class="row">
                     <div class="col-md-9">
-                        <h1>2.5.1 / 2018-11-08</h1>
+                        <h1>1.35.0 / 2018-11-14</h1>
 <ul>
-    <li>Fix hasFormat full-year detection to disallow less than 4 digits</li>
+    <li>Allowed to keep with Carbon::diffAsCarbonInterval setting new parameter $trimMicroseconds to false</li>
+    <li>Allowed to keep with CarbonInterval::instance setting new parameter $trimMicroseconds to false</li>
+    <li>Fixed PHP behavior divergences calculating differences below 1 second</li>
+</ul>
+<h1>2.5.3 / 2018-11-13</h1>
+<ul>
+    <li>Fixed PHP bug 77145 via Carbon::diffForCarbonInterval</li>
+</ul>
+<h1>1.34.4 / 2018-11-13</h1>
+<ul>
+    <li>Fixed compatibility with PHP 7.1.0 to 7.1.7 linked to PHP bug 74852 fixed in 7.1.8</li>
+</ul>
+<h1>1.34.3 / 2018-11-13</h1>
+<ul>
+    <li>Fixed compatibility with PHP 7.0.0 to 7.0.21 linked to PHP bug 74852 fixed in 7.0.22</li>
+    <li>Compatibility warning: if you use/support PHP 7.1.0 to 7.1.7, use 1.34.4 instead</li>
+</ul>
+<h1>2.5.2 / 2018-11-13</h1>
+<ul>
+    <li>Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds/Minutes/Hours) and diffAsCarbonInterval</li>
+</ul>
+<h1>1.34.2 / 2018-11-13</h1>
+<ul>
+    <li>Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds/Minutes/Hours)</li>
+    <li>Compatibility warning: if you use/support PHP 7.0.0 to 7.0.21 and 7.1.0 to 7.1.7, use 1.34.4 instead</li>
+</ul>
+<h1>2.5.1 / 2018-11-08</h1>
+<ul>
+    <li>Fixed hasFormat full-year detection to disallow less than 4 digits</li>
 </ul>
 <h1>1.34.1 / 2018-11-08</h1>
 <ul>
-    <li>Fix hasFormat full-year detection to disallow less than 4 digits</li>
+    <li>Fixed hasFormat full-year detection to disallow less than 4 digits</li>
 </ul>
 <h1>2.5.0 / 2018-10-26</h1>
 <ul>
@@ -93,23 +121,23 @@
 </ul>
 <h1>2.4.1 / 2018-10-17</h1>
 <ul>
-    <li>Fix italian last day translation</li>
+    <li>Fixed italian last day translation</li>
 </ul>
 <h1>2.3.1 / 2018-10-17</h1>
 <ul>
-    <li>Fix italian last day translation</li>
+    <li>Fixed italian last day translation</li>
 </ul>
 <h1>2.2.1 / 2018-10-17</h1>
 <ul>
-    <li>Fix italian last day translation</li>
+    <li>Fixed italian last day translation</li>
 </ul>
 <h1>2.1.1 / 2018-10-17</h1>
 <ul>
-    <li>Fix italian last day translation</li>
+    <li>Fixed italian last day translation</li>
 </ul>
 <h1>2.0.1 / 2018-10-17</h1>
 <ul>
-    <li>Fix italian last day translation</li>
+    <li>Fixed italian last day translation</li>
 </ul>
 <h1>2.4.0 / 2018-10-16</h1>
 <ul>
@@ -343,13 +371,13 @@
     <li>Compatible with Symfony 4</li>
     <li>Dates can be mocked now with microseconds</li>
     <li>Workaround for the coma decimal separator PHP bug https://bugs.php.net/bug.php?id=67127</li>
-    <li>Allow formatLocalized no matter if a custom toStringFormat has been set</li>
+    <li>Allowed formatLocalized no matter if a custom toStringFormat has been set</li>
     <li>isSame*() methods now also accept DateTime instances</li>
     <li>Handle daylight saving time in a better way</li>
 </ul>
 <h1>1.22.1 / 2017-01-16</h1>
 <ul>
-    <li>Fix diffForHumans()</li>
+    <li>Fixed diffForHumans()</li>
     <li>Let extended classes access lastErrors</li>
 </ul>
 <h1>1.22.0 / 2017-01-15</h1>
@@ -371,7 +399,7 @@
 <ul>
     <li>Added new langs and fixed up others</li>
     <li>Improved race conditions in tests</li>
-    <li>Allow CarbonInterval to hold a 0 interval</li>
+    <li>Allowed CarbonInterval to hold a 0 interval</li>
     <li>Added styleci checks and fixes</li>
     <li>Added closest() and farthest() comparison methods.</li>
     <li>Made isBirthday() arg optional to allow for easy comparison to today</li>

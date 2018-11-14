@@ -1279,7 +1279,7 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <h2><span class="class-name">Carbon::</span>diffAsCarbonInterval</h2>
     <code>$date = NULL, $absolute = true</code>
     <p>Get the difference as a CarbonInterval instance</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = NULL, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInYears">
@@ -1782,21 +1782,22 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
 <div class="doc-method " id="doc-method-Carbon-average">
     <h2><span class="class-name">Carbon::</span>average</h2>
     <code>$date = NULL</code>
-    <p>Modify the current instance to the average of a given instance (default now) and the current instance.</p>
+    <p>Modify the current instance to the average of a given instance (default now) and the current instance
+(second-precision).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.7.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-closest">
     <h2><span class="class-name">Carbon::</span>closest</h2>
     <code>$date1, $date2</code>
-    <p>Get the closest date from the instance.</p>
+    <p>Get the closest date from the instance (second-precision).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2</code></td></tr><tr><td>Method added</td><td>1.21.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-farthest">
     <h2><span class="class-name">Carbon::</span>farthest</h2>
     <code>$date1, $date2</code>
-    <p>Get the farthest date from the instance.</p>
+    <p>Get the farthest date from the instance (second-precision).</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2</code></td></tr><tr><td>Method added</td><td>1.21.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2</code></td></tr></table>
 </div>
 
@@ -2474,7 +2475,7 @@ and rounded to the next smaller value (caution: 0.5w = 4d)</p>
     <p>Create a CarbonInterval instance from a DateInterval one.  Can not instance
 DateInterval objects created from DateTime::diff() as you can't externally
 set the $days field.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-make">
