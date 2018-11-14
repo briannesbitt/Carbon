@@ -1449,6 +1449,5 @@ class DiffTest extends AbstractTestCase
         $serverTime = new Carbon('2018-11-14 18:23:12.307628 +00:00');
 
         $this->assertSame(0, $serverTime->diffInSeconds($requestTime));
-
     }
 }
