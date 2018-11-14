@@ -745,7 +745,7 @@ class IsTest extends AbstractTestCase
     public function testIsStartOfDayWithMicroseconds()
     {
         if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('PHP 7.1.4 or higher required for this test');
         }
 
         $this->assertTrue(Carbon::parse('00:00:00')->isStartOfDay(true));
@@ -767,7 +767,7 @@ class IsTest extends AbstractTestCase
     public function testIsEndOfDayWithMicroseconds()
     {
         if (version_compare(PHP_VERSION, '7.1.4-dev', '<')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('PHP 7.1.4 or higher required for this test');
         }
 
         $this->assertTrue(Carbon::parse('23:59:59.999999')->isEndOfDay(true));

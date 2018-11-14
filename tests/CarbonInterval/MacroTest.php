@@ -63,7 +63,7 @@ class MacroTest extends AbstractTestCase
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
         if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('PHP 5.4.0 or higher required for this test');
         }
 
         CarbonInterval::macro('repeatInvert2', function ($count = 0) {

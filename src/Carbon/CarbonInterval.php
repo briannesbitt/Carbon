@@ -490,13 +490,21 @@ class CarbonInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
+     * Pass false as second argument to get a microseconds-precise interval. Else
+     * microseconds in the original interval will not be kept.
+     *
      * @param DateInterval $di
+     * @param bool         $trimMicroseconds (true by default)
      *
      * @return static
      */
-    public static function instance(DateInterval $di)
+    public static function instance(DateInterval $di, $trimMicroseconds = true)
     {
+        $microseconds = $trimMicroseconds || version_compare(PHP_VERSION, '7.1.0-dev', '<') ? 0 : $di->f;
         $instance = new static(static::getDateIntervalSpec($di));
+        if ($microseconds) {
+            $instance->f = $microseconds;
+        }
         $instance->invert = $di->invert;
         foreach (array('y', 'm', 'd', 'h', 'i', 's') as $unit) {
             if ($di->$unit < 0) {

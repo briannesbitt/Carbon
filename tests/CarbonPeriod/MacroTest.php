@@ -72,7 +72,7 @@ class MacroTest extends AbstractTestCase
     public function testMacroIsBindedToDatePeriodInstance()
     {
         if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('PHP 5.4.0 or higher required for this test');
         }
 
         CarbonPeriod::macro('myself', function () {
@@ -103,7 +103,7 @@ class MacroTest extends AbstractTestCase
     public function testMacroIsBindedToDatePeriodClass()
     {
         if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('PHP 5.4.0 or higher required for this test');
         }
 
         CarbonPeriod::macro('newMyself', function () {
