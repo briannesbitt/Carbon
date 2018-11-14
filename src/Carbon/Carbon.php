@@ -3812,6 +3812,7 @@ class Carbon extends DateTime implements JsonSerializable
         if ($absolute && $diff->invert) {
             $diff->invert();
         }
+
         return $diff;
     }
 
@@ -4035,7 +4036,7 @@ class Carbon extends DateTime implements JsonSerializable
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
-        if (!$diff->days) {
+        if (!$diff->days && version_compare(PHP_VERSION, '5.4.0-dev', '>=')) {
             $diff = static::fixDiffInterval($diff, $absolute);
         }
         $value = $diff->days * static::HOURS_PER_DAY * static::MINUTES_PER_HOUR * static::SECONDS_PER_MINUTE +
