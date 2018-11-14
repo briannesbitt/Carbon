@@ -46,6 +46,21 @@ branches:
 
 matrix:
   include:
+    - php: 5.3.9
+    - php: 5.3.16
+      dist: precise
+    - php: 5.3.17
+      dist: precise
+    - php: 5.3.20
+      dist: precise
+    - php: 5.3.22
+      dist: precise
+    - php: 5.3.24
+      dist: precise
+    - php: 5.3.27
+      dist: precise
+    - php: 5.3.29
+      dist: precise
     - php: 5.3
       dist: precise
     - php: 5.3
@@ -55,36 +70,105 @@ matrix:
       dist: precise
       env: setup=stable
 
+    - php: 5.4.0
+    - php: 5.4.6
+    - php: 5.4.7
+    - php: 5.4.8
+    - php: 5.4.10
+    - php: 5.4.12
+    - php: 5.4.17
+    - php: 5.4.20
+    - php: 5.4.21
+    - php: 5.4.24
+    - php: 5.4.26
+    - php: 5.4.28
+    - php: 5.4.29
+    - php: 5.4.30
+    - php: 5.4.33
     - php: 5.4
     - php: 5.4
       env: setup=lowest
     - php: 5.4
       env: setup=stable
 
+    - php: 5.5.0
+    - php: 5.5.1
+    - php: 5.5.4
+    - php: 5.5.5
+    - php: 5.5.8
+    - php: 5.5.10
+    - php: 5.5.12
+    - php: 5.5.13
+    - php: 5.5.14
+    - php: 5.5.17
+    - php: 5.5.20
+    - php: 5.5.22
+    - php: 5.5.24
     - php: 5.5
     - php: 5.5
       env: setup=lowest
     - php: 5.5
       env: setup=stable
 
+    - php: 5.6.0
+    - php: 5.6.4
+    - php: 5.6.5
+    - php: 5.6.8
+    - php: 5.6.13
+    - php: 5.6.15
+    - php: 5.6.19
+    - php: 5.6.20
+    - php: 5.6.21
+    - php: 5.6.23
+    - php: 5.6.24
+    - php: 5.6.32
     - php: 5.6
     - php: 5.6
       env: setup=lowest
     - php: 5.6
       env: setup=stable
-
+    - php: 7.0.0
+    - php: 7.0.4
+    - php: 7.0.5
+    - php: 7.0.6
+    - php: 7.0.8
+    - php: 7.0.9
+    - php: 7.0.12
+    - php: 7.0.14
+    - php: 7.0.17
+    - php: 7.0.18
+    - php: 7.0.19
+    - php: 7.0.25
+    - php: 7.0.23
+    - php: 7.0.22
     - php: 7.0
     - php: 7.0
       env: setup=lowest
     - php: 7.0
       env: setup=stable
 
+    - php: 7.1.0
+    - php: 7.1.3
+    - php: 7.1.4
+    - php: 7.1.5
+    - php: 7.1.7
+    - php: 7.1.8
+    - php: 7.1.9
+    - php: 7.1.11
+    - php: 7.1.15
+    - php: 7.1.17
+    - php: 7.1.20
+    - php: 7.1.24
     - php: 7.1
     - php: 7.1
       env: setup=lowest
     - php: 7.1
       env: setup=stable
 
+    - php: 7.2.0
+    - php: 7.2.3
+    - php: 7.2.5
+    - php: 7.2.8
     - php: 7.2
       env:
         - coverage=true
