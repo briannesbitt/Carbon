@@ -46,19 +46,6 @@ branches:
 
 matrix:
   include:
-    - php: 5.3.9
-    - php: 5.3.16
-      dist: precise
-    - php: 5.3.17
-      dist: precise
-    - php: 5.3.20
-      dist: precise
-    - php: 5.3.22
-      dist: precise
-    - php: 5.3.24
-      dist: precise
-    - php: 5.3.27
-      dist: precise
     - php: 5.3.29
       dist: precise
     - php: 5.3
@@ -70,40 +57,12 @@ matrix:
       dist: precise
       env: setup=stable
 
-    - php: 5.4.0
-    - php: 5.4.6
-    - php: 5.4.7
-    - php: 5.4.8
-    - php: 5.4.10
-    - php: 5.4.12
-    - php: 5.4.17
-    - php: 5.4.20
-    - php: 5.4.21
-    - php: 5.4.24
-    - php: 5.4.26
-    - php: 5.4.28
-    - php: 5.4.29
-    - php: 5.4.30
-    - php: 5.4.33
     - php: 5.4
     - php: 5.4
       env: setup=lowest
     - php: 5.4
       env: setup=stable
 
-    - php: 5.5.0
-    - php: 5.5.1
-    - php: 5.5.4
-    - php: 5.5.5
-    - php: 5.5.8
-    - php: 5.5.10
-    - php: 5.5.12
-    - php: 5.5.13
-    - php: 5.5.14
-    - php: 5.5.17
-    - php: 5.5.20
-    - php: 5.5.22
-    - php: 5.5.24
     - php: 5.5
     - php: 5.5
       env: setup=lowest
@@ -112,9 +71,7 @@ matrix:
 
     - php: 5.6.0
     - php: 5.6.4
-    - php: 5.6.5
     - php: 5.6.8
-    - php: 5.6.13
     - php: 5.6.15
     - php: 5.6.19
     - php: 5.6.20
