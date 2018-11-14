@@ -38,9 +38,7 @@ class JsonSerializationTest extends AbstractTestCase
 
     public function testCarbonAllowsCustomSerializer()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped('PHP 5.4.0 or higher required for this test');
-        }
+        $this->requirePhpVersion('5.4.0');
 
         Carbon::serializeUsing(function (Carbon $carbon) {
             return $carbon->getTimestamp();
@@ -53,9 +51,7 @@ class JsonSerializationTest extends AbstractTestCase
 
     public function testCarbonCanSerializeToJson()
     {
-        if (version_compare(PHP_VERSION, '5.4.0-dev', '<')) {
-            $this->markTestSkipped('PHP 5.4.0 or higher required for this test');
-        }
+        $this->requirePhpVersion('5.4.0');
 
         $this->assertSame(array(
             'date' => '2017-06-27 13:14:15.000000',

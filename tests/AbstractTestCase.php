@@ -40,6 +40,20 @@ abstract class AbstractTestCase extends TestCase
         Carbon::setTestNow($this->now = Carbon::now());
     }
 
+    protected function requirePhpVersion($version)
+    {
+        if (version_compare(PHP_VERSION, "$version-dev", '<')) {
+            $this->markTestSkipped("PHP $version or higher required for this test");
+        }
+    }
+
+    protected function excludePhpVersionsRange($from, $to)
+    {
+        if (version_compare(PHP_VERSION, "$from-dev", '>=') && version_compare(PHP_VERSION, $to, '<=')) {
+            $this->markTestSkipped("Test disabled for PHP from version $from to $to");
+        }
+    }
+
     protected function tearDown()
     {
         date_default_timezone_set($this->saveTz);

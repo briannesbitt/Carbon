@@ -43,9 +43,7 @@ class CreateFromTimeStringTest extends AbstractTestCase
 
     public function testCreateFromTimeStringWithMicroSecond()
     {
-        if (version_compare(PHP_VERSION, '7.1.0-dev', '<')) {
-            $this->markTestSkipped('PHP 7.1.0 or higher required for this test');
-        }
+        $this->requirePhpVersion('7.1.0');
 
         $d = Carbon::createFromTimeString('22:45:00.625341');
         $this->assertSame(22, $d->hour);

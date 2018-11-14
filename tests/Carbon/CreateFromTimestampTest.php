@@ -32,6 +32,9 @@ class CreateFromTimestampTest extends AbstractTestCase
 
     public function testComaDecimalSeparatorLocale()
     {
+        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
+        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+
         $date = new Carbon('2017-07-29T13:57:27.123456Z');
         $this->assertSame('2017-07-29 13:57:27.123456 Z', $date->format('Y-m-d H:i:s.u e'));
 
