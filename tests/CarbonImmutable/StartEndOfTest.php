@@ -450,9 +450,6 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
     }
 
-    /**
-     * @group i
-     */
     public function testAverageWithCloseDates()
     {
         $dt1 = Carbon::parse('2004-01-24 09:46:56.500000');
