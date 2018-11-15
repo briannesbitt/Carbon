@@ -532,6 +532,25 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
     }
 
+    /**
+     * @group i
+     */
+    public function testAverageWithCloseDates()
+    {
+        $dt1 = Carbon::parse('2004-01-24 09:46:56.500000');
+        $dt2 = Carbon::parse('2004-01-24 09:46:56.600000');
+
+        $this->assertSame('2004-01-24 09:46:56.550000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testAverageWithFarDates()
+    {
+        $dt1 = Carbon::parse('-2018-05-07 12:34:46.500000');
+        $dt2 = Carbon::parse('6025-10-11 20:59:06.600000');
+
+        $this->assertSame('2004-01-24 09:46:56.550000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+    }
+
     public function testStartOf()
     {
         $dt = Carbon::now();
