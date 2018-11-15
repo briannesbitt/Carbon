@@ -242,8 +242,8 @@ class ComparisonTest extends AbstractTestCase
     public function testClosestWithFarDates()
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
-        $closestDate = Carbon::parse('-6025-10-11 20:59:06.600000');
-        $farthestDate = Carbon::parse('45784-10-11 20:59:06.300000');
+        $closestDate = Carbon::parse('-4025-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('9995-10-11 20:59:06.300000');
 
         $this->assertSame('06.600000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
     }
@@ -272,15 +272,15 @@ class ComparisonTest extends AbstractTestCase
         $closestDate = Carbon::parse('2018-10-11 20:59:06.600000');
         $farthestDate = Carbon::parse('2018-10-11 20:59:06.300000');
 
-        $this->assertSame('06.300000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
+        $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
 
     public function testFarthestWithFarDates()
     {
         $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
-        $closestDate = Carbon::parse('-6025-10-11 20:59:06.600000');
-        $farthestDate = Carbon::parse('45784-10-11 20:59:06.300000');
+        $closestDate = Carbon::parse('-4025-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('9995-10-11 20:59:06.300000');
 
-        $this->assertSame('06.300000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
+        $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
 }
