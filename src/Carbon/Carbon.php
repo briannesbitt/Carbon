@@ -4742,10 +4742,6 @@ class Carbon extends DateTime implements JsonSerializable
         $intIncrement = floor($increment);
         $microIncrement = (int) (($date->micro - $this->micro) / 2 + 1000000 * ($increment - $intIncrement));
         $micro = (int) ($this->micro + $microIncrement);
-        while ($micro < 0) {
-            $micro += 1000000;
-            $intIncrement--;
-        }
         while ($micro >= 1000000) {
             $micro -= 1000000;
             $intIncrement++;

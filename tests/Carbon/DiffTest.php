@@ -1399,8 +1399,8 @@ class DiffTest extends AbstractTestCase
 
         $this->requirePhpVersion('7.1.0');
 
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $startDate = Carbon::parse('2018-10-11 20:59:06.914653');
         $endDate = Carbon::parse('2018-10-11 20:59:07.237419');
