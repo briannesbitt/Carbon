@@ -25,8 +25,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::now();
         $this->assertInstanceOfCarbon($dt->endOfDay());
@@ -89,8 +89,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfMonthFromLastDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2000, 1, 31, 2, 3, 4)->endOfMonth();
         $this->assertCarbon($dt, 2000, 1, 31, 23, 59, 59, 999999);
@@ -110,8 +110,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfYearFromFirstDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2000, 1, 1, 1, 1, 1)->endOfYear();
         $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59, 999999);
@@ -119,8 +119,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfYearFromLastDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2000, 12, 31, 23, 59, 59)->endOfYear();
         $this->assertCarbon($dt, 2000, 12, 31, 23, 59, 59, 999999);
@@ -158,8 +158,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfDecadeFromNow()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::now()->endOfDecade();
         $this->assertCarbon($dt, $dt->year - $dt->year % 10 + 9, 12, 31, 23, 59, 59, 999999);
@@ -173,8 +173,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfDecadeFromLastDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2009, 12, 31, 23, 59, 59)->endOfDecade();
         $this->assertCarbon($dt, 2009, 12, 31, 23, 59, 59, 999999);
@@ -238,8 +238,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfHourFromNow()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $now = Carbon::now();
         $dt = Carbon::now()->endOfHour();
@@ -248,8 +248,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfHourFromFirstMinute()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2001, 1, 1, 1, 1, rand(0, 59))->endOfHour();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59, 999999);
@@ -257,8 +257,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfHourFromLastMinute()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2100, 12, 31, 23, 59, rand(0, 59))->endOfHour();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, 59, 59, 999999);
@@ -297,8 +297,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfMinuteFromNow()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $now = Carbon::now();
         $dt = Carbon::now()->endOfMinute();
@@ -307,8 +307,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfMinuteFromFirstSecond()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->endOfMinute();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59, 999999);
@@ -316,8 +316,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfMinuteFromLastSecond()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfMinute();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, 59, 999999);
@@ -356,8 +356,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfSecondFromNow()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $now = Carbon::now();
         $dt = Carbon::now()->endOfSecond();
@@ -366,8 +366,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfSecondFromFirstSecond()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->modify('01:01:01.1')->endOfSecond();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
@@ -375,8 +375,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfSecondFromLastSecond()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->modify('23:59:59.1')->endOfSecond();
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->day, $dt->hour, $dt->minute, $dt->second, 999999);
@@ -403,8 +403,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfCenturyFromNow()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $now = Carbon::now();
         $dt = Carbon::now()->endOfCentury();
@@ -413,8 +413,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfCenturyFromFirstDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2001, 1, 1, 1, 1, 1)->endOfCentury();
         $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59, 999999);
@@ -422,8 +422,8 @@ class StartEndOfTest extends AbstractTestCase
 
     public function testEndOfCenturyFromLastDay()
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2100, 12, 31, 23, 59, 59)->endOfCentury();
         $this->assertCarbon($dt, 2100, 12, 31, 23, 59, 59, 999999);
@@ -498,8 +498,8 @@ class StartEndOfTest extends AbstractTestCase
      */
     public function testEndOfQuarter($month, $endOfQuarterMonth, $endOfQuarterDay)
     {
-        // @TODO Fix this feature for PHP 7.1.1 => 7.1.6
-        $this->excludePhpVersionsRange('7.1.1', '7.1.6');
+        // @TODO Fix this feature for PHP 7.1.3 => 7.1.5
+        $this->excludePhpVersionsRange('7.1.3', '7.1.5');
 
         $dt = Carbon::create(2015, $month, 15, 1, 2, 3);
         $this->assertCarbon($dt->endOfQuarter(), 2015, $endOfQuarterMonth, $endOfQuarterDay, 23, 59, 59, 999999);
@@ -530,5 +530,60 @@ class StartEndOfTest extends AbstractTestCase
         $dt1 = Carbon::create(2009, 12, 31, 23, 59, 59);
         $dt2 = Carbon::create(2000, 1, 1, 1, 1, 1)->average($dt1);
         $this->assertCarbon($dt2, 2004, 12, 31, 12, 30, 30);
+    }
+
+    public function testAverageWithCloseDates()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $dt1 = Carbon::parse('2004-01-24 09:46:56.500000');
+        $dt2 = Carbon::parse('2004-01-24 09:46:56.600000');
+
+        $this->assertSame('2004-01-24 09:46:56.550000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2004-01-24 09:46:56.500000');
+        $dt2 = Carbon::parse('2004-01-24 09:46:56.600000');
+
+        $this->assertSame('2004-01-24 09:46:56.550000', $dt2->average($dt1)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2018-05-07 12:34:46.960000');
+        $dt2 = Carbon::parse('2018-05-07 12:34:47.330000');
+
+        $this->assertSame('2018-05-07 12:34:47.145000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2018-05-07 12:34:46.960000');
+        $dt2 = Carbon::parse('2018-05-07 12:34:47.330000');
+
+        $this->assertSame('2018-05-07 12:34:47.145000', $dt2->average($dt1)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2018-05-07 12:34:46.060000');
+        $dt2 = Carbon::parse('2018-05-07 12:34:48.000000');
+
+        $this->assertSame('2018-05-07 12:34:47.030000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2018-05-07 12:34:46.060000');
+        $dt2 = Carbon::parse('2018-05-07 12:34:48.000000');
+
+        $this->assertSame('2018-05-07 12:34:47.030000', $dt2->average($dt1)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('2018-05-07 12:34:49.490000');
+        $dt2 = Carbon::parse('2018-05-07 12:34:47.000000');
+
+        $this->assertSame('2018-05-07 12:34:48.245000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testAverageWithFarDates()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $dt1 = Carbon::parse('-2018-05-07 12:34:46.500000');
+        $dt2 = Carbon::parse('6025-10-11 20:59:06.600000');
+
+        $this->assertSame('2004-01-24 04:46:56.550000', $dt1->average($dt2)->format('Y-m-d H:i:s.u'));
+
+        $dt1 = Carbon::parse('-2018-05-07 12:34:46.500000');
+        $dt2 = Carbon::parse('6025-10-11 20:59:06.600000');
+
+        $this->assertSame('2004-01-24 04:46:56.550000', $dt2->average($dt1)->format('Y-m-d H:i:s.u'));
     }
 }

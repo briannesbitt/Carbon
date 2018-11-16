@@ -228,6 +228,28 @@ class ComparisonTest extends AbstractTestCase
         $this->assertSame($dt1, $closest);
     }
 
+    public function testClosestWithMicroseconds()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
+        $closestDate = Carbon::parse('2018-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('2018-10-11 20:59:06.300000');
+
+        $this->assertSame('06.600000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
+    }
+
+    public function testClosestWithFarDates()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
+        $closestDate = Carbon::parse('-1625-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('9784-10-11 20:59:06.300000');
+
+        $this->assertSame('06.600000', $baseDate->closest($closestDate, $farthestDate)->format('s.u'));
+    }
+
     public function testFarthest()
     {
         $instance = Carbon::create(2015, 5, 28, 12, 0, 0);
@@ -244,5 +266,27 @@ class ComparisonTest extends AbstractTestCase
         $dt2 = Carbon::create(2015, 5, 28, 14, 0, 0);
         $farthest = $instance->farthest($dt1, $dt2);
         $this->assertSame($dt2, $farthest);
+    }
+
+    public function testFarthestWithMicroseconds()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
+        $closestDate = Carbon::parse('2018-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('2018-10-11 20:59:06.300000');
+
+        $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
+    }
+
+    public function testFarthestWithFarDates()
+    {
+        $this->requirePhpVersion('7.1.8');
+
+        $baseDate = Carbon::parse('2018-10-11 20:59:06.500000');
+        $closestDate = Carbon::parse('-1625-10-11 20:59:06.600000');
+        $farthestDate = Carbon::parse('9784-10-11 20:59:06.300000');
+
+        $this->assertSame('06.300000', $baseDate->farthest($closestDate, $farthestDate)->format('s.u'));
     }
 }

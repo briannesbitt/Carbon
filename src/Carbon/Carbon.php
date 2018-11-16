@@ -2265,6 +2265,13 @@ class Carbon extends DateTime implements JsonSerializable
         return $this->gt($date1) && $this->lt($date2);
     }
 
+    protected function floatDiffInSeconds($date)
+    {
+        $date = $this->resolveCarbon($date);
+
+        return abs($this->diffInRealSeconds($date, false) + ($date->micro - $this->micro) / 1000000);
+    }
+
     /**
      * Get the closest date from the instance.
      *
@@ -2275,7 +2282,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) < $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->floatDiffInSeconds($date1) < $this->floatDiffInSeconds($date2) ? $date1 : $date2;
     }
 
     /**
@@ -2288,7 +2295,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInSeconds($date1) > $this->diffInSeconds($date2) ? $date1 : $date2;
+        return $this->floatDiffInSeconds($date1) > $this->floatDiffInSeconds($date2) ? $date1 : $date2;
     }
 
     /**
@@ -4730,7 +4737,22 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function average($date = null)
     {
-        return $this->addSeconds((int) ($this->diffInSeconds($this->resolveCarbon($date), false) / 2));
+        $date = $this->resolveCarbon($date);
+        $increment = $this->diffInRealSeconds($date, false) / 2;
+        $intIncrement = floor($increment);
+        $microIncrement = (int) (($date->micro - $this->micro) / 2 + 1000000 * ($increment - $intIncrement));
+        $micro = (int) ($this->micro + $microIncrement);
+        while ($micro >= 1000000) {
+            $micro -= 1000000;
+            $intIncrement++;
+        }
+        $this->addSeconds($intIncrement);
+
+        if (version_compare(PHP_VERSION, '7.1.8-dev', '>=')) {
+            $this->setTime($this->hour, $this->minute, $this->second, $micro);
+        }
+
+        return $this;
     }
 
     ///////////////////////////////////////////////////////////////////
