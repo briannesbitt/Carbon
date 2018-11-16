@@ -230,11 +230,85 @@
             }
         });
 
+        function objEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i< keys.length; i++) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
+        function reserveEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = keys.length - 1; i >= 0; i--) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
         $(function () {
             $.ajax('/reference/', {
                 success: function (data) {
                     $('.search').html(data);
                 },
+            });
+            $('.history-slot').each(function () {
+                var $slot = $(this);
+                var releases = {};
+
+                function processHistory(data) {
+                    $.each(data, function () {
+                        var item = this;
+                        var name = item.tag_name;
+                        if (/^\d+\.\d+\.\d/.test(name)) {
+                            var major = name.replace(/^(\d+)\..*$/, '$1');
+                            var minor = name.replace(/^(\d+\.\d+)\..*$/, '$1');
+                            var list = releases[major] || (releases[major] = {});
+                            var subList = list[minor] || (list[minor] = {});
+                            subList[name] = item;
+                        }
+                    });
+                }
+
+                $.getJSON('/releases.json').then(function (data) {
+                    processHistory(data);
+
+                    return $.getJSON('https://api.github.com/repos/briannesbitt/Carbon/releases');
+                }).then(function (data) {
+                    processHistory(data);
+
+                    var html = '';
+                    reserveEach(releases, function (major, list) {
+                        html += '<h1 class="history-major-title"><a href="#" data-history-major="' + major + '">Carbon ' + major + '</a></h1><div class="history-major-group history-major-' + major + ' hidden">';
+                        objEach(list, function (minor, subList) {
+                            html += '<h2 class="history-minor-title">' + minor + '.*</h2><div class="history-minor-group">';
+                            objEach(subList, function (version, release) {
+                                if (release.assets && release.assets.length) {
+                                    release.asset_url = release.assets[0].browser_download_url;
+                                }
+                                html +=
+                                    '<h3>' +
+                                        version + '' +
+                                        '<small class="release-date" title="' + (new Date(release.created_at)).toLocaleTimeString() + '">' + (new Date(release.created_at)).toLocaleDateString() + '</small>' +
+                                        (release.asset_url
+                                            ? '<a href="' + release.asset_url + '" class="btn btn-default download-release"><i class="glyphicon glyphicon-save"></i> Download</a>'
+                                            : ''
+                                        ) +
+                                    '</h3>' +
+                                    '<div class="version-description">' + ('\n' + release.body).replace(/(\n- [^\n]*)+/g, function (all) {
+                                        return '<ul>' + all.replace(/\n- ([^\n]*)/g, '<li>$1</li>') + '</ul>';
+                                    }).replace(/^\s+/, '').replace(/\s+$/, '').replace(/\n/g, '<br>').replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank">$1</a>') + '</div>'
+                                ;
+                            });
+                            html += '</div>';
+                        });
+                        html += '</div>';
+                    });
+                    $slot.html(html).find('.history-major-group').hide().removeClass('hidden');
+                });
+            });
+            $(document).on('click', '[data-history-major]', function (event) {
+                $('.history-major-' + $(this).data('history-major')).slideToggle();
+                event.preventDefault();
+                event.stopPropagation();
             });
         });
 

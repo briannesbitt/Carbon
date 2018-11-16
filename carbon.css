@@ -152,6 +152,29 @@ blockquote, .doc-comment{font-size:15px;color:#656565}
 .main-wrapper > aside .search-bar .input-group {
     width: 66%;
 }
+.history-major-group, .history-minor-group {
+    padding-left: 15px;
+}
+.release-date {
+    color: #337ab7;
+    cursor: help;
+}
+.release-date,
+.download-release {
+    display: inline-block;
+    margin-left: 15px;
+}
+.history-major-title {
+    border-bottom: 1px solid #686868;
+}
+.history-minor-title {
+    border-bottom: 1px solid #a3a3a3;
+}
+.version-description {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #efefef;
+    margin-bottom: 30px;
+}
 
 @media (max-width: 1600px) {
     html,
