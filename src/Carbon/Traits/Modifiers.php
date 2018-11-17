@@ -334,7 +334,7 @@ trait Modifiers
      */
     public function average($date = null)
     {
-        return $this->addRealSeconds((int) ($this->diffInRealSeconds($this->resolveCarbon($date), false) / 2));
+        return $this->addRealMicroseconds((int) ($this->diffInRealMicroseconds($this->resolveCarbon($date), false) / 2));
     }
 
     /**
@@ -347,7 +347,7 @@ trait Modifiers
      */
     public function closest($date1, $date2)
     {
-        return $this->diffInRealSeconds($date1) < $this->diffInRealSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealMicroseconds($date1) < $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
     }
 
     /**
@@ -360,7 +360,7 @@ trait Modifiers
      */
     public function farthest($date1, $date2)
     {
-        return $this->diffInRealSeconds($date1) > $this->diffInRealSeconds($date2) ? $date1 : $date2;
+        return $this->diffInRealMicroseconds($date1) > $this->diffInRealMicroseconds($date2) ? $date1 : $date2;
     }
 
     /**
