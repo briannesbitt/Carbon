@@ -42,7 +42,7 @@ trait Serialization
     /**
      * Locale to dump comes here before serialization.
      *
-     * @var string
+     * @var string|null
      */
     protected $dumpLocale = null;
 
