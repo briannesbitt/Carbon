@@ -62,5 +62,5 @@ return [
     'months_short' => ['jaan', 'veebr', 'märts', 'apr', 'mai', 'juuni', 'juuli', 'aug', 'sept', 'okt', 'nov', 'dets'],
     'weekdays' => ['pühapäev', 'esmaspäev', 'teisipäev', 'kolmapäev', 'neljapäev', 'reede', 'laupäev'],
     'weekdays_short' => ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
-    'weekdays_min' => ['P', 'E', 'T', 'K', 'N', 'R', 'L']
+    'weekdays_min' => ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
 ];
