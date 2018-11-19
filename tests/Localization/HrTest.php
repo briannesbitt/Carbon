@@ -217,6 +217,6 @@ class HrTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 dana',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 dan 3 sata',
+        '1 d. 3 sata',
     ];
 }
