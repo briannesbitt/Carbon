@@ -195,7 +195,7 @@ class HrTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 sek.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'za 1 sekundu',
+        'za 1 sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minutu 1 sekundu',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
