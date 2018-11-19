@@ -54,7 +54,7 @@ return [
         'sameDay' => '[täna] LT',
         'nextDay' => '[homme] LT',
         'lastDay' => '[eile] LT',
-        'nextWeek' => '[järgmine] dddd LT',
+        'nextWeek' => 'dddd LT',
         'lastWeek' => '[eelmine] dddd LT',
         'sameElse' => 'L',
     ],
