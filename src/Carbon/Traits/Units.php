@@ -232,7 +232,7 @@ trait Units
 
         $value = (int) $value;
 
-        if($unit === 'milli' || $unit === 'millisecond') {
+        if ($unit === 'milli' || $unit === 'millisecond') {
             $unit = 'microsecond';
             $value *= static::MICROSECONDS_PER_MILLISECOND;
         }
