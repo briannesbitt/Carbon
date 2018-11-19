@@ -205,6 +205,27 @@ class AddTest extends AbstractTestCase
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addSecond()->second);
     }
 
+    public function testAddMillisecondsPositive()
+    {
+        $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addMilliseconds(1)->millisecond);
+    }
+
+    public function testAddMillisecondsZero()
+    {
+        $this->assertSame(100, Carbon::createFromTime(0, 0, 0.1)->addMilliseconds(0)->millisecond);
+    }
+
+    public function testAddMillisecondsNegative()
+    {
+        $this->assertSame(999, Carbon::createFromTime(0, 0, 0)->addMilliseconds(-1)->millisecond);
+        $this->assertSame(99, Carbon::createFromTime(0, 0, 0.1)->addMilliseconds(-1)->millisecond);
+    }
+
+    public function testAddMillisecond()
+    {
+        $this->assertSame(101, Carbon::createFromTime(0, 0, 0.1)->addMillisecond()->millisecond);
+    }
+
     public function testAddMicrosecondsPositive()
     {
         $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->addMicroseconds(1)->microsecond);

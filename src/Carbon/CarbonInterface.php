@@ -242,6 +242,14 @@ use JsonSerializable;
  * @method        $this          addSecond()                                                                         Add one second to the instance (using date interval).
  * @method        $this          subSeconds(int $value = 1)                                                          Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subSecond()                                                                         Sub one second to the instance (using date interval).
+ * @method        $this          addMillis(int $value = 1)                                                           Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMilli()                                                                          Add one millisecond to the instance (using date interval).
+ * @method        $this          subMillis(int $value = 1)                                                           Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMilli()                                                                          Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMilliseconds(int $value = 1)                                                     Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
+ * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
  * @method        $this          addMicros(int $value = 1)                                                           Add micros (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMicro()                                                                          Add one micro to the instance (using date interval).
  * @method        $this          subMicros(int $value = 1)                                                           Sub micros (the $value count passed in) to the instance (using date interval).
@@ -520,6 +528,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const HOURS_PER_DAY = 24;
     public const MINUTES_PER_HOUR = 60;
     public const SECONDS_PER_MINUTE = 60;
+    public const MILLISECONDS_PER_SECOND = 1000;
+    public const MICROSECONDS_PER_MILLISECOND = 1000;
     public const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
@@ -627,6 +637,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     public function diffInMicroseconds($date = null, $absolute = true);
 
+    public function diffInMilliseconds($date = null, $absolute = true);
+
     public function diffInMinutes($date = null, $absolute = true);
 
     public function diffInMonths($date = null, $absolute = true);
@@ -634,6 +646,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInRealHours($date = null, $absolute = true);
 
     public function diffInRealMicroseconds($date = null, $absolute = true);
+
+    public function diffInRealMilliseconds($date = null, $absolute = true);
 
     public function diffInRealMinutes($date = null, $absolute = true);
 

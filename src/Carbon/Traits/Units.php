@@ -49,6 +49,10 @@ trait Units
 
                 return $this->tz('UTC')->modify("@$time.$microtime")->tz($tz);
             // @call addRealUnit
+            case 'milli':
+            case 'millisecond':
+                return $this->addRealUnit('microsecond', $value * static::MICROSECONDS_PER_MILLISECOND);
+                break;
             case 'second':
                 break;
             // @call addRealUnit
@@ -227,6 +231,12 @@ trait Units
         }
 
         $value = (int) $value;
+
+        if ($unit === 'milli' || $unit === 'millisecond') {
+            $unit = 'microsecond';
+            $value *= static::MICROSECONDS_PER_MILLISECOND;
+        }
+
         // Work-around for bug https://bugs.php.net/bug.php?id=75642
         if ($unit === 'micro' || $unit === 'microsecond') {
             $microseconds = $this->micro + $value;

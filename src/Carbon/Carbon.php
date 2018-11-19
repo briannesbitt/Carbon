@@ -251,6 +251,14 @@ use DateTime;
  * @method        $this          addSecond()                                                                         Add one second to the instance (using date interval).
  * @method        $this          subSeconds(int $value = 1)                                                          Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subSecond()                                                                         Sub one second to the instance (using date interval).
+ * @method        $this          addMillis(int $value = 1)                                                           Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMilli()                                                                          Add one millisecond to the instance (using date interval).
+ * @method        $this          subMillis(int $value = 1)                                                           Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMilli()                                                                          Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMilliseconds(int $value = 1)                                                     Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
+ * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
  * @method        $this          addMicros(int $value = 1)                                                           Add micros (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMicro()                                                                          Add one micro to the instance (using date interval).
  * @method        $this          subMicros(int $value = 1)                                                           Sub micros (the $value count passed in) to the instance (using date interval).
