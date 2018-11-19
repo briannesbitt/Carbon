@@ -343,6 +343,19 @@ trait Difference
     }
 
     /**
+     * Get the difference in milliseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMilliseconds($date = null, $absolute = true)
+    {
+        return (int) ($this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_MILLISECOND);
+    }
+
+    /**
      * Get the difference in seconds using timestamps.
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
@@ -375,6 +388,19 @@ trait Difference
             $date->micro - $this->micro;
 
         return $absolute ? abs($value) : $value;
+    }
+
+    /**
+     * Get the difference in milliseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInRealMilliseconds($date = null, $absolute = true)
+    {
+        return (int) ($this->diffInRealMicroseconds($date, $absolute) / static::MICROSECONDS_PER_MILLISECOND);
     }
 
     /**
