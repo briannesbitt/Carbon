@@ -30,6 +30,8 @@ return [
     'before' => 'prije :time',
     'diff_yesterday' => 'jučer',
     'diff_tomorrow' => 'sutra',
+    'diff_before_yesterday' => 'prekjučer',
+    'diff_after_tomorrow' => 'prekosutra',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
