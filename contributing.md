@@ -60,10 +60,10 @@ git fetch origin
 git rebase origin/master
 ```
 
-Please add some tests for bug fixes and features (so it will ensure next developments will nto break your code),
+Please add some tests for bug fixes and features (so it will ensure next developments will not break your code),
 then check all is right with phpunit:
 
-Install PHP if you have'nt yet, then install composer:
+Install PHP if you haven't yet, then install composer:
 https://getcomposer.org/download/
 
 Update dependencies:
@@ -81,7 +81,7 @@ Then call phpunit:
 ./vendor/bin/phpunit
 ```
 
-Make sure all tests succeed before submit your pull-request, else we will not be able to merge it.
+Make sure all tests succeed before submitting your pull-request, else we will not be able to merge it.
 
 Push your work on your remote GitHub fork with:
 ```
