@@ -1653,6 +1653,16 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
 {{::exec(echo $dt->subSecond();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $dt->subSeconds(61);/*pad(40)*/)}} // {{eval}}
 
+{{::exec(echo $dt->addMilliseconds(61);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addMillisecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMillisecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMillisecond(61);/*pad(40)*/)}} // {{eval}}
+
+{{::exec(echo $dt->addMicroseconds(61);/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->addMicrosecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMicrosecond();/*pad(40)*/)}} // {{eval}}
+{{::exec(echo $dt->subMicroseconds(61);/*pad(40)*/)}} // {{eval}}
+
 // and so on for any unit: millenium, century, decade, year, quarter, month, week, day, weekday,
 // hour, minute, second, microsecond.
 
@@ -1990,6 +2000,8 @@ foreach (['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'week',
 {{::exec(echo $date->diffInMinutes('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInRealSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInSeconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInRealMilliseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
+{{::exec(echo $date->diffInMilliseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInRealMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->diffInMicroseconds('2014-03-30 00:00:00');/*pad(65)*/)}} // {{eval}}
 {{::exec(echo $date->subRealHours(25)->format('H:i');/*pad(65)*/)}} // {{eval}} (DST off)
@@ -2968,7 +2980,8 @@ echo "\n";
 echo "\n";
 {{::exec(echo CarbonInterval::days(23);/*pad(54)*/)}} // {{eval}}
 echo "\n";
-{{::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7);/*pad(54)*/)}} // {{eval}}
+// years, months, weeks, days, hours, minutes, seconds, microseconds
+{{::exec(echo CarbonInterval::create(2, 0, 5, 1, 1, 2, 7, 123);/*pad(54)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo CarbonInterval::createFromDateString('3 months');/*pad(54)*/)}} // {{eval}}
 </code></pre>
