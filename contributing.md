@@ -9,7 +9,7 @@ For any other bug or issue, please click this link and follow the template:
 [Create new issue](https://github.com/briannesbitt/Carbon/issues/new)
 
 You may think this template does not apply to your case but please think again. A long description will never be as
-clear as an code chunk with the output you expect from it (for either bug report or new features).
+clear as a code chunk with the output you expect from it (for either bug report or new features).
 
 ## Code Contributions
 
