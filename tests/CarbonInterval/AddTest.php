@@ -37,4 +37,46 @@ class AddTest extends AbstractTestCase
         $ci = CarbonInterval::create(4, 3, 6, 7, 8, 10, 11)->add($diff);
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
+
+    public function provideAddsResults()
+    {
+        return array(
+            array(5, 2, 7),
+            array(-5, -2, -7),
+            array(-5, 2, -3),
+            array(5, -2, 3),
+            array(2, 5, 7),
+            array(-2, -5, -7),
+            array(-2, 5, 3),
+            array(2, -5, -3),
+        );
+    }
+
+    /**
+     * @dataProvider provideAddsResults
+     *
+     * @param int $base
+     * @param int $increment
+     * @param int $expectedResult
+     */
+    public function testAddSign($base, $increment, $expectedResult)
+    {
+        $interval = new CarbonInterval();
+        $interval->hours(abs($base));
+        if ($base < 0) {
+            $interval->invert();
+        }
+        $add = new CarbonInterval();
+        $add->hours(abs($increment));
+        if ($increment < 0) {
+            $add->invert();
+        }
+        $interval->add($add);
+
+        $this->assertGreaterThanOrEqual(0, $interval->hours);
+
+        $actualResult = ($interval->invert ? -1 : 1) * $interval->hours;
+
+        $this->assertSame($expectedResult, $actualResult);
+    }
 }

@@ -924,7 +924,7 @@ class CarbonInterval extends DateInterval
      */
     public function add(DateInterval $interval)
     {
-        $sign = $interval->invert === 1 ? -1 : 1;
+        $sign = ($this->invert === 1) !== ($interval->invert === 1) ? -1 : 1;
 
         if (static::wasCreatedFromDiff($interval)) {
             $this->dayz += $interval->days * $sign;
@@ -935,6 +935,18 @@ class CarbonInterval extends DateInterval
             $this->hours += $interval->h * $sign;
             $this->minutes += $interval->i * $sign;
             $this->seconds += $interval->s * $sign;
+        }
+
+        if (($this->years || $this->months || $this->dayz || $this->hours || $this->minutes || $this->seconds) &&
+            $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0
+        ) {
+            $this->years *= -1;
+            $this->months *= -1;
+            $this->dayz *= -1;
+            $this->hours *= -1;
+            $this->minutes *= -1;
+            $this->seconds *= -1;
+            $this->invert();
         }
 
         return $this;
