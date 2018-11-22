@@ -2,5 +2,14 @@
     "require": {
         "php": "^7.1",
         "nesbot/carbon": "dev-master"
+    },
+    "scripts": {
+        "check": "@php tools/check.php",
+        "history": "@php tools/api-history.php",
+        "generate": "@php tools/generate.php",
+        "releases": "@php tools/cache-releases.php"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }

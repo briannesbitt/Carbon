@@ -15,13 +15,15 @@ const BLACKLIST = [
     '1.23.2',
 ];
 
+set_time_limit(0);
+chdir(__DIR__.'/..');
 $arguments = $argv ?? [];
 $target = $arguments[1] ?? null;
 
 function loadDependencies()
 {
     require 'vendor/autoload.php';
-    require 'tools/methods.php';
+    require __DIR__.'/methods.php';
 }
 
 function nameAlias($name)

@@ -1,440 +1,387 @@
 [
-  {
-    "tag_name": "2.5.4",
-    "created_at": "2018-11-15T06:40:11Z",
-    "body": "Fixed compatibility with PHP 7.1.12 for diffIn(Seconds/Minutes/Hours) and diffAsCarbonInterval\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/2.5.3...2.5.4",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.5.4/Carbon-2.5.4.zip"
-  },
-  {
-    "tag_name": "1.35.1",
-    "created_at": "2018-11-14T21:55:58Z",
-    "body": "Fixed compatibility with PHP 7.1.12 for diffIn(Seconds/Minutes/Hours) and diffAsCarbonInterval\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.35.0...1.35.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.35.1/Carbon-1.35.1.zip"
-  },
-  {
-    "tag_name": "1.35.0",
-    "created_at": "2018-11-14T12:39:51Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.34.4...1.35.0\r\n\r\nSummary:\r\n- Allowed to keep with Carbon::diffAsCarbonInterval setting new parameter $trimMicroseconds to false\r\n- Allowed to keep with CarbonInterval::instance setting new parameter $trimMicroseconds to false\r\n- Fixed PHP behavior divergences calculating differences below 1 second",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.35.0/Carbon-1.35.0.zip"
-  },
-  {
-    "tag_name": "2.5.3",
-    "created_at": "2018-11-13T14:41:34Z",
-    "body": "Fixed PHP bug 77145 https://bugs.php.net/bug.php?id=77145 via diffForCarbonInterval\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/2.5.2...2.5.3",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.5.3/Carbon-2.5.3.zip"
-  },
-  {
-    "tag_name": "2.5.2",
-    "created_at": "2018-11-12T21:46:13Z",
-    "body": "Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds/Minutes/Hours) and diffAsCarbonInterval\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/2.5.1...2.5.2",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.5.2/Carbon-2.5.2.zip"
-  },
-  {
-    "tag_name": "1.34.4",
-    "created_at": "2018-11-13T08:26:10Z",
-    "body": "Fixed compatibility with PHP 7.1.0 to 7.1.7 linked to PHP bug 74852 fixed in 7.1.8: https://bugs.php.net/bug.php?id=74852\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.34.3...1.34.4",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.34.4/Carbon-1.34.4.zip"
-  },
-  {
-    "tag_name": "1.34.3",
-    "created_at": "2018-11-13T07:01:46Z",
-    "body": "Fixed compatibility with PHP 7.0.0 to 7.0.21 linked to PHP bug 74852 fixed in 7.0.22: https://bugs.php.net/bug.php?id=74852\r\n\r\n/!\\ Compatibility warning: if you use/support PHP 7.1.0 to 7.1.7, use 1.34.4 instead\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.34.2...1.34.3",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.34.3/Carbon-1.34.3.zip"
-  },
-  {
-    "tag_name": "1.34.2",
-    "created_at": "2018-11-12T22:45:42Z",
-    "body": "Fixed PHP bug 77007, handle negative microseconds in diffIn(Seconds/Minutes/Hours)\r\n\r\n/!\\ Compatibility warning: if you use/support PHP 7.0.0 to 7.0.21 and 7.1.0 to 7.1.7, use 1.34.4 instead\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.34.1...1.34.2",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.34.2/Carbon-1.34.2.zip"
-  },
-  {
-    "tag_name": "2.5.1",
-    "created_at": "2018-11-08T13:33:56Z",
-    "body": "Fixed hasFormat full-year detection to disallow less than 4 digits\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/2.5.0...2.5.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.5.1/Carbon-2.5.1.zip"
-  },
-  {
-    "tag_name": "1.34.1",
-    "created_at": "2018-11-08T13:33:47Z",
-    "body": "Fixed hasFormat full-year detection to disallow less than 4 digits\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.34.0...1.34.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.34.1/Carbon-1.34.1.zip"
-  },
-  {
-    "tag_name": "2.5.0",
-    "created_at": "2018-10-26T20:15:03Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/2.4.1...2.5.0\r\n\r\nSummary:\r\n- Fixed short time format for id lang\r\n- Fixed total milliseconds/microseconds in intervals\r\n- Fixed microseconds in intervals add, instance and create",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.5.0/Carbon-2.5.0.zip"
-  },
-  {
-    "tag_name": "2.4.1",
-    "created_at": "2018-10-17T10:02:04Z",
-    "body": "Fixed italian last day translation\r\nhttps://github.com/briannesbitt/Carbon/compare/2.4.0...2.4.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.4.1/Carbon-2.4.1.zip"
-  },
-  {
-    "tag_name": "2.3.1",
-    "created_at": "2018-10-17T10:01:53Z",
-    "body": "Fixed italian last day translation\r\nhttps://github.com/briannesbitt/Carbon/compare/2.3.0...2.3.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.3.1/Carbon-2.3.1.zip"
-  },
-  {
-    "tag_name": "2.2.1",
-    "created_at": "2018-10-17T10:01:44Z",
-    "body": "Fix italian last day translation\r\nhttps://github.com/briannesbitt/Carbon/compare/2.2.0...2.2.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.2.1/Carbon-2.2.1.zip"
-  },
-  {
-    "tag_name": "2.1.1",
-    "created_at": "2018-10-17T10:01:36Z",
-    "body": "Fix italian last day translation\r\nhttps://github.com/briannesbitt/Carbon/compare/2.1.0...2.1.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.1.1/Carbon-2.1.1.zip"
-  },
-  {
-    "tag_name": "2.0.1",
-    "created_at": "2018-10-17T13:35:24Z",
-    "body": "Fix italian last day translation\r\nhttps://github.com/briannesbitt/Carbon/compare/2.0.0...2.0.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.1/Carbon-2.0.1.zip"
-  },
-  {
-    "tag_name": "2.4.0",
-    "created_at": "2018-10-16T13:07:21Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/2.3.0...2.4.0\r\n\r\nSummary:\r\n- Added lithuanian translations for: differences, period, months and day names\r\n- Added czech translations for: months and day names\r\n- Dropped support for PHP without JSON extension: removed JsonSerializable interface polyfill and require ext-json in composer\r\n- Added PHPDoc comments and auto-completion hints\r\n- Added translation methods to handle multiple forms of days and months names: getTranslatedDayName, getTranslatedMinDayName, getTranslatedShortDayName, getTranslatedMonthName, getTranslatedShortMonthName\r\n- Allowed Laravel to run with Carbon without registering the Carbon service",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.4.0/Carbon-2.4.0.zip"
-  },
-  {
-    "tag_name": "2.3.0",
-    "created_at": "2018-09-27T07:39:41Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/2.2.0...2.3.0\r\n\r\nSummary:\r\n- Propagated locale from CarbonPeriod to iterated dates\r\n- Added getSettings method to get options applied with settings method\r\n- Added missing new methods to CarbonInterface (genericMacro, getSettings, resetMacros and toDateTimeLocalString)\r\n- Added shiftTimezone to CarbonInterval and CarbonPeriod to allow timezone transmission via settings\r\n- Added locale readonly property to CarbonInterval to get locale from local translator settings",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.3.0/Carbon-2.3.0.zip"
-  },
-  {
-    "tag_name": "2.2.0",
-    "created_at": "2018-09-20T07:48:42Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/2.1.0...2.2.0\r\n\r\nSummary:\r\n- Added ru abbreviated units\r\n- Added PHPDoc aliases",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.2.0/Carbon-2.2.0.zip"
-  },
-  {
-    "tag_name": "1.34.0",
-    "created_at": "2018-09-20T19:36:25Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.33.0...1.34.0\r\n\r\nSummary:\r\n- Added ru abbreviated units\r\n- Checked for interface to exist before declare it",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.34.0/Carbon-1.34.0.zip"
-  },
-  {
-    "tag_name": "2.1.0",
-    "created_at": "2018-09-03T13:49:24Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0...2.1.0\r\n\r\nSummary:\r\n- Added generic macros\r\n- Added toDateTimeLocalString\r\n- Updated sl locale\r\n- Fixed conflict on JsonSerializable interface",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.1.0/Carbon-2.1.0.zip"
-  },
-  {
-    "tag_name": "2.0.0",
-    "created_at": "2018-08-23T16:45:38Z",
-    "body": "Release version 2 as stable",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0/Carbon-2.0.0.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.6",
-    "created_at": "2018-08-23T16:45:38Z",
-    "body": "Allowed factories methods that return mixed values\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0-beta.5...2.0.0-beta.6",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.6/Carbon-2.0.0-beta.6.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.5",
-    "created_at": "2018-08-23T14:23:28Z",
-    "body": "Allowed to change properties on factories\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0-beta.4...2.0.0-beta.5",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.5/Carbon-2.0.0-beta.5.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.4",
-    "created_at": "2018-08-23T09:05:40Z",
-    "body": "Added settings: toStringFormat, toJsonFormat, macros\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0-beta.3...2.0.0-beta.4",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.4/Carbon-2.0.0-beta.4.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.3",
-    "created_at": "2018-08-20T15:41:39Z",
-    "body": "Fixed ISO formats.\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0-beta.2...2.0.0-beta.3",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.3/Carbon-2.0.0-beta.3.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.2",
-    "created_at": "2018-08-13T11:25:28Z",
-    "body": "Introduced factories\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/2.0.0-beta.1...2.0.0-beta.2",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.2/Carbon-2.0.0-beta.2.zip"
-  },
-  {
-    "tag_name": "2.0.0-beta.1",
-    "created_at": "2018-08-08T05:36:26Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/2.0.0-beta.1/Carbon-2.0.0-beta.1.zip"
-  },
-  {
-    "tag_name": "1.33.0",
-    "created_at": "2018-08-07T08:39:47Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.32.0...1.33.0\r\n\r\nSummary:\r\n- Added startOfSecond() method\r\n- Added endOfSecond() method\r\n- Added translations for az, bn, ca, es\r\n- Fixed sh plural\r\n- Fixed typing exception messages\r\n- Added support for closures in setToStringFormat",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.33.0/Carbon-1.33.0.zip"
-  },
-  {
-    "tag_name": "1.32.0",
-    "created_at": "2018-07-05T06:59:26Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.31.1...1.32.0\r\n\r\nSummary:\r\n- Thrown an exception if start/end of week set to a value out of range\r\n- Added short units for pt_BR translation\r\n- Added one/two days diff wording for uk translation\r\n- Added period wording for uk, ca and oc translation",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.32.0/Carbon-1.32.0.zip"
-  },
-  {
-    "tag_name": "1.31.1",
-    "created_at": "2018-06-25T13:15:16Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.31.0...1.31.1\r\n\r\nDisabled locale auto-update with symfony/translation < 4",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.31.1/Carbon-1.31.1.zip"
-  },
-  {
-    "tag_name": "1.31.0",
-    "created_at": "2018-06-24T14:32:22Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.30.0...1.31.0\r\n\r\nSummary:\r\n- Added executeWithLocale method\r\n- Added localization support checking methods: getAvailableLocales, localeHasShortUnits, localeHasDiffSyntax, localeHasDiffOneDayWords, localeHasDiffTwoDayWords, localeHasPeriodSyntax\r\n- Added automated synchronization with Laravel locale\r\n- Added/updated translations for my, fr, pt_BR",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.31.0/Carbon-1.31.0.zip"
-  },
-  {
-    "tag_name": "1.30.0",
-    "created_at": "2018-06-15T11:52:26Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.29.2...1.30.0\r\n\r\nSummary:\r\n- Added CarbonPeriod skip method\r\n- Added calculated read-only properties englishDayOfWeek, shortEnglishDayOfWeek, englishMonth, shortEnglishMonth, localeDayOfWeek, shortLocaleDayOfWeek, localeMonth, shortLocaleMonth",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.30.0/Carbon-1.30.0.zip"
-  },
-  {
-    "tag_name": "1.29.2",
-    "created_at": "2018-05-29T15:23:46Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.29.1...1.29.2\r\n\r\nAdded german now/tomorrow/yesterday translations",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.29.2/Carbon-1.29.2.zip"
-  },
-  {
-    "tag_name": "1.29.1",
-    "created_at": "2018-05-24T16:44:37Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.29.0...1.29.1\r\n\r\nFixed #1314: allowed to configure is(Same|Current)(Month|Quarter) behavior",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.29.1/Carbon-1.29.1.zip"
-  },
-  {
-    "tag_name": "1.29.0",
-    "created_at": "2018-05-24T13:09:20Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.28.0...1.29.0\r\n\r\nAdded CarbonPeriod and related methods in Carbon and CarbonInterval",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.29.0/Carbon-1.29.0.zip"
-  },
-  {
-    "tag_name": "1.28.0",
-    "created_at": "2018-05-18T15:26:18Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.27.0...1.28.0\r\n\r\nSummary:\r\n- Added isStartOfDay, isEndOfDay, isMidnight, isMidday methods\r\n- Added locales bs_BA, hi, is, ne, oc, sh, sw\r\n- Added diff translations for ca, es, nl, no, pl, sl, sr*\r\n- Fixed ko, pl translations\r\n- Fixed createFromFormat with partial format and mock now instance\r\n- Added make methods to Carbon and CarbonInterval\r\n- Added getCascadeFactors, setCascadeFactors, getFactor, getDaysPerWeek, getHoursPerDay, - getMinutesPerHours, getSecondsPerMinutes, cascade, total methods and total getters to CarbonInterval\r\n- Added $short argument to CarbonInterval::forHumans to display short formats",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.28.0/Carbon-1.28.0.zip"
-  },
-  {
-    "tag_name": "1.27.0",
-    "created_at": "2018-04-23T09:02:57Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.26.4...1.27.0\r\n\r\nSummary:\r\n- Added `isSameQuarter`, `isCurrentQuarter`, `isNextQuarter` and `isLastQuarter` methods\r\n- Added `isSameHour`, `isSameMinute`, `isSameSecond`, `isCurrentHour`, `isCurrentMinute` and `isCurrentSecond` methods\r\n- Added `CarbonInterval::times` method\r\n- Added italian translation for diff words",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.27.0/Carbon-1.27.0.zip"
-  },
-  {
-    "tag_name": "1.26.4",
-    "created_at": "2018-04-17T15:35:42Z",
-    "body": "Always pass $self at its position even if previous arguments miss\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.26.3...1.26.4",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.26.4/Carbon-1.26.4.zip"
-  },
-  {
-    "tag_name": "1.26.3",
-    "created_at": "2018-04-16T14:54:26Z",
-    "body": "Macro: restrict $self (PHP 5.3 helper) to this explicit name only\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.26.2...1.26.3",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.26.3/Carbon-1.26.3.zip"
-  },
-  {
-    "tag_name": "1.26.2",
-    "created_at": "2018-04-16T14:06:36Z",
-    "body": "Change macros variable name to coexist with Laravel's one\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.26.1...1.26.2",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.26.2/Carbon-1.26.2.zip"
-  },
-  {
-    "tag_name": "1.26.1",
-    "created_at": "2018-04-16T08:58:42Z",
-    "body": "Change macros variable name to coexist with Laravel's one\r\n\r\nhttps://github.com/briannesbitt/Carbon/compare/1.26.0...1.26.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.26.1/Carbon-1.26.1.zip"
-  },
-  {
-    "tag_name": "1.26.0",
-    "created_at": "2018-04-16T08:58:42Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.25.0...1.26.0\r\n\r\nSummary:\r\n- Added `setDateFrom` and `setTimeFrom` methods\r\n- Allowed `DateTimeInterface` in `instance` method\r\n- Added `macro`, `hasMacro` and `mixin` methods\r\n- Added welsh language\r\n- Added CarbonInterval::getDateIntervalSpec (similar to CarbonInterval::spec but static and able to take any DateInterval instance as argument)\r\n- Added options for `diffForHumans` to support now/yesterday/tomorrow (#1240)",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.26.0/Carbon-1.26.0.zip"
-  },
-  {
-    "tag_name": "1.25.0",
-    "created_at": "2018-03-19T15:50:49Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.24.2...1.25.0\r\n\r\nSummary:\r\n- Allowed date/time strings in diffIn* and diffForHumans methods\r\n- Added addRealHours()/addRealHour()/subRealHours()/subRealHour() method\r\n- Added addRealMinutes()/addRealMinute()/subRealMinutes()/subRealMinute() method\r\n- Added addRealSeconds()/addRealSecond()/subRealSeconds()/subRealSecond() method\r\n- Added diffInRealHours() method\r\n- Added diffInRealMinutes() method\r\n- Added diffInRealSeconds() method\r\n- Added Carbon::createFromTimeString() method\r\n- Added CarbonInterval::fromString() method\r\n- Allowed spec string as CarbonInterval constructor and in CarbonInterval::parse()\r\n- Added Carbon::useMicrosecondsFallback() and Carbon::isMicrosecondsFallbackEnabled() to handle microseconds work-around in PHP < 7.1\r\n- Added dayOfWeekIso property\r\n- Allowed editing/adding languages and translations",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.25.0/Carbon-1.25.0.zip"
-  },
-  {
-    "tag_name": "1.24.2",
-    "created_at": "2018-03-10T10:10:14Z",
-    "body": "Prevent from negative values in microtime\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/1.24.1...1.24.2",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.24.2/Carbon-1.24.2.zip"
-  },
-  {
-    "tag_name": "1.24.1",
-    "created_at": "2018-03-09T15:49:34Z",
-    "body": "Re-align __set_state on DateTime method to ease Laravel compatibility\r\n\r\nComplete commits list: https://github.com/briannesbitt/Carbon/compare/1.24.0...1.24.1",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.24.1/Carbon-1.24.1.zip"
-  },
-  {
-    "tag_name": "1.24.0",
-    "created_at": "2018-03-09T12:52:49Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.23.0...1.24.0\r\n\r\nSummary:\r\n- Added createMidnightDate() method\r\n- Added isLastOfMonth() method\r\n- Added isDayOfWeek() method\r\n- Added toRfc7231String() method\r\n- Added toIso8601ZuluString() method\r\n- Added hasFormat() method\r\n- Added toArray() method\r\n- Added startOfHour() method\r\n- Added endOfHour() method\r\n- Added startOfMinute() method\r\n- Added endOfMinute() method\r\n- Added midDay() dynamic method, and getMidDayAt, setMidDayAt static methods\r\n- Added nowWithSameTz() method\r\n- Added CarbonInterval::compare() method\r\n- Added year overflow support (addYearsNoOverflow, addYearNoOverflow, addYearsWithOverflow, addYearWithOverflow, subYearNoOverflow, subYearsNoOverflow, subYearWithOverflow, subYearsWithOverflow dynamic methods and useYearsOverflow, resetYearsOverflow, shouldOverflowYears static methods)\r\n- Added microseconds on calling <strong>now</strong> with PHP < 7.1 (PHP >= 7.1 still support it natively)\r\n- Fixed hasRelativeKeywords() that no longer guess if the string is relative but test if it really produces a relative date, making it more accurate\r\n- Fixed createSafe(), now throws an exception with PHP >= 5.4 if the time is in a hour skipped by daylight saving time\r\n- Allowed DateTime and DateTimeInterface in diff methods",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.24.0/Carbon-1.24.0.zip"
-  },
-  {
-    "tag_name": "1.23.0",
-    "created_at": "2018-02-28T09:22:05Z",
-    "body": "Complete commits list: https://github.com/briannesbitt/Carbon/compare/1.22.1...1.23.0\r\n\r\nSummary:\r\n- Add ->weekNumberInMonth property\r\n- Add $parts arguments to diffForHumans() to allow components diff like \"1 week 2 days 11 hours\"\r\n- Add createFromTimestampMs method to create from timestamp in milliseconds\r\n- Fix/complete translations: ar, az, bg, el, fr, hy (arm), ja, pl, sk, sr, th, uk, uz, zh\r\n- Add translations: ar_shakl, dv_MV, kk, mn, ps, sr_Cyrl\r\n- Add Carbon::getDays() returning week days codes\r\n- getLastErrors() now works also on construct\r\n- Add workaround for setTimezone bug: https://bugs.php.net/bug.php?id=72338\r\n- Now Carbon instances can be exported via `var_export` and recreated with the produced code\r\n- Compatible with Symfony 4\r\n- Dates can be mocked now with microseconds\r\n- Workaround for the coma decimal separator PHP bug https://bugs.php.net/bug.php?id=67127\r\n- Allow formatLocalized no matter if a custom toStringFormat has been set\r\n- isSame*() methods now also accept DateTime instances\r\n- Handle daylight saving time in a better way",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.23.0/Carbon-1.23.0.zip"
-  },
-  {
-    "tag_name": "1.22.1",
-    "created_at": "2017-01-16T08:02:15Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.22.1/Carbon-1.22.1.zip"
-  },
-  {
-    "tag_name": "1.22.0",
-    "created_at": "2017-01-15T14:49:01Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.22.0/Carbon-1.22.0.zip"
-  },
-  {
-    "tag_name": "1.21.0",
-    "created_at": "2015-11-04T20:07:17Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.21.0/Carbon-1.21.0.zip"
-  },
-  {
-    "tag_name": "1.20.0",
-    "created_at": "2015-06-25T04:19:39Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.20.0/Carbon-1.20.0.zip"
-  },
-  {
-    "tag_name": "1.19.0",
-    "created_at": "2015-05-09T03:23:44Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.19.0/Carbon-1.19.0.zip"
-  },
-  {
-    "tag_name": "1.18.0",
-    "created_at": "2015-03-26T03:05:57Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.18.0/Carbon-1.18.0.zip"
-  },
-  {
-    "tag_name": "1.17.0",
-    "created_at": "2015-03-08T14:05:44Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.17.0/Carbon-1.17.0.zip"
-  },
-  {
-    "tag_name": "1.16.0",
-    "created_at": "2015-03-04T04:50:11Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.16.0/Carbon-1.16.0.zip"
-  },
-  {
-    "tag_name": "1.15.0",
-    "created_at": "2015-03-03T03:24:43Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.15.0/Carbon-1.15.0.zip"
-  },
-  {
-    "tag_name": "1.14.0",
-    "created_at": "2015-02-06T05:07:29Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.14.0/Carbon-1.14.0.zip"
-  },
-  {
-    "tag_name": "1.13.0",
-    "created_at": "2014-09-26T02:52:02Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.13.0/Carbon-1.13.0.zip"
-  },
-  {
-    "tag_name": "1.12.0",
-    "created_at": "2014-09-10T03:26:33Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.12.0/Carbon-1.12.0.zip"
-  },
-  {
-    "tag_name": "1.11.0",
-    "created_at": "2014-08-26T03:18:44Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.11.0/Carbon-1.11.0.zip"
-  },
-  {
-    "tag_name": "1.10.0",
-    "created_at": "2014-07-18T03:44:47Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.10.0/Carbon-1.10.0.zip"
-  },
-  {
-    "tag_name": "1.9.0",
-    "created_at": "2014-05-13T02:29:30Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.9.0/Carbon-1.9.0.zip"
-  },
-  {
-    "tag_name": "1.8.0",
-    "created_at": "2014-01-07T05:10:44Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.8.0/Carbon-1.8.0.zip"
-  },
-  {
-    "tag_name": "1.7.0",
-    "created_at": "2013-12-05T04:13:29Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.7.0/Carbon-1.7.0.zip"
-  },
-  {
-    "tag_name": "1.6.0",
-    "created_at": "2013-11-23T15:22:05Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.6.0/Carbon-1.6.0.zip"
-  },
-  {
-    "tag_name": "1.5.0",
-    "created_at": "2013-11-21T21:09:53Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.5.0/Carbon-1.5.0.zip"
-  },
-  {
-    "tag_name": "1.4.0",
-    "created_at": "2013-09-09T02:39:19Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.4.0/Carbon-1.4.0.zip"
-  },
-  {
-    "tag_name": "1.3.0",
-    "created_at": "2013-08-21T04:36:40Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.3.0/Carbon-1.3.0.zip"
-  },
-  {
-    "tag_name": "1.2.0",
-    "created_at": "2012-10-15T00:41:18Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.2.0/Carbon-1.2.0.zip"
-  },
-  {
-    "tag_name": "1.1.0",
-    "created_at": "2012-09-17T02:04:24Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.1.0/Carbon-1.1.0.zip"
-  },
-  {
-    "tag_name": "1.0.1",
-    "created_at": "2012-09-11T03:37:22Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.0.1/Carbon-1.0.1.zip"
-  },
-  {
-    "tag_name": "1.0.0",
-    "created_at": "2012-09-11T02:21:48Z",
-    "body": "",
-    "asset_url": "https://github.com/briannesbitt/Carbon/releases/download/1.0.0/Carbon-1.0.0.zip"
-  }
+    {
+        "tag_name": "2.6.1",
+        "created_at": "2018-11-22T16:45:03Z",
+        "body": "2.6.1"
+    },
+    {
+        "tag_name": "1.36.1",
+        "created_at": "2018-11-22T18:23:02Z",
+        "body": "1.36.1"
+    },
+    {
+        "tag_name": "2.6.0",
+        "created_at": "2018-11-19T19:58:55Z",
+        "body": "2.6.0"
+    },
+    {
+        "tag_name": "1.36.0",
+        "created_at": "2018-11-16T11:47:11Z",
+        "body": "1.36.0"
+    },
+    {
+        "tag_name": "2.5.4",
+        "created_at": "2018-11-15T06:40:11Z",
+        "body": "2.5.4"
+    },
+    {
+        "tag_name": "1.35.1",
+        "created_at": "2018-11-14T21:55:58Z",
+        "body": "1.35.1"
+    },
+    {
+        "tag_name": "1.35.0",
+        "created_at": "2018-11-14T12:39:51Z",
+        "body": "1.35.0"
+    },
+    {
+        "tag_name": "2.5.3",
+        "created_at": "2018-11-13T14:41:34Z",
+        "body": "2.5.3"
+    },
+    {
+        "tag_name": "2.5.2",
+        "created_at": "2018-11-12T21:46:13Z",
+        "body": "2.5.2"
+    },
+    {
+        "tag_name": "1.34.4",
+        "created_at": "2018-11-13T08:26:10Z",
+        "body": "1.34.4"
+    },
+    {
+        "tag_name": "1.34.3",
+        "created_at": "2018-11-13T07:01:46Z",
+        "body": "1.34.3"
+    },
+    {
+        "tag_name": "1.34.2",
+        "created_at": "2018-11-12T22:45:42Z",
+        "body": "1.34.2"
+    },
+    {
+        "tag_name": "2.5.1",
+        "created_at": "2018-11-08T13:33:56Z",
+        "body": "2.5.1"
+    },
+    {
+        "tag_name": "1.34.1",
+        "created_at": "2018-11-08T13:33:47Z",
+        "body": "1.34.1"
+    },
+    {
+        "tag_name": "2.5.0",
+        "created_at": "2018-10-26T20:15:03Z",
+        "body": "2.5.0"
+    },
+    {
+        "tag_name": "2.4.1",
+        "created_at": "2018-10-17T10:02:04Z",
+        "body": "2.4.1"
+    },
+    {
+        "tag_name": "2.3.1",
+        "created_at": "2018-10-17T10:01:53Z",
+        "body": "2.3.1"
+    },
+    {
+        "tag_name": "2.2.1",
+        "created_at": "2018-10-17T10:01:44Z",
+        "body": "2.2.1"
+    },
+    {
+        "tag_name": "2.1.1",
+        "created_at": "2018-10-17T10:01:36Z",
+        "body": "2.1.1"
+    },
+    {
+        "tag_name": "2.0.1",
+        "created_at": "2018-10-17T13:35:24Z",
+        "body": "2.0.1"
+    },
+    {
+        "tag_name": "2.4.0",
+        "created_at": "2018-10-16T13:07:21Z",
+        "body": "2.4.0"
+    },
+    {
+        "tag_name": "2.3.0",
+        "created_at": "2018-09-27T07:39:41Z",
+        "body": "2.3.0"
+    },
+    {
+        "tag_name": "2.2.0",
+        "created_at": "2018-09-20T07:48:42Z",
+        "body": "2.2.0"
+    },
+    {
+        "tag_name": "1.34.0",
+        "created_at": "2018-09-20T19:36:25Z",
+        "body": "1.34.0"
+    },
+    {
+        "tag_name": "2.1.0",
+        "created_at": "2018-09-03T13:49:24Z",
+        "body": "2.1.0"
+    },
+    {
+        "tag_name": "2.0.0",
+        "created_at": "2018-08-23T16:45:38Z",
+        "body": "2.0.0"
+    },
+    {
+        "tag_name": "2.0.0-beta.6",
+        "created_at": "2018-08-23T16:45:38Z",
+        "body": "2.0.0-beta.6"
+    },
+    {
+        "tag_name": "2.0.0-beta.5",
+        "created_at": "2018-08-23T14:23:28Z",
+        "body": "2.0.0-beta.5"
+    },
+    {
+        "tag_name": "2.0.0-beta.4",
+        "created_at": "2018-08-23T09:05:40Z",
+        "body": "2.0.0-beta.4"
+    },
+    {
+        "tag_name": "2.0.0-beta.3",
+        "created_at": "2018-08-20T15:41:39Z",
+        "body": "2.0.0-beta.3"
+    },
+    {
+        "tag_name": "2.0.0-beta.2",
+        "created_at": "2018-08-13T11:25:28Z",
+        "body": "2.0.0-beta.2"
+    },
+    {
+        "tag_name": "2.0.0-beta.1",
+        "created_at": "2018-08-08T05:36:26Z",
+        "body": "2.0.0-beta.1"
+    },
+    {
+        "tag_name": "1.33.0",
+        "created_at": "2018-08-07T08:39:47Z",
+        "body": "1.33.0"
+    },
+    {
+        "tag_name": "1.32.0",
+        "created_at": "2018-07-05T06:59:26Z",
+        "body": "1.32.0"
+    },
+    {
+        "tag_name": "1.31.1",
+        "created_at": "2018-06-25T13:15:16Z",
+        "body": "1.31.1"
+    },
+    {
+        "tag_name": "1.31.0",
+        "created_at": "2018-06-24T14:32:22Z",
+        "body": "1.31.0"
+    },
+    {
+        "tag_name": "1.30.0",
+        "created_at": "2018-06-15T11:52:26Z",
+        "body": "1.30.0"
+    },
+    {
+        "tag_name": "1.29.2",
+        "created_at": "2018-05-29T15:23:46Z",
+        "body": "1.29.2"
+    },
+    {
+        "tag_name": "1.29.1",
+        "created_at": "2018-05-24T16:44:37Z",
+        "body": "1.29.1"
+    },
+    {
+        "tag_name": "1.29.0",
+        "created_at": "2018-05-24T13:09:20Z",
+        "body": "1.29.0"
+    },
+    {
+        "tag_name": "1.28.0",
+        "created_at": "2018-05-18T15:26:18Z",
+        "body": "1.28.0"
+    },
+    {
+        "tag_name": "1.27.0",
+        "created_at": "2018-04-23T09:02:57Z",
+        "body": "1.27.0"
+    },
+    {
+        "tag_name": "1.26.4",
+        "created_at": "2018-04-17T15:35:42Z",
+        "body": "1.26.4"
+    },
+    {
+        "tag_name": "1.26.3",
+        "created_at": "2018-04-16T14:54:26Z",
+        "body": "1.26.3"
+    },
+    {
+        "tag_name": "1.26.2",
+        "created_at": "2018-04-16T14:06:36Z",
+        "body": "1.26.2"
+    },
+    {
+        "tag_name": "1.26.1",
+        "created_at": "2018-04-16T08:58:42Z",
+        "body": "1.26.1"
+    },
+    {
+        "tag_name": "1.26.0",
+        "created_at": "2018-04-16T08:58:42Z",
+        "body": "1.26.0"
+    },
+    {
+        "tag_name": "1.25.0",
+        "created_at": "2018-03-19T15:50:49Z",
+        "body": "1.25.0"
+    },
+    {
+        "tag_name": "1.24.2",
+        "created_at": "2018-03-10T10:10:14Z",
+        "body": "1.24.2"
+    },
+    {
+        "tag_name": "1.24.1",
+        "created_at": "2018-03-09T15:49:34Z",
+        "body": "1.24.1"
+    },
+    {
+        "tag_name": "1.24.0",
+        "created_at": "2018-03-09T12:52:49Z",
+        "body": "1.24.0"
+    },
+    {
+        "tag_name": "1.22.1",
+        "created_at": "2017-01-16T08:02:15Z",
+        "body": "1.22.1"
+    },
+    {
+        "tag_name": "1.22.0",
+        "created_at": "2017-01-15T14:49:01Z",
+        "body": "1.22.0"
+    },
+    {
+        "tag_name": "1.21.0",
+        "created_at": "2015-11-04T20:07:17Z",
+        "body": "1.21.0"
+    },
+    {
+        "tag_name": "1.20.0",
+        "created_at": "2015-06-25T04:19:39Z",
+        "body": "1.20.0"
+    },
+    {
+        "tag_name": "1.19.0",
+        "created_at": "2015-05-09T03:23:44Z",
+        "body": "1.19.0"
+    },
+    {
+        "tag_name": "1.18.0",
+        "created_at": "2015-03-26T03:05:57Z",
+        "body": "1.18.0"
+    },
+    {
+        "tag_name": "1.17.0",
+        "created_at": "2015-03-08T14:05:44Z",
+        "body": "1.17.0"
+    },
+    {
+        "tag_name": "1.16.0",
+        "created_at": "2015-03-04T04:50:11Z",
+        "body": "1.16.0"
+    },
+    {
+        "tag_name": "1.15.0",
+        "created_at": "2015-03-03T03:24:43Z",
+        "body": "1.15.0"
+    },
+    {
+        "tag_name": "1.14.0",
+        "created_at": "2015-02-06T05:07:29Z",
+        "body": "1.14.0"
+    },
+    {
+        "tag_name": "1.13.0",
+        "created_at": "2014-09-26T02:52:02Z",
+        "body": "1.13.0"
+    },
+    {
+        "tag_name": "1.12.0",
+        "created_at": "2014-09-10T03:26:33Z",
+        "body": "1.12.0"
+    },
+    {
+        "tag_name": "1.11.0",
+        "created_at": "2014-08-26T03:18:44Z",
+        "body": "1.11.0"
+    },
+    {
+        "tag_name": "1.10.0",
+        "created_at": "2014-07-18T03:44:47Z",
+        "body": "1.10.0"
+    },
+    {
+        "tag_name": "1.9.0",
+        "created_at": "2014-05-13T02:29:30Z",
+        "body": "1.9.0"
+    },
+    {
+        "tag_name": "1.8.0",
+        "created_at": "2014-01-07T05:10:44Z",
+        "body": "1.8.0"
+    },
+    {
+        "tag_name": "1.7.0",
+        "created_at": "2013-12-05T04:13:29Z",
+        "body": "1.7.0"
+    },
+    {
+        "tag_name": "1.6.0",
+        "created_at": "2013-11-23T15:22:05Z",
+        "body": "1.6.0"
+    },
+    {
+        "tag_name": "1.5.0",
+        "created_at": "2013-11-21T21:09:53Z",
+        "body": "1.5.0"
+    },
+    {
+        "tag_name": "1.4.0",
+        "created_at": "2013-09-09T02:39:19Z",
+        "body": "1.4.0"
+    },
+    {
+        "tag_name": "1.3.0",
+        "created_at": "2013-08-21T04:36:40Z",
+        "body": "1.3.0"
+    },
+    {
+        "tag_name": "1.2.0",
+        "created_at": "2012-10-15T00:41:18Z",
+        "body": "1.2.0"
+    },
+    {
+        "tag_name": "1.1.0",
+        "created_at": "2012-09-17T02:04:24Z",
+        "body": "1.1.0"
+    },
+    {
+        "tag_name": "1.0.1",
+        "created_at": "2012-09-11T03:37:22Z",
+        "body": "1.0.1"
+    },
+    {
+        "tag_name": "1.0.0",
+        "created_at": "2012-09-11T02:21:48Z",
+        "body": "1.0.0"
+    },
+    {
+        "tag_name": "1.23.0",
+        "created_at": "2018-02-28T09:22:05Z",
+        "body": "1.23.0"
+    }
 ]

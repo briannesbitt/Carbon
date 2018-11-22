@@ -8,6 +8,7 @@ if (function_exists('xdebug_disable')) {
     xdebug_disable();
 }
 
+chdir(__DIR__.'/..');
 require 'vendor/autoload.php';
 require 'tools/methods.php';
 
@@ -46,7 +47,7 @@ function historyLine($event, $version, $ref)
 }
 
 if (!isHistoryUpToDate()) {
-    echo "Your history.json is not up to date. You should first run:\nphp api-history.php\n";
+    echo "Your history.json is not up to date. You should first run:\nphp tools/api-history.php\n";
     exit(1);
 }
 

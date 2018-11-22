@@ -86,8 +86,8 @@
     <p>Don't make changes to the <code>[a-z]+.html</code> files directly!!</p>
 </blockquote>
 
-<p>Change the associated <code>[a-z]+.src.html</code> and then use the <code>generate.php</code> script to generate the
-    new <code>[a-z]+.html</code> file. It can be run at the command line using <code>php generate.php</code> from the
+<p>Change the associated <code>[a-z]+.src.html</code> and then use the <code>generate</code> script to generate the
+    new <code>[a-z]+.html</code> file. It can be run at the command line using <code>composer generate</code> from the
     project root when in the <code>gh-pages</code> branch. Maybe someday I'll extract this out to another project or at
     least run it with a post receive hook, but for now its just a local tool, deal with it.</p>
 
@@ -97,7 +97,7 @@
 <h2>{{::lint()}}</h2>
 
 <p>The <code>lint</code> command is meant for confirming the code is valid and will <code>eval()</code> the code passed
-    into the function. Assuming there were no errors, the executed source code will then be injected back into the text
+    into the function.c Assuming there were no errors, the executed source code will then be injected back into the text
     replacing out the <code>{{::lint()}}</code>. When you look at the raw <code>docs/index.src.html</code> you will see
     that the code can span several lines. Remember the code is executed in the context of the running script so any
     variables will be available for the rest of the file.</p>
@@ -337,19 +337,12 @@ echo 6;              // 6
             });
             $('.history-slot').each(function () {
                 var $slot = $(this);
+                var primaryList = {};
                 var releases = {};
 
                 function processHistory(data) {
                     $.each(data, function () {
-                        var item = this;
-                        var name = item.tag_name;
-                        if (/^\d+\.\d+\.\d/.test(name)) {
-                            var major = name.replace(/^(\d+)\..*$/, '$1');
-                            var minor = name.replace(/^(\d+\.\d+)\..*$/, '$1');
-                            var list = releases[major] || (releases[major] = {});
-                            var subList = list[minor] || (list[minor] = {});
-                            subList[name] = item;
-                        }
+                        primaryList[this.created_at] = this;
                     });
                 }
 
@@ -359,6 +352,18 @@ echo 6;              // 6
                     return $.getJSON('https://api.github.com/repos/briannesbitt/Carbon/releases');
                 }).then(function (data) {
                     processHistory(data);
+
+                    Object.keys(primaryList).sort().reverse().forEach(function (key) {
+                        var item = primaryList[key];
+                        var name = item.tag_name;
+                        if (/^\d+\.\d+\.\d/.test(name)) {
+                            var major = name.replace(/^(\d+)\..*$/, '$1');
+                            var minor = name.replace(/^(\d+\.\d+)\..*$/, '$1');
+                            var list = releases[major] || (releases[major] = {});
+                            var subList = list[minor] || (list[minor] = {});
+                            subList[name] = item;
+                        }
+                    });
 
                     var html = '';
                     reserveEach(releases, function (major, list) {

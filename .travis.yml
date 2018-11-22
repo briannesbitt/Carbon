@@ -9,7 +9,7 @@ php:
 
 install: composer update --prefer-dist --no-interaction --no-suggest
 
-script: php check.php
+script: php tools/check.php
 
 branches:
   only:

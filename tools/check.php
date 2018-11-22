@@ -3,6 +3,7 @@
 define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
+chdir(__DIR__.'/..');
 require 'vendor/autoload.php';
 require 'tools/methods.php';
 
