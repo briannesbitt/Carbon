@@ -79,6 +79,55 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval($ci, 4, 3, 28, 8, 10, 11);
     }
 
+    public function provideAddsResults()
+    {
+        return [
+            [5, 2, 7],
+            [-5, -2, -7],
+            [-5, 2, -3],
+            [5, -2, 3],
+            [2, 5, 7],
+            [-2, -5, -7],
+            [-2, 5, 3],
+            [2, -5, -3],
+        ];
+    }
+
+    /**
+     * @dataProvider provideAddsResults
+     *
+     * @param int $base
+     * @param int $increment
+     * @param int $expectedResult
+     */
+    public function testAddSign($base, $increment, $expectedResult)
+    {
+        $interval = new CarbonInterval();
+        $interval->hours(abs($base));
+        if ($base < 0) {
+            $interval->invert();
+        }
+        $add = new CarbonInterval();
+        $add->hours(abs($increment));
+        if ($increment < 0) {
+            $add->invert();
+        }
+        $interval->add($add);
+
+        if ($interval->hours < 0) {
+            echo "\n\n";
+            var_dump($base, $increment, $expectedResult);
+            echo "\n\n";
+            var_dump($interval->hours, $interval->h, $interval->invert);
+            exit;
+        }
+        $this->assertGreaterThanOrEqual(0, $interval->hours);
+
+        $actualResult = ($interval->invert ? -1 : 1) * $interval->hours;
+
+        $this->assertSame($expectedResult, $actualResult);
+    }
+
     public function testAddAndSubMultipleFormats()
     {
         $this->assertCarbonInterval(CarbonInterval::day()->add('hours', 3), 0, 0, 1, 3, 0, 0);
