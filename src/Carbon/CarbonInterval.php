@@ -1126,7 +1126,7 @@ class CarbonInterval extends DateInterval
         if ($value !== 1) {
             $interval->times($value);
         }
-        $sign = $interval->invert === 1 ? -1 : 1;
+        $sign = ($this->invert === 1) !== ($interval->invert === 1) ? -1 : 1;
         $this->years += $interval->y * $sign;
         $this->months += $interval->m * $sign;
         $this->dayz += ($interval->days === false ? $interval->d : $interval->days) * $sign;
@@ -1134,6 +1134,17 @@ class CarbonInterval extends DateInterval
         $this->minutes += $interval->i * $sign;
         $this->seconds += $interval->s * $sign;
         $this->microseconds += $interval->microseconds * $sign;
+
+        if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
+            $this->years *= -1;
+            $this->months *= -1;
+            $this->dayz *= -1;
+            $this->hours *= -1;
+            $this->minutes *= -1;
+            $this->seconds *= -1;
+            $this->microseconds *= -1;
+            $this->invert();
+        }
 
         return $this;
     }
