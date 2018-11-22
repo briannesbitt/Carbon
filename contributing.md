@@ -128,14 +128,14 @@ patches) can have unexpected consequences on Carbon methods results.
 
 ### Long term support
 
-To benefit the better support, require Carbon using range (`^1` or `^2`). By requiring `1.26.*`, `~1.26.0` or limited
-range such as `>=1.20 <1.33`, you fall to low priority support (only security and critical issues will be fixed), our
-prior support goes to next minor releases of each major version. It applies to bug fixes and low-cost features. Other
-new features will only be added in the last stable release. At the opposite, we recommend you to restrain to a major
-number, as there is no compatibility guarantee from a major version to the next. It means requiring `>=2`, as allowing
-any newer version will probably leads to errors on releasing our next major version.
+To benefit the better support, require Carbon using major version range (`^1` or `^2`). By requiring `1.26.*`,
+`~1.26.0` or limited range such as `>=1.20 <1.33`, you fall to low priority support (only security and critical issues
+will be fixed), our prior support goes to next minor releases of each major version. It applies to bug fixes and
+low-cost features. Other new features will only be added in the last stable release. At the opposite, we recommend you
+to restrain to a major number, as there is no compatibility guarantee from a major version to the next. It means
+requiring `>=2`, as it allows any newer version, will probably leads to errors on releasing our next major version.
 
-Open milestones can be patched if a minor bug is detected while if you're on a closed milestone, we'll most likely
-asking you to update first on an open one. See currently open milestones: 
+Open milestones can be patched if a minor bug is detected while if you're on a closed milestone, we'll more likely
+ask you to update first to an open one. See currently open milestones: 
 
 https://github.com/briannesbitt/Carbon/milestones
