@@ -568,10 +568,23 @@ trait Comparison
             // createFromFormat() is known to handle edge cases silently.
             // E.g. "1975-5-1" (Y-n-j) will still be parsed correctly when "Y-m-d" is supplied as the format.
             // To ensure we're really testing against our desired format, perform an additional regex validation.
-            $regex = strtr(
-                preg_quote($format, '/'),
-                static::$regexFormats
-            );
+
+            // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
+            $quotedFormat = str_replace('\\\\', '\\',
+                preg_quote($format, '/'));
+
+            // Build the regex string
+            $regex = '';
+            for ($i = 0; $i < strlen($quotedFormat); ++$i) {
+                // Backslash – the next character does not represent a date token so add it on as-is and continue.
+                // We're doing an extra ++$i here to increment the loop by 2.
+                if ($quotedFormat[$i] === '\\') {
+                    $regex .= '\\' . $quotedFormat[++$i];
+                    continue;
+                }
+
+                $regex .= strtr($quotedFormat[$i], static::$regexFormats);
+            }
 
             return (bool) preg_match('/^'.$regex.'$/', $date);
         } catch (InvalidArgumentException $e) {

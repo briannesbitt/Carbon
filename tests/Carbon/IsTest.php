@@ -844,6 +844,9 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('1975-05-01', 'Y-m-d'));
         $this->assertTrue(Carbon::hasFormat('Sun 21st', 'D jS'));
 
+        $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', Carbon::ATOM));
+        $this->assertTrue(Carbon::hasFormat('Y-01-30\\', '\\Y-m-d\\\\'));
+
         // Format failure
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));
         $this->assertFalse(Carbon::hasFormat('Foo 21st', 'D jS'));
