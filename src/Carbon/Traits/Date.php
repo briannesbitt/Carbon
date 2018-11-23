@@ -93,6 +93,8 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
+ * @method        static static  now($tz = null)                                                                     call \DateTime::now if mutable or \DateTimeImmutable::now else.
+ *                                                                                                                   http://php.net/manual/en/datetime.now.php
  * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
  *                                                                                                                   http://php.net/manual/en/datetime.format.php
  * @method        static         modify($modify)                                                                     call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
@@ -195,6 +197,14 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          second(int $value)                                                                  Set current instance second to the given value.
  * @method        $this          setSeconds(int $value)                                                              Set current instance second to the given value.
  * @method        $this          setSecond(int $value)                                                               Set current instance second to the given value.
+ * @method        $this          millis(int $value)                                                                  Set current instance milli to the given value.
+ * @method        $this          milli(int $value)                                                                   Set current instance milli to the given value.
+ * @method        $this          setMillis(int $value)                                                               Set current instance milli to the given value.
+ * @method        $this          setMilli(int $value)                                                                Set current instance milli to the given value.
+ * @method        $this          milliseconds(int $value)                                                            Set current instance millisecond to the given value.
+ * @method        $this          millisecond(int $value)                                                             Set current instance millisecond to the given value.
+ * @method        $this          setMilliseconds(int $value)                                                         Set current instance millisecond to the given value.
+ * @method        $this          setMillisecond(int $value)                                                          Set current instance millisecond to the given value.
  * @method        $this          micros(int $value)                                                                  Set current instance micro to the given value.
  * @method        $this          micro(int $value)                                                                   Set current instance micro to the given value.
  * @method        $this          setMicros(int $value)                                                               Set current instance micro to the given value.
@@ -259,10 +269,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          addSecond()                                                                         Add one second to the instance (using date interval).
  * @method        $this          subSeconds(int $value = 1)                                                          Sub seconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subSecond()                                                                         Sub one second to the instance (using date interval).
- * @method        $this          addMillis(int $value = 1)                                                           Add milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        $this          addMilli()                                                                          Add one millisecond to the instance (using date interval).
- * @method        $this          subMillis(int $value = 1)                                                           Sub milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        $this          subMilli()                                                                          Sub one millisecond to the instance (using date interval).
+ * @method        $this          addMillis(int $value = 1)                                                           Add millis (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMilli()                                                                          Add one milli to the instance (using date interval).
+ * @method        $this          subMillis(int $value = 1)                                                           Sub millis (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMilli()                                                                          Sub one milli to the instance (using date interval).
  * @method        $this          addMilliseconds(int $value = 1)                                                     Add milliseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
  * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
@@ -367,10 +377,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
- * @method        $this          addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
- * @method        $this          addRealSecond()                                                                     Add one second to the instance (using timestamp).
- * @method        $this          subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
- * @method        $this          subRealSecond()                                                                     Sub one second to the instance (using timestamp).
+ * @method        $this          addRealMillis(int $value = 1)                                                       Add millis (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMilli()                                                                      Add one milli to the instance (using timestamp).
+ * @method        $this          subRealMillis(int $value = 1)                                                       Sub millis (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMilli()                                                                      Sub one milli to the instance (using timestamp).
  * @method        $this          addRealMinutes(int $value = 1)                                                      Add minutes (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMinute()                                                                     Add one minute to the instance (using timestamp).
  * @method        $this          subRealMinutes(int $value = 1)                                                      Sub minutes (the $value count passed in) to the instance (using timestamp).

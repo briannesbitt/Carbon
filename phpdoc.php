@@ -16,6 +16,7 @@ $tags = [
     ['call', 'diffForHumans'],
 ];
 $nativeMethods = [
+    'now' => 'static static',
     'format' => 'string',
     'modify' => 'static',
     'getOffset' => 'int',
