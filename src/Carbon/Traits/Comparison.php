@@ -579,7 +579,7 @@ trait Comparison
                 // Backslash – the next character does not represent a date token so add it on as-is and continue.
                 // We're doing an extra ++$i here to increment the loop by 2.
                 if ($quotedFormat[$i] === '\\') {
-                    $regex .= '\\' . $quotedFormat[++$i];
+                    $regex .= '\\'.$quotedFormat[++$i];
                     continue;
                 }
 
