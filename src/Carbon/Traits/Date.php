@@ -639,7 +639,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function copy()
     {
@@ -651,7 +651,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function clone()
     {
@@ -661,7 +661,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nowWithSameTz()
     {
@@ -697,7 +697,7 @@ trait Date
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     protected function resolveCarbon($date = null)
     {
@@ -1218,7 +1218,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function dayOfYear($value = null)
     {
@@ -1232,7 +1232,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function weekday($value = null)
     {
@@ -1246,7 +1246,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function isoWeekday($value = null)
     {
@@ -1262,7 +1262,7 @@ trait Date
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1291,7 +1291,7 @@ trait Date
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1305,7 +1305,7 @@ trait Date
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1317,7 +1317,7 @@ trait Date
      *
      * @param int|null $offset
      *
-     * @return int|static
+     * @return int|static|CarbonInterface
      */
     public function utcOffset(int $offset = null)
     {
@@ -1339,7 +1339,7 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
@@ -1351,7 +1351,7 @@ trait Date
      *
      * @param string $time
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setTimeFromTimeString($time)
     {
@@ -1367,7 +1367,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function timezone($value)
     {
@@ -1395,7 +1395,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setTimezone($value)
     {
@@ -1413,7 +1413,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function shiftTimezone($value)
     {
@@ -1426,7 +1426,7 @@ trait Date
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function utc()
     {

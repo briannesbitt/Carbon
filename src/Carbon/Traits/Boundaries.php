@@ -11,6 +11,7 @@
 
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
 use InvalidArgumentException;
 
 /**
@@ -36,7 +37,7 @@ trait Boundaries
     /**
      * Resets the time to 00:00:00 start of day
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfDay()
     {
@@ -46,7 +47,7 @@ trait Boundaries
     /**
      * Resets the time to 23:59:59 end of day
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfDay()
     {
@@ -56,7 +57,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the month and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfMonth()
     {
@@ -66,7 +67,7 @@ trait Boundaries
     /**
      * Resets the date to end of the month and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfMonth()
     {
@@ -76,7 +77,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the quarter and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfQuarter()
     {
@@ -88,7 +89,7 @@ trait Boundaries
     /**
      * Resets the date to end of the quarter and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfQuarter()
     {
@@ -98,7 +99,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfYear()
     {
@@ -108,7 +109,7 @@ trait Boundaries
     /**
      * Resets the date to end of the year and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfYear()
     {
@@ -118,7 +119,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfDecade()
     {
@@ -130,7 +131,7 @@ trait Boundaries
     /**
      * Resets the date to end of the decade and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfDecade()
     {
@@ -142,7 +143,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfCentury()
     {
@@ -154,7 +155,7 @@ trait Boundaries
     /**
      * Resets the date to end of the century and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfCentury()
     {
@@ -166,7 +167,7 @@ trait Boundaries
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfMillennium()
     {
@@ -178,7 +179,7 @@ trait Boundaries
     /**
      * Resets the date to end of the century and time to 23:59:59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfMillennium()
     {
@@ -192,7 +193,7 @@ trait Boundaries
      *
      * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfWeek($weekStartsAt = null)
     {
@@ -209,7 +210,7 @@ trait Boundaries
      *
      * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfWeek($weekEndsAt = null)
     {
@@ -224,7 +225,7 @@ trait Boundaries
     /**
      * Modify to start of current hour, minutes and seconds become 0
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfHour()
     {
@@ -234,7 +235,7 @@ trait Boundaries
     /**
      * Modify to end of current hour, minutes and seconds become 59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfHour()
     {
@@ -244,7 +245,7 @@ trait Boundaries
     /**
      * Modify to start of current minute, seconds become 0
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfMinute()
     {
@@ -254,7 +255,7 @@ trait Boundaries
     /**
      * Modify to end of current minute, seconds become 59
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfMinute()
     {
@@ -264,7 +265,7 @@ trait Boundaries
     /**
      * Modify to start of current second, microseconds become 0
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOfSecond()
     {
@@ -274,7 +275,7 @@ trait Boundaries
     /**
      * Modify to end of current second, microseconds become 999999
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOfSecond()
     {
@@ -287,7 +288,7 @@ trait Boundaries
      * @param string            $unit
      * @param array<int, mixed> $params
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function startOf($unit, ...$params)
     {
@@ -306,7 +307,7 @@ trait Boundaries
      * @param string            $unit
      * @param array<int, mixed> $params
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function endOf($unit, ...$params)
     {
