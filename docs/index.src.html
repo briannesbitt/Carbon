@@ -689,7 +689,7 @@ echo "\n";
     <p>Here is the complete list of available replacements (examples given with
         <code class="php">{{::lint($date = Carbon::parse('2017-01-05 17:04:05.084512');)}}</code>):</p>
 
-    <table class="info-table">
+    <table class="info-table" id="iso-format-available-replacements">
         <thead>
         <tr>
             <th>Code</th>
@@ -712,7 +712,7 @@ echo "\n";
 
     <p>Some macro-formats are also available. Here are examples of each in some languages:</p>
 
-    <table class="info-table">
+    <table class="info-table" id="available-macro-formats">
         <thead>
         <tr>
             <th>Code</th>
@@ -793,7 +793,7 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
     <p>Here is an overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
         Carbon version:</p>
 
-    <table class="info-table">
+    <table class="info-table" id="supported-locales">
         <thead>
         <tr>
             <th>Locale</th>
