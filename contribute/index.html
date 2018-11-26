@@ -174,6 +174,13 @@ echo 6;              // 6
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script>
 
+        var liveEditorHosts = [
+            'https://try-carbon.herokuapp.com/',
+            'https://try-carbon-lib.herokuapp.com/'
+        ];
+        var storage = window.localStorage || {};
+        var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1546423973298 ? balancingId % liveEditorHosts.length : 1];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -183,7 +190,7 @@ echo 6;              // 6
             if (!code) {
                 code = $pre.find('code').text();
                 token = 'live-editor-' + index;
-                link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                     encodeURIComponent(code) +
                     '&token=' + token;
                 $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
@@ -207,7 +214,7 @@ echo 6;              // 6
                 if (!editorAutoLoad) {
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var link = 'https://try-carbon.herokuapp.com/?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
                         '&token=' + token;
                     $pre.css('cursor', 'pointer').click(function () {
