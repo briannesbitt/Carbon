@@ -155,8 +155,13 @@ ksort($methods);
 
 $count = count($versions);
 
-foreach (array_reverse($versions) as $index => $version) {
-    echo round($index * 100 / $count)."% $version\n";
+function getMethodsOfVersion($version) {
+    $cache = __DIR__.'/cache/methods_of_version_'.$version.'.json';
+
+    if (file_exists($cache)) {
+        return file_get_contents($cache);
+    }
+
     $branch = $version === MASTER_VERSION ? MASTER_BRANCH : $version;
     removeDirectory('sandbox');
     mkdir('sandbox');
@@ -168,7 +173,14 @@ foreach (array_reverse($versions) as $index => $version) {
         exit(1);
     }
     $output = shell_exec('php '.__FILE__.' current '.escapeshellarg('sandbox'));
-    $data = json_decode($output);
+    file_put_contents(__DIR__.'/cache/methods_of_version_'.$version.'.json', $output);
+
+    return $output;
+}
+
+foreach (array_reverse($versions) as $index => $version) {
+    echo round($index * 100 / $count)."% $version\n";
+    $data = json_decode(getMethodsOfVersion($version));
     if (!is_array($data) && !is_object($data)) {
         echo "\nError on $version:\n$output\n";
         exit(1);
