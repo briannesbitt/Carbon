@@ -180,7 +180,8 @@ function getMethodsOfVersion($version) {
 
 foreach (array_reverse($versions) as $index => $version) {
     echo round($index * 100 / $count)."% $version\n";
-    $data = json_decode(getMethodsOfVersion($version));
+    $output = getMethodsOfVersion($version);
+    $data = json_decode($output);
     if (!is_array($data) && !is_object($data)) {
         echo "\nError on $version:\n$output\n";
         exit(1);
