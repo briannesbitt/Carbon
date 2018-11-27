@@ -1185,7 +1185,7 @@ class CarbonInterval extends DateInterval
     /**
      * Multiply current instance given number of times
      *
-     * @param float $factor
+     * @param float|int $factor
      *
      * @return $this
      */

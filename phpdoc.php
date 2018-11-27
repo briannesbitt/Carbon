@@ -506,13 +506,14 @@ foreach ($carbonMethods as $method) {
 
             return $output;
         }, $function->getParameters()));
+        $methodDocBlock = $function->getDocComment() ?: '';
         if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
-            $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $function->getDocComment());
+            $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
             $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
             $doc = explode("\n@", $doc, 2);
             $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
             $returnType = $function->getReturnType();
-            if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $function->getDocComment(), $match)) {
+            if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
                 $returnType = $match[1];
             }
             $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
@@ -534,7 +535,10 @@ foreach ($carbonMethods as $method) {
             }
         }
         $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
-        $methods .= "\n\n    public$static function $method($parameters)$return;";
+        if (!empty($methodDocBlock)) {
+            $methodDocBlock = "\n    $methodDocBlock";
+        }
+        $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
     }
 }
 

@@ -2,8 +2,13 @@
 
 namespace Carbon;
 
+use Closure;
+use DateInterval;
+use DateTime;
 use DateTimeInterface;
+use InvalidArgumentException;
 use JsonSerializable;
+use ReflectionException;
 
 /**
  * Common interface for Carbon and CarbonImmutable.
@@ -575,626 +580,3054 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     // <methods>
 
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
+     *
+     * @throws \BadMethodCallException|\ReflectionException
+     *
+     * @return mixed
+     */
     public function __call($method, $parameters);
 
+    /**
+     * Dynamically handle calls to the class.
+     *
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return mixed
+     */
     public static function __callStatic($method, $parameters);
 
+    /**
+     * Create a new Carbon instance.
+     *
+     * Please see the testing aids section (specifically static::setTestNow())
+     * for more on the possibility of this constructor returning a test instance.
+     *
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
+     */
     public function __construct($time = null, $tz = null);
 
+    /**
+     * Get a part of the Carbon object
+     *
+     * @param string $name
+     *
+     * @throws InvalidArgumentException|ReflectionException
+     *
+     * @return string|int|bool|\DateTimeZone|null
+     */
     public function __get($name);
 
+    /**
+     * Check if an attribute exists on the object
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
     public function __isset($name);
 
+    /**
+     * Set a part of the Carbon object
+     *
+     * @param string                   $name
+     * @param string|int|\DateTimeZone $value
+     *
+     * @throws InvalidArgumentException|ReflectionException
+     *
+     * @return void
+     */
     public function __set($name, $value);
 
+    /**
+     * The __set_state handler.
+     *
+     * @param string|array $dump
+     *
+     * @return static|CarbonInterface
+     */
     public static function __set_state($dump);
 
+    /**
+     * Returns the list of properties to dump on serialize() called on.
+     *
+     * @return array
+     */
     public function __sleep();
 
+    /**
+     * Format the instance as a string using the set format
+     *
+     * @return string
+     */
     public function __toString();
 
+    /**
+     * Add given units or interval to the current instance.
+     *
+     * @example $date->add('hour', 3)
+     * @example $date->add(15, 'days')
+     * @example $date->add(CarbonInterval::days(4))
+     *
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     * @param bool|null           $overflow
+     *
+     * @return CarbonInterface
+     */
     public function add($unit, $value = 1, $overflow = null);
 
+    /**
+     * Add seconds to the instance using timestamp. Positive $value travels
+     * forward while negative $value travels into the past.
+     *
+     * @param string $unit
+     * @param int    $value
+     *
+     * @return static
+     */
     public function addRealUnit($unit, $value = 1);
 
+    /**
+     * Add given units to the current instance.
+     *
+     * @param string    $unit
+     * @param int       $value
+     * @param bool|null $overflow
+     *
+     * @return CarbonInterface
+     */
     public function addUnit($unit, $value = 1, $overflow = null);
 
+    /**
+     * Add any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        amount to add to the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static|CarbonInterface
+     */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
+    /**
+     * Modify the current instance to the average of a given instance (default now) and the current instance
+     * (second-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date
+     *
+     * @return static|CarbonInterface
+     */
     public function average($date = null);
 
+    /**
+     * Determines if the instance is between two others
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param bool                                    $equal Indicates if an equal to comparison should be done
+     *
+     * @return bool
+     */
     public function between($date1, $date2, $equal = true): bool;
 
+    /**
+     * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $referenceTime
+     * @param array                                         $formats
+     *
+     * @return string
+     */
     public function calendar($referenceTime = null, array $formats = []);
 
+    /**
+     * Ceil the current instance second with given precision if specified.
+     *
+     * @param float|int $precision
+     *
+     * @return CarbonInterface
+     */
     public function ceil($precision = 1);
 
+    /**
+     * Ceil the current instance at the given unit with given precision if specified.
+     *
+     * @param string    $unit
+     * @param float|int $precision
+     *
+     * @return CarbonInterface
+     */
     public function ceilUnit($unit, $precision = 1);
 
+    /**
+     * Ceil the current instance week.
+     *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
+     * @return CarbonInterface
+     */
     public function ceilWeek($weekStartsAt = null);
 
+    /**
+     * @alias copy
+     *
+     * Get a copy of the instance.
+     *
+     * @return static|CarbonInterface
+     */
     public function clone();
 
+    /**
+     * Get the closest date from the instance (second-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     *
+     * @return static|CarbonInterface
+     */
     public function closest($date1, $date2);
 
+    /**
+     * Get a copy of the instance.
+     *
+     * @return static|CarbonInterface
+     */
     public function copy();
 
+    /**
+     * Create a new Carbon instance from a specific date and time.
+     *
+     * If any of $year, $month or $day are set to null their now() values will
+     * be used.
+     *
+     * If $hour is null it will be set to its now() value and the default
+     * values for $minute and $second will be their now() values.
+     *
+     * If $hour is not null then the default values for $minute and $second
+     * will be 0.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static|CarbonInterface
+     */
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null);
 
+    /**
+     * Create a Carbon instance from just a date. The time portion is set to now.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromDate($year = null, $month = null, $day = null, $tz = null);
 
+    /**
+     * Create a Carbon instance from a specific format.
+     *
+     * @param string                          $format Datetime format
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
     public static function createFromFormat($format, $time, $tz = null);
 
+    /**
+     * Create a Carbon instance from just a time. The date portion is set to today.
+     *
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromTime($hour = 0, $minute = 0, $second = 0, $tz = null);
 
+    /**
+     * Create a Carbon instance from a time string. The date portion is set to today.
+     *
+     * @param string                    $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromTimeString($time, $tz = null);
 
+    /**
+     * Create a Carbon instance from a timestamp.
+     *
+     * @param int                       $timestamp
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromTimestamp($timestamp, $tz = null);
 
+    /**
+     * Create a Carbon instance from a timestamp in milliseconds.
+     *
+     * @param int                       $timestamp
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromTimestampMs($timestamp, $tz = null);
 
+    /**
+     * Create a Carbon instance from an UTC timestamp.
+     *
+     * @param int $timestamp
+     *
+     * @return static|CarbonInterface
+     */
     public static function createFromTimestampUTC($timestamp);
 
+    /**
+     * Create a Carbon instance from just a date. The time portion is set to midnight.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null);
 
+    /**
+     * Create a new safe Carbon instance from a specific date and time.
+     *
+     * If any of $year, $month or $day are set to null their now() values will
+     * be used.
+     *
+     * If $hour is null it will be set to its now() value and the default
+     * values for $minute and $second will be their now() values.
+     *
+     * If $hour is not null then the default values for $minute and $second
+     * will be 0.
+     *
+     * If one of the set values is not valid, an \InvalidArgumentException
+     * will be thrown.
+     *
+     * @param int|null                  $year
+     * @param int|null                  $month
+     * @param int|null                  $day
+     * @param int|null                  $hour
+     * @param int|null                  $minute
+     * @param int|null                  $second
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
     public static function createSafe($year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null);
 
+    /**
+     * Get/set the day of year.
+     *
+     * @param int|null $value new value for day of year if using as setter.
+     *
+     * @return static|CarbonInterface|int
+     */
     public function dayOfYear($value = null);
 
+    /**
+     * Get the difference as a CarbonInterval instance
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return CarbonInterval
+     */
     public function diffAsCarbonInterval($date = null, $absolute = true);
 
+    /**
+     * Get the difference by the given interval using a filter closure
+     *
+     * @param CarbonInterval                                $ci       An interval to traverse by
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date = null, $absolute = true);
 
+    /**
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
+     */
     public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Get the difference in days
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInDays($date = null, $absolute = true);
 
+    /**
+     * Get the difference in days using a filter closure
+     *
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInDaysFiltered(\Closure $callback, $date = null, $absolute = true);
 
+    /**
+     * Get the difference in hours.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInHours($date = null, $absolute = true);
 
+    /**
+     * Get the difference in hours using a filter closure
+     *
+     * @param Closure                                       $callback
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInHoursFiltered(\Closure $callback, $date = null, $absolute = true);
 
+    /**
+     * Get the difference in microseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInMicroseconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in milliseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInMilliseconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in minutes.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInMinutes($date = null, $absolute = true);
 
+    /**
+     * Get the difference in months
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInMonths($date = null, $absolute = true);
 
+    /**
+     * Get the difference in hours using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInRealHours($date = null, $absolute = true);
 
+    /**
+     * Get the difference in microseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInRealMicroseconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in milliseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInRealMilliseconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in minutes using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInRealMinutes($date = null, $absolute = true);
 
+    /**
+     * Get the difference in seconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInRealSeconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in seconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInSeconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in weekdays
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInWeekdays($date = null, $absolute = true);
 
+    /**
+     * Get the difference in weekend days using a filter
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInWeekendDays($date = null, $absolute = true);
 
+    /**
+     * Get the difference in weeks
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInWeeks($date = null, $absolute = true);
 
+    /**
+     * Get the difference in years
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
     public function diffInYears($date = null, $absolute = true);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
+     * @param int $humanDiffOption
+     */
     public static function disableHumanDiffOption($humanDiffOption);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
+     * @param int $humanDiffOption
+     */
     public static function enableHumanDiffOption($humanDiffOption);
 
+    /**
+     * Modify to end of current given unit.
+     *
+     * @param string            $unit
+     * @param array<int, mixed> $params
+     *
+     * @return static|CarbonInterface
+     */
     public function endOf($unit, ...$params);
 
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfCentury();
 
+    /**
+     * Resets the time to 23:59:59 end of day
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfDay();
 
+    /**
+     * Resets the date to end of the decade and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfDecade();
 
+    /**
+     * Modify to end of current hour, minutes and seconds become 59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfHour();
 
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfMillennium();
 
+    /**
+     * Modify to end of current minute, seconds become 59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfMinute();
 
+    /**
+     * Resets the date to end of the month and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfMonth();
 
+    /**
+     * Resets the date to end of the quarter and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfQuarter();
 
+    /**
+     * Modify to end of current second, microseconds become 999999
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfSecond();
 
+    /**
+     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
+     *
+     * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfWeek($weekEndsAt = null);
 
+    /**
+     * Resets the date to end of the year and time to 23:59:59
+     *
+     * @return static|CarbonInterface
+     */
     public function endOfYear();
 
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see equalTo()
+     *
+     * @return bool
+     */
     public function eq($date): bool;
 
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function equalTo($date): bool;
 
+    /**
+     * Set the current locale to the given, execute the passed function, reset the locale to previous one,
+     * then return the result of the closure (or null if the closure was void).
+     *
+     * @param string   $locale locale ex. en
+     * @param callable $func
+     *
+     * @return mixed
+     */
     public static function executeWithLocale($locale, $func);
 
+    /**
+     * Get the farthest date from the instance (second-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     *
+     * @return static|CarbonInterface
+     */
     public function farthest($date1, $date2);
 
+    /**
+     * Modify to the first occurrence of a given day of the week
+     * in the current month. If no dayOfWeek is provided, modify to the
+     * first day of the current month.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek
+     *
+     * @return static|CarbonInterface
+     */
     public function firstOfMonth($dayOfWeek = null);
 
+    /**
+     * Modify to the first occurrence of a given day of the week
+     * in the current quarter. If no dayOfWeek is provided, modify to the
+     * first day of the current quarter.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek day of the week default null
+     *
+     * @return static|CarbonInterface
+     */
     public function firstOfQuarter($dayOfWeek = null);
 
+    /**
+     * Modify to the first occurrence of a given day of the week
+     * in the current year. If no dayOfWeek is provided, modify to the
+     * first day of the current year.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek day of the week default null
+     *
+     * @return static|CarbonInterface
+     */
     public function firstOfYear($dayOfWeek = null);
 
+    /**
+     * Get the difference in days as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInDays($date = null, $absolute = true);
 
+    /**
+     * Get the difference in hours as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInHours($date = null, $absolute = true);
 
+    /**
+     * Get the difference in minutes as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInMinutes($date = null, $absolute = true);
 
+    /**
+     * Get the difference in months as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInMonths($date = null, $absolute = true);
 
+    /**
+     * Get the difference in days as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealDays($date = null, $absolute = true);
 
+    /**
+     * Get the difference in hours as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealHours($date = null, $absolute = true);
 
+    /**
+     * Get the difference in minutes as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealMinutes($date = null, $absolute = true);
 
+    /**
+     * Get the difference in months as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealMonths($date = null, $absolute = true);
 
+    /**
+     * Get the difference in seconds as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealSeconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in year as float (microsecond-precision) using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInRealYears($date = null, $absolute = true);
 
+    /**
+     * Get the difference in seconds as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInSeconds($date = null, $absolute = true);
 
+    /**
+     * Get the difference in year as float (microsecond-precision).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return float
+     */
     public function floatDiffInYears($date = null, $absolute = true);
 
+    /**
+     * Round the current instance second with given precision if specified.
+     *
+     * @param float|int $precision
+     *
+     * @return CarbonInterface
+     */
     public function floor($precision = 1);
 
+    /**
+     * Truncate the current instance at the given unit with given precision if specified.
+     *
+     * @param string    $unit
+     * @param float|int $precision
+     *
+     * @return CarbonInterface
+     */
     public function floorUnit($unit, $precision = 1);
 
+    /**
+     * Truncate the current instance week.
+     *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
+     * @return CarbonInterface
+     */
     public function floorWeek($weekStartsAt = null);
 
+    /**
+     * Format the instance with the current locale.  You can set the current
+     * locale using setlocale() http://php.net/setlocale.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
     public function formatLocalized($format);
 
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
+     */
     public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Get the difference in a human readable format in the current locale from current
+     * instance to now.
+     *
+     * @param int  $syntax  difference modifiers (ago, after, etc) rules
+     *                      Possible values:
+     *                      - CarbonInterface::DIFF_ABSOLUTE
+     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool $short   displays short format of time units
+     * @param int  $parts   displays number of parts in the interval
+     * @param int  $options human diff options
+     *
+     * @return string
+     */
     public function fromNow($syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Create an instance from a serialized string.
+     *
+     * @param string $value
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return static|CarbonInterface
+     */
     public static function fromSerialized($value);
 
+    /**
+     * Register a custom macro.
+     *
+     * @param object|callable $macro
+     * @param int             $priority marco with higher priority is tried first
+     *
+     * @return void
+     */
     public static function genericMacro($macro, $priority = 0);
 
+    /**
+     * Get a part of the Carbon object
+     *
+     * @param string $name
+     *
+     * @throws InvalidArgumentException|ReflectionException
+     *
+     * @return string|int|bool|\DateTimeZone|null
+     */
     public function get($name);
 
+    /**
+     * Returns the list of internally available locales and already loaded custom locales.
+     * (It will ignore custom translator dynamic loading.)
+     *
+     * @return array
+     */
     public static function getAvailableLocales();
 
+    /**
+     * Returns list of calendar formats for ISO formatting.
+     *
+     * @param string|null $locale current locale used if null
+     *
+     * @return array
+     */
     public function getCalendarFormats($locale = null);
 
+    /**
+     * Get the days of the week
+     *
+     * @return array
+     */
     public static function getDays();
 
+    /**
+     * @return int
+     */
     public static function getHumanDiffOptions();
 
+    /**
+     * Returns list of locale formats for ISO formatting.
+     *
+     * @param string|null $locale current locale used if null
+     *
+     * @return array
+     */
     public function getIsoFormats($locale = null);
 
+    /**
+     * Returns list of locale units for ISO formatting.
+     *
+     * @return array
+     */
     public static function getIsoUnits();
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getLastErrors();
 
+    /**
+     * Get the translator of the current instance or the default if none set.
+     *
+     * @return \Symfony\Component\Translation\TranslatorInterface
+     */
     public function getLocalTranslator();
 
+    /**
+     * Get the current translator locale.
+     *
+     * @return string
+     */
     public static function getLocale();
 
+    /**
+     * get midday/noon hour
+     *
+     * @return int
+     */
     public static function getMidDayAt();
 
+    /**
+     * Returns the offset hour and minute formatted with +/- and a given separator (":" by default).
+     * For example, if the time zone is 9 hours 30 minutes, you'll get "+09:30", with "@@" as first
+     * argument, "+09@@30", with "" as first argument, "+0930". Negative offset will return something
+     * like "-12:00".
+     *
+     * @param string $separator string to place between hours and minutes (":" by default)
+     *
+     * @return string
+     */
     public function getOffsetString($separator = ':');
 
+    /**
+     * Returns a unit of the instance padded with 0 by default or any other string if specified.
+     *
+     * @param string $unit      Carbon unit name
+     * @param int    $length    Length of the output (2 by default)
+     * @param string $padString String to use for padding ("0" by default)
+     * @param int    $padType   Side(s) to pad (STR_PAD_LEFT by default)
+     *
+     * @return string
+     */
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = 0);
 
+    /**
+     * Returns a timestamp rounded with the given precision (6 by default).
+     *
+     * @example getPreciseTimestamp()   1532087464437474 (microsecond maximum precision)
+     * @example getPreciseTimestamp(6)  1532087464437474
+     * @example getPreciseTimestamp(5)  153208746443747  (1/100000 second precision)
+     * @example getPreciseTimestamp(4)  15320874644375   (1/10000 second precision)
+     * @example getPreciseTimestamp(3)  1532087464437    (millisecond precision)
+     * @example getPreciseTimestamp(2)  153208746444     (1/100 second precision)
+     * @example getPreciseTimestamp(1)  15320874644      (1/10 second precision)
+     * @example getPreciseTimestamp(0)  1532087464       (second precision)
+     * @example getPreciseTimestamp(-1) 153208746        (10 second precision)
+     * @example getPreciseTimestamp(-2) 15320875         (100 second precision)
+     *
+     * @param int $precision
+     *
+     * @return float
+     */
     public function getPreciseTimestamp($precision = 6);
 
+    /**
+     * Returns current local settings.
+     *
+     * @return array
+     */
     public function getSettings();
 
+    /**
+     * Get the Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.
+     *
+     * @return static|CarbonInterface the current instance used for testing
+     */
     public static function getTestNow();
 
+    /**
+     * Get the translation of the current week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context      whole format string
+     * @param string      $keySuffix    "", "_short" or "_min"
+     * @param string|null $defaultValue default value if translation missing
+     *
+     * @return string
+     */
     public function getTranslatedDayName($context = null, $keySuffix = '', $defaultValue = null);
 
+    /**
+     * Get the translation of the current abbreviated week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
     public function getTranslatedMinDayName($context = null);
 
+    /**
+     * Get the translation of the current month day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context      whole format string
+     * @param string      $keySuffix    "" or "_short"
+     * @param string|null $defaultValue default value if translation missing
+     *
+     * @return string
+     */
     public function getTranslatedMonthName($context = null, $keySuffix = '', $defaultValue = null);
 
+    /**
+     * Get the translation of the current short week day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
     public function getTranslatedShortDayName($context = null);
 
+    /**
+     * Get the translation of the current short month day name (with context for languages with multiple forms).
+     *
+     * @param string|null $context whole format string
+     *
+     * @return string
+     */
     public function getTranslatedShortMonthName($context = null);
 
+    /**
+     * Returns raw translation message for a given key.
+     *
+     * @param string      $key     key to find
+     * @param string|null $locale  current locale used if null
+     * @param string|null $default default value if translation returns the key
+     *
+     * @return string
+     */
     public function getTranslationMessage(string $key, string $locale = null, string $default = null);
 
+    /**
+     * Get the default translator instance in use.
+     *
+     * @return \Symfony\Component\Translation\TranslatorInterface
+     */
     public static function getTranslator();
 
+    /**
+     * Get the last day of week
+     *
+     * @return int
+     */
     public static function getWeekEndsAt();
 
+    /**
+     * Get the first day of week
+     *
+     * @return int
+     */
     public static function getWeekStartsAt();
 
+    /**
+     * Get weekend days
+     *
+     * @return array
+     */
     public static function getWeekendDays();
 
+    /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function greaterThan($date): bool;
 
+    /**
+     * Determines if the instance is greater (after) than or equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function greaterThanOrEqualTo($date): bool;
 
+    /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see greaterThan()
+     *
+     * @return bool
+     */
     public function gt($date): bool;
 
+    /**
+     * Determines if the instance is greater (after) than or equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see greaterThanOrEqualTo()
+     *
+     * @return bool
+     */
     public function gte($date): bool;
 
+    /**
+     * Checks if the (date)time string is in a given format.
+     *
+     * @param string $date
+     * @param string $format
+     *
+     * @return bool
+     */
     public static function hasFormat($date, $format);
 
+    /**
+     * Checks if macro is registered.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
     public static function hasMacro($name);
 
+    /**
+     * Determine if a time string will produce a relative date.
+     *
+     * @param string $time
+     *
+     * @return bool true if time match a relative date, false if absolute or invalid time string
+     */
     public static function hasRelativeKeywords($time);
 
+    /**
+     * Determine if there is a valid test instance set. A valid test instance
+     * is anything that is not null.
+     *
+     * @return bool true if there is a test instance, otherwise false
+     */
     public static function hasTestNow();
 
+    /**
+     * Create a Carbon instance from a DateTime one.
+     *
+     * @param \DateTimeInterface $date
+     *
+     * @return static|CarbonInterface
+     */
     public static function instance($date);
 
+    /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see greaterThan()
+     *
+     * @return bool
+     */
     public function isAfter($date): bool;
 
+    /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lessThan()
+     *
+     * @return bool
+     */
     public function isBefore($date): bool;
 
+    /**
+     * Determines if the instance is between two others
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param bool                                    $equal Indicates if an equal to comparison should be done
+     *
+     * @return bool
+     */
     public function isBetween($date1, $date2, $equal = true): bool;
 
+    /**
+     * Check if its the birthday. Compares the date/month values of the two dates.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
+     *
+     * @return bool
+     */
     public function isBirthday($date = null);
 
+    /**
+     * Determines if the instance is in the current unit given.
+     *
+     * @param string $unit The unit to test.
+     *
+     * @throws \BadMethodCallException
+     *
+     * @return bool
+     */
     public function isCurrentUnit($unit);
 
+    /**
+     * Checks if this day is a specific day of the week.
+     *
+     * @param int $dayOfWeek
+     *
+     * @return bool
+     */
     public function isDayOfWeek($dayOfWeek);
 
+    /**
+     * Check if the instance is end of day.
+     *
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *
+     * @return bool
+     */
     public function isEndOfDay($checkMicroseconds = false);
 
+    /**
+     * Determines if the instance is in the future, ie. greater (after) than now.
+     *
+     * @return bool
+     */
     public function isFuture();
 
+    /**
+     * Returns true if the current class/instance is immutable.
+     *
+     * @return bool
+     */
     public static function isImmutable();
 
+    /**
+     * Check if today is the last day of the Month
+     *
+     * @return bool
+     */
     public function isLastOfMonth();
 
+    /**
+     * Determines if the instance is a leap year.
+     *
+     * @return bool
+     */
     public function isLeapYear();
 
+    /**
+     * Determines if the instance is a long year
+     *
+     * @see https://en.wikipedia.org/wiki/ISO_8601#Week_dates
+     *
+     * @return bool
+     */
     public function isLongYear();
 
+    /**
+     * Check if the instance is midday.
+     *
+     * @return bool
+     */
     public function isMidday();
 
+    /**
+     * Check if the instance is start of day / midnight.
+     *
+     * @return bool
+     */
     public function isMidnight();
 
+    /**
+     * Returns true if a property can be changed via setter.
+     *
+     * @param string $unit
+     *
+     * @return bool
+     */
     public static function isModifiableUnit($unit);
 
     public static function isMutable();
 
+    /**
+     * Determines if the instance is in the past, ie. less (before) than now.
+     *
+     * @return bool
+     */
     public function isPast();
 
+    /**
+     * Compares the formatted values of the two dates.
+     *
+     * @param string                                 $format date formats to compare.
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date   instance to compare with or null to use current day.
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return bool
+     */
     public function isSameAs($format, $date = null);
 
+    /**
+     * Checks if the passed in date is in the same month as the instance´s month.
+     *
+     * Note that this defaults to only comparing the month while ignoring the year.
+     * To test if it is the same exact month of the same year, pass in true as the second parameter.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
+     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
+     *
+     * @return bool
+     */
     public function isSameMonth($date = null, $ofSameYear = true);
 
+    /**
+     * Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
+     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
+     *
+     * @return bool
+     */
     public function isSameQuarter($date = null, $ofSameYear = true);
 
+    /**
+     * Determines if the instance is in the current unit given.
+     *
+     * @param string                                 $unit singular unit string
+     * @param \Carbon\Carbon|\DateTimeInterface|null $date instance to compare with or null to use current day.
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return bool
+     */
     public function isSameUnit($unit, $date = null);
 
+    /**
+     * Check if the instance is start of day / midnight.
+     *
+     * @param bool $checkMicroseconds check time at microseconds precision
+     *
+     * @return bool
+     */
     public function isStartOfDay($checkMicroseconds = false);
 
+    /**
+     * Returns true if the strict mode is globally in use, false else.
+     * (It can be overridden in specific instances.)
+     *
+     * @return bool
+     */
     public static function isStrictModeEnabled();
 
+    /**
+     * Determines if the instance is today.
+     *
+     * @return bool
+     */
     public function isToday();
 
+    /**
+     * Determines if the instance is tomorrow.
+     *
+     * @return bool
+     */
     public function isTomorrow();
 
+    /**
+     * Determines if the instance is a weekday.
+     *
+     * @return bool
+     */
     public function isWeekday();
 
+    /**
+     * Determines if the instance is a weekend day.
+     *
+     * @return bool
+     */
     public function isWeekend();
 
+    /**
+     * Determines if the instance is yesterday.
+     *
+     * @return bool
+     */
     public function isYesterday();
 
+    /**
+     * @param string $format
+     *
+     * @return string
+     */
     public function isoFormat(string $format): string;
 
+    /**
+     * Get/set the week number using given first day of week and first
+     * day of year included in the first week. Or use ISO format if no settings
+     * given.
+     *
+     * @param int|null $week
+     * @param int|null $dayOfWeek
+     * @param int|null $dayOfYear
+     *
+     * @return int|static
+     */
     public function isoWeek($week = null, $dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Set/get the week number of year using given first day of week and first
+     * day of year included in the first week. Or use ISO format if no settings
+     * given.
+     *
+     * @param int|null $year      if null, act as a getter, if not null, set the year and return current instance.
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int|static
+     */
     public function isoWeekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).
+     *
+     * @param int|null $value new value for weekday if using as setter.
+     *
+     * @return static|CarbonInterface|int
+     */
     public function isoWeekday($value = null);
 
+    /**
+     * Get the number of weeks of the current week-year using given first day of week and first
+     * day of year included in the first week. Or use ISO format if no settings
+     * given.
+     *
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int
+     */
     public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Prepare the object for JSON serialization.
+     *
+     * @return array|string
+     */
     public function jsonSerialize();
 
+    /**
+     * Modify to the last occurrence of a given day of the week
+     * in the current month. If no dayOfWeek is provided, modify to the
+     * last day of the current month.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek
+     *
+     * @return static|CarbonInterface
+     */
     public function lastOfMonth($dayOfWeek = null);
 
+    /**
+     * Modify to the last occurrence of a given day of the week
+     * in the current quarter. If no dayOfWeek is provided, modify to the
+     * last day of the current quarter.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek day of the week default null
+     *
+     * @return static|CarbonInterface
+     */
     public function lastOfQuarter($dayOfWeek = null);
 
+    /**
+     * Modify to the last occurrence of a given day of the week
+     * in the current year. If no dayOfWeek is provided, modify to the
+     * last day of the current year.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek day of the week default null
+     *
+     * @return static|CarbonInterface
+     */
     public function lastOfYear($dayOfWeek = null);
 
+    /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function lessThan($date): bool;
 
+    /**
+     * Determines if the instance is less (before) or equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function lessThanOrEqualTo($date): bool;
 
+    /**
+     * Get/set the locale for the current instance.
+     *
+     * @param string|null $locale
+     *
+     * @return $this|string
+     */
     public function locale(string $locale = null);
 
+    /**
+     * Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
+     * Support is considered enabled if the 3 words are translated in the given locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function localeHasDiffOneDayWords($locale);
 
+    /**
+     * Returns true if the given locale is internally supported and has diff syntax support (ago, from now, before, after).
+     * Support is considered enabled if the 4 sentences are translated in the given locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function localeHasDiffSyntax($locale);
 
+    /**
+     * Returns true if the given locale is internally supported and has words for 2-days diff (before yesterday, after tomorrow).
+     * Support is considered enabled if the 2 words are translated in the given locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function localeHasDiffTwoDayWords($locale);
 
+    /**
+     * Returns true if the given locale is internally supported and has period syntax support (X times, every X, from X, to X).
+     * Support is considered enabled if the 4 sentences are translated in the given locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function localeHasPeriodSyntax($locale);
 
+    /**
+     * Returns true if the given locale is internally supported and has short-units support.
+     * Support is considered enabled if either year, day or hour has a short variant translated.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function localeHasShortUnits($locale);
 
+    /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lessThan()
+     *
+     * @return bool
+     */
     public function lt($date): bool;
 
+    /**
+     * Determines if the instance is less (before) or equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lessThanOrEqualTo()
+     *
+     * @return bool
+     */
     public function lte($date): bool;
 
+    /**
+     * Register a custom macro.
+     *
+     * @param string          $name
+     * @param object|callable $macro
+     *
+     * @return void
+     */
     public static function macro($name, $macro);
 
+    /**
+     * Make a Carbon instance from given variable if possible.
+     *
+     * Always return a new instance. Parse only strings and only these likely to be dates (skip intervals
+     * and recurrences). Throw an exception for invalid format, but otherwise return null.
+     *
+     * @param mixed $var
+     *
+     * @return static|CarbonInterface|null
+     */
     public static function make($var);
 
+    /**
+     * Get the maximum instance between a given instance (default now) and the current instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return static|CarbonInterface
+     */
     public function max($date = null);
 
+    /**
+     * Create a Carbon instance for the greatest supported date.
+     *
+     * @return static|CarbonInterface
+     */
     public static function maxValue();
 
+    /**
+     * Get the maximum instance between a given instance (default now) and the current instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see max()
+     *
+     * @return static|CarbonInterface
+     */
     public function maximum($date = null);
 
+    /**
+     * Modify to midday, default to self::$midDayAt
+     *
+     * @return static|CarbonInterface
+     */
     public function midDay();
 
+    /**
+     * Get the minimum instance between a given instance (default now) and the current instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return static|CarbonInterface
+     */
     public function min($date = null);
 
+    /**
+     * Create a Carbon instance for the lowest supported date.
+     *
+     * @return static|CarbonInterface
+     */
     public static function minValue();
 
+    /**
+     * Get the minimum instance between a given instance (default now) and the current instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see min()
+     *
+     * @return static|CarbonInterface
+     */
     public function minimum($date = null);
 
+    /**
+     * Mix another object into the class.
+     *
+     * @param object $mixin
+     *
+     * @throws \ReflectionException
+     *
+     * @return void
+     */
     public static function mixin($mixin);
 
     public function modify($modify);
 
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see notEqualTo()
+     *
+     * @return bool
+     */
     public function ne($date): bool;
 
+    /**
+     * Modify to the next occurrence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the next occurrence
+     * of the current day of the week.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek
+     *
+     * @return static|CarbonInterface
+     */
     public function next($dayOfWeek = null);
 
+    /**
+     * Go forward to the next weekday.
+     *
+     * @return static|CarbonInterface
+     */
     public function nextWeekday();
 
+    /**
+     * Go forward to the next weekend day.
+     *
+     * @return static|CarbonInterface
+     */
     public function nextWeekendDay();
 
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @return bool
+     */
     public function notEqualTo($date): bool;
 
+    /**
+     * Get a Carbon instance for the current date and time.
+     *
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function now($tz = null);
 
+    /**
+     * Returns a present instance in the same timezone.
+     *
+     * @return static|CarbonInterface
+     */
     public function nowWithSameTz();
 
+    /**
+     * Modify to the given occurrence of a given day of the week
+     * in the current month. If the calculated occurrence is outside the scope
+     * of the current month, then return false and no modifications are made.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int $nth
+     * @param int $dayOfWeek
+     *
+     * @return mixed
+     */
     public function nthOfMonth($nth, $dayOfWeek);
 
+    /**
+     * Modify to the given occurrence of a given day of the week
+     * in the current quarter. If the calculated occurrence is outside the scope
+     * of the current quarter, then return false and no modifications are made.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int $nth
+     * @param int $dayOfWeek
+     *
+     * @return mixed
+     */
     public function nthOfQuarter($nth, $dayOfWeek);
 
+    /**
+     * Modify to the given occurrence of a given day of the week
+     * in the current year. If the calculated occurrence is outside the scope
+     * of the current year, then return false and no modifications are made.
+     * Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int $nth
+     * @param int $dayOfWeek
+     *
+     * @return mixed
+     */
     public function nthOfYear($nth, $dayOfWeek);
 
+    /**
+     * Return a property with its ordinal.
+     *
+     * @param string      $key
+     * @param string|null $period
+     *
+     * @return string
+     */
     public function ordinal(string $key, string $period = null): string;
 
+    /**
+     * Create a carbon instance from a string.
+     *
+     * This is an alias for the constructor that allows better fluent syntax
+     * as it allows you to do Carbon::parse('Monday next week')->fn() rather
+     * than (new Carbon('Monday next week'))->fn().
+     *
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function parse($time = null, $tz = null);
 
+    /**
+     * Returns standardized plural of a given singular/plural unit name (in English).
+     *
+     * @param string $unit
+     *
+     * @return string
+     */
     public static function pluralUnit(string $unit): string;
 
+    /**
+     * Modify to the previous occurrence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the previous occurrence
+     * of the current day of the week.  Use the supplied constants
+     * to indicate the desired dayOfWeek, ex. static::MONDAY.
+     *
+     * @param int|null $dayOfWeek
+     *
+     * @return static|CarbonInterface
+     */
     public function previous($dayOfWeek = null);
 
+    /**
+     * Go backward to the previous weekday.
+     *
+     * @return static|CarbonInterface
+     */
     public function previousWeekday();
 
+    /**
+     * Go backward to the previous weekend day.
+     *
+     * @return static|CarbonInterface
+     */
     public function previousWeekendDay();
 
+    /**
+     * Remove all macros and generic macros.
+     */
     public static function resetMacros();
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
+     * Reset the month overflow behavior.
+     *
+     * @return void
+     */
     public static function resetMonthsOverflow();
 
+    /**
+     * Reset the format used to the default when type juggling a Carbon instance to a string
+     *
+     * @return void
+     */
     public static function resetToStringFormat();
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
+     * Reset the month overflow behavior.
+     *
+     * @return void
+     */
     public static function resetYearsOverflow();
 
+    /**
+     * Round the current instance second with given precision if specified.
+     *
+     * @param float|int $precision
+     * @param string    $function
+     *
+     * @return CarbonInterface
+     */
     public function round($precision = 1, $function = 'round');
 
+    /**
+     * Round the current instance at the given unit with given precision if specified and the given function.
+     *
+     * @param string    $unit
+     * @param float|int $precision
+     * @param string    $function
+     *
+     * @return CarbonInterface
+     */
     public function roundUnit($unit, $precision = 1, $function = 'round');
 
+    /**
+     * Round the current instance week.
+     *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
+     * @return CarbonInterface
+     */
     public function roundWeek($weekStartsAt = null);
 
+    /**
+     * The number of seconds since midnight.
+     *
+     * @return int
+     */
     public function secondsSinceMidnight();
 
+    /**
+     * The number of seconds until 23:59:59.
+     *
+     * @return int
+     */
     public function secondsUntilEndOfDay();
 
+    /**
+     * Return a serialized string of the instance.
+     *
+     * @return string
+     */
     public function serialize();
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather transform Carbon object before the serialization.
+     *
+     * JSON serialize all Carbon instances using the given callback.
+     *
+     * @param callable $callback
+     *
+     * @return void
+     */
     public static function serializeUsing($callback);
 
+    /**
+     * Set a part of the Carbon object
+     *
+     * @param string|array             $name
+     * @param string|int|\DateTimeZone $value
+     *
+     * @throws InvalidArgumentException|ReflectionException
+     *
+     * @return $this
+     */
     public function set($name, $value = null);
 
     public function setDate($year, $month, $day);
 
+    /**
+     * Set the year, month, and date for this instance to that of the passed instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     *
+     * @return static
+     */
     public function setDateFrom($date = null);
 
+    /**
+     * Set the date and time all together.
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
+     *
+     * @return static|CarbonInterface
+     */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0);
 
+    /**
+     * Set the date and time for this instance to that of the passed instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date
+     *
+     * @return static
+     */
     public function setDateTimeFrom($date = null);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
+     * @param int $humanDiffOptions
+     */
     public static function setHumanDiffOptions($humanDiffOptions);
 
     public function setISODate($year, $week, $day);
 
+    /**
+     * Set the translator for the current instance.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     *
+     * @return $this
+     */
     public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
 
+    /**
+     * Set the current translator locale and indicate if the source locale file exists.
+     * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return bool
+     */
     public static function setLocale($locale);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather consider mid-day is always 12pm, then if you need to test if it's an other
+     *             hour, test it explicitly:
+     *                 $date->format('G') == 13
+     *             or to set explicitly to a given hour:
+     *                 $date->setTime(13, 0, 0, 0)
+     *
+     * Set midday/noon hour
+     *
+     * @param int $hour midday hour
+     *
+     * @return void
+     */
     public static function setMidDayAt($hour);
 
+    /**
+     * Set a Carbon instance (real or mock) to be returned when a "now"
+     * instance is created.  The provided instance will be returned
+     * specifically under the following conditions:
+     *   - A call to the static now() method, ex. Carbon::now()
+     *   - When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)
+     *   - When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')
+     *   - When a string containing the desired time is passed to Carbon::parse().
+     *
+     * Note the timezone parameter was left out of the examples above and
+     * has no affect as the mock value will be returned regardless of its value.
+     *
+     * To clear the test instance call this method using the default
+     * parameter of null.
+     *
+     * /!\ Use this method for unit tests only.
+     *
+     * @param CarbonInterface|string|null $testNow real or mock Carbon instance
+     */
     public static function setTestNow($testNow = null);
 
     public function setTime($hour, $minute, $second, $microseconds);
 
+    /**
+     * Set the hour, minute, second and microseconds for this instance to that of the passed instance.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     *
+     * @return static
+     */
     public function setTimeFrom($date = null);
 
+    /**
+     * Set the time by time string.
+     *
+     * @param string $time
+     *
+     * @return static|CarbonInterface
+     */
     public function setTimeFromTimeString($time);
 
     public function setTimestamp($unixtimestamp);
 
+    /**
+     * Set the instance's timezone from a string or object.
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return static|CarbonInterface
+     */
     public function setTimezone($value);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather let Carbon object being casted to string with DEFAULT_TO_STRING_FORMAT, and
+     *             use other method or custom format passed to format() method if you need to dump an other string
+     *             format.
+     *
+     * Set the default format used when type juggling a Carbon instance to a string
+     *
+     * @param string|Closure|null $format
+     *
+     * @return void
+     */
     public static function setToStringFormat($format);
 
+    /**
+     * Set the default translator instance to use.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     *
+     * @return void
+     */
     public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
 
+    /**
+     * Set specified unit to new given value.
+     *
+     * @param string $unit  year, month, day, hour, minute, second or microsecond
+     * @param int    $value new value for given unit
+     *
+     * @return static
+     */
     public function setUnit($unit, $value = null);
 
+    /**
+     * Set any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        new value for the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static|CarbonInterface
+     */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use UTF-8 language packages on every machine.
+     *
+     * Set if UTF8 will be used for localized date/time.
+     *
+     * @param bool $utf8
+     */
     public static function setUtf8($utf8);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
+     *             or roundWeek method. You can also use the 'first_day_of_week' locale setting to change the
+     *             start of week according to current locale selected and implicitly the end of week.
+     *
+     * Set the last day of week
+     *
+     * @param int $day
+     *
+     * @return void
+     */
     public static function setWeekEndsAt($day);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             Use $weekEndsAt optional parameter instead when using endOfWeek method. You can also use the
+     *             'first_day_of_week' locale setting to change the start of week according to current locale
+     *             selected and implicitly the end of week.
+     *
+     * Set the first day of week
+     *
+     * @param int $day week start day
+     *
+     * @return void
+     */
     public static function setWeekStartsAt($day);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather consider week-end is always saturday and sunday, and if you have some custom
+     *             week-end days to handle, give to those days an other name and create a macro for them:
+     *
+     *             ```
+     *             Carbon::macro('isDayOff', function ($date) {
+     *                 return $date->isSunday() || $date->isMonday();
+     *             });
+     *             Carbon::macro('isNotDayOff', function ($date) {
+     *                 return !$date->isDayOff();
+     *             });
+     *             if ($someDate->isDayOff()) ...
+     *             if ($someDate->isNotDayOff()) ...
+     *             // Add 5 not-off days
+     *             $count = 5;
+     *             while ($someDate->isDayOff() || ($count-- > 0)) {
+     *                 $someDate->addDay();
+     *             }
+     *             ```
+     *
+     * Set weekend days
+     *
+     * @param array $days
+     *
+     * @return void
+     */
     public static function setWeekendDays($days);
 
+    /**
+     * Set specific options.
+     *  - strictMode: true|false|null
+     *  - monthOverflow: true|false|null
+     *  - yearOverflow: true|false|null
+     *  - humanDiffOptions: int|null
+     *  - toStringFormat: string|Closure|null
+     *  - toJsonFormat: string|Closure|null
+     *  - locale: string|null
+     *  - timezone: \DateTimeZone|string|int|null
+     *  - macros: array|null
+     *  - genericMacros: array|null
+     *
+     * @param array $settings
+     *
+     * @return $this
+     */
     public function settings(array $settings);
 
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return static|CarbonInterface
+     */
     public function shiftTimezone($value);
 
+    /**
+     * Get the month overflow global behavior (can be overridden in specific instances).
+     *
+     * @return bool
+     */
     public static function shouldOverflowMonths();
 
+    /**
+     * Get the month overflow global behavior (can be overridden in specific instances).
+     *
+     * @return bool
+     */
     public static function shouldOverflowYears();
 
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     */
     public function since($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Returns standardized singular of a given singular/plural unit name (in English).
+     *
+     * @param string $unit
+     *
+     * @return string
+     */
     public static function singularUnit(string $unit): string;
 
+    /**
+     * Modify to start of current given unit.
+     *
+     * @param string            $unit
+     * @param array<int, mixed> $params
+     *
+     * @return static|CarbonInterface
+     */
     public function startOf($unit, ...$params);
 
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfCentury();
 
+    /**
+     * Resets the time to 00:00:00 start of day
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfDay();
 
+    /**
+     * Resets the date to the first day of the decade and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfDecade();
 
+    /**
+     * Modify to start of current hour, minutes and seconds become 0
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfHour();
 
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfMillennium();
 
+    /**
+     * Modify to start of current minute, seconds become 0
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfMinute();
 
+    /**
+     * Resets the date to the first day of the month and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfMonth();
 
+    /**
+     * Resets the date to the first day of the quarter and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfQuarter();
 
+    /**
+     * Modify to start of current second, microseconds become 0
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfSecond();
 
+    /**
+     * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
+     *
+     * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfWeek($weekStartsAt = null);
 
+    /**
+     * Resets the date to the first day of the year and the time to 00:00:00
+     *
+     * @return static|CarbonInterface
+     */
     public function startOfYear();
 
+    /**
+     * Subtract given units or interval to the current instance.
+     *
+     * @example $date->sub('hour', 3)
+     * @example $date->sub(15, 'days')
+     * @example $date->sub(CarbonInterval::days(4))
+     *
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     * @param bool|null           $overflow
+     *
+     * @return CarbonInterface
+     */
     public function sub($unit, $value = 1, $overflow = null);
 
     public function subRealUnit($unit, $value = 1);
 
+    /**
+     * Subtract given units to the current instance.
+     *
+     * @param string    $unit
+     * @param int       $value
+     * @param bool|null $overflow
+     *
+     * @return CarbonInterface
+     */
     public function subUnit($unit, $value = 1, $overflow = null);
 
+    /**
+     * Subtract any unit to a new value without overflowing current other unit given.
+     *
+     * @param string $valueUnit    unit name to modify
+     * @param int    $value        amount to subtract to the input unit
+     * @param string $overflowUnit unit name to not overflow
+     *
+     * @return static|CarbonInterface
+     */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
+    /**
+     * Subtract given units or interval to the current instance.
+     *
+     * @see sub()
+     *
+     * @param string|DateInterval $unit
+     * @param int                 $value
+     * @param bool|null           $overflow
+     *
+     * @return CarbonInterface
+     */
     public function subtract($unit, $value = 1, $overflow = null);
 
+    /**
+     * Set the instance's timestamp.
+     *
+     * @param int $value
+     *
+     * @return static|CarbonInterface
+     */
     public function timestamp($value);
 
+    /**
+     * @alias setTimezone
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return static|CarbonInterface
+     */
     public function timezone($value);
 
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
+     */
     public function to($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Get default array representation.
+     *
+     * @return array
+     */
     public function toArray();
 
+    /**
+     * Format the instance as ATOM
+     *
+     * @return string
+     */
     public function toAtomString();
 
+    /**
+     * Format the instance as COOKIE
+     *
+     * @return string
+     */
     public function toCookieString();
 
+    /**
+     * @alias toDateTime
+     *
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @return DateTime
+     */
     public function toDate();
 
+    /**
+     * Format the instance as date
+     *
+     * @return string
+     */
     public function toDateString();
 
+    /**
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @return DateTime
+     */
     public function toDateTime();
 
+    /**
+     * Format the instance as date and time T-separated with no timezone
+     *
+     * @return string
+     */
     public function toDateTimeLocalString();
 
+    /**
+     * Format the instance as date and time
+     *
+     * @return string
+     */
     public function toDateTimeString();
 
+    /**
+     * Format the instance with day, date and time
+     *
+     * @return string
+     */
     public function toDayDateTimeString();
 
+    /**
+     * Format the instance as a readable date
+     *
+     * @return string
+     */
     public function toFormattedDateString();
 
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z, if $keepOffset truthy, offset will be kept:
+     * 1977-04-22T01:00:00-05:00).
+     *
+     * @param bool $keepOffset Pass true to keep the date offset. Else forced to UTC.
+     *
+     * @return null|string
+     */
     public function toISOString($keepOffset = false);
 
+    /**
+     * Return a immutable copy of the instance.
+     *
+     * @return CarbonImmutable
+     */
     public function toImmutable();
 
+    /**
+     * Format the instance as ISO8601
+     *
+     * @return string
+     */
     public function toIso8601String();
 
+    /**
+     * Convert the instance to UTC and return as Zulu ISO8601
+     *
+     * @return string
+     */
     public function toIso8601ZuluString();
 
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z) with UTC timezone.
+     *
+     * @return null|string
+     */
     public function toJSON();
 
+    /**
+     * Return a mutable copy of the instance.
+     *
+     * @return Carbon
+     */
     public function toMutable();
 
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int  $syntax  difference modifiers (ago, after, etc) rules
+     *                      Possible values:
+     *                      - CarbonInterface::DIFF_ABSOLUTE
+     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool $short   displays short format of time units
+     * @param int  $parts   displays number of parts in the interval
+     * @param int  $options human diff options
+     *
+     * @return string
+     */
     public function toNow($syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * Get default object representation.
+     *
+     * @return object
+     */
     public function toObject();
 
+    /**
+     * Format the instance as RFC1036
+     *
+     * @return string
+     */
     public function toRfc1036String();
 
+    /**
+     * Format the instance as RFC1123
+     *
+     * @return string
+     */
     public function toRfc1123String();
 
+    /**
+     * Format the instance as RFC2822
+     *
+     * @return string
+     */
     public function toRfc2822String();
 
+    /**
+     * Format the instance as RFC3339
+     *
+     * @return string
+     */
     public function toRfc3339String();
 
+    /**
+     * Format the instance as RFC7231
+     *
+     * @return string
+     */
     public function toRfc7231String();
 
+    /**
+     * Format the instance as RFC822
+     *
+     * @return string
+     */
     public function toRfc822String();
 
+    /**
+     * Format the instance as RFC850
+     *
+     * @return string
+     */
     public function toRfc850String();
 
+    /**
+     * Format the instance as RSS
+     *
+     * @return string
+     */
     public function toRssString();
 
+    /**
+     * Returns english human readable complete date string.
+     *
+     * @return string
+     */
     public function toString();
 
+    /**
+     * Format the instance as time
+     *
+     * @return string
+     */
     public function toTimeString();
 
+    /**
+     * Format the instance as W3C
+     *
+     * @return string
+     */
     public function toW3cString();
 
+    /**
+     * Create a Carbon instance for today.
+     *
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function today($tz = null);
 
+    /**
+     * Create a Carbon instance for tomorrow.
+     *
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function tomorrow($tz = null);
 
+    /**
+     * Translate using translation string or callback available.
+     *
+     * @param string $key
+     * @param array  $parameters
+     * @param null   $number
+     *
+     * @return string
+     */
     public function translate(string $key, array $parameters = [], $number = null): string;
 
+    /**
+     * Set the timezone or returns the timezone name if no arguments passed.
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return CarbonInterface|string
+     */
     public function tz($value = null);
 
+    /**
+     * @alias getTimestamp
+     *
+     * Returns the UNIX timestamp for the current date.
+     *
+     * @return int
+     */
     public function unix();
 
+    /**
+     * @alias to
+     *
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     *
+     * @param Carbon|null $other
+     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     *                             Possible values:
+     *                             - CarbonInterface::DIFF_ABSOLUTE
+     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short   displays short format of time units
+     * @param int         $parts   displays number of parts in the interval
+     * @param int         $options human diff options
+     *
+     * @return string
+     */
     public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addMonthsWithOverflow/addMonthsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
+     * Indicates if months should be calculated with overflow.
+     *
+     * @param bool $monthsOverflow
+     *
+     * @return void
+     */
     public static function useMonthsOverflow($monthsOverflow = true);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     * @see settings
+     *
+     * Enable the strict mode (or disable with passing false).
+     *
+     * @param bool $strictModeEnabled
+     */
     public static function useStrictMode($strictModeEnabled = true);
 
+    /**
+     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
+     *             You should rather use the ->settings() method.
+     *             Or you can use method variants: addYearsWithOverflow/addYearsNoOverflow, same variants
+     *             are available for quarters, years, decade, centuries, millennia (singular and plural forms).
+     * @see settings
+     *
+     * Indicates if years should be calculated with overflow.
+     *
+     * @param bool $yearsOverflow
+     *
+     * @return void
+     */
     public static function useYearsOverflow($yearsOverflow = true);
 
+    /**
+     * Set the instance's timezone to UTC.
+     *
+     * @return static|CarbonInterface
+     */
     public function utc();
 
+    /**
+     * Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.
+     *
+     * @param int|null $offset
+     *
+     * @return int|static|CarbonInterface
+     */
     public function utcOffset(int $offset = null);
 
+    /**
+     * Returns the milliseconds timestamps used amongst other by Date javascript objects.
+     *
+     * @return float
+     */
     public function valueOf();
 
+    /**
+     * Get/set the week number using given first day of week and first
+     * day of year included in the first week. Or use US format if no settings
+     * given (Sunday / Jan 6).
+     *
+     * @param int|null $week
+     * @param int|null $dayOfWeek
+     * @param int|null $dayOfYear
+     *
+     * @return int|static
+     */
     public function week($week = null, $dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Set/get the week number of year using given first day of week and first
+     * day of year included in the first week. Or use US format if no settings
+     * given (Sunday / Jan 6).
+     *
+     * @param int|null $year      if null, act as a getter, if not null, set the year and return current instance.
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int|static|CarbonInterface
+     */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Get/set the weekday from 0 (Sunday) to 6 (Saturday).
+     *
+     * @param int|null $value new value for weekday if using as setter.
+     *
+     * @return static|CarbonInterface|int
+     */
     public function weekday($value = null);
 
+    /**
+     * Get the number of weeks of the current week-year using given first day of week and first
+     * day of year included in the first week. Or use US format if no settings
+     * given (Sunday / Jan 6).
+     *
+     * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
+     * @param int|null $dayOfYear first day of year included in the week #1
+     *
+     * @return int
+     */
     public function weeksInYear($dayOfWeek = null, $dayOfYear = null);
 
+    /**
+     * Create a Carbon instance for yesterday.
+     *
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
     public static function yesterday($tz = null);
 
     // </methods>
