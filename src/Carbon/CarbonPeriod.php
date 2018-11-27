@@ -689,9 +689,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public function getEndDate()
     {
-        if ($this->endDate) {
-            return $this->endDate->copy();
-        }
+        return $this->endDate ? $this->endDate->copy() : null;
     }
 
     /**
