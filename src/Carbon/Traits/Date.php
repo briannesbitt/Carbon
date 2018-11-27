@@ -2071,10 +2071,7 @@ trait Date
         }
 
         $units = ['hour', 'minute', 'second', 'micro'];
-        if ($unit === 'millisecond') {
-            $unit = 'milli';
-        }
-        if ($unit === 'milli') {
+        if ($unit === 'millisecond' || $unit === 'milli') {
             $value *= 1000;
             $unit = 'micro';
         } elseif ($unit === 'microsecond') {
