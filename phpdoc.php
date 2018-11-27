@@ -50,6 +50,18 @@ foreach (glob(__DIR__.'/src/Carbon/Traits/*.php') as $file) {
     $code .= file_get_contents($file);
 }
 
+function unitName($unit)
+{
+    switch ($unit) {
+        case 'milli':
+            return 'millisecond';
+        case 'micro':
+            return 'microsecond';
+        default:
+            return $unit;
+    }
+}
+
 function pluralize($word)
 {
     if (preg_match('/(millenni)um$/i', $word)) {
@@ -163,7 +175,7 @@ foreach ($tags as $tag) {
                         '@method',
                         'bool',
                         'is'.ucFirst($vars->name).'()',
-                        'Checks if the instance day is '.strtolower($vars->name).'.',
+                        'Checks if the instance day is '.unitName(strtolower($vars->name)).'.',
                     ];
                     break;
                 case 'is':
@@ -176,88 +188,92 @@ foreach ($tags as $tag) {
                     break;
                 case 'isSameUnit':
                     $unit = $vars->name;
+                    $unitName = unitName($unit);
                     $method = 'isSame'.ucFirst($unit);
                     if (!method_exists(\Carbon\Carbon::class, $method)) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
                             $method.'(\DateTimeInterface $date = null)',
-                            "Checks if the given date is in the same $unit as the instance. If null passed, compare to now (with the same timezone).",
+                            "Checks if the given date is in the same $unitName as the instance. If null passed, compare to now (with the same timezone).",
                         ];
                     }
                     $autoDocLines[] = [
                         '@method',
                         'bool',
                         'isCurrent'.ucFirst($unit).'()',
-                        "Checks if the instance is in the same $unit as the current moment.",
+                        "Checks if the instance is in the same $unitName as the current moment.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'bool',
                         'isNext'.ucFirst($unit).'()',
-                        "Checks if the instance is in the same $unit as the current moment next $unit.",
+                        "Checks if the instance is in the same $unitName as the current moment next $unitName.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         'bool',
                         'isLast'.ucFirst($unit).'()',
-                        "Checks if the instance is in the same $unit as the current moment last $unit.",
+                        "Checks if the instance is in the same $unitName as the current moment last $unitName.",
                     ];
                     break;
                 case 'setUnit':
                     $unit = $vars->name;
+                    $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         "$plUnit(int \$value)",
-                        "Set current instance $unit to the given value.",
+                        "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         "$unit(int \$value)",
-                        "Set current instance $unit to the given value.",
+                        "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'set'.ucfirst($plUnit).'(int $value)',
-                        "Set current instance $unit to the given value.",
+                        "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'set'.ucfirst($unit).'(int $value)',
-                        "Set current instance $unit to the given value.",
+                        "Set current instance $unitName to the given value.",
                     ];
                     break;
                 case 'addUnit':
                     $unit = $vars->name;
+                    $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
+                    $plUnitName = pluralize($unitName);
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'add'.ucFirst($plUnit).'(int $value = 1)',
-                        "Add $plUnit (the \$value count passed in) to the instance (using date interval).",
+                        "Add $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'add'.ucFirst($unit).'()',
-                        "Add one $unit to the instance (using date interval).",
+                        "Add one $unitName to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'sub'.ucFirst($plUnit).'(int $value = 1)',
-                        "Sub $plUnit (the \$value count passed in) to the instance (using date interval).",
+                        "Sub $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'sub'.ucFirst($unit).'()',
-                        "Sub one $unit to the instance (using date interval).",
+                        "Sub one $unitName to the instance (using date interval).",
                     ];
                     if (in_array($unit, [
                         'month',
@@ -271,50 +287,50 @@ foreach ($tags as $tag) {
                             '@method',
                             '$this',
                             'add'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
-                            "Add $plUnit (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
+                            "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
                             '$this',
                             'add'.ucFirst($unit).'WithOverflow()',
-                            "Add one $unit to the instance (using date interval) with overflow explicitly allowed.",
+                            "Add one $unitName to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
                             '$this',
                             'sub'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
-                            "Sub $plUnit (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
+                            "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
                             '$this',
                             'sub'.ucFirst($unit).'WithOverflow()',
-                            "Sub one $unit to the instance (using date interval) with overflow explicitly allowed.",
+                            "Sub one $unitName to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         foreach (['WithoutOverflow', 'WithNoOverflow', 'NoOverflow'] as $alias) {
                             $autoDocLines[] = [
                                 '@method',
                                 '$this',
                                 'add'.ucFirst($plUnit)."$alias(int \$value = 1)",
-                                "Add $plUnit (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
+                                "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
                                 '$this',
                                 'add'.ucFirst($unit)."$alias()",
-                                "Add one $unit to the instance (using date interval) with overflow explicitly forbidden.",
+                                "Add one $unitName to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
                                 '$this',
                                 'sub'.ucFirst($plUnit)."$alias(int \$value = 1)",
-                                "Sub $plUnit (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
+                                "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
                                 '$this',
                                 'sub'.ucFirst($unit)."$alias()",
-                                "Sub one $unit to the instance (using date interval) with overflow explicitly forbidden.",
+                                "Sub one $unitName to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                         }
                         break;
@@ -322,70 +338,73 @@ foreach ($tags as $tag) {
                     break;
                 case 'addRealUnit':
                     $unit = $vars->name;
+                    $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
+                    $plUnitName = pluralize($unitName);
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'addReal'.ucFirst($plUnit).'(int $value = 1)',
-                        "Add $plUnit (the \$value count passed in) to the instance (using timestamp).",
+                        "Add $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'addReal'.ucFirst($unit).'()',
-                        "Add one $unit to the instance (using timestamp).",
+                        "Add one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'subReal'.ucFirst($plUnit).'(int $value = 1)',
-                        "Sub $plUnit (the \$value count passed in) to the instance (using timestamp).",
+                        "Sub $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'subReal'.ucFirst($unit).'()',
-                        "Sub one $unit to the instance (using timestamp).",
+                        "Sub one $unitName to the instance (using timestamp).",
                     ];
                     break;
                 case 'roundUnit':
                     $unit = $vars->name;
+                    $unitName = unitName($unit);
                     $plUnit = pluralize($unit);
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'round'.ucFirst($unit).'(float $precision = 1, string $function = "round")',
-                        "Round the current instance $unit with given precision using the given function.",
+                        "Round the current instance $unitName with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'round'.ucFirst($plUnit).'(float $precision = 1, string $function = "round")',
-                        "Round the current instance $unit with given precision using the given function.",
+                        "Round the current instance $unitName with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'floor'.ucFirst($unit).'(float $precision = 1)',
-                        "Truncate the current instance $unit with given precision.",
+                        "Truncate the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'floor'.ucFirst($plUnit).'(float $precision = 1)',
-                        "Truncate the current instance $unit with given precision.",
+                        "Truncate the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'ceil'.ucFirst($unit).'(float $precision = 1)',
-                        "Ceil the current instance $unit with given precision.",
+                        "Ceil the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
                         '$this',
                         'ceil'.ucFirst($plUnit).'(float $precision = 1)',
-                        "Ceil the current instance $unit with given precision.",
+                        "Ceil the current instance $unitName with given precision.",
                     ];
                     break;
             }
@@ -496,7 +515,7 @@ foreach ($carbonMethods as $method) {
             if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $function->getDocComment(), $match)) {
                 $returnType = $match[1];
             }
-            $returnType = $returnType ?: 'static';
+            $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
             $staticMethods[] = [
                 '@method',
                 str_replace('static', 'Carbon', $returnType),

@@ -128,10 +128,10 @@ use JsonSerializable;
  * @method        bool           isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool           isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool           isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same micro as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same micro as the current moment.
- * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same micro as the current moment next micro.
- * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same micro as the current moment last micro.
+ * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
+ * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
  * @method        bool           isSameMicrosecond(\DateTimeInterface $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
@@ -178,10 +178,18 @@ use JsonSerializable;
  * @method        $this          second(int $value)                                                                  Set current instance second to the given value.
  * @method        $this          setSeconds(int $value)                                                              Set current instance second to the given value.
  * @method        $this          setSecond(int $value)                                                               Set current instance second to the given value.
- * @method        $this          micros(int $value)                                                                  Set current instance micro to the given value.
- * @method        $this          micro(int $value)                                                                   Set current instance micro to the given value.
- * @method        $this          setMicros(int $value)                                                               Set current instance micro to the given value.
- * @method        $this          setMicro(int $value)                                                                Set current instance micro to the given value.
+ * @method        $this          millis(int $value)                                                                  Set current instance millisecond to the given value.
+ * @method        $this          milli(int $value)                                                                   Set current instance millisecond to the given value.
+ * @method        $this          setMillis(int $value)                                                               Set current instance millisecond to the given value.
+ * @method        $this          setMilli(int $value)                                                                Set current instance millisecond to the given value.
+ * @method        $this          milliseconds(int $value)                                                            Set current instance millisecond to the given value.
+ * @method        $this          millisecond(int $value)                                                             Set current instance millisecond to the given value.
+ * @method        $this          setMilliseconds(int $value)                                                         Set current instance millisecond to the given value.
+ * @method        $this          setMillisecond(int $value)                                                          Set current instance millisecond to the given value.
+ * @method        $this          micros(int $value)                                                                  Set current instance microsecond to the given value.
+ * @method        $this          micro(int $value)                                                                   Set current instance microsecond to the given value.
+ * @method        $this          setMicros(int $value)                                                               Set current instance microsecond to the given value.
+ * @method        $this          setMicro(int $value)                                                                Set current instance microsecond to the given value.
  * @method        $this          microseconds(int $value)                                                            Set current instance microsecond to the given value.
  * @method        $this          microsecond(int $value)                                                             Set current instance microsecond to the given value.
  * @method        $this          setMicroseconds(int $value)                                                         Set current instance microsecond to the given value.
@@ -250,10 +258,10 @@ use JsonSerializable;
  * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
  * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
- * @method        $this          addMicros(int $value = 1)                                                           Add micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          addMicro()                                                                          Add one micro to the instance (using date interval).
- * @method        $this          subMicros(int $value = 1)                                                           Sub micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          subMicro()                                                                          Sub one micro to the instance (using date interval).
+ * @method        $this          addMicros(int $value = 1)                                                           Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMicro()                                                                          Add one microsecond to the instance (using date interval).
+ * @method        $this          subMicros(int $value = 1)                                                           Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMicro()                                                                          Sub one microsecond to the instance (using date interval).
  * @method        $this          addMicroseconds(int $value = 1)                                                     Add microseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMicrosecond()                                                                    Add one microsecond to the instance (using date interval).
  * @method        $this          subMicroseconds(int $value = 1)                                                     Sub microseconds (the $value count passed in) to the instance (using date interval).
@@ -346,10 +354,22 @@ use JsonSerializable;
  * @method        $this          addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this          subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this          subWeekday()                                                                        Sub one weekday to the instance (using date interval).
+ * @method        $this          addRealMicros(int $value = 1)                                                       Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMicro()                                                                      Add one microsecond to the instance (using timestamp).
+ * @method        $this          subRealMicros(int $value = 1)                                                       Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMicro()                                                                      Sub one microsecond to the instance (using timestamp).
  * @method        $this          addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
+ * @method        $this          addRealMillis(int $value = 1)                                                       Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMilli()                                                                      Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMillis(int $value = 1)                                                       Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMilli()                                                                      Sub one millisecond to the instance (using timestamp).
+ * @method        $this          addRealMilliseconds(int $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMillisecond()                                                                Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMilliseconds(int $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
  * @method        $this          addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this          subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).

@@ -195,6 +195,48 @@ class SubTest extends AbstractTestCase
         $this->assertSame(59, Carbon::createFromTime(0, 0, 0)->subSecond()->second);
     }
 
+    public function testSubMillisecondsPositive()
+    {
+        $this->assertSame(999, Carbon::createFromTime(0, 0, 0)->subMilliseconds(1)->millisecond);
+    }
+
+    public function testSubMillisecondsZero()
+    {
+        $this->assertSame(100, Carbon::createFromTime(0, 0, 0.1)->subMilliseconds(0)->millisecond);
+    }
+
+    public function testSubMillisecondsNegative()
+    {
+        $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->subMilliseconds(-1)->millisecond);
+        $this->assertSame(101, Carbon::createFromTime(0, 0, 0.1)->subMilliseconds(-1)->millisecond);
+    }
+
+    public function testSubMillisecond()
+    {
+        $this->assertSame(99, Carbon::createFromTime(0, 0, 0.1)->subMillisecond()->millisecond);
+    }
+
+    public function testSubMicrosecondsPositive()
+    {
+        $this->assertSame(999999, Carbon::createFromTime(0, 0, 0)->subMicroseconds(1)->microsecond);
+    }
+
+    public function testSubMicrosecondsZero()
+    {
+        $this->assertSame(100000, Carbon::createFromTime(0, 0, 0.1)->subMicroseconds(0)->microsecond);
+    }
+
+    public function testSubMicrosecondsNegative()
+    {
+        $this->assertSame(1, Carbon::createFromTime(0, 0, 0)->subMicroseconds(-1)->microsecond);
+        $this->assertSame(100001, Carbon::createFromTime(0, 0, 0.1)->subMicroseconds(-1)->microsecond);
+    }
+
+    public function testSubMicrosecond()
+    {
+        $this->assertSame(99999, Carbon::createFromTime(0, 0, 0.1)->subMicrosecond()->microsecond);
+    }
+
     /**
      * Test non plural methods with non default args.
      */
