@@ -11,6 +11,7 @@
 
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterface;
 use InvalidArgumentException;
 
 /**
@@ -63,7 +64,7 @@ trait Serialization
      *
      * @throws \InvalidArgumentException
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public static function fromSerialized($value)
     {
@@ -81,7 +82,7 @@ trait Serialization
      *
      * @param string|array $dump
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public static function __set_state($dump)
     {

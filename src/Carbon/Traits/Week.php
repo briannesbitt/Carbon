@@ -67,7 +67,7 @@ trait Week
      * @param int|null $dayOfWeek first date of week from 0 (Sunday) to 6 (Saturday)
      * @param int|null $dayOfYear first day of year included in the week #1
      *
-     * @return int|static
+     * @return int|static|CarbonInterface
      */
     public function weekYear($year = null, $dayOfWeek = null, $dayOfYear = null)
     {

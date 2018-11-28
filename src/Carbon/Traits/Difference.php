@@ -29,6 +29,7 @@ use DateTimeInterface;
  * @method bool lessThan($date)
  * @method DateInterval diff(\DateTimeInterface $date)
  * @method CarbonInterface copy()
+ * @method CarbonInterface resolveCarbon()
  * @method static Translator translator()
  */
 trait Difference

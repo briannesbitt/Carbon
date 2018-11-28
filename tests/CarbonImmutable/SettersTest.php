@@ -370,4 +370,13 @@ class SettersTest extends AbstractTestCase
         $d->setMidDayAt(12);
         $this->assertSame(12, $d->getMidDayAt());
     }
+
+    public function testSetter()
+    {
+        $d = Carbon::now();
+        $d->setMidDayAt(11);
+        $this->assertSame(11, $d->getMidDayAt());
+        $d->setMidDayAt(12);
+        $this->assertSame(12, $d->getMidDayAt());
+    }
 }

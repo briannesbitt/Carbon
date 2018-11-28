@@ -675,7 +675,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get start date of the period.
      *
-     * @return Carbon
+     * @return CarbonInterface
      */
     public function getStartDate()
     {
@@ -685,13 +685,11 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Get end date of the period.
      *
-     * @return Carbon|null
+     * @return CarbonInterface|null
      */
     public function getEndDate()
     {
-        if ($this->endDate) {
-            return $this->endDate->copy();
-        }
+        return $this->endDate ? $this->endDate->copy() : null;
     }
 
     /**

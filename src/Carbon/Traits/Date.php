@@ -145,10 +145,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        bool           isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool           isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool           isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same micro as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same micro as the current moment.
- * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same micro as the current moment next micro.
- * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same micro as the current moment last micro.
+ * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
+ * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
  * @method        bool           isSameMicrosecond(\DateTimeInterface $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
@@ -195,10 +195,18 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          second(int $value)                                                                  Set current instance second to the given value.
  * @method        $this          setSeconds(int $value)                                                              Set current instance second to the given value.
  * @method        $this          setSecond(int $value)                                                               Set current instance second to the given value.
- * @method        $this          micros(int $value)                                                                  Set current instance micro to the given value.
- * @method        $this          micro(int $value)                                                                   Set current instance micro to the given value.
- * @method        $this          setMicros(int $value)                                                               Set current instance micro to the given value.
- * @method        $this          setMicro(int $value)                                                                Set current instance micro to the given value.
+ * @method        $this          millis(int $value)                                                                  Set current instance millisecond to the given value.
+ * @method        $this          milli(int $value)                                                                   Set current instance millisecond to the given value.
+ * @method        $this          setMillis(int $value)                                                               Set current instance millisecond to the given value.
+ * @method        $this          setMilli(int $value)                                                                Set current instance millisecond to the given value.
+ * @method        $this          milliseconds(int $value)                                                            Set current instance millisecond to the given value.
+ * @method        $this          millisecond(int $value)                                                             Set current instance millisecond to the given value.
+ * @method        $this          setMilliseconds(int $value)                                                         Set current instance millisecond to the given value.
+ * @method        $this          setMillisecond(int $value)                                                          Set current instance millisecond to the given value.
+ * @method        $this          micros(int $value)                                                                  Set current instance microsecond to the given value.
+ * @method        $this          micro(int $value)                                                                   Set current instance microsecond to the given value.
+ * @method        $this          setMicros(int $value)                                                               Set current instance microsecond to the given value.
+ * @method        $this          setMicro(int $value)                                                                Set current instance microsecond to the given value.
  * @method        $this          microseconds(int $value)                                                            Set current instance microsecond to the given value.
  * @method        $this          microsecond(int $value)                                                             Set current instance microsecond to the given value.
  * @method        $this          setMicroseconds(int $value)                                                         Set current instance microsecond to the given value.
@@ -267,10 +275,10 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
  * @method        $this          subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
- * @method        $this          addMicros(int $value = 1)                                                           Add micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          addMicro()                                                                          Add one micro to the instance (using date interval).
- * @method        $this          subMicros(int $value = 1)                                                           Sub micros (the $value count passed in) to the instance (using date interval).
- * @method        $this          subMicro()                                                                          Sub one micro to the instance (using date interval).
+ * @method        $this          addMicros(int $value = 1)                                                           Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          addMicro()                                                                          Add one microsecond to the instance (using date interval).
+ * @method        $this          subMicros(int $value = 1)                                                           Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        $this          subMicro()                                                                          Sub one microsecond to the instance (using date interval).
  * @method        $this          addMicroseconds(int $value = 1)                                                     Add microseconds (the $value count passed in) to the instance (using date interval).
  * @method        $this          addMicrosecond()                                                                    Add one microsecond to the instance (using date interval).
  * @method        $this          subMicroseconds(int $value = 1)                                                     Sub microseconds (the $value count passed in) to the instance (using date interval).
@@ -363,10 +371,22 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @method        $this          addWeekday()                                                                        Add one weekday to the instance (using date interval).
  * @method        $this          subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
  * @method        $this          subWeekday()                                                                        Sub one weekday to the instance (using date interval).
+ * @method        $this          addRealMicros(int $value = 1)                                                       Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMicro()                                                                      Add one microsecond to the instance (using timestamp).
+ * @method        $this          subRealMicros(int $value = 1)                                                       Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMicro()                                                                      Sub one microsecond to the instance (using timestamp).
  * @method        $this          addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
  * @method        $this          subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
+ * @method        $this          addRealMillis(int $value = 1)                                                       Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMilli()                                                                      Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMillis(int $value = 1)                                                       Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMilli()                                                                      Sub one millisecond to the instance (using timestamp).
+ * @method        $this          addRealMilliseconds(int $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          addRealMillisecond()                                                                Add one millisecond to the instance (using timestamp).
+ * @method        $this          subRealMilliseconds(int $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        $this          subRealMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
  * @method        $this          addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
  * @method        $this          addRealSecond()                                                                     Add one second to the instance (using timestamp).
  * @method        $this          subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
@@ -639,7 +659,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function copy()
     {
@@ -651,7 +671,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function clone()
     {
@@ -661,7 +681,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nowWithSameTz()
     {
@@ -697,7 +717,7 @@ trait Date
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     protected function resolveCarbon($date = null)
     {
@@ -1218,7 +1238,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function dayOfYear($value = null)
     {
@@ -1232,7 +1252,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function weekday($value = null)
     {
@@ -1246,7 +1266,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|int
+     * @return static|CarbonInterface|int
      */
     public function isoWeekday($value = null)
     {
@@ -1262,7 +1282,7 @@ trait Date
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1291,7 +1311,7 @@ trait Date
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1305,7 +1325,7 @@ trait Date
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1317,7 +1337,7 @@ trait Date
      *
      * @param int|null $offset
      *
-     * @return int|static
+     * @return int|static|CarbonInterface
      */
     public function utcOffset(int $offset = null)
     {
@@ -1339,7 +1359,7 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
@@ -1351,7 +1371,7 @@ trait Date
      *
      * @param string $time
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setTimeFromTimeString($time)
     {
@@ -1367,7 +1387,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function timezone($value)
     {
@@ -1395,7 +1415,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function setTimezone($value)
     {
@@ -1413,7 +1433,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function shiftTimezone($value)
     {
@@ -1426,7 +1446,7 @@ trait Date
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function utc()
     {
@@ -2051,7 +2071,10 @@ trait Date
         }
 
         $units = ['hour', 'minute', 'second', 'micro'];
-        if ($unit === 'microsecond') {
+        if ($unit === 'millisecond' || $unit === 'milli') {
+            $value *= 1000;
+            $unit = 'micro';
+        } elseif ($unit === 'microsecond') {
             $unit = 'micro';
         }
 

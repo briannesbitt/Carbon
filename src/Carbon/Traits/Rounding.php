@@ -18,15 +18,20 @@ use InvalidArgumentException;
  * Trait Rounding.
  *
  * Round, ceil, floor units.
+ *
+ * Depends on the following methods:
+ *
+ * @method CarbonInterface copy()
+ * @method CarbonInterface startOfWeek()
  */
 trait Rounding
 {
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
-     * @param string $unit
-     * @param float  $precision
-     * @param string $function
+     * @param string    $unit
+     * @param float|int $precision
+     * @param string    $function
      *
      * @return CarbonInterface
      */
@@ -103,8 +108,8 @@ trait Rounding
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      *
-     * @param string $unit
-     * @param float  $precision
+     * @param string    $unit
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -116,8 +121,8 @@ trait Rounding
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      *
-     * @param string $unit
-     * @param float  $precision
+     * @param string    $unit
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -129,8 +134,8 @@ trait Rounding
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float  $precision
-     * @param string $function
+     * @param float|int $precision
+     * @param string    $function
      *
      * @return CarbonInterface
      */
@@ -142,7 +147,7 @@ trait Rounding
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float $precision
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
@@ -154,7 +159,7 @@ trait Rounding
     /**
      * Ceil the current instance second with given precision if specified.
      *
-     * @param float $precision
+     * @param float|int $precision
      *
      * @return CarbonInterface
      */
