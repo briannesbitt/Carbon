@@ -186,6 +186,10 @@ echo 6;              // 6
         var editorAutoLoad = false;
 
         function transformEditor($pre, index, code, token, link) {
+            if ($pre.hasClass('live-editor-loading')) {
+                return;
+            }
+
             $pre.removeClass('live-editor').addClass('live-editor-loading');
             if (!code) {
                 code = $pre.find('code').text();
@@ -237,7 +241,8 @@ echo 6;              // 6
 
         function openDoc(selection)
         {
-            if (/[a-zA-Z0-9_-]+$/.test(selection)) {
+            selection = $.trim(selection);
+            if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
                 $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
                     var element = $('#doc-method-' + className + '-' + selection)[0];
                     if (element) {
