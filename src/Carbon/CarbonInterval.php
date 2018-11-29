@@ -1095,6 +1095,22 @@ class CarbonInterval extends DateInterval
         return $this;
     }
 
+    protected function solveNegativeInterval()
+    {
+        if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
+            $this->years *= -1;
+            $this->months *= -1;
+            $this->dayz *= -1;
+            $this->hours *= -1;
+            $this->minutes *= -1;
+            $this->seconds *= -1;
+            $this->microseconds *= -1;
+            $this->invert();
+        }
+
+        return $this;
+    }
+
     /**
      * Add the passed interval to the current instance.
      *
@@ -1135,16 +1151,7 @@ class CarbonInterval extends DateInterval
         $this->seconds += $interval->s * $sign;
         $this->microseconds += $interval->microseconds * $sign;
 
-        if (!$this->isEmpty() && $this->years <= 0 && $this->months <= 0 && $this->dayz <= 0 && $this->hours <= 0 && $this->minutes <= 0 && $this->seconds <= 0 && $this->microseconds <= 0) {
-            $this->years *= -1;
-            $this->months *= -1;
-            $this->dayz *= -1;
-            $this->hours *= -1;
-            $this->minutes *= -1;
-            $this->seconds *= -1;
-            $this->microseconds *= -1;
-            $this->invert();
-        }
+        $this->solveNegativeInterval();
 
         return $this;
     }
@@ -1305,11 +1312,19 @@ class CarbonInterval extends DateInterval
             }
 
             $value = $this->$source;
-            $this->$source = $modulo = $value % $factor;
+            $this->$source = $modulo = ($factor + ($value % $factor)) % $factor;
             $this->$target += ($value - $modulo) / $factor;
+            if ($this->$source < 0 && $this->$target > 0) {
+                $this->$source += $factor;
+                $this->$target--;
+            }
+            if ($this->$source > 0 && $this->$target < 0) {
+                $this->$source -= $factor;
+                $this->$target++;
+            }
         }
 
-        return $this;
+        return $this->solveNegativeInterval();
     }
 
     /**
