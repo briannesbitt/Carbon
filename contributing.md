@@ -2,7 +2,7 @@
 
 ## Issue Contributions
 
-Please report any security issue or risk by emailing carbon@selfbuild.fr. Please don't disclose security bugs publicly
+Please report any security issue or risk with [the following form](https://carbon.selfbuild.fr/contact.php)). Please don't disclose security bugs publicly
 until they have been handled by us.
 
 For any other bug or issue, please click this link and follow the template:
