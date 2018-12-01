@@ -87,7 +87,7 @@ class OcTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6è 1a',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7è 2a',
+        '7è 1a',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11è 2a',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
