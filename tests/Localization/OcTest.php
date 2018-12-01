@@ -117,7 +117,7 @@ class OcTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0',
+        '0è',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'fa 1 segonda',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
