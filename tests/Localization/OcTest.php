@@ -45,7 +45,7 @@ class OcTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->calendar()
         'dimenge passat a 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ièr a 20:00',
+        'Ièr a 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Uèi a 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
