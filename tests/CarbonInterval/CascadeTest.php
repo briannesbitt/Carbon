@@ -13,10 +13,13 @@ class CascadeTest extends AbstractTestCase
      */
     public function testCascadesOverflowedValues($spec, $expected)
     {
-        $this->assertSame(
-            $expected,
-            CarbonInterval::fromString($spec)->cascade()->spec()
-        );
+        $interval = CarbonInterval::fromString($spec)->cascade();
+        $this->assertSame(0, $interval->invert);
+        $this->assertSame($expected, $interval->spec());
+
+        $interval = CarbonInterval::fromString($spec)->invert()->cascade();
+        $this->assertSame(1, $interval->invert);
+        $this->assertSame($expected, $interval->spec());
     }
 
     public function provideIntervalSpecs()
@@ -27,6 +30,106 @@ class CascadeTest extends AbstractTestCase
             ['1276d',                        'P3Y9M16D'],
             ['47d 14h',                      'P1M19DT14H'],
             ['2y 123mo 5w 6d 47h 160m 217s', 'P12Y4M15DT1H43M37S'],
+        ];
+    }
+
+    /**
+     * @dataProvider provideMixedSignsIntervalSpecs
+     *
+     * @throws \Exception
+     */
+    public function testMixedSignsCascadesOverflowedValues($units, $expected, $expectingInversion)
+    {
+        $interval = new CarbonInterval(0);
+        foreach ($units as $unit => $value) {
+            $interval->$unit($value);
+        }
+        $interval->cascade();
+        $this->assertSame($expectingInversion, $interval->invert);
+        $this->assertSame($expected, $interval->spec());
+
+        $interval = new CarbonInterval(0);
+        foreach ($units as $unit => $value) {
+            $interval->$unit($value);
+        }
+        $interval->invert()->cascade();
+        $this->assertSame(1 - $expectingInversion, $interval->invert);
+        $this->assertSame($expected, $interval->spec());
+    }
+
+    public function provideMixedSignsIntervalSpecs()
+    {
+        return [
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -30,
+                ],
+                'PT30M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                ],
+                'PT30M',
+                1,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                    'seconds' => 3660,
+                ],
+                'PT31M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                    'seconds' => 3540,
+                ],
+                'PT29M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => 90,
+                    'seconds' => -3540,
+                ],
+                'PT1H31M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => 90,
+                    'seconds' => -3660,
+                ],
+                'PT1H29M',
+                0,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'minutes' => 90,
+                    'seconds' => -3660,
+                ],
+                'PT31M',
+                1,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'minutes' => 61,
+                    'seconds' => -120,
+                ],
+                'PT1M',
+                1,
+            ],
         ];
     }
 
