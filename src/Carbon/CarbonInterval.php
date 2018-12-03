@@ -149,8 +149,8 @@ class CarbonInterval extends DateInterval
     public static function getCascadeFactors()
     {
         return static::$cascadeFactors ?: [
-            'milliseconds' => [1000, 'microseconds'],
-            'seconds' => [1000, 'milliseconds'],
+            'milliseconds' => [Carbon::MICROSECONDS_PER_MILLISECOND, 'microseconds'],
+            'seconds' => [Carbon::MILLISECONDS_PER_SECOND, 'milliseconds'],
             'minutes' => [Carbon::SECONDS_PER_MINUTE, 'seconds'],
             'hours' => [Carbon::MINUTES_PER_HOUR, 'minutes'],
             'dayz' => [Carbon::HOURS_PER_DAY, 'hours'],
@@ -239,7 +239,7 @@ class CarbonInterval extends DateInterval
         parent::__construct($spec);
 
         if (!is_null($microseconds)) {
-            $this->f = $microseconds / 1000000;
+            $this->f = $microseconds / Carbon::MICROSECONDS_PER_SECOND;
         }
     }
 
@@ -313,7 +313,7 @@ class CarbonInterval extends DateInterval
      */
     public static function getMillisecondsPerSecond()
     {
-        return static::getFactor('milliseconds', 'seconds') ?: 1000;
+        return static::getFactor('milliseconds', 'seconds') ?: Carbon::MILLISECONDS_PER_SECOND;
     }
 
     /**
@@ -323,7 +323,7 @@ class CarbonInterval extends DateInterval
      */
     public static function getMicrosecondsPerMillisecond()
     {
-        return static::getFactor('microseconds', 'milliseconds') ?: 1000;
+        return static::getFactor('microseconds', 'milliseconds') ?: Carbon::MICROSECONDS_PER_MILLISECOND;
     }
 
     /**
@@ -400,7 +400,7 @@ class CarbonInterval extends DateInterval
 
             case 'millisecond':
             case 'milli':
-                return new static(null, null, null, null, null, null, null, $arg * 1000);
+                return new static(null, null, null, null, null, null, null, $arg * Carbon::MICROSECONDS_PER_MILLISECOND);
 
             case 'microsecond':
             case 'micro':
@@ -558,7 +558,7 @@ class CarbonInterval extends DateInterval
             }
         }
 
-        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * 1000 + $microseconds);
+        return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $milliseconds * Carbon::MICROSECONDS_PER_MILLISECOND + $microseconds);
     }
 
     /**
@@ -682,11 +682,11 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'milliseconds':
-                return (int) floor(round($this->f * 1000000) / 1000);
+                return (int) floor(round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
 
             case 'micro':
             case 'microseconds':
-                return (int) round($this->f * 1000000);
+                return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND);
 
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());
@@ -744,12 +744,12 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'millisecond':
-                $this->microseconds = $value * 1000 + $this->microseconds % 1000;
+                $this->microseconds = $value * Carbon::MICROSECONDS_PER_MILLISECOND + $this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND;
                 break;
 
             case 'micro':
             case 'microsecond':
-                $this->f = $value / 1000000;
+                $this->f = $value / Carbon::MICROSECONDS_PER_SECOND;
                 break;
 
             default:
@@ -1357,7 +1357,7 @@ class CarbonInterval extends DateInterval
                 $unitFound = true;
                 $value = $this->$source;
                 if ($source === 'microseconds') {
-                    $value %= 1000;
+                    $value %= Carbon::MICROSECONDS_PER_MILLISECOND;
                 }
                 if ($source !== 'milliseconds') {
                     $result += $value;
