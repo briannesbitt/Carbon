@@ -1,0 +1,3 @@
+2018-11-17T01:15:49.8019018Z Hosted Agent successfully assigned.
+2018-11-17T01:15:49.8276420Z Configuring connection settings for Hosted Agent
+2018-11-17T01:15:55.3904960Z Starting Hosted Agent
