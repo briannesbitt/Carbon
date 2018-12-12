@@ -2605,6 +2605,33 @@ echo "\n";
 </code></pre>
     </p>
 
+    <p id="user-settings">Macros are the perfect tool to output dates with some settings or user preferences.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+// Let assume you get user settings from the browser or preferences stored in a database
+$userTimezone = 'Europe/Paris';
+$userLanguage = 'fr_FR';
+
+Carbon::macro('formatForUser', function () use ($userTimezone, $userLanguage) {
+    $date = $this->copy()->tz($userTimezone)->locale($userLanguage);
+
+    return $date->calendar(); // or ->isoFormat($customFormat), ->diffForHumans(), etc.
+});
+
+// Then let assume you store all your dates/times in UTC (because you definitely should)
+$dateString = '2010-01-23 10:00:00'; // Get this from your database or any input
+)}}
+
+// Then now you can easily display any date in a page/e-mail using those user settings and the chosen format
+{{::exec(echo Carbon::parse($dateString, 'UTC')->formatForUser();)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::tomorrow()->formatForUser();)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->subDays(3)->formatForUser();)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
 
     <p>
@@ -3081,8 +3108,7 @@ $interval->times(3);
         the cascade method:</p>
 
     <p>
-    <pre><code class="php">
-{{::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{eval}}
+    <pre><code class="php">{{::exec(echo $interval->forHumans();/*pad(40)*/)}} // {{eval}}
 {{::exec(echo $interval->cascade()->forHumans();/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
