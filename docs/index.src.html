@@ -2624,11 +2624,11 @@ $dateString = '2010-01-23 10:00:00'; // Get this from your database or any input
 )}}
 
 // Then now you can easily display any date in a page/e-mail using those user settings and the chosen format
-{{::exec(echo Carbon::parse($dateString, 'UTC')->formatForUser();)}} // {{eval}}
+{{::exec(echo Carbon::parse($dateString, 'UTC')->formatForUser();/*pad(58)*/)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::tomorrow()->formatForUser();)}} // {{eval}}
+{{::exec(echo Carbon::tomorrow()->formatForUser();/*pad(58)*/)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(3)->formatForUser();)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(3)->formatForUser();/*pad(58)*/)}} // {{eval}}
 </code></pre>
     </p>
 
