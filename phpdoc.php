@@ -4,7 +4,6 @@ $tags = [
     'property',
     'property-read',
     PHP_EOL,
-    'native-method',
     'mode',
     ['call', 'is'],
     ['call', 'isDayOfWeek'],
@@ -83,6 +82,38 @@ function dumpValue($value)
     return $value;
 }
 
+function dumpParameter($method, ReflectionParameter $parameter) {
+    global $defaultValues;
+
+    $name = $parameter->getName();
+    $output = '$'.$name;
+    if ($parameter->isVariadic()) {
+        $output = "...$output";
+    }
+    if ($parameter->getType()) {
+        $name = $parameter->getType()->getName();
+        if (preg_match('/^[A-Z]/', $name)) {
+            $name = "\\$name";
+        }
+        $output = "$name $output";
+    }
+    if (isset($defaultValues[$method])) {
+        if (isset($defaultValues[$method][$name])) {
+            $output .= ' = '.dumpValue($defaultValues[$method][$name]);
+        }
+
+        return $output;
+    }
+    try {
+        if ($parameter->isDefaultValueAvailable()) {
+            $output .= ' = '.dumpValue($parameter->getDefaultValue());
+        }
+    } catch (\ReflectionException $exp) {
+    }
+
+    return $output;
+}
+
 foreach ($tags as $tag) {
     if (is_array($tag)) {
         [$tag, $pattern] = $tag;
@@ -90,50 +121,6 @@ foreach ($tags as $tag) {
     $pattern = isset($pattern) ? $pattern : '\S+';
     if ($tag === PHP_EOL) {
         $autoDocLines[] = '';
-
-        continue;
-    }
-    if ($tag === 'native-method') {
-        foreach ($nativeMethods as $method => $return) {
-            $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
-            $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($defaultValues, $method) {
-                $name = $parameter->getName();
-                $output = '$'.$name;
-                if ($parameter->isVariadic()) {
-                    $output = "...$output";
-                }
-                if ($parameter->getType()) {
-                    $name = $parameter->getType()->getName();
-                    if (preg_match('/^[A-Z]/', $name)) {
-                        $name = "\\$name";
-                    }
-                    $output = "$name $output";
-                }
-                if (isset($defaultValues[$method])) {
-                    if (isset($defaultValues[$method][$name])) {
-                        $output .= ' = '.dumpValue($defaultValues[$method][$name]);
-                    }
-
-                    return $output;
-                }
-                try {
-                    if ($parameter->isDefaultValueAvailable()) {
-                        $output .= ' = '.dumpValue($parameter->getDefaultValue());
-                    }
-                } catch (\ReflectionException $exp) {
-                }
-
-                return $output;
-            }, $function->getParameters()));
-            $link = strtolower($method);
-            $autoDocLines[] = [
-                '@method',
-                $return,
-                "$method($parameters)",
-                "call \DateTime::$method if mutable or \DateTimeImmutable::$method else.",
-            ];
-            $autoDocLines[] = ['', '', '', "http://php.net/manual/en/datetime.$link.php"];
-        }
 
         continue;
     }
@@ -486,25 +473,7 @@ foreach ($carbonMethods as $method) {
         $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
         $static = $function->isStatic() ? ' static' : '';
         $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
-            $output = '$'.$parameter->getName();
-            if ($parameter->isVariadic()) {
-                $output = "...$output";
-            }
-            if ($parameter->getType()) {
-                $name = $parameter->getType()->getName();
-                if (preg_match('/^[A-Z]/', $name)) {
-                    $name = "\\$name";
-                }
-                $output = "$name $output";
-            }
-            try {
-                if ($parameter->isDefaultValueAvailable()) {
-                    $output .= ' = '.dumpValue($parameter->getDefaultValue());
-                }
-            } catch (\ReflectionException $exp) {
-            }
-
-            return $output;
+            return dumpParameter($method, $parameter);
         }, $function->getParameters()));
         $methodDocBlock = $function->getDocComment() ?: '';
         if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
@@ -537,6 +506,13 @@ foreach ($carbonMethods as $method) {
         $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
         if (!empty($methodDocBlock)) {
             $methodDocBlock = "\n    $methodDocBlock";
+        } elseif(isset($nativeMethods[$method])) {
+            $link = strtolower($method);
+            $methodDocBlock = "\n    /**\n".
+                "     * call \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
+                "     *\n".
+                "     * @see http://php.net/manual/en/datetime.$link.php\n".
+                '     */';
         }
         $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
     }

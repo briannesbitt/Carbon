@@ -93,22 +93,6 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
- * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
- *                                                                                                                   http://php.net/manual/en/datetime.format.php
- * @method        static         modify($modify)                                                                     call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
- *                                                                                                                   http://php.net/manual/en/datetime.modify.php
- * @method        int            getOffset()                                                                         call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
- *                                                                                                                   http://php.net/manual/en/datetime.getoffset.php
- * @method        int            getTimestamp()                                                                      call \DateTime::getTimestamp if mutable or \DateTimeImmutable::getTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.gettimestamp.php
- * @method        static         setTime($hour, $minute, $second = 0, $microseconds = 0)                             call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
- *                                                                                                                   http://php.net/manual/en/datetime.settime.php
- * @method        static         setISODate($year, $week, $day = 1)                                                  call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
- *                                                                                                                   http://php.net/manual/en/datetime.setisodate.php
- * @method        static         setTimestamp($unixtimestamp)                                                        call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.settimestamp.php
- * @method        \DateInterval  diff($object, $absolute = true)                                                     call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
- *                                                                                                                   http://php.net/manual/en/datetime.diff.php
  * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
