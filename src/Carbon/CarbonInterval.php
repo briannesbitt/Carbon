@@ -170,9 +170,7 @@ class CarbonInterval extends DateInterval
     {
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = [];
-            foreach (static::getCascadeFactors() as $to => $tuple) {
-                list($factor, $from) = $tuple;
-
+            foreach (static::getCascadeFactors() as $to => [$factor, $from]) {
                 self::$flipCascadeFactors[self::standardizeUnit($from)] = [self::standardizeUnit($to), $factor];
             }
         }
@@ -257,7 +255,7 @@ class CarbonInterval extends DateInterval
         $target = self::standardizeUnit($target);
         $factors = static::getFlipCascadeFactors();
         if (isset($factors[$source])) {
-            list($to, $factor) = $factors[$source];
+            [$to, $factor] = $factors[$source];
             if ($to === $target) {
                 return $factor;
             }
@@ -462,8 +460,7 @@ class CarbonInterval extends DateInterval
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
-        while ($match = array_shift($parts)) {
-            list($part, $value, $unit) = $match;
+        while ([$part, $value, $unit] = array_shift($parts)) {
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
             // Fix calculation precision
@@ -1304,9 +1301,7 @@ class CarbonInterval extends DateInterval
      */
     public function cascade()
     {
-        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
-            list($target, $factor) = $cascade;
-
+        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
             if ($source === 'dayz' && $target === 'weeks') {
                 continue;
             }
@@ -1350,9 +1345,7 @@ class CarbonInterval extends DateInterval
         $cumulativeFactor = 0;
         $unitFound = false;
 
-        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
-            list($target, $factor) = $cascade;
-
+        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
             if ($source === $realUnit) {
                 $unitFound = true;
                 $value = $this->$source;

@@ -85,7 +85,7 @@ function dumpValue($value)
 
 foreach ($tags as $tag) {
     if (is_array($tag)) {
-        list($tag, $pattern) = $tag;
+        [$tag, $pattern] = $tag;
     }
     $pattern = isset($pattern) ? $pattern : '\S+';
     if ($tag === PHP_EOL) {
@@ -415,7 +415,7 @@ foreach ($tags as $tag) {
         $description = trim($vars->description);
         $variable = $vars->name;
         if (substr($description, 0, 1) === '$') {
-            list($variable, $description) = explode(' ', $description, 2);
+            [$variable, $description] = explode(' ', $description, 2);
             $variable = ltrim($variable, '$');
             $description = ltrim($description);
         }

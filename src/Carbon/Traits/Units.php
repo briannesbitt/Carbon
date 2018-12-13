@@ -199,7 +199,7 @@ trait Units
             'quarter' => [static::MONTHS_PER_QUARTER, 'month'],
         ];
         if (isset($metaUnits[$unit])) {
-            list($factor, $unit) = $metaUnits[$unit];
+            [$factor, $unit] = $metaUnits[$unit];
             $value *= $factor;
         }
 

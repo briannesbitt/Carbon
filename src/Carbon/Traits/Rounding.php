@@ -56,7 +56,7 @@ trait Rounding
         ]);
         $factor = 1;
         if (isset($metaUnits[$normalizedUnit])) {
-            list($factor, $normalizedUnit) = $metaUnits[$normalizedUnit];
+            [$factor, $normalizedUnit] = $metaUnits[$normalizedUnit];
         }
         $precision *= $factor;
 
@@ -70,9 +70,7 @@ trait Rounding
         $factor = $this->year < 0 ? -1 : 1;
         $changes = [];
 
-        foreach ($ranges as $unit => $range) {
-            list($minimum, $maximum) = $range;
-
+        foreach ($ranges as $unit => [$minimum, $maximum]) {
             if ($normalizedUnit === $unit) {
                 $arguments = [$this->$unit, $minimum];
                 $fraction = $precision - floor($precision);
@@ -95,7 +93,7 @@ trait Rounding
             }
         }
 
-        list($value, $minimum) = $arguments;
+        [$value, $minimum] = $arguments;
         /** @var CarbonInterface $result */
         $result = $this->$normalizedUnit(floor(call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
         foreach ($changes as $unit => $value) {
