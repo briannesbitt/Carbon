@@ -14,13 +14,13 @@
 }, 'gd');
 
 return [
-    'year' => 'bliadhna|%count% bliadhna',
-    'month' => 'mìos|%count% mìosan',
-    'week' => 'seachdain|%count% seachdainean',
-    'day' => 'latha|%count% latha',
-    'hour' => 'uair|%count% uairean',
-    'minute' => 'mionaid|%count% mionaidean',
-    'second' => 'beagan diogan|%count% diogan',
+    'year' => 'bliadhna|:count bliadhna',
+    'month' => 'mìos|:count mìosan',
+    'week' => 'seachdain|:count seachdainean',
+    'day' => 'latha|:count latha',
+    'hour' => 'uair|:count uairean',
+    'minute' => 'mionaid|:count mionaidean',
+    'second' => 'beagan diogan|:count diogan',
     'ago' => 'bho chionn :time',
     'from_now' => 'ann an :time',
     'diff_yesterday' => 'An-dè',

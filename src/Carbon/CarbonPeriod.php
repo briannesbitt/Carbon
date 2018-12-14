@@ -1281,15 +1281,15 @@ class CarbonPeriod implements Iterator, Countable
             : 'Y-m-d';
 
         if ($this->recurrences !== null) {
-            $parts[] = $translator->trans('period_recurrences', ['%count%' => $this->recurrences]);
+            $parts[] = $this->translate('period_recurrences', [], $this->recurrences, $translator);
         }
 
-        $parts[] = $translator->trans('period_interval', [':interval' => $this->dateInterval->forHumans()]);
+        $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans()], null, $translator);
 
-        $parts[] = $translator->trans('period_start_date', [':date' => $this->startDate->format($format)]);
+        $parts[] = $this->translate('period_start_date', [':date' => $this->startDate->format($format)], null, $translator);
 
         if ($this->endDate !== null) {
-            $parts[] = $translator->trans('period_end_date', [':date' => $this->endDate->format($format)]);
+            $parts[] = $this->translate('period_end_date', [':date' => $this->endDate->format($format)], null, $translator);
         }
 
         $result = implode(' ', $parts);

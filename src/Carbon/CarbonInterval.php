@@ -985,14 +985,14 @@ class CarbonInterval extends DateInterval
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $translator->trans($unitData['unitShort'], ['%count%' => $count]);
+                $result = $this->translate($unitData['unitShort'], [], $count, $translator);
 
                 if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             }
 
-            return $translator->trans($unitData['unit'], ['%count%' => $count]);
+            return $this->translate($unitData['unit'], [], $count, $translator);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1011,14 +1011,14 @@ class CarbonInterval extends DateInterval
         if (count($interval) === 0) {
             if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
-                $translation = $translator->trans($key);
+                $translation = $this->translate($key, [], null, $translator);
                 if ($translation !== $key) {
                     return $translation;
                 }
             }
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $translator->trans($unit, ['%count%' => $count]);
+            $interval[] = $this->translate($unit, [], $count, $translator);
         }
 
         // join the interval parts by a space
@@ -1038,14 +1038,14 @@ class CarbonInterval extends DateInterval
             if ($relativeToNow && $unit === 'day') {
                 if ($count === 1 && $options & CarbonInterface::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = $translator->trans($key);
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
                 if ($count === 2 && $options & CarbonInterface::TWO_DAY_WORDS) {
                     $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
-                    $translation = $translator->trans($key);
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
@@ -1053,12 +1053,12 @@ class CarbonInterval extends DateInterval
             }
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            if ($key !== $translator->trans($key)) {
-                $time = $translator->trans($key, ['%count%' => $count]);
+            if ($key !== $this->translate($key, [], null, $translator)) {
+                $time = $this->translate($key, [], $count, $translator);
             }
         }
 
-        return $translator->trans($transId, [':time' => $time]);
+        return $this->translate($transId, [':time' => $time], null, $translator);
     }
 
     /**

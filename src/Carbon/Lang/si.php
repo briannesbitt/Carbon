@@ -14,13 +14,13 @@
 }, 'si');
 
 return [
-    'year' => 'වසර|වසර %count%',
-    'month' => 'මාසය|මාස %count%',
-    'week' => 'සතියක්|සති %count% යි',
-    'day' => 'දිනය|දින %count%',
-    'hour' => 'පැය|පැය %count%',
-    'minute' => 'මිනිත්තුව|මිනිත්තු %count%',
-    'second' => 'තත්පර කිහිපය|තත්පර %count%',
+    'year' => 'වසර|වසර :count',
+    'month' => 'මාසය|මාස :count',
+    'week' => 'සතියක්|සති :count යි',
+    'day' => 'දිනය|දින :count',
+    'hour' => 'පැය|පැය :count',
+    'minute' => 'මිනිත්තුව|මිනිත්තු :count',
+    'second' => 'තත්පර කිහිපය|තත්පර :count',
     'ago' => ':timeකට පෙර',
     'from_now' => ':timeකින්',
     'diff_yesterday' => 'ඊයේ',

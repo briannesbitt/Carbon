@@ -14,13 +14,13 @@
 }, 'tl');
 
 return [
-    'year' => 'isang taon|%count% taon',
-    'month' => 'isang buwan|%count% buwan',
-    'week' => 'isang linggo|%count% linggo',
-    'day' => 'isang araw|%count% araw',
-    'hour' => 'isang oras|%count% oras',
-    'minute' => 'isang minuto|%count% minuto',
-    'second' => 'ilang segundo|%count% segundo',
+    'year' => 'isang taon|:count taon',
+    'month' => 'isang buwan|:count buwan',
+    'week' => 'isang linggo|:count linggo',
+    'day' => 'isang araw|:count araw',
+    'hour' => 'isang oras|:count oras',
+    'minute' => 'isang minuto|:count minuto',
+    'second' => 'ilang segundo|:count segundo',
     'ago' => ':time ang nakalipas',
     'from_now' => 'sa loob ng :time',
     'formats' => [

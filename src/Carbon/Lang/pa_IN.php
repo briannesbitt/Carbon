@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'ਇੱਕ ਸਾਲ|%count% ਸਾਲ',
-    'month' => 'ਇੱਕ ਮਹੀਨਾ|%count% ਮਹੀਨੇ',
-    'week' => 'ਹਫਤਾ|%count% ਹਫ਼ਤੇ',
-    'day' => 'ਇੱਕ ਦਿਨ|%count% ਦਿਨ',
-    'hour' => 'ਇੱਕ ਘੰਟਾ|%count% ਘੰਟੇ',
-    'minute' => 'ਇਕ ਮਿੰਟ|%count% ਮਿੰਟ',
-    'second' => 'ਕੁਝ ਸਕਿੰਟ|%count% ਸਕਿੰਟ',
+    'year' => 'ਇੱਕ ਸਾਲ|:count ਸਾਲ',
+    'month' => 'ਇੱਕ ਮਹੀਨਾ|:count ਮਹੀਨੇ',
+    'week' => 'ਹਫਤਾ|:count ਹਫ਼ਤੇ',
+    'day' => 'ਇੱਕ ਦਿਨ|:count ਦਿਨ',
+    'hour' => 'ਇੱਕ ਘੰਟਾ|:count ਘੰਟੇ',
+    'minute' => 'ਇਕ ਮਿੰਟ|:count ਮਿੰਟ',
+    'second' => 'ਕੁਝ ਸਕਿੰਟ|:count ਸਕਿੰਟ',
     'ago' => ':time ਪਿਛਲੇ',
     'from_now' => ':time ਵਿੱਚ',
     'diff_yesterday' => 'ਕਲ',

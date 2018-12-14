@@ -39,13 +39,13 @@ $weekdays = [
 }, 'sd');
 
 return [
-    'year' => 'هڪ سال|%count% سال',
-    'month' => 'هڪ مهينو|%count% مهينا',
-    'week' => 'ھڪ ھفتو|%count% هفتا',
-    'day' => 'هڪ ڏينهن|%count% ڏينهن',
-    'hour' => 'هڪ ڪلاڪ|%count% ڪلاڪ',
-    'minute' => 'هڪ منٽ|%count% منٽ',
-    'second' => 'چند سيڪنڊ|%count% سيڪنڊ',
+    'year' => 'هڪ سال|:count سال',
+    'month' => 'هڪ مهينو|:count مهينا',
+    'week' => 'ھڪ ھفتو|:count هفتا',
+    'day' => 'هڪ ڏينهن|:count ڏينهن',
+    'hour' => 'هڪ ڪلاڪ|:count ڪلاڪ',
+    'minute' => 'هڪ منٽ|:count منٽ',
+    'second' => 'چند سيڪنڊ|:count سيڪنڊ',
     'ago' => ':time اڳ',
     'from_now' => ':time پوء',
     'diff_yesterday' => 'ڪالهه',

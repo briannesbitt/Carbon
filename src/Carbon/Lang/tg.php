@@ -14,13 +14,13 @@
 }, 'tg');
 
 return [
-    'year' => 'як сол|%count% сол',
-    'month' => 'як моҳ|%count% моҳ',
-    'week' => 'як ҳафта|%count% ҳафта',
-    'day' => 'як рӯз|%count% рӯз',
-    'hour' => 'як соат|%count% соат',
-    'minute' => 'як дақиқа|%count% дақиқа',
-    'second' => 'якчанд сония|%count% сония',
+    'year' => 'як сол|:count сол',
+    'month' => 'як моҳ|:count моҳ',
+    'week' => 'як ҳафта|:count ҳафта',
+    'day' => 'як рӯз|:count рӯз',
+    'hour' => 'як соат|:count соат',
+    'minute' => 'як дақиқа|:count дақиқа',
+    'second' => 'якчанд сония|:count сония',
     'ago' => ':time пеш',
     'from_now' => 'баъди :time',
     'formats' => [

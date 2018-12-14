@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => '{1}setaun|]1,Inf[%count% taun',
-    'month' => '{1}sewulan|]1,Inf[%count% wulan',
-    'week' => '{1}sakminggu|]1,Inf[%count% minggu',
-    'day' => '{1}sedinten|]1,Inf[%count% dinten',
-    'hour' => '{1}setunggal jam|]1,Inf[%count% jam',
-    'minute' => '{1}setunggal menit|]1,Inf[%count% menit',
-    'second' => '{1}sawetawis detik|]1,Inf[%count% detik',
+    'year' => '{1}setaun|]1,Inf[:count taun',
+    'month' => '{1}sewulan|]1,Inf[:count wulan',
+    'week' => '{1}sakminggu|]1,Inf[:count minggu',
+    'day' => '{1}sedinten|]1,Inf[:count dinten',
+    'hour' => '{1}setunggal jam|]1,Inf[:count jam',
+    'minute' => '{1}setunggal menit|]1,Inf[:count menit',
+    'second' => '{1}sawetawis detik|]1,Inf[:count detik',
     'ago' => ':time ingkang kepengker',
     'from_now' => 'wonten ing :time',
     'formats' => [

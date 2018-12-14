@@ -19,8 +19,6 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use ReflectionException;
-use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * A simple API extension for DateTime.
@@ -1648,29 +1646,6 @@ trait Date
     }
 
     /**
-     * Returns raw translation message for a given key.
-     *
-     * @param string      $key     key to find
-     * @param string|null $locale  current locale used if null
-     * @param string|null $default default value if translation returns the key
-     *
-     * @return string
-     */
-    public function getTranslationMessage(string $key, string $locale = null, string $default = null)
-    {
-        $translator = $this->getLocalTranslator();
-        if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
-            throw new InvalidArgumentException(
-                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'.'
-            );
-        }
-
-        $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
-
-        return $result === $key ? $default : $result;
-    }
-
-    /**
      * Returns list of locale formats for ISO formatting.
      *
      * @param string|null $locale current locale used if null
@@ -1842,30 +1817,6 @@ trait Date
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = STR_PAD_LEFT)
     {
         return ($this->$unit < 0 ? '-' : '').str_pad(abs($this->$unit), $length, $padString, $padType);
-    }
-
-    /**
-     * Translate using translation string or callback available.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @param null   $number
-     *
-     * @return string
-     */
-    public function translate(string $key, array $parameters = [], $number = null): string
-    {
-        $message = $this->getTranslationMessage($key, null, $key);
-        if ($message instanceof Closure) {
-            return $message(...array_values($parameters));
-        }
-
-        if ($number !== null) {
-            exit('ici');
-            $parameters['%count%'] = $number;
-        }
-
-        return $this->getLocalTranslator()->trans($key, $parameters);
     }
 
     /**

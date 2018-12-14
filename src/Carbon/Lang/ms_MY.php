@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => '{1}setahun|]1,Inf[%count% tahun',
-    'month' => '{1}sebulan|]1,Inf[%count% bulan',
-    'week' => '{1}seminggu|%count% minggu',
-    'day' => '{1}sehari|]1,Inf[%count% hari',
-    'hour' => '{1}sejam|]1,Inf[%count% jam',
-    'minute' => '{1}seminit|]1,Inf[%count% minit',
-    'second' => '{1}beberapa saat|]1,Inf[%count% saat',
+    'year' => '{1}setahun|]1,Inf[:count tahun',
+    'month' => '{1}sebulan|]1,Inf[:count bulan',
+    'week' => '{1}seminggu|:count minggu',
+    'day' => '{1}sehari|]1,Inf[:count hari',
+    'hour' => '{1}sejam|]1,Inf[:count jam',
+    'minute' => '{1}seminit|]1,Inf[:count minit',
+    'second' => '{1}beberapa saat|]1,Inf[:count saat',
     'ago' => ':time yang lepas',
     'from_now' => 'dalam :time',
     'formats' => [

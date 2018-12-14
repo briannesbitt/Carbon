@@ -14,13 +14,13 @@
 }, 'yo');
 
 return [
-    'year' => 'ọdún kan|ọdún %count%',
-    'month' => 'osù kan|osù %count%',
-    'week' => 'ọsẹ kan|ọsẹ %count%',
-    'day' => 'ọjọ́ kan|ọjọ́ %count%',
-    'hour' => 'wákati kan|wákati %count%',
-    'minute' => 'ìsẹjú kan|ìsẹjú %count%',
-    'second' => 'ìsẹjú aayá die|aayá %count%',
+    'year' => 'ọdún kan|ọdún :count',
+    'month' => 'osù kan|osù :count',
+    'week' => 'ọsẹ kan|ọsẹ :count',
+    'day' => 'ọjọ́ kan|ọjọ́ :count',
+    'hour' => 'wákati kan|wákati :count',
+    'minute' => 'ìsẹjú kan|ìsẹjú :count',
+    'second' => 'ìsẹjú aayá die|aayá :count',
     'ago' => ':time kọjá',
     'from_now' => 'ní :time',
     'diff_yesterday' => 'Àna',
