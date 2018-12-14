@@ -1508,6 +1508,37 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * @internal
+     *
+     * This method is an internal work-around and is not available in next major version, please do not use
+     * it directly.
+     *
+     * Compatibility wrapper for \Symfony\Component\Translation\TranslatorInterface::transChoice method.
+     *
+     * @param string $key
+     * @param int    $count
+     *
+     * @return string
+     */
+    public static function transChoice($key, $count)
+    {
+        $parameters = array(
+            ':count' => $count,
+            '%count%' => $count,
+        );
+
+        try {
+            return static::translator()->transChoice($key, $count, $parameters);
+        } catch (\Exception $exception) {
+            // PHP 5
+        } catch (\Throwable $exception) {
+            // PHP 7
+        }
+
+        return static::translator()->trans($key, $parameters);
+    }
+
+    /**
      * Set the translator instance to use
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
@@ -3628,7 +3659,7 @@ class Carbon extends DateTime implements JsonSerializable
                     $unit = $short ? 'w' : 'week';
                     $count = (int) ($count / static::DAYS_PER_WEEK);
 
-                    $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+                    $interval[] = static::transChoice($unit, $count);
 
                     // get the count days excluding weeks (might be zero)
                     $numOfDaysCount = (int) ($diffIntervalData['value'] - ($count * static::DAYS_PER_WEEK));
@@ -3636,10 +3667,10 @@ class Carbon extends DateTime implements JsonSerializable
                     if ($numOfDaysCount > 0 && count($interval) < $parts) {
                         $unit = $short ? 'd' : 'day';
                         $count = $numOfDaysCount;
-                        $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+                        $interval[] = static::transChoice($unit, $count);
                     }
                 } else {
-                    $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+                    $interval[] = static::transChoice($unit, $count);
                 }
             }
 
@@ -3659,7 +3690,7 @@ class Carbon extends DateTime implements JsonSerializable
             }
             $count = static::getHumanDiffOptions() & self::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = static::translator()->transChoice($unit, $count, array(':count' => $count));
+            $interval[] = static::transChoice($unit, $count);
         }
 
         // join the interval parts by a space
@@ -3695,8 +3726,8 @@ class Carbon extends DateTime implements JsonSerializable
             // Some langs have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
             $count = isset($count) ? $count : 1;
-            if ($key !== static::translator()->transChoice($key, $count)) {
-                $time = static::translator()->transChoice($key, $count, array(':count' => $count));
+            if ($key !== static::transChoice($key, $count)) {
+                $time = static::transChoice($key, $count);
             }
         }
 
