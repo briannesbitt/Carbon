@@ -1860,9 +1860,12 @@ trait Date
             return $message(...array_values($parameters));
         }
 
-        return $number === null
-            ? $this->getLocalTranslator()->trans($key, $parameters)
-            : $this->getLocalTranslator()->transChoice($key, $number, $parameters);
+        if ($number !== null) {
+            exit('ici');
+            $parameters['%count%'] = $number;
+        }
+
+        return $this->getLocalTranslator()->trans($key, $parameters);
     }
 
     /**

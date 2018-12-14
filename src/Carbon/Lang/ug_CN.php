@@ -14,13 +14,13 @@
 }, 'ug');
 
 return [
-    'year' => 'بىر يىل|:count يىل',
-    'month' => 'بىر ئاي|:count ئاي',
-    'week' => 'بىر ھەپتە|:count ھەپتە',
-    'day' => 'بىر كۈن|:count كۈن',
-    'hour' => 'بىر سائەت|:count سائەت',
-    'minute' => 'بىر مىنۇت|:count مىنۇت',
-    'second' => 'نەچچە سېكونت|:count سېكونت',
+    'year' => 'بىر يىل|%count% يىل',
+    'month' => 'بىر ئاي|%count% ئاي',
+    'week' => 'بىر ھەپتە|%count% ھەپتە',
+    'day' => 'بىر كۈن|%count% كۈن',
+    'hour' => 'بىر سائەت|%count% سائەت',
+    'minute' => 'بىر مىنۇت|%count% مىنۇت',
+    'second' => 'نەچچە سېكونت|%count% سېكونت',
     'ago' => ':time بۇرۇن',
     'from_now' => ':time كېيىن',
     'formats' => [

@@ -1281,7 +1281,7 @@ class CarbonPeriod implements Iterator, Countable
             : 'Y-m-d';
 
         if ($this->recurrences !== null) {
-            $parts[] = $translator->transChoice('period_recurrences', $this->recurrences, [':count' => $this->recurrences]);
+            $parts[] = $translator->trans('period_recurrences', ['%count%' => $this->recurrences]);
         }
 
         $parts[] = $translator->trans('period_interval', [':interval' => $this->dateInterval->forHumans()]);

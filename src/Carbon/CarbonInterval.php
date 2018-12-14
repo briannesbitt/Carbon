@@ -45,6 +45,7 @@ use ReflectionMethod;
  * @property-read float $totalSeconds Number of seconds equivalent to the interval.
  * @property-read float $totalMilliseconds Number of milliseconds equivalent to the interval.
  * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval.
+ * @property-read string $locale locale of the current instance
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
@@ -984,14 +985,14 @@ class CarbonInterval extends DateInterval
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $translator->transChoice($unitData['unitShort'], $count, [':count' => $count]);
+                $result = $translator->trans($unitData['unitShort'], ['%count%' => $count]);
 
                 if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             }
 
-            return $translator->transChoice($unitData['unit'], $count, [':count' => $count]);
+            return $translator->trans($unitData['unit'], ['%count%' => $count]);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1017,7 +1018,7 @@ class CarbonInterval extends DateInterval
             }
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
+            $interval[] = $translator->trans($unit, ['%count%' => $count]);
         }
 
         // join the interval parts by a space
@@ -1052,8 +1053,8 @@ class CarbonInterval extends DateInterval
             }
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            if ($key !== $translator->transChoice($key, $count)) {
-                $time = $translator->transChoice($key, $count, [':count' => $count]);
+            if ($key !== $translator->trans($key)) {
+                $time = $translator->trans($key, ['%count%' => $count]);
             }
         }
 

@@ -12,59 +12,48 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 use Tests\CarbonImmutable\Fixtures\Mixin;
 
-class MacroTest extends AbstractTestCase
+class MacroTest extends AbstractTestCaseWithOldNow
 {
-    /**
-     * @var \Carbon\Carbon
-     */
-    protected $now;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        Carbon::setTestNow($this->now = Carbon::create(2017, 6, 27, 13, 14, 15, 'UTC'));
-    }
-
-    public function tearDown()
-    {
-        Carbon::setTestNow();
-        Carbon::serializeUsing(null);
-
-        parent::tearDown();
-    }
-
     public function testCarbonIsMacroableWhenNotCalledDynamically()
     {
         Carbon::macro('easterDays', function ($year = 2019) {
             return easter_days($year);
         });
 
-        $this->assertSame(22, $this->now->easterDays(2020));
-        $this->assertSame(31, $this->now->easterDays());
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame(22, $now->easterDays(2020));
+        $this->assertSame(31, $now->easterDays());
 
         Carbon::macro('otherParameterName', function ($other = true) {
             return $other;
         });
 
-        $this->assertTrue($this->now->otherParameterName());
+        $this->assertTrue($now->otherParameterName());
     }
 
     public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
     {
         Carbon::macro('diffFromEaster', function ($year) {
-            return $this->diff(
+            /** @var Carbon $date */
+            $date = $this;
+
+            return $date->diff(
                 Carbon::create($year, 3, 21)
-                    ->setTimezone($this->getTimezone())
+                    ->setTimezone($date->getTimezone())
                     ->addDays(easter_days($year))
                     ->endOfDay()
             );
         });
 
-        $this->assertSame(1020, $this->now->diffFromEaster(2020)->days);
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame(1020, $now->diffFromEaster(2020)->days);
     }
 
     public function testCarbonIsMacroableWhenCalledStatically()
@@ -80,7 +69,10 @@ class MacroTest extends AbstractTestCase
     {
         Carbon::macro('lower2', 'strtolower');
 
-        $this->assertSame('abc', $this->now->lower2('ABC'));
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('abc', $now->lower2('ABC'));
         $this->assertSame('abc', Carbon::lower2('ABC'));
     }
 
@@ -90,6 +82,8 @@ class MacroTest extends AbstractTestCase
         $mixin = new Mixin();
         Carbon::mixin($mixin);
         Carbon::setUserTimezone('America/Belize');
+
+        /** @var mixed $date */
         $date = Carbon::parse('2000-01-01 12:00:00', 'UTC');
 
         $this->assertSame('06:00 America/Belize', $date->userFormat('H:i e'));
@@ -110,6 +104,8 @@ class MacroTest extends AbstractTestCase
      */
     public function testCarbonRaisesExceptionWhenMacroIsNotFound()
     {
-        Carbon::now()->nonExistingMacro();
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->nonExistingMacro();
     }
 }

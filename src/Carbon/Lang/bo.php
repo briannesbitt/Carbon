@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => '{1}ལོ་གཅིག|]1,Inf[:count ལོ',
-    'month' => '{1}ཟླ་བ་གཅིག|]1,Inf[:count ཟླ་བ',
-    'week' => ':count བདུན་ཕྲག',
-    'day' => '{1}ཉིན་གཅིག|]1,Inf[:count ཉིན་',
-    'hour' => '{1}ཆུ་ཚོད་གཅིག|]1,Inf[:count ཆུ་ཚོད',
-    'minute' => '{1}སྐར་མ་གཅིག|]1,Inf[:count སྐར་མ',
-    'second' => '{1}ལམ་སང|]1,Inf[:count སྐར་ཆ།',
+    'year' => '{1}ལོ་གཅིག|]1,Inf[%count% ལོ',
+    'month' => '{1}ཟླ་བ་གཅིག|]1,Inf[%count% ཟླ་བ',
+    'week' => '%count% བདུན་ཕྲག',
+    'day' => '{1}ཉིན་གཅིག|]1,Inf[%count% ཉིན་',
+    'hour' => '{1}ཆུ་ཚོད་གཅིག|]1,Inf[%count% ཆུ་ཚོད',
+    'minute' => '{1}སྐར་མ་གཅིག|]1,Inf[%count% སྐར་མ',
+    'second' => '{1}ལམ་སང|]1,Inf[%count% སྐར་ཆ།',
     'ago' => ':time སྔན་ལ',
     'from_now' => ':time ལ་',
     'diff_yesterday' => 'ཁ་སང',

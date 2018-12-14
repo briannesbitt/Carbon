@@ -11,6 +11,8 @@
 
 namespace Tests\CarbonInterval\Fixtures;
 
+use Carbon\CarbonInterval;
+
 class Mixin
 {
     public $factor = null;
@@ -29,7 +31,10 @@ class Mixin
         $mixin = $this;
 
         return function () use ($mixin) {
-            return $this->times($mixin->factor);
+            /** @var CarbonInterval $interval */
+            $interval = $this;
+
+            return $interval->times($mixin->factor);
         };
     }
 }

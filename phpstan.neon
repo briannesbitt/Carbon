@@ -6,3 +6,4 @@ parameters:
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Laravel/*.php'
+        - '*/tests/CarbonPeriod/Fixtures/filters.php'

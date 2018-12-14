@@ -35,13 +35,13 @@ $weekdays = [
 ];
 
 return [
-    'year' => 'ایک سال|:count سال',
-    'month' => 'ایک ماہ|:count ماہ',
-    'week' => ':count ہفتے',
-    'day' => 'ایک دن|:count دن',
-    'hour' => 'ایک گھنٹہ|:count گھنٹے',
-    'minute' => 'ایک منٹ|:count منٹ',
-    'second' => 'چند سیکنڈ|:count سیکنڈ',
+    'year' => 'ایک سال|%count% سال',
+    'month' => 'ایک ماہ|%count% ماہ',
+    'week' => '%count% ہفتے',
+    'day' => 'ایک دن|%count% دن',
+    'hour' => 'ایک گھنٹہ|%count% گھنٹے',
+    'minute' => 'ایک منٹ|%count% منٹ',
+    'second' => 'چند سیکنڈ|%count% سیکنڈ',
     'ago' => ':time قبل',
     'from_now' => ':time بعد',
     'after' => ':time بعد',

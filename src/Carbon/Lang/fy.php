@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'ien jier|:count jierren',
-    'month' => 'ien moanne|:count moannen',
-    'week' => 'in wike|:count wiken',
-    'day' => 'ien dei|:count dagen',
-    'hour' => 'ien oere|:count oeren',
-    'minute' => 'ien minút|:count minuten',
-    'second' => 'in pear sekonden|:count sekonden',
+    'year' => 'ien jier|%count% jierren',
+    'month' => 'ien moanne|%count% moannen',
+    'week' => 'in wike|%count% wiken',
+    'day' => 'ien dei|%count% dagen',
+    'hour' => 'ien oere|%count% oeren',
+    'minute' => 'ien minút|%count% minuten',
+    'second' => 'in pear sekonden|%count% sekonden',
     'ago' => ':time lyn',
     'from_now' => 'oer :time',
     'diff_yesterday' => 'juster',

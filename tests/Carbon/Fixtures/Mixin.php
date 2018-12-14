@@ -11,6 +11,8 @@
 
 namespace Tests\Carbon\Fixtures;
 
+use Carbon\CarbonInterface;
+
 class Mixin
 {
     public $timezone = null;
@@ -29,11 +31,14 @@ class Mixin
         $mixin = $this;
 
         return function ($format) use ($mixin) {
+            /** @var CarbonInterface $date */
+            $date = $this;
+
             if ($mixin->timezone) {
-                $this->setTimezone($mixin->timezone);
+                $date->setTimezone($mixin->timezone);
             }
 
-            return $this->format($format);
+            return $date->format($format);
         };
     }
 }

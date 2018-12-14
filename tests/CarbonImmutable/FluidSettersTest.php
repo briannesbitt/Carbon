@@ -22,7 +22,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->year(1995);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->year, $d->year);
+        $this->assertSame($this->immutableNow->year, $d->year);
         $this->assertSame(1995, $d2->year);
     }
 
@@ -32,7 +32,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->month(3);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->month, $d->month);
+        $this->assertSame($this->immutableNow->month, $d->month);
         $this->assertSame(3, $d2->month);
     }
 
@@ -52,7 +52,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->day(2);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->day, $d->day);
+        $this->assertSame($this->immutableNow->day, $d->day);
         $this->assertSame(2, $d2->day);
     }
 
@@ -82,7 +82,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->hour(2);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->hour, $d->hour);
+        $this->assertSame($this->immutableNow->hour, $d->hour);
         $this->assertSame(2, $d2->hour);
     }
 
@@ -92,7 +92,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->hour(25);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->hour, $d->hour);
+        $this->assertSame($this->immutableNow->hour, $d->hour);
         $this->assertSame(1, $d2->hour);
     }
 
@@ -102,7 +102,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->minute(2);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->minute, $d->minute);
+        $this->assertSame($this->immutableNow->minute, $d->minute);
         $this->assertSame(2, $d2->minute);
     }
 
@@ -112,7 +112,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->minute(61);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->minute, $d->minute);
+        $this->assertSame($this->immutableNow->minute, $d->minute);
         $this->assertSame(1, $d2->minute);
     }
 
@@ -122,7 +122,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->second(2);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->second, $d->second);
+        $this->assertSame($this->immutableNow->second, $d->second);
         $this->assertSame(2, $d2->second);
     }
 
@@ -132,7 +132,7 @@ class FluidSettersTest extends AbstractTestCase
         $d2 = $d->second(62);
         $this->assertInstanceOfCarbon($d2);
         $this->assertInstanceOf(Carbon::class, $d2);
-        $this->assertSame($this->now->second, $d->second);
+        $this->assertSame($this->immutableNow->second, $d->second);
         $this->assertSame(2, $d2->second);
     }
 

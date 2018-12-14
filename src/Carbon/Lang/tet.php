@@ -14,13 +14,13 @@
 }, 'tet');
 
 return [
-    'year' => 'tinan ida|tinan :count',
-    'month' => 'fulan ida|fulan :count',
-    'week' => 'semana ida|semana :count',
-    'day' => 'loron ida|loron :count',
-    'hour' => 'oras ida|oras :count',
-    'minute' => 'minutu ida|minutu :count',
-    'second' => 'minutu balun|minutu :count',
+    'year' => 'tinan ida|tinan %count%',
+    'month' => 'fulan ida|fulan %count%',
+    'week' => 'semana ida|semana %count%',
+    'day' => 'loron ida|loron %count%',
+    'hour' => 'oras ida|oras %count%',
+    'minute' => 'minutu ida|minutu %count%',
+    'second' => 'minutu balun|minutu %count%',
     'ago' => ':time liuba',
     'from_now' => 'iha :time',
     'diff_yesterday' => 'Horiseik',

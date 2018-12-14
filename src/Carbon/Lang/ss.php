@@ -14,13 +14,13 @@
 }, 'ss');
 
 return [
-    'year' => 'umnyaka|:count iminyaka',
-    'month' => 'inyanga|:count tinyanga',
-    'week' => ':count liviki|:count emaviki',
-    'day' => 'lilanga|:count emalanga',
-    'hour' => 'lihora|:count emahora',
-    'minute' => 'umzuzu|:count emizuzu',
-    'second' => 'emizuzwana lomcane|:count mzuzwana',
+    'year' => 'umnyaka|%count% iminyaka',
+    'month' => 'inyanga|%count% tinyanga',
+    'week' => '%count% liviki|%count% emaviki',
+    'day' => 'lilanga|%count% emalanga',
+    'hour' => 'lihora|%count% emahora',
+    'minute' => 'umzuzu|%count% emizuzu',
+    'second' => 'emizuzwana lomcane|%count% mzuzwana',
     'ago' => 'wenteka nga :time',
     'from_now' => 'nga :time',
     'diff_yesterday' => 'Itolo',

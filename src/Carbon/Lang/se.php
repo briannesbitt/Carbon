@@ -14,13 +14,13 @@
 }, 'se');
 
 return [
-    'year' => 'okta jahki|:count jagit',
-    'month' => 'okta mánnu|:count mánut',
-    'week' => 'okta vahkku|:count vahkku',
-    'day' => 'okta beaivi|:count beaivvit',
-    'hour' => 'okta diimmu|:count diimmut',
-    'minute' => 'okta minuhta|:count minuhtat',
-    'second' => 'moadde sekunddat|:count sekunddat',
+    'year' => 'okta jahki|%count% jagit',
+    'month' => 'okta mánnu|%count% mánut',
+    'week' => 'okta vahkku|%count% vahkku',
+    'day' => 'okta beaivi|%count% beaivvit',
+    'hour' => 'okta diimmu|%count% diimmut',
+    'minute' => 'okta minuhta|%count% minuhtat',
+    'second' => 'moadde sekunddat|%count% sekunddat',
     'ago' => 'maŋit :time',
     'from_now' => ':time geažes',
     'diff_yesterday' => 'ikte',

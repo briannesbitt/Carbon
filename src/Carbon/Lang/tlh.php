@@ -14,13 +14,13 @@
 }, 'tlh');
 
 return [
-    'year' => 'wa’ DIS|:count DIS',
-    'month' => 'wa’ jar|:count jar',
-    'week' => 'wa’ hogh|:count hogh',
-    'day' => 'wa’ jaj|:count jaj',
-    'hour' => 'wa’ rep|:count rep',
-    'minute' => 'wa’ tup|:count tup',
-    'second' => 'puS lup|:count lup',
+    'year' => 'wa’ DIS|%count% DIS',
+    'month' => 'wa’ jar|%count% jar',
+    'week' => 'wa’ hogh|%count% hogh',
+    'day' => 'wa’ jaj|%count% jaj',
+    'hour' => 'wa’ rep|%count% rep',
+    'minute' => 'wa’ tup|%count% tup',
+    'second' => 'puS lup|%count% lup',
     'ago' => function ($time) {
         $output = strtr($time, [
             'jaj' => 'Hu’',

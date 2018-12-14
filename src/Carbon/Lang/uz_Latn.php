@@ -14,13 +14,13 @@
 }, 'uz');
 
 return [
-    'year' => 'bir yil|:count yil',
-    'month' => 'bir oy|:count oy',
-    'week' => 'bir hafta|:count hafta',
-    'day' => 'bir kun|:count kun',
-    'hour' => 'bir soat|:count soat',
-    'minute' => 'bir daqiqa|:count daqiqa',
-    'second' => 'soniya|:count soniya',
+    'year' => 'bir yil|%count% yil',
+    'month' => 'bir oy|%count% oy',
+    'week' => 'bir hafta|%count% hafta',
+    'day' => 'bir kun|%count% kun',
+    'hour' => 'bir soat|%count% soat',
+    'minute' => 'bir daqiqa|%count% daqiqa',
+    'second' => 'soniya|%count% soniya',
     'ago' => 'Bir necha :time oldin',
     'from_now' => 'Yaqin :time ichida',
     'diff_yesterday' => 'Kecha',

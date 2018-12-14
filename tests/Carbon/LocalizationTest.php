@@ -376,7 +376,7 @@ class LocalizationTest extends AbstractTestCase
         /** @var MessageCatalogue $messages */
         $messages = $translator->getCatalogue('en');
         $resources = $messages->all('messages');
-        $resources['day'] = '1 boring day|:count boring days';
+        $resources['day'] = '1 boring day|%count% boring days';
         $translator->addResource('array', $resources, 'en');
 
         $diff = Carbon::create(2018, 1, 1, 0, 0, 0)
@@ -390,7 +390,7 @@ class LocalizationTest extends AbstractTestCase
     public function testAddCustomTranslation()
     {
         $enBoring = [
-            'day' => '1 boring day|:count boring days',
+            'day' => '1 boring day|%count% boring days',
         ];
 
         $this->assertTrue(Carbon::setLocale('en'));
@@ -611,7 +611,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $withPeriodSyntax = [
             'year' => 'foo',
-            'period_recurrences' => 'once|:count times',
+            'period_recurrences' => 'once|%count% times',
             'period_interval' => 'every :interval',
             'period_start_date' => 'from :date',
             'period_end_date' => 'to :date',

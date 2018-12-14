@@ -14,13 +14,13 @@
 }, 'tzm');
 
 return [
-    'year' => 'ⴰⵙⴳⴰⵙ|:count ⵉⵙⴳⴰⵙⵏ',
-    'month' => 'ⴰⵢoⵓⵔ|:count ⵉⵢⵢⵉⵔⵏ',
-    'week' => ':count ⵉⵎⴰⵍⴰⵙⵙ',
-    'day' => 'ⴰⵙⵙ|:count oⵙⵙⴰⵏ',
-    'hour' => 'ⵙⴰⵄⴰ|:count ⵜⴰⵙⵙⴰⵄⵉⵏ',
-    'minute' => 'ⵎⵉⵏⵓⴺ|:count ⵎⵉⵏⵓⴺ',
-    'second' => 'ⵉⵎⵉⴽ|:count ⵉⵎⵉⴽ',
+    'year' => 'ⴰⵙⴳⴰⵙ|%count% ⵉⵙⴳⴰⵙⵏ',
+    'month' => 'ⴰⵢoⵓⵔ|%count% ⵉⵢⵢⵉⵔⵏ',
+    'week' => '%count% ⵉⵎⴰⵍⴰⵙⵙ',
+    'day' => 'ⴰⵙⵙ|%count% oⵙⵙⴰⵏ',
+    'hour' => 'ⵙⴰⵄⴰ|%count% ⵜⴰⵙⵙⴰⵄⵉⵏ',
+    'minute' => 'ⵎⵉⵏⵓⴺ|%count% ⵎⵉⵏⵓⴺ',
+    'second' => 'ⵉⵎⵉⴽ|%count% ⵉⵎⵉⴽ',
     'ago' => 'ⵢⴰⵏ :time',
     'from_now' => 'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ :time',
     'formats' => [

@@ -14,13 +14,13 @@
 }, 'lo');
 
 return [
-    'year' => ':count ປີ',
-    'month' => ':count ເດືອນ',
-    'week' => ':count ອາທິດ',
-    'day' => ':count ມື້',
-    'hour' => ':count ຊົ່ວໂມງ',
-    'minute' => ':count ນາທີ',
-    'second' => 'ບໍ່ເທົ່າໃດວິນາທີ|:count ວິນາທີ',
+    'year' => '%count% ປີ',
+    'month' => '%count% ເດືອນ',
+    'week' => '%count% ອາທິດ',
+    'day' => '%count% ມື້',
+    'hour' => '%count% ຊົ່ວໂມງ',
+    'minute' => '%count% ນາທີ',
+    'second' => 'ບໍ່ເທົ່າໃດວິນາທີ|%count% ວິນາທີ',
     'ago' => ':timeຜ່ານມາ',
     'from_now' => 'ອີກ :time',
     'diff_yesterday' => 'ມື້ວານນີ້ເວລາ',

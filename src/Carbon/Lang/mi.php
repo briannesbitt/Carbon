@@ -14,13 +14,13 @@
 }, 'mi');
 
 return [
-    'year' => 'he tau|:count tau',
-    'month' => 'he marama|:count marama',
-    'week' => 'he wiki|:count wiki',
-    'day' => 'he ra|:count ra',
-    'hour' => 'te haora|:count haora',
-    'minute' => 'he meneti|:count meneti',
-    'second' => 'te hēkona ruarua|:count hēkona',
+    'year' => 'he tau|%count% tau',
+    'month' => 'he marama|%count% marama',
+    'week' => 'he wiki|%count% wiki',
+    'day' => 'he ra|%count% ra',
+    'hour' => 'te haora|%count% haora',
+    'minute' => 'he meneti|%count% meneti',
+    'second' => 'te hēkona ruarua|%count% hēkona',
     'ago' => ':time i mua',
     'from_now' => 'i roto i :time',
     'diff_yesterday' => 'inanahi',

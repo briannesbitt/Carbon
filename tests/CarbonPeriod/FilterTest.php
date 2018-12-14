@@ -342,8 +342,10 @@ class FilterTest extends AbstractTestCase
         $period = CarbonPeriod::create('2018-01-01', '2018-06-01');
 
         Carbon::macro('isTenDay', function () {
-            /* @var Carbon $this */
-            return $this->day === 10;
+            /** @var Carbon $date */
+            $date = $this;
+
+            return $date->day === 10;
         });
 
         $period->addFilter('isTenDay');

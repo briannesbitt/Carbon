@@ -49,7 +49,7 @@ trait Mutability
      */
     public function toMutable()
     {
-        /* @var DateTimeInterface $this */
+        /** @var DateTimeInterface $this */
         return Carbon::instance($this);
     }
 
@@ -60,7 +60,7 @@ trait Mutability
      */
     public function toImmutable()
     {
-        /* @var DateTimeInterface $this */
+        /** @var DateTimeInterface $this */
         return CarbonImmutable::instance($this);
     }
 }

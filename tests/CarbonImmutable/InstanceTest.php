@@ -12,6 +12,8 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\Carbon as CarbonMutable;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use DateTime;
 use DateTimeZone;
@@ -95,6 +97,7 @@ class InstanceTest extends AbstractTestCase
 
         self::assertEquals($copy, $carbon);
         self::assertNotSame($copy, $carbon);
+        self::assertInstanceOf(CarbonImmutable::class, $copy);
         self::assertTrue($copy->isImmutable());
         self::assertFalse($copy->isMutable());
         self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
@@ -105,6 +108,7 @@ class InstanceTest extends AbstractTestCase
 
         self::assertEquals($copy, $carbon);
         self::assertNotSame($copy, $carbon);
+        self::assertInstanceOf(CarbonMutable::class, $copy);
         self::assertFalse($copy->isImmutable());
         self::assertTrue($copy->isMutable());
         self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));

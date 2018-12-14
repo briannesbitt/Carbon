@@ -14,13 +14,13 @@
 }, 'tzm');
 
 return [
-    'year' => 'asgas|:count isgasn',
-    'month' => 'ayowr|:count iyyirn',
-    'week' => ':count ⵉⵎⴰⵍⴰⵙⵙ',
-    'day' => 'ass|:count ossan',
-    'hour' => 'saɛa|:count tassaɛin',
-    'minute' => 'minuḍ|:count minuḍ',
-    'second' => 'imik|:count imik',
+    'year' => 'asgas|%count% isgasn',
+    'month' => 'ayowr|%count% iyyirn',
+    'week' => '%count% ⵉⵎⴰⵍⴰⵙⵙ',
+    'day' => 'ass|%count% ossan',
+    'hour' => 'saɛa|%count% tassaɛin',
+    'minute' => 'minuḍ|%count% minuḍ',
+    'second' => 'imik|%count% imik',
     'ago' => 'yan :time',
     'from_now' => 'dadkh s yan :time',
     'diff_yesterday' => 'assant',

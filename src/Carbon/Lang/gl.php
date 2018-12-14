@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'un ano|:count anos',
-    'month' => 'un mes|:count meses',
-    'week' => ':count semana|:count semanas',
-    'day' => 'un día|:count días',
-    'hour' => 'unha hora|:count horas',
-    'minute' => 'un minuto|:count minutos',
-    'second' => 'uns segundos|:count segundos',
+    'year' => 'un ano|%count% anos',
+    'month' => 'un mes|%count% meses',
+    'week' => '%count% semana|%count% semanas',
+    'day' => 'un día|%count% días',
+    'hour' => 'unha hora|%count% horas',
+    'minute' => 'un minuto|%count% minutos',
+    'second' => 'uns segundos|%count% segundos',
     'ago' => 'hai :time',
     'from_now' => function ($time) {
         if (substr($time, 0, 2) === 'un') {

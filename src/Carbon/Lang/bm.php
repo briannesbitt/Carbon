@@ -14,13 +14,13 @@
 }, 'bm');
 
 return [
-    'year' => 'san kelen|san :count',
-    'month' => 'kalo kelen|kalo :count',
-    'week' => 'dɔgɔkun :count',
-    'day' => 'tile kelen|tile :count',
-    'hour' => 'lɛrɛ kelen|lɛrɛ :count',
-    'minute' => 'miniti kelen|miniti :count',
-    'second' => 'sanga dama dama|sekondi :count',
+    'year' => 'san kelen|san %count%',
+    'month' => 'kalo kelen|kalo %count%',
+    'week' => 'dɔgɔkun %count%',
+    'day' => 'tile kelen|tile %count%',
+    'hour' => 'lɛrɛ kelen|lɛrɛ %count%',
+    'minute' => 'miniti kelen|miniti %count%',
+    'second' => 'sanga dama dama|sekondi %count%',
     'ago' => 'a bɛ :time bɔ',
     'from_now' => ':time kɔnɔ',
     'formats' => [

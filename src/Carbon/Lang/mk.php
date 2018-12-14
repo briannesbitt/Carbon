@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'година|:count години',
-    'month' => 'месец|:count месеци',
-    'week' => ':count седмица|:count седмици',
-    'day' => 'ден|:count дена',
-    'hour' => 'час|:count часа',
-    'minute' => 'минута|:count минути',
-    'second' => 'неколку секунди|:count секунди',
+    'year' => 'година|%count% години',
+    'month' => 'месец|%count% месеци',
+    'week' => '%count% седмица|%count% седмици',
+    'day' => 'ден|%count% дена',
+    'hour' => 'час|%count% часа',
+    'minute' => 'минута|%count% минути',
+    'second' => 'неколку секунди|%count% секунди',
     'ago' => 'пред :time',
     'from_now' => 'после :time',
     'after' => 'по :time',

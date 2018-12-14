@@ -11,64 +11,81 @@
 
 namespace Tests\CarbonInterval;
 
-use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 use Tests\CarbonInterval\Fixtures\Mixin;
 
-class MacroTest extends AbstractTestCase
+class MacroTest extends AbstractTestCaseWithOldNow
 {
-    /**
-     * @var \Carbon\Carbon
-     */
-    protected $now;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        Carbon::setTestNow($this->now = Carbon::create(2017, 6, 27, 13, 14, 15, 'UTC'));
-    }
-
-    public function tearDown()
-    {
-        Carbon::setTestNow();
-
-        parent::tearDown();
-    }
-
     public function testCarbonIsMacroableWhenNotCalledStatically()
     {
         CarbonInterval::macro('twice', function () {
-            return $this->times(2);
+            /** @var CarbonInterval $interval */
+            $interval = $this;
+
+            return $interval->times(2);
         });
 
-        $this->assertSame('2 days', CarbonInterval::day()->twice()->forHumans());
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame('2 days', $interval->twice()->forHumans());
 
         CarbonInterval::macro('repeatInvert', function ($count = 0) {
-            return $count % 2 ? $this->invert() : $this;
+            /** @var CarbonInterval $interval */
+            $interval = $this;
+
+            return $count % 2 ? $interval->invert() : $interval;
         });
 
-        $this->assertSame(0, CarbonInterval::day()->repeatInvert()->invert);
-        $this->assertSame(1, CarbonInterval::day()->repeatInvert(3)->invert);
-        $this->assertSame(0, CarbonInterval::day()->repeatInvert(4)->invert);
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(0, $interval->repeatInvert()->invert);
+
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(1, $interval->repeatInvert(3)->invert);
+
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(0, $interval->repeatInvert(4)->invert);
 
         CarbonInterval::macro('otherParameterName', function ($other = true) {
             return $other;
         });
 
-        $this->assertTrue(CarbonInterval::day()->otherParameterName());
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertTrue($interval->otherParameterName());
     }
 
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
         CarbonInterval::macro('repeatInvert2', function ($count = 0) {
-            return $count % 2 ? $this->invert() : $this;
+            /** @var CarbonInterval $interval */
+            $interval = $this;
+
+            return $count % 2 ? $interval->invert() : $interval;
         });
 
-        $this->assertSame(0, CarbonInterval::day()->repeatInvert2()->invert);
-        $this->assertSame(1, CarbonInterval::day()->repeatInvert2(3)->invert);
-        $this->assertSame(0, CarbonInterval::day()->repeatInvert2(4)->invert);
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(0, $interval->repeatInvert2()->invert);
+
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(1, $interval->repeatInvert2(3)->invert);
+
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame(0, $interval->repeatInvert2(4)->invert);
     }
 
     public function testCarbonIsMacroableWhenCalledStatically()
@@ -92,7 +109,10 @@ class MacroTest extends AbstractTestCase
     {
         CarbonInterval::macro('lower', 'strtolower');
 
-        $this->assertSame('abc', CarbonInterval::day()->lower('ABC'));
+        /** @var mixed $interval */
+        $interval = CarbonInterval::day();
+
+        $this->assertSame('abc', $interval->lower('ABC'));
         $this->assertSame('abc', CarbonInterval::lower('ABC'));
     }
 
@@ -103,6 +123,9 @@ class MacroTest extends AbstractTestCase
         CarbonInterval::mixin($mixin);
         CarbonInterval::setFactor(3);
 
-        $this->assertSame('6 hours', CarbonInterval::hours(2)->multiply()->forHumans());
+        /** @var mixed $interval */
+        $interval = CarbonInterval::hours(2);
+
+        $this->assertSame('6 hours', $interval->multiply()->forHumans());
     }
 }

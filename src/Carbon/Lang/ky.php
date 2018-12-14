@@ -14,13 +14,13 @@
 }, 'ky');
 
 return [
-    'year' => 'бир жыл|:count жыл',
-    'month' => 'бир ай|:count ай',
-    'week' => 'бир жума|:count жума',
-    'day' => 'бир күн|:count күн',
-    'hour' => 'бир саат|:count саат',
-    'minute' => 'бир мүнөт|:count мүнөт',
-    'second' => 'бирнече секунд|:count секунд',
+    'year' => 'бир жыл|%count% жыл',
+    'month' => 'бир ай|%count% ай',
+    'week' => 'бир жума|%count% жума',
+    'day' => 'бир күн|%count% күн',
+    'hour' => 'бир саат|%count% саат',
+    'minute' => 'бир мүнөт|%count% мүнөт',
+    'second' => 'бирнече секунд|%count% секунд',
     'ago' => ':time мурун',
     'from_now' => ':time ичинде',
     'formats' => [

@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'un año|:count años',
-    'month' => 'un mes|:count meses',
-    'week' => ':count semana|:count semanas',
-    'day' => 'un día|:count días',
-    'hour' => 'una hora|:count horas',
-    'minute' => 'un minuto|:count minutos',
-    'second' => 'unos segundos|:count segundos',
+    'year' => 'un año|%count% años',
+    'month' => 'un mes|%count% meses',
+    'week' => '%count% semana|%count% semanas',
+    'day' => 'un día|%count% días',
+    'hour' => 'una hora|%count% horas',
+    'minute' => 'un minuto|%count% minutos',
+    'second' => 'unos segundos|%count% segundos',
     'ago' => 'hace :time',
     'from_now' => 'en :time',
     'after' => ':time después',
