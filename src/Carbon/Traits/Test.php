@@ -13,7 +13,7 @@ trait Test
     /**
      * A test Carbon instance to be returned when now instances are created.
      *
-     * @var static
+     * @var static|CarbonInterface
      */
     protected static $testNow;
 
@@ -38,10 +38,7 @@ trait Test
      */
     public static function setTestNow($testNow = null)
     {
-        /** @var static $date */
-        $date = is_string($testNow) ? static::parse($testNow) : $testNow;
-
-        static::$testNow = $date;
+        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
     /**

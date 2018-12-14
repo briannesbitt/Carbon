@@ -82,7 +82,8 @@ function dumpValue($value)
     return $value;
 }
 
-function dumpParameter($method, ReflectionParameter $parameter) {
+function dumpParameter($method, ReflectionParameter $parameter)
+{
     global $defaultValues;
 
     $name = $parameter->getName();
@@ -506,7 +507,7 @@ foreach ($carbonMethods as $method) {
         $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
         if (!empty($methodDocBlock)) {
             $methodDocBlock = "\n    $methodDocBlock";
-        } elseif(isset($nativeMethods[$method])) {
+        } elseif (isset($nativeMethods[$method])) {
             $link = strtolower($method);
             $methodDocBlock = "\n    /**\n".
                 "     * call \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".

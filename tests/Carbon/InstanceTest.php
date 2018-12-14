@@ -114,4 +114,14 @@ class InstanceTest extends AbstractTestCase
         self::assertSame('Europe/Paris', $copy->tzName);
         self::assertSame($copy, $copy->modify('+1 day'));
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage DateTimeZone has not the instance() method needed to cast the date.
+     */
+    public function testInvalidCast()
+    {
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $carbon->cast(DateTimeZone::class);
+    }
 }
