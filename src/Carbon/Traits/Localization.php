@@ -212,20 +212,7 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        // @codeCoverageIgnoreStart
-        // Work-around symfony/translation deprecation in 4.2: https://github.com/symfony/symfony/issues/29607
-        // to support both < 4.2 and >= 4.2 versions
-        if ($number !== null) {
-            try {
-                // Try transChoice() method
-                return @$translator->transChoice($key, $number, $parameters);
-            } catch (\Throwable $exception) {
-                // Symfony 4.2+, use trans()
-            }
-        }
-        // @codeCoverageIgnoreEnd
-
-        return $translator->trans($key, $parameters);
+        return $translator->transChoice($key, $number, $parameters);
     }
 
     /**
