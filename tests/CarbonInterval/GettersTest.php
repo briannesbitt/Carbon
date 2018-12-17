@@ -22,7 +22,9 @@ class GettersTest extends AbstractTestCase
      */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        CarbonInterval::year()->doesNotExit;
+        /** @var mixed $interval */
+        $interval = CarbonInterval::year();
+        $interval->doesNotExit;
     }
 
     public function testYearsGetter()

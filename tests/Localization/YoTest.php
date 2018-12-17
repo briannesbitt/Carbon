@@ -75,27 +75,27 @@ class YoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Ẹtì Ọsẹ̀ tólọ́ ni 12:00 AM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ọjọ́ :1 ọjọ́ :1 ọjọ́ :1 ọjọ́ :1 ọjọ́ :1',
+        'ọjọ́ 1 ọjọ́ 1 ọjọ́ 1 ọjọ́ 1 ọjọ́ 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :2 ọjọ́ :1',
+        'ọjọ́ 2 ọjọ́ 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :3 ọjọ́ :1',
+        'ọjọ́ 3 ọjọ́ 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :4 ọjọ́ :1',
+        'ọjọ́ 4 ọjọ́ 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :5 ọjọ́ :1',
+        'ọjọ́ 5 ọjọ́ 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :6 ọjọ́ :1',
+        'ọjọ́ 6 ọjọ́ 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :7 ọjọ́ :1',
+        'ọjọ́ 7 ọjọ́ 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ọjọ́ :11 ọjọ́ :2',
+        'ọjọ́ 11 ọjọ́ 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ọjọ́ :40',
+        'ọjọ́ 40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ọjọ́ :41',
+        'ọjọ́ 41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ọjọ́ :100',
+        'ọjọ́ 100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class YoTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ọjọ́ :0',
+        'ọjọ́ 0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ìsẹjú aayá die kọjá',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

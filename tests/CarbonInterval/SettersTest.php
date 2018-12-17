@@ -157,6 +157,7 @@ class SettersTest extends AbstractTestCase
      */
     public function testInvalidSetter()
     {
+        /** @var mixed $ci */
         $ci = new CarbonInterval;
         $ci->doesNotExit = 123;
     }
@@ -167,6 +168,7 @@ class SettersTest extends AbstractTestCase
      */
     public function testInvalidFluentSetter()
     {
+        /** @var mixed $ci */
         $ci = new CarbonInterval;
         $ci->doesNotExit(123);
     }
@@ -182,7 +184,7 @@ class SettersTest extends AbstractTestCase
 
     public function testLocale()
     {
-        /** @var CarbonInterval $period */
+        /** @var CarbonInterval $interval */
         $interval = CarbonInterval::hour()->locale('de');
 
         $this->assertSame('de', $interval->locale);

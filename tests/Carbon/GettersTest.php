@@ -21,7 +21,9 @@ class GettersTest extends AbstractTestCase
      */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
-        Carbon::create(1234, 5, 6, 7, 8, 9)->doesNotExit;
+        /** @var mixed $d */
+        $d = Carbon::create(1234, 5, 6, 7, 8, 9);
+        $d->doesNotExit;
     }
 
     public function testGet()
@@ -230,7 +232,7 @@ class GettersTest extends AbstractTestCase
     public function testGetAgeWithRealAge()
     {
         $d = Carbon::createFromDate(1975, 5, 21);
-        $age = intval(substr(date('Ymd') - date('Ymd', $d->timestamp), 0, -4));
+        $age = intval(substr(intval(date('Ymd')) - intval(date('Ymd', $d->timestamp)), 0, -4));
 
         $this->assertSame($age, $d->age);
     }

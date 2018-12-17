@@ -67,7 +67,7 @@ namespace Carbon;
  * @method bool                                               hasRelativeKeywords($time)                                                                                     Determine if a time string will produce a relative date.
  * @method bool                                               hasTestNow()                                                                                                   Determine if there is a valid test instance set. A valid test instance
  *                                                                                                                                                                           is anything that is not null.
- * @method Carbon                                             instance($date)                                                                                                Create a Carbon instance from a DateTime one.
+ * @method Carbon|Carbon|CarbonImmutable                      instance($date)                                                                                                Create a Carbon instance from a DateTime one.
  * @method bool                                               isImmutable()                                                                                                  Returns true if the current class/instance is immutable.
  * @method bool                                               isModifiableUnit($unit)                                                                                        Returns true if a property can be changed via setter.
  * @method Carbon                                             isMutable()

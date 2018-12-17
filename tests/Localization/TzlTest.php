@@ -75,27 +75,27 @@ class TzlTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'sür el Viénerçi lasteu à 00.00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1. :1. :1. :1. :1.',
+        '1. 1. 1. 1. 1.',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2. :1.',
+        '2. 1.',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3. :1.',
+        '3. 1.',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4. :1.',
+        '4. 1.',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5. :1.',
+        '5. 1.',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6. :1.',
+        '6. 1.',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7. :1.',
+        '7. 1.',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11. :2.',
+        '11. 2.',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40.',
+        '40.',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41.',
+        '41.',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100.',
+        '100.',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 d\'a cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,63 +117,63 @@ class TzlTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 D\'O, 11:00 d\'o',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0.',
+        '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ja1 secunds',
+        'ja 1 secunds',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ja1 secunds',
+        'ja 1 secunds',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'ja2 secunds',
+        'ja 2 secunds',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'ja2 secunds',
+        'ja 2 secunds',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ja1 míut',
+        'ja 1 míut',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ja1 míut',
+        'ja 1 míut',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'ja2 míuts',
+        'ja 2 míuts',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'ja2 míuts',
+        'ja 2 míuts',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ja1 þora',
+        'ja 1 þora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ja1 þora',
+        'ja 1 þora',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'ja2 þoras',
+        'ja 2 þoras',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'ja2 þoras',
+        'ja 2 þoras',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ja1 ziua',
+        'ja 1 ziua',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ja1 ziua',
+        'ja 1 ziua',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'ja2 ziuas',
+        'ja 2 ziuas',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'ja2 ziuas',
+        'ja 2 ziuas',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ja1 seifetziua',
+        'ja 1 seifetziua',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ja1 seifetziua',
+        'ja 1 seifetziua',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'ja2 seifetziuas',
+        'ja 2 seifetziuas',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'ja2 seifetziuas',
+        'ja 2 seifetziuas',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ja1 mes',
+        'ja 1 mes',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ja1 mes',
+        'ja 1 mes',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'ja2 mesen',
+        'ja 2 mesen',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'ja2 mesen',
+        'ja 2 mesen',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ja1 ar',
+        'ja 1 ar',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ja1 ar',
+        'ja 1 ar',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'ja2 ars',
+        'ja 2 ars',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'ja2 ars',
+        'ja 2 ars',
         // Carbon::now()->addSecond()->diffForHumans()
         'osprei 1 secunds',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -203,9 +203,9 @@ class TzlTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'osprei 3 ars',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'ja5 mesen',
+        'ja 5 mesen',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'ja2 ars 3 mesen 1 ziua 1 secunds',
+        'ja 2 ars 3 mesen 1 ziua 1 secunds',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 seifetziua 10 þoras',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

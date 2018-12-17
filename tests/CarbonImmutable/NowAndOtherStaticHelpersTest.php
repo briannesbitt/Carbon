@@ -21,7 +21,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
     public function testNow()
     {
         $dt = Carbon::now();
-        $this->assertSame($this->now->getTimestamp(), $dt->timestamp);
+        $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
 
         Carbon::setTestNow();
         $before = time();
@@ -50,7 +50,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
     public function testNowWithTimezone()
     {
         $dt = Carbon::now('Europe/London');
-        $this->assertSame($this->now->getTimestamp(), $dt->timestamp);
+        $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
 
         Carbon::setTestNow();
         $before = time();

@@ -12,39 +12,21 @@
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 
-class GenericMacroTest extends AbstractTestCase
+class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
-    /**
-     * @var \Carbon\Carbon
-     */
-    protected $now;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        Carbon::setTestNow($this->now = Carbon::create(2017, 6, 27, 13, 14, 15, 'UTC'));
-    }
-
-    public function tearDown()
-    {
-        Carbon::resetMacros();
-        Carbon::setTestNow();
-        Carbon::serializeUsing(null);
-
-        parent::tearDown();
-    }
-
     public function testGenericMacro()
     {
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
             try {
-                if (isset($this)) {
-                    return $this->modify($time);
+                if (isset(${'this'})) {
+                    /** @var Carbon $date */
+                    $date = $this;
+
+                    return $date->modify($time);
                 }
 
                 return new static($time);
@@ -57,7 +39,10 @@ class GenericMacroTest extends AbstractTestCase
             }
         });
 
-        $this->assertSame('2017-07-02', $this->now->nextSunday()->format('Y-m-d'));
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('2017-07-02', $now->nextSunday()->format('Y-m-d'));
         $this->assertSame('2017-06-26', Carbon::lastMonday()->format('Y-m-d'));
 
         $message = null;
@@ -71,7 +56,7 @@ class GenericMacroTest extends AbstractTestCase
 
         $message = null;
         try {
-            $this->now->barBiz();
+            $now->barBiz();
         } catch (\BadMethodCallException $exception) {
             $message = $exception->getMessage();
         }
@@ -106,9 +91,12 @@ class GenericMacroTest extends AbstractTestCase
             return 'myPrefixFooBar';
         });
 
-        $this->assertSame('second', $this->now->myPrefixSomething());
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('second', $now->myPrefixSomething());
         $this->assertSame('second', Carbon::myPrefixSomething());
-        $this->assertSame('myPrefixFooBar', $this->now->myPrefixFooBar());
+        $this->assertSame('myPrefixFooBar', $now->myPrefixFooBar());
         $this->assertSame('myPrefixFooBar', Carbon::myPrefixFooBar());
     }
 
@@ -138,7 +126,9 @@ class GenericMacroTest extends AbstractTestCase
         Carbon::macro('mlpFooBar', function () {
             return 'mlpFooBar';
         });
-        $d = Carbon::now()->settings([
+
+        /** @var mixed $date */
+        $date = Carbon::now()->settings([
             'genericMacros' => [
                 function ($method) {
                     if (substr($method, 0, 3) !== 'mlp') {
@@ -157,11 +147,14 @@ class GenericMacroTest extends AbstractTestCase
             ],
         ]);
 
-        $this->assertSame('local-first', $d->mlpSomething());
-        $this->assertSame('second', $this->now->mlpSomething());
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('local-first', $date->mlpSomething());
+        $this->assertSame('second', $now->mlpSomething());
         $this->assertSame('second', Carbon::mlpSomething());
-        $this->assertSame('mlpFooBar', $d->mlpFooBar());
-        $this->assertSame('mlpFooBar', $this->now->mlpFooBar());
+        $this->assertSame('mlpFooBar', $date->mlpFooBar());
+        $this->assertSame('mlpFooBar', $now->mlpFooBar());
         $this->assertSame('mlpFooBar', Carbon::mlpFooBar());
     }
 }

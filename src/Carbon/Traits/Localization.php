@@ -14,6 +14,7 @@ namespace Carbon\Traits;
 use Carbon\CarbonInterface;
 use Carbon\Translator;
 use Closure;
+use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -150,6 +151,86 @@ trait Localization
     }
 
     /**
+     * Returns raw translation message for a given key.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
+     *
+     * @return string
+     */
+    public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null)
+    {
+        if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
+            throw new InvalidArgumentException(
+                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'.'
+            );
+        }
+
+        $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
+
+        return $result === $key ? $default : $result;
+    }
+
+    /**
+     * Returns raw translation message for a given key.
+     *
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
+     *
+     * @return string
+     */
+    public function getTranslationMessage(string $key, string $locale = null, string $default = null, $translator = null)
+    {
+        return static::getTranslationMessageWith($translator ?: $this->getLocalTranslator(), $key, $locale, $default);
+    }
+
+    /**
+     * Translate using translation string or callback available.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string                                             $key
+     * @param array                                              $parameters
+     * @param null                                               $number
+     *
+     * @return string
+     */
+    public static function translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string
+    {
+        $message = static::getTranslationMessageWith($translator, $key, null, $key);
+        if ($message instanceof Closure) {
+            return $message(...array_values($parameters));
+        }
+
+        if ($number !== null) {
+            $parameters['%count%'] = $number;
+        }
+        if (isset($parameters['%count%'])) {
+            $parameters[':count'] = $parameters['%count%'];
+        }
+
+        return $translator->transChoice($key, $number, $parameters);
+    }
+
+    /**
+     * Translate using translation string or callback available.
+     *
+     * @param string                                             $key
+     * @param array                                              $parameters
+     * @param null                                               $number
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     *
+     * @return string
+     */
+    public function translate(string $key, array $parameters = [], $number = null, TranslatorInterface $translator = null): string
+    {
+        return static::translateWith($translator ?: $this->getLocalTranslator(), $key, $parameters, $number);
+    }
+
+    /**
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
@@ -223,14 +304,14 @@ trait Localization
         return static::executeWithLocale($locale, function ($newLocale, TranslatorInterface $translator) {
             return $newLocale &&
                 (
-                    ($y = $translator->trans('y')) !== 'y' &&
-                    $y !== $translator->trans('year')
+                    ($y = static::translateWith($translator, 'y')) !== 'y' &&
+                    $y !== static::translateWith($translator, 'year')
                 ) || (
-                    ($y = $translator->trans('d')) !== 'd' &&
-                    $y !== $translator->trans('day')
+                    ($y = static::translateWith($translator, 'd')) !== 'd' &&
+                    $y !== static::translateWith($translator, 'day')
                 ) || (
-                    ($y = $translator->trans('h')) !== 'h' &&
-                    $y !== $translator->trans('hour')
+                    ($y = static::translateWith($translator, 'h')) !== 'h' &&
+                    $y !== static::translateWith($translator, 'hour')
                 );
         });
     }

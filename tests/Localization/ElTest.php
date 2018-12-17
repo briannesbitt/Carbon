@@ -75,27 +75,27 @@ class ElTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'την προηγούμενη Παρασκευή {} 12:00 ΠΜ',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1η :1η :1η :1η :1η',
+        '1η 1η 1η 1η 1η',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2η :1η',
+        '2η 1η',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3η :1η',
+        '3η 1η',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4η :1η',
+        '4η 1η',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5η :1η',
+        '5η 1η',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6η :1η',
+        '6η 1η',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7η :1η',
+        '7η 1η',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11η :2η',
+        '11η 2η',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40η',
+        '40η',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41η',
+        '41η',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100η',
+        '100η',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 πμ cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class ElTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ΜΜ, 11:00 μμ',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0η',
+        '0η',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'λίγα δευτερόλεπτα πριν',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

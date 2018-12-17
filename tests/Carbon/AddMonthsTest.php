@@ -25,7 +25,10 @@ class AddMonthsTest extends AbstractTestCase
     {
         parent::setUp();
 
-        $this->carbon = Carbon::create(2016, 1, 31);
+        /** @var Carbon $date */
+        $date = Carbon::create(2016, 1, 31);
+
+        $this->carbon = $date;
     }
 
     public function providerTestAddMonthNoOverflow()
