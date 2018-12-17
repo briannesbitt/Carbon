@@ -167,9 +167,9 @@ class BrTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 viz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 bloaz \'zo',
+        'ur bloaz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 bloaz \'zo',
+        'ur bloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 vloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
