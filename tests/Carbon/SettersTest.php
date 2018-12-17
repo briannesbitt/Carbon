@@ -248,6 +248,7 @@ class SettersTest extends AbstractTestCase
      */
     public function testTimezoneWithInvalidTimezone()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = 'sdf';
     }
@@ -268,6 +269,7 @@ class SettersTest extends AbstractTestCase
      */
     public function testTzWithInvalidTimezone()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = 'sdf';
     }
@@ -305,6 +307,7 @@ class SettersTest extends AbstractTestCase
 
     public function testTimezoneUsingString()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = 'America/Toronto';
         $this->assertSame('America/Toronto', $d->tzName);
@@ -315,6 +318,7 @@ class SettersTest extends AbstractTestCase
 
     public function testTzUsingString()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = 'America/Toronto';
         $this->assertSame('America/Toronto', $d->tzName);
@@ -362,6 +366,7 @@ class SettersTest extends AbstractTestCase
 
     public function testTimezoneUsingDateTimeZone()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = new DateTimeZone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
@@ -372,6 +377,7 @@ class SettersTest extends AbstractTestCase
 
     public function testTzUsingDateTimeZone()
     {
+        /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = new DateTimeZone('America/Toronto');
         $this->assertSame('America/Toronto', $d->tzName);
@@ -385,8 +391,9 @@ class SettersTest extends AbstractTestCase
      */
     public function testInvalidSetter()
     {
-        $d = Carbon::now();
-        $d->doesNotExit = 'bb';
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->doesNotExit = 'bb';
     }
 
     /**

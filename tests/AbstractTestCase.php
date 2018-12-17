@@ -33,6 +33,16 @@ abstract class AbstractTestCase extends TestCase
     protected $immutableNow;
 
     /**
+     * @var bool
+     */
+    protected $oldNow = false;
+
+    /**
+     * @var bool
+     */
+    protected $oldImmutableNow = false;
+
+    /**
      * @var string
      */
     private $saveTz;
@@ -44,8 +54,18 @@ abstract class AbstractTestCase extends TestCase
 
         date_default_timezone_set('America/Toronto');
 
-        Carbon::setTestNow($this->now = Carbon::now());
-        CarbonImmutable::setTestNow($this->immutableNow = CarbonImmutable::now());
+        /** @var Carbon $now */
+        $now = $this->oldNow
+            ? Carbon::create(2017, 6, 27, 13, 14, 15, 'UTC')
+            : Carbon::now();
+
+        /** @var CarbonImmutable $immutableNow */
+        $immutableNow = $this->oldImmutableNow
+            ? CarbonImmutable::create(2017, 6, 27, 13, 14, 15, 'UTC')
+            : CarbonImmutable::now();
+
+        Carbon::setTestNow($this->now = $now);
+        CarbonImmutable::setTestNow($this->immutableNow = $immutableNow);
     }
 
     protected function tearDown()

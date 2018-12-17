@@ -12,32 +12,13 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use DateTime;
-use Tests\AbstractTestCase;
+use Tests\AbstractTestCaseWithOldNow;
 use Tests\Carbon\Fixtures\Mixin;
 
-class MacroTest extends AbstractTestCase
+class MacroTest extends AbstractTestCaseWithOldNow
 {
-    /**
-     * @var \Carbon\Carbon
-     */
-    protected $now;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        Carbon::setTestNow($this->now = Carbon::create(2017, 6, 27, 13, 14, 15, 'UTC'));
-    }
-
-    public function tearDown()
-    {
-        Carbon::setTestNow();
-        Carbon::serializeUsing(null);
-
-        parent::tearDown();
-    }
-
     public function testInstance()
     {
         $this->assertInstanceOf(DateTime::class, $this->now);
@@ -50,28 +31,37 @@ class MacroTest extends AbstractTestCase
             return easter_days($year);
         });
 
-        $this->assertSame(22, $this->now->easterDays(2020));
-        $this->assertSame(31, $this->now->easterDays());
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame(22, $now->easterDays(2020));
+        $this->assertSame(31, $now->easterDays());
 
         Carbon::macro('otherParameterName', function ($other = true) {
             return $other;
         });
 
-        $this->assertTrue($this->now->otherParameterName());
+        $this->assertTrue($now->otherParameterName());
     }
 
     public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
     {
         Carbon::macro('diffFromEaster', function ($year) {
-            return $this->diff(
+            /** @var CarbonInterface $date */
+            $date = $this;
+
+            return $date->diff(
                 Carbon::create($year, 3, 21)
-                    ->setTimezone($this->getTimezone())
+                    ->setTimezone($date->getTimezone())
                     ->addDays(easter_days($year))
                     ->endOfDay()
             );
         });
 
-        $this->assertSame(1020, $this->now->diffFromEaster(2020)->days);
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame(1020, $now->diffFromEaster(2020)->days);
     }
 
     public function testCarbonIsMacroableWhenCalledStatically()
@@ -87,7 +77,10 @@ class MacroTest extends AbstractTestCase
     {
         Carbon::macro('lower', 'strtolower');
 
-        $this->assertSame('abc', $this->now->lower('ABC'));
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('abc', $now->lower('ABC'));
         $this->assertSame('abc', Carbon::lower('ABC'));
     }
 
@@ -97,6 +90,8 @@ class MacroTest extends AbstractTestCase
         $mixin = new Mixin();
         Carbon::mixin($mixin);
         Carbon::setUserTimezone('America/Belize');
+
+        /** @var mixed $date */
         $date = Carbon::parse('2000-01-01 12:00:00', 'UTC');
 
         $this->assertSame('06:00 America/Belize', $date->userFormat('H:i e'));
@@ -107,14 +102,20 @@ class MacroTest extends AbstractTestCase
         // Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
         // Then you can create get/set method this way:
         Carbon::macro('setSchoolYear', function ($schoolYear) {
-            $this->year = $schoolYear;
-            if ($this->month > 7) {
-                $this->year--;
+            /** @var CarbonInterface $date */
+            $date = $this;
+
+            $date->year = $schoolYear;
+            if ($date->month > 7) {
+                $date->year--;
             }
         });
         Carbon::macro('getSchoolYear', function () {
-            $schoolYear = $this->year;
-            if ($this->month > 7) {
+            /** @var CarbonInterface $date */
+            $date = $this;
+
+            $schoolYear = $date->year;
+            if ($date->month > 7) {
                 $schoolYear++;
             }
 
@@ -123,6 +124,7 @@ class MacroTest extends AbstractTestCase
         // This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
         // getter and setter for the ->schoolYear property
 
+        /** @var mixed $date */
         $date = Carbon::parse('2016-06-01');
 
         $this->assertSame(2016, $date->schoolYear);
@@ -155,6 +157,8 @@ class MacroTest extends AbstractTestCase
      */
     public function testCarbonRaisesExceptionWhenMacroIsNotFound()
     {
-        Carbon::now()->nonExistingMacro();
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->nonExistingMacro();
     }
 }

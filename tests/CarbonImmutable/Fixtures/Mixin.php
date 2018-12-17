@@ -33,6 +33,7 @@ class Mixin
         return function ($format) use ($mixin) {
             /** @var CarbonImmutable $date */
             $date = $this;
+
             if ($mixin->timezone) {
                 $date = $date->setTimezone($mixin->timezone);
             }

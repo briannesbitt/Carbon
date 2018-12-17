@@ -19,8 +19,6 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use ReflectionException;
-use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * A simple API extension for DateTime.
@@ -93,22 +91,6 @@ use Symfony\Component\Translation\TranslatorInterface;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
- * @method        string         format($format)                                                                     call \DateTime::format if mutable or \DateTimeImmutable::format else.
- *                                                                                                                   http://php.net/manual/en/datetime.format.php
- * @method        static         modify($modify)                                                                     call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
- *                                                                                                                   http://php.net/manual/en/datetime.modify.php
- * @method        int            getOffset()                                                                         call \DateTime::getOffset if mutable or \DateTimeImmutable::getOffset else.
- *                                                                                                                   http://php.net/manual/en/datetime.getoffset.php
- * @method        int            getTimestamp()                                                                      call \DateTime::getTimestamp if mutable or \DateTimeImmutable::getTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.gettimestamp.php
- * @method        static         setTime($hour, $minute, $second = 0, $microseconds = 0)                             call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
- *                                                                                                                   http://php.net/manual/en/datetime.settime.php
- * @method        static         setISODate($year, $week, $day = 1)                                                  call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
- *                                                                                                                   http://php.net/manual/en/datetime.setisodate.php
- * @method        static         setTimestamp($unixtimestamp)                                                        call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
- *                                                                                                                   http://php.net/manual/en/datetime.settimestamp.php
- * @method        \DateInterval  diff($object, $absolute = true)                                                     call \DateTime::diff if mutable or \DateTimeImmutable::diff else.
- *                                                                                                                   http://php.net/manual/en/datetime.diff.php
  * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
@@ -841,18 +823,18 @@ trait Date
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
                 $meridiem = $this->translate('meridiem', [
-                    'hour' => $this->hour,
-                    'minute' => $this->minute,
-                    'isLower' => true,
+                    ':hour' => $this->hour,
+                    ':minute' => $this->minute,
+                    ':isLower' => true,
                 ]);
 
                 return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
                 $meridiem = $this->translate('meridiem', [
-                    'hour' => $this->hour,
-                    'minute' => $this->minute,
-                    'isLower' => false,
+                    ':hour' => $this->hour,
+                    ':minute' => $this->minute,
+                    ':isLower' => false,
                 ]);
 
                 return $meridiem === 'meridiem' ? $this->latinUpperMeridiem : $meridiem;
@@ -1091,7 +1073,7 @@ trait Date
             case 'hour':
             case 'minute':
             case 'second':
-                list($year, $month, $day, $hour, $minute, $second) = explode('-', $this->format('Y-n-j-G-i-s'));
+                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->format('Y-n-j-G-i-s'));
                 $$name = $value;
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
                 break;
@@ -1664,29 +1646,6 @@ trait Date
     }
 
     /**
-     * Returns raw translation message for a given key.
-     *
-     * @param string      $key     key to find
-     * @param string|null $locale  current locale used if null
-     * @param string|null $default default value if translation returns the key
-     *
-     * @return string
-     */
-    public function getTranslationMessage(string $key, string $locale = null, string $default = null)
-    {
-        $translator = $this->getLocalTranslator();
-        if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
-            throw new InvalidArgumentException(
-                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'.'
-            );
-        }
-
-        $result = $translator->getCatalogue($locale ?? $translator->getLocale())->get($key);
-
-        return $result === $key ? $default : $result;
-    }
-
-    /**
      * Returns list of locale formats for ISO formatting.
      *
      * @param string|null $locale current locale used if null
@@ -1861,27 +1820,6 @@ trait Date
     }
 
     /**
-     * Translate using translation string or callback available.
-     *
-     * @param string $key
-     * @param array  $parameters
-     * @param null   $number
-     *
-     * @return string
-     */
-    public function translate(string $key, array $parameters = [], $number = null): string
-    {
-        $message = $this->getTranslationMessage($key, null, $key);
-        if ($message instanceof Closure) {
-            return $message(...array_values($parameters));
-        }
-
-        return $number === null
-            ? $this->getLocalTranslator()->trans($key, $parameters)
-            : $this->getLocalTranslator()->transChoice($key, $number, $parameters);
-    }
-
-    /**
      * Return a property with its ordinal.
      *
      * @param string      $key
@@ -1893,8 +1831,8 @@ trait Date
     {
         $number = $this->$key;
         $result = $this->translate('ordinal', [
-            'number' => $number,
-            'period' => $period,
+            ':number' => $number,
+            ':period' => $period,
         ]);
 
         return strval($result === 'ordinal' ? $number : $result);

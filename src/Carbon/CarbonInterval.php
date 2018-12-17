@@ -45,6 +45,7 @@ use ReflectionMethod;
  * @property-read float $totalSeconds Number of seconds equivalent to the interval.
  * @property-read float $totalMilliseconds Number of milliseconds equivalent to the interval.
  * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval.
+ * @property-read string $locale locale of the current instance
  *
  * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
  * @method static CarbonInterval year($years = 1) Alias for years()
@@ -170,9 +171,7 @@ class CarbonInterval extends DateInterval
     {
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = [];
-            foreach (static::getCascadeFactors() as $to => $tuple) {
-                list($factor, $from) = $tuple;
-
+            foreach (static::getCascadeFactors() as $to => [$factor, $from]) {
                 self::$flipCascadeFactors[self::standardizeUnit($from)] = [self::standardizeUnit($to), $factor];
             }
         }
@@ -257,7 +256,7 @@ class CarbonInterval extends DateInterval
         $target = self::standardizeUnit($target);
         $factors = static::getFlipCascadeFactors();
         if (isset($factors[$source])) {
-            list($to, $factor) = $factors[$source];
+            [$to, $factor] = $factors[$source];
             if ($to === $target) {
                 return $factor;
             }
@@ -462,8 +461,7 @@ class CarbonInterval extends DateInterval
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
         preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
-        while ($match = array_shift($parts)) {
-            list($part, $value, $unit) = $match;
+        while ([$part, $value, $unit] = array_shift($parts)) {
             $intValue = intval($value);
             $fraction = floatval($value) - $intValue;
             // Fix calculation precision
@@ -653,7 +651,7 @@ class CarbonInterval extends DateInterval
      *
      * @throws \InvalidArgumentException
      *
-     * @return int|float
+     * @return int|float|string
      */
     public function __get($name)
     {
@@ -987,14 +985,14 @@ class CarbonInterval extends DateInterval
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $translator->transChoice($unitData['unitShort'], $count, [':count' => $count]);
+                $result = $this->translate($unitData['unitShort'], [], $count, $translator);
 
                 if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             }
 
-            return $translator->transChoice($unitData['unit'], $count, [':count' => $count]);
+            return $this->translate($unitData['unit'], [], $count, $translator);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1013,14 +1011,14 @@ class CarbonInterval extends DateInterval
         if (count($interval) === 0) {
             if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
-                $translation = $translator->trans($key);
+                $translation = $this->translate($key, [], null, $translator);
                 if ($translation !== $key) {
                     return $translation;
                 }
             }
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $translator->transChoice($unit, $count, [':count' => $count]);
+            $interval[] = $this->translate($unit, [], $count, $translator);
         }
 
         // join the interval parts by a space
@@ -1040,14 +1038,14 @@ class CarbonInterval extends DateInterval
             if ($relativeToNow && $unit === 'day') {
                 if ($count === 1 && $options & CarbonInterface::ONE_DAY_WORDS) {
                     $key = $isFuture ? 'diff_tomorrow' : 'diff_yesterday';
-                    $translation = $translator->trans($key);
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
                 }
                 if ($count === 2 && $options & CarbonInterface::TWO_DAY_WORDS) {
                     $key = $isFuture ? 'diff_after_tomorrow' : 'diff_before_yesterday';
-                    $translation = $translator->trans($key);
+                    $translation = $this->translate($key, [], null, $translator);
                     if ($translation !== $key) {
                         return $translation;
                     }
@@ -1055,12 +1053,12 @@ class CarbonInterval extends DateInterval
             }
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            if ($key !== $translator->transChoice($key, $count)) {
-                $time = $translator->transChoice($key, $count, [':count' => $count]);
+            if ($key !== $this->translate($key, [], null, $translator)) {
+                $time = $this->translate($key, [], $count, $translator);
             }
         }
 
-        return $translator->trans($transId, [':time' => $time]);
+        return $this->translate($transId, [':time' => $time], null, $translator);
     }
 
     /**
@@ -1304,9 +1302,7 @@ class CarbonInterval extends DateInterval
      */
     public function cascade()
     {
-        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
-            list($target, $factor) = $cascade;
-
+        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
             if ($source === 'dayz' && $target === 'weeks') {
                 continue;
             }
@@ -1350,9 +1346,7 @@ class CarbonInterval extends DateInterval
         $cumulativeFactor = 0;
         $unitFound = false;
 
-        foreach (static::getFlipCascadeFactors() as $source => $cascade) {
-            list($target, $factor) = $cascade;
-
+        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
             if ($source === $realUnit) {
                 $unitFound = true;
                 $value = $this->$source;

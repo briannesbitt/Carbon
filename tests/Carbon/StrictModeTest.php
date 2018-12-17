@@ -59,7 +59,9 @@ class StrictModeTest extends AbstractTestCase
      */
     public function testSetWithStrictMode()
     {
-        Carbon::now()->foobar = 'biz';
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->foobar = 'biz';
     }
 
     /**
@@ -68,15 +70,18 @@ class StrictModeTest extends AbstractTestCase
      */
     public function testGetWithStrictMode()
     {
-        Carbon::now()->foobar;
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->foobar;
     }
 
     public function testSetAndGetWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $d = Carbon::now();
-        $d->foobar = 'biz';
-        $this->assertSame('biz', $d->foobar);
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->foobar = 'biz';
+        $this->assertSame('biz', $date->foobar);
     }
 
     /**
@@ -116,13 +121,17 @@ class StrictModeTest extends AbstractTestCase
      */
     public function testCallWithStrictMode()
     {
-        Carbon::now()->foobar();
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $date->foobar();
     }
 
     public function testCallWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertNull(Carbon::now()->foobar());
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $this->assertNull($date->foobar());
     }
 
     /**

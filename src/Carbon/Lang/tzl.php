@@ -29,7 +29,7 @@ return [
     'second' => ':count secunds',
     's' => ':count secunds',
 
-    'ago' => 'ja:time',
+    'ago' => 'ja :time',
     'from_now' => 'osprei :time',
 
     'diff_yesterday' => 'ieiri',

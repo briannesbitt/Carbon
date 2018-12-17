@@ -87,12 +87,16 @@ class IsTest extends AbstractTestCase
 
     public function testIsNextWeekFalse()
     {
-        $this->assertFalse(Carbon::now()->addWeek(2)->isNextWeek());
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $this->assertFalse($date->addWeek(2)->isNextWeek());
     }
 
     public function testIsLastWeekFalse()
     {
-        $this->assertFalse(Carbon::now()->subWeek(2)->isLastWeek());
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $this->assertFalse($date->subWeek(2)->isLastWeek());
     }
 
     public function testIsNextQuarterTrue()
@@ -148,12 +152,16 @@ class IsTest extends AbstractTestCase
 
     public function testIsNextYearFalse()
     {
-        $this->assertFalse(Carbon::now()->addYear(2)->isNextYear());
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $this->assertFalse($date->addYear(2)->isNextYear());
     }
 
     public function testIsLastYearFalse()
     {
-        $this->assertFalse(Carbon::now()->subYear(2)->isLastYear());
+        /** @var mixed $date */
+        $date = Carbon::now();
+        $this->assertFalse($date->subYear(2)->isLastYear());
     }
 
     public function testIsTodayFalseWithYesterday()
@@ -864,7 +872,9 @@ class IsTest extends AbstractTestCase
      */
     public function testIsSameFoobar()
     {
-        Carbon::parse('12:00:00')->isSameFoobar(Carbon::parse('15:30:45'));
+        /** @var mixed $date */
+        $date = Carbon::parse('12:00:00');
+        $date->isSameFoobar(Carbon::parse('15:30:45'));
     }
 
     /**
@@ -873,6 +883,8 @@ class IsTest extends AbstractTestCase
      */
     public function testIsCurrentFoobar()
     {
-        Carbon::parse('12:00:00')->isCurrentFoobar();
+        /** @var mixed $date */
+        $date = Carbon::parse('12:00:00');
+        $date->isCurrentFoobar();
     }
 }

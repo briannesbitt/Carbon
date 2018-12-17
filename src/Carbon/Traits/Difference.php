@@ -27,7 +27,7 @@ use DateTimeInterface;
  * Depends on the following methods:
  *
  * @method bool lessThan($date)
- * @method DateInterval diff(\DateTimeInterface $date)
+ * @method DateInterval diff(\DateTimeInterface $date, bool $absolute = false)
  * @method CarbonInterface copy()
  * @method CarbonInterface resolveCarbon()
  * @method static Translator translator()

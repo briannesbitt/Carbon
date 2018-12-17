@@ -13,7 +13,6 @@ namespace Carbon\Traits;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use DateTimeInterface;
 
 /**
  * Trait Mutability.
@@ -43,14 +42,30 @@ trait Mutability
     }
 
     /**
+     * Cast the current instance into the given class.
+     *
+     * @return object
+     */
+    public function cast(string $className)
+    {
+        if (!method_exists($className, 'instance')) {
+            throw new \InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+        }
+
+        return $className::instance($this);
+    }
+
+    /**
      * Return a mutable copy of the instance.
      *
      * @return Carbon
      */
     public function toMutable()
     {
-        /* @var DateTimeInterface $this */
-        return Carbon::instance($this);
+        /** @var Carbon $date */
+        $date = $this->cast(Carbon::class);
+
+        return $date;
     }
 
     /**
@@ -60,7 +75,9 @@ trait Mutability
      */
     public function toImmutable()
     {
-        /* @var DateTimeInterface $this */
-        return CarbonImmutable::instance($this);
+        /** @var CarbonImmutable $date */
+        $date = $this->cast(CarbonImmutable::class);
+
+        return $date;
     }
 }

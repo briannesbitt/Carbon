@@ -75,27 +75,27 @@ class SiTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'පසුගිය සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1 වැනි :1 වැනි :1 වැනි :1 වැනි :1 වැනි',
+        '1 වැනි 1 වැනි 1 වැනි 1 වැනි 1 වැනි',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2 වැනි :1 වැනි',
+        '2 වැනි 1 වැනි',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3 වැනි :1 වැනි',
+        '3 වැනි 1 වැනි',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4 වැනි :1 වැනි',
+        '4 වැනි 1 වැනි',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5 වැනි :1 වැනි',
+        '5 වැනි 1 වැනි',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6 වැනි :1 වැනි',
+        '6 වැනි 1 වැනි',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7 වැනි :2 වැනි',
+        '7 වැනි 2 වැනි',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11 වැනි :2 වැනි',
+        '11 වැනි 2 වැනි',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40 වැනි',
+        '40 වැනි',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41 වැනි',
+        '41 වැනි',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100 වැනි',
+        '100 වැනි',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 පෙ.ව. cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class SiTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 පස් වරු, 11:00 ප.ව.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0 වැනි',
+        '0 වැනි',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -22,7 +22,7 @@ return [
     'h' => ':counth',
     'minute' => ':count minute|:count mintam',
     'min' => ':countm',
-    'second' => '::count second',
+    'second' => ':count second',
     's' => ':counts',
 
     'formats' => [
