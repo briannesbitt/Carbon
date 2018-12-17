@@ -75,27 +75,27 @@ class KmTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'សុក្រ សប្តាហ៍មុន ម៉ោង 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ទី:1 ទី:1 ទី:1 ទី:1 ទី:1',
+        'ទី1 ទី1 ទី1 ទី1 ទី1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ទី:2 ទី:1',
+        'ទី2 ទី1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ទី:3 ទី:1',
+        'ទី3 ទី1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ទី:4 ទី:1',
+        'ទី4 ទី1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ទី:5 ទី:1',
+        'ទី5 ទី1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ទី:6 ទី:1',
+        'ទី6 ទី1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ទី:7 ទី:1',
+        'ទី7 ទី1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ទី:11 ទី:2',
+        'ទី11 ទី2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ទី:40',
+        'ទី40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ទី:41',
+        'ទី41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ទី:100',
+        'ទី100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 ព្រឹក cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class KmTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ល្ងាច, 11:00 ល្ងាច',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ទី:0',
+        'ទី0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ប៉ុន្មានវិនាទីមុន',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

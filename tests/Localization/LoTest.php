@@ -75,27 +75,27 @@ class LoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'ວັນສຸກແລ້ວນີ້ເວລາ 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        'ທີ່:1 ທີ່:1 ທີ່:1 ທີ່:1 ທີ່:1',
+        'ທີ່1 ທີ່1 ທີ່1 ທີ່1 ທີ່1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        'ທີ່:2 ທີ່:1',
+        'ທີ່2 ທີ່1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        'ທີ່:3 ທີ່:1',
+        'ທີ່3 ທີ່1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        'ທີ່:4 ທີ່:1',
+        'ທີ່4 ທີ່1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        'ທີ່:5 ທີ່:1',
+        'ທີ່5 ທີ່1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        'ທີ່:6 ທີ່:1',
+        'ທີ່6 ທີ່1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        'ທີ່:7 ທີ່:2',
+        'ທີ່7 ທີ່2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        'ທີ່:11 ທີ່:2',
+        'ທີ່11 ທີ່2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        'ທີ່:40',
+        'ທີ່40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        'ທີ່:41',
+        'ທີ່41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        'ທີ່:100',
+        'ທີ່100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 ຕອນເຊົ້າ cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class LoTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ຕອນແລງ, 11:00 ຕອນແລງ',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        'ທີ່:0',
+        'ທີ່0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ບໍ່ເທົ່າໃດວິນາທີຜ່ານມາ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

@@ -75,27 +75,27 @@ class TaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'கடந்த வாரம் வெள்ளிக்கிழமை, 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1வது :1வது :1வது :1வது :1வது',
+        '1வது 1வது 1வது 1வது 1வது',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2வது :1வது',
+        '2வது 1வது',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3வது :1வது',
+        '3வது 1வது',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4வது :1வது',
+        '4வது 1வது',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5வது :1வது',
+        '5வது 1வது',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6வது :1வது',
+        '6வது 1வது',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7வது :2வது',
+        '7வது 2வது',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11வது :2வது',
+        '11வது 2வது',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40வது',
+        '40வது',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41வது',
+        '41வது',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100வது',
+        '100வது',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00  யாமம் cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class TaTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00  யாமம், 11:00  யாமம்',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0வது',
+        '0வது',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ஒரு சில விநாடிகள் முன்',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

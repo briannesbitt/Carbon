@@ -75,27 +75,27 @@ class TeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'గత శుక్రవారం, రాత్రి 12:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1వ :1వ :1వ :1వ :1వ',
+        '1వ 1వ 1వ 1వ 1వ',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2వ :1వ',
+        '2వ 1వ',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3వ :1వ',
+        '3వ 1వ',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4వ :1వ',
+        '4వ 1వ',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5వ :1వ',
+        '5వ 1వ',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6వ :1వ',
+        '6వ 1వ',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7వ :2వ',
+        '7వ 2వ',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11వ :2వ',
+        '11వ 2వ',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40వ',
+        '40వ',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41వ',
+        '41వ',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100వ',
+        '100వ',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 రాత్రి cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class TeTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00  రాత్రి, 11:00  రాత్రి',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0వ',
+        '0వ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'కొన్ని క్షణాలు క్రితం',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

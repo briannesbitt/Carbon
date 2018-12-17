@@ -823,18 +823,18 @@ trait Date
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
                 $meridiem = $this->translate('meridiem', [
-                    'hour' => $this->hour,
-                    'minute' => $this->minute,
-                    'isLower' => true,
+                    ':hour' => $this->hour,
+                    ':minute' => $this->minute,
+                    ':isLower' => true,
                 ]);
 
                 return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
                 $meridiem = $this->translate('meridiem', [
-                    'hour' => $this->hour,
-                    'minute' => $this->minute,
-                    'isLower' => false,
+                    ':hour' => $this->hour,
+                    ':minute' => $this->minute,
+                    ':isLower' => false,
                 ]);
 
                 return $meridiem === 'meridiem' ? $this->latinUpperMeridiem : $meridiem;
@@ -1831,8 +1831,8 @@ trait Date
     {
         $number = $this->$key;
         $result = $this->translate('ordinal', [
-            'number' => $number,
-            'period' => $period,
+            ':number' => $number,
+            ':period' => $period,
         ]);
 
         return strval($result === 'ordinal' ? $number : $result);

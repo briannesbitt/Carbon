@@ -75,27 +75,27 @@ class MtTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Il-Ġimgħa li għadda fil-00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        ':1º :1º :1º :1º :1º',
+        '1º 1º 1º 1º 1º',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        ':2º :1º',
+        '2º 1º',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        ':3º :1º',
+        '3º 1º',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        ':4º :1º',
+        '4º 1º',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        ':5º :1º',
+        '5º 1º',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        ':6º :1º',
+        '6º 1º',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        ':7º :1º',
+        '7º 1º',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        ':11º :2º',
+        '11º 2º',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        ':40º',
+        '40º',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        ':41º',
+        '41º',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        ':100º',
+        '100º',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -117,7 +117,7 @@ class MtTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        ':0º',
+        '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ftit sekondi ilu',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
