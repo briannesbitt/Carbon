@@ -14,7 +14,7 @@ return [
     'y' => ':count an|:count ans',
     'month' => 'un mois|:count mois',
     'm' => ':count mois',
-    'week' => ':count semaine|:count semaines',
+    'week' => 'une semaine|:count semaines',
     'w' => ':count sem.',
     'day' => 'un jour|:count jours',
     'd' => ':count j.',
@@ -78,4 +78,5 @@ return [
                 return $number.($number === 1 ? 're' : 'e');
         }
     },
+    'list' => [', ', ' et '],
 ];

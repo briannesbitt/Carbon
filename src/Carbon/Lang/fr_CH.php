@@ -14,7 +14,7 @@ return [
     'y' => ':count an|:count ans',
     'month' => 'un mois|:count mois',
     'm' => ':count mois',
-    'week' => ':count semaine|:count semaines',
+    'week' => 'une semaine|:count semaines',
     'w' => ':count sem.',
     'day' => 'un jour|:count jours',
     'd' => ':count j.',
@@ -80,4 +80,5 @@ return [
     },
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' et '],
 ];
