@@ -62,6 +62,13 @@ class InstanceTest extends AbstractTestCase
         $this->assertSame($micro, $carbon->micro);
     }
 
+    public function testTimezoneCopy()
+    {
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $carbon = CarbonImmutable::instance($carbon);
+        $this->assertSame('2017-06-27 13:14:15.123456 Europe/Paris', $carbon->format('Y-m-d H:i:s.u e'));
+    }
+
     public function testInstanceStateSetBySetStateMethod()
     {
         $carbon = Carbon::__set_state([
