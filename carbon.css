@@ -18,6 +18,19 @@ p, .info-table {margin-bottom:16px;font-size:16px}
 code {color: #38932c;font-size:90%}
 .page {margin-bottom:30px}
 
+.tidelift{display:block;background:#122A36;padding:8px 16px;vertical-align:middle;font-weight:bold;color:white;margin-bottom:15px;}
+.tidelift:hover, .tidelift:active, .tidelift:focus{text-decoration:none;color:#cff0ff;}
+.tidelift img{width:32px;height:32px;margin-right:10px;}
+
+@media (min-width: 1200px) {
+    .tidelift {
+        position: fixed;
+        top: 10px;
+        right: 0;
+        z-index: 10000;
+    }
+}
+
 #docs h1 {padding:20px 0;margin-bottom:20px;border-bottom:1px solid #7ac35f;}
 
 #affix-nav .affix {max-height: calc(100% - 80px);overflow: auto;}

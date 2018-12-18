@@ -255,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-12-18 11:46:29
+echo $now;                               // 2018-12-18 14:12:29
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-12-18 00:00:00
@@ -380,7 +380,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 13:46 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:12 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -609,7 +609,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // décembre
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 18 décembre 2018 11:46
+echo $date->isoFormat('LLLL');   // mardi 18 décembre 2018 14:12
 </code></pre>
     </p>
 
@@ -640,13 +640,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 11:46
+Aujourd’hui à 14:12
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 11:46 AM
+Today at 2:12 PM
 */
 </code></pre>
     </p>
@@ -1362,21 +1362,21 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 11:46 AM
+echo $date->calendar();                                      // Today at 2:12 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 8:46 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 11:12 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 1:23 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 3:49 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 12/10/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 2:46 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 5:12 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 10:09 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 12:35 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 12/26/2018
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 11:46
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 14:12
 </code></pre>
     </p>
 
@@ -2365,7 +2365,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-12-18 11:46:29
+echo Carbon::now();                                    // 2018-12-18 14:12:30
 </code></pre>
     </p>
 
@@ -3060,8 +3060,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-12-18 11:46:30
-echo $dt1->maximum();                              // 2018-12-18 11:46:30
+echo $dt1->max();                                  // 2018-12-18 14:12:30
+echo $dt1->maximum();                              // 2018-12-18 14:12:30
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -4177,7 +4177,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 12:46
+echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 15:12
 </code></pre>
     </p>
 
@@ -5498,5 +5498,17 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//piwik.selfbuild.fr/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '23']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
 </body>
 </html>
