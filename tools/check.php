@@ -3,11 +3,10 @@
 define('MAXIMUM_MISSING_METHODS_THRESHOLD', 0);
 define('VERBOSE', isset($argv[1]) && $argv[1] === 'verbose');
 
-chdir(__DIR__.'/..');
-require 'vendor/autoload.php';
-require 'tools/methods.php';
+require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/../tools/methods.php';
 
-$documentation = file_get_contents('docs/index.src.html');
+$documentation = file_get_contents(__DIR__.'/../docs/index.src.html');
 
 $methodsCount = 0;
 $missingMethodsCount = 0;
@@ -29,7 +28,7 @@ foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
     $lowerUnit = '(micro(second)?s?|milli(second)?s?|seconds?|minutes?|hours?|days?|weeks?|months?|quarters?|years?|decades?|centur(y|ies)|millenni(um|a))';
     $exclusion = !!preg_match("/^(
         clone|setISODate |
-        getTranslationMessage|getCalendarFormats|getPaddedUnit|translate|ordinal |
+        getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|ordinal |
         (use|is)StrictMode(Enabled)? |
         __(sleep|wakeup|construct) |
         (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |

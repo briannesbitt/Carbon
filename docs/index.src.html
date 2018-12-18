@@ -1368,6 +1368,13 @@ Carbon::resetToStringFormat();
 {{::exec(echo $dt->toRfc7231String();/*pad(35)*/)}} // {{eval}}
 {{::exec(echo $dt->toRssString();/*pad(35)*/)}} // {{eval}}
 {{::exec(echo $dt->toW3cString();/*pad(35)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <h1 id="api-conversion">Conversion</h1>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584');)}}
 
 {{::exec(var_dump($dt->toArray());)}}
 /*
@@ -1380,6 +1387,16 @@ Carbon::resetToStringFormat();
 */
 
 {{::exec(var_dump($dt->toDate()); // Same as $dt->toDateTime())}}
+/*
+{{eval}}
+*/
+
+{{::exec(class MySubClass extends Carbon {}
+// MySubClass can be any class implementing CarbonInterface or a public static instance() method.
+
+$copy = $dt->cast(MySubClass::class);
+
+echo get_class($copy).': '.$copy; // Same as MySubClass::instance($dt))}}
 /*
 {{eval}}
 */
@@ -3749,6 +3766,7 @@ Carbon::setToStringFormat(function ($date) {
                 <li><a href="#api-isset">IsSet</a></li>
                 <li><a href="#api-formatting">String Formatting</a></li>
                 <li><a href="#api-commonformats">Common Formats</a></li>
+                <li><a href="#api-conversion">Conversion</a></li>
                 <li><a href="#api-comparison">Comparison</a></li>
                 <li><a href="#api-addsub">Addition and Subtraction</a></li>
                 <li><a href="#api-difference">Difference</a></li>

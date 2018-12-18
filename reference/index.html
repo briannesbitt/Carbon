@@ -429,13 +429,6 @@ locale using setlocale() http://php.net/setlocale.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.13.0</td><td><code>$format</code></td></tr><tr><td>Prototype changed</td><td>1.9.0</td><td><code>$format = 'l, d-M-Y H:i:s T'</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$format</code></td></tr></table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getTranslationMessage">
-    <h2><span class="class-name">Carbon::</span>getTranslationMessage</h2>
-    <code>string $key, string $locale = NULL, string $default = NULL</code>
-    <p>Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
-</div>
-
 <div class="doc-method " id="doc-method-Carbon-getIsoFormats">
     <h2><span class="class-name">Carbon::</span>getIsoFormats</h2>
     <code>$locale = NULL</code>
@@ -462,15 +455,6 @@ locale using setlocale() http://php.net/setlocale.</p>
     <code>$unit, $length = 2, $padString = '0', $padType = 0</code>
     <p>Returns a unit of the instance padded with 0 by default or any other string if specified.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $length = 2, $padString = '0', $padType = 0</code></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-translate">
-    <h2><span class="class-name">Carbon::</span>translate</h2>
-    <code>string $key, array $parameters = array (
-), $number = NULL</code>
-    <p>Translate using translation string or callback available.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, array $parameters = array (
-), $number = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-ordinal">
@@ -1850,6 +1834,13 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-cast">
+    <h2><span class="class-name">Carbon::</span>cast</h2>
+    <em>no arguments</em>
+    <p>Cast the current instance into the given class.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-toMutable">
     <h2><span class="class-name">Carbon::</span>toMutable</h2>
     <em>no arguments</em>
@@ -2015,6 +2006,36 @@ You should rather use the ->settings() method.</p>
     <code>Symfony\Component\Translation\TranslatorInterface $translator</code>
     <p>Set the translator for the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getTranslationMessageWith">
+    <h2><span class="class-name">Carbon::</span>getTranslationMessageWith</h2>
+    <em>no arguments</em>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getTranslationMessage">
+    <h2><span class="class-name">Carbon::</span>getTranslationMessage</h2>
+    <code>string $key, string $locale = NULL, string $default = NULL</code>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-translateWith">
+    <h2><span class="class-name">Carbon::</span>translateWith</h2>
+    <em>no arguments</em>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-translate">
+    <h2><span class="class-name">Carbon::</span>translate</h2>
+    <code>string $key, array $parameters = array (
+), $number = NULL</code>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, array $parameters = array (
+), $number = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-locale">
@@ -2828,6 +2849,34 @@ You should rather use the ->settings() method.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-getTranslationMessageWith">
+    <h2><span class="class-name">CarbonInterval::</span>getTranslationMessageWith</h2>
+    <em>no arguments</em>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-getTranslationMessage">
+    <h2><span class="class-name">CarbonInterval::</span>getTranslationMessage</h2>
+    <em>no arguments</em>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-translateWith">
+    <h2><span class="class-name">CarbonInterval::</span>translateWith</h2>
+    <em>no arguments</em>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-translate">
+    <h2><span class="class-name">CarbonInterval::</span>translate</h2>
+    <em>no arguments</em>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-locale">
     <h2><span class="class-name">CarbonInterval::</span>locale</h2>
     <code>string $locale = NULL</code>
@@ -3393,6 +3442,34 @@ You should rather use the ->settings() method.</p>
     <code>Symfony\Component\Translation\TranslatorInterface $translator</code>
     <p>Set the translator for the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-getTranslationMessageWith">
+    <h2><span class="class-name">CarbonPeriod::</span>getTranslationMessageWith</h2>
+    <em>no arguments</em>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-getTranslationMessage">
+    <h2><span class="class-name">CarbonPeriod::</span>getTranslationMessage</h2>
+    <em>no arguments</em>
+    <p>Returns raw translation message for a given key.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-translateWith">
+    <h2><span class="class-name">CarbonPeriod::</span>translateWith</h2>
+    <em>no arguments</em>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-translate">
+    <h2><span class="class-name">CarbonPeriod::</span>translate</h2>
+    <em>no arguments</em>
+    <p>Translate using translation string or callback available.</p>
+    <table class='info-table method-history'></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-locale">
