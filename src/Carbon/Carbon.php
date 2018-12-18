@@ -4126,10 +4126,11 @@ class Carbon extends DateTime implements JsonSerializable
      * @param bool        $absolute removes time difference modifiers ago, after, etc
      * @param bool        $short    displays short format of time units
      * @param int         $parts    displays number of parts in the interval
+     * @param string      $separator separate presented value by space or special character
      *
      * @return string
      */
-    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
+    public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1, $separator = ' ')
     {
         $isNow = $other === null;
         $interval = array();
@@ -4199,7 +4200,7 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         // join the interval parts by a space
-        $time = implode(' ', $interval);
+        $time = implode($separator, $interval);
 
         unset($diffIntervalArray, $interval);
 
