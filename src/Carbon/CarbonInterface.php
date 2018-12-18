@@ -988,17 +988,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param int         $syntax     difference modifiers (ago, after, etc) rules
-     *                                Possible values:
-     *                                - CarbonInterface::DIFF_ABSOLUTE
-     *                                - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                                Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short      displays short format of time units
-     * @param int         $parts      displays number of parts in the interval
-     * @param int         $options    human diff options
-     * @param string      $separator  joins units with the given string (space by default)
+     * @param int         $syntax    difference modifiers (ago, after, etc) rules
+     *                               Possible values:
+     *                               - CarbonInterface::DIFF_ABSOLUTE
+     *                               - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                               Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short     displays short format of time units
+     * @param int         $parts     displays number of parts in the interval
+     * @param int         $options   human diff options
+     * @param string      $separator joins units with the given string (space by default)
      *
      * @return string
      */
@@ -1535,17 +1535,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * instance given (or now if null given).
      *
      * @param Carbon|null $other
-     * @param int         $syntax     difference modifiers (ago, after, etc) rules
-     *                                Possible values:
-     *                                - CarbonInterface::DIFF_ABSOLUTE
-     *                                - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                                Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short      displays short format of time units
-     * @param int         $parts      displays number of parts in the interval
-     * @param int         $options    human diff options
-     * @param string      $separator  joins units with the given string (space by default)
+     * @param int         $syntax    difference modifiers (ago, after, etc) rules
+     *                               Possible values:
+     *                               - CarbonInterface::DIFF_ABSOLUTE
+     *                               - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                               Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short     displays short format of time units
+     * @param int         $parts     displays number of parts in the interval
+     * @param int         $options   human diff options
+     * @param string      $separator joins units with the given string (space by default)
      *
      * @return string
      */
@@ -1555,17 +1555,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in a human readable format in the current locale from current
      * instance to now.
      *
-     * @param int     $syntax     difference modifiers (ago, after, etc) rules
-     *                            Possible values:
-     *                            - CarbonInterface::DIFF_ABSOLUTE
-     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool    $short      displays short format of time units
-     * @param int     $parts      displays number of parts in the interval
-     * @param int     $options    human diff options
-     * @param string  $separator  joins units with the given string (space by default)
+     * @param int    $syntax    difference modifiers (ago, after, etc) rules
+     *                          Possible values:
+     *                          - CarbonInterface::DIFF_ABSOLUTE
+     *                          - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                          - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                          - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                          Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool   $short     displays short format of time units
+     * @param int    $parts     displays number of parts in the interval
+     * @param int    $options   human diff options
+     * @param string $separator joins units with the given string (space by default)
      *
      * @return string
      */
@@ -3213,17 +3213,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 5 months before
      *
      * @param Carbon|null $other
-     * @param int         $syntax     difference modifiers (ago, after, etc) rules
-     *                                Possible values:
-     *                                - CarbonInterface::DIFF_ABSOLUTE
-     *                                - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                                Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short      displays short format of time units
-     * @param int         $parts      displays number of parts in the interval
-     * @param int         $options    human diff options
-     * @param string      $separator  joins units with the given string (space by default)
+     * @param int         $syntax    difference modifiers (ago, after, etc) rules
+     *                               Possible values:
+     *                               - CarbonInterface::DIFF_ABSOLUTE
+     *                               - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                               Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short     displays short format of time units
+     * @param int         $parts     displays number of parts in the interval
+     * @param int         $options   human diff options
+     * @param string      $separator joins units with the given string (space by default)
      *
      * @return string
      */
@@ -3350,17 +3350,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in a human readable format in the current locale from an other
      * instance given to now
      *
-     * @param int     $syntax     difference modifiers (ago, after, etc) rules
-     *                            Possible values:
-     *                            - CarbonInterface::DIFF_ABSOLUTE
-     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool    $short      displays short format of time units
-     * @param int     $parts      displays number of parts in the interval
-     * @param int     $options    human diff options
-     * @param string  $separator  joins units with the given string (space by default)
+     * @param int     $syntax    difference modifiers (ago, after, etc) rules
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE
+     *                           - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                           Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short     displays short format of time units
+     * @param int     $parts     displays number of parts in the interval
+     * @param int     $options   human diff options
+     * @param string  $separator joins units with the given string (space by default)
      *
      * @return string
      */
@@ -3504,17 +3504,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * instance given (or now if null given) to current instance.
      *
      * @param Carbon|null $other
-     * @param int         $syntax     difference modifiers (ago, after, etc) rules
-     *                                Possible values:
-     *                                - CarbonInterface::DIFF_ABSOLUTE
-     *                                - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                                - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                                Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short      displays short format of time units
-     * @param int         $parts      displays number of parts in the interval
-     * @param int         $options    human diff options
-     * @param string      $separator  joins units with the given string (space by default)
+     * @param int         $syntax    difference modifiers (ago, after, etc) rules
+     *                               Possible values:
+     *                               - CarbonInterface::DIFF_ABSOLUTE
+     *                               - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                               - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                               Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool        $short     displays short format of time units
+     * @param int         $parts     displays number of parts in the interval
+     * @param int         $options   human diff options
+     * @param string      $separator joins units with the given string (space by default)
      *
      * @return string
      */
