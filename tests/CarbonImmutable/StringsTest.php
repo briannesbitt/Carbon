@@ -90,33 +90,27 @@ class StringsTest extends AbstractTestCase
 
     public function testToLocalizedFormattedDateString()
     {
-        $currentLocale = setlocale(LC_TIME, '0');
-        if (setlocale(LC_TIME, 'fr_FR.UTF-8') === false) {
-            $this->markTestSkipped('UTF-8 test need fr_FR.UTF-8 (a locale with accents).');
-        }
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
-        $date = $d->formatLocalized('%A %d %B %Y');
-        setlocale(LC_TIME, $currentLocale);
+        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
+            $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+            $date = $d->formatLocalized('%A %d %B %Y');
 
-        $this->assertSame('jeudi 25 décembre 1975', $date);
+            $this->assertSame('jeudi 25 décembre 1975', $date);
+        });
     }
 
     public function testToLocalizedFormattedDateStringWhenUtf8IsNedded()
     {
-        $currentLocale = setlocale(LC_TIME, '0');
-        if (setlocale(LC_TIME, 'fr_FR.UTF-8') === false) {
-            $this->markTestSkipped('UTF-8 test need fr_FR.UTF-8 (a locale with accents).');
-        }
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
-        Carbon::setUtf8(false);
-        $nonUtf8Date = $d->formatLocalized('%B');
-        Carbon::setUtf8(true);
-        $utf8Date = $d->formatLocalized('%B');
-        Carbon::setUtf8(false);
-        setlocale(LC_TIME, $currentLocale);
+        $this->wrapWithUtf8LcTimeLocale('fr_FR', function () {
+            $d = Carbon::create(1975, 12, 25, 14, 15, 16, 'Europe/Paris');
+            Carbon::setUtf8(false);
+            $nonUtf8Date = $d->formatLocalized('%B');
+            Carbon::setUtf8(true);
+            $utf8Date = $d->formatLocalized('%B');
+            Carbon::setUtf8(false);
 
-        $this->assertSame('décembre', $nonUtf8Date);
-        $this->assertSame(utf8_encode('décembre'), $utf8Date);
+            $this->assertSame('décembre', $nonUtf8Date);
+            $this->assertSame(utf8_encode('décembre'), $utf8Date);
+        });
     }
 
     public function testToLocalizedFormattedTimezonedDateString()

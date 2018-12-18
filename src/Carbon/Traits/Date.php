@@ -1422,7 +1422,7 @@ trait Date
         $offset = $this->offset;
         $date = $this->setTimezone($value);
 
-        return $date->addRealSeconds($offset - $date->offset);
+        return $date->addRealMicroseconds(($offset - $date->offset) * static::MICROSECONDS_PER_SECOND);
     }
 
     /**

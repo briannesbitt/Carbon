@@ -217,6 +217,33 @@ abstract class AbstractTestCase extends TestCase
         $this->wrapWithTestNow($func, Carbon::now()->startOfYear());
     }
 
+    public function wrapWithUtf8LcTimeLocale($locale, Closure $func)
+    {
+        $currentLocale = setlocale(LC_TIME, '0');
+        $locales = ["$locale.UTF-8"];
+        $mapping = [
+            'fr_FR' => 'French_France',
+        ];
+        $windowsLocale = $mapping[$locale] ?? null;
+        if ($windowsLocale) {
+            $locales[] = "$windowsLocale.UTF8";
+        }
+        if (setlocale(LC_TIME, ...$locales) === false) {
+            $this->markTestSkipped("UTF-8 test need $locale.UTF-8 (a locale with accents).");
+        }
+        $exception = null;
+        try {
+            $func();
+        } catch (\Throwable $e) {
+            $exception = $e;
+        }
+        setlocale(LC_TIME, $currentLocale);
+
+        if ($exception) {
+            throw $exception;
+        }
+    }
+
     /**
      * Standardize given set of dates (or period) before assertion.
      *
