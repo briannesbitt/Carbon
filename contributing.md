@@ -2,8 +2,9 @@
 
 ## Issue Contributions
 
-Please report any security issue or risk with [the following form](https://carbon.selfbuild.fr/contact.php)). Please don't disclose security bugs publicly
-until they have been handled by us.
+Please report any security issue using [Tidelift security contact](https://tidelift.com/security).
+Tidelift will coordinate the fix and disclosure.
+Please don't disclose security bugs publicly until they have been handled by us.
 
 For any other bug or issue, please click this link and follow the template:
 [Create new issue](https://github.com/briannesbitt/Carbon/issues/new)

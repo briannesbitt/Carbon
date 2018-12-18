@@ -49,6 +49,8 @@ echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 $daysSinceEpoch = Carbon::createFromTimestamp(0)->diffInDays();
 ```
 
+[Get supported nesbot/carbon with the Tidelift Subscription](https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme)
+
 ## Installation
 
 ### With Composer
@@ -92,3 +94,9 @@ printf("Now: %s", Carbon::now());
 ## Docs
 
 [http://carbon.nesbot.com/docs](http://carbon.nesbot.com/docs)
+
+## Security contact information
+
+To report a security vulnerability, please use the
+[Tidelift security contact](https://tidelift.com/security).
+Tidelift will coordinate the fix and disclosure.
