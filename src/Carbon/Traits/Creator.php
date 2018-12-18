@@ -105,7 +105,13 @@ trait Creator
 
         static::expectDateTime($date);
 
-        return new static($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
+        $instance = new static($date->format('Y-m-d H:i:s.u'), $date->getTimezone());
+
+        if ($date instanceof CarbonInterface || $date instanceof Options) {
+            $instance->settings($date->getSettings());
+        }
+
+        return $instance;
     }
 
     /**

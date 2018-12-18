@@ -93,10 +93,12 @@ class InstanceTest extends AbstractTestCase
     public function testMutableConversions()
     {
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $carbon = $carbon->locale('en_CA');
         $copy = $carbon->toImmutable();
 
         self::assertEquals($copy, $carbon);
         self::assertNotSame($copy, $carbon);
+        self::assertSame('en_CA', $copy->locale());
         self::assertInstanceOf(CarbonImmutable::class, $copy);
         self::assertTrue($copy->isImmutable());
         self::assertFalse($copy->isMutable());
@@ -108,6 +110,7 @@ class InstanceTest extends AbstractTestCase
 
         self::assertEquals($copy, $carbon);
         self::assertNotSame($copy, $carbon);
+        self::assertSame('en_CA', $copy->locale());
         self::assertInstanceOf(CarbonMutable::class, $copy);
         self::assertFalse($copy->isImmutable());
         self::assertTrue($copy->isMutable());
