@@ -168,6 +168,22 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('un an et un mois et un jour et aussi une heure', $interval->forHumans([
             'join' => [' et ', ' et aussi '],
         ]));
+        $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('en');
+        $this->assertSame('1 year 1 month 1 day 1 hour', $interval->forHumans());
+        $this->assertSame('1 year, 1 month, 1 day and 1 hour', $interval->forHumans([
+            'join' => true,
+        ]));
+        $this->assertSame('1 year, 1 month, 1 day, 1 hour', $interval->forHumans([
+            'join' => ', ',
+        ]));
+        $this->assertSame('1 year and 1 month and 1 day and also 1 hour', $interval->forHumans([
+            'join' => [' and ', ' and also '],
+        ]));
+        $this->assertSame('[1 year;1 month;1 day;1 hour]', $interval->forHumans([
+            'join' => function ($list) {
+                return '['.implode(';', $list).']';
+            },
+        ]));
     }
 
     public function testOptionsAsArray()
