@@ -4123,10 +4123,10 @@ class Carbon extends DateTime implements JsonSerializable
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
-     * @param string      $separator separate presented value by space or special character
+     * @param bool        $absolute  removes time difference modifiers ago, after, etc
+     * @param bool        $short     displays short format of time units
+     * @param int         $parts     displays number of parts in the interval
+     * @param string      $separator joins units with the given string (space by default)
      *
      * @return string
      */
