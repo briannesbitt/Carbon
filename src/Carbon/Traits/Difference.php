@@ -705,20 +705,21 @@ trait Difference
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
         /* @var CarbonInterface $this */
         $syntax = (int) ($syntax === null ? static::DIFF_RELATIVE_AUTO : $syntax);
@@ -738,7 +739,7 @@ trait Difference
 
         return $this->diffAsCarbonInterval($other, false)
             ->setLocalTranslator($this->getLocalTranslator())
-            ->forHumans($syntax, (bool) $short, $parts, $options);
+            ->forHumans($syntax, (bool) $short, $parts, $options, $separator);
     }
 
     /**
@@ -748,22 +749,23 @@ trait Difference
      * instance given (or now if null given).
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function from($other = null, $syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
-        return $this->diffForHumans($other, $syntax, $short, $parts, $options);
+        return $this->diffForHumans($other, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
@@ -772,9 +774,9 @@ trait Difference
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
      */
-    public function since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function since($other = null, $syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
-        return $this->diffForHumans($other, $syntax, $short, $parts, $options);
+        return $this->diffForHumans($other, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
@@ -798,26 +800,27 @@ trait Difference
      * 5 months before
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function to($other = null, $syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
         if (!$syntax && !$other) {
             $syntax = CarbonInterface::DIFF_RELATIVE_TO_NOW;
         }
 
-        return $this->resolveCarbon($other)->diffForHumans($this, $syntax, $short, $parts, $options);
+        return $this->resolveCarbon($other)->diffForHumans($this, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
@@ -827,66 +830,69 @@ trait Difference
      * instance given (or now if null given) to current instance.
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
+    public function until($other = null, $syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
-        return $this->to($other, $syntax, $short, $parts, $options);
+        return $this->to($other, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
      * Get the difference in a human readable format in the current locale from current
      * instance to now.
      *
-     * @param int  $syntax  difference modifiers (ago, after, etc) rules
-     *                      Possible values:
-     *                      - CarbonInterface::DIFF_ABSOLUTE
-     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool $short   displays short format of time units
-     * @param int  $parts   displays number of parts in the interval
-     * @param int  $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function fromNow($syntax = null, $short = false, $parts = 1, $options = null)
+    public function fromNow($syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
-        return $this->from(null, $syntax, $short, $parts, $options);
+        return $this->from(null, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
      * Get the difference in a human readable format in the current locale from an other
      * instance given to now
      *
-     * @param int  $syntax  difference modifiers (ago, after, etc) rules
-     *                      Possible values:
-     *                      - CarbonInterface::DIFF_ABSOLUTE
-     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool $short   displays short format of time units
-     * @param int  $parts   displays number of parts in the interval
-     * @param int  $options human diff options
+     * @param int     $syntax     difference modifiers (ago, after, etc) rules
+     *                            Possible values:
+     *                            - CarbonInterface::DIFF_ABSOLUTE
+     *                            - CarbonInterface::DIFF_RELATIVE_AUTO
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_NOW
+     *                            - CarbonInterface::DIFF_RELATIVE_TO_OTHER
+     *                            Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     * @param bool    $short      displays short format of time units
+     * @param int     $parts      displays number of parts in the interval
+     * @param int     $options    human diff options
+     * @param string  $separator  joins units with the given string (space by default)
      *
      * @return string
      */
-    public function toNow($syntax = null, $short = false, $parts = 1, $options = null)
+    public function toNow($syntax = null, $short = false, $parts = 1, $options = null, $separator = ' ')
     {
-        return $this->to(null, $syntax, $short, $parts, $options);
+        return $this->to(null, $syntax, $short, $parts, $options, $separator);
     }
 
     /**
