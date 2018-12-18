@@ -988,15 +988,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 5 months after
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                             - 'syntax' entry (see below)
+     *                             - 'short' entry (see below)
+     *                             - 'parts' entry (see below)
+     *                             - 'options' entry (see below)
+     *                             - 'join' entry determines how to join multiple parts of the string
+     *                               - if $join is a string, it's used as a joiner glue
+     *                               - if $join is a callable/closure, it get the list of string and should return a string
+     *                               - if $join is an array, the first item will be the default glue, and the second item
+     *                                 will be used instead of the glue for the last item
+     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                               - if $join is missing, a space will be used as glue
+     *                             if int passed, it add modifiers:
      *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
      * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
+     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
      * @param int         $options human diff options
      *
      * @return string
@@ -1534,15 +1545,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * instance given (or now if null given).
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                             - 'syntax' entry (see below)
+     *                             - 'short' entry (see below)
+     *                             - 'parts' entry (see below)
+     *                             - 'options' entry (see below)
+     *                             - 'join' entry determines how to join multiple parts of the string
+     *                               - if $join is a string, it's used as a joiner glue
+     *                               - if $join is a callable/closure, it get the list of string and should return a string
+     *                               - if $join is an array, the first item will be the default glue, and the second item
+     *                                 will be used instead of the glue for the last item
+     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                               - if $join is missing, a space will be used as glue
+     *                             if int passed, it add modifiers:
      *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
      * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
+     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
      * @param int         $options human diff options
      *
      * @return string
@@ -1559,12 +1581,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                           - 'parts' entry (see below)
      *                           - 'options' entry (see below)
      *                           - 'join' entry determines how to join multiple parts of the string
-     *                             - if $join is a string, it's used as a joiner glue
-     *                             - if $join is a callable/closure, it get the list of string and should return a string
-     *                             - if $join is an array, the first item will be the default glue, and the second item
-     *                               will be used instead of the glue for the last item
-     *                             - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                             - if $join is missing, a space will be used as glue
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
      *                           if int passed, it add modifiers:
      *                           Possible values:
      *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
@@ -3221,15 +3243,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 5 months before
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                             - 'syntax' entry (see below)
+     *                             - 'short' entry (see below)
+     *                             - 'parts' entry (see below)
+     *                             - 'options' entry (see below)
+     *                             - 'join' entry determines how to join multiple parts of the string
+     *                               - if $join is a string, it's used as a joiner glue
+     *                               - if $join is a callable/closure, it get the list of string and should return a string
+     *                               - if $join is an array, the first item will be the default glue, and the second item
+     *                                 will be used instead of the glue for the last item
+     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                               - if $join is missing, a space will be used as glue
+     *                             if int passed, it add modifiers:
      *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
      * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
+     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
      * @param int         $options human diff options
      *
      * @return string
@@ -3363,12 +3396,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                           - 'parts' entry (see below)
      *                           - 'options' entry (see below)
      *                           - 'join' entry determines how to join multiple parts of the string
-     *                             - if $join is a string, it's used as a joiner glue
-     *                             - if $join is a callable/closure, it get the list of string and should return a string
-     *                             - if $join is an array, the first item will be the default glue, and the second item
-     *                               will be used instead of the glue for the last item
-     *                             - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                             - if $join is missing, a space will be used as glue
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
      *                           if int passed, it add modifiers:
      *                           Possible values:
      *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
@@ -3521,15 +3554,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * instance given (or now if null given) to current instance.
      *
      * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
+     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                             - 'syntax' entry (see below)
+     *                             - 'short' entry (see below)
+     *                             - 'parts' entry (see below)
+     *                             - 'options' entry (see below)
+     *                             - 'join' entry determines how to join multiple parts of the string
+     *                               - if $join is a string, it's used as a joiner glue
+     *                               - if $join is a callable/closure, it get the list of string and should return a string
+     *                               - if $join is an array, the first item will be the default glue, and the second item
+     *                                 will be used instead of the glue for the last item
+     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                               - if $join is missing, a space will be used as glue
+     *                             if int passed, it add modifiers:
      *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
+     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
      * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
+     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
      * @param int         $options human diff options
      *
      * @return string
