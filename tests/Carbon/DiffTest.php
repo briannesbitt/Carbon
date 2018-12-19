@@ -1333,6 +1333,10 @@ class DiffTest extends AbstractTestCase
             'parts' => 2,
             'join' => true,
         ]));
+        $this->assertSame('hace 2 días y 3 horas', $date->copy()->locale('es')->diffForHumans([
+            'parts' => 2,
+            'join' => true,
+        ]));
         $this->assertSame('2 days, 3 hours and 40 minutes ago', $date->diffForHumans([
             'parts' => -1,
             'join' => true,
