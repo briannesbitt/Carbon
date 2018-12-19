@@ -978,21 +978,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
      *
-     * When comparing a value in the past to default now:
-     * 1 hour ago
-     * 5 months ago
-     *
-     * When comparing a value in the future to default now:
-     * 1 hour from now
-     * 5 months from now
-     *
-     * When comparing a value in the past to another value:
-     * 1 hour before
-     * 5 months before
-     *
-     * When comparing a value in the future to another value:
-     * 1 hour after
-     * 5 months after
+     * @example
+     * ```
+     * echo Carbon::tomorrow()->diffForHumans() . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(['parts' => 2]) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(['parts' => 3, 'join' => true]) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday()) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]) . "\n";
+     * ```
      *
      * @param Carbon|\DateTimeInterface|string|array|null $other   if array passed, will be used as parameters array, see $syntax below;
      *                                                             if null passed, now will be used as comparison reference;
