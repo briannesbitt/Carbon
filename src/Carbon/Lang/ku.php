@@ -31,4 +31,5 @@ return [
     'weekdays' => $weekdays,
     'weekdays_short' => $weekdays,
     'weekdays_min' => $weekdays,
+    'list' => [', ', ' û '],
 ];

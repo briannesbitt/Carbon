@@ -83,4 +83,5 @@ return [
     'weekdays' => $weekdays,
     'weekdays_short' => $weekdays,
     'weekdays_min' => ['އާދި', 'ހޯމަ', 'އަން', 'ބުދަ', 'ބުރާ', 'ހުކު', 'ހޮނި'],
+    'list' => [', ', ' އަދި '],
 ];
