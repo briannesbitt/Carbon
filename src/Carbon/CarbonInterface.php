@@ -726,12 +726,19 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $referenceTime
+     * @param Carbon|\DateTimeInterface|string|null $referenceTime
      * @param array                                         $formats
      *
      * @return string
      */
     public function calendar($referenceTime = null, array $formats = []);
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @return object
+     */
+    public function cast(string $className);
 
     /**
      * Ceil the current instance second with given precision if specified.
@@ -948,7 +955,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference as a CarbonInterval instance
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return CarbonInterval
@@ -960,7 +967,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param CarbonInterval                                $ci       An interval to traverse by
      * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -987,28 +994,31 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 1 hour after
      * 5 months after
      *
-     * @param Carbon|null $other
-     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
-     *                             - 'syntax' entry (see below)
-     *                             - 'short' entry (see below)
-     *                             - 'parts' entry (see below)
-     *                             - 'options' entry (see below)
-     *                             - 'join' entry determines how to join multiple parts of the string
-     *                               - if $join is a string, it's used as a joiner glue
-     *                               - if $join is a callable/closure, it get the list of string and should return a string
-     *                               - if $join is an array, the first item will be the default glue, and the second item
-     *                                 will be used instead of the glue for the last item
-     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                               - if $join is missing, a space will be used as glue
-     *                             if int passed, it add modifiers:
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other if array passed, will be used as parameters array, see $syntax below;
+     *                                                           if null passed, now will be used as comparison reference;
+     *                                                           if any other type, it will be converted to date and used as reference.
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           - 'other' entry (see above)
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
      *
      * @return string
      */
@@ -1017,7 +1027,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in days
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1028,7 +1038,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in days using a filter closure
      *
      * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1038,7 +1048,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in hours.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1049,7 +1059,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in hours using a filter closure
      *
      * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1059,7 +1069,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in microseconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1069,7 +1079,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in milliseconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1079,7 +1089,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in minutes.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1089,7 +1099,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in months
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1099,7 +1109,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in hours using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1109,7 +1119,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in microseconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1119,7 +1129,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in milliseconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1129,7 +1139,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in minutes using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1139,7 +1149,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in seconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1149,7 +1159,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in seconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1159,7 +1169,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in weekdays
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1169,7 +1179,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1179,7 +1189,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in weeks
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1189,7 +1199,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in years
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return int
@@ -1383,7 +1393,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in days as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1393,7 +1403,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in hours as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1403,7 +1413,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in minutes as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1413,7 +1423,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in months as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1423,7 +1433,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in days as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1433,7 +1443,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in hours as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1443,7 +1453,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in minutes as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1453,7 +1463,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in months as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1463,7 +1473,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in seconds as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1473,7 +1483,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in year as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1483,7 +1493,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in seconds as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1493,7 +1503,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the difference in year as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|\DateTimeInterface|string|null $date
      * @param bool                                          $absolute Get the absolute of the difference
      *
      * @return float
@@ -1544,28 +1554,31 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
      *
-     * @param Carbon|null $other
-     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
-     *                             - 'syntax' entry (see below)
-     *                             - 'short' entry (see below)
-     *                             - 'parts' entry (see below)
-     *                             - 'options' entry (see below)
-     *                             - 'join' entry determines how to join multiple parts of the string
-     *                               - if $join is a string, it's used as a joiner glue
-     *                               - if $join is a callable/closure, it get the list of string and should return a string
-     *                               - if $join is an array, the first item will be the default glue, and the second item
-     *                                 will be used instead of the glue for the last item
-     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                               - if $join is missing, a space will be used as glue
-     *                             if int passed, it add modifiers:
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other if array passed, will be used as parameters array, see $syntax below;
+     *                                                           if null passed, now will be used as comparison reference;
+     *                                                           if any other type, it will be converted to date and used as reference.
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           - 'other' entry (see above)
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
      *
      * @return string
      */
@@ -1594,7 +1607,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
      *                           Default value: CarbonInterface::DIFF_ABSOLUTE
      * @param bool      $short   displays short format of time units
-     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
      * @param int       $options human diff options
      *
      * @return string
@@ -1815,13 +1828,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string      $key     key to find
-     * @param string|null $locale  current locale used if null
-     * @param string|null $default default value if translation returns the key
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
      *
      * @return string
      */
-    public function getTranslationMessage(string $key, string $locale = null, string $default = null);
+    public function getTranslationMessage(string $key, string $locale = null, string $default = null, $translator = null);
+
+    /**
+     * Returns raw translation message for a given key.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
+     * @param string                                             $key        key to find
+     * @param string|null                                        $locale     current locale used if null
+     * @param string|null                                        $default    default value if translation returns the key
+     *
+     * @return string
+     */
+    public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null);
 
     /**
      * Get the default translator instance in use.
@@ -3242,28 +3268,31 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * 1 hour before
      * 5 months before
      *
-     * @param Carbon|null $other
-     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
-     *                             - 'syntax' entry (see below)
-     *                             - 'short' entry (see below)
-     *                             - 'parts' entry (see below)
-     *                             - 'options' entry (see below)
-     *                             - 'join' entry determines how to join multiple parts of the string
-     *                               - if $join is a string, it's used as a joiner glue
-     *                               - if $join is a callable/closure, it get the list of string and should return a string
-     *                               - if $join is an array, the first item will be the default glue, and the second item
-     *                                 will be used instead of the glue for the last item
-     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                               - if $join is missing, a space will be used as glue
-     *                             if int passed, it add modifiers:
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other if array passed, will be used as parameters array, see $syntax below;
+     *                                                           if null passed, now will be used as comparison reference;
+     *                                                           if any other type, it will be converted to date and used as reference.
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           - 'other' entry (see above)
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
      *
      * @return string
      */
@@ -3521,13 +3550,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param string $key
-     * @param array  $parameters
-     * @param null   $number
+     * @param string                                             $key
+     * @param array                                              $parameters
+     * @param null                                               $number
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null): string;
+    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null): string;
+
+    /**
+     * Translate using translation string or callback available.
+     *
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string                                             $key
+     * @param array                                              $parameters
+     * @param null                                               $number
+     *
+     * @return string
+     */
+    public static function translateWith(\Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
 
     /**
      * Set the timezone or returns the timezone name if no arguments passed.
@@ -3553,28 +3595,31 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the difference in a human readable format in the current locale from an other
      * instance given (or now if null given) to current instance.
      *
-     * @param Carbon|null $other
-     * @param int|array   $syntax  if array passed, parameters will be extracted from it, the array may contains:
-     *                             - 'syntax' entry (see below)
-     *                             - 'short' entry (see below)
-     *                             - 'parts' entry (see below)
-     *                             - 'options' entry (see below)
-     *                             - 'join' entry determines how to join multiple parts of the string
-     *                               - if $join is a string, it's used as a joiner glue
-     *                               - if $join is a callable/closure, it get the list of string and should return a string
-     *                               - if $join is an array, the first item will be the default glue, and the second item
-     *                                 will be used instead of the glue for the last item
-     *                               - if $join is true, it will be guessed from the locale ('list' translation file entry)
-     *                               - if $join is missing, a space will be used as glue
-     *                             if int passed, it add modifiers:
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                             Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   maximum number of parts to display (default value: 1: no limits)
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other if array passed, will be used as parameters array, see $syntax below;
+     *                                                           if null passed, now will be used as comparison reference;
+     *                                                           if any other type, it will be converted to date and used as reference.
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           - 'other' entry (see above)
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
      *
      * @return string
      */
