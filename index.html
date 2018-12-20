@@ -361,6 +361,7 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
         scrollCheck();
         $document.scroll(scrollCheck);
+        $('.search').scroll(scrollCheck);
 
         $('.search-wrapper .close').click(function () {
             $('.main-wrapper').removeClass('open');
@@ -397,7 +398,9 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
         $(function () {
             $.ajax('/reference/', {
                 success: function (data) {
-                    $('.search').html(data);
+                    $('.search').html(data).find('.live-editor code').each(function (index, block) {
+                        hljs.highlightBlock(block);
+                    });
                 },
             });
             $('.history-slot').each(function () {

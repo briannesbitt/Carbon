@@ -60,11 +60,20 @@ function methods($excludeNatives = false)
                 )
             ) ?: null;
             if ($docComment) {
-                preg_match_all('/@example\s+([^\n]+)\n/', "$docComment\n", $matches, PREG_PATTERN_ORDER);
+                preg_match_all('/@example[\t ]+([^\n]+)\n/', "$docComment\n", $matches, PREG_PATTERN_ORDER);
+                $matches[2] = [];
+                $docComment = preg_replace_callback('/@example\n[[\t ]*\*[\t ]*```(?:php)?((\n[\t ]*\*[^\n]*)*)\n[\t ]*\*[\t ]*```/U', function ($match) use (&$matches) {
+                    $matches[2][] = substr(preg_replace('/^[\t ]*\*[\t ]?/m', '', $match[1]), 1);
+
+                    return '';
+                }, $docComment);
                 $docComment = preg_replace('/^\s*\/\*+\s*\n([\s\S]+)\n\s*\*\/\s*$/', '$1', $docComment);
                 $docComment = trim(explode("\n@", preg_replace('/^\s*\*[\t ]*/m', '', $docComment))[0]);
-                if (count($matches[1])) {
+                if (count($matches[1]) || count($matches[2])) {
                     $docComment .= '<p><strong>Examples:</strong></p>';
+                    foreach ($matches[2] as $example) {
+                        $docComment .= '<pre class="live-editor"><code class="php">'.$example.'</code></pre>';
+                    }
                     foreach ($matches[1] as $example) {
                         $docComment .= '<p><code>'.str_replace(' ', '&nbsp;', $example).'</code></p>';
                     }

@@ -308,6 +308,7 @@ echo 6;              // 6
 
         scrollCheck();
         $document.scroll(scrollCheck);
+        $('.search').scroll(scrollCheck);
 
         $('.search-wrapper .close').click(function () {
             $('.main-wrapper').removeClass('open');
@@ -344,7 +345,9 @@ echo 6;              // 6
         $(function () {
             $.ajax('/reference/', {
                 success: function (data) {
-                    $('.search').html(data);
+                    $('.search').html(data).find('.live-editor code').each(function (index, block) {
+                        hljs.highlightBlock(block);
+                    });
                 },
             });
             $('.history-slot').each(function () {
