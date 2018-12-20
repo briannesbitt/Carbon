@@ -47,6 +47,11 @@ abstract class AbstractTestCase extends TestCase
      */
     private $saveTz;
 
+    protected function getTimestamp()
+    {
+        return (new DateTime())->getTimestamp();
+    }
+
     protected function setUp()
     {
         //save current timezone

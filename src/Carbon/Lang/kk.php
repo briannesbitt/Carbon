@@ -81,4 +81,5 @@ return [
     'weekdays_min' => ['жк', 'дй', 'сй', 'ср', 'бй', 'жм', 'сн'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' және '],
 ];

@@ -69,4 +69,5 @@ return [
     'weekdays_min' => ['Do', '2ª', '3ª', '4ª', '5ª', '6ª', 'Sá'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' e '],
 ];

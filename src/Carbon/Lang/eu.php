@@ -54,4 +54,5 @@ return [
     'weekdays_min' => ['ig', 'al', 'ar', 'az', 'og', 'ol', 'lr'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' eta '],
 ];

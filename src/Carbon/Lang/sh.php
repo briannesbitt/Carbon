@@ -32,4 +32,5 @@ return [
     'from_now' => 'za :time',
     'after' => 'nakon :time',
     'before' => ':time raniјe',
+    'list' => [', ', ' i '],
 ];

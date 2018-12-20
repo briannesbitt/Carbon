@@ -61,4 +61,5 @@ return [
         'lastWeek' => '[i] dddd[s kl.] LT',
         'sameElse' => 'L',
     ],
+    'list' => [', ', ' og '],
 ];

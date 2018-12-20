@@ -28,4 +28,5 @@ return [
     'from_now' => ':time له اوس څخه',
     'after' => ':time وروسته',
     'before' => ':time دمخه',
+    'list' => ['، ', ' او '],
 ];

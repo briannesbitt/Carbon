@@ -19,7 +19,6 @@ use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
 use DateInterval;
-use DateTimeInterface;
 
 /**
  * Trait Difference.
@@ -100,8 +99,8 @@ trait Difference
     /**
      * Get the difference as a CarbonInterval instance
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return CarbonInterval
      */
@@ -113,8 +112,8 @@ trait Difference
     /**
      * Get the difference in years
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -126,8 +125,8 @@ trait Difference
     /**
      * Get the difference in months
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -141,8 +140,8 @@ trait Difference
     /**
      * Get the difference in weeks
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -154,8 +153,8 @@ trait Difference
     /**
      * Get the difference in days
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -167,9 +166,9 @@ trait Difference
     /**
      * Get the difference in days using a filter closure
      *
-     * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Closure                               $callback
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -181,9 +180,9 @@ trait Difference
     /**
      * Get the difference in hours using a filter closure
      *
-     * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Closure                               $callback
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -195,10 +194,10 @@ trait Difference
     /**
      * Get the difference by the given interval using a filter closure
      *
-     * @param CarbonInterval                                $ci       An interval to traverse by
-     * @param Closure                                       $callback
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param CarbonInterval                        $ci       An interval to traverse by
+     * @param Closure                               $callback
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -223,8 +222,8 @@ trait Difference
     /**
      * Get the difference in weekdays
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -238,8 +237,8 @@ trait Difference
     /**
      * Get the difference in weekend days using a filter
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -253,8 +252,8 @@ trait Difference
     /**
      * Get the difference in hours.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -266,8 +265,8 @@ trait Difference
     /**
      * Get the difference in hours using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -279,8 +278,8 @@ trait Difference
     /**
      * Get the difference in minutes.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -292,8 +291,8 @@ trait Difference
     /**
      * Get the difference in minutes using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -305,8 +304,8 @@ trait Difference
     /**
      * Get the difference in seconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -327,8 +326,8 @@ trait Difference
     /**
      * Get the difference in microseconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -346,8 +345,8 @@ trait Difference
     /**
      * Get the difference in milliseconds.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -359,8 +358,8 @@ trait Difference
     /**
      * Get the difference in seconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -376,8 +375,8 @@ trait Difference
     /**
      * Get the difference in microseconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -394,8 +393,8 @@ trait Difference
     /**
      * Get the difference in milliseconds using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return int
      */
@@ -407,8 +406,8 @@ trait Difference
     /**
      * Get the difference in seconds as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -420,8 +419,8 @@ trait Difference
     /**
      * Get the difference in minutes as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -433,8 +432,8 @@ trait Difference
     /**
      * Get the difference in hours as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -446,8 +445,8 @@ trait Difference
     /**
      * Get the difference in days as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -461,8 +460,8 @@ trait Difference
     /**
      * Get the difference in months as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -499,8 +498,8 @@ trait Difference
     /**
      * Get the difference in year as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -537,8 +536,8 @@ trait Difference
     /**
      * Get the difference in seconds as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -550,8 +549,8 @@ trait Difference
     /**
      * Get the difference in minutes as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -563,8 +562,8 @@ trait Difference
     /**
      * Get the difference in hours as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -576,8 +575,8 @@ trait Difference
     /**
      * Get the difference in days as float (microsecond-precision).
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -591,8 +590,8 @@ trait Difference
     /**
      * Get the difference in months as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -629,8 +628,8 @@ trait Difference
     /**
      * Get the difference in year as float (microsecond-precision) using timestamps.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
-     * @param bool                                          $absolute Get the absolute of the difference
+     * @param Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                  $absolute Get the absolute of the difference
      *
      * @return float
      */
@@ -688,57 +687,65 @@ trait Difference
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
      *
-     * When comparing a value in the past to default now:
-     * 1 hour ago
-     * 5 months ago
+     * @example
+     * ```
+     * echo Carbon::tomorrow()->diffForHumans() . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(['parts' => 2]) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(['parts' => 3, 'join' => true]) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday()) . "\n";
+     * echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]) . "\n";
+     * ```
      *
-     * When comparing a value in the future to default now:
-     * 1 hour from now
-     * 5 months from now
-     *
-     * When comparing a value in the past to another value:
-     * 1 hour before
-     * 5 months before
-     *
-     * When comparing a value in the future to another value:
-     * 1 hour after
-     * 5 months after
-     *
-     * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other   if array passed, will be used as parameters array, see $syntax below;
+     *                                                             if null passed, now will be used as comparison reference;
+     *                                                             if any other type, it will be converted to date and used as reference.
+     * @param int|array                                   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                                                             - 'syntax' entry (see below)
+     *                                                             - 'short' entry (see below)
+     *                                                             - 'parts' entry (see below)
+     *                                                             - 'options' entry (see below)
+     *                                                             - 'join' entry determines how to join multiple parts of the string
+     *                                                             `  - if $join is a string, it's used as a joiner glue
+     *                                                             `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                                                             `  - if $join is an array, the first item will be the default glue, and the second item
+     *                                                             `    will be used instead of the glue for the last item
+     *                                                             `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                                                             `  - if $join is missing, a space will be used as glue
+     *                                                             - 'other' entry (see above)
+     *                                                             if int passed, it add modifiers:
+     *                                                             Possible values:
+     *                                                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                                                             Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool                                        $short   displays short format of time units
+     * @param int                                         $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int                                         $options human diff options
      *
      * @return string
      */
     public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
         /* @var CarbonInterface $this */
-        $syntax = (int) ($syntax === null ? static::DIFF_RELATIVE_AUTO : $syntax);
-        $syntax = $syntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $syntax;
+        if (is_array($other)) {
+            $other['syntax'] = array_key_exists('syntax', $other) ? $other['syntax'] : $syntax;
+            $syntax = $other;
+            $other = $syntax['other'] ?? null;
+        }
+
+        $intSyntax = &$syntax;
+        if (is_array($syntax)) {
+            $syntax['syntax'] = $syntax['syntax'] ?? null;
+            $intSyntax = &$syntax['syntax'];
+        }
+        $intSyntax = (int) ($intSyntax === null ? static::DIFF_RELATIVE_AUTO : $intSyntax);
+        $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
         $parts = min(7, max(1, (int) $parts));
 
-        if ($other === null) {
-            $other = $this->nowWithSameTz();
-        } elseif (!$other instanceof DateTimeInterface) {
-            $other = static::parse($other);
-        }
-
-        if (is_null($options)) {
-            $options = $this->localHumanDiffOptions ?? static::getHumanDiffOptions();
-        }
-
         return $this->diffAsCarbonInterval($other, false)
             ->setLocalTranslator($this->getLocalTranslator())
-            ->forHumans($syntax, (bool) $short, $parts, $options);
+            ->forHumans($syntax, (bool) $short, $parts, $options ?? $this->localHumanDiffOptions ?? static::getHumanDiffOptions());
     }
 
     /**
@@ -747,17 +754,31 @@ trait Difference
      * Get the difference in a human readable format in the current locale from current instance to an other
      * instance given (or now if null given).
      *
-     * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other   if array passed, will be used as parameters array, see $syntax below;
+     *                                                             if null passed, now will be used as comparison reference;
+     *                                                             if any other type, it will be converted to date and used as reference.
+     * @param int|array                                   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                                                             - 'syntax' entry (see below)
+     *                                                             - 'short' entry (see below)
+     *                                                             - 'parts' entry (see below)
+     *                                                             - 'options' entry (see below)
+     *                                                             - 'join' entry determines how to join multiple parts of the string
+     *                                                             `  - if $join is a string, it's used as a joiner glue
+     *                                                             `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                                                             `  - if $join is an array, the first item will be the default glue, and the second item
+     *                                                             `    will be used instead of the glue for the last item
+     *                                                             `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                                                             `  - if $join is missing, a space will be used as glue
+     *                                                             - 'other' entry (see above)
+     *                                                             if int passed, it add modifiers:
+     *                                                             Possible values:
+     *                                                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                                                             Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool                                        $short   displays short format of time units
+     * @param int                                         $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int                                         $options human diff options
      *
      * @return string
      */
@@ -797,17 +818,31 @@ trait Difference
      * 1 hour before
      * 5 months before
      *
-     * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other   if array passed, will be used as parameters array, see $syntax below;
+     *                                                             if null passed, now will be used as comparison reference;
+     *                                                             if any other type, it will be converted to date and used as reference.
+     * @param int|array                                   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                                                             - 'syntax' entry (see below)
+     *                                                             - 'short' entry (see below)
+     *                                                             - 'parts' entry (see below)
+     *                                                             - 'options' entry (see below)
+     *                                                             - 'join' entry determines how to join multiple parts of the string
+     *                                                             `  - if $join is a string, it's used as a joiner glue
+     *                                                             `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                                                             `  - if $join is an array, the first item will be the default glue, and the second item
+     *                                                             `    will be used instead of the glue for the last item
+     *                                                             `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                                                             `  - if $join is missing, a space will be used as glue
+     *                                                             - 'other' entry (see above)
+     *                                                             if int passed, it add modifiers:
+     *                                                             Possible values:
+     *                                                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                                                             Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool                                        $short   displays short format of time units
+     * @param int                                         $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int                                         $options human diff options
      *
      * @return string
      */
@@ -826,17 +861,31 @@ trait Difference
      * Get the difference in a human readable format in the current locale from an other
      * instance given (or now if null given) to current instance.
      *
-     * @param Carbon|null $other
-     * @param int         $syntax  difference modifiers (ago, after, etc) rules
-     *                             Possible values:
-     *                             - CarbonInterface::DIFF_ABSOLUTE
-     *                             - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                             Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool        $short   displays short format of time units
-     * @param int         $parts   displays number of parts in the interval
-     * @param int         $options human diff options
+     * @param Carbon|\DateTimeInterface|string|array|null $other   if array passed, will be used as parameters array, see $syntax below;
+     *                                                             if null passed, now will be used as comparison reference;
+     *                                                             if any other type, it will be converted to date and used as reference.
+     * @param int|array                                   $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                                                             - 'syntax' entry (see below)
+     *                                                             - 'short' entry (see below)
+     *                                                             - 'parts' entry (see below)
+     *                                                             - 'options' entry (see below)
+     *                                                             - 'join' entry determines how to join multiple parts of the string
+     *                                                             `  - if $join is a string, it's used as a joiner glue
+     *                                                             `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                                                             `  - if $join is an array, the first item will be the default glue, and the second item
+     *                                                             `    will be used instead of the glue for the last item
+     *                                                             `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                                                             `  - if $join is missing, a space will be used as glue
+     *                                                             - 'other' entry (see above)
+     *                                                             if int passed, it add modifiers:
+     *                                                             Possible values:
+     *                                                             - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                                                             - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                                                             Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool                                        $short   displays short format of time units
+     * @param int                                         $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int                                         $options human diff options
      *
      * @return string
      */
@@ -849,16 +898,27 @@ trait Difference
      * Get the difference in a human readable format in the current locale from current
      * instance to now.
      *
-     * @param int  $syntax  difference modifiers (ago, after, etc) rules
-     *                      Possible values:
-     *                      - CarbonInterface::DIFF_ABSOLUTE
-     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool $short   displays short format of time units
-     * @param int  $parts   displays number of parts in the interval
-     * @param int  $options human diff options
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
      *
      * @return string
      */
@@ -871,16 +931,27 @@ trait Difference
      * Get the difference in a human readable format in the current locale from an other
      * instance given to now
      *
-     * @param int  $syntax  difference modifiers (ago, after, etc) rules
-     *                      Possible values:
-     *                      - CarbonInterface::DIFF_ABSOLUTE
-     *                      - CarbonInterface::DIFF_RELATIVE_AUTO
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER
-     *                      Default value: CarbonInterface::DIFF_RELATIVE_AUTO
-     * @param bool $short   displays short format of time units
-     * @param int  $parts   displays number of parts in the interval
-     * @param int  $options human diff options
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $options human diff options
      *
      * @return string
      */
@@ -892,8 +963,8 @@ trait Difference
     /**
      * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $referenceTime
-     * @param array                                         $formats
+     * @param Carbon|\DateTimeInterface|string|null $referenceTime
+     * @param array                                 $formats
      *
      * @return string
      */

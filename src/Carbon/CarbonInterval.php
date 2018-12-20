@@ -926,30 +926,20 @@ class CarbonInterval extends DateInterval
         return $this;
     }
 
-    /**
-     * Get the current interval in a human readable format in the current locale.
-     *
-     * @param int  $syntax  add modifiers:
-     *                      Possible values:
-     *                      - CarbonInterface::DIFF_ABSOLUTE          no modifiers
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
-     *                      - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
-     *                      Default value: CarbonInterface::DIFF_ABSOLUTE
-     * @param bool $short   displays short format of time units
-     * @param int  $parts   maximum number of parts to display (default value: -1: no limits)
-     * @param int  $options human diff options
-     *
-     * @return string
-     */
-    public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
+    protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        if (is_int($short)) {
-            $parts = $short;
-            $short = false;
-        }
-        if (is_bool($syntax)) {
-            $short = $syntax;
-            $syntax = CarbonInterface::DIFF_ABSOLUTE;
+        $join = ' ';
+        if (is_array($syntax)) {
+            extract($syntax);
+        } else {
+            if (is_int($short)) {
+                $parts = $short;
+                $short = false;
+            }
+            if (is_bool($syntax)) {
+                $short = $syntax;
+                $syntax = CarbonInterface::DIFF_ABSOLUTE;
+            }
         }
         if (is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
@@ -960,6 +950,66 @@ class CarbonInterval extends DateInterval
         if (is_null($options)) {
             $options = static::getHumanDiffOptions();
         }
+        if ($join === true) {
+            $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
+            $join = [
+                $default,
+                $this->getTranslationMessage('list.1') ?? $default,
+            ];
+        }
+        if (is_array($join)) {
+            [$default, $last] = $join;
+
+            $join = function ($list) use ($default, $last) {
+                if (count($list) < 2) {
+                    return implode('', $list);
+                }
+
+                $end = array_pop($list);
+
+                return implode($default, $list).$last.$end;
+            };
+        }
+        if (is_string($join)) {
+            $glue = $join;
+            $join = function ($list) use ($glue) {
+                return implode($glue, $list);
+            };
+        }
+
+        return [$syntax, $short, $parts, $options, $join];
+    }
+
+    /**
+     * Get the current interval in a human readable format in the current locale.
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: -1: no limits)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
+    {
+        [$syntax, $short, $parts, $options, $join] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
@@ -1022,7 +1072,7 @@ class CarbonInterval extends DateInterval
         }
 
         // join the interval parts by a space
-        $time = implode(' ', $interval);
+        $time = $join($interval);
 
         unset($diffIntervalArray, $interval);
 

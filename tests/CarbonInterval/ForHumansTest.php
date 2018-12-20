@@ -154,4 +154,62 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame('et år en måned', CarbonInterval::create(1, 1)->forHumans());
         $this->assertSame('2 år en måned', CarbonInterval::create(2, 1)->forHumans());
     }
+
+    public function testCustomJoin()
+    {
+        $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('fr');
+        $this->assertSame('un an un mois un jour une heure', $interval->forHumans());
+        $this->assertSame('un an, un mois, un jour et une heure', $interval->forHumans([
+            'join' => true,
+        ]));
+        $this->assertSame('တစ်နှစ် တစ်လ တစ်ရက် တစ်နာရီ', $interval->copy()->locale('my')->forHumans([
+            'join' => true,
+        ]));
+        $this->assertSame('un an, un mois, un jour, une heure', $interval->forHumans([
+            'join' => ', ',
+        ]));
+        $this->assertSame('un an et un mois et un jour et aussi une heure', $interval->forHumans([
+            'join' => [' et ', ' et aussi '],
+        ]));
+        $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('en');
+        $this->assertSame('1 year 1 month 1 day 1 hour', $interval->forHumans());
+        $this->assertSame('1 year, 1 month, 1 day and 1 hour', $interval->forHumans([
+            'join' => true,
+        ]));
+        $this->assertSame('1 year, 1 month, 1 day, 1 hour', $interval->forHumans([
+            'join' => ', ',
+        ]));
+        $this->assertSame('1 year and 1 month and 1 day and also 1 hour', $interval->forHumans([
+            'join' => [' and ', ' and also '],
+        ]));
+        $this->assertSame('[1 year;1 month;1 day;1 hour]', $interval->forHumans([
+            'join' => function ($list) {
+                return '['.implode(';', $list).']';
+            },
+        ]));
+    }
+
+    public function testOptionsAsArray()
+    {
+        $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('fr');
+        $this->assertSame('un an', $interval->forHumans([
+            'join' => 'foo',
+            'parts' => 1,
+        ]));
+        $this->assertSame('il y a un an', $interval->forHumans([
+            'join' => 'foo',
+            'parts' => 1,
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+        ]));
+        $interval = CarbonInterval::day();
+        $this->assertSame('1d', $interval->forHumans([
+            'short' => true,
+        ]));
+        $interval = CarbonInterval::day();
+        $this->assertSame('yesterday', $interval->forHumans([
+            'parts' => 1,
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+            'options' => CarbonInterface::ONE_DAY_WORDS,
+        ]));
+    }
 }

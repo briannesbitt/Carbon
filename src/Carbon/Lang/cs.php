@@ -35,4 +35,5 @@ return [
     'weekdays' => ['Neděle', 'Pondělí', 'Úterý', 'Středa', 'Čtvrtek', 'Pátek', 'Sobota'],
     'weekdays_short' => ['Ned', 'Pon', 'Úte', 'Stř', 'Čtv', 'Pát', 'Sob'],
     'weekdays_min' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
+    'list' => [', ', ' a '],
 ];

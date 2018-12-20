@@ -59,4 +59,5 @@ return [
     'hour_before' => ':count цагий',
     'minute_before' => ':count минуты',
     'second_before' => ':count секунды',
+    'list' => ', ',
 ];

@@ -24,9 +24,9 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
 
         Carbon::setTestNow();
-        $before = time();
+        $before = $this->getTimestamp();
         $dt = Carbon::now();
-        $after = time();
+        $after = $this->getTimestamp();
         $this->assertGreaterThanOrEqual($before, $dt->timestamp);
         $this->assertLessThanOrEqual($after, $dt->timestamp);
     }
@@ -53,9 +53,9 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
         $this->assertSame($this->immutableNow->getTimestamp(), $dt->timestamp);
 
         Carbon::setTestNow();
-        $before = time();
+        $before = $this->getTimestamp();
         $dt = Carbon::now('Europe/London');
-        $after = time();
+        $after = $this->getTimestamp();
         $this->assertGreaterThanOrEqual($before, $dt->timestamp);
         $this->assertLessThanOrEqual($after, $dt->timestamp);
         $this->assertSame('Europe/London', $dt->tzName);

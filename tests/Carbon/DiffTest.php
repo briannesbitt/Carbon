@@ -1325,6 +1325,53 @@ class DiffTest extends AbstractTestCase
         Carbon::setHumanDiffOptions($options);
     }
 
+    public function testDiffForHumansArrayParameter()
+    {
+        Carbon::setTestNow('2000-01-01 00:00:00');
+        $date = Carbon::now()->subtract('2 days, 3 hours and 40 minutes');
+        $this->assertSame('2 days and 3 hours ago', $date->diffForHumans([
+            'parts' => 2,
+            'join' => true,
+        ]));
+        $this->assertSame('hace 2 días y 3 horas', $date->copy()->locale('es')->diffForHumans([
+            'parts' => 2,
+            'join' => true,
+        ]));
+        $this->assertSame('2 days, 3 hours and 40 minutes ago', $date->diffForHumans([
+            'parts' => -1,
+            'join' => true,
+        ]));
+        $this->assertSame('3 days, 3 hours and 40 minutes before', $date->diffForHumans(Carbon::now()->addDay(), [
+            'parts' => -1,
+            'join' => true,
+        ]));
+        $this->assertSame('3 days, 3 hours and 40 minutes before', $date->diffForHumans([
+            'other' => Carbon::now()->addDay(),
+            'parts' => -1,
+            'join' => true,
+        ]));
+        $this->assertSame('2 days, 3 hours ago', $date->diffForHumans([
+            'parts' => 2,
+            'join' => ', ',
+        ]));
+        $this->assertSame('2d, 3h ago', $date->diffForHumans([
+            'parts' => 2,
+            'join' => ', ',
+            'short' => true,
+        ]));
+        $this->assertSame('2 days, 3 hours before', $date->diffForHumans([
+            'parts' => 2,
+            'join' => ', ',
+            'syntax' => CarbonInterface::DIFF_RELATIVE_TO_OTHER,
+        ]));
+        $this->assertSame('yesterday', Carbon::yesterday()->diffForHumans([
+            'options' => CarbonInterface::ONE_DAY_WORDS,
+        ]));
+        $this->assertSame('1 day ago', Carbon::yesterday()->diffForHumans([
+            'options' => 0,
+        ]));
+    }
+
     public function testFromNow()
     {
         Carbon::setLocale('en');
