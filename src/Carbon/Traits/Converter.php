@@ -67,6 +67,11 @@ trait Converter
     /**
      * Format the instance as a string using the set format
      *
+     * @example
+     * ```
+     * echo Carbon::now(); // Carbon instances can be casted to string
+     * ```
+     *
      * @return string
      */
     public function __toString()
@@ -85,6 +90,11 @@ trait Converter
     /**
      * Format the instance as date
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateString();
+     * ```
+     *
      * @return string
      */
     public function toDateString()
@@ -94,6 +104,11 @@ trait Converter
 
     /**
      * Format the instance as a readable date
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toFormattedDateString();
+     * ```
      *
      * @return string
      */
@@ -105,6 +120,11 @@ trait Converter
     /**
      * Format the instance as time
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toTimeString();
+     * ```
+     *
      * @return string
      */
     public function toTimeString()
@@ -114,6 +134,11 @@ trait Converter
 
     /**
      * Format the instance as date and time
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateTimeString();
+     * ```
      *
      * @return string
      */
@@ -125,6 +150,11 @@ trait Converter
     /**
      * Format the instance as date and time T-separated with no timezone
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateTimeLocalString();
+     * ```
+     *
      * @return string
      */
     public function toDateTimeLocalString()
@@ -134,6 +164,11 @@ trait Converter
 
     /**
      * Format the instance with day, date and time
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDayDateTimeString();
+     * ```
      *
      * @return string
      */
@@ -145,6 +180,11 @@ trait Converter
     /**
      * Format the instance as ATOM
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toAtomString();
+     * ```
+     *
      * @return string
      */
     public function toAtomString()
@@ -154,6 +194,11 @@ trait Converter
 
     /**
      * Format the instance as COOKIE
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toCookieString();
+     * ```
      *
      * @return string
      */
@@ -165,6 +210,11 @@ trait Converter
     /**
      * Format the instance as ISO8601
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toIso8601String();
+     * ```
+     *
      * @return string
      */
     public function toIso8601String()
@@ -174,6 +224,11 @@ trait Converter
 
     /**
      * Format the instance as RFC822
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc822String();
+     * ```
      *
      * @return string
      */
@@ -185,6 +240,11 @@ trait Converter
     /**
      * Convert the instance to UTC and return as Zulu ISO8601
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toIso8601ZuluString();
+     * ```
+     *
      * @return string
      */
     public function toIso8601ZuluString()
@@ -194,6 +254,11 @@ trait Converter
 
     /**
      * Format the instance as RFC850
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc850String();
+     * ```
      *
      * @return string
      */
@@ -205,6 +270,11 @@ trait Converter
     /**
      * Format the instance as RFC1036
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc1036String();
+     * ```
+     *
      * @return string
      */
     public function toRfc1036String()
@@ -214,6 +284,11 @@ trait Converter
 
     /**
      * Format the instance as RFC1123
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc1123String();
+     * ```
      *
      * @return string
      */
@@ -225,6 +300,11 @@ trait Converter
     /**
      * Format the instance as RFC2822
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc2822String();
+     * ```
+     *
      * @return string
      */
     public function toRfc2822String()
@@ -234,6 +314,11 @@ trait Converter
 
     /**
      * Format the instance as RFC3339
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc3339String();
+     * ```
      *
      * @return string
      */
@@ -245,6 +330,11 @@ trait Converter
     /**
      * Format the instance as RSS
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRssString();
+     * ```
+     *
      * @return string
      */
     public function toRssString()
@@ -255,6 +345,11 @@ trait Converter
     /**
      * Format the instance as W3C
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toW3cString();
+     * ```
+     *
      * @return string
      */
     public function toW3cString()
@@ -264,6 +359,11 @@ trait Converter
 
     /**
      * Format the instance as RFC7231
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc7231String();
+     * ```
      *
      * @return string
      */
@@ -276,6 +376,11 @@ trait Converter
 
     /**
      * Get default array representation.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toArray());
+     * ```
      *
      * @return array
      */
@@ -300,6 +405,11 @@ trait Converter
     /**
      * Get default object representation.
      *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toObject());
+     * ```
+     *
      * @return object
      */
     public function toObject()
@@ -309,6 +419,11 @@ trait Converter
 
     /**
      * Returns english human readable complete date string.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toString();
+     * ```
      *
      * @return string
      */
@@ -320,6 +435,12 @@ trait Converter
     /**
      * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z, if $keepOffset truthy, offset will be kept:
      * 1977-04-22T01:00:00-05:00).
+     *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toISOString() . "\n";
+     * echo Carbon::now('America/Toronto')->toISOString(true) . "\n";
+     * ```
      *
      * @param bool $keepOffset Pass true to keep the date offset. Else forced to UTC.
      *
@@ -342,6 +463,11 @@ trait Converter
     /**
      * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z) with UTC timezone.
      *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toJSON();
+     * ```
+     *
      * @return null|string
      */
     public function toJSON()
@@ -351,6 +477,11 @@ trait Converter
 
     /**
      * Return native DateTime PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDateTime());
+     * ```
      *
      * @return DateTime
      */
@@ -363,6 +494,11 @@ trait Converter
      * @alias toDateTime
      *
      * Return native DateTime PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDate());
+     * ```
      *
      * @return DateTime
      */
