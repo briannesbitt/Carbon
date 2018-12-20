@@ -951,7 +951,7 @@ class CarbonInterval extends DateInterval
             $options = static::getHumanDiffOptions();
         }
         if ($join === true) {
-            $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list');
+            $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
             $join = [
                 $default,
                 $this->getTranslationMessage('list.1') ?? $default,
