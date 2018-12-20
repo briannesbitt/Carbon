@@ -37,6 +37,11 @@ trait Boundaries
     /**
      * Resets the time to 00:00:00 start of day
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfDay();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfDay()
@@ -45,7 +50,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the time to 23:59:59 end of day
+     * Resets the time to 23:59:59.999999 end of day
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfDay();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -57,6 +67,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the month and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMonth();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfMonth()
@@ -65,7 +80,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the month and time to 23:59:59
+     * Resets the date to end of the month and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMonth();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -77,6 +97,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the quarter and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfQuarter();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfQuarter()
@@ -87,7 +112,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the quarter and time to 23:59:59
+     * Resets the date to end of the quarter and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfQuarter();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -99,6 +129,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfYear();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfYear()
@@ -107,7 +142,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the year and time to 23:59:59
+     * Resets the date to end of the year and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfYear();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -119,6 +159,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfDecade();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfDecade()
@@ -129,7 +174,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the decade and time to 23:59:59
+     * Resets the date to end of the decade and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfDecade();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -143,6 +193,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfCentury();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfCentury()
@@ -153,7 +208,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the century and time to 23:59:59
+     * Resets the date to end of the century and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfCentury();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -167,6 +227,11 @@ trait Boundaries
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMillennium();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfMillennium()
@@ -177,7 +242,12 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the century and time to 23:59:59
+     * Resets the date to end of the century and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMillennium();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -190,6 +260,13 @@ trait Boundaries
 
     /**
      * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->startOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek(Carbon::SUNDAY) . "\n";
+     * ```
      *
      * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
      *
@@ -206,7 +283,14 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
+     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->endOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";
+     * ```
      *
      * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
      *
@@ -225,6 +309,11 @@ trait Boundaries
     /**
      * Modify to start of current hour, minutes and seconds become 0
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfHour();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfHour()
@@ -234,6 +323,11 @@ trait Boundaries
 
     /**
      * Modify to end of current hour, minutes and seconds become 59
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfHour();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -245,6 +339,11 @@ trait Boundaries
     /**
      * Modify to start of current minute, seconds become 0
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMinute();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfMinute()
@@ -254,6 +353,11 @@ trait Boundaries
 
     /**
      * Modify to end of current minute, seconds become 59
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMinute();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -265,6 +369,13 @@ trait Boundaries
     /**
      * Modify to start of current second, microseconds become 0
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfSecond()
@@ -275,6 +386,13 @@ trait Boundaries
     /**
      * Modify to end of current second, microseconds become 999999
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->endOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function endOfSecond()
@@ -284,6 +402,13 @@ trait Boundaries
 
     /**
      * Modify to start of current given unit.
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOf('month')
+     *   ->endOf('week', Carbon::FRIDAY);
+     * ```
      *
      * @param string            $unit
      * @param array<int, mixed> $params
@@ -303,6 +428,13 @@ trait Boundaries
 
     /**
      * Modify to end of current given unit.
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOf('month')
+     *   ->endOf('week', Carbon::FRIDAY);
+     * ```
      *
      * @param string            $unit
      * @param array<int, mixed> $params
