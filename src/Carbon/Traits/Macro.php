@@ -48,6 +48,18 @@ trait Macro
     /**
      * Register a custom macro.
      *
+     * @example
+     * ```
+     * $userSettings = [
+     *   'locale' => 'pt',
+     *   'timezone' => 'America/Sao_Paulo',
+     * ];
+     * Carbon::macro('userFormat', function () use ($userSettings) {
+     *   return $this->copy()->locale($userSettings['locale'])->tz($userSettings['timezone'])->calendar();
+     * });
+     * echo Carbon::yesterday()->hours(11)->userFormat();
+     * ```
+     *
      * @param string          $name
      * @param object|callable $macro
      *

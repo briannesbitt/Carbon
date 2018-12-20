@@ -368,6 +368,14 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Register a custom macro.
      *
+     * @example
+     * ```
+     * CarbonPeriod::macro('middle', function () {
+     *   return $this->getStartDate()->average($this->getEndDate());
+     * });
+     * echo CarbonPeriod::since('2011-05-12')->until('2011-06-03')->middle();
+     * ```
+     *
      * @param string          $name
      * @param object|callable $macro
      *
