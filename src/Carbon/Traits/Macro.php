@@ -100,6 +100,28 @@ trait Macro
     /**
      * Mix another object into the class.
      *
+     * @example
+     * ```
+     * Carbon::mixin(new class {
+     *   public function addMoon() {
+     *     return function () {
+     *       return $this->addDays(28);
+     *     };
+     *   }
+     *   public function subMoon() {
+     *     return function () {
+     *       return $this->subDays(28);
+     *     };
+     *   }
+     * });
+     * $fullMoon = Carbon::create('2000-01-01');
+     * $nextFullMoon = $fullMoon->addMoon();
+     * $blackMoon = Carbon::create('2000-01-15');
+     * $previousBlackMoon = $blackMoon->subMoon();
+     * echo "$nextFullMoon\n";
+     * echo "$previousBlackMoon\n";
+     * ```
+     *
      * @param object $mixin
      *
      * @throws \ReflectionException

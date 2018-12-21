@@ -815,6 +815,30 @@ class CarbonInterval extends DateInterval
     /**
      * Register macros from a mixin object.
      *
+     * @example
+     * ```
+     * CarbonInterval::mixin(new class {
+     *   public function daysToHours() {
+     *     return function () {
+     *       $this->hours += $this->days;
+     *       $this->days = 0;
+     *
+     *       return $this;
+     *     };
+     *   }
+     *   public function hoursToDays() {
+     *     return function () {
+     *       $this->days += $this->hours;
+     *       $this->hours = 0;
+     *
+     *       return $this;
+     *     };
+     *   }
+     * });
+     * echo CarbonInterval::hours(5)->hoursToDays() . "\n";
+     * echo CarbonInterval::days(5)->daysToHours() . "\n";
+     * ```
+     *
      * @param object $mixin
      *
      * @throws \ReflectionException

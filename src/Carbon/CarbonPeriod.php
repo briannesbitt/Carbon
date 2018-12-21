@@ -389,6 +389,29 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Register macros from a mixin object.
      *
+     * @example
+     * ```
+     * CarbonPeriod::mixin(new class {
+     *   public function addDays() {
+     *     return function ($count = 1) {
+     *       $this->getStartDate()->addDays($count);
+     *       $this->getEndDate()->addDays($count);
+     *
+     *       return $this;
+     *     };
+     *   }
+     *   public function subDays() {
+     *     return function ($count = 1) {
+     *       $this->getStartDate()->subDays($count);
+     *       $this->getEndDate()->subDays($count);
+     *
+     *       return $this;
+     *     };
+     *   }
+     * });
+     * echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays('');
+     * ```
+     *
      * @param object $mixin
      *
      * @throws \ReflectionException
