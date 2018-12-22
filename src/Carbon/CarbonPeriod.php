@@ -394,22 +394,24 @@ class CarbonPeriod implements Iterator, Countable
      * CarbonPeriod::mixin(new class {
      *   public function addDays() {
      *     return function ($count = 1) {
-     *       $this->getStartDate()->addDays($count);
-     *       $this->getEndDate()->addDays($count);
-     *
-     *       return $this;
+     *       return $this->setStartDate(
+     *         $this->getStartDate()->addDays($count)
+     *       )->setEndDate(
+     *         $this->getEndDate()->addDays($count)
+     *       );
      *     };
      *   }
      *   public function subDays() {
      *     return function ($count = 1) {
-     *       $this->getStartDate()->subDays($count);
-     *       $this->getEndDate()->subDays($count);
-     *
-     *       return $this;
+     *       return $this->setStartDate(
+     *         $this->getStartDate()->subDays($count)
+     *       )->setEndDate(
+     *         $this->getEndDate()->subDays($count)
+     *       );
      *     };
      *   }
      * });
-     * echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays('');
+     * echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);
      * ```
      *
      * @param object $mixin

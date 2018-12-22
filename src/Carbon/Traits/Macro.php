@@ -105,18 +105,18 @@ trait Macro
      * Carbon::mixin(new class {
      *   public function addMoon() {
      *     return function () {
-     *       return $this->addDays(28);
+     *       return $this->addDays(30);
      *     };
      *   }
      *   public function subMoon() {
      *     return function () {
-     *       return $this->subDays(28);
+     *       return $this->subDays(30);
      *     };
      *   }
      * });
-     * $fullMoon = Carbon::create('2000-01-01');
+     * $fullMoon = Carbon::create('2018-12-22');
      * $nextFullMoon = $fullMoon->addMoon();
-     * $blackMoon = Carbon::create('2000-01-15');
+     * $blackMoon = Carbon::create('2019-01-06');
      * $previousBlackMoon = $blackMoon->subMoon();
      * echo "$nextFullMoon\n";
      * echo "$previousBlackMoon\n";
