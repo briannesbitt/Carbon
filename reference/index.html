@@ -1590,7 +1590,14 @@ instance given to now</p>
 <div class="doc-method " id="doc-method-Carbon-macro">
     <h2><span class="class-name">Carbon::</span>macro</h2>
     <code>$name, $macro</code>
-    <p>Register a custom macro.</p>
+    <p>Register a custom macro.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">$userSettings = [
+  'locale' => 'pt',
+  'timezone' => 'America/Sao_Paulo',
+];
+Carbon::macro('userFormat', function () use ($userSettings) {
+  return $this->copy()->locale($userSettings['locale'])->tz($userSettings['timezone'])->calendar();
+});
+echo Carbon::yesterday()->hours(11)->userFormat();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$name, $macro</code></td></tr></table>
 </div>
 
@@ -1611,7 +1618,24 @@ instance given to now</p>
 <div class="doc-method " id="doc-method-Carbon-mixin">
     <h2><span class="class-name">Carbon::</span>mixin</h2>
     <code>$mixin</code>
-    <p>Mix another object into the class.</p>
+    <p>Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
+  public function addMoon() {
+    return function () {
+      return $this->addDays(30);
+    };
+  }
+  public function subMoon() {
+    return function () {
+      return $this->subDays(30);
+    };
+  }
+});
+$fullMoon = Carbon::create('2018-12-22');
+$nextFullMoon = $fullMoon->addMoon();
+$blackMoon = Carbon::create('2019-01-06');
+$previousBlackMoon = $blackMoon->subMoon();
+echo "$nextFullMoon\n";
+echo "$previousBlackMoon\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$mixin</code></td></tr></table>
 </div>
 
@@ -2571,14 +2595,32 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 <div class="doc-method " id="doc-method-CarbonInterval-macro">
     <h2><span class="class-name">CarbonInterval::</span>macro</h2>
     <code>$name, $macro</code>
-    <p>Register a custom macro.</p>
+    <p>Register a custom macro.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::macro('twice', function () {
+  return $this->times(2);
+});
+echo CarbonInterval::hours(2)->twice();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$name, $macro</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-mixin">
     <h2><span class="class-name">CarbonInterval::</span>mixin</h2>
     <code>$mixin</code>
-    <p>Register macros from a mixin object.</p>
+    <p>Register macros from a mixin object.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::mixin(new class {
+  public function daysToHours() {
+    return function () {
+      $this->hours += $this->days;
+      $this->days = 0;<br><br>      return $this;
+    };
+  }
+  public function hoursToDays() {
+    return function () {
+      $this->days += $this->hours;
+      $this->hours = 0;<br><br>      return $this;
+    };
+  }
+});
+echo CarbonInterval::hours(5)->hoursToDays() . "\n";
+echo CarbonInterval::days(5)->daysToHours() . "\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$mixin</code></td></tr></table>
 </div>
 
@@ -2592,7 +2634,11 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 <div class="doc-method " id="doc-method-CarbonInterval-forHumans">
     <h2><span class="class-name">CarbonInterval::</span>forHumans</h2>
     <code>$syntax = NULL, $short = false, $parts = -1, $options = NULL</code>
-    <p>Get the current interval in a human readable format in the current locale.</p>
+    <p>Get the current interval in a human readable format in the current locale.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo CarbonInterval::fromString('4d 3h 40m')->forHumans() . "\n";
+echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 2]) . "\n";
+echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 3, 'join' => true]) . "\n";
+echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['short' => true]) . "\n";
+echo CarbonInterval::fromString('1d 24h')->forHumans(['join' => ' or ']) . "\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = NULL, $short = false, $parts = -1, $options = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.28.0</td><td><code>$short = false</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -2995,14 +3041,37 @@ Support is considered enabled if the 4 sentences are translated in the given loc
 <div class="doc-method " id="doc-method-CarbonPeriod-macro">
     <h2><span class="class-name">CarbonPeriod::</span>macro</h2>
     <code>$name, $macro</code>
-    <p>Register a custom macro.</p>
+    <p>Register a custom macro.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonPeriod::macro('middle', function () {
+  return $this->getStartDate()->average($this->getEndDate());
+});
+echo CarbonPeriod::since('2011-05-12')->until('2011-06-03')->middle();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$name, $macro</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-mixin">
     <h2><span class="class-name">CarbonPeriod::</span>mixin</h2>
     <code>$mixin</code>
-    <p>Register macros from a mixin object.</p>
+    <p>Register macros from a mixin object.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonPeriod::mixin(new class {
+  public function addDays() {
+    return function ($count = 1) {
+      return $this->setStartDate(
+        $this->getStartDate()->addDays($count)
+      )->setEndDate(
+        $this->getEndDate()->addDays($count)
+      );
+    };
+  }
+  public function subDays() {
+    return function ($count = 1) {
+      return $this->setStartDate(
+        $this->getStartDate()->subDays($count)
+      )->setEndDate(
+        $this->getEndDate()->subDays($count)
+      );
+    };
+  }
+});
+echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$mixin</code></td></tr></table>
 </div>
 
