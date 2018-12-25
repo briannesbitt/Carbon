@@ -387,6 +387,36 @@ class LocalizationTest extends AbstractTestCase
         Carbon::setLocale('en');
     }
 
+    public function testCustomLocalTranslation()
+    {
+        $boringLanguage = 'en_Overboring';
+        $translator = Translator::get($boringLanguage);
+        $translator->setTranslations([
+            'day' => ':count boring day|:count boring days',
+        ]);
+
+        $date1 = Carbon::create(2018, 1, 1, 0, 0, 0);
+        $date2 = Carbon::create(2018, 1, 4, 4, 0, 0);
+
+        $this->assertSame('3 boring days before', $date1->locale($boringLanguage)->diffForHumans($date2));
+
+        $translator->setTranslations([
+            'before' => function ($time) {
+                return '['.strtoupper($time).']';
+            },
+        ]);
+
+        $this->assertSame('[3 BORING DAYS]', $date1->locale($boringLanguage)->diffForHumans($date2));
+
+        $meridiem = Translator::get('ru')->trans('meridiem', [
+            'hours' => 9,
+            'minutes' => 30,
+            'seconds' => 0,
+        ]);
+
+        $this->assertSame('утра', $meridiem);
+    }
+
     public function testAddCustomTranslation()
     {
         $enBoring = [

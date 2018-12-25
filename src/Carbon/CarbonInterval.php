@@ -1401,10 +1401,6 @@ class CarbonInterval extends DateInterval
             $value = $this->$source;
             $this->$source = $modulo = ($factor + ($value % $factor)) % $factor;
             $this->$target += ($value - $modulo) / $factor;
-            if ($this->$source < 0 && $this->$target > 0) {
-                $this->$source += $factor;
-                $this->$target--;
-            }
             if ($this->$source > 0 && $this->$target < 0) {
                 $this->$source -= $factor;
                 $this->$target++;
