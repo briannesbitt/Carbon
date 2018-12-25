@@ -514,6 +514,9 @@ $translator->setTranslations([
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
                 href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+        And you can get the global default translator using <code>Carbon::getTranslator()</code> but as those method
+        will change the behavior globally (including third-party libraries you may have in your app), it might cause
+        unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
 
     <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
@@ -2255,30 +2258,84 @@ Carbon::setWeekEndsAt(Carbon::SUNDAY);
     <p>You can also change the locale of the string using <code>$date->locale('fr')</code> before the
         diffForHumans() call. See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-    <p id="diff-for-humans-options">Options can be passed as fifth argument of diffForHumans():</p>
+    <p id="diff-for-humans-options">Since 2.9.0 diffForHumans() parameters can be passed as an array:</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::exec(
-echo Carbon::now()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+echo Carbon::now()->diffForHumans(['options' => 0]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::NO_ZERO_DIFF);)}} // {{eval}}
+// default options:
+{{::exec(echo Carbon::now()->diffForHumans(['options' => Carbon::NO_ZERO_DIFF]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::JUST_NOW);)}} // {{eval}}
+{{::exec(echo Carbon::now()->diffForHumans(['options' => Carbon::JUST_NOW]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(['options' => 0]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, Carbon::ONE_DAY_WORDS);)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDay()->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, 0);)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(['options' => 0]);)}} // {{eval}}
 echo "\n";
-{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+{{::exec(echo Carbon::now()->subDays(2)->diffForHumans(['options' => Carbon::TWO_DAY_WORDS]);)}} // {{eval}}
 echo "\n";
 
 {{::lint(// Options can be combined with pipes
-$date = Carbon::now();
+$now = Carbon::now();
 )}}
 
-{{::exec(echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS);)}} // {{eval}}
+{{::exec(echo $now->diffForHumans(['options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS]);)}} // {{eval}}
+echo "\n";
+
+// Reference date for differences is `now` but you can use any other date (string, DateTime or Carbon instance):
+{{::lint($yesterday = $now->copy()->subDay();)}}
+{{::exec(echo $now->diffForHumans($yesterday);)}} // {{eval}}
+echo "\n";
+// By default differences produces ago/from now syntax using default reference (now), and after/before with other references
+// But you can customize the syntax:
+{{::exec(echo $now->diffForHumans($yesterday, ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->diffForHumans($yesterday, ['syntax' => 0]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $yesterday->diffForHumans(['syntax' => CarbonInterface::DIFF_ABSOLUTE]);)}} // {{eval}}
+echo "\n";
+// Combined with options:
+{{::exec(echo $now->diffForHumans($yesterday, [
+    'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+    'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
+]);)}} // {{eval}}
+echo "\n";
+
+// Other parameters:
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 2,
+]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3, // Use -1 or INF for no limit
+]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'join' => ', ', // join with commas
+]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'join' => true, // join with natural syntax as per current locale
+]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->locale('fr')->diffForHumans([
+    'parts' => 3,
+    'join' => true, // join with natural syntax as per current locale
+]);)}} // {{eval}}
+echo "\n";
+{{::exec(echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'short' => true, // short syntax as per current locale
+]);)}} // {{eval}}
+
+// Before 2.9.0, you need to pass parameters as ordered parameters:
+// ->diffForHumans($other, $syntax, $short, $parts, $options)
+// and 'join' was not supported
 </code></pre>
     </p>
 
@@ -3152,6 +3209,11 @@ $carbonInterval = CarbonInterval::month();
 // transform "2 days ago"/"2 days from now" into "before yesterday"/"after tomorrow":
 {{::exec(echo CarbonInterval::days(2)->forHumans([
     'options' => CarbonInterface::TWO_DAY_WORDS,
+    'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+]);/*pad(84)*/)}} // {{eval}}
+// options can be piped:
+{{::exec(echo CarbonInterval::days(2)->forHumans([
+    'options' => CarbonInterface::ONE_DAY_WORDS | CarbonInterface::TWO_DAY_WORDS,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
 ]);/*pad(84)*/)}} // {{eval}}
 

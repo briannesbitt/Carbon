@@ -255,7 +255,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2018-12-25 13:34:06
+echo $now;                               // 2018-12-25 17:12:09
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2018-12-25 00:00:00
@@ -380,7 +380,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:34 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:12 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -581,6 +581,9 @@ echo $date1->locale($boringLanguage)->diffForHumans($date2); // [3 BORING DAYS]
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
                 href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
+        And you can get the global default translator using <code>Carbon::getTranslator()</code> but as those method
+        will change the behavior globally (including third-party libraries you may have in your app), it might cause
+        unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
 
     <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
@@ -619,7 +622,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // décembre
 echo "\n";
-echo $date->isoFormat('LLLL');   // mardi 25 décembre 2018 13:34
+echo $date->isoFormat('LLLL');   // mardi 25 décembre 2018 17:12
 </code></pre>
     </p>
 
@@ -650,13 +653,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 13:34
+Aujourd’hui à 17:12
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 1:34 PM
+Today at 5:12 PM
 */
 </code></pre>
     </p>
@@ -1372,21 +1375,21 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 1:34 PM
+echo $date->calendar();                                      // Today at 5:12 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 10:34 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 2:12 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 3:11 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Saturday at 6:49 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 12/17/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 4:34 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 8:12 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 11:57 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 3:35 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 01/02/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 13:34
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 17:12
 </code></pre>
     </p>
 
@@ -2375,7 +2378,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2018-12-25 13:34:07
+echo Carbon::now();                                    // 2018-12-25 17:12:10
 </code></pre>
     </p>
 
@@ -2565,12 +2568,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(7)
+var_dump(Carbon::now()->get($unit));                         // int(10)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(7)
+var_dump(Carbon::now()->$unit);                              // int(10)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(7)
+var_dump(Carbon::now()->get($unit));                         // int(10)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -3070,8 +3073,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2018-12-25 13:34:07
-echo $dt1->maximum();                              // 2018-12-25 13:34:07
+echo $dt1->max();                                  // 2018-12-25 17:12:10
+echo $dt1->maximum();                              // 2018-12-25 17:12:10
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -3807,28 +3810,82 @@ echo Carbon::create(2018, 2, 26, 4, 29, 43)->longRelativeDiffForHumans(Carbon::c
     <p>You can also change the locale of the string using <code>$date->locale('fr')</code> before the
         diffForHumans() call. See the <a href="#api-localization">localization</a> section for more detail.</p>
 
-    <p id="diff-for-humans-options">Options can be passed as fifth argument of diffForHumans():</p>
+    <p id="diff-for-humans-options">Since 2.9.0 diffForHumans() parameters can be passed as an array:</p>
 
     <p>
-    <pre class="live-editor"><code class="php">echo Carbon::now()->diffForHumans(null, null, false, 1, 0); // 0 seconds ago
+    <pre class="live-editor"><code class="php">echo Carbon::now()->diffForHumans(['options' => 0]); // 0 seconds ago
 echo "\n";
-echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::NO_ZERO_DIFF); // 1 second ago
+// default options:
+echo Carbon::now()->diffForHumans(['options' => Carbon::NO_ZERO_DIFF]); // 1 second ago
 echo "\n";
-echo Carbon::now()->diffForHumans(null, null, false, 1, Carbon::JUST_NOW); // just now
+echo Carbon::now()->diffForHumans(['options' => Carbon::JUST_NOW]); // just now
 echo "\n";
-echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, 0); // 1 day ago
+echo Carbon::now()->subDay()->diffForHumans(['options' => 0]); // 1 day ago
 echo "\n";
-echo Carbon::now()->subDay()->diffForHumans(null, null, false, 1, Carbon::ONE_DAY_WORDS); // yesterday
+echo Carbon::now()->subDay()->diffForHumans(['options' => Carbon::ONE_DAY_WORDS]); // yesterday
 echo "\n";
-echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, 0); // 2 days ago
+echo Carbon::now()->subDays(2)->diffForHumans(['options' => 0]); // 2 days ago
 echo "\n";
-echo Carbon::now()->subDays(2)->diffForHumans(null, null, false, 1, Carbon::TWO_DAY_WORDS); // before yesterday
+echo Carbon::now()->subDays(2)->diffForHumans(['options' => Carbon::TWO_DAY_WORDS]); // before yesterday
 echo "\n";
 
 // Options can be combined with pipes
-$date = Carbon::now();
+$now = Carbon::now();
 
-echo $date->diffForHumans(null, null, false, 1, Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS); // just now
+echo $now->diffForHumans(['options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS]); // just now
+echo "\n";
+
+// Reference date for differences is `now` but you can use any other date (string, DateTime or Carbon instance):
+$yesterday = $now->copy()->subDay();
+echo $now->diffForHumans($yesterday); // 1 day after
+echo "\n";
+// By default differences produces ago/from now syntax using default reference (now), and after/before with other references
+// But you can customize the syntax:
+echo $now->diffForHumans($yesterday, ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]); // 1 day from now
+echo "\n";
+echo $now->diffForHumans($yesterday, ['syntax' => 0]); // 1 day after
+echo "\n";
+echo $yesterday->diffForHumans(['syntax' => CarbonInterface::DIFF_ABSOLUTE]); // 1 day
+echo "\n";
+// Combined with options:
+echo $now->diffForHumans($yesterday, [
+    'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+    'options' => Carbon::JUST_NOW | Carbon::ONE_DAY_WORDS | Carbon::TWO_DAY_WORDS,
+]); // tomorrow
+echo "\n";
+
+// Other parameters:
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 2,
+]); // 5 hours 30 minutes ago
+echo "\n";
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3, // Use -1 or INF for no limit
+]); // 5 hours 30 minutes 10 seconds ago
+echo "\n";
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'join' => ', ', // join with commas
+]); // 5 hours, 30 minutes, 10 seconds ago
+echo "\n";
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'join' => true, // join with natural syntax as per current locale
+]); // 5 hours, 30 minutes and 10 seconds ago
+echo "\n";
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->locale('fr')->diffForHumans([
+    'parts' => 3,
+    'join' => true, // join with natural syntax as per current locale
+]); // il y a 5 heures, 30 minutes et 10 secondes
+echo "\n";
+echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
+    'parts' => 3,
+    'short' => true, // short syntax as per current locale
+]); // 5h 30m 10s ago
+
+// Before 2.9.0, you need to pass parameters as ordered parameters:
+// ->diffForHumans($other, $syntax, $short, $parts, $options)
+// and 'join' was not supported
 </code></pre>
     </p>
 
@@ -4187,7 +4244,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 14:34
+echo Carbon::now()->subDays(3)->formatForUser();           // samedi dernier à 18:12
 </code></pre>
     </p>
 
@@ -4660,6 +4717,11 @@ echo CarbonInterval::day()->forHumans([
 // transform "2 days ago"/"2 days from now" into "before yesterday"/"after tomorrow":
 echo CarbonInterval::days(2)->forHumans([
     'options' => CarbonInterface::TWO_DAY_WORDS,
+    'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
+]); // 2 days ago
+// options can be piped:
+echo CarbonInterval::days(2)->forHumans([
+    'options' => CarbonInterface::ONE_DAY_WORDS | CarbonInterface::TWO_DAY_WORDS,
     'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
 ]); // 2 days ago
 
