@@ -9,9 +9,4 @@
  * file that was distributed with this source code.
  */
 
-namespace Tests\Localization;
-
-class FrFrTest extends FrTest
-{
-    const LOCALE = 'fr_FR'; // French
-}
+return require __DIR__.'/en.php';

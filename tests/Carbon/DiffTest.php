@@ -1329,6 +1329,10 @@ class DiffTest extends AbstractTestCase
     {
         Carbon::setTestNow('2000-01-01 00:00:00');
         $date = Carbon::now()->subtract('2 days, 3 hours and 40 minutes');
+        $this->assertSame('2 days ago', $date->diffForHumans([
+            'parts' => 1,
+            'join' => true,
+        ]));
         $this->assertSame('2 days and 3 hours ago', $date->diffForHumans([
             'parts' => 2,
             'join' => true,

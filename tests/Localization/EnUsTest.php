@@ -11,7 +11,7 @@
 
 namespace Tests\Localization;
 
-class FrFrTest extends FrTest
+class EnUsTest extends EnTest
 {
-    const LOCALE = 'fr_FR'; // French
+    const LOCALE = 'en_US'; // English
 }
