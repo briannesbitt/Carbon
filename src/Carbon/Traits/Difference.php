@@ -67,7 +67,7 @@ trait Difference
                         $diff->h--;
 
                         if ($diff->h < 0) {
-                            $diff->i += 24;
+                            $diff->h += 24;
                             $diff->d--;
 
                             if ($diff->d < 0) {

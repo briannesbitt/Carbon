@@ -904,6 +904,13 @@ class DiffTest extends AbstractTestCase
         });
     }
 
+    public function testDiffForHumansOverWeekWithMicrosecondsBuggyGap()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame('23 hours 59 minutes 59 seconds after', Carbon::parse('2018-12-03 12:34:45.123456')->diffForHumans('2018-12-02 12:34:45.123476', ['parts' => 3]));
+        });
+    }
+
     public function testDiffForHumansOtherAndWeek()
     {
         $this->wrapWithTestNow(function () {
