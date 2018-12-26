@@ -9,7 +9,7 @@ use Carbon\CarbonTimeZone;
 use Carbon\Laravel\ServiceProvider;
 
 const MASTER_BRANCH = 'dev-master';
-const MASTER_VERSION = '2.9.0';
+const MASTER_VERSION = '2.9.1';
 const BLACKLIST = [
     '1.23.1',
     '1.23.2',

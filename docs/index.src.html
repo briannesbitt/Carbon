@@ -2289,7 +2289,8 @@ echo "\n";
 {{::lint($yesterday = $now->copy()->subDay();)}}
 {{::exec(echo $now->diffForHumans($yesterday);)}} // {{eval}}
 echo "\n";
-// By default differences produces ago/from now syntax using default reference (now), and after/before with other references
+// By default differences methods produce "ago"/"from now" syntax using default reference (now),
+// and "after"/"before" with other references
 // But you can customize the syntax:
 {{::exec(echo $now->diffForHumans($yesterday, ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]);)}} // {{eval}}
 echo "\n";
