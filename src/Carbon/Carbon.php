@@ -3798,7 +3798,7 @@ class Carbon extends DateTime implements JsonSerializable
                         $diff->i += 60;
                         $diff->h--;
                         if ($diff->h < 0) {
-                            $diff->i += 24;
+                            $diff->h += 24;
                             $diff->d--;
                             if ($diff->d < 0) {
                                 $diff->d += 30;
