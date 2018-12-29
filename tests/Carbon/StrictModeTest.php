@@ -30,15 +30,6 @@ class StrictModeTest extends AbstractTestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (-15)
-     */
-    public function testSafeCreateDateTimeZoneWithStrictMode1()
-    {
-        Carbon::createFromDate(2001, 1, 1, -15);
-    }
-
-    /**
-     * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Unknown or bad timezone (foobar)
      */
     public function testSafeCreateDateTimeZoneWithStrictMode2()
@@ -49,7 +40,6 @@ class StrictModeTest extends AbstractTestCase
     public function testSafeCreateDateTimeZoneWithoutStrictMode()
     {
         Carbon::useStrictMode(false);
-        $this->assertFalse(Carbon::createFromDate(2001, 1, 1, -15));
         $this->assertFalse(Carbon::createFromDate(2001, 1, 1, 'foobar'));
     }
 

@@ -454,7 +454,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->timezone->getName());
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezone->getName());
+        $this->assertSame('-05:00', $dt->timezone->getName());
     }
 
     public function testGetTz()
@@ -463,7 +463,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->tz->getName());
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->tz->getName());
+        $this->assertSame('-05:00', $dt->tz->getName());
     }
 
     public function testGetTimezoneName()
@@ -472,7 +472,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->timezoneName);
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezoneName);
+        $this->assertSame('-05:00', $dt->timezoneName);
     }
 
     public function testGetTzName()
@@ -481,7 +481,7 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->tzName);
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
-        $this->assertSame('America/Chicago', $dt->timezoneName);
+        $this->assertSame('-05:00', $dt->timezoneName);
     }
 
     public function testShortDayName()
