@@ -2,6 +2,7 @@
 
 namespace Carbon;
 
+use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 
@@ -100,6 +101,59 @@ class CarbonTimeZone extends DateTimeZone
     public function getAbbr($dst = false)
     {
         return $this->getAbbreviatedName($dst);
+    }
+
+    public function toOffsetName(DateTimeInterface $date = null)
+    {
+        $minutes = floor($this->getOffset($date ?: Carbon::now($this)) / 60);
+
+        $hours = floor($minutes / 60);
+
+        $minutes = str_pad(abs($minutes) % 60, 2, '0', STR_PAD_LEFT);
+
+        return ($hours < 0 ? '-' : '+').str_pad(abs($hours), 2, '0', STR_PAD_LEFT).":$minutes";
+    }
+
+    public function toOffsetTimeZone(DateTimeInterface $date = null)
+    {
+        return new static($this->toOffsetName($date));
+    }
+
+    public function toRegionName(DateTimeInterface $date = null)
+    {
+        $name = $this->getName();
+        $firstChar = substr($name, 0, 1);
+
+        if ($firstChar !== '+' && $firstChar !== '-') {
+            return $name;
+        }
+
+        return @timezone_name_from_abbr(null, $this->getOffset($date ?: Carbon::now($this)), true);
+    }
+
+    public function toRegionTimeZone(DateTimeInterface $date = null)
+    {
+        $tz = $this->toRegionName($date);
+
+        if ($tz === false) {
+            if (Carbon::isStrictModeEnabled()) {
+                throw new InvalidArgumentException('Unknown timezone for offset '.$this->getOffset($date ?: Carbon::now($this)).' seconds.');
+            }
+
+            return false;
+        }
+
+        return new static($tz);
+    }
+
+    /**
+     * Cast to string (get timezone name).
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 
     /**
