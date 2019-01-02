@@ -36,11 +36,12 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Create a CarbonTimeZone from mixed input.
      *
-     * @param DateTimeZone|string|int|null $object
+     * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
+     * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
      * @return false|static
      */
-    public static function instance($object = null)
+    public static function instance($object = null, $objectDump = null)
     {
         $tz = $object;
 
@@ -58,7 +59,7 @@ class CarbonTimeZone extends DateTimeZone
 
         if ($tz === false) {
             if (Carbon::isStrictModeEnabled()) {
-                throw new InvalidArgumentException('Unknown or bad timezone ('.$object.')');
+                throw new InvalidArgumentException('Unknown or bad timezone ('.($objectDump ?: $object).')');
             }
 
             return false;

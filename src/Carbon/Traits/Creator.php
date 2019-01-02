@@ -415,17 +415,17 @@ trait Creator
         return static::today($tz)->setTimeFromTimeString($time);
     }
 
-    private static function createFromFormatAndTimezone($format, $time, $tz)
+    private static function createFromFormatAndTimezone($format, $time, $originalTz)
     {
-        if ($tz === null) {
+        if ($originalTz === null) {
             return parent::createFromFormat($format, $time);
         }
 
-        if (is_int($tz)) {
-            $tz = @timezone_name_from_abbr(null, floatval($tz * 3600), 1);
-        }
+        $tz = is_int($originalTz)
+            ? @timezone_name_from_abbr(null, floatval($originalTz * 3600), 1)
+            : $originalTz;
 
-        $tz = static::safeCreateDateTimeZone($tz);
+        $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
         if ($tz === false) {
             return false;

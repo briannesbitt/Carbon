@@ -592,15 +592,16 @@ trait Date
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
-     * @param \DateTimeZone|string|int|null $object
+     * @param \DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
+     * @param \DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
      * @throws \InvalidArgumentException
      *
      * @return CarbonTimeZone|false
      */
-    protected static function safeCreateDateTimeZone($object)
+    protected static function safeCreateDateTimeZone($object, $objectDump = null)
     {
-        return CarbonTimeZone::instance($object);
+        return CarbonTimeZone::instance($object, $objectDump);
     }
 
     /**
