@@ -380,7 +380,7 @@ trait Comparison
             // @call isSameUnit
             'year' => 'Y',
             // @call isSameUnit
-            'week' => 'Y-W',
+            'week' => 'o-W',
             // @call isSameUnit
             'day' => 'Y-m-d',
             // @call isSameUnit
