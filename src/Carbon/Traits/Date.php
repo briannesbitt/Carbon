@@ -596,7 +596,7 @@ trait Date
      *
      * @throws \InvalidArgumentException
      *
-     * @return \DateTimeZone|false
+     * @return CarbonTimeZone|false
      */
     protected static function safeCreateDateTimeZone($object)
     {

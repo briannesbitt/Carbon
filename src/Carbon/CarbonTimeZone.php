@@ -103,6 +103,13 @@ class CarbonTimeZone extends DateTimeZone
         return $this->getAbbreviatedName($dst);
     }
 
+    /**
+     * Get the offset as string "sHH:MM" (such as "+00:00" or "-12:30").
+     *
+     * @param DateTimeInterface|null $date
+     *
+     * @return string
+     */
     public function toOffsetName(DateTimeInterface $date = null)
     {
         $minutes = floor($this->getOffset($date ?: Carbon::now($this)) / 60);
@@ -114,12 +121,29 @@ class CarbonTimeZone extends DateTimeZone
         return ($hours < 0 ? '-' : '+').str_pad(abs($hours), 2, '0', STR_PAD_LEFT).":$minutes";
     }
 
+    /**
+     * Returns a new CarbonTimeZone object using the offset string instead of region string.
+     *
+     * @param DateTimeInterface|null $date
+     *
+     * @return CarbonTimeZone
+     */
     public function toOffsetTimeZone(DateTimeInterface $date = null)
     {
         return new static($this->toOffsetName($date));
     }
 
-    public function toRegionName(DateTimeInterface $date = null)
+    /**
+     * Returns the first region string (such as "America/Toronto") that matches the current timezone.
+     *
+     * @see timezone_name_from_abbr native PHP function.
+     *
+     * @param DateTimeInterface|null $date
+     * @param int                    $isDst
+     *
+     * @return string
+     */
+    public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
     {
         $name = $this->getName();
         $firstChar = substr($name, 0, 1);
@@ -128,9 +152,16 @@ class CarbonTimeZone extends DateTimeZone
             return $name;
         }
 
-        return @timezone_name_from_abbr(null, $this->getOffset($date ?: Carbon::now($this)), true);
+        return @timezone_name_from_abbr(null, $this->getOffset($date ?: Carbon::now($this)), $isDst);
     }
 
+    /**
+     * Returns a new CarbonTimeZone object using the region string instead of offset string.
+     *
+     * @param DateTimeInterface|null $date
+     *
+     * @return CarbonTimeZone|false
+     */
     public function toRegionTimeZone(DateTimeInterface $date = null)
     {
         $tz = $this->toRegionName($date);

@@ -14,6 +14,7 @@ namespace Carbon\Traits;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -76,6 +77,7 @@ trait Creator
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
+        /** @var CarbonTimeZone $timezone */
         $timezone = static::safeCreateDateTimeZone($tz);
 
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
