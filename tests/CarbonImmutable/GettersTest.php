@@ -356,6 +356,9 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->timezone->getName());
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $dt->timezone->getName());
+
+        $dt = Carbon::createFromDate(2000, 1, 1, '-5');
         $this->assertSame('-05:00', $dt->timezone->getName());
     }
 
@@ -365,6 +368,9 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->tz->getName());
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $dt->tz->getName());
+
+        $dt = Carbon::createFromDate(2000, 1, 1, '-5');
         $this->assertSame('-05:00', $dt->tz->getName());
     }
 
@@ -374,6 +380,9 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->timezoneName);
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $dt->timezoneName);
+
+        $dt = Carbon::createFromDate(2000, 1, 1, '-5');
         $this->assertSame('-05:00', $dt->timezoneName);
     }
 
@@ -383,6 +392,9 @@ class GettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $dt->tzName);
 
         $dt = Carbon::createFromDate(2000, 1, 1, -5);
+        $this->assertSame('America/Chicago', $dt->timezoneName);
+
+        $dt = Carbon::createFromDate(2000, 1, 1, '-5');
         $this->assertSame('-05:00', $dt->timezoneName);
     }
 

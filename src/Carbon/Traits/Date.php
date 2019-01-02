@@ -604,6 +604,28 @@ trait Date
     }
 
     /**
+     * Creates a DateTimeZone from a string, DateTimeZone or integer offset then convert it as region timezone
+     * if integer.
+     *
+     * @param \DateTimeZone|string|int|null $object
+     * @param \DateTimeZone|string|int|null $originalObject if different
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return CarbonTimeZone|false
+     */
+    protected function autoDetectTimeZone($object, $originalObject = null)
+    {
+        /** @var CarbonTimeZone $timezone */
+        $timezone = CarbonTimeZone::instance($object);
+        if ($timezone && is_int($originalObject ?: $object)) {
+            $timezone = $timezone->toRegionTimeZone($this);
+        }
+
+        return $timezone;
+    }
+
+    /**
      * Get the TimeZone associated with the Carbon instance (as CarbonTimeZone).
      *
      * @return CarbonTimeZone

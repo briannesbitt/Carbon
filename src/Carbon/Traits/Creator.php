@@ -52,6 +52,8 @@ trait Creator
             $time = "@$time";
         }
 
+        $originalTz = $tz;
+
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
@@ -78,7 +80,7 @@ trait Creator
         }
 
         /** @var CarbonTimeZone $timezone */
-        $timezone = static::safeCreateDateTimeZone($tz);
+        $timezone = $this->autoDetectTimeZone($tz, $originalTz);
 
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
         if (strpos((string) .1, '.') === false) {
@@ -244,7 +246,7 @@ trait Creator
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         if (is_string($year) && !is_numeric($year)) {
-            return static::parse($year);
+            return static::parse($year, $tz);
         }
 
         $defaults = null;
@@ -417,6 +419,10 @@ trait Creator
     {
         if ($tz === null) {
             return parent::createFromFormat($format, $time);
+        }
+
+        if (is_int($tz)) {
+            $tz = @timezone_name_from_abbr(null, floatval($tz * 3600), 1);
         }
 
         $tz = static::safeCreateDateTimeZone($tz);

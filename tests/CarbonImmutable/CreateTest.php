@@ -194,6 +194,9 @@ class CreateTest extends AbstractTestCase
     public function testCreateWithValidTimezoneOffset()
     {
         $dt = Carbon::createFromDate(2000, 1, 1, -4);
+        $this->assertSame('America/New_York', $dt->tzName);
+
+        $dt = Carbon::createFromDate(2000, 1, 1, '-4');
         $this->assertSame('-04:00', $dt->tzName);
     }
 }
