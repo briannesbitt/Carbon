@@ -21,11 +21,11 @@ class CreateTest extends AbstractTestCase
     {
         $tz = new CarbonTimeZone(6);
 
-        $this->assertSame('Asia/Yekaterinburg', $tz->getName());
+        $this->assertSame('+06:00', $tz->getName());
 
         $tz = CarbonTimeZone::create(6);
 
-        $this->assertSame('Asia/Yekaterinburg', $tz->getName());
+        $this->assertSame('+06:00', $tz->getName());
     }
 
     public function testInstance()
@@ -40,5 +40,14 @@ class CreateTest extends AbstractTestCase
         $tz = new UnknownZone();
 
         $this->assertSame('unknown', $tz->getAbbreviatedName());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Absolute timezone offset cannot be greater than 100.
+     */
+    public function testSafeCreateDateTimeZoneWithoutStrictMode()
+    {
+        new CarbonTimeZone(-15e15);
     }
 }

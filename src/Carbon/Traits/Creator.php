@@ -14,6 +14,7 @@ namespace Carbon\Traits;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -51,6 +52,8 @@ trait Creator
             $time = "@$time";
         }
 
+        $originalTz = $tz;
+
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
@@ -76,7 +79,8 @@ trait Creator
             $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
         }
 
-        $timezone = static::safeCreateDateTimeZone($tz);
+        /** @var CarbonTimeZone $timezone */
+        $timezone = $this->autoDetectTimeZone($tz, $originalTz);
 
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
         if (strpos((string) .1, '.') === false) {
@@ -242,7 +246,7 @@ trait Creator
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         if (is_string($year) && !is_numeric($year)) {
-            return static::parse($year);
+            return static::parse($year, $tz);
         }
 
         $defaults = null;
@@ -411,13 +415,17 @@ trait Creator
         return static::today($tz)->setTimeFromTimeString($time);
     }
 
-    private static function createFromFormatAndTimezone($format, $time, $tz)
+    private static function createFromFormatAndTimezone($format, $time, $originalTz)
     {
-        if ($tz === null) {
+        if ($originalTz === null) {
             return parent::createFromFormat($format, $time);
         }
 
-        $tz = static::safeCreateDateTimeZone($tz);
+        $tz = is_int($originalTz)
+            ? @timezone_name_from_abbr(null, floatval($originalTz * 3600), 1)
+            : $originalTz;
+
+        $tz = static::safeCreateDateTimeZone($tz, $originalTz);
 
         if ($tz === false) {
             return false;

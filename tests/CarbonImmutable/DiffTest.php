@@ -21,7 +21,7 @@ class DiffTest extends AbstractTestCase
 {
     public function wrapWithTestNow(Closure $func, CarbonInterface $dt = null)
     {
-        parent::wrapWithTestNow($func, $dt ?: Carbon::createFromDate(2012, 1, 1));
+        parent::wrapWithTestNow($func, $dt ?: Carbon::createMidnightDate(2012, 1, 1));
     }
 
     public function testDiffAsCarbonInterval()

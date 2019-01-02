@@ -592,15 +592,38 @@ trait Date
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
-     * @param \DateTimeZone|string|int|null $object
+     * @param \DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
+     * @param \DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
      * @throws \InvalidArgumentException
      *
-     * @return \DateTimeZone|false
+     * @return CarbonTimeZone|false
      */
-    protected static function safeCreateDateTimeZone($object)
+    protected static function safeCreateDateTimeZone($object, $objectDump = null)
     {
-        return CarbonTimeZone::instance($object);
+        return CarbonTimeZone::instance($object, $objectDump);
+    }
+
+    /**
+     * Creates a DateTimeZone from a string, DateTimeZone or integer offset then convert it as region timezone
+     * if integer.
+     *
+     * @param \DateTimeZone|string|int|null $object
+     * @param \DateTimeZone|string|int|null $originalObject if different
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return CarbonTimeZone|false
+     */
+    protected function autoDetectTimeZone($object, $originalObject = null)
+    {
+        /** @var CarbonTimeZone $timezone */
+        $timezone = CarbonTimeZone::instance($object);
+        if ($timezone && is_int($originalObject ?: $object)) {
+            $timezone = $timezone->toRegionTimeZone($this);
+        }
+
+        return $timezone;
     }
 
     /**
