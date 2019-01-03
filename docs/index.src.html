@@ -126,9 +126,12 @@ $nowInLondonTz = Carbon::now(new DateTimeZone('Europe/London'));
 
 // or just pass the timezone as a string
 $nowInLondonTz = Carbon::now('Europe/London');
+)}}
+{{::exec(echo $nowInLondonTz->tzName;/*pad(40)*/)}} // {{eval}}
+{{::lint(echo "\n";
 
-// or to create a date with a timezone of +1 to GMT during DST then just pass an integer
-$date = Carbon::now(1);
+// or to create a date with a custom fixed timezone offset
+$date = Carbon::now('+13:30');
 )}}
 {{::exec(echo $date->tzName;/*pad(40)*/)}} // {{eval}}
 {{::lint(echo "\n";
@@ -481,7 +484,7 @@ if ($newLocale === false) {
 
     <p>Since 2.9.0, you can easily customize translations:</p>
 
-    <p>
+    <p id="custom-translations">
     <pre class="live-editor"><code class="php">{{::lint(
 // we recommend to use custom language name/variant
 // rather than overriding an existing language
@@ -518,6 +521,76 @@ $translator->setTranslations([
         will change the behavior globally (including third-party libraries you may have in your app), it might cause
         unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
+
+    <p>Carbon embed a default translator that extends <a href="https://api.symfony.com/2.7/Symfony/Component/Translation/Translator.html">Symfony\Component\Translation\Translator</a>
+        You can <a href="#translator-details" data-slide-down="#translator-details">check here the methods we added to it</a>.</p>
+
+    <div id="translator-details" class="extra-helper">
+        <p>The Carbon translator will use internal directory <code>src/Carbon/Lang</code> to find translations files in it by default but
+            you can change/add/remove directory.</p>
+
+        <p>
+
+        <pre><code class="php">{{::lint(
+$translator = Translator::get('en');
+$directories = $translator->getDirectories();
+var_dump($directories); // Check actual directory
+
+// Change the whole list
+$translator->setDirectories([
+    'corporate/translations',
+    'users/translations',
+]);
+// Add one directory to the list
+$translator->addDirectory('external/translations/directory');
+// Remove one directory from the list
+$translator->removeDirectory('users/translations');
+
+// After such a settings change, you could need to clear the cache with `resetMessages`
+$translator->resetMessages();
+
+// To restore the initial settings simply recall setDirectories with the original list:
+$translator->setDirectories($directories);
+)}}
+</code></pre>
+        </p>
+
+        <p>Then you can find all language files across those directories.</p>
+
+        <pre><code class="php">{{::lint(
+$translator = Translator::get();
+var_dump($translator->getLocalesFiles()); // /path/to/af.php, /path/to/ar.php, etc.
+var_dump($translator->getAvailableLocales()); // af, ar, etc.
+
+// You can also filter files/locales starting with a given prefix:)}}
+{{::exec(echo implode(', ', array_map('basename', $translator->getLocalesFiles('fr')));)}} // {{eval}}
+{{::exec(echo implode(', ', $translator->getAvailableLocales('fr'));)}} // {{eval}}
+</code></pre>
+        </p>
+
+        <p>Finally, you can get and set messages from the internal cache:</p>
+
+        <pre class="live-editor"><code class="php">{{::lint(
+$translator = Translator::get('en');
+)}}
+{{::exec(echo Carbon::now()->addSeconds(312)->setLocalTranslator($translator)->diffForHumans();)}} // {{eval}}
+{{::lint(echo "\n";
+
+// Below, setMessages will load the english file(s) if available and if not yet loaded in cache, then will change the
+// 'from_now' translation
+$translator->setMessages('en', [
+    'from_now' => 'in :time',
+]);
+)}}
+{{::exec(echo Carbon::now()->addSeconds(312)->setLocalTranslator($translator)->diffForHumans();)}} // {{eval}}
+echo "\n";
+{{::exec(echo $translator->getMessages('en')['from_now'];)}} // {{eval}}
+</code></pre>
+        </p>
+
+        <p><code>setMessages</code> is equivalent to <code>setTranslations</code> but you can omit the locale as it will
+            use the current one so we recommend to use it when you can as in <a href="#custom-translations">this previous example</a>.</p>
+    </div>
 
     <p>So the support of a locale for <code>formatLocalized</code>, getters such as <code>localeMonth</code>, <code>localeDayOfWeek</code>
         and short variants is driven by locales installed in your operating system. For other translations, it's

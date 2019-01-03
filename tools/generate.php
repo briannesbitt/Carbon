@@ -20,6 +20,7 @@ use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
+use Carbon\Translator;
 
 function isHistoryUpToDate()
 {
@@ -272,6 +273,7 @@ function compile($src, $dest = null)
             CarbonPeriod::class,
             Factory::class,
             FactoryImmutable::class,
+            Translator::class,
         ]));
     }
 

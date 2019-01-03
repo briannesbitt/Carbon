@@ -21,7 +21,7 @@ function display($message)
     echo $message;
 }
 
-foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
+foreach (methods(true) as list($carbonObject, $className, $method, $parameters)) {
     $methodsCount++;
     $pattern = preg_quote($method, '/');
     $upperUnit = '(Unit|Micro(second)?s?|Milli(second)?s?|Seconds?|Minutes?|Hours?|Days?|Weeks?|Months?|Quarters?|Years?|Decades?|Centur(y|ies)|Millenni(um|a))';

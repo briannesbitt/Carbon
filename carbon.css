@@ -46,12 +46,17 @@ code {color: #38932c;font-size:90%}
 blockquote, .doc-comment{font-size:15px;color:#656565}
 .class-name, .doc-comment {color: #8f8f8f}
 
+.extra-helper,
 .old-way {
     display: none;
     border-left: 1px solid silver;
     margin-left: 15px;
     padding-left: 15px;
     color: #4b4b4b;
+}
+
+.extra-helper {
+    color: #28324b;
 }
 
 .live-editor-loading:before {

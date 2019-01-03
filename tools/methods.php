@@ -32,6 +32,18 @@ function methods($excludeNatives = false)
             new \stdClass(),
         ];
     }
+    if (class_exists(\Carbon\CarbonTimeZone::class)) {
+        $carbonObjects[] = [
+            new \Carbon\CarbonTimeZone(),
+            new \DateTimeZone('Europe/Paris'),
+        ];
+    }
+    if (class_exists(\Carbon\Translator::class)) {
+        $carbonObjects[] = [
+            new \Carbon\Translator('en'),
+            new \Symfony\Component\Translation\Translator('en'),
+        ];
+    }
 
     foreach ($carbonObjects as $tuple) {
         list($carbonObject, $dateTimeObject) = $tuple;
