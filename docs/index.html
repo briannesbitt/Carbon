@@ -117,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(8) "Friday 4"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(8) "Friday 4"
+var_dump($mutable->isoFormat('dddd D'));             // string(10) "Saturday 5"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Saturday 5"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(10) "Thursday 3"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(8) "Friday 4"
+var_dump($immutable->isoFormat('dddd D'));           // string(8) "Friday 4"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Saturday 5"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -142,7 +142,7 @@ var_dump($immutable->isImmutable());                 // bool(true)
             href="http://www.php.net/manual/en/class.jsonserializable.php">JsonSerializable</a>,
         <a href="#api-interval">CarbonInterval</a> class extends <a
                 href="http://www.php.net/manual/en/class.dateinterval.php">DateInterval</a>,
-        CarbonTimeZone class extends <a
+        <a href="#api-timezone">CarbonTimeZone</a> class extends <a
                 href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>
         and <a href="#api-period">CarbonPeriod</a> class polyfills <a
                 href="http://www.php.net/manual/en/class.dateperiod.php">DatePeriod</a>.</p>
@@ -257,16 +257,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-01-03 23:15:36
+echo $now;                               // 2019-01-04 22:07:09
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2019-01-03 00:00:00
+echo $today;                             // 2019-01-04 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2019-01-04 00:00:00
+echo $tomorrow;                          // 2019-01-05 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2019-01-02 00:00:00
+echo $yesterday;                         // 2019-01-03 00:00:00
 </code></pre>
     </p>
 
@@ -382,7 +382,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 01:15 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 00:07 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -688,7 +688,7 @@ echo $date->diffForHumans();     // il y a quelques secondes
 echo "\n";
 echo $date->monthName;           // janvier
 echo "\n";
-echo $date->isoFormat('LLLL');   // jeudi 3 janvier 2019 23:15
+echo $date->isoFormat('LLLL');   // vendredi 4 janvier 2019 22:07
 </code></pre>
     </p>
 
@@ -719,13 +719,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Hier à 23:15
+Aujourd’hui à 22:07
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 11:15 PM
+Today at 10:07 PM
 */
 </code></pre>
     </p>
@@ -752,9 +752,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 03/01 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 04/01 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 03/01 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 04/01 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -1441,21 +1441,21 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 11:15 PM
+echo $date->calendar();                                      // Today at 10:07 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 8:15 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:07 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 12:52 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Tuesday at 11:44 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 12/26/2018
+echo $date->sub('8 days')->calendar();                       // 12/27/2018
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Saturday at 2:15 AM
+echo $date->add('1 day 3 hours')->calendar();                // Sunday at 1:07 AM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 9:38 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Tuesday at 8:30 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 01/11/2019
+echo $date->add('8 days')->calendar();                       // 01/12/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 23:15
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 22:07
 </code></pre>
     </p>
 
@@ -2444,7 +2444,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-01-03 23:15:37
+echo Carbon::now();                                    // 2019-01-04 22:07:09
 </code></pre>
     </p>
 
@@ -2634,12 +2634,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(37)
+var_dump(Carbon::now()->get($unit));                         // int(9)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(37)
+var_dump(Carbon::now()->$unit);                              // int(9)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(37)
+var_dump(Carbon::now()->get($unit));                         // int(9)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -3139,8 +3139,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-01-03 23:15:37
-echo $dt1->maximum();                              // 2019-01-03 23:15:37
+echo $dt1->max();                                  // 2019-01-04 22:07:09
+echo $dt1->maximum();                              // 2019-01-04 22:07:09
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -4309,9 +4309,9 @@ $dateString = '2010-01-23 10:00:00'; // Get this from your database or any input
 // Then now you can easily display any date in a page/e-mail using those user settings and the chosen format
 echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
-echo Carbon::tomorrow()->formatForUser();                  // Aujourd’hui à 01:00
+echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // mardi dernier à 00:15
+echo Carbon::now()->subDays(3)->formatForUser();           // mardi dernier à 23:07
 </code></pre>
     </p>
 
@@ -5134,7 +5134,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2019-01-03, 2019-01-04, 2019-01-05
+echo implode(', ', $days);               // 2019-01-04, 2019-01-05, 2019-01-06
 </code></pre>
     </p>
 
@@ -5323,6 +5323,146 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
 </code></pre>
     </p>
 
+    <h1 id="api-timezone">CarbonTimeZone</h1>
+
+    <p>Starting with Carbon 2, timezones are now handled with a dedicated class <code>CarbonTimeZone</code>
+        extending <a href="http://www.php.net/manual/en/class.datetimezone.php">DateTimeZone</a>.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$tz = new CarbonTimeZone('Europe/Zurich'); // instance way
+$tz = CarbonTimeZone::create('Europe/Zurich'); // static way
+
+// Get the original name of the timezone (can be region name or offset string):
+echo $tz->getName();                 // Europe/Zurich
+echo "\n";
+// Casting a CarbonTimeZone to string will automatically call getName:
+echo $tz;                            // Europe/Zurich
+echo "\n";
+echo $tz->getAbbreviatedName();      // bmt
+echo "\n";
+// With DST on:
+echo $tz->getAbbreviatedName(true);  // cest
+echo "\n";
+// Alias of getAbbreviatedName:
+echo $tz->getAbbr();                 // bmt
+echo "\n";
+echo $tz->getAbbr(true);             // cest
+echo "\n";
+// toRegionName returns the first matching region or false, if timezone was created with a region name,
+// it will simply return this initial value.
+echo $tz->toRegionName();            // Europe/Zurich
+echo "\n";
+// toOffsetName will give the current offset string for this timezone:
+echo $tz->toOffsetName();            // +01:00
+echo "\n";
+// As with DST, this offset can change depending on the date, you may pass a date argument to specify it:
+$winter = Carbon::parse('2018-01-01');
+echo $tz->toOffsetName($winter);     // +01:00
+echo "\n";
+$summer = Carbon::parse('2018-07-01');
+echo $tz->toOffsetName($summer);     // +02:00
+
+// With no parameters, a default timezone is created:
+echo new CarbonTimeZone();           // UTC
+echo "\n";
+echo CarbonTimeZone::create();       // UTC
+</code></pre>
+    </p>
+
+    <p>The default timezone is given by <a href="http://php.net/manual/en/function.date-default-timezone-get.php">date_default_timezone_get</a>
+        so it will be driven by the INI settings
+        <a href="http://php.net/manual/en/datetime.configuration.php#ini.date.timezone">date.timezone</a> but you really
+        should override it at application level using
+        <a href="http://php.net/manual/en/function.date-default-timezone-set.php">date_default_timezone_set</a>
+        and you should set it to <code>"UTC"</code>, if you're temped to or already use an other timezone as default,
+        please read the following article:
+        <a href="https://medium.com/@kylekatarnls/always-use-utc-dates-and-times-8a8200ca3164">Always Use UTC Dates And Times</a>.</p>
+
+    <p>It explains why UTC is a reliable standard. And this best-practice is even more important in PHP because
+        the PHP DateTime API has many bugs with offsets changes and DST timezones. Some of them appeared on minor versions
+        and even on patch versions (so you can get different results running the same code on PHP 7.1.7 and 7.1.8 for
+        example) and some bugs are not even fixed yet. So we highly recommend to use UTC everywhere and only change
+        the timezone when you want to display a date. See our <a href="#user-settings">first macro example</a>.</p>
+
+    <p>While, region timezone ("Continent/City") can have DST and so have variable offset during the year, offset
+        timezone have constant fixed offset:</p>
+
+
+    <p>
+    <pre class="live-editor"><code class="php">$tz = CarbonTimeZone::create('+03:00'); // full string
+$tz = CarbonTimeZone::create(3); // or hour integer short way
+
+echo $tz->getName();                 // +03:00
+echo "\n";
+echo $tz;                            // +03:00
+echo "\n";
+// toRegionName will try to guess what region it could be:
+echo $tz->toRegionName();            // Europe/Helsinki
+echo "\n";
+// to guess with DST off:
+echo $tz->toRegionName(null, 0);     // Europe/Moscow
+echo "\n";
+// toOffsetName will give the initial offset no matter the date:
+echo $tz->toOffsetName();            // +03:00
+echo "\n";
+echo $tz->toOffsetName($winter);     // +03:00
+echo "\n";
+echo $tz->toOffsetName($summer);     // +03:00
+</code></pre>
+    </p>
+
+    <p>You also can convert region timezones to offset timezones and reciprocally.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$tz = new CarbonTimeZone(7);
+
+echo $tz;                            // +07:00
+echo "\n";
+$tz = $tz->toRegionTimeZone();
+echo $tz;                            // Asia/Novosibirsk
+echo "\n";
+$tz = $tz->toOffsetTimeZone();
+echo $tz;                            // +07:00
+</code></pre>
+    </p>
+
+    <p>You can create a <code>CarbonTimeZone</code> from mixed values using <code>instance()</code> method.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$tz = CarbonTimeZone::instance(new DateTimeZone('Europe/Paris'));
+
+echo $tz;                            // Europe/Paris
+echo "\n";
+
+// Bad timezone will return false without strict mode
+Carbon::useStrictMode(false);
+$tz = CarbonTimeZone::instance('Europe/Chicago');
+var_dump($tz);                       // bool(false)
+echo "\n";
+
+// or throw an exception using strict mode
+Carbon::useStrictMode(true);
+try {
+    CarbonTimeZone::instance('Europe/Chicago');
+} catch (InvalidArgumentException $exception) {
+    $error = $exception->getMessage();
+}
+echo $error;                         // Unknown or bad timezone (Europe/Chicago)
+
+// as some value cannot be dump as string in an error message or
+// have unclear dump, you may pass a second argument to display
+// instead in the errors
+Carbon::useStrictMode(true);
+try {
+    $mixedValue = ['dummy', 'array'];
+    CarbonTimeZone::instance($mixedValue, json_encode($mixedValue));
+} catch (InvalidArgumentException $exception) {
+    $error = $exception->getMessage();
+}
+echo $error;                         // Unknown or bad timezone (["dummy","array"])
+</code></pre>
+    </p>
+
     <h1 id="api-carbon-2">Migrate to Carbon 2</h1>
 
     <p>If you plan to migrate from Carbon 1 to Carbon 2, please note the following breaking changes you should
@@ -5388,6 +5528,7 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
             Carbon 2.
         </li>
     </ul>
+
 </div>
 
 
@@ -5420,6 +5561,7 @@ echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
                 <li><a href="#api-macro">Macro</a></li>
                 <li><a href="#api-interval">CarbonInterval</a></li>
                 <li><a href="#api-period">CarbonPeriod</a></li>
+                <li><a href="#api-timezone">CarbonTimeZone</a></li>
                 <li><a href="#api-carbon-2">Carbon 2</a></li>
             </ul>
         </div>
