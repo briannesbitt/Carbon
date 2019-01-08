@@ -3641,73 +3641,73 @@ Support is considered enabled if the 4 sentences are translated in the given loc
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">
     <h2><span class="class-name">CarbonTimeZone::</span>__construct</h2>
-    <em>no arguments</em>
+    <code>$timezone = NULL</code>
     <p>Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$timezone = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-instance">
     <h2><span class="class-name">CarbonTimeZone::</span>instance</h2>
-    <em>no arguments</em>
+    <code>$object = NULL, $objectDump = NULL</code>
     <p>Create a CarbonTimeZone from mixed input.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.10.0</td><td><code>$object = NULL, $objectDump = NULL</code></td></tr><tr><td>Method added</td><td>2.9.0</td><td><code>$object = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-getAbbreviatedName">
     <h2><span class="class-name">CarbonTimeZone::</span>getAbbreviatedName</h2>
-    <em>no arguments</em>
+    <code>$dst = false</code>
     <p>Returns abbreviated name of the current timezone according to DST setting.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$dst = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-getAbbr">
     <h2><span class="class-name">CarbonTimeZone::</span>getAbbr</h2>
-    <em>no arguments</em>
+    <code>$dst = false</code>
     <p>@alias getAbbreviatedName<br><br>Returns abbreviated name of the current timezone according to DST setting.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$dst = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toOffsetName">
     <h2><span class="class-name">CarbonTimeZone::</span>toOffsetName</h2>
-    <em>no arguments</em>
+    <code>DateTimeInterface $date = NULL</code>
     <p>Get the offset as string "sHH:MM" (such as "+00:00" or "-12:30").</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toOffsetTimeZone">
     <h2><span class="class-name">CarbonTimeZone::</span>toOffsetTimeZone</h2>
-    <em>no arguments</em>
+    <code>DateTimeInterface $date = NULL</code>
     <p>Returns a new CarbonTimeZone object using the offset string instead of region string.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toRegionName">
     <h2><span class="class-name">CarbonTimeZone::</span>toRegionName</h2>
-    <em>no arguments</em>
+    <code>DateTimeInterface $date = NULL, $isDst = 1</code>
     <p>Returns the first region string (such as "America/Toronto") that matches the current timezone.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL, $isDst = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toRegionTimeZone">
     <h2><span class="class-name">CarbonTimeZone::</span>toRegionTimeZone</h2>
-    <em>no arguments</em>
+    <code>DateTimeInterface $date = NULL</code>
     <p>Returns a new CarbonTimeZone object using the region string instead of offset string.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__toString">
     <h2><span class="class-name">CarbonTimeZone::</span>__toString</h2>
     <em>no arguments</em>
     <p>Cast to string (get timezone name).</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-create">
     <h2><span class="class-name">CarbonTimeZone::</span>create</h2>
-    <em>no arguments</em>
+    <code>$object = NULL</code>
     <p>Create a CarbonTimeZone from mixed input.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$object = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__wakeup">
@@ -3770,7 +3770,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Translator::</span>get</h2>
     <code>$locale = NULL</code>
     <p>Return a singleton instance of Translator.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-__construct">
@@ -3778,35 +3778,35 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = NULL, $cacheDir = NULL, $debug = false</code>
     <p>Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = NULL, $cacheDir = NULL, $debug = false</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = NULL, $cacheDir = NULL, $debug = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getDirectories">
     <h2><span class="class-name">Translator::</span>getDirectories</h2>
     <em>no arguments</em>
     <p>Returns the list of directories translation files are searched in.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setDirectories">
     <h2><span class="class-name">Translator::</span>setDirectories</h2>
     <code>array $directories</code>
     <p>Set list of directories translation files are searched in.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>array $directories</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>array $directories</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-addDirectory">
     <h2><span class="class-name">Translator::</span>addDirectory</h2>
     <code>string $directory</code>
     <p>Add a directory to the list translation files are searched in.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $directory</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>string $directory</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-removeDirectory">
     <h2><span class="class-name">Translator::</span>removeDirectory</h2>
     <code>string $directory</code>
     <p>Remove a directory from the list translation files are searched in.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $directory</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>string $directory</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-trans">
@@ -3814,7 +3814,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$id, array $parameters = array (
 ), $domain = NULL, $locale = NULL</code>
     <p>Returns the translation.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$id, array $parameters = array (
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$id, array $parameters = array (
 ), $domain = NULL, $locale = NULL</code></td></tr></table>
 </div>
 
@@ -3824,14 +3824,14 @@ for more on the possibility of this constructor returning a test instance.</p>
     <p>Reset messages of a locale (all locale if no locale passed).
 Remove custom messages and reload initial messages from matching
 file in Lang directory.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getLocalesFiles">
     <h2><span class="class-name">Translator::</span>getLocalesFiles</h2>
     <code>$prefix = ''</code>
     <p>Returns the list of files matching a given locale prefix (or all if empty).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$prefix = ''</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$prefix = ''</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getAvailableLocales">
@@ -3839,21 +3839,21 @@ file in Lang directory.</p>
     <code>$prefix = ''</code>
     <p>Returns the list of internally available locales and already loaded custom locales.
 (It will ignore custom translator dynamic loading.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$prefix = ''</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$prefix = ''</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setMessages">
     <h2><span class="class-name">Translator::</span>setMessages</h2>
     <code>$locale, $messages</code>
     <p>Set messages of a locale and take file first if present.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale, $messages</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale, $messages</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setTranslations">
     <h2><span class="class-name">Translator::</span>setTranslations</h2>
-    <em>no arguments</em>
+    <code>$messages</code>
     <p>Set messages of the current locale and take file first if present.</p>
-    <table class='info-table method-history'></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.9.0</td><td><code>$messages</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getMessages">
@@ -3861,14 +3861,14 @@ file in Lang directory.</p>
     <code>$locale = NULL</code>
     <p>Get messages of a locale, if none given, return all the
 languages.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setLocale">
     <h2><span class="class-name">Translator::</span>setLocale</h2>
     <code>$locale</code>
     <p>Set the current translator locale and indicate if the source locale file exists</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$locale</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.36.2</td><td><code>$locale</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setConfigCacheFactory">
