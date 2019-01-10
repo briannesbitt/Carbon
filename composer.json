@@ -55,6 +55,7 @@
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
         "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
+        "phpmd": "phpmd src text /phpmd.xml",
         "phpdoc": "php phpdoc.php"
     },
     "extra": {
