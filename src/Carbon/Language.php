@@ -136,6 +136,22 @@ class Language implements JsonSerializable
     /**
      * @return string|null
      */
+    public function getVariantName(): ?string
+    {
+        if ($this->variant === 'Latn') {
+            return 'Latin';
+        }
+
+        if ($this->variant === 'Cyrl') {
+            return 'Cyrillic';
+        }
+
+        return $this->variant;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getRegion(): ?string
     {
         return $this->region;
@@ -162,6 +178,16 @@ class Language implements JsonSerializable
     }
 
     /**
+     * @param string $isoName
+     */
+    public function setIsoName(string $isoName): self
+    {
+        $this->isoName = $isoName;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getFullNativeName(): string
@@ -171,6 +197,16 @@ class Language implements JsonSerializable
         }
 
         return $this->nativeName;
+    }
+
+    /**
+     * @param string $nativeName
+     */
+    public function setNativeName(string $nativeName): self
+    {
+        $this->nativeName = $nativeName;
+
+        return $this;
     }
 
     /**
@@ -196,7 +232,7 @@ class Language implements JsonSerializable
     public function getIsoDescription()
     {
         $region = $this->getRegionName();
-        $variant = $this->getVariant();
+        $variant = $this->getVariantName();
 
         return $this->getIsoName().($region ? ' ('.$region.')' : '').($variant ? ' ('.$variant.')' : '');
     }
@@ -204,7 +240,7 @@ class Language implements JsonSerializable
     public function getNativeDescription()
     {
         $region = $this->getRegionName();
-        $variant = $this->getVariant();
+        $variant = $this->getVariantName();
 
         return $this->getNativeName().($region ? ' ('.$region.')' : '').($variant ? ' ('.$variant.')' : '');
     }
@@ -212,7 +248,7 @@ class Language implements JsonSerializable
     public function getFullIsoDescription()
     {
         $region = $this->getRegionName();
-        $variant = $this->getVariant();
+        $variant = $this->getVariantName();
 
         return $this->getFullIsoName().($region ? ' ('.$region.')' : '').($variant ? ' ('.$variant.')' : '');
     }
@@ -220,7 +256,7 @@ class Language implements JsonSerializable
     public function getFullNativeDescription()
     {
         $region = $this->getRegionName();
-        $variant = $this->getVariant();
+        $variant = $this->getVariantName();
 
         return $this->getFullNativeName().($region ? ' ('.$region.')' : '').($variant ? ' ('.$variant.')' : '');
     }
