@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * ISO 3166-2
+ */
 return [
   'AD' => 'Andorra',
   'AE' => 'United Arab Emirates',

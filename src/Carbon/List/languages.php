@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * ISO 639-2
+ */
 return [
   'ab' => [
     'isoName' => 'Abkhazian',

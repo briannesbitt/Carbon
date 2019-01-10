@@ -108,7 +108,9 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('Arabic', $ar->getFullIsoName());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom', $gom->getFullIsoName());
+        $this->assertSame('Konkani, Goan', $gom->getFullIsoName());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo', $foo->getFullIsoName());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('Serbian', $sr->getFullIsoName());
     }
@@ -121,7 +123,9 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('العربية', $ar->getFullNativeName());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom', $gom->getFullNativeName());
+        $this->assertSame('ಕೊಂಕಣಿ', $gom->getFullNativeName());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo', $foo->getFullNativeName());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('српски језик', $sr->getFullNativeName());
     }
@@ -134,7 +138,9 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('Arabic', $ar->getIsoName());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom', $gom->getIsoName());
+        $this->assertSame('Konkani', $gom->getIsoName());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo', $foo->getIsoName());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('Serbian', $sr->getIsoName());
     }
@@ -147,7 +153,9 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('العربية', $ar->getNativeName());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom', $gom->getNativeName());
+        $this->assertSame('ಕೊಂಕಣಿ', $gom->getNativeName());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo', $foo->getNativeName());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('српски језик', $sr->getNativeName());
     }
@@ -160,11 +168,13 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('Arabic (Algeria)', $ar->getIsoDescription());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom (Latin)', $gom->getIsoDescription());
-        $gom->setNativeName('Konkani');
-        $this->assertSame('gom (Latin)', $gom->getIsoDescription());
-        $gom->setIsoName('Konkani, Goan');
         $this->assertSame('Konkani (Latin)', $gom->getIsoDescription());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo (Latin)', $foo->getIsoDescription());
+        $foo->setNativeName('Foobar, Barbiz');
+        $this->assertSame('foo (Latin)', $foo->getIsoDescription());
+        $foo->setIsoName('Foobar, Barbiz');
+        $this->assertSame('Foobar (Latin)', $foo->getIsoDescription());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('Serbian (Montenegro) (Cyrillic)', $sr->getIsoDescription());
     }
@@ -177,11 +187,13 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('العربية (Algeria)', $ar->getNativeDescription());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom (Latin)', $gom->getNativeDescription());
-        $gom->setIsoName('Konkani, Goan');
-        $this->assertSame('gom (Latin)', $gom->getNativeDescription());
-        $gom->setNativeName('Konkani');
-        $this->assertSame('Konkani (Latin)', $gom->getNativeDescription());
+        $this->assertSame('ಕೊಂಕಣಿ (Latin)', $gom->getNativeDescription());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo (Latin)', $foo->getNativeDescription());
+        $foo->setIsoName('Foobar, Barbiz');
+        $this->assertSame('foo (Latin)', $foo->getNativeDescription());
+        $foo->setNativeName('Foobar, Barbiz');
+        $this->assertSame('Foobar (Latin)', $foo->getNativeDescription());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('српски језик (Montenegro) (Cyrillic)', $sr->getNativeDescription());
     }
@@ -194,11 +206,13 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('Arabic (Algeria)', $ar->getFullIsoDescription());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom (Latin)', $gom->getFullIsoDescription());
-        $gom->setNativeName('Konkani');
-        $this->assertSame('gom (Latin)', $gom->getFullIsoDescription());
-        $gom->setIsoName('Konkani, Goan');
         $this->assertSame('Konkani, Goan (Latin)', $gom->getFullIsoDescription());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo (Latin)', $foo->getFullIsoDescription());
+        $foo->setNativeName('Foobar, Barbiz');
+        $this->assertSame('foo (Latin)', $foo->getFullIsoDescription());
+        $foo->setIsoName('Foobar, Barbiz');
+        $this->assertSame('Foobar, Barbiz (Latin)', $foo->getFullIsoDescription());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('Serbian (Montenegro) (Cyrillic)', $sr->getFullIsoDescription());
     }
@@ -211,11 +225,13 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('العربية (Algeria)', $ar->getFullNativeDescription());
         $gom = new Language('gom_Latn');
-        $this->assertSame('gom (Latin)', $gom->getFullNativeDescription());
-        $gom->setIsoName('Konkani, Goan');
-        $this->assertSame('gom (Latin)', $gom->getFullNativeDescription());
-        $gom->setNativeName('Konkani, Goan');
-        $this->assertSame('Konkani, Goan (Latin)', $gom->getFullNativeDescription());
+        $this->assertSame('ಕೊಂಕಣಿ (Latin)', $gom->getFullNativeDescription());
+        $foo = new Language('foo_Latn');
+        $this->assertSame('foo (Latin)', $foo->getFullNativeDescription());
+        $foo->setIsoName('Foobar, Barbiz');
+        $this->assertSame('foo (Latin)', $foo->getFullNativeDescription());
+        $foo->setNativeName('Foobar, Barbiz');
+        $this->assertSame('Foobar, Barbiz (Latin)', $foo->getFullNativeDescription());
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('српски језик (Montenegro) (Cyrillic)', $sr->getFullNativeDescription());
     }
@@ -238,11 +254,13 @@ class LanguageTest extends AbstractTestCase
         $ar = new Language('ar_DZ');
         $this->assertSame('"Arabic (Algeria)"', json_encode($ar));
         $gom = new Language('gom_Latn');
-        $this->assertSame('"gom (Latin)"', json_encode($gom));
-        $gom->setNativeName('Konkani');
-        $this->assertSame('"gom (Latin)"', json_encode($gom));
-        $gom->setIsoName('Konkani, Goan');
         $this->assertSame('"Konkani (Latin)"', json_encode($gom));
+        $foo = new Language('foo_Latn');
+        $this->assertSame('"foo (Latin)"', json_encode($foo));
+        $foo->setNativeName('Foobar, Barbiz');
+        $this->assertSame('"foo (Latin)"', json_encode($foo));
+        $foo->setIsoName('Foobar, Barbiz');
+        $this->assertSame('"Foobar (Latin)"', json_encode($foo));
         $sr = new Language('sr_Cyrl_ME');
         $this->assertSame('"Serbian (Montenegro) (Cyrillic)"', json_encode($sr));
     }
