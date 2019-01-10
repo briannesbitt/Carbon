@@ -59,21 +59,7 @@ trait Creator
             static::hasTestNow() &&
             ($isNow || static::hasRelativeKeywords($time))
         ) {
-            /** @var CarbonImmutable|Carbon $testInstance */
-            $testInstance = clone static::getTestNow();
-
-            //shift the time according to the given time zone
-            if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
-                $testInstance = $testInstance->setTimezone($tz);
-            } else {
-                $tz = $testInstance->getTimezone();
-            }
-
-            if (static::hasRelativeKeywords($time)) {
-                $testInstance = $testInstance->modify($time);
-            }
-
-            $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
+            static::mockConstructorParameters($time, $tz);
         }
 
         $timezone = static::safeCreateDateTimeZone($tz);
