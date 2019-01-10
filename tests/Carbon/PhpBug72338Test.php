@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Igor Deyashkin <igor_deyawka@mail.ru>
