@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\Language;
 use Carbon\Translator;
 use Closure;
 use InvalidArgumentException;
@@ -411,5 +412,21 @@ trait Localization
         return $translator instanceof Translator
             ? $translator->getAvailableLocales()
             : [$translator->getLocale()];
+    }
+
+    /**
+     * Returns list of Language object for each available locale. This object allow you to get the ISO name, native
+     * name, region and variant of the locale.
+     *
+     * @return Language[]
+     */
+    public static function getAvailableLocalesInfo()
+    {
+        $languages = [];
+        foreach (static::getAvailableLocales() as $id) {
+            $languages[$id] = new Language($id);
+        }
+
+        return $languages;
     }
 }

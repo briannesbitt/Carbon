@@ -11,6 +11,7 @@
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Language;
 use Carbon\Translator;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -671,6 +672,15 @@ class LocalizationTest extends AbstractTestCase
 
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
+    }
+
+    public function getAvailableLocalesInfo()
+    {
+        $infos = Carbon::getAvailableLocalesInfo();
+        $this->assertCount(count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
+        $this->assertArrayHasKey('en', $infos);
+        $this->assertInstanceOf(Language::class, $infos['en']);
+        $this->assertInstanceOf('English', $infos['en']->getIsoName());
     }
 
     public function testGeorgianSpecialFromNowTranslation()
