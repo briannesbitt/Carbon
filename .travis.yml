@@ -28,7 +28,10 @@ before_install:
   - if [[ $coverage = 'false' && $xdebug = 'true' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --no-update --dev phpstan/phpstan; fi
+  - composer remove --no-update friendsofphp/php-cs-fixer
+  - composer remove --no-update phpmd/phpmd
+  - composer remove --no-update squizlabs/php_codesniffer
+  - if [[ $phpstan != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |

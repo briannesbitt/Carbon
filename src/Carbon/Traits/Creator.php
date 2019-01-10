@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * This file is part of the Carbon package.
  *
  * (c) Brian Nesbitt <brian@nesbot.com>
@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace Carbon\Traits;
 
 use Carbon\Carbon;
@@ -62,21 +61,7 @@ trait Creator
             static::hasTestNow() &&
             ($isNow || static::hasRelativeKeywords($time))
         ) {
-            /** @var CarbonImmutable|Carbon $testInstance */
-            $testInstance = clone static::getTestNow();
-
-            //shift the time according to the given time zone
-            if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
-                $testInstance = $testInstance->setTimezone($tz);
-            } else {
-                $tz = $testInstance->getTimezone();
-            }
-
-            if (static::hasRelativeKeywords($time)) {
-                $testInstance = $testInstance->modify($time);
-            }
-
-            $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
+            static::mockConstructorParameters($time, $tz);
         }
 
         /** @var CarbonTimeZone $timezone */
