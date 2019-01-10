@@ -96,6 +96,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
         if (preg_match('/^[A-Z]/', $name)) {
             $name = "\\$name";
         }
+        $name = preg_replace('/^\\\\Carbon\\\\/', '', $name);
         $output = "$name $output";
     }
     if (isset($defaultValues[$method])) {

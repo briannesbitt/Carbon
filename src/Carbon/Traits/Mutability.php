@@ -44,6 +44,8 @@ trait Mutability
     /**
      * Cast the current instance into the given class.
      *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
      * @return object
      */
     public function cast(string $className)

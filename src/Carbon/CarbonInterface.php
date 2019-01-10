@@ -650,6 +650,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as a string using the set format
      *
+     * @example
+     * ```
+     * echo Carbon::now(); // Carbon instances can be casted to string
+     * ```
+     *
      * @return string
      */
     public function __toString();
@@ -735,6 +740,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
      *
      * @return object
      */
@@ -972,7 +979,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return int
      */
-    public function diffFiltered(\Carbon\CarbonInterval $ci, \Closure $callback, $date = null, $absolute = true);
+    public function diffFiltered(CarbonInterval $ci, \Closure $callback, $date = null, $absolute = true);
 
     /**
      * Get the difference in a human readable format in the current locale from current instance to an other
@@ -1220,6 +1227,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to end of current given unit.
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOf('month')
+     *   ->endOf('week', Carbon::FRIDAY);
+     * ```
+     *
      * @param string            $unit
      * @param array<int, mixed> $params
      *
@@ -1228,21 +1242,36 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function endOf($unit, ...$params);
 
     /**
-     * Resets the date to end of the century and time to 23:59:59
+     * Resets the date to end of the century and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfCentury();
+     * ```
      *
      * @return static|CarbonInterface
      */
     public function endOfCentury();
 
     /**
-     * Resets the time to 23:59:59 end of day
+     * Resets the time to 23:59:59.999999 end of day
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfDay();
+     * ```
      *
      * @return static|CarbonInterface
      */
     public function endOfDay();
 
     /**
-     * Resets the date to end of the decade and time to 23:59:59
+     * Resets the date to end of the decade and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfDecade();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -1251,12 +1280,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to end of current hour, minutes and seconds become 59
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfHour();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function endOfHour();
 
     /**
-     * Resets the date to end of the century and time to 23:59:59
+     * Resets the date to end of the century and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMillennium();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -1265,19 +1304,34 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to end of current minute, seconds become 59
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMinute();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function endOfMinute();
 
     /**
-     * Resets the date to end of the month and time to 23:59:59
+     * Resets the date to end of the month and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfMonth();
+     * ```
      *
      * @return static|CarbonInterface
      */
     public function endOfMonth();
 
     /**
-     * Resets the date to end of the quarter and time to 23:59:59
+     * Resets the date to end of the quarter and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfQuarter();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -1286,12 +1340,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to end of current second, microseconds become 999999
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->endOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function endOfSecond();
 
     /**
-     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59
+     * Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->endOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";
+     * ```
      *
      * @param int $weekEndsAt optional start allow you to specify the day of week to use to end the week
      *
@@ -1300,7 +1368,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function endOfWeek($weekEndsAt = null);
 
     /**
-     * Resets the date to end of the year and time to 23:59:59
+     * Resets the date to end of the year and time to 23:59:59.999999
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->endOfYear();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3085,6 +3158,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to start of current given unit.
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOf('month')
+     *   ->endOf('week', Carbon::FRIDAY);
+     * ```
+     *
      * @param string            $unit
      * @param array<int, mixed> $params
      *
@@ -3095,12 +3175,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfCentury();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfCentury();
 
     /**
      * Resets the time to 00:00:00 start of day
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfDay();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3109,12 +3199,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Resets the date to the first day of the decade and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfDecade();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfDecade();
 
     /**
      * Modify to start of current hour, minutes and seconds become 0
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfHour();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3123,12 +3223,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Resets the date to the first day of the century and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMillennium();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfMillennium();
 
     /**
      * Modify to start of current minute, seconds become 0
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMinute();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3137,12 +3247,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Resets the date to the first day of the month and the time to 00:00:00
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfMonth();
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfMonth();
 
     /**
      * Resets the date to the first day of the quarter and the time to 00:00:00
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfQuarter();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3151,12 +3271,26 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Modify to start of current second, microseconds become 0
      *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16.334455')
+     *   ->startOfSecond()
+     *   ->format('H:i:s.u');
+     * ```
+     *
      * @return static|CarbonInterface
      */
     public function startOfSecond();
 
     /**
      * Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->startOfWeek() . "\n";
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek(Carbon::SUNDAY) . "\n";
+     * ```
      *
      * @param int $weekStartsAt optional start allow you to specify the day of week to use to start the week
      *
@@ -3166,6 +3300,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Resets the date to the first day of the year and the time to 00:00:00
+     *
+     * @example
+     * ```
+     * echo Carbon::parse('2018-07-25 12:45:16')->startOfYear();
+     * ```
      *
      * @return static|CarbonInterface
      */
@@ -3294,6 +3433,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get default array representation.
      *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toArray());
+     * ```
+     *
      * @return array
      */
     public function toArray();
@@ -3301,12 +3445,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as ATOM
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toAtomString();
+     * ```
+     *
      * @return string
      */
     public function toAtomString();
 
     /**
      * Format the instance as COOKIE
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toCookieString();
+     * ```
      *
      * @return string
      */
@@ -3317,12 +3471,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Return native DateTime PHP object matching the current instance.
      *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDate());
+     * ```
+     *
      * @return DateTime
      */
     public function toDate();
 
     /**
      * Format the instance as date
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateString();
+     * ```
      *
      * @return string
      */
@@ -3331,12 +3495,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Return native DateTime PHP object matching the current instance.
      *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDateTime());
+     * ```
+     *
      * @return DateTime
      */
     public function toDateTime();
 
     /**
      * Format the instance as date and time T-separated with no timezone
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateTimeLocalString();
+     * ```
      *
      * @return string
      */
@@ -3345,12 +3519,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as date and time
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateTimeString();
+     * ```
+     *
      * @return string
      */
     public function toDateTimeString();
 
     /**
      * Format the instance with day, date and time
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDayDateTimeString();
+     * ```
      *
      * @return string
      */
@@ -3359,6 +3543,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as a readable date
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toFormattedDateString();
+     * ```
+     *
      * @return string
      */
     public function toFormattedDateString();
@@ -3366,6 +3555,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z, if $keepOffset truthy, offset will be kept:
      * 1977-04-22T01:00:00-05:00).
+     *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toISOString() . "\n";
+     * echo Carbon::now('America/Toronto')->toISOString(true) . "\n";
+     * ```
      *
      * @param bool $keepOffset Pass true to keep the date offset. Else forced to UTC.
      *
@@ -3383,6 +3578,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as ISO8601
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toIso8601String();
+     * ```
+     *
      * @return string
      */
     public function toIso8601String();
@@ -3390,12 +3590,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Convert the instance to UTC and return as Zulu ISO8601
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toIso8601ZuluString();
+     * ```
+     *
      * @return string
      */
     public function toIso8601ZuluString();
 
     /**
      * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z) with UTC timezone.
+     *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toJSON();
+     * ```
      *
      * @return null|string
      */
@@ -3441,12 +3651,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get default object representation.
      *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toObject());
+     * ```
+     *
      * @return object
      */
     public function toObject();
 
     /**
      * Format the instance as RFC1036
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc1036String();
+     * ```
      *
      * @return string
      */
@@ -3455,12 +3675,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RFC1123
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc1123String();
+     * ```
+     *
      * @return string
      */
     public function toRfc1123String();
 
     /**
      * Format the instance as RFC2822
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc2822String();
+     * ```
      *
      * @return string
      */
@@ -3469,12 +3699,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RFC3339
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc3339String();
+     * ```
+     *
      * @return string
      */
     public function toRfc3339String();
 
     /**
      * Format the instance as RFC7231
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc7231String();
+     * ```
      *
      * @return string
      */
@@ -3483,12 +3723,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RFC822
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc822String();
+     * ```
+     *
      * @return string
      */
     public function toRfc822String();
 
     /**
      * Format the instance as RFC850
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toRfc850String();
+     * ```
      *
      * @return string
      */
@@ -3497,12 +3747,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as RSS
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toRssString();
+     * ```
+     *
      * @return string
      */
     public function toRssString();
 
     /**
      * Returns english human readable complete date string.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toString();
+     * ```
      *
      * @return string
      */
@@ -3511,12 +3771,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Format the instance as time
      *
+     * @example
+     * ```
+     * echo Carbon::now()->toTimeString();
+     * ```
+     *
      * @return string
      */
     public function toTimeString();
 
     /**
      * Format the instance as W3C
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toW3cString();
+     * ```
      *
      * @return string
      */
