@@ -674,13 +674,13 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
-    public function getAvailableLocalesInfo()
+    public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
         $this->assertCount(count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
         $this->assertArrayHasKey('en', $infos);
         $this->assertInstanceOf(Language::class, $infos['en']);
-        $this->assertInstanceOf('English', $infos['en']->getIsoName());
+        $this->assertSame('English', $infos['en']->getIsoName());
     }
 
     public function testGeorgianSpecialFromNowTranslation()
