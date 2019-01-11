@@ -89,8 +89,7 @@ use ReflectionException;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
- * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
- * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
+ * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
  * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
@@ -483,22 +482,14 @@ use ReflectionException;
  * @method        $this          floorMicroseconds(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
  * @method        $this          ceilMicrosecond(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
  * @method        $this          ceilMicroseconds(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
- * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
+ * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
  */
@@ -2474,6 +2465,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Register a custom macro.
      *
+     * @example
+     * ```
+     * $userSettings = [
+     *   'locale' => 'pt',
+     *   'timezone' => 'America/Sao_Paulo',
+     * ];
+     * Carbon::macro('userFormat', function () use ($userSettings) {
+     *   return $this->copy()->locale($userSettings['locale'])->tz($userSettings['timezone'])->calendar();
+     * });
+     * echo Carbon::yesterday()->hours(11)->userFormat();
+     * ```
+     *
      * @param string          $name
      * @param object|callable $macro
      *
@@ -2556,6 +2559,28 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
 
     /**
      * Mix another object into the class.
+     *
+     * @example
+     * ```
+     * Carbon::mixin(new class {
+     *   public function addMoon() {
+     *     return function () {
+     *       return $this->addDays(30);
+     *     };
+     *   }
+     *   public function subMoon() {
+     *     return function () {
+     *       return $this->subDays(30);
+     *     };
+     *   }
+     * });
+     * $fullMoon = Carbon::create('2018-12-22');
+     * $nextFullMoon = $fullMoon->addMoon();
+     * $blackMoon = Carbon::create('2019-01-06');
+     * $previousBlackMoon = $blackMoon->subMoon();
+     * echo "$nextFullMoon\n";
+     * echo "$previousBlackMoon\n";
+     * ```
      *
      * @param object $mixin
      *

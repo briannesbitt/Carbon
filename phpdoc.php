@@ -149,13 +149,7 @@ foreach ($tags as $tag) {
                             '@method',
                             'string',
                             "$mode{$vars->name}DiffForHumans(\DateTimeInterface \$other = null, int \$parts = 1)",
-                            "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale.",
-                        ];
-                        $autoDocLines[] = [
-                            '@method',
-                            'string',
-                            "$mode{$vars->name}DiffForHumans(int \$parts = 1, \DateTimeInterface \$other = null)",
-                            "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale.",
+                            "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale. (\$other and \$parts parameters can be swapped.)",
                         ];
                     }
                     break;

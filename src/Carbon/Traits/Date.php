@@ -90,8 +90,7 @@ use ReflectionException;
  * @property-read string         $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string         $locale                                                                             locale of the current instance
  *
- * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone.
- * @method        bool           isUTC()                                                                             Check if the current instance has UTC timezone.
+ * @method        bool           isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
  * @method        bool           isLocal()                                                                           Check if the current instance has non-UTC timezone.
  * @method        bool           isValid()                                                                           Check if the current instance is a valid date.
  * @method        bool           isDST()                                                                             Check if the current instance is in a daylight saving time.
@@ -484,22 +483,14 @@ use ReflectionException;
  * @method        $this          floorMicroseconds(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
  * @method        $this          ceilMicrosecond(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
  * @method        $this          ceilMicroseconds(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
- * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         longAbsoluteDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         longRelativeDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToNowDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         shortRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
- * @method        string         longRelativeToOtherDiffForHumans(int $parts = 1, \DateTimeInterface $other = null)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.
+ * @method        string         shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
  */
@@ -2164,9 +2155,8 @@ trait Date
                 return $this->isDayOfWeek($word);
             }
             switch ($word) {
-                // @call is Check if the current instance has UTC timezone.
+                // @call is Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
                 case 'Utc':
-                // @call is Check if the current instance has UTC timezone.
                 case 'UTC':
                     return $this->utc;
                 // @call is Check if the current instance has non-UTC timezone.
