@@ -40,7 +40,8 @@ install:
     fi
 
 script:
-  - composer phpunit
+  - if [[ $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
+  - if [[ $coverage != 'true' ]]; then composer phpunit; fi
   - if [[ $phpstan = 'true' ]]; then composer phpstan; fi
 
 after_success:

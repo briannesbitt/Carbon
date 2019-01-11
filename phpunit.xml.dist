@@ -41,5 +41,8 @@
         <testsuite name="factory">
             <directory>tests/Factory</directory>
         </testsuite>
+        <testsuite name="language">
+            <directory>tests/Language</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
