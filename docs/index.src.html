@@ -914,6 +914,40 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
         <code>Carbon\Translator</code> instance according to its locale set. You can get and/or change it
         using <code>getLocalTranslator()</code>/<code>setLocalTranslator(Translator $translator)</code>.</p>
 
+    <p>To get some interesting info about languages (such as complete ISO name or native name, region (for
+        example to be displayed in a languages selector), you can use <code>getAvailableLocalesInfo</code>.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint($zhTwInfo = Carbon::getAvailableLocalesInfo()['zh_TW'];
+$srCyrlInfo = Carbon::getAvailableLocalesInfo()['sr_Cyrl'];
+$caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
+
+{{::exec(var_dump($zhTwInfo->getId());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getNames());/*pad(50)*/)}}
+/*
+{{eval}}
+*/
+{{::exec(var_dump($zhTwInfo->getCode());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getVariant());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getVariant());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getVariantName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getVariantName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getRegion());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getRegion());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getRegionName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getRegionName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getFullIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getFullIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getFullNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getFullNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getNativeName());/*pad(50)*/)}} // {{eval}}
+
+</code></pre>
+    </p>
+
     <h1 id="api-testing">Testing Aids</h1>
 
     <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is

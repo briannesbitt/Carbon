@@ -44,6 +44,12 @@ function methods($excludeNatives = false)
             new \Symfony\Component\Translation\Translator('en'),
         ];
     }
+    if (class_exists(\Carbon\Language::class)) {
+        $carbonObjects[] = [
+            new \Carbon\Language('en'),
+            new \stdClass(),
+        ];
+    }
 
     foreach ($carbonObjects as $tuple) {
         list($carbonObject, $dateTimeObject) = $tuple;
