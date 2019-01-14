@@ -2152,6 +2152,14 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <table class='info-table method-history'><tr><td>Method added</td><td>1.31.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-getAvailableLocalesInfo">
+    <h2><span class="class-name">Carbon::</span>getAvailableLocalesInfo</h2>
+    <em>no arguments</em>
+    <p>Returns list of Language object for each available locale. This object allow you to get the ISO name, native
+name, region and variant of the locale.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-roundUnit">
     <h2><span class="class-name">Carbon::</span>roundUnit</h2>
     <code>$unit, $precision = 1, $function = 'round'</code>
@@ -3017,6 +3025,14 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-getAvailableLocalesInfo">
+    <h2><span class="class-name">CarbonInterval::</span>getAvailableLocalesInfo</h2>
+    <em>no arguments</em>
+    <p>Returns list of Language object for each available locale. This object allow you to get the ISO name, native
+name, region and variant of the locale.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonPeriod-create">
     <h2><span class="class-name">CarbonPeriod::</span>create</h2>
     <code>$params</code>
@@ -3639,6 +3655,14 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-getAvailableLocalesInfo">
+    <h2><span class="class-name">CarbonPeriod::</span>getAvailableLocalesInfo</h2>
+    <em>no arguments</em>
+    <p>Returns list of Language object for each available locale. This object allow you to get the ISO name, native
+name, region and variant of the locale.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">
     <h2><span class="class-name">CarbonTimeZone::</span>__construct</h2>
     <code>$timezone = NULL</code>
@@ -3927,17 +3951,165 @@ languages.</p>
     
 </div>
 
+<div class="doc-method " id="doc-method-Language-__construct">
+    <h2><span class="class-name">Language::</span>__construct</h2>
+    <em>no arguments</em>
+    <p>Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
+for more on the possibility of this constructor returning a test instance.</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-all">
+    <h2><span class="class-name">Language::</span>all</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-regions">
+    <h2><span class="class-name">Language::</span>regions</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getNames">
+    <h2><span class="class-name">Language::</span>getNames</h2>
+    <em>no arguments</em>
+    <p>@return array</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getId">
+    <h2><span class="class-name">Language::</span>getId</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getCode">
+    <h2><span class="class-name">Language::</span>getCode</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getVariant">
+    <h2><span class="class-name">Language::</span>getVariant</h2>
+    <em>no arguments</em>
+    <p>@return string|null</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getVariantName">
+    <h2><span class="class-name">Language::</span>getVariantName</h2>
+    <em>no arguments</em>
+    <p>@return string|null</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getRegion">
+    <h2><span class="class-name">Language::</span>getRegion</h2>
+    <em>no arguments</em>
+    <p>@return string|null</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getRegionName">
+    <h2><span class="class-name">Language::</span>getRegionName</h2>
+    <em>no arguments</em>
+    <p>@return string|null</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getFullIsoName">
+    <h2><span class="class-name">Language::</span>getFullIsoName</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-setIsoName">
+    <h2><span class="class-name">Language::</span>setIsoName</h2>
+    <em>no arguments</em>
+    <p>@param string $isoName</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getFullNativeName">
+    <h2><span class="class-name">Language::</span>getFullNativeName</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-setNativeName">
+    <h2><span class="class-name">Language::</span>setNativeName</h2>
+    <em>no arguments</em>
+    <p>@param string $nativeName</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getIsoName">
+    <h2><span class="class-name">Language::</span>getIsoName</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getNativeName">
+    <h2><span class="class-name">Language::</span>getNativeName</h2>
+    <em>no arguments</em>
+    <p>@return string</p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getIsoDescription">
+    <h2><span class="class-name">Language::</span>getIsoDescription</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getNativeDescription">
+    <h2><span class="class-name">Language::</span>getNativeDescription</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getFullIsoDescription">
+    <h2><span class="class-name">Language::</span>getFullIsoDescription</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-getFullNativeDescription">
+    <h2><span class="class-name">Language::</span>getFullNativeDescription</h2>
+    <em>no arguments</em>
+    <p></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-__toString">
+    <h2><span class="class-name">Language::</span>__toString</h2>
+    <em>no arguments</em>
+    <p>Format the instance as a string using the set format<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now(); // Carbon instances can be casted to string</code></pre></p>
+    <table class='info-table method-history'></table>
+</div>
+
+<div class="doc-method " id="doc-method-Language-jsonSerialize">
+    <h2><span class="class-name">Language::</span>jsonSerialize</h2>
+    <em>no arguments</em>
+    <p>Prepare the object for JSON serialization.</p>
+    <table class='info-table method-history'></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-isUtc">
     <h2><span class="class-name">Carbon::</span>isUtc</h2>
     <em>no arguments</em>
-    <p>Check if the current instance has UTC timezone.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-isUTC">
-    <h2><span class="class-name">Carbon::</span>isUTC</h2>
-    <em>no arguments</em>
-    <p>Check if the current instance has UTC timezone.</p>
+    <p>Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -6688,55 +6860,55 @@ languages.</p>
 <div class="doc-method " id="doc-method-Carbon-shortAbsoluteDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortAbsoluteDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longAbsoluteDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longAbsoluteDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (short format, 'Relative' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (long format, 'Relative' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeToNowDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeToNowDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeToNowDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeToNowDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeToOtherDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeToOtherDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeToOtherDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeToOtherDiffForHumans</h2>
     <code>\DateTimeInterface $other = null,  int $parts = 1</code>
-    <p>Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale.</p>
+    <p>Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>

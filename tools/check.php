@@ -42,7 +42,7 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
     }
     $color = $documented ? 32 : 31;
     $message = $documented ? 'documented' : 'missing';
-    $methodPad = str_pad("$className::$method", 25);
+    $methodPad = str_pad("$className::$method", 45);
 
     $output = "- $methodPad \033[0;{$color}m{$message}\033[0m\n";
 

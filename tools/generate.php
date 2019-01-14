@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__.'/config.php';
+
 date_default_timezone_set('UTC');
 setlocale(LC_ALL, 'en');
 ini_set('html_errors', 0);

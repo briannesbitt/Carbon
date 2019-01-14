@@ -944,7 +944,36 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
 {{::exec(var_dump($caInfo->getIsoName());/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($zhTwInfo->getNativeName());/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($caInfo->getNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getNativeDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getNativeDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getNativeDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getFullIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getFullIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($zhTwInfo->getFullNativeDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullNativeDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($caInfo->getFullNativeDescription());/*pad(50)*/)}} // {{eval}}
 
+{{::lint($srCyrlInfo->setIsoName('foo, bar')->setNativeName('biz, baz');)}}
+{{::exec(var_dump($srCyrlInfo->getIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullIsoName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullIsoDescription());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullNativeName());/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($srCyrlInfo->getFullNativeDescription());/*pad(50)*/)}} // {{eval}}
+
+// You can also access directly regions/languages lists:
+{{::exec(var_dump(\Carbon\Language::all()['zh']);/*pad(50)*/)}}
+/*
+{{eval}}
+*/
+{{::exec(var_dump(\Carbon\Language::regions()['TW']);/*pad(50)*/)}}
+/*
+{{eval}}
+*/
 </code></pre>
     </p>
 
