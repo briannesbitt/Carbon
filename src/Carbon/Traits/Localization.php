@@ -212,7 +212,7 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        return $translator->transChoice($key, $number, $parameters);
+        return $translator->trans($key, $parameters);
     }
 
     /**
