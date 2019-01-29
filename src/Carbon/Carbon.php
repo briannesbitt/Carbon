@@ -2415,6 +2415,16 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Determines if the instance is within the current week.
+     *
+     * @return bool
+     */
+    public function isCurrentWeek()
+    {
+        return $this->weekOfYear === $this->nowWithSameTz()->weekOfYear;
+    }
+
+    /**
      * Determines if the instance is within the last week.
      *
      * @return bool
