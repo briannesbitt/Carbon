@@ -24,7 +24,7 @@
     "require": {
         "php": "^7.1.8",
         "ext-json": "*",
-        "symfony/translation": "^4.0"
+        "symfony/translation": "^3.4 || ^4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
