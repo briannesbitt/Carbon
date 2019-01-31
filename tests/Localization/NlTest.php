@@ -230,16 +230,16 @@ class NlTest extends LocalizationTestCase
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::day()->hours(5),
             Carbon::parse('2015-10-03 19:00')
-        ));
+        )));
         $this->assertSame('4 keer elk uur en 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hour()->minutes(30),
             Carbon::parse('2015-10-03 19:00')
-        ));
+        )));
         $this->assertSame('4 keer elke 4 uur en 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hours(4)->minutes(30),
             Carbon::parse('2015-10-03 19:00')
-        ));
+        )));
     }
 }
