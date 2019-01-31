@@ -1316,7 +1316,9 @@ class CarbonPeriod implements Iterator, Countable
             $parts[] = $this->translate('period_recurrences', [], $this->recurrences, $translator);
         }
 
-        $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans()], null, $translator);
+        $parts[] = $this->translate('period_interval', [':interval' => $this->dateInterval->forHumans([
+            'join' => true,
+        ])], null, $translator);
 
         $parts[] = $this->translate('period_start_date', [':date' => $this->startDate->format($format)], null, $translator);
 
