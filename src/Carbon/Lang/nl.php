@@ -35,11 +35,13 @@ return [
     'diff_before_yesterday' => 'eergisteren',
     'period_recurrences' => ':count keer',
     'period_interval' => function ($interval) {
-        if (preg_match('/(één|1)( jaar|j| uur|u)/', $interval)) {
-            return "elk $interval";
+        $output = preg_replace('/^(één|1)\s+/', '', $interval);
+
+        if (preg_match('/^(één|1)( jaar|j| uur|u)/', $interval)) {
+            return "elk $output";
         }
 
-        return "elke $interval";
+        return "elke $output";
     },
     'period_start_date' => 'van :date',
     'period_end_date' => 'tot :date',
