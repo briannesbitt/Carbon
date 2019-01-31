@@ -11,6 +11,7 @@
 namespace Tests\Localization;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 
 class NlTest extends LocalizationTestCase
