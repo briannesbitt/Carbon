@@ -33,6 +33,10 @@ return [
     'diff_tomorrow' => 'morgen',
     'diff_after_tomorrow' => 'overmorgen',
     'diff_before_yesterday' => 'eergisteren',
+    'period_recurrences' => ':count keer',
+    'period_interval' => 'elke :interval',
+    'period_start_date' => 'van :date',
+    'period_end_date' => 'tot :date',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
