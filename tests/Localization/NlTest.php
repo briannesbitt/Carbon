@@ -223,7 +223,7 @@ class NlTest extends LocalizationTestCase
 
     public function testPeriod()
     {
-        $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')->locale(static::LOCALE));
+        $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')->locale(static::LOCALE)));
         $this->assertSame('4 keer elk jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y')->locale(static::LOCALE)));
         $this->assertSame('4 keer elke 2 jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P2Y')->locale(static::LOCALE)));
         $this->assertSame('4 keer elk jaar en 6 maanden van 012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y6M')->locale(static::LOCALE)));
