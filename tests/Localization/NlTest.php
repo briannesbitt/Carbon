@@ -220,7 +220,7 @@ class NlTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1d 3u',
     ];
-    
+
     public function testPeriod()
     {
         $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')));
