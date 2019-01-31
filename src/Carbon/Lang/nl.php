@@ -34,7 +34,16 @@ return [
     'diff_after_tomorrow' => 'overmorgen',
     'diff_before_yesterday' => 'eergisteren',
     'period_recurrences' => ':count keer',
-    'period_interval' => 'elke :interval',
+    'period_interval' => function ($interval) {
+        /** @var string $output */
+        $output = preg_replace('/^(één|1)\s+/', '', $interval);
+
+        if (preg_match('/^(één|1)( jaar|j| uur|u)/', $interval)) {
+            return "elk $output";
+        }
+
+        return "elke $output";
+    },
     'period_start_date' => 'van :date',
     'period_end_date' => 'tot :date',
     'formats' => [
