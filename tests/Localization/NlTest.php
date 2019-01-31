@@ -228,18 +228,18 @@ class NlTest extends LocalizationTestCase
         $this->assertSame('4 keer elke week van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D')));
         $this->assertSame('4 keer elk jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y')));
         $this->assertSame('4 keer elke 2 jaar van 2012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P2Y')));
-        $this->assertSame('4 keer elk jaar en 6 maanden van 012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y6M')));
-        $this->assertSame('4 keer elke dag en 5 uur van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
+        $this->assertSame('4 keer elk jaar 6 maanden van 012-07-01 12:00:00', strval(CarbonPeriod::create('R4/2012-07-01T12:00:00/P1Y6M')));
+        $this->assertSame('4 keer elke dag 5 uur van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::day()->hours(5),
             Carbon::parse('2015-10-03 19:00')
         )));
-        $this->assertSame('4 keer elk uur en 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
+        $this->assertSame('4 keer elk uur 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hour()->minutes(30),
             Carbon::parse('2015-10-03 19:00')
         )));
-        $this->assertSame('4 keer elke 4 uur en 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
+        $this->assertSame('4 keer elke 4 uur 30 minuten van 015-09-30 12:50 tot 2015-10-03 19:00', strval(CarbonPeriod::create(
             Carbon::parse('2015-09-30 12:50'),
             CarbonInterval::hours(4)->minutes(30),
             Carbon::parse('2015-10-03 19:00')
