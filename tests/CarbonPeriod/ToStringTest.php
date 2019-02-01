@@ -50,7 +50,7 @@ class ToStringTest extends AbstractTestCase
                     CarbonInterval::days(3)->hours(5),
                     Carbon::parse('2015-10-03 19:00')
                 ),
-                'Every 3 days 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
+                'Every 3 days and 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
             ],
             [
                 CarbonPeriod::create('2015-09-30 17:30'),
@@ -58,11 +58,11 @@ class ToStringTest extends AbstractTestCase
             ],
             [
                 CarbonPeriod::create('P1M14D'),
-                'Every 1 month 2 weeks from 2015-09-01',
+                'Every 1 month and 2 weeks from 2015-09-01',
             ],
             [
                 CarbonPeriod::create('2015-09-30 13:30', 'P17D')->setRecurrences(1),
-                'Once every 2 weeks 3 days from 2015-09-30 13:30:00',
+                'Once every 2 weeks and 3 days from 2015-09-30 13:30:00',
             ],
             [
                 CarbonPeriod::create('2015-10-01', '2015-10-05', 'PT30M'),
@@ -80,7 +80,7 @@ class ToStringTest extends AbstractTestCase
         );
 
         $this->assertSame(
-            'Every 3 days 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
+            'Every 3 days and 5 hours from 2015-09-30 12:50:00 to 2015-10-03 19:00:00',
             (string) $period
         );
     }
