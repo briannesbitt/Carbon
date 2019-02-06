@@ -120,11 +120,11 @@ class SkTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'pred sekundou',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'pred 1 sek',
+        'pred 1 s',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'pred 2 sekundami',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'pred 2 sek',
+        'pred 2 s',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'pred minútou',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -136,11 +136,11 @@ class SkTest extends LocalizationTestCase
         // Carbon::now()->subHours(1)->diffForHumans()
         'pred hodinou',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'pred 1 hod',
+        'pred 1 h',
         // Carbon::now()->subHours(2)->diffForHumans()
         'pred 2 hodinami',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'pred 2 hod',
+        'pred 2 h',
         // Carbon::now()->subDays(1)->diffForHumans()
         'pred dňom',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -152,19 +152,19 @@ class SkTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'pred týždňom',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'pred 1 týž',
+        'pred 1 t',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'pred 2 týždňami',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'pred 2 týž',
+        'pred 2 t',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'pred mesiacom',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'pred 1 mes',
+        'pred 1 m',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'pred 2 mesiacmi',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'pred 2 mes',
+        'pred 2 m',
         // Carbon::now()->subYears(1)->diffForHumans()
         'pred rokom',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -176,35 +176,35 @@ class SkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans()
         'za sekundu',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'za 1 sek',
+        'za 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'o sekundu neskôr',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'o 1 sek neskôr',
+        'o 1 s neskôr',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'sekundu predtým',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sek predtým',
+        '1 s predtým',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'sekundu',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 sek',
+        '1 s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekundy',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sek',
+        '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'za 1 sek',
+        'za 1 s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'minútu sekundu',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 r 3 mes 1 d 1 sek',
+        '2 r 3 m 1 d 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'za 3 roky',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'pred 5 mes',
+        'pred 5 m',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'pred 2 r 3 mes 1 d 1 sek',
+        'pred 2 r 3 m 1 d 1 s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'týždeň 10 hodín',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -216,6 +216,6 @@ class SkTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 dni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 d 3 hod',
+        '1 d 3 h',
     ];
 }
