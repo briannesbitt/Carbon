@@ -11,13 +11,13 @@
 
 return [
     'year' => 'rok|:count roky|:count rokov',
-    'y' => ':count rok',
+    'y' => ':count r',
     'month' => 'mesiac|:count mesiace|:count mesiacov',
     'm' => ':count mes',
     'week' => 'týždeň|:count týždne|:count týždňov',
     'w' => ':count týž',
     'day' => 'deň|:count dni|:count dní',
-    'd' => ':count deň|:count dni|:count dní',
+    'd' => ':count d',
     'hour' => 'hodinu|:count hodiny|:count hodín',
     'h' => ':count hod',
     'minute' => 'minútu|:count minúty|:count minút',
