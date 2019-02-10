@@ -28,6 +28,7 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
+        "kylekatarnls/multi-tester": "^0.1",
         "phpmd/phpmd": "^2.6",
         "phpstan/phpstan": "^0.10.8",
         "phpunit/phpunit": "^7.1.5",

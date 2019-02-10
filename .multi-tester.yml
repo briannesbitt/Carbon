@@ -1,0 +1,5 @@
+laravel/framework:5.7:
+  install: composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
+
+laravel/framework:5.8:
+  install: composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
