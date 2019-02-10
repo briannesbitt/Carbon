@@ -51,9 +51,10 @@ install:
     fi
 
 script:
-  - if [[ $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
-  - if [[ $coverage != 'true' ]]; then composer phpunit; fi
-  - if [[ $phpstan = 'true' ]]; then composer phpstan; fi
+  - if [[ $laravel != 'true' && $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
+  - if [[ $laravel != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
+  - if [[ $laravel != 'true' && $phpstan = 'true' ]]; then composer phpstan; fi
+  - if [[ $laravel = 'true' ]]; then vendor/bin/multi-tester; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
