@@ -18,7 +18,7 @@ use Tests\CarbonPeriod\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCase
 {
-    public function tearDown()
+    protected function tearDown(): void
     {
         $reflection = new ReflectionClass('Carbon\CarbonPeriod');
 

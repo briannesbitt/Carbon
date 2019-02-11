@@ -22,7 +22,7 @@ use Tests\CarbonImmutable\Fixtures\MyCarbon;
 
 class LocalizationTest extends AbstractTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Carbon::setLocale('en');

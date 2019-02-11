@@ -28,7 +28,7 @@ class CreateFromFormatTest extends AbstractTestCase
      */
     protected $noErrors;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

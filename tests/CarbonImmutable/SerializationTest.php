@@ -20,7 +20,7 @@ class SerializationTest extends AbstractTestCase
      */
     protected $serialized;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

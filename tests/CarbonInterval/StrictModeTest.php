@@ -16,13 +16,13 @@ use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Carbon::useStrictMode();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Carbon::useStrictMode();

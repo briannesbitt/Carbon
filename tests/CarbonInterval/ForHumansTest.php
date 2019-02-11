@@ -19,7 +19,7 @@ use Tests\CarbonInterval\Fixtures\MyCarbonInterval;
 
 class ForHumansTest extends AbstractTestCase
 {
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         CarbonInterval::setLocale('en');

@@ -25,7 +25,7 @@ abstract class AbstractTestCaseWithOldNow extends AbstractTestCase
      */
     protected $oldImmutableNow = true;
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         Carbon::resetMacros();
         Carbon::setTestNow();

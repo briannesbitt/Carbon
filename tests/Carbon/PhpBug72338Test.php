@@ -29,7 +29,7 @@ use Tests\AbstractTestCase;
  */
 class PhpBug72338Test extends AbstractTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
     }
