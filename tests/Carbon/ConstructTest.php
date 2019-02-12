@@ -109,6 +109,15 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame(9 + $dayLightSavingTimeOffset, $c->offsetHours);
     }
 
+    public function testSettingTimezoneWithInteger()
+    {
+        Carbon::useStrictMode(false);
+        $timezone = 5;
+        $c = new Carbon('2019-02-12 23:00:00', $timezone);
+        $this->assertSame('Atlantic/Azores', $c->tzName);
+        Carbon::useStrictMode(true);
+    }
+
     public function testMockingWithMicroseconds()
     {
         $c = new Carbon(Carbon::now()->toDateTimeString().'.123456');
