@@ -16,102 +16,112 @@ use Tests\AbstractTestCase;
 
 class SettersTest extends AbstractTestCase
 {
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testYearSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->year = 1995;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testMonthSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->month = 3;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testMonthSetterWithWrap()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->month = 13;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testDaySetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->day = 2;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testDaySetterWithWrap()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::createFromDate(2012, 8, 5);
         $d->day = 32;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testHourSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->hour = 2;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testHourSetterWithWrap()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->hour = 25;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testMinuteSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->minute = 2;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testMinuteSetterWithWrap()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->minute = 65;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testSecondSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->second = 2;
     }
@@ -178,73 +188,81 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(12, $d->day);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testSecondSetterWithWrap()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->second = 65;
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTimestampSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         $d = Carbon::now();
         $d->timestamp = 10;
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         $d = Carbon::now();
         $d->setTimezone('sdf');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = 'sdf';
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTimezoneWithInvalidTimezoneSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         $d = Carbon::now();
         $d->timezone('sdf');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTzWithInvalidTimezone()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = 'sdf';
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTzWithInvalidTimezoneSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         $d = Carbon::now();
         $d->tz('sdf');
     }
@@ -270,23 +288,25 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('10:53:12', $d2->format('H:i:s'));
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTimezoneUsingString()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = 'America/Toronto';
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTzUsingString()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = 'America/Toronto';
@@ -299,34 +319,37 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $d->tzName);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTimezoneUsingDateTimeZone()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = new DateTimeZone('America/Toronto');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testTzUsingDateTimeZone()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = new DateTimeZone('America/Toronto');
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Carbon\CarbonImmutable class is immutable.
-     */
     public function testInvalidSetter()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Carbon\CarbonImmutable class is immutable.'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->doesNotExit = 'bb';

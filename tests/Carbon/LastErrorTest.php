@@ -26,7 +26,7 @@ class LastErrorTest extends AbstractTestCase
      */
     protected $noErrors;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

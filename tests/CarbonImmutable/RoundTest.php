@@ -122,12 +122,13 @@ class RoundTest extends AbstractTestCase
         Carbon::setWeekEndsAt(Carbon::SUNDAY);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown unit 'foobar' to floor
-     */
     public function testRoundInvalidArgument()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'foobar\' to floor'
+        );
+
         Carbon::now()->roundUnit('foobar');
     }
 }

@@ -20,7 +20,7 @@ class ArraysTest extends AbstractTestCase
         $dt = Carbon::now();
         $dtToArray = $dt->toArray();
 
-        $this->assertInternalType('array', $dtToArray);
+        $this->assertIsArray($dtToArray);
 
         $this->assertArrayHasKey('year', $dtToArray);
         $this->assertSame($dt->year, $dtToArray['year']);

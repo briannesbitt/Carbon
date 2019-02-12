@@ -20,7 +20,7 @@ class AddMonthsTest extends AbstractTestCase
      */
     private $carbon;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -51,7 +51,7 @@ abstract class AbstractTestCase extends TestCase
         return (new DateTime())->getTimestamp();
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         //save current timezone
         $this->saveTz = date_default_timezone_get();
@@ -72,7 +72,7 @@ abstract class AbstractTestCase extends TestCase
         CarbonImmutable::setTestNow($this->immutableNow = $immutableNow);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         date_default_timezone_set($this->saveTz);
         Carbon::setTestNow();

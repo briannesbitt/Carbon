@@ -639,11 +639,10 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($current->isSameAs('c', $current));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIsSameAsWithInvalidArgument()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $current = Carbon::createFromDate(2012, 1, 2);
         $current->isSameAs('Y-m-d', 'abc');
     }
@@ -866,23 +865,25 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method isSameFoobar does not exist.
-     */
     public function testIsSameFoobar()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method isSameFoobar does not exist.'
+        );
+
         /** @var mixed $date */
         $date = Carbon::parse('12:00:00');
         $date->isSameFoobar(Carbon::parse('15:30:45'));
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method isCurrentFoobar does not exist.
-     */
     public function testIsCurrentFoobar()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method isCurrentFoobar does not exist.'
+        );
+
         /** @var mixed $date */
         $date = Carbon::parse('12:00:00');
         $date->isCurrentFoobar();

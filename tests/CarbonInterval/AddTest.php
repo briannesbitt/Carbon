@@ -145,12 +145,13 @@ class AddTest extends AbstractTestCase
         $this->assertCarbonInterval(CarbonInterval::hours(4)->sub(CarbonInterval::minutes(30)), 0, 0, 0, 4, -30, 0);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage This type of data cannot be added/subtracted.
-     */
     public function testAddWrongFormat()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'This type of data cannot be added/subtracted.'
+        );
+
         CarbonInterval::day()->add(Carbon::now());
     }
 }

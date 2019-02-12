@@ -232,53 +232,56 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(11, $d->timestamp);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $d = Carbon::now();
         $d->setTimezone('sdf');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTimezoneWithInvalidTimezone()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->timezone = 'sdf';
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTimezoneWithInvalidTimezoneSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         $d = Carbon::now();
         $d->timezone('sdf');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTzWithInvalidTimezone()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         /** @var mixed $d */
         $d = Carbon::now();
         $d->tz = 'sdf';
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown or bad timezone (sdf)
-     */
     public function testTzWithInvalidTimezoneSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown or bad timezone (sdf)'
+        );
+
         $d = Carbon::now();
         $d->tz('sdf');
     }
@@ -385,11 +388,10 @@ class SettersTest extends AbstractTestCase
         $this->assertSame('America/Vancouver', $d->tzName);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidSetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         /** @var mixed $date */
         $date = Carbon::now();
         $date->doesNotExit = 'bb';
@@ -528,21 +530,23 @@ class SettersTest extends AbstractTestCase
         $this->assertSame(static::SET_UNIT_NO_OVERFLOW_SAMPLE, $results['end'] + $results['start'] + $results['current']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown unit 'anyUnit'
-     */
     public function testSetUnitNoOverflowInputUnitException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'anyUnit\''
+        );
+
         Carbon::now()->setUnitNoOverflow('anyUnit', 1, 'year');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown unit 'anyUnit'
-     */
     public function testSetUnitNoOverflowOverflowUnitException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'anyUnit\''
+        );
+
         Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
     }
 

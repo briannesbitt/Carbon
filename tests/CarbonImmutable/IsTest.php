@@ -275,12 +275,13 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::now()->isSameUnit('millennium', Carbon::now()->subMillennia(2)));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Bad comparison unit: 'foobar'
-     */
     public function testIsSameFoobar()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Bad comparison unit: \'foobar\''
+        );
+
         Carbon::now()->isSameUnit('foobar', Carbon::now()->subMillennium());
     }
 
@@ -651,11 +652,13 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($current->isSameAs('c', $current));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testIsSameAsWithInvalidArgument()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Expected null, DateTime or DateTimeInterface, string given'
+        );
+
         $current = Carbon::createFromDate(2012, 1, 2);
         $current->isSameAs('Y-m-d', 'abc');
     }

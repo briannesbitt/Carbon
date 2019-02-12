@@ -15,11 +15,10 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         /** @var mixed $d */
         $d = Carbon::create(1234, 5, 6, 7, 8, 9);
         $d->doesNotExit;

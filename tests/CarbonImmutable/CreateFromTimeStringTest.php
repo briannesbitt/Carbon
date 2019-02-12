@@ -16,7 +16,7 @@ use Tests\AbstractTestCase;
 
 class CreateFromTimeStringTest extends AbstractTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Carbon::setTestNow();

@@ -1,0 +1,6 @@
+laravel/framework:
+  source:
+    type: git
+    url: https://github.com/laravel/framework.git
+    reference: master
+  install: composer update --prefer-dist --no-interaction --prefer-stable --no-suggest

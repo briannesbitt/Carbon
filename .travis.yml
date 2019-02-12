@@ -21,10 +21,21 @@ env:
     - coverage=false
     - xdebug=true
     - phpstan=false
+    - laravel=false
 
 sudo: false
 
+services:
+  - memcached
+  - redis-server
+  - mysql
+
 before_install:
+  - if [[ $laravel = 'true' ]]; then phpenv config-rm xdebug.ini || true; fi
+  - if [[ $laravel = 'true' ]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - if [[ $laravel = 'true' ]]; then printf "\n" | pecl install -f redis; fi
+  - if [[ $laravel = 'true' ]]; then travis_retry composer self-update; fi
+  - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;'; fi
   - if [[ $coverage = 'false' && $xdebug = 'true' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
@@ -40,9 +51,10 @@ install:
     fi
 
 script:
-  - if [[ $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
-  - if [[ $coverage != 'true' ]]; then composer phpunit; fi
-  - if [[ $phpstan = 'true' ]]; then composer phpstan; fi
+  - if [[ $laravel != 'true' && $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
+  - if [[ $laravel != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
+  - if [[ $laravel != 'true' && $phpstan = 'true' ]]; then composer phpstan; fi
+  - if [[ $laravel = 'true' ]]; then vendor/bin/multi-tester; fi
 
 after_success:
   - if [[ $coverage = 'true' ]]; then bash <(curl -s https://codecov.io/bash); fi
@@ -89,6 +101,13 @@ matrix:
         - setup=stable
         - coverage=true
         - phpstan=true
+    - php: 7.3
+      env:
+        - xdebug=false
+        - setup=stable
+        - coverage=false
+        - phpstan=false
+        - laravel=true
 
 notifications:
   slack:

@@ -16,24 +16,25 @@ use Tests\AbstractTestCase;
 
 class StrictModeTest extends AbstractTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         Carbon::useStrictMode();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
         Carbon::useStrictMode();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method foobar does not exist.
-     */
     public function testCallWithStrictMode()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method foobar does not exist.'
+        );
+
         /** @var mixed $period */
         $period = CarbonPeriod::create();
         $period->foobar();

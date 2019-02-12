@@ -93,11 +93,14 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideInvalidIso8601String
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid ISO 8601 specification:
      */
     public function testCreateFromInvalidIso8601String($iso)
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid ISO 8601 specification:'
+        );
+
         CarbonPeriod::create($iso);
     }
 
@@ -313,11 +316,14 @@ class CreateTest extends AbstractTestCase
 
     /**
      * @dataProvider provideInvalidParameters
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid constructor parameters.
      */
     public function testCreateFromInvalidParameters()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid constructor parameters.'
+        );
+
         call_user_func_array('Carbon\CarbonPeriod::create', func_get_args());
     }
 

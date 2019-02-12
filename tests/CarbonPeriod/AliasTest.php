@@ -165,12 +165,13 @@ class AliasTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method foobar does not exist.
-     */
     public function testCallInvalidAlias()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method foobar does not exist.'
+        );
+
         CarbonPeriod::foobar();
     }
 
@@ -186,12 +187,13 @@ class AliasTest extends AbstractTestCase
         $this->assertSame('P1DT5H', $period->getDateInterval()->spec());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Empty interval is not accepted.
-     */
     public function testModifyIntoEmptyDateInterval()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Empty interval is not accepted.'
+        );
+
         CarbonPeriod::days(0);
     }
 }
