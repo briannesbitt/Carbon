@@ -60,84 +60,84 @@ class CascadeTest extends AbstractTestCase
     public function provideMixedSignsIntervalSpecs()
     {
         return [
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => -30,
-//                ],
-//                'PT30M',
-//                0,
-//            ],
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => -90,
-//                ],
-//                'PT30M',
-//                1,
-//            ],
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => -90,
-//                    'seconds' => 3660,
-//                ],
-//                'PT31M',
-//                0,
-//            ],
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => -90,
-//                    'seconds' => 3540,
-//                ],
-//                'PT29M',
-//                0,
-//            ],
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => 90,
-//                    'seconds' => -3540,
-//                ],
-//                'PT1H31M',
-//                0,
-//            ],
-//            [
-//                [
-//                    'hours' => 1,
-//                    'minutes' => 90,
-//                    'seconds' => -3660,
-//                ],
-//                'PT1H29M',
-//                0,
-//            ],
-//            [
-//                [
-//                    'hours' => -1,
-//                    'minutes' => 90,
-//                    'seconds' => -3660,
-//                ],
-//                'PT31M',
-//                1,
-//            ],
-//            [
-//                [
-//                    'hours' => -1,
-//                    'minutes' => 61,
-//                    'seconds' => -120,
-//                ],
-//                'PT1M',
-//                1,
-//            ],
-//            [
-//                [
-//                    'days' => 48,
-//                    'hours' => -8,
-//                ],
-//                'P1M19DT16H',
-//                0,
-//            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -30,
+                ],
+                'PT30M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                ],
+                'PT30M',
+                1,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                    'seconds' => 3660,
+                ],
+                'PT31M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => -90,
+                    'seconds' => 3540,
+                ],
+                'PT29M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => 90,
+                    'seconds' => -3540,
+                ],
+                'PT1H31M',
+                0,
+            ],
+            [
+                [
+                    'hours' => 1,
+                    'minutes' => 90,
+                    'seconds' => -3660,
+                ],
+                'PT1H29M',
+                0,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'minutes' => 90,
+                    'seconds' => -3660,
+                ],
+                'PT31M',
+                1,
+            ],
+            [
+                [
+                    'hours' => -1,
+                    'minutes' => 61,
+                    'seconds' => -120,
+                ],
+                'PT1M',
+                1,
+            ],
+            [
+                [
+                    'days' => 48,
+                    'hours' => -8,
+                ],
+                'P1M19DT16H',
+                0,
+            ],
             [
                 [
                     'days' => 48,
