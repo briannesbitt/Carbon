@@ -64,12 +64,13 @@ class ConversionsTest extends AbstractTestCase
         Carbon::useStrictMode(true);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown timezone for offset -54000 seconds.
-     */
     public function testInvalidRegionForOffsetInStrictMode()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown timezone for offset -54000 seconds.'
+        );
+
         (new CarbonTimeZone(-15))->toRegionTimeZone();
     }
 }

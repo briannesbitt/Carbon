@@ -15,12 +15,13 @@ use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown getter 'doesNotExit'
-     */
     public function testGettersThrowExceptionOnUnknownGetter()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown getter \'doesNotExit\''
+        );
+
         /** @var mixed $interval */
         $interval = CarbonInterval::year();
         $interval->doesNotExit;

@@ -28,12 +28,13 @@ class StrictModeTest extends AbstractTestCase
         Carbon::useStrictMode();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method foobar does not exist.
-     */
     public function testCallWithStrictMode()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method foobar does not exist.'
+        );
+
         /** @var mixed $period */
         $period = CarbonPeriod::create();
         $period->foobar();

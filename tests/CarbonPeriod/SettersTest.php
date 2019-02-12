@@ -107,86 +107,95 @@ class SettersTest extends AbstractTestCase
         $this->assertInstanceOf(Carbon::class, $period->toArray()[0]);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval
-     */
     public function testSetDateClassInvalidArgumentException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Given class does not implement Carbon\CarbonInterface: Carbon\CarbonInterval'
+        );
+
         $period = new CarbonPeriod('2001-01-01', '2001-01-02');
 
         $period->setDateClass(CarbonInterval::class);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid interval.
-     */
     public function testInvalidInterval()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid interval.'
+        );
+
         CarbonPeriod::create()->setDateInterval(new DateTime);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Empty interval is not accepted.
-     */
     public function testEmptyInterval()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Empty interval is not accepted.'
+        );
+
         CarbonPeriod::create()->setDateInterval(new DateInterval('P0D'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid number of recurrences.
-     */
     public function testInvalidNumberOfRecurrencesString()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid number of recurrences.'
+        );
+
         CarbonPeriod::create()->setRecurrences('foo');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid number of recurrences.
-     */
     public function testInvalidNegativeNumberOfRecurrences()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid number of recurrences.'
+        );
+
         CarbonPeriod::create()->setRecurrences(-4);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid options.
-     */
     public function testInvalidOptions()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid options.'
+        );
+
         CarbonPeriod::create()->setOptions('1');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid constructor parameters.
-     */
     public function testInvalidConstructorParameters()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid constructor parameters.'
+        );
+
         CarbonPeriod::create([]);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid start date.
-     */
     public function testInvalidStartDate()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid start date.'
+        );
+
         CarbonPeriod::create()->setStartDate(new DateInterval('P1D'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid end date.
-     */
     public function testInvalidEndDate()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid end date.'
+        );
+
         CarbonPeriod::create()->setEndDate(new DateInterval('P1D'));
     }
 

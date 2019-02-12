@@ -567,21 +567,23 @@ class StartEndOfTest extends AbstractTestCase
         $this->assertCarbon($dt, $dt->year, $dt->month, $dt->daysInMonth, 23, 59, 59, 999999);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown unit 'microsecond'
-     */
     public function testStartOfInvalidUnit()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'microsecond\''
+        );
+
         Carbon::now()->startOf('microsecond');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown unit 'microsecond'
-     */
     public function testEndOfInvalidUnit()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'microsecond\''
+        );
+
         Carbon::now()->endOf('microsecond');
     }
 }

@@ -1336,30 +1336,33 @@ class DiffTest extends AbstractTestCase
         ]));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, integer given
-     */
     public function testDiffWithInvalidType()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Expected null, string, DateTime or DateTimeInterface, integer given'
+        );
+
         Carbon::createFromDate(2000, 1, 25)->diffInHours(10);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given
-     */
     public function testDiffWithInvalidObject()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given'
+        );
+
         Carbon::createFromDate(2000, 1, 25)->diffInHours(new CarbonInterval());
     }
 
-    /**
-     * @expectedException \Exception
-     * @expectedExceptionMessage Failed to parse time string (2018-04-13-08:00:00) at position 16
-     */
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            'Failed to parse time string (2018-04-13-08:00:00) at position 16'
+        );
+
         $mar13 = Carbon::parse('2018-03-13');
         $mar13->diffForHumans('2018-04-13-08:00:00');
     }

@@ -141,21 +141,23 @@ class MacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('2019-09-01', $date->format('Y-m-d'));
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method Carbon\Carbon::nonExistingStaticMacro does not exist.
-     */
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method Carbon\Carbon::nonExistingStaticMacro does not exist.'
+        );
+
         Carbon::nonExistingStaticMacro();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Method nonExistingMacro does not exist.
-     */
     public function testCarbonRaisesExceptionWhenMacroIsNotFound()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Method nonExistingMacro does not exist.'
+        );
+
         /** @var mixed $date */
         $date = Carbon::now();
         $date->nonExistingMacro();

@@ -194,12 +194,13 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(-25, $b->diffInHours($a, false));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid unit for real timestamp add/sub: 'foobar'
-     */
     public function testAddRealUnitException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Invalid unit for real timestamp add/sub: \'foobar\''
+        );
+
         (new Carbon('2014-03-30 00:00:00'))->addRealUnit('foobar');
     }
 }

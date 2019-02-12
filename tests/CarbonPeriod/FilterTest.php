@@ -244,7 +244,7 @@ class FilterTest extends AbstractTestCase
         $test = $this;
         $period->addFilter(function ($current, $key, $iterator) use (&$wasCalled, $period, $test) {
             $test->assertInstanceOfCarbon($current);
-            $test->assertInternalType('int', $key);
+            $test->assertIsInt($key);
             $test->assertSame($period, $iterator);
 
             return $wasCalled = true;
@@ -255,12 +255,13 @@ class FilterTest extends AbstractTestCase
         $this->assertTrue($wasCalled);
     }
 
-    /**
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Could not find next valid date.
-     */
     public function testThrowExceptionWhenNextValidDateCannotBeFound()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'Could not find next valid date.'
+        );
+
         $period = CarbonPeriod::create(
             new Carbon('2000-01-01'),
             new CarbonInterval('PT1S'),

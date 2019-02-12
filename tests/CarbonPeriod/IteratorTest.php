@@ -54,7 +54,7 @@ class IteratorTest extends AbstractTestCase
         $period = CarbonPeriodFactory::withEvenDaysFilter();
 
         foreach ($period as $key => $current) {
-            $this->assertInternalType('int', $keys[] = $key);
+            $this->assertIsInt($keys[] = $key);
             $this->assertSame($key, $period->key());
         }
 

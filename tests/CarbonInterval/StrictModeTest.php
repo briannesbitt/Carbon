@@ -28,23 +28,25 @@ class StrictModeTest extends AbstractTestCase
         Carbon::useStrictMode();
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown setter 'foobar'
-     */
     public function testSetWithStrictMode()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown setter \'foobar\''
+        );
+
         /** @var mixed $interval */
         $interval = CarbonInterval::day();
         $interval->foobar = 'biz';
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unknown getter 'foobar'
-     */
     public function testGetWithStrictMode()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown getter \'foobar\''
+        );
+
         /** @var mixed $interval */
         $interval = CarbonInterval::day();
         $interval->foobar;
@@ -59,12 +61,13 @@ class StrictModeTest extends AbstractTestCase
         $this->assertSame('biz', $interval->foobar);
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage Unknown fluent constructor 'foobar'.
-     */
     public function testStaticCallWithStrictMode()
     {
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage(
+            'Unknown fluent constructor \'foobar\''
+        );
+
         CarbonInterval::foobar();
     }
 

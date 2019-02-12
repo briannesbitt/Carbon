@@ -21,7 +21,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $result = CarbonPeriodFactory::withEvenDaysFilter()->toArray();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertNotEmpty($result);
     }
 
@@ -90,7 +90,7 @@ class ToArrayTest extends AbstractTestCase
     {
         $result = CarbonPeriod::create(0)->toArray();
 
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
         $this->assertEmpty($result);
     }
 

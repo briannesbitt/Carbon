@@ -706,12 +706,14 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('минулої середи', $date->isoFormat('[минулої] dddd'));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Translator does not implement Symfony\Component\Translation\TranslatorInterface and Symfony\Component\Translation\TranslatorBagInterface.
-     */
     public function testTranslationCustomWithCustomTranslator()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
+            'and Symfony\Component\Translation\TranslatorBagInterface.'
+        );
+
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
         $date->setLocalTranslator(new IdentityTranslator(new MessageSelector()));
 

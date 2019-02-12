@@ -64,12 +64,13 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(3, $d->month);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Unexpected data found.
-     */
     public function testCreateWithInvalidMonth()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unexpected data found.'
+        );
+
         Carbon::create(null, -5);
     }
 
@@ -94,11 +95,10 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(21, $d->day);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithInvalidDay()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Carbon::create(null, null, -4);
     }
 
@@ -116,11 +116,10 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(0, $d->second);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithInvalidHour()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Carbon::create(null, null, null, -1);
     }
 
@@ -136,11 +135,10 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(58, $d->minute);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithInvalidMinute()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Carbon::create(2011, 1, 1, 0, -2, 0);
     }
 
@@ -156,11 +154,10 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(59, $d->second);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithInvalidSecond()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Carbon::create(null, null, null, null, null, -2);
     }
 
@@ -192,11 +189,10 @@ class CreateTest extends AbstractTestCase
         $this->assertNull(Carbon::make(3));
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testCreateWithInvalidTimezoneOffset()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Carbon::createFromDate(2000, 1, 1, -28236);
     }
 

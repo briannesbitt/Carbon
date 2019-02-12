@@ -39,11 +39,13 @@ class TotalTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testThrowsExceptionForInvalidUnits()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Unknown unit \'foo\'.'
+        );
+
         CarbonInterval::create()->total('foo');
     }
 
