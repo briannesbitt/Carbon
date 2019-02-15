@@ -43,6 +43,7 @@ install:
   - composer remove --no-update phpmd/phpmd
   - composer remove --no-update squizlabs/php_codesniffer
   - if [[ $phpstan != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan; fi
+  - if [[ $setup = 'nightly'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
@@ -108,6 +109,10 @@ matrix:
         - coverage=false
         - phpstan=false
         - laravel=true
+    - php: nightly
+      env:
+        - xdebug=false
+        - setup=nightly
 
 notifications:
   slack:
