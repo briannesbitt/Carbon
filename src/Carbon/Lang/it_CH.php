@@ -9,8 +9,8 @@
  * file that was distributed with this source code.
  */
 
-return array_replace_recursive(require __DIR__.'/nl.php', [
+return array_replace_recursive(require __DIR__.'/it.php', [
     'formats' => [
-        'L' => 'DD/MM/YYYY',
+        'L' => 'DD.MM.YYYY',
     ],
 ]);

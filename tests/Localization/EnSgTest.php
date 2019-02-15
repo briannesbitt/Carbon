@@ -10,91 +10,91 @@
  */
 namespace Tests\Localization;
 
-class EsUsTest extends LocalizationTestCase
+class EnSgTest extends LocalizationTestCase
 {
-    const LOCALE = 'es_US'; // Spanish
+    const LOCALE = 'en_SG'; // English
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'mañana a las 12:00 AM',
+        'Tomorrow at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sábado a las 12:00 AM',
+        'Saturday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'domingo a las 12:00 AM',
+        'Sunday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'lunes a las 12:00 AM',
+        'Monday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'martes a las 12:00 AM',
+        'Tuesday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'miércoles a las 12:00 AM',
+        'Wednesday at 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'jueves a las 12:00 AM',
+        'Thursday at 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'viernes a las 12:00 AM',
+        'Friday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        'Tuesday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'miércoles a las 12:00 AM',
+        'Wednesday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'jueves a las 12:00 AM',
+        'Thursday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'viernes a las 12:00 AM',
+        'Friday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'sábado a las 12:00 AM',
+        'Saturday at 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'el domingo pasado a las 8:49 PM',
+        'Last Sunday at 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 10:00 PM',
+        'Yesterday at 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'hoy a las 10:00 AM',
+        'Today at 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'hoy a las 2:00 AM',
+        'Today at 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'mañana a las 1:00 AM',
+        'Tomorrow at 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        'Tuesday at 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'ayer a las 12:00 AM',
+        'Yesterday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 12:00 AM',
+        'Yesterday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el martes pasado a las 12:00 AM',
+        'Last Tuesday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el lunes pasado a las 12:00 AM',
+        'Last Monday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el domingo pasado a las 12:00 AM',
+        'Last Sunday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el sábado pasado a las 12:00 AM',
+        'Last Saturday at 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        'Last Friday at 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'el jueves pasado a las 12:00 AM',
+        'Last Thursday at 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'el miércoles pasado a las 12:00 AM',
+        'Last Wednesday at 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        'Last Friday at 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1st 1st 1st 1st 1st',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2nd 1st',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3rd 1st',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4th 1st',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5th 1st',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6th 1st',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 2º',
+        '7th 1st',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11th 2nd',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40th',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41st',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100th',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,106 +116,106 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hace unos segundos',
+        'a few seconds ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'hace 1 segundo',
+        '1s ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'hace 2 segundos',
+        '2 seconds ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'hace 2 segundos',
+        '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'hace un minuto',
+        'a minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'hace 1 minuto',
+        '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'hace 2 minutos',
+        '2 minutes ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'hace 2 minutos',
+        '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'hace una hora',
+        'an hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hace 1 hora',
+        '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'hace 2 horas',
+        '2 hours ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hace 2 horas',
+        '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'hace un día',
+        'a day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'hace 1 día',
+        '1d ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'hace 2 días',
+        '2 days ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'hace 2 días',
+        '2d ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'hace 1 semana',
+        'a week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'hace 1 semana',
+        '1w ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'hace 2 semanas',
+        '2 weeks ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'hace 2 semanas',
+        '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'hace un mes',
+        'a month ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'hace 1 mes',
+        '1mo ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'hace 2 meses',
+        '2 months ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'hace 2 meses',
+        '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'hace un año',
+        'a year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'hace 1 año',
+        '1yr ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'hace 2 años',
+        '2 years ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'hace 2 años',
+        '2yrs ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en unos segundos',
+        'in a few seconds',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'en 1 segundo',
+        'in 1s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'unos segundos después',
+        'a few seconds after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 segundo después',
+        '1s after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'unos segundos antes',
+        'a few seconds before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 segundo antes',
+        '1s before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'unos segundos',
+        'a few seconds',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 segundo',
+        '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 seconds',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 segundos',
+        '2s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'en 1 segundo',
+        'in 1s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'un minuto unos segundos',
+        'a minute a few seconds',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 años 3 meses 1 día 1 segundo',
+        '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'en 3 años',
+        'in 3 years',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'hace 5 meses',
+        '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'hace 2 años 3 meses 1 día 1 segundo',
+        '2yrs 3mos 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        'a week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        'a week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        'a week 6 days',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas una hora',
+        '2 weeks an hour',
         // CarbonInterval::days(2)->forHumans()
-        '2 días',
+        '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 día 3 horas',
+        '1d 3h',
     ];
 }

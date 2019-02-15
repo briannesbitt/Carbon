@@ -10,212 +10,212 @@
  */
 namespace Tests\Localization;
 
-class EsUsTest extends LocalizationTestCase
+class ZhMoTest extends LocalizationTestCase
 {
-    const LOCALE = 'es_US'; // Spanish
+    const LOCALE = 'zh_MO'; // Chinese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'mañana a las 12:00 AM',
+        '明天 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sábado a las 12:00 AM',
+        '下星期六 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'domingo a las 12:00 AM',
+        '下星期日 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'lunes a las 12:00 AM',
+        '下星期一 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'martes a las 12:00 AM',
+        '下星期二 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'miércoles a las 12:00 AM',
+        '下星期三 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'jueves a las 12:00 AM',
+        '下星期四 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'viernes a las 12:00 AM',
+        '下星期五 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        '下星期二 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'miércoles a las 12:00 AM',
+        '下星期三 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'jueves a las 12:00 AM',
+        '下星期四 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'viernes a las 12:00 AM',
+        '下星期五 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'sábado a las 12:00 AM',
+        '下星期六 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'el domingo pasado a las 8:49 PM',
+        '上星期日 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 10:00 PM',
+        '昨天 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'hoy a las 10:00 AM',
+        '今天 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'hoy a las 2:00 AM',
+        '今天 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'mañana a las 1:00 AM',
+        '明天 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        '下星期二 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'ayer a las 12:00 AM',
+        '昨天 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 12:00 AM',
+        '昨天 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el martes pasado a las 12:00 AM',
+        '上星期二 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el lunes pasado a las 12:00 AM',
+        '上星期一 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el domingo pasado a las 12:00 AM',
+        '上星期日 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el sábado pasado a las 12:00 AM',
+        '上星期六 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        '上星期五 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'el jueves pasado a las 12:00 AM',
+        '上星期四 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'el miércoles pasado a las 12:00 AM',
+        '上星期三 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        '上星期五 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1月 1月 1日 1周 1周',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2日 1周',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3日 1周',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4日 1周',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5日 1周',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6日 1周',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 2º',
+        '7日 1周',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11日 2周',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40日',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41日',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100日',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 凌晨 cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 凌晨, 12:00 凌晨',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 凌晨, 1:30 凌晨',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 凌晨, 2:00 凌晨',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 早上, 6:00 早上',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 上午, 10:00 上午',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 中午, 12:00 中午',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 下午, 5:00 下午',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 晚上, 9:30 晚上',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 晚上, 11:00 晚上',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hace unos segundos',
+        '幾秒前',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'hace 1 segundo',
+        '1秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'hace 2 segundos',
+        '2 秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'hace 2 segundos',
+        '2秒前',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'hace un minuto',
+        '1 分鐘前',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'hace 1 minuto',
+        '1分鐘前',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'hace 2 minutos',
+        '2 分鐘前',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'hace 2 minutos',
+        '2分鐘前',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'hace una hora',
+        '1 小時前',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hace 1 hora',
+        '1小時前',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'hace 2 horas',
+        '2 小時前',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hace 2 horas',
+        '2小時前',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'hace un día',
+        '1 天前',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'hace 1 día',
+        '1天前',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'hace 2 días',
+        '2 天前',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'hace 2 días',
+        '2天前',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'hace 1 semana',
+        '1 周前',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'hace 1 semana',
+        '1周前',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'hace 2 semanas',
+        '2 周前',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'hace 2 semanas',
+        '2周前',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'hace un mes',
+        '1 個月前',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'hace 1 mes',
+        '1個月前',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'hace 2 meses',
+        '2 個月前',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'hace 2 meses',
+        '2個月前',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'hace un año',
+        '1 年前',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'hace 1 año',
+        '1年前',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'hace 2 años',
+        '2 年前',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'hace 2 años',
+        '2年前',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en unos segundos',
+        '幾秒內',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'en 1 segundo',
+        '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'unos segundos después',
+        '幾秒后',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 segundo después',
+        '1秒后',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'unos segundos antes',
+        '幾秒前',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 segundo antes',
+        '1秒前',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'unos segundos',
+        '幾秒',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 segundo',
+        '1秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 segundos',
+        '2秒',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'en 1 segundo',
+        '1秒內',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'un minuto unos segundos',
+        '1 分鐘 幾秒',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 años 3 meses 1 día 1 segundo',
+        '2年 3個月 1天 1秒',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'en 3 años',
+        '3 年內',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'hace 5 meses',
+        '5個月前',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'hace 2 años 3 meses 1 día 1 segundo',
+        '2年 3個月 1天 1秒前',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        '1 周 10 小時',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        '1 周 6 天',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        '1 周 6 天',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas una hora',
+        '2 周 1 小時',
         // CarbonInterval::days(2)->forHumans()
-        '2 días',
+        '2 天',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 día 3 horas',
+        '1天 3小時',
     ];
 }

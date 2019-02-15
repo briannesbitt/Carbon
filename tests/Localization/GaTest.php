@@ -10,91 +10,91 @@
  */
 namespace Tests\Localization;
 
-class EsUsTest extends LocalizationTestCase
+class GaTest extends LocalizationTestCase
 {
-    const LOCALE = 'es_US'; // Spanish
+    const LOCALE = 'ga'; // Irish
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'mañana a las 12:00 AM',
+        'Amárach ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'sábado a las 12:00 AM',
+        'Dé Satharn ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'domingo a las 12:00 AM',
+        'Dé Domhnaigh ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'lunes a las 12:00 AM',
+        'Dé Luain ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'martes a las 12:00 AM',
+        'Dé Máirt ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'miércoles a las 12:00 AM',
+        'Dé Céadaoin ag 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'jueves a las 12:00 AM',
+        'Déardaoin ag 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'viernes a las 12:00 AM',
+        'Dé hAoine ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        'Dé Máirt ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'miércoles a las 12:00 AM',
+        'Dé Céadaoin ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'jueves a las 12:00 AM',
+        'Déardaoin ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'viernes a las 12:00 AM',
+        'Dé hAoine ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'sábado a las 12:00 AM',
+        'Dé Satharn ag 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'el domingo pasado a las 8:49 PM',
+        'Dé Domhnaigh seo caite ag 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 10:00 PM',
+        'Inné aig 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'hoy a las 10:00 AM',
+        'Inniu ag 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'hoy a las 2:00 AM',
+        'Inniu ag 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'mañana a las 1:00 AM',
+        'Amárach ag 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'martes a las 12:00 AM',
+        'Dé Máirt ag 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'ayer a las 12:00 AM',
+        'Inné aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ayer a las 12:00 AM',
+        'Inné aig 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el martes pasado a las 12:00 AM',
+        'Dé Máirt seo caite ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el lunes pasado a las 12:00 AM',
+        'Dé Luain seo caite ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el domingo pasado a las 12:00 AM',
+        'Dé Domhnaigh seo caite ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el sábado pasado a las 12:00 AM',
+        'Dé Satharn seo caite ag 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        'Dé hAoine seo caite ag 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'el jueves pasado a las 12:00 AM',
+        'Déardaoin seo caite ag 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'el miércoles pasado a las 12:00 AM',
+        'Dé Céadaoin seo caite ag 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'el viernes pasado a las 12:00 AM',
+        'Dé hAoine seo caite ag 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1na 1na 1na 1na 1na',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2na 1na',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3mh 1na',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4mh 1na',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5mh 1na',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6mh 1na',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 2º',
+        '7mh 1na',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11mh 2na',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40mh',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41mh',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100mh',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,106 +116,106 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0mh',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hace unos segundos',
+        'cúpla soicind ó shin',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'hace 1 segundo',
+        '1so ó shin',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'hace 2 segundos',
+        '2 soicind ó shin',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'hace 2 segundos',
+        '2so ó shin',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'hace un minuto',
+        'nóiméad ó shin',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'hace 1 minuto',
+        '1n ó shin',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'hace 2 minutos',
+        '2 nóiméad ó shin',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'hace 2 minutos',
+        '2n ó shin',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'hace una hora',
+        'uair an chloig ó shin',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hace 1 hora',
+        '1u ó shin',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'hace 2 horas',
+        '2 uair an chloig ó shin',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hace 2 horas',
+        '2u ó shin',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'hace un día',
+        'lá ó shin',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'hace 1 día',
+        '1l ó shin',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'hace 2 días',
+        '2 lá ó shin',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'hace 2 días',
+        '2l ó shin',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'hace 1 semana',
+        'sheachtain ó shin',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'hace 1 semana',
+        '1sh ó shin',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'hace 2 semanas',
+        '2 sheachtain ó shin',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'hace 2 semanas',
+        '2sh ó shin',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'hace un mes',
+        'mí ó shin',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'hace 1 mes',
+        '1m ó shin',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'hace 2 meses',
+        '2 mí ó shin',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'hace 2 meses',
+        '2m ó shin',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'hace un año',
+        'bliain ó shin',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'hace 1 año',
+        '1b ó shin',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'hace 2 años',
+        '2 bliain ó shin',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'hace 2 años',
+        '2b ó shin',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en unos segundos',
+        'i cúpla soicind',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'en 1 segundo',
+        'i 1so',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'unos segundos después',
+        'cúpla soicind tar éis',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 segundo después',
+        '1so tar éis',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'unos segundos antes',
+        'cúpla soicind roimh',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 segundo antes',
+        '1so roimh',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'unos segundos',
+        'cúpla soicind',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 segundo',
+        '1so',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 soicind',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 segundos',
+        '2so',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'en 1 segundo',
+        'i 1so',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'un minuto unos segundos',
+        'nóiméad cúpla soicind',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 años 3 meses 1 día 1 segundo',
+        '2b 3m 1l 1so',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'en 3 años',
+        'i 3 bliain',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'hace 5 meses',
+        '5m ó shin',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'hace 2 años 3 meses 1 día 1 segundo',
+        '2b 3m 1l 1so ó shin',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        'sheachtain 10 uair an chloig',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        'sheachtain 6 lá',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 días',
+        'sheachtain 6 lá',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas una hora',
+        '2 sheachtain uair an chloig',
         // CarbonInterval::days(2)->forHumans()
-        '2 días',
+        '2 lá',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 día 3 horas',
+        '1l 3u',
     ];
 }
