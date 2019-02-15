@@ -23,12 +23,12 @@ return [
     'ago' => ':time \'zo',
     'from_now' => 'a-benn :time',
     'formats' => [
-        'LT' => 'h[e]mm A',
-        'LTS' => 'h[e]mm:ss A',
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'DD/MM/YYYY',
         'LL' => 'D [a viz] MMMM YYYY',
-        'LLL' => 'D [a viz] MMMM YYYY h[e]mm A',
-        'LLLL' => 'dddd, D [a viz] MMMM YYYY h[e]mm A',
+        'LLL' => 'D [a viz] MMMM YYYY HH:mm',
+        'LLLL' => 'dddd, D [a viz] MMMM YYYY HH:mm',
     ],
     'calendar' => [
         'sameDay' => '[Hiziv da] LT',
