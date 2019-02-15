@@ -9,12 +9,8 @@
  * file that was distributed with this source code.
  */
 
-return array_merge_recursive(require __DIR__.'/es.php', [
-    'diff_before_yesterday' => 'anteayer',
+return array_merge_recursive(require __DIR__.'/it.php', [
     'formats' => [
-        'LT' => 'h:mm A',
-        'LTS' => 'h:mm:ss A',
-        'LLL' => 'D [de] MMMM [de] YYYY h:mm A',
-        'LLLL' => 'dddd, D [de] MMMM [de] YYYY h:mm A',
+        'L' => 'DD.MM.YYYY',
     ],
 ]);

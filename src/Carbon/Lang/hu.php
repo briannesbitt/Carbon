@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Thanks to moment contributors:
+ * https://github.com/moment/moment/commits/b84f097e5566ed370694abdc029223a5af94a290/src/locale/hu.js
+ */
+
+$huWeekEndings = ['vasárnap', 'hétfőn', 'kedden', 'szerdán', 'csütörtökön', 'pénteken', 'szombaton'];
+
 return [
     'year' => ':count év',
     'y' => ':count év',
@@ -49,6 +56,39 @@ return [
     'hour_before' => ':count órával',
     'minute_before' => ':count perccel',
     'second_before' => ':count másodperccel',
+    'months' => ['január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december'],
+    'months_short' => ['jan.', 'feb.', 'márc.', 'ápr.', 'máj.', 'jún.', 'júl.', 'aug.', 'szept.', 'okt.', 'nov.', 'dec.'],
+    'weekdays' => ['vasárnap', 'hétfő', 'kedd', 'szerda', 'csütörtök', 'péntek', 'szombat'],
+    'weekdays_short' => ['vas', 'hét', 'kedd', 'sze', 'csüt', 'pén', 'szo'],
+    'weekdays_min' => ['v', 'h', 'k', 'sze', 'cs', 'p', 'sz'],
+    'ordinal' => ':number.',
+    'formats' => [
+        'LT' => 'H:mm',
+        'LTS' => 'H:mm:ss',
+        'L' => 'YYYY.MM.DD.',
+        'LL' => 'YYYY. MMMM D.',
+        'LLL' => 'YYYY. MMMM D. H:mm',
+        'LLLL' => 'YYYY. MMMM D., dddd H:mm',
+    ],
+    'calendar' => [
+        'sameDay' => '[ma] LT[-kor]',
+        'nextDay' => '[holnap] LT[-kor]',
+        'nextWeek' => function (\Carbon\CarbonInterface $date) use ($huWeekEndings) {
+            return '['.$huWeekEndings[$date->dayOfWeek].'] LT[-kor]';
+        },
+        'lastDay' => '[tegnap] LT[-kor]',
+        'lastWeek' => function (\Carbon\CarbonInterface $date) use ($huWeekEndings) {
+            return '[múlt '.$huWeekEndings[$date->dayOfWeek].'] LT[-kor]';
+        },
+        'sameElse' => 'L',
+    ],
+    'meridiem' => function ($hours, $minutes, $isLower) {
+        if ($hours < 12) {
+            return $isLower ? 'de' : 'DE';
+        }
+
+        return $isLower ? 'du' : 'DU';
+    },
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' és '],

@@ -84,7 +84,7 @@ class KuTest extends LocalizationTestCase
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
         '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6 1',
+        '6 2',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
         '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')

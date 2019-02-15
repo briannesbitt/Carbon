@@ -68,4 +68,6 @@ return [
     'weekdays_short' => ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरू', 'शुक्र', 'शनि'],
     'weekdays_min' => ['र', 'सो', 'मं', 'बु', 'गु', 'शु', 'श'],
     'list' => [', ', ' और '],
+    'first_day_of_week' => 0,
+    'day_of_first_week_of_year' => 1,
 ];
