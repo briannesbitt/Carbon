@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array_merge_recursive(require __DIR__.'/es.php', [
+return array_replace_recursive(require __DIR__.'/es.php', [
     'diff_before_yesterday' => 'anteayer',
     'formats' => [
         'LT' => 'h:mm A',

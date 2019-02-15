@@ -12,7 +12,6 @@
 /**
  * Thanks to André Silva : https://github.com/askpt
  */
-
 \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
     return $number === 1 ? 0 : 1;
 }, 'ga');

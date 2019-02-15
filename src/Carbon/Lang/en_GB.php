@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array_merge_recursive(require __DIR__.'/en.php', [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'year' => 'a year|:count years',
     'month' => 'a month|:count months',
     'week' => 'a week|:count weeks',
@@ -17,6 +17,7 @@ return array_merge_recursive(require __DIR__.'/en.php', [
     'hour' => 'an hour|:count hours',
     'minute' => 'a minute|:count minutes',
     'second' => 'a few seconds|:count seconds',
+    'from_now' => 'in :time',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
