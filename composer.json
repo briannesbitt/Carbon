@@ -22,7 +22,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": "^7.1.8",
+        "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
         "symfony/translation": "^3.4 || ^4.0"
     },
