@@ -216,7 +216,7 @@ class AfTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 weke 1 uur',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'oor 'n uur',
+        'oor \'n uur',
         // CarbonInterval::days(2)->forHumans()
         '2 dae',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

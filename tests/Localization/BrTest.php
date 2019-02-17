@@ -16,7 +16,7 @@ class BrTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Warc'hoazh da 00:00',
+        'Warc\'hoazh da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Sadorn da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -26,7 +26,7 @@ class BrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Meurzh da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Merc'her da 00:00',
+        'Merc\'her da 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         'Yaou da 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
@@ -34,7 +34,7 @@ class BrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Meurzh da 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Merc'her da 00:00',
+        'Merc\'her da 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Yaou da 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
@@ -44,19 +44,19 @@ class BrTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->calendar()
         'Sul paset da 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Dec'h da 22:00',
+        'Dec\'h da 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
         'Hiziv da 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Hiziv da 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Warc'hoazh da 01:00',
+        'Warc\'hoazh da 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Meurzh da 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Dec'h da 00:00',
+        'Dec\'h da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Dec'h da 00:00',
+        'Dec\'h da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Meurzh paset da 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -70,7 +70,7 @@ class BrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
         'Yaou paset da 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Merc'her paset da 00:00',
+        'Merc\'her paset da 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Gwener paset da 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
@@ -118,61 +118,61 @@ class BrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0vet',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 eilenn 'zo',
+        '1 eilenn \'zo',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 eilenn 'zo',
+        '1 eilenn \'zo',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 eilenn 'zo',
+        '2 eilenn \'zo',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 eilenn 'zo',
+        '2 eilenn \'zo',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 vunutenn 'zo',
+        '1 vunutenn \'zo',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 vunutenn 'zo',
+        '1 vunutenn \'zo',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 vunutenn 'zo',
+        '2 vunutenn \'zo',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 vunutenn 'zo',
+        '2 vunutenn \'zo',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 eur 'zo',
+        '1 eur \'zo',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 eur 'zo',
+        '1 eur \'zo',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 eur 'zo',
+        '2 eur \'zo',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 eur 'zo',
+        '2 eur \'zo',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 devezh 'zo',
+        '1 devezh \'zo',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 devezh 'zo',
+        '1 devezh \'zo',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 zevezh 'zo',
+        '2 zevezh \'zo',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 zevezh 'zo',
+        '2 zevezh \'zo',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 sizhun 'zo',
+        '1 sizhun \'zo',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 sizhun 'zo',
+        '1 sizhun \'zo',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 sizhun 'zo',
+        '2 sizhun \'zo',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 sizhun 'zo',
+        '2 sizhun \'zo',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 miz 'zo',
+        '1 miz \'zo',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 miz 'zo',
+        '1 miz \'zo',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 viz 'zo',
+        '2 viz \'zo',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 viz 'zo',
+        '2 viz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 bloaz 'zo',
+        '1 bloaz \'zo',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 bloaz 'zo',
+        '1 bloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 vloaz 'zo',
+        '2 vloaz \'zo',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 vloaz 'zo',
+        '2 vloaz \'zo',
         // Carbon::now()->addSecond()->diffForHumans()
         'a-benn 1 eilenn',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -202,9 +202,9 @@ class BrTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'a-benn 3 bloaz',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 miz 'zo',
+        '5 miz \'zo',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 vloaz 3 miz 1 devezh 1 eilenn 'zo',
+        '2 vloaz 3 miz 1 devezh 1 eilenn \'zo',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 sizhun 10 eur',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

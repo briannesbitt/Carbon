@@ -106,11 +106,11 @@ class HeTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
         '6:00 בבוקר, 6:00 בבוקר',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 לפני הצהריים, 10:00 לפנה"צ',
+        '10:00 לפני הצהריים, 10:00 לפנה\"צ',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 אחרי הצהריים, 12:00 אחה"צ',
+        '12:00 אחרי הצהריים, 12:00 אחה\"צ',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 אחרי הצהריים, 5:00 אחה"צ',
+        '5:00 אחרי הצהריים, 5:00 אחה\"צ',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
         '9:30 בערב, 9:30 בערב',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')

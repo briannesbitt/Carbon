@@ -42,7 +42,7 @@ class UzLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Shanba kuni soat 00:00 da',
         // Carbon::now()->subDays(2)->calendar()
-        'O'tgan Yakshanba kuni soat 20:49 da',
+        'O\'tgan Yakshanba kuni soat 20:49 da',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Kecha soat 22:00 da',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
@@ -58,21 +58,21 @@ class UzLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Kecha soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O'tgan Seshanba kuni soat 00:00 da',
+        'O\'tgan Seshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O'tgan Dushanba kuni soat 00:00 da',
+        'O\'tgan Dushanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O'tgan Yakshanba kuni soat 00:00 da',
+        'O\'tgan Yakshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O'tgan Shanba kuni soat 00:00 da',
+        'O\'tgan Shanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'O'tgan Juma kuni soat 00:00 da',
+        'O\'tgan Juma kuni soat 00:00 da',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'O'tgan Payshanba kuni soat 00:00 da',
+        'O\'tgan Payshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'O'tgan Chorshanba kuni soat 00:00 da',
+        'O\'tgan Chorshanba kuni soat 00:00 da',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'O'tgan Juma kuni soat 00:00 da',
+        'O\'tgan Juma kuni soat 00:00 da',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')

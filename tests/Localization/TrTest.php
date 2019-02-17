@@ -74,27 +74,27 @@ class TrTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'geçen Cuma saat 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1'inci 1'inci 1 1'inci 1'inci',
+        '1\'inci 1\'inci 1 1\'inci 1\'inci',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2 1'inci',
+        '2 1\'inci',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3 1'inci',
+        '3 1\'inci',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4 1'inci',
+        '4 1\'inci',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5 1'inci',
+        '5 1\'inci',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6 1'inci',
+        '6 1\'inci',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7 1'inci',
+        '7 1\'inci',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11 2'nci',
+        '11 2\'nci',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
         '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41'inci',
+        '41\'inci',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100'üncü',
+        '100\'üncü',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 öö cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,7 +116,7 @@ class TrTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 ÖS, 11:00 ös',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0'ıncı',
+        '0\'ıncı',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 saniye önce',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)

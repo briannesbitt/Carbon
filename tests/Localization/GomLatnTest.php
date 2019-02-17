@@ -18,7 +18,7 @@ class GomLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Faleam rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ieta to Son'var, rati 12:00 vazta',
+        'Ieta to Son\'var, rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ieta to Aitar, rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -40,7 +40,7 @@ class GomLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Ieta to Sukrar, rati 12:00 vazta',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ieta to Son'var, rati 12:00 vazta',
+        'Ieta to Son\'var, rati 12:00 vazta',
         // Carbon::now()->subDays(2)->calendar()
         'Fatlo Aitar, rati 8:49 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -64,7 +64,7 @@ class GomLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Fatlo Aitar, rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Fatlo Son'var, rati 12:00 vazta',
+        'Fatlo Son\'var, rati 12:00 vazta',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Fatlo Sukrar, rati 12:00 vazta',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))

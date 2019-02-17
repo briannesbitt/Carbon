@@ -182,9 +182,9 @@ class CyTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1s ar ôl',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'ychydig eiliadau o'r blaen',
+        'ychydig eiliadau o\'r blaen',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s o'r blaen',
+        '1s o\'r blaen',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ychydig eiliadau',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

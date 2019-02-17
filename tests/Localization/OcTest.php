@@ -174,9 +174,9 @@ class OcTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'fa 2 ans',
         // Carbon::now()->addSecond()->diffForHumans()
-        'd'aquí 1 segonda',
+        'd\'aquí 1 segonda',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'd'aquí 1 segonda',
+        'd\'aquí 1 segonda',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 segonda aprèp',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -194,13 +194,13 @@ class OcTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 segondas',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'd'aquí 1 segonda',
+        'd\'aquí 1 segonda',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuta 1 segonda',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 ans 3 meses 1 jorn 1 segonda',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'd'aquí 3 ans',
+        'd\'aquí 3 ans',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'fa 5 meses',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -212,11 +212,11 @@ class OcTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 setmana 6 jorns',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'd'aquí 1 setmana e 6 jorns',
+        'd\'aquí 1 setmana e 6 jorns',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 setmanas 1 ora',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'd'aquí 1 ora',
+        'd\'aquí 1 ora',
         // CarbonInterval::days(2)->forHumans()
         '2 jorns',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

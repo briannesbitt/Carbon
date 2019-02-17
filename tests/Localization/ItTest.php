@@ -216,7 +216,7 @@ class ItTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 settimane 1 ora',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'in un'ora',
+        'in un\'ora',
         // CarbonInterval::days(2)->forHumans()
         '2 giorni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

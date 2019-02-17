@@ -18,29 +18,29 @@ class YoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Ọ̀la ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àbámẹ́ta Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Àbámẹ́ta Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Àìkú Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Àìkú Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ajé Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ajé Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ìsẹ́gun Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ọjọ́rú Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ọjọ́rú Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Ọjọ́bọ Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ọjọ́bọ Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'Ẹtì Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ìsẹ́gun Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ọjọ́rú Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ọjọ́rú Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ọjọ́bọ Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ọjọ́bọ Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ẹtì Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ẹtì Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Àbámẹ́ta Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Àbámẹ́ta Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::now()->subDays(2)->calendar()
         'Àìkú Ọsẹ̀ tólọ́ ni 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -52,7 +52,7 @@ class YoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
         'Ọ̀la ni 1:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Ìsẹ́gun Ọsẹ̀ tón'bọ ni 12:00 AM',
+        'Ìsẹ́gun Ọsẹ̀ tón\'bọ ni 12:00 AM',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         'Àna ni 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

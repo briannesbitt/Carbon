@@ -174,9 +174,9 @@ class CaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'fa 2 a.',
         // Carbon::now()->addSecond()->diffForHumans()
-        'd'aquí 1 segon',
+        'd\'aquí 1 segon',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'd'aquí 1 sg.',
+        'd\'aquí 1 sg.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 segon després',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -194,13 +194,13 @@ class CaTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 sg.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'd'aquí 1 sg.',
+        'd\'aquí 1 sg.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 segon',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 a. 3 me. 1 d. 1 sg.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'd'aquí 3 anys',
+        'd\'aquí 3 anys',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'fa 5 me.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -212,11 +212,11 @@ class CaTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 setmana 6 dies',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'd'aquí 1 setmana i 6 dies',
+        'd\'aquí 1 setmana i 6 dies',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 setmanes 1 hora',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'd'aquí una hora',
+        'd\'aquí una hora',
         // CarbonInterval::days(2)->forHumans()
         '2 dies',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
