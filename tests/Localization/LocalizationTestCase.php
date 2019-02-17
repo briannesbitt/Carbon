@@ -309,7 +309,9 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
+        '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2, ["join" => true])',
         '{class}::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)',
+        '{class}::now()->addHour()->diffForHumans(null, true, false, 2, ["aUnit" => true])',
         'CarbonInterval::days(2)->forHumans()',
         'CarbonInterval::create(\'P1DT3H\')->forHumans(true)',
     ];

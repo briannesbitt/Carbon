@@ -960,6 +960,7 @@ class CarbonInterval extends DateInterval
     protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
         $join = ' ';
+        $aUnit = false;
         if (is_array($syntax)) {
             extract($syntax);
         } else {
@@ -1008,7 +1009,7 @@ class CarbonInterval extends DateInterval
             };
         }
 
-        return [$syntax, $short, $parts, $options, $join];
+        return [$syntax, $short, $parts, $options, $join, $aUnit];
     }
 
     /**
@@ -1028,6 +1029,7 @@ class CarbonInterval extends DateInterval
      *                           - 'short' entry (see below)
      *                           - 'parts' entry (see below)
      *                           - 'options' entry (see below)
+     *                           - 'aUnit' entry, prefer "an hour" over "1 hour" if true
      *                           - 'join' entry determines how to join multiple parts of the string
      *                           `  - if $join is a string, it's used as a joiner glue
      *                           `  - if $join is a callable/closure, it get the list of string and should return a string
@@ -1049,7 +1051,7 @@ class CarbonInterval extends DateInterval
      */
     public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        [$syntax, $short, $parts, $options, $join] = $this->getForHumansParameters($syntax, $short, $parts, $options);
+        [$syntax, $short, $parts, $options, $join, $aUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
@@ -1071,13 +1073,20 @@ class CarbonInterval extends DateInterval
             ['value' => $this->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($translator) {
+        $transChoice = function ($short, $unitData) use ($translator, $aUnit) {
             $count = $unitData['value'];
 
             if ($short) {
                 $result = $this->translate($unitData['unitShort'], [], $count, $translator);
 
                 if ($result !== $unitData['unitShort']) {
+                    return $result;
+                }
+            } elseif ($aUnit) {
+                $key = 'a_'.$unitData['unit'];
+                $result = $this->translate($key, [], $count, $translator);
+
+                if ($result !== $key) {
                     return $result;
                 }
             }
