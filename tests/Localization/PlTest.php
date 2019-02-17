@@ -211,8 +211,12 @@ class PlTest extends LocalizationTestCase
         '1 tydzień 6 dni',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 tydzień 6 dni',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'za 1 tydzień i 6 dni',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 tygodnie 1 godzina',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'za 1 godzina',
         // CarbonInterval::days(2)->forHumans()
         '2 dni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

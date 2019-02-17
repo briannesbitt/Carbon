@@ -211,8 +211,12 @@ class TlPhTest extends LocalizationTestCase
         'isang linggo 6 araw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'isang linggo 6 araw',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'sa loob ng isang linggo at 6 araw',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 linggo isang oras',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'sa loob ng isang oras',
         // CarbonInterval::days(2)->forHumans()
         '2 araw',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class GdTest extends LocalizationTestCase
 {
-    const LOCALE = 'gd'; // ScottishGaelic
+    const LOCALE = 'gd'; // Gaelic
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,65 +118,65 @@ class GdTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0mh',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'bho chionn beagan diogan',
+        'bho chionn 1 diogan',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'bho chionn beagan diogan',
+        'bho chionn 1 d.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'bho chionn 2 diogan',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'bho chionn 2 diogan',
+        'bho chionn 2 d.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'bho chionn mionaid',
+        'bho chionn 1 mionaidean',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'bho chionn mionaid',
+        'bho chionn 1 md.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'bho chionn 2 mionaidean',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'bho chionn 2 mionaidean',
+        'bho chionn 2 md.',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'bho chionn uair',
+        'bho chionn 1 uairean',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'bho chionn uair',
+        'bho chionn 1 u.',
         // Carbon::now()->subHours(2)->diffForHumans()
         'bho chionn 2 uairean',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'bho chionn 2 uairean',
+        'bho chionn 2 u.',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'bho chionn latha',
+        'bho chionn 1 latha',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'bho chionn latha',
+        'bho chionn 1 l.',
         // Carbon::now()->subDays(2)->diffForHumans()
         'bho chionn 2 latha',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'bho chionn 2 latha',
+        'bho chionn 2 l.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'bho chionn seachdain',
+        'bho chionn 1 seachdainean',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'bho chionn seachdain',
+        'bho chionn 1 s.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'bho chionn 2 seachdainean',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'bho chionn 2 seachdainean',
+        'bho chionn 2 s.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'bho chionn mìos',
+        'bho chionn 1 mìosan',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'bho chionn mìos',
+        'bho chionn 1 ms.',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'bho chionn 2 mìosan',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'bho chionn 2 mìosan',
+        'bho chionn 2 ms.',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'bho chionn bliadhna',
+        'bho chionn 1 bliadhna',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'bho chionn bliadhna',
+        'bho chionn 1 b.',
         // Carbon::now()->subYears(2)->diffForHumans()
         'bho chionn 2 bliadhna',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'bho chionn 2 bliadhna',
+        'bho chionn 2 b.',
         // Carbon::now()->addSecond()->diffForHumans()
-        'ann an beagan diogan',
+        'ann an 1 diogan',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ann an beagan diogan',
+        'ann an 1 d.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,36 +186,40 @@ class GdTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'beagan diogan',
+        '1 diogan',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'beagan diogan',
+        '1 d.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 diogan',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 diogan',
+        '2 d.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ann an beagan diogan',
+        'ann an 1 d.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'mionaid beagan diogan',
+        '1 mionaidean 1 diogan',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 bliadhna 3 mìosan latha beagan diogan',
+        '2 b. 3 ms. 1 l. 1 d.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'ann an 3 bliadhna',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'bho chionn 5 mìosan',
+        'bho chionn 5 ms.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'bho chionn 2 bliadhna 3 mìosan latha beagan diogan',
+        'bho chionn 2 b. 3 ms. 1 l. 1 d.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'seachdain 10 uairean',
+        '1 seachdainean 10 uairean',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'seachdain 6 latha',
+        '1 seachdainean 6 latha',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'seachdain 6 latha',
+        '1 seachdainean 6 latha',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ann an 1 seachdainean agus 6 latha',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 seachdainean uair',
+        '2 seachdainean 1 uairean',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ann an uair',
         // CarbonInterval::days(2)->forHumans()
         '2 latha',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'latha 3 uairean',
+        '1 l. 3 u.',
     ];
 }

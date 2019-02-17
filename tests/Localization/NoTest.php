@@ -211,8 +211,12 @@ class NoTest extends LocalizationTestCase
         '1 uke 6 dager',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 uke 6 dager',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'om 1 uke og 6 dager',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 uker 1 time',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'om 1 time',
         // CarbonInterval::days(2)->forHumans()
         '2 dager',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

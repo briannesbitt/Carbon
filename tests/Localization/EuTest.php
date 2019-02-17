@@ -211,8 +211,12 @@ class EuTest extends LocalizationTestCase
         'Aste 1 6 egun',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'Aste 1 6 egun',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'Aste 1 eta 6 egun barru',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 aste ordu bat',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ordu bat barru',
         // CarbonInterval::days(2)->forHumans()
         '2 egun',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

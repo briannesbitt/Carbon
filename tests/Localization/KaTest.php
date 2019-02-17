@@ -211,8 +211,12 @@ class KaTest extends LocalizationTestCase
         '1 კვირის 6 დღე',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 კვირის 6 დღე',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 კვირის და 6 დღის წინ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 კვირის საათი',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'საათის წინ',
         // CarbonInterval::days(2)->forHumans()
         '2 დღე',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

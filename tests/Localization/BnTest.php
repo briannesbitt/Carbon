@@ -118,7 +118,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'কয়েক সেকেন্ড আগে',
+        '1 সেকেন্ড আগে',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '১ সেকেন্ড আগে',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -126,7 +126,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 সেকেন্ড আগে',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'এক মিনিট আগে',
+        '1 মিনিট আগে',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '১ মিনিট আগে',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 মিনিট আগে',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'এক ঘন্টা আগে',
+        '1 ঘন্টা আগে',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '১ ঘন্টা আগে',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ঘন্টা আগে',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'এক দিন আগে',
+        '1 দিন আগে',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '১ দিন আগে',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -150,7 +150,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 দিন আগে',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '১ সপ্তাহ আগে',
+        '1 সপ্তাহ আগে',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         '১ সপ্তাহ আগে',
         // Carbon::now()->subWeeks(2)->diffForHumans()
@@ -158,7 +158,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 সপ্তাহ আগে',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'এক মাস আগে',
+        '1 মাস আগে',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '১ মাস আগে',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 মাস আগে',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'এক বছর আগে',
+        '1 বছর আগে',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '১ বছর আগে',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,19 +174,19 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 বছর আগে',
         // Carbon::now()->addSecond()->diffForHumans()
-        'কয়েক সেকেন্ড পরে',
+        '1 সেকেন্ড পরে',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '১ সেকেন্ড পরে',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'কয়েক সেকেন্ড পরে',
+        '1 সেকেন্ড পরে',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '১ সেকেন্ড পরে',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'কয়েক সেকেন্ড আগে',
+        '1 সেকেন্ড আগে',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '১ সেকেন্ড আগে',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'কয়েক সেকেন্ড',
+        '1 সেকেন্ড',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '১ সেকেন্ড',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '১ সেকেন্ড পরে',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'এক মিনিট কয়েক সেকেন্ড',
+        '1 মিনিট 1 সেকেন্ড',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 বছর 3 মাস ১ দিন ১ সেকেন্ড',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -206,13 +206,17 @@ class BnTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 বছর 3 মাস ১ দিন ১ সেকেন্ড আগে',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '১ সপ্তাহ 10 ঘন্টা',
+        '1 সপ্তাহ 10 ঘন্টা',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '১ সপ্তাহ 6 দিন',
+        '1 সপ্তাহ 6 দিন',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '১ সপ্তাহ 6 দিন',
+        '1 সপ্তাহ 6 দিন',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 সপ্তাহ এবং 6 দিন পরে',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 সপ্তাহ এক ঘন্টা',
+        '2 সপ্তাহ 1 ঘন্টা',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'এক ঘন্টা পরে',
         // CarbonInterval::days(2)->forHumans()
         '2 দিন',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

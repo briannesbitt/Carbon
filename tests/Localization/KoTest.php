@@ -211,8 +211,12 @@ class KoTest extends LocalizationTestCase
         '1 주일 6일',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 주일 6일',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 주일, 6일 후',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 주일 한 시간',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '한 시간 후',
         // CarbonInterval::days(2)->forHumans()
         '2일',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

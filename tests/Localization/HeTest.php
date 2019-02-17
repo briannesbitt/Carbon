@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class HeTest extends LocalizationTestCase
 {
-    const LOCALE = 'he'; // Hebrew
+    const LOCALE = 'he'; // Hebrew (modern]
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class HeTest extends LocalizationTestCase
         'שבוע 6 ימים',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'שבוע 6 ימים',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'בעוד שבוע ו -6 ימים',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'שבועיים שעה',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'בעוד שעה',
         // CarbonInterval::days(2)->forHumans()
         'יומיים',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

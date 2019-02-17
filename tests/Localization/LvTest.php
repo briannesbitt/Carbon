@@ -211,8 +211,12 @@ class LvTest extends LocalizationTestCase
         '1 nedēļas 6 dienām',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 nedēļas 6 dienām',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'pēc 1 nedēļas un 6 dienām',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 nedēļām 1 stundas',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'pēc 1 stundas',
         // CarbonInterval::days(2)->forHumans()
         '2 dienām',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

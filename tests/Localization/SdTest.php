@@ -211,8 +211,12 @@ class SdTest extends LocalizationTestCase
         'ھڪ ھفتو 6 ڏينهن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ھڪ ھفتو 6 ڏينهن',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ھڪ ھفتو ۽ 6 ڏينهن پوء',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 هفتا هڪ ڪلاڪ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'هڪ ڪلاڪ پوء',
         // CarbonInterval::days(2)->forHumans()
         '2 ڏينهن',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -211,8 +211,12 @@ class ArSaTest extends LocalizationTestCase
         'أسبوع أيام 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'أسبوع أيام 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'في أسبوع و أيام 6',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'أسبوعين ساعة',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'في ساعة',
         // CarbonInterval::days(2)->forHumans()
         'يومين',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TzmLatnTest extends LocalizationTestCase
 {
-    const LOCALE = 'tzm_Latn';
+    const LOCALE = 'tzm_Latn'; // Tamazight
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,65 +118,65 @@ class TzmLatnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'yan imik',
+        'yan 1 imik',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'yan imik',
+        'yan 1 imik',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'yan 2 imik',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         'yan 2 imik',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'yan minuḍ',
+        'yan 1 minuḍ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'yan minuḍ',
+        'yan 1 minuḍ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'yan 2 minuḍ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         'yan 2 minuḍ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'yan saɛa',
+        'yan 1 saɛa',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'yan saɛa',
+        'yan 1 saɛa',
         // Carbon::now()->subHours(2)->diffForHumans()
         'yan 2 tassaɛin',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'yan 2 tassaɛin',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'yan ass',
+        'yan 1 ass',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'yan ass',
+        'yan 1 ass',
         // Carbon::now()->subDays(2)->diffForHumans()
         'yan 2 ossan',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'yan 2 ossan',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'yan 1 ⵉⵎⴰⵍⴰⵙⵙ',
+        'yan 1 imalass',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'yan 1 ⵉⵎⴰⵍⴰⵙⵙ',
+        'yan 1 imalass',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'yan 2 ⵉⵎⴰⵍⴰⵙⵙ',
+        'yan 2 imalass',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'yan 2 ⵉⵎⴰⵍⴰⵙⵙ',
+        'yan 2 imalass',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'yan ayowr',
+        'yan 1 ayowr',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'yan ayowr',
+        'yan 1 ayowr',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'yan 2 iyyirn',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'yan 2 iyyirn',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'yan asgas',
+        'yan 1 asgas',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'yan asgas',
+        'yan 1 asgas',
         // Carbon::now()->subYears(2)->diffForHumans()
         'yan 2 isgasn',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'yan 2 isgasn',
         // Carbon::now()->addSecond()->diffForHumans()
-        'dadkh s yan imik',
+        'dadkh s yan 1 imik',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'dadkh s yan imik',
+        'dadkh s yan 1 imik',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,36 +186,40 @@ class TzmLatnTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'imik',
+        '1 imik',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'imik',
+        '1 imik',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 imik',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 imik',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'dadkh s yan imik',
+        'dadkh s yan 1 imik',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'minuḍ imik',
+        '1 minuḍ 1 imik',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 isgasn 3 iyyirn ass imik',
+        '2 isgasn 3 iyyirn 1 ass 1 imik',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'dadkh s yan 3 isgasn',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'yan 5 iyyirn',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'yan 2 isgasn 3 iyyirn ass imik',
+        'yan 2 isgasn 3 iyyirn 1 ass 1 imik',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 ⵉⵎⴰⵍⴰⵙⵙ 10 tassaɛin',
+        '1 imalass 10 tassaɛin',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ⵉⵎⴰⵍⴰⵙⵙ 6 ossan',
+        '1 imalass 6 ossan',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ⵉⵎⴰⵍⴰⵙⵙ 6 ossan',
+        '1 imalass 6 ossan',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'dadkh s yan 1 imalass 6 ossan',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 ⵉⵎⴰⵍⴰⵙⵙ saɛa',
+        '2 imalass 1 saɛa',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'dadkh s yan saɛa',
         // CarbonInterval::days(2)->forHumans()
         '2 ossan',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ass 3 tassaɛin',
+        '1 ass 3 tassaɛin',
     ];
 }

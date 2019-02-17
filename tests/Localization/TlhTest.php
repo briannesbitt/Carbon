@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TlhTest extends LocalizationTestCase
 {
-    const LOCALE = 'tlh';
+    const LOCALE = 'tlh'; // Klingon
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class TlhTest extends LocalizationTestCase
         'wa’ hogh 6 jaj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'wa’ hogh 6 jaj',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'wa’ hogh ’ej 6 leS',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 hogh wa’ rep',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'wa’ rep pIq',
         // CarbonInterval::days(2)->forHumans()
         '2 jaj',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

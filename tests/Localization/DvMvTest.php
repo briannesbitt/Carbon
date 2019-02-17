@@ -10,8 +10,6 @@
  */
 namespace Tests\Localization;
 
-use Carbon\Translator;
-
 class DvMvTest extends LocalizationTestCase
 {
     const LOCALE = 'dv_MV'; // Divehi
@@ -213,22 +211,15 @@ class DvMvTest extends LocalizationTestCase
         '1 ހަފްތާ 6 ދުވަސް',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ހަފްތާ 6 ދުވަސް',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 ހަފްތާ އަދި 6 ދުވަސް ފަހުން',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ހަފްތާ 1 ގަޑި',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 ގަޑި ފަހުން',
         // CarbonInterval::days(2)->forHumans()
         '2 ދުވަސް',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1 ދުވަސް 3 ގަޑި',
     ];
-
-    public function testPlural()
-    {
-        $translator = Translator::get('dv_MV');
-        $translator->setTranslations([
-            'a' => 'a|b',
-        ]);
-
-        $this->assertSame('a', $translator->transChoice('a', 1));
-        $this->assertSame('b', $translator->transChoice('a', 2));
-    }
 }

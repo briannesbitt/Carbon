@@ -211,8 +211,12 @@ class DvTest extends LocalizationTestCase
         'ހަފްތާ 1 ދުވަސް 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ހަފްތާ 1 ދުވަސް 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ތެރޭގައި ހަފްތާ 1 އަދި ދުވަސް 6',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'ހަފްތާ 2 ގަޑިއިރެއް',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ތެރޭގައި ގަޑިއިރެއް',
         // CarbonInterval::days(2)->forHumans()
         'ދުވަސް 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

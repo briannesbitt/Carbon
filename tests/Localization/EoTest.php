@@ -118,104 +118,108 @@ class EoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0a',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'antaŭ sekundoj',
-        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'antaŭ 1 sekundo',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'antaŭ 1 sek.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'antaŭ 2 sekundoj',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'antaŭ 2 sekundoj',
+        'antaŭ 2 sek.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'antaŭ minuto',
-        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'antaŭ 1 minuto',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'antaŭ 1 min.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'antaŭ 2 minutoj',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'antaŭ 2 minutoj',
+        'antaŭ 2 min.',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'antaŭ horo',
-        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'antaŭ 1 horo',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        'antaŭ 1 h.',
         // Carbon::now()->subHours(2)->diffForHumans()
         'antaŭ 2 horoj',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'antaŭ 2 horoj',
+        'antaŭ 2 h.',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'antaŭ tago',
-        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         'antaŭ 1 tago',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'antaŭ 1 t.',
         // Carbon::now()->subDays(2)->diffForHumans()
         'antaŭ 2 tagoj',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'antaŭ 2 tagoj',
+        'antaŭ 2 t.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'antaŭ 1 semajno',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'antaŭ 1 semajno',
+        'antaŭ 1 sem.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'antaŭ 2 semajnoj',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'antaŭ 2 semajnoj',
+        'antaŭ 2 sem.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'antaŭ monato',
-        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'antaŭ 1 monato',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        'antaŭ 1 mo.',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'antaŭ 2 monatoj',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'antaŭ 2 monatoj',
+        'antaŭ 2 mo.',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'antaŭ jaro',
-        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'antaŭ 1 jaro',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        'antaŭ 1 j.',
         // Carbon::now()->subYears(2)->diffForHumans()
         'antaŭ 2 jaroj',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'antaŭ 2 jaroj',
+        'antaŭ 2 j.',
         // Carbon::now()->addSecond()->diffForHumans()
-        'post sekundoj',
-        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'post 1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'post 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'sekundoj poste',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 sekundo poste',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 sek. poste',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'sekundoj antaŭe',
-        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 sekundo antaŭe',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 sek. antaŭe',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'sekundoj',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 sekundo',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekundoj',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sekundoj',
+        '2 sek.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'post 1 sekundo',
+        'post 1 sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'minuto sekundoj',
+        '1 minuto 1 sekundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 jaroj 3 monatoj 1 tago 1 sekundo',
+        '2 j. 3 mo. 1 t. 1 sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'post 3 jaroj',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'antaŭ 5 monatoj',
+        'antaŭ 5 mo.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'antaŭ 2 jaroj 3 monatoj 1 tago 1 sekundo',
+        'antaŭ 2 j. 3 mo. 1 t. 1 sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 semajno 10 horoj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 semajno 6 tagoj',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 semajno 6 tagoj',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'post 1 semajno kaj 6 tagoj',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semajnoj horo',
+        '2 semajnoj 1 horo',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'post horo',
         // CarbonInterval::days(2)->forHumans()
         '2 tagoj',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 tago 3 horoj',
+        '1 t. 3 h.',
     ];
 }

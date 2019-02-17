@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ShTest extends LocalizationTestCase
 {
-    const LOCALE = 'sh'; // SerboCroatian
+    const LOCALE = 'sh'; // sh
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class ShTest extends LocalizationTestCase
         '1 nedelja 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 nedelja 6 dana',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'za 1 nedelja i 6 dana',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 nedelje 1 čas',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'za 1 čas',
         // CarbonInterval::days(2)->forHumans()
         '2 dana',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

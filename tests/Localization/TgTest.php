@@ -211,8 +211,12 @@ class TgTest extends LocalizationTestCase
         'як ҳафта 6 рӯз',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'як ҳафта 6 рӯз',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'баъди як ҳафта ва 6 рӯз',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ҳафта як соат',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'баъди як соат',
         // CarbonInterval::days(2)->forHumans()
         '2 рӯз',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

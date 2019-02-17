@@ -118,7 +118,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'a few seconds ago',
+        '1 second ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1s ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -126,7 +126,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'a minute ago',
+        '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'an hour ago',
+        '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'a day ago',
+        '1 day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1d ago',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -150,7 +150,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2d ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'a week ago',
+        '1 week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         '1w ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
@@ -158,7 +158,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'a month ago',
+        '1 month ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1mo ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'a year ago',
+        '1 year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1yr ago',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,19 +174,19 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2yrs ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        'in a few seconds',
+        'in 1 second',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'in 1s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'a few seconds after',
+        '1 second after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1s after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'a few seconds before',
+        '1 second before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1s before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'a few seconds',
+        '1 second',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'in 1s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'a minute a few seconds',
+        '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -206,13 +206,17 @@ class EnNzTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2yrs 3mos 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'a week 10 hours',
+        '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'a week 6 days',
+        '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'a week 6 days',
+        '1 week 6 days',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'in 1 week and 6 days',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks an hour',
+        '2 weeks 1 hour',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'in an hour',
         // CarbonInterval::days(2)->forHumans()
         '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

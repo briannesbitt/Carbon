@@ -118,7 +118,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0-ев',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'преди няколко секунди',
+        'преди 1 секунда',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'преди 1 секунда',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -126,7 +126,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         'преди 2 секунди',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'преди минута',
+        'преди 1 минута',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'преди 1 минута',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         'преди 2 минути',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'преди час',
+        'преди 1 час',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'преди 1 час',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'преди 2 часа',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'преди ден',
+        'преди 1 ден',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         'преди 1 ден',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -158,7 +158,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'преди 2 седмици',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'преди месец',
+        'преди 1 месец',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'преди 1 месец',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'преди 2 месеца',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'преди година',
+        'преди 1 година',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'преди 1 година',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,19 +174,19 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'преди 2 години',
         // Carbon::now()->addSecond()->diffForHumans()
-        'след няколко секунди',
+        'след 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'след 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'след няколко секунди',
+        'след 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         'след 1 секунда',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'преди няколко секунди',
+        'преди 1 секунда',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'преди 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'няколко секунди',
+        '1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 секунда',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class BgTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'след 1 секунда',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'минута няколко секунди',
+        '1 минута 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 години 3 месеца 1 ден 1 секунда',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -211,8 +211,12 @@ class BgTest extends LocalizationTestCase
         '1 седмица 6 дни',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 седмица 6 дни',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'след 1 седмица и 6 дни',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 седмици час',
+        '2 седмици 1 час',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'след час',
         // CarbonInterval::days(2)->forHumans()
         '2 дни',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

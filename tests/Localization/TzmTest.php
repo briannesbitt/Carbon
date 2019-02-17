@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TzmTest extends LocalizationTestCase
 {
-    const LOCALE = 'tzm';
+    const LOCALE = 'tzm'; // Tamazight
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class TzmTest extends LocalizationTestCase
         '1 ⵉⵎⴰⵍⴰⵙⵙ 6 oⵙⵙⴰⵏ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ⵉⵎⴰⵍⴰⵙⵙ 6 oⵙⵙⴰⵏ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ 1 ⵉⵎⴰⵍⴰⵙⵙ 6 oⵙⵙⴰⵏ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ⵉⵎⴰⵍⴰⵙⵙ ⵙⴰⵄⴰ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ ⵙⴰⵄⴰ',
         // CarbonInterval::days(2)->forHumans()
         '2 oⵙⵙⴰⵏ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

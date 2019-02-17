@@ -211,8 +211,12 @@ class MyTest extends LocalizationTestCase
         '1 ပတ် 6 ရက်',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ပတ် 6 ရက်',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'လာမည့် 1 ပတ် 6 ရက် မှာ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ပတ် တစ်နာရီ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'လာမည့် တစ်နာရီ မှာ',
         // CarbonInterval::days(2)->forHumans()
         '2 ရက်',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
