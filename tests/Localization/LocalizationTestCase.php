@@ -197,7 +197,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         'ur' => 'Urdu',
         'uz' => 'Uzbek',
         've' => 'Venda',
-        'vi' => 'VietNamese',
+        'vi' => 'Vietnamese',
         'vo' => 'Volapuk',
         'wa' => 'Walloon',
         'wo' => 'Wolof',
