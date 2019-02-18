@@ -81,4 +81,11 @@
     }, function (error) {
         console.warn(error);
     });
+
+    $(document).on('click', '.translate-slot a', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        alert($(this).find('.chip').text());
+    });
 </script>

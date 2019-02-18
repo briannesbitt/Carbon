@@ -1,5 +1,5 @@
 *{box-sizing:border-box}
-body {font-family:"Open sans","Helvetica Neue",Helvetica,Arial,sans-serif}
+body {font-family:"Open sans","Helvetica Neue",Helvetica,Arial,sans-serif;padding-bottom:50px;}
 a {outline:0}
 
 .navbar {margin-bottom:0;background-color:white;border:0}

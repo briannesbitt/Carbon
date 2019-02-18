@@ -451,15 +451,23 @@
             return true;
         });
         $('.translate-slot').html(
-            '<div>Based on your browser\'s settings, ' +
-            (count
-                ? 'we detected ' + count + ' language' + (count === 1 ? '' : 's') + ' you may know. Please check if there is no mistake and add words that could be missing.'
-                : 'your language seems not yet available in Carbon, add it!'
-            ) + '</div>' +
+            '<p>Based on your browser\'s settings, ' +
+                (count
+                    ? 'we detected ' + count + ' language' + (count === 1 ? '' : 's') + ' you may know. Please check if there is no mistake and add words that could be missing.'
+                    : 'your language seems not yet available in Carbon, add it!'
+                ) +
+            '</p>' +
             preferred + other.map(formatLanguage).join('')
         );
     }, function (error) {
         console.warn(error);
+    });
+
+    $(document).on('click', '.translate-slot a', function (event) {
+        event.stopPropagation();
+        event.preventDefault();
+
+        alert($(this).find('.chip').text());
     });
 </script>
     <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
