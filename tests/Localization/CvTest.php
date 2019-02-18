@@ -118,65 +118,65 @@ class CvTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0-мӗш',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'пӗр-ик ҫеккунт каялла',
+        '1 ҫеккунт каялла',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'пӗр-ик ҫеккунт каялла',
+        '1 ҫеккунт каялла',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 ҫеккунт каялла',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 ҫеккунт каялла',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'пӗр минут каялла',
+        '1 минут каялла',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'пӗр минут каялла',
+        '1 минут каялла',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 минут каялла',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 минут каялла',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'пӗр сехет каялла',
+        '1 сехет каялла',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'пӗр сехет каялла',
+        '1 сехет каялла',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 сехет каялла',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 сехет каялла',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'пӗр кун каялла',
+        '1 кун каялла',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'пӗр кун каялла',
+        '1 кун каялла',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 кун каялла',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 кун каялла',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'пӗр эрне каялла',
+        '1 эрне каялла',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'пӗр эрне каялла',
+        '1 эрне каялла',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 эрне каялла',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 эрне каялла',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'пӗр уйӑх каялла',
+        '1 уйӑх каялла',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'пӗр уйӑх каялла',
+        '1 уйӑх каялла',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 уйӑх каялла',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 уйӑх каялла',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'пӗр ҫул каялла',
+        '1 ҫул каялла',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'пӗр ҫул каялла',
+        '1 ҫул каялла',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ҫул каялла',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 ҫул каялла',
         // Carbon::now()->addSecond()->diffForHumans()
-        'пӗр-ик ҫеккунтран',
+        '1 ҫеккунтран',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'пӗр-ик ҫеккунтран',
+        '1 ҫеккунтран',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,36 +186,40 @@ class CvTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'пӗр-ик ҫеккунт',
+        '1 ҫеккунт',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'пӗр-ик ҫеккунт',
+        '1 ҫеккунт',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ҫеккунт',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ҫеккунт',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'пӗр-ик ҫеккунтран',
+        '1 ҫеккунтран',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'пӗр минут пӗр-ик ҫеккунт',
+        '1 минут 1 ҫеккунт',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ҫул 3 уйӑх пӗр кун пӗр-ик ҫеккунт',
+        '2 ҫул 3 уйӑх 1 кун 1 ҫеккунт',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ҫултан',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 уйӑх каялла',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ҫул 3 уйӑх пӗр кун пӗр-ик ҫеккунт каялла',
+        '2 ҫул 3 уйӑх 1 кун 1 ҫеккунт каялла',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'пӗр эрне 10 сехет',
+        '1 эрне 10 сехет',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'пӗр эрне 6 кун',
+        '1 эрне 6 кун',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'пӗр эрне 6 кун',
+        '1 эрне 6 кун',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 эрне тата 6 кунран',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 эрне пӗр сехет',
+        '2 эрне 1 сехет',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'пӗр сехетрен',
         // CarbonInterval::days(2)->forHumans()
         '2 кун',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'пӗр кун 3 сехет',
+        '1 кун 3 сехет',
     ];
 }

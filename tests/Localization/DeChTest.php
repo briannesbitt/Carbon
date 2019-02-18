@@ -211,8 +211,12 @@ class DeChTest extends LocalizationTestCase
         '1 Woche 6 Tage',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 Woche 6 Tage',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'in 1 Woche und 6 Tage',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 Wochen 1 Stunde',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'in eine Stunde',
         // CarbonInterval::days(2)->forHumans()
         '2 Tage',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

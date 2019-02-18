@@ -211,8 +211,12 @@ class KuTest extends LocalizationTestCase
         'هەفتە 6 ڕۆژ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'هەفتە 6 ڕۆژ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'هەفتە û 6 ڕۆژ لە ئێستاوە',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'هەفتە کاژێر',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'کاژێر لە ئێستاوە',
         // CarbonInterval::days(2)->forHumans()
         'ڕۆژ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

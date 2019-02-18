@@ -10,13 +10,13 @@
  */
 
 return [
-    'year' => 'sena|:count sni',
-    'month' => 'xahar|:count xhur',
-    'week' => 'gimgħa|:count ġimgħat',
-    'day' => 'ġurnata|:count ġranet',
-    'hour' => 'siegħa|:count siegħat',
-    'minute' => 'minuta|:count minuti',
-    'second' => 'ftit sekondi|:count sekondi',
+    'year' => 'sena|:count sni|:count sni|:count sni',
+    'month' => 'xahar|:count xhur|:count xhur|:count xhur',
+    'week' => 'gimgħa|:count ġimgħat|:count ġimgħat|:count ġimgħat',
+    'day' => 'ġurnata|:count ġranet|:count ġranet|:count ġranet',
+    'hour' => 'siegħa|:count siegħat|:count siegħat|:count siegħat',
+    'minute' => 'minuta|:count minuti|:count minuti|:count minuti',
+    'second' => 'ftit sekondi|:count sekondi|:count sekondi|:count sekondi',
     'ago' => ':time ilu',
     'from_now' => 'f’ :time',
     'formats' => [

@@ -211,8 +211,12 @@ class HuTest extends LocalizationTestCase
         '1 hét 6 nap',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 hét 6 nap',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 hét és 6 nap múlva',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 hét 1 óra',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 óra múlva',
         // CarbonInterval::days(2)->forHumans()
         '2 nap',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

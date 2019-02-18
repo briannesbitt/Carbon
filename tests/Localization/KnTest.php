@@ -211,8 +211,12 @@ class KnTest extends LocalizationTestCase
         'ಒಂದು ವಾರ 6 ದಿನ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ಒಂದು ವಾರ 6 ದಿನ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ಒಂದು ವಾರ, 6 ದಿನ ನಂತರ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ವಾರಗಳು ಒಂದು ಗಂಟೆ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ಒಂದು ಗಂಟೆ ನಂತರ',
         // CarbonInterval::days(2)->forHumans()
         '2 ದಿನ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

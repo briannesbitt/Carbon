@@ -118,104 +118,108 @@ class RoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'o secundă în urmă',
+        '1 secundă în urmă',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'o secundă în urmă',
+        'o sec. în urmă',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 secunde în urmă',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 secunde în urmă',
+        'o sec. în urmă',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'un minut în urmă',
+        '1 minut în urmă',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'un minut în urmă',
+        '1 m. în urmă',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minute în urmă',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minute în urmă',
+        '2 m. în urmă',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'o oră în urmă',
+        '1 oră în urmă',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'o oră în urmă',
+        '1 o. în urmă',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 ore în urmă',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ore în urmă',
+        '2 o. în urmă',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'o zi în urmă',
+        '1 zi în urmă',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'o zi în urmă',
+        '1 z. în urmă',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 zile în urmă',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 zile în urmă',
+        '2 z. în urmă',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'o săptămână în urmă',
+        '1 săptămână în urmă',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'o săptămână în urmă',
+        '1 săp. în urmă',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 săptămâni în urmă',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 săptămâni în urmă',
+        '2 săp. în urmă',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'o lună în urmă',
+        '1 lună în urmă',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'o lună în urmă',
+        '1 l. în urmă',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 luni în urmă',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 luni în urmă',
+        '2 l. în urmă',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'un an în urmă',
+        '1 an în urmă',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'un an în urmă',
+        '1 a. în urmă',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ani în urmă',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ani în urmă',
+        '2 a. în urmă',
         // Carbon::now()->addSecond()->diffForHumans()
-        'peste o secundă',
+        'peste 1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'peste o secundă',
+        'peste o sec.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'peste o secundă',
+        'peste 1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'peste o secundă',
+        'peste o sec.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'acum o secundă',
+        'acum 1 secundă',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'acum o secundă',
+        'acum o sec.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'o secundă',
+        '1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'o secundă',
+        'o sec.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 secunde',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 secunde',
+        'o sec.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'peste o secundă',
+        'peste o sec.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'un minut o secundă',
+        '1 minut 1 secundă',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ani 3 luni o zi o secundă',
+        '2 a. 3 l. 1 z. o sec.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'peste 3 ani',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 luni în urmă',
+        '5 l. în urmă',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ani 3 luni o zi o secundă în urmă',
+        '2 a. 3 l. 1 z. o sec. în urmă',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'o săptămână 10 ore',
+        '1 săptămână 10 ore',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'o săptămână 6 zile',
+        '1 săptămână 6 zile',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'o săptămână 6 zile',
+        '1 săptămână 6 zile',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'peste 1 săptămână și 6 zile',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 săptămâni o oră',
+        '2 săptămâni 1 oră',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'peste o oră',
         // CarbonInterval::days(2)->forHumans()
         '2 zile',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'o zi 3 ore',
+        '1 z. 3 o.',
     ];
 }

@@ -211,8 +211,12 @@ class ThTest extends LocalizationTestCase
         '1 สัปดาห์ 6 วัน',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 สัปดาห์ 6 วัน',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'อีก 1 สัปดาห์ 6 วัน',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 สัปดาห์ 1 ชั่วโมง',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'อีก 1 ชั่วโมง',
         // CarbonInterval::days(2)->forHumans()
         '2 วัน',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

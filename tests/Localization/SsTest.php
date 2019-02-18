@@ -211,8 +211,12 @@ class SsTest extends LocalizationTestCase
         '1 liviki 6 emalanga',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 liviki 6 emalanga',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'nga 1 liviki 6 emalanga',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 emaviki lihora',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'nga lihora',
         // CarbonInterval::days(2)->forHumans()
         '2 emalanga',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

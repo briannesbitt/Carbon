@@ -211,8 +211,12 @@ class SiTest extends LocalizationTestCase
         'සතියක් දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'සතියක් දින 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'සතියක් දින 6කින්',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'සති 2 යි පැය',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'පැයකින්',
         // CarbonInterval::days(2)->forHumans()
         'දින 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -211,8 +211,12 @@ class HiTest extends LocalizationTestCase
         '1 सप्ताह 6 दिन',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 सप्ताह 6 दिन',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 सप्ताह और 6 दिन में',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 सप्ताह एक घंटा',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'एक घंटा में',
         // CarbonInterval::days(2)->forHumans()
         '2 दिन',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

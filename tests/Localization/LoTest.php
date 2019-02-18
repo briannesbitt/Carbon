@@ -211,8 +211,12 @@ class LoTest extends LocalizationTestCase
         '1 ອາທິດ 6 ມື້',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ອາທິດ 6 ມື້',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ອີກ 1 ອາທິດແລະ 6 ມື້',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ອາທິດ 1 ຊົ່ວໂມງ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ອີກ 1 ຊົ່ວໂມງ',
         // CarbonInterval::days(2)->forHumans()
         '2 ມື້',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -211,8 +211,12 @@ class RuTest extends LocalizationTestCase
         '1 неделю 6 дней',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 неделю 6 дней',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'через 1 неделю и 6 дней',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 недели 1 час',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'через 1 час',
         // CarbonInterval::days(2)->forHumans()
         '2 дня',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

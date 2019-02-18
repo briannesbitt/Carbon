@@ -197,7 +197,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
         'ur' => 'Urdu',
         'uz' => 'Uzbek',
         've' => 'Venda',
-        'vi' => 'VietNamese',
+        'vi' => 'Vietnamese',
         'vo' => 'Volapuk',
         'wa' => 'Walloon',
         'wo' => 'Wolof',
@@ -309,7 +309,9 @@ abstract class LocalizationTestCase extends AbstractTestCase
         '{class}::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
         '{class}::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)',
+        '{class}::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])',
         '{class}::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)',
+        '{class}::now()->addHour()->diffForHumans(["aUnit" => true, true, false, 2, ])',
         'CarbonInterval::days(2)->forHumans()',
         'CarbonInterval::create(\'P1DT3H\')->forHumans(true)',
     ];

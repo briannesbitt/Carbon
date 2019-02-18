@@ -118,65 +118,65 @@ class KyTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0-чү',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'бирнече секунд мурун',
+        '1 секунд мурун',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'бирнече секунд мурун',
+        '1 секунд мурун',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 секунд мурун',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 секунд мурун',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'бир мүнөт мурун',
+        '1 мүнөт мурун',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'бир мүнөт мурун',
+        '1 мүнөт мурун',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 мүнөт мурун',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 мүнөт мурун',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'бир саат мурун',
+        '1 саат мурун',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'бир саат мурун',
+        '1 саат мурун',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 саат мурун',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 саат мурун',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'бир күн мурун',
+        '1 күн мурун',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'бир күн мурун',
+        '1 күн мурун',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 күн мурун',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 күн мурун',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'бир жума мурун',
+        '1 жума мурун',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'бир жума мурун',
+        '1 жума мурун',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 жума мурун',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 жума мурун',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'бир ай мурун',
+        '1 ай мурун',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'бир ай мурун',
+        '1 ай мурун',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ай мурун',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ай мурун',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'бир жыл мурун',
+        '1 жыл мурун',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'бир жыл мурун',
+        '1 жыл мурун',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 жыл мурун',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 жыл мурун',
         // Carbon::now()->addSecond()->diffForHumans()
-        'бирнече секунд ичинде',
+        '1 секунд ичинде',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'бирнече секунд ичинде',
+        '1 секунд ичинде',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,36 +186,40 @@ class KyTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'бирнече секунд',
+        '1 секунд',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'бирнече секунд',
+        '1 секунд',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 секунд',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 секунд',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'бирнече секунд ичинде',
+        '1 секунд ичинде',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'бир мүнөт бирнече секунд',
+        '1 мүнөт 1 секунд',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 жыл 3 ай бир күн бирнече секунд',
+        '2 жыл 3 ай 1 күн 1 секунд',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 жыл ичинде',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ай мурун',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 жыл 3 ай бир күн бирнече секунд мурун',
+        '2 жыл 3 ай 1 күн 1 секунд мурун',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'бир жума 10 саат',
+        '1 жума 10 саат',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'бир жума 6 күн',
+        '1 жума 6 күн',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'бир жума 6 күн',
+        '1 жума 6 күн',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 жума 6 күн ичинде',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 жума бир саат',
+        '2 жума 1 саат',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'бир саат ичинде',
         // CarbonInterval::days(2)->forHumans()
         '2 күн',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'бир күн 3 саат',
+        '1 күн 3 саат',
     ];
 }

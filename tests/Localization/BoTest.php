@@ -211,8 +211,12 @@ class BoTest extends LocalizationTestCase
         '1 བདུན་ཕྲག 6 ཉིན་',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 བདུན་ཕྲག 6 ཉིན་',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 བདུན་ཕྲག ཨནད་ 6 ཉིན་ ལ་',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 བདུན་ཕྲག ཆུ་ཚོད་གཅིག',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ཆུ་ཚོད་གཅིག ལ་',
         // CarbonInterval::days(2)->forHumans()
         '2 ཉིན་',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

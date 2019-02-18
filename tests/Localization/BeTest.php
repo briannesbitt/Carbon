@@ -211,8 +211,12 @@ class BeTest extends LocalizationTestCase
         '1 тыдзень 6 дзён',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 тыдзень 6 дзён',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'праз 1 тыдзень і 6 дзён',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 тыдні 1 гадзіну',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'праз 1 гадзіну',
         // CarbonInterval::days(2)->forHumans()
         '2 ні',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

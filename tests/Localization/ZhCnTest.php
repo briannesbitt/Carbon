@@ -211,8 +211,12 @@ class ZhCnTest extends LocalizationTestCase
         '1周 6天',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1周 6天',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1周6天内',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2周 1小时',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1小时内',
         // CarbonInterval::days(2)->forHumans()
         '2天',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

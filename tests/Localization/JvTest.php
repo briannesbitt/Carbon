@@ -211,8 +211,12 @@ class JvTest extends LocalizationTestCase
         'sakminggu 6 dinten',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'sakminggu 6 dinten',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'wonten ing sakminggu lan 6 dinten',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 minggu setunggal jam',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'wonten ing setunggal jam',
         // CarbonInterval::days(2)->forHumans()
         '2 dinten',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

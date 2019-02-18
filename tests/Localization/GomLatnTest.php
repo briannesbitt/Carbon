@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class GomLatnTest extends LocalizationTestCase
 {
-    const LOCALE = 'gom_Latn'; // Konkani Latin script
+    const LOCALE = 'gom_Latn'; // Konkani
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class GomLatnTest extends LocalizationTestCase
         '1 satolleacho 6 dis',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 satolleacho 6 dis',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'from_now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 satolleacho 1 hor',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'from_now',
         // CarbonInterval::days(2)->forHumans()
         '2 dis',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

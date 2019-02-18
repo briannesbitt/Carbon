@@ -211,8 +211,12 @@ class UrTest extends LocalizationTestCase
         '1 ہفتے 6 دن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ہفتے 6 دن',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 ہفتے اور 6 دن بعد',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ہفتے ایک گھنٹہ',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ایک گھنٹہ بعد',
         // CarbonInterval::days(2)->forHumans()
         '2 دن',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -211,8 +211,12 @@ class GuTest extends LocalizationTestCase
         '1 અઠવાડિયું 6 દિવસ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 અઠવાડિયું 6 દિવસ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 અઠવાડિયું અને 6 દિવસ મા',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 અઠવાડિયા એક કલાક',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'એક કલાક મા',
         // CarbonInterval::days(2)->forHumans()
         '2 દિવસ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
