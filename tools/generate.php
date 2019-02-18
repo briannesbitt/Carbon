@@ -22,6 +22,7 @@ use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Carbon\Factory;
 use Carbon\FactoryImmutable;
+use Carbon\Language;
 use Carbon\Translator;
 
 function isHistoryUpToDate()
@@ -206,10 +207,24 @@ function genHtml($page, $out, $jumbotron = '')
 
         return '';
     }, $page);
+    $scripts = '';
+    $page = preg_replace_callback('/<script>([\s\S]*?)<\/script>/', function ($match) use (&$scripts) {
+        $scripts = $match[0];
+
+        return '';
+    }, $page);
+    $pageWidth = empty($menu) ? 12 : 9;
+    $page = preg_replace_callback('/<page-width>([\s\S]*?)<\/page-width>/', function ($match) use (&$pageWidth) {
+        $pageWidth = $match[1];
+
+        return '';
+    }, $page);
     $html = $template;
     $html = str_replace('#{page}', $page, $html);
+    $html = str_replace('#{pageWidth}', $pageWidth, $html);
     $html = str_replace('#{jumbotron}', $jumbotron, $html);
     $html = str_replace('#{menu}', $menu, $html);
+    $html = str_replace('#{scripts}', $scripts, $html);
     file_put_contents($out, $html);
 }
 
@@ -345,10 +360,14 @@ function compile($src, $dest = null)
     return $dest ? file_put_contents($dest, $code) : $code;
 }
 
+file_put_contents('languages.json', json_encode(Language::all()));
+
 genHtml(file_get_contents('index.src.html'), 'index.o.html', compile('jumbotron.src.html'));
 genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
+genHtml(file_get_contents('contribute/translate/index.src.html'), 'contribute/translate/index.html');
+genHtml(file_get_contents('contribute/docs/index.src.html'), 'contribute/docs/index.html');
 compile('reference/index.src.html', 'reference/index.html');
 
 compile('index.o.html', 'index.html');

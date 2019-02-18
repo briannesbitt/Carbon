@@ -195,6 +195,86 @@ blockquote, .doc-comment{font-size:15px;color:#656565}
     margin-bottom: 30px;
 }
 
+.translate-slot .link {
+    width: 25%;
+    float: left;
+}
+.translate-slot a {
+    display: block;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 2px;
+    border-radius: 3px;
+    margin: 2px;
+    cursor: pointer;
+    transition: .2s background;
+}
+.translate-slot a:hover {
+    background: #d7e5fa;
+}
+.translate-slot a .chip {
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    padding: 1px 3px;
+    border-radius: 2px;
+    background: #28324b;
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.translate-slot .preferred a .chip {
+    background: #65390f;
+}
+.translate-slot .favorite a .chip {
+    background: #a8710c;
+}
+.translate-slot:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #a4e69c;
+    color: #363636;
+    transition: .2s background;
+}
+
+footer .close {
+    float: right;
+    padding: 4px;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s background;
+    line-height: 32px;
+    width: 40px;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+
+footer .close:hover {
+    background: #50c04a;
+}
+
+footer .help-translate {
+    display: none;
+    padding: 6px;
+    text-align: center;
+}
+
+#codefund .cf-wrapper {
+    position: static !important;
+    display: block !important;
+}
+
 @media (max-width: 1600px) {
     html,
     body {

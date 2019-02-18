@@ -1,0 +1,84 @@
+<div class="translate-slot"></div>
+
+<script>
+    function runCarbonCode(code, success, failure) {
+        if (sessStorage['cache-code-' + code]) {
+            try {
+                var data = JSON.parse(sessStorage['cache-code-' + code]);
+                if ((new Date()).getTime() - data.time < 300000) {
+                    success(data.result);
+
+                    return;
+                }
+
+                sessStorage['cache-code-' + code] = null;
+            } catch (e) {
+            }
+        }
+
+        $.ajax(liveEditorHost + 'api/carbon.php', {
+            method: 'post',
+            dataType: 'json',
+            data: {
+                input: code,
+                version: 'master (next version)'
+            },
+            success: function (result) {
+                sessStorage['cache-code-' + code] = JSON.stringify({
+                    time: (new Date()).getTime(),
+                    result: result
+                });
+
+                success && success(result);
+            },
+            failure: function (error) {
+                failure && failure(error);
+            }
+        });
+    }
+
+    function formatLanguage(language, extraClasses) {
+        return '<div class="link ' + extraClasses + '">' +
+                '<a><span class="chip">' + language.id + '</span>' + language.isoName + (language.regionName ? ' (' + language.regionName + ')' : '') + (language.variant ? ' (' + language.variant + ')' : '') + '</a>' +
+            '</div>';
+    }
+
+    runCarbonCode('echo json_encode(array_map(function ($code) {' +
+        '$lang = new \\Carbon\\Language($code);' +
+
+        'return array_merge($lang->getNames(), [' +
+            '\'id\' => $lang->getId(),' +
+            '\'code\' => $lang->getCode(),' +
+            '\'region\' => $lang->getRegion(),' +
+            '\'regionName\' => $lang->getRegionName(),' +
+            '\'variant\' => $lang->getVariantName(),' +
+        ']);' +
+    '}, Carbon::getAvailableLocales()));', function (result) {
+        var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
+        var region = (language[1] || 'unknown').toUpperCase();
+        language = language[0].toLowerCase();
+        var preferred = '';
+        var count = 0;
+        var other = result.filter(function (item) {
+            if (item.code === language) {
+                count++;
+                preferred += formatLanguage(item, 'preferred' + (item.region === region ? ' favorite' : ''));
+
+                return false;
+            }
+
+            return true;
+        });
+        $('.translate-slot').html(
+            '<p>Based on your browser\'s settings, ' +
+                (count
+                    ? 'we detected ' + count + ' language' + (count === 1 ? '' : 's') + ' you may know. Please check if there is no mistake and add words that could be missing.'
+                    : 'your language seems not yet available in Carbon, add it!'
+                ) +
+            '</p>' +
+            preferred + other.map(formatLanguage).join('')
+        );
+    }, function (error) {
+        console.warn(error);
+    });
+</script>
