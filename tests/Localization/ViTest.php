@@ -42,7 +42,7 @@ class ViTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'thứ bảy tuần tới lúc 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'chủ nhật tuần rồi lúc 20:49',
+        'chủ nhật tuần trước lúc 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Hôm qua lúc 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
@@ -58,21 +58,21 @@ class ViTest extends LocalizationTestCase
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Hôm qua lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'thứ ba tuần rồi lúc 00:00',
+        'thứ ba tuần trước lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'thứ hai tuần rồi lúc 00:00',
+        'thứ hai tuần trước lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'chủ nhật tuần rồi lúc 00:00',
+        'chủ nhật tuần trước lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'thứ bảy tuần rồi lúc 00:00',
+        'thứ bảy tuần trước lúc 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'thứ sáu tuần rồi lúc 00:00',
+        'thứ sáu tuần trước lúc 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'thứ năm tuần rồi lúc 00:00',
+        'thứ năm tuần trước lúc 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'thứ tư tuần rồi lúc 00:00',
+        'thứ tư tuần trước lúc 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'thứ sáu tuần rồi lúc 00:00',
+        'thứ sáu tuần trước lúc 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
