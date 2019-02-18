@@ -150,7 +150,8 @@ ksort($methods);
 
 $count = count($versions);
 
-function getMethodsOfVersion($version) {
+function getMethodsOfVersion($version)
+{
     $cache = __DIR__.'/cache/methods_of_version_'.$version.'.json';
 
     if (file_exists($cache)) {

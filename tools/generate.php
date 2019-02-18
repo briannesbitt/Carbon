@@ -228,7 +228,8 @@ function genHtml($page, $out, $jumbotron = '')
     file_put_contents($out, $html);
 }
 
-function evaluateCode(&$__state, $__code) {
+function evaluateCode(&$__state, $__code)
+{
     ob_start();
     $result = call_user_func(function () use (&$__state, $__code) {
         foreach ($__state as $__key => &$__value) {

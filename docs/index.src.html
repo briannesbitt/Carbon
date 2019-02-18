@@ -2469,6 +2469,11 @@ echo "\n";
     'parts' => 3,
     'short' => true, // short syntax as per current locale
 ]);)}} // {{eval}}
+// 'aUnit' option added in 2.13.0 allows you to prefer "a day", "an hour", etc. over "1 day", "1 hour"
+// for singular values when it's available in the current locale
+{{::exec(echo $now->copy()->subHour()->diffForHumans([
+    'aUnit' => true,
+]);)}} // {{eval}}
 
 // Before 2.9.0, you need to pass parameters as ordered parameters:
 // ->diffForHumans($other, $syntax, $short, $parts, $options)

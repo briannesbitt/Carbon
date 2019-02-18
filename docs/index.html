@@ -257,7 +257,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-02-18 17:01:16
+echo $now;                               // 2019-02-18 17:30:54
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2019-02-18 00:00:00
@@ -382,7 +382,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:01 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 19:30 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -462,7 +462,7 @@ echo Carbon::minValue();                               // '0001-01-01 00:00:00'
 
     <h1 id="api-localization">Localization</h1>
 
-    <p>With Carbon 2, localization changed a lot, 65 new locales
+    <p>With Carbon 2, localization changed a lot, 72 new locales
         are supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
         and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
         and language packages for advanced translation, you now benefit of a wide internationalization support. You
@@ -684,11 +684,11 @@ var_dump(Carbon::localeHasPeriodSyntax('zh_TW'));                               
 
 echo $date->locale();            // fr_FR
 echo "\n";
-echo $date->diffForHumans();     // il y a quelques secondes
+echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // février
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 18 février 2019 17:01
+echo $date->isoFormat('LLLL');   // lundi 18 février 2019 17:30
 </code></pre>
     </p>
 
@@ -719,13 +719,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 17:01
+Aujourd’hui à 17:30
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 5:01 PM
+Today at 5:30 PM
 */
 </code></pre>
     </p>
@@ -1441,21 +1441,21 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 5:01 PM
+echo $date->calendar();                                      // Today at 5:30 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 2:01 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 2:30 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 6:38 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 7:07 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 02/10/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 8:01 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 8:30 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 3:24 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 3:53 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 02/26/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 17:01
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 17:30
 </code></pre>
     </p>
 
@@ -1474,7 +1474,7 @@ echo $date1->calendar($date2, [
 </code></pre>
     </p>
 
-    <p>Here is an overview of the 102 locales (and 138 regional variants) supported by the last
+    <p>Here is an overview of the 103 locales (and 145 regional variants) supported by the last
         Carbon version:</p>
 
     <table class="info-table" id="supported-locales">
@@ -1531,7 +1531,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1540,7 +1540,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1594,7 +1594,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1675,7 +1675,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1702,7 +1702,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1738,7 +1738,16 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>ga</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1747,7 +1756,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -1756,7 +1765,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2072,7 +2081,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -2107,7 +2116,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2143,7 +2152,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2170,7 +2179,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2197,7 +2206,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2305,7 +2314,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2323,7 +2332,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2350,7 +2359,7 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
         </tr>
         
@@ -2517,7 +2526,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-02-18 17:01:17
+echo Carbon::now();                                    // 2019-02-18 17:30:54
 </code></pre>
     </p>
 
@@ -2664,7 +2673,7 @@ var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getOffsetString());    
 
 // Returns timezone as CarbonTimeZone
 var_dump(Carbon::createFromTimestamp(0, 'Europe/Paris')->getTimezone());
-/* object(Carbon\CarbonTimeZone)#540 (2) {
+/* object(Carbon\CarbonTimeZone)#562 (2) {
   ["timezone_type"]=>
   int(3)
   ["timezone"]=>
@@ -2707,12 +2716,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(17)
+var_dump(Carbon::now()->get($unit));                         // int(54)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(17)
+var_dump(Carbon::now()->$unit);                              // int(54)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(17)
+var_dump(Carbon::now()->get($unit));                         // int(54)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -3046,7 +3055,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#545 (2) {
+  object(Carbon\CarbonTimeZone)#567 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -3057,7 +3066,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#545 (12) {
+object(stdClass)#567 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -3081,7 +3090,7 @@ object(stdClass)#545 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#533 (2) {
+  object(Carbon\CarbonTimeZone)#555 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -3092,7 +3101,7 @@ object(stdClass)#545 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#545 (3) {
+object(DateTime)#567 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -3212,8 +3221,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-02-18 17:01:17
-echo $dt1->maximum();                              // 2019-02-18 17:01:17
+echo $dt1->max();                                  // 2019-02-18 17:30:54
+echo $dt1->maximum();                              // 2019-02-18 17:30:54
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -4022,6 +4031,11 @@ echo $now->copy()->subHours(5)->subMinutes(30)->subSeconds(10)->diffForHumans([
     'parts' => 3,
     'short' => true, // short syntax as per current locale
 ]); // 5h 30m 10s ago
+// 'aUnit' option added in 2.13.0 allows you to prefer "a day", "an hour", etc. over "1 day", "1 hour"
+// for singular values when it's available in the current locale
+echo $now->copy()->subHour()->diffForHumans([
+    'aUnit' => true,
+]); // an hour ago
 
 // Before 2.9.0, you need to pass parameters as ordered parameters:
 // ->diffForHumans($other, $syntax, $short, $parts, $options)
@@ -4384,7 +4398,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 18:01
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 18:30
 </code></pre>
     </p>
 
@@ -4803,8 +4817,8 @@ CarbonInterval::fromString('2m 15s'); // or abbreviated
 
     <p>
     <pre><code class="php">CarbonInterval::setLocale('fr');
-echo CarbonInterval::create(2, 1)->forHumans();        // 2 ans un mois
-echo CarbonInterval::hour()->seconds(3);               // une heure 3 secondes
+echo CarbonInterval::create(2, 1)->forHumans();        // 2 ans 1 mois
+echo CarbonInterval::hour()->seconds(3);               // 1 heure 3 secondes
 CarbonInterval::setLocale('en');
 </code></pre>
     </p>
@@ -5374,7 +5388,7 @@ CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInte
 
     <p>
     <pre><code class="php">$period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
-echo $period->toString();            // Every 3 days 12 hours from 2000-01-01 12:00:00 to 2000-01-15 12:00:00
+echo $period->toString();            // Every 3 days and 12 hours from 2000-01-01 12:00:00 to 2000-01-15 12:00:00
 echo "\n";
 echo $period->toIso8601String();     // 2000-01-01T12:00:00+00:00/P3DT12H/2000-01-15T12:00:00+00:00
 </code></pre>
