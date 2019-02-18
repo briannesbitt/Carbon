@@ -102,6 +102,10 @@ matrix:
         - setup=stable
         - coverage=true
         - phpstan=true
+    - php: nightly
+      env:
+        - xdebug=false
+        - setup=nightly
     - php: 7.3
       env:
         - xdebug=false
@@ -109,10 +113,6 @@ matrix:
         - coverage=false
         - phpstan=false
         - laravel=true
-    - php: nightly
-      env:
-        - xdebug=false
-        - setup=nightly
 
 notifications:
   slack:

@@ -10,216 +10,216 @@
  */
 namespace Tests\Localization;
 
-class HeTest extends LocalizationTestCase
+class UgTest extends LocalizationTestCase
 {
-    const LOCALE = 'he'; // Hebrew (modern]
+    const LOCALE = 'ug'; // Uighur
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'מחר ב־00:00',
+        'ئەتە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'שבת בשעה 00:00',
+        'كېلەركى شەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ראשון בשעה 00:00',
+        'كېلەركى يەكشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'שני בשעה 00:00',
+        'كېلەركى دۈشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'שלישי בשעה 00:00',
+        'كېلەركى سەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'רביעי בשעה 00:00',
+        'كېلەركى چارشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'חמישי בשעה 00:00',
+        'كېلەركى پەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'שישי בשעה 00:00',
+        'كېلەركى جۈمە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'שלישי בשעה 00:00',
+        'كېلەركى سەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'רביעי בשעה 00:00',
+        'كېلەركى چارشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'חמישי בשעה 00:00',
+        'كېلەركى پەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'שישי בשעה 00:00',
+        'كېلەركى جۈمە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'שבת בשעה 00:00',
+        'كېلەركى شەنبە سائەت 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'ביום ראשון האחרון בשעה 20:49',
+        'ئالدىنقى يەكشەنبە سائەت 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'אתמול ב־22:00',
+        'تۆنۈگۈن 22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'היום ב־10:00',
+        'بۈگۈن سائەت 10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'היום ב־02:00',
+        'بۈگۈن سائەت 02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'מחר ב־01:00',
+        'ئەتە سائەت 01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'שלישי בשעה 00:00',
+        'كېلەركى سەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'אתמול ב־00:00',
+        'تۆنۈگۈن 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'אתמול ב־00:00',
+        'تۆنۈگۈن 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ביום שלישי האחרון בשעה 00:00',
+        'ئالدىنقى سەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ביום שני האחרון בשעה 00:00',
+        'ئالدىنقى دۈشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ביום ראשון האחרון בשעה 00:00',
+        'ئالدىنقى يەكشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ביום שבת האחרון בשעה 00:00',
+        'ئالدىنقى شەنبە سائەت 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ביום שישי האחרון בשעה 00:00',
+        'ئالدىنقى جۈمە سائەت 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'ביום חמישי האחרון בשעה 00:00',
+        'ئالدىنقى پەيشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'ביום רביעי האחרון בשעה 00:00',
+        'ئالدىنقى چارشەنبە سائەت 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'ביום שישי האחרון בשעה 00:00',
+        'ئالدىنقى جۈمە سائەت 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1 1 1 1 1',
+        '1 1 1-كۈنى 1-ھەپتە 1-ھەپتە',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2 1',
+        '2-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3 1',
+        '3-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4 1',
+        '4-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5 1',
+        '5-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6 1',
+        '6-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7 2',
+        '7-كۈنى 1-ھەپتە',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11 2',
+        '11-كۈنى 2-ھەپتە',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40',
+        '40-كۈنى',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41',
+        '41-كۈنى',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100',
+        '100-كۈنى',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 לפנות בוקר cet',
+        '12:00 يېرىم كېچە cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 לפנות בוקר, 12:00 לפנות בוקר',
+        '12:00 يېرىم كېچە, 12:00 يېرىم كېچە',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 לפנות בוקר, 1:30 לפנות בוקר',
+        '1:30 يېرىم كېچە, 1:30 يېرىم كېچە',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 לפנות בוקר, 2:00 לפנות בוקר',
+        '2:00 يېرىم كېچە, 2:00 يېرىم كېچە',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 בבוקר, 6:00 בבוקר',
+        '6:00 سەھەر, 6:00 سەھەر',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 לפני הצהריים, 10:00 לפנה"צ',
+        '10:00 چۈشتىن بۇرۇن, 10:00 چۈشتىن بۇرۇن',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 אחרי הצהריים, 12:00 אחה"צ',
+        '12:00 چۈش, 12:00 چۈش',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 אחרי הצהריים, 5:00 אחה"צ',
+        '5:00 چۈشتىن كېيىن, 5:00 چۈشتىن كېيىن',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 בערב, 9:30 בערב',
+        '9:30 كەچ, 9:30 كەچ',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 בערב, 11:00 בערב',
+        '11:00 كەچ, 11:00 كەچ',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'לפני שניה',
+        'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'לפני שניה',
+        'نەچچە سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'לפני 2 שניות',
+        '2 سېكونت بۇرۇن',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'לפני 2 שניות',
+        '2 سېكونت بۇرۇن',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'לפני דקה',
+        'بىر مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'לפני דקה',
+        'بىر مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'לפני דקותיים',
+        '2 مىنۇت بۇرۇن',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'לפני דקותיים',
+        '2 مىنۇت بۇرۇن',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'לפני שעה',
+        'بىر سائەت بۇرۇن',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'לפני שעה',
+        'بىر سائەت بۇرۇن',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'לפני שעתיים',
+        '2 سائەت بۇرۇن',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'לפני שעתיים',
+        '2 سائەت بۇرۇن',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'לפני יום',
+        'بىر كۈن بۇرۇن',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'לפני יום',
+        'بىر كۈن بۇرۇن',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'לפני יומיים',
+        '2 كۈن بۇرۇن',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'לפני יומיים',
+        '2 كۈن بۇرۇن',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'לפני שבוע',
+        'بىر ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'לפני שבוע',
+        'بىر ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'לפני שבועיים',
+        '2 ھەپتە بۇرۇن',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'לפני שבועיים',
+        '2 ھەپتە بۇرۇن',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'לפני חודש',
+        'بىر ئاي بۇرۇن',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'לפני חודש',
+        'بىر ئاي بۇرۇن',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'לפני חודשיים',
+        '2 ئاي بۇرۇن',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'לפני חודשיים',
+        '2 ئاي بۇرۇن',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'לפני שנה',
+        'بىر يىل بۇرۇن',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'לפני שנה',
+        'بىر يىل بۇرۇن',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'לפני שנתיים',
+        '2 يىل بۇرۇن',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'לפני שנתיים',
+        '2 يىل بۇرۇن',
         // Carbon::now()->addSecond()->diffForHumans()
-        'בעוד שניה',
+        'نەچچە سېكونت كېيىن',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'בעוד שניה',
+        'نەچچە سېكونت كېيىن',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'אחרי שניה',
+        'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'אחרי שניה',
+        'after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'לפני שניה',
+        'before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'לפני שניה',
+        'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'שניה',
+        'نەچچە سېكونت',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'שניה',
+        'نەچچە سېكونت',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 שניות',
+        '2 سېكونت',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 שניות',
+        '2 سېكونت',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'בעוד שניה',
+        'نەچچە سېكونت كېيىن',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'דקה שניה',
+        'بىر مىنۇت نەچچە سېكونت',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'שנתיים 3 חודשים יום שניה',
+        '2 يىل 3 ئاي بىر كۈن نەچچە سېكونت',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'בעוד 3 שנים',
+        '3 يىل كېيىن',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'לפני 5 חודשים',
+        '5 ئاي بۇرۇن',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'לפני שנתיים 3 חודשים יום שניה',
+        '2 يىل 3 ئاي بىر كۈن نەچچە سېكونت بۇرۇن',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'שבוע 10 שעות',
+        'بىر ھەپتە 10 سائەت',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'שבוע 6 ימים',
+        'بىر ھەپتە 6 كۈن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'שבוע 6 ימים',
+        'بىر ھەپتە 6 كۈن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'בעוד שבוע ו -6 ימים',
+        'بىر ھەپتە 6 كۈن كېيىن',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'שבועיים שעה',
+        '2 ھەپتە بىر سائەت',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'בעוד שעה',
+        'بىر سائەت كېيىن',
         // CarbonInterval::days(2)->forHumans()
-        'יומיים',
+        '2 كۈن',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'יום 3 שעות',
+        'بىر كۈن 3 سائەت',
     ];
 }
