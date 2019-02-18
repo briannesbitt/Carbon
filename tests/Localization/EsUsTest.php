@@ -118,7 +118,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hace unos segundos',
+        'hace 1 segundos',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'hace 1 segundo',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -126,7 +126,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         'hace 2 segundos',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'hace un minuto',
+        'hace 1 minuto',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'hace 1 minuto',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         'hace 2 minutos',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'hace una hora',
+        'hace 1 hora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'hace 1 hora',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'hace 2 horas',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'hace un día',
+        'hace 1 día',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         'hace 1 día',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -158,7 +158,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'hace 2 semanas',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'hace un mes',
+        'hace 1 mes',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'hace 1 mes',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'hace 2 meses',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'hace un año',
+        'hace 1 año',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'hace 1 año',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,19 +174,19 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'hace 2 años',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en unos segundos',
+        'en 1 segundos',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'en 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'unos segundos después',
+        '1 segundos después',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 segundo después',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'unos segundos antes',
+        '1 segundos antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 segundo antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'unos segundos',
+        '1 segundos',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 segundo',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class EsUsTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'en 1 segundo',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'un minuto unos segundos',
+        '1 minuto 1 segundos',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 años 3 meses 1 día 1 segundo',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -211,8 +211,12 @@ class EsUsTest extends LocalizationTestCase
         '1 semana 6 días',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 semana 6 días',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'en 1 semana y 6 días',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas una hora',
+        '2 semanas 1 hora',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'en una hora',
         // CarbonInterval::days(2)->forHumans()
         '2 días',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

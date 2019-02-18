@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NbTest extends LocalizationTestCase
 {
-    const LOCALE = 'nb'; // NorwegianBokmal
+    const LOCALE = 'nb'; // Norwegian Bokmål
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,33 +118,33 @@ class NbTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'noen sekunder siden',
+        '1 sekunder siden',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'noen sekunder siden',
+        '1 sekunder siden',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 sekunder siden',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 sekunder siden',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ett minutt siden',
+        '1 minutt siden',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ett minutt siden',
+        '1 minutt siden',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minutter siden',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 minutter siden',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'en time siden',
+        '1 time siden',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'en time siden',
+        '1 time siden',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 timer siden',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 timer siden',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'en dag siden',
+        '1 dag siden',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'en dag siden',
+        '1 dag siden',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 dager siden',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
@@ -158,25 +158,25 @@ class NbTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 uker siden',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'en måned siden',
+        '1 måned siden',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'en måned siden',
+        '1 måned siden',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 måneder siden',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 måneder siden',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ett år siden',
+        '1 år siden',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ett år siden',
+        '1 år siden',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 år siden',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 år siden',
         // Carbon::now()->addSecond()->diffForHumans()
-        'om noen sekunder',
+        'om 1 sekunder',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'om noen sekunder',
+        'om 1 sekunder',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,36 +186,40 @@ class NbTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'noen sekunder',
+        '1 sekunder',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'noen sekunder',
+        '1 sekunder',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekunder',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 sekunder',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'om noen sekunder',
+        'om 1 sekunder',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'ett minutt noen sekunder',
+        '1 minutt 1 sekunder',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 år 3 måneder en dag noen sekunder',
+        '2 år 3 måneder 1 dag 1 sekunder',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'om 3 år',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 måneder siden',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 år 3 måneder en dag noen sekunder siden',
+        '2 år 3 måneder 1 dag 1 sekunder siden',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 uke 10 timer',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 uke 6 dager',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 uke 6 dager',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'om 1 uke og 6 dager',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 uker en time',
+        '2 uker 1 time',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'om en time',
         // CarbonInterval::days(2)->forHumans()
         '2 dager',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'en dag 3 timer',
+        '1 dag 3 timer',
     ];
 }

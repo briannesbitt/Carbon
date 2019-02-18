@@ -211,8 +211,12 @@ class MtTest extends LocalizationTestCase
         'gimgħa 6 ġranet',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'gimgħa 6 ġranet',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'f’ gimgħa u 6 ġranet',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ġimgħat siegħa',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'f’ siegħa',
         // CarbonInterval::days(2)->forHumans()
         '2 ġranet',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

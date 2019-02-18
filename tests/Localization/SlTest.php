@@ -211,8 +211,12 @@ class SlTest extends LocalizationTestCase
         '1 teden 6 dni',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 teden 6 dni',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'čez 1 teden in 6 dni',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 tedna 1 uro',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'čez 1 uro',
         // CarbonInterval::days(2)->forHumans()
         '2 dni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

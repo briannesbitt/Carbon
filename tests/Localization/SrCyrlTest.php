@@ -211,8 +211,12 @@ class SrCyrlTest extends LocalizationTestCase
         '1 недеља 6 дана',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 недеља 6 дана',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'за 1 недеља и 6 дана',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 недеље 1 сат',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'за 1 сат',
         // CarbonInterval::days(2)->forHumans()
         '2 дана',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

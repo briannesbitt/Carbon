@@ -118,23 +118,23 @@ class SwTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'tokea hivi punde',
-        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'tokea sekunde 1',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        'tokea se. 1',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'tokea sekunde 2',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'tokea sekunde 2',
+        'tokea se. 2',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'tokea dakika moja',
-        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'tokea dakika 1',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        'tokea d. 1',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'tokea dakika 2',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'tokea dakika 2',
+        'tokea d. 2',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'tokea saa limoja',
+        'tokea saa 1',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'tokea saa 1',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,23 +142,23 @@ class SwTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'tokea masaa 2',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'tokea siku moja',
-        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         'tokea siku 1',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        'tokea si. 1',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'tokea masiku 2',
-        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'tokea siku 2',
+        // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
+        'tokea si. 2',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'tokea wiki 1',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'tokea wiki 1',
+        'tokea w. 1',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'tokea wiki 2',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'tokea wiki 2',
+        'tokea w. 2',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'tokea mwezi mmoja',
+        'tokea mwezi 1',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'tokea mwezi 1',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class SwTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'tokea miezi 2',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'tokea mwaka mmoja',
+        'tokea mwaka 1',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         'tokea mwaka 1',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,48 +174,52 @@ class SwTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'tokea miaka 2',
         // Carbon::now()->addSecond()->diffForHumans()
-        'hivi punde baadaye',
-        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'sekunde 1 baadaye',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'se. 1 baadaye',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'hivi punde baada',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         'sekunde 1 baada',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        'se. 1 baada',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'hivi punde kabla',
-        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'sekunde 1 kabla',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        'se. 1 kabla',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'hivi punde',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         'sekunde 1',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        'se. 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         'sekunde 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        'sekunde 2',
+        'se. 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'sekunde 1 baadaye',
+        'se. 1 baadaye',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'dakika moja hivi punde',
+        'dakika 1 sekunde 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'miaka 2 miezi 3 siku 1 sekunde 1',
+        'miaka 2 miezi 3 si. 1 se. 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'miaka 3 baadaye',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'tokea miezi 5',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'tokea miaka 2 miezi 3 siku 1 sekunde 1',
+        'tokea miaka 2 miezi 3 si. 1 se. 1',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'wiki 1 masaa 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'wiki 1 masiku 6',
+        'wiki 1 siku 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'wiki 1 masiku 6',
+        'wiki 1 siku 6',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'wiki 1 na siku 6 baadaye',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'wiki 2 saa limoja',
+        'wiki 2 saa 1',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'saa limoja baadaye',
         // CarbonInterval::days(2)->forHumans()
-        'masiku 2',
+        'siku 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'siku 1 masaa 3',
+        'si. 1 masaa 3',
     ];
 }

@@ -211,8 +211,12 @@ class NeTest extends LocalizationTestCase
         '1 हप्ता 6 दिन',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 हप्ता 6 दिन',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 हप्ता र 6 दिनमा',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 हप्ता एक घण्टा',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'एक घण्टामा',
         // CarbonInterval::days(2)->forHumans()
         '2 दिन',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

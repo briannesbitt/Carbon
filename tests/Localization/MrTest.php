@@ -211,8 +211,12 @@ class MrTest extends LocalizationTestCase
         '1 आठवडा 6 दिवस',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 आठवडा 6 दिवस',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 आठवडा आणि 6 दिवसमध्ये',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 आठवडे 1 तास',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 तासमध्ये',
         // CarbonInterval::days(2)->forHumans()
         '2 दिवस',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

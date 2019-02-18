@@ -211,8 +211,12 @@ class CyTest extends LocalizationTestCase
         '1 wythnos 6 diwrnod',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 wythnos 6 diwrnod',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'mewn 1 wythnos a 6 diwrnod',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 wythnos awr',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'mewn awr',
         // CarbonInterval::days(2)->forHumans()
         '2 diwrnod',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

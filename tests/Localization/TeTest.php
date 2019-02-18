@@ -211,8 +211,12 @@ class TeTest extends LocalizationTestCase
         'ఒక వారం 6 రోజులు',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ఒక వారం 6 రోజులు',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'ఒక వారం, 6 రోజులు లో',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 వారాలు ఒక గంట',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'ఒక గంట లో',
         // CarbonInterval::days(2)->forHumans()
         '2 రోజులు',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

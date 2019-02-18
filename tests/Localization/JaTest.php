@@ -211,8 +211,12 @@ class JaTest extends LocalizationTestCase
         '1週間 6日',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1週間 6日',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1週間、6日後',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2週間 1時間',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1時間後',
         // CarbonInterval::days(2)->forHumans()
         '2日',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

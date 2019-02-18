@@ -211,8 +211,12 @@ class IsTest extends LocalizationTestCase
         '1 vika 6 dagar',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 vika 6 dagar',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 vika og 6 dagar síðan',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 vikur 1 klukkutími',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 klukkutími síðan',
         // CarbonInterval::days(2)->forHumans()
         '2 dagar',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

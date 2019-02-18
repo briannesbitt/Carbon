@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class KmTest extends LocalizationTestCase
 {
-    const LOCALE = 'km'; // Khmer
+    const LOCALE = 'km'; // Central Khmer
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class KmTest extends LocalizationTestCase
         '1 សប្ដាហ៍ 6 ថ្ងៃ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 សប្ដាហ៍ 6 ថ្ងៃ',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 សប្ដាហ៍និង 6 ថ្ងៃទៀត',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 សប្ដាហ៍ មួយម៉ោង',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'មួយម៉ោងទៀត',
         // CarbonInterval::days(2)->forHumans()
         '2 ថ្ងៃ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

@@ -10,13 +10,20 @@
  */
 
 return [
-    'year' => 'eit år|:count år',
-    'month' => 'ein månad|:count månader',
+    'year' => ':count år|:count år',
+    'a_year' => 'eit år|:count år',
+    'month' => ':count månad|:count månader',
+    'a_month' => 'ein månad|:count månader',
     'week' => ':count uke|:count uker',
-    'day' => 'ein dag|:count dagar',
-    'hour' => 'ein time|:count timar',
-    'minute' => 'eit minutt|:count minutt',
-    'second' => 'nokre sekund|:count sekund',
+    'a_week' => 'eit uke|:count uker',
+    'day' => ':count dag|:count dagar',
+    'a_day' => 'ein dag|:count dagar',
+    'hour' => ':count time|:count timar',
+    'a_hour' => 'ein time|:count timar',
+    'minute' => ':count minutt',
+    'a_minute' => 'eit minutt|:count minutt',
+    'second' => ':count sekund',
+    'a_second' => 'nokre sekund|:count sekund',
     'ago' => ':time sidan',
     'from_now' => 'om :time',
     'formats' => [

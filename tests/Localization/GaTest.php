@@ -118,7 +118,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0mh',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'cúpla soicind ó shin',
+        '1 soicind ó shin',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1so ó shin',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -126,7 +126,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2so ó shin',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'nóiméad ó shin',
+        '1 nóiméad ó shin',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1n ó shin',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2n ó shin',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'uair an chloig ó shin',
+        '1 uair an chloig ó shin',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1u ó shin',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2u ó shin',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'lá ó shin',
+        '1 lá ó shin',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1l ó shin',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -150,7 +150,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2l ó shin',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'sheachtain ó shin',
+        '1 sheachtain ó shin',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         '1sh ó shin',
         // Carbon::now()->subWeeks(2)->diffForHumans()
@@ -158,7 +158,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2sh ó shin',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'mí ó shin',
+        '1 mí ó shin',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1m ó shin',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2m ó shin',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'bliain ó shin',
+        '1 bliain ó shin',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1b ó shin',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,19 +174,19 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2b ó shin',
         // Carbon::now()->addSecond()->diffForHumans()
-        'i cúpla soicind',
+        'i 1 soicind',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'i 1so',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'cúpla soicind tar éis',
+        '1 soicind tar éis',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1so tar éis',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'cúpla soicind roimh',
+        '1 soicind roimh',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1so roimh',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'cúpla soicind',
+        '1 soicind',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1so',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'i 1so',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'nóiméad cúpla soicind',
+        '1 nóiméad 1 soicind',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2b 3m 1l 1so',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -206,13 +206,17 @@ class GaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2b 3m 1l 1so ó shin',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'sheachtain 10 uair an chloig',
+        '1 sheachtain 10 uair an chloig',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'sheachtain 6 lá',
+        '1 sheachtain 6 lá',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'sheachtain 6 lá',
+        '1 sheachtain 6 lá',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'i 1 sheachtain agus 6 lá',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 sheachtain uair an chloig',
+        '2 sheachtain 1 uair an chloig',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'i uair an chloig',
         // CarbonInterval::days(2)->forHumans()
         '2 lá',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

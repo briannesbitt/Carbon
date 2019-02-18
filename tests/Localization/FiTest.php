@@ -211,8 +211,12 @@ class FiTest extends LocalizationTestCase
         '1 viikko 6 päivää',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 viikko 6 päivää',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 viikko ja 6 päivää tästä hetkestä',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 viikkoa 1 tunti',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 tunti tästä hetkestä',
         // CarbonInterval::days(2)->forHumans()
         '2 päivää',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

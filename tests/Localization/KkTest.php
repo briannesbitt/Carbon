@@ -118,47 +118,47 @@ class KkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0-ші',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'бірнеше секунд бұрын',
-        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 секунд бұрын',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 се. бұрын',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 секунд бұрын',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 секунд бұрын',
+        '2 се. бұрын',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'бір минут бұрын',
-        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 минут бұрын',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 м. бұрын',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 минут бұрын',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 минут бұрын',
+        '2 м. бұрын',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'бір сағат бұрын',
-        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 сағат бұрын',
+        // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
+        '1 са. бұрын',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 сағат бұрын',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 сағат бұрын',
+        '2 са. бұрын',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'бір күн бұрын',
-        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1 күн бұрын',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 к. бұрын',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 күн бұрын',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 күн бұрын',
+        '2 к. бұрын',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 апта бұрын',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 апта бұрын',
+        '1 ап. бұрын',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 апта бұрын',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 апта бұрын',
+        '2 ап. бұрын',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'бір ай бұрын',
+        '1 ай бұрын',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1 ай бұрын',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,56 +166,60 @@ class KkTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ай бұрын',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'бір жыл бұрын',
-        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 жыл бұрын',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 ж. бұрын',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 жыл бұрын',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 жыл бұрын',
+        '2 ж. бұрын',
         // Carbon::now()->addSecond()->diffForHumans()
-        'бірнеше секунд ішінде',
-        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 секунд ішінде',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        '1 се. ішінде',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'бірнеше секунд кейін',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 секунд кейін',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 се. кейін',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'бірнеше секунд бұрын',
-        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 секунд бұрын',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 се. бұрын',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'бірнеше секунд',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 секунд',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 се.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 секунд',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 секунд',
+        '2 се.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 секунд ішінде',
+        '1 се. ішінде',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'бір минут бірнеше секунд',
+        '1 минут 1 секунд',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 жыл 3 ай 1 күн 1 секунд',
+        '2 ж. 3 ай 1 к. 1 се.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 жыл ішінде',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ай бұрын',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 жыл 3 ай 1 күн 1 секунд бұрын',
+        '2 ж. 3 ай 1 к. 1 се. бұрын',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 апта 10 сағат',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 апта 6 күн',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 апта 6 күн',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 апта және 6 күн ішінде',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 апта бір сағат',
+        '2 апта 1 сағат',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'бір сағат ішінде',
         // CarbonInterval::days(2)->forHumans()
         '2 күн',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 күн 3 сағат',
+        '1 к. 3 са.',
     ];
 }

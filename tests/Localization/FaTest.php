@@ -118,15 +118,15 @@ class FaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         ':timeم',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'چند ثانیه پیش',
+        '1 ثانیه پیش',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 ثانیه پیش',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'ثانیه d% پیش',
+        'چند ثانیه پیش',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 ثانیه پیش',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'یک دقیقه پیش',
+        '1 دقیقه پیش',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 دقیقه پیش',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -134,7 +134,7 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 دقیقه پیش',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'یک ساعت پیش',
+        '1 ساعت پیش',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 ساعت پیش',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,7 +142,7 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ساعت پیش',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'یک روز پیش',
+        '1 روز پیش',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1 روز پیش',
         // Carbon::now()->subDays(2)->diffForHumans()
@@ -158,7 +158,7 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 هفته پیش',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'یک ماه پیش',
+        '1 ماه پیش',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1 ماه پیش',
         // Carbon::now()->subMonths(2)->diffForHumans()
@@ -166,7 +166,7 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ماه پیش',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'یک سال پیش',
+        '1 سال پیش',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 سال پیش',
         // Carbon::now()->subYears(2)->diffForHumans()
@@ -174,29 +174,29 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 سال پیش',
         // Carbon::now()->addSecond()->diffForHumans()
-        'در چند ثانیه',
+        'در 1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'در 1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'چند ثانیه پس از',
+        '1 ثانیه پس از',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 ثانیه پس از',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'چند ثانیه پیش از',
+        '1 ثانیه پیش از',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 ثانیه پیش از',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'چند ثانیه',
+        '1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 ثانیه',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        'ثانیه d%',
+        'چند ثانیه',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'در 1 ثانیه',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'یک دقیقه چند ثانیه',
+        '1 دقیقه 1 ثانیه',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 سال 3 ماه 1 روز 1 ثانیه',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -211,8 +211,12 @@ class FaTest extends LocalizationTestCase
         '1 هفته 6 روز',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 هفته 6 روز',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'در 1 هفته و 6 روز',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 هفته یک ساعت',
+        '2 هفته 1 ساعت',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'در یک دقیقهیک ساعت',
         // CarbonInterval::days(2)->forHumans()
         '2 روز',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

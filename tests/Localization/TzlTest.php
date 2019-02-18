@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TzlTest extends LocalizationTestCase
 {
-    const LOCALE = 'tzl';
+    const LOCALE = 'tzl'; // Talossan
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -211,8 +211,12 @@ class TzlTest extends LocalizationTestCase
         '1 seifetziua 6 ziuas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 seifetziua 6 ziuas',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'osprei 1 seifetziua 6 ziuas',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 seifetziuas 1 þora',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'osprei 1 þora',
         // CarbonInterval::days(2)->forHumans()
         '2 ziuas',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

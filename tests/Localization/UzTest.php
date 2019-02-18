@@ -118,104 +118,108 @@ class UzTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'Бир неча фурсат олдин',
+        'Бир неча 1 фурсат олдин',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'Бир неча 1 s олдин',
+        'Бир неча 1 ф олдин',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'Бир неча 2 фурсат олдин',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'Бир неча 2 s олдин',
+        'Бир неча 2 ф олдин',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'Бир неча бир дакика олдин',
+        'Бир неча 1 дакика олдин',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'Бир неча 1 daq олдин',
+        'Бир неча 1 д олдин',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'Бир неча 2 дакика олдин',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'Бир неча 2 daq олдин',
+        'Бир неча 2 д олдин',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'Бир неча бир соат олдин',
+        'Бир неча 1 соат олдин',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'Бир неча 1 soat олдин',
+        'Бир неча 1 с олдин',
         // Carbon::now()->subHours(2)->diffForHumans()
         'Бир неча 2 соат олдин',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'Бир неча 2 soat олдин',
+        'Бир неча 2 с олдин',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'Бир неча бир кун олдин',
+        'Бир неча 1 кун олдин',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'Бир неча 1 kun олдин',
+        'Бир неча 1 к олдин',
         // Carbon::now()->subDays(2)->diffForHumans()
         'Бир неча 2 кун олдин',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'Бир неча 2 kun олдин',
+        'Бир неча 2 к олдин',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'Бир неча бир ҳафта олдин',
-        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         'Бир неча 1 ҳафта олдин',
+        // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
+        'Бир неча 1 ҳ олдин',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'Бир неча 2 ҳафта олдин',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'Бир неча 2 ҳафта олдин',
+        'Бир неча 2 ҳ олдин',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'Бир неча бир ой олдин',
+        'Бир неча 1 ой олдин',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'Бир неча 1 oy олдин',
+        'Бир неча 1 о олдин',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'Бир неча 2 ой олдин',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'Бир неча 2 oy олдин',
+        'Бир неча 2 о олдин',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'Бир неча бир йил олдин',
+        'Бир неча 1 йил олдин',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'Бир неча 1 yil олдин',
+        'Бир неча 1 й олдин',
         // Carbon::now()->subYears(2)->diffForHumans()
         'Бир неча 2 йил олдин',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'Бир неча 2 yil олдин',
+        'Бир неча 2 й олдин',
         // Carbon::now()->addSecond()->diffForHumans()
-        'Якин фурсат ичида',
+        'Якин 1 фурсат ичида',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'Якин 1 s ичида',
+        'Якин 1 ф ичида',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'фурсат keyin',
+        '1 фурсат пас аз он',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 s keyin',
+        '1 ф пас аз он',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'фурсат oldin',
+        '1 фурсат пеш аз он',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 s oldin',
+        '1 ф пеш аз он',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'фурсат',
+        '1 фурсат',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 s',
+        '1 ф',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 фурсат',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 s',
+        '2 ф',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'Якин 1 s ичида',
+        'Якин 1 ф ичида',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'бир дакика фурсат',
+        '1 дакика 1 фурсат',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 yil 3 oy 1 kun 1 s',
+        '2 й 3 о 1 к 1 ф',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'Якин 3 йил ичида',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'Бир неча 5 oy олдин',
+        'Бир неча 5 о олдин',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'Бир неча 2 yil 3 oy 1 kun 1 s олдин',
+        'Бир неча 2 й 3 о 1 к 1 ф олдин',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'бир ҳафта 10 соат',
+        '1 ҳафта 10 соат',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'бир ҳафта 6 кун',
+        '1 ҳафта 6 кун',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'бир ҳафта 6 кун',
+        '1 ҳафта 6 кун',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'Якин 1 ҳафта 6 кун ичида',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 ҳафта бир соат',
+        '2 ҳафта 1 соат',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'Якин бир соат ичида',
         // CarbonInterval::days(2)->forHumans()
         '2 кун',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 kun 3 soat',
+        '1 к 3 с',
     ];
 }

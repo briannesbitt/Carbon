@@ -211,8 +211,12 @@ class EtTest extends LocalizationTestCase
         '1 nädal 6 päeva',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 nädal 6 päeva',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 nädal ja 6 päeva pärast',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 nädalat 1 tund',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 tunni pärast',
         // CarbonInterval::days(2)->forHumans()
         '2 päeva',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

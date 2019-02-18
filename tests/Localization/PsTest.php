@@ -211,8 +211,12 @@ class PsTest extends LocalizationTestCase
         '1 اونۍ 6 ورځي',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 اونۍ 6 ورځي',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        '1 اونۍ او 6 ورځي له اوس څخه',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 اونۍ 1 ساعت',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        '1 ساعت له اوس څخه',
         // CarbonInterval::days(2)->forHumans()
         '2 ورځي',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

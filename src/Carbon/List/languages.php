@@ -222,7 +222,7 @@ return [
     'nativeName' => 'Deutsch',
   ],
   'el' => [
-    'isoName' => 'Greek (modern]',
+    'isoName' => 'Greek (modern)',
     'nativeName' => 'ελληνικά',
   ],
   'gn' => [
@@ -239,10 +239,10 @@ return [
   ],
   'ha' => [
     'isoName' => 'Hausa',
-    'nativeName' => '(Hausa] هَوُسَ',
+    'nativeName' => '(Hausa) هَوُسَ',
   ],
   'he' => [
-    'isoName' => 'Hebrew (modern]',
+    'isoName' => 'Hebrew (modern)',
     'nativeName' => 'עברית',
   ],
   'hz' => [
@@ -303,7 +303,7 @@ return [
   ],
   'ja' => [
     'isoName' => 'Japanese',
-    'nativeName' => '日本語 (にほんご]',
+    'nativeName' => '日本語 (にほんご)',
   ],
   'jv' => [
     'isoName' => 'Javanese',
@@ -662,7 +662,7 @@ return [
     'nativeName' => 'Setswana',
   ],
   'to' => [
-    'isoName' => 'Tongan (Tonga Islands]',
+    'isoName' => 'Tongan (Tonga Islands)',
     'nativeName' => 'Faka Tonga',
   ],
   'tr' => [

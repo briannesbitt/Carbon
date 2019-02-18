@@ -211,8 +211,12 @@ class SkTest extends LocalizationTestCase
         'týždeň 6 dní',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'týždeň 6 dní',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'za týždeň a 6 dní',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 týždne hodinu',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'za hodinu',
         // CarbonInterval::days(2)->forHumans()
         '2 dni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

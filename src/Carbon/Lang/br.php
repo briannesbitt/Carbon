@@ -13,13 +13,20 @@
 }, 'br');
 
 return [
-    'year' => '{1}ur bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
-    'month' => '{1}ur miz|{2}:count viz|[0,Inf[:count miz',
+    'year' => '{1}:count bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
+    'a_year' => '{1}ur bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
+    'month' => '{1}:count miz|{2}:count viz|[0,Inf[:count miz',
+    'a_month' => '{1}ur miz|{2}:count viz|[0,Inf[:count miz',
     'week' => ':count sizhun',
-    'day' => '{1}un devezh|{2}:count zevezh|[0,Inf[:count devezh',
-    'hour' => 'un eur|:count eur',
-    'minute' => '{1}ur vunutenn|{2}:count vunutenn|[0,Inf[:count munutenn',
-    'second' => '{1}un nebeud segondennoù|[0,Inf[:count eilenn',
+    'a_week' => 'ur sizhun|:count sizhun',
+    'day' => '{1}:count devezh|{2}:count zevezh|[0,Inf[:count devezh',
+    'a_day' => '{1}un devezh|{2}:count zevezh|[0,Inf[:count devezh',
+    'hour' => ':count eur',
+    'a_hour' => 'un eur|:count eur',
+    'minute' => '{1}:count vunutenn|{2}:count vunutenn|[0,Inf[:count munutenn',
+    'a_minute' => '{1}ur vunutenn|{2}:count vunutenn|[0,Inf[:count munutenn',
+    'second' => ':count eilenn',
+    'a_second' => '{1}un nebeud segondennoù|[0,Inf[:count eilenn',
     'ago' => ':time \'zo',
     'from_now' => 'a-benn :time',
     'formats' => [

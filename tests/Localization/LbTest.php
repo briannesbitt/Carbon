@@ -211,8 +211,12 @@ class LbTest extends LocalizationTestCase
         '1 Woch 6 Deeg',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 Woch 6 Deeg',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'from_now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 Wochen 1 Stonn',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'from_now',
         // CarbonInterval::days(2)->forHumans()
         '2 Deeg',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

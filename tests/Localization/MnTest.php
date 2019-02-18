@@ -211,8 +211,12 @@ class MnTest extends LocalizationTestCase
         '1 долоо хоног 6 өдөр',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 долоо хоног 6 өдөр',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'одоогоос 1 долоо хоног, 6 өдөр',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 долоо хоног 1 цаг',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'одоогоос 1 цагийн дараа',
         // CarbonInterval::days(2)->forHumans()
         '2 өдөр',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

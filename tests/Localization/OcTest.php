@@ -211,8 +211,12 @@ class OcTest extends LocalizationTestCase
         '1 setmana 6 jorns',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 setmana 6 jorns',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'd\'aquí 1 setmana e 6 jorns',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 setmanas 1 ora',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'd\'aquí 1 ora',
         // CarbonInterval::days(2)->forHumans()
         '2 jorns',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

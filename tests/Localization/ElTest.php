@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ElTest extends LocalizationTestCase
 {
-    const LOCALE = 'el'; // Greek
+    const LOCALE = 'el'; // Greek (modern)
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,23 +118,23 @@ class ElTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0η',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'λίγα δευτερόλεπτα πριν',
-        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 δευτερόλεπτο πριν',
+        // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
+        '1 δευ. πριν',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 δευτερόλεπτα πριν',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 δευτερόλεπτα πριν',
+        '2 δευ. πριν',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ένα λεπτό πριν',
-        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 λεπτό πριν',
+        // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
+        '1 λεπ. πριν',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 λεπτά πριν',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 λεπτά πριν',
+        '2 λεπ. πριν',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'μία ώρα πριν',
+        '1 ώρα πριν',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 ώρα πριν',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -142,80 +142,84 @@ class ElTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ώρες πριν',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'μία μέρα πριν',
-        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         '1 μέρα πριν',
+        // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
+        '1 μέρ. πριν',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 μέρες πριν',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 μέρες πριν',
+        '2 μέρ. πριν',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 εβδομάδα πριν',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 εβδομάδα πριν',
+        '1 εβδ. πριν',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 εβδομάδες πριν',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 εβδομάδες πριν',
+        '2 εβδ. πριν',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ένας μήνας πριν',
-        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1 μήνας πριν',
+        // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
+        '1 μήν. πριν',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 μήνες πριν',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 μήνες πριν',
+        '2 μήν. πριν',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ένας χρόνος πριν',
-        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 χρόνος πριν',
+        // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
+        '1 χρό. πριν',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 χρόνια πριν',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 χρόνια πριν',
+        '2 χρό. πριν',
         // Carbon::now()->addSecond()->diffForHumans()
-        'σε λίγα δευτερόλεπτα',
-        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'σε 1 δευτερόλεπτο',
+        // Carbon::now()->addSecond()->diffForHumans(null, false, true)
+        'σε 1 δευ.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'λίγα δευτερόλεπτα μετά',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 δευτερόλεπτο μετά',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
+        '1 δευ. μετά',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'λίγα δευτερόλεπτα πριν',
-        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 δευτερόλεπτο πριν',
+        // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
+        '1 δευ. πριν',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'λίγα δευτερόλεπτα',
-        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 δευτερόλεπτο',
+        // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
+        '1 δευ.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 δευτερόλεπτα',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 δευτερόλεπτα',
+        '2 δευ.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'σε 1 δευτερόλεπτο',
+        'σε 1 δευ.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'ένα λεπτό λίγα δευτερόλεπτα',
+        '1 λεπτό 1 δευτερόλεπτο',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 χρόνια 3 μήνες 1 μέρα 1 δευτερόλεπτο',
+        '2 χρό. 3 μήν. 1 μέρ. 1 δευ.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'σε 3 χρόνια',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 μήνες πριν',
+        '5 μήν. πριν',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 χρόνια 3 μήνες 1 μέρα 1 δευτερόλεπτο πριν',
+        '2 χρό. 3 μήν. 1 μέρ. 1 δευ. πριν',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 10 ώρες',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 6 μέρες',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 6 μέρες',
+        // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
+        'σε 1 εβδομάδα και 6 μέρες',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 εβδομάδες μία ώρα',
+        '2 εβδομάδες 1 ώρα',
+        // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
+        'σε μία ώρα',
         // CarbonInterval::days(2)->forHumans()
         '2 μέρες',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 μέρα 3 ώρες',
+        '1 μέρ. 3 ώρες',
     ];
 }
