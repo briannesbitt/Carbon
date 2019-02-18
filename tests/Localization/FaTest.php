@@ -118,11 +118,11 @@ class FaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         ':timeم',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'چند ثانیه پیش',
+        '1 ثانیه پیش',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 ثانیه پیش',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'ثانیه d% پیش',
+        'چند ثانیه پیش',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 ثانیه پیش',
         // Carbon::now()->subMinutes(1)->diffForHumans()
@@ -174,29 +174,29 @@ class FaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 سال پیش',
         // Carbon::now()->addSecond()->diffForHumans()
-        'در چند ثانیه',
+        'در 1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'در 1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'چند ثانیه پس از',
+        '1 ثانیه پس از',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 ثانیه پس از',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'چند ثانیه پیش از',
+        '1 ثانیه پیش از',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 ثانیه پیش از',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'چند ثانیه',
+        '1 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 ثانیه',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        'ثانیه d%',
+        'چند ثانیه',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ثانیه',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'در 1 ثانیه',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'یک دقیقه چند ثانیه',
+        'یک دقیقه 1 ثانیه',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 سال 3 ماه 1 روز 1 ثانیه',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)

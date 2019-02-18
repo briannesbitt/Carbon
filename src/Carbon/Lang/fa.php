@@ -22,7 +22,7 @@ return [
     'h' => ':count ساعت',
     'minute' => 'یک دقیقه|:count دقیقه',
     'min' => ':count دقیقه',
-    'second' => 'چند ثانیه|ثانیه d%',
+    'second' => ':count ثانیه|چند ثانیه',
     's' => ':count ثانیه',
     'ago' => ':time پیش',
     'from_now' => 'در :time',
