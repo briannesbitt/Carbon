@@ -47,7 +47,7 @@ return [
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des'],
     'weekdays' => ['sundag', 'måndag', 'tysdag', 'onsdag', 'torsdag', 'fredag', 'laurdag'],
     'weekdays_short' => ['sun', 'mån', 'tys', 'ons', 'tor', 'fre', 'lau'],
-    'weekdays_min' => ['su', 'må', 'ty', 'on', 'to', 'fr', 'lø'],
+    'weekdays_min' => ['su', 'må', 'ty', 'on', 'to', 'fr', 'la'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' og '],
