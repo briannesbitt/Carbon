@@ -11,6 +11,8 @@
 namespace Carbon;
 
 use Closure;
+use ReflectionException;
+use ReflectionFunction;
 use Symfony\Component\Translation;
 
 class Translator extends Translation\Translator
@@ -143,7 +145,18 @@ class Translator extends Translation\Translator
         $format = $this->getCatalogue($locale)->get((string) $id, $domain);
 
         if ($format instanceof Closure) {
-            return $format(...array_values($parameters));
+            // @codeCoverageIgnoreStart
+            try {
+                $count = (new ReflectionFunction($format))->getNumberOfRequiredParameters();
+            } catch (ReflectionException $exception) {
+                $count = 0;
+            }
+            // @codeCoverageIgnoreEnd
+
+            return $format(
+                ...array_values($parameters),
+                ...array_fill(0, max(0, $count - count($parameters)), null)
+            );
         }
 
         return parent::trans($id, $parameters, $domain, $locale);

@@ -628,6 +628,8 @@ class LocalizationTest extends AbstractTestCase
 
         $this->assertTrue(Carbon::localeHasPeriodSyntax($withPeriodSyntaxLocale));
         $this->assertFalse(Carbon::localeHasPeriodSyntax($withoutPeriodSyntaxLocale));
+
+        $this->assertTrue(Carbon::localeHasPeriodSyntax('nl'));
     }
 
     public function testGetAvailableLocales()
