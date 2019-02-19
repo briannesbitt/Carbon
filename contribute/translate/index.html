@@ -79,6 +79,8 @@
                     <div class="col-md-12">
                         <div class="translate-slot"></div>
 
+<div class="edit-slot"></div>
+
 
 
                     </div>
@@ -457,18 +459,129 @@
                     : 'your language seems not yet available in Carbon, add it!'
                 ) +
             '</p>' +
+            '<p>'+
+                'Add a new language if it\'s not yet available: ' +
+                '<input class="new-language" placeholder="Language name / ISO 639-1 code" style="width: 300px;">' +
+                '<input class="add-new-language" type="button" value="Add">' +
+            '</p>' +
+            '<p>'+
+                'Or pick one of the following:' +
+            '</p>' +
             preferred + other.map(formatLanguage).join('')
         );
     }, function (error) {
         console.warn(error);
     });
 
-    $(document).on('click', '.translate-slot a', function (event) {
-        event.stopPropagation();
-        event.preventDefault();
+    var editLanguage = null;
 
-        alert($(this).find('.chip').text());
-    });
+    function loadLanguage(language) {
+        $('.edit-slot').text('Loading...');
+
+        var lines = [];
+        [
+            ['CarbonInterval::years(2)', '->forHumans()'],
+            ['CarbonInterval::years(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::year()', '->forHumans()'],
+            ['CarbonInterval::year()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::months(2)', '->forHumans()'],
+            ['CarbonInterval::months(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::month()', '->forHumans()'],
+            ['CarbonInterval::month()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::weeks(2)', '->forHumans()'],
+            ['CarbonInterval::weeks(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::week()', '->forHumans()'],
+            ['CarbonInterval::week()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::days(2)', '->forHumans()'],
+            ['CarbonInterval::days(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::day()', '->forHumans()'],
+            ['CarbonInterval::day()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::hours(2)', '->forHumans()'],
+            ['CarbonInterval::hours(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::hour()', '->forHumans()'],
+            ['CarbonInterval::hour()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::minutes(2)', '->forHumans()'],
+            ['CarbonInterval::minutes(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::minute()', '->forHumans()'],
+            ['CarbonInterval::minute()', '->forHumans(["aUnit" => true])'],
+            ['CarbonInterval::seconds(2)', '->forHumans()'],
+            ['CarbonInterval::seconds(2)', '->forHumans(["short" => true])'],
+            ['CarbonInterval::second()', '->forHumans()'],
+            ['CarbonInterval::second()', '->forHumans(["aUnit" => true])'],
+            ['Carbon::parse("next monday")', '->dayName'],
+            ['Carbon::parse("next monday")', '->shortDayName'],
+            ['Carbon::parse("next monday")', '->minDayName'],
+            ['Carbon::parse("next tuesday")', '->dayName'],
+            ['Carbon::parse("next tuesday")', '->shortDayName'],
+            ['Carbon::parse("next tuesday")', '->minDayName'],
+            ['Carbon::parse("next wednesday")', '->dayName'],
+            ['Carbon::parse("next wednesday")', '->shortDayName'],
+            ['Carbon::parse("next wednesday")', '->minDayName'],
+            ['Carbon::parse("next thursday")', '->dayName'],
+            ['Carbon::parse("next thursday")', '->shortDayName'],
+            ['Carbon::parse("next thursday")', '->minDayName'],
+            ['Carbon::parse("next friday")', '->dayName'],
+            ['Carbon::parse("next friday")', '->shortDayName'],
+            ['Carbon::parse("next friday")', '->minDayName'],
+            ['Carbon::parse("next saturday")', '->dayName'],
+            ['Carbon::parse("next saturday")', '->shortDayName'],
+            ['Carbon::parse("next saturday")', '->minDayName'],
+            ['Carbon::parse("next sunday")', '->dayName'],
+            ['Carbon::parse("next sunday")', '->shortDayName'],
+            ['Carbon::parse("next sunday")', '->minDayName'],
+        ].forEach(function (line) {
+            lines.push('['+
+                '"source" => ' + line[0] + line[1] + ',' +
+                '"destination" => ' + (language ? line[0] + '->locale("' + language + '")' + line[1] : '""') + ',' +
+            ']');
+        });
+        runCarbonCode('echo json_encode([' + lines.join(',') + ']);', function (result) {
+            $('.edit-slot').html('<table><tr><th>English</th><th colspan="2" style="padding-left: 20px;">' + editLanguage + ' and comments</th></tr>' + result.map(function (line) {
+                return '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="This should rather be... because..."></textarea></td></tr>';
+            }).join('') + '</table>' +
+            '<div>' +
+                '<p>By clicking on Submit, you will be redirected to GitHub where you will be required to be logged (it allows us to keep</p>' +
+                '<input class="submit-language" type="button" value="Submit" disabled>' +
+            '</div>');
+        }, function (error) {
+            console.warn(error);
+        });
+    }
+
+    function uriParam(name, value) {
+        return name + '=' + encodeURIComponent(value);
+    }
+
+    $(document)
+        .on('change keyup', '.edit-slot textarea', function () {
+            $('.submit-language').prop('disabled', ![].join.call($('.edit-slot textarea').map(function () {
+                return $(this).val();
+            }), '').length);
+        })
+        .on('click', '.submit-language', function () {
+            var issue = '|English|' + editLanguage + '|comments|\n' +
+                '|--|--|--|\n';
+            $('.translate-line').each(function () {
+                var cells = $(this).find('td');
+                issue += '|' + cells.eq(0).text() + '|' + cells.eq(1).text() + '|' + cells.eq(2).find('textarea').val() + '|\n';
+            });
+            window.open('https://github.com/briannesbitt/Carbon/issues/new?' + uriParam('title', '[Translation tool] ' + editLanguage) + '&' + uriParam('body', issue));
+        })
+        .on('click', '.translate-slot a', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+
+            editLanguage = $(this).find('.chip').text();
+            $('.translate-slot').hide();
+            loadLanguage(editLanguage);
+        })
+        .on('click', '.add-new-language', function () {
+            var $field = $('.new-language');
+            editLanguage = $field.val();
+            $field.val('');
+            loadLanguage();
+        })
+    ;
 </script>
     <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
 </body>
