@@ -17,7 +17,7 @@ function methods($excludeNatives = false)
     if (class_exists(\Carbon\Carbon::class)) {
         $carbonObjects[] = [
             new \Carbon\Carbon(),
-            new \DateTime()
+            new \DateTime(),
         ];
     }
     if (class_exists(\Carbon\CarbonInterval::class)) {

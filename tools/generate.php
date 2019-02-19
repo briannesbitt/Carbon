@@ -69,7 +69,6 @@ Carbon::macro('getAvailableMacroLocales', function () {
 
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
     foreach (@methods(false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject)) {
-
         $classes = trim(implode(' ', [
             strpos($description, '@deprecated') !== false ? 'deprecated' : '',
         ]));
@@ -295,13 +294,13 @@ function compile($src, $dest = null)
         ]));
     }
 
-    $__state = array();
+    $__state = [];
     $lastCode = '';
-    $codes = array();
+    $codes = [];
     $oldCode = null;
 
     while ($oldCode !== $code) {
-        $namesCache = array();
+        $namesCache = [];
         $oldCode = $code;
         $code = preg_replace_callback('@{{(\w*)::each\((.+)\)}}([\s\S]+){{::endEach}}@isU', function ($matches) use ($imports, &$__state) {
             list(, $name, $items, $contents) = $matches;
