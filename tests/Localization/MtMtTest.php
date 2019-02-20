@@ -10,69 +10,69 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class MtMtTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'mt_MT'; // Maltese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'Għada fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Is-Sibt fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'Il-Ħadd fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'It-Tnejn fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'It-Tlieta fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'L-Erbgħa fil-00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Il-Ħamis fil-00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Il-Ġimgħa fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'It-Tlieta fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'L-Erbgħa fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Il-Ħamis fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Il-Ġimgħa fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Is-Sibt fil-00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'Il-Ħadd li għadda fil-20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'Il-bieraħ fil-22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'Illum fil-10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'Illum fil-02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'Għada fil-01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'It-Tlieta fil-00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'Il-bieraħ fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'Il-bieraħ fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'It-Tlieta li għadda fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'It-Tnejn li għadda fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'Il-Ħadd li għadda fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'Is-Sibt li għadda fil-00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Il-Ġimgħa li għadda fil-00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'Il-Ħamis li għadda fil-00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'L-Erbgħa li għadda fil-00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Il-Ġimgħa li għadda fil-00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1º 1º 1º 1º 1º',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -118,108 +118,108 @@ class NoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'ftit sekondi ilu',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'ftit sekondi ilu',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        '2 sekondi ilu',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        '2 sekondi ilu',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'minuta ilu',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'minuta ilu',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        '2 minuti ilu',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        '2 minuti ilu',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'siegħa ilu',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'siegħa ilu',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        '2 siegħat ilu',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        '2 siegħat ilu',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'ġurnata ilu',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'ġurnata ilu',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        '2 ġranet ilu',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        '2 ġranet ilu',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'gimgħa ilu',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'gimgħa ilu',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        '2 ġimgħat ilu',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        '2 ġimgħat ilu',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'xahar ilu',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'xahar ilu',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        '2 xhur ilu',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        '2 xhur ilu',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'sena ilu',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'sena ilu',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        '2 sni ilu',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        '2 sni ilu',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'f’ ftit sekondi',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'f’ ftit sekondi',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        'ftit sekondi',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'ftit sekondi',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 sekondi',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 sekondi',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'f’ ftit sekondi',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        'minuta ftit sekondi',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        '2 sni 3 xhur ġurnata ftit sekondi',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'f’ 3 sni',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        '5 xhur ilu',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        '2 sni 3 xhur ġurnata ftit sekondi ilu',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        'gimgħa 10 siegħat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'gimgħa 6 ġranet',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'gimgħa 6 ġranet',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'f’ gimgħa u 6 ġranet',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        '2 ġimgħat siegħa',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'f’ siegħa',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        '2 ġranet',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'ġurnata 3 siegħat',
     ];
 }

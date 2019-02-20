@@ -10,91 +10,91 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class LtLtTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'lt_LT'; // Lithuanian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'Tomorrow at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Šeštadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'Sekmadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'Pirmadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Antradienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'Trečiadienis at 12:00 AM',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Ketvirtadienis at 12:00 AM',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Penktadienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Antradienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'Trečiadienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Ketvirtadienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Penktadienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Šeštadienis at 12:00 AM',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'Last Sekmadienis at 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'Yesterday at 10:00 PM',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'Today at 10:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'Today at 2:00 AM',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'Tomorrow at 1:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Antradienis at 12:00 AM',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'Yesterday at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'Yesterday at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'Last Antradienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'Last Pirmadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'Last Sekmadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'Last Šeštadienis at 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Last Penktadienis at 12:00 AM',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'Last Ketvirtadienis at 12:00 AM',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'Last Trečiadienis at 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Last Penktadienis at 12:00 AM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,110 +116,110 @@ class NoTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'prieš 1 sekundę',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'prieš 1 sekundę',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        'prieš 2 sekundes',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        'prieš 2 sekundes',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'prieš 1 minutę',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'prieš 1 minutę',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        'prieš 2 minutes',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        'prieš 2 minutes',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'prieš 1 valandą',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'prieš 1 valandą',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        'prieš 2 valandas',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        'prieš 2 valandas',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'prieš 1 dieną',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'prieš 1 dieną',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        'prieš 2 dienas',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        'prieš 2 dienas',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'prieš 1 savaitę',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'prieš 1 savaitę',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        'prieš 2 savaites',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        'prieš 2 savaites',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'prieš 1 mėnesį',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'prieš 1 mėnesį',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        'prieš 2 mėnesius',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        'prieš 2 mėnesius',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'prieš 1 metus',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'prieš 1 metus',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        'prieš 2 metus',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        'prieš 2 metus',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'už 1 sekundės',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'už 1 sekundę',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'po 1 sekundę',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'po 1 sekundę',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        '1 sekundę nuo dabar',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        '1 sekundę nuo dabar',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        '1 sekundę',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 sekundę',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 sekundes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 sekundes',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'už 1 sekundę',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        '1 minutę 1 sekundę',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        '2 metus 3 mėnesius 1 dieną 1 sekundę',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'už 3 metus',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        'prieš 5 mėnesius',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        'prieš 2 metus 3 mėnesius 1 dieną 1 sekundę',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        '1 savaitę 10 valandų',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 savaitę 6 dienas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 savaitę 6 dienas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'už 1 savaitę ir 6 dienas',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        '2 savaites 1 valandą',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'už 1 valandos',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        '2 dienas',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 dieną 3 valandas',
     ];
 }

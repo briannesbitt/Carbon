@@ -10,216 +10,216 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class MlInTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'ml_IN'; // Malayalam
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'നാളെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'ഞായറാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'ബുധനാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'ബുധനാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 8:49 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'ഇന്നലെ രാത്രി 10:00 -നു',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'ഇന്ന് രാവിലെ 10:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'ഇന്ന് രാത്രി 2:00 -നു',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'നാളെ രാത്രി 1:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'ഇന്നലെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'ഇന്നലെ രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'കഴിഞ്ഞ ചൊവ്വാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'കഴിഞ്ഞ തിങ്കളാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'കഴിഞ്ഞ ഞായറാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'കഴിഞ്ഞ ശനിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'കഴിഞ്ഞ വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'കഴിഞ്ഞ വ്യാഴാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'കഴിഞ്ഞ ബുധനാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'കഴിഞ്ഞ വെള്ളിയാഴ്ച, രാത്രി 12:00 -നു',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 രാത്രി cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 രാത്രി, 12:00 രാത്രി',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 രാത്രി, 1:30 രാത്രി',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 രാത്രി, 2:00 രാത്രി',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 രാവിലെ, 6:00 രാവിലെ',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 രാവിലെ, 10:00 രാവിലെ',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 ഉച്ച കഴിഞ്ഞ്, 12:00 ഉച്ച കഴിഞ്ഞ്',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 വൈകുന്നേരം, 5:00 വൈകുന്നേരം',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 രാത്രി, 9:30 രാത്രി',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 രാത്രി, 11:00 രാത്രി',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        '1 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        '1 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        '2 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        '2 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        '1 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        '1 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        '2 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        '2 മിനിറ്റ് മുൻപ്',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        '1 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        '1 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        '2 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        '2 മണിക്കൂർ മുൻപ്',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        '1 ദിവസം മുൻപ്',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        '1 ദിവസം മുൻപ്',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        '2 ദിവസം മുൻപ്',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        '2 ദിവസം മുൻപ്',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        '1 ആഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        '1 ആഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        '2 ആഴ്ച മുൻപ്',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        '2 ആഴ്ച മുൻപ്',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        '1 മാസം മുൻപ്',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        '1 മാസം മുൻപ്',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        '2 മാസം മുൻപ്',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        '2 മാസം മുൻപ്',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        '1 വർഷം മുൻപ്',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        '1 വർഷം മുൻപ്',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        '2 വർഷം മുൻപ്',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        '2 വർഷം മുൻപ്',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        '1 സെക്കൻഡ് കഴിഞ്ഞ്',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        '1 സെക്കൻഡ് കഴിഞ്ഞ്',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        '1 സെക്കൻഡ്',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 സെക്കൻഡ്',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 സെക്കൻഡ്',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 സെക്കൻഡ്',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        '1 സെക്കൻഡ് കഴിഞ്ഞ്',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        '1 മിനിറ്റ് 1 സെക്കൻഡ്',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        '2 വർഷം 3 മാസം 1 ദിവസം 1 സെക്കൻഡ്',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        '3 വർഷം കഴിഞ്ഞ്',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        '5 മാസം മുൻപ്',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        '2 വർഷം 3 മാസം 1 ദിവസം 1 സെക്കൻഡ് മുൻപ്',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        '1 ആഴ്ച 10 മണിക്കൂർ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 ആഴ്ച 6 ദിവസം',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 ആഴ്ച 6 ദിവസം',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        '1 ആഴ്ച, 6 ദിവസം കഴിഞ്ഞ്',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        '2 ആഴ്ച 1 മണിക്കൂർ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'ഒരു മണിക്കൂർ കഴിഞ്ഞ്',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        '2 ദിവസം',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 ദിവസം 3 മണിക്കൂർ',
     ];
 }

@@ -10,216 +10,216 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class SsZaTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'ss_ZA'; // Swati
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'Kusasa nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Umgcibelo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'Lisontfo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'Umsombuluko nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Lesibili nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'Lesitsatfu nga 12:00 ekuseni',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Lesine nga 12:00 ekuseni',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Lesihlanu nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Lesibili nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'Lesitsatfu nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'Lesine nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'Lesihlanu nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'Umgcibelo nga 12:00 ekuseni',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'Lisontfo leliphelile nga 8:49 ebusuku',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'Itolo nga 10:00 ebusuku',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'Namuhla nga 10:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'Namuhla nga 2:00 ekuseni',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'Kusasa nga 1:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'Lesibili nga 12:00 ekuseni',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'Itolo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'Itolo nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'Lesibili leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'Umsombuluko leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'Lisontfo leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'Umgcibelo leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Lesihlanu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'Lesine leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'Lesitsatfu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'Lesihlanu leliphelile nga 12:00 ekuseni',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1a 1a 1a 1a 1a',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2a 1a',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3e 1a',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4e 1a',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5e 1a',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6e 1a',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7e 1a',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11e 2a',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40e',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41a',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100e',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 ekuseni cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 ekuseni, 12:00 ekuseni',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 ekuseni, 1:30 ekuseni',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 ekuseni, 2:00 ekuseni',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 ekuseni, 6:00 ekuseni',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 ekuseni, 10:00 ekuseni',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 emini, 12:00 emini',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 entsambama, 5:00 entsambama',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 ebusuku, 9:30 ebusuku',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 ebusuku, 11:00 ebusuku',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0e',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'wenteka nga emizuzwana lomcane',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        'wenteka nga 2 mzuzwana',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        'wenteka nga 2 mzuzwana',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'wenteka nga umzuzu',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'wenteka nga umzuzu',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        'wenteka nga 2 emizuzu',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        'wenteka nga 2 emizuzu',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'wenteka nga lihora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'wenteka nga lihora',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        'wenteka nga 2 emahora',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        'wenteka nga 2 emahora',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'wenteka nga lilanga',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'wenteka nga lilanga',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        'wenteka nga 2 emalanga',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        'wenteka nga 2 emalanga',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'wenteka nga 1 liviki',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'wenteka nga 1 liviki',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        'wenteka nga 2 emaviki',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        'wenteka nga 2 emaviki',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'wenteka nga inyanga',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'wenteka nga inyanga',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        'wenteka nga 2 tinyanga',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        'wenteka nga 2 tinyanga',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'wenteka nga umnyaka',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'wenteka nga umnyaka',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        'wenteka nga 2 iminyaka',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        'wenteka nga 2 iminyaka',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'nga emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'nga emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        'emizuzwana lomcane',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'emizuzwana lomcane',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 mzuzwana',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 mzuzwana',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'nga emizuzwana lomcane',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        'umzuzu emizuzwana lomcane',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        '2 iminyaka 3 tinyanga lilanga emizuzwana lomcane',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'nga 3 iminyaka',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        'wenteka nga 5 tinyanga',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        'wenteka nga 2 iminyaka 3 tinyanga lilanga emizuzwana lomcane',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        '1 liviki 10 emahora',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 liviki 6 emalanga',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 liviki 6 emalanga',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'nga 1 liviki 6 emalanga',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        '2 emaviki lihora',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'nga lihora',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        '2 emalanga',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'lilanga 3 emahora',
     ];
 }

@@ -10,216 +10,216 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class HeIlTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'he_IL'; // Hebrew (modern)
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'מחר ב־00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'שבת בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'ראשון בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'שני בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'שלישי בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'רביעי בשעה 00:00',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'חמישי בשעה 00:00',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'שישי בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'שלישי בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'רביעי בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'חמישי בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'שישי בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'שבת בשעה 00:00',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'ביום ראשון האחרון בשעה 20:49',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'אתמול ב־22:00',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'היום ב־10:00',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'היום ב־02:00',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'מחר ב־01:00',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'שלישי בשעה 00:00',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'אתמול ב־00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'אתמול ב־00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'ביום שלישי האחרון בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'ביום שני האחרון בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'ביום ראשון האחרון בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'ביום שבת האחרון בשעה 00:00',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'ביום שישי האחרון בשעה 00:00',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'ביום חמישי האחרון בשעה 00:00',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'ביום רביעי האחרון בשעה 00:00',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'ביום שישי האחרון בשעה 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7 2',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 לפנות בוקר cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 לפנות בוקר, 12:00 לפנות בוקר',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 לפנות בוקר, 1:30 לפנות בוקר',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 לפנות בוקר, 2:00 לפנות בוקר',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 בבוקר, 6:00 בבוקר',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 לפני הצהריים, 10:00 לפנה"צ',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 אחרי הצהריים, 12:00 אחה"צ',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 אחרי הצהריים, 5:00 אחה"צ',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 בערב, 9:30 בערב',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 בערב, 11:00 בערב',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'לפני שניה',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'לפני שניה',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        'לפני 2 שניות',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        'לפני 2 שניות',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'לפני דקה',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'לפני דקה',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        'לפני דקותיים',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        'לפני דקותיים',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'לפני שעה',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'לפני שעה',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        'לפני שעתיים',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        'לפני שעתיים',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'לפני יום',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'לפני יום',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        'לפני יומיים',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        'לפני יומיים',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'לפני שבוע',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'לפני שבוע',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        'לפני שבועיים',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        'לפני שבועיים',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'לפני חודש',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'לפני חודש',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        'לפני חודשיים',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        'לפני חודשיים',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'לפני שנה',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'לפני שנה',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        'לפני שנתיים',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        'לפני שנתיים',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'בעוד שניה',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'בעוד שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'אחרי שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'אחרי שניה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'לפני שניה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        'לפני שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        'שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'שניה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 שניות',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 שניות',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'בעוד שניה',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        'דקה שניה',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        'שנתיים 3 חודשים יום שניה',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'בעוד 3 שנים',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        'לפני 5 חודשים',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        'לפני שנתיים 3 חודשים יום שניה',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        'שבוע 10 שעות',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'שבוע 6 ימים',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'שבוע 6 ימים',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'בעוד שבוע ו -6 ימים',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        'שבועיים שעה',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'בעוד שעה',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        'יומיים',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'יום 3 שעות',
     ];
 }

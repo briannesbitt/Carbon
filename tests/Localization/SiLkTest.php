@@ -10,216 +10,216 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class SiLkTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'si_LK'; // Sinhalese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'හෙට පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'ඉරිදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'සඳුදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'බදාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'බදාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'පසුගිය ඉරිදා ප.ව. 8:49ට',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'ඊයේ ප.ව. 10:00ට',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'අද පෙ.ව. 10:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'අද පෙ.ව. 2:00ට',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'හෙට පෙ.ව. 1:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'ඊයේ පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'ඊයේ පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'පසුගිය අඟහරුවාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'පසුගිය සඳුදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'පසුගිය ඉරිදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'පසුගිය සෙනසුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'පසුගිය සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'පසුගිය බ්‍රහස්පතින්දා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'පසුගිය බදාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'පසුගිය සිකුරාදා පෙ.ව. 12:00ට',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1 වැනි 1 වැනි 1 වැනි 1 වැනි 1 වැනි',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2 වැනි 1 වැනි',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3 වැනි 1 වැනි',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4 වැනි 1 වැනි',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5 වැනි 1 වැනි',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6 වැනි 1 වැනි',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7 වැනි 2 වැනි',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11 වැනි 2 වැනි',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40 වැනි',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41 වැනි',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100 වැනි',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 පෙ.ව. cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 පෙර වරු, 12:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 පෙර වරු, 1:30 පෙ.ව.',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 පෙර වරු, 2:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 පෙර වරු, 6:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 පෙර වරු, 10:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 පස් වරු, 12:00 ප.ව.',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 පස් වරු, 5:00 ප.ව.',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 පස් වරු, 9:30 ප.ව.',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 පස් වරු, 11:00 ප.ව.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0 වැනි',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'තත්පර කිහිපයකට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        'තත්පර 2කට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        'තත්පර 2කට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'මිනිත්තුවකට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'මිනිත්තුවකට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        'මිනිත්තු 2කට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        'මිනිත්තු 2කට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'පැයකට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'පැයකට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        'පැය 2කට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        'පැය 2කට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'දිනයකට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'දිනයකට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        'දින 2කට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        'දින 2කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'සතියක්කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'සතියක්කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        'සති 2 යිකට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        'සති 2 යිකට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'මාසයකට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'මාසයකට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        'මාස 2කට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        'මාස 2කට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'වසරකට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'වසරකට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        'වසර 2කට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        'වසර 2කට පෙර',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'තත්පර කිහිපයකින්',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'තත්පර කිහිපයකින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        'after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        'තත්පර කිහිපය',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'තත්පර කිහිපය',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        'තත්පර 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        'තත්පර 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'තත්පර කිහිපයකින්',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        'මිනිත්තුව තත්පර කිහිපය',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        'වසර 2 මාස 3 දිනය තත්පර කිහිපය',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'වසර 3කින්',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        'මාස 5කට පෙර',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        'වසර 2 මාස 3 දිනය තත්පර කිහිපයකට පෙර',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        'සතියක් පැය 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'සතියක් දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        'සතියක් දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'සතියක් දින 6කින්',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        'සති 2 යි පැය',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'පැයකින්',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        'දින 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'දිනය පැය 3',
     ];
 }

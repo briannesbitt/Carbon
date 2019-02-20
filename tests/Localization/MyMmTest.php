@@ -10,91 +10,91 @@
  */
 namespace Tests\Localization;
 
-class NoTest extends LocalizationTestCase
+class MyMmTest extends LocalizationTestCase
 {
-    const LOCALE = 'no'; // Norwegian
+    const LOCALE = 'my_MM'; // Burmese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Amanhã às 00:00',
+        'မနက်ဖြန် 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Sábado kl. 00:00',
+        'စနေ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Domingo kl. 00:00',
+        'တနင်္ဂနွေ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Segunda-feira kl. 00:00',
+        'တနင်္လာ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'အင်္ဂါ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'ဗုဒ္ဓဟူး 00:00 မှာ',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'ကြာသပတေး 00:00 မှာ',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'သောကြာ 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'အင်္ဂါ 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quarta-feira kl. 00:00',
+        'ဗုဒ္ဓဟူး 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Quinta-feira kl. 00:00',
+        'ကြာသပတေး 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sexta-feira kl. 00:00',
+        'သောကြာ 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Sábado kl. 00:00',
+        'စနေ 00:00 မှာ',
         // Carbon::now()->subDays(2)->calendar()
-        'i Domingos kl. 20:49',
+        'ပြီးခဲ့သော တနင်္ဂနွေ 20:49 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 22:00',
+        'မနေ.က 22:00 မှာ',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Hoje às 10:00',
+        'ယနေ. 10:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Hoje às 02:00',
+        'ယနေ. 02:00 မှာ',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Amanhã às 01:00',
+        'မနက်ဖြန် 01:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'på Terça-feira kl. 00:00',
+        'အင်္ဂါ 00:00 မှာ',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Ontem às 00:00',
+        'မနေ.က 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Ontem às 00:00',
+        'မနေ.က 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Terça-feiras kl. 00:00',
+        'ပြီးခဲ့သော အင်္ဂါ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Segunda-feiras kl. 00:00',
+        'ပြီးခဲ့သော တနင်္လာ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Domingos kl. 00:00',
+        'ပြီးခဲ့သော တနင်္ဂနွေ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sábados kl. 00:00',
+        'ပြီးခဲ့သော စနေ 00:00 မှာ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'ပြီးခဲ့သော သောကြာ 00:00 မှာ',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'i Quinta-feiras kl. 00:00',
+        'ပြီးခဲ့သော ကြာသပတေး 00:00 မှာ',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'i Quarta-feiras kl. 00:00',
+        'ပြီးခဲ့သော ဗုဒ္ဓဟူး 00:00 မှာ',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'i Sexta-feiras kl. 00:00',
+        'ပြီးခဲ့သော သောကြာ 00:00 မှာ',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1º 1º 1º 1º 1º',
+        '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2º 1º',
+        '2 1',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3º 1º',
+        '3 1',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4º 1º',
+        '4 1',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5º 1º',
+        '5 1',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6º 1º',
+        '6 1',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7º 1º',
+        '7 1',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11º 2º',
+        '11 2',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40º',
+        '40',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41º',
+        '41',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100º',
+        '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,110 +116,110 @@ class NoTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0º',
+        '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'há 1 segundo',
+        'လွန်ခဲ့သော စက္ကန်.အနည်းငယ် က',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'há 1s',
+        'လွန်ခဲ့သော 1 စက္ကန့် က',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'há 2 segundos',
+        'လွန်ခဲ့သော 2 စက္ကန့် က',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'há 2s',
+        'လွန်ခဲ့သော 2 စက္ကန့် က',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'há 1 minuto',
+        'လွန်ခဲ့သော တစ်မိနစ် က',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'há 1min',
+        'လွန်ခဲ့သော 1 မိနစ် က',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'há 2 minutos',
+        'လွန်ခဲ့သော 2 မိနစ် က',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'há 2min',
+        'လွန်ခဲ့သော 2 မိနစ် က',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'há 1 hora',
+        'လွန်ခဲ့သော တစ်နာရီ က',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'há 1h',
+        'လွန်ခဲ့သော 1 နာရီ က',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'há 2 horas',
+        'လွန်ခဲ့သော 2 နာရီ က',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'há 2h',
+        'လွန်ခဲ့သော 2 နာရီ က',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'há 1 dia',
+        'လွန်ခဲ့သော တစ်ရက် က',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'há 1d',
+        'လွန်ခဲ့သော 1 ရက် က',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'há 2 dias',
+        'လွန်ခဲ့သော 2 ရက် က',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'há 2d',
+        'လွန်ခဲ့သော 2 ရက် က',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'há 1 semana',
+        'လွန်ခဲ့သော 1 ပတ် က',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'há 1sem',
+        'လွန်ခဲ့သော 1 ပတ် က',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'há 2 semanas',
+        'လွန်ခဲ့သော 2 ပတ် က',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'há 2sem',
+        'လွန်ခဲ့သော 2 ပတ် က',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'há 1 mês',
+        'လွန်ခဲ့သော တစ်လ က',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'há 1m',
+        'လွန်ခဲ့သော 1 လ က',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'há 2 meses',
+        'လွန်ခဲ့သော 2 လ က',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'há 2m',
+        'လွန်ခဲ့သော 2 လ က',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'há 1 ano',
+        'လွန်ခဲ့သော တစ်နှစ် က',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'há 1a',
+        'လွန်ခဲ့သော 1 နှစ် က',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'há 2 anos',
+        'လွန်ခဲ့သော 2 နှစ် က',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'há 2a',
+        'လွန်ခဲ့သော 2 နှစ် က',
         // Carbon::now()->addSecond()->diffForHumans()
-        'em 1 segundo',
+        'လာမည့် စက္ကန်.အနည်းငယ် မှာ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'em 1s',
+        'လာမည့် 1 စက္ကန့် မှာ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundo depois',
+        'စက္ကန်.အနည်းငယ် ကြာပြီးနောက်',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s depois',
+        '1 စက္ကန့် ကြာပြီးနောက်',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo antes',
+        'စက္ကန်.အနည်းငယ် မတိုင်ခင်',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s antes',
+        '1 စက္ကန့် မတိုင်ခင်',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundo',
+        'စက္ကန်.အနည်းငယ်',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 စက္ကန့်',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 segundos',
+        '2 စက္ကန့်',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 စက္ကန့်',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'em 1s',
+        'လာမည့် 1 စက္ကန့် မှာ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundo',
+        'တစ်မိနစ် စက္ကန်.အနည်းငယ်',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2a 3m 1d 1s',
+        '2 နှစ် 3 လ 1 ရက် 1 စက္ကန့်',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'em 3 anos',
+        'လာမည့် 3 နှစ် မှာ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'há 5m',
+        'လွန်ခဲ့သော 5 လ က',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'há 2a 3m 1d 1s',
+        'လွန်ခဲ့သော 2 နှစ် 3 လ 1 ရက် 1 စက္ကန့် က',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 semana 10 horas',
+        '1 ပတ် 10 နာရီ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 ပတ် 6 ရက်',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 semana 6 dias',
+        '1 ပတ် 6 ရက်',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'em 1 semana e 6 dias',
+        'လာမည့် 1 ပတ် 6 ရက် မှာ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 semanas 1 hora',
+        '2 ပတ် တစ်နာရီ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'em uma hora',
+        'လာမည့် တစ်နာရီ မှာ',
         // CarbonInterval::days(2)->forHumans()
-        '2 dias',
+        '2 ရက်',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 ရက် 3 နာရီ',
     ];
 }
