@@ -11,6 +11,11 @@
 
 /**
  * Authors:
+ * - Kristian Sakarisson
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Sverri Mohr Olsen
  */
 return [

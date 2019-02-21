@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'yo');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Atolagbe Abisoye
+ */
 return [
     'year' => 'ọdún :count',
     'a_year' => 'ọdún kan|ọdún :count',

@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - SobakaSlava
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => ':count год|:count гады|:count гадоў',
     'y' => ':count год|:count гады|:count гадоў',

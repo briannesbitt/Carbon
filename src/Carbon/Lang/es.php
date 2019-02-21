@@ -11,6 +11,16 @@
 
 /**
  * Authors:
+ * - Kunal Marwaha
+ * - Huáng Jùnliàng
+ * - kostas
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - Claire Coloma
+ * - Steven Heinrich
+ * - JD Isaacks
+ * - Raphael Amorim
  * - Jorge Y. Castillo
  * - Víctor Díaz
  * - Diego

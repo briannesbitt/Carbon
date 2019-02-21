@@ -37,6 +37,13 @@ $weekdays = [
     'ހޮނިހިރު',
 ];
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - Jawish Hameed
+ */
 return [
     'year' => ':count '.'އަހަރު',
     'a_year' => 'އަހަރެއް'.'|:count '.'އަހަރު',

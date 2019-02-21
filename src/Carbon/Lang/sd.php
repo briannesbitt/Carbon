@@ -37,6 +37,14 @@ $weekdays = [
     return $number === 1 ? 0 : 1;
 }, 'sd');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - Narain Sagar
+ * - Sawood Alam
+ * - Huáng Jùnliàng
+ * - Narain Sagar
+ */
 return [
     'year' => 'هڪ سال|:count سال',
     'month' => 'هڪ مهينو|:count مهينا',

@@ -11,6 +11,11 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Andre Polykanine A.K.A. Menelion Elensúlë
+ * - JD Isaacks
  */
 return [
     'year' => ':count năm',

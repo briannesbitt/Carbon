@@ -12,6 +12,22 @@
     return $number === 1 ? 0 : 1;
 }, 'ky');
 
+/**
+ * Authors:
+ * - acutexyz
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Chyngyz Arystan uulu
+ * - Chyngyz
+ * - acutexyz
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Chyngyz Arystan uulu
+ */
 return [
     'year' => ':count жыл',
     'a_year' => 'бир жыл|:count жыл',

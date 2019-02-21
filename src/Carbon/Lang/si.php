@@ -12,6 +12,14 @@
     return $number === 1 ? 0 : 1;
 }, 'si');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => 'වසර|වසර :count',
     'month' => 'මාසය|මාස :count',

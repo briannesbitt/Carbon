@@ -12,6 +12,14 @@
     return $number === 1 ? 0 : 1;
 }, 'br');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => '{1}:count bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
     'a_year' => '{1}ur bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',

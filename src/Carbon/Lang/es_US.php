@@ -9,6 +9,22 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kunal Marwaha
+ * - Josh Soref
+ * - Jørn Ølmheim
+ * - Huáng Jùnliàng
+ * - Craig Patik
+ * - bustta
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - Claire Coloma
+ * - Steven Heinrich
+ * - JD Isaacks
+ * - Raphael Amorim
+ */
 return array_replace_recursive(require __DIR__.'/es.php', [
     'diff_before_yesterday' => 'anteayer',
     'formats' => [

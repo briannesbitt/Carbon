@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'bm');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - Estelle Comment
+ */
 return [
     'year' => 'san :count',
     'a_year' => 'san kelen|san :count',

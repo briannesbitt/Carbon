@@ -11,6 +11,11 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - JD Isaacks
  */
 return [
     'year' => 'urte bat|:count urte',

@@ -11,6 +11,15 @@
 
 /**
  * Authors:
+ * - Takuya Sawada
+ * - Atsushi Tanaka
+ * - Huáng Jùnliàng
+ * - François B
+ * - Jason Katz-Brown
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - XueWei
+ * - JD Isaacks
  * - toyama satoshi
  */
 return [

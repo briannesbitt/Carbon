@@ -11,6 +11,15 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - Wacław Jacek
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - Massimiliano Caniparoli
+ * - JD Isaacks
+ * - Jakub Szwacz
  * - Jan
  * - Paul
  * - damlys

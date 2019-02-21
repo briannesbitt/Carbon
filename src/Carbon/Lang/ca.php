@@ -11,6 +11,13 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - mestremuten
+ * - François B
+ * - Marc Ordinas i Llopis
+ * - Pere Orga
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Quentí
  * - Víctor Díaz
  */

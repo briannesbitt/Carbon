@@ -11,6 +11,27 @@
 
 /**
  * Authors:
+ * - Bari Badamshin
+ * - Jørn Ølmheim
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - François B
+ * - Tim Fish
+ * - Коренберг Марк (imac)
+ * - Serhan Apaydın
+ * - RomeroMsk
+ * - vsn4ik
+ * - JD Isaacks
+ * - Bari Badamshin
+ * - Jørn Ølmheim
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - François B
+ * - Коренберг Марк (imac)
+ * - Serhan Apaydın
+ * - RomeroMsk
+ * - vsn4ik
+ * - JD Isaacks
  * - Fellzo
  */
 return [

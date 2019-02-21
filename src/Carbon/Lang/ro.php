@@ -11,6 +11,10 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Cătălin Georgescu
  */
 return [

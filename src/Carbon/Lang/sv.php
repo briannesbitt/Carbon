@@ -11,6 +11,11 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Kristoffer Snabb
+ * - JD Isaacks
  */
 return [
     'year' => ':count år',

@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'lo');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - ryanhart2
+ */
 return [
     'year' => ':count ປີ',
     'month' => ':count ເດືອນ',

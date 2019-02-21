@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => 'एक वर्ष|:count वर्ष',
     'y' => '1 वर्ष|:count वर्षों',

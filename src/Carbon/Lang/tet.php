@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'tet');
 
+/**
+ * Authors:
+ * - Joshua Brooks
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ */
 return [
     'year' => 'tinan :count',
     'a_year' => 'tinan ida|tinan :count',

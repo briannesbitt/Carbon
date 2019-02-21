@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - tgfjt
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => '{1}setaun|]1,Inf[:count taun',
     'month' => '{1}sewulan|]1,Inf[:count wulan',

@@ -12,6 +12,10 @@
     return $number === 1 ? 0 : 1;
 }, 'tg');
 
+/**
+ * Authors:
+ * - Orif N. Jr
+ */
 return [
     'year' => 'як сол|:count сол',
     'month' => 'як моҳ|:count моҳ',

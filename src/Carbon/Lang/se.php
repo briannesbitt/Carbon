@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'se');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Karamell
+ */
 return [
     'year' => ':count jahki|:count jagit',
     'a_year' => 'okta jahki|:count jagit',

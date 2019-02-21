@@ -11,6 +11,10 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Fadion Dashi
  */
 return [

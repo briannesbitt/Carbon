@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => 'ஒரு வருடம்|:count ஆண்டுகள்',
     'month' => 'ஒரு மாதம்|:count மாதங்கள்',

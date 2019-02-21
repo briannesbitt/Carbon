@@ -11,6 +11,19 @@
 
 /**
  * Authors:
+ * - Tornike Razmadze
+ * - Huáng Jùnliàng
+ * - François B
+ * - Lasha Dolidze
+ * - Tim Fish
+ * - Iskren Chernev
+ * - JD Isaacks
+ * - Tornike Razmadze
+ * - Huáng Jùnliàng
+ * - François B
+ * - Lasha Dolidze
+ * - Iskren Chernev
+ * - JD Isaacks
  * - LONGMAN
  */
 return [

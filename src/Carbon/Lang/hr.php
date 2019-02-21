@@ -11,6 +11,23 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Tim Fish
+ * - shaishavgandhi05
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - tomhorvat
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - shaishavgandhi05
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - tomhorvat
  * - Stjepan
  */
 return [

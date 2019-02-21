@@ -11,6 +11,12 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - Nate Whittaker
+ * - John MacAslan
+ * - Iskren Chernev
+ * - Chanintorn Asavavichairoj
+ * - JD Isaacks
  * - ROKAISAKKON
  * - RO'KAISAKKON
  * - Andreas Möller

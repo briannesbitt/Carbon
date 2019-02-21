@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'gd');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Jon Ashdown
+ */
 return [
     'year' => ':count bliadhna',
     'a_year' => 'bliadhna|:count bliadhna',

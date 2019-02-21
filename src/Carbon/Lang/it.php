@@ -11,6 +11,13 @@
 
 /**
  * Authors:
+ * - Huáng Jùnliàng
+ * - Ash
+ * - François B
+ * - Marco Perrando
+ * - Iskren Chernev
+ * - Massimiliano Caniparoli
+ * - JD Isaacks
  * - Andrea Martini
  * - Francesco Marasco
  */

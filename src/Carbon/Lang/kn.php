@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - MOHAN M U
+ * - Huáng Jùnliàng
+ * - François B
+ * - rajeevnaikte
+ */
 return [
     'year' => '{1}ಒಂದು ವರ್ಷ|]1,Inf[:count ವರ್ಷ',
     'month' => '{1}ಒಂದು ತಿಂಗಳು|]1,Inf[:count ತಿಂಗಳು',

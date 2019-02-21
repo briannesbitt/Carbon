@@ -11,6 +11,14 @@
 
 /**
  * Authors:
+ * - Cassiano Montanari
+ * - Huáng Jùnliàng
+ * - Matt Pope
+ * - François B
+ * - Prodis
+ * - Iskren Chernev
+ * - JD Isaacks
+ * - Raphael Amorim
  * - João Magalhães
  */
 return [

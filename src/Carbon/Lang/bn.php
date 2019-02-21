@@ -11,6 +11,13 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Shakib Hossain
+ * - Iskren Chernev
+ * - Raju
+ * - Aniruddha Adhikary
+ * - JD Isaacks
  * - Saiful Islam
  * - Faisal Islam
  */

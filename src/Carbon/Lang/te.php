@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kunal Marwaha
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - kc
+ */
 return [
     'year' => 'ఒక సంవత్సరం|:count సంవత్సరాలు',
     'month' => 'ఒక నెల|:count నెలలు',

@@ -12,6 +12,13 @@
     return $number === 1 ? 0 : 1;
 }, 'ss');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Nicolai Davies
+ * - Iskren Chernev
+ */
 return [
     'year' => 'umnyaka|:count iminyaka',
     'month' => 'inyanga|:count tinyanga',

@@ -12,6 +12,16 @@
     return $number === 1 ? 0 : 1;
 }, 'mi');
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - John Corrigan
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ */
 return [
     'year' => ':count tau',
     'a_year' => 'he tau|:count tau',

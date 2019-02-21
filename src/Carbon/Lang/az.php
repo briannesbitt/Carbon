@@ -11,6 +11,12 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Kunal Marwaha
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Orxan
  * - Şəhriyar İmanov
  */

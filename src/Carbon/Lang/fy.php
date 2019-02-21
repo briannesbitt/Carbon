@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => ':count jier|:count jierren',
     'a_year' => 'ien jier|:count jierren',

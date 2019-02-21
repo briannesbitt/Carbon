@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Martin McWhorter
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Chris Cartlidge
+ * - JD Isaacks
+ */
 return array_replace_recursive(require __DIR__.'/en.php', [
     'from_now' => 'in :time',
     'formats' => [

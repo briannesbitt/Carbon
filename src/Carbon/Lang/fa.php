@@ -11,6 +11,12 @@
 
 /**
  * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Nasser Ghiasi
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Hossein Jabbari
  * - nimamo
  */

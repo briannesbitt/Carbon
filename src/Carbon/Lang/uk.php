@@ -14,6 +14,15 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
 
 /**
  * Authors:
+ * - Kunal Marwaha
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - Max Mykhailenko
+ * - JD Isaacks
  * - Max Kovpak
  * - AucT
  */

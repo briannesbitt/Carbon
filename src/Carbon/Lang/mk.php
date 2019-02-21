@@ -11,6 +11,14 @@
 
 /**
  * Authors:
+ * - Sashko Todorov
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - Borislav Mickov
+ * - JD Isaacks
  * - Tomi Atanasoski
  */
 return [

@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => ':count വർഷം',
     'a_year' => 'ഒരു വർഷം|:count വർഷം',

@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - JD Isaacks
+ */
 return [
     'year' => '{1}ལོ་གཅིག|]1,Inf[:count ལོ',
     'month' => '{1}ཟླ་བ་གཅིག|]1,Inf[:count ཟླ་བ',
