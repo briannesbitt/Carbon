@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Daniel Monaghan
+ */
 return [
     'year' => '{1}blwyddyn|]1,Inf[:count flynedd',
     'y' => ':countbl',

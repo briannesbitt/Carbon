@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Orxan
+ * - Şəhriyar İmanov
+ */
 return [
     'year' => ':count il',
     'a_year' => '{1}bir il|]1,Inf[:count il',

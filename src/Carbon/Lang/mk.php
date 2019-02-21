@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Tomi Atanasoski
+ */
 return [
     'year' => ':count година|:count години',
     'a_year' => 'година|:count години',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Pierre du Plessis
+ */
 return [
     'year' => ':count jaar|:count jare',
     'a_year' => '\'n jaar|:count jare',

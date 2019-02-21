@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - João Magalhães
+ */
 return [
     'year' => ':count ano|:count anos',
     'a_year' => 'um ano|:count anos',

@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Quentí
+ * - Víctor Díaz
+ */
 return [
     'year' => ':count any|:count anys',
     'a_year' => 'un any|:count anys',

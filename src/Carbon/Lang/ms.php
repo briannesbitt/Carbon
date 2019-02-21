@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Hariadi Hinta
+ */
 return [
     'year' => '{1}setahun|]1,Inf[:count tahun',
     'y' => ':count tahun',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Sovichet Tep
+ */
 return [
     'year' => '{1}មួយឆ្នាំ|]1,Inf[:count ឆ្នាំ',
     'y' => ':count ឆ្នាំ',

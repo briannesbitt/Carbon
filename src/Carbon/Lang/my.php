@@ -12,6 +12,10 @@
     return $number === 1 ? 0 : 1;
 }, 'my');
 
+/**
+ * Authors:
+ * - Nay Lin Aung
+ */
 return [
     'year' => 'တစ်နှစ်|:count နှစ်',
     'y' => ':count နှစ်',

@@ -1706,6 +1706,9 @@ trait Date
         static $units = null;
         if ($units === null) {
             $units = [
+                'OD' => ['getAltNumber', ['day']],
+                'OM' => ['getAltNumber', ['month']],
+                'OY' => ['getAltNumber', ['year']],
                 'D' => 'day',
                 'DD' => ['format', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
@@ -1849,6 +1852,32 @@ trait Date
         ]);
 
         return strval($result === 'ordinal' ? $number : $result);
+    }
+
+    /**
+     * Returns the alternative number if available in the current locale.
+     *
+     * @param string $key date property
+     *
+     * @return string
+     */
+    public function getAltNumber(string $key): string
+    {
+        $numbers = $this->translate('alt_numbers');
+        $number = $this->$key;
+
+        if ($number > 99 && count($numbers) > 99) {
+            $result = '';
+            while ($number) {
+                $chunk = $number % 100;
+                $result = $numbers[$chunk].$result;
+                $number = floor($number / 100);
+            }
+
+            return $result;
+        }
+
+        return $numbers[$number] ?? $number;
     }
 
     /**

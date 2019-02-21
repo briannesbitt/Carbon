@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Murat Yüksel
+ * - Baran Şengül
+ */
 return [
     'year' => ':count yıl',
     'a_year' => '{1}bir yıl|]1,Inf[:count yıl',

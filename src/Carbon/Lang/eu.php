@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ */
 return [
     'year' => 'urte bat|:count urte',
     'y' => 'Urte 1|:count urte',

@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Saiful Islam
+ * - Faisal Islam
+ */
 return [
     'year' => ':count বছর',
     'a_year' => 'এক বছর|:count বছর',

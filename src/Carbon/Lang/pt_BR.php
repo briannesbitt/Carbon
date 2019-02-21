@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Rafael Raupp
+ * - felipeleite1
+ * - swalker
+ * - Lucas Macedo
+ * - Paulo Freitas
+ */
 return array_replace_recursive(require __DIR__.'/pt.php', [
     'after' => 'após :time',
     'before' => ':time atrás',

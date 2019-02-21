@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Eddie
+ * - KID
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',

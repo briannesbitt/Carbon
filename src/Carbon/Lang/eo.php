@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ */
 return [
     'year' => ':count jaro|:count jaroj',
     'a_year' => 'jaro|:count jaroj',

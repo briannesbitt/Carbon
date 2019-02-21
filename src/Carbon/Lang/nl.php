@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Propaganistas
+ * - MegaXLR
+ * - adriaanzon
+ * - MonkeyPhysics
+ * - JeroenG
+ */
 return [
     'year' => ':count jaar|:count jaar',
     'a_year' => 'één jaar|:count jaar',

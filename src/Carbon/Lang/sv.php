@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ */
 return [
     'year' => ':count år',
     'a_year' => 'ett år|:count år',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Jens Herlevsen
+ */
 return [
     'year' => ':count år|:count år',
     'a_year' => 'et år|:count år',

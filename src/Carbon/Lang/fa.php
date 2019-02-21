@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Hossein Jabbari
+ * - nimamo
+ */
 return [
     'year' => ':count سال',
     'a_year' => 'یک سال'.'|:count '.'سال',

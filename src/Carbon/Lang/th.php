@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - ROKAISAKKON
+ * - RO'KAISAKKON
+ * - Andreas Möller
+ */
 return [
     'year' => ':count ปี',
     'y' => ':count ปี',

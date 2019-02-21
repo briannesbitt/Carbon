@@ -33,6 +33,10 @@ $weekdays = [
     'ہفتہ',
 ];
 
+/**
+ * Authors:
+ * - Mehshan
+ */
 return [
     'year' => 'ایک سال|:count سال',
     'month' => 'ایک ماہ|:count ماہ',

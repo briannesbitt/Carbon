@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Fadion Dashi
+ */
 return [
     'year' => ':count vit|:count vjet',
     'a_year' => 'një vit|:count vite',

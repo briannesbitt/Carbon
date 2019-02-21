@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Diego Vilariño
+ */
 return [
     'year' => ':count ano|:count anos',
     'a_year' => 'un ano|:count anos',

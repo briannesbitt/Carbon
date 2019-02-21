@@ -12,6 +12,10 @@
     return $number === 1 ? 0 : 1;
 }, 'kk');
 
+/**
+ * Authors:
+ * - Toleugazy Kali
+ */
 return [
     'year' => ':count жыл',
     'a_year' => 'бір жыл|:count жыл',

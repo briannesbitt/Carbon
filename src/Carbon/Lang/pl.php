@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Jan
+ * - Paul
+ * - damlys
+ */
 return [
     'year' => ':count rok|:count lata|:count lat',
     'y' => ':countr|:countl',

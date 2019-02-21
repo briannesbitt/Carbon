@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Nafies Luthfi
+ */
 return [
     'year' => ':count tahun',
     'a_year' => '{1}setahun|]1,Inf[:count tahun',

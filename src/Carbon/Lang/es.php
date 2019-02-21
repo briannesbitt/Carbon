@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Jorge Y. Castillo
+ * - Víctor Díaz
+ * - Diego
+ * - Sebastian Thierer
+ */
 return [
     'year' => ':count año|:count años',
     'a_year' => 'un año|:count años',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - LONGMAN
+ */
 return [
     'year' => '{1}წელი|]1,Inf[:count წელი',
     'y' => ':count წლის',

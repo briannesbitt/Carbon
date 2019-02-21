@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Sebastian Thierer
+ */
 return [
     'year' => ':count an|:count ans',
     'a_year' => 'un an|:count ans',

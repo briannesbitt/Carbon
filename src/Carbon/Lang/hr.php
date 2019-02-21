@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Stjepan
+ */
 return [
     'year' => ':count godinu|:count godine|:count godina',
     'y' => ':count god.|:count god.|:count god.',

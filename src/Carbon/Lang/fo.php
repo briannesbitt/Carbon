@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Sverri Mohr Olsen
+ */
 return [
     'year' => 'eitt ár|:count ár',
     'y' => ':count ár|:count ár',

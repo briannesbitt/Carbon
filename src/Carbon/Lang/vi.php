@@ -9,6 +9,9 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ */
 return [
     'year' => ':count năm',
     'a_year' => '{1}một năm|]1, Inf[:count năm',

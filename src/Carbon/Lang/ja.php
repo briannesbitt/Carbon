@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - toyama satoshi
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',

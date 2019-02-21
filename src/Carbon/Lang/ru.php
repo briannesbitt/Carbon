@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Fellzo
+ */
 return [
     'year' => ':count год|:count года|:count лет',
     'y' => ':count г|:count г|:count л',

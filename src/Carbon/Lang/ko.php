@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Juwon Kim
+ */
 return [
     'year' => '{1}일 년|]1,Inf[:count년',
     'y' => ':count 년',

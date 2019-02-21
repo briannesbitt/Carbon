@@ -12,6 +12,11 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
     return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
 };
 
+/**
+ * Authors:
+ * - Max Kovpak
+ * - AucT
+ */
 return [
     'year' => ':count рік|:count роки|:count років',
     'y' => ':count рік|:count роки|:count років',

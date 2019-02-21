@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Andrea Martini
+ * - Francesco Marasco
+ */
 return [
     'year' => ':count anno|:count anni',
     'a_year' => 'un anno|:count anni',
