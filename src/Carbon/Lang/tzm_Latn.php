@@ -12,7 +12,7 @@
     return $number === 1 ? 0 : 1;
 }, 'tzm');
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - Huáng Jùnliàng

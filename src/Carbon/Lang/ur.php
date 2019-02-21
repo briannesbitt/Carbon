@@ -33,7 +33,7 @@ $weekdays = [
     'ہفتہ',
 ];
 
-/**
+/*
  * Authors:
  * - Huáng Jùnliàng
  * - Sawood Alam

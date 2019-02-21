@@ -12,7 +12,7 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
     return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
 };
 
-/**
+/*
  * Authors:
  * - Kunal Marwaha
  * - Josh Soref

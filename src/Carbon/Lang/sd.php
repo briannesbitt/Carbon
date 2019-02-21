@@ -37,7 +37,7 @@ $weekdays = [
     return $number === 1 ? 0 : 1;
 }, 'sd');
 
-/**
+/*
  * Authors:
  * - Huáng Jùnliàng
  * - Narain Sagar

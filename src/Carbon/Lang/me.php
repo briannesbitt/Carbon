@@ -12,7 +12,7 @@
     return \Symfony\Component\Translation\PluralizationRules::get($number, 'sr');
 }, 'me');
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - Huáng Jùnliàng

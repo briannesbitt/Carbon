@@ -12,7 +12,7 @@
     return $number === 1 ? 0 : 1;
 }, 'tet');
 
-/**
+/*
  * Authors:
  * - Joshua Brooks
  * - Huáng Jùnliàng

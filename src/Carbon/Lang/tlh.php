@@ -12,7 +12,7 @@
     return $number === 1 ? 0 : 1;
 }, 'tlh');
 
-/**
+/*
  * Authors:
  * - Huáng Jùnliàng
  * - François B

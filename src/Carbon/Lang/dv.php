@@ -37,7 +37,7 @@ $weekdays = [
     'ހޮނިހިރު',
 ];
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - Huáng Jùnliàng
