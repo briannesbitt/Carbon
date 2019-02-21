@@ -46,12 +46,12 @@ return [
     'diff_after_tomorrow' => 'တဘက်ခါ',
     'period_recurrences' => ':count ကြိမ်',
     'formats' => [
-        'LT' => 'HH:mm',
-        'LTS' => 'HH:mm:ss',
-        'L' => 'DD/MM/YYYY',
-        'LL' => 'D MMMM YYYY',
-        'LLL' => 'D MMMM YYYY HH:mm',
-        'LLLL' => 'dddd D MMMM YYYY HH:mm',
+        'LT' => 'Oh:Om A',
+        'LTS' => 'Oh:Om:Os A',
+        'L' => 'OD/OM/OY',
+        'LL' => 'OD MMMM OY',
+        'LLL' => 'OD MMMM OY Oh:Om A',
+        'LLLL' => 'dddd OD MMMM OY Oh:Om A',
     ],
     'calendar' => [
         'sameDay' => '[ယနေ.] LT [မှာ]',

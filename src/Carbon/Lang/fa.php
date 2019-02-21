@@ -46,12 +46,12 @@ return [
     'after' => ':time پس از',
     'before' => ':time پیش از',
     'formats' => [
-        'LT' => 'HH:mm',
-        'LTS' => 'HH:mm:ss',
-        'L' => 'DD/MM/YYYY',
-        'LL' => 'D MMMM YYYY',
-        'LLL' => 'D MMMM YYYY HH:mm',
-        'LLLL' => 'dddd, D MMMM YYYY HH:mm',
+        'LT' => 'OH:Om',
+        'LTS' => 'OH:Om:Os',
+        'L' => 'OD/OM/OY',
+        'LL' => 'OD MMMM OY',
+        'LLL' => 'OD MMMM OY OH:Om',
+        'LLLL' => 'dddd, OD MMMM OY OH:Om',
     ],
     'calendar' => [
         'sameDay' => '[امروز ساعت] LT',

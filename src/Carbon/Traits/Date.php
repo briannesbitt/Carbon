@@ -1709,6 +1709,10 @@ trait Date
                 'OD' => ['getAltNumber', ['day']],
                 'OM' => ['getAltNumber', ['month']],
                 'OY' => ['getAltNumber', ['year']],
+                'OH' => ['getAltNumber', ['hour']],
+                'Oh' => ['getAltNumber', ['h']],
+                'Om' => ['getAltNumber', ['minute']],
+                'Os' => ['getAltNumber', ['second']],
                 'D' => 'day',
                 'DD' => ['format', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
@@ -1863,21 +1867,26 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        $numbers = $this->translate('alt_numbers');
-        $number = $this->$key;
+        $number = strlen($key) > 1 ? $this->$key : $this->format('h');
+        $translateKey = "alt_numbers.$number";
+        $symbol = $this->translate($translateKey);
 
-        if ($number > 99 && count($numbers) > 99) {
+        if ($symbol !== $translateKey) {
+            return $symbol;
+        }
+
+        if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
             $result = '';
             while ($number) {
                 $chunk = $number % 100;
-                $result = $numbers[$chunk].$result;
+                $result = $this->translate("alt_numbers.$chunk").$result;
                 $number = floor($number / 100);
             }
 
             return $result;
         }
 
-        return $numbers[$number] ?? $number;
+        return $number;
     }
 
     /**
@@ -1940,7 +1949,7 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
                 $code = $match[0];
                 if ($units === null) {
                     $units = static::getIsoUnits();
