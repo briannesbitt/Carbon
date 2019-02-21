@@ -9,4 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - Iskren Chernev
+ * - Azri Jamil
+ * - JD Isaacks
+ */
 return require __DIR__.'/ms.php';

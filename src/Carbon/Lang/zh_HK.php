@@ -9,6 +9,20 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Huáng Jùnliàng
+ * - monkeycon
+ * - François B
+ * - Jason Katz-Brown
+ * - Konstantin Konev
+ * - Iskren Chernev
+ * - Chris Lam
+ * - Serhan Apaydın
+ * - Gary Lo
+ * - JD Isaacks
+ * - Chris Hemp
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',

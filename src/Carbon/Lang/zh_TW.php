@@ -11,6 +11,17 @@
 
 /**
  * Authors:
+ * - Adam
+ * - Huáng Jùnliàng
+ * - monkeycon
+ * - François B
+ * - Jason Katz-Brown
+ * - Iskren Chernev
+ * - Chris Lam
+ * - Serhan Apaydın
+ * - Gary Lo
+ * - JD Isaacks
+ * - Chris Hemp
  * - Eddie
  * - KID
  */

@@ -11,6 +11,15 @@
 
 /**
  * Authors:
+ * - Roy
+ * - Huáng Jùnliàng
+ * - Stephan
+ * - François B
+ * - Tim Fish
+ * - Kevin Huang
+ * - Jacob Middag
+ * - Iskren Chernev
+ * - JD Isaacks
  * - Propaganistas
  */
 return array_replace_recursive(require __DIR__.'/nl.php', [

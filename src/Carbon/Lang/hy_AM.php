@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Huáng Jùnliàng
+ * - François B
+ * - Tim Fish
+ * - Iskren Chernev
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return array_replace_recursive(require __DIR__.'/hy.php', [
     'from_now' => ':time հետո',
     'first_day_of_week' => 1,

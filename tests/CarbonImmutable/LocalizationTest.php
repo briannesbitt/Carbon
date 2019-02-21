@@ -59,10 +59,12 @@ class LocalizationTest extends AbstractTestCase
         if (setlocale(LC_ALL, 'ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need ar_AE.UTF-8.');
         }
+        rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php');
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
         setlocale(LC_ALL, $currentLocale);
+        rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
 
         $this->assertSame('ar', $locale);
         $this->assertSame('منذ ثانيتين', $diff);

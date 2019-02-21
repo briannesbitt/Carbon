@@ -11,6 +11,16 @@
 
 /**
  * Authors:
+ * - Cassiano Montanari
+ * - Eduardo Dalla Vecchia
+ * - David Rodrigues
+ * - Matt Pope
+ * - François B
+ * - Prodis
+ * - Iskren Chernev
+ * - Marlon Maxwel
+ * - JD Isaacks
+ * - Raphael Amorim
  * - Rafael Raupp
  * - felipeleite1
  * - swalker
