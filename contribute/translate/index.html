@@ -77,9 +77,9 @@
             <div class="container page">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="translate-slot"></div>
+                        <div class="edit-slot"></div>
 
-<div class="edit-slot"></div>
+<div class="translate-slot"></div>
 
 
 
@@ -476,6 +476,7 @@
     var editLanguage = null;
 
     function loadLanguage(language) {
+        $('.translate-slot').hide();
         $('.edit-slot').text('Loading...');
 
         var lines = [];
@@ -508,27 +509,55 @@
             ['CarbonInterval::seconds(2)', '->forHumans(["short" => true])'],
             ['CarbonInterval::second()', '->forHumans()'],
             ['CarbonInterval::second()', '->forHumans(["aUnit" => true])'],
-            ['Carbon::parse("next monday")', '->dayName'],
-            ['Carbon::parse("next monday")', '->shortDayName'],
-            ['Carbon::parse("next monday")', '->minDayName'],
-            ['Carbon::parse("next tuesday")', '->dayName'],
-            ['Carbon::parse("next tuesday")', '->shortDayName'],
-            ['Carbon::parse("next tuesday")', '->minDayName'],
-            ['Carbon::parse("next wednesday")', '->dayName'],
-            ['Carbon::parse("next wednesday")', '->shortDayName'],
-            ['Carbon::parse("next wednesday")', '->minDayName'],
-            ['Carbon::parse("next thursday")', '->dayName'],
-            ['Carbon::parse("next thursday")', '->shortDayName'],
-            ['Carbon::parse("next thursday")', '->minDayName'],
-            ['Carbon::parse("next friday")', '->dayName'],
-            ['Carbon::parse("next friday")', '->shortDayName'],
-            ['Carbon::parse("next friday")', '->minDayName'],
-            ['Carbon::parse("next saturday")', '->dayName'],
-            ['Carbon::parse("next saturday")', '->shortDayName'],
-            ['Carbon::parse("next saturday")', '->minDayName'],
-            ['Carbon::parse("next sunday")', '->dayName'],
-            ['Carbon::parse("next sunday")', '->shortDayName'],
-            ['Carbon::parse("next sunday")', '->minDayName'],
+            ['Carbon::parse("monday")', '->dayName'],
+            ['Carbon::parse("monday")', '->shortDayName'],
+            ['Carbon::parse("monday")', '->minDayName'],
+            ['Carbon::parse("tuesday")', '->dayName'],
+            ['Carbon::parse("tuesday")', '->shortDayName'],
+            ['Carbon::parse("tuesday")', '->minDayName'],
+            ['Carbon::parse("wednesday")', '->dayName'],
+            ['Carbon::parse("wednesday")', '->shortDayName'],
+            ['Carbon::parse("wednesday")', '->minDayName'],
+            ['Carbon::parse("thursday")', '->dayName'],
+            ['Carbon::parse("thursday")', '->shortDayName'],
+            ['Carbon::parse("thursday")', '->minDayName'],
+            ['Carbon::parse("friday")', '->dayName'],
+            ['Carbon::parse("friday")', '->shortDayName'],
+            ['Carbon::parse("friday")', '->minDayName'],
+            ['Carbon::parse("saturday")', '->dayName'],
+            ['Carbon::parse("saturday")', '->shortDayName'],
+            ['Carbon::parse("saturday")', '->minDayName'],
+            ['Carbon::parse("sunday")', '->dayName'],
+            ['Carbon::parse("sunday")', '->shortDayName'],
+            ['Carbon::parse("sunday")', '->minDayName'],
+            ['Carbon::parse("january")', '->monthName'],
+            ['Carbon::parse("january")', '->shortMonthName'],
+            ['Carbon::parse("february")', '->monthName'],
+            ['Carbon::parse("february")', '->shortMonthName'],
+            ['Carbon::parse("march")', '->monthName'],
+            ['Carbon::parse("march")', '->shortMonthName'],
+            ['Carbon::parse("april")', '->monthName'],
+            ['Carbon::parse("april")', '->shortMonthName'],
+            ['Carbon::parse("may")', '->monthName'],
+            ['Carbon::parse("may")', '->shortMonthName'],
+            ['Carbon::parse("june")', '->monthName'],
+            ['Carbon::parse("june")', '->shortMonthName'],
+            ['Carbon::parse("july")', '->monthName'],
+            ['Carbon::parse("july")', '->shortMonthName'],
+            ['Carbon::parse("august")', '->monthName'],
+            ['Carbon::parse("august")', '->shortMonthName'],
+            ['Carbon::parse("september")', '->monthName'],
+            ['Carbon::parse("september")', '->shortMonthName'],
+            ['Carbon::parse("october")', '->monthName'],
+            ['Carbon::parse("october")', '->shortMonthName'],
+            ['Carbon::parse("november")', '->monthName'],
+            ['Carbon::parse("november")', '->shortMonthName'],
+            ['Carbon::parse("december")', '->monthName'],
+            ['Carbon::parse("december")', '->shortMonthName'],
+            ['Carbon::now()->subHours(2)', '->diffForHumans()'],
+            ['Carbon::now()->addHours(2)->addMinute()', '->diffForHumans(["part" => 1])'],
+            ['($d = Carbon::now())->copy()->subHours(2)', '->diffForHumans($d)'],
+            ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)'],
         ].forEach(function (line) {
             lines.push('['+
                 '"source" => ' + line[0] + line[1] + ',' +
@@ -536,20 +565,49 @@
             ']');
         });
         runCarbonCode('echo json_encode([' + lines.join(',') + ']);', function (result) {
-            $('.edit-slot').html('<table><tr><th>English</th><th colspan="2" style="padding-left: 20px;">' + editLanguage + ' and comments</th></tr>' + result.map(function (line) {
-                return '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="This should rather be... because..."></textarea></td></tr>';
+            $('.edit-slot').html('<table><tr><th>English</th><th style="padding: 0 20px;">' + editLanguage + '</th><th>' + (language ? 'Fix and comments' : 'Translation in ' + editLanguage) + '</th></tr>' + result.map(function (line) {
+                return '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="' + (language ? 'This should rather be... because...' : 'Translation in ' + editLanguage) + '"></textarea></td></tr>';
             }).join('') + '</table>' +
-            '<div>' +
-                '<p>By clicking on Submit, you will be redirected to GitHub where you will be required to be logged (it allows us to keep</p>' +
+            '<div style="padding-top: 10px;">' +
+                '<p><textarea class="additional-fixes" cols="70" rows="4" placeholder="If what you wish to fix does not appear in the table, please add it here."></textarea></p>' +
+                '<p><textarea class="additional-comments" cols="70" rows="4" placeholder="Precise here anything else we may need to know"></textarea></p>' +
+                '<p>By clicking on Submit, you will be redirected to GitHub where you will be required to be logged in (it allows us to keep a trace of your authorship and centralize requests).</p>' +
                 '<input class="submit-language" type="button" value="Submit" disabled>' +
             '</div>');
         }, function (error) {
+            $('.edit-slot').text('Loading error. Please try later.');
+            $('.translate-slot').show();
             console.warn(error);
         });
     }
 
     function uriParam(name, value) {
         return name + '=' + encodeURIComponent(value);
+    }
+
+    function getIssue() {
+        var issue = '';
+        $('.translate-line').each(function () {
+            var cells = $(this).find('td');
+            var value = cells.eq(2).find('textarea').val();
+            if (value) {
+                issue += '|' + cells.eq(0).text() + '|' + cells.eq(1).text() + '|' + value + '|\n';
+            }
+        });
+        if (issue) {
+            issue = '|English|' + editLanguage + '|comments|\n' +
+                '|--|--|--|\n' + issue;
+        }
+        var fixes = $('.additional-fixes').val();
+        if (fixes) {
+            issue += '\n## Additional fixes\n' + fixes;
+        }
+        var comments = $('.additional-comments').val();
+        if (comments) {
+            issue += '\n\n----\n' + comments;
+        }
+
+        return issue;
     }
 
     $(document)
@@ -559,20 +617,13 @@
             }), '').length);
         })
         .on('click', '.submit-language', function () {
-            var issue = '|English|' + editLanguage + '|comments|\n' +
-                '|--|--|--|\n';
-            $('.translate-line').each(function () {
-                var cells = $(this).find('td');
-                issue += '|' + cells.eq(0).text() + '|' + cells.eq(1).text() + '|' + cells.eq(2).find('textarea').val() + '|\n';
-            });
-            window.open('https://github.com/briannesbitt/Carbon/issues/new?' + uriParam('title', '[Translation tool] ' + editLanguage) + '&' + uriParam('body', issue));
+            window.open('https://github.com/briannesbitt/Carbon/issues/new?' + uriParam('title', '[Translation tool] ' + editLanguage) + '&' + uriParam('body', getIssue()));
         })
         .on('click', '.translate-slot a', function (event) {
             event.stopPropagation();
             event.preventDefault();
 
             editLanguage = $(this).find('.chip').text();
-            $('.translate-slot').hide();
             loadLanguage(editLanguage);
         })
         .on('click', '.add-new-language', function () {
