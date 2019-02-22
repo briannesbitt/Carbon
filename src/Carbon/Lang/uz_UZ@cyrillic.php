@@ -13,7 +13,7 @@
  * Authors:
  * - Mashrab Kuvatov Mashrab Kuvatov, Pablo Saratxaga kmashrab@uni-bremen.de, pablo@mandrakesoft.com
  */
-return [
+return array_replace_recursive(require __DIR__.'/uz.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -24,4 +24,4 @@ return [
     'weekdays_min' => ['Якш', 'Душ', 'Сеш', 'Чор', 'Пай', 'Жум', 'Шан'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

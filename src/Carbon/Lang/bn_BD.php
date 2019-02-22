@@ -13,7 +13,7 @@
  * Authors:
  * - Ankur Group, http:////www.ankurbangla.org, http:////www.bengalinux.org Taneem Ahmed, Jamil Ahmed taneem@bengalinux.org, jamil@bengalinux.org
  */
-return [
+return array_replace_recursive(require __DIR__.'/bn.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -24,4 +24,4 @@ return [
     'weekdays_min' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহঃ', 'শুক্র', 'শনি'],
     'first_day_of_week' => 5,
     'day_of_first_week_of_year' => 1,
-];
+]);

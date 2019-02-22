@@ -13,7 +13,7 @@
  * Authors:
  * - Bobir Ismailov Bobir Ismailov, Pablo Saratxaga, Mashrab Kuvatov bobir_is@yahoo.com, pablo@mandrakesoft.com, kmashrab@uni-bremen.de
  */
-return [
+return array_replace_recursive(require __DIR__.'/uz_Latn.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -24,4 +24,4 @@ return [
     'weekdays_min' => ['Yak', 'Du', 'Se', 'Cho', 'Pay', 'Ju', 'Sha'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

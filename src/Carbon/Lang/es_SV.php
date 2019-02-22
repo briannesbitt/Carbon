@@ -13,14 +13,8 @@
  * Authors:
  * - RAP    bug-glibc-locales@gnu.org
  */
-return [
-    'formats' => [
-        'L' => 'DD/MM/YY',
-    ],
+return array_replace_recursive(require __DIR__.'/es.php', [
     'months' => ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
     'months_short' => ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
-    'weekdays' => ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'],
-    'weekdays_short' => ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
-    'weekdays_min' => ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'],
     'day_of_first_week_of_year' => 1,
-];
+]);

@@ -11,6 +11,10 @@
 
 /**
  * Authors:
- * - Free Software Foundation, Inc.    bug-glibc-locales@gnu.org
+ * - IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
  */
-return require __DIR__.'/de.php';
+return array_replace_recursive(require __DIR__.'/zh.php', [
+    'formats' => [
+        'L' => 'YYYY-MM-DD',
+    ],
+]);

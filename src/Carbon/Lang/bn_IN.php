@@ -13,7 +13,7 @@
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
  */
-return [
+return array_replace_recursive(require __DIR__.'/bn.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -23,4 +23,4 @@ return [
     'weekdays_short' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'],
     'weekdays_min' => ['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি'],
     'day_of_first_week_of_year' => 1,
-];
+]);
