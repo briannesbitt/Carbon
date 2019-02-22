@@ -76,7 +76,7 @@
 
             <div class="container page">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-#{pageWidth}">
                         #{page}
                     </div>
                     #{menu}
@@ -85,17 +85,29 @@
         </section>
     </div>
 
+    <footer>
+        <div class="help-translate">
+            <a href="#" class="close" data-session-close="footer .help-translate">✖</a>
+            Do you speak <strong>#{language}</strong>? You can help Carbon to
+            <a href="/contribute/translate/">improve its translations</a>!<br>
+            No coding skills needed, <a href="/contribute/translate/">go to translation tool</a>.
+        </div>
+        <div id="codefund"></div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script>
 
         var liveEditorHosts = [
             'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/'
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
         ];
+        var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1549090222291 ? balancingId % liveEditorHosts.length : 1];
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -121,7 +133,7 @@
                     opacity: 1,
                     pointerEvents: 'all',
                     position: '',
-                    height: $pre.outerHeight() + 'px',
+                    height: $pre.outerHeight() + 'px'
                 });
                 $pre.hide();
             };
@@ -154,8 +166,7 @@
             });
         }
 
-        function openDoc(selection)
-        {
+        function openDoc(selection) {
             selection = $.trim(selection);
             if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
                 $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
@@ -185,10 +196,31 @@
 
                 $($(event.target).data('slide-down')).slideToggle();
             })
+            .on('click', '[data-session-close]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var key = $(event.target).data('session-close');
+                sessStorage['closed-' + key] = '1';
+
+                $(key).slideUp(200);
+            })
         ;
 
-        function refreshDoc()
-        {
+        var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
+        var region = (language[1] || '').toUpperCase();
+        language = (language[0] || '').toLowerCase();
+
+        if (!sessStorage['closed-footer .help-translate'] &&
+            location.href.indexOf('contribute/translate') === -1 &&
+            (language !== 'en' || (region && region !== 'US' && region !== 'GB'))
+        ) {
+            $.getJSON('/languages.json', function (languages) {
+                var $help = $('footer .help-translate');
+                $help.html($help.html().replace('#{language}', (languages[language] || {}).isoName || language)).show();
+            });
+        }
+
+        function refreshDoc() {
             var search = $('#search-filter').val().toLowerCase();
             $('.doc-method').each(function () {
                 var $method = $(this);
@@ -347,5 +379,7 @@
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
     </script>
+    #{scripts}
+    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
 </body>
 </html>

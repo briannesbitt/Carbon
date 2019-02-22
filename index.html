@@ -80,7 +80,7 @@ printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // aut
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
 
-// Carbon embed 138 languages:
+// Carbon embed 208 languages:
 echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 
@@ -105,18 +105,20 @@ echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
 
             <div class="container page">
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <a class="tidelift" href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs" target="_blank">
     <img src="/tidelift.png">
     GET PROFESSIONAL SUPPORT FOR CARBON
 </a>
 
 <ul class="list-inline">
-    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/v/stable.png"></a></li>
-    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://poser.pugx.org/nesbot/carbon/downloads.png"></a></li>
-    <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://secure.travis-ci.org/briannesbitt/Carbon.png"></a></li>
-    <li><a href="https://styleci.io/repos/5724990"><img src="https://styleci.io/repos/5724990/shield?style=flat"></a></li>
-    <li><a href="https://codecov.io/github/briannesbitt/Carbon?branch=master"><img src="https://codecov.io/github/briannesbitt/Carbon/coverage.svg?branch=master"></a></li>
+    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://img.shields.io/packagist/v/nesbot/carbon.svg?style=flat-square"></a></li>
+    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://img.shields.io/packagist/dt/nesbot/carbon.svg?style=flat-square"></a></li>
+    <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://img.shields.io/travis/briannesbitt/Carbon.svg?style=flat-square"></a></li>
+    <li><a href="https://styleci.io/repos/5724990"><img src="https://styleci.io/repos/5724990/shield?style=flat-square"></a></li>
+    <li><a href="https://codecov.io/github/briannesbitt/Carbon?branch=master"><img src="https://img.shields.io/codecov/c/github/briannesbitt/Carbon.svg?style=flat-square"></a></li>
+    <li><a href="https://github.com/phpstan/phpstan"><img src="https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat-square"></a></li>
+    <li><a href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme"><img src="https://tidelift.com/badges/github/briannesbitt/Carbon"></a></li>
 </ul>
 
 <h1 id="gettingstarted">Getting Started</h1>
@@ -152,7 +154,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "^2.12.0"
+        "nesbot/carbon": "^2.13.0"
     }
 }</code></pre></p>
 
@@ -162,7 +164,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "2.12.0 as 1.34.0"
+        "nesbot/carbon": "2.13.0 as 1.34.0"
         "kylekatarnls/laravel-carbon-2": "^1.0.0"
     }
 }</code></pre></p>
@@ -223,17 +225,29 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
         </section>
     </div>
 
+    <footer>
+        <div class="help-translate">
+            <a href="#" class="close" data-session-close="footer .help-translate">✖</a>
+            Do you speak <strong>#{language}</strong>? You can help Carbon to
+            <a href="/contribute/translate/">improve its translations</a>!<br>
+            No coding skills needed, <a href="/contribute/translate/">go to translation tool</a>.
+        </div>
+        <div id="codefund"></div>
+    </footer>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script>
 
         var liveEditorHosts = [
             'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/'
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
         ];
+        var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1549090222291 ? balancingId % liveEditorHosts.length : 1];
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -259,7 +273,7 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
                     opacity: 1,
                     pointerEvents: 'all',
                     position: '',
-                    height: $pre.outerHeight() + 'px',
+                    height: $pre.outerHeight() + 'px'
                 });
                 $pre.hide();
             };
@@ -292,8 +306,7 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
             });
         }
 
-        function openDoc(selection)
-        {
+        function openDoc(selection) {
             selection = $.trim(selection);
             if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
                 $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
@@ -323,10 +336,31 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
 
                 $($(event.target).data('slide-down')).slideToggle();
             })
+            .on('click', '[data-session-close]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var key = $(event.target).data('session-close');
+                sessStorage['closed-' + key] = '1';
+
+                $(key).slideUp(200);
+            })
         ;
 
-        function refreshDoc()
-        {
+        var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
+        var region = (language[1] || '').toUpperCase();
+        language = (language[0] || '').toLowerCase();
+
+        if (!sessStorage['closed-footer .help-translate'] &&
+            location.href.indexOf('contribute/translate') === -1 &&
+            (language !== 'en' || (region && region !== 'US' && region !== 'GB'))
+        ) {
+            $.getJSON('/languages.json', function (languages) {
+                var $help = $('footer .help-translate');
+                $help.html($help.html().replace('#{language}', (languages[language] || {}).isoName || language)).show();
+            });
+        }
+
+        function refreshDoc() {
             var search = $('#search-filter').val().toLowerCase();
             $('.doc-method').each(function () {
                 var $method = $(this);
@@ -485,5 +519,7 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
             g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
     </script>
+    
+    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
 </body>
 </html>

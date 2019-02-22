@@ -1,6 +1,7 @@
 {
     "require": {
         "php": "^7.1",
+        "ext-json": "*",
         "nesbot/carbon": "dev-master"
     },
     "scripts": {
