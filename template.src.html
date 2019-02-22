@@ -101,12 +101,13 @@
 
         var liveEditorHosts = [
             'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/'
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
         ];
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1549090222291 ? balancingId % liveEditorHosts.length : 1];
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -132,7 +133,7 @@
                     opacity: 1,
                     pointerEvents: 'all',
                     position: '',
-                    height: $pre.outerHeight() + 'px',
+                    height: $pre.outerHeight() + 'px'
                 });
                 $pre.hide();
             };
