@@ -106,12 +106,13 @@
 
         var liveEditorHosts = [
             'https://try-carbon.herokuapp.com/',
-            'https://try-carbon-lib.herokuapp.com/'
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
         ];
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1549090222291 ? balancingId % liveEditorHosts.length : 1];
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -137,7 +138,7 @@
                     opacity: 1,
                     pointerEvents: 'all',
                     position: '',
-                    height: $pre.outerHeight() + 'px',
+                    height: $pre.outerHeight() + 'px'
                 });
                 $pre.hide();
             };
@@ -557,7 +558,7 @@
             ['Carbon::now()->subHours(2)', '->diffForHumans()'],
             ['Carbon::now()->addHours(2)->addMinute()', '->diffForHumans(["part" => 1])'],
             ['($d = Carbon::now())->copy()->subHours(2)', '->diffForHumans($d)'],
-            ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)'],
+            ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)']
         ].forEach(function (line) {
             lines.push('['+
                 '"source" => ' + line[0] + line[1] + ',' +
