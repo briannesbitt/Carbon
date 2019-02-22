@@ -20,4 +20,5 @@ return [
   'weekdays_min' => ['san', 'mun', 'tius', 'wens', 'taus', 'prai', 'sat'],
   'first_day_of_week' => 0,
   'day_of_first_week_of_year' => 7,
+    'meridiem' => ['VM', 'NM'],
 ];

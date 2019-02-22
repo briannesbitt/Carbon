@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['日', '一', '二', '三', '四', '五', '六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['頂晡', '下晡'],
 ];

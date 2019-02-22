@@ -24,4 +24,5 @@ return [
     'weekdays_min' => ['Tun', 'Ach', 'Kug', 'Sak', 'Shim', 'Im', 'Bat'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 7,
+    'meridiem' => ['VM', 'NM'],
 ];

@@ -24,4 +24,5 @@ return [
     'weekdays_min' => ['J2', 'J3', 'J4', 'J5', 'Alh', 'Ij', 'J1'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['asubuhi', 'alasiri'],
 ];

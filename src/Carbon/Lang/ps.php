@@ -29,4 +29,5 @@ return [
     'after' => ':time وروسته',
     'before' => ':time دمخه',
     'list' => ['، ', ' او '],
+    'meridiem' => ['غ.م.', 'غ.و.'],
 ];

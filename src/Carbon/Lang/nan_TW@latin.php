@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['lp', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'],
     'weekdays_min' => ['lp', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['téng-po͘', 'ē-po͘'],
 ];

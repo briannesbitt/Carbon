@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'weekdays_min' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['AM', 'PM'],
 ];

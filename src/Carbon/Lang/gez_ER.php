@@ -24,4 +24,5 @@ return [
     'weekdays_min' => ['እኁድ', 'ሰኑይ', 'ሠሉስ', 'ራብዕ', 'ሐሙስ', 'ዓርበ', 'ቀዳሚ'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['ጽባሕ', 'ምሴት'],
 ];

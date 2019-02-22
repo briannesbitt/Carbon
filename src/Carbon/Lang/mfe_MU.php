@@ -22,4 +22,5 @@ return [
     'weekdays' => ['dimans', 'lindi', 'mardi', 'merkredi', 'zedi', 'vandredi', 'samdi'],
     'weekdays_short' => ['dim', 'lin', 'mar', 'mer', 'ze', 'van', 'sam'],
     'weekdays_min' => ['dim', 'lin', 'mar', 'mer', 'ze', 'van', 'sam'],
+    'meridiem' => ['AM', 'PM'],
 ];

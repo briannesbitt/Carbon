@@ -212,7 +212,7 @@ class UkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 тиждень 6 днів',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'за 1 тиждень і 6 днів',
+        'за 1 тиждень i 6 днів',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 тижні 1 година',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['San', 'Man', 'Tun', 'Tri', 'Fon', 'Fra', 'Sar'],
     'weekdays_min' => ['San', 'Man', 'Tun', 'Tri', 'Fon', 'Fra', 'Sar'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['biknait', 'apinun'],
 ];

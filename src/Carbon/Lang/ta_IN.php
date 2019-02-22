@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச'],
     'weekdays_min' => ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['காலை', 'மாலை'],
 ];

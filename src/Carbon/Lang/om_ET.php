@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'weekdays_min' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['WD', 'WB'],
 ];

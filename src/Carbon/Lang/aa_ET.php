@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['Aca', 'Etl', 'Tal', 'Arb', 'Kam', 'Gum', 'Sab'],
     'weekdays_min' => ['Aca', 'Etl', 'Tal', 'Arb', 'Kam', 'Gum', 'Sab'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['saaku', 'carra'],
 ];

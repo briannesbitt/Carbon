@@ -1880,7 +1880,7 @@ trait Date
                 return $isLower ? $this->latinMeridiem : $this->latinUpperMeridiem;
             }
         } elseif ($isLower) {
-            $result = strtolower($result);
+            $result = mb_strtolower($result);
         }
 
         return $result;

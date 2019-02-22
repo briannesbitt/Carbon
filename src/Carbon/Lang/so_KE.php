@@ -23,4 +23,5 @@ return [
     'weekdays_short' => ['Axd', 'Isn', 'Sal', 'Arb', 'Kha', 'Jim', 'Sab'],
     'weekdays_min' => ['Axd', 'Isn', 'Sal', 'Arb', 'Kha', 'Jim', 'Sab'],
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['subaxnimo', 'galabnimo'],
 ];

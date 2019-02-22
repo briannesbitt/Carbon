@@ -22,4 +22,5 @@ return [
     'weekdays' => ['Ravivar', 'Somvar', 'Mangalvar', 'Budhvar', 'Guruvar', 'Shukravar', 'Shanivar'],
     'weekdays_short' => ['Ravi', 'Som', 'Mangal', 'Budh', 'Guru', 'Shukra', 'Shani'],
     'weekdays_min' => ['Ravi', 'Som', 'Mangal', 'Budh', 'Guru', 'Shukra', 'Shani'],
+    'meridiem' => ['Purvahan', 'Aparaahna'],
 ];
