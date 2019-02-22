@@ -64,11 +64,7 @@ return [
     'ordinal' => function ($number, $period) {
         return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = $hour < 12 ? 'VM' : 'NM';
-
-        return $isLower ? strtolower($meridiem) : $meridiem;
-    },
+    'meridiem' => ['VM', 'NM'],
     'months' => ['Januarie', 'Februarie', 'Maart', 'April', 'Mei', 'Junie', 'Julie', 'Augustus', 'September', 'Oktober', 'November', 'Desember'],
     'months_short' => ['Jan', 'Feb', 'Mrt', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
     'weekdays' => ['Sondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrydag', 'Saterdag'],

@@ -24,4 +24,6 @@ return [
     'weekdays_min' => ['nie', 'pòn', 'wtó', 'str', 'czw', 'pią', 'sob'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' a téż '],
+    'two_words_connector' => ' a téż ',
 ];

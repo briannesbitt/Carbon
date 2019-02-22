@@ -73,9 +73,7 @@ return [
         'lastWeek' => '[گزريل هفتي] dddd [تي] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'صبح' : 'شام';
-    },
+    'meridiem' => ['صبح', 'شام'],
     'months' => $months,
     'months_short' => $months,
     'weekdays' => $weekdays,

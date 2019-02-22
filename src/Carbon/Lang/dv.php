@@ -81,9 +81,7 @@ return [
         'lastWeek' => '[ފާއިތުވި] dddd LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'މކ' : 'މފ';
-    },
+    'meridiem' => ['މކ', 'މފ'],
     'months' => $months,
     'months_short' => $months,
     'weekdays' => $weekdays,

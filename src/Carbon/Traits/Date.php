@@ -835,22 +835,10 @@ trait Date
                 return $this->getTranslatedShortMonthName();
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
-                $meridiem = $this->translate('meridiem', [
-                    ':hour' => $this->hour,
-                    ':minute' => $this->minute,
-                    ':isLower' => true,
-                ]);
-
-                return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
+                return $this->meridiem(true);
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
-                $meridiem = $this->translate('meridiem', [
-                    ':hour' => $this->hour,
-                    ':minute' => $this->minute,
-                    ':isLower' => false,
-                ]);
-
-                return $meridiem === 'meridiem' ? $this->latinUpperMeridiem : $meridiem;
+                return $this->meridiem();
             // @property-read int current hour from 1 to 24
             case $name === 'noZeroHour':
                 return $this->hour ?: 24;
@@ -1856,6 +1844,46 @@ trait Date
         ]);
 
         return strval($result === 'ordinal' ? $number : $result);
+    }
+
+    /**
+     * Return the meridiem of the current time in the current locale.
+     *
+     * @param bool $isLower if true, returns lowercase variant if available in the current locale.
+     *
+     * @return string
+     */
+    public function meridiem(bool $isLower = false): string
+    {
+        $hour = $this->hour;
+        $index = $hour < 12 ? 0 : 1;
+
+        if ($isLower) {
+            $key = 'meridiem.'.($index + 2);
+            $result = $this->translate($key);
+
+            if ($result !== $key) {
+                return $result;
+            }
+        }
+
+        $key = "meridiem.$index";
+        $result = $this->translate($key);
+        if ($result === $key) {
+            $result = $this->translate('meridiem', [
+                ':hour' => $this->hour,
+                ':minute' => $this->minute,
+                ':isLower' => $isLower,
+            ]);
+
+            if ($result === 'meridiem') {
+                return $isLower ? $this->latinMeridiem : $this->latinUpperMeridiem;
+            }
+        } elseif ($isLower) {
+            $result = strtolower($result);
+        }
+
+        return $result;
     }
 
     /**

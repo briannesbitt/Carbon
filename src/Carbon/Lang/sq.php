@@ -60,11 +60,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':number.',
-    'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = $hour < 12 ? 'PD' : 'MD';
-
-        return $isLower ? strtolower($meridiem) : $meridiem;
-    },
+    'meridiem' => ['PD', 'MD'],
     'months' => ['Janar', 'Shkurt', 'Mars', 'Prill', 'Maj', 'Qershor', 'Korrik', 'Gusht', 'Shtator', 'Tetor', 'Nëntor', 'Dhjetor'],
     'months_short' => ['Jan', 'Shk', 'Mar', 'Pri', 'Maj', 'Qer', 'Kor', 'Gus', 'Sht', 'Tet', 'Nën', 'Dhj'],
     'weekdays' => ['E Diel', 'E Hënë', 'E Martë', 'E Mërkurë', 'E Enjte', 'E Premte', 'E Shtunë'],

@@ -101,13 +101,7 @@ return [
                 return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
         }
     },
-    'meridiem' => function ($hours, $minutes, $isLower) {
-        if ($hours < 12) {
-            return $isLower ? 'öö' : 'ÖÖ';
-        }
-
-        return $isLower ? 'ös' : 'ÖS';
-    },
+    'meridiem' => ['ÖÖ', 'ÖS', 'öö', 'ös'],
     'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
     'months_short' => ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
     'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],

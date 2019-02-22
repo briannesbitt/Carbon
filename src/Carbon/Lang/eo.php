@@ -63,11 +63,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numbera',
-    'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = $hour < 12 ? 'a.t.m.' : 'p.t.m.';
-
-        return $isLower ? strtolower($meridiem) : $meridiem;
-    },
+    'meridiem' => ['a.t.m.', 'p.t.m.'],
     'months' => ['januaro', 'februaro', 'marto', 'aprilo', 'majo', 'junio', 'julio', 'aŭgusto', 'septembro', 'oktobro', 'novembro', 'decembro'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aŭg', 'sep', 'okt', 'nov', 'dec'],
     'weekdays' => ['dimanĉo', 'lundo', 'mardo', 'merkredo', 'ĵaŭdo', 'vendredo', 'sabato'],
