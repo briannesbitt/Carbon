@@ -78,9 +78,11 @@ return [
     'second_before' => ':count секунды',
     'list' => ', ',
     'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'YYYY-MM-DD',
         'LL' => 'YYYY MMMM DD',
-        'LLL' => 'YY-MM-DD',
+        'LLL' => 'YY-MM-DD, HH:mm',
         'LLLL' => 'YYYY MMMM DD, HH:mm',
     ],
     'weekdays' => ['Ням', 'Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан', 'Бямба'],

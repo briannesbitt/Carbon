@@ -57,6 +57,8 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' ja '],
     'formats' => [
+        'LT' => 'HH.mm',
+        'LTS' => 'HH.mm:ss',
         'L' => 'D.M.YYYY',
         'LL' => 'dddd D. MMMM[ta] YYYY',
         'LLL' => 'D.MM. HH.mm',

@@ -52,6 +52,8 @@ return [
     'weekdays_min' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
     'list' => [', ', ' a '],
     'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'DD. MM. YYYY',
         'LL' => 'DD. MMMM YYYY',
         'LLL' => 'D. M. HH:mm',

@@ -67,6 +67,8 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' un '],
     'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'DD.MM.YYYY.',
         'LL' => 'YYYY. [gada] D. MMMM',
         'LLL' => 'DD.MM.YYYY., HH:mm',

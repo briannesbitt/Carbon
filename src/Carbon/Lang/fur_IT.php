@@ -15,6 +15,8 @@
  */
 return [
     'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'DD. MM. YY',
         'LL' => 'DD di MMMM dal YYYY',
         'LLL' => 'DD di MMM HH:mm',
