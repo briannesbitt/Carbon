@@ -108,13 +108,13 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         '10:00 АМ, 10:00 ам',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 ПМ, 12:00 пм',
+        '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 ПМ, 5:00 пм',
+        '5:00 PM, 5:00 pm',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 ПМ, 9:30 пм',
+        '9:30 PM, 9:30 pm',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 ПМ, 11:00 пм',
+        '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()

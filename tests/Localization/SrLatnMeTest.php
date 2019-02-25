@@ -16,63 +16,63 @@ class SrLatnMeTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Tomorrow at 12:00 AM',
+        'Tomorrow at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Saturday at 12:00 AM',
+        'Saturday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Sunday at 12:00 AM',
+        'Sunday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Monday at 12:00 AM',
+        'Monday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Tuesday at 12:00 AM',
+        'Tuesday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Wednesday at 12:00 AM',
+        'Wednesday at 12:00 АМ',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Thursday at 12:00 AM',
+        'Thursday at 12:00 АМ',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'Friday at 12:00 AM',
+        'Friday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Tuesday at 12:00 AM',
+        'Tuesday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Wednesday at 12:00 AM',
+        'Wednesday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Thursday at 12:00 AM',
+        'Thursday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Friday at 12:00 AM',
+        'Friday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Saturday at 12:00 AM',
+        'Saturday at 12:00 АМ',
         // Carbon::now()->subDays(2)->calendar()
         'Last Sunday at 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         'Yesterday at 10:00 PM',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Today at 10:00 AM',
+        'Today at 10:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Today at 2:00 AM',
+        'Today at 2:00 АМ',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Tomorrow at 1:00 AM',
+        'Tomorrow at 1:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Tuesday at 12:00 AM',
+        'Tuesday at 12:00 АМ',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Yesterday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Yesterday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Tuesday at 12:00 AM',
+        'Last Tuesday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Monday at 12:00 AM',
+        'Last Monday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Sunday at 12:00 AM',
+        'Last Sunday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Saturday at 12:00 AM',
+        'Last Saturday at 12:00 АМ',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Friday at 12:00 AM',
+        'Last Friday at 12:00 АМ',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Last Thursday at 12:00 AM',
+        'Last Thursday at 12:00 АМ',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Last Wednesday at 12:00 AM',
+        'Last Wednesday at 12:00 АМ',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Last Friday at 12:00 AM',
+        'Last Friday at 12:00 АМ',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -96,17 +96,17 @@ class SrLatnMeTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 ам cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 АМ, 12:00 ам',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 АМ, 1:30 ам',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 АМ, 2:00 ам',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 АМ, 6:00 ам',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 АМ, 10:00 ам',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 PM, 12:00 pm',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
