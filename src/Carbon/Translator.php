@@ -301,8 +301,14 @@ class Translator extends Translation\Translator
     public function setLocale($locale)
     {
         $locale = preg_replace_callback('/[-_]([a-z]{2,})/', function ($matches) {
-            // _2-letters is a region, _3+-letters is a variant
-            return '_'.call_user_func(strlen($matches[1]) > 2 ? 'ucfirst' : 'strtoupper', $matches[1]);
+            // _2-letters or YUE is a region, _3+-letters is a variant
+            $upper = strtoupper($matches[1]);
+
+            if ($upper === 'YUE' || strlen($upper) < 3) {
+                return "_$upper";
+            }
+
+            return '_'.ucfirst($matches[1]);
         }, strtolower($locale));
 
         if ($this->getLocale() === $locale) {

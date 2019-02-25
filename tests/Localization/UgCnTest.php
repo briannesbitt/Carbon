@@ -212,7 +212,7 @@ class UgCnTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'بىر ھەپتە 6 كۈن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'بىر ھەپتە 6 كۈن كېيىن',
+        'بىر ھەپتە ۋە 6 كۈن كېيىن',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ھەپتە بىر سائەت',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

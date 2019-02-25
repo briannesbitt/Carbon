@@ -212,7 +212,7 @@ class PaInTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ਹਫਤਾ 6 ਦਿਨ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ਹਫਤਾ 6 ਦਿਨ ਵਿੱਚ',
+        'ਹਫਤਾ ਅਤੇ 6 ਦਿਨ ਵਿੱਚ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ਹਫ਼ਤੇ ਇੱਕ ਘੰਟਾ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

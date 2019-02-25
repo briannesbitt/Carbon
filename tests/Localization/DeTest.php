@@ -120,91 +120,91 @@ class DeTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'vor 1 Sekunde',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'vor 1Sek',
+        'vor 1 Sek.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'vor 2 Sekunden',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'vor 2Sek',
+        'vor 2 Sek.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'vor 1 Minute',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'vor 1Min',
+        'vor 1 Min.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'vor 2 Minuten',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'vor 2Min',
+        'vor 2 Min.',
         // Carbon::now()->subHours(1)->diffForHumans()
         'vor 1 Stunde',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'vor 1Std',
+        'vor 1 Std.',
         // Carbon::now()->subHours(2)->diffForHumans()
         'vor 2 Stunden',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'vor 2Std',
+        'vor 2 Std.',
         // Carbon::now()->subDays(1)->diffForHumans()
         'vor 1 Tag',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'vor 1Tg',
+        'vor 1 Tg.',
         // Carbon::now()->subDays(2)->diffForHumans()
         'vor 2 Tagen',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'vor 2Tg',
+        'vor 2 Tg.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'vor 1 Woche',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'vor 1Wo',
+        'vor 1 Wo.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'vor 2 Wochen',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'vor 2Wo',
+        'vor 2 Wo.',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'vor 1 Monat',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'vor 1Mon',
+        'vor 1 Mon.',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'vor 2 Monaten',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'vor 2Mon',
+        'vor 2 Mon.',
         // Carbon::now()->subYears(1)->diffForHumans()
         'vor 1 Jahr',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'vor 1J',
+        'vor 1 J.',
         // Carbon::now()->subYears(2)->diffForHumans()
         'vor 2 Jahren',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'vor 2J',
+        'vor 2 J.',
         // Carbon::now()->addSecond()->diffForHumans()
         'in 1 Sekunde',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'in 1Sek',
+        'in 1 Sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 Sekunde später',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1Sek später',
+        '1 Sek. später',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 Sekunde zuvor',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1Sek zuvor',
+        '1 Sek. zuvor',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 Sekunde',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1Sek',
+        '1 Sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 Sekunden',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2Sek',
+        '2 Sek.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'in 1Sek',
+        'in 1 Sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 Minute 1 Sekunde',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2J 3Mon 1Tg 1Sek',
+        '2 J. 3 Mon. 1 Tg. 1 Sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'in 3 Jahre',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'vor 5Mon',
+        'vor 5 Mon.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'vor 2J 3Mon 1Tg 1Sek',
+        'vor 2 J. 3 Mon. 1 Tg. 1 Sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 Woche 10 Stunden',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class DeTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 Tage',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1Tg 3Std',
+        '1 Tg. 3 Std.',
     ];
 }

@@ -12,7 +12,7 @@
 /**
  * Authors:
  * - bug-glibc-locales@gnu.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */return array_replace_recursive(require __DIR__.'/zh_HK.php', [
     'formats' => [
         'L' => 'YYYY年MM月DD日 dddd',
     ],
@@ -21,6 +21,7 @@
     'weekdays' => ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     'weekdays_short' => ['日', '一', '二', '三', '四', '五', '六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['上午', '下午'],
 ]);
