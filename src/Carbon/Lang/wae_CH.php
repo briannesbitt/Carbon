@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Walser Translation Team ml@translate-wae.ch
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'YYYY-MM-DD',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['Sun', 'Män', 'Zis', 'Mit', 'Fro', 'Fri', 'Sam'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
-];
+]);

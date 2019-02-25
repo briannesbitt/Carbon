@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -22,4 +21,4 @@ return [
     'weekdays' => ['dimans', 'lindi', 'mardi', 'merkredi', 'zedi', 'vandredi', 'samdi'],
     'weekdays_short' => ['dim', 'lin', 'mar', 'mer', 'ze', 'van', 'sam'],
     'weekdays_min' => ['dim', 'lin', 'mar', 'mer', 'ze', 'van', 'sam'],
-];
+]);

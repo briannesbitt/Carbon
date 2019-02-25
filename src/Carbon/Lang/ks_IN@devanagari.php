@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - ks-gnome-trans-commits@lists.code.indlinux.net
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'M/D/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['आथ ', 'चॅ़दुर', 'बोम', 'ब्वद', 'ब्रस', 'शोकुर', 'बटु'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
-];
+]);

@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com & maninder1.s@samsung.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'dddd DD MMM YYYY',
     ],
@@ -22,4 +21,4 @@ return [
     'weekdays' => ['Sande', ''],
     'weekdays_short' => ['San', ''],
     'weekdays_min' => ['San', ''],
-];
+]);

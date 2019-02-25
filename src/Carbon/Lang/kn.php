@@ -45,7 +45,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberನೇ',
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ರಾತ್ರಿ';
         }

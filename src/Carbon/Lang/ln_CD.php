@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Ubuntu René Manassé GALEKWA renemanasse@gmail.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['m1.', 'm2.', 'm3.', 'm4.', 'm5.', 'm6.', 'm7.'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

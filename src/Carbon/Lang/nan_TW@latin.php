@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Arne Goetje arne@canonical.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'YYYY-MM-DD',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['lp', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['téng-po͘', 'ē-po͘'],
-];
+]);

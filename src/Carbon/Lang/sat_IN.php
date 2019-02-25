@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Red Hat Pune    libc-alpha@sourceware.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['सिंगे', 'ओते', 'बाले', 'सागुन', 'सारदी', 'जारुम', 'ञुहुम'],
     'weekdays_min' => ['सिंगे', 'ओते', 'बाले', 'सागुन', 'सारदी', 'जारुम', 'ञुहुम'],
     'day_of_first_week_of_year' => 1,
-];
+]);

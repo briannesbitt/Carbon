@@ -13,7 +13,7 @@
  * Authors:
  * - Kamusi Project Martin Benjamin locales@kamusi.org
  */
-return [
+return array_replace_recursive(require __DIR__.'/sw.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -25,4 +25,4 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['asubuhi', 'alasiri'],
-];
+]);

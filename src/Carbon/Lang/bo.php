@@ -42,7 +42,7 @@ return [
         'lastWeek' => '[བདུན་ཕྲག་མཐའ་མ] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'མཚན་མོ';
         }

@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - J.Yogaraj 94-777-315206 yogaraj.ubuntu@gmail.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/ta.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -25,4 +24,4 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['காலை', 'மாலை'],
-];
+]);

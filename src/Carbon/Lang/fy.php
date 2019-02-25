@@ -57,7 +57,7 @@ return [
         'lastWeek' => '[ôfrûne] dddd [om] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
     'months' => ['jannewaris', 'febrewaris', 'maart', 'april', 'maaie', 'juny', 'july', 'augustus', 'septimber', 'oktober', 'novimber', 'desimber'],

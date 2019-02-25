@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - ANLoc Martin Benjamin locales@africanlocalization.net
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -25,4 +24,4 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['uluchelo', 'akasuba'],
-];
+]);

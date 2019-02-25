@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Information from native speakers Hannah Sarvasy nungon.localization@gmail.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'weekdays_min' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'day_of_first_week_of_year' => 1,
-];
+]);

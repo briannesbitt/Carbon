@@ -13,7 +13,7 @@
  * Authors:
  * - Valery Timiriliyev Valery Timiriliyev timiriliyev@gmail.com
  */
-return [
+return array_replace_recursive(require __DIR__.'/ru.php', [
     'formats' => [
         'L' => 'YYYY.MM.DD',
     ],
@@ -24,4 +24,4 @@ return [
     'weekdays_min' => ['бс', 'бн', 'оп', 'ср', 'чп', 'бт', 'сб'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

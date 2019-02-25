@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Chitwanix OS Development    info@chitwanix.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'dddd DD MMM YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['आइत', 'सोम', 'मंगल', 'बुध', 'बिहि', 'शुक्र', 'शनि'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
-];
+]);

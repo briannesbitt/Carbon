@@ -45,7 +45,7 @@ return [
         'lastWeek' => 'dddd [leliphelile] [nga] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         $lastDigit = $number % 10;
 
         return $number.(
@@ -54,7 +54,7 @@ return [
             )
         );
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 11) {
             return 'ekuseni';
         }

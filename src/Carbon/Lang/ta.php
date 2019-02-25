@@ -44,7 +44,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberவது',
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 2) {
             return ' யாமம்';
         }

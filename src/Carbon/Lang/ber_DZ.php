@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Pablo Saratxaga pablo@mandrakesoft.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['baz', 'bir', 'iki', 'üçü', 'dör', 'beş', 'alt'],
     'first_day_of_week' => 6,
     'day_of_first_week_of_year' => 1,
-];
+]);

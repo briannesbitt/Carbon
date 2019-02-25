@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandriva.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['Sdg', 'Mdg', 'Dsg', 'Mwk', 'Ddg', 'Fdg', 'Swd'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
-];
+]);

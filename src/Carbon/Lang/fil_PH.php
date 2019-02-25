@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Rene Torres Rene Torres, Pablo Saratxaga rgtorre@rocketmail.com, pablo@mandrakesoft.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['N.U.', 'N.H.'],
-];
+]);

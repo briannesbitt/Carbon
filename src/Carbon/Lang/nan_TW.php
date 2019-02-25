@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - bug-glibc-locales@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'YYYY年MM月DD日',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['頂晡', '下晡'],
-];
+]);

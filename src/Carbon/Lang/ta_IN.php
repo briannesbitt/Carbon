@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/ta.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['காலை', 'மாலை'],
-];
+]);

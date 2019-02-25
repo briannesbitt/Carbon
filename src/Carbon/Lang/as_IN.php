@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Amitakhya Phukan, Red Hat    bug-glibc@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D-MM-YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['দেও', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহষ্পতি', 'শুক্ৰ', 'শনি'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['পূৰ্ব্বাহ্ন', 'অপৰাহ্ন'],
-];
+]);

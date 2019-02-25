@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Ge'ez Frontier Foundation & Sagalee Oromoo Publishing Co. Inc.    locales@geez.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['WD', 'WB'],
-];
+]);

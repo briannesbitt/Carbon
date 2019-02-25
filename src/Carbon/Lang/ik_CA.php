@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - pablo@mandriva.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['Min', 'Sav', 'Ila', 'Qit', 'Sis', 'Tal', 'Maq'],
     'weekdays_min' => ['Min', 'Sav', 'Ila', 'Qit', 'Sis', 'Tal', 'Maq'],
     'day_of_first_week_of_year' => 1,
-];
+]);

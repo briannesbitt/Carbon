@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - http:////www.uyip.org// Pablo Saratxaga pablo@mandrakesoft.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
     'weekdays_min' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
     'day_of_first_week_of_year' => 1,
-];
+]);

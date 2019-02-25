@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - IndLinux.org, Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['ಐ', 'ಸೋ', 'ಅಂ', 'ಬು', 'ಗು', 'ಶು', 'ಶ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ಕಾಂಡೆ', 'ಬಯ್ಯ'],
-];
+]);

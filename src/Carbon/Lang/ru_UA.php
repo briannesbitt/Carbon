@@ -13,7 +13,7 @@
  * Authors:
  * - RFC 2319    bug-glibc-locales@gnu.org
  */
-return [
+return array_replace_recursive(require __DIR__.'/ru.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +24,4 @@ return [
     'weekdays_min' => ['Вск', 'Пнд', 'Вто', 'Срд', 'Чтв', 'Птн', 'Суб'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

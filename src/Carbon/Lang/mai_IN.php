@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Maithili Computing Research Center, Pune, India    rajeshkajha@yahoo.com,akhilesh.k@samusng.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['रवि', 'सोम', 'मंगल', 'बुध', 'बृहस्पती', 'शुक्र', 'शनी'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
-];
+]);

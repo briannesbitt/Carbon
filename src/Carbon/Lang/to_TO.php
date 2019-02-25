@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - International Components for Unicode    akhilesh.k@samsung.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'dddd DD MMM YYYY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['Sāp', 'Mōn', 'Tūs', 'Pul', 'Tuʻa', 'Fal', 'Tok'],
     'weekdays_min' => ['Sāp', 'Mōn', 'Tūs', 'Pul', 'Tuʻa', 'Fal', 'Tok'],
     'meridiem' => ['hengihengi', 'efiafi'],
-];
+]);

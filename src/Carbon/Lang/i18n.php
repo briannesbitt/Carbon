@@ -8,8 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-return [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'YYYY-MM-DD',
     ],
@@ -20,4 +19,4 @@ return [
     'weekdays_min' => ['1', '2', '3', '4', '5', '6', '7'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 4,
-];
+]);

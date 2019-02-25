@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'weekdays_min' => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'day_of_first_week_of_year' => 1,
-];
+]);

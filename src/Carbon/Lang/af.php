@@ -59,7 +59,7 @@ return [
         'lastWeek' => '[Laas] dddd [om] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         return $number.(($number === 1 || $number === 8 || $number >= 20) ? 'ste' : 'de');
     },
     'meridiem' => ['VM', 'NM'],

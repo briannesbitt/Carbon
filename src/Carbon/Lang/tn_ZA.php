@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
     'weekdays_min' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
     'day_of_first_week_of_year' => 1,
-];
+]);

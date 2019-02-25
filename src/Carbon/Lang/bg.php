@@ -68,7 +68,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         $lastDigit = $number % 10;
         $last2Digits = $number % 100;
         if ($number === 0) {

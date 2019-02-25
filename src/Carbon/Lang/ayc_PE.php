@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - runasimipi.org    libc-alpha@sourceware.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['tum', 'lun', 'mar', 'mir', 'juy', 'wir', 'saw'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['VM', 'NM'],
-];
+]);

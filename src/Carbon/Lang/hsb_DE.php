@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Information from Michael Wolf Andrzej Krzysztofowicz ankry@mif.pg.gda.pl
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -29,4 +28,4 @@ return [
     'weekdays_min' => ['Nj', 'Pó', 'Wu', 'Sr', 'Št', 'Pj', 'So'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
-];
+]);

@@ -53,7 +53,7 @@ return [
         'lastWeek' => 'dddd [lepas pukul] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 11) {
             return 'pagi';
         }

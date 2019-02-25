@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Red Hat, Pune    bug-glibc-locales@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/ur.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -23,4 +22,4 @@ return [
     'weekdays_short' => ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'سنیچر'],
     'weekdays_min' => ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'سنیچر'],
     'day_of_first_week_of_year' => 1,
-];
+]);

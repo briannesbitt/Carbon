@@ -73,7 +73,7 @@ return [
         'lastWeek' => '[წინა] dddd LT-ზე',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         if ($number === 0) {
             return $number;
         }

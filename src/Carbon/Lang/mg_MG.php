@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - The Debian Project modified by GNU//Linux Malagasy Rado Ramarotafika,Do-Risika RAFIEFERANTSIARONJY rado@linuxmg.org,dourix@free.fr
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['lhd', 'lts', 'tlt', 'lrb', 'lkm', 'zom', 'sab'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

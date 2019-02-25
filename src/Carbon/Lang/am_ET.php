@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Ge'ez Frontier Foundation    locales@geez.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['እሑድ', 'ሰኞ ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ጡዋት', 'ከሰዓት'],
-];
+]);

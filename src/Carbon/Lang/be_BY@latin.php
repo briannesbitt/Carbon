@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - bug-glibc-locales@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['Nia', 'Pan', 'Aŭt', 'Sie', 'Čać', 'Pia', 'Sub'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
-];
+]);

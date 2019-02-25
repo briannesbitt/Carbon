@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Sherubtse College    bug-glibc@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'པསྱི་ལོYYཟལMMཚེསDD',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['ཟླ་', 'མིར་', 'ལྷག་', 'པུར་', 'སངས་', 'སྤེན་', 'ཉི་'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ངས་ཆ', 'ཕྱི་ཆ'],
-];
+]);

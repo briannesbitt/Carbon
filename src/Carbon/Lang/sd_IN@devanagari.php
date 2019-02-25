@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Red Hat, Pune    bug-glibc-locales@gnu.org
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/sd.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['आर्तवारू', 'सूमरू', 'मंगलू', 'ॿुधरू', 'विस्पति', 'जुमो', 'छंछस'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['म.पू.', 'म.नं.'],
-];
+]);

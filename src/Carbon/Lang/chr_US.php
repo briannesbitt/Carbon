@@ -12,8 +12,7 @@
 /**
  * Authors:
  * - Cherokee Nation Joseph Erb josepherb7@gmail.com
- */
-return [
+ */return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -24,4 +23,4 @@ return [
     'weekdays_min' => ['ᏆᏍᎬ', 'ᏉᏅᎯ', 'ᏔᎵᏁ', 'ᏦᎢᏁ', 'ᏅᎩᏁ', 'ᏧᎾᎩ', 'ᏈᏕᎾ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ᏌᎾᎴ', 'ᏒᎯᏱᎢᏗᏢ'],
-];
+]);

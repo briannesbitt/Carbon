@@ -69,8 +69,8 @@ return [
         'lastWeek' => '[keçən həftə] dddd [saat] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
-        if ($number === 0) {  // special case for zero
+    'ordinal' => function ($number) {
+        if ($number === 0) { // special case for zero
             return "$number-ıncı";
         }
 
@@ -93,15 +93,13 @@ return [
             30 => '-uncu',
             60 => '-ıncı',
             90 => '-ıncı',
-            'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 1,
-];
+        ];
 
         $lastDigit = $number % 10;
 
         return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'gecə';
         }
