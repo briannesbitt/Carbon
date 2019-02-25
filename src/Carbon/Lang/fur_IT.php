@@ -16,6 +16,9 @@
 return [
     'formats' => [
         'L' => 'DD. MM. YY',
+        'LL' => 'DD di MMMM dal YYYY',
+        'LLL' => 'DD di MMM HH:MM',
+        'LLLL' => 'DD di MMMM dal YYYY HH:MM',
     ],
     'months' => ['Zenâr', 'Fevrâr', 'Març', 'Avrîl', 'Mai', 'Jugn', 'Lui', 'Avost', 'Setembar', 'Otubar', 'Novembar', 'Dicembar'],
     'months_short' => ['Zen', 'Fev', 'Mar', 'Avr', 'Mai', 'Jug', 'Lui', 'Avo', 'Set', 'Otu', 'Nov', 'Dic'],

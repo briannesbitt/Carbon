@@ -16,6 +16,9 @@
 return [
     'formats' => [
         'L' => 'YYYY-MM-DD',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMM HH:MM',
+        'LLLL' => 'D MMMM YYYY HH:MM',
     ],
     'months' => ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],

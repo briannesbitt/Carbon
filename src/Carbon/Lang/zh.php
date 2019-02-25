@@ -41,8 +41,8 @@ return [
         'LTS' => 'HH:mm:ss',
         'L' => 'YYYY/MM/DD',
         'LL' => 'YYYY年M月D日',
-        'LLL' => 'YYYY年M月D日Ah点mm分',
-        'LLLL' => 'YYYY年M月D日ddddAh点mm分',
+        'LLL' => 'YYYY年M月D日 A h点mm分',
+        'LLLL' => 'YYYY年M月D日dddd A h点mm分',
     ],
     'calendar' => [
         'sameDay' => '[今天]LT',

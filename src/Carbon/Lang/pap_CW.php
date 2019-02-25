@@ -16,6 +16,9 @@
 return [
     'formats' => [
         'L' => 'DD-MM-YY',
+        'LL' => 'MMMM [di] DD, YYYY',
+        'LLL' => 'DD MMM HH.MM',
+        'LLLL' => 'MMMM DD, YYYY HH.MM',
     ],
     'months' => ['Yanüari', 'Febrüari', 'Mart', 'Aprel', 'Mei', 'Yüni', 'Yüli', 'Ougùstùs', 'Sèptèmber', 'Oktober', 'Novèmber', 'Desèmber'],
     'months_short' => ['Yan', 'Feb', 'Mar', 'Apr', 'Mei', 'Yün', 'Yül', 'Oug', 'Sèp', 'Okt', 'Nov', 'Des'],

@@ -16,6 +16,9 @@
 return [
     'formats' => [
         'L' => 'DD.MM.YYYY',
+        'LL' => 'DD. MMMM YYYY',
+        'LLL' => 'DD. MMMM, HH:MM [hodź.]',
+        'LLLL' => 'dddd, DD. MMMM YYYY, HH:MM [hodź.]',
     ],
     'months' => ['januara', 'februara', 'měrca', 'apryla', 'meje', 'junija', 'julija', 'awgusta', 'septembra', 'oktobra', 'nowembra', 'decembra'],
     'months_short' => ['Jan', 'Feb', 'Měr', 'Apr', 'Mej', 'Jun', 'Jul', 'Awg', 'Sep', 'Okt', 'Now', 'Dec'],

@@ -28,8 +28,8 @@ return [
   'formats' => [
     'L' => 'DD.MM.YYYY',
     'LL' => 'Do MMMM YYYY',
-    'LLLL' => 'dddd, Do MMMM YYYY, HH:MM Uhr',
     'LLL' => 'Do MMMM, HH:MM Uhr',
+    'LLLL' => 'dddd, Do MMMM YYYY, HH:MM Uhr',
   ],
   'year' => ':count onn|:count onns',
   'month' => ':count mais',

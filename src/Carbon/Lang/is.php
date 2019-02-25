@@ -39,8 +39,8 @@ return [
     'formats' => [
         'L' => 'DD.MM.YYYY',
         'LL' => 'D. MMMM YYYY',
-        'LLLL' => 'dddd D. MMMM YYYY [kl.] HH:MM',
         'LLL' => 'D. MMMM [kl.] HH:MM',
+        'LLLL' => 'dddd D. MMMM YYYY [kl.] HH:MM',
     ],
     'weekdays' => ['sunnudaginn', 'mánudaginn', 'þriðjudaginn', 'miðvikudaginn', 'fimmtudaginn', 'föstudaginn', 'laugardaginn'],
     'weekdays_short' => ['sun', 'mán', 'þri', 'mið', 'fim', 'fös', 'lau'],

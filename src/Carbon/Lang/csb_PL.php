@@ -16,6 +16,9 @@
 return [
     'formats' => [
         'L' => 'YYYY-MM-DD',
+        'LL' => 'MMMM DD, YYYY',
+        'LLL' => 'DD MMM HH:MM',
+        'LLLL' => 'MMMM DD, YYYY HH:MM',
     ],
     'months' => ['stëcznika', 'gromicznika', 'strëmiannika', 'łżëkwiata', 'maja', 'czerwińca', 'lëpińca', 'zélnika', 'séwnika', 'rujana', 'lëstopadnika', 'gòdnika'],
     'months_short' => ['stë', 'gro', 'str', 'łżë', 'maj', 'cze', 'lëp', 'zél', 'séw', 'ruj', 'lës', 'gòd'],
