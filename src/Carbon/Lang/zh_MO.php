@@ -9,8 +9,12 @@
  * file that was distributed with this source code.
  */
 
-/** Thanks to https://github.com/tarunvelli */
-
+/*
+ * Authors:
+ * - tarunvelli
+ * - Eddie
+ * - KID
+ */
 return [
     'year' => ':count 年',
     'y' => ':count年',

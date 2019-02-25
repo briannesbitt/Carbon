@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Cassiano Montanari
  * - Eduardo Dalla Vecchia
@@ -25,6 +25,7 @@
  * - swalker
  * - Lucas Macedo
  * - Paulo Freitas
+ * - Sebastian Thierer
  */
 return array_replace_recursive(require __DIR__.'/pt.php', [
     'after' => 'após :time',

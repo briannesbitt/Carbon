@@ -23,6 +23,11 @@
  * - Juanito Fatas
  * - Akira Matsuda
  * - Christopher Dell
+ * - Václav Pávek
+ * - CodeSkills
+ * - Tlapi
+ * - newman101
+ * - Petr Kadlec
  */
 return [
     'year' => ':count rok|:count roky|:count let',

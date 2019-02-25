@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Milos Sakovic
+ * - Paul
+ */
 return [
     'year' => '{1}:count year|{0}:count years|]1,Inf[:count years',
     'a_year' => '{1}a year|{0}:count years|]1,Inf[:count years',

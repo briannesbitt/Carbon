@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - Kristoffer Snabb
  * - JD Isaacks
+ * - Jens Herlevsen
  */
 return [
     'year' => ':count år',

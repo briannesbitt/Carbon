@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - mhamlet
+ */
 return [
     'year' => ':count տարի',
     'a_year' => 'տարի|:count տարի',

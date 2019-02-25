@@ -27,6 +27,7 @@
  * - Aaron Patterson
  * - Kaspars Bankovskis
  * - Nicolás Hock Isaza
+ * - Kavacky
  */
 return [
     'year' => '0 gadiem|:count gada|:count gadiem',

@@ -28,6 +28,8 @@
  * - Nicolás Hock Isaza
  * - Kevin Valdek
  * - Zahhar Kirillov
+ * - João Magalhães
+ * - Ingmar
  */
 return [
     'year' => ':count aasta|:count aastat',

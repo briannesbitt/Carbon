@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Cassiano Montanari
  * - Matt Pope
@@ -19,6 +19,8 @@
  * - Raphael Amorim
  * - João Magalhães
  * - victortobias
+ * - Paulo Freitas
+ * - Sebastian Thierer
  */
 return [
     'year' => ':count ano|:count anos',

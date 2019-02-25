@@ -28,6 +28,7 @@
  * - Aaron Patterson
  * - Nicolás Hock Isaza
  * - Ochirkhuyag
+ * - Batmandakh
  */
 return [
     'year' => ':count жил',

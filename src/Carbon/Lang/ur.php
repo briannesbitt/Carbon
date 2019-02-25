@@ -42,6 +42,9 @@ $weekdays = [
  * - tjku
  * - Zaid Akram
  * - Max Melentiev
+ * - hafezdivandari
+ * - Hossein Jabbari
+ * - nimamo
  */
 return [
     'year' => 'ایک سال|:count سال',

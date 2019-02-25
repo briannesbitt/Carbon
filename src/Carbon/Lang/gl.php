@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - Fidel Pita
  * - JD Isaacks
  * - Diego Vilariño
+ * - Sebastian Thierer
  */
 return [
     'year' => ':count ano|:count anos',

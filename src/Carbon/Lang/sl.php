@@ -23,6 +23,9 @@
  * - Aaron Patterson
  * - Nicolás Hock Isaza
  * - Miha Rebernik
+ * - Gal Jakič
+ * - Glavić
+ * - Anže Časar
  */
 return [
     'year' => ':count leto|:count leti|:count leta|:count let',

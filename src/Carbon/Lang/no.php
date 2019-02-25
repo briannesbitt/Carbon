@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Daniel S. Billing
+ * - Paul
+ * - Jimmie Johansson
+ * - Jens Herlevsen
+ */
 return array_replace_recursive(require __DIR__.'/pt.php', [
     'formats' => [
         'LLL' => 'D. MMMM YYYY HH:mm',

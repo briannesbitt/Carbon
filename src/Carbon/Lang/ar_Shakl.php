@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Abdellah Chadidi
+ */
 // Same for long and short
 $months = [
     // @TODO add shakl to months

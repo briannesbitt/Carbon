@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - Kunal Marwaha
@@ -17,6 +17,7 @@
  * - JD Isaacks
  * - Orxan
  * - Şəhriyar İmanov
+ * - Baran Şengül
  */
 return [
     'year' => ':count il',

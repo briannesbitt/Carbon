@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - mestremuten
  * - François B
@@ -18,6 +18,7 @@
  * - JD Isaacks
  * - Quentí
  * - Víctor Díaz
+ * - Xavi
  */
 return [
     'year' => ':count any|:count anys',

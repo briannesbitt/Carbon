@@ -8,6 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/*
+ * Authors:
+ * - Quentí
+ */
 \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
     return $number == 1 ? 0 : 1;
 }, 'oc');

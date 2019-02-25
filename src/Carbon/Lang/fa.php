@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - François B
@@ -17,6 +17,7 @@
  * - JD Isaacks
  * - Hossein Jabbari
  * - nimamo
+ * - hafezdivandari
  */
 return [
     'year' => ':count سال',

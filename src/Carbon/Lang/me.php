@@ -19,6 +19,7 @@
  * - shaishavgandhi05
  * - Serhan Apaydın
  * - JD Isaacks
+ * - Milos Sakovic
  */
 return [
     'year' => ':count godina|:count godine|:count godina',

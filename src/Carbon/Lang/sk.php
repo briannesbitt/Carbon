@@ -29,6 +29,8 @@
  * - Tom Hughes
  * - Simon Hürlimann (CyT)
  * - jofi
+ * - Jakub ADAMEC
+ * - Marek Adamický
  */
 return [
     'year' => 'rok|:count roky|:count rokov',

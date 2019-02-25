@@ -9,9 +9,11 @@
  * file that was distributed with this source code.
  */
 
-/**
- * Thanks to moment contributors:
- * https://github.com/moment/moment/commits/b84f097e5566ed370694abdc029223a5af94a290/src/locale/hu.js
+/*
+ * Authors:
+ * - Adam Brunner
+ * - Brett Johnson
+ * - balping
  */
 $huWeekEndings = ['vasárnap', 'hétfőn', 'kedden', 'szerdán', 'csütörtökön', 'pénteken', 'szombaton'];
 

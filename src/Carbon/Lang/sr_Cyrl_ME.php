@@ -9,6 +9,11 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Glavić
+ * - Milos Sakovic
+ */
 return [
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count године|[0,Inf[:count година',
     'y' => ':count г.',

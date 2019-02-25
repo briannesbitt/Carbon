@@ -9,11 +9,12 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Michael Hohl
  * - sheriffmarley
  * - dennisoderwald
+ * - Timo
  */
 return [
     'year' => ':count Jahr|:count Jahre',

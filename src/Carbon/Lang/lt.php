@@ -27,6 +27,11 @@
  * - Nicolás Hock Isaza
  * - Laurynas Butkus
  * - Sven Fuchs
+ * - Dominykas Tijūnaitis
+ * - Justinas Bolys
+ * - Ričardas
+ * - Kirill Chalkin
+ * - Rolandas
  */
 return [
     'year' => ':count metus|:count metus|:count metų',
