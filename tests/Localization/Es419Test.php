@@ -10,7 +10,7 @@
  */
 namespace Tests\Localization;
 
-class Es_419Test extends LocalizationTestCase
+class Es419Test extends LocalizationTestCase
 {
     const LOCALE = 'es_419'; // Spanish
 
