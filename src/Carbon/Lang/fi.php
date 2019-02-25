@@ -59,8 +59,8 @@ return [
     'formats' => [
         'L' => 'D.M.YYYY',
         'LL' => 'dddd D. MMMM[ta] YYYY',
-        'LLL' => 'D.MM. HH.MM',
-        'LLLL' => 'D. MMMM[ta] YYYY HH.MM',
+        'LLL' => 'D.MM. HH.mm',
+        'LLLL' => 'D. MMMM[ta] YYYY HH.mm',
     ],
     'weekdays' => ['sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'],
     'weekdays_short' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la'],

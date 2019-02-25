@@ -62,8 +62,8 @@ return [
     'formats' => [
         'L' => 'DD.MM.YYYY',
         'LL' => 'DD. MMMM YYYY',
-        'LLL' => 'D. M. HH:MM',
-        'LLLL' => 'dddd D. MMMM YYYY HH:MM',
+        'LLL' => 'D. M. HH:mm',
+        'LLLL' => 'dddd D. MMMM YYYY HH:mm',
     ],
     'weekdays' => ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],
     'weekdays_short' => ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],

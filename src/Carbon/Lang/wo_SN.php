@@ -17,8 +17,8 @@ return [
     'formats' => [
         'L' => 'DD.MM.YYYY',
         'LL' => 'MMMM DD, YYYY',
-        'LLL' => 'DD MMM HH:MM',
-        'LLLL' => 'MMMM DD, YYYY HH:MM',
+        'LLL' => 'DD MMM HH:mm',
+        'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
     'months' => ['sanwiy\'e', 'feebriy\'e', 'mars', 'awril', 'me', 'suwen', 'sulet', 'uut', 'septaambar', 'oktoobar', 'nowaambar', 'desaambar'],
     'months_short' => ['san', 'fee', 'mar', 'awr', 'me ', 'suw', 'sul', 'uut', 'sep', 'okt', 'now', 'des'],

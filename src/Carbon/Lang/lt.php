@@ -74,7 +74,7 @@ return [
     'formats' => [
         'L' => 'YYYY-MM-DD',
         'LL' => 'MMMM DD, YYYY',
-        'LLL' => 'DD MMM HH:MM',
-        'LLLL' => 'MMMM DD, YYYY HH:MM',
+        'LLL' => 'DD MMM HH:mm',
+        'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
 ];

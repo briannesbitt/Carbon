@@ -77,9 +77,9 @@ return [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
         'L' => 'DD.MM.YYYY',
-        'LL' => 'D MMMM YYYY р.',
-        'LLL' => 'D MMMM YYYY р., HH:mm',
-        'LLLL' => 'dddd, D MMMM YYYY р., HH:mm',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY, HH:mm',
+        'LLLL' => 'dddd, D MMMM YYYY, HH:mm',
     ],
     'calendar' => [
         'sameDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {

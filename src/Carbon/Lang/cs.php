@@ -54,8 +54,8 @@ return [
     'formats' => [
         'L' => 'DD. MM. YYYY',
         'LL' => 'DD. MMMM YYYY',
-        'LLL' => 'D. M. HH:MM',
-        'LLLL' => 'dddd D. MMMM YYYY HH:MM',
+        'LLL' => 'D. M. HH:mm',
+        'LLLL' => 'dddd D. MMMM YYYY HH:mm',
     ],
     'meridiem' => ['dopoledne', 'odpoledne'],
 ];

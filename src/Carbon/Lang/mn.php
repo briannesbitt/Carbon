@@ -81,7 +81,7 @@ return [
         'L' => 'YYYY-MM-DD',
         'LL' => 'YYYY MMMM DD',
         'LLL' => 'YY-MM-DD',
-        'LLLL' => 'YYYY MMMM DD, HH:MM',
+        'LLLL' => 'YYYY MMMM DD, HH:mm',
     ],
     'weekdays' => ['Ням', 'Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан', 'Бямба'],
     'weekdays_short' => ['Ня', 'Да', 'Мя', 'Лх', 'Пү', 'Ба', 'Бя'],

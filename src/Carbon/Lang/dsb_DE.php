@@ -17,8 +17,8 @@ return [
     'formats' => [
         'L' => 'DD.MM.YYYY',
         'LL' => 'DD. MMMM YYYY',
-        'LLL' => 'DD. MMMM, HH:MM [góź.]',
-        'LLLL' => 'dddd, DD. MMMM YYYY, HH:MM [góź.]',
+        'LLL' => 'DD. MMMM, HH:mm [góź.]',
+        'LLLL' => 'dddd, DD. MMMM YYYY, HH:mm [góź.]',
     ],
     'months' => ['januara', 'februara', 'měrca', 'apryla', 'maja', 'junija', 'julija', 'awgusta', 'septembra', 'oktobra', 'nowembra', 'decembra'],
     'months_short' => ['Jan', 'Feb', 'Měr', 'Apr', 'Maj', 'Jun', 'Jul', 'Awg', 'Sep', 'Okt', 'Now', 'Dec'],

@@ -69,8 +69,8 @@ return [
     'formats' => [
         'L' => 'DD.MM.YYYY.',
         'LL' => 'YYYY. [gada] D. MMMM',
-        'LLL' => 'DD.MM.YYYY., HH:MM',
-        'LLLL' => 'YYYY. [gada] D. MMMM, HH:MM',
+        'LLL' => 'DD.MM.YYYY., HH:mm',
+        'LLLL' => 'YYYY. [gada] D. MMMM, HH:mm',
     ],
     'weekdays' => ['svētdiena', 'pirmdiena', 'otrdiena', 'trešdiena', 'ceturtdiena', 'piektdiena', 'sestdiena'],
     'weekdays_short' => ['Sv.', 'P.', 'O.', 'T.', 'C.', 'Pk.', 'S.'],

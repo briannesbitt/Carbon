@@ -24,8 +24,8 @@ return [
     'formats' => [
         'L' => 'DD/MM/YYYY',
         'LL' => 'MMMM D, YYYY',
-        'LLL' => 'DD MMM HH:MM',
-        'LLLL' => 'MMMM DD, YYYY HH:MM',
+        'LLL' => 'DD MMM HH:mm',
+        'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
