@@ -39,10 +39,8 @@ $weekdays = [
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - Narain Sagar
  * - Sawood Alam
- * - Huáng Jùnliàng
  * - Narain Sagar
  */
 return [

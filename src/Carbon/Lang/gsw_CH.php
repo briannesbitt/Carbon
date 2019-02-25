@@ -30,6 +30,7 @@ return [
   'month' => ':count Monet',
   'week' => ':count Woche',
   'day' => ':count Tag',
+  'hour' => ':count Schtund',
   'minute' => ':count Minute',
   'second' => ':count Sekunde',
   'weekdays' => ['Sunntig', 'Mäntig', 'Ziischtig', 'Mittwuch', 'Dunschtig', 'Friitig', 'Samschtig'],

@@ -11,12 +11,10 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - monkeycon
  * - François B
  * - Jason Katz-Brown
  * - Konstantin Konev
- * - Iskren Chernev
  * - Chris Lam
  * - Serhan Apaydın
  * - Gary Lo

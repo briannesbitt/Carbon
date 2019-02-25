@@ -16,16 +16,12 @@
  * Authors:
  * - acutexyz
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Chyngyz Arystan uulu
  * - Chyngyz
  * - acutexyz
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Chyngyz Arystan uulu
  */
 return [

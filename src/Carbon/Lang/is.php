@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kristján Ingi Geirsson
+ */
 return [
     'year' => '1 ár|:count ár',
     'y' => '1 ár|:count ár',

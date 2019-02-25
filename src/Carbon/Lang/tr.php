@@ -13,10 +13,8 @@
  * Authors:
  * - Josh Soref
  * - Alan Agius
- * - Huáng Jùnliàng
  * - Erhan Gundogan
  * - François B
- * - Iskren Chernev
  * - JD Isaacks
  * - Murat Yüksel
  * - Baran Şengül

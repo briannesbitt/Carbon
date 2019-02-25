@@ -15,7 +15,6 @@
 /*
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - Rasulbek
  */
 return [

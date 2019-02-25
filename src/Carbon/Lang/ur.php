@@ -35,7 +35,6 @@ $weekdays = [
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - Sawood Alam
  * - Mehshan
  */

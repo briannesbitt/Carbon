@@ -11,10 +11,8 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - François B
  * - Fidel Pita
- * - Iskren Chernev
  * - JD Isaacks
  * - Diego Vilariño
  */

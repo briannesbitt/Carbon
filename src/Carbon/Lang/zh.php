@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - xuri
+ * - sycuato
+ * - bokideckonja
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',

@@ -11,8 +11,6 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - JD Isaacks
  */
 return [

@@ -12,10 +12,8 @@
 /**
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
  * - Tim Fish
- * - Iskren Chernev
  * - Serhan Apaydın
  * - JD Isaacks
  */

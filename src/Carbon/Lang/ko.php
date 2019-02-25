@@ -16,7 +16,6 @@
  * - François B
  * - Jason Katz-Brown
  * - Seokjun Kim
- * - Iskren Chernev
  * - Junho Kim
  * - JD Isaacks
  * - Juwon Kim

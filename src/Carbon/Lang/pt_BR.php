@@ -17,7 +17,6 @@
  * - Matt Pope
  * - François B
  * - Prodis
- * - Iskren Chernev
  * - Marlon Maxwel
  * - JD Isaacks
  * - Raphael Amorim

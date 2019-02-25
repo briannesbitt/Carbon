@@ -11,9 +11,8 @@
 
 /**
  * Authors:
+ * - nootanghimire
  * - Josh Soref
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - Nj Subedi
  * - JD Isaacks
  */

@@ -14,9 +14,7 @@
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Jon Ashdown
  */
 return [

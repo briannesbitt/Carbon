@@ -11,11 +11,9 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - kostas
  * - François B
  * - Tim Fish
- * - Iskren Chernev
  * - Chiel Robben
  * - Claire Coloma
  * - Steven Heinrich

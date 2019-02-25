@@ -12,8 +12,6 @@
 /**
  * Authors:
  * - Kruy Vanna
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - Sereysethy Touch
  * - JD Isaacks
  * - Sovichet Tep

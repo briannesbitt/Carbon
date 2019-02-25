@@ -11,10 +11,8 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - François B
  * - Tim Fish
- * - Iskren Chernev
  * - JD Isaacks
  */
 return [

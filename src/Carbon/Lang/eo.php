@@ -12,10 +12,8 @@
 /**
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
  * - Mia Nordentoft
- * - Iskren Chernev
  * - JD Isaacks
  */
 return [

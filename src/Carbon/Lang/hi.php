@@ -11,9 +11,8 @@
 
 /**
  * Authors:
+ * - abhimanyu003
  * - Josh Soref
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - JD Isaacks
  */
 return [

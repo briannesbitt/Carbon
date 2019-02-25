@@ -15,10 +15,8 @@
 /*
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
  * - shaishavgandhi05
- * - Iskren Chernev
  * - Serhan Apaydın
  * - JD Isaacks
  */

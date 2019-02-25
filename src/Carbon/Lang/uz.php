@@ -14,8 +14,6 @@
 
 /*
  * Authors:
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - Dmitriy Shabanov
  * - JD Isaacks
  * - Inoyatulloh

@@ -11,8 +11,6 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - Daniel Cohen Gindi
  * - JD Isaacks
  * - Itai Nathaniel

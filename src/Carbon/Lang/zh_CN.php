@@ -11,11 +11,9 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - monkeycon
  * - François B
  * - Jason Katz-Brown
- * - Iskren Chernev
  * - Serhan Apaydın
  * - Matt Johnson
  * - JD Isaacks

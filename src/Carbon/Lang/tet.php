@@ -15,9 +15,7 @@
 /*
  * Authors:
  * - Joshua Brooks
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  */
 return [
     'year' => 'tinan :count',

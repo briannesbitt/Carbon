@@ -14,10 +14,8 @@
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - François B
  * - Nicolai Davies
- * - Iskren Chernev
  */
 return [
     'year' => 'umnyaka|:count iminyaka',

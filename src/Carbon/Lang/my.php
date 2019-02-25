@@ -15,8 +15,6 @@
 /*
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - JD Isaacks
  * - Nay Lin Aung
  */

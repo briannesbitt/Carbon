@@ -12,9 +12,7 @@
 /**
  * Authors:
  * - Dieter Sting
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Gaspard Bucher
  * - Maxime VALY
  * - JD Isaacks

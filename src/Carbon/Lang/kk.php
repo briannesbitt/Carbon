@@ -15,9 +15,7 @@
 /*
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Talat Uspanov
  * - Нурлан Рахимжанов
  * - Toleugazy Kali

@@ -14,13 +14,9 @@
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - John Corrigan
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  */
 return [
     'year' => ':count tau',

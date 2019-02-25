@@ -11,9 +11,7 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - JD Isaacks
  * - Pierre du Plessis
  */

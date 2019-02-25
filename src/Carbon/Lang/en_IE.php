@@ -12,9 +12,7 @@
 /**
  * Authors:
  * - Martin McWhorter
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Chris Cartlidge
  * - JD Isaacks
  */

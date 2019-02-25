@@ -11,11 +11,9 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - Alessandro Di Felice
  * - François B
  * - Tim Fish
- * - Iskren Chernev
  * - Gabriel Monteagudo
  * - JD Isaacks
  * - yiannisdesp

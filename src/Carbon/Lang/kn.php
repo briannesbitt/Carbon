@@ -13,7 +13,6 @@
  * Authors:
  * - Josh Soref
  * - MOHAN M U
- * - Huáng Jùnliàng
  * - François B
  * - rajeevnaikte
  */

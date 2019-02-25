@@ -11,11 +11,9 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - Rune Mønnike
  * - François B
  * - codenhagen
- * - Iskren Chernev
  * - JD Isaacks
  * - Jens Herlevsen
  */

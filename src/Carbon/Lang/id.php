@@ -13,8 +13,6 @@
  * Authors:
  * - Josh Soref
  * - du
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - JD Isaacks
  * - Nafies Luthfi
  */

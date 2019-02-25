@@ -14,12 +14,10 @@
  * - Kunal Marwaha
  * - Josh Soref
  * - Jørn Ølmheim
- * - Huáng Jùnliàng
  * - Craig Patik
  * - bustta
  * - François B
  * - Tim Fish
- * - Iskren Chernev
  * - Claire Coloma
  * - Steven Heinrich
  * - JD Isaacks

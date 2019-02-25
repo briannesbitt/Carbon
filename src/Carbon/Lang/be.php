@@ -13,9 +13,7 @@
  * Authors:
  * - Josh Soref
  * - SobakaSlava
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - Serhan Apaydın
  * - JD Isaacks
  */

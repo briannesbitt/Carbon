@@ -13,8 +13,6 @@
  * Authors:
  * - Bari Badamshin
  * - Jørn Ølmheim
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - François B
  * - Tim Fish
  * - Коренберг Марк (imac)
@@ -24,8 +22,6 @@
  * - JD Isaacks
  * - Bari Badamshin
  * - Jørn Ølmheim
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - François B
  * - Коренберг Марк (imac)
  * - Serhan Apaydın

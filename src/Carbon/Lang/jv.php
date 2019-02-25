@@ -12,9 +12,7 @@
 /**
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
  * - tgfjt
- * - Iskren Chernev
  * - JD Isaacks
  */
 return [

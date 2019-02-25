@@ -11,10 +11,8 @@
 
 /**
  * Authors:
- * - Huáng Jùnliàng
  * - François B
  * - Ian De La Cruz
- * - Iskren Chernev
  * - JD Isaacks
  */
 return require __DIR__.'/tl.php';

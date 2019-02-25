@@ -40,8 +40,6 @@ $weekdays = [
 /*
  * Authors:
  * - Josh Soref
- * - Huáng Jùnliàng
- * - Iskren Chernev
  * - Jawish Hameed
  */
 return [

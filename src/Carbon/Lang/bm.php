@@ -14,7 +14,6 @@
 
 /*
  * Authors:
- * - Huáng Jùnliàng
  * - Estelle Comment
  */
 return [

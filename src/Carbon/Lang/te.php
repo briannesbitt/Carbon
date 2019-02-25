@@ -13,9 +13,7 @@
  * Authors:
  * - Kunal Marwaha
  * - Josh Soref
- * - Huáng Jùnliàng
  * - François B
- * - Iskren Chernev
  * - kc
  */
 return [
