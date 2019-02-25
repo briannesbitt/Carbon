@@ -9,6 +9,27 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Martin Suja
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Juanito Fatas
+ * - Ivan Stana
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - James McKinney
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Jozef Fulop
+ * - Nicolás Hock Isaza
+ * - Tom Hughes
+ * - Simon Hürlimann (CyT)
+ * - jofi
+ */
 return [
     'year' => 'rok|:count roky|:count rokov',
     'y' => ':count r',
@@ -38,4 +59,16 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' a '],
+    'formats' => [
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'DD. MMMM YYYY',
+        'LLLL' => 'dddd D. MMMM YYYY HH:MM',
+        'LLL' => 'D. M. HH:MM',
+    ],
+    'weekdays' => ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],
+    'weekdays_short' => ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
+    'weekdays_min' => ['Ne', 'Po', 'Ut', 'St', 'Št', 'Pi', 'So'],
+    'months' => ['Január', 'Február', 'Marec', 'Apríl', 'Máj', 'Jún', 'Júl', 'August', 'September', 'Október', 'November', 'December'],
+    'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
+    'meridiem' => ['dopoludnia', 'popoludní'],
 ];

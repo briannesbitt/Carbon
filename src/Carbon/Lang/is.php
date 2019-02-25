@@ -36,4 +36,15 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' og '],
     'meridiem' => ['fh', 'eh'],
+    'formats' => [
+        'L' => 'DD.MM.YYYY',
+        'LL' => 'D. MMMM YYYY',
+        'LLLL' => 'dddd D. MMMM YYYY [kl.] HH:MM',
+        'LLL' => 'D. MMMM [kl.] HH:MM',
+    ],
+    'weekdays' => ['sunnudaginn', 'mánudaginn', 'þriðjudaginn', 'miðvikudaginn', 'fimmtudaginn', 'föstudaginn', 'laugardaginn'],
+    'weekdays_short' => ['sun', 'mán', 'þri', 'mið', 'fim', 'fös', 'lau'],
+    'weekdays_min' => ['sun', 'mán', 'þri', 'mið', 'fim', 'fös', 'lau'],
+    'months' => ['janúar', 'febrúar', 'mars', 'apríl', 'maí', 'júní', 'júlí', 'ágúst', 'september', 'október', 'nóvember', 'desember'],
+    'months_short' => ['jan', 'feb', 'mar', 'apr', 'maí', 'jún', 'júl', 'ágú', 'sep', 'okt', 'nóv', 'des'],
 ];

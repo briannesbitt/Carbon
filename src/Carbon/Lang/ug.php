@@ -12,6 +12,12 @@
     return $number === 1 ? 0 : 1;
 }, 'ug');
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - yasinn
+ */
 return [
     'year' => 'بىر يىل|:count يىل',
     'month' => 'بىر ئاي|:count ئاي',
@@ -78,4 +84,5 @@ return [
     'weekdays_min' => ['يە', 'دۈ', 'سە', 'چا', 'پە', 'جۈ', 'شە'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' ۋە '],
 ];

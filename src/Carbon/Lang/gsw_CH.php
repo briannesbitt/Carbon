@@ -38,7 +38,6 @@ return [
   'weekdays_min' => ['Su', 'Mä', 'Zi', 'Mi', 'Du', 'Fr', 'Sa'],
   'months' => ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'Auguscht', 'September', 'Oktober', 'November', 'Dezember'],
   'months_short' => ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
-  'meridiem' => ['vormittags', 'nachmittags'],
   'ordinal' => ':number.',
   'list' => [', ', ' und '],
 ];

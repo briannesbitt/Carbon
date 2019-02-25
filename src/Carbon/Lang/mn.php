@@ -12,6 +12,23 @@
  * @translator Batmandakh Erdenebileg <batmandakh.e@icloud.com>
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Zolzaya Erdenebaatar
+ * - Tom Hughes
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Michael Kessler
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Nicolás Hock Isaza
+ * - Ochirkhuyag
+ */
 return [
     'year' => ':count жил',
     'y' => ':count жил',
@@ -60,4 +77,16 @@ return [
     'minute_before' => ':count минуты',
     'second_before' => ':count секунды',
     'list' => ', ',
+    'formats' => [
+        'L' => 'YYYY-MM-DD',
+        'LL' => 'YYYY MMMM DD',
+        'LLLL' => 'YYYY MMMM DD, HH:MM:%S',
+        'LLL' => 'YY-MM-DD',
+    ],
+    'weekdays' => ['Ням', 'Даваа', 'Мягмар', 'Лхагва', 'Пүрэв', 'Баасан', 'Бямба'],
+    'weekdays_short' => ['Ня', 'Да', 'Мя', 'Лх', 'Пү', 'Ба', 'Бя'],
+    'weekdays_min' => ['Ня', 'Да', 'Мя', 'Лх', 'Пү', 'Ба', 'Бя'],
+    'months' => ['1 сар', '2 сар', '3 сар', '4 сар', '5 сар', '6 сар', '7 сар', '8 сар', '9 сар', '10 сар', '11 сар', '12 сар'],
+    'months_short' => ['1 сар', '2 сар', '3 сар', '4 сар', '5 сар', '6 сар', '7 сар', '8 сар', '9 сар', '10 сар', '11 сар', '12 сар'],
+    'meridiem' => ['өглөө', 'орой'],
 ];

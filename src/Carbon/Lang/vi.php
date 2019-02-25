@@ -65,4 +65,5 @@ return [
     'weekdays_min' => ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'list' => [', ', ' và '],
 ];

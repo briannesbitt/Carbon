@@ -23,6 +23,27 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
  * - JD Isaacks
  * - Max Kovpak
  * - AucT
+ * - Philippe Vaucher
+ * - Ilya Shaplyko
+ * - Vadym Ievsieiev
+ * - Denys Kurets
+ * - Igor Kasyanchuk
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Oleh
+ * - epaminond
+ * - Juanito Fatas
+ * - Vitalii Khustochka
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Andriy Tyurnikov
+ * - Nicolás Hock Isaza
+ * - Iwakura Taro
+ * - Andrii Ponomarov
  */
 return [
     'year' => ':count рік|:count роки|:count років',

@@ -9,6 +9,25 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - pirminis
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Andris Zāģeris
+ * - Max Melentiev
+ * - Edgars Beigarts
+ * - Juanito Fatas
+ * - Vitauts Stočka
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Kaspars Bankovskis
+ * - Nicolás Hock Isaza
+ */
 return [
     'year' => '0 gadiem|:count gada|:count gadiem',
     'y' => '0 gadiem|:count gada|:count gadiem',
@@ -47,4 +66,16 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' un '],
+    'formats' => [
+        'L' => 'DD.MM.YYYY.',
+        'LL' => 'YYYY. [gada] D. MMMM',
+        'LLLL' => 'YYYY. [gada] D. MMMM, HH:MM',
+        'LLL' => 'DD.MM.YYYY., HH:MM',
+    ],
+    'weekdays' => ['svētdiena', 'pirmdiena', 'otrdiena', 'trešdiena', 'ceturtdiena', 'piektdiena', 'sestdiena'],
+    'weekdays_short' => ['Sv.', 'P.', 'O.', 'T.', 'C.', 'Pk.', 'S.'],
+    'weekdays_min' => ['Sv.', 'P.', 'O.', 'T.', 'C.', 'Pk.', 'S.'],
+    'months' => ['janvārī', 'ferbruārī', 'martā', 'aprīlī', 'maijā', 'jūnijā', 'jūlijā', 'augustā', 'septembrī', 'oktobrī', 'novembrī', 'decembrī'],
+    'months_short' => ['Janv', 'Febr', 'Marts', 'Apr', 'Maijs', 'Jūn', 'Jūl', 'Aug', 'Sept', 'Okt', 'Nov', 'Dec'],
+    'meridiem' => ['priekšpusdiena', 'pēcpusdiena'],
 ];

@@ -37,6 +37,11 @@ $weekdays = [
  * Authors:
  * - Sawood Alam
  * - Mehshan
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Zaid Akram
+ * - Max Melentiev
  */
 return [
     'year' => 'ایک سال|:count سال',

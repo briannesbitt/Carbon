@@ -73,4 +73,5 @@ return [
     'weekdays_min' => ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' மற்றும் '],
 ];

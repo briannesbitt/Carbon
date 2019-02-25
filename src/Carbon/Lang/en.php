@@ -63,5 +63,4 @@ return [
         );
     },
     'list' => [', ', ' and '],
-    'meridiem' => ['AM', 'PM'],
 ];

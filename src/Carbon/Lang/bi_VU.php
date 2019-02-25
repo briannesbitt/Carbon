@@ -22,5 +22,4 @@ return [
     'weekdays' => ['Sande', ''],
     'weekdays_short' => ['San', ''],
     'weekdays_min' => ['San', ''],
-    'meridiem' => ['AM', 'PM'],
 ];

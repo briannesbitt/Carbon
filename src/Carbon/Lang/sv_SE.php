@@ -24,4 +24,11 @@ return [
     'weekdays_min' => ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'year' => ':count År',
+    'month' => ':count Månad',
+    'day' => ':count Dag',
+    'hour' => ':count Timme',
+    'minute' => ':count Minut',
+    'second' => ':count Sekund',
+    'list' => [', ', ' och '],
 ];

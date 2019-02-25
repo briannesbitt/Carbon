@@ -23,5 +23,4 @@ return [
     'weekdays_short' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
     'weekdays_min' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
     'day_of_first_week_of_year' => 1,
-    'meridiem' => ['AM', 'PM'],
 ];

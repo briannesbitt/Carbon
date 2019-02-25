@@ -24,4 +24,11 @@ return [
     'weekdays_min' => ['do', 'lu', 'ma', 'we', 'ra', 'bi', 'sa'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'year' => ':count Aña',
+    'month' => ':count Luna',
+    'day' => ':count Dia',
+    'hour' => ':count Ora',
+    'minute' => ':count Minüt',
+    'second' => ':count Sekònde',
+    'list' => [', ', ' i '],
 ];
