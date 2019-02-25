@@ -12,7 +12,21 @@
     return ((1 == $number % 10) && (11 != $number % 100)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
 }, 'sh');
 
+/*
+ * Authors:
+ * - Томица Кораћ
+ * - Enrique Vidal
+ * - Christopher Dell
+ * - dmilisic
+ * - danijel
+ */
 return [
+    'formats' => [
+        'L' => 'DD/MM/YYYY',
+        'LL' => 'MMMM D, YYYY',
+        'LLLL' => 'MMMM DD, YYYY HH:MM',
+        'LLL' => 'DD MMM HH:MM',
+    ],
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
     'month' => ':count mesec|:count meseca|:count meseci',
@@ -31,5 +45,11 @@ return [
     'from_now' => 'za :time',
     'after' => 'nakon :time',
     'before' => ':time raniјe',
+    'weekdays' => ['Nedelja', 'Ponedeljak', 'Utorak', 'Sreda', 'Četvrtak', 'Petak', 'Subota'],
+    'weekdays_short' => ['Ned', 'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'],
+    'weekdays_min' => ['Ned', 'Pon', 'Uto', 'Sre', 'Čet', 'Pet', 'Sub'],
+    'months' => ['Januar', 'Februar', 'Mart', 'April', 'Maj', 'Jun', 'Jul', 'Avgust', 'Septembar', 'Oktobar', 'Novembar', 'Decembar'],
+    'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
+    'meridiem' => ['AM', 'PM'],
     'list' => [', ', ' i '],
 ];
