@@ -41,7 +41,7 @@ return [
     'a_minute' => 'um minuto|:count minutos',
     'min' => ':countmin',
     'second' => ':count segundo|:count segundos',
-    'a_second' => 'segundos|:count segundos',
+    'a_second' => 'alguns segundos|:count segundos',
     's' => ':counts',
     'ago' => 'há :time',
     'from_now' => 'em :time',
