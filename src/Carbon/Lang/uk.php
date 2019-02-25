@@ -44,6 +44,7 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
  * - Nicolás Hock Isaza
  * - Iwakura Taro
  * - Andrii Ponomarov
+ * - alecrabbit
  */
 return [
     'year' => ':count рік|:count роки|:count років',

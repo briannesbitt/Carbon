@@ -18,6 +18,7 @@
  * - JD Isaacks
  * - Raphael Amorim
  * - João Magalhães
+ * - victortobias
  */
 return [
     'year' => ':count ano|:count anos',

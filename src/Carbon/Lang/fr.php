@@ -19,6 +19,7 @@
  * - François B
  * - JD Isaacks
  * - Sebastian Thierer
+ * - Fastfuel
  */
 return [
     'year' => ':count an|:count ans',
