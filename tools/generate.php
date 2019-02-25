@@ -96,7 +96,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         $key = "$className::$method";
         $parameters = implode(', ', $parameters ?: []);
         if (is_array($globalHistory) && isset($globalHistory[$key])) {
-            $ref = implode(', ', reset($globalHistory[$key]));
+            $ref = implode(', ', reset($globalHistory[$key]) ?: ['']);
             $parameters = $ref;
             $version = key($globalHistory[$key]);
 
