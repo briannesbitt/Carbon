@@ -24,7 +24,7 @@ return [
     'a_month' => 'en månad|:count månader',
     'm' => ':count mån.',
     'week' => ':count vecka|:count veckor',
-    'a_week' => ':count vecka|:count veckor',
+    'a_week' => 'en vecka|:count veckor',
     'w' => ':count v.',
     'day' => ':count dag|:count dagar',
     'a_day' => 'en dag|:count dagar',
