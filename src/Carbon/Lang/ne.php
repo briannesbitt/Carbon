@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - nootanghimire
+ * - Josh Soref
+ * - Nj Subedi
+ * - JD Isaacks
+ */
 return [
     'year' => 'एक बर्ष|:count बर्ष',
     'y' => ':count वर्ष',
@@ -46,7 +53,7 @@ return [
         'lastWeek' => '[गएको] dddd[,] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 3) {
             return 'राति';
         }

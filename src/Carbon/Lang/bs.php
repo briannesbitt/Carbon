@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - bokideckonja
+ * - Josh Soref
+ * - François B
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',

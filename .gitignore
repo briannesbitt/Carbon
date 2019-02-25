@@ -10,3 +10,4 @@ coverage.xml
 coverage
 phpunit.xml
 Carbon-*.zip
+*.phpunit.result.cache

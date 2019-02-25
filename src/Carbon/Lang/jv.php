@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - tgfjt
+ * - JD Isaacks
+ */
 return [
     'year' => '{1}setaun|]1,Inf[:count taun',
     'month' => '{1}sewulan|]1,Inf[:count wulan',
@@ -35,7 +41,7 @@ return [
         'lastWeek' => 'dddd [kepengker pukul] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 11) {
             return 'enjing';
         }

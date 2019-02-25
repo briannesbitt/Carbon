@@ -9,6 +9,20 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Adam
+ * - monkeycon
+ * - François B
+ * - Jason Katz-Brown
+ * - Chris Lam
+ * - Serhan Apaydın
+ * - Gary Lo
+ * - JD Isaacks
+ * - Chris Hemp
+ * - Eddie
+ * - KID
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',
@@ -61,7 +75,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour, $minute) {
         $time = $hour * 100 + $minute;
         if ($time < 600) {
             return '凌晨';

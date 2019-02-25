@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Ash
+ * - François B
+ * - Marco Perrando
+ * - Massimiliano Caniparoli
+ * - JD Isaacks
+ * - Andrea Martini
+ * - Francesco Marasco
+ */
 return [
     'year' => ':count anno|:count anni',
     'a_year' => 'un anno|:count anni',

@@ -52,12 +52,7 @@ return [
         'sameElse' => 'L',
     ],
 
-    'meridiem' => function ($hour, $minute, $isLower) {
-        $meridiem = 'D\''.($hour > 11 ? 'O' : 'A');
-
-        return $isLower ? strtolower($meridiem) : $meridiem;
-    },
-
+    'meridiem' => ["D'A", "D'O"],
     'months' => ['Januar', 'Fevraglh', 'Març', 'Avrïu', 'Mai', 'Gün', 'Julia', 'Guscht', 'Setemvar', 'Listopäts', 'Noemvar', 'Zecemvar'],
     'months_short' => ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Gün', 'Jul', 'Gus', 'Set', 'Lis', 'Noe', 'Zec'],
     'weekdays' => ['Súladi', 'Lúneçi', 'Maitzi', 'Márcuri', 'Xhúadi', 'Viénerçi', 'Sáturi'],

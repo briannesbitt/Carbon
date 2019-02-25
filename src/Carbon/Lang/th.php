@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Nate Whittaker
+ * - John MacAslan
+ * - Chanintorn Asavavichairoj
+ * - JD Isaacks
+ * - ROKAISAKKON
+ * - RO'KAISAKKON
+ * - Andreas Möller
+ */
 return [
     'year' => ':count ปี',
     'y' => ':count ปี',
@@ -44,12 +54,11 @@ return [
         'lastWeek' => '[วัน]dddd[ที่แล้ว เวลา] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'ก่อนเที่ยง' : 'หลังเที่ยง';
-    },
+    'meridiem' => ['ก่อนเที่ยง', 'หลังเที่ยง'],
     'months' => ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
     'months_short' => ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
     'weekdays' => ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์'],
     'weekdays_short' => ['อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัส', 'ศุกร์', 'เสาร์'],
     'weekdays_min' => ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'],
+    'list' => [', ', ' และ '],
 ];

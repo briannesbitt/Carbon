@@ -9,8 +9,12 @@
  * file that was distributed with this source code.
  */
 
-/** Thanks to https://github.com/tarunvelli */
-
+/*
+ * Authors:
+ * - tarunvelli
+ * - Eddie
+ * - KID
+ */
 return [
     'year' => ':count 年',
     'y' => ':count年',
@@ -61,7 +65,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour, $minute) {
         $time = $hour * 100 + $minute;
         if ($time < 600) {
             return '凌晨';

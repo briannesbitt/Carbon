@@ -9,6 +9,17 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kunal Marwaha
+ * - FourwingsY
+ * - François B
+ * - Jason Katz-Brown
+ * - Seokjun Kim
+ * - Junho Kim
+ * - JD Isaacks
+ * - Juwon Kim
+ */
 return [
     'year' => '{1}일 년|]1,Inf[:count년',
     'y' => ':count 년',
@@ -59,13 +70,11 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? '오전' : '오후';
-    },
+    'meridiem' => ['오전', '오후'],
     'months' => ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     'months_short' => ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
     'weekdays' => ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
     'weekdays_short' => ['일', '월', '화', '수', '목', '금', '토'],
     'weekdays_min' => ['일', '월', '화', '수', '목', '금', '토'],
-    'list' => ', ',
+    'list' => ' ',
 ];

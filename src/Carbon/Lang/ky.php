@@ -12,6 +12,18 @@
     return $number === 1 ? 0 : 1;
 }, 'ky');
 
+/*
+ * Authors:
+ * - acutexyz
+ * - Josh Soref
+ * - François B
+ * - Chyngyz Arystan uulu
+ * - Chyngyz
+ * - acutexyz
+ * - Josh Soref
+ * - François B
+ * - Chyngyz Arystan uulu
+ */
 return [
     'year' => ':count жыл',
     'a_year' => 'бир жыл|:count жыл',
@@ -45,7 +57,7 @@ return [
         'lastWeek' => '[Өткен аптанын] dddd [күнү] [саат] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         static $suffixes = [
             0 => '-чү',
             1 => '-чи',

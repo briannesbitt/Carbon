@@ -12,6 +12,21 @@
     return $number === 1 ? 0 : 1;
 }, 'uz');
 
+/*
+ * Authors:
+ * - Dmitriy Shabanov
+ * - JD Isaacks
+ * - Inoyatulloh
+ * - Jamshid
+ * - aarkhipov
+ * - Philippe Vaucher
+ * - felixthemagnificent
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Juanito Fatas
+ * - Alisher Ulugbekov
+ */
 return [
     'year' => ':count йил',
     'a_year' => 'бир йил|:count йил',
@@ -63,4 +78,6 @@ return [
     'weekdays_min' => ['Як', 'Ду', 'Се', 'Чо', 'Па', 'Жу', 'Ша'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'meridiem' => ['ertalab', 'kechasi'],
+    'list' => [', ', ' va '],
 ];

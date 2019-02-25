@@ -37,6 +37,12 @@ $weekdays = [
     return $number === 1 ? 0 : 1;
 }, 'sd');
 
+/*
+ * Authors:
+ * - Narain Sagar
+ * - Sawood Alam
+ * - Narain Sagar
+ */
 return [
     'year' => 'هڪ سال|:count سال',
     'month' => 'هڪ مهينو|:count مهينا',
@@ -65,9 +71,7 @@ return [
         'lastWeek' => '[گزريل هفتي] dddd [تي] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'صبح' : 'شام';
-    },
+    'meridiem' => ['صبح', 'شام'],
     'months' => $months,
     'months_short' => $months,
     'weekdays' => $weekdays,

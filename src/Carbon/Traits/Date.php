@@ -835,22 +835,10 @@ trait Date
                 return $this->getTranslatedShortMonthName();
             // @property-read string lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'meridiem':
-                $meridiem = $this->translate('meridiem', [
-                    ':hour' => $this->hour,
-                    ':minute' => $this->minute,
-                    ':isLower' => true,
-                ]);
-
-                return $meridiem === 'meridiem' ? $this->latinMeridiem : $meridiem;
+                return $this->meridiem(true);
             // @property-read string uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
             case $name === 'upperMeridiem':
-                $meridiem = $this->translate('meridiem', [
-                    ':hour' => $this->hour,
-                    ':minute' => $this->minute,
-                    ':isLower' => false,
-                ]);
-
-                return $meridiem === 'meridiem' ? $this->latinUpperMeridiem : $meridiem;
+                return $this->meridiem();
             // @property-read int current hour from 1 to 24
             case $name === 'noZeroHour':
                 return $this->hour ?: 24;
@@ -1706,6 +1694,13 @@ trait Date
         static $units = null;
         if ($units === null) {
             $units = [
+                'OD' => ['getAltNumber', ['day']],
+                'OM' => ['getAltNumber', ['month']],
+                'OY' => ['getAltNumber', ['year']],
+                'OH' => ['getAltNumber', ['hour']],
+                'Oh' => ['getAltNumber', ['h']],
+                'Om' => ['getAltNumber', ['minute']],
+                'Os' => ['getAltNumber', ['second']],
                 'D' => 'day',
                 'DD' => ['format', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
@@ -1852,6 +1847,77 @@ trait Date
     }
 
     /**
+     * Return the meridiem of the current time in the current locale.
+     *
+     * @param bool $isLower if true, returns lowercase variant if available in the current locale.
+     *
+     * @return string
+     */
+    public function meridiem(bool $isLower = false): string
+    {
+        $hour = $this->hour;
+        $index = $hour < 12 ? 0 : 1;
+
+        if ($isLower) {
+            $key = 'meridiem.'.($index + 2);
+            $result = $this->translate($key);
+
+            if ($result !== $key) {
+                return $result;
+            }
+        }
+
+        $key = "meridiem.$index";
+        $result = $this->translate($key);
+        if ($result === $key) {
+            $result = $this->translate('meridiem', [
+                ':hour' => $this->hour,
+                ':minute' => $this->minute,
+                ':isLower' => $isLower,
+            ]);
+
+            if ($result === 'meridiem') {
+                return $isLower ? $this->latinMeridiem : $this->latinUpperMeridiem;
+            }
+        } elseif ($isLower) {
+            $result = mb_strtolower($result);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the alternative number if available in the current locale.
+     *
+     * @param string $key date property
+     *
+     * @return string
+     */
+    public function getAltNumber(string $key): string
+    {
+        $number = strlen($key) > 1 ? $this->$key : $this->format('h');
+        $translateKey = "alt_numbers.$number";
+        $symbol = $this->translate($translateKey);
+
+        if ($symbol !== $translateKey) {
+            return $symbol;
+        }
+
+        if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
+            $result = '';
+            while ($number) {
+                $chunk = $number % 100;
+                $result = $this->translate("alt_numbers.$chunk").$result;
+                $number = floor($number / 100);
+            }
+
+            return $result;
+        }
+
+        return $number;
+    }
+
+    /**
      * @param string $format
      *
      * @return string
@@ -1911,7 +1977,7 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
                 $code = $match[0];
                 if ($units === null) {
                     $units = static::getIsoUnits();

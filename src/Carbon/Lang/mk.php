@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Sashko Todorov
+ * - Josh Soref
+ * - François B
+ * - Serhan Apaydın
+ * - Borislav Mickov
+ * - JD Isaacks
+ * - Tomi Atanasoski
+ */
 return [
     'year' => ':count година|:count години',
     'a_year' => 'година|:count години',
@@ -85,4 +95,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' и '],
+    'meridiem' => ['АМ', 'ПМ'],
 ];

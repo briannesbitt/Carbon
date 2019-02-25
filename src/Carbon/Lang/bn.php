@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Shakib Hossain
+ * - Raju
+ * - Aniruddha Adhikary
+ * - JD Isaacks
+ * - Saiful Islam
+ * - Faisal Islam
+ */
 return [
     'year' => ':count বছর',
     'a_year' => 'এক বছর|:count বছর',
@@ -58,7 +68,7 @@ return [
         'lastWeek' => '[গত] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'রাত';
         }

@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',
@@ -87,4 +95,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' i '],
+    'meridiem' => ['АМ', 'ПМ'],
 ];

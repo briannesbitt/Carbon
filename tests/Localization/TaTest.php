@@ -212,7 +212,7 @@ class TaTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'ஒரு வாரம் 6 நாட்கள்',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ஒரு வாரம் 6 நாட்கள் இல்',
+        'ஒரு வாரம் மற்றும் 6 நாட்கள் இல்',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 வாரங்கள் ஒரு மணி நேரம்',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

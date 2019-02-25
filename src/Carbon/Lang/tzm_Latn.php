@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'tzm');
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - JD Isaacks
+ */
 return [
     'year' => ':count asgas|:count isgasn',
     'a_year' => 'asgas|:count isgasn',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Muhammad Nasir Rahimi
+ */
 return [
     'year' => ':count کال|:count کاله',
     'y' => ':countکال|:countکاله',
@@ -29,4 +33,5 @@ return [
     'after' => ':time وروسته',
     'before' => ':time دمخه',
     'list' => ['، ', ' او '],
+    'meridiem' => ['غ.م.', 'غ.و.'],
 ];

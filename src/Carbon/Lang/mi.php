@@ -12,6 +12,12 @@
     return $number === 1 ? 0 : 1;
 }, 'mi');
 
+/*
+ * Authors:
+ * - François B
+ * - John Corrigan
+ * - François B
+ */
 return [
     'year' => ':count tau',
     'a_year' => 'he tau|:count tau',

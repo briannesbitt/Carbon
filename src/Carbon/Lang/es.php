@@ -9,6 +9,21 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kunal Marwaha
+ * - kostas
+ * - François B
+ * - Tim Fish
+ * - Claire Coloma
+ * - Steven Heinrich
+ * - JD Isaacks
+ * - Raphael Amorim
+ * - Jorge Y. Castillo
+ * - Víctor Díaz
+ * - Diego
+ * - Sebastian Thierer
+ */
 return [
     'year' => ':count año|:count años',
     'a_year' => 'un año|:count años',

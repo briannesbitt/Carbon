@@ -9,6 +9,17 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - Glavić
+ * - Nikola Zeravcic
+ * - Milos Sakovic
+ */
 return [
     'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count године|[0,Inf[:count година',
     'y' => ':count г.',
@@ -90,4 +101,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' и '],
+    'meridiem' => ['АМ', 'ПМ'],
 ];

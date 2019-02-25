@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kristian Sakarisson
+ * - François B
+ * - JD Isaacks
+ * - Sverri Mohr Olsen
+ */
 return [
     'year' => 'eitt ár|:count ár',
     'y' => ':count ár|:count ár',

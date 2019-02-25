@@ -9,6 +9,28 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Andres Ivanov
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Juanito Fatas
+ * - RM87
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Esko Lehtme
+ * - Mart Karu
+ * - Nicolás Hock Isaza
+ * - Kevin Valdek
+ * - Zahhar Kirillov
+ * - João Magalhães
+ * - Ingmar
+ */
 return [
     'year' => ':count aasta|:count aastat',
     'y' => ':count aasta|:count aastat',
@@ -64,4 +86,5 @@ return [
     'weekdays_short' => ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
     'weekdays_min' => ['P', 'E', 'T', 'K', 'N', 'R', 'L'],
     'list' => [', ', ' ja '],
+    'meridiem' => ['enne lõunat', 'pärast lõunat'],
 ];

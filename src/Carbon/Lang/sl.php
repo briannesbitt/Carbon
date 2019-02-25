@@ -9,6 +9,24 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Juanito Fatas
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Nicolás Hock Isaza
+ * - Miha Rebernik
+ * - Gal Jakič
+ * - Glavić
+ * - Anže Časar
+ */
 return [
     'year' => ':count leto|:count leti|:count leta|:count let',
     'y' => ':count leto|:count leti|:count leta|:count let',
@@ -83,4 +101,5 @@ return [
     'weekdays_short' => ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
     'weekdays_min' => ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'],
     'list' => [', ', ' in '],
+    'meridiem' => ['dopoldan', 'popoldan'],
 ];

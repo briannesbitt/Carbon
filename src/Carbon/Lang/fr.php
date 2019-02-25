@@ -9,6 +9,18 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Dieter Sting
+ * - François B
+ * - Maxime VALY
+ * - JD Isaacks
+ * - Dieter Sting
+ * - François B
+ * - JD Isaacks
+ * - Sebastian Thierer
+ * - Fastfuel
+ */
 return [
     'year' => ':count an|:count ans',
     'a_year' => 'un an|:count ans',
@@ -21,16 +33,16 @@ return [
     'w' => ':count sem.',
     'day' => ':count jour|:count jours',
     'a_day' => 'un jour|:count jours',
-    'd' => ':count j.',
+    'd' => ':count j',
     'hour' => ':count heure|:count heures',
     'a_hour' => 'une heure|:count heures',
-    'h' => ':count h.',
+    'h' => ':count h',
     'minute' => ':count minute|:count minutes',
     'a_minute' => 'une minute|:count minutes',
-    'min' => ':count min.',
+    'min' => ':count min',
     'second' => ':count seconde|:count secondes',
     'a_second' => 'quelques secondes|:count secondes',
-    's' => ':count sec.',
+    's' => ':count s',
     'ago' => 'il y a :time',
     'from_now' => 'dans :time',
     'after' => ':time après',

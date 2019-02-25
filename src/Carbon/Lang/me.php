@@ -12,6 +12,15 @@
     return \Symfony\Component\Translation\PluralizationRules::get($number, 'sr');
 }, 'me');
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - Milos Sakovic
+ */
 return [
     'year' => ':count godina|:count godine|:count godina',
     'y' => ':count godina|:count godine|:count godina',

@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Rune Mønnike
+ * - François B
+ * - codenhagen
+ * - JD Isaacks
+ * - Jens Herlevsen
+ */
 return [
     'year' => ':count år|:count år',
     'a_year' => 'et år|:count år',

@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - du
+ * - JD Isaacks
+ * - Nafies Luthfi
+ */
 return [
     'year' => ':count tahun',
     'a_year' => '{1}setahun|]1,Inf[:count tahun',
@@ -51,7 +58,7 @@ return [
         'lastWeek' => 'dddd [lalu pukul] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 11) {
             return 'pagi';
         }

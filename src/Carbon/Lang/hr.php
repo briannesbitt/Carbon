@@ -9,6 +9,23 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - Tim Fish
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - tomhorvat
+ * - Josh Soref
+ * - François B
+ * - shaishavgandhi05
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - tomhorvat
+ * - Stjepan
+ */
 return [
     'year' => ':count godinu|:count godine|:count godina',
     'y' => ':count god.|:count god.|:count god.',

@@ -12,6 +12,10 @@
     return $number === 1 ? 0 : 1;
 }, 'tg');
 
+/*
+ * Authors:
+ * - Orif N. Jr
+ */
 return [
     'year' => 'як сол|:count сол',
     'month' => 'як моҳ|:count моҳ',
@@ -38,8 +42,8 @@ return [
         'lastWeek' => 'dddd[и] [ҳафтаи гузашта соати] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
-        if ($number === 0) {  // special case for zero
+    'ordinal' => function ($number) {
+        if ($number === 0) { // special case for zero
             return "$number-ıncı";
         }
 
@@ -70,7 +74,7 @@ return [
 
         return $number.($suffixes[$number] ?? $suffixes[$number % 10] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'шаб';
         }

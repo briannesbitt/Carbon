@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - François B
+ * - Kristoffer Snabb
+ * - JD Isaacks
+ * - Jens Herlevsen
+ */
 return [
     'year' => ':count år',
     'a_year' => 'ett år|:count år',
@@ -53,7 +60,7 @@ return [
         'lastWeek' => '[I] dddd[s] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         $lastDigit = $number % 10;
 
         return $number.(

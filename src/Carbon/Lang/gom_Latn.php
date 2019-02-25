@@ -54,7 +54,7 @@ return [
         return $number.($period === 'D' ? 'er' : '');
     },
 
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'rati';
         }

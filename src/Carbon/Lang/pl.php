@@ -9,6 +9,19 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Wacław Jacek
+ * - François B
+ * - Tim Fish
+ * - Serhan Apaydın
+ * - Massimiliano Caniparoli
+ * - JD Isaacks
+ * - Jakub Szwacz
+ * - Jan
+ * - Paul
+ * - damlys
+ */
 return [
     'year' => ':count rok|:count lata|:count lat',
     'y' => ':countr|:countl',
@@ -82,4 +95,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' i '],
+    'meridiem' => ['przed południem', 'po południu'],
 ];

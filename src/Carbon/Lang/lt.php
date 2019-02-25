@@ -9,6 +9,30 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - tjku
+ * - valdas406
+ * - Justas Palumickas
+ * - Max Melentiev
+ * - Andrius Janauskas
+ * - Juanito Fatas
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Nicolás Hock Isaza
+ * - Laurynas Butkus
+ * - Sven Fuchs
+ * - Dominykas Tijūnaitis
+ * - Justinas Bolys
+ * - Ričardas
+ * - Kirill Chalkin
+ * - Rolandas
+ */
 return [
     'year' => ':count metus|:count metus|:count metų',
     'y' => ':count metus|:count metus|:count metų',
@@ -52,4 +76,12 @@ return [
     'weekdays_short' => ['Sek', 'Pir', 'Ant', 'Tre', 'Ket', 'Pen', 'Šeš'],
     'weekdays_min' => ['Se', 'Pi', 'An', 'Tr', 'Ke', 'Pe', 'Še'],
     'list' => [', ', ' ir '],
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'YYYY-MM-DD',
+        'LL' => 'MMMM DD, YYYY',
+        'LLL' => 'DD MMM HH:mm',
+        'LLLL' => 'MMMM DD, YYYY HH:mm',
+    ],
 ];

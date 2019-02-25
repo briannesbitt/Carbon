@@ -12,6 +12,12 @@
     return $number === 1 ? 0 : 1;
 }, 'tlh');
 
+/*
+ * Authors:
+ * - François B
+ * - Serhan Apaydın
+ * - Dominika
+ */
 return [
     'year' => 'wa’ DIS|:count DIS',
     'month' => 'wa’ jar|:count jar',

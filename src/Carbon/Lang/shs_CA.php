@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
+ * Authors:
+ * - Neskie Manuel    bug-glibc-locales@gnu.org
+ */return array_replace_recursive(require __DIR__.'/en.php', [
+    'formats' => [
+        'L' => 'DD/MM/YY',
+    ],
+    'months' => ['Pellkwet̓min', 'Pelctsipwen̓ten', 'Pellsqépts', 'Peslléwten', 'Pell7ell7é7llqten', 'Pelltspéntsk', 'Pelltqwelq̓wél̓t', 'Pellct̓éxel̓cten', 'Pesqelqlélten', 'Pesllwélsten', 'Pellc7ell7é7llcwten̓', 'Pelltetétq̓em'],
+    'months_short' => ['Kwe', 'Tsi', 'Sqe', 'Éwt', 'Ell', 'Tsp', 'Tqw', 'Ct̓é', 'Qel', 'Wél', 'U7l', 'Tet'],
+    'weekdays' => ['Sxetspesq̓t', 'Spetkesq̓t', 'Selesq̓t', 'Skellesq̓t', 'Smesesq̓t', 'Stselkstesq̓t', 'Stqmekstesq̓t'],
+    'weekdays_short' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
+    'weekdays_min' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
+    'day_of_first_week_of_year' => 1,
+]);

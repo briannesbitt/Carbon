@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'se');
 
+/*
+ * Authors:
+ * - François B
+ * - Karamell
+ */
 return [
     'year' => ':count jahki|:count jagit',
     'a_year' => 'okta jahki|:count jagit',

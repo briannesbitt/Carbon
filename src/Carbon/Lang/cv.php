@@ -12,6 +12,12 @@
     return $number === 1 ? 0 : 1;
 }, 'cv');
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - JD Isaacks
+ */
 return [
     'year' => ':count ҫул',
     'a_year' => 'пӗр ҫул|:count ҫул',

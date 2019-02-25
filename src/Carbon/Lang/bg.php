@@ -9,6 +9,14 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - Serhan Apaydın
+ * - JD Isaacks
+ * - Glavić
+ */
 return [
     'year' => ':count година|:count години',
     'a_year' => 'година|:count години',
@@ -60,7 +68,7 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         $lastDigit = $number % 10;
         $last2Digits = $number % 100;
         if ($number === 0) {
@@ -92,4 +100,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' и '],
+    'meridiem' => ['преди обяд', 'следобед'],
 ];

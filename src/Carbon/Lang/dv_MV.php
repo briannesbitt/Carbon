@@ -8,6 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/*
+ * Authors:
+ * - Ahmed Ali
+ */
 \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
     return $number === 1 ? 0 : 1;
 }, 'dv');
@@ -74,9 +79,7 @@ return [
         'lastWeek' => '[ފާއިތުވި] dddd LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'މކ' : 'މފ';
-    },
+    'meridiem' => ['މކ', 'މފ'],
     'months' => $months,
     'months_short' => $months,
     'weekdays' => $weekdays,

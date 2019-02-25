@@ -9,6 +9,26 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Jakub Tesinsky
+ * - Martin Suja
+ * - Nikos Timiopulos
+ * - Bohuslav Blín
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Lukas Svoboda
+ * - Max Melentiev
+ * - Juanito Fatas
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Václav Pávek
+ * - CodeSkills
+ * - Tlapi
+ * - newman101
+ * - Petr Kadlec
+ */
 return [
     'year' => ':count rok|:count roky|:count let',
     'y' => ':count rok|:count roky|:count let',
@@ -36,4 +56,13 @@ return [
     'weekdays_short' => ['Ned', 'Pon', 'Úte', 'Stř', 'Čtv', 'Pát', 'Sob'],
     'weekdays_min' => ['Ne', 'Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
     'list' => [', ', ' a '],
+    'formats' => [
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
+        'L' => 'DD. MM. YYYY',
+        'LL' => 'DD. MMMM YYYY',
+        'LLL' => 'D. M. HH:mm',
+        'LLLL' => 'dddd D. MMMM YYYY HH:mm',
+    ],
+    'meridiem' => ['dopoledne', 'odpoledne'],
 ];

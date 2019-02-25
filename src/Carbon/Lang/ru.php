@@ -9,6 +9,27 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Bari Badamshin
+ * - Jørn Ølmheim
+ * - François B
+ * - Tim Fish
+ * - Коренберг Марк (imac)
+ * - Serhan Apaydın
+ * - RomeroMsk
+ * - vsn4ik
+ * - JD Isaacks
+ * - Bari Badamshin
+ * - Jørn Ølmheim
+ * - François B
+ * - Коренберг Марк (imac)
+ * - Serhan Apaydın
+ * - RomeroMsk
+ * - vsn4ik
+ * - JD Isaacks
+ * - Fellzo
+ */
 return [
     'year' => ':count год|:count года|:count лет',
     'y' => ':count г|:count г|:count л',
@@ -101,7 +122,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ночи';
         }

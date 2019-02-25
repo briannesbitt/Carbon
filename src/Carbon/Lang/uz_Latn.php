@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'uz');
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - Rasulbek
+ */
 return [
     'year' => ':count yil',
     'a_year' => 'bir yil|:count yil',

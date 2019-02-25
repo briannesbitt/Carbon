@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - JD Isaacks
+ */
 return [
     'year' => 'urte bat|:count urte',
     'y' => 'Urte 1|:count urte',

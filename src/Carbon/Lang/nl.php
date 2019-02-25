@@ -9,6 +9,27 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Roy
+ * - Stephan
+ * - François B
+ * - Tim Fish
+ * - Kevin Huang
+ * - Jacob Middag
+ * - JD Isaacks
+ * - Roy
+ * - Stephan
+ * - François B
+ * - Tim Fish
+ * - Jacob Middag
+ * - JD Isaacks
+ * - Propaganistas
+ * - MegaXLR
+ * - adriaanzon
+ * - MonkeyPhysics
+ * - JeroenG
+ */
 return [
     'year' => ':count jaar|:count jaar',
     'a_year' => 'één jaar|:count jaar',
@@ -81,4 +102,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' en '],
+    'meridiem' => ['\'s ochtends', '\'s middags'],
 ];

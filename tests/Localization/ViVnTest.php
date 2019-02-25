@@ -212,7 +212,7 @@ class ViVnTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 tuần 6 ngày',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 tuần 6 ngày tới',
+        '1 tuần và 6 ngày tới',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 tuần 1 giờ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

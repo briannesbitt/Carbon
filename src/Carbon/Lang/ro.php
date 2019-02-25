@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - JD Isaacks
+ * - Cătălin Georgescu
+ */
 return [
     'year' => ':count an|:count ani|:count ani',
     'a_year' => 'un an|:count ani|:count ani',

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Alessandro Maruccia
+ */
 return [
     'year' => 'sena|:count sni|:count sni|:count sni',
     'month' => 'xahar|:count xhur|:count xhur|:count xhur',

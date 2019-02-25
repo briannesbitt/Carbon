@@ -9,6 +9,16 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - Alan Agius
+ * - Erhan Gundogan
+ * - François B
+ * - JD Isaacks
+ * - Murat Yüksel
+ * - Baran Şengül
+ */
 return [
     'year' => ':count yıl',
     'a_year' => '{1}bir yıl|]1,Inf[:count yıl',
@@ -89,13 +99,7 @@ return [
                 return $number.($suffixes[$lastDigit] ?? $suffixes[$number % 100 - $lastDigit] ?? $suffixes[$number >= 100 ? 100 : -1] ?? '');
         }
     },
-    'meridiem' => function ($hours, $minutes, $isLower) {
-        if ($hours < 12) {
-            return $isLower ? 'öö' : 'ÖÖ';
-        }
-
-        return $isLower ? 'ös' : 'ÖS';
-    },
+    'meridiem' => ['ÖÖ', 'ÖS', 'öö', 'ös'],
     'months' => ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
     'months_short' => ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
     'weekdays' => ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
@@ -103,4 +107,5 @@ return [
     'weekdays_min' => ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' ve '],
 ];

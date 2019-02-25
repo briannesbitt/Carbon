@@ -9,6 +9,17 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - mestremuten
+ * - François B
+ * - Marc Ordinas i Llopis
+ * - Pere Orga
+ * - JD Isaacks
+ * - Quentí
+ * - Víctor Díaz
+ * - Xavi
+ */
 return [
     'year' => ':count any|:count anys',
     'a_year' => 'un any|:count anys',
@@ -93,4 +104,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' i '],
+    'meridiem' => ['a. m.', 'p. m.'],
 ];

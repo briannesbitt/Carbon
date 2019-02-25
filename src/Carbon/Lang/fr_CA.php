@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Dieter Sting
+ * - François B
+ * - Maxime VALY
+ * - JD Isaacks
+ */
 return array_replace_recursive(require __DIR__.'/fr.php', [
     'formats' => [
         'L' => 'YYYY-MM-DD',

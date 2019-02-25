@@ -9,6 +9,19 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Tornike Razmadze
+ * - François B
+ * - Lasha Dolidze
+ * - Tim Fish
+ * - JD Isaacks
+ * - Tornike Razmadze
+ * - François B
+ * - Lasha Dolidze
+ * - JD Isaacks
+ * - LONGMAN
+ */
 return [
     'year' => '{1}წელი|]1,Inf[:count წელი',
     'y' => ':count წლის',
@@ -60,7 +73,7 @@ return [
         'lastWeek' => '[წინა] dddd LT-ზე',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         if ($number === 0) {
             return $number;
         }
@@ -85,4 +98,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' და '],
+    'meridiem' => ['დილის', 'საღამოს'],
 ];

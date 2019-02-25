@@ -8,6 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+/*
+ * Authors:
+ * - Atef Ben Ali
+ * - Ibrahim AshShohail
+ * - MLTDev
+ */
 $months = [
     'يناير',
     'فبراير',
@@ -51,9 +58,7 @@ return [
         'lastWeek' => 'dddd [عند الساعة] LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'ص' : 'م';
-    },
+    'meridiem' => ['ص', 'م'],
     'weekdays' => ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
     'weekdays_short' => ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
     'weekdays_min' => ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],

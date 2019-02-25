@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Daniel Cohen Gindi
+ * - JD Isaacks
+ * - Itai Nathaniel
+ */
 return [
     'year' => 'שנה|{2}שנתיים|:count שנים',
     'y' => 'שנה|{2}שנתיים|:count שנים',

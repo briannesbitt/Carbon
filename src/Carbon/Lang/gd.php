@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'gd');
 
+/*
+ * Authors:
+ * - François B
+ * - Jon Ashdown
+ */
 return [
     'year' => ':count bliadhna',
     'a_year' => 'bliadhna|:count bliadhna',
@@ -54,7 +59,7 @@ return [
         'lastWeek' => 'dddd [seo chaidh] [aig] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         return $number.($number === 1 ? 'd' : ($number % 10 === 2 ? 'na' : 'mh'));
     },
     'months' => ['Am Faoilleach', 'An Gearran', 'Am Màrt', 'An Giblean', 'An Cèitean', 'An t-Ògmhios', 'An t-Iuchar', 'An Lùnastal', 'An t-Sultain', 'An Dàmhair', 'An t-Samhain', 'An Dùbhlachd'],
@@ -65,4 +70,5 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' agus '],
+    'meridiem' => ['m', 'f'],
 ];

@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - JD Isaacks
+ */
 return [
     'year' => 'ஒரு வருடம்|:count ஆண்டுகள்',
     'month' => 'ஒரு மாதம்|:count மாதங்கள்',
@@ -38,7 +44,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberவது',
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 2) {
             return ' யாமம்';
         }
@@ -67,4 +73,5 @@ return [
     'weekdays_min' => ['ஞா', 'தி', 'செ', 'பு', 'வி', 'வெ', 'ச'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' மற்றும் '],
 ];

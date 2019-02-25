@@ -9,6 +9,15 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Alessandro Di Felice
+ * - François B
+ * - Tim Fish
+ * - Gabriel Monteagudo
+ * - JD Isaacks
+ * - yiannisdesp
+ */
 return [
     'year' => ':count χρόνος|:count χρόνια',
     'a_year' => 'ένας χρόνος|:count χρόνια',
@@ -59,11 +68,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberη',
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $isLower
-            ? ($hour > 11 ? 'μμ' : 'πμ')
-            : ($hour > 11 ? 'ΜΜ' : 'ΠΜ');
-    },
+    'meridiem' => ['ΠΜ', 'ΜΜ', 'πμ', 'μμ'],
     'months' => ['Ιανουαρίου', 'Φεβρουαρίου', 'Μαρτίου', 'Απριλίου', 'Μαΐου', 'Ιουνίου', 'Ιουλίου', 'Αυγούστου', 'Σεπτεμβρίου', 'Οκτωβρίου', 'Νοεμβρίου', 'Δεκεμβρίου'],
     'months_standalone' => ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'],
     'months_regexp' => '/D[oD]?[\s,]+MMMM/',

@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Tsutomu Kuroda
+ * - Punjab
+ */
 return [
     'year' => 'ਇੱਕ ਸਾਲ|:count ਸਾਲ',
     'month' => 'ਇੱਕ ਮਹੀਨਾ|:count ਮਹੀਨੇ',
@@ -37,7 +43,7 @@ return [
         'lastWeek' => '[ਪਿਛਲੇ] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ਰਾਤ';
         }
@@ -60,4 +66,5 @@ return [
     'weekdays_min' => ['ਐਤ', 'ਸੋਮ', 'ਮੰਗਲ', 'ਬੁਧ', 'ਵੀਰ', 'ਸ਼ੁਕਰ', 'ਸ਼ਨੀ'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' ਅਤੇ '],
 ];

@@ -12,6 +12,40 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
     return $format.'о'.($date->hour === 11 ? 'б' : '').'] LT';
 };
 
+/*
+ * Authors:
+ * - Kunal Marwaha
+ * - Josh Soref
+ * - François B
+ * - Tim Fish
+ * - Serhan Apaydın
+ * - Max Mykhailenko
+ * - JD Isaacks
+ * - Max Kovpak
+ * - AucT
+ * - Philippe Vaucher
+ * - Ilya Shaplyko
+ * - Vadym Ievsieiev
+ * - Denys Kurets
+ * - Igor Kasyanchuk
+ * - Tsutomu Kuroda
+ * - tjku
+ * - Max Melentiev
+ * - Oleh
+ * - epaminond
+ * - Juanito Fatas
+ * - Vitalii Khustochka
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Aaron Patterson
+ * - Andriy Tyurnikov
+ * - Nicolás Hock Isaza
+ * - Iwakura Taro
+ * - Andrii Ponomarov
+ * - alecrabbit
+ */
 return [
     'year' => ':count рік|:count роки|:count років',
     'y' => ':count рік|:count роки|:count років',
@@ -44,9 +78,9 @@ return [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
         'L' => 'DD.MM.YYYY',
-        'LL' => 'D MMMM YYYY р.',
-        'LLL' => 'D MMMM YYYY р., HH:mm',
-        'LLLL' => 'dddd, D MMMM YYYY р., HH:mm',
+        'LL' => 'D MMMM YYYY',
+        'LLL' => 'D MMMM YYYY, HH:mm',
+        'LLLL' => 'dddd, D MMMM YYYY, HH:mm',
     ],
     'calendar' => [
         'sameDay' => function (\Carbon\CarbonInterface $date) use ($processHoursFunction) {
@@ -88,7 +122,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'ночі';
         }
@@ -103,7 +137,7 @@ return [
     },
     'months' => ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'],
     'months_standalone' => ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'],
-    'months_short' => ['січ', 'лют', 'бер', 'квіт', 'трав', 'черв', 'лип', 'серп', 'вер', 'жовт', 'лист', 'груд'],
+    'months_short' => ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'],
     'months_regexp' => '/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/',
     'weekdays' => function (\Carbon\CarbonInterface $date, $format, $index) {
         static $words = [
@@ -125,4 +159,5 @@ return [
     'weekdays_min' => ['нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'list' => [', ', ' i '],
 ];

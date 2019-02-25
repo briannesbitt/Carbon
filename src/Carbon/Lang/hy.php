@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - mhamlet
+ */
 return [
     'year' => ':count տարի',
     'a_year' => 'տարի|:count տարի',
@@ -64,7 +68,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'գիշերվա';
         }

@@ -9,6 +9,10 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - JD Isaacks
+ */
 return [
     'year' => ':count വർഷം',
     'a_year' => 'ഒരു വർഷം|:count വർഷം',
@@ -44,7 +48,7 @@ return [
         'lastWeek' => '[കഴിഞ്ഞ] dddd, LT',
         'sameElse' => 'L',
     ],
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'രാത്രി';
         }

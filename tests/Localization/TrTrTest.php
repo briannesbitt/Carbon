@@ -212,7 +212,7 @@ class TrTrTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 hafta 6 gün',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 hafta 6 gün sonra',
+        '1 hafta ve 6 gün sonra',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 hafta 1 saat',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

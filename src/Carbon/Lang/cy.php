@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - François B
+ * - JD Isaacks
+ * - Daniel Monaghan
+ */
 return [
     'year' => '{1}blwyddyn|]1,Inf[:count flynedd',
     'y' => ':countbl',
@@ -46,7 +52,7 @@ return [
         'lastWeek' => 'dddd [diwethaf am] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         return $number.($number > 20
             ? (in_array($number, [40, 50, 60, 80, 100]) ? 'fed' : 'ain')
             : ([

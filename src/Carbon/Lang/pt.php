@@ -9,6 +9,19 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Cassiano Montanari
+ * - Matt Pope
+ * - François B
+ * - Prodis
+ * - JD Isaacks
+ * - Raphael Amorim
+ * - João Magalhães
+ * - victortobias
+ * - Paulo Freitas
+ * - Sebastian Thierer
+ */
 return [
     'year' => ':count ano|:count anos',
     'a_year' => 'um ano|:count anos',
@@ -29,7 +42,7 @@ return [
     'a_minute' => 'um minuto|:count minutos',
     'min' => ':countmin',
     'second' => ':count segundo|:count segundos',
-    'a_second' => 'segundos|:count segundos',
+    'a_second' => 'alguns segundos|:count segundos',
     's' => ':counts',
     'ago' => 'há :time',
     'from_now' => 'em :time',

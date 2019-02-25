@@ -9,6 +9,12 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - leyluj
+ * - Josh Soref
+ * - ryanhart2
+ */
 return [
     'year' => 'mwaka :count|miaka :count',
     'a_year' => 'mwaka mmoja|miaka :count',

@@ -9,28 +9,35 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Michael Hohl
+ * - sheriffmarley
+ * - dennisoderwald
+ * - Timo
+ */
 return [
     'year' => ':count Jahr|:count Jahre',
     'a_year' => 'ein Jahr|:count Jahre',
-    'y' => ':countJ|:countJ',
+    'y' => ':count J.',
     'month' => ':count Monat|:count Monate',
     'a_month' => 'ein Monat|:count Monate',
-    'm' => ':countMon|:countMon',
+    'm' => ':count Mon.',
     'week' => ':count Woche|:count Wochen',
     'a_week' => 'eine Woche|:count Wochen',
-    'w' => ':countWo|:countWo',
+    'w' => ':count Wo.',
     'day' => ':count Tag|:count Tage',
     'a_day' => 'ein Tag|:count Tage',
-    'd' => ':countTg|:countTg',
+    'd' => ':count Tg.',
     'hour' => ':count Stunde|:count Stunden',
     'a_hour' => 'eine Stunde|:count Stunden',
-    'h' => ':countStd|:countStd',
+    'h' => ':count Std.',
     'minute' => ':count Minute|:count Minuten',
     'a_minute' => 'eine Minute|:count Minuten',
-    'min' => ':countMin|:countMin',
+    'min' => ':count Min.',
     'second' => ':count Sekunde|:count Sekunden',
     'a_second' => 'eine Sekunde|:count Sekunden',
-    's' => ':countSek|:countSek',
+    's' => ':count Sek.',
     'ago' => 'vor :time',
     'from_now' => 'in :time',
     'after' => ':time später',
@@ -70,7 +77,7 @@ return [
     ],
 
     'months' => ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-    'months_short' => ['Jan.', 'Feb.', 'März', 'Apr.', 'Mai', 'Juni', 'Juli', 'Aug.', 'Sep.', 'Okt.', 'Nov.', 'Dez.'],
+    'months_short' => ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
     'weekdays' => ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
     'weekdays_short' => ['So.', 'Mo.', 'Di.', 'Mi.', 'Do.', 'Fr.', 'Sa.'],
     'weekdays_min' => ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],

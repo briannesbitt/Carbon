@@ -12,6 +12,11 @@
     return $number === 1 ? 0 : 1;
 }, 'yo');
 
+/*
+ * Authors:
+ * - François B
+ * - Atolagbe Abisoye
+ */
 return [
     'year' => 'ọdún :count',
     'a_year' => 'ọdún kan|ọdún :count',

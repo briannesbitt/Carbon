@@ -12,6 +12,14 @@
     return $number === 1 ? 0 : 1;
 }, 'kk');
 
+/*
+ * Authors:
+ * - Josh Soref
+ * - François B
+ * - Talat Uspanov
+ * - Нурлан Рахимжанов
+ * - Toleugazy Kali
+ */
 return [
     'year' => ':count жыл',
     'a_year' => 'бір жыл|:count жыл',
@@ -54,7 +62,7 @@ return [
         'lastWeek' => '[Өткен аптаның] dddd [сағат] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         static $suffixes = [
             0 => '-ші',
             1 => '-ші',

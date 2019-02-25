@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - xuri
+ * - sycuato
+ * - bokideckonja
+ * - Luo Ning
+ */
 return [
     'year' => ':count年',
     'y' => ':count年',
@@ -35,8 +42,8 @@ return [
         'LTS' => 'HH:mm:ss',
         'L' => 'YYYY/MM/DD',
         'LL' => 'YYYY年M月D日',
-        'LLL' => 'YYYY年M月D日Ah点mm分',
-        'LLLL' => 'YYYY年M月D日ddddAh点mm分',
+        'LLL' => 'YYYY年M月D日 A h点mm分',
+        'LLLL' => 'YYYY年M月D日dddd A h点mm分',
     ],
     'calendar' => [
         'sameDay' => '[今天]LT',
@@ -61,7 +68,7 @@ return [
                 return $number;
         }
     },
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour, $minute) {
         $time = $hour * 100 + $minute;
         if ($time < 600) {
             return '凌晨';

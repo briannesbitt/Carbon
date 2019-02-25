@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kruy Vanna
+ * - Sereysethy Touch
+ * - JD Isaacks
+ * - Sovichet Tep
+ */
 return [
     'year' => '{1}មួយឆ្នាំ|]1,Inf[:count ឆ្នាំ',
     'y' => ':count ឆ្នាំ',
@@ -45,9 +52,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => 'ទី:number',
-    'meridiem' => function ($hour, $minute, $isLower) {
-        return $hour < 12 ? 'ព្រឹក' : 'ល្ងាច';
-    },
+    'meridiem' => ['ព្រឹក', 'ល្ងាច'],
     'months' => ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'],
     'months_short' => ['មករា', 'កុម្ភៈ', 'មីនា', 'មេសា', 'ឧសភា', 'មិថុនា', 'កក្កដា', 'សីហា', 'កញ្ញា', 'តុលា', 'វិច្ឆិកា', 'ធ្នូ'],
     'weekdays' => ['អាទិត្យ', 'ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍'],

@@ -12,6 +12,12 @@
     return $number === 1 ? 0 : 1;
 }, 'br');
 
+/*
+ * Authors:
+ * - François B
+ * - Serhan Apaydın
+ * - JD Isaacks
+ */
 return [
     'year' => '{1}:count bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
     'a_year' => '{1}ur bloaz|{3,4,5,9}:count bloaz|[0,Inf[:count vloaz',
@@ -45,7 +51,7 @@ return [
         'lastWeek' => 'dddd [paset da] LT',
         'sameElse' => 'L',
     ],
-    'ordinal' => function ($number, $period) {
+    'ordinal' => function ($number) {
         return $number.($number === 1 ? 'añ' : 'vet');
     },
     'months' => ['Genver', 'C\'hwevrer', 'Meurzh', 'Ebrel', 'Mae', 'Mezheven', 'Gouere', 'Eost', 'Gwengolo', 'Here', 'Du', 'Kerzu'],

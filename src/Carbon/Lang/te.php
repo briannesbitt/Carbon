@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Authors:
+ * - Kunal Marwaha
+ * - Josh Soref
+ * - François B
+ * - kc
+ */
 return [
     'year' => 'ఒక సంవత్సరం|:count సంవత్సరాలు',
     'month' => 'ఒక నెల|:count నెలలు',
@@ -38,7 +45,7 @@ return [
         'sameElse' => 'L',
     ],
     'ordinal' => ':numberవ',
-    'meridiem' => function ($hour, $minute, $isLower) {
+    'meridiem' => function ($hour) {
         if ($hour < 4) {
             return 'రాత్రి';
         }

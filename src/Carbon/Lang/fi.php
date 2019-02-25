@@ -9,6 +9,31 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Philippe Vaucher
+ * - Janne Warén
+ * - digitalfrost
+ * - Tsutomu Kuroda
+ * - Roope Salmi
+ * - tjku
+ * - Max Melentiev
+ * - Sami Haahtinen
+ * - Teemu Leisti
+ * - Artem Ignatyev
+ * - Akira Matsuda
+ * - Christopher Dell
+ * - Enrique Vidal
+ * - Simone Carletti
+ * - Robert Bjarnason
+ * - Aaron Patterson
+ * - Nicolás Hock Isaza
+ * - Tom Hughes
+ * - Sven Fuchs
+ * - Petri Kivikangas
+ * - Nizar Jouini
+ * - Marko Seppae
+ */
 return [
     'year' => ':count vuosi|:count vuotta',
     'y' => ':count vuosi|:count vuotta',
@@ -31,4 +56,18 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' ja '],
+    'formats' => [
+        'LT' => 'HH.mm',
+        'LTS' => 'HH.mm:ss',
+        'L' => 'D.M.YYYY',
+        'LL' => 'dddd D. MMMM[ta] YYYY',
+        'LLL' => 'D.MM. HH.mm',
+        'LLLL' => 'D. MMMM[ta] YYYY HH.mm',
+    ],
+    'weekdays' => ['sunnuntai', 'maanantai', 'tiistai', 'keskiviikko', 'torstai', 'perjantai', 'lauantai'],
+    'weekdays_short' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la'],
+    'weekdays_min' => ['su', 'ma', 'ti', 'ke', 'to', 'pe', 'la'],
+    'months' => ['tammikuu', 'helmikuu', 'maaliskuu', 'huhtikuu', 'toukokuu', 'kesäkuu', 'heinäkuu', 'elokuu', 'syyskuu', 'lokakuu', 'marraskuu', 'joulukuu'],
+    'months_short' => ['tammi', 'helmi', 'maalis', 'huhti', 'touko', 'kesä', 'heinä', 'elo', 'syys', 'loka', 'marras', 'joulu'],
+    'meridiem' => ['aamupäivä', 'iltapäivä'],
 ];

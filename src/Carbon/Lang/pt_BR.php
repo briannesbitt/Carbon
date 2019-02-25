@@ -9,6 +9,24 @@
  * file that was distributed with this source code.
  */
 
+/*
+ * Authors:
+ * - Cassiano Montanari
+ * - Eduardo Dalla Vecchia
+ * - David Rodrigues
+ * - Matt Pope
+ * - François B
+ * - Prodis
+ * - Marlon Maxwel
+ * - JD Isaacks
+ * - Raphael Amorim
+ * - Rafael Raupp
+ * - felipeleite1
+ * - swalker
+ * - Lucas Macedo
+ * - Paulo Freitas
+ * - Sebastian Thierer
+ */
 return array_replace_recursive(require __DIR__.'/pt.php', [
     'after' => 'após :time',
     'before' => ':time atrás',
