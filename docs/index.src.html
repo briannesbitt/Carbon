@@ -557,6 +557,7 @@ $translator->setDirectories($directories);
 
         <p>Then you can find all language files across those directories.</p>
 
+        <p>
         <pre><code class="php">{{::lint(
 $translator = Translator::get();
 var_dump($translator->getLocalesFiles()); // /path/to/af.php, /path/to/ar.php, etc.
@@ -568,8 +569,35 @@ var_dump($translator->getAvailableLocales()); // af, ar, etc.
 </code></pre>
         </p>
 
+        <p>You can access some dynamic properties translated by calling following methods with the name of the base
+        property.</p>
+
+        <p>
+        <pre class="live-editor"><code class="php">{{::lint(
+$date = Carbon::parse('2018-02-25 14:00');
+)}}
+{{::exec(echo $date->locale('af_ZA')->meridiem();/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+{{::exec(echo $date->locale('af_ZA')->meridiem(true);/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+{{::exec(echo $date->locale('ja_JP')->getAltNumber('day');/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+{{::exec(echo $date->locale('en_SG')->ordinal('day');/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+// As ordinal can be gender specific or have context dependency, you can pass the period format as second argument:
+{{::lint(
+$date = Carbon::parse('2018-01-01 14:00');
+)}}
+{{::exec(echo $date->locale('fr_CH')->ordinal('isoWeek', 'w');/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+{{::exec(echo $date->locale('fr_CH')->ordinal('day', 'd');/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+</code></pre>
+        </p>
+
         <p>Finally, you can get and set messages from the internal cache:</p>
 
+        <p>
         <pre class="live-editor"><code class="php">{{::lint(
 $translator = Translator::get('en');
 )}}
@@ -884,12 +912,15 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
     <table class="info-table" id="supported-locales">
         <thead>
         <tr>
-            <th>Locale</th>
-            <th>Diff syntax</th>
-            <th>1-day diff</th>
-            <th>2-days diff</th>
-            <th>Short units</th>
-            <th>Period</th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Locale</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Diff syntax</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">1-day diff</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">2-days diff</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Month names</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Week days</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Units</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Short units</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Period</div></th>
         </tr>
         </thead>
         <tbody>
@@ -899,12 +930,18 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
-            <td class="compatibility-check">{{eval(echo Carbon::localeHasShortUnits($locale) ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo substr($locale, 0, 2) === 'en' || Carbon::parse('january')->monthName !== Carbon::parse('january')->locale($locale)->monthName || Carbon::parse('march')->monthName !== Carbon::parse('march')->locale($locale)->monthName ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo substr($locale, 0, 2) === 'en' || Carbon::parse('monday')->dayName !== Carbon::parse('monday')->locale($locale)->dayName || Carbon::parse('sunday')->dayName !== Carbon::parse('sunday')->locale($locale)->dayName ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo substr($locale, 0, 2) === 'en' || Carbon::now()->translate('month') !== Carbon::now()->locale($locale)->translate('month') || Carbon::now()->translate('day') !== Carbon::now()->locale($locale)->translate('day') ? '✅' : '❌';)}}</td>
+            <td class="compatibility-check">{{eval(echo substr($locale, 0, 2) === 'en' || Carbon::now()->translate('m') !== Carbon::now()->locale($locale)->translate('m') || Carbon::now()->translate('d') !== Carbon::now()->locale($locale)->translate('d') ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasPeriodSyntax($locale) ? '✅' : '❌';)}}</td>
         </tr>
         {{::endEach}}
         </tbody>
     </table>
+
+    <p>If you can add missing translations or missing languages, <a href="/contribute/translate/">please go to translation tool</a>,
+        your help is welcome.</p>
 
     <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last
         <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code> and localized

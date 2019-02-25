@@ -28,7 +28,7 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
     $lowerUnit = '(micro(second)?s?|milli(second)?s?|seconds?|minutes?|hours?|days?|weeks?|months?|quarters?|years?|decades?|centur(y|ies)|millenni(um|a))';
     $exclusion = (bool) preg_match("/^(
         clone|setISODate |
-        getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|ordinal |
+        getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate |
         (use|is)StrictMode(Enabled)? |
         __(sleep|wakeup|construct) |
         (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
