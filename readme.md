@@ -109,6 +109,12 @@ This project exists thanks to all the people who contribute.
 
 <img src="https://opencollective.com/Carbon/contributors.svg?width=890&button=false" />
 
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/Carbon#backer)]
+
+<a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890"></a>
+
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/Carbon#sponsor)]
