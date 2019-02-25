@@ -26,4 +26,10 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' a téż '],
     'two_words_connector' => ' a téż ',
+    'year' => ':count Rok',
+    'month' => ':count Miesiąc',
+    'day' => ':count Dzéń',
+    'hour' => ':count Gòdzëna',
+    'minute' => ':count Minuta',
+    'second' => ':count Sekunda',
 ];

@@ -24,4 +24,10 @@ return [
     'weekdays_min' => ['Якш', 'Дыш', 'Сиш', 'Чәрш', 'Пәнҗ', 'Җом', 'Шим'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'year' => ':count Ел',
+    'month' => ':count Ай',
+    'day' => ':count Көн',
+    'hour' => ':count Сәгать',
+    'minute' => ':count Минут',
+    'second' => ':count Секунд',
 ];

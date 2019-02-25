@@ -24,4 +24,10 @@ return [
     'weekdays_min' => ['Dom', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sab'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+    'year' => ':count An',
+    'month' => ':count Mês',
+    'day' => ':count Zornade',
+    'hour' => ':count Ore',
+    'minute' => ':count Minût',
+    'second' => ':count Secont',
 ];

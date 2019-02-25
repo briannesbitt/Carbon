@@ -24,4 +24,10 @@ return [
     'weekdays_min' => ['dib', 'alt', 'tal', 'all', 'alx', 'ajj', 'gaa'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+    'year' => ':count Year',
+    'month' => ':count Month',
+    'day' => ':count Day',
+    'hour' => ':count Hour',
+    'minute' => ':count Minute',
+    'second' => ':count Seconds',
 ];
