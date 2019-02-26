@@ -30,6 +30,7 @@
  * - MonkeyPhysics
  * - JeroenG
  * - RikSomers
+ * - proclame
  */
 return [
     'year' => ':count jaar|:count jaar',
