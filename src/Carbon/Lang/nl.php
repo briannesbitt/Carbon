@@ -33,22 +33,22 @@
  */
 return [
     'year' => ':count jaar|:count jaar',
-    'a_year' => 'één jaar|:count jaar',
+    'a_year' => 'een jaar|:count jaar',
     'y' => ':countj',
     'month' => ':count maand|:count maanden',
-    'a_month' => 'één maand|:count maanden',
+    'a_month' => 'een maand|:count maanden',
     'm' => ':countma',
     'week' => ':count week|:count weken',
-    'a_week' => 'één week|:count weken',
+    'a_week' => 'een week|:count weken',
     'w' => ':countw',
     'day' => ':count dag|:count dagen',
-    'a_day' => 'één dag|:count dagen',
+    'a_day' => 'een dag|:count dagen',
     'd' => ':countd',
     'hour' => ':count uur|:count uur',
-    'a_hour' => 'één uur|:count uur',
+    'a_hour' => 'een uur|:count uur',
     'h' => ':countu',
     'minute' => ':count minuut|:count minuten',
-    'a_minute' => 'één minuut|:count minuten',
+    'a_minute' => 'een minuut|:count minuten',
     'min' => ':countmin',
     'second' => ':count seconde|:count seconden',
     'a_second' => 'een paar seconden|:count seconden',
@@ -65,9 +65,9 @@ return [
     'period_recurrences' => ':count keer',
     'period_interval' => function ($interval) {
         /** @var string $output */
-        $output = preg_replace('/^(één|1)\s+/', '', $interval);
+        $output = preg_replace('/^(een|één|1)\s+/', '', $interval);
 
-        if (preg_match('/^(één|1)( jaar|j| uur|u)/', $interval)) {
+        if (preg_match('/^(een|één|1)( jaar|j| uur|u)/', $interval)) {
             return "elk $output";
         }
 

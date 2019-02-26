@@ -216,7 +216,7 @@ class NlNlTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 weken 1 uur',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'over één uur',
+        'over een uur',
         // CarbonInterval::days(2)->forHumans()
         '2 dagen',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
