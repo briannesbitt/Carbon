@@ -410,7 +410,7 @@ echo Carbon::now()->micro; // microtime in all PHP version
         <pre><code class="php">{{::lint($newLocale = setlocale(LC_TIME, 'German');
 $dt = Carbon::parse('1975-05-21 22:23:00.123456');
 if ($newLocale === false) {
-    echo '"German" locale is not installed on your machine, it may have a different name a different name on your machine or you may need to install it.';
+    echo '"German" locale is not installed on your machine, it may have a different name on your machine or you may need to install it.';
 }
 )}}
 {{::exec(echo $dt->formatLocalized('%A %d %B %Y');/*pad(50)*/)}} // {{eval}}
@@ -432,9 +432,6 @@ if ($newLocale === false) {
 {{::exec(echo Carbon::getLocale();/*pad(50)*/)}} // {{eval}}
 </code></pre>
         </p>
-
-        <p><code>diffForHumans()</code> has also been localized. You can set the Carbon locale by using the static <code>Carbon::setLocale()</code>
-            function and get the current setting with <code>Carbon::getLocale()</code>.</p>
 
         <p>Or you can isolate some code with a given locale:</p>
 
