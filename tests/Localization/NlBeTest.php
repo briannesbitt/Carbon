@@ -128,11 +128,11 @@ class NlBeTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minuut geleden',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1mi geleden',
+        '1min geleden',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minuten geleden',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2mi geleden',
+        '2min geleden',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 uur geleden',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)

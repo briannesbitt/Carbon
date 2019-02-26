@@ -48,7 +48,7 @@ return [
     'h' => ':countu',
     'minute' => ':count minuut|:count minuten',
     'a_minute' => 'één minuut|:count minuten',
-    'min' => ':countmi',
+    'min' => ':countmin',
     'second' => ':count seconde|:count seconden',
     'a_second' => 'een paar seconden|:count seconden',
     's' => ':counts',
