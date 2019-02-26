@@ -118,7 +118,7 @@ class EsVeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hace 1 segundos',
+        'hace 1 segundo',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'hace 1 segundo',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -174,19 +174,19 @@ class EsVeTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'hace 2 años',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en 1 segundos',
+        'en 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'en 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundos después',
+        '1 segundo después',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 segundo después',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundos antes',
+        '1 segundo antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 segundo antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundos',
+        '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 segundo',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class EsVeTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'en 1 segundo',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundos',
+        '1 minuto 1 segundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 años 3 meses 1 día 1 segundo',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)

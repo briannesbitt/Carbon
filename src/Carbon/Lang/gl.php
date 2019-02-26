@@ -36,7 +36,7 @@ return [
     'minute' => ':count minuto|:count minutos',
     'a_minute' => 'un minuto|:count minutos',
     'min' => ':count min.',
-    'second' => ':count segundos|:count segundos',
+    'second' => ':count segundo|:count segundos',
     'a_second' => 'uns segundos|:count segundos',
     's' => ':count seg.',
     'ago' => 'hai :time',

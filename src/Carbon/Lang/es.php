@@ -43,7 +43,7 @@ return [
     'minute' => ':count minuto|:count minutos',
     'a_minute' => 'un minuto|:count minutos',
     'min' => ':count minuto|:count minutos',
-    'second' => ':count segundos|:count segundos',
+    'second' => ':count segundo|:count segundos',
     'a_second' => 'unos segundos|:count segundos',
     's' => ':count segundo|:count segundos',
     'ago' => 'hace :time',

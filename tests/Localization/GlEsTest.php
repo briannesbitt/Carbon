@@ -118,7 +118,7 @@ class GlEsTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'hai 1 segundos',
+        'hai 1 segundo',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'hai 1 seg.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -174,19 +174,19 @@ class GlEsTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'hai 2 a.',
         // Carbon::now()->addSecond()->diffForHumans()
-        'en 1 segundos',
+        'en 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'en 1 seg.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 segundos despois',
+        '1 segundo despois',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 seg. despois',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundos antes',
+        '1 segundo antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 seg. antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 segundos',
+        '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 seg.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class GlEsTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'en 1 seg.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 segundos',
+        '1 minuto 1 segundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 a. 3 mes. 1 d. 1 seg.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
