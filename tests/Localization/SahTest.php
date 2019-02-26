@@ -216,7 +216,7 @@ class SahTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 неделю 1 час',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'через 1 час',
+        'через час',
         // CarbonInterval::days(2)->forHumans()
         '2 день',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
