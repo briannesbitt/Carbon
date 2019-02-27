@@ -163,6 +163,13 @@ Carbon::macro('describeIsoFormat', function ($code) {
         'MMM' => 'Short month name, translatable',
         'MMMM' => 'Month name, translatable',
         'Mo' => 'Month with ordinal suffix from 1st to 12th, translatable',
+        'OY' => 'Year number with alternative numbers such as ۱۹۹۸ for 1998 if locale is fa',
+        'OM' => 'Month number with alternative numbers such as ၀၂ for 2 if locale is my_MM',
+        'OD' => 'Day number with alternative numbers such as 三 for 3 if locale is ja_JP',
+        'OH' => '24-hours number with alternative numbers such as ႑႓ for 13 if locale is shn_MM',
+        'Oh' => '12-hours number with alternative numbers such as 十一 for 11 if locale is lzh_TW',
+        'Om' => 'Minute number with alternative numbers such as ୫୭ for 57 if locale is or',
+        'Os' => 'Second number with alternative numbers such as 十五 for 15 if locale is ja_JP',
         'Q' => 'Quarter from 1 to 4',
         'Qo' => 'Quarter with ordinal suffix from 1st to 4th, translatable',
         'G' => 'ISO week year (see <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank">ISO week date</a>)',
@@ -263,7 +270,7 @@ function evaluateCode(&$__state, $__code)
 
         echo "---- eval'd source ---- ".PHP_EOL.PHP_EOL;
         $i = 1;
-        foreach (preg_split("/$[\n\r]^/m", $src) as $ln) {
+        foreach (preg_split("/$[\n\r]^/m", $__code) as $ln) {
             printf('%3s : %s%s', $i++, $ln, PHP_EOL);
         }
 
@@ -367,12 +374,17 @@ genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
 genHtml(file_get_contents('contribute/translate/index.src.html'), 'contribute/translate/index.html');
+genHtml(file_get_contents('contribute/translators/index.src.html'), 'contribute/translators/index.o.html');
 genHtml(file_get_contents('contribute/docs/index.src.html'), 'contribute/docs/index.html');
 compile('reference/index.src.html', 'reference/index.html');
+
+CarbonInterval::setLocale('en');
 
 compile('index.o.html', 'index.html');
 unlink('index.o.html');
 
-CarbonInterval::setLocale('en');
 compile('docs/index.o.html', 'docs/index.html');
 unlink('docs/index.o.html');
+
+compile('contribute/translators/index.o.html', 'contribute/translators/index.html');
+unlink('contribute/translators/index.o.html');

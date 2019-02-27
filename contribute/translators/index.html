@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <title>Carbon - A simple PHP API extension for DateTime.</title>
+        <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
+        <link href="/carbon.css" rel="stylesheet">
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-27020320-3', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body data-spy="scroll" data-target="#affix-nav">
+
+    <div class="main-wrapper">
+        <aside id="reference">
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search" id="search-filter">
+                    </div>
+                    <button class="close">&lt;</button>
+                </div>
+                <div class="search"></div>
+            </div>
+        </aside>
+        <section>
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/#gettingstarted">Getting Started</a></li>
+                            <li><a href="/docs/">Docs</a></li>
+                            <li><a href="#reference">Reference</a></li>
+                            <li><a href="/history/">History</a></li>
+                            <li><a href="/contribute/">Contribute</a></li>
+                            <li><a href="//github.com/briannesbitt/carbon">GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            
+
+            <div class="container page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Thanks to people helping us to translate Carbon in so many languages</h2>
+
+<ul>
+    
+        <li>ANCHR</li>
+    
+        <li>ANLoc Martin Benjamin locales@africanlocalization.net</li>
+    
+        <li>Aaron Patterson</li>
+    
+        <li>Abdellah Chadidi</li>
+    
+        <li>Adam</li>
+    
+        <li>Adam Brunner</li>
+    
+        <li>Ahmed Ali</li>
+    
+        <li>Akademe ya Luganda Kizito Birabwa kompyuta@kizito.uklinux.net</li>
+    
+        <li>Akira Matsuda</li>
+    
+        <li>Alan Agius</li>
+    
+        <li>Alastair McKinstry    bug-glibc-locales@gnu.org</li>
+    
+        <li>Alessandro Di Felice</li>
+    
+        <li>Alessandro Maruccia</li>
+    
+        <li>Alexander Tømmerås</li>
+    
+        <li>Alim Boyaq</li>
+    
+        <li>Alisher Ulugbekov</li>
+    
+        <li>Amitakhya Phukan, Red Hat    bug-glibc@gnu.org</li>
+    
+        <li>Andre Polykanine A.K.A. Menelion Elensúlë</li>
+    
+        <li>Andrea Martini</li>
+    
+        <li>Andreas Möller</li>
+    
+        <li>Andres Ivanov</li>
+    
+        <li>Andrii Ponomarov</li>
+    
+        <li>Andris Zāģeris</li>
+    
+        <li>Andrius Janauskas</li>
+    
+        <li>Andriy Tyurnikov</li>
+    
+        <li>Aniruddha Adhikary</li>
+    
+        <li>Ankur Group, http:////www.ankurbangla.org, http:////www.bengalinux.org Taneem Ahmed, Jamil Ahmed taneem@bengalinux.org, jamil@bengalinux.org</li>
+    
+        <li>Anže Časar</li>
+    
+        <li>Arnas Udovičius bug-glibc-locales@gnu.org</li>
+    
+        <li>Arne Goetje arne@canonical.com</li>
+    
+        <li>Artem Ignatyev</li>
+    
+        <li>Ash</li>
+    
+        <li>Atef Ben Ali</li>
+    
+        <li>Atolagbe Abisoye</li>
+    
+        <li>Atsushi Tanaka</li>
+    
+        <li>AucT</li>
+    
+        <li>Azri Jamil</li>
+    
+        <li>Baran Şengül</li>
+    
+        <li>Bari Badamshin</li>
+    
+        <li>Batmandakh</li>
+    
+        <li>Bobir Ismailov Bobir Ismailov, Pablo Saratxaga, Mashrab Kuvatov bobir_is@yahoo.com, pablo@mandrakesoft.com, kmashrab@uni-bremen.de</li>
+    
+        <li>Bohuslav Blín</li>
+    
+        <li>Borislav Mickov</li>
+    
+        <li>Brett Johnson</li>
+    
+        <li>Cassiano Montanari</li>
+    
+        <li>Chanintorn Asavavichairoj</li>
+    
+        <li>Cherokee Nation Joseph Erb josepherb7@gmail.com</li>
+    
+        <li>Chiel Robben</li>
+    
+        <li>Chitwanix OS Development    info@chitwanix.com</li>
+    
+        <li>Chris Cartlidge</li>
+    
+        <li>Chris Hemp</li>
+    
+        <li>Chris Lam</li>
+    
+        <li>Christopher Dell</li>
+    
+        <li>Chyngyz</li>
+    
+        <li>Chyngyz Arystan uulu</li>
+    
+        <li>Claire Coloma</li>
+    
+        <li>CodeSkills</li>
+    
+        <li>Craig Patik</li>
+    
+        <li>Cătălin Georgescu</li>
+    
+        <li>Daniel Cohen Gindi</li>
+    
+        <li>Daniel Monaghan</li>
+    
+        <li>Daniel S. Billing</li>
+    
+        <li>Danish Standards Association    bug-glibc-locales@gnu.org</li>
+    
+        <li>Danish Standards Association  bug-glibc-locales@gnu.org</li>
+    
+        <li>David Rodrigues</li>
+    
+        <li>Denys Kurets</li>
+    
+        <li>Diego</li>
+    
+        <li>Diego Vilariño</li>
+    
+        <li>Dieter Sting</li>
+    
+        <li>Djan SACRE Pablo Saratxaga pablo@mandrakesoft.com</li>
+    
+        <li>Dmitriy Shabanov</li>
+    
+        <li>Dominika</li>
+    
+        <li>Dominykas Tijūnaitis</li>
+    
+        <li>Eddie</li>
+    
+        <li>Edgars Beigarts</li>
+    
+        <li>Eduardo Dalla Vecchia</li>
+    
+        <li>Enrique Vidal</li>
+    
+        <li>Erhan Gundogan</li>
+    
+        <li>Esko Lehtme</li>
+    
+        <li>Estelle Comment</li>
+    
+        <li>Fadion Dashi</li>
+    
+        <li>Faisal Islam</li>
+    
+        <li>Fastfuel</li>
+    
+        <li>Fedora Project Nik Kalach nikka@fedoraproject.org</li>
+    
+        <li>Fellzo</li>
+    
+        <li>Fidel Pita</li>
+    
+        <li>Florian Hanke</li>
+    
+        <li>FourwingsY</li>
+    
+        <li>Francesco Marasco</li>
+    
+        <li>François B</li>
+    
+        <li>Free Software Foundation, Inc.    bug-glibc-locales@gnu.org</li>
+    
+        <li>Free Software Foundation, Inc.  bug-glibc-locales@gnu.org</li>
+    
+        <li>Gabriel Monteagudo</li>
+    
+        <li>Gal Jakič</li>
+    
+        <li>Gary Lo</li>
+    
+        <li>Gaspard Bucher</li>
+    
+        <li>Gastaldi    alessio.gastaldi@libero.it</li>
+    
+        <li>Ge'ez Frontier Foundation    locales@geez.org</li>
+    
+        <li>Ge'ez Frontier Foundation & Sagalee Oromoo Publishing Co. Inc.    locales@geez.org</li>
+    
+        <li>Ghorban M. Tavakoly Pablo Saratxaga & Ghorban M. Tavakoly pablo@walon.org & gmt314@yahoo.com</li>
+    
+        <li>Glavić</li>
+    
+        <li>Greek Debian Translation Team    bug-glibc@gnu.org</li>
+    
+        <li>Guo Xiang Tan</li>
+    
+        <li>Halwest Manguri</li>
+    
+        <li>Hariadi Hinta</li>
+    
+        <li>Henning Kiel</li>
+    
+        <li>Hossein Jabbari</li>
+    
+        <li>IBM AP Linux Technology Center, Yamato Software Laboratory    bug-glibc@gnu.org</li>
+    
+        <li>IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org</li>
+    
+        <li>IBM Globalization Center of Competency, Yamato Software Laboratory  bug-glibc-locales@gnu.org</li>
+    
+        <li>Ian De La Cruz</li>
+    
+        <li>Ibrahim AshShohail</li>
+    
+        <li>Igor Kasyanchuk</li>
+    
+        <li>Ilya Shaplyko</li>
+    
+        <li>IndLinux.org, Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com</li>
+    
+        <li>Information from Michael Wolf    bug-glibc-locales@gnu.org</li>
+    
+        <li>Information from Michael Wolf Andrzej Krzysztofowicz ankry@mif.pg.gda.pl</li>
+    
+        <li>Information from native speakers Hannah Sarvasy nungon.localization@gmail.com</li>
+    
+        <li>Ingmar</li>
+    
+        <li>Inoyatulloh</li>
+    
+        <li>International Components for Unicode    akhilesh.k@samsung.com</li>
+    
+        <li>Itai Nathaniel</li>
+    
+        <li>Ivan Stana</li>
+    
+        <li>Iwakura Taro</li>
+    
+        <li>J.Yogaraj 94-777-315206 yogaraj.ubuntu@gmail.com</li>
+    
+        <li>JD Isaacks</li>
+    
+        <li>Jacob Middag</li>
+    
+        <li>Jakub ADAMEC</li>
+    
+        <li>Jakub Szwacz</li>
+    
+        <li>Jakub Tesinsky</li>
+    
+        <li>James McKinney</li>
+    
+        <li>Jamshid</li>
+    
+        <li>Jan</li>
+    
+        <li>Janne Warén</li>
+    
+        <li>Jason Katz-Brown</li>
+    
+        <li>Jawish Hameed</li>
+    
+        <li>Jens Herlevsen</li>
+    
+        <li>JeroenG</li>
+    
+        <li>Jimmie Johansson</li>
+    
+        <li>John Corrigan</li>
+    
+        <li>John MacAslan</li>
+    
+        <li>Jon Ashdown</li>
+    
+        <li>Jor Teron    bug-glibc-locales@gnu.org</li>
+    
+        <li>Jordi Mallach jordi@gnu.org</li>
+    
+        <li>Jorge Y. Castillo</li>
+    
+        <li>Josh Soref</li>
+    
+        <li>Joshua Brooks</li>
+    
+        <li>Jozef Fulop</li>
+    
+        <li>João Magalhães</li>
+    
+        <li>Juanito Fatas</li>
+    
+        <li>Junho Kim</li>
+    
+        <li>Justas Palumickas</li>
+    
+        <li>Justinas Bolys</li>
+    
+        <li>Juwon Kim</li>
+    
+        <li>Jørn Ølmheim</li>
+    
+        <li>KID</li>
+    
+        <li>Kamusi Project Martin Benjamin locales@kamusi.org</li>
+    
+        <li>Karamell</li>
+    
+        <li>Kaspars Bankovskis</li>
+    
+        <li>Kaushik Thanki</li>
+    
+        <li>Kavacky</li>
+    
+        <li>Kevin Huang</li>
+    
+        <li>Kevin Valdek</li>
+    
+        <li>Kirill Chalkin</li>
+    
+        <li>Konstantin Konev</li>
+    
+        <li>Kristian Sakarisson</li>
+    
+        <li>Kristján Ingi Geirsson</li>
+    
+        <li>Kristoffer Snabb</li>
+    
+        <li>Kruy Vanna</li>
+    
+        <li>Kunal Marwaha</li>
+    
+        <li>LONGMAN</li>
+    
+        <li>Lasha Dolidze</li>
+    
+        <li>Laurynas Butkus</li>
+    
+        <li>Lucas Macedo</li>
+    
+        <li>Lukas Svoboda</li>
+    
+        <li>Luke McGregor</li>
+    
+        <li>Luo Ning</li>
+    
+        <li>MLTDev</li>
+    
+        <li>MOHAN M U</li>
+    
+        <li>Maithili Computing Research Center, Pune, India    rajeshkajha@yahoo.com,akhilesh.k@samusng.com</li>
+    
+        <li>Marc Ordinas i Llopis</li>
+    
+        <li>Marco Perrando</li>
+    
+        <li>Marek Adamický</li>
+    
+        <li>Marko Seppae</li>
+    
+        <li>Marlon Maxwel</li>
+    
+        <li>Mart Karu</li>
+    
+        <li>Martin McWhorter</li>
+    
+        <li>Martin Suja</li>
+    
+        <li>Mashrab Kuvatov Mashrab Kuvatov, Pablo Saratxaga kmashrab@uni-bremen.de, pablo@mandrakesoft.com</li>
+    
+        <li>Massimiliano Caniparoli</li>
+    
+        <li>Matt Johnson</li>
+    
+        <li>Matt Pope</li>
+    
+        <li>Matthias Dieter Wallno:fer libc-locales@sourceware.org</li>
+    
+        <li>Max Kovpak</li>
+    
+        <li>Max Melentiev</li>
+    
+        <li>Max Mykhailenko</li>
+    
+        <li>Maxime VALY</li>
+    
+        <li>Mayank Badola</li>
+    
+        <li>MegaXLR</li>
+    
+        <li>Mehshan</li>
+    
+        <li>Mia Nordentoft</li>
+    
+        <li>Michael Hohl</li>
+    
+        <li>Michael Kessler</li>
+    
+        <li>Miha Rebernik</li>
+    
+        <li>Milos Sakovic</li>
+    
+        <li>MonkeyPhysics</li>
+    
+        <li>Mousa Moradi mousamk@gmail.com</li>
+    
+        <li>Muhammad Nasir Rahimi</li>
+    
+        <li>Murat Yüksel</li>
+    
+        <li>Nafies Luthfi</li>
+    
+        <li>Narain Sagar</li>
+    
+        <li>Nasser Ghiasi</li>
+    
+        <li>Nate Whittaker</li>
+    
+        <li>Nay Lin Aung</li>
+    
+        <li>NehaGautam</li>
+    
+        <li>Neskie Manuel    bug-glibc-locales@gnu.org</li>
+    
+        <li>Nicolai Davies</li>
+    
+        <li>Nicolás Hock Isaza</li>
+    
+        <li>Nikola Zeravcic</li>
+    
+        <li>Nikos Timiopulos</li>
+    
+        <li>Nizar Jouini</li>
+    
+        <li>Nj Subedi</li>
+    
+        <li>Noureddine LOUAHEDJ</li>
+    
+        <li>Nusret Parlak</li>
+    
+        <li>Ochirkhuyag</li>
+    
+        <li>Oleh</li>
+    
+        <li>Orif N. Jr</li>
+    
+        <li>Orxan</li>
+    
+        <li>Pablo Saratxaga pablo@mandrakesoft.com</li>
+    
+        <li>Pablo Saratxaga pablo@mandriva.com</li>
+    
+        <li>Paul</li>
+    
+        <li>Paulo Freitas</li>
+    
+        <li>Pere Orga</li>
+    
+        <li>PeshSajSoft Ltd. Vyacheslav Kileev slavakileev@yandex.ru</li>
+    
+        <li>Petr Kadlec</li>
+    
+        <li>Petri Kivikangas</li>
+    
+        <li>Philippe Vaucher</li>
+    
+        <li>Pierre du Plessis</li>
+    
+        <li>Prodis</li>
+    
+        <li>Propaganistas</li>
+    
+        <li>Pular-Fulfulde.org Ibrahima Sarr admin@pulaar-fulfulde.org</li>
+    
+        <li>Punjab</li>
+    
+        <li>Quentí</li>
+    
+        <li>RAP    bug-glibc-locales@gnu.org</li>
+    
+        <li>RAP    libc-alpha@sourceware.org</li>
+    
+        <li>RFC 2319    bug-glibc-locales@gnu.org</li>
+    
+        <li>RM87</li>
+    
+        <li>RO'KAISAKKON</li>
+    
+        <li>ROKAISAKKON</li>
+    
+        <li>Rafael Raupp</li>
+    
+        <li>Raju</li>
+    
+        <li>Raphael Amorim</li>
+    
+        <li>Rasulbek</li>
+    
+        <li>Red Hat Pune    bug-glibc-locales@gnu.org</li>
+    
+        <li>Red Hat Pune    libc-alpha@sourceware.org</li>
+    
+        <li>Red Hat, Pune    bug-glibc-locales@gnu.org</li>
+    
+        <li>Rene Torres Rene Torres, Pablo Saratxaga rgtorre@rocketmail.com, pablo@mandrakesoft.com</li>
+    
+        <li>Reshat Sabiq tatar.iqtelif.i18n@gmail.com</li>
+    
+        <li>Reşat SABIQ tilde.birlik@gmail.com</li>
+    
+        <li>Rinat Norkin Pablo Saratxaga, Rinat Norkin pablo@mandrakesoft.com, rinat@taif.ru</li>
+    
+        <li>Ričardas</li>
+    
+        <li>Robert Bjarnason</li>
+    
+        <li>RockET Systems Emani Fakaotimanava-Lui emani@niue.nu</li>
+    
+        <li>Rolandas</li>
+    
+        <li>RomeroMsk</li>
+    
+        <li>Roope Salmi</li>
+    
+        <li>Roy</li>
+    
+        <li>Rune Mønnike</li>
+    
+        <li>Rwanda Steve Murphy murf@e-tools.com</li>
+    
+        <li>Saiful Islam</li>
+    
+        <li>Sami Haahtinen</li>
+    
+        <li>Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com</li>
+    
+        <li>Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com & maninder1.s@samsung.com</li>
+    
+        <li>Samsung Electronics Co., Ltd.    alexey.merzlyakov@samsung.com</li>
+    
+        <li>Sardinian Translators Team Massimeddu Cireddu massimeddu@gmail.com</li>
+    
+        <li>Sashko Todorov</li>
+    
+        <li>Sawood Alam</li>
+    
+        <li>Sebastian Thierer</li>
+    
+        <li>Seokjun Kim</li>
+    
+        <li>Sereysethy Touch</li>
+    
+        <li>Serhan Apaydın</li>
+    
+        <li>Shakib Hossain</li>
+    
+        <li>Sherubtse College    bug-glibc@gnu.org</li>
+    
+        <li>Sigurd Gartmann</li>
+    
+        <li>Simon Hürlimann (CyT)</li>
+    
+        <li>Simone Carletti</li>
+    
+        <li>SobakaSlava</li>
+    
+        <li>Softaragones Jordi Mallach Pérez, Juan Pablo Martínez bug-glibc-locales@gnu.org, softaragones@softaragones.org</li>
+    
+        <li>Sovichet Tep</li>
+    
+        <li>Stephan</li>
+    
+        <li>Steven Heinrich</li>
+    
+        <li>Stjepan</li>
+    
+        <li>Sugar Labs // OLPC sugarlabs.org libc-alpha@sourceware.org</li>
+    
+        <li>Sven Fuchs</li>
+    
+        <li>Sverri Mohr Olsen</li>
+    
+        <li>Takuya Sawada</li>
+    
+        <li>Talat Uspanov</li>
+    
+        <li>Teemu Leisti</li>
+    
+        <li>The Debian Project Christian Perrier bubulle@debian.org</li>
+    
+        <li>The Debian Project modified by GNU//Linux Malagasy Rado Ramarotafika,Do-Risika RAFIEFERANTSIARONJY rado@linuxmg.org,dourix@free.fr</li>
+    
+        <li>The Debian project Christian Perrier bubulle@debian.org</li>
+    
+        <li>Tim Fish</li>
+    
+        <li>Timo</li>
+    
+        <li>Tlapi</li>
+    
+        <li>Toleugazy Kali</li>
+    
+        <li>Tom Hughes</li>
+    
+        <li>Tomi Atanasoski</li>
+    
+        <li>Tornike Razmadze</li>
+    
+        <li>Tsutomu Kuroda</li>
+    
+        <li>Ubuntu René Manassé GALEKWA renemanasse@gmail.com</li>
+    
+        <li>Vadym Ievsieiev</li>
+    
+        <li>Valery Timiriliyev Valery Timiriliyev timiriliyev@gmail.com</li>
+    
+        <li>Vitalii Khustochka</li>
+    
+        <li>Vitauts Stočka</li>
+    
+        <li>Václav Pávek</li>
+    
+        <li>Víctor Díaz</li>
+    
+        <li>Wacław Jacek</li>
+    
+        <li>Walser Translation Team ml@translate-wae.ch</li>
+    
+        <li>Xavi</li>
+    
+        <li>XueWei</li>
+    
+        <li>Yoav Amit</li>
+    
+        <li>Zahhar Kirillov</li>
+    
+        <li>Zaid Akram</li>
+    
+        <li>Zeno Zeng</li>
+    
+        <li>Zhan Tong Zhang</li>
+    
+        <li>Zolzaya Erdenebaatar</li>
+    
+        <li>Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za</li>
+    
+        <li>aarkhipov</li>
+    
+        <li>abhimanyu003</li>
+    
+        <li>acutexyz</li>
+    
+        <li>adriaanzon</li>
+    
+        <li>alecrabbit</li>
+    
+        <li>atakigawa</li>
+    
+        <li>balping</li>
+    
+        <li>belkacem77@gmail.com</li>
+    
+        <li>bhashaghar@googlegroups.com</li>
+    
+        <li>bokideckonja</li>
+    
+        <li>bug-glibc-locales@gnu.org</li>
+    
+        <li>bustta</li>
+    
+        <li>codenhagen</li>
+    
+        <li>csb_PL locale Michal Ostrowski bug-glibc-locales@gnu.org</li>
+    
+        <li>damlys</li>
+    
+        <li>dan-nl</li>
+    
+        <li>danijel</li>
+    
+        <li>dennisoderwald</li>
+    
+        <li>digitalfrost</li>
+    
+        <li>dmilisic</li>
+    
+        <li>du</li>
+    
+        <li>epaminond</li>
+    
+        <li>felipeleite1</li>
+    
+        <li>felixthemagnificent</li>
+    
+        <li>hafezdivandari</li>
+    
+        <li>harpreetkhalsagtbit</li>
+    
+        <li>http:////www.uyip.org// Pablo Saratxaga pablo@mandrakesoft.com</li>
+    
+        <li>information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandrakesoft.com</li>
+    
+        <li>information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandriva.com</li>
+    
+        <li>information from native speaker Pablo Saratxaga pablo@mandrakesoft.com</li>
+    
+        <li>jofi</li>
+    
+        <li>kc</li>
+    
+        <li>kostas</li>
+    
+        <li>ks-gnome-trans-commits@lists.code.indlinux.net</li>
+    
+        <li>leyluj</li>
+    
+        <li>meghrajsuthar03@gmail.com</li>
+    
+        <li>mestremuten</li>
+    
+        <li>mhamlet</li>
+    
+        <li>monkeycon</li>
+    
+        <li>newman101</li>
+    
+        <li>nimamo</li>
+    
+        <li>nootanghimire</li>
+    
+        <li>pablo@mandriva.com</li>
+    
+        <li>pirminis</li>
+    
+        <li>rajeevnaikte</li>
+    
+        <li>runasimipi.org    libc-alpha@sourceware.org</li>
+    
+        <li>ryanhart2</li>
+    
+        <li>sebastian de castelberg</li>
+    
+        <li>shaishavgandhi05</li>
+    
+        <li>sheriffmarley</li>
+    
+        <li>somosazucar.org    libc-alpha@sourceware.org</li>
+    
+        <li>sr_YU, sr_CS locale Danilo Segan bug-glibc-locales@gnu.org</li>
+    
+        <li>swalker</li>
+    
+        <li>sycuato</li>
+    
+        <li>szl_PL locale Przemyslaw Buczkowski libc-alpha@sourceware.org</li>
+    
+        <li>tarunvelli</li>
+    
+        <li>tgfjt</li>
+    
+        <li>tjku</li>
+    
+        <li>tomhorvat</li>
+    
+        <li>toyama satoshi</li>
+    
+        <li>ubuntu Myanmar LoCo Team http://www.ubuntu-mm.net Bone Pyae Sone bone.burma@mail.com</li>
+    
+        <li>valdas406</li>
+    
+        <li>victortobias</li>
+    
+        <li>vsn4ik</li>
+    
+        <li>xuri</li>
+    
+        <li>yasinn</li>
+    
+        <li>yiannisdesp</li>
+    
+        <li>Øystein</li>
+    
+        <li>Şəhriyar İmanov</li>
+    
+        <li>Коренберг Марк (imac)</li>
+    
+        <li>Нурлан Рахимжанов</li>
+    
+        <li>Томица Кораћ</li>
+    
+</ul>
+
+<p>Is someone missing? <a href="https://github.com/briannesbitt/Carbon/issues/new">Please tell us</a>.</p>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="help-translate">
+            <a href="#" class="close" data-session-close="footer .help-translate">✖</a>
+            Do you speak <strong>#{language}</strong>? You can help Carbon to
+            <a href="/contribute/translate/">improve its translations</a>!<br>
+            No coding skills needed, <a href="/contribute/translate/">go to translation tool</a>.
+        </div>
+        <div id="codefund"></div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+
+        var liveEditorHosts = [
+            'https://try-carbon.herokuapp.com/',
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
+        ];
+        var sessStorage = window.sessionStorage || {};
+        var storage = window.localStorage || {};
+        var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
+        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
+        var callbacks = {};
+        var $document = $(document);
+        var editorAutoLoad = false;
+
+        function transformEditor($pre, index, code, token, link) {
+            if ($pre.hasClass('live-editor-loading')) {
+                return;
+            }
+
+            $pre.removeClass('live-editor').addClass('live-editor-loading');
+            if (!code) {
+                code = $pre.find('code').text();
+                token = 'live-editor-' + index;
+                link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    encodeURIComponent(code) +
+                    '&token=' + token;
+                $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            }
+            var $iframe = $('<iframe src="' + link +
+                '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+            (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                $iframe.css({
+                    opacity: 1,
+                    pointerEvents: 'all',
+                    position: '',
+                    height: $pre.outerHeight() + 'px'
+                });
+                $pre.hide();
+            };
+        }
+
+        function scrollCheck() {
+            $('.live-editor').each(function (index) {
+                var $pre = $(this);
+                if (!editorAutoLoad) {
+                    var code = $pre.find('code').text();
+                    var token = 'live-editor-' + index;
+                    var link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                        encodeURIComponent(code) +
+                        '&token=' + token;
+                    $pre.css('cursor', 'pointer').click(function () {
+                        transformEditor($pre, index, code, token, link);
+                    });
+                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                    return;
+                }
+
+                var scrollTop = $document.scrollTop();
+                var scrollBottom = scrollTop + $(window).height();
+                var viewMargin = 400;
+                var top = $pre.offset().top;
+                if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+                    transformEditor($pre, index);
+                }
+            });
+        }
+
+        function openDoc(selection) {
+            selection = $.trim(selection);
+            if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
+                $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                    var element = $('#doc-method-' + className + '-' + selection)[0];
+                    if (element) {
+                        $('#search-filter').val('');
+                        refreshDoc();
+                        $('.main-wrapper').addClass('open');
+                        element.scrollIntoView();
+
+                        return false;
+                    }
+                });
+            }
+        }
+
+        $(document)
+            .on('click', 'a[data-open-doc]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                openDoc($(event.target).data('open-doc'));
+            })
+            .on('click', '[data-slide-down]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('slide-down')).slideToggle();
+            })
+            .on('click', '[data-session-close]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var key = $(event.target).data('session-close');
+                sessStorage['closed-' + key] = '1';
+
+                $(key).slideUp(200);
+            })
+        ;
+
+        var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
+        var region = (language[1] || '').toUpperCase();
+        language = (language[0] || '').toLowerCase();
+
+        if (!sessStorage['closed-footer .help-translate'] &&
+            location.href.indexOf('contribute/translate') === -1 &&
+            (language !== 'en' || (region && region !== 'US' && region !== 'GB'))
+        ) {
+            $.getJSON('/languages.json', function (languages) {
+                var $help = $('footer .help-translate');
+                $help.html($help.html().replace('#{language}', (languages[language] || {}).isoName || language)).show();
+            });
+        }
+
+        function refreshDoc() {
+            var search = $('#search-filter').val().toLowerCase();
+            $('.doc-method').each(function () {
+                var $method = $(this);
+                $method[~$method.find('h2:first').text().toLowerCase().indexOf(search) ? 'show' : 'hide']();
+            });
+        }
+
+        $('#search-filter').on('keyup change input', refreshDoc);
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+            if (typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            if (data && data.sender === 'try-carbon') {
+                switch (data.event) {
+                    case 'ready':
+                        var callback = (callbacks[data.token] || {})[data.event];
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                        break;
+                    case 'input':
+                        // data.input
+                        break;
+                    case 'selection':
+                        openDoc(data.selection);
+                        break;
+                }
+            }
+        });
+
+        scrollCheck();
+        $document.scroll(scrollCheck);
+        $('.search').scroll(scrollCheck);
+
+        $('.search-wrapper .close').click(function () {
+            $('.main-wrapper').removeClass('open');
+        });
+
+        $('code').on('mouseup select dblclick', function () {
+            var s = window.getSelection();
+            if ((s.anchorOffset || s.anchorOffset === 0) && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
+                openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
+            }
+        });
+
+        $('[href="#reference"]').click(function (event) {
+            event.preventDefault();
+            if ($('.main-wrapper').toggleClass('open').hasClass('open')) {
+                $('#search-filter').focus();
+            }
+        });
+
+        function objEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i< keys.length; i++) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
+        function reserveEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = keys.length - 1; i >= 0; i--) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
+        $(function () {
+            $.ajax('/reference/', {
+                success: function (data) {
+                    $('.search').html(data).find('.live-editor code').each(function (index, block) {
+                        hljs.highlightBlock(block);
+                    });
+                },
+            });
+            $('.history-slot').each(function () {
+                var $slot = $(this);
+                var primaryList = {};
+                var releases = {};
+
+                function processHistory(data) {
+                    $.each(data, function () {
+                        primaryList[this.created_at] = this;
+                    });
+                }
+
+                $.getJSON('/releases.json').then(function (data) {
+                    processHistory(data);
+
+                    return $.getJSON('https://api.github.com/repos/briannesbitt/Carbon/releases');
+                }).then(function (data) {
+                    processHistory(data);
+
+                    Object.keys(primaryList).sort().reverse().forEach(function (key) {
+                        var item = primaryList[key];
+                        var name = item.tag_name;
+                        if (/^\d+\.\d+\.\d/.test(name)) {
+                            var major = name.replace(/^(\d+)\..*$/, '$1');
+                            var minor = name.replace(/^(\d+\.\d+)\..*$/, '$1');
+                            var list = releases[major] || (releases[major] = {});
+                            var subList = list[minor] || (list[minor] = {});
+                            subList[name] = item;
+                        }
+                    });
+
+                    var html = '';
+                    reserveEach(releases, function (major, list) {
+                        html += '<h1 class="history-major-title"><a href="#" data-history-major="' + major + '">Carbon ' + major + '</a></h1><div class="history-major-group history-major-' + major + ' hidden">';
+                        objEach(list, function (minor, subList) {
+                            html += '<h2 class="history-minor-title">' + minor + '.*</h2><div class="history-minor-group">';
+                            objEach(subList, function (version, release) {
+                                if (release.assets && release.assets.length) {
+                                    release.asset_url = release.assets[0].browser_download_url;
+                                }
+                                html +=
+                                    '<h3>' +
+                                        version + '' +
+                                        '<small class="release-date" title="' + (new Date(release.created_at)).toLocaleTimeString() + '">' + (new Date(release.created_at)).toLocaleDateString() + '</small>' +
+                                        (release.asset_url
+                                            ? '<a href="' + release.asset_url + '" class="btn btn-default download-release"><i class="glyphicon glyphicon-save"></i> Download</a>'
+                                            : ''
+                                        ) +
+                                    '</h3>' +
+                                    '<div class="version-description">' + ('\n' + release.body).replace(/(\n- [^\n]*)+/g, function (all) {
+                                        return '<ul>' + all.replace(/\n- ([^\n]*)/g, '<li>$1</li>') + '</ul>';
+                                    }).replace(/^\s+/, '').replace(/\s+$/, '').replace(/\n/g, '<br>').replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank">$1</a>') + '</div>'
+                                ;
+                            });
+                            html += '</div>';
+                        });
+                        html += '</div>';
+                    });
+                    $slot.html(html).find('.history-major-group').hide().removeClass('hidden');
+                });
+            });
+            $(document).on('click', '[data-history-major]', function (event) {
+                $('.history-major-' + $(this).data('history-major')).slideToggle();
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        });
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//piwik.selfbuild.fr/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '23']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    
+    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
+</body>
+</html>
