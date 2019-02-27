@@ -20,6 +20,7 @@
  * - Gary Lo
  * - JD Isaacks
  * - Chris Hemp
+ * - shankesgk2
  */
 return [
     'year' => ':count年',
@@ -34,7 +35,8 @@ return [
     'h' => ':count小時',
     'minute' => ':count分鐘',
     'min' => ':count分鐘',
-    'second' => '{1}幾秒|]1,Inf[:count秒',
+    'second' => ':count秒',
+    'a_second' => '{1}幾秒|]1,Inf[:count秒',
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time內',

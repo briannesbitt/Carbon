@@ -29,6 +29,7 @@
  * - vsn4ik
  * - JD Isaacks
  * - Fellzo
+ * - andrey-helldar
  */
 return [
     'year' => ':count год|:count года|:count лет',

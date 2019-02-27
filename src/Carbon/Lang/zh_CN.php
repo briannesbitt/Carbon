@@ -19,6 +19,7 @@
  * - JD Isaacks
  * - Zeno Zeng
  * - Chris Hemp
+ * - shankesgk2
  */
 return [
     'year' => ':count年',
@@ -33,7 +34,8 @@ return [
     'h' => ':count小时',
     'minute' => ':count分钟',
     'min' => ':count分钟',
-    'second' => '{1}几秒|]1,Inf[:count秒',
+    'second' => ':count秒',
+    'a_second' => '{1}几秒|]1,Inf[:count秒',
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time内',

@@ -14,6 +14,7 @@
  * - tarunvelli
  * - Eddie
  * - KID
+ * - shankesgk2
  */
 return [
     'year' => ':count 年',
@@ -28,7 +29,8 @@ return [
     'h' => ':count小時',
     'minute' => ':count 分鐘',
     'min' => ':count分鐘',
-    'second' => '{1}幾秒|]1,Inf[:count 秒',
+    'second' => ':count 秒',
+    'a_second' => '{1}幾秒|]1,Inf[:count 秒',
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time內',

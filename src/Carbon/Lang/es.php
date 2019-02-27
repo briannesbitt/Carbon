@@ -23,6 +23,7 @@
  * - Víctor Díaz
  * - Diego
  * - Sebastian Thierer
+ * - quinterocesar
  */
 return [
     'year' => ':count año|:count años',

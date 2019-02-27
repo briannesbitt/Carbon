@@ -118,7 +118,7 @@ class YueHkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '幾秒前',
+        '1秒前',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -174,7 +174,7 @@ class YueHkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2年前',
         // Carbon::now()->addSecond()->diffForHumans()
-        '幾秒內',
+        '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
@@ -186,7 +186,7 @@ class YueHkTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '幾秒',
+        '1秒',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class YueHkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1秒內',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1分鐘 幾秒',
+        '1分鐘 1秒',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2年 3月 1天 1秒',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
