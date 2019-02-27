@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Chitwanix OS Development    info@chitwanix.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'dddd DD MMM YYYY',
     ],

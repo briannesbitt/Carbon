@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - meghrajsuthar03@gmail.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],

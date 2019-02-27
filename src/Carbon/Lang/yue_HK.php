@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - bug-glibc-locales@gnu.org
- */return array_replace_recursive(require __DIR__.'/zh_HK.php', [
+ */
+return array_replace_recursive(require __DIR__.'/zh_HK.php', [
     'formats' => [
         'L' => 'YYYY年MM月DD日 dddd',
     ],

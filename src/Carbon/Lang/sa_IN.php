@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - The Debian project Christian Perrier bubulle@debian.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'D-MM-YY',
     ],
