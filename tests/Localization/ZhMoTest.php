@@ -118,7 +118,7 @@ class ZhMoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1秒前',
+        '1 秒前',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1秒前',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -174,19 +174,19 @@ class ZhMoTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2年前',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1秒內',
+        '1 秒內',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1秒后',
+        '1 秒后',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1秒后',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1秒前',
+        '1 秒前',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1秒前',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1秒',
+        '1 秒',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1秒',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -196,7 +196,7 @@ class ZhMoTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1秒內',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 分鐘 1秒',
+        '1 分鐘 1 秒',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2年 3個月 1天 1秒',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
