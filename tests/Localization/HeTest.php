@@ -118,7 +118,7 @@ class HeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'לפני שניה',
+        'לפני שנייה',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'לפני שניה',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -130,9 +130,9 @@ class HeTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'לפני דקה',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'לפני דקותיים',
+        'לפני שתי דקות',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'לפני דקותיים',
+        'לפני שתי דקות',
         // Carbon::now()->subHours(1)->diffForHumans()
         'לפני שעה',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -174,19 +174,19 @@ class HeTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'לפני שנתיים',
         // Carbon::now()->addSecond()->diffForHumans()
-        'בעוד שניה',
+        'בעוד שנייה מעכשיו',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'בעוד שניה',
+        'בעוד שניה מעכשיו',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'אחרי שניה',
+        'אחרי שנייה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         'אחרי שניה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'לפני שניה',
+        'לפני שנייה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'לפני שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'שניה',
+        'שנייה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         'שניה',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -194,13 +194,13 @@ class HeTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 שניות',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'בעוד שניה',
+        'בעוד שניה מעכשיו',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'דקה שניה',
+        'דקה שנייה',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'שנתיים 3 חודשים יום שניה',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'בעוד 3 שנים',
+        'בעוד 3 שנים מעכשיו',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'לפני 5 חודשים',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -212,11 +212,11 @@ class HeTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'שבוע 6 ימים',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'בעוד שבוע ו -6 ימים',
+        'בעוד שבוע ו -6 ימים מעכשיו',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'שבועיים שעה',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'בעוד שעה',
+        'בעוד שעה מעכשיו',
         // CarbonInterval::days(2)->forHumans()
         'יומיים',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
