@@ -26,7 +26,7 @@ return [
     'y' => ':count anno|:count anni',
     'month' => ':count mese|:count mesi',
     'a_month' => 'un mese|:count mesi',
-    'm' => ':count mes.',
+    'm' => ':count mese|:count mesi',
     'week' => ':count settimana|:count settimane',
     'a_week' => 'una settimana|:count settimane',
     'w' => ':count set.',
