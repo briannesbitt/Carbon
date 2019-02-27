@@ -8,7 +8,7 @@
 [![PHPStan](https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat-square)](https://github.com/phpstan/phpstan)
 [![Tidelift](https://tidelift.com/badges/github/briannesbitt/Carbon)](https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme)
 
-A simple PHP API extension for DateTime. [http://carbon.nesbot.com](http://carbon.nesbot.com)
+An international PHP extension for DateTime. [http://carbon.nesbot.com](http://carbon.nesbot.com)
 
 ```php
 use Carbon\Carbon;
@@ -41,7 +41,11 @@ Carbon::setTestNow();
 if (Carbon::now()->isWeekend()) {
     echo 'Party!';
 }
+// Over 200 languages (and over 500 regional variants) supported:
 echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
+echo Carbon::now()->subMinutes(2)->locale('zh_CN')->diffForHumans(); // '2分钟前'
+echo Carbon::parse('2019-07-23 14:51')->isoFormat('LLLL'); // 'Tuesday, July 23, 2019 2:51 PM'
+echo Carbon::parse('2019-07-23 14:51')->locale('fr_FR')->isoFormat('LLLL'); // 'mardi 23 juillet 2019 14:51'
 
 // ... but also does 'from now', 'after' and 'before'
 // rolling up to seconds, minutes, hours, days, months, years
@@ -108,6 +112,10 @@ Tidelift will coordinate the fix and disclosure.
 This project exists thanks to all the people who contribute. 
 
 <img src="https://opencollective.com/Carbon/contributors.svg?width=890&button=false" />
+
+### Translators
+
+[Thanks to people helping us to translate Carbon in so many languages](https://carbon.nesbot.com/contribute/translators/)
 
 ### Backers
 
