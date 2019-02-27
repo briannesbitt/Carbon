@@ -18,11 +18,12 @@
  * - JD Isaacks
  * - Andrea Martini
  * - Francesco Marasco
+ * - Tizianoz93
  */
 return [
     'year' => ':count anno|:count anni',
     'a_year' => 'un anno|:count anni',
-    'y' => ':count a.',
+    'y' => ':count anno|:count anni',
     'month' => ':count mese|:count mesi',
     'a_month' => 'un mese|:count mesi',
     'm' => ':count mes.',
@@ -31,10 +32,10 @@ return [
     'w' => ':count set.',
     'day' => ':count giorno|:count giorni',
     'a_day' => 'un giorno|:count giorni',
-    'd' => ':count g.',
+    'd' => ':count d',
     'hour' => ':count ora|:count ore',
     'a_hour' => 'un\'ora|:count ore',
-    'h' => ':count o.',
+    'h' => ':count h',
     'minute' => ':count minuto|:count minuti',
     'a_minute' => 'un minuto|:count minuti',
     'min' => ':count min.',

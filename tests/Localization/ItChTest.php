@@ -136,19 +136,19 @@ class ItChTest extends LocalizationTestCase
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 ora fa',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 o. fa',
+        '1 h fa',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 ore fa',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 o. fa',
+        '2 h fa',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 giorno fa',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 g. fa',
+        '1 d fa',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 giorni fa',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 g. fa',
+        '2 d fa',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 settimana fa',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -168,11 +168,11 @@ class ItChTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 anno fa',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 a. fa',
+        '1 anno fa',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 anni fa',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 a. fa',
+        '2 anni fa',
         // Carbon::now()->addSecond()->diffForHumans()
         'tra 1 secondo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,13 +198,13 @@ class ItChTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuto 1 secondo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 a. 3 mes. 1 g. 1 sec.',
+        '2 anni 3 mes. 1 d 1 sec.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'tra 3 anni',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 mes. fa',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 a. 3 mes. 1 g. 1 sec. fa',
+        '2 anni 3 mes. 1 d 1 sec. fa',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 settimana 10 ore',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class ItChTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 giorni',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 g. 3 o.',
+        '1 d 3 h',
     ];
 }
