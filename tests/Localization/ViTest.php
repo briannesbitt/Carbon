@@ -128,11 +128,11 @@ class ViTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 phút trước',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 p. trước',
+        '1 phút trước',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 phút trước',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 p. trước',
+        '2 phút trước',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 giờ trước',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -144,35 +144,35 @@ class ViTest extends LocalizationTestCase
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 ngày trước',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 ng. trước',
+        '1 ngày trước',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 ngày trước',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ng. trước',
+        '2 ngày trước',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 tuần trước',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 tu. trước',
+        '1 tuần trước',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 tuần trước',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 tu. trước',
+        '2 tuần trước',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 tháng trước',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 th. trước',
+        '1 tháng trước',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 tháng trước',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 th. trước',
+        '2 tháng trước',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 năm trước',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 nă. trước',
+        '1 năm trước',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 năm trước',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 nă. trước',
+        '2 năm trước',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 giây tới',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,13 +198,13 @@ class ViTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 phút 1 giây',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 nă. 3 th. 1 ng. 1 giây',
+        '2 năm 3 tháng 1 ngày 1 giây',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 năm tới',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 th. trước',
+        '5 tháng trước',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 nă. 3 th. 1 ng. 1 giây trước',
+        '2 năm 3 tháng 1 ngày 1 giây trước',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 tuần 10 giờ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class ViTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 ngày',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 ng. 3 giờ',
+        '1 ngày 3 giờ',
     ];
 }
