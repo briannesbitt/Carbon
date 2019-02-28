@@ -12,6 +12,7 @@
 /*
  * Authors:
  * - Abdellah Chadidi
+ * - Atef Ben Ali (atefBB)
  */
 // Same for long and short
 $months = [
@@ -61,8 +62,8 @@ return [
         'sameElse' => 'L',
     ],
     'meridiem' => ['ص', 'م'],
-    'weekdays' => ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
-    'weekdays_short' => ['أحد', 'إثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
+    'weekdays' => ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+    'weekdays_short' => ['أحد', 'اثنين', 'ثلاثاء', 'أربعاء', 'خميس', 'جمعة', 'سبت'],
     'weekdays_min' => ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
     'months' => $months,
     'months_short' => $months,
