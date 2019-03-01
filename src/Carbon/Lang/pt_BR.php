@@ -28,8 +28,6 @@
  * - Sebastian Thierer
  */
 return array_replace_recursive(require __DIR__.'/pt.php', [
-    'after' => 'após :time',
-    'before' => ':time atrás',
     'period_recurrences' => 'uma|:count vez',
     'period_interval' => 'toda :interval',
     'formats' => [

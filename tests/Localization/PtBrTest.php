@@ -178,13 +178,13 @@ class PtBrTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'em 1s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'após 1 segundo',
+        '1 segundo depois',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'após 1s',
+        '1s depois',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 segundo atrás',
+        '1 segundo antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s atrás',
+        '1s antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
