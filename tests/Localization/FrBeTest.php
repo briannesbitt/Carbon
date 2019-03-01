@@ -74,27 +74,27 @@ class FrBeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'vendredi dernier à 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1st 1st 1st 1st 1st',
+        '1er 1er 1er 1re 1re',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2nd 1st',
+        '2 1re',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3rd 1st',
+        '3 1re',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4th 1st',
+        '4 1re',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5th 1st',
+        '5 1re',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6th 1st',
+        '6 1re',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7th 1st',
+        '7 1re',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
-        '11th 2nd',
+        '11 2e',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')
-        '40th',
+        '40e',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('DDDo')
-        '41st',
+        '41e',
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
-        '100th',
+        '100e',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
         '12:00 am cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
@@ -116,110 +116,110 @@ class FrBeTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
         '11:00 PM, 11:00 pm',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
-        '0th',
+        '0e',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 second ago',
+        'il y a 1 seconde',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1s ago',
+        'il y a 1 s',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 seconds ago',
+        'il y a 2 secondes',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2s ago',
+        'il y a 2 s',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        'il y a 1 minute',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        'il y a 1 min',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        'il y a 2 minutes',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        'il y a 2 min',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        'il y a 1 heure',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        'il y a 1 h',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        'il y a 2 heures',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        'il y a 2 h',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        'il y a 1 jour',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        'il y a 1 j',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        'il y a 2 jours',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        'il y a 2 j',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 week ago',
+        'il y a 1 semaine',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1w ago',
+        'il y a 1 sem.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 weeks ago',
+        'il y a 2 semaines',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2w ago',
+        'il y a 2 sem.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        'il y a 1 mois',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        'il y a 1 mois',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        'il y a 2 mois',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        'il y a 2 mois',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        'il y a 1 an',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        'il y a 1 an',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        'il y a 2 ans',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        'il y a 2 ans',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 second from now',
+        'dans 1 seconde',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1s from now',
+        'dans 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 second after',
+        '1 seconde après',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s after',
+        '1 s après',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 second before',
+        '1 seconde avant',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s before',
+        '1 s avant',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 second',
+        '1 seconde',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 seconds',
+        '2 secondes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1s from now',
+        'dans 1 s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        '1 minute 1 seconde',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 ans 3 mois 1 j 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        'dans 3 ans',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        'il y a 5 mois',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        'il y a 2 ans 3 mois 1 j 1 s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        '1 semaine 10 heures',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 semaine 6 jours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 semaine 6 jours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        'dans 1 semaine et 6 jours',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        '2 semaines 1 heure',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        'dans une heure',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        '2 jours',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 j 3 h',
     ];
 }
