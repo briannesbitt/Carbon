@@ -36,7 +36,7 @@ return [
     'a_minute' => 'eine Minute|:count Minuten',
     'min' => ':count Min.',
     'second' => ':count Sekunde|:count Sekunden',
-    'a_second' => 'eine Sekunde|:count Sekunden',
+    'a_second' => 'ein paar Sekunden|:count Sekunden',
     's' => ':count Sek.',
     'ago' => 'vor :time',
     'from_now' => 'in :time',
