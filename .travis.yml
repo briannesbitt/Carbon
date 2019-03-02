@@ -113,6 +113,15 @@ matrix:
         - coverage=false
         - phpstan=false
         - laravel=true
+  fast_finish: true
+  allow_failures:
+    - php: 7.3
+      env:
+        - xdebug=false
+        - setup=stable
+        - coverage=false
+        - phpstan=false
+        - laravel=true
 
 notifications:
   slack:

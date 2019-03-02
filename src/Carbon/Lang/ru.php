@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 $transformDiff = function ($input) {
     return strtr($input, [
         'неделя' => 'неделю',
@@ -16,7 +15,7 @@ $transformDiff = function ($input) {
     ]);
 };
 
-/**
+/*
  * Authors:
  * - Bari Badamshin
  * - Jørn Ølmheim
