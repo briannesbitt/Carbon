@@ -128,6 +128,7 @@
             ['CarbonInterval::seconds(2)', '->forHumans(["short" => true])'],
             ['CarbonInterval::second()', '->forHumans()'],
             ['CarbonInterval::second()', '->forHumans(["aUnit" => true])'],
+            'Warning, do not uppercase the first letter if it\'s not required, days/months are always uppercase in English, so "Monday" is written this way even in a sentence like "See you Monday", please translate the following as if it could be in the middle of such sentences.',
             ['Carbon::parse("monday")', '->dayName'],
             ['Carbon::parse("monday")', '->shortDayName'],
             ['Carbon::parse("monday")', '->minDayName'],
@@ -178,14 +179,14 @@
             ['($d = Carbon::now())->copy()->subHours(2)', '->diffForHumans($d)'],
             ['($d = Carbon::now())->copy()->addHours(2)->addMinute()', '->diffForHumans($d)']
         ].forEach(function (line) {
-            lines.push('['+
+            lines.push(typeof line === 'string' ? JSON.stringify(line) : '['+
                 '"source" => ' + line[0] + line[1] + ',' +
                 '"destination" => ' + (language ? line[0] + '->locale("' + language + '")' + line[1] : '""') + ',' +
             ']');
         });
         runCarbonCode('echo json_encode([' + lines.join(',') + ']);', function (result) {
             $('.edit-slot').html('<table><tr><th>English</th><th style="padding: 0 20px;">' + editLanguage + '</th><th>' + (language ? 'Fix and comments' : 'Translation in ' + editLanguage) + '</th></tr>' + result.map(function (line) {
-                return '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="' + (language ? 'This should rather be... because...' : 'Translation in ' + editLanguage) + '"></textarea></td></tr>';
+                return typeof line === 'string' ? '<tr class="translate-line"><td colspan="3" style="padding: 10px 0; font-weight: bold;">' + line + '</td></tr>' : '<tr class="translate-line"><td>' + line.source + '</td><td style="padding: 0 20px;">' + line.destination + '</td><td><textarea style="width: 400px; height: 26px;" placeholder="' + (language ? 'This should rather be... because...' : 'Translation in ' + editLanguage) + '"></textarea></td></tr>';
             }).join('') + '</table>' +
             '<div style="padding-top: 10px;">' +
                 '<p><textarea class="additional-fixes" cols="70" rows="4" placeholder="If what you wish to fix does not appear in the table, please add it here."></textarea></p>' +
