@@ -118,7 +118,7 @@ class RuUaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 секунда назад',
+        '1 секунду назад',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1 сек. назад',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -174,15 +174,15 @@ class RuUaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 года назад',
         // Carbon::now()->addSecond()->diffForHumans()
-        'через 1 секунда',
+        'через 1 секунду',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'через 1 сек.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 секунда после',
+        '1 секунду после',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 сек. после',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 секунда до',
+        '1 секунду до',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 сек. до',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
@@ -206,11 +206,11 @@ class RuUaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 года 3 мес. 1 дня. 1 сек. назад',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 неделю 10 часов',
+        '1 неделя 10 часов',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 неделю 6 дней',
+        '1 неделя 6 дней',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 неделю 6 дней',
+        '1 неделя 6 дней',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'через 1 неделю и 6 дней',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)

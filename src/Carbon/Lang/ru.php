@@ -9,6 +9,13 @@
  * file that was distributed with this source code.
  */
 
+$transformDiff = function ($input) {
+    return strtr($input, [
+        'неделя' => 'неделю',
+        'секунда' => 'секунду',
+    ]);
+};
+
 /**
  * Authors:
  * - Bari Badamshin
@@ -30,6 +37,7 @@
  * - JD Isaacks
  * - Fellzo
  * - andrey-helldar
+ * - Pavel Skripkin (psxx)
  */
 return [
     'year' => ':count год|:count года|:count лет',
@@ -38,7 +46,7 @@ return [
     'month' => ':count месяц|:count месяца|:count месяцев',
     'm' => ':count мес.',
     'a_month' => '{1}месяц|:count месяц|:count месяца|:count месяцев',
-    'week' => ':count неделю|:count недели|:count недель',
+    'week' => ':count неделя|:count недели|:count недель',
     'w' => ':count нед',
     'a_week' => '{1}неделя|:count неделю|:count недели|:count недель',
     'day' => ':count день|:count дня|:count дней',
@@ -53,10 +61,18 @@ return [
     'second' => ':count секунда|:count секунды|:count секунд',
     's' => ':count сек.',
     'a_second' => '{1}несколько секунд|:count секунду|:count секунды|:count секунд',
-    'ago' => ':time назад',
-    'from_now' => 'через :time',
-    'after' => ':time после',
-    'before' => ':time до',
+    'ago' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' назад';
+    },
+    'from_now' => function ($time) use ($transformDiff) {
+        return 'через '.$transformDiff($time);
+    },
+    'after' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' после';
+    },
+    'before' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' до';
+    },
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

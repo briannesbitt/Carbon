@@ -15,6 +15,7 @@
  * - sheriffmarley
  * - dennisoderwald
  * - Timo
+ * - Karag2006
  */
 return [
     'year' => ':count Jahr|:count Jahre',
