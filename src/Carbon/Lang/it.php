@@ -53,6 +53,9 @@ return [
     'diff_tomorrow' => 'domani',
     'diff_before_yesterday' => 'l\'altro ieri',
     'diff_after_tomorrow' => 'dopodomani',
+    'period_interval' => 'ogni :interval',
+    'period_start_date' => 'dal :date',
+    'period_end_date' => 'al :date',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
