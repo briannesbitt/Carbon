@@ -24,7 +24,7 @@
  * - Diego
  * - Sebastian Thierer
  * - quinterocesar
- * - danielcommesse
+ * - Daniel Commesse Liévanos (danielcommesse)
  */
 return [
     'year' => ':count año|:count años',
