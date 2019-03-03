@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'months' => ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
     'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
     'weekdays' => ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
@@ -23,4 +23,4 @@ return [
         'LLL' => 'D MMMM YYYY HH.mm',
         'LLLL' => 'dddd, DD MMMM YYYY HH.mm',
     ],
-];
+]);
