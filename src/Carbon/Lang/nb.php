@@ -69,4 +69,5 @@ return [
         'sameElse' => 'L',
     ],
     'list' => [', ', ' og '],
+    'meridiem' => ['a.m.', 'p.m.'],
 ];

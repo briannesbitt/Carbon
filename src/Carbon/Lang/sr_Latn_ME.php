@@ -14,39 +14,9 @@
  * - Glavić
  * - Milos Sakovic
  */
-return [
-    'year' => '{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[ :count godina',
-    'y' => ':count g.',
-    'month' => '{1}:count mjesec|{2,3,4}:count mjeseca|[0,Inf[:count mjeseci',
-    'm' => ':count mj.',
-    'week' => '{1}:count nedjelja|{2,3,4}:count nedjelje|[0,Inf[:count nedjelja',
-    'w' => ':count ned.',
-    'day' => '{1,21,31}:count dan|[0,Inf[ :count dana',
-    'd' => ':count d.',
-    'hour' => '{1,21}:count sat|{2,3,4,22,23,24}:count sata|[0,Inf[:count sati',
-    'h' => ':count č.',
-    'minute' => '{1,21,31,41,51}:count minut|[0,Inf[ :count minuta',
-    'min' => ':count min.',
-    'second' => '{1,21,31,41,51}:count sekund|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count sekunde|[0,Inf[:count sekundi',
-    's' => ':count sek.',
+return array_replace_recursive(require __DIR__.'/sr.php', [
     'ago' => 'prije :time',
     'from_now' => 'za :time',
     'after' => ':time nakon',
     'before' => ':time prije',
-
-    'year_from_now' => '{1,21,31,41,51}:count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[:count godina',
-    'year_ago' => '{1,21,31,41,51}:count godinu|{2,3,4,22,23,24,32,33,34,42,43,44,52,53,54}:count godine|[0,Inf[:count godina',
-
-    'week_from_now' => '{1}:count nedjelju|{2,3,4}:count nedjelje|[0,Inf[:count nedjelja',
-    'week_ago' => '{1}:count nedjelju|{2,3,4}:count nedjelje|[0,Inf[:count nedjelja',
-
-    'diff_now' => 'upravo sada',
-    'diff_yesterday' => 'juče',
-    'diff_tomorrow' => 'sutra',
-    'diff_before_yesterday' => 'prekjuče',
-    'diff_after_tomorrow' => 'preksutra',
-    'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 1,
-    'list' => [', ', ' i '],
-    'meridiem' => ['АМ', 'PM'],
-];
+]);

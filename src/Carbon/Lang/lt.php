@@ -84,4 +84,5 @@ return [
         'LLL' => 'DD MMM HH:mm',
         'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
+    'meridiem' => ['priešpiet', 'popiet'],
 ];
