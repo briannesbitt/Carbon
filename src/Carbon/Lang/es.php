@@ -24,6 +24,7 @@
  * - Diego
  * - Sebastian Thierer
  * - quinterocesar
+ * - danielcommesse
  */
 return [
     'year' => ':count año|:count años',
@@ -34,19 +35,19 @@ return [
     'm' => ':count mes|:count meses',
     'week' => ':count semana|:count semanas',
     'a_week' => 'una semana|:count semanas',
-    'w' => ':count semana|:count semanas',
+    'w' => ':countsem',
     'day' => ':count día|:count días',
     'a_day' => 'un día|:count días',
-    'd' => ':count día|:count días',
+    'd' => ':countd',
     'hour' => ':count hora|:count horas',
     'a_hour' => 'una hora|:count horas',
-    'h' => ':count hora|:count horas',
+    'h' => ':counth',
     'minute' => ':count minuto|:count minutos',
     'a_minute' => 'un minuto|:count minutos',
-    'min' => ':count minuto|:count minutos',
+    'min' => ':countm',
     'second' => ':count segundo|:count segundos',
     'a_second' => 'unos segundos|:count segundos',
-    's' => ':count segundo|:count segundos',
+    's' => ':counts',
     'ago' => 'hace :time',
     'from_now' => 'en :time',
     'after' => ':time después',

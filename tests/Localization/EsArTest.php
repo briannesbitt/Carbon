@@ -96,67 +96,67 @@ class EsArTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100º',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 am cet',
+        '12:00 a. m. cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 AM, 12:00 am',
+        '12:00 a. m., 12:00 a. m.',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 AM, 1:30 am',
+        '1:30 a. m., 1:30 a. m.',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 AM, 2:00 am',
+        '2:00 a. m., 2:00 a. m.',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 AM, 6:00 am',
+        '6:00 a. m., 6:00 a. m.',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 AM, 10:00 am',
+        '10:00 a. m., 10:00 a. m.',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 p. m., 12:00 p. m.',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 p. m., 5:00 p. m.',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 p. m., 9:30 p. m.',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 p. m., 11:00 p. m.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0º',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'hace 1 segundo',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'hace 1 segundo',
+        'hace 1s',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'hace 2 segundos',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'hace 2 segundos',
+        'hace 2s',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'hace 1 minuto',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'hace 1 minuto',
+        'hace 1m',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'hace 2 minutos',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'hace 2 minutos',
+        'hace 2m',
         // Carbon::now()->subHours(1)->diffForHumans()
         'hace 1 hora',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'hace 1 hora',
+        'hace 1h',
         // Carbon::now()->subHours(2)->diffForHumans()
         'hace 2 horas',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'hace 2 horas',
+        'hace 2h',
         // Carbon::now()->subDays(1)->diffForHumans()
         'hace 1 día',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'hace 1 día',
+        'hace 1d',
         // Carbon::now()->subDays(2)->diffForHumans()
         'hace 2 días',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'hace 2 días',
+        'hace 2d',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'hace 1 semana',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'hace 1 semana',
+        'hace 1sem',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'hace 2 semanas',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'hace 2 semanas',
+        'hace 2sem',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'hace 1 mes',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -176,35 +176,35 @@ class EsArTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans()
         'en 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'en 1 segundo',
+        'en 1s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 segundo después',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 segundo después',
+        '1s después',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 segundo antes',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 segundo antes',
+        '1s antes',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 segundo',
+        '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 segundos',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 segundos',
+        '2s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'en 1 segundo',
+        'en 1s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuto 1 segundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 años 3 meses 1 día 1 segundo',
+        '2 años 3 meses 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'en 3 años',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'hace 5 meses',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'hace 2 años 3 meses 1 día 1 segundo',
+        'hace 2 años 3 meses 1d 1s',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 semana 10 horas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class EsArTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 días',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 día 3 horas',
+        '1d 3h',
     ];
 }
