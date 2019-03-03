@@ -105,4 +105,5 @@ return [
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' i '],
     'meridiem' => ['a. m.', 'p. m.'],
+    'months_short_standalone' => ['gen.', 'febr.', 'març', 'abr.', 'maig', 'juny', 'jul.', 'ag.', 'set.', 'oct.', 'nov.', 'des.'],
 ];

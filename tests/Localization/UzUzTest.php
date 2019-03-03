@@ -96,25 +96,25 @@ class UzUzTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 ertalab cet',
+        '12:00 to cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 ertalab, 12:00 ertalab',
+        '12:00 TO, 12:00 to',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 ertalab, 1:30 ertalab',
+        '1:30 TO, 1:30 to',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 ertalab, 2:00 ertalab',
+        '2:00 TO, 2:00 to',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 ertalab, 6:00 ertalab',
+        '6:00 TO, 6:00 to',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 ertalab, 10:00 ertalab',
+        '10:00 TO, 10:00 to',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 kechasi, 12:00 kechasi',
+        '12:00 TK, 12:00 tk',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 kechasi, 5:00 kechasi',
+        '5:00 TK, 5:00 tk',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 kechasi, 9:30 kechasi',
+        '9:30 TK, 9:30 tk',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 kechasi, 11:00 kechasi',
+        '11:00 TK, 11:00 tk',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()

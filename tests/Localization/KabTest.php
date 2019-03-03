@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class KabTest extends LocalizationTestCase
 {
-    const LOCALE = 'kab';
+    const LOCALE = 'kab'; // kab
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

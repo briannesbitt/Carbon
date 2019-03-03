@@ -96,25 +96,25 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100.',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 ам cet',
+        '12:00 пре подне cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 АМ, 12:00 ам',
+        '12:00 пре подне, 12:00 пре подне',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 АМ, 1:30 ам',
+        '1:30 пре подне, 1:30 пре подне',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 АМ, 2:00 ам',
+        '2:00 пре подне, 2:00 пре подне',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 АМ, 6:00 ам',
+        '6:00 пре подне, 6:00 пре подне',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 АМ, 10:00 ам',
+        '10:00 пре подне, 10:00 пре подне',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 PM, 12:00 pm',
+        '12:00 по подне, 12:00 по подне',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 PM, 5:00 pm',
+        '5:00 по подне, 5:00 по подне',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 PM, 9:30 pm',
+        '9:30 по подне, 9:30 по подне',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 PM, 11:00 pm',
+        '11:00 по подне, 11:00 по подне',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
@@ -150,19 +150,19 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'prije 2 d.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'prije 1 nedjelju',
+        'prije 1 nedelju',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         'prije 1 ned.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'prije 2 nedjelje',
+        'prije 2 nedelje',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'prije 2 ned.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'prije 1 mjesec',
+        'prije 1 mesec',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'prije 1 mj.',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'prije 2 mjeseca',
+        'prije 2 meseca',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'prije 2 mj.',
         // Carbon::now()->subYears(1)->diffForHumans()
@@ -206,15 +206,15 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'prije 2 g. 3 mj. 1 d. 1 sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 10 sati',
+        '1 nedelja 10 sati',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 6 dana',
+        '1 nedelja 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 6 dana',
+        '1 nedelja 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'za 1 nedjelja i 6 dana',
+        'za 1 nedelja i 6 dana',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 nedjelje 1 sat',
+        '2 nedelje 1 sat',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'za 1 sat',
         // CarbonInterval::days(2)->forHumans()

@@ -14,8 +14,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
         'L' => 'YYYY-MM-dd',
-        'LL' => 'YYYY MMM d',
-        'LLL' => 'YYYY MMMM d HH:mm',
-        'LLLL' => 'dddd, YYYY MMMM dd HH:mm',
+        'LL' => 'YYYY MMM D',
+        'LLL' => 'YYYY MMMM D HH:mm',
+        'LLLL' => 'dddd, YYYY MMMM DD HH:mm',
     ],
 ]);

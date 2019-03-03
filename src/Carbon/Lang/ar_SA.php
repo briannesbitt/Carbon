@@ -51,4 +51,5 @@ return [
     'weekdays_min' => ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
     'list' => ['، ', ' و '],
     'first_day_of_week' => 6,
+    'weekend' => [5, 6],
 ];

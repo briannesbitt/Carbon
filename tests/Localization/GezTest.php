@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class GezTest extends LocalizationTestCase
 {
-    const LOCALE = 'gez';
+    const LOCALE = 'gez'; // gez
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

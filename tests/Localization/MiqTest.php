@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MiqTest extends LocalizationTestCase
 {
-    const LOCALE = 'miq';
+    const LOCALE = 'miq'; // miq
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
