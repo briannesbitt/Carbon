@@ -510,7 +510,7 @@
             ['CarbonInterval::seconds(2)', '->forHumans(["short" => true])'],
             ['CarbonInterval::second()', '->forHumans()'],
             ['CarbonInterval::second()', '->forHumans(["aUnit" => true])'],
-            'Warning, do not uppercase the first letter if it\'s not required, days/months are always uppercase in English, so "Monday" is written this way even in a sentence like "See you Monday", please translate the following as if it could be in the middle of such sentences.',
+            'Warning, do not uppercase the first letter if it\'s not required, days/months are always uppercase in English, so "Monday" is written this way even in a sentence like "See you Monday", please translate the following as if it could be in the middle of such sentences. Short versions are used in short date formats and minimalist days are used calendar headings and such custom usages.',
             ['Carbon::parse("monday")', '->dayName'],
             ['Carbon::parse("monday")', '->shortDayName'],
             ['Carbon::parse("monday")', '->minDayName'],
