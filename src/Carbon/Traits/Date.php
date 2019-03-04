@@ -1904,6 +1904,15 @@ trait Date
         }
 
         if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
+            $start = '';
+            foreach ([10000, 1000, 100] as $exp) {
+                $key = "alt_numbers_pow.$exp";
+                if ($number >= $exp && $number < $exp * 10 && ($pow = $this->translate($key)) !== $key) {
+                    $unit = floor($number / $exp);
+                    $number -= $unit * $exp;
+                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '').$pow;
+                }
+            }
             $result = '';
             while ($number) {
                 $chunk = $number % 100;
@@ -1911,7 +1920,7 @@ trait Date
                 $number = floor($number / 100);
             }
 
-            return $result;
+            return "$start$result";
         }
 
         return $number;
