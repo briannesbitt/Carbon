@@ -5307,7 +5307,7 @@ class WeekTest extends AbstractTestCase
             $this->assertSame($weekYear, $date->weekYear(), "Carbon::parse(\"$date 00:00:00\")->weekYear() should return $weekYear");
             $this->assertSame($isoWeekYear, $date->isoWeekYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeekYear() should return $isoWeekYear");
             $this->assertSame($week, $date->week(), "Carbon::parse(\"$date 00:00:00\")->week() should return $week");
-            $this->assertSame($isoWeek, $date->isoWeek(), "Carbon::parse(\"$date 00:00:00\")->week() should return $isoWeek");
+            $this->assertSame($isoWeek, $date->isoWeek(), "Carbon::parse(\"$date 00:00:00\")->isoWeek() should return $isoWeek");
             $this->assertSame($weeksInYear, $date->weeksInYear(), "Carbon::parse(\"$date 00:00:00\")->weeksInYear() should return $isoWeek");
             $this->assertSame($isoWeeksInYear, $date->isoWeeksInYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeeksInYear() should return $isoWeeksInYear");
         }
