@@ -52,8 +52,8 @@ trait Week
     {
         return $this->weekYear(
             $year,
-            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? 1,
+            $dayOfYear ?? 4
         );
     }
 
@@ -131,8 +131,8 @@ trait Week
     public function isoWeeksInYear($dayOfWeek = null, $dayOfYear = null)
     {
         return $this->weeksInYear(
-            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? 1,
+            $dayOfYear ?? 4
         );
     }
 
@@ -211,8 +211,8 @@ trait Week
     {
         return $this->week(
             $week,
-            $dayOfWeek ?? $this->getTranslationMessage('first_day_of_week') ?? 1,
-            $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 4
+            $dayOfWeek ?? 1,
+            $dayOfYear ?? 4
         );
     }
 }

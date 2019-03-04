@@ -74,7 +74,7 @@ class OmKeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Last Jimaata at 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1st 1st 1st 2nd 1st',
+        '1st 1st 1st 1st 1st',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2nd 1st',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
