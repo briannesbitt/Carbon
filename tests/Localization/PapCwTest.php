@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class PapCwTest extends LocalizationTestCase
 {
-    const LOCALE = 'pap_CW';
+    const LOCALE = 'pap_CW'; // pap
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

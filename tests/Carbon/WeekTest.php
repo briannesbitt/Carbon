@@ -5302,14 +5302,14 @@ class WeekTest extends AbstractTestCase
     public function testWeekUtils()
     {
         foreach (static::SAMPLE as $date => [$weekYear, $isoWeekYear, $week, $isoWeek, $weeksInYear, $isoWeeksInYear]) {
-            $date = Carbon::parse("$date 00:00:00");
+            $carbon = Carbon::parse("$date 00:00:00");
 
-            $this->assertSame($weekYear, $date->weekYear(), "Carbon::parse(\"$date 00:00:00\")->weekYear() should return $weekYear");
-            $this->assertSame($isoWeekYear, $date->isoWeekYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeekYear() should return $isoWeekYear");
-            $this->assertSame($week, $date->week(), "Carbon::parse(\"$date 00:00:00\")->week() should return $week");
-            $this->assertSame($isoWeek, $date->isoWeek(), "Carbon::parse(\"$date 00:00:00\")->week() should return $isoWeek");
-            $this->assertSame($weeksInYear, $date->weeksInYear(), "Carbon::parse(\"$date 00:00:00\")->weeksInYear() should return $isoWeek");
-            $this->assertSame($isoWeeksInYear, $date->isoWeeksInYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeeksInYear() should return $isoWeeksInYear");
+            $this->assertSame($weekYear, $carbon->weekYear(), "Carbon::parse(\"$date 00:00:00\")->weekYear() should return $weekYear");
+            $this->assertSame($isoWeekYear, $carbon->isoWeekYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeekYear() should return $isoWeekYear");
+            $this->assertSame($week, $carbon->week(), "Carbon::parse(\"$date 00:00:00\")->week() should return $week");
+            $this->assertSame($isoWeek, $carbon->isoWeek(), "Carbon::parse(\"$date 00:00:00\")->isoWeek() should return $isoWeek");
+            $this->assertSame($weeksInYear, $carbon->weeksInYear(), "Carbon::parse(\"$date 00:00:00\")->weeksInYear() should return $isoWeek");
+            $this->assertSame($isoWeeksInYear, $carbon->isoWeeksInYear(), "Carbon::parse(\"$date 00:00:00\")->isoWeeksInYear() should return $isoWeeksInYear");
         }
     }
 

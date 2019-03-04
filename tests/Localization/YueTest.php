@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class YueTest extends LocalizationTestCase
 {
-    const LOCALE = 'yue';
+    const LOCALE = 'yue'; // yue
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -178,13 +178,13 @@ class YueTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1秒后',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1秒后',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1秒前',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1秒前',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1秒',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

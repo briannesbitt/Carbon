@@ -86,7 +86,7 @@ class HyTest extends LocalizationTestCase
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
         '6 1-ին',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7 2-րդ',
+        '7 1-ին',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11 2-րդ',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')

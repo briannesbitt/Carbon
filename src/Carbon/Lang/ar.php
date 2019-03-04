@@ -67,4 +67,5 @@ return [
     'first_day_of_week' => 6,
     'day_of_first_week_of_year' => 1,
     'list' => ['، ', ' و '],
+    'weekend' => [5, 6],
 ];

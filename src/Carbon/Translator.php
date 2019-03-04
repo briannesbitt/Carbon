@@ -304,7 +304,7 @@ class Translator extends Translation\Translator
             // _2-letters or YUE is a region, _3+-letters is a variant
             $upper = strtoupper($matches[1]);
 
-            if ($upper === 'YUE' || strlen($upper) < 3) {
+            if ($upper === 'YUE' || $upper === 'ISO' || strlen($upper) < 3) {
                 return "_$upper";
             }
 

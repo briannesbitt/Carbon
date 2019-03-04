@@ -65,4 +65,5 @@ return [
         'LLLL' => 'dddd D. MMMM YYYY HH:mm',
     ],
     'meridiem' => ['dopoledne', 'odpoledne'],
+    'months_standalone' => ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
 ];

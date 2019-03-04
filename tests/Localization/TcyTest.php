@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TcyTest extends LocalizationTestCase
 {
-    const LOCALE = 'tcy';
+    const LOCALE = 'tcy'; // tcy
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

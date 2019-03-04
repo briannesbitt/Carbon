@@ -96,115 +96,115 @@ class SrTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100.',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 ам cet',
+        '12:00 пре подне cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 АМ, 12:00 ам',
+        '12:00 пре подне, 12:00 пре подне',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 АМ, 1:30 ам',
+        '1:30 пре подне, 1:30 пре подне',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 АМ, 2:00 ам',
+        '2:00 пре подне, 2:00 пре подне',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 АМ, 6:00 ам',
+        '6:00 пре подне, 6:00 пре подне',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        '10:00 АМ, 10:00 ам',
+        '10:00 пре подне, 10:00 пре подне',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 ПМ, 12:00 пм',
+        '12:00 по подне, 12:00 по подне',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 ПМ, 5:00 пм',
+        '5:00 по подне, 5:00 по подне',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 ПМ, 9:30 пм',
+        '9:30 по подне, 9:30 по подне',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 ПМ, 11:00 пм',
+        '11:00 по подне, 11:00 по подне',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0.',
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'pre 1 sekund',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'pre 1 sekund',
+        'pre 1 sek.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'pre 2 sekunde',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'pre 2 sekunde',
+        'pre 2 sek.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'pre 1 minut',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'pre 1 minut',
+        'pre 1 min.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'pre 2 minuta',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'pre 2 minuta',
+        'pre 2 min.',
         // Carbon::now()->subHours(1)->diffForHumans()
         'pre 1 sat',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'pre 1 sat',
+        'pre 1 č.',
         // Carbon::now()->subHours(2)->diffForHumans()
         'pre 2 sata',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'pre 2 sata',
+        'pre 2 č.',
         // Carbon::now()->subDays(1)->diffForHumans()
         'pre 1 dan',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'pre 1 dan',
+        'pre 1 d.',
         // Carbon::now()->subDays(2)->diffForHumans()
         'pre 2 dana',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'pre 2 dana',
+        'pre 2 d.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'pre 1 nedelju',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'pre 1 nedelja',
+        'pre 1 ned.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'pre 2 nedelje',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'pre 2 nedelje',
+        'pre 2 ned.',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'pre 1 mesec',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'pre 1 mesec',
+        'pre 1 mj.',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'pre 2 meseca',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'pre 2 meseca',
+        'pre 2 mj.',
         // Carbon::now()->subYears(1)->diffForHumans()
         'pre 1 godinu',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'pre 1 godina',
+        'pre 1 g.',
         // Carbon::now()->subYears(2)->diffForHumans()
         'pre 2 godine',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'pre 2 godine',
+        'pre 2 g.',
         // Carbon::now()->addSecond()->diffForHumans()
         'za 1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'za 1 sekund',
+        'za 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'nakon 1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'nakon 1 sekund',
+        'nakon 1 sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'pre 1 sekund',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'pre 1 sekund',
+        'pre 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 sekund',
+        '1 sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekunde',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sekunde',
+        '2 sek.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'za 1 sekund',
+        'za 1 sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 sekund',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 godine 3 meseca 1 dan 1 sekund',
+        '2 g. 3 mj. 1 d. 1 sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'za 3 godine',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'pre 5 meseci',
+        'pre 5 mj.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'pre 2 godine 3 meseca 1 dan 1 sekund',
+        'pre 2 g. 3 mj. 1 d. 1 sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 nedelja 10 sati',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class SrTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 dana',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 dan 3 sata',
+        '1 d. 3 č.',
     ];
 }

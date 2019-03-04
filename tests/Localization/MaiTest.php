@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MaiTest extends LocalizationTestCase
 {
-    const LOCALE = 'mai';
+    const LOCALE = 'mai'; // mai
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

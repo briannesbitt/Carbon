@@ -178,13 +178,13 @@ class YueHkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1秒內',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1秒后',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1秒后',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1秒前',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1秒前',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1秒',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

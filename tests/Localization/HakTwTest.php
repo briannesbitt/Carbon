@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class HakTwTest extends LocalizationTestCase
 {
-    const LOCALE = 'hak_TW';
+    const LOCALE = 'hak_TW'; // hak
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MiqTest extends LocalizationTestCase
 {
-    const LOCALE = 'miq';
+    const LOCALE = 'miq'; // miq
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -74,7 +74,7 @@ class MiqTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Last praidi at 12:00 VM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1st 1st 1st 53rd 53rd',
+        '1st 1st 1st 1st 53rd',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
         '2nd 53rd',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
