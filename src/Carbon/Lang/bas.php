@@ -26,7 +26,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'second' => ':count móndî',
-    's' => ':count móndî',
-    'a_second' => ':count móndî',
+    'second' => ':count móndî', // less reliable
+    's' => ':count móndî', // less reliable
+    'a_second' => ':count móndî', // less reliable
 ]);

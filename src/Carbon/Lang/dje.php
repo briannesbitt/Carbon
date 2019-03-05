@@ -26,15 +26,15 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count hari',
-    'y' => ':count hari',
-    'a_year' => ':count hari',
+    'year' => ':count hari', // less reliable
+    'y' => ':count hari', // less reliable
+    'a_year' => ':count hari', // less reliable
 
-    'week' => ':count alzuma',
-    'w' => ':count alzuma',
-    'a_week' => ':count alzuma',
+    'week' => ':count alzuma', // less reliable
+    'w' => ':count alzuma', // less reliable
+    'a_week' => ':count alzuma', // less reliable
 
-    'second' => ':count atinni',
-    's' => ':count atinni',
-    'a_second' => ':count atinni',
+    'second' => ':count atinni', // less reliable
+    's' => ':count atinni', // less reliable
+    'a_second' => ':count atinni', // less reliable
 ]);

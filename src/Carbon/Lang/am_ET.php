@@ -23,4 +23,32 @@
     'weekdays_min' => ['እሑድ', 'ሰኞ ', 'ማክሰ', 'ረቡዕ', 'ሐሙስ', 'ዓርብ', 'ቅዳሜ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ጡዋት', 'ከሰዓት'],
+
+    'year' => ':count አመት',
+    'y' => ':count አመት',
+    'a_year' => ':count አመት',
+
+    'month' => ':count ወር',
+    'm' => ':count ወር',
+    'a_month' => ':count ወር',
+
+    'week' => ':count ሳምንት',
+    'w' => ':count ሳምንት',
+    'a_week' => ':count ሳምንት',
+
+    'day' => ':count ቀን',
+    'd' => ':count ቀን',
+    'a_day' => ':count ቀን',
+
+    'hour' => ':count ሰዓት',
+    'h' => ':count ሰዓት',
+    'a_hour' => ':count ሰዓት',
+
+    'minute' => ':count ደቂቃ',
+    'min' => ':count ደቂቃ',
+    'a_minute' => ':count ደቂቃ',
+
+    'second' => ':count ሴኮንድ',
+    's' => ':count ሴኮንድ',
+    'a_second' => ':count ሴኮንድ',
 ]);

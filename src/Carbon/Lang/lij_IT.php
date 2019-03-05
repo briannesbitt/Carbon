@@ -23,4 +23,32 @@
     'weekdays_min' => ['dom', 'lûn', 'mar', 'mer', 'zêu', 'ven', 'sab'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+
+    'year' => ':count etæ', // less reliable
+    'y' => ':count etæ', // less reliable
+    'a_year' => ':count etæ', // less reliable
+
+    'month' => ':count lunn-a', // less reliable
+    'm' => ':count lunn-a', // less reliable
+    'a_month' => ':count lunn-a', // less reliable
+
+    'week' => ':count giorno', // less reliable
+    'w' => ':count giorno', // less reliable
+    'a_week' => ':count giorno', // less reliable
+
+    'hour' => ':count reléuio', // less reliable
+    'h' => ':count reléuio', // less reliable
+    'a_hour' => ':count reléuio', // less reliable
+
+    'minute' => ':count segondo', // less reliable
+    'min' => ':count segondo', // less reliable
+    'a_minute' => ':count segondo', // less reliable
+
+    'day' => ':count giorno',
+    'd' => ':count giorno',
+    'a_day' => ':count giorno',
+
+    'second' => ':count segondo',
+    's' => ':count segondo',
+    'a_second' => ':count segondo',
 ]);

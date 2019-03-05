@@ -25,15 +25,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 
-    'week' => ':count ehihe',
-    'w' => ':count ehihe',
-    'a_week' => ':count ehihe',
+    'year' => ':count afo',
+    'y' => ':count afo',
+    'a_year' => ':count afo',
 
-    'minute' => ':count kịrịkịrị',
-    'min' => ':count kịrịkịrị',
-    'a_minute' => ':count kịrịkịrị',
+    'month' => ':count önwa',
+    'm' => ':count önwa',
+    'a_month' => ':count önwa',
 
-    'second' => ':count nkwàdo',
-    's' => ':count nkwàdo',
-    'a_second' => ':count nkwàdo',
+    'week' => ':count ehihe', // less reliable
+    'w' => ':count ehihe', // less reliable
+    'a_week' => ':count ehihe', // less reliable
+
+    'day' => ':count ehihe',
+    'd' => ':count ehihe',
+    'a_day' => ':count ehihe',
+
+    'hour' => 'elekere :count',
+    'h' => 'elekere :count',
+    'a_hour' => 'elekere :count',
+
+    'minute' => ':count kịrịkịrị', // less reliable
+    'min' => ':count kịrịkịrị', // less reliable
+    'a_minute' => ':count kịrịkịrị', // less reliable
+
+    'second' => ':count nkwàdo', // less reliable
+    's' => ':count nkwàdo', // less reliable
+    'a_second' => ':count nkwàdo', // less reliable
 ]);

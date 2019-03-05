@@ -26,15 +26,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'a [ga] h:mm dddd, MMMM D [lia] YYYY',
     ],
 
-    'week' => ':count Kɔsiɖagbe',
-    'w' => ':count Kɔsiɖagbe',
-    'a_week' => ':count Kɔsiɖagbe',
+    'week' => ':count Kɔsiɖagbe', // less reliable
+    'w' => ':count Kɔsiɖagbe', // less reliable
+    'a_week' => ':count Kɔsiɖagbe', // less reliable
 
-    'minute' => ':count sue',
-    'min' => ':count sue',
-    'a_minute' => ':count sue',
+    'minute' => ':count sue', // less reliable
+    'min' => ':count sue', // less reliable
+    'a_minute' => ':count sue', // less reliable
 
-    'second' => ':count ɖasedila',
-    's' => ':count ɖasedila',
-    'a_second' => ':count ɖasedila',
+    'second' => ':count ɖasedila', // less reliable
+    's' => ':count ɖasedila', // less reliable
+    'a_second' => ':count ɖasedila', // less reliable
+
+    'year' => ':count eƒe',
+    'y' => ':count eƒe',
+    'a_year' => ':count eƒe',
+
+    'month' => ':count dzinu',
+    'm' => ':count dzinu',
+    'a_month' => ':count dzinu',
+
+    'day' => 'ŋkeke :count',
+    'd' => 'ŋkeke :count',
+    'a_day' => 'ŋkeke :count',
+
+    'hour' => 'gaƒoƒo :count',
+    'h' => 'gaƒoƒo :count',
+    'a_hour' => 'gaƒoƒo :count',
 ]);

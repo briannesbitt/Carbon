@@ -24,11 +24,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['ᓈ', 'ᓇ', 'ᓕ', 'ᐱ', 'ᕿ', 'ᐅ', 'ᓯ'],
     'day_of_first_week_of_year' => 1,
 
-    'minute' => ':count ᒥᑭᑦᑐᖅ',
-    'min' => ':count ᒥᑭᑦᑐᖅ',
-    'a_minute' => ':count ᒥᑭᑦᑐᖅ',
+    'year' => ':count ᐅᑭᐅᖅ',
+    'y' => ':count ᐅᑭᐅᖅ',
+    'a_year' => ':count ᐅᑭᐅᖅ',
 
-    'second' => ':count ᑭᖑᓪᓕᖅ',
-    's' => ':count ᑭᖑᓪᓕᖅ',
-    'a_second' => ':count ᑭᖑᓪᓕᖅ',
+    'month' => ':count qaammat',
+    'm' => ':count qaammat',
+    'a_month' => ':count qaammat',
+
+    'week' => ':count sapaatip akunnera',
+    'w' => ':count sapaatip akunnera',
+    'a_week' => ':count sapaatip akunnera',
+
+    'day' => ':count ulloq',
+    'd' => ':count ulloq',
+    'a_day' => ':count ulloq',
+
+    'hour' => ':count ikarraq',
+    'h' => ':count ikarraq',
+    'a_hour' => ':count ikarraq',
+
+    'minute' => ':count titiqqaralaaq', // less reliable
+    'min' => ':count titiqqaralaaq', // less reliable
+    'a_minute' => ':count titiqqaralaaq', // less reliable
+
+    'second' => ':count marluk', // less reliable
+    's' => ':count marluk', // less reliable
+    'a_second' => ':count marluk', // less reliable
 ]);

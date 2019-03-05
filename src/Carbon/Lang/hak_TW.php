@@ -23,4 +23,32 @@
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['上晝', '下晝'],
+
+    'year' => ':count ngien11',
+    'y' => ':count ngien11',
+    'a_year' => ':count ngien11',
+
+    'month' => ':count ngie̍t',
+    'm' => ':count ngie̍t',
+    'a_month' => ':count ngie̍t',
+
+    'week' => ':count lî-pai',
+    'w' => ':count lî-pai',
+    'a_week' => ':count lî-pai',
+
+    'day' => ':count ngit',
+    'd' => ':count ngit',
+    'a_day' => ':count ngit',
+
+    'hour' => ':count sṳ̀',
+    'h' => ':count sṳ̀',
+    'a_hour' => ':count sṳ̀',
+
+    'minute' => ':count fûn',
+    'min' => ':count fûn',
+    'a_minute' => ':count fûn',
+
+    'second' => ':count miéu',
+    's' => ':count miéu',
+    'a_second' => ':count miéu',
 ]);

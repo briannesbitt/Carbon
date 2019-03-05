@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Sugar Labs // OLPC sugarlabs.org libc-alpha@sourceware.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'YYYY/MM/DD',
     ],
@@ -25,19 +26,15 @@
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['AN', 'EW'],
 
-    'week' => ':count ɛda',
-    'w' => ':count ɛda',
-    'a_week' => ':count ɛda',
+    'year' => ':count afe',
+    'y' => ':count afe',
+    'a_year' => ':count afe',
 
-    'hour' => ':count mrɛ',
-    'h' => ':count mrɛ',
-    'a_hour' => ':count mrɛ',
+    'month' => ':count bosume',
+    'm' => ':count bosume',
+    'a_month' => ':count bosume',
 
-    'minute' => ':count mrɛ',
-    'min' => ':count mrɛ',
-    'a_minute' => ':count mrɛ',
-
-    'second' => ':count adanseni',
-    's' => ':count adanseni',
-    'a_second' => ':count adanseni',
+    'day' => ':count ɛda',
+    'd' => ':count ɛda',
+    'a_day' => ':count ɛda',
 ]);

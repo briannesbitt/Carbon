@@ -26,4 +26,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count tafukt', // less reliable
+    'y' => ':count tafukt', // less reliable
+    'a_year' => ':count tafukt', // less reliable
+
+    'week' => ':count sa', // less reliable
+    'w' => ':count sa', // less reliable
+    'a_week' => ':count sa', // less reliable
+
+    'day' => ':count tafukt', // less reliable
+    'd' => ':count tafukt', // less reliable
+    'a_day' => ':count tafukt', // less reliable
+
+    'hour' => ':count urɣ', // less reliable
+    'h' => ':count urɣ', // less reliable
+    'a_hour' => ':count urɣ', // less reliable
+
+    'minute' => ':count ⴰⵎⵥⵉ', // less reliable
+    'min' => ':count ⴰⵎⵥⵉ', // less reliable
+    'a_minute' => ':count ⴰⵎⵥⵉ', // less reliable
+
+    'second' => ':count sin', // less reliable
+    's' => ':count sin', // less reliable
+    'a_second' => ':count sin', // less reliable
+
+    'month' => ':count ayyur',
+    'm' => ':count ayyur',
+    'a_month' => ':count ayyur',
 ]);

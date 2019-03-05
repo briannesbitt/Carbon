@@ -22,4 +22,32 @@
     'weekdays_short' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
     'weekdays_min' => ['Tsh', 'Mos', 'Bed', 'Rar', 'Ne', 'Tlh', 'Mat'],
     'day_of_first_week_of_year' => 1,
+
+    'day' => ':count nako', // less reliable
+    'd' => ':count nako', // less reliable
+    'a_day' => ':count nako', // less reliable
+
+    'minute' => ':count tshoganetso', // less reliable
+    'min' => ':count tshoganetso', // less reliable
+    'a_minute' => ':count tshoganetso', // less reliable
+
+    'year' => ':count ngwaga',
+    'y' => ':count ngwaga',
+    'a_year' => ':count ngwaga',
+
+    'month' => ':count kgwedi',
+    'm' => ':count kgwedi',
+    'a_month' => ':count kgwedi',
+
+    'week' => ':count beke',
+    'w' => ':count beke',
+    'a_week' => ':count beke',
+
+    'hour' => ':count nako',
+    'h' => ':count nako',
+    'a_hour' => ':count nako',
+
+    'second' => ':count tshoganetso',
+    's' => ':count tshoganetso',
+    'a_second' => ':count tshoganetso',
 ]);

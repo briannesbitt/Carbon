@@ -25,23 +25,27 @@
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['uluchelo', 'akasuba'],
 
-    'year' => ':count akasuba',
-    'y' => ':count akasuba',
-    'a_year' => ':count akasuba',
+    'year' => ':count akasuba', // less reliable
+    'y' => ':count akasuba', // less reliable
+    'a_year' => ':count akasuba', // less reliable
 
-    'month' => ':count akasuba',
-    'm' => ':count akasuba',
-    'a_month' => ':count akasuba',
+    'month' => ':count akasuba', // less reliable
+    'm' => ':count akasuba', // less reliable
+    'a_month' => ':count akasuba', // less reliable
 
-    'day' => ':count akasuba',
-    'd' => ':count akasuba',
-    'a_day' => ':count akasuba',
+    'day' => ':count akasuba', // less reliable
+    'd' => ':count akasuba', // less reliable
+    'a_day' => ':count akasuba', // less reliable
 
-    'hour' => ':count akasuba',
-    'h' => ':count akasuba',
-    'a_hour' => ':count akasuba',
+    'hour' => ':count akasuba', // less reliable
+    'h' => ':count akasuba', // less reliable
+    'a_hour' => ':count akasuba', // less reliable
 
-    'second' => ':count ilino',
-    's' => ':count ilino',
-    'a_second' => ':count ilino',
+    'second' => ':count ilino', // less reliable
+    's' => ':count ilino', // less reliable
+    'a_second' => ':count ilino', // less reliable
+
+    'week' => ':count umulungu',
+    'w' => ':count umulungu',
+    'a_week' => ':count umulungu',
 ]);

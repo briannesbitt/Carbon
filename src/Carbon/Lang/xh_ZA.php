@@ -22,4 +22,32 @@
     'weekdays_short' => ['Caw', 'Mvu', 'Bin', 'Tha', 'Sin', 'Hla', 'Mgq'],
     'weekdays_min' => ['Caw', 'Mvu', 'Bin', 'Tha', 'Sin', 'Hla', 'Mgq'],
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count ihlobo', // less reliable
+    'y' => ':count ihlobo', // less reliable
+    'a_year' => ':count ihlobo', // less reliable
+
+    'hour' => ':count iwotshi', // less reliable
+    'h' => ':count iwotshi', // less reliable
+    'a_hour' => ':count iwotshi', // less reliable
+
+    'minute' => ':count ingqalelo', // less reliable
+    'min' => ':count ingqalelo', // less reliable
+    'a_minute' => ':count ingqalelo', // less reliable
+
+    'second' => ':count nceda', // less reliable
+    's' => ':count nceda', // less reliable
+    'a_second' => ':count nceda', // less reliable
+
+    'month' => ':count inyanga',
+    'm' => ':count inyanga',
+    'a_month' => ':count inyanga',
+
+    'week' => ':count veki',
+    'w' => ':count veki',
+    'a_week' => ':count veki',
+
+    'day' => ':count imini',
+    'd' => ':count imini',
+    'a_day' => ':count imini',
 ]);

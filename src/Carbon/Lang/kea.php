@@ -27,23 +27,23 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D [di] MMMM [di] YYYY HH:mm',
     ],
 
-    'year' => ':count otunu',
-    'y' => ':count otunu',
-    'a_year' => ':count otunu',
+    'year' => ':count otunu', // less reliable
+    'y' => ':count otunu', // less reliable
+    'a_year' => ':count otunu', // less reliable
 
-    'week' => ':count día dumingu',
-    'w' => ':count día dumingu',
-    'a_week' => ':count día dumingu',
+    'week' => ':count día dumingu', // less reliable
+    'w' => ':count día dumingu', // less reliable
+    'a_week' => ':count día dumingu', // less reliable
 
-    'day' => ':count diâ',
-    'd' => ':count diâ',
-    'a_day' => ':count diâ',
+    'day' => ':count diâ', // less reliable
+    'd' => ':count diâ', // less reliable
+    'a_day' => ':count diâ', // less reliable
 
-    'minute' => ':count sugundu',
-    'min' => ':count sugundu',
-    'a_minute' => ':count sugundu',
+    'minute' => ':count sugundu', // less reliable
+    'min' => ':count sugundu', // less reliable
+    'a_minute' => ':count sugundu', // less reliable
 
-    'second' => ':count dós',
-    's' => ':count dós',
-    'a_second' => ':count dós',
+    'second' => ':count dós', // less reliable
+    's' => ':count dós', // less reliable
+    'a_second' => ':count dós', // less reliable
 ]);

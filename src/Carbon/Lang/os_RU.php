@@ -23,4 +23,32 @@
     'weekdays_min' => ['Хцб', 'Крс', 'Дцг', 'Æрт', 'Цпр', 'Мрб', 'Сбт'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'minute' => ':count гыццыл', // less reliable
+    'min' => ':count гыццыл', // less reliable
+    'a_minute' => ':count гыццыл', // less reliable
+
+    'second' => ':count æндæр', // less reliable
+    's' => ':count æндæр', // less reliable
+    'a_second' => ':count æндæр', // less reliable
+
+    'year' => ':count аз',
+    'y' => ':count аз',
+    'a_year' => ':count аз',
+
+    'month' => ':count мӕй',
+    'm' => ':count мӕй',
+    'a_month' => ':count мӕй',
+
+    'week' => ':count къуыри',
+    'w' => ':count къуыри',
+    'a_week' => ':count къуыри',
+
+    'day' => ':count бон',
+    'd' => ':count бон',
+    'a_day' => ':count бон',
+
+    'hour' => ':count сахат',
+    'h' => ':count сахат',
+    'a_hour' => ':count сахат',
 ]);

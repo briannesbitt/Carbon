@@ -24,7 +24,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Ravi', 'Som', 'Mangal', 'Budh', 'Guru', 'Shukra', 'Shani'],
     'meridiem' => ['Purvahan', 'Aparaahna'],
 
-    'hour' => ':count minit',
-    'h' => ':count minit',
-    'a_hour' => ':count minit',
+    'hour' => ':count minit', // less reliable
+    'h' => ':count minit', // less reliable
+    'a_hour' => ':count minit', // less reliable
+
+    'year' => ':count saal',
+    'y' => ':count saal',
+    'a_year' => ':count saal',
+
+    'month' => ':count Mahina',
+    'm' => ':count Mahina',
+    'a_month' => ':count Mahina',
+
+    'week' => ':count Hafta',
+    'w' => ':count Hafta',
+    'a_week' => ':count Hafta',
+
+    'day' => ':count Din',
+    'd' => ':count Din',
+    'a_day' => ':count Din',
+
+    'minute' => ':count Minit',
+    'min' => ':count Minit',
+    'a_minute' => ':count Minit',
+
+    'second' => ':count Second',
+    's' => ':count Second',
+    'a_second' => ':count Second',
 ]);

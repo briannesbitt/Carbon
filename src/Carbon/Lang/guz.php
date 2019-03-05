@@ -25,15 +25,23 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
-    'month' => ':count omotunyi',
-    'm' => ':count omotunyi',
-    'a_month' => ':count omotunyi',
+    'month' => ':count omotunyi', // less reliable
+    'm' => ':count omotunyi', // less reliable
+    'a_month' => ':count omotunyi', // less reliable
 
-    'week' => ':count isano naibere',
-    'w' => ':count isano naibere',
-    'a_week' => ':count isano naibere',
+    'week' => ':count isano naibere', // less reliable
+    'w' => ':count isano naibere', // less reliable
+    'a_week' => ':count isano naibere', // less reliable
 
-    'second' => ':count ibere',
-    's' => ':count ibere',
-    'a_second' => ':count ibere',
+    'second' => ':count ibere', // less reliable
+    's' => ':count ibere', // less reliable
+    'a_second' => ':count ibere', // less reliable
+
+    'year' => ':count omwaka',
+    'y' => ':count omwaka',
+    'a_year' => ':count omwaka',
+
+    'day' => ':count rituko',
+    'd' => ':count rituko',
+    'a_day' => ':count rituko',
 ]);

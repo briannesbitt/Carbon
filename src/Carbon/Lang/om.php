@@ -29,4 +29,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['WD', 'WB'],
+
+    'year' => ':count Class', // less reliable
+    'y' => ':count Class', // less reliable
+    'a_year' => ':count Class', // less reliable
+
+    'week' => ':count Dilbata', // less reliable
+    'w' => ':count Dilbata', // less reliable
+    'a_week' => ':count Dilbata', // less reliable
+
+    'day' => ':count aduu', // less reliable
+    'd' => ':count aduu', // less reliable
+    'a_day' => ':count aduu', // less reliable
+
+    'hour' => ':count sa&#039;aatii', // less reliable
+    'h' => ':count sa&#039;aatii', // less reliable
+    'a_hour' => ':count sa&#039;aatii', // less reliable
+
+    'minute' => ':count sa&#039;aatii', // less reliable
+    'min' => ':count sa&#039;aatii', // less reliable
+    'a_minute' => ':count sa&#039;aatii', // less reliable
+
+    'second' => ':count abba', // less reliable
+    's' => ':count abba', // less reliable
+    'a_second' => ':count abba', // less reliable
+
+    'month' => ':count Month',
+    'm' => ':count Month',
+    'a_month' => ':count Month',
 ]);

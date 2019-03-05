@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['দেও', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহষ্পতি', 'শুক্ৰ', 'শনি'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['পূৰ্ব্বাহ্ন', 'অপৰাহ্ন'],
+
+    'year' => ':count বছৰ',
+    'y' => ':count বছৰ',
+    'a_year' => ':count বছৰ',
+
+    'month' => ':count মাহ',
+    'm' => ':count মাহ',
+    'a_month' => ':count মাহ',
+
+    'week' => ':count সপ্তাহ',
+    'w' => ':count সপ্তাহ',
+    'a_week' => ':count সপ্তাহ',
+
+    'day' => ':count বাৰ',
+    'd' => ':count বাৰ',
+    'a_day' => ':count বাৰ',
+
+    'hour' => ':count ঘণ্টা',
+    'h' => ':count ঘণ্টা',
+    'a_hour' => ':count ঘণ্টা',
+
+    'minute' => ':count মিনিট',
+    'min' => ':count মিনিট',
+    'a_minute' => ':count মিনিট',
+
+    'second' => ':count দ্বিতীয়',
+    's' => ':count দ্বিতীয়',
+    'a_second' => ':count দ্বিতীয়',
 ]);

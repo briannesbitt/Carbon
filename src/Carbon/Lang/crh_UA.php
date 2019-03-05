@@ -24,4 +24,32 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ÜE', 'ÜS'],
+
+    'year' => ':count yıl',
+    'y' => ':count yıl',
+    'a_year' => ':count yıl',
+
+    'month' => ':count ay',
+    'm' => ':count ay',
+    'a_month' => ':count ay',
+
+    'week' => ':count afta',
+    'w' => ':count afta',
+    'a_week' => ':count afta',
+
+    'day' => ':count kün',
+    'd' => ':count kün',
+    'a_day' => ':count kün',
+
+    'hour' => ':count saat',
+    'h' => ':count saat',
+    'a_hour' => ':count saat',
+
+    'minute' => ':count daqqa',
+    'min' => ':count daqqa',
+    'a_minute' => ':count daqqa',
+
+    'second' => ':count ekinci',
+    's' => ':count ekinci',
+    'a_second' => ':count ekinci',
 ]);

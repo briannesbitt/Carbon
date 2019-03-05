@@ -36,4 +36,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count सोमार',
     's' => ':count सोमार',
     'a_second' => ':count सोमार',
+
+    'year' => ':count साल',
+    'y' => ':count साल',
+    'a_year' => ':count साल',
+
+    'month' => ':count महिना',
+    'm' => ':count महिना',
+    'a_month' => ':count महिना',
+
+    'week' => ':count सप्ताह',
+    'w' => ':count सप्ताह',
+    'a_week' => ':count सप्ताह',
+
+    'day' => ':count दिन',
+    'd' => ':count दिन',
+    'a_day' => ':count दिन',
 ]);

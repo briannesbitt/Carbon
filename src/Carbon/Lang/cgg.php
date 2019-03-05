@@ -24,4 +24,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'day' => ':count ruhanga', // less reliable
+    'd' => ':count ruhanga', // less reliable
+    'a_day' => ':count ruhanga', // less reliable
 ]);

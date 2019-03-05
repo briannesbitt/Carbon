@@ -25,19 +25,19 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count balaab',
-    'y' => ':count balaab',
-    'a_year' => ':count balaab',
+    'year' => ':count balaab', // less reliable
+    'y' => ':count balaab', // less reliable
+    'a_year' => ':count balaab', // less reliable
 
-    'month' => ':count balaab',
-    'm' => ':count balaab',
-    'a_month' => ':count balaab',
+    'month' => ':count balaab', // less reliable
+    'm' => ':count balaab', // less reliable
+    'a_month' => ':count balaab', // less reliable
 
-    'week' => ':count balaab',
-    'w' => ':count balaab',
-    'a_week' => ':count balaab',
+    'week' => ':count balaab', // less reliable
+    'w' => ':count balaab', // less reliable
+    'a_week' => ':count balaab', // less reliable
 
-    'day' => ':count balaab',
-    'd' => ':count balaab',
-    'a_day' => ':count balaab',
+    'day' => ':count balaab', // less reliable
+    'd' => ':count balaab', // less reliable
+    'a_day' => ':count balaab', // less reliable
 ]);

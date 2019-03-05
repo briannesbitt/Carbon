@@ -21,4 +21,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'YYYY MMMM D HH:mm',
         'LLLL' => 'YYYY MMMM D, dddd HH:mm',
     ],
+
+    'year' => ':count yel',
+    'y' => ':count yel',
+    'a_year' => ':count yel',
+
+    'month' => ':count mul',
+    'm' => ':count mul',
+    'a_month' => ':count mul',
+
+    'week' => ':count vig',
+    'w' => ':count vig',
+    'a_week' => ':count vig',
+
+    'day' => ':count del',
+    'd' => ':count del',
+    'a_day' => ':count del',
+
+    'hour' => ':count düp',
+    'h' => ':count düp',
+    'a_hour' => ':count düp',
+
+    'minute' => ':count minut',
+    'min' => ':count minut',
+    'a_minute' => ':count minut',
+
+    'second' => ':count sekun',
+    's' => ':count sekun',
+    'a_second' => ':count sekun',
 ]);

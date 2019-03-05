@@ -24,4 +24,32 @@
     'first_day_of_week' => 6,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['subaxnimo', 'galabnimo'],
+
+    'year' => ':count sanad',
+    'y' => ':count sanad',
+    'a_year' => ':count sanad',
+
+    'month' => ':count Bilaha',
+    'm' => ':count Bilaha',
+    'a_month' => ':count Bilaha',
+
+    'week' => ':count todobaad',
+    'w' => ':count todobaad',
+    'a_week' => ':count todobaad',
+
+    'day' => ':count maalin',
+    'd' => ':count maalin',
+    'a_day' => ':count maalin',
+
+    'hour' => ':count saacad',
+    'h' => ':count saacad',
+    'a_hour' => ':count saacad',
+
+    'minute' => ':count daqiiqad',
+    'min' => ':count daqiiqad',
+    'a_minute' => ':count daqiiqad',
+
+    'second' => ':count ilbiriqsi',
+    's' => ':count ilbiriqsi',
+    'a_second' => ':count ilbiriqsi',
 ]);

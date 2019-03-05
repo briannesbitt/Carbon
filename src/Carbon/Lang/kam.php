@@ -25,23 +25,23 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count mbua',
-    'y' => ':count mbua',
-    'a_year' => ':count mbua',
+    'year' => ':count mbua', // less reliable
+    'y' => ':count mbua', // less reliable
+    'a_year' => ':count mbua', // less reliable
 
-    'month' => ':count ndakitali',
-    'm' => ':count ndakitali',
-    'a_month' => ':count ndakitali',
+    'month' => ':count ndakitali', // less reliable
+    'm' => ':count ndakitali', // less reliable
+    'a_month' => ':count ndakitali', // less reliable
 
-    'day' => ':count wia',
-    'd' => ':count wia',
-    'a_day' => ':count wia',
+    'day' => ':count wia', // less reliable
+    'd' => ':count wia', // less reliable
+    'a_day' => ':count wia', // less reliable
 
-    'hour' => ':count orasan',
-    'h' => ':count orasan',
-    'a_hour' => ':count orasan',
+    'hour' => ':count orasan', // less reliable
+    'h' => ':count orasan', // less reliable
+    'a_hour' => ':count orasan', // less reliable
 
-    'minute' => ':count orasan',
-    'min' => ':count orasan',
-    'a_minute' => ':count orasan',
+    'minute' => ':count orasan', // less reliable
+    'min' => ':count orasan', // less reliable
+    'a_minute' => ':count orasan', // less reliable
 ]);

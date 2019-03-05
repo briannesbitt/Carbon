@@ -25,15 +25,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'YYYY MMMM D, dddd h:mm a',
     ],
 
-    'year' => ':count ꒉ',
-    'y' => ':count ꒉ',
-    'a_year' => ':count ꒉ',
+    'year' => ':count ꒉ', // less reliable
+    'y' => ':count ꒉ', // less reliable
+    'a_year' => ':count ꒉ', // less reliable
 
-    'week' => ':count ꏃ',
-    'w' => ':count ꏃ',
-    'a_week' => ':count ꏃ',
+    'week' => ':count ꏃ', // less reliable
+    'w' => ':count ꏃ', // less reliable
+    'a_week' => ':count ꏃ', // less reliable
 
-    'day' => ':count ꏜ',
-    'd' => ':count ꏜ',
-    'a_day' => ':count ꏜ',
+    'day' => ':count ꏜ', // less reliable
+    'd' => ':count ꏜ', // less reliable
+    'a_day' => ':count ꏜ', // less reliable
+
+    'minute' => ':count ꄮꈉ', // less reliable
+    'min' => ':count ꄮꈉ', // less reliable
+    'a_minute' => ':count ꄮꈉ', // less reliable
+
+    'second' => ':count ꑍ', // less reliable
+    's' => ':count ꑍ', // less reliable
+    'a_second' => ':count ꑍ', // less reliable
+
+    'month' => ':count ꆪ',
+    'm' => ':count ꆪ',
+    'a_month' => ':count ꆪ',
+
+    'hour' => ':count ꄮꈉ',
+    'h' => ':count ꄮꈉ',
+    'a_hour' => ':count ꄮꈉ',
 ]);

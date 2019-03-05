@@ -24,19 +24,27 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Min', 'Sav', 'Ila', 'Qit', 'Sis', 'Tal', 'Maq'],
     'day_of_first_week_of_year' => 1,
 
-    'week' => ':count tatqiat',
-    'w' => ':count tatqiat',
-    'a_week' => ':count tatqiat',
+    'year' => ':count ukiuq',
+    'y' => ':count ukiuq',
+    'a_year' => ':count ukiuq',
 
-    'day' => ':count siqiñiq',
-    'd' => ':count siqiñiq',
-    'a_day' => ':count siqiñiq',
+    'month' => ':count Tatqiat',
+    'm' => ':count Tatqiat',
+    'a_month' => ':count Tatqiat',
 
-    'hour' => ':count Siḷa',
-    'h' => ':count Siḷa',
-    'a_hour' => ':count Siḷa',
+    'week' => ':count tatqiat', // less reliable
+    'w' => ':count tatqiat', // less reliable
+    'a_week' => ':count tatqiat', // less reliable
 
-    'second' => ':count iġñiq',
-    's' => ':count iġñiq',
-    'a_second' => ':count iġñiq',
+    'day' => ':count siqiñiq', // less reliable
+    'd' => ':count siqiñiq', // less reliable
+    'a_day' => ':count siqiñiq', // less reliable
+
+    'hour' => ':count Siḷa', // less reliable
+    'h' => ':count Siḷa', // less reliable
+    'a_hour' => ':count Siḷa', // less reliable
+
+    'second' => ':count iġñiq', // less reliable
+    's' => ':count iġñiq', // less reliable
+    'a_second' => ':count iġñiq', // less reliable
 ]);

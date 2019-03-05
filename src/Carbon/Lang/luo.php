@@ -24,4 +24,28 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count chíeng&#039;', // less reliable
+    'y' => ':count chíeng&#039;', // less reliable
+    'a_year' => ':count chíeng&#039;', // less reliable
+
+    'month' => ':count dwe', // less reliable
+    'm' => ':count dwe', // less reliable
+    'a_month' => ':count dwe', // less reliable
+
+    'week' => ':count chíeng&#039;', // less reliable
+    'w' => ':count chíeng&#039;', // less reliable
+    'a_week' => ':count chíeng&#039;', // less reliable
+
+    'day' => ':count chíeng&#039;', // less reliable
+    'd' => ':count chíeng&#039;', // less reliable
+    'a_day' => ':count chíeng&#039;', // less reliable
+
+    'minute' => ':count ng&#039;ato', // less reliable
+    'min' => ':count ng&#039;ato', // less reliable
+    'a_minute' => ':count ng&#039;ato', // less reliable
+
+    'second' => ':count lak', // less reliable
+    's' => ':count lak', // less reliable
+    'a_second' => ':count lak', // less reliable
 ]);

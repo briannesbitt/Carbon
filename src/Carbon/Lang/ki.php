@@ -25,31 +25,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count igego',
-    'y' => ':count igego',
-    'a_year' => ':count igego',
+    'year' => ':count mĩaka', // less reliable
+    'y' => ':count mĩaka', // less reliable
+    'a_year' => ':count mĩaka', // less reliable
 
-    'month' => ':count mweri',
-    'm' => ':count mweri',
-    'a_month' => ':count mweri',
+    'month' => ':count mweri', // less reliable
+    'm' => ':count mweri', // less reliable
+    'a_month' => ':count mweri', // less reliable
 
-    'week' => ':count kiumia',
-    'w' => ':count kiumia',
-    'a_week' => ':count kiumia',
+    'week' => ':count kiumia', // less reliable
+    'w' => ':count kiumia', // less reliable
+    'a_week' => ':count kiumia', // less reliable
 
-    'day' => ':count mũthenya',
-    'd' => ':count mũthenya',
-    'a_day' => ':count mũthenya',
+    'day' => ':count mũthenya', // less reliable
+    'd' => ':count mũthenya', // less reliable
+    'a_day' => ':count mũthenya', // less reliable
 
-    'hour' => ':count Oxygen',
-    'h' => ':count Oxygen',
-    'a_hour' => ':count Oxygen',
+    'hour' => ':count thaa', // less reliable
+    'h' => ':count thaa', // less reliable
+    'a_hour' => ':count thaa', // less reliable
 
-    'minute' => ':count mundu',
-    'min' => ':count mundu',
-    'a_minute' => ':count mundu',
+    'minute' => ':count mundu', // less reliable
+    'min' => ':count mundu', // less reliable
+    'a_minute' => ':count mundu', // less reliable
 
-    'second' => ':count igego',
-    's' => ':count igego',
-    'a_second' => ':count igego',
+    'second' => ':count igego', // less reliable
+    's' => ':count igego', // less reliable
+    'a_second' => ':count igego', // less reliable
 ]);

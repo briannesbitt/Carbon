@@ -25,4 +25,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count izuba', // less reliable
+    'y' => ':count izuba', // less reliable
+    'a_year' => ':count izuba', // less reliable
+
+    'week' => ':count wagatanu', // less reliable
+    'w' => ':count wagatanu', // less reliable
+    'a_week' => ':count wagatanu', // less reliable
+
+    'day' => ':count izuba', // less reliable
+    'd' => ':count izuba', // less reliable
+    'a_day' => ':count izuba', // less reliable
+
+    'hour' => ':count isaha', // less reliable
+    'h' => ':count isaha', // less reliable
+    'a_hour' => ':count isaha', // less reliable
+
+    'minute' => ':count isaha', // less reliable
+    'min' => ':count isaha', // less reliable
+    'a_minute' => ':count isaha', // less reliable
+
+    'second' => ':count wambwere', // less reliable
+    's' => ':count wambwere', // less reliable
+    'a_second' => ':count wambwere', // less reliable
+
+    'month' => ':count Ukwezi',
+    'm' => ':count Ukwezi',
+    'a_month' => ':count Ukwezi',
 ]);

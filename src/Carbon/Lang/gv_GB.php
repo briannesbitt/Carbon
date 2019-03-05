@@ -23,4 +23,32 @@
     'weekdays_min' => ['Jed', 'Jel', 'Jem', 'Jerc', 'Jerd', 'Jeh', 'Jes'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+
+    'year' => ':count blein',
+    'y' => ':count blein',
+    'a_year' => ':count blein',
+
+    'month' => ':count mee',
+    'm' => ':count mee',
+    'a_month' => ':count mee',
+
+    'week' => ':count shiaghtin',
+    'w' => ':count shiaghtin',
+    'a_week' => ':count shiaghtin',
+
+    'day' => ':count laa',
+    'd' => ':count laa',
+    'a_day' => ':count laa',
+
+    'hour' => ':count oor',
+    'h' => ':count oor',
+    'a_hour' => ':count oor',
+
+    'minute' => ':count feer veg',
+    'min' => ':count feer veg',
+    'a_minute' => ':count feer veg',
+
+    'second' => ':count derrey',
+    's' => ':count derrey',
+    'a_second' => ':count derrey',
 ]);

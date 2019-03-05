@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Softaragones Jordi Mallach Pérez, Juan Pablo Martínez bug-glibc-locales@gnu.org, softaragones@softaragones.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -24,7 +25,31 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
 
-    'hour' => ':count reloch',
-    'h' => ':count reloch',
-    'a_hour' => ':count reloch',
+    'year' => ':count año',
+    'y' => ':count año',
+    'a_year' => ':count año',
+
+    'month' => ':count mes',
+    'm' => ':count mes',
+    'a_month' => ':count mes',
+
+    'week' => ':count Semana',
+    'w' => ':count Semana',
+    'a_week' => ':count Semana',
+
+    'day' => ':count día',
+    'd' => ':count día',
+    'a_day' => ':count día',
+
+    'hour' => ':count reloch', // less reliable
+    'h' => ':count reloch', // less reliable
+    'a_hour' => ':count reloch', // less reliable
+
+    'minute' => ':count minuto',
+    'min' => ':count minuto',
+    'a_minute' => ':count minuto',
+
+    'second' => ':count segundo',
+    's' => ':count segundo',
+    'a_second' => ':count segundo',
 ]);

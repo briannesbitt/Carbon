@@ -25,19 +25,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
 
-    'year' => ':count ukioq',
-    'y' => ':count ukioq',
-    'a_year' => ':count ukioq',
+    'year' => ':count ukioq', // less reliable
+    'y' => ':count ukioq', // less reliable
+    'a_year' => ':count ukioq', // less reliable
 
-    'week' => ':count sapaat',
-    'w' => ':count sapaat',
-    'a_week' => ':count sapaat',
+    'month' => ':count Ukiup qaammatai',
+    'm' => ':count Ukiup qaammatai',
+    'a_month' => ':count Ukiup qaammatai',
 
-    'minute' => ':count eqqumiitsuliorneq',
-    'min' => ':count eqqumiitsuliorneq',
-    'a_minute' => ':count eqqumiitsuliorneq',
+    'week' => ':count sapaat', // less reliable
+    'w' => ':count sapaat', // less reliable
+    'a_week' => ':count sapaat', // less reliable
 
-    'second' => ':count marluk',
-    's' => ':count marluk',
-    'a_second' => ':count marluk',
+    'day' => ':count ulloq',
+    'd' => ':count ulloq',
+    'a_day' => ':count ulloq',
+
+    'hour' => ':count akunneq',
+    'h' => ':count akunneq',
+    'a_hour' => ':count akunneq',
+
+    'minute' => ':count eqqumiitsuliorneq', // less reliable
+    'min' => ':count eqqumiitsuliorneq', // less reliable
+    'a_minute' => ':count eqqumiitsuliorneq', // less reliable
+
+    'second' => ':count marluk', // less reliable
+    's' => ':count marluk', // less reliable
+    'a_second' => ':count marluk', // less reliable
 ]);

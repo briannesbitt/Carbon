@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Sul', 'Lun', 'Mth', 'Mhr', 'Yow', 'Gwe', 'Sad'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+
+    'minute' => ':count pols', // less reliable
+    'min' => ':count pols', // less reliable
+    'a_minute' => ':count pols', // less reliable
+
+    'year' => ':count bledhen',
+    'y' => ':count bledhen',
+    'a_year' => ':count bledhen',
+
+    'month' => ':count mis',
+    'm' => ':count mis',
+    'a_month' => ':count mis',
+
+    'week' => ':count seythen',
+    'w' => ':count seythen',
+    'a_week' => ':count seythen',
+
+    'day' => ':count dydh',
+    'd' => ':count dydh',
+    'a_day' => ':count dydh',
+
+    'hour' => ':count eur',
+    'h' => ':count eur',
+    'a_hour' => ':count eur',
+
+    'second' => ':count pols',
+    's' => ':count pols',
+    'a_second' => ':count pols',
 ]);

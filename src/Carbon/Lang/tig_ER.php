@@ -24,4 +24,32 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ቀደም ሰር ምዕል', 'ሓቆ ሰር ምዕል'],
+
+    'year' => ':count ማይ', // less reliable
+    'y' => ':count ማይ', // less reliable
+    'a_year' => ':count ማይ', // less reliable
+
+    'month' => ':count ሸምሽ', // less reliable
+    'm' => ':count ሸምሽ', // less reliable
+    'a_month' => ':count ሸምሽ', // less reliable
+
+    'week' => ':count ሰቡዕ', // less reliable
+    'w' => ':count ሰቡዕ', // less reliable
+    'a_week' => ':count ሰቡዕ', // less reliable
+
+    'day' => ':count ሸምሽ', // less reliable
+    'd' => ':count ሸምሽ', // less reliable
+    'a_day' => ':count ሸምሽ', // less reliable
+
+    'hour' => ':count ሰዓት', // less reliable
+    'h' => ':count ሰዓት', // less reliable
+    'a_hour' => ':count ሰዓት', // less reliable
+
+    'minute' => ':count ካልኣይት', // less reliable
+    'min' => ':count ካልኣይት', // less reliable
+    'a_minute' => ':count ካልኣይት', // less reliable
+
+    'second' => ':count ካልኣይ',
+    's' => ':count ካልኣይ',
+    'a_second' => ':count ካልኣይ',
 ]);

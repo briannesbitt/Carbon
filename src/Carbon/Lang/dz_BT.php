@@ -24,27 +24,27 @@
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ངས་ཆ', 'ཕྱི་ཆ'],
 
-    'year' => ':count ཆརཔ',
-    'y' => ':count ཆརཔ',
-    'a_year' => ':count ཆརཔ',
+    'year' => ':count ཆརཔ', // less reliable
+    'y' => ':count ཆརཔ', // less reliable
+    'a_year' => ':count ཆརཔ', // less reliable
 
-    'month' => ':count ཟླ་བ',
-    'm' => ':count ཟླ་བ',
-    'a_month' => ':count ཟླ་བ',
+    'month' => ':count ཟླ་བ', // less reliable
+    'm' => ':count ཟླ་བ', // less reliable
+    'a_month' => ':count ཟླ་བ', // less reliable
 
-    'day' => ':count ཉི',
-    'd' => ':count ཉི',
-    'a_day' => ':count ཉི',
+    'day' => ':count ཉི', // less reliable
+    'd' => ':count ཉི', // less reliable
+    'a_day' => ':count ཉི', // less reliable
 
-    'hour' => ':count ཆུ་ཚོད་འཁོར་ལོ',
-    'h' => ':count ཆུ་ཚོད་འཁོར་ལོ',
-    'a_hour' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'hour' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
+    'h' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
+    'a_hour' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
 
-    'minute' => ':count ཆུ་ཚོད་འཁོར་ལོ',
-    'min' => ':count ཆུ་ཚོད་འཁོར་ལོ',
-    'a_minute' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'minute' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
+    'min' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
+    'a_minute' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
 
-    'second' => ':count ཆ',
-    's' => ':count ཆ',
-    'a_second' => ':count ཆ',
+    'second' => ':count ཆ', // less reliable
+    's' => ':count ཆ', // less reliable
+    'a_second' => ':count ཆ', // less reliable
 ]);

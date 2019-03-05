@@ -26,31 +26,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count mbu',
-    'y' => ':count mbu',
-    'a_year' => ':count mbu',
+    'year' => ':count mbu', // less reliable
+    'y' => ':count mbu', // less reliable
+    'a_year' => ':count mbu', // less reliable
 
-    'month' => ':count modi',
-    'm' => ':count modi',
-    'a_month' => ':count modi',
+    'month' => ':count modi', // less reliable
+    'm' => ':count modi', // less reliable
+    'a_month' => ':count modi', // less reliable
 
-    'week' => ':count woki',
-    'w' => ':count woki',
-    'a_week' => ':count woki',
+    'week' => ':count woki', // less reliable
+    'w' => ':count woki', // less reliable
+    'a_week' => ':count woki', // less reliable
 
-    'day' => ':count buńa',
-    'd' => ':count buńa',
-    'a_day' => ':count buńa',
+    'day' => ':count buńa', // less reliable
+    'd' => ':count buńa', // less reliable
+    'a_day' => ':count buńa', // less reliable
 
-    'hour' => ':count ndoko',
-    'h' => ':count ndoko',
-    'a_hour' => ':count ndoko',
+    'hour' => ':count ndoko', // less reliable
+    'h' => ':count ndoko', // less reliable
+    'a_hour' => ':count ndoko', // less reliable
 
-    'minute' => ':count ndoko',
-    'min' => ':count ndoko',
-    'a_minute' => ':count ndoko',
+    'minute' => ':count ndoko', // less reliable
+    'min' => ':count ndoko', // less reliable
+    'a_minute' => ':count ndoko', // less reliable
 
-    'second' => ':count maba',
-    's' => ':count maba',
-    'a_second' => ':count maba',
+    'second' => ':count maba', // less reliable
+    's' => ':count maba', // less reliable
+    'a_second' => ':count maba', // less reliable
 ]);

@@ -21,4 +21,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'YYYY MMMM D HH:mm',
         'LLLL' => 'YYYY MMMM D, dddd HH:mm',
     ],
+
+    'year' => ':count лѣто',
+    'y' => ':count лѣто',
+    'a_year' => ':count лѣто',
+
+    'month' => ':count мѣсѧць',
+    'm' => ':count мѣсѧць',
+    'a_month' => ':count мѣсѧць',
+
+    'week' => ':count сєдмица',
+    'w' => ':count сєдмица',
+    'a_week' => ':count сєдмица',
+
+    'day' => ':count дьнь',
+    'd' => ':count дьнь',
+    'a_day' => ':count дьнь',
+
+    'hour' => ':count година',
+    'h' => ':count година',
+    'a_hour' => ':count година',
+
+    'minute' => ':count малъ', // less reliable
+    'min' => ':count малъ', // less reliable
+    'a_minute' => ':count малъ', // less reliable
+
+    'second' => ':count въторъ',
+    's' => ':count въторъ',
+    'a_second' => ':count въторъ',
 ]);

@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'YYYY MMMM D HH:mm',
         'LLLL' => 'YYYY MMMM D, dddd HH:mm',
     ],
+
+    'minute' => ':count Nguva dzezuva', // less reliable
+    'min' => ':count Nguva dzezuva', // less reliable
+    'a_minute' => ':count Nguva dzezuva', // less reliable
+
+    'second' => ':count piri', // less reliable
+    's' => ':count piri', // less reliable
+    'a_second' => ':count piri', // less reliable
+
+    'year' => ':count gore',
+    'y' => ':count gore',
+    'a_year' => ':count gore',
+
+    'month' => 'mwedzi :count',
+    'm' => 'mwedzi :count',
+    'a_month' => 'mwedzi :count',
+
+    'week' => ':count Vhiki',
+    'w' => ':count Vhiki',
+    'a_week' => ':count Vhiki',
+
+    'day' => ':count Musi',
+    'd' => ':count Musi',
+    'a_day' => ':count Musi',
+
+    'hour' => ':count Nguva dzezuva',
+    'h' => ':count Nguva dzezuva',
+    'a_hour' => ':count Nguva dzezuva',
 ]);

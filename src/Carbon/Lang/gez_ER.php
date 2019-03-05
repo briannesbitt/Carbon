@@ -25,19 +25,31 @@
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ጽባሕ', 'ምሴት'],
 
-    'month' => ':count ወርሕ',
-    'm' => ':count ወርሕ',
-    'a_month' => ':count ወርሕ',
+    'month' => ':count ወርሕ', // less reliable
+    'm' => ':count ወርሕ', // less reliable
+    'a_month' => ':count ወርሕ', // less reliable
 
-    'week' => ':count ዕለት',
-    'w' => ':count ዕለት',
-    'a_week' => ':count ዕለት',
+    'week' => ':count ዕለት', // less reliable
+    'w' => ':count ዕለት', // less reliable
+    'a_week' => ':count ዕለት', // less reliable
 
-    'hour' => ':count አንትሙ',
-    'h' => ':count አንትሙ',
-    'a_hour' => ':count አንትሙ',
+    'hour' => ':count አንትሙ', // less reliable
+    'h' => ':count አንትሙ', // less reliable
+    'a_hour' => ':count አንትሙ', // less reliable
 
-    'minute' => ':count ንኡስ',
-    'min' => ':count ንኡስ',
-    'a_minute' => ':count ንኡስ',
+    'minute' => ':count ንኡስ', // less reliable
+    'min' => ':count ንኡስ', // less reliable
+    'a_minute' => ':count ንኡስ', // less reliable
+
+    'year' => ':count ዓመት',
+    'y' => ':count ዓመት',
+    'a_year' => ':count ዓመት',
+
+    'day' => ':count ዕለት',
+    'd' => ':count ዕለት',
+    'a_day' => ':count ዕለት',
+
+    'second' => ':count ካልእ',
+    's' => ':count ካልእ',
+    'a_second' => ':count ካልእ',
 ]);

@@ -26,27 +26,27 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count mbu',
-    'y' => ':count mbu',
-    'a_year' => ':count mbu',
+    'year' => ':count mbu', // less reliable
+    'y' => ':count mbu', // less reliable
+    'a_year' => ':count mbu', // less reliable
 
-    'month' => ':count ngòn',
-    'm' => ':count ngòn',
-    'a_month' => ':count ngòn',
+    'month' => ':count ngòn', // less reliable
+    'm' => ':count ngòn', // less reliable
+    'a_month' => ':count ngòn', // less reliable
 
-    'week' => ':count mësë',
-    'w' => ':count mësë',
-    'a_week' => ':count mësë',
+    'week' => ':count mësë', // less reliable
+    'w' => ':count mësë', // less reliable
+    'a_week' => ':count mësë', // less reliable
 
-    'day' => ':count mësë',
-    'd' => ':count mësë',
-    'a_day' => ':count mësë',
+    'day' => ':count mësë', // less reliable
+    'd' => ':count mësë', // less reliable
+    'a_day' => ':count mësë', // less reliable
 
-    'hour' => ':count awola',
-    'h' => ':count awola',
-    'a_hour' => ':count awola',
+    'hour' => ':count awola', // less reliable
+    'h' => ':count awola', // less reliable
+    'a_hour' => ':count awola', // less reliable
 
-    'minute' => ':count awola',
-    'min' => ':count awola',
-    'a_minute' => ':count awola',
+    'minute' => ':count awola', // less reliable
+    'min' => ':count awola', // less reliable
+    'a_minute' => ':count awola', // less reliable
 ]);

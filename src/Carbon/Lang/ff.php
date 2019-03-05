@@ -30,31 +30,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['subaka', 'kikiiɗe'],
 
-    'year' => ':count baret',
-    'y' => ':count baret',
-    'a_year' => ':count baret',
+    'year' => ':count baret', // less reliable
+    'y' => ':count baret', // less reliable
+    'a_year' => ':count baret', // less reliable
 
-    'month' => ':count lewru',
-    'm' => ':count lewru',
-    'a_month' => ':count lewru',
+    'month' => ':count lewru', // less reliable
+    'm' => ':count lewru', // less reliable
+    'a_month' => ':count lewru', // less reliable
 
-    'week' => ':count naange',
-    'w' => ':count naange',
-    'a_week' => ':count naange',
+    'week' => ':count naange', // less reliable
+    'w' => ':count naange', // less reliable
+    'a_week' => ':count naange', // less reliable
 
-    'day' => ':count naange',
-    'd' => ':count naange',
-    'a_day' => ':count naange',
+    'day' => ':count naange', // less reliable
+    'd' => ':count naange', // less reliable
+    'a_day' => ':count naange', // less reliable
 
-    'hour' => ':count montor',
-    'h' => ':count montor',
-    'a_hour' => ':count montor',
+    'hour' => ':count montor', // less reliable
+    'h' => ':count montor', // less reliable
+    'a_hour' => ':count montor', // less reliable
 
-    'minute' => ':count tokossuoum',
-    'min' => ':count tokossuoum',
-    'a_minute' => ':count tokossuoum',
+    'minute' => ':count tokossuoum', // less reliable
+    'min' => ':count tokossuoum', // less reliable
+    'a_minute' => ':count tokossuoum', // less reliable
 
-    'second' => ':count tenen',
-    's' => ':count tenen',
-    'a_second' => ':count tenen',
+    'second' => ':count tenen', // less reliable
+    's' => ':count tenen', // less reliable
+    'a_second' => ':count tenen', // less reliable
 ]);
