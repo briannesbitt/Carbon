@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class HeIlTest extends LocalizationTestCase
 {
-    const LOCALE = 'he_IL'; // Hebrew (modern)
+    const LOCALE = 'he_IL'; // Hebrew
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

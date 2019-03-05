@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ShsTest extends LocalizationTestCase
 {
-    const LOCALE = 'shs'; // shs
+    const LOCALE = 'shs';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -134,13 +134,13 @@ class ShsTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        '1 seqwlút ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        '1 seqwlút ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        '2 seqwlút ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        '2 seqwlút ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -158,21 +158,21 @@ class ShsTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        '1 swewll ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        '1 swewll ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        '2 swewll ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        '2 swewll ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        '1 sqlélten ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        '1 sqlélten ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        '2 sqlélten ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        '2 sqlélten ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,15 +198,15 @@ class ShsTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 sqlélten 3 swewll 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        '3 sqlélten from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        '5 swewll ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2 sqlélten 3 swewll 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        '1 week 10 seqwlút',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -214,12 +214,12 @@ class ShsTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         '1 week and 6 days from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        '2 weeks 1 seqwlút',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        '1 seqwlút from now',
         // CarbonInterval::days(2)->forHumans()
         '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1d 3 seqwlút',
     ];
 }

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TeoTest extends LocalizationTestCase
 {
-    const LOCALE = 'teo'; // teo
+    const LOCALE = 'teo';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

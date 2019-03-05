@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class YueHansTest extends LocalizationTestCase
 {
-    const LOCALE = 'yue_Hans'; // yue
+    const LOCALE = 'yue_Hans';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

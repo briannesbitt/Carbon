@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class SeSeTest extends LocalizationTestCase
 {
-    const LOCALE = 'se_SE'; // Northern Sami
+    const LOCALE = 'se_SE'; // NorthernSami
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

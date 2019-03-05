@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class AsaTest extends LocalizationTestCase
 {
-    const LOCALE = 'asa'; // asa
+    const LOCALE = 'asa';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

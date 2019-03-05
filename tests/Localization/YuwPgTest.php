@@ -134,21 +134,21 @@ class YuwPgTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        '1 yep ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        '1 yep ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        '2 yep ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        '2 yep ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        '1 yep ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        '1 yep ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        '2 yep ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        '2 yep ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -166,13 +166,13 @@ class YuwPgTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        '1 yep ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        '1 yep ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        '2 yep ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        '2 yep ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class YuwPgTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 yep 3mos 1 yep 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        '3 yep from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2 yep 3mos 1 yep 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        '1 week 10 yep',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 week 6 yep',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 week 6 yep',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        '1 week and 6 yep from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        '2 weeks 1 yep',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        '1 yep from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        '2 yep',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 yep 3 yep',
     ];
 }

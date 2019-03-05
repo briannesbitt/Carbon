@@ -33,9 +33,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'm' => ':count mes',
     'a_month' => ':count mes',
 
-    'week' => ':count Semana',
-    'w' => ':count Semana',
-    'a_week' => ':count Semana',
+    'week' => ':count semana',
+    'w' => ':count semana',
+    'a_week' => ':count semana',
 
     'day' => ':count día',
     'd' => ':count día',

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NdTest extends LocalizationTestCase
 {
-    const LOCALE = 'nd'; // North Ndebele
+    const LOCALE = 'nd'; // NorthNdebele
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -126,29 +126,29 @@ class NdTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        '1 iwatjhi ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        '1 iwatjhi ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        '2 iwatjhi ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        '2 iwatjhi ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        '1 iwatjhi ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        '1 iwatjhi ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        '2 iwatjhi ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        '2 iwatjhi ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        '1 jo ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        '1 jo ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        '2 jo ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        '2 jo ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -166,13 +166,13 @@ class NdTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        '1 indlu ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        '1 indlu ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        '2 indlu ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        '2 indlu ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -196,30 +196,30 @@ class NdTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        '1 iwatjhi 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 indlu 3mos 1 jo 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        '3 indlu from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2 indlu 3mos 1 jo 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        '1 week 10 iwatjhi',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 week 6 jo',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 week 6 jo',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        '1 week and 6 jo from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        '2 weeks 1 iwatjhi',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        '1 iwatjhi from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        '2 jo',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 jo 3 iwatjhi',
     ];
 }

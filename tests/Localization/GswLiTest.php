@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class GswLiTest extends LocalizationTestCase
 {
-    const LOCALE = 'gsw_LI'; // gsw
+    const LOCALE = 'gsw_LI';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

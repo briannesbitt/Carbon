@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NbSjTest extends LocalizationTestCase
 {
-    const LOCALE = 'nb_SJ'; // Norwegian Bokmål
+    const LOCALE = 'nb_SJ'; // NorwegianBokmal
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

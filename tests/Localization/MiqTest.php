@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MiqTest extends LocalizationTestCase
 {
-    const LOCALE = 'miq'; // miq
+    const LOCALE = 'miq';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -158,13 +158,13 @@ class MiqTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        '1 kati ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        '1 kati ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        '2 kati ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        '2 kati ago',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -198,13 +198,13 @@ class MiqTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2yrs 3 kati 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 years from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        '5 kati ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2yrs 3 kati 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

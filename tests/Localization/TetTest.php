@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TetTest extends LocalizationTestCase
 {
-    const LOCALE = 'tet'; // tet
+    const LOCALE = 'tet';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

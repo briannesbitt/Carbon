@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - ANLoc Martin Benjamin locales@africanlocalization.net
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -25,27 +26,31 @@
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['uluchelo', 'akasuba'],
 
-    'year' => ':count akasuba', // less reliable
-    'y' => ':count akasuba', // less reliable
-    'a_year' => ':count akasuba', // less reliable
+    'year' => 'myaka :count',
+    'y' => 'myaka :count',
+    'a_year' => 'myaka :count',
 
-    'month' => ':count akasuba', // less reliable
-    'm' => ':count akasuba', // less reliable
-    'a_month' => ':count akasuba', // less reliable
+    'month' => 'myeshi :count',
+    'm' => 'myeshi :count',
+    'a_month' => 'myeshi :count',
 
-    'day' => ':count akasuba', // less reliable
-    'd' => ':count akasuba', // less reliable
-    'a_day' => ':count akasuba', // less reliable
+    'week' => 'umulungu :count',
+    'w' => 'umulungu :count',
+    'a_week' => 'umulungu :count',
 
-    'hour' => ':count akasuba', // less reliable
-    'h' => ':count akasuba', // less reliable
-    'a_hour' => ':count akasuba', // less reliable
+    'day' => 'inshiku :count',
+    'd' => 'inshiku :count',
+    'a_day' => 'inshiku :count',
 
-    'second' => ':count ilino', // less reliable
-    's' => ':count ilino', // less reliable
-    'a_second' => ':count ilino', // less reliable
+    'hour' => 'awala :count',
+    'h' => 'awala :count',
+    'a_hour' => 'awala :count',
 
-    'week' => ':count umulungu',
-    'w' => ':count umulungu',
-    'a_week' => ':count umulungu',
+    'minute' => 'miniti :count',
+    'min' => 'miniti :count',
+    'a_minute' => 'miniti :count',
+
+    'second' => 'sekondi :count',
+    's' => 'sekondi :count',
+    'a_second' => 'sekondi :count',
 ]);

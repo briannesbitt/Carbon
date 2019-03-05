@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ShiLatnTest extends LocalizationTestCase
 {
-    const LOCALE = 'shi_Latn'; // shi
+    const LOCALE = 'shi_Latn';
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
