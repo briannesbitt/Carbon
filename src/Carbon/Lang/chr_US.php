@@ -23,4 +23,8 @@
     'weekdays_min' => ['ᏆᏍᎬ', 'ᏉᏅᎯ', 'ᏔᎵᏁ', 'ᏦᎢᏁ', 'ᏅᎩᏁ', 'ᏧᎾᎩ', 'ᏈᏕᎾ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ᏌᎾᎴ', 'ᏒᎯᏱᎢᏗᏢ'],
+
+    'second' => ':count ᏐᎢ',
+    's' => ':count ᏐᎢ',
+    'a_second' => ':count ᏐᎢ',
 ]);

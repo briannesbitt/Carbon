@@ -24,4 +24,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['sap', 'ata', 'mar', 'pin', 'sis', 'tal', 'arf'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count ukioq',
+    'y' => ':count ukioq',
+    'a_year' => ':count ukioq',
+
+    'week' => ':count sapaat',
+    'w' => ':count sapaat',
+    'a_week' => ':count sapaat',
+
+    'minute' => ':count eqqumiitsuliorneq',
+    'min' => ':count eqqumiitsuliorneq',
+    'a_minute' => ':count eqqumiitsuliorneq',
+
+    'second' => ':count marluk',
+    's' => ':count marluk',
+    'a_second' => ':count marluk',
 ]);

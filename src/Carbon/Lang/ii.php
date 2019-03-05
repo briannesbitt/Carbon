@@ -24,4 +24,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'YYYY MMMM D h:mm a',
         'LLLL' => 'YYYY MMMM D, dddd h:mm a',
     ],
+
+    'year' => ':count ꒉ',
+    'y' => ':count ꒉ',
+    'a_year' => ':count ꒉ',
+
+    'week' => ':count ꏃ',
+    'w' => ':count ꏃ',
+    'a_week' => ':count ꏃ',
+
+    'day' => ':count ꏜ',
+    'd' => ':count ꏜ',
+    'a_day' => ':count ꏜ',
 ]);

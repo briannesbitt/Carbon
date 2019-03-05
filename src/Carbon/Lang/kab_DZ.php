@@ -24,4 +24,28 @@
     'first_day_of_week' => 6,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['FT', 'MD'],
+
+    'year' => ':count Asmil',
+    'y' => ':count Asmil',
+    'a_year' => ':count Asmil',
+
+    'week' => ':count Ayyur',
+    'w' => ':count Ayyur',
+    'a_week' => ':count Ayyur',
+
+    'day' => ':count nekk',
+    'd' => ':count nekk',
+    'a_day' => ':count nekk',
+
+    'hour' => ':count tamrilt',
+    'h' => ':count tamrilt',
+    'a_hour' => ':count tamrilt',
+
+    'minute' => ':count tamrilt',
+    'min' => ':count tamrilt',
+    'a_minute' => ':count tamrilt',
+
+    'second' => ':count arim ⴰⵔⵉⵎ',
+    's' => ':count arim ⴰⵔⵉⵎ',
+    'a_second' => ':count arim ⴰⵔⵉⵎ',
 ]);

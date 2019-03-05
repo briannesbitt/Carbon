@@ -23,4 +23,28 @@
     'weekdays_min' => ['ཟླ་', 'མིར་', 'ལྷག་', 'པུར་', 'སངས་', 'སྤེན་', 'ཉི་'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ངས་ཆ', 'ཕྱི་ཆ'],
+
+    'year' => ':count ཆརཔ',
+    'y' => ':count ཆརཔ',
+    'a_year' => ':count ཆརཔ',
+
+    'month' => ':count ཟླ་བ',
+    'm' => ':count ཟླ་བ',
+    'a_month' => ':count ཟླ་བ',
+
+    'day' => ':count ཉི',
+    'd' => ':count ཉི',
+    'a_day' => ':count ཉི',
+
+    'hour' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'h' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'a_hour' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+
+    'minute' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'min' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+    'a_minute' => ':count ཆུ་ཚོད་འཁོར་ལོ',
+
+    'second' => ':count ཆ',
+    's' => ':count ཆ',
+    'a_second' => ':count ཆ',
 ]);

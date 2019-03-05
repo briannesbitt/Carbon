@@ -24,4 +24,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count balaab',
+    'y' => ':count balaab',
+    'a_year' => ':count balaab',
+
+    'month' => ':count balaab',
+    'm' => ':count balaab',
+    'a_month' => ':count balaab',
+
+    'week' => ':count balaab',
+    'w' => ':count balaab',
+    'a_week' => ':count balaab',
+
+    'day' => ':count balaab',
+    'd' => ':count balaab',
+    'a_day' => ':count balaab',
 ]);

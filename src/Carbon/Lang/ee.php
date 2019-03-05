@@ -25,4 +25,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'a [ga] h:mm MMMM D [lia] YYYY',
         'LLLL' => 'a [ga] h:mm dddd, MMMM D [lia] YYYY',
     ],
+
+    'week' => ':count Kɔsiɖagbe',
+    'w' => ':count Kɔsiɖagbe',
+    'a_week' => ':count Kɔsiɖagbe',
+
+    'minute' => ':count sue',
+    'min' => ':count sue',
+    'a_minute' => ':count sue',
+
+    'second' => ':count ɖasedila',
+    's' => ':count ɖasedila',
+    'a_second' => ':count ɖasedila',
 ]);

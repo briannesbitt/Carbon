@@ -24,4 +24,20 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ጽባሕ', 'ምሴት'],
+
+    'month' => ':count ወርሕ',
+    'm' => ':count ወርሕ',
+    'a_month' => ':count ወርሕ',
+
+    'week' => ':count ዕለት',
+    'w' => ':count ዕለት',
+    'a_week' => ':count ዕለት',
+
+    'hour' => ':count አንትሙ',
+    'h' => ':count አንትሙ',
+    'a_hour' => ':count አንትሙ',
+
+    'minute' => ':count ንኡስ',
+    'min' => ':count ንኡስ',
+    'a_minute' => ':count ንኡስ',
 ]);

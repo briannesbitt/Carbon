@@ -24,4 +24,24 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['uluchelo', 'akasuba'],
+
+    'year' => ':count akasuba',
+    'y' => ':count akasuba',
+    'a_year' => ':count akasuba',
+
+    'month' => ':count akasuba',
+    'm' => ':count akasuba',
+    'a_month' => ':count akasuba',
+
+    'day' => ':count akasuba',
+    'd' => ':count akasuba',
+    'a_day' => ':count akasuba',
+
+    'hour' => ':count akasuba',
+    'h' => ':count akasuba',
+    'a_hour' => ':count akasuba',
+
+    'second' => ':count ilino',
+    's' => ':count ilino',
+    'a_second' => ':count ilino',
 ]);

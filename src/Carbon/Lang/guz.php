@@ -24,4 +24,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'month' => ':count omotunyi',
+    'm' => ':count omotunyi',
+    'a_month' => ':count omotunyi',
+
+    'week' => ':count isano naibere',
+    'w' => ':count isano naibere',
+    'a_week' => ':count isano naibere',
+
+    'second' => ':count ibere',
+    's' => ':count ibere',
+    'a_second' => ':count ibere',
 ]);

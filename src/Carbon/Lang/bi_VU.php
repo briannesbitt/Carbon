@@ -22,4 +22,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['sande', 'mande', 'maj', 'wota', 'fraede', 'sarede'],
     'weekdays_short' => ['san', 'man', 'maj', 'wot', 'fra', 'sar'],
     'weekdays_min' => ['san', 'man', 'maj', 'wot', 'fra', 'sar'],
+
+    'year' => ':count seven',
+    'y' => ':count seven',
+    'a_year' => ':count seven',
+
+    'month' => ':count mi',
+    'm' => ':count mi',
+    'a_month' => ':count mi',
+
+    'week' => ':count sarede',
+    'w' => ':count sarede',
+    'a_week' => ':count sarede',
+
+    'day' => ':count betde',
+    'd' => ':count betde',
+    'a_day' => ':count betde',
+
+    'hour' => ':count klok',
+    'h' => ':count klok',
+    'a_hour' => ':count klok',
+
+    'minute' => ':count smol',
+    'min' => ':count smol',
+    'a_minute' => ':count smol',
+
+    'second' => ':count tu',
+    's' => ':count tu',
+    'a_second' => ':count tu',
 ]);

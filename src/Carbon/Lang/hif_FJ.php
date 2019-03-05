@@ -23,4 +23,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['Ravi', 'Som', 'Mangal', 'Budh', 'Guru', 'Shukra', 'Shani'],
     'weekdays_min' => ['Ravi', 'Som', 'Mangal', 'Budh', 'Guru', 'Shukra', 'Shani'],
     'meridiem' => ['Purvahan', 'Aparaahna'],
+
+    'hour' => ':count minit',
+    'h' => ':count minit',
+    'a_hour' => ':count minit',
 ]);

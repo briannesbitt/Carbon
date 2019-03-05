@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Ge'ez Frontier Foundation    locales@geez.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
@@ -24,4 +25,13 @@
     'first_day_of_week' => 6,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['saaku', 'carra'],
+    'year' => ':count gaqambo',
+    'y' => ':count gaqambo',
+    'a_year' => ':count gaqambo',
+    'day' => ':count saaku',
+    'd' => ':count saaku',
+    'a_day' => ':count saaku',
+    'hour' => ':count ayti',
+    'h' => ':count ayti',
+    'a_hour' => ':count ayti',
 ]);

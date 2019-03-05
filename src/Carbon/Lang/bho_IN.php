@@ -24,4 +24,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
+
+    'hour' => ':count मौसम',
+    'h' => ':count मौसम',
+    'a_hour' => ':count मौसम',
+
+    'minute' => ':count कला',
+    'min' => ':count कला',
+    'a_minute' => ':count कला',
+
+    'second' => ':count सोमार',
+    's' => ':count सोमार',
+    'a_second' => ':count सोमार',
 ]);

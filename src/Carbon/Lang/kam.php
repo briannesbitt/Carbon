@@ -24,4 +24,24 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count mbua',
+    'y' => ':count mbua',
+    'a_year' => ':count mbua',
+
+    'month' => ':count ndakitali',
+    'm' => ':count ndakitali',
+    'a_month' => ':count ndakitali',
+
+    'day' => ':count wia',
+    'd' => ':count wia',
+    'a_day' => ':count wia',
+
+    'hour' => ':count orasan',
+    'h' => ':count orasan',
+    'a_hour' => ':count orasan',
+
+    'minute' => ':count orasan',
+    'min' => ':count orasan',
+    'a_minute' => ':count orasan',
 ]);

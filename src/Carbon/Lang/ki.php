@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count igego',
+    'y' => ':count igego',
+    'a_year' => ':count igego',
+
+    'month' => ':count mweri',
+    'm' => ':count mweri',
+    'a_month' => ':count mweri',
+
+    'week' => ':count kiumia',
+    'w' => ':count kiumia',
+    'a_week' => ':count kiumia',
+
+    'day' => ':count mũthenya',
+    'd' => ':count mũthenya',
+    'a_day' => ':count mũthenya',
+
+    'hour' => ':count Oxygen',
+    'h' => ':count Oxygen',
+    'a_hour' => ':count Oxygen',
+
+    'minute' => ':count mundu',
+    'min' => ':count mundu',
+    'a_minute' => ':count mundu',
+
+    'second' => ':count igego',
+    's' => ':count igego',
+    'a_second' => ':count igego',
 ]);

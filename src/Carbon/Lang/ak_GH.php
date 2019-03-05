@@ -24,4 +24,20 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['AN', 'EW'],
+
+    'week' => ':count ɛda',
+    'w' => ':count ɛda',
+    'a_week' => ':count ɛda',
+
+    'hour' => ':count mrɛ',
+    'h' => ':count mrɛ',
+    'a_hour' => ':count mrɛ',
+
+    'minute' => ':count mrɛ',
+    'min' => ':count mrɛ',
+    'a_minute' => ':count mrɛ',
+
+    'second' => ':count adanseni',
+    's' => ':count adanseni',
+    'a_second' => ':count adanseni',
 ]);

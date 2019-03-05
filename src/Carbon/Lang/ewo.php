@@ -25,4 +25,28 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count mbu',
+    'y' => ':count mbu',
+    'a_year' => ':count mbu',
+
+    'month' => ':count ngòn',
+    'm' => ':count ngòn',
+    'a_month' => ':count ngòn',
+
+    'week' => ':count mësë',
+    'w' => ':count mësë',
+    'a_week' => ':count mësë',
+
+    'day' => ':count mësë',
+    'd' => ':count mësë',
+    'a_day' => ':count mësë',
+
+    'hour' => ':count awola',
+    'h' => ':count awola',
+    'a_hour' => ':count awola',
+
+    'minute' => ':count awola',
+    'min' => ':count awola',
+    'a_minute' => ':count awola',
 ]);

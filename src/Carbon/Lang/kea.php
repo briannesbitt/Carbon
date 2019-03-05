@@ -26,4 +26,24 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D [di] MMMM [di] YYYY HH:mm',
         'LLLL' => 'dddd, D [di] MMMM [di] YYYY HH:mm',
     ],
+
+    'year' => ':count otunu',
+    'y' => ':count otunu',
+    'a_year' => ':count otunu',
+
+    'week' => ':count día dumingu',
+    'w' => ':count día dumingu',
+    'a_week' => ':count día dumingu',
+
+    'day' => ':count diâ',
+    'd' => ':count diâ',
+    'a_day' => ':count diâ',
+
+    'minute' => ':count sugundu',
+    'min' => ':count sugundu',
+    'a_minute' => ':count sugundu',
+
+    'second' => ':count dós',
+    's' => ':count dós',
+    'a_second' => ':count dós',
 ]);

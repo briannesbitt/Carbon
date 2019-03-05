@@ -23,4 +23,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['Min', 'Sav', 'Ila', 'Qit', 'Sis', 'Tal', 'Maq'],
     'weekdays_min' => ['Min', 'Sav', 'Ila', 'Qit', 'Sis', 'Tal', 'Maq'],
     'day_of_first_week_of_year' => 1,
+
+    'week' => ':count tatqiat',
+    'w' => ':count tatqiat',
+    'a_week' => ':count tatqiat',
+
+    'day' => ':count siqiñiq',
+    'd' => ':count siqiñiq',
+    'a_day' => ':count siqiñiq',
+
+    'hour' => ':count Siḷa',
+    'h' => ':count Siḷa',
+    'a_hour' => ':count Siḷa',
+
+    'second' => ':count iġñiq',
+    's' => ':count iġñiq',
+    'a_second' => ':count iġñiq',
 ]);
