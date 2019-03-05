@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MaiInTest extends LocalizationTestCase
 {
-    const LOCALE = 'mai_IN';
+    const LOCALE = 'mai_IN'; // Maithili
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

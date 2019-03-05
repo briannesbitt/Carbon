@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ShsCaTest extends LocalizationTestCase
 {
-    const LOCALE = 'shs_CA';
+    const LOCALE = 'shs_CA'; // Shuswap
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

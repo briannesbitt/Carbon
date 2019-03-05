@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class FilPhTest extends LocalizationTestCase
 {
-    const LOCALE = 'fil_PH';
+    const LOCALE = 'fil_PH'; // Filipino
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

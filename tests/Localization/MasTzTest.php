@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MasTzTest extends LocalizationTestCase
 {
-    const LOCALE = 'mas_TZ';
+    const LOCALE = 'mas_TZ'; // Masai
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TpiTest extends LocalizationTestCase
 {
-    const LOCALE = 'tpi';
+    const LOCALE = 'tpi'; // Tok Pisin
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

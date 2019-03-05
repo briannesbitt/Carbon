@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LijTest extends LocalizationTestCase
 {
-    const LOCALE = 'lij';
+    const LOCALE = 'lij'; // Ligurian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NiuNuTest extends LocalizationTestCase
 {
-    const LOCALE = 'niu_NU';
+    const LOCALE = 'niu_NU'; // Niuean
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

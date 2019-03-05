@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class SahRuTest extends LocalizationTestCase
 {
-    const LOCALE = 'sah_RU';
+    const LOCALE = 'sah_RU'; // Sakha
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class YuwPgTest extends LocalizationTestCase
 {
-    const LOCALE = 'yuw_PG';
+    const LOCALE = 'yuw_PG'; // Yau (Morobe Province)
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

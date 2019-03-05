@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class KlnTest extends LocalizationTestCase
 {
-    const LOCALE = 'kln';
+    const LOCALE = 'kln'; // Kalenjin
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

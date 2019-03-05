@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class QuzPeTest extends LocalizationTestCase
 {
-    const LOCALE = 'quz_PE';
+    const LOCALE = 'quz_PE'; // Cusco Quechua
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

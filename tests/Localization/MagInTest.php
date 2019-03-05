@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MagInTest extends LocalizationTestCase
 {
-    const LOCALE = 'mag_IN';
+    const LOCALE = 'mag_IN'; // Magahi
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

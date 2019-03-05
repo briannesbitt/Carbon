@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class CggTest extends LocalizationTestCase
 {
-    const LOCALE = 'cgg';
+    const LOCALE = 'cgg'; // Chiga
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

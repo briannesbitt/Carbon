@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class CcpInTest extends LocalizationTestCase
 {
-    const LOCALE = 'ccp_IN';
+    const LOCALE = 'ccp_IN'; // Chakma
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

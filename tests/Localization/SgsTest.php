@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class SgsTest extends LocalizationTestCase
 {
-    const LOCALE = 'sgs';
+    const LOCALE = 'sgs'; // Samogitian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

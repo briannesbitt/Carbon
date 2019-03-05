@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class DoiTest extends LocalizationTestCase
 {
-    const LOCALE = 'doi';
+    const LOCALE = 'doi'; // Dogri (macrolanguage)
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

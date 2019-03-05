@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ChrUsTest extends LocalizationTestCase
 {
-    const LOCALE = 'chr_US';
+    const LOCALE = 'chr_US'; // Cherokee
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

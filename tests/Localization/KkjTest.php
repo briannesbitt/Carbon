@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class KkjTest extends LocalizationTestCase
 {
-    const LOCALE = 'kkj';
+    const LOCALE = 'kkj'; // Kako
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

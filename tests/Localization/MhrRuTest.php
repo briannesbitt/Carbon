@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MhrRuTest extends LocalizationTestCase
 {
-    const LOCALE = 'mhr_RU';
+    const LOCALE = 'mhr_RU'; // Eastern Mari
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

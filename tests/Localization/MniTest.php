@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MniTest extends LocalizationTestCase
 {
-    const LOCALE = 'mni';
+    const LOCALE = 'mni'; // Manipuri
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

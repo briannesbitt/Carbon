@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NdsDeTest extends LocalizationTestCase
 {
-    const LOCALE = 'nds_DE';
+    const LOCALE = 'nds_DE'; // Low German
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

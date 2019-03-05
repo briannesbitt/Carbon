@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class TheNpTest extends LocalizationTestCase
 {
-    const LOCALE = 'the_NP';
+    const LOCALE = 'the_NP'; // Chitwania Tharu
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

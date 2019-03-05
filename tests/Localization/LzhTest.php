@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LzhTest extends LocalizationTestCase
 {
-    const LOCALE = 'lzh';
+    const LOCALE = 'lzh'; // Literary Chinese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

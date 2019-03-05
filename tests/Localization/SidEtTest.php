@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class SidEtTest extends LocalizationTestCase
 {
-    const LOCALE = 'sid_ET';
+    const LOCALE = 'sid_ET'; // Sidamo
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class CmnTest extends LocalizationTestCase
 {
-    const LOCALE = 'cmn';
+    const LOCALE = 'cmn'; // Chinese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

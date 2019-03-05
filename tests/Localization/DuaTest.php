@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class DuaTest extends LocalizationTestCase
 {
-    const LOCALE = 'dua';
+    const LOCALE = 'dua'; // Duala
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

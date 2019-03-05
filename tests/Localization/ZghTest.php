@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class ZghTest extends LocalizationTestCase
 {
-    const LOCALE = 'zgh';
+    const LOCALE = 'zgh'; // Standard Moroccan Tamazight
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

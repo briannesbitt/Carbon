@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class HifFjTest extends LocalizationTestCase
 {
-    const LOCALE = 'hif_FJ';
+    const LOCALE = 'hif_FJ'; // Fiji Hindi
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

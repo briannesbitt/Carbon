@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class HsbTest extends LocalizationTestCase
 {
-    const LOCALE = 'hsb';
+    const LOCALE = 'hsb'; // Upper Sorbian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

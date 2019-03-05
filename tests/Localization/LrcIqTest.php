@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LrcIqTest extends LocalizationTestCase
 {
-    const LOCALE = 'lrc_IQ';
+    const LOCALE = 'lrc_IQ'; // Northern Luri
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

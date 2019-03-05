@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class KokInTest extends LocalizationTestCase
 {
-    const LOCALE = 'kok_IN';
+    const LOCALE = 'kok_IN'; // Konkani
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
