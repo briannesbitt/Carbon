@@ -10,1230 +10,1230 @@
  */
 
 return [
-    /**
+    /*
      * ISO 639-2
      */
     'ab' => [
-        'isoName'    => 'Abkhazian',
+        'isoName' => 'Abkhazian',
         'nativeName' => 'аҧсуа бызшәа, аҧсшәа',
     ],
     'aa' => [
-        'isoName'    => 'Afar',
+        'isoName' => 'Afar',
         'nativeName' => 'Afaraf',
     ],
     'af' => [
-        'isoName'    => 'Afrikaans',
+        'isoName' => 'Afrikaans',
         'nativeName' => 'Afrikaans',
     ],
     'ak' => [
-        'isoName'    => 'Akan',
+        'isoName' => 'Akan',
         'nativeName' => 'Akan',
     ],
     'sq' => [
-        'isoName'    => 'Albanian',
+        'isoName' => 'Albanian',
         'nativeName' => 'Shqip',
     ],
     'am' => [
-        'isoName'    => 'Amharic',
+        'isoName' => 'Amharic',
         'nativeName' => 'አማርኛ',
     ],
     'ar' => [
-        'isoName'    => 'Arabic',
+        'isoName' => 'Arabic',
         'nativeName' => 'العربية',
     ],
     'an' => [
-        'isoName'    => 'Aragonese',
+        'isoName' => 'Aragonese',
         'nativeName' => 'aragonés',
     ],
     'hy' => [
-        'isoName'    => 'Armenian',
+        'isoName' => 'Armenian',
         'nativeName' => 'Հայերեն',
     ],
     'as' => [
-        'isoName'    => 'Assamese',
+        'isoName' => 'Assamese',
         'nativeName' => 'অসমীয়া',
     ],
     'av' => [
-        'isoName'    => 'Avaric',
+        'isoName' => 'Avaric',
         'nativeName' => 'авар мацӀ, магӀарул мацӀ',
     ],
     'ae' => [
-        'isoName'    => 'Avestan',
+        'isoName' => 'Avestan',
         'nativeName' => 'avesta',
     ],
     'ay' => [
-        'isoName'    => 'Aymara',
+        'isoName' => 'Aymara',
         'nativeName' => 'aymar aru',
     ],
     'az' => [
-        'isoName'    => 'Azerbaijani',
+        'isoName' => 'Azerbaijani',
         'nativeName' => 'azərbaycan dili',
     ],
     'bm' => [
-        'isoName'    => 'Bambara',
+        'isoName' => 'Bambara',
         'nativeName' => 'bamanankan',
     ],
     'ba' => [
-        'isoName'    => 'Bashkir',
+        'isoName' => 'Bashkir',
         'nativeName' => 'башҡорт теле',
     ],
     'eu' => [
-        'isoName'    => 'Basque',
+        'isoName' => 'Basque',
         'nativeName' => 'euskara, euskera',
     ],
     'be' => [
-        'isoName'    => 'Belarusian',
+        'isoName' => 'Belarusian',
         'nativeName' => 'беларуская мова',
     ],
     'bn' => [
-        'isoName'    => 'Bengali',
+        'isoName' => 'Bengali',
         'nativeName' => 'বাংলা',
     ],
     'bh' => [
-        'isoName'    => 'Bihari languages',
+        'isoName' => 'Bihari languages',
         'nativeName' => 'भोजपुरी',
     ],
     'bi' => [
-        'isoName'    => 'Bislama',
+        'isoName' => 'Bislama',
         'nativeName' => 'Bislama',
     ],
     'bs' => [
-        'isoName'    => 'Bosnian',
+        'isoName' => 'Bosnian',
         'nativeName' => 'bosanski jezik',
     ],
     'br' => [
-        'isoName'    => 'Breton',
+        'isoName' => 'Breton',
         'nativeName' => 'brezhoneg',
     ],
     'bg' => [
-        'isoName'    => 'Bulgarian',
+        'isoName' => 'Bulgarian',
         'nativeName' => 'български език',
     ],
     'my' => [
-        'isoName'    => 'Burmese',
+        'isoName' => 'Burmese',
         'nativeName' => 'ဗမာစာ',
     ],
     'ca' => [
-        'isoName'    => 'Catalan, Valencian',
+        'isoName' => 'Catalan, Valencian',
         'nativeName' => 'català, valencià',
     ],
     'ch' => [
-        'isoName'    => 'Chamorro',
+        'isoName' => 'Chamorro',
         'nativeName' => 'Chamoru',
     ],
     'ce' => [
-        'isoName'    => 'Chechen',
+        'isoName' => 'Chechen',
         'nativeName' => 'нохчийн мотт',
     ],
     'ny' => [
-        'isoName'    => 'Chichewa, Chewa, Nyanja',
+        'isoName' => 'Chichewa, Chewa, Nyanja',
         'nativeName' => 'chiCheŵa, chinyanja',
     ],
     'zh' => [
-        'isoName'    => 'Chinese',
+        'isoName' => 'Chinese',
         'nativeName' => '中文 (Zhōngwén), 汉语, 漢語',
     ],
     'cv' => [
-        'isoName'    => 'Chuvash',
+        'isoName' => 'Chuvash',
         'nativeName' => 'чӑваш чӗлхи',
     ],
     'kw' => [
-        'isoName'    => 'Cornish',
+        'isoName' => 'Cornish',
         'nativeName' => 'Kernewek',
     ],
     'co' => [
-        'isoName'    => 'Corsican',
+        'isoName' => 'Corsican',
         'nativeName' => 'corsu, lingua corsa',
     ],
     'cr' => [
-        'isoName'    => 'Cree',
+        'isoName' => 'Cree',
         'nativeName' => 'ᓀᐦᐃᔭᐍᐏᐣ',
     ],
     'hr' => [
-        'isoName'    => 'Croatian',
+        'isoName' => 'Croatian',
         'nativeName' => 'hrvatski jezik',
     ],
     'cs' => [
-        'isoName'    => 'Czech',
+        'isoName' => 'Czech',
         'nativeName' => 'čeština, český jazyk',
     ],
     'da' => [
-        'isoName'    => 'Danish',
+        'isoName' => 'Danish',
         'nativeName' => 'dansk',
     ],
     'dv' => [
-        'isoName'    => 'Divehi, Dhivehi, Maldivian',
+        'isoName' => 'Divehi, Dhivehi, Maldivian',
         'nativeName' => 'ދިވެހި',
     ],
     'nl' => [
-        'isoName'    => 'Dutch, Flemish',
+        'isoName' => 'Dutch, Flemish',
         'nativeName' => 'Nederlands, Vlaams',
     ],
     'dz' => [
-        'isoName'    => 'Dzongkha',
+        'isoName' => 'Dzongkha',
         'nativeName' => 'རྫོང་ཁ',
     ],
     'en' => [
-        'isoName'    => 'English',
+        'isoName' => 'English',
         'nativeName' => 'English',
     ],
     'eo' => [
-        'isoName'    => 'Esperanto',
+        'isoName' => 'Esperanto',
         'nativeName' => 'Esperanto',
     ],
     'et' => [
-        'isoName'    => 'Estonian',
+        'isoName' => 'Estonian',
         'nativeName' => 'eesti, eesti keel',
     ],
     'ee' => [
-        'isoName'    => 'Ewe',
+        'isoName' => 'Ewe',
         'nativeName' => 'Eʋegbe',
     ],
     'fo' => [
-        'isoName'    => 'Faroese',
+        'isoName' => 'Faroese',
         'nativeName' => 'føroyskt',
     ],
     'fj' => [
-        'isoName'    => 'Fijian',
+        'isoName' => 'Fijian',
         'nativeName' => 'vosa Vakaviti',
     ],
     'fi' => [
-        'isoName'    => 'Finnish',
+        'isoName' => 'Finnish',
         'nativeName' => 'suomi, suomen kieli',
     ],
     'fr' => [
-        'isoName'    => 'French',
+        'isoName' => 'French',
         'nativeName' => 'français',
     ],
     'ff' => [
-        'isoName'    => 'Fulah',
+        'isoName' => 'Fulah',
         'nativeName' => 'Fulfulde, Pulaar, Pular',
     ],
     'gl' => [
-        'isoName'    => 'Galician',
+        'isoName' => 'Galician',
         'nativeName' => 'Galego',
     ],
     'ka' => [
-        'isoName'    => 'Georgian',
+        'isoName' => 'Georgian',
         'nativeName' => 'ქართული',
     ],
     'de' => [
-        'isoName'    => 'German',
+        'isoName' => 'German',
         'nativeName' => 'Deutsch',
     ],
     'el' => [
-        'isoName'    => 'Greek (modern)',
+        'isoName' => 'Greek (modern)',
         'nativeName' => 'ελληνικά',
     ],
     'gn' => [
-        'isoName'    => 'Guaraní',
+        'isoName' => 'Guaraní',
         'nativeName' => 'Avañe\'ẽ',
     ],
     'gu' => [
-        'isoName'    => 'Gujarati',
+        'isoName' => 'Gujarati',
         'nativeName' => 'ગુજરાતી',
     ],
     'ht' => [
-        'isoName'    => 'Haitian, Haitian Creole',
+        'isoName' => 'Haitian, Haitian Creole',
         'nativeName' => 'Kreyòl ayisyen',
     ],
     'ha' => [
-        'isoName'    => 'Hausa',
+        'isoName' => 'Hausa',
         'nativeName' => '(Hausa) هَوُسَ',
     ],
     'he' => [
-        'isoName'    => 'Hebrew (modern)',
+        'isoName' => 'Hebrew (modern)',
         'nativeName' => 'עברית',
     ],
     'hz' => [
-        'isoName'    => 'Herero',
+        'isoName' => 'Herero',
         'nativeName' => 'Otjiherero',
     ],
     'hi' => [
-        'isoName'    => 'Hindi',
+        'isoName' => 'Hindi',
         'nativeName' => 'हिन्दी, हिंदी',
     ],
     'ho' => [
-        'isoName'    => 'Hiri Motu',
+        'isoName' => 'Hiri Motu',
         'nativeName' => 'Hiri Motu',
     ],
     'hu' => [
-        'isoName'    => 'Hungarian',
+        'isoName' => 'Hungarian',
         'nativeName' => 'magyar',
     ],
     'ia' => [
-        'isoName'    => 'Interlingua',
+        'isoName' => 'Interlingua',
         'nativeName' => 'Interlingua',
     ],
     'id' => [
-        'isoName'    => 'Indonesian',
+        'isoName' => 'Indonesian',
         'nativeName' => 'Bahasa Indonesia',
     ],
     'ie' => [
-        'isoName'    => 'Interlingue',
+        'isoName' => 'Interlingue',
         'nativeName' => 'Originally called Occidental; then Interlingue after WWII',
     ],
     'ga' => [
-        'isoName'    => 'Irish',
+        'isoName' => 'Irish',
         'nativeName' => 'Gaeilge',
     ],
     'ig' => [
-        'isoName'    => 'Igbo',
+        'isoName' => 'Igbo',
         'nativeName' => 'Asụsụ Igbo',
     ],
     'ik' => [
-        'isoName'    => 'Inupiaq',
+        'isoName' => 'Inupiaq',
         'nativeName' => 'Iñupiaq, Iñupiatun',
     ],
     'io' => [
-        'isoName'    => 'Ido',
+        'isoName' => 'Ido',
         'nativeName' => 'Ido',
     ],
     'is' => [
-        'isoName'    => 'Icelandic',
+        'isoName' => 'Icelandic',
         'nativeName' => 'Íslenska',
     ],
     'it' => [
-        'isoName'    => 'Italian',
+        'isoName' => 'Italian',
         'nativeName' => 'Italiano',
     ],
     'iu' => [
-        'isoName'    => 'Inuktitut',
+        'isoName' => 'Inuktitut',
         'nativeName' => 'ᐃᓄᒃᑎᑐᑦ',
     ],
     'ja' => [
-        'isoName'    => 'Japanese',
+        'isoName' => 'Japanese',
         'nativeName' => '日本語 (にほんご)',
     ],
     'jv' => [
-        'isoName'    => 'Javanese',
+        'isoName' => 'Javanese',
         'nativeName' => 'ꦧꦱꦗꦮ, Basa Jawa',
     ],
     'kl' => [
-        'isoName'    => 'Kalaallisut, Greenlandic',
+        'isoName' => 'Kalaallisut, Greenlandic',
         'nativeName' => 'kalaallisut, kalaallit oqaasii',
     ],
     'kn' => [
-        'isoName'    => 'Kannada',
+        'isoName' => 'Kannada',
         'nativeName' => 'ಕನ್ನಡ',
     ],
     'kr' => [
-        'isoName'    => 'Kanuri',
+        'isoName' => 'Kanuri',
         'nativeName' => 'Kanuri',
     ],
     'ks' => [
-        'isoName'    => 'Kashmiri',
+        'isoName' => 'Kashmiri',
         'nativeName' => 'कश्मीरी, كشميري‎',
     ],
     'kk' => [
-        'isoName'    => 'Kazakh',
+        'isoName' => 'Kazakh',
         'nativeName' => 'қазақ тілі',
     ],
     'km' => [
-        'isoName'    => 'Central Khmer',
+        'isoName' => 'Central Khmer',
         'nativeName' => 'ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ',
     ],
     'ki' => [
-        'isoName'    => 'Kikuyu, Gikuyu',
+        'isoName' => 'Kikuyu, Gikuyu',
         'nativeName' => 'Gĩkũyũ',
     ],
     'rw' => [
-        'isoName'    => 'Kinyarwanda',
+        'isoName' => 'Kinyarwanda',
         'nativeName' => 'Ikinyarwanda',
     ],
     'ky' => [
-        'isoName'    => 'Kirghiz, Kyrgyz',
+        'isoName' => 'Kirghiz, Kyrgyz',
         'nativeName' => 'Кыргызча, Кыргыз тили',
     ],
     'kv' => [
-        'isoName'    => 'Komi',
+        'isoName' => 'Komi',
         'nativeName' => 'коми кыв',
     ],
     'kg' => [
-        'isoName'    => 'Kongo',
+        'isoName' => 'Kongo',
         'nativeName' => 'Kikongo',
     ],
     'ko' => [
-        'isoName'    => 'Korean',
+        'isoName' => 'Korean',
         'nativeName' => '한국어',
     ],
     'ku' => [
-        'isoName'    => 'Kurdish',
+        'isoName' => 'Kurdish',
         'nativeName' => 'Kurdî, کوردی‎',
     ],
     'kj' => [
-        'isoName'    => 'Kuanyama, Kwanyama',
+        'isoName' => 'Kuanyama, Kwanyama',
         'nativeName' => 'Kuanyama',
     ],
     'la' => [
-        'isoName'    => 'Latin',
+        'isoName' => 'Latin',
         'nativeName' => 'latine, lingua latina',
     ],
     'lb' => [
-        'isoName'    => 'Luxembourgish, Letzeburgesch',
+        'isoName' => 'Luxembourgish, Letzeburgesch',
         'nativeName' => 'Lëtzebuergesch',
     ],
     'lg' => [
-        'isoName'    => 'Ganda',
+        'isoName' => 'Ganda',
         'nativeName' => 'Luganda',
     ],
     'li' => [
-        'isoName'    => 'Limburgan, Limburger, Limburgish',
+        'isoName' => 'Limburgan, Limburger, Limburgish',
         'nativeName' => 'Limburgs',
     ],
     'ln' => [
-        'isoName'    => 'Lingala',
+        'isoName' => 'Lingala',
         'nativeName' => 'Lingála',
     ],
     'lo' => [
-        'isoName'    => 'Lao',
+        'isoName' => 'Lao',
         'nativeName' => 'ພາສາລາວ',
     ],
     'lt' => [
-        'isoName'    => 'Lithuanian',
+        'isoName' => 'Lithuanian',
         'nativeName' => 'lietuvių kalba',
     ],
     'lu' => [
-        'isoName'    => 'Luba-Katanga',
+        'isoName' => 'Luba-Katanga',
         'nativeName' => 'Kiluba',
     ],
     'lv' => [
-        'isoName'    => 'Latvian',
+        'isoName' => 'Latvian',
         'nativeName' => 'latviešu valoda',
     ],
     'gv' => [
-        'isoName'    => 'Manx',
+        'isoName' => 'Manx',
         'nativeName' => 'Gaelg, Gailck',
     ],
     'mk' => [
-        'isoName'    => 'Macedonian',
+        'isoName' => 'Macedonian',
         'nativeName' => 'македонски јазик',
     ],
     'mg' => [
-        'isoName'    => 'Malagasy',
+        'isoName' => 'Malagasy',
         'nativeName' => 'fiteny malagasy',
     ],
     'ms' => [
-        'isoName'    => 'Malay',
+        'isoName' => 'Malay',
         'nativeName' => 'Bahasa Melayu, بهاس ملايو‎',
     ],
     'ml' => [
-        'isoName'    => 'Malayalam',
+        'isoName' => 'Malayalam',
         'nativeName' => 'മലയാളം',
     ],
     'mt' => [
-        'isoName'    => 'Maltese',
+        'isoName' => 'Maltese',
         'nativeName' => 'Malti',
     ],
     'mi' => [
-        'isoName'    => 'Maori',
+        'isoName' => 'Maori',
         'nativeName' => 'te reo Māori',
     ],
     'mr' => [
-        'isoName'    => 'Marathi',
+        'isoName' => 'Marathi',
         'nativeName' => 'मराठी',
     ],
     'mh' => [
-        'isoName'    => 'Marshallese',
+        'isoName' => 'Marshallese',
         'nativeName' => 'Kajin M̧ajeļ',
     ],
     'mn' => [
-        'isoName'    => 'Mongolian',
+        'isoName' => 'Mongolian',
         'nativeName' => 'Монгол хэл',
     ],
     'na' => [
-        'isoName'    => 'Nauru',
+        'isoName' => 'Nauru',
         'nativeName' => 'Dorerin Naoero',
     ],
     'nv' => [
-        'isoName'    => 'Navajo, Navaho',
+        'isoName' => 'Navajo, Navaho',
         'nativeName' => 'Diné bizaad',
     ],
     'nd' => [
-        'isoName'    => 'North Ndebele',
+        'isoName' => 'North Ndebele',
         'nativeName' => 'isiNdebele',
     ],
     'ne' => [
-        'isoName'    => 'Nepali',
+        'isoName' => 'Nepali',
         'nativeName' => 'नेपाली',
     ],
     'ng' => [
-        'isoName'    => 'Ndonga',
+        'isoName' => 'Ndonga',
         'nativeName' => 'Owambo',
     ],
     'nb' => [
-        'isoName'    => 'Norwegian Bokmål',
+        'isoName' => 'Norwegian Bokmål',
         'nativeName' => 'Norsk Bokmål',
     ],
     'nn' => [
-        'isoName'    => 'Norwegian Nynorsk',
+        'isoName' => 'Norwegian Nynorsk',
         'nativeName' => 'Norsk Nynorsk',
     ],
     'no' => [
-        'isoName'    => 'Norwegian',
+        'isoName' => 'Norwegian',
         'nativeName' => 'Norsk',
     ],
     'ii' => [
-        'isoName'    => 'Sichuan Yi, Nuosu',
+        'isoName' => 'Sichuan Yi, Nuosu',
         'nativeName' => 'ꆈꌠ꒿ Nuosuhxop',
     ],
     'nr' => [
-        'isoName'    => 'South Ndebele',
+        'isoName' => 'South Ndebele',
         'nativeName' => 'isiNdebele',
     ],
     'oc' => [
-        'isoName'    => 'Occitan',
+        'isoName' => 'Occitan',
         'nativeName' => 'occitan, lenga d\'òc',
     ],
     'oj' => [
-        'isoName'    => 'Ojibwa',
+        'isoName' => 'Ojibwa',
         'nativeName' => 'ᐊᓂᔑᓈᐯᒧᐎᓐ',
     ],
     'cu' => [
-        'isoName'    => 'Church Slavic, Church Slavonic, Old Church Slavonic, Old Slavonic, Old Bulgarian',
+        'isoName' => 'Church Slavic, Church Slavonic, Old Church Slavonic, Old Slavonic, Old Bulgarian',
         'nativeName' => 'ѩзыкъ словѣньскъ',
     ],
     'om' => [
-        'isoName'    => 'Oromo',
+        'isoName' => 'Oromo',
         'nativeName' => 'Afaan Oromoo',
     ],
     'or' => [
-        'isoName'    => 'Oriya',
+        'isoName' => 'Oriya',
         'nativeName' => 'ଓଡ଼ିଆ',
     ],
     'os' => [
-        'isoName'    => 'Ossetian, Ossetic',
+        'isoName' => 'Ossetian, Ossetic',
         'nativeName' => 'ирон æвзаг',
     ],
     'pa' => [
-        'isoName'    => 'Panjabi, Punjabi',
+        'isoName' => 'Panjabi, Punjabi',
         'nativeName' => 'ਪੰਜਾਬੀ',
     ],
     'pi' => [
-        'isoName'    => 'Pali',
+        'isoName' => 'Pali',
         'nativeName' => 'पाऴि',
     ],
     'fa' => [
-        'isoName'    => 'Persian',
+        'isoName' => 'Persian',
         'nativeName' => 'فارسی',
     ],
     'pl' => [
-        'isoName'    => 'Polish',
+        'isoName' => 'Polish',
         'nativeName' => 'język polski, polszczyzna',
     ],
     'ps' => [
-        'isoName'    => 'Pashto, Pushto',
+        'isoName' => 'Pashto, Pushto',
         'nativeName' => 'پښتو',
     ],
     'pt' => [
-        'isoName'    => 'Portuguese',
+        'isoName' => 'Portuguese',
         'nativeName' => 'Português',
     ],
     'qu' => [
-        'isoName'    => 'Quechua',
+        'isoName' => 'Quechua',
         'nativeName' => 'Runa Simi, Kichwa',
     ],
     'rm' => [
-        'isoName'    => 'Romansh',
+        'isoName' => 'Romansh',
         'nativeName' => 'Rumantsch Grischun',
     ],
     'rn' => [
-        'isoName'    => 'Rundi',
+        'isoName' => 'Rundi',
         'nativeName' => 'Ikirundi',
     ],
     'ro' => [
-        'isoName'    => 'Romanian, Moldavian, Moldovan',
+        'isoName' => 'Romanian, Moldavian, Moldovan',
         'nativeName' => 'Română',
     ],
     'ru' => [
-        'isoName'    => 'Russian',
+        'isoName' => 'Russian',
         'nativeName' => 'русский',
     ],
     'sa' => [
-        'isoName'    => 'Sanskrit',
+        'isoName' => 'Sanskrit',
         'nativeName' => 'संस्कृतम्',
     ],
     'sc' => [
-        'isoName'    => 'Sardinian',
+        'isoName' => 'Sardinian',
         'nativeName' => 'sardu',
     ],
     'sd' => [
-        'isoName'    => 'Sindhi',
+        'isoName' => 'Sindhi',
         'nativeName' => 'सिन्धी, سنڌي، سندھی‎',
     ],
     'se' => [
-        'isoName'    => 'Northern Sami',
+        'isoName' => 'Northern Sami',
         'nativeName' => 'Davvisámegiella',
     ],
     'sm' => [
-        'isoName'    => 'Samoan',
+        'isoName' => 'Samoan',
         'nativeName' => 'gagana fa\'a Samoa',
     ],
     'sg' => [
-        'isoName'    => 'Sango',
+        'isoName' => 'Sango',
         'nativeName' => 'yângâ tî sängö',
     ],
     'sr' => [
-        'isoName'    => 'Serbian',
+        'isoName' => 'Serbian',
         'nativeName' => 'српски језик',
     ],
     'gd' => [
-        'isoName'    => 'Gaelic, Scottish Gaelic',
+        'isoName' => 'Gaelic, Scottish Gaelic',
         'nativeName' => 'Gàidhlig',
     ],
     'sn' => [
-        'isoName'    => 'Shona',
+        'isoName' => 'Shona',
         'nativeName' => 'chiShona',
     ],
     'si' => [
-        'isoName'    => 'Sinhala, Sinhalese',
+        'isoName' => 'Sinhala, Sinhalese',
         'nativeName' => 'සිංහල',
     ],
     'sk' => [
-        'isoName'    => 'Slovak',
+        'isoName' => 'Slovak',
         'nativeName' => 'Slovenčina, Slovenský Jazyk',
     ],
     'sl' => [
-        'isoName'    => 'Slovene',
+        'isoName' => 'Slovene',
         'nativeName' => 'Slovenski Jezik, Slovenščina',
     ],
     'so' => [
-        'isoName'    => 'Somali',
+        'isoName' => 'Somali',
         'nativeName' => 'Soomaaliga, af Soomaali',
     ],
     'st' => [
-        'isoName'    => 'Southern Sotho',
+        'isoName' => 'Southern Sotho',
         'nativeName' => 'Sesotho',
     ],
     'es' => [
-        'isoName'    => 'Spanish, Castilian',
+        'isoName' => 'Spanish, Castilian',
         'nativeName' => 'Español',
     ],
     'su' => [
-        'isoName'    => 'Sundanese',
+        'isoName' => 'Sundanese',
         'nativeName' => 'Basa Sunda',
     ],
     'sw' => [
-        'isoName'    => 'Swahili',
+        'isoName' => 'Swahili',
         'nativeName' => 'Kiswahili',
     ],
     'ss' => [
-        'isoName'    => 'Swati',
+        'isoName' => 'Swati',
         'nativeName' => 'SiSwati',
     ],
     'sv' => [
-        'isoName'    => 'Swedish',
+        'isoName' => 'Swedish',
         'nativeName' => 'Svenska',
     ],
     'ta' => [
-        'isoName'    => 'Tamil',
+        'isoName' => 'Tamil',
         'nativeName' => 'தமிழ்',
     ],
     'te' => [
-        'isoName'    => 'Telugu',
+        'isoName' => 'Telugu',
         'nativeName' => 'తెలుగు',
     ],
     'tg' => [
-        'isoName'    => 'Tajik',
+        'isoName' => 'Tajik',
         'nativeName' => 'тоҷикӣ, toçikī, تاجیکی‎',
     ],
     'th' => [
-        'isoName'    => 'Thai',
+        'isoName' => 'Thai',
         'nativeName' => 'ไทย',
     ],
     'ti' => [
-        'isoName'    => 'Tigrinya',
+        'isoName' => 'Tigrinya',
         'nativeName' => 'ትግርኛ',
     ],
     'bo' => [
-        'isoName'    => 'Tibetan',
+        'isoName' => 'Tibetan',
         'nativeName' => 'བོད་ཡིག',
     ],
     'tk' => [
-        'isoName'    => 'Turkmen',
+        'isoName' => 'Turkmen',
         'nativeName' => 'Türkmen, Түркмен',
     ],
     'tl' => [
-        'isoName'    => 'Tagalog',
+        'isoName' => 'Tagalog',
         'nativeName' => 'Wikang Tagalog',
     ],
     'tn' => [
-        'isoName'    => 'Tswana',
+        'isoName' => 'Tswana',
         'nativeName' => 'Setswana',
     ],
     'to' => [
-        'isoName'    => 'Tongan (Tonga Islands)',
+        'isoName' => 'Tongan (Tonga Islands)',
         'nativeName' => 'Faka Tonga',
     ],
     'tr' => [
-        'isoName'    => 'Turkish',
+        'isoName' => 'Turkish',
         'nativeName' => 'Türkçe',
     ],
     'ts' => [
-        'isoName'    => 'Tsonga',
+        'isoName' => 'Tsonga',
         'nativeName' => 'Xitsonga',
     ],
     'tt' => [
-        'isoName'    => 'Tatar',
+        'isoName' => 'Tatar',
         'nativeName' => 'татар теле, tatar tele',
     ],
     'tw' => [
-        'isoName'    => 'Twi',
+        'isoName' => 'Twi',
         'nativeName' => 'Twi',
     ],
     'ty' => [
-        'isoName'    => 'Tahitian',
+        'isoName' => 'Tahitian',
         'nativeName' => 'Reo Tahiti',
     ],
     'ug' => [
-        'isoName'    => 'Uighur, Uyghur',
+        'isoName' => 'Uighur, Uyghur',
         'nativeName' => 'Uyƣurqə, ‫ئۇيغۇرچ',
     ],
     'uk' => [
-        'isoName'    => 'Ukrainian',
+        'isoName' => 'Ukrainian',
         'nativeName' => 'Українська',
     ],
     'ur' => [
-        'isoName'    => 'Urdu',
+        'isoName' => 'Urdu',
         'nativeName' => 'اردو',
     ],
     'uz' => [
-        'isoName'    => 'Uzbek',
+        'isoName' => 'Uzbek',
         'nativeName' => 'Oʻzbek, Ўзбек, أۇزبېك‎',
     ],
     've' => [
-        'isoName'    => 'Venda',
+        'isoName' => 'Venda',
         'nativeName' => 'Tshivenḓa',
     ],
     'vi' => [
-        'isoName'    => 'Vietnamese',
+        'isoName' => 'Vietnamese',
         'nativeName' => 'Tiếng Việt',
     ],
     'vo' => [
-        'isoName'    => 'Volapük',
+        'isoName' => 'Volapük',
         'nativeName' => 'Volapük',
     ],
     'wa' => [
-        'isoName'    => 'Walloon',
+        'isoName' => 'Walloon',
         'nativeName' => 'Walon',
     ],
     'cy' => [
-        'isoName'    => 'Welsh',
+        'isoName' => 'Welsh',
         'nativeName' => 'Cymraeg',
     ],
     'wo' => [
-        'isoName'    => 'Wolof',
+        'isoName' => 'Wolof',
         'nativeName' => 'Wollof',
     ],
     'fy' => [
-        'isoName'    => 'Western Frisian',
+        'isoName' => 'Western Frisian',
         'nativeName' => 'Frysk',
     ],
     'xh' => [
-        'isoName'    => 'Xhosa',
+        'isoName' => 'Xhosa',
         'nativeName' => 'isiXhosa',
     ],
     'yi' => [
-        'isoName'    => 'Yiddish',
+        'isoName' => 'Yiddish',
         'nativeName' => 'ייִדיש',
     ],
     'yo' => [
-        'isoName'    => 'Yoruba',
+        'isoName' => 'Yoruba',
         'nativeName' => 'Yorùbá',
     ],
     'za' => [
-        'isoName'    => 'Zhuang, Chuang',
+        'isoName' => 'Zhuang, Chuang',
         'nativeName' => 'Saɯ cueŋƅ, Saw cuengh',
     ],
     'zu' => [
-        'isoName'    => 'Zulu',
+        'isoName' => 'Zulu',
         'nativeName' => 'isiZulu',
     ],
-    /**
+    /*
      * Add ISO 639-3 languages available in Carbon
      */
     'agq' => [
-        'isoName'    => 'Aghem',
+        'isoName' => 'Aghem',
         'nativeName' => 'Aghem',
     ],
     'agr' => [
-        'isoName'    => 'Aguaruna',
+        'isoName' => 'Aguaruna',
         'nativeName' => 'Aguaruna',
     ],
     'anp' => [
-        'isoName'    => 'Angika',
+        'isoName' => 'Angika',
         'nativeName' => 'Angika',
     ],
     'asa' => [
-        'isoName'    => 'Asu',
+        'isoName' => 'Asu',
         'nativeName' => 'Asu',
     ],
     'ast' => [
-        'isoName'    => 'Asturian',
+        'isoName' => 'Asturian',
         'nativeName' => 'Asturian',
     ],
     'ayc' => [
-        'isoName'    => 'Southern Aymara',
+        'isoName' => 'Southern Aymara',
         'nativeName' => 'Southern Aymara',
     ],
     'bas' => [
-        'isoName'    => 'Basaa',
+        'isoName' => 'Basaa',
         'nativeName' => 'Basaa',
     ],
     'bem' => [
-        'isoName'    => 'Bemba',
+        'isoName' => 'Bemba',
         'nativeName' => 'Bemba',
     ],
     'bez' => [
-        'isoName'    => 'Bena',
+        'isoName' => 'Bena',
         'nativeName' => 'Bena',
     ],
     'bhb' => [
-        'isoName'    => 'Bhili',
+        'isoName' => 'Bhili',
         'nativeName' => 'Bhili',
     ],
     'bho' => [
-        'isoName'    => 'Bhojpuri',
+        'isoName' => 'Bhojpuri',
         'nativeName' => 'Bhojpuri',
     ],
     'brx' => [
-        'isoName'    => 'Bodo',
+        'isoName' => 'Bodo',
         'nativeName' => 'Bodo',
     ],
     'byn' => [
-        'isoName'    => 'Bilin',
+        'isoName' => 'Bilin',
         'nativeName' => 'Bilin',
     ],
     'ccp' => [
-        'isoName'    => 'Chakma',
+        'isoName' => 'Chakma',
         'nativeName' => 'Chakma',
     ],
     'cgg' => [
-        'isoName'    => 'Chiga',
+        'isoName' => 'Chiga',
         'nativeName' => 'Chiga',
     ],
     'chr' => [
-        'isoName'    => 'Cherokee',
+        'isoName' => 'Cherokee',
         'nativeName' => 'Cherokee',
     ],
     'cmn' => [
-        'isoName'    => 'Chinese',
+        'isoName' => 'Chinese',
         'nativeName' => 'Chinese',
     ],
     'crh' => [
-        'isoName'    => 'Crimean Turkish',
+        'isoName' => 'Crimean Turkish',
         'nativeName' => 'Crimean Turkish',
     ],
     'csb' => [
-        'isoName'    => 'Kashubian',
+        'isoName' => 'Kashubian',
         'nativeName' => 'Kashubian',
     ],
     'dav' => [
-        'isoName'    => 'Taita',
+        'isoName' => 'Taita',
         'nativeName' => 'Taita',
     ],
     'dje' => [
-        'isoName'    => 'Zarma',
+        'isoName' => 'Zarma',
         'nativeName' => 'Zarma',
     ],
     'doi' => [
-        'isoName'    => 'Dogri (macrolanguage)',
+        'isoName' => 'Dogri (macrolanguage)',
         'nativeName' => 'Dogri (macrolanguage)',
     ],
     'dsb' => [
-        'isoName'    => 'Lower Sorbian',
+        'isoName' => 'Lower Sorbian',
         'nativeName' => 'Lower Sorbian',
     ],
     'dua' => [
-        'isoName'    => 'Duala',
+        'isoName' => 'Duala',
         'nativeName' => 'Duala',
     ],
     'dyo' => [
-        'isoName'    => 'Jola-Fonyi',
+        'isoName' => 'Jola-Fonyi',
         'nativeName' => 'Jola-Fonyi',
     ],
     'ebu' => [
-        'isoName'    => 'Embu',
+        'isoName' => 'Embu',
         'nativeName' => 'Embu',
     ],
     'ewo' => [
-        'isoName'    => 'Ewondo',
+        'isoName' => 'Ewondo',
         'nativeName' => 'Ewondo',
     ],
     'fil' => [
-        'isoName'    => 'Filipino',
+        'isoName' => 'Filipino',
         'nativeName' => 'Filipino',
     ],
     'fur' => [
-        'isoName'    => 'Friulian',
+        'isoName' => 'Friulian',
         'nativeName' => 'Friulian',
     ],
     'gez' => [
-        'isoName'    => 'Geez',
+        'isoName' => 'Geez',
         'nativeName' => 'Geez',
     ],
     'gom' => [
-        'isoName'    => 'Konkani, Goan',
+        'isoName' => 'Konkani, Goan',
         'nativeName' => 'ಕೊಂಕಣಿ',
     ],
     'gsw' => [
-        'isoName'    => 'Swiss German',
+        'isoName' => 'Swiss German',
         'nativeName' => 'Swiss German',
     ],
     'guz' => [
-        'isoName'    => 'Gusii',
+        'isoName' => 'Gusii',
         'nativeName' => 'Gusii',
     ],
     'hak' => [
-        'isoName'    => 'Hakka Chinese',
+        'isoName' => 'Hakka Chinese',
         'nativeName' => 'Hakka Chinese',
     ],
     'haw' => [
-        'isoName'    => 'Hawaiian',
+        'isoName' => 'Hawaiian',
         'nativeName' => 'Hawaiian',
     ],
     'hif' => [
-        'isoName'    => 'Fiji Hindi',
+        'isoName' => 'Fiji Hindi',
         'nativeName' => 'Fiji Hindi',
     ],
     'hne' => [
-        'isoName'    => 'Chhattisgarhi',
+        'isoName' => 'Chhattisgarhi',
         'nativeName' => 'Chhattisgarhi',
     ],
     'hsb' => [
-        'isoName'    => 'Upper Sorbian',
+        'isoName' => 'Upper Sorbian',
         'nativeName' => 'Upper Sorbian',
     ],
     'jgo' => [
-        'isoName'    => 'Ngomba',
+        'isoName' => 'Ngomba',
         'nativeName' => 'Ngomba',
     ],
     'jmc' => [
-        'isoName'    => 'Machame',
+        'isoName' => 'Machame',
         'nativeName' => 'Machame',
     ],
     'kab' => [
-        'isoName'    => 'Kabyle',
+        'isoName' => 'Kabyle',
         'nativeName' => 'Kabyle',
     ],
     'kam' => [
-        'isoName'    => 'Kamba',
+        'isoName' => 'Kamba',
         'nativeName' => 'Kamba',
     ],
     'kde' => [
-        'isoName'    => 'Makonde',
+        'isoName' => 'Makonde',
         'nativeName' => 'Makonde',
     ],
     'kea' => [
-        'isoName'    => 'Kabuverdianu',
+        'isoName' => 'Kabuverdianu',
         'nativeName' => 'Kabuverdianu',
     ],
     'khq' => [
-        'isoName'    => 'Koyra Chiini',
+        'isoName' => 'Koyra Chiini',
         'nativeName' => 'Koyra Chiini',
     ],
     'kkj' => [
-        'isoName'    => 'Kako',
+        'isoName' => 'Kako',
         'nativeName' => 'Kako',
     ],
     'kln' => [
-        'isoName'    => 'Kalenjin',
+        'isoName' => 'Kalenjin',
         'nativeName' => 'Kalenjin',
     ],
     'kok' => [
-        'isoName'    => 'Konkani',
+        'isoName' => 'Konkani',
         'nativeName' => 'Konkani',
     ],
     'ksb' => [
-        'isoName'    => 'Shambala',
+        'isoName' => 'Shambala',
         'nativeName' => 'Shambala',
     ],
     'ksf' => [
-        'isoName'    => 'Bafia',
+        'isoName' => 'Bafia',
         'nativeName' => 'Bafia',
     ],
     'ksh' => [
-        'isoName'    => 'Colognian',
+        'isoName' => 'Colognian',
         'nativeName' => 'Colognian',
     ],
     'lag' => [
-        'isoName'    => 'Langi',
+        'isoName' => 'Langi',
         'nativeName' => 'Langi',
     ],
     'lij' => [
-        'isoName'    => 'Ligurian',
+        'isoName' => 'Ligurian',
         'nativeName' => 'Ligurian',
     ],
     'lkt' => [
-        'isoName'    => 'Lakota',
+        'isoName' => 'Lakota',
         'nativeName' => 'Lakota',
     ],
     'lrc' => [
-        'isoName'    => 'Northern Luri',
+        'isoName' => 'Northern Luri',
         'nativeName' => 'Northern Luri',
     ],
     'luo' => [
-        'isoName'    => 'Luo',
+        'isoName' => 'Luo',
         'nativeName' => 'Luo',
     ],
     'luy' => [
-        'isoName'    => 'Luyia',
+        'isoName' => 'Luyia',
         'nativeName' => 'Luyia',
     ],
     'lzh' => [
-        'isoName'    => 'Literary Chinese',
+        'isoName' => 'Literary Chinese',
         'nativeName' => 'Literary Chinese',
     ],
     'mag' => [
-        'isoName'    => 'Magahi',
+        'isoName' => 'Magahi',
         'nativeName' => 'Magahi',
     ],
     'mai' => [
-        'isoName'    => 'Maithili',
+        'isoName' => 'Maithili',
         'nativeName' => 'Maithili',
     ],
     'mas' => [
-        'isoName'    => 'Masai',
+        'isoName' => 'Masai',
         'nativeName' => 'Masai',
     ],
     'mer' => [
-        'isoName'    => 'Meru',
+        'isoName' => 'Meru',
         'nativeName' => 'Meru',
     ],
     'mfe' => [
-        'isoName'    => 'Morisyen',
+        'isoName' => 'Morisyen',
         'nativeName' => 'Morisyen',
     ],
     'mgh' => [
-        'isoName'    => 'Makhuwa-Meetto',
+        'isoName' => 'Makhuwa-Meetto',
         'nativeName' => 'Makhuwa-Meetto',
     ],
     'mgo' => [
-        'isoName'    => 'Metaʼ',
+        'isoName' => 'Metaʼ',
         'nativeName' => 'Metaʼ',
     ],
     'mhr' => [
-        'isoName'    => 'Eastern Mari',
+        'isoName' => 'Eastern Mari',
         'nativeName' => 'Eastern Mari',
     ],
     'miq' => [
-        'isoName'    => 'Mískito',
+        'isoName' => 'Mískito',
         'nativeName' => 'Mískito',
     ],
     'mjw' => [
-        'isoName'    => 'Karbi',
+        'isoName' => 'Karbi',
         'nativeName' => 'Karbi',
     ],
     'mni' => [
-        'isoName'    => 'Manipuri',
+        'isoName' => 'Manipuri',
         'nativeName' => 'Manipuri',
     ],
     'mua' => [
-        'isoName'    => 'Mundang',
+        'isoName' => 'Mundang',
         'nativeName' => 'Mundang',
     ],
     'mzn' => [
-        'isoName'    => 'Mazanderani',
+        'isoName' => 'Mazanderani',
         'nativeName' => 'Mazanderani',
     ],
     'nan' => [
-        'isoName'    => 'Min Nan Chinese',
+        'isoName' => 'Min Nan Chinese',
         'nativeName' => 'Min Nan Chinese',
     ],
     'naq' => [
-        'isoName'    => 'Nama',
+        'isoName' => 'Nama',
         'nativeName' => 'Nama',
     ],
     'nds' => [
-        'isoName'    => 'Low German',
+        'isoName' => 'Low German',
         'nativeName' => 'Low German',
     ],
     'nhn' => [
-        'isoName'    => 'Central Nahuatl',
+        'isoName' => 'Central Nahuatl',
         'nativeName' => 'Central Nahuatl',
     ],
     'niu' => [
-        'isoName'    => 'Niuean',
+        'isoName' => 'Niuean',
         'nativeName' => 'Niuean',
     ],
     'nmg' => [
-        'isoName'    => 'Kwasio',
+        'isoName' => 'Kwasio',
         'nativeName' => 'Kwasio',
     ],
     'nnh' => [
-        'isoName'    => 'Ngiemboon',
+        'isoName' => 'Ngiemboon',
         'nativeName' => 'Ngiemboon',
     ],
     'nso' => [
-        'isoName'    => 'Northern Sotho',
+        'isoName' => 'Northern Sotho',
         'nativeName' => 'Northern Sotho',
     ],
     'nus' => [
-        'isoName'    => 'Nuer',
+        'isoName' => 'Nuer',
         'nativeName' => 'Nuer',
     ],
     'nyn' => [
-        'isoName'    => 'Nyankole',
+        'isoName' => 'Nyankole',
         'nativeName' => 'Nyankole',
     ],
     'pap' => [
-        'isoName'    => 'Papiamento',
+        'isoName' => 'Papiamento',
         'nativeName' => 'Papiamento',
     ],
     'prg' => [
-        'isoName'    => 'Prussian',
+        'isoName' => 'Prussian',
         'nativeName' => 'Prussian',
     ],
     'quz' => [
-        'isoName'    => 'Cusco Quechua',
+        'isoName' => 'Cusco Quechua',
         'nativeName' => 'Cusco Quechua',
     ],
     'raj' => [
-        'isoName'    => 'Rajasthani',
+        'isoName' => 'Rajasthani',
         'nativeName' => 'Rajasthani',
     ],
     'rof' => [
-        'isoName'    => 'Rombo',
+        'isoName' => 'Rombo',
         'nativeName' => 'Rombo',
     ],
     'rwk' => [
-        'isoName'    => 'Rwa',
+        'isoName' => 'Rwa',
         'nativeName' => 'Rwa',
     ],
     'sah' => [
-        'isoName'    => 'Sakha',
+        'isoName' => 'Sakha',
         'nativeName' => 'Sakha',
     ],
     'saq' => [
-        'isoName'    => 'Samburu',
+        'isoName' => 'Samburu',
         'nativeName' => 'Samburu',
     ],
     'sat' => [
-        'isoName'    => 'Santali',
+        'isoName' => 'Santali',
         'nativeName' => 'Santali',
     ],
     'sbp' => [
-        'isoName'    => 'Sangu',
+        'isoName' => 'Sangu',
         'nativeName' => 'Sangu',
     ],
     'scr' => [
-        'isoName'    => 'Serbo Croatian',
+        'isoName' => 'Serbo Croatian',
         'nativeName' => 'Serbo Croatian',
     ],
     'seh' => [
-        'isoName'    => 'Sena',
+        'isoName' => 'Sena',
         'nativeName' => 'Sena',
     ],
     'ses' => [
-        'isoName'    => 'Koyraboro Senni',
+        'isoName' => 'Koyraboro Senni',
         'nativeName' => 'Koyraboro Senni',
     ],
     'sgs' => [
-        'isoName'    => 'Samogitian',
+        'isoName' => 'Samogitian',
         'nativeName' => 'Samogitian',
     ],
     'shi' => [
-        'isoName'    => 'Tachelhit',
+        'isoName' => 'Tachelhit',
         'nativeName' => 'Tachelhit',
     ],
     'shn' => [
-        'isoName'    => 'Shan',
+        'isoName' => 'Shan',
         'nativeName' => 'Shan',
     ],
     'shs' => [
-        'isoName'    => 'Shuswap',
+        'isoName' => 'Shuswap',
         'nativeName' => 'Shuswap',
     ],
     'sid' => [
-        'isoName'    => 'Sidamo',
+        'isoName' => 'Sidamo',
         'nativeName' => 'Sidamo',
     ],
     'smn' => [
-        'isoName'    => 'Inari Sami',
+        'isoName' => 'Inari Sami',
         'nativeName' => 'Inari Sami',
     ],
     'szl' => [
-        'isoName'    => 'Silesian',
+        'isoName' => 'Silesian',
         'nativeName' => 'Silesian',
     ],
     'tcy' => [
-        'isoName'    => 'Tulu',
+        'isoName' => 'Tulu',
         'nativeName' => 'Tulu',
     ],
     'teo' => [
-        'isoName'    => 'Teso',
+        'isoName' => 'Teso',
         'nativeName' => 'Teso',
     ],
     'tet' => [
-        'isoName'    => 'Tetum',
+        'isoName' => 'Tetum',
         'nativeName' => 'Tetum',
     ],
     'the' => [
-        'isoName'    => 'Chitwania Tharu',
+        'isoName' => 'Chitwania Tharu',
         'nativeName' => 'Chitwania Tharu',
     ],
     'tig' => [
-        'isoName'    => 'Tigre',
+        'isoName' => 'Tigre',
         'nativeName' => 'Tigre',
     ],
     'tlh' => [
-        'isoName'    => 'Klingon',
+        'isoName' => 'Klingon',
         'nativeName' => 'tlhIngan Hol',
     ],
     'tpi' => [
-        'isoName'    => 'Tok Pisin',
+        'isoName' => 'Tok Pisin',
         'nativeName' => 'Tok Pisin',
     ],
     'twq' => [
-        'isoName'    => 'Tasawaq',
+        'isoName' => 'Tasawaq',
         'nativeName' => 'Tasawaq',
     ],
     'tzl' => [
-        'isoName'    => 'Talossan',
+        'isoName' => 'Talossan',
         'nativeName' => 'Talossan',
     ],
     'tzm' => [
-        'isoName'    => 'Tamazight, Central Atlas',
+        'isoName' => 'Tamazight, Central Atlas',
         'nativeName' => 'ⵜⵎⴰⵣⵉⵖⵜ',
     ],
     'unm' => [
-        'isoName'    => 'Unami',
+        'isoName' => 'Unami',
         'nativeName' => 'Unami',
     ],
     'vai' => [
-        'isoName'    => 'Vai',
+        'isoName' => 'Vai',
         'nativeName' => 'Vai',
     ],
     'vun' => [
-        'isoName'    => 'Vunjo',
+        'isoName' => 'Vunjo',
         'nativeName' => 'Vunjo',
     ],
     'wae' => [
-        'isoName'    => 'Walser',
+        'isoName' => 'Walser',
         'nativeName' => 'Walser',
     ],
     'wal' => [
-        'isoName'    => 'Wolaytta',
+        'isoName' => 'Wolaytta',
         'nativeName' => 'Wolaytta',
     ],
     'xog' => [
-        'isoName'    => 'Soga',
+        'isoName' => 'Soga',
         'nativeName' => 'Soga',
     ],
     'yav' => [
-        'isoName'    => 'Yangben',
+        'isoName' => 'Yangben',
         'nativeName' => 'Yangben',
     ],
     'yue' => [
-        'isoName'    => 'Cantonese',
+        'isoName' => 'Cantonese',
         'nativeName' => 'Cantonese',
     ],
     'yuw' => [
-        'isoName'    => 'Yau (Morobe Province)',
+        'isoName' => 'Yau (Morobe Province)',
         'nativeName' => 'Yau (Morobe Province)',
     ],
     'zgh' => [
-        'isoName'    => 'Standard Moroccan Tamazight',
+        'isoName' => 'Standard Moroccan Tamazight',
         'nativeName' => 'Standard Moroccan Tamazight',
     ],
 ];
