@@ -26,25 +26,17 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'a [ga] h:mm dddd, MMMM D [lia] YYYY',
     ],
 
-    'week' => ':count Kɔsiɖagbe', // less reliable
-    'w' => ':count Kɔsiɖagbe', // less reliable
-    'a_week' => ':count Kɔsiɖagbe', // less reliable
+    'year' => 'ƒe :count',
+    'y' => 'ƒe :count',
+    'a_year' => 'ƒe :count',
 
-    'minute' => ':count sue', // less reliable
-    'min' => ':count sue', // less reliable
-    'a_minute' => ':count sue', // less reliable
+    'month' => 'ɣleti :count',
+    'm' => 'ɣleti :count',
+    'a_month' => 'ɣleti :count',
 
-    'second' => ':count ɖasedila', // less reliable
-    's' => ':count ɖasedila', // less reliable
-    'a_second' => ':count ɖasedila', // less reliable
-
-    'year' => ':count eƒe',
-    'y' => ':count eƒe',
-    'a_year' => ':count eƒe',
-
-    'month' => ':count dzinu',
-    'm' => ':count dzinu',
-    'a_month' => ':count dzinu',
+    'week' => 'kwasiɖa :count',
+    'w' => 'kwasiɖa :count',
+    'a_week' => 'kwasiɖa :count',
 
     'day' => 'ŋkeke :count',
     'd' => 'ŋkeke :count',
@@ -53,4 +45,12 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'hour' => 'gaƒoƒo :count',
     'h' => 'gaƒoƒo :count',
     'a_hour' => 'gaƒoƒo :count',
+
+    'minute' => 'miniti :count', // less reliable
+    'min' => 'miniti :count', // less reliable
+    'a_minute' => 'miniti :count', // less reliable
+
+    'second' => 'sɛkɛnd :count', // less reliable
+    's' => 'sɛkɛnd :count', // less reliable
+    'a_second' => 'sɛkɛnd :count', // less reliable
 ]);

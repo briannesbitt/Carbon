@@ -26,13 +26,13 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count mbu', // less reliable
-    'y' => ':count mbu', // less reliable
-    'a_year' => ':count mbu', // less reliable
+    'year' => ':count ma mbu', // less reliable
+    'y' => ':count ma mbu', // less reliable
+    'a_year' => ':count ma mbu', // less reliable
 
-    'month' => ':count modi', // less reliable
-    'm' => ':count modi', // less reliable
-    'a_month' => ':count modi', // less reliable
+    'month' => ':count myo̱di', // less reliable
+    'm' => ':count myo̱di', // less reliable
+    'a_month' => ':count myo̱di', // less reliable
 
     'week' => ':count woki', // less reliable
     'w' => ':count woki', // less reliable
@@ -42,13 +42,13 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'd' => ':count buńa', // less reliable
     'a_day' => ':count buńa', // less reliable
 
-    'hour' => ':count ndoko', // less reliable
-    'h' => ':count ndoko', // less reliable
-    'a_hour' => ':count ndoko', // less reliable
+    'hour' => ':count ma awa', // less reliable
+    'h' => ':count ma awa', // less reliable
+    'a_hour' => ':count ma awa', // less reliable
 
-    'minute' => ':count ndoko', // less reliable
-    'min' => ':count ndoko', // less reliable
-    'a_minute' => ':count ndoko', // less reliable
+    'minute' => ':count minuti', // less reliable
+    'min' => ':count minuti', // less reliable
+    'a_minute' => ':count minuti', // less reliable
 
     'second' => ':count maba', // less reliable
     's' => ':count maba', // less reliable

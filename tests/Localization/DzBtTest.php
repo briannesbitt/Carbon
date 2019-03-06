@@ -126,21 +126,21 @@ class DzBtTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 ཆ ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '2 minutes ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '2 hours ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ཆུ་ཚོད་འཁོར་ལོ ago',
+        '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 ཉི ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -196,7 +196,7 @@ class DzBtTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 ཆ from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 ཆུ་ཚོད་འཁོར་ལོ 1 ཆ',
+        '1 minute 1 ཆ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 ཆརཔ 3 ཟླ་བ 1 ཉི 1 ཆ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -206,7 +206,7 @@ class DzBtTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 ཆརཔ 3 ཟླ་བ 1 ཉི 1 ཆ ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 ཆུ་ཚོད་འཁོར་ལོ',
+        '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 week 6 ཉི',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -214,12 +214,12 @@ class DzBtTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         '1 week and 6 ཉི from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 ཆུ་ཚོད་འཁོར་ལོ',
+        '2 weeks 1 hour',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 ཆུ་ཚོད་འཁོར་ལོ from now',
+        'an hour from now',
         // CarbonInterval::days(2)->forHumans()
         '2 ཉི',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 ཉི 3 ཆུ་ཚོད་འཁོར་ལོ',
+        '1 ཉི 3h',
     ];
 }

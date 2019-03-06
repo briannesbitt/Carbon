@@ -126,21 +126,21 @@ class DuaTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 maba ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 ndoko ago',
+        '1 minuti ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 ndoko ago',
+        '1 minuti ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ndoko ago',
+        '2 minuti ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ndoko ago',
+        '2 minuti ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 ndoko ago',
+        '1 ma awa ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 ndoko ago',
+        '1 ma awa ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ndoko ago',
+        '2 ma awa ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ndoko ago',
+        '2 ma awa ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 buńa ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -158,21 +158,21 @@ class DuaTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 woki ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 modi ago',
+        '1 myo̱di ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 modi ago',
+        '1 myo̱di ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 modi ago',
+        '2 myo̱di ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 modi ago',
+        '2 myo̱di ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 mbu ago',
+        '1 ma mbu ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 mbu ago',
+        '1 ma mbu ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 mbu ago',
+        '2 ma mbu ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 mbu ago',
+        '2 ma mbu ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 maba from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -196,17 +196,17 @@ class DuaTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 maba from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 ndoko 1 maba',
+        '1 minuti 1 maba',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 mbu 3 modi 1 buńa 1 maba',
+        '2 ma mbu 3 myo̱di 1 buńa 1 maba',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 mbu from now',
+        '3 ma mbu from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 modi ago',
+        '5 myo̱di ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 mbu 3 modi 1 buńa 1 maba ago',
+        '2 ma mbu 3 myo̱di 1 buńa 1 maba ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 woki 10 ndoko',
+        '1 woki 10 ma awa',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 woki 6 buńa',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -214,12 +214,12 @@ class DuaTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         '1 woki and 6 buńa from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 woki 1 ndoko',
+        '2 woki 1 ma awa',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 ndoko from now',
+        '1 ma awa from now',
         // CarbonInterval::days(2)->forHumans()
         '2 buńa',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 buńa 3 ndoko',
+        '1 buńa 3 ma awa',
     ];
 }

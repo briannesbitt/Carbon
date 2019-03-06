@@ -24,20 +24,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
-
-    'year' => ':count balaab', // less reliable
-    'y' => ':count balaab', // less reliable
-    'a_year' => ':count balaab', // less reliable
-
-    'month' => ':count balaab', // less reliable
-    'm' => ':count balaab', // less reliable
-    'a_month' => ':count balaab', // less reliable
-
-    'week' => ':count balaab', // less reliable
-    'w' => ':count balaab', // less reliable
-    'a_week' => ':count balaab', // less reliable
-
-    'day' => ':count balaab', // less reliable
-    'd' => ':count balaab', // less reliable
-    'a_day' => ':count balaab', // less reliable
 ]);

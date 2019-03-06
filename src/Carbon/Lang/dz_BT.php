@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Sherubtse College    bug-glibc@gnu.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'པསྱི་ལོYYཟལMMཚེསDD',
     ],
@@ -35,14 +36,6 @@
     'day' => ':count ཉི', // less reliable
     'd' => ':count ཉི', // less reliable
     'a_day' => ':count ཉི', // less reliable
-
-    'hour' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
-    'h' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
-    'a_hour' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
-
-    'minute' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
-    'min' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
-    'a_minute' => ':count ཆུ་ཚོད་འཁོར་ལོ', // less reliable
 
     'second' => ':count ཆ', // less reliable
     's' => ':count ཆ', // less reliable

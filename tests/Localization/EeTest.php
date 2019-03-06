@@ -118,21 +118,21 @@ class EeTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ɖasedila ago',
+        'sɛkɛnd 1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ɖasedila ago',
+        'sɛkɛnd 1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ɖasedila ago',
+        'sɛkɛnd 2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ɖasedila ago',
+        'sɛkɛnd 2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 sue ago',
+        'miniti 1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 sue ago',
+        'miniti 1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 sue ago',
+        'miniti 2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 sue ago',
+        'miniti 2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         'gaƒoƒo 1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -150,71 +150,71 @@ class EeTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'ŋkeke 2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 Kɔsiɖagbe ago',
+        'kwasiɖa 1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 Kɔsiɖagbe ago',
+        'kwasiɖa 1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 Kɔsiɖagbe ago',
+        'kwasiɖa 2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 Kɔsiɖagbe ago',
+        'kwasiɖa 2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 dzinu ago',
+        'ɣleti 1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 dzinu ago',
+        'ɣleti 1 ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 dzinu ago',
+        'ɣleti 2 ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 dzinu ago',
+        'ɣleti 2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 eƒe ago',
+        'ƒe 1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 eƒe ago',
+        'ƒe 1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 eƒe ago',
+        'ƒe 2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 eƒe ago',
+        'ƒe 2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 ɖasedila from now',
+        'sɛkɛnd 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 ɖasedila from now',
+        'sɛkɛnd 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 ɖasedila after',
+        'sɛkɛnd 1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 ɖasedila after',
+        'sɛkɛnd 1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 ɖasedila before',
+        'sɛkɛnd 1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 ɖasedila before',
+        'sɛkɛnd 1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 ɖasedila',
+        'sɛkɛnd 1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 ɖasedila',
+        'sɛkɛnd 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 ɖasedila',
+        'sɛkɛnd 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 ɖasedila',
+        'sɛkɛnd 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 ɖasedila from now',
+        'sɛkɛnd 1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 sue 1 ɖasedila',
+        'miniti 1 sɛkɛnd 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 eƒe 3 dzinu ŋkeke 1 1 ɖasedila',
+        'ƒe 2 ɣleti 3 ŋkeke 1 sɛkɛnd 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 eƒe from now',
+        'ƒe 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 dzinu ago',
+        'ɣleti 5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 eƒe 3 dzinu ŋkeke 1 1 ɖasedila ago',
+        'ƒe 2 ɣleti 3 ŋkeke 1 sɛkɛnd 1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 Kɔsiɖagbe gaƒoƒo 10',
+        'kwasiɖa 1 gaƒoƒo 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Kɔsiɖagbe ŋkeke 6',
+        'kwasiɖa 1 ŋkeke 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Kɔsiɖagbe ŋkeke 6',
+        'kwasiɖa 1 ŋkeke 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 Kɔsiɖagbe and ŋkeke 6 from now',
+        'kwasiɖa 1 and ŋkeke 6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 Kɔsiɖagbe gaƒoƒo 1',
+        'kwasiɖa 2 gaƒoƒo 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'gaƒoƒo 1 from now',
         // CarbonInterval::days(2)->forHumans()
