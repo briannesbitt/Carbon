@@ -118,13 +118,13 @@ class KsTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 दो&#039;युम ago',
+        '1 दोʼयुम ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 दो&#039;युम ago',
+        '1 दोʼयुम ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 दो&#039;युम ago',
+        '2 दोʼयुम ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 दो&#039;युम ago',
+        '2 दोʼयुम ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 فَن ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -174,37 +174,37 @@ class KsTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 آب ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 दो&#039;युम from now',
+        '1 दोʼयुम from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 दो&#039;युम from now',
+        '1 दोʼयुम from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 दो&#039;युम after',
+        '1 दोʼयुम after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 दो&#039;युम after',
+        '1 दोʼयुम after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 दो&#039;युम before',
+        '1 दोʼयुम before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 दो&#039;युम before',
+        '1 दोʼयुम before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 दो&#039;युम',
+        '1 दोʼयुम',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 दो&#039;युम',
+        '1 दोʼयुम',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 दो&#039;युम',
+        '2 दोʼयुम',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 दो&#039;युम',
+        '2 दोʼयुम',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 दो&#039;युम from now',
+        '1 दोʼयुम from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 فَن 1 दो&#039;युम',
+        '1 فَن 1 दोʼयुम',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 آب 3 रान् 1d 1 दो&#039;युम',
+        '2 آب 3 रान् 1d 1 दोʼयुम',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 آب from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 रान् ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 آب 3 रान् 1d 1 दो&#039;युम ago',
+        '2 آب 3 रान् 1d 1 दोʼयुम ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 آتھٕوار 10 سۄن',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

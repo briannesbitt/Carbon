@@ -42,9 +42,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'w' => ':count naange', // less reliable
     'a_week' => ':count naange', // less reliable
 
-    'day' => ':count naange', // less reliable
-    'd' => ':count naange', // less reliable
-    'a_day' => ':count naange', // less reliable
+    'day' => ':count dian', // less reliable
+    'd' => ':count dian', // less reliable
+    'a_day' => ':count dian', // less reliable
 
     'hour' => ':count montor', // less reliable
     'h' => ':count montor', // less reliable

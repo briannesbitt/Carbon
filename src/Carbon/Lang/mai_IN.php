@@ -25,21 +25,17 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
 
-    'year' => ':count समय', // less reliable
-    'y' => ':count समय', // less reliable
-    'a_year' => ':count समय', // less reliable
-
-    'week' => ':count दिन', // less reliable
-    'w' => ':count दिन', // less reliable
-    'a_week' => ':count दिन', // less reliable
-
-    'minute' => ':count घण्टा', // less reliable
-    'min' => ':count घण्टा', // less reliable
-    'a_minute' => ':count घण्टा', // less reliable
+    'year' => ':count ऋतु', // less reliable
+    'y' => ':count ऋतु', // less reliable
+    'a_year' => ':count ऋतु', // less reliable
 
     'month' => ':count महिना',
     'm' => ':count महिना',
     'a_month' => ':count महिना',
+
+    'week' => ':count श्रेणी:क्यालेन्डर', // less reliable
+    'w' => ':count श्रेणी:क्यालेन्डर', // less reliable
+    'a_week' => ':count श्रेणी:क्यालेन्डर', // less reliable
 
     'day' => ':count दिन',
     'd' => ':count दिन',
@@ -48,4 +44,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'hour' => ':count घण्टा',
     'h' => ':count घण्टा',
     'a_hour' => ':count घण्टा',
+
+    'minute' => ':count समय', // less reliable
+    'min' => ':count समय', // less reliable
+    'a_minute' => ':count समय', // less reliable
 ]);

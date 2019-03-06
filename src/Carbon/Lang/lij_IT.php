@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Gastaldi    alessio.gastaldi@libero.it
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -28,25 +29,25 @@
     'y' => ':count etæ', // less reliable
     'a_year' => ':count etæ', // less reliable
 
-    'month' => ':count lunn-a', // less reliable
-    'm' => ':count lunn-a', // less reliable
-    'a_month' => ':count lunn-a', // less reliable
+    'month' => ':count meize',
+    'm' => ':count meize',
+    'a_month' => ':count meize',
 
-    'week' => ':count giorno', // less reliable
-    'w' => ':count giorno', // less reliable
-    'a_week' => ':count giorno', // less reliable
+    'week' => ':count settemannha',
+    'w' => ':count settemannha',
+    'a_week' => ':count settemannha',
+
+    'day' => ':count giorno',
+    'd' => ':count giorno',
+    'a_day' => ':count giorno',
 
     'hour' => ':count reléuio', // less reliable
     'h' => ':count reléuio', // less reliable
     'a_hour' => ':count reléuio', // less reliable
 
-    'minute' => ':count segondo', // less reliable
-    'min' => ':count segondo', // less reliable
-    'a_minute' => ':count segondo', // less reliable
-
-    'day' => ':count giorno',
-    'd' => ':count giorno',
-    'a_day' => ':count giorno',
+    'minute' => ':count menûo',
+    'min' => ':count menûo',
+    'a_minute' => ':count menûo',
 
     'second' => ':count segondo',
     's' => ':count segondo',

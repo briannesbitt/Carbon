@@ -24,31 +24,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Son', 'Mso', 'Bil', 'Tha', 'Sin', 'Hla', 'Mgq'],
     'day_of_first_week_of_year' => 1,
 
-    'year' => ':count unyaka',
-    'y' => ':count unyaka',
-    'a_year' => ':count unyaka',
+    'year' => 'kweminyaka engu-:count',
+    'y' => 'kweminyaka engu-:count',
+    'a_year' => 'kweminyaka engu-:count',
 
-    'month' => ':count inyanga',
-    'm' => ':count inyanga',
-    'a_month' => ':count inyanga',
+    'month' => 'izinyanga ezingu-:count',
+    'm' => 'izinyanga ezingu-:count',
+    'a_month' => 'izinyanga ezingu-:count',
 
-    'week' => ':count iviki',
-    'w' => ':count iviki',
-    'a_week' => ':count iviki',
+    'week' => 'lwamasonto angu-:count',
+    'w' => 'lwamasonto angu-:count',
+    'a_week' => 'lwamasonto angu-:count',
 
-    'day' => ':count ilanga',
-    'd' => ':count ilanga',
-    'a_day' => ':count ilanga',
+    'day' => 'ezingaba ngu-:count',
+    'd' => 'ezingaba ngu-:count',
+    'a_day' => 'ezingaba ngu-:count',
 
-    'hour' => ':count ihora',
-    'h' => ':count ihora',
-    'a_hour' => ':count ihora',
+    'hour' => 'amahora angu-:count',
+    'h' => 'amahora angu-:count',
+    'a_hour' => 'amahora angu-:count',
 
-    'minute' => ':count isikhashana', // less reliable
-    'min' => ':count isikhashana', // less reliable
-    'a_minute' => ':count isikhashana', // less reliable
+    'minute' => 'ngemizuzu engu-:count',
+    'min' => 'ngemizuzu engu-:count',
+    'a_minute' => 'ngemizuzu engu-:count',
 
-    'second' => ':count isikhashana',
-    's' => ':count isikhashana',
-    'a_second' => ':count isikhashana',
+    'second' => 'imizuzwana engu-:count',
+    's' => 'imizuzwana engu-:count',
+    'a_second' => 'imizuzwana engu-:count',
 ]);

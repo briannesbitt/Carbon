@@ -118,21 +118,21 @@ class IiTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ꑍ ago',
+        '1 ꇅ ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ꑍ ago',
+        '1 ꇅ ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ꑍ ago',
+        '2 ꇅ ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ꑍ ago',
+        '2 ꇅ ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 ꄮꈉ ago',
+        '1 ꀄꊭ ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 ꄮꈉ ago',
+        '1 ꀄꊭ ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ꄮꈉ ago',
+        '2 ꀄꊭ ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ꄮꈉ ago',
+        '2 ꀄꊭ ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 ꄮꈉ ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -174,37 +174,37 @@ class IiTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 ꒉ ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 ꑍ from now',
+        '1 ꇅ from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 ꑍ from now',
+        '1 ꇅ from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 ꑍ after',
+        '1 ꇅ after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 ꑍ after',
+        '1 ꇅ after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 ꑍ before',
+        '1 ꇅ before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 ꑍ before',
+        '1 ꇅ before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 ꑍ',
+        '1 ꇅ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 ꑍ',
+        '1 ꇅ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 ꑍ',
+        '2 ꇅ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 ꑍ',
+        '2 ꇅ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 ꑍ from now',
+        '1 ꇅ from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 ꄮꈉ 1 ꑍ',
+        '1 ꀄꊭ 1 ꇅ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ꒉ 3 ꆪ 1 ꏜ 1 ꑍ',
+        '2 ꒉ 3 ꆪ 1 ꏜ 1 ꇅ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ꒉ from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ꆪ ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ꒉ 3 ꆪ 1 ꏜ 1 ꑍ ago',
+        '2 ꒉ 3 ꆪ 1 ꏜ 1 ꇅ ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ꏃ 10 ꄮꈉ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

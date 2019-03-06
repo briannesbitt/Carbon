@@ -26,31 +26,27 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY h:mm a',
     ],
 
-    'year' => ':count sores', // less reliable
-    'y' => ':count sores', // less reliable
-    'a_year' => ':count sores', // less reliable
+    'year' => ':count kurigu',
+    'y' => ':count kurigu',
+    'a_year' => ':count kurigu',
 
-    'month' => ':count sores', // less reliable
-    'm' => ':count sores', // less reliable
-    'a_month' => ':count sores', // less reliable
+    'month' => ':count ǁaub', // less reliable
+    'm' => ':count ǁaub', // less reliable
+    'a_month' => ':count ǁaub', // less reliable
 
     'week' => ':count hû', // less reliable
     'w' => ':count hû', // less reliable
     'a_week' => ':count hû', // less reliable
 
-    'day' => ':count sores', // less reliable
-    'd' => ':count sores', // less reliable
-    'a_day' => ':count sores', // less reliable
+    'day' => ':count ǀhobas', // less reliable
+    'd' => ':count ǀhobas', // less reliable
+    'a_day' => ':count ǀhobas', // less reliable
 
-    'hour' => ':count sores', // less reliable
-    'h' => ':count sores', // less reliable
-    'a_hour' => ':count sores', // less reliable
+    'hour' => ':count ǂgaes', // less reliable
+    'h' => ':count ǂgaes', // less reliable
+    'a_hour' => ':count ǂgaes', // less reliable
 
-    'minute' => ':count axab', // less reliable
-    'min' => ':count axab', // less reliable
-    'a_minute' => ':count axab', // less reliable
-
-    'second' => ':count ǀgam', // less reliable
-    's' => ':count ǀgam', // less reliable
-    'a_second' => ':count ǀgam', // less reliable
+    'minute' => ':count minutga', // less reliable
+    'min' => ':count minutga', // less reliable
+    'a_minute' => ':count minutga', // less reliable
 ]);

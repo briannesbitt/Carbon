@@ -26,31 +26,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['FT', 'MD'],
 
-    'year' => ':count aseggas', // less reliable
-    'y' => ':count aseggas', // less reliable
-    'a_year' => ':count aseggas', // less reliable
+    'year' => ':count n yiseggasen',
+    'y' => ':count n yiseggasen',
+    'a_year' => ':count n yiseggasen',
 
-    'month' => ':count ayyur',
-    'm' => ':count ayyur',
-    'a_month' => ':count ayyur',
+    'month' => ':count n wayyuren',
+    'm' => ':count n wayyuren',
+    'a_month' => ':count n wayyuren',
 
-    'week' => ':count d-itteddun', // less reliable
-    'w' => ':count d-itteddun', // less reliable
-    'a_week' => ':count d-itteddun', // less reliable
+    'week' => ':count n ledwaṛ', // less reliable
+    'w' => ':count n ledwaṛ', // less reliable
+    'a_week' => ':count n ledwaṛ', // less reliable
 
-    'day' => ':count nekk', // less reliable
-    'd' => ':count nekk', // less reliable
-    'a_day' => ':count nekk', // less reliable
+    'day' => ':count n wussan',
+    'd' => ':count n wussan',
+    'a_day' => ':count n wussan',
 
-    'hour' => ':count tamrilt', // less reliable
-    'h' => ':count tamrilt', // less reliable
-    'a_hour' => ':count tamrilt', // less reliable
+    'hour' => ':count n tsaɛtin',
+    'h' => ':count n tsaɛtin',
+    'a_hour' => ':count n tsaɛtin',
 
-    'minute' => ':count tamrilt', // less reliable
-    'min' => ':count tamrilt', // less reliable
-    'a_minute' => ':count tamrilt', // less reliable
+    'minute' => ':count n tedqiqin',
+    'min' => ':count n tedqiqin',
+    'a_minute' => ':count n tedqiqin',
 
-    'second' => ':count deg', // less reliable
-    's' => ':count deg', // less reliable
-    'a_second' => ':count deg', // less reliable
+    'second' => ':count tasdidt', // less reliable
+    's' => ':count tasdidt', // less reliable
+    'a_second' => ':count tasdidt', // less reliable
 ]);

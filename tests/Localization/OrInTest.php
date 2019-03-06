@@ -206,15 +206,15 @@ class OrInTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'week 10 ଘଣ୍ତ',
+        '1 ସପ୍ତାହ 10 ଘଣ୍ତ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 ଦିନ',
+        '1 ସପ୍ତାହ 6 ଦିନ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 ଦିନ',
+        '1 ସପ୍ତାହ 6 ଦିନ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'from_now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'week 1 ଘଣ୍ତ',
+        '2 ସପ୍ତାହ 1 ଘଣ୍ତ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'from_now',
         // CarbonInterval::days(2)->forHumans()

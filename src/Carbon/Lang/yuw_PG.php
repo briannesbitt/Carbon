@@ -23,16 +23,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'weekdays_min' => ['sön', 'mön', 'sin', 'mit', 'soi', 'nen', 'sab'],
     'day_of_first_week_of_year' => 1,
-
-    'year' => ':count yep', // less reliable
-    'y' => ':count yep', // less reliable
-    'a_year' => ':count yep', // less reliable
-
-    'day' => ':count yep', // less reliable
-    'd' => ':count yep', // less reliable
-    'a_day' => ':count yep', // less reliable
-
-    'hour' => ':count yep', // less reliable
-    'h' => ':count yep', // less reliable
-    'a_hour' => ':count yep', // less reliable
 ]);

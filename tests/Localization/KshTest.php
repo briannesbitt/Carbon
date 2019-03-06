@@ -118,13 +118,13 @@ class KshTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 sekůndt ago',
+        '1 Sekůndt ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 sekůndt ago',
+        '1 Sekůndt ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 sekůndt ago',
+        '2 Sekůndt ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sekůndt ago',
+        '2 Sekůndt ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 Menutt ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -134,13 +134,13 @@ class KshTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 Menutt ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 Menutt ago',
+        '1 Uhr ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 Menutt ago',
+        '1 Uhr ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 Menutt ago',
+        '2 Uhr ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 Menutt ago',
+        '2 Uhr ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 Daach ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -174,39 +174,39 @@ class KshTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 Johr ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sekůndt from now',
+        '1 Sekůndt from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 sekůndt from now',
+        '1 Sekůndt from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 sekůndt after',
+        '1 Sekůndt after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 sekůndt after',
+        '1 Sekůndt after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 sekůndt before',
+        '1 Sekůndt before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sekůndt before',
+        '1 Sekůndt before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 sekůndt',
+        '1 Sekůndt',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 sekůndt',
+        '1 Sekůndt',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 sekůndt',
+        '2 Sekůndt',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sekůndt',
+        '2 Sekůndt',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 sekůndt from now',
+        '1 Sekůndt from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Menutt 1 sekůndt',
+        '1 Menutt 1 Sekůndt',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 Johr 3 Moohnd 1 Daach 1 sekůndt',
+        '2 Johr 3 Moohnd 1 Daach 1 Sekůndt',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 Johr from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 Moohnd ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 Johr 3 Moohnd 1 Daach 1 sekůndt ago',
+        '2 Johr 3 Moohnd 1 Daach 1 Sekůndt ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 woch 10 Menutt',
+        '1 woch 10 Uhr',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 woch 6 Daach',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -214,12 +214,12 @@ class KshTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         '1 woch and 6 Daach from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 woch 1 Menutt',
+        '2 woch 1 Uhr',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 Menutt from now',
+        '1 Uhr from now',
         // CarbonInterval::days(2)->forHumans()
         '2 Daach',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 Daach 3 Menutt',
+        '1 Daach 3 Uhr',
     ];
 }

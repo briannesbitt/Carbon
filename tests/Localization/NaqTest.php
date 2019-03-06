@@ -118,37 +118,37 @@ class NaqTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ǀgam ago',
+        '1 second ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ǀgam ago',
+        '1s ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ǀgam ago',
+        '2 seconds ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ǀgam ago',
+        '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 axab ago',
+        '1 minutga ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 axab ago',
+        '1 minutga ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 axab ago',
+        '2 minutga ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 axab ago',
+        '2 minutga ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 sores ago',
+        '1 ǂgaes ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 sores ago',
+        '1 ǂgaes ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 sores ago',
+        '2 ǂgaes ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 sores ago',
+        '2 ǂgaes ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 sores ago',
+        '1 ǀhobas ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 sores ago',
+        '1 ǀhobas ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 sores ago',
+        '2 ǀhobas ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 sores ago',
+        '2 ǀhobas ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 hû ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -158,68 +158,68 @@ class NaqTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 hû ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 sores ago',
+        '1 ǁaub ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 sores ago',
+        '1 ǁaub ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 sores ago',
+        '2 ǁaub ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 sores ago',
+        '2 ǁaub ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 sores ago',
+        '1 kurigu ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 sores ago',
+        '1 kurigu ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 sores ago',
+        '2 kurigu ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 sores ago',
+        '2 kurigu ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 ǀgam from now',
+        '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 ǀgam from now',
+        '1s from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 ǀgam after',
+        '1 second after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 ǀgam after',
+        '1s after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 ǀgam before',
+        '1 second before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 ǀgam before',
+        '1s before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 ǀgam',
+        '1 second',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 ǀgam',
+        '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 ǀgam',
+        '2 seconds',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 ǀgam',
+        '2s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 ǀgam from now',
+        '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 axab 1 ǀgam',
+        '1 minutga 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 sores 3 sores 1 sores 1 ǀgam',
+        '2 kurigu 3 ǁaub 1 ǀhobas 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 sores from now',
+        '3 kurigu from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 sores ago',
+        '5 ǁaub ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 sores 3 sores 1 sores 1 ǀgam ago',
+        '2 kurigu 3 ǁaub 1 ǀhobas 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 hû 10 sores',
+        '1 hû 10 ǂgaes',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 hû 6 sores',
+        '1 hû 6 ǀhobas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 hû 6 sores',
+        '1 hû 6 ǀhobas',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 hû and 6 sores from now',
+        '1 hû and 6 ǀhobas from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 hû 1 sores',
+        '2 hû 1 ǂgaes',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 sores from now',
+        '1 ǂgaes from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 sores',
+        '2 ǀhobas',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 sores 3 sores',
+        '1 ǀhobas 3 ǂgaes',
     ];
 }

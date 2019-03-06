@@ -45,7 +45,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'min' => ':count فَن', // less reliable
     'a_minute' => ':count فَن', // less reliable
 
-    'second' => ':count दो&#039;युम', // less reliable
-    's' => ':count दो&#039;युम', // less reliable
-    'a_second' => ':count दो&#039;युम', // less reliable
+    'second' => ':count दोʼयुम', // less reliable
+    's' => ':count दोʼयुम', // less reliable
+    'a_second' => ':count दोʼयुम', // less reliable
 ]);

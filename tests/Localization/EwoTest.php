@@ -126,53 +126,53 @@ class EwoTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 awola ago',
+        '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 awola ago',
+        '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 awola ago',
+        '2 minutes ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 awola ago',
+        '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 awola ago',
+        '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 awola ago',
+        '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 awola ago',
+        '2 hours ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 awola ago',
+        '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 mësë ago',
+        '1 day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 mësë ago',
+        '1d ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 mësë ago',
+        '2 days ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 mësë ago',
+        '2d ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 mësë ago',
+        '1 week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 mësë ago',
+        '1w ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 mësë ago',
+        '2 weeks ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 mësë ago',
+        '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 ngòn ago',
+        '1 month ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 ngòn ago',
+        '1mo ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 ngòn ago',
+        '2 months ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 ngòn ago',
+        '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 mbu ago',
+        '1 year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 mbu ago',
+        '1yr ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 mbu ago',
+        '2 years ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 mbu ago',
+        '2yrs ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -196,30 +196,30 @@ class EwoTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 awola 1 second',
+        '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 mbu 3 ngòn 1 mësë 1s',
+        '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 mbu from now',
+        '3 years from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 ngòn ago',
+        '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 mbu 3 ngòn 1 mësë 1s ago',
+        '2yrs 3mos 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 mësë 10 awola',
+        '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 mësë 6 mësë',
+        '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 mësë 6 mësë',
+        '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 mësë and 6 mësë from now',
+        '1 week and 6 days from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 mësë 1 awola',
+        '2 weeks 1 hour',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 awola from now',
+        'an hour from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 mësë',
+        '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 mësë 3 awola',
+        '1d 3h',
     ];
 }

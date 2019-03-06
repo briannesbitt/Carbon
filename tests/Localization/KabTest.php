@@ -118,108 +118,108 @@ class KabTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 deg ago',
+        '1 tasdidt ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 deg ago',
+        '1 tasdidt ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 deg ago',
+        '2 tasdidt ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 deg ago',
+        '2 tasdidt ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 tamrilt ago',
+        '1 n tedqiqin ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 tamrilt ago',
+        '1 n tedqiqin ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 tamrilt ago',
+        '2 n tedqiqin ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 tamrilt ago',
+        '2 n tedqiqin ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 tamrilt ago',
+        '1 n tsaɛtin ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 tamrilt ago',
+        '1 n tsaɛtin ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 tamrilt ago',
+        '2 n tsaɛtin ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 tamrilt ago',
+        '2 n tsaɛtin ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 nekk ago',
+        '1 n wussan ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 nekk ago',
+        '1 n wussan ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 nekk ago',
+        '2 n wussan ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 nekk ago',
+        '2 n wussan ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 d-itteddun ago',
+        '1 n ledwaṛ ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 d-itteddun ago',
+        '1 n ledwaṛ ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 d-itteddun ago',
+        '2 n ledwaṛ ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 d-itteddun ago',
+        '2 n ledwaṛ ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 ayyur ago',
+        '1 n wayyuren ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 ayyur ago',
+        '1 n wayyuren ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 ayyur ago',
+        '2 n wayyuren ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 ayyur ago',
+        '2 n wayyuren ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 aseggas ago',
+        '1 n yiseggasen ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 aseggas ago',
+        '1 n yiseggasen ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 aseggas ago',
+        '2 n yiseggasen ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 aseggas ago',
+        '2 n yiseggasen ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 deg from now',
+        '1 tasdidt from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 deg from now',
+        '1 tasdidt from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 deg after',
+        '1 tasdidt after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 deg after',
+        '1 tasdidt after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 deg before',
+        '1 tasdidt before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 deg before',
+        '1 tasdidt before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 deg',
+        '1 tasdidt',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 deg',
+        '1 tasdidt',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 deg',
+        '2 tasdidt',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 deg',
+        '2 tasdidt',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 deg from now',
+        '1 tasdidt from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 tamrilt 1 deg',
+        '1 n tedqiqin 1 tasdidt',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 aseggas 3 ayyur 1 nekk 1 deg',
+        '2 n yiseggasen 3 n wayyuren 1 n wussan 1 tasdidt',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 aseggas from now',
+        '3 n yiseggasen from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 ayyur ago',
+        '5 n wayyuren ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 aseggas 3 ayyur 1 nekk 1 deg ago',
+        '2 n yiseggasen 3 n wayyuren 1 n wussan 1 tasdidt ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 d-itteddun 10 tamrilt',
+        '1 n ledwaṛ 10 n tsaɛtin',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 d-itteddun 6 nekk',
+        '1 n ledwaṛ 6 n wussan',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 d-itteddun 6 nekk',
+        '1 n ledwaṛ 6 n wussan',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 d-itteddun and 6 nekk from now',
+        '1 n ledwaṛ and 6 n wussan from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 d-itteddun 1 tamrilt',
+        '2 n ledwaṛ 1 n tsaɛtin',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 tamrilt from now',
+        '1 n tsaɛtin from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 nekk',
+        '2 n wussan',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 nekk 3 tamrilt',
+        '1 n wussan 3 n tsaɛtin',
     ];
 }

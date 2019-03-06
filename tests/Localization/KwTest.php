@@ -118,21 +118,21 @@ class KwTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 pols ago',
+        '1 pryjwyth ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 pols ago',
+        '1 pryjwyth ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 pols ago',
+        '2 pryjwyth ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 pols ago',
+        '2 pryjwyth ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 pols ago',
+        '1 mynysen ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 pols ago',
+        '1 mynysen ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 pols ago',
+        '2 mynysen ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 pols ago',
+        '2 mynysen ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 eur ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -174,37 +174,37 @@ class KwTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 bledhen ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 pols from now',
+        '1 pryjwyth from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 pols from now',
+        '1 pryjwyth from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 pols after',
+        '1 pryjwyth after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 pols after',
+        '1 pryjwyth after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 pols before',
+        '1 pryjwyth before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 pols before',
+        '1 pryjwyth before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 pols',
+        '1 pryjwyth',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 pols',
+        '1 pryjwyth',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 pols',
+        '2 pryjwyth',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 pols',
+        '2 pryjwyth',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 pols from now',
+        '1 pryjwyth from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 pols 1 pols',
+        '1 mynysen 1 pryjwyth',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 bledhen 3 mis 1 dydh 1 pols',
+        '2 bledhen 3 mis 1 dydh 1 pryjwyth',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 bledhen from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 mis ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 bledhen 3 mis 1 dydh 1 pols ago',
+        '2 bledhen 3 mis 1 dydh 1 pryjwyth ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 seythen 10 eur',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

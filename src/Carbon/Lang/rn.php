@@ -26,31 +26,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count izuba', // less reliable
-    'y' => ':count izuba', // less reliable
-    'a_year' => ':count izuba', // less reliable
+    'year' => 'imyaka :count',
+    'y' => 'imyaka :count',
+    'a_year' => 'imyaka :count',
 
-    'week' => ':count wagatanu', // less reliable
-    'w' => ':count wagatanu', // less reliable
-    'a_week' => ':count wagatanu', // less reliable
+    'month' => 'amezi :count',
+    'm' => 'amezi :count',
+    'a_month' => 'amezi :count',
 
-    'day' => ':count izuba', // less reliable
-    'd' => ':count izuba', // less reliable
-    'a_day' => ':count izuba', // less reliable
+    'week' => 'indwi :count',
+    'w' => 'indwi :count',
+    'a_week' => 'indwi :count',
 
-    'hour' => ':count isaha', // less reliable
-    'h' => ':count isaha', // less reliable
-    'a_hour' => ':count isaha', // less reliable
+    'day' => 'imisi :count',
+    'd' => 'imisi :count',
+    'a_day' => 'imisi :count',
 
-    'minute' => ':count isaha', // less reliable
-    'min' => ':count isaha', // less reliable
-    'a_minute' => ':count isaha', // less reliable
+    'hour' => 'amasaha :count',
+    'h' => 'amasaha :count',
+    'a_hour' => 'amasaha :count',
 
-    'second' => ':count wambwere', // less reliable
-    's' => ':count wambwere', // less reliable
-    'a_second' => ':count wambwere', // less reliable
+    'minute' => 'iminuta :count',
+    'min' => 'iminuta :count',
+    'a_minute' => 'iminuta :count',
 
-    'month' => ':count Ukwezi',
-    'm' => ':count Ukwezi',
-    'a_month' => ':count Ukwezi',
+    'second' => 'inguvu :count', // less reliable
+    's' => 'inguvu :count', // less reliable
+    'a_second' => 'inguvu :count', // less reliable
 ]);

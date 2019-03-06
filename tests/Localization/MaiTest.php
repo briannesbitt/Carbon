@@ -126,13 +126,13 @@ class MaiTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 घण्टा ago',
+        '1 समय ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 घण्टा ago',
+        '1 समय ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 घण्टा ago',
+        '2 समय ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 घण्टा ago',
+        '2 समय ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 घण्टा ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -150,13 +150,13 @@ class MaiTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 दिन ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 दिन ago',
+        '1 श्रेणी:क्यालेन्डर ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 दिन ago',
+        '1 श्रेणी:क्यालेन्डर ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 दिन ago',
+        '2 श्रेणी:क्यालेन्डर ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 दिन ago',
+        '2 श्रेणी:क्यालेन्डर ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 महिना ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -166,13 +166,13 @@ class MaiTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 महिना ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 समय ago',
+        '1 ऋतु ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 समय ago',
+        '1 ऋतु ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 समय ago',
+        '2 ऋतु ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 समय ago',
+        '2 ऋतु ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -196,25 +196,25 @@ class MaiTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 घण्टा 1 second',
+        '1 समय 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 समय 3 महिना 1 दिन 1s',
+        '2 ऋतु 3 महिना 1 दिन 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 समय from now',
+        '3 ऋतु from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 महिना ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 समय 3 महिना 1 दिन 1s ago',
+        '2 ऋतु 3 महिना 1 दिन 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 दिन 10 घण्टा',
+        '1 श्रेणी:क्यालेन्डर 10 घण्टा',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 दिन 6 दिन',
+        '1 श्रेणी:क्यालेन्डर 6 दिन',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 दिन 6 दिन',
+        '1 श्रेणी:क्यालेन्डर 6 दिन',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 दिन and 6 दिन from now',
+        '1 श्रेणी:क्यालेन्डर and 6 दिन from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 दिन 1 घण्टा',
+        '2 श्रेणी:क्यालेन्डर 1 घण्टा',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 घण्टा from now',
         // CarbonInterval::days(2)->forHumans()

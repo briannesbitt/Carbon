@@ -29,6 +29,10 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'y' => ':count ꒉ', // less reliable
     'a_year' => ':count ꒉ', // less reliable
 
+    'month' => ':count ꆪ',
+    'm' => ':count ꆪ',
+    'a_month' => ':count ꆪ',
+
     'week' => ':count ꏃ', // less reliable
     'w' => ':count ꏃ', // less reliable
     'a_week' => ':count ꏃ', // less reliable
@@ -37,19 +41,15 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'd' => ':count ꏜ', // less reliable
     'a_day' => ':count ꏜ', // less reliable
 
-    'minute' => ':count ꄮꈉ', // less reliable
-    'min' => ':count ꄮꈉ', // less reliable
-    'a_minute' => ':count ꄮꈉ', // less reliable
-
-    'second' => ':count ꑍ', // less reliable
-    's' => ':count ꑍ', // less reliable
-    'a_second' => ':count ꑍ', // less reliable
-
-    'month' => ':count ꆪ',
-    'm' => ':count ꆪ',
-    'a_month' => ':count ꆪ',
-
     'hour' => ':count ꄮꈉ',
     'h' => ':count ꄮꈉ',
     'a_hour' => ':count ꄮꈉ',
+
+    'minute' => ':count ꀄꊭ', // less reliable
+    'min' => ':count ꀄꊭ', // less reliable
+    'a_minute' => ':count ꀄꊭ', // less reliable
+
+    'second' => ':count ꇅ', // less reliable
+    's' => ':count ꇅ', // less reliable
+    'a_second' => ':count ꇅ', // less reliable
 ]);

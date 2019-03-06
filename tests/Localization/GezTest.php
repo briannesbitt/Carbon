@@ -150,13 +150,13 @@ class GezTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 ዕለት ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 ዕለት ago',
+        '1 ሰብዑ ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 ዕለት ago',
+        '1 ሰብዑ ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 ዕለት ago',
+        '2 ሰብዑ ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 ዕለት ago',
+        '2 ሰብዑ ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 ወርሕ ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -206,15 +206,15 @@ class GezTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 ዓመት 3 ወርሕ 1 ዕለት 1 ካልእ ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 ዕለት 10 አንትሙ',
+        '1 ሰብዑ 10 አንትሙ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ዕለት 6 ዕለት',
+        '1 ሰብዑ 6 ዕለት',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ዕለት 6 ዕለት',
+        '1 ሰብዑ 6 ዕለት',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 ዕለት and 6 ዕለት from now',
+        '1 ሰብዑ and 6 ዕለት from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 ዕለት 1 አንትሙ',
+        '2 ሰብዑ 1 አንትሙ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 አንትሙ from now',
         // CarbonInterval::days(2)->forHumans()

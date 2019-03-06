@@ -142,13 +142,13 @@ class FfTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 montor ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 naange ago',
+        '1 dian ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 naange ago',
+        '1 dian ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 naange ago',
+        '2 dian ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 naange ago',
+        '2 dian ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 naange ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class FfTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 tokossuoum 1 tenen',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 baret 3 lewru 1 naange 1 tenen',
+        '2 baret 3 lewru 1 dian 1 tenen',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 baret from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 lewru ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 baret 3 lewru 1 naange 1 tenen ago',
+        '2 baret 3 lewru 1 dian 1 tenen ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 naange 10 montor',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 naange 6 naange',
+        '1 naange 6 dian',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 naange 6 naange',
+        '1 naange 6 dian',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 naange and 6 naange from now',
+        '1 naange and 6 dian from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 naange 1 montor',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 montor from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 naange',
+        '2 dian',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 naange 3 montor',
+        '1 dian 3 montor',
     ];
 }

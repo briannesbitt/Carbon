@@ -24,24 +24,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Bhom', 'Ur', 'Dur', 'Tkel', 'Tkem', 'Bhta', 'Bhti'],
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
-
-    'year' => ':count arni', // less reliable
-    'y' => ':count arni', // less reliable
-    'a_year' => ':count arni', // less reliable
-
-    'month' => ':count arni', // less reliable
-    'm' => ':count arni', // less reliable
-    'a_month' => ':count arni', // less reliable
-
-    'week' => ':count arni', // less reliable
-    'w' => ':count arni', // less reliable
-    'a_week' => ':count arni', // less reliable
-
-    'day' => ':count arni', // less reliable
-    'd' => ':count arni', // less reliable
-    'a_day' => ':count arni', // less reliable
-
-    'hour' => ':count arni', // less reliable
-    'h' => ':count arni', // less reliable
-    'a_hour' => ':count arni', // less reliable
 ]);

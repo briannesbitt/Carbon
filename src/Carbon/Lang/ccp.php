@@ -24,16 +24,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM, YYYY h:mm a',
         'LLLL' => 'dddd, D MMMM, YYYY h:mm a',
     ],
-
-    'year' => ':count 𑄃𑄋𑄢𑄳𑄦', // less reliable
-    'y' => ':count 𑄃𑄋𑄢𑄳𑄦', // less reliable
-    'a_year' => ':count 𑄃𑄋𑄢𑄳𑄦', // less reliable
-
-    'hour' => ':count 𑄊𑄪𑄢𑄨', // less reliable
-    'h' => ':count 𑄊𑄪𑄢𑄨', // less reliable
-    'a_hour' => ':count 𑄊𑄪𑄢𑄨', // less reliable
-
-    'minute' => ':count 𑄊𑄪𑄢𑄨', // less reliable
-    'min' => ':count 𑄊𑄪𑄢𑄨', // less reliable
-    'a_minute' => ':count 𑄊𑄪𑄢𑄨', // less reliable
 ]);

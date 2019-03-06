@@ -25,6 +25,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
+    // Too unreliable
+    /*
     'year' => ':count mbua', // less reliable
     'y' => ':count mbua', // less reliable
     'a_year' => ':count mbua', // less reliable
@@ -44,4 +46,5 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'minute' => ':count orasan', // less reliable
     'min' => ':count orasan', // less reliable
     'a_minute' => ':count orasan', // less reliable
+    */
 ]);

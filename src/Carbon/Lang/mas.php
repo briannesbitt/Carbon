@@ -45,7 +45,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'm' => ':count olapa',
     'a_month' => ':count olapa',
 
-    'day' => ':count enkolong&#039;',
-    'd' => ':count enkolong&#039;',
-    'a_day' => ':count enkolong&#039;',
+    'day' => ':count enkolongʼ',
+    'd' => ':count enkolongʼ',
+    'a_day' => ':count enkolongʼ',
 ]);

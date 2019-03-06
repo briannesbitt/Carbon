@@ -40,9 +40,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'w' => ':count simana',
     'a_week' => ':count simana',
 
-    'day' => ':count p&#039;unchaw',
-    'd' => ':count p&#039;unchaw',
-    'a_day' => ':count p&#039;unchaw',
+    'day' => ':count pʼunchaw',
+    'd' => ':count pʼunchaw',
+    'a_day' => ':count pʼunchaw',
 
     'hour' => ':count ura',
     'h' => ':count ura',

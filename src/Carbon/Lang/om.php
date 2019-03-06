@@ -30,31 +30,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['WD', 'WB'],
 
-    'year' => ':count Class', // less reliable
-    'y' => ':count Class', // less reliable
-    'a_year' => ':count Class', // less reliable
+    'year' => 'wggoota :count',
+    'y' => 'wggoota :count',
+    'a_year' => 'wggoota :count',
 
-    'week' => ':count Dilbata', // less reliable
-    'w' => ':count Dilbata', // less reliable
-    'a_week' => ':count Dilbata', // less reliable
+    'month' => 'ji’a :count',
+    'm' => 'ji’a :count',
+    'a_month' => 'ji’a :count',
 
-    'day' => ':count aduu', // less reliable
-    'd' => ':count aduu', // less reliable
-    'a_day' => ':count aduu', // less reliable
+    'week' => 'torban :count',
+    'w' => 'torban :count',
+    'a_week' => 'torban :count',
 
-    'hour' => ':count sa&#039;aatii', // less reliable
-    'h' => ':count sa&#039;aatii', // less reliable
-    'a_hour' => ':count sa&#039;aatii', // less reliable
+    'day' => 'guyyaa :count',
+    'd' => 'guyyaa :count',
+    'a_day' => 'guyyaa :count',
 
-    'minute' => ':count sa&#039;aatii', // less reliable
-    'min' => ':count sa&#039;aatii', // less reliable
-    'a_minute' => ':count sa&#039;aatii', // less reliable
+    'hour' => 'saʼaatii :count',
+    'h' => 'saʼaatii :count',
+    'a_hour' => 'saʼaatii :count',
 
-    'second' => ':count abba', // less reliable
-    's' => ':count abba', // less reliable
-    'a_second' => ':count abba', // less reliable
+    'minute' => 'daqiiqaa :count',
+    'min' => 'daqiiqaa :count',
+    'a_minute' => 'daqiiqaa :count',
 
-    'month' => ':count Month',
-    'm' => ':count Month',
-    'a_month' => ':count Month',
+    'second' => 'sekoondii :count',
+    's' => 'sekoondii :count',
+    'a_second' => 'sekoondii :count',
 ]);

@@ -118,13 +118,13 @@ class NiuTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 minuti ago',
+        '1 sekone ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 minuti ago',
+        '1 sekone ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 minuti ago',
+        '2 sekone ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 minuti ago',
+        '2 sekone ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minuti ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -134,13 +134,13 @@ class NiuTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 minuti ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 ufū tagā ago',
+        '1 e tulā ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 ufū tagā ago',
+        '1 e tulā ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ufū tagā ago',
+        '2 e tulā ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ufū tagā ago',
+        '2 e tulā ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 aho ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -150,13 +150,13 @@ class NiuTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 aho ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 aho ago',
+        '1 faahi tapu ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 aho ago',
+        '1 faahi tapu ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 aho ago',
+        '2 faahi tapu ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 aho ago',
+        '2 faahi tapu ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 mahina ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -166,60 +166,60 @@ class NiuTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 mahina ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 kauhala ago',
+        '1 tau ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 kauhala ago',
+        '1 tau ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 kauhala ago',
+        '2 tau ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 kauhala ago',
+        '2 tau ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 minuti from now',
+        '1 sekone from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 minuti from now',
+        '1 sekone from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 minuti after',
+        '1 sekone after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 minuti after',
+        '1 sekone after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 minuti before',
+        '1 sekone before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 minuti before',
+        '1 sekone before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 minuti',
+        '1 sekone',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 minuti',
+        '1 sekone',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 minuti',
+        '2 sekone',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 minuti',
+        '2 sekone',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 minuti from now',
+        '1 sekone from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuti 1 minuti',
+        '1 minuti 1 sekone',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 kauhala 3 mahina 1 aho 1 minuti',
+        '2 tau 3 mahina 1 aho 1 sekone',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 kauhala from now',
+        '3 tau from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 mahina ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 kauhala 3 mahina 1 aho 1 minuti ago',
+        '2 tau 3 mahina 1 aho 1 sekone ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 aho 10 ufū tagā',
+        '1 faahi tapu 10 e tulā',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 aho 6 aho',
+        '1 faahi tapu 6 aho',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 aho 6 aho',
+        '1 faahi tapu 6 aho',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 aho and 6 aho from now',
+        '1 faahi tapu and 6 aho from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 aho 1 ufū tagā',
+        '2 faahi tapu 1 e tulā',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 ufū tagā from now',
+        '1 e tulā from now',
         // CarbonInterval::days(2)->forHumans()
         '2 aho',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 aho 3 ufū tagā',
+        '1 aho 3 e tulā',
     ];
 }

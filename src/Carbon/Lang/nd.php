@@ -24,19 +24,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count indlu', // less reliable
-    'y' => ':count indlu', // less reliable
-    'a_year' => ':count indlu', // less reliable
+    'year' => 'okweminyaka engu-:count', // less reliable
+    'y' => 'okweminyaka engu-:count', // less reliable
+    'a_year' => 'okweminyaka engu-:count', // less reliable
 
-    'day' => ':count jo', // less reliable
-    'd' => ':count jo', // less reliable
-    'a_day' => ':count jo', // less reliable
+    'month' => 'inyanga ezingu-:count',
+    'm' => 'inyanga ezingu-:count',
+    'a_month' => 'inyanga ezingu-:count',
 
-    'hour' => ':count iwatjhi', // less reliable
-    'h' => ':count iwatjhi', // less reliable
-    'a_hour' => ':count iwatjhi', // less reliable
+    'week' => 'amaviki angu-:count',
+    'w' => 'amaviki angu-:count',
+    'a_week' => 'amaviki angu-:count',
 
-    'minute' => ':count iwatjhi', // less reliable
-    'min' => ':count iwatjhi', // less reliable
-    'a_minute' => ':count iwatjhi', // less reliable
+    'day' => 'kwamalanga angu-:count',
+    'd' => 'kwamalanga angu-:count',
+    'a_day' => 'kwamalanga angu-:count',
+
+    'hour' => 'amahola angu-:count',
+    'h' => 'amahola angu-:count',
+    'a_hour' => 'amahola angu-:count',
+
+    'minute' => 'imizuzu engu-:count',
+    'min' => 'imizuzu engu-:count',
+    'a_minute' => 'imizuzu engu-:count',
+
+    'second' => 'imizuzwana engu-:count',
+    's' => 'imizuzwana engu-:count',
+    'a_second' => 'imizuzwana engu-:count',
 ]);

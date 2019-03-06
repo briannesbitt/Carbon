@@ -126,13 +126,13 @@ class LijTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 segondo ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 segondo ago',
+        '1 menûo ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 segondo ago',
+        '1 menûo ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 segondo ago',
+        '2 menûo ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 segondo ago',
+        '2 menûo ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 reléuio ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -150,21 +150,21 @@ class LijTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 giorno ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 giorno ago',
+        '1 settemannha ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 giorno ago',
+        '1 settemannha ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 giorno ago',
+        '2 settemannha ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 giorno ago',
+        '2 settemannha ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 lunn-a ago',
+        '1 meize ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 lunn-a ago',
+        '1 meize ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 lunn-a ago',
+        '2 meize ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 lunn-a ago',
+        '2 meize ago',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 etæ ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -196,25 +196,25 @@ class LijTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 segondo from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 segondo 1 segondo',
+        '1 menûo 1 segondo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 etæ 3 lunn-a 1 giorno 1 segondo',
+        '2 etæ 3 meize 1 giorno 1 segondo',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 etæ from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 lunn-a ago',
+        '5 meize ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 etæ 3 lunn-a 1 giorno 1 segondo ago',
+        '2 etæ 3 meize 1 giorno 1 segondo ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 giorno 10 reléuio',
+        '1 settemannha 10 reléuio',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 giorno 6 giorno',
+        '1 settemannha 6 giorno',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 giorno 6 giorno',
+        '1 settemannha 6 giorno',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 giorno and 6 giorno from now',
+        '1 settemannha and 6 giorno from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 giorno 1 reléuio',
+        '2 settemannha 1 reléuio',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 reléuio from now',
         // CarbonInterval::days(2)->forHumans()

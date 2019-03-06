@@ -37,9 +37,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'w' => ':count निवाज', // less reliable
     'a_week' => ':count निवाज', // less reliable
 
-    'day' => ':count सूरज', // less reliable
-    'd' => ':count सूरज', // less reliable
-    'a_day' => ':count सूरज', // less reliable
+    'day' => ':count अेक', // less reliable
+    'd' => ':count अेक', // less reliable
+    'a_day' => ':count अेक', // less reliable
 
     'hour' => ':count दुनियांण', // less reliable
     'h' => ':count दुनियांण', // less reliable

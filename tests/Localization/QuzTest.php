@@ -142,13 +142,13 @@ class QuzTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ura ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 p&#039;unchaw ago',
+        '1 pʼunchaw ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 p&#039;unchaw ago',
+        '1 pʼunchaw ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 p&#039;unchaw ago',
+        '2 pʼunchaw ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 p&#039;unchaw ago',
+        '2 pʼunchaw ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 simana ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class QuzTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 uchuy 1 iskay ñiqin',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 wata 3 killa 1 p&#039;unchaw 1 iskay ñiqin',
+        '2 wata 3 killa 1 pʼunchaw 1 iskay ñiqin',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 wata from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 killa ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 wata 3 killa 1 p&#039;unchaw 1 iskay ñiqin ago',
+        '2 wata 3 killa 1 pʼunchaw 1 iskay ñiqin ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 simana 10 ura',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 simana 6 p&#039;unchaw',
+        '1 simana 6 pʼunchaw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 simana 6 p&#039;unchaw',
+        '1 simana 6 pʼunchaw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 simana and 6 p&#039;unchaw from now',
+        '1 simana and 6 pʼunchaw from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 simana 1 ura',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 ura from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 p&#039;unchaw',
+        '2 pʼunchaw',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 p&#039;unchaw 3 ura',
+        '1 pʼunchaw 3 ura',
     ];
 }

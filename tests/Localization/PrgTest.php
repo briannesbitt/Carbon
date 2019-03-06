@@ -150,13 +150,13 @@ class PrgTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 di ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 di ago',
+        '1 sawaītin ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 di ago',
+        '1 sawaītin ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 di ago',
+        '2 sawaītin ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 di ago',
+        '2 sawaītin ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 mēniks ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -206,15 +206,15 @@ class PrgTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 meta 3 mēniks 1 di 1 kitan ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 di 10 bruktēt',
+        '1 sawaītin 10 bruktēt',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 di 6 di',
+        '1 sawaītin 6 di',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 di 6 di',
+        '1 sawaītin 6 di',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 di and 6 di from now',
+        '1 sawaītin and 6 di from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 di 1 bruktēt',
+        '2 sawaītin 1 bruktēt',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 bruktēt from now',
         // CarbonInterval::days(2)->forHumans()

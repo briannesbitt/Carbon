@@ -126,21 +126,21 @@ class CcpInTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 𑄊𑄪𑄢𑄨 ago',
+        '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 𑄊𑄪𑄢𑄨 ago',
+        '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 𑄊𑄪𑄢𑄨 ago',
+        '2 minutes ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 𑄊𑄪𑄢𑄨 ago',
+        '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 𑄊𑄪𑄢𑄨 ago',
+        '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 𑄊𑄪𑄢𑄨 ago',
+        '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 𑄊𑄪𑄢𑄨 ago',
+        '2 hours ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 𑄊𑄪𑄢𑄨 ago',
+        '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -166,13 +166,13 @@ class CcpInTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 𑄃𑄋𑄢𑄳𑄦 ago',
+        '1 year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 𑄃𑄋𑄢𑄳𑄦 ago',
+        '1yr ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 𑄃𑄋𑄢𑄳𑄦 ago',
+        '2 years ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 𑄃𑄋𑄢𑄳𑄦 ago',
+        '2yrs ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -196,17 +196,17 @@ class CcpInTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 𑄊𑄪𑄢𑄨 1 second',
+        '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 𑄃𑄋𑄢𑄳𑄦 3mos 1d 1s',
+        '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 𑄃𑄋𑄢𑄳𑄦 from now',
+        '3 years from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 𑄃𑄋𑄢𑄳𑄦 3mos 1d 1s ago',
+        '2yrs 3mos 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 𑄊𑄪𑄢𑄨',
+        '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -214,12 +214,12 @@ class CcpInTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         '1 week and 6 days from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 𑄊𑄪𑄢𑄨',
+        '2 weeks 1 hour',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 𑄊𑄪𑄢𑄨 from now',
+        'an hour from now',
         // CarbonInterval::days(2)->forHumans()
         '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3 𑄊𑄪𑄢𑄨',
+        '1d 3h',
     ];
 }

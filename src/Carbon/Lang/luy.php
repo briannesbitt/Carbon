@@ -24,6 +24,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
 
+    // Too unreliable
+    /*
     'year' => ':count liliino', // less reliable
     'y' => ':count liliino', // less reliable
     'a_year' => ':count liliino', // less reliable
@@ -51,4 +53,5 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count liliino', // less reliable
     's' => ':count liliino', // less reliable
     'a_second' => ':count liliino', // less reliable
+    */
 ]);

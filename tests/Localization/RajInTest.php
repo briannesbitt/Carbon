@@ -142,13 +142,13 @@ class RajInTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 दुनियांण ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 सूरज ago',
+        '1 अेक ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 सूरज ago',
+        '1 अेक ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 सूरज ago',
+        '2 अेक ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 सूरज ago',
+        '2 अेक ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 निवाज ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class RajInTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 आंहू 3 सूरज 1 सूरज 1s',
+        '2 आंहू 3 सूरज 1 अेक 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 आंहू from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 सूरज ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 आंहू 3 सूरज 1 सूरज 1s ago',
+        '2 आंहू 3 सूरज 1 अेक 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 निवाज 10 दुनियांण',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 निवाज 6 सूरज',
+        '1 निवाज 6 अेक',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 निवाज 6 सूरज',
+        '1 निवाज 6 अेक',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 निवाज and 6 सूरज from now',
+        '1 निवाज and 6 अेक from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 निवाज 1 दुनियांण',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 दुनियांण from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 सूरज',
+        '2 अेक',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 सूरज 3 दुनियांण',
+        '1 अेक 3 दुनियांण',
     ];
 }
