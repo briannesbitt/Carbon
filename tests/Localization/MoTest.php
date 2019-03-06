@@ -120,11 +120,11 @@ class MoTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 secundă în urmă',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'o sec. în urmă',
+        '1 sec. în urmă',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 secundă în urmă',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'o sec. în urmă',
+        '2 sec. în urmă',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minut în urmă',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -176,35 +176,35 @@ class MoTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans()
         'peste 1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'peste o sec.',
+        'peste 1 sec.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'peste 1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'peste o sec.',
+        'peste 1 sec.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'acum 1 secundă',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'acum o sec.',
+        'acum 1 sec.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 secundă',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'o sec.',
+        '1 sec.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 secundă',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        'o sec.',
+        '2 sec.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'peste o sec.',
+        'peste 1 sec.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 secundă',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 a. 3 l. 1 z. o sec.',
+        '2 a. 3 l. 1 z. 1 sec.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'peste 3 an',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 l. în urmă',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 a. 3 l. 1 z. o sec. în urmă',
+        '2 a. 3 l. 1 z. 1 sec. în urmă',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 săptămână 10 oră',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
