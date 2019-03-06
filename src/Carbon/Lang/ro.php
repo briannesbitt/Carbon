@@ -14,6 +14,7 @@
  * - Josh Soref
  * - JD Isaacks
  * - Cătălin Georgescu
+ * - Valentin Ivaşcu (oriceon)
  */
 return [
     'year' => ':count an|:count ani|:count ani',
@@ -35,8 +36,8 @@ return [
     'a_minute' => 'un minut|:count minute|:count minute',
     'min' => ':count m.',
     'second' => ':count secundă|:count secunde|:count secunde',
-    'a_second' => 'o secundă|:count secunde|:count secunde',
-    's' => 'o sec.',
+    'a_second' => 'câteva secunde|:count secunde|:count secunde',
+    's' => ':count sec.',
     'ago' => ':time în urmă',
     'from_now' => 'peste :time',
     'after' => 'peste :time',
