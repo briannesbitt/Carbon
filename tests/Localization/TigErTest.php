@@ -142,13 +142,13 @@ class TigErTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 ሰዓት ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 ሸምሽ ago',
+        '1 ዎሮ ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 ሸምሽ ago',
+        '1 ዎሮ ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ሸምሽ ago',
+        '2 ዎሮ ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ሸምሽ ago',
+        '2 ዎሮ ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 ሰቡዕ ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class TigErTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ካልኣይት 1 ካልኣይ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ማይ 3 ሸምሽ 1 ሸምሽ 1 ካልኣይ',
+        '2 ማይ 3 ሸምሽ 1 ዎሮ 1 ካልኣይ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ማይ from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ሸምሽ ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ማይ 3 ሸምሽ 1 ሸምሽ 1 ካልኣይ ago',
+        '2 ማይ 3 ሸምሽ 1 ዎሮ 1 ካልኣይ ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ሰቡዕ 10 ሰዓት',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ሰቡዕ 6 ሸምሽ',
+        '1 ሰቡዕ 6 ዎሮ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 ሰቡዕ 6 ሸምሽ',
+        '1 ሰቡዕ 6 ዎሮ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 ሰቡዕ and 6 ሸምሽ from now',
+        '1 ሰቡዕ and 6 ዎሮ from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ሰቡዕ 1 ሰዓት',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 ሰዓት from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 ሸምሽ',
+        '2 ዎሮ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 ሸምሽ 3 ሰዓት',
+        '1 ዎሮ 3 ሰዓት',
     ];
 }

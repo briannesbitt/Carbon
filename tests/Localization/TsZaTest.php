@@ -118,108 +118,108 @@ class TsZaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 sumbunuku ago',
+        'tisekoni ta 1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 sumbunuku ago',
+        'tisekoni ta 1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 sumbunuku ago',
+        'tisekoni ta 2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sumbunuku ago',
+        'tisekoni ta 2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 wachi ago',
+        'timinete ta 1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 wachi ago',
+        'timinete ta 1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 wachi ago',
+        'timinete ta 2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 wachi ago',
+        'timinete ta 2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 wachi ago',
+        'tiawara ta 1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 wachi ago',
+        'tiawara ta 1 ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 wachi ago',
+        'tiawara ta 2 ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 wachi ago',
+        'tiawara ta 2 ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 dumelang ago',
+        'masiku 1 ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 dumelang ago',
+        'masiku 1 ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 dumelang ago',
+        'masiku 2 ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 dumelang ago',
+        'masiku 2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 vuntlhanu ago',
+        'mavhiki ya 1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 vuntlhanu ago',
+        'mavhiki ya 1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 vuntlhanu ago',
+        'mavhiki ya 2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 vuntlhanu ago',
+        'mavhiki ya 2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        'tin’hweti ta 1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        'tin’hweti ta 1 ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        'tin’hweti ta 2 ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        'tin’hweti ta 2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        'malembe ya 1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        'malembe ya 1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        'malembe ya 2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        'malembe ya 2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sumbunuku from now',
+        'tisekoni ta 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 sumbunuku from now',
+        'tisekoni ta 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 sumbunuku after',
+        'tisekoni ta 1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 sumbunuku after',
+        'tisekoni ta 1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 sumbunuku before',
+        'tisekoni ta 1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sumbunuku before',
+        'tisekoni ta 1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 sumbunuku',
+        'tisekoni ta 1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 sumbunuku',
+        'tisekoni ta 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 sumbunuku',
+        'tisekoni ta 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sumbunuku',
+        'tisekoni ta 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 sumbunuku from now',
+        'tisekoni ta 1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 wachi 1 sumbunuku',
+        'timinete ta 1 tisekoni ta 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1 dumelang 1 sumbunuku',
+        'malembe ya 2 tin’hweti ta 3 masiku 1 tisekoni ta 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        'malembe ya 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        'tin’hweti ta 5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1 dumelang 1 sumbunuku ago',
+        'malembe ya 2 tin’hweti ta 3 masiku 1 tisekoni ta 1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 vuntlhanu 10 wachi',
+        'mavhiki ya 1 tiawara ta 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 vuntlhanu 6 dumelang',
+        'mavhiki ya 1 masiku 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 vuntlhanu 6 dumelang',
+        'mavhiki ya 1 masiku 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 vuntlhanu and 6 dumelang from now',
+        'mavhiki ya 1 and masiku 6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 vuntlhanu 1 wachi',
+        'mavhiki ya 2 tiawara ta 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 wachi from now',
+        'tiawara ta 1 from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 dumelang',
+        'masiku 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 dumelang 3 wachi',
+        'masiku 1 tiawara ta 3',
     ];
 }

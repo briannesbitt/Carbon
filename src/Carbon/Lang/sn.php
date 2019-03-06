@@ -25,31 +25,31 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'YYYY MMMM D, dddd HH:mm',
     ],
 
-    'minute' => ':count Nguva dzezuva', // less reliable
-    'min' => ':count Nguva dzezuva', // less reliable
-    'a_minute' => ':count Nguva dzezuva', // less reliable
-
-    'second' => ':count piri', // less reliable
-    's' => ':count piri', // less reliable
-    'a_second' => ':count piri', // less reliable
-
-    'year' => ':count gore',
-    'y' => ':count gore',
-    'a_year' => ':count gore',
+    'year' => 'makore :count',
+    'y' => 'makore :count',
+    'a_year' => 'makore :count',
 
     'month' => 'mwedzi :count',
     'm' => 'mwedzi :count',
     'a_month' => 'mwedzi :count',
 
-    'week' => ':count Vhiki',
-    'w' => ':count Vhiki',
-    'a_week' => ':count Vhiki',
+    'week' => 'vhiki :count',
+    'w' => 'vhiki :count',
+    'a_week' => 'vhiki :count',
 
-    'day' => ':count Musi',
-    'd' => ':count Musi',
-    'a_day' => ':count Musi',
+    'day' => 'mazuva :count',
+    'd' => 'mazuva :count',
+    'a_day' => 'mazuva :count',
 
-    'hour' => ':count Nguva dzezuva',
-    'h' => ':count Nguva dzezuva',
-    'a_hour' => ':count Nguva dzezuva',
+    'hour' => 'maawa :count',
+    'h' => 'maawa :count',
+    'a_hour' => 'maawa :count',
+
+    'minute' => 'minitsi :count',
+    'min' => 'minitsi :count',
+    'a_minute' => 'minitsi :count',
+
+    'second' => 'sekonzi :count',
+    's' => 'sekonzi :count',
+    'a_second' => 'sekonzi :count',
 ]);

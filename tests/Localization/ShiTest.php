@@ -142,21 +142,21 @@ class ShiTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 urɣ ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 tafukt ago',
+        '1 ass ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 tafukt ago',
+        '1 ass ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 tafukt ago',
+        '2 ass ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 tafukt ago',
+        '2 ass ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 sa ago',
+        '1 imalass ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 sa ago',
+        '1 imalass ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 sa ago',
+        '2 imalass ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 sa ago',
+        '2 imalass ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 ayyur ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -166,13 +166,13 @@ class ShiTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 ayyur ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 tafukt ago',
+        '1 aseggwas ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 tafukt ago',
+        '1 aseggwas ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 tafukt ago',
+        '2 aseggwas ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 tafukt ago',
+        '2 aseggwas ago',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 sin from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,28 +198,28 @@ class ShiTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ⴰⵎⵥⵉ 1 sin',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 tafukt 3 ayyur 1 tafukt 1 sin',
+        '2 aseggwas 3 ayyur 1 ass 1 sin',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 tafukt from now',
+        '3 aseggwas from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 ayyur ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 tafukt 3 ayyur 1 tafukt 1 sin ago',
+        '2 aseggwas 3 ayyur 1 ass 1 sin ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 sa 10 urɣ',
+        '1 imalass 10 urɣ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 sa 6 tafukt',
+        '1 imalass 6 ass',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 sa 6 tafukt',
+        '1 imalass 6 ass',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 sa and 6 tafukt from now',
+        '1 imalass and 6 ass from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 sa 1 urɣ',
+        '2 imalass 1 urɣ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '1 urɣ from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 tafukt',
+        '2 ass',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 tafukt 3 urɣ',
+        '1 ass 3 urɣ',
     ];
 }

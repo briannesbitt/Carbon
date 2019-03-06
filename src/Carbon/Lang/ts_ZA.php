@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -23,23 +24,31 @@
     'weekdays_min' => ['Son', 'Mus', 'Bir', 'Har', 'Ne', 'Tlh', 'Mug'],
     'day_of_first_week_of_year' => 1,
 
-    'week' => ':count vuntlhanu', // less reliable
-    'w' => ':count vuntlhanu', // less reliable
-    'a_week' => ':count vuntlhanu', // less reliable
+    'year' => 'malembe ya :count',
+    'y' => 'malembe ya :count',
+    'a_year' => 'malembe ya :count',
 
-    'day' => ':count dumelang', // less reliable
-    'd' => ':count dumelang', // less reliable
-    'a_day' => ':count dumelang', // less reliable
+    'month' => 'tin’hweti ta :count',
+    'm' => 'tin’hweti ta :count',
+    'a_month' => 'tin’hweti ta :count',
 
-    'hour' => ':count wachi', // less reliable
-    'h' => ':count wachi', // less reliable
-    'a_hour' => ':count wachi', // less reliable
+    'week' => 'mavhiki ya :count',
+    'w' => 'mavhiki ya :count',
+    'a_week' => 'mavhiki ya :count',
 
-    'minute' => ':count wachi', // less reliable
-    'min' => ':count wachi', // less reliable
-    'a_minute' => ':count wachi', // less reliable
+    'day' => 'masiku :count',
+    'd' => 'masiku :count',
+    'a_day' => 'masiku :count',
 
-    'second' => ':count sumbunuku', // less reliable
-    's' => ':count sumbunuku', // less reliable
-    'a_second' => ':count sumbunuku', // less reliable
+    'hour' => 'tiawara ta :count',
+    'h' => 'tiawara ta :count',
+    'a_hour' => 'tiawara ta :count',
+
+    'minute' => 'timinete ta :count',
+    'min' => 'timinete ta :count',
+    'a_minute' => 'timinete ta :count',
+
+    'second' => 'tisekoni ta :count',
+    's' => 'tisekoni ta :count',
+    'a_second' => 'tisekoni ta :count',
 ]);

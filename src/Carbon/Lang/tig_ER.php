@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Ge'ez Frontier Foundation    locales@geez.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -37,9 +38,9 @@
     'w' => ':count ሰቡዕ', // less reliable
     'a_week' => ':count ሰቡዕ', // less reliable
 
-    'day' => ':count ሸምሽ', // less reliable
-    'd' => ':count ሸምሽ', // less reliable
-    'a_day' => ':count ሸምሽ', // less reliable
+    'day' => ':count ዎሮ', // less reliable
+    'd' => ':count ዎሮ', // less reliable
+    'a_day' => ':count ዎሮ', // less reliable
 
     'hour' => ':count ሰዓት', // less reliable
     'h' => ':count ሰዓት', // less reliable

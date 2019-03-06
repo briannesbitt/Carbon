@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
@@ -23,6 +24,8 @@
     'weekdays_min' => ['Swo', 'Mus', 'Vhi', 'Rar', 'ṋa', 'Ṱan', 'Mug'],
     'day_of_first_week_of_year' => 1,
 
+    // Too unreliable
+    /*
     'day' => ':count vhege', // less reliable
     'd' => ':count vhege', // less reliable
     'a_day' => ':count vhege', // less reliable
@@ -42,4 +45,5 @@
     'week' => ':count vhege',
     'w' => ':count vhege',
     'a_week' => ':count vhege',
+    */
 ]);

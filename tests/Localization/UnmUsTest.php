@@ -118,108 +118,108 @@ class UnmUsTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 nisha ago',
+        '1 second ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 nisha ago',
+        '1s ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 nisha ago',
+        '2 seconds ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 nisha ago',
+        '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 txituwàk ago',
+        '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 txituwàk ago',
+        '1m ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 txituwàk ago',
+        '2 minutes ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 txituwàk ago',
+        '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 xkuk ago',
+        '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 xkuk ago',
+        '1h ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 xkuk ago',
+        '2 hours ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 xkuk ago',
+        '2h ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 kishku ago',
+        '1 day ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 kishku ago',
+        '1d ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 kishku ago',
+        '2 days ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 kishku ago',
+        '2d ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 kishku ago',
+        '1 week ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 kishku ago',
+        '1w ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 kishku ago',
+        '2 weeks ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 kishku ago',
+        '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 piskewëni kishux ago',
+        '1 month ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 piskewëni kishux ago',
+        '1mo ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 piskewëni kishux ago',
+        '2 months ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 piskewëni kishux ago',
+        '2mos ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 kaxtëne ago',
+        '1 year ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 kaxtëne ago',
+        '1yr ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 kaxtëne ago',
+        '2 years ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 kaxtëne ago',
+        '2yrs ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 nisha from now',
+        '1 second from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 nisha from now',
+        '1s from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 nisha after',
+        '1 second after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 nisha after',
+        '1s after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 nisha before',
+        '1 second before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 nisha before',
+        '1s before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 nisha',
+        '1 second',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 nisha',
+        '1s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 nisha',
+        '2 seconds',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 nisha',
+        '2s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 nisha from now',
+        '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 txituwàk 1 nisha',
+        '1 minute 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 kaxtëne 3 piskewëni kishux 1 kishku 1 nisha',
+        '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 kaxtëne from now',
+        '3 years from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 piskewëni kishux ago',
+        '5mos ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 kaxtëne 3 piskewëni kishux 1 kishku 1 nisha ago',
+        '2yrs 3mos 1d 1s ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 kishku 10 xkuk',
+        '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 kishku 6 kishku',
+        '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 kishku 6 kishku',
+        '1 week 6 days',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 kishku and 6 kishku from now',
+        '1 week and 6 days from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 kishku 1 xkuk',
+        '2 weeks 1 hour',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 xkuk from now',
+        'an hour from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 kishku',
+        '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 kishku 3 xkuk',
+        '1d 3h',
     ];
 }

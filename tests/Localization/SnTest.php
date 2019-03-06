@@ -118,45 +118,45 @@ class SnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 piri ago',
+        'sekonzi 1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 piri ago',
+        'sekonzi 1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 piri ago',
+        'sekonzi 2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 piri ago',
+        'sekonzi 2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 Nguva dzezuva ago',
+        'minitsi 1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 Nguva dzezuva ago',
+        'minitsi 1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 Nguva dzezuva ago',
+        'minitsi 2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 Nguva dzezuva ago',
+        'minitsi 2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 Nguva dzezuva ago',
+        'maawa 1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 Nguva dzezuva ago',
+        'maawa 1 ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 Nguva dzezuva ago',
+        'maawa 2 ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 Nguva dzezuva ago',
+        'maawa 2 ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 Musi ago',
+        'mazuva 1 ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 Musi ago',
+        'mazuva 1 ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 Musi ago',
+        'mazuva 2 ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 Musi ago',
+        'mazuva 2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 Vhiki ago',
+        'vhiki 1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 Vhiki ago',
+        'vhiki 1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 Vhiki ago',
+        'vhiki 2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 Vhiki ago',
+        'vhiki 2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'mwedzi 1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -166,60 +166,60 @@ class SnTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'mwedzi 2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 gore ago',
+        'makore 1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 gore ago',
+        'makore 1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 gore ago',
+        'makore 2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 gore ago',
+        'makore 2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 piri from now',
+        'sekonzi 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 piri from now',
+        'sekonzi 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 piri after',
+        'sekonzi 1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 piri after',
+        'sekonzi 1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 piri before',
+        'sekonzi 1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 piri before',
+        'sekonzi 1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 piri',
+        'sekonzi 1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 piri',
+        'sekonzi 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 piri',
+        'sekonzi 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 piri',
+        'sekonzi 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 piri from now',
+        'sekonzi 1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Nguva dzezuva 1 piri',
+        'minitsi 1 sekonzi 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 gore mwedzi 3 1 Musi 1 piri',
+        'makore 2 mwedzi 3 mazuva 1 sekonzi 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 gore from now',
+        'makore 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'mwedzi 5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 gore mwedzi 3 1 Musi 1 piri ago',
+        'makore 2 mwedzi 3 mazuva 1 sekonzi 1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 Vhiki 10 Nguva dzezuva',
+        'vhiki 1 maawa 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Vhiki 6 Musi',
+        'vhiki 1 mazuva 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 Vhiki 6 Musi',
+        'vhiki 1 mazuva 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 Vhiki and 6 Musi from now',
+        'vhiki 1 and mazuva 6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 Vhiki 1 Nguva dzezuva',
+        'vhiki 2 maawa 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 Nguva dzezuva from now',
+        'maawa 1 from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 Musi',
+        'mazuva 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 Musi 3 Nguva dzezuva',
+        'mazuva 1 maawa 3',
     ];
 }

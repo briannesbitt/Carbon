@@ -118,108 +118,108 @@ class TnTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 tshoganetso ago',
+        'metsotswana e le 1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 tshoganetso ago',
+        'metsotswana e le 1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 tshoganetso ago',
+        'metsotswana e le 2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 tshoganetso ago',
+        'metsotswana e le 2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 tshoganetso ago',
+        'metsotso e le 1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 tshoganetso ago',
+        'metsotso e le 1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 tshoganetso ago',
+        'metsotso e le 2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 tshoganetso ago',
+        'metsotso e le 2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 nako ago',
+        'diura di le 1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 nako ago',
+        'diura di le 1 ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 nako ago',
+        'diura di le 2 ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 nako ago',
+        'diura di le 2 ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 nako ago',
+        'malatsi 1 ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 nako ago',
+        'malatsi 1 ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 nako ago',
+        'malatsi 2 ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 nako ago',
+        'malatsi 2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 beke ago',
+        'dibeke di le 1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 beke ago',
+        'dibeke di le 1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 beke ago',
+        'dibeke di le 2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 beke ago',
+        'dibeke di le 2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 kgwedi ago',
+        'dikgwedi di le 1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 kgwedi ago',
+        'dikgwedi di le 1 ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 kgwedi ago',
+        'dikgwedi di le 2 ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 kgwedi ago',
+        'dikgwedi di le 2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 ngwaga ago',
+        'dingwaga di le 1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 ngwaga ago',
+        'dingwaga di le 1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 ngwaga ago',
+        'dingwaga di le 2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ngwaga ago',
+        'dingwaga di le 2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 tshoganetso from now',
+        'metsotswana e le 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 tshoganetso from now',
+        'metsotswana e le 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 tshoganetso after',
+        'metsotswana e le 1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 tshoganetso after',
+        'metsotswana e le 1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 tshoganetso before',
+        'metsotswana e le 1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 tshoganetso before',
+        'metsotswana e le 1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 tshoganetso',
+        'metsotswana e le 1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 tshoganetso',
+        'metsotswana e le 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 tshoganetso',
+        'metsotswana e le 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 tshoganetso',
+        'metsotswana e le 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 tshoganetso from now',
+        'metsotswana e le 1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 tshoganetso 1 tshoganetso',
+        'metsotso e le 1 metsotswana e le 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ngwaga 3 kgwedi 1 nako 1 tshoganetso',
+        'dingwaga di le 2 dikgwedi di le 3 malatsi 1 metsotswana e le 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 ngwaga from now',
+        'dingwaga di le 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 kgwedi ago',
+        'dikgwedi di le 5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ngwaga 3 kgwedi 1 nako 1 tshoganetso ago',
+        'dingwaga di le 2 dikgwedi di le 3 malatsi 1 metsotswana e le 1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 beke 10 nako',
+        'dibeke di le 1 diura di le 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 beke 6 nako',
+        'dibeke di le 1 malatsi 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 beke 6 nako',
+        'dibeke di le 1 malatsi 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 beke and 6 nako from now',
+        'dibeke di le 1 and malatsi 6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 beke 1 nako',
+        'dibeke di le 2 diura di le 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 nako from now',
+        'diura di le 1 from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 nako',
+        'malatsi 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 nako 3 nako',
+        'malatsi 1 diura di le 3',
     ];
 }

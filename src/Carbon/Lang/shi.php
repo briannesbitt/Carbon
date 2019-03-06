@@ -27,17 +27,21 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
 
-    'year' => ':count tafukt', // less reliable
-    'y' => ':count tafukt', // less reliable
-    'a_year' => ':count tafukt', // less reliable
+    'year' => ':count aseggwas',
+    'y' => ':count aseggwas',
+    'a_year' => ':count aseggwas',
 
-    'week' => ':count sa', // less reliable
-    'w' => ':count sa', // less reliable
-    'a_week' => ':count sa', // less reliable
+    'month' => ':count ayyur',
+    'm' => ':count ayyur',
+    'a_month' => ':count ayyur',
 
-    'day' => ':count tafukt', // less reliable
-    'd' => ':count tafukt', // less reliable
-    'a_day' => ':count tafukt', // less reliable
+    'week' => ':count imalass',
+    'w' => ':count imalass',
+    'a_week' => ':count imalass',
+
+    'day' => ':count ass',
+    'd' => ':count ass',
+    'a_day' => ':count ass',
 
     'hour' => ':count urɣ', // less reliable
     'h' => ':count urɣ', // less reliable
@@ -50,8 +54,4 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count sin', // less reliable
     's' => ':count sin', // less reliable
     'a_second' => ':count sin', // less reliable
-
-    'month' => ':count ayyur',
-    'm' => ':count ayyur',
-    'a_month' => ':count ayyur',
 ]);
