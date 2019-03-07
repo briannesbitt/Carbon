@@ -1440,17 +1440,16 @@ class CarbonInterval extends DateInterval
         $result = 0;
         $cumulativeFactor = 0;
         $unitFound = false;
+        $factors = static::getFlipCascadeFactors();
 
-        foreach (static::getFlipCascadeFactors() as $source => [$target, $factor]) {
+        foreach ($factors as $source => [$target, $factor]) {
             if ($source === $realUnit) {
                 $unitFound = true;
                 $value = $this->$source;
-                if ($source === 'microseconds') {
+                if ($source === 'microseconds' && isset($factors['milliseconds'])) {
                     $value %= Carbon::MICROSECONDS_PER_MILLISECOND;
                 }
-                if ($source !== 'milliseconds') {
-                    $result += $value;
-                }
+                $result += $value;
                 $cumulativeFactor = 1;
             }
 
@@ -1476,7 +1475,13 @@ class CarbonInterval extends DateInterval
                 continue;
             }
 
-            $result = ($result + $this->$source) / $factor;
+            $value = $this->$source;
+
+            if ($source === 'microseconds' && isset($factors['milliseconds'])) {
+                $value %= Carbon::MICROSECONDS_PER_MILLISECOND;
+            }
+
+            $result = ($result + $value) / $factor;
         }
 
         if (isset($target) && !$cumulativeFactor) {

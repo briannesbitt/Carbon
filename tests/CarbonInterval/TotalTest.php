@@ -133,4 +133,21 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(1146 / 30, $totalMonths);
         $this->assertSame(1146 / 30 / 12, $totalYears);
     }
+
+    public function testMicrosecondsInterval()
+    {
+        $interval = CarbonInterval::milliseconds(500);
+
+        $this->assertSame(0.5, $interval->totalSeconds);
+        $this->assertSame(1 / 2 / 60, $interval->totalMinutes);
+        $this->assertSame(1 / 2 / 3600, $interval->totalHours);
+
+        $interval = CarbonInterval::milliseconds(600000)->cascade();
+
+        $this->assertSame(600000000, $interval->totalMicroseconds);
+        $this->assertSame(600000, $interval->totalMilliseconds);
+        $this->assertSame(600, $interval->totalSeconds);
+        $this->assertSame(10, $interval->totalMinutes);
+        $this->assertSame(1 / 6, $interval->totalHours);
+    }
 }
