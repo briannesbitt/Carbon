@@ -118,65 +118,65 @@ class AmEtTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ሴኮንድ ago',
+        'ከ1 ሴኮንድ በፊት',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ሴኮንድ ago',
+        'ከ1 ሴኮንድ በፊት',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ሴኮንድ ago',
+        'ከ2 ሴኮንድ በፊት',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ሴኮንድ ago',
+        'ከ2 ሴኮንድ በፊት',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 ደቂቃ ago',
+        'ከ1 ደቂቃ በፊት',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 ደቂቃ ago',
+        'ከ1 ደቂቃ በፊት',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 ደቂቃ ago',
+        'ከ2 ደቂቃ በፊት',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 ደቂቃ ago',
+        'ከ2 ደቂቃ በፊት',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 ሰዓት ago',
+        'ከ1 ሰዓት በፊት',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 ሰዓት ago',
+        'ከ1 ሰዓት በፊት',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ሰዓት ago',
+        'ከ2 ሰዓት በፊት',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ሰዓት ago',
+        'ከ2 ሰዓት በፊት',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 ቀን ago',
+        'ከ1 ቀን በፊት',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 ቀን ago',
+        'ከ1 ቀን በፊት',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 ቀን ago',
+        'ከ2 ቀን በፊት',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 ቀን ago',
+        'ከ2 ቀን በፊት',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 ሳምንት ago',
+        'ከ1 ሳምንት በፊት',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 ሳምንት ago',
+        'ከ1 ሳምንት በፊት',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 ሳምንት ago',
+        'ከ2 ሳምንት በፊት',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 ሳምንት ago',
+        'ከ2 ሳምንት በፊት',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 ወር ago',
+        'ከ1 ወር በፊት',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 ወር ago',
+        'ከ1 ወር በፊት',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 ወር ago',
+        'ከ2 ወር በፊት',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 ወር ago',
+        'ከ2 ወር በፊት',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 አመት ago',
+        'ከ1 አመት በፊት',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 አመት ago',
+        'ከ1 አመት በፊት',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 አመት ago',
+        'ከ2 አመት በፊት',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 አመት ago',
+        'ከ2 አመት በፊት',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 ሴኮንድ from now',
+        'በ1 ሴኮንድ ውስጥ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 ሴኮንድ from now',
+        'በ1 ሴኮንድ ውስጥ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 ሴኮንድ after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -194,17 +194,17 @@ class AmEtTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ሴኮንድ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 ሴኮንድ from now',
+        'በ1 ሴኮንድ ውስጥ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ደቂቃ 1 ሴኮንድ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 አመት 3 ወር 1 ቀን 1 ሴኮንድ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 አመት from now',
+        'በ3 አመት ውስጥ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 ወር ago',
+        'ከ5 ወር በፊት',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 አመት 3 ወር 1 ቀን 1 ሴኮንድ ago',
+        'ከ2 አመት 3 ወር 1 ቀን 1 ሴኮንድ በፊት',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ሳምንት 10 ሰዓት',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -212,11 +212,11 @@ class AmEtTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 ሳምንት 6 ቀን',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 ሳምንት and 6 ቀን from now',
+        'በ1 ሳምንት and 6 ቀን ውስጥ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 ሳምንት 1 ሰዓት',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 ሰዓት from now',
+        'በ1 ሰዓት ውስጥ',
         // CarbonInterval::days(2)->forHumans()
         '2 ቀን',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

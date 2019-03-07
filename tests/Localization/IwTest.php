@@ -118,65 +118,65 @@ class IwTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 שניה ago',
+        'לפני 1 שניה',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 שניה ago',
+        'לפני 1 שניה',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 שניה ago',
+        'לפני 2 שניה',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 שניה ago',
+        'לפני 2 שניה',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 דקה ago',
+        'לפני 1 דקה',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 דקה ago',
+        'לפני 1 דקה',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 דקה ago',
+        'לפני 2 דקה',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 דקה ago',
+        'לפני 2 דקה',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 שעה ago',
+        'לפני 1 שעה',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 שעה ago',
+        'לפני 1 שעה',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 שעה ago',
+        'לפני 2 שעה',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 שעה ago',
+        'לפני 2 שעה',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 יום ago',
+        'לפני 1 יום',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 יום ago',
+        'לפני 1 יום',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 יום ago',
+        'לפני 2 יום',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 יום ago',
+        'לפני 2 יום',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 שבוע ago',
+        'לפני 1 שבוע',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 שבוע ago',
+        'לפני 1 שבוע',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 שבוע ago',
+        'לפני 2 שבוע',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 שבוע ago',
+        'לפני 2 שבוע',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 חודש ago',
+        'לפני 1 חודש',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 חודש ago',
+        'לפני 1 חודש',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 חודש ago',
+        'לפני 2 חודש',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 חודש ago',
+        'לפני 2 חודש',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 שנה ago',
+        'לפני 1 שנה',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 שנה ago',
+        'לפני 1 שנה',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 שנה ago',
+        'לפני 2 שנה',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 שנה ago',
+        'לפני 2 שנה',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 שניה from now',
+        'בעוד 1 שניה',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 שניה from now',
+        'בעוד 1 שניה',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 שניה after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -194,17 +194,17 @@ class IwTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 שניה',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 שניה from now',
+        'בעוד 1 שניה',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 דקה 1 שניה',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 שנה 3 חודש 1 יום 1 שניה',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 שנה from now',
+        'בעוד 3 שנה',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 חודש ago',
+        'לפני 5 חודש',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 שנה 3 חודש 1 יום 1 שניה ago',
+        'לפני 2 שנה 3 חודש 1 יום 1 שניה',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 שבוע 10 שעה',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -212,11 +212,11 @@ class IwTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 שבוע 6 יום',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 שבוע and 6 יום from now',
+        'בעוד 1 שבוע and 6 יום',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 שבוע 1 שעה',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 שעה from now',
+        'בעוד 1 שעה',
         // CarbonInterval::days(2)->forHumans()
         '2 יום',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

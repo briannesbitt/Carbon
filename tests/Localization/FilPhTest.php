@@ -118,65 +118,65 @@ class FilPhTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ulit ago',
+        '1 ulit ang nakalipas',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ulit ago',
+        '1 ulit ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ulit ago',
+        '2 ulit ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ulit ago',
+        '2 ulit ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minuto ago',
+        '1 minuto ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 minuto ago',
+        '1 minuto ang nakalipas',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minuto ago',
+        '2 minuto ang nakalipas',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minuto ago',
+        '2 minuto ang nakalipas',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 oras ago',
+        '1 oras ang nakalipas',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 oras ago',
+        '1 oras ang nakalipas',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 oras ago',
+        '2 oras ang nakalipas',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 oras ago',
+        '2 oras ang nakalipas',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 araw ago',
+        '1 araw ang nakalipas',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 araw ago',
+        '1 araw ang nakalipas',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 araw ago',
+        '2 araw ang nakalipas',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 araw ago',
+        '2 araw ang nakalipas',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 linggo ago',
+        '1 linggo ang nakalipas',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 linggo ago',
+        '1 linggo ang nakalipas',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 linggo ago',
+        '2 linggo ang nakalipas',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 linggo ago',
+        '2 linggo ang nakalipas',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 buwan ago',
+        '1 buwan ang nakalipas',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 buwan ago',
+        '1 buwan ang nakalipas',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 buwan ago',
+        '2 buwan ang nakalipas',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 buwan ago',
+        '2 buwan ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 gulang ago',
+        '1 gulang ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 gulang ago',
+        '1 gulang ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 gulang ago',
+        '2 gulang ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 gulang ago',
+        '2 gulang ang nakalipas',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 ulit from now',
+        'sa 1 ulit',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 ulit from now',
+        'sa 1 ulit',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 ulit after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -194,17 +194,17 @@ class FilPhTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 ulit',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 ulit from now',
+        'sa 1 ulit',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuto 1 ulit',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 gulang 3 buwan 1 araw 1 ulit',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 gulang from now',
+        'sa 3 gulang',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 buwan ago',
+        '5 buwan ang nakalipas',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 gulang 3 buwan 1 araw 1 ulit ago',
+        '2 gulang 3 buwan 1 araw 1 ulit ang nakalipas',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 linggo 10 oras',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -212,11 +212,11 @@ class FilPhTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 linggo 6 araw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 linggo and 6 araw from now',
+        'sa 1 linggo and 6 araw',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 linggo 1 oras',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 oras from now',
+        'sa 1 oras',
         // CarbonInterval::days(2)->forHumans()
         '2 araw',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

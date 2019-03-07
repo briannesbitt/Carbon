@@ -118,65 +118,65 @@ class TlPhTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ilang segundo ang nakalipas',
+        '1 segundo ang nakalipas',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ilang segundo ang nakalipas',
+        '1 seg. ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 segundo ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 segundo ang nakalipas',
+        '2 seg. ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'isang minuto ang nakalipas',
+        '1 minuto ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'isang minuto ang nakalipas',
+        '1 min. ang nakalipas',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minuto ang nakalipas',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minuto ang nakalipas',
+        '2 min. ang nakalipas',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'isang oras ang nakalipas',
+        '1 oras ang nakalipas',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'isang oras ang nakalipas',
+        '1 oras ang nakalipas',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 oras ang nakalipas',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 oras ang nakalipas',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'isang araw ang nakalipas',
+        '1 araw ang nakalipas',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'isang araw ang nakalipas',
+        '1 araw ang nakalipas',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 araw ang nakalipas',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2 araw ang nakalipas',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'isang linggo ang nakalipas',
+        '1 linggo ang nakalipas',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'isang linggo ang nakalipas',
+        '1 linggo ang nakalipas',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 linggo ang nakalipas',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 linggo ang nakalipas',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'isang buwan ang nakalipas',
+        '1 buwan ang nakalipas',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'isang buwan ang nakalipas',
+        '1 buwan ang nakalipas',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 buwan ang nakalipas',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 buwan ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'isang taon ang nakalipas',
+        '1 taon ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'isang taon ang nakalipas',
+        '1 taon ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 taon ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 taon ang nakalipas',
         // Carbon::now()->addSecond()->diffForHumans()
-        'sa loob ng ilang segundo',
+        'sa loob ng 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'sa loob ng ilang segundo',
+        'sa loob ng 1 seg.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,40 +186,40 @@ class TlPhTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ilang segundo',
+        '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'ilang segundo',
+        '1 seg.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 segundo',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 segundo',
+        '2 seg.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'sa loob ng ilang segundo',
+        'sa loob ng 1 seg.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'isang minuto ilang segundo',
+        '1 minuto 1 segundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 taon 3 buwan isang araw ilang segundo',
+        '2 taon 3 buwan 1 araw 1 seg.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'sa loob ng 3 taon',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 buwan ang nakalipas',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 taon 3 buwan isang araw ilang segundo ang nakalipas',
+        '2 taon 3 buwan 1 araw 1 seg. ang nakalipas',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'isang linggo 10 oras',
+        '1 linggo 10 oras',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'isang linggo 6 araw',
+        '1 linggo 6 araw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'isang linggo 6 araw',
+        '1 linggo 6 araw',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'sa loob ng isang linggo at 6 araw',
+        'sa loob ng 1 linggo at 6 araw',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 linggo isang oras',
+        '2 linggo 1 oras',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'sa loob ng isang oras',
         // CarbonInterval::days(2)->forHumans()
         '2 araw',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'isang araw 3 oras',
+        '1 araw 3 oras',
     ];
 }
