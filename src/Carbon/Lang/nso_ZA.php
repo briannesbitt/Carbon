@@ -22,4 +22,32 @@
     'weekdays_short' => ['Son', 'Moš', 'Bed', 'Rar', 'Ne', 'Hla', 'Mok'],
     'weekdays_min' => ['Son', 'Moš', 'Bed', 'Rar', 'Ne', 'Hla', 'Mok'],
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count ngwaga',
+    'y' => ':count ngwaga',
+    'a_year' => ':count ngwaga',
+
+    'month' => ':count Kgwedi',
+    'm' => ':count Kgwedi',
+    'a_month' => ':count Kgwedi',
+
+    'week' => ':count Beke',
+    'w' => ':count Beke',
+    'a_week' => ':count Beke',
+
+    'day' => ':count Letšatši',
+    'd' => ':count Letšatši',
+    'a_day' => ':count Letšatši',
+
+    'hour' => ':count Iri',
+    'h' => ':count Iri',
+    'a_hour' => ':count Iri',
+
+    'minute' => ':count Motsotso',
+    'min' => ':count Motsotso',
+    'a_minute' => ':count Motsotso',
+
+    'second' => ':count motsotswana',
+    's' => ':count motsotswana',
+    'a_second' => ':count motsotswana',
 ]);

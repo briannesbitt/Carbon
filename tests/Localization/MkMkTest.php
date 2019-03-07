@@ -120,19 +120,19 @@ class MkMkTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'пред 1 секунда',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'пред 1 секунда',
+        'пред 1 сек.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'пред 2 секунди',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'пред 2 секунди',
+        'пред 2 сек.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'пред 1 минута',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'пред 1 минута',
+        'пред 1 мин.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'пред 2 минути',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'пред 2 минути',
+        'пред 2 мин.',
         // Carbon::now()->subHours(1)->diffForHumans()
         'пред 1 час',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -168,43 +168,43 @@ class MkMkTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         'пред 1 година',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'пред 1 година',
+        'пред 1 год.',
         // Carbon::now()->subYears(2)->diffForHumans()
         'пред 2 години',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'пред 2 години',
+        'пред 2 год.',
         // Carbon::now()->addSecond()->diffForHumans()
         'после 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'после 1 секунда',
+        'после 1 сек.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'по 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'по 1 секунда',
+        'по 1 сек.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'пред 1 секунда',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'пред 1 секунда',
+        'пред 1 сек.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 секунда',
+        '1 сек.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 секунди',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 секунди',
+        '2 сек.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'после 1 секунда',
+        'после 1 сек.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 минута 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 години 3 месеци 1 ден 1 секунда',
+        '2 год. 3 месеци 1 ден 1 сек.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'после 3 години',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'пред 5 месеци',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'пред 2 години 3 месеци 1 ден 1 секунда',
+        'пред 2 год. 3 месеци 1 ден 1 сек.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 седмица 10 часа',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

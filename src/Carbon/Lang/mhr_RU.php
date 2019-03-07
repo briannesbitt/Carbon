@@ -23,4 +23,32 @@
     'weekdays_min' => ['Ршр', 'Шчм', 'Кжм', 'Вгч', 'Изр', 'Кгр', 'Шмт'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count идалык',
+    'y' => ':count идалык',
+    'a_year' => ':count идалык',
+
+    'month' => ':count Тылзе',
+    'm' => ':count Тылзе',
+    'a_month' => ':count Тылзе',
+
+    'week' => ':count арня',
+    'w' => ':count арня',
+    'a_week' => ':count арня',
+
+    'day' => ':count кече',
+    'd' => ':count кече',
+    'a_day' => ':count кече',
+
+    'hour' => ':count час',
+    'h' => ':count час',
+    'a_hour' => ':count час',
+
+    'minute' => ':count минут',
+    'min' => ':count минут',
+    'a_minute' => ':count минут',
+
+    'second' => ':count кокымшан',
+    's' => ':count кокымшан',
+    'a_second' => ':count кокымшан',
 ]);

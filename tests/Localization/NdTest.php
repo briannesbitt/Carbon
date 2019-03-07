@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NdTest extends LocalizationTestCase
 {
-    const LOCALE = 'nd'; // North Ndebele
+    const LOCALE = 'nd'; // NorthNdebele
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,108 +118,108 @@ class NdTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 second ago',
+        'imizuzwana engu-1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1s ago',
+        'imizuzwana engu-1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 seconds ago',
+        'imizuzwana engu-2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2s ago',
+        'imizuzwana engu-2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        'imizuzu engu-1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        'imizuzu engu-1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        'imizuzu engu-2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        'imizuzu engu-2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        'amahola angu-1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        'amahola angu-1 ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        'amahola angu-2 ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        'amahola angu-2 ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        'kwamalanga angu-1 ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        'kwamalanga angu-1 ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        'kwamalanga angu-2 ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        'kwamalanga angu-2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 week ago',
+        'amaviki angu-1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1w ago',
+        'amaviki angu-1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 weeks ago',
+        'amaviki angu-2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2w ago',
+        'amaviki angu-2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        'inyanga ezingu-1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        'inyanga ezingu-1 ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        'inyanga ezingu-2 ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        'inyanga ezingu-2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        'okweminyaka engu-1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        'okweminyaka engu-1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        'okweminyaka engu-2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        'okweminyaka engu-2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 second from now',
+        'imizuzwana engu-1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1s from now',
+        'imizuzwana engu-1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 second after',
+        'imizuzwana engu-1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s after',
+        'imizuzwana engu-1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 second before',
+        'imizuzwana engu-1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s before',
+        'imizuzwana engu-1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 second',
+        'imizuzwana engu-1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'imizuzwana engu-1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 seconds',
+        'imizuzwana engu-2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        'imizuzwana engu-2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1s from now',
+        'imizuzwana engu-1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        'imizuzu engu-1 imizuzwana engu-1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        'okweminyaka engu-2 inyanga ezingu-3 kwamalanga angu-1 imizuzwana engu-1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        'okweminyaka engu-3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        'inyanga ezingu-5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        'okweminyaka engu-2 inyanga ezingu-3 kwamalanga angu-1 imizuzwana engu-1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        'amaviki angu-1 amahola angu-10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        'amaviki angu-1 kwamalanga angu-6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        'amaviki angu-1 kwamalanga angu-6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        'amaviki angu-1 and kwamalanga angu-6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        'amaviki angu-2 amahola angu-1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        'amahola angu-1 from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        'kwamalanga angu-2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'kwamalanga angu-1 amahola angu-3',
     ];
 }

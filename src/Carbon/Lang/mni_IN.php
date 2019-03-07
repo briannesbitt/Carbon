@@ -24,4 +24,12 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['নোং', 'নিং', 'লৈবাক', 'য়ুম', 'শগোল', 'ইরা', 'থাং'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['এ.ম.', 'প.ম.'],
+
+    'year' => ':count ইসিং', // less reliable
+    'y' => ':count ইসিং', // less reliable
+    'a_year' => ':count ইসিং', // less reliable
+
+    'second' => ':count ꯅꯤꯡꯊꯧꯀꯥꯕ', // less reliable
+    's' => ':count ꯅꯤꯡꯊꯧꯀꯥꯕ', // less reliable
+    'a_second' => ':count ꯅꯤꯡꯊꯧꯀꯥꯕ', // less reliable
 ]);

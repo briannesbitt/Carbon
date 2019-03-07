@@ -25,4 +25,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 7,
     'meridiem' => ['VM', 'NM'],
+
+    'year' => ':count yaya', // less reliable
+    'y' => ':count yaya', // less reliable
+    'a_year' => ':count yaya', // less reliable
+
+    'month' => ':count nantu', // less reliable
+    'm' => ':count nantu', // less reliable
+    'a_month' => ':count nantu', // less reliable
+
+    'day' => ':count nayaim', // less reliable
+    'd' => ':count nayaim', // less reliable
+    'a_day' => ':count nayaim', // less reliable
+
+    'hour' => ':count kuwiš', // less reliable
+    'h' => ':count kuwiš', // less reliable
+    'a_hour' => ':count kuwiš', // less reliable
 ]);

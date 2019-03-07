@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LuyTest extends LocalizationTestCase
 {
-    const LOCALE = 'luy'; // luy
+    const LOCALE = 'luy'; // Luyia
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -118,65 +118,65 @@ class OrInTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ago',
+        '1 ସେକଣ୍ଢ ପୂର୍ବେ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ସେ. ପୂର୍ବେ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'ago',
+        '2 ସେକଣ୍ଢ ପୂର୍ବେ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ସେ. ପୂର୍ବେ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ago',
+        '1 ମିନଟ ପୂର୍ବେ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ମି. ପୂର୍ବେ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'ago',
+        '2 ମିନଟ ପୂର୍ବେ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ମି. ପୂର୍ବେ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ago',
+        '1 ଘଣ୍ତ ପୂର୍ବେ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ଘ. ପୂର୍ବେ',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'ago',
+        '2 ଘଣ୍ତ ପୂର୍ବେ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ଘ. ପୂର୍ବେ',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ago',
+        '1 ଦିନ ପୂର୍ବେ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ଦିନ ପୂର୍ବେ',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'ago',
+        '2 ଦିନ ପୂର୍ବେ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ଦିନ ପୂର୍ବେ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ago',
+        '1 ସପ୍ତାହ ପୂର୍ବେ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ସପ୍ତା. ପୂର୍ବେ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'ago',
+        '2 ସପ୍ତାହ ପୂର୍ବେ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ସପ୍ତା. ପୂର୍ବେ',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ago',
+        '1 ମାସ ପୂର୍ବେ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ମା. ପୂର୍ବେ',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'ago',
+        '2 ମାସ ପୂର୍ବେ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ମା. ପୂର୍ବେ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ago',
+        '1 ବର୍ଷ ପୂର୍ବେ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ago',
+        '1 ବ. ପୂର୍ବେ',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'ago',
+        '2 ବର୍ଷ ପୂର୍ବେ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'ago',
+        '2 ବ. ପୂର୍ବେ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'from_now',
+        '1 ସେକଣ୍ଢରେ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'from_now',
+        '1 ସେ.ରେ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -188,38 +188,38 @@ class OrInTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 ସେକଣ୍ଢ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 ସେକଣ୍ଢ',
+        '1 ସେ.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 ସେକଣ୍ଢ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 ସେକଣ୍ଢ',
+        '2 ସେ.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'from_now',
+        '1 ସେ.ରେ',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ମିନଟ 1 ସେକଣ୍ଢ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ବର୍ଷ 3 ମାସ 1 ଦିନ 1 ସେକଣ୍ଢ',
+        '2 ବ. 3 ମା. 1 ଦିନ 1 ସେ.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'from_now',
+        '3 ବର୍ଷରେ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'ago',
+        '5 ମା. ପୂର୍ବେ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'ago',
+        '2 ବ. 3 ମା. 1 ଦିନ 1 ସେ. ପୂର୍ବେ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'week 10 ଘଣ୍ତ',
+        '1 ସପ୍ତାହ 10 ଘଣ୍ତ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 ଦିନ',
+        '1 ସପ୍ତାହ 6 ଦିନ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 ଦିନ',
+        '1 ସପ୍ତାହ 6 ଦିନ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'from_now',
+        '1 ସପ୍ତାହ 6 ଦିନରେ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'week 1 ଘଣ୍ତ',
+        '2 ସପ୍ତାହ 1 ଘଣ୍ତ',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'from_now',
+        '1 ଘଣ୍ତରେ',
         // CarbonInterval::days(2)->forHumans()
         '2 ଦିନ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 ଦିନ 3 ଘଣ୍ତ',
+        '1 ଦିନ 3 ଘ.',
     ];
 }

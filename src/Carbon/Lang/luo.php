@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => 'higni :count',
+    'y' => 'higni :count',
+    'a_year' => ':higni :count',
+
+    'month' => 'dweche :count',
+    'm' => 'dweche :count',
+    'a_month' => 'dweche :count',
+
+    'week' => 'jumbe :count',
+    'w' => 'jumbe :count',
+    'a_week' => 'jumbe :count',
+
+    'day' => 'ndalo :count',
+    'd' => 'ndalo :count',
+    'a_day' => 'ndalo :count',
+
+    'hour' => 'seche :count',
+    'h' => 'seche :count',
+    'a_hour' => 'seche :count',
+
+    'minute' => 'dakika :count',
+    'min' => 'dakika :count',
+    'a_minute' => 'dakika :count',
+
+    'second' => 'nus dakika :count',
+    's' => 'nus dakika :count',
+    'a_second' => 'nus dakika :count',
 ]);

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class BynErTest extends LocalizationTestCase
 {
-    const LOCALE = 'byn_ER';
+    const LOCALE = 'byn_ER'; // Bilin
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

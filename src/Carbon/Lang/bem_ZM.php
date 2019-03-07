@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - ANLoc Martin Benjamin locales@africanlocalization.net
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -24,4 +25,32 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['uluchelo', 'akasuba'],
+
+    'year' => 'myaka :count',
+    'y' => 'myaka :count',
+    'a_year' => 'myaka :count',
+
+    'month' => 'myeshi :count',
+    'm' => 'myeshi :count',
+    'a_month' => 'myeshi :count',
+
+    'week' => 'umulungu :count',
+    'w' => 'umulungu :count',
+    'a_week' => 'umulungu :count',
+
+    'day' => 'inshiku :count',
+    'd' => 'inshiku :count',
+    'a_day' => 'inshiku :count',
+
+    'hour' => 'awala :count',
+    'h' => 'awala :count',
+    'a_hour' => 'awala :count',
+
+    'minute' => 'miniti :count',
+    'min' => 'miniti :count',
+    'a_minute' => 'miniti :count',
+
+    'second' => 'sekondi :count',
+    's' => 'sekondi :count',
+    'a_second' => 'sekondi :count',
 ]);

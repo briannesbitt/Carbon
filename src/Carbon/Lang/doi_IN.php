@@ -24,4 +24,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['ऐत', 'सोम', 'मंगल', 'बुध', 'बीर', 'शुक्कर', 'श्नीचर'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['सञं', 'सबेर'],
+
+    'second' => ':count सङार', // less reliable
+    's' => ':count सङार', // less reliable
+    'a_second' => ':count सङार', // less reliable
 ]);

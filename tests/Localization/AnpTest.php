@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class AnpTest extends LocalizationTestCase
 {
-    const LOCALE = 'anp'; // anp
+    const LOCALE = 'anp'; // Angika
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

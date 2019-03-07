@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return [
+return array_replace_recursive(require __DIR__.'/en.php', [
     'meridiem' => ['kiɛmɛ́ɛm', 'kisɛ́ndɛ'],
     'weekdays' => ['sɔ́ndiɛ', 'móndie', 'muányáŋmóndie', 'metúkpíápɛ', 'kúpélimetúkpiapɛ', 'feléte', 'séselé'],
     'weekdays_short' => ['sd', 'md', 'mw', 'et', 'kl', 'fl', 'ss'],
@@ -25,4 +25,4 @@ return [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
-];
+]);

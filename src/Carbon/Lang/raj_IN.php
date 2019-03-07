@@ -24,4 +24,24 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['रवि', 'सोम', 'मंगल', 'बुध', 'बृहस्पति', 'शुक्र', 'शनि'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['पूर्वाह्न', 'अपराह्न'],
+
+    'year' => ':count आंहू', // less reliable
+    'y' => ':count आंहू', // less reliable
+    'a_year' => ':count आंहू', // less reliable
+
+    'month' => ':count सूरज', // less reliable
+    'm' => ':count सूरज', // less reliable
+    'a_month' => ':count सूरज', // less reliable
+
+    'week' => ':count निवाज', // less reliable
+    'w' => ':count निवाज', // less reliable
+    'a_week' => ':count निवाज', // less reliable
+
+    'day' => ':count अेक', // less reliable
+    'd' => ':count अेक', // less reliable
+    'a_day' => ':count अेक', // less reliable
+
+    'hour' => ':count दुनियांण', // less reliable
+    'h' => ':count दुनियांण', // less reliable
+    'a_hour' => ':count दुनियांण', // less reliable
 ]);

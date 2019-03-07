@@ -24,4 +24,35 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D בMMMM YYYY H:mm',
         'LLLL' => 'dddd, D בMMMM YYYY H:mm',
     ],
+
+    'year' => ':count שנה',
+    'y' => ':count שנה',
+    'a_year' => ':count שנה',
+
+    'month' => ':count חודש',
+    'm' => ':count חודש',
+    'a_month' => ':count חודש',
+
+    'week' => ':count שבוע',
+    'w' => ':count שבוע',
+    'a_week' => ':count שבוע',
+
+    'day' => ':count יום',
+    'd' => ':count יום',
+    'a_day' => ':count יום',
+
+    'hour' => ':count שעה',
+    'h' => ':count שעה',
+    'a_hour' => ':count שעה',
+
+    'minute' => ':count דקה',
+    'min' => ':count דקה',
+    'a_minute' => ':count דקה',
+
+    'second' => ':count שניה',
+    's' => ':count שניה',
+    'a_second' => ':count שניה',
+
+    'ago' => 'לפני :time',
+    'from_now' => 'בעוד :time',
 ]);

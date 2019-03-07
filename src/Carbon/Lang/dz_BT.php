@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Sherubtse College    bug-glibc@gnu.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'པསྱི་ལོYYཟལMMཚེསDD',
     ],
@@ -23,4 +24,20 @@
     'weekdays_min' => ['ཟླ་', 'མིར་', 'ལྷག་', 'པུར་', 'སངས་', 'སྤེན་', 'ཉི་'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ངས་ཆ', 'ཕྱི་ཆ'],
+
+    'year' => ':count ཆརཔ', // less reliable
+    'y' => ':count ཆརཔ', // less reliable
+    'a_year' => ':count ཆརཔ', // less reliable
+
+    'month' => ':count ཟླ་བ', // less reliable
+    'm' => ':count ཟླ་བ', // less reliable
+    'a_month' => ':count ཟླ་བ', // less reliable
+
+    'day' => ':count ཉི', // less reliable
+    'd' => ':count ཉི', // less reliable
+    'a_day' => ':count ཉི', // less reliable
+
+    'second' => ':count ཆ', // less reliable
+    's' => ':count ཆ', // less reliable
+    'a_second' => ':count ཆ', // less reliable
 ]);

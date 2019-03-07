@@ -29,4 +29,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Lh', 'Li', 'Ta', 'Lr', 'Al', 'Ju', 'As'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'year' => 'shekara :count',
+    'y' => 'shekara :count',
+    'a_year' => 'shekara :count',
+
+    'month' => ':count wátàa',
+    'm' => ':count wátàa',
+    'a_month' => ':count wátàa',
+
+    'week' => ':count mako',
+    'w' => ':count mako',
+    'a_week' => ':count mako',
+
+    'day' => ':count rana',
+    'd' => ':count rana',
+    'a_day' => ':count rana',
+
+    'hour' => ':count áwàa',
+    'h' => ':count áwàa',
+    'a_hour' => ':count áwàa',
+
+    'minute' => 'minti :count',
+    'min' => 'minti :count',
+    'a_minute' => 'minti :count',
+
+    'second' => ':count ná bíyú',
+    's' => ':count ná bíyú',
+    'a_second' => ':count ná bíyú',
 ]);

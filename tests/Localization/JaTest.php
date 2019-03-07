@@ -10,8 +10,6 @@
  */
 namespace Tests\Localization;
 
-use Carbon\Carbon;
-
 class JaTest extends LocalizationTestCase
 {
     const LOCALE = 'ja'; // Japanese
@@ -224,9 +222,4 @@ class JaTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1日 3時間',
     ];
-
-    public function testYearWithJapaneseNumbers()
-    {
-        self::assertSame('二千十五', Carbon::parse('2015-12-23 00:00:00')->locale('ja')->getAltNumber('year'));
-    }
 }

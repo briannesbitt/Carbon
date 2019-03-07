@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NnNoTest extends LocalizationTestCase
 {
-    const LOCALE = 'nn_NO'; // Norwegian Nynorsk
+    const LOCALE = 'nn_NO'; // NorwegianNynorsk
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

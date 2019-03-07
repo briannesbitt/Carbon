@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class UnmUsTest extends LocalizationTestCase
 {
-    const LOCALE = 'unm_US';
+    const LOCALE = 'unm_US'; // Unami
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

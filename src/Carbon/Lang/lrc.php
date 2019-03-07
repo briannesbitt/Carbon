@@ -10,4 +10,8 @@
  */
 
 return array_replace_recursive(require __DIR__.'/en.php', [
+
+    'minute' => ':count هنر', // less reliable
+    'min' => ':count هنر', // less reliable
+    'a_minute' => ':count هنر', // less reliable
 ]);

@@ -24,4 +24,27 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    // Too unreliable
+    /*
+    'year' => ':count mbua', // less reliable
+    'y' => ':count mbua', // less reliable
+    'a_year' => ':count mbua', // less reliable
+
+    'month' => ':count ndakitali', // less reliable
+    'm' => ':count ndakitali', // less reliable
+    'a_month' => ':count ndakitali', // less reliable
+
+    'day' => ':count wia', // less reliable
+    'd' => ':count wia', // less reliable
+    'a_day' => ':count wia', // less reliable
+
+    'hour' => ':count orasan', // less reliable
+    'h' => ':count orasan', // less reliable
+    'a_hour' => ':count orasan', // less reliable
+
+    'minute' => ':count orasan', // less reliable
+    'min' => ':count orasan', // less reliable
+    'a_minute' => ':count orasan', // less reliable
+    */
 ]);

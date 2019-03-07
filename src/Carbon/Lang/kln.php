@@ -24,4 +24,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count maghatiat', // less reliable
+    'y' => ':count maghatiat', // less reliable
+    'a_year' => ':count maghatiat', // less reliable
 ]);

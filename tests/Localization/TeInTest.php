@@ -118,65 +118,65 @@ class TeInTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0వ',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'కొన్ని క్షణాలు క్రితం',
+        '1 సెకను క్రితం',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'కొన్ని క్షణాలు క్రితం',
+        '1 సెక. క్రితం',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 సెకన్లు క్రితం',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 సెకన్లు క్రితం',
+        '2 సెక. క్రితం',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ఒక నిమిషం క్రితం',
+        '1 నిమిషం క్రితం',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ఒక నిమిషం క్రితం',
+        '1 నిమి. క్రితం',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 నిమిషాలు క్రితం',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 నిమిషాలు క్రితం',
+        '2 నిమి. క్రితం',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ఒక గంట క్రితం',
+        '1 గంట క్రితం',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ఒక గంట క్రితం',
+        '1 గం. క్రితం',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 గంటలు క్రితం',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 గంటలు క్రితం',
+        '2 గం. క్రితం',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ఒక రోజు క్రితం',
+        '1 రోజు క్రితం',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ఒక రోజు క్రితం',
+        '1 రోజు క్రితం',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 రోజులు క్రితం',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 రోజులు క్రితం',
+        '2 రోజు. క్రితం',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ఒక వారం క్రితం',
+        '1 వారం క్రితం',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ఒక వారం క్రితం',
+        '1 వార. క్రితం',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 వారాలు క్రితం',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 వారాలు క్రితం',
+        '2 వారా. క్రితం',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ఒక నెల క్రితం',
+        '1 నెల క్రితం',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ఒక నెల క్రితం',
+        '1 నెల క్రితం',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 నెలలు క్రితం',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 నెలలు క్రితం',
+        '2 నెల. క్రితం',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ఒక సంవత్సరం క్రితం',
+        '1 సంవత్సరం క్రితం',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ఒక సంవత్సరం క్రితం',
+        '1 సం. క్రితం',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 సంవత్సరాలు క్రితం',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 సంవత్సరాలు క్రితం',
+        '2 సం. క్రితం',
         // Carbon::now()->addSecond()->diffForHumans()
-        'కొన్ని క్షణాలు లో',
+        '1 సెకను లో',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'కొన్ని క్షణాలు లో',
+        '1 సెక. లో',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,40 +186,40 @@ class TeInTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'కొన్ని క్షణాలు',
+        '1 సెకను',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'కొన్ని క్షణాలు',
+        '1 సెక.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 సెకన్లు',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 సెకన్లు',
+        '2 సెక.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'కొన్ని క్షణాలు లో',
+        '1 సెక. లో',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'ఒక నిమిషం కొన్ని క్షణాలు',
+        '1 నిమిషం 1 సెకను',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 సంవత్సరాలు 3 నెలలు ఒక రోజు కొన్ని క్షణాలు',
+        '2 సం. 3 నెల. 1 రోజు 1 సెక.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 సంవత్సరాలు లో',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 నెలలు క్రితం',
+        '5 నెల. క్రితం',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 సంవత్సరాలు 3 నెలలు ఒక రోజు కొన్ని క్షణాలు క్రితం',
+        '2 సం. 3 నెల. 1 రోజు 1 సెక. క్రితం',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'ఒక వారం 10 గంటలు',
+        '1 వారం 10 గంటలు',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ఒక వారం 6 రోజులు',
+        '1 వారం 6 రోజులు',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ఒక వారం 6 రోజులు',
+        '1 వారం 6 రోజులు',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ఒక వారం, 6 రోజులు లో',
+        '1 వారం, 6 రోజులు లో',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 వారాలు ఒక గంట',
+        '2 వారాలు 1 గంట',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'ఒక గంట లో',
         // CarbonInterval::days(2)->forHumans()
         '2 రోజులు',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ఒక రోజు 3 గంటలు',
+        '1 రోజు 3 గం.',
     ];
 }

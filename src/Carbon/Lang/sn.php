@@ -24,4 +24,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'YYYY MMMM D HH:mm',
         'LLLL' => 'YYYY MMMM D, dddd HH:mm',
     ],
+
+    'year' => 'makore :count',
+    'y' => 'makore :count',
+    'a_year' => 'makore :count',
+
+    'month' => 'mwedzi :count',
+    'm' => 'mwedzi :count',
+    'a_month' => 'mwedzi :count',
+
+    'week' => 'vhiki :count',
+    'w' => 'vhiki :count',
+    'a_week' => 'vhiki :count',
+
+    'day' => 'mazuva :count',
+    'd' => 'mazuva :count',
+    'a_day' => 'mazuva :count',
+
+    'hour' => 'maawa :count',
+    'h' => 'maawa :count',
+    'a_hour' => 'maawa :count',
+
+    'minute' => 'minitsi :count',
+    'min' => 'minitsi :count',
+    'a_minute' => 'minitsi :count',
+
+    'second' => 'sekonzi :count',
+    's' => 'sekonzi :count',
+    'a_second' => 'sekonzi :count',
 ]);

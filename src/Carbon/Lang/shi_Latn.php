@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-return array_replace_recursive(require __DIR__.'/en.php', [
+return array_replace_recursive(require __DIR__.'/shi.php', [
     'meridiem' => ['tifawt', 'tadggʷat'],
     'weekdays' => ['asamas', 'aynas', 'asinas', 'akṛas', 'akwas', 'asimwas', 'asiḍyas'],
     'weekdays_short' => ['asa', 'ayn', 'asi', 'akṛ', 'akw', 'asim', 'asiḍ'],
@@ -26,4 +26,8 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'minute' => ':count agur', // less reliable
+    'min' => ':count agur', // less reliable
+    'a_minute' => ':count agur', // less reliable
 ]);

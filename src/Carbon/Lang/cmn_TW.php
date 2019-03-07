@@ -22,4 +22,32 @@
     'weekdays_short' => ['日', '一', '二', '三', '四', '五', '六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
     'meridiem' => ['上午', '下午'],
+
+    'year' => ':count 年',
+    'y' => ':count 年',
+    'a_year' => ':count 年',
+
+    'month' => ':count 月',
+    'm' => ':count 月',
+    'a_month' => ':count 月',
+
+    'week' => ':count 周',
+    'w' => ':count 周',
+    'a_week' => ':count 周',
+
+    'day' => ':count 白天',
+    'd' => ':count 白天',
+    'a_day' => ':count 白天',
+
+    'hour' => ':count 小时',
+    'h' => ':count 小时',
+    'a_hour' => ':count 小时',
+
+    'minute' => ':count 分钟',
+    'min' => ':count 分钟',
+    'a_minute' => ':count 分钟',
+
+    'second' => ':count 秒',
+    's' => ':count 秒',
+    'a_second' => ':count 秒',
 ]);

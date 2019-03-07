@@ -23,4 +23,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY h:mm a',
         'LLLL' => 'dddd, D MMMM YYYY h:mm a',
     ],
+
+    'year' => ':count makahiki',
+    'y' => ':count makahiki',
+    'a_year' => ':count makahiki',
+
+    'month' => ':count mahina',
+    'm' => ':count mahina',
+    'a_month' => ':count mahina',
+
+    'week' => ':count pule',
+    'w' => ':count pule',
+    'a_week' => ':count pule',
+
+    'day' => ':count lā',
+    'd' => ':count lā',
+    'a_day' => ':count lā',
+
+    'hour' => ':count hola',
+    'h' => ':count hola',
+    'a_hour' => ':count hola',
+
+    'minute' => ':count minuke',
+    'min' => ':count minuke',
+    'a_minute' => ':count minuke',
+
+    'second' => ':count lua',
+    's' => ':count lua',
+    'a_second' => ':count lua',
 ]);

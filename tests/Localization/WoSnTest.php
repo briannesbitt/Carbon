@@ -186,19 +186,19 @@ class WoSnTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 Seconds',
+        '1 saa',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 Seconds',
+        '1 saa',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 Seconds',
+        '2 saa',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 Seconds',
+        '2 saa',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'from_now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 Minute 1 Seconds',
+        '1 simili 1 saa',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 Year 3 Month 1 Day 1 Seconds',
+        '2 at 3 wèr 1 bés 1 saa',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'from_now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
@@ -206,20 +206,20 @@ class WoSnTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'week 10 Hour',
+        '1 ayubés 10 waxtu',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 Day',
+        '1 ayubés 6 bés',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'week 6 Day',
+        '1 ayubés 6 bés',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'from_now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'week 1 Hour',
+        '2 ayubés 1 waxtu',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'from_now',
         // CarbonInterval::days(2)->forHumans()
-        '2 Day',
+        '2 bés',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 Day 3 Hour',
+        '1 bés 3 waxtu',
     ];
 }
