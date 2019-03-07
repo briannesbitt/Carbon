@@ -33,7 +33,7 @@ return [
     'w' => ':count set.',
     'day' => ':count giorno|:count giorni',
     'a_day' => 'un giorno|:count giorni',
-    'd' => ':count d',
+    'd' => ':count g|:count gg',
     'hour' => ':count ora|:count ore',
     'a_hour' => 'un\'ora|:count ore',
     'h' => ':count h',
