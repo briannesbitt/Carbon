@@ -51,4 +51,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count detik',
     's' => ':count detik',
     'a_second' => ':count detik',
+
+    'ago' => ':time yang lalu',
+    'from_now' => 'dalam :time',
 ]);

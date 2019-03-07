@@ -52,4 +52,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count ulit',
     's' => ':count ulit',
     'a_second' => ':count ulit',
+
+    'ago' => ':time ang nakalipas',
+    'from_now' => 'sa :time',
 ]);

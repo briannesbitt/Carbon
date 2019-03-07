@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Cherokee Nation Joseph Erb josepherb7@gmail.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -51,4 +52,7 @@
     'minute' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
     'min' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
     'a_minute' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
+
+    'ago' => ':time ᏥᎨᏒ',
+    'from_now' => 'ᎾᎿ :time',
 ]);

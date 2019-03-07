@@ -52,4 +52,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count שניה',
     's' => ':count שניה',
     'a_second' => ':count שניה',
+
+    'ago' => 'לפני :time',
+    'from_now' => 'בעוד :time',
 ]);
