@@ -79,25 +79,7 @@ class Language implements JsonSerializable
     public static function all()
     {
         if (!static::$languagesNames) {
-            // Add ISO 639-3 languages available in Carbon
-            static::$languagesNames = array_merge(include __DIR__.'/List/languages.php', [
-                'gom' => [
-                    'isoName' => 'Konkani, Goan',
-                    'nativeName' => 'ಕೊಂಕಣಿ',
-                ],
-                'tlh' => [
-                    'isoName' => 'Klingon, tlhIngan-Hol',
-                    'nativeName' => 'tlhIngan Hol',
-                ],
-                'tzl' => [
-                    'isoName' => 'Talossan',
-                    'nativeName' => 'Talossan',
-                ],
-                'tzm' => [
-                    'isoName' => 'Tamazight, Central Atlas',
-                    'nativeName' => 'ⵜⵎⴰⵣⵉⵖⵜ',
-                ],
-            ]);
+            static::$languagesNames = include __DIR__.'/List/languages.php';
         }
 
         return static::$languagesNames;

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class FyTest extends LocalizationTestCase
 {
-    const LOCALE = 'fy'; // Western Frisian
+    const LOCALE = 'fy'; // WesternFrisian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LrcTest extends LocalizationTestCase
 {
-    const LOCALE = 'lrc'; // lrc
+    const LOCALE = 'lrc'; // Northern Luri
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -126,13 +126,13 @@ class LrcTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2s ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        '1 هنر ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        '1 هنر ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        '2 هنر ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        '2 هنر ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -196,7 +196,7 @@ class LrcTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1s from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        '1 هنر 1 second',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2yrs 3mos 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)

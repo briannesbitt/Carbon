@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MasTzTest extends LocalizationTestCase
 {
-    const LOCALE = 'mas_TZ'; // mas
+    const LOCALE = 'mas_TZ'; // Masai
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,13 +118,13 @@ class MasTzTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 second ago',
+        '1 are ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1s ago',
+        '1 are ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 seconds ago',
+        '2 are ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2s ago',
+        '2 are ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minute ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -134,92 +134,92 @@ class MasTzTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2m ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        '1 esahabu ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        '1 esahabu ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        '2 esahabu ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        '2 esahabu ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        '1 enkolongʼ ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        '1 enkolongʼ ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        '2 enkolongʼ ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        '2 enkolongʼ ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 week ago',
+        '1 engolongeare orwiki ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1w ago',
+        '1 engolongeare orwiki ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 weeks ago',
+        '2 engolongeare orwiki ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2w ago',
+        '2 engolongeare orwiki ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        '1 olapa ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        '1 olapa ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        '2 olapa ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        '2 olapa ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        '1 olameyu ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        '1 olameyu ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        '2 olameyu ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        '2 olameyu ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 second from now',
+        '1 are from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1s from now',
+        '1 are from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 second after',
+        '1 are after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s after',
+        '1 are after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 second before',
+        '1 are before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s before',
+        '1 are before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 second',
+        '1 are',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 are',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 seconds',
+        '2 are',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 are',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1s from now',
+        '1 are from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        '1 minute 1 are',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 olameyu 3 olapa 1 enkolongʼ 1 are',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        '3 olameyu from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        '5 olapa ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2 olameyu 3 olapa 1 enkolongʼ 1 are ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        '1 engolongeare orwiki 10 esahabu',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 engolongeare orwiki 6 enkolongʼ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        '1 engolongeare orwiki 6 enkolongʼ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        '1 engolongeare orwiki and 6 enkolongʼ from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        '2 engolongeare orwiki 1 esahabu',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        '1 esahabu from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        '2 enkolongʼ',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        '1 enkolongʼ 3 esahabu',
     ];
 }

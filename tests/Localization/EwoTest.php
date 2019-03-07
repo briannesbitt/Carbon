@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class EwoTest extends LocalizationTestCase
 {
-    const LOCALE = 'ewo'; // ewo
+    const LOCALE = 'ewo'; // Ewondo
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

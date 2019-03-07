@@ -23,4 +23,35 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['ken', 'man', 'tus', 'lel', 'tas', 'pel', 'sat'],
     'weekdays_min' => ['ken', 'man', 'tus', 'lel', 'tas', 'pel', 'sat'],
     'day_of_first_week_of_year' => 1,
+
+    // Too unreliable
+    /*
+    'year' => ':count kaxtëne',
+    'y' => ':count kaxtëne',
+    'a_year' => ':count kaxtëne',
+
+    'month' => ':count piskewëni kishux', // less reliable
+    'm' => ':count piskewëni kishux', // less reliable
+    'a_month' => ':count piskewëni kishux', // less reliable
+
+    'week' => ':count kishku', // less reliable
+    'w' => ':count kishku', // less reliable
+    'a_week' => ':count kishku', // less reliable
+
+    'day' => ':count kishku',
+    'd' => ':count kishku',
+    'a_day' => ':count kishku',
+
+    'hour' => ':count xkuk', // less reliable
+    'h' => ':count xkuk', // less reliable
+    'a_hour' => ':count xkuk', // less reliable
+
+    'minute' => ':count txituwàk', // less reliable
+    'min' => ':count txituwàk', // less reliable
+    'a_minute' => ':count txituwàk', // less reliable
+
+    'second' => ':count nisha', // less reliable
+    's' => ':count nisha', // less reliable
+    'a_second' => ':count nisha', // less reliable
+    */
 ]);

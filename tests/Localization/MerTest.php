@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MerTest extends LocalizationTestCase
 {
-    const LOCALE = 'mer'; // mer
+    const LOCALE = 'mer'; // Meru
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,21 +118,21 @@ class MerTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 second ago',
+        '1 gikeno ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1s ago',
+        '1 gikeno ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 seconds ago',
+        '2 gikeno ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2s ago',
+        '2 gikeno ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        '1 monto ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        '1 monto ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        '2 monto ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        '2 monto ago',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 hour ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -158,53 +158,53 @@ class MerTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2w ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        '1 muchaara ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        '1 muchaara ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        '2 muchaara ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        '2 muchaara ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        '1 murume ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        '1 murume ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        '2 murume ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        '2 murume ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 second from now',
+        '1 gikeno from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1s from now',
+        '1 gikeno from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 second after',
+        '1 gikeno after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s after',
+        '1 gikeno after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 second before',
+        '1 gikeno before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s before',
+        '1 gikeno before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 second',
+        '1 gikeno',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        '1 gikeno',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 seconds',
+        '2 gikeno',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        '2 gikeno',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1s from now',
+        '1 gikeno from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        '1 monto 1 gikeno',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        '2 murume 3 muchaara 1d 1 gikeno',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        '3 murume from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        '5 muchaara ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        '2 murume 3 muchaara 1d 1 gikeno ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 week 10 hours',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

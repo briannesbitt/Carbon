@@ -29,4 +29,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['WD', 'WB'],
+
+    'year' => 'wggoota :count',
+    'y' => 'wggoota :count',
+    'a_year' => 'wggoota :count',
+
+    'month' => 'ji’a :count',
+    'm' => 'ji’a :count',
+    'a_month' => 'ji’a :count',
+
+    'week' => 'torban :count',
+    'w' => 'torban :count',
+    'a_week' => 'torban :count',
+
+    'day' => 'guyyaa :count',
+    'd' => 'guyyaa :count',
+    'a_day' => 'guyyaa :count',
+
+    'hour' => 'saʼaatii :count',
+    'h' => 'saʼaatii :count',
+    'a_hour' => 'saʼaatii :count',
+
+    'minute' => 'daqiiqaa :count',
+    'min' => 'daqiiqaa :count',
+    'a_minute' => 'daqiiqaa :count',
+
+    'second' => 'sekoondii :count',
+    's' => 'sekoondii :count',
+    'a_second' => 'sekoondii :count',
 ]);

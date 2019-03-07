@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NmgTest extends LocalizationTestCase
 {
-    const LOCALE = 'nmg'; // nmg
+    const LOCALE = 'nmg'; // Kwasio
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

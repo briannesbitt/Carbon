@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class LuoTest extends LocalizationTestCase
 {
-    const LOCALE = 'luo'; // luo
+    const LOCALE = 'luo'; // Luo
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -118,108 +118,108 @@ class LuoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 second ago',
+        'nus dakika 1 ago',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1s ago',
+        'nus dakika 1 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 seconds ago',
+        'nus dakika 2 ago',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2s ago',
+        'nus dakika 2 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minute ago',
+        'dakika 1 ago',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1m ago',
+        'dakika 1 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minutes ago',
+        'dakika 2 ago',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2m ago',
+        'dakika 2 ago',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hour ago',
+        'seche 1 ago',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1h ago',
+        'seche 1 ago',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hours ago',
+        'seche 2 ago',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2h ago',
+        'seche 2 ago',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 day ago',
+        'ndalo 1 ago',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1d ago',
+        'ndalo 1 ago',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 days ago',
+        'ndalo 2 ago',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2d ago',
+        'ndalo 2 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 week ago',
+        'jumbe 1 ago',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1w ago',
+        'jumbe 1 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 weeks ago',
+        'jumbe 2 ago',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2w ago',
+        'jumbe 2 ago',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 month ago',
+        'dweche 1 ago',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1mo ago',
+        'dweche 1 ago',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 months ago',
+        'dweche 2 ago',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2mos ago',
+        'dweche 2 ago',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 year ago',
+        'higni 1 ago',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1yr ago',
+        'higni 1 ago',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 years ago',
+        'higni 2 ago',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2yrs ago',
+        'higni 2 ago',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 second from now',
+        'nus dakika 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1s from now',
+        'nus dakika 1 from now',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 second after',
+        'nus dakika 1 after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1s after',
+        'nus dakika 1 after',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 second before',
+        'nus dakika 1 before',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1s before',
+        'nus dakika 1 before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 second',
+        'nus dakika 1',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1s',
+        'nus dakika 1',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 seconds',
+        'nus dakika 2',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2s',
+        'nus dakika 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1s from now',
+        'nus dakika 1 from now',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minute 1 second',
+        'dakika 1 nus dakika 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2yrs 3mos 1d 1s',
+        'higni 2 dweche 3 ndalo 1 nus dakika 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 years from now',
+        'higni 3 from now',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5mos ago',
+        'dweche 5 ago',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2yrs 3mos 1d 1s ago',
+        'higni 2 dweche 3 ndalo 1 nus dakika 1 ago',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 hours',
+        'jumbe 1 seche 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        'jumbe 1 ndalo 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 week 6 days',
+        'jumbe 1 ndalo 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 week and 6 days from now',
+        'jumbe 1 and ndalo 6 from now',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 weeks 1 hour',
+        'jumbe 2 seche 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'an hour from now',
+        'seche 1 from now',
         // CarbonInterval::days(2)->forHumans()
-        '2 days',
+        'ndalo 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1d 3h',
+        'ndalo 1 seche 3',
     ];
 }

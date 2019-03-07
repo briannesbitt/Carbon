@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Cherokee Nation Joseph Erb josepherb7@gmail.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'MM/DD/YYYY',
     ],
@@ -23,4 +24,35 @@
     'weekdays_min' => ['ᏆᏍᎬ', 'ᏉᏅᎯ', 'ᏔᎵᏁ', 'ᏦᎢᏁ', 'ᏅᎩᏁ', 'ᏧᎾᎩ', 'ᏈᏕᎾ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ᏌᎾᎴ', 'ᏒᎯᏱᎢᏗᏢ'],
+
+    'second' => ':count ᏐᎢ', // less reliable
+    's' => ':count ᏐᎢ', // less reliable
+    'a_second' => ':count ᏐᎢ', // less reliable
+
+    'year' => ':count ᏑᏕᏘᏴᏓ',
+    'y' => ':count ᏑᏕᏘᏴᏓ',
+    'a_year' => ':count ᏑᏕᏘᏴᏓ',
+
+    'month' => ':count ᏏᏅᏙ',
+    'm' => ':count ᏏᏅᏙ',
+    'a_month' => ':count ᏏᏅᏙ',
+
+    'week' => ':count ᏑᎾᏙᏓᏆᏍᏗ',
+    'w' => ':count ᏑᎾᏙᏓᏆᏍᏗ',
+    'a_week' => ':count ᏑᎾᏙᏓᏆᏍᏗ',
+
+    'day' => ':count ᎢᎦ',
+    'd' => ':count ᎢᎦ',
+    'a_day' => ':count ᎢᎦ',
+
+    'hour' => ':count ᏑᏟᎶᏛ',
+    'h' => ':count ᏑᏟᎶᏛ',
+    'a_hour' => ':count ᏑᏟᎶᏛ',
+
+    'minute' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
+    'min' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
+    'a_minute' => ':count ᎢᏯᏔᏬᏍᏔᏅ',
+
+    'ago' => ':time ᏥᎨᏒ',
+    'from_now' => 'ᎾᎿ :time',
 ]);

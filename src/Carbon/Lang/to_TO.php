@@ -23,4 +23,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['Sāp', 'Mōn', 'Tūs', 'Pul', 'Tuʻa', 'Fal', 'Tok'],
     'weekdays_min' => ['Sāp', 'Mōn', 'Tūs', 'Pul', 'Tuʻa', 'Fal', 'Tok'],
     'meridiem' => ['hengihengi', 'efiafi'],
+
+    'year' => ':count fitu', // less reliable
+    'y' => ':count fitu', // less reliable
+    'a_year' => ':count fitu', // less reliable
+
+    'month' => ':count mahina', // less reliable
+    'm' => ':count mahina', // less reliable
+    'a_month' => ':count mahina', // less reliable
+
+    'week' => ':count Sapate', // less reliable
+    'w' => ':count Sapate', // less reliable
+    'a_week' => ':count Sapate', // less reliable
+
+    'day' => ':count ʻaho', // less reliable
+    'd' => ':count ʻaho', // less reliable
+    'a_day' => ':count ʻaho', // less reliable
+
+    'hour' => ':count houa',
+    'h' => ':count houa',
+    'a_hour' => ':count houa',
+
+    'minute' => ':count miniti',
+    'min' => ':count miniti',
+    'a_minute' => ':count miniti',
+
+    'second' => ':count sekoni',
+    's' => ':count sekoni',
+    'a_second' => ':count sekoni',
 ]);

@@ -23,4 +23,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
     'weekdays_min' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count יאר',
+    'y' => ':count יאר',
+    'a_year' => ':count יאר',
+
+    'month' => ':count חודש',
+    'm' => ':count חודש',
+    'a_month' => ':count חודש',
+
+    'week' => ':count וואָך',
+    'w' => ':count וואָך',
+    'a_week' => ':count וואָך',
+
+    'day' => ':count טאָג',
+    'd' => ':count טאָג',
+    'a_day' => ':count טאָג',
+
+    'hour' => ':count שעה',
+    'h' => ':count שעה',
+    'a_hour' => ':count שעה',
+
+    'minute' => ':count מינוט',
+    'min' => ':count מינוט',
+    'a_minute' => ':count מינוט',
+
+    'second' => ':count סעקונדע',
+    's' => ':count סעקונדע',
+    'a_second' => ':count סעקונדע',
 ]);

@@ -120,19 +120,19 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'ftit sekondi ilu',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ftit sekondi ilu',
+        'sek. ilu',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 sekondi ilu',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sekondi ilu',
+        '2 sek. ilu',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'minuta ilu',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'minuta ilu',
+        'min. ilu',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 minuti ilu',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minuti ilu',
+        '2 min. ilu',
         // Carbon::now()->subHours(1)->diffForHumans()
         'siegħa ilu',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
@@ -140,7 +140,7 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 siegħat ilu',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 siegħat ilu',
+        '2 sigħat ilu',
         // Carbon::now()->subDays(1)->diffForHumans()
         'ġurnata ilu',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
@@ -152,7 +152,7 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'gimgħa ilu',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'gimgħa ilu',
+        'ġimgħa ilu',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 ġimgħat ilu',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
@@ -160,7 +160,7 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->subMonths(1)->diffForHumans()
         'xahar ilu',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'xahar ilu',
+        '1 xahar ilu',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 xhur ilu',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
@@ -168,15 +168,15 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         'sena ilu',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'sena ilu',
+        'sa sena ilu',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 sni ilu',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 sni ilu',
+        '2 snin ilu',
         // Carbon::now()->addSecond()->diffForHumans()
         'f’ ftit sekondi',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'f’ ftit sekondi',
+        'f’ sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -188,23 +188,23 @@ class MtMtTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         'ftit sekondi',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'ftit sekondi',
+        'sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekondi',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 sekondi',
+        '2 sek.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'f’ ftit sekondi',
+        'f’ sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'minuta ftit sekondi',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 sni 3 xhur ġurnata ftit sekondi',
+        '2 snin 3 xhur ġurnata sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'f’ 3 sni',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 xhur ilu',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 sni 3 xhur ġurnata ftit sekondi ilu',
+        '2 snin 3 xhur ġurnata sek. ilu',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'gimgħa 10 siegħat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class MtMtTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 ġranet',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ġurnata 3 siegħat',
+        'ġurnata 3 sigħat',
     ];
 }

@@ -23,4 +23,35 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH.mm',
         'LLLL' => 'dddd, DD MMMM YYYY HH.mm',
     ],
+
+    'year' => 'tahun :count',
+    'y' => 'tahun :count',
+    'a_year' => 'tahun :count',
+
+    'month' => ':count bulan',
+    'm' => ':count bulan',
+    'a_month' => ':count bulan',
+
+    'week' => ':count minggu',
+    'w' => ':count minggu',
+    'a_week' => ':count minggu',
+
+    'day' => ':count hari',
+    'd' => ':count hari',
+    'a_day' => ':count hari',
+
+    'hour' => ':count jam',
+    'h' => ':count jam',
+    'a_hour' => ':count jam',
+
+    'minute' => ':count menit',
+    'min' => ':count menit',
+    'a_minute' => ':count menit',
+
+    'second' => ':count detik',
+    's' => ':count detik',
+    'a_second' => ':count detik',
+
+    'ago' => ':time yang lalu',
+    'from_now' => 'dalam :time',
 ]);

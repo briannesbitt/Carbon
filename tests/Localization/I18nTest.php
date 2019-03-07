@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class I18nTest extends LocalizationTestCase
 {
-    const LOCALE = 'i18n';
+    const LOCALE = 'i18n'; // i18n
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

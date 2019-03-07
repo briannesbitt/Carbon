@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class NanTwLatinTest extends LocalizationTestCase
 {
-    const LOCALE = 'nan_TW@latin';
+    const LOCALE = 'nan_TW@latin'; // Min Nan Chinese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

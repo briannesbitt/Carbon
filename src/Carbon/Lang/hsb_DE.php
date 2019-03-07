@@ -29,4 +29,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Nj', 'Pó', 'Wu', 'Sr', 'Št', 'Pj', 'So'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+
+    'year' => ':count lěto',
+    'y' => ':count lěto',
+    'a_year' => ':count lěto',
+
+    'month' => ':count měsac',
+    'm' => ':count měsac',
+    'a_month' => ':count měsac',
+
+    'week' => ':count tydźeń',
+    'w' => ':count tydźeń',
+    'a_week' => ':count tydźeń',
+
+    'day' => ':count dźeń',
+    'd' => ':count dźeń',
+    'a_day' => ':count dźeń',
+
+    'hour' => ':count hodźina',
+    'h' => ':count hodźina',
+    'a_hour' => ':count hodźina',
+
+    'minute' => ':count chwila',
+    'min' => ':count chwila',
+    'a_minute' => ':count chwila',
+
+    'second' => ':count druhi',
+    's' => ':count druhi',
+    'a_second' => ':count druhi',
 ]);

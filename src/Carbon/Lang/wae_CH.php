@@ -23,4 +23,8 @@
     'weekdays_min' => ['Sun', 'Män', 'Zis', 'Mit', 'Fro', 'Fri', 'Sam'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
+
+    'month' => ':count Maano', // less reliable
+    'm' => ':count Maano', // less reliable
+    'a_month' => ':count Maano', // less reliable
 ]);

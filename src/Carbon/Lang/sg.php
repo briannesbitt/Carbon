@@ -25,4 +25,28 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count dā', // less reliable
+    'y' => ':count dā', // less reliable
+    'a_year' => ':count dā', // less reliable
+
+    'week' => ':count bïkua-okü', // less reliable
+    'w' => ':count bïkua-okü', // less reliable
+    'a_week' => ':count bïkua-okü', // less reliable
+
+    'day' => ':count ziggawâ', // less reliable
+    'd' => ':count ziggawâ', // less reliable
+    'a_day' => ':count ziggawâ', // less reliable
+
+    'hour' => ':count yângâködörö', // less reliable
+    'h' => ':count yângâködörö', // less reliable
+    'a_hour' => ':count yângâködörö', // less reliable
+
+    'second' => ':count bïkua-ôko', // less reliable
+    's' => ':count bïkua-ôko', // less reliable
+    'a_second' => ':count bïkua-ôko', // less reliable
+
+    'month' => ':count Nze tî ngu',
+    'm' => ':count Nze tî ngu',
+    'a_month' => ':count Nze tî ngu',
 ]);

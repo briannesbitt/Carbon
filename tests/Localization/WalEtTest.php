@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class WalEtTest extends LocalizationTestCase
 {
-    const LOCALE = 'wal_ET';
+    const LOCALE = 'wal_ET'; // Wolaytta
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

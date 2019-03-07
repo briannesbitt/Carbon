@@ -20,4 +20,8 @@
   'first_day_of_week' => 0,
   'day_of_first_week_of_year' => 7,
     'meridiem' => ['VM', 'NM'],
+
+    'month' => ':count kati', // less reliable
+    'm' => ':count kati', // less reliable
+    'a_month' => ':count kati', // less reliable
 ]);

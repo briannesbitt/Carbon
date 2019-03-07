@@ -24,4 +24,35 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['Lin', 'Lun', 'Mar', 'Miy', 'Huw', 'Biy', 'Sab'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['N.U.', 'N.H.'],
+
+    'year' => ':count gulang',
+    'y' => ':count gulang',
+    'a_year' => ':count gulang',
+
+    'month' => ':count buwan',
+    'm' => ':count buwan',
+    'a_month' => ':count buwan',
+
+    'week' => ':count linggo',
+    'w' => ':count linggo',
+    'a_week' => ':count linggo',
+
+    'day' => ':count araw',
+    'd' => ':count araw',
+    'a_day' => ':count araw',
+
+    'hour' => ':count oras',
+    'h' => ':count oras',
+    'a_hour' => ':count oras',
+
+    'minute' => ':count minuto',
+    'min' => ':count minuto',
+    'a_minute' => ':count minuto',
+
+    'second' => ':count ulit',
+    's' => ':count ulit',
+    'a_second' => ':count ulit',
+
+    'ago' => ':time ang nakalipas',
+    'from_now' => 'sa :time',
 ]);

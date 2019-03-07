@@ -16,7 +16,7 @@
  * - Jimmie Johansson
  * - Jens Herlevsen
  */
-return array_replace_recursive(require __DIR__.'/pt.php', [
+return array_replace_recursive(require __DIR__.'/nb.php', [
     'formats' => [
         'LLL' => 'D. MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D. MMMM YYYY [kl.] HH:mm',

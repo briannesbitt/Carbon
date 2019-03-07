@@ -23,4 +23,32 @@
     'weekdays_min' => ['Duş', 'Siş', 'Çar', 'Pen', 'Ann', 'Şen', 'Ýek'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count ýyl',
+    'y' => ':count ýyl',
+    'a_year' => ':count ýyl',
+
+    'month' => 'aý :count',
+    'm' => 'aý :count',
+    'a_month' => 'aý :count',
+
+    'week' => ':count hepde',
+    'w' => ':count hepde',
+    'a_week' => ':count hepde',
+
+    'day' => ':count gün',
+    'd' => ':count gün',
+    'a_day' => ':count gün',
+
+    'hour' => ':count sagat',
+    'h' => ':count sagat',
+    'a_hour' => ':count sagat',
+
+    'minute' => ':count minut',
+    'min' => ':count minut',
+    'a_minute' => ':count minut',
+
+    'second' => ':count sekunt',
+    's' => ':count sekunt',
+    'a_second' => ':count sekunt',
 ]);

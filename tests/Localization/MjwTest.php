@@ -12,7 +12,7 @@ namespace Tests\Localization;
 
 class MjwTest extends LocalizationTestCase
 {
-    const LOCALE = 'mjw'; // mjw
+    const LOCALE = 'mjw'; // Karbi
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

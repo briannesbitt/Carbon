@@ -24,4 +24,20 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => ':count murume', // less reliable
+    'y' => ':count murume', // less reliable
+    'a_year' => ':count murume', // less reliable
+
+    'month' => ':count muchaara', // less reliable
+    'm' => ':count muchaara', // less reliable
+    'a_month' => ':count muchaara', // less reliable
+
+    'minute' => ':count monto', // less reliable
+    'min' => ':count monto', // less reliable
+    'a_minute' => ':count monto', // less reliable
+
+    'second' => ':count gikeno', // less reliable
+    's' => ':count gikeno', // less reliable
+    'a_second' => ':count gikeno', // less reliable
 ]);

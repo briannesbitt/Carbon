@@ -23,4 +23,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
     'weekdays_min' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count sqlélten', // less reliable
+    'y' => ':count sqlélten', // less reliable
+    'a_year' => ':count sqlélten', // less reliable
+
+    'month' => ':count swewll', // less reliable
+    'm' => ':count swewll', // less reliable
+    'a_month' => ':count swewll', // less reliable
+
+    'hour' => ':count seqwlút', // less reliable
+    'h' => ':count seqwlút', // less reliable
+    'a_hour' => ':count seqwlút', // less reliable
 ]);

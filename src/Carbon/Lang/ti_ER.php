@@ -24,4 +24,32 @@
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ንጉሆ ሰዓተ', 'ድሕር ሰዓት'],
+
+    'year' => ':count ዓመት',
+    'y' => ':count ዓመት',
+    'a_year' => ':count ዓመት',
+
+    'month' => 'ወርሒ :count',
+    'm' => 'ወርሒ :count',
+    'a_month' => 'ወርሒ :count',
+
+    'week' => ':count ሰሙን',
+    'w' => ':count ሰሙን',
+    'a_week' => ':count ሰሙን',
+
+    'day' => ':count መዓልቲ',
+    'd' => ':count መዓልቲ',
+    'a_day' => ':count መዓልቲ',
+
+    'hour' => ':count ሰዓት',
+    'h' => ':count ሰዓት',
+    'a_hour' => ':count ሰዓት',
+
+    'minute' => ':count ደቒቕ',
+    'min' => ':count ደቒቕ',
+    'a_minute' => ':count ደቒቕ',
+
+    'second' => ':count ሰከንድ',
+    's' => ':count ሰከንድ',
+    'a_second' => ':count ሰከንድ',
 ]);

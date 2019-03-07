@@ -24,4 +24,16 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_min' => ['ಐ', 'ಸೋ', 'ಅಂ', 'ಬು', 'ಗು', 'ಶು', 'ಶ'],
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['ಕಾಂಡೆ', 'ಬಯ್ಯ'],
+
+    'year' => ':count ನೀರ್', // less reliable
+    'y' => ':count ನೀರ್', // less reliable
+    'a_year' => ':count ನೀರ್', // less reliable
+
+    'month' => ':count ಮೀನ್', // less reliable
+    'm' => ':count ಮೀನ್', // less reliable
+    'a_month' => ':count ಮೀನ್', // less reliable
+
+    'day' => ':count ಸುಗ್ಗಿ', // less reliable
+    'd' => ':count ಸುಗ್ಗಿ', // less reliable
+    'a_day' => ':count ಸುಗ್ಗಿ', // less reliable
 ]);

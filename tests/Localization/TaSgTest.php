@@ -118,65 +118,65 @@ class TaSgTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0வது',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'ஒரு சில விநாடிகள் முன்',
+        '1 சில விநாடிகள் முன்',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'ஒரு சில விநாடிகள் முன்',
+        '1 விநா. முன்',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 விநாடிகள் முன்',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 விநாடிகள் முன்',
+        '2 விநா. முன்',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'ஒரு நிமிடம் முன்',
+        '1 நிமிடம் முன்',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'ஒரு நிமிடம் முன்',
+        '1 நிமி. முன்',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 நிமிடங்கள் முன்',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 நிமிடங்கள் முன்',
+        '2 நிமி. முன்',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'ஒரு மணி நேரம் முன்',
+        '1 மணி நேரம் முன்',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'ஒரு மணி நேரம் முன்',
+        '1 மணி. முன்',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 மணி நேரம் முன்',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 மணி நேரம் முன்',
+        '2 மணி. முன்',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'ஒரு நாள் முன்',
+        '1 நாள் முன்',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'ஒரு நாள் முன்',
+        '1 நாள் முன்',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 நாட்கள் முன்',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 நாட்கள் முன்',
+        '2 நாட். முன்',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'ஒரு வாரம் முன்',
+        '1 வாரம் முன்',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'ஒரு வாரம் முன்',
+        '1 வார. முன்',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 வாரங்கள் முன்',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 வாரங்கள் முன்',
+        '2 வார. முன்',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'ஒரு மாதம் முன்',
+        '1 மாதம் முன்',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'ஒரு மாதம் முன்',
+        '1 மாத. முன்',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 மாதங்கள் முன்',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 மாதங்கள் முன்',
+        '2 மாத. முன்',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'ஒரு வருடம் முன்',
+        '1 வருடம் முன்',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ஒரு வருடம் முன்',
+        '1 வருட. முன்',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 ஆண்டுகள் முன்',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ஆண்டுகள் முன்',
+        '2 ஆண். முன்',
         // Carbon::now()->addSecond()->diffForHumans()
-        'ஒரு சில விநாடிகள் இல்',
+        '1 சில விநாடிகள் இல்',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'ஒரு சில விநாடிகள் இல்',
+        '1 விநா. இல்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'after',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -186,40 +186,40 @@ class TaSgTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         'before',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'ஒரு சில விநாடிகள்',
+        '1 சில விநாடிகள்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        'ஒரு சில விநாடிகள்',
+        '1 விநா.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 விநாடிகள்',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 விநாடிகள்',
+        '2 விநா.',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'ஒரு சில விநாடிகள் இல்',
+        '1 விநா. இல்',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'ஒரு நிமிடம் ஒரு சில விநாடிகள்',
+        '1 நிமிடம் 1 சில விநாடிகள்',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ஆண்டுகள் 3 மாதங்கள் ஒரு நாள் ஒரு சில விநாடிகள்',
+        '2 ஆண். 3 மாத. 1 நாள் 1 விநா.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ஆண்டுகள் இல்',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 மாதங்கள் முன்',
+        '5 மாத. முன்',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ஆண்டுகள் 3 மாதங்கள் ஒரு நாள் ஒரு சில விநாடிகள் முன்',
+        '2 ஆண். 3 மாத. 1 நாள் 1 விநா. முன்',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'ஒரு வாரம் 10 மணி நேரம்',
+        '1 வாரம் 10 மணி நேரம்',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ஒரு வாரம் 6 நாட்கள்',
+        '1 வாரம் 6 நாட்கள்',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'ஒரு வாரம் 6 நாட்கள்',
+        '1 வாரம் 6 நாட்கள்',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'ஒரு வாரம் மற்றும் 6 நாட்கள் இல்',
+        '1 வாரம் மற்றும் 6 நாட்கள் இல்',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 வாரங்கள் ஒரு மணி நேரம்',
+        '2 வாரங்கள் 1 மணி நேரம்',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'ஒரு மணி நேரம் இல்',
         // CarbonInterval::days(2)->forHumans()
         '2 நாட்கள்',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'ஒரு நாள் 3 மணி நேரம்',
+        '1 நாள் 3 மணி.',
     ];
 }

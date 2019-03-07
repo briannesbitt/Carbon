@@ -23,4 +23,32 @@ return array_replace_recursive(require __DIR__.'/en.php', [
         'LLL' => 'D MMMM YYYY HH:mm',
         'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
+
+    'year' => 'okweminyaka engu-:count', // less reliable
+    'y' => 'okweminyaka engu-:count', // less reliable
+    'a_year' => 'okweminyaka engu-:count', // less reliable
+
+    'month' => 'inyanga ezingu-:count',
+    'm' => 'inyanga ezingu-:count',
+    'a_month' => 'inyanga ezingu-:count',
+
+    'week' => 'amaviki angu-:count',
+    'w' => 'amaviki angu-:count',
+    'a_week' => 'amaviki angu-:count',
+
+    'day' => 'kwamalanga angu-:count',
+    'd' => 'kwamalanga angu-:count',
+    'a_day' => 'kwamalanga angu-:count',
+
+    'hour' => 'amahola angu-:count',
+    'h' => 'amahola angu-:count',
+    'a_hour' => 'amahola angu-:count',
+
+    'minute' => 'imizuzu engu-:count',
+    'min' => 'imizuzu engu-:count',
+    'a_minute' => 'imizuzu engu-:count',
+
+    'second' => 'imizuzwana engu-:count',
+    's' => 'imizuzwana engu-:count',
+    'a_second' => 'imizuzwana engu-:count',
 ]);

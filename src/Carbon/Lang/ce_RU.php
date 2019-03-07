@@ -23,4 +23,32 @@
     'weekdays_min' => ['КӀ', 'Ор', 'Ши', 'Кх', 'Еа', 'ПӀ', 'Шо'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
+
+    'year' => ':count шо',
+    'y' => ':count шо',
+    'a_year' => ':count шо',
+
+    'month' => ':count бутт',
+    'm' => ':count бутт',
+    'a_month' => ':count бутт',
+
+    'week' => ':count кӏира',
+    'w' => ':count кӏира',
+    'a_week' => ':count кӏира',
+
+    'day' => ':count де',
+    'd' => ':count де',
+    'a_day' => ':count де',
+
+    'hour' => ':count сахьт',
+    'h' => ':count сахьт',
+    'a_hour' => ':count сахьт',
+
+    'minute' => ':count минот',
+    'min' => ':count минот',
+    'a_minute' => ':count минот',
+
+    'second' => ':count секунд',
+    's' => ':count секунд',
+    'a_second' => ':count секунд',
 ]);

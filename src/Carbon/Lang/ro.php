@@ -14,6 +14,7 @@
  * - Josh Soref
  * - JD Isaacks
  * - Cătălin Georgescu
+ * - Valentin Ivaşcu (oriceon)
  */
 return [
     'year' => ':count an|:count ani|:count ani',
@@ -35,8 +36,8 @@ return [
     'a_minute' => 'un minut|:count minute|:count minute',
     'min' => ':count m.',
     'second' => ':count secundă|:count secunde|:count secunde',
-    'a_second' => 'o secundă|:count secunde|:count secunde',
-    's' => 'o sec.',
+    'a_second' => 'câteva secunde|:count secunde|:count secunde',
+    's' => ':count sec.',
     'ago' => ':time în urmă',
     'from_now' => 'peste :time',
     'after' => 'peste :time',
@@ -62,8 +63,8 @@ return [
     'months' => ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'],
     'months_short' => ['ian.', 'feb.', 'mar.', 'apr.', 'mai', 'iun.', 'iul.', 'aug.', 'sept.', 'oct.', 'nov.', 'dec.'],
     'weekdays' => ['duminică', 'luni', 'marți', 'miercuri', 'joi', 'vineri', 'sâmbătă'],
-    'weekdays_short' => ['Dum', 'Lun', 'Mar', 'Mie', 'Joi', 'Vin', 'Sâm'],
-    'weekdays_min' => ['Du', 'Lu', 'Ma', 'Mi', 'Jo', 'Vi', 'Sâ'],
+    'weekdays_short' => ['dum', 'lun', 'mar', 'mie', 'joi', 'vin', 'sâm'],
+    'weekdays_min' => ['du', 'lu', 'ma', 'mi', 'jo', 'vi', 'sâ'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' și '],
