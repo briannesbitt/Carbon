@@ -3480,6 +3480,15 @@ CarbonInterval::setCascadeFactors($cascades); // restore original factors
 </code></pre>
     </p>
 
+    <p><code>->total</code> method and properties need cascaded intervals, if your interval can have overflow, cascade
+        them before calling these feature:</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo CarbonInterval::minutes(1200)->cascade()->total('hours');/*pad(58)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::minutes(1200)->cascade()->totalHours;/*pad(58)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>You can also get the ISO 8601 spec of the inverval with <code>spec()</code></p>
 
     <p>
