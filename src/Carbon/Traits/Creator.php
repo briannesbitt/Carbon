@@ -518,7 +518,6 @@ trait Creator
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
-
         $function = static::$createFromFormatFunction;
 
         if (!$function) {

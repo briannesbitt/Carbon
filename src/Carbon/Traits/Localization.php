@@ -375,7 +375,7 @@ trait Localization
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
      *
-     * @param  string $locale
+     * @param string $locale
      */
     public static function setFallbackLocale($locale)
     {
