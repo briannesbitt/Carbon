@@ -115,13 +115,40 @@ trait Creator
      *
      * @return static|CarbonInterface
      */
-    public static function parse($time = null, $tz = null)
+    public static function rawParse($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
             return static::instance($time);
         }
 
         return new static($time, $tz);
+    }
+
+    /**
+     * Create a carbon instance from a string.
+     *
+     * This is an alias for the constructor that allows better fluent syntax
+     * as it allows you to do Carbon::parse('Monday next week')->fn() rather
+     * than (new Carbon('Monday next week'))->fn().
+     *
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
+    public static function parse($time = null, $tz = null)
+    {
+        $function = static::$parseFunction;
+
+        if (!$function) {
+            return static::rawParse($time, $tz);
+        }
+
+        if (is_string($function) && method_exists(static::class, $function)) {
+            $function = [static::class, $function];
+        }
+
+        return $function(...func_get_args());
     }
 
     /**
@@ -246,7 +273,7 @@ trait Creator
                     'hour',
                     'minute',
                     'second',
-                ], explode('-', $now->format('Y-n-j-G-i-s.u')));
+                ], explode('-', $now->rawFormat('Y-n-j-G-i-s.u')));
             }
 
             return $defaults[$unit];
@@ -437,7 +464,7 @@ trait Creator
      *
      * @return static|CarbonInterface|false
      */
-    public static function createFromFormat($format, $time, $tz = null)
+    public static function rawCreateFromFormat($format, $time, $tz = null)
     {
         // First attempt to create an instance, so that error messages are based on the unmodified format.
         $date = self::createFromFormatAndTimezone($format, $time, $tz);
@@ -457,7 +484,7 @@ trait Creator
             // Prepend mock datetime only if the format does not contain non escaped unix epoch reset flag.
             if (!preg_match("/{$nonEscaped}[!|]/", $format)) {
                 $format = static::MOCK_DATETIME_FORMAT.' '.$format;
-                $time = $mock->format(static::MOCK_DATETIME_FORMAT).' '.$time;
+                $time = ($mock instanceof self ? $mock->rawFormat(static::MOCK_DATETIME_FORMAT) : $mock->format(static::MOCK_DATETIME_FORMAT)).' '.$time;
             }
 
             // Regenerate date from the modified format to base result on the mocked instance instead of now.
@@ -476,6 +503,33 @@ trait Creator
         }
 
         return false;
+    }
+
+    /**
+     * Create a Carbon instance from a specific format.
+     *
+     * @param string                          $format Datetime format
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromFormat($format, $time, $tz = null)
+    {
+
+        $function = static::$createFromFormatFunction;
+
+        if (!$function) {
+            return static::rawCreateFromFormat($format, $time, $tz);
+        }
+
+        if (is_string($function) && method_exists(static::class, $function)) {
+            $function = [static::class, $function];
+        }
+
+        return $function(...func_get_args());
     }
 
     /**

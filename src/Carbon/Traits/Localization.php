@@ -231,6 +231,103 @@ trait Localization
     }
 
     /**
+     * Translate a time string from a locale to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
+     * @param string|null $to         output locale of the result returned (`"en"` by default)
+     *
+     * @return string
+     */
+    public static function translateTimeString($timeString, $from = null, $to = null)
+    {
+        $from = $from ?: static::getLocale();
+        $to = $to ?: 'en';
+
+        if ($from === $to) {
+            return $timeString;
+        }
+
+        $cleanWord = function ($word) {
+            $word = str_replace([':count', '%count', ':time'], '', $word);
+            $word = preg_replace('/({\d+(,(\d+|Inf))?}|[\[\]]\d+(,(\d+|Inf))?[\[\]])/', '', $word);
+
+            return trim($word);
+        };
+
+        $fromTranslations = [];
+        $toTranslations = [];
+
+        foreach (['from', 'to'] as $key) {
+            $language = $$key;
+            $translator = Translator::get($language);
+            $translationKey = $key.'Translations';
+            $messages = $translator->getMessages()[$language];
+            $months = $messages['months'];
+            $weekdays = $messages['weekdays'];
+
+            if ($key === 'from') {
+                foreach (['months', 'weekdays'] as $variable) {
+                    $list = $messages[$variable.'_standalone'] ?? null;
+
+                    if ($list) {
+                        foreach ($$variable as $index => &$name) {
+                            $name .= '|'.$messages[$variable.'_standalone'][$index];
+                        }
+                    }
+                }
+            }
+
+            $$translationKey = array_merge(
+                array_pad($months, 12, '>>DO NOT REPLACE<<'),
+                array_pad($messages['months_short'], 12, '>>DO NOT REPLACE<<'),
+                array_pad($weekdays, 7, '>>DO NOT REPLACE<<'),
+                array_pad($messages['weekdays_short'], 7, '>>DO NOT REPLACE<<'),
+                array_map(function ($unit) use ($messages, $key, $cleanWord) {
+                    $parts = explode('|', $messages[$unit]);
+
+                    return $key === 'to'
+                        ? $cleanWord(end($parts))
+                        : '(?:'.implode('|', array_map($cleanWord, $parts)).')';
+                }, [
+                    'year',
+                    'month',
+                    'week',
+                    'day',
+                    'hour',
+                    'minute',
+                    'second',
+                ])
+            );
+        }
+
+        return substr(preg_replace_callback('/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/i', function ($match) use ($fromTranslations, $toTranslations) {
+            list($chunk) = $match;
+
+            foreach ($fromTranslations as $index => $word) {
+                if (preg_match("/^$word\$/i", $chunk)) {
+                    return $toTranslations[$index];
+                }
+            }
+
+            return $chunk;
+        }, " $timeString "), 1, -1);
+    }
+
+    /**
+     * Translate a time string from the current locale (`$date->locale()`) to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $to         output locale of the result returned ("en" by default)
+     *
+     * @return string
+     */
+    public function translateTimeStringTo($timeString, $to = null)
+    {
+        return static::translateTimeString($timeString, $this->getLocalTranslator()->getLocale(), $to);
+    }
+
+    /**
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
@@ -271,6 +368,40 @@ trait Localization
     public static function setLocale($locale)
     {
         return static::translator()->setLocale($locale) !== false;
+    }
+
+    /**
+     * Set the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @param  string $locale
+     */
+    public static function setFallbackLocale($locale)
+    {
+        $translator = static::getTranslator();
+
+        if (method_exists($translator, 'setFallbackLocales')) {
+            $translator->setFallbackLocales([$locale]);
+        }
+    }
+
+    /**
+     * Get the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @return string
+     */
+    public static function getFallbackLocale()
+    {
+        $translator = static::getTranslator();
+
+        if (method_exists($translator, 'getFallbackLocales')) {
+            return $translator->getFallbackLocales()[0] ?? null;
+        }
+
+        return null;
     }
 
     /**

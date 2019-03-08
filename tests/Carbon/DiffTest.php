@@ -1385,13 +1385,13 @@ class DiffTest extends AbstractTestCase
     public function testFromNow()
     {
         Carbon::setLocale('en');
-        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->fromNow());
+        $this->assertSame('2 days from now', Carbon::now('UTC')->addDays(2)->fromNow());
         Carbon::setLocale('fr');
-        $this->assertSame('dans 2 jours', Carbon::now()->addDays(2)->fromNow());
+        $this->assertSame('dans 2 jours', Carbon::now('UTC')->addDays(2)->fromNow());
         Carbon::setLocale('en');
-        $this->assertSame('2 days after', Carbon::now()->addDays(2)->fromNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
-        $this->assertSame('2d from now', Carbon::now()->addDays(2)->addHours(5)->fromNow(null, true));
-        $this->assertSame('2 days 5 hours', Carbon::now()->addDays(2)->addHours(5)->fromNow(true, false, 2));
+        $this->assertSame('2 days after', Carbon::now('UTC')->addDays(2)->fromNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
+        $this->assertSame('2d from now', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(true, false, 2));
     }
 
     public function testFrom()
@@ -1425,13 +1425,13 @@ class DiffTest extends AbstractTestCase
     public function testToNow()
     {
         Carbon::setLocale('en');
-        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->toNow());
+        $this->assertSame('2 days ago', Carbon::now('UTC')->addDays(2)->toNow());
         Carbon::setLocale('fr');
-        $this->assertSame('il y a 2 jours', Carbon::now()->addDays(2)->toNow());
+        $this->assertSame('il y a 2 jours', Carbon::now('UTC')->addDays(2)->toNow());
         Carbon::setLocale('en');
-        $this->assertSame('2 days before', Carbon::now()->addDays(2)->toNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
-        $this->assertSame('2d ago', Carbon::now()->addDays(2)->addHours(5)->toNow(null, true));
-        $this->assertSame('2 days 5 hours', Carbon::now()->addDays(2)->addHours(5)->toNow(true, false, 2));
+        $this->assertSame('2 days before', Carbon::now('UTC')->addDays(2)->toNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
+        $this->assertSame('2d ago', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(true, false, 2));
     }
 
     public function testTo()

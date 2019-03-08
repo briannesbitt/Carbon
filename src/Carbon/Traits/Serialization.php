@@ -137,7 +137,7 @@ trait Serialization
         $serializer = $this->localSerializer ?? static::$serializer;
         if ($serializer) {
             return is_string($serializer)
-                ? $this->format($serializer)
+                ? $this->rawFormat($serializer)
                 : call_user_func($serializer, $this);
         }
 

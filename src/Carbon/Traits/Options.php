@@ -129,6 +129,27 @@ trait Options
     protected static $strictModeEnabled = true;
 
     /**
+     * Function to call instead of format.
+     *
+     * @var string|callable|null
+     */
+    protected static $formatFunction = null;
+
+    /**
+     * Function to call instead of createFromFormat.
+     *
+     * @var string|callable|null
+     */
+    protected static $createFromFormatFunction = null;
+
+    /**
+     * Function to call instead of parse.
+     *
+     * @var string|callable|null
+     */
+    protected static $parseFunction = null;
+
+    /**
      * Indicates if months should be calculated with overflow.
      * Specific setting.
      *
@@ -193,13 +214,6 @@ trait Options
      * @var string|callable|null
      */
     protected $localFormatFunction = null;
-
-    /**
-     * Function to call instead of createFromFormat.
-     *
-     * @var string|callable|null
-     */
-    protected $localCreateFromFormatFunction = null;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -342,7 +356,6 @@ trait Options
         $this->localMacros = $settings['macros'] ?? null;
         $this->localGenericMacros = $settings['genericMacros'] ?? null;
         $this->localFormatFunction = $settings['formatFunction'] ?? null;
-        $this->localCreateFromFormatFunction = $settings['createFromFormatFunction'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
             $date = $date->locale($settings['locale']);
@@ -374,7 +387,6 @@ trait Options
             'locale' => 'locale',
             'tzName' => 'timezone',
             'localFormatFunction' => 'formatFunction',
-            'localCreateFromFormatFunction' => 'createFromFormatFunction',
         ];
         foreach ($map as $property => $key) {
             $value = $this->$property ?? null;

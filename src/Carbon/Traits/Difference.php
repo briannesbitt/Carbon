@@ -18,6 +18,7 @@ use Carbon\CarbonPeriod;
 use Carbon\Translator;
 use Closure;
 use DateInterval;
+use DateTimeInterface;
 
 /**
  * Trait Difference.
@@ -923,7 +924,13 @@ trait Difference
      */
     public function fromNow($syntax = null, $short = false, $parts = 1, $options = null)
     {
-        return $this->from(null, $syntax, $short, $parts, $options);
+        $other = null;
+
+        if ($syntax instanceof DateTimeInterface) {
+            [$other, $syntax, $short, $parts, $options] = array_pad(func_get_args(), 5, null);
+        }
+
+        return $this->from($other, $syntax, $short, $parts, $options);
     }
 
     /**
@@ -957,6 +964,65 @@ trait Difference
     public function toNow($syntax = null, $short = false, $parts = 1, $options = null)
     {
         return $this->to(null, $syntax, $short, $parts, $options);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function ago($syntax = null, $short = false, $parts = 1, $options = null)
+    {
+        $other = null;
+
+        if ($syntax instanceof DateTimeInterface) {
+            [$other, $syntax, $short, $parts, $options] = array_pad(func_get_args(), 5, null);
+        }
+
+        return $this->from($other, $syntax, $short, $parts, $options);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     *
+     * @return string
+     */
+    public function timespan($other = null, $timezone = null)
+    {
+        if (!$other instanceof DateTimeInterface) {
+            $other = static::parse($other, $timezone);
+        }
+
+        return $this->diffForHumans($other, [
+            'join' => ', ',
+            'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            'options' => CarbonInterface::NO_ZERO_DIFF,
+            'parts' => -1,
+        ]);
     }
 
     /**

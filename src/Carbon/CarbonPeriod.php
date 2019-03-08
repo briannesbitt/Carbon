@@ -1320,10 +1320,10 @@ class CarbonPeriod implements Iterator, Countable
             'join' => true,
         ])], null, $translator);
 
-        $parts[] = $this->translate('period_start_date', [':date' => $this->startDate->format($format)], null, $translator);
+        $parts[] = $this->translate('period_start_date', [':date' => $this->startDate->rawFormat($format)], null, $translator);
 
         if ($this->endDate !== null) {
-            $parts[] = $this->translate('period_end_date', [':date' => $this->endDate->format($format)], null, $translator);
+            $parts[] = $this->translate('period_end_date', [':date' => $this->endDate->rawFormat($format)], null, $translator);
         }
 
         $result = implode(' ', $parts);

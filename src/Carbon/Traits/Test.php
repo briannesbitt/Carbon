@@ -87,6 +87,6 @@ trait Test
             $testInstance = $testInstance->modify($time);
         }
 
-        $time = $testInstance->format(static::MOCK_DATETIME_FORMAT);
+        $time = $testInstance instanceof self ? $testInstance->rawFormat(static::MOCK_DATETIME_FORMAT) : $testInstance->format(static::MOCK_DATETIME_FORMAT);
     }
 }

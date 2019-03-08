@@ -813,7 +813,7 @@ trait Date
         switch (true) {
             case isset($formats[$name]):
                 $format = $formats[$name];
-                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'format';
+                $method = substr($format, 0, 1) === '%' ? 'formatLocalized' : 'rawFormat';
                 $value = $this->$method($format);
 
                 return is_numeric($value) ? (int) $value : $value;
@@ -848,7 +848,7 @@ trait Date
             case $name === 'millisecond':
             // @property int
             case $name === 'milli':
-                return (int) floor($this->format('u') / 1000);
+                return (int) floor($this->rawFormat('u') / 1000);
 
             // @property int 1 through 53
             case $name === 'week':
@@ -892,7 +892,7 @@ trait Date
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
-                return 1 + intval($this->format('z'));
+                return 1 + intval($this->rawFormat('z'));
 
             // @property-read int 365 or 366
             case $name === 'daysInYear':
@@ -950,7 +950,7 @@ trait Date
 
             // @property-read bool daylight savings time indicator, true if DST, false otherwise
             case $name === 'dst':
-                return $this->format('I') === '1';
+                return $this->rawFormat('I') === '1';
 
             // @property-read bool checks if the timezone is local, true if local, false otherwise
             case $name === 'local':
@@ -1065,7 +1065,7 @@ trait Date
                     $this->addSecond();
                     $value -= static::MICROSECONDS_PER_SECOND;
                 }
-                $this->modify($this->format('H:i:s.').str_pad(round($value), 6, '0', STR_PAD_LEFT));
+                $this->modify($this->rawFormat('H:i:s.').str_pad(round($value), 6, '0', STR_PAD_LEFT));
                 break;
 
             case 'year':
@@ -1074,7 +1074,7 @@ trait Date
             case 'hour':
             case 'minute':
             case 'second':
-                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->format('Y-n-j-G-i-s'));
+                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->rawFormat('Y-n-j-G-i-s'));
                 $$name = $value;
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
                 break;
@@ -1475,7 +1475,7 @@ trait Date
     {
         $date = $this->resolveCarbon($date);
 
-        return $this->modify($date->format('Y-m-d H:i:s.u'));
+        return $this->modify($date->rawFormat('Y-m-d H:i:s.u'));
     }
 
     /**
@@ -1692,6 +1692,7 @@ trait Date
     public static function getIsoUnits()
     {
         static $units = null;
+
         if ($units === null) {
             $units = [
                 'OD' => ['getAltNumber', ['day']],
@@ -1702,7 +1703,7 @@ trait Date
                 'Om' => ['getAltNumber', ['minute']],
                 'Os' => ['getAltNumber', ['second']],
                 'D' => 'day',
-                'DD' => ['format', ['d']],
+                'DD' => ['rawFormat', ['d']],
                 'Do' => ['ordinal', ['day', 'D']],
                 'd' => 'dayOfWeek',
                 'dd' => function (CarbonInterface $date, $originalFormat = null) {
@@ -1719,18 +1720,18 @@ trait Date
                 'DDDo' => ['ordinal', ['dayOfYear', 'DDD']],
                 'e' => ['weekday', []],
                 'E' => 'dayOfWeekIso',
-                'H' => ['format', ['G']],
-                'HH' => ['format', ['H']],
-                'h' => ['format', ['g']],
-                'hh' => ['format', ['h']],
+                'H' => ['rawFormat', ['G']],
+                'HH' => ['rawFormat', ['H']],
+                'h' => ['rawFormat', ['g']],
+                'hh' => ['rawFormat', ['h']],
                 'k' => 'noZeroHour',
                 'kk' => ['getPaddedUnit', ['noZeroHour']],
-                'hmm' => ['format', ['gi']],
-                'hmmss' => ['format', ['gis']],
-                'Hmm' => ['format', ['Gi']],
-                'Hmmss' => ['format', ['Gis']],
+                'hmm' => ['rawFormat', ['gi']],
+                'hmmss' => ['rawFormat', ['gis']],
+                'Hmm' => ['rawFormat', ['Gi']],
+                'Hmmss' => ['rawFormat', ['Gis']],
                 'm' => 'minute',
-                'mm' => ['format', ['i']],
+                'mm' => ['rawFormat', ['i']],
                 'a' => 'meridiem',
                 'A' => 'upperMeridiem',
                 's' => 'second',
@@ -1761,7 +1762,7 @@ trait Date
                     return str_pad(floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
                 },
                 'M' => 'month',
-                'MM' => ['format', ['m']],
+                'MM' => ['rawFormat', ['m']],
                 'MMM' => function (CarbonInterface $date, $originalFormat = null) {
                     $month = $date->getTranslatedShortMonthName($originalFormat);
                     $suffix = $date->getTranslationMessage('mmm_suffix');
@@ -1796,7 +1797,7 @@ trait Date
                 'x' => ['valueOf', []],
                 'X' => 'timestamp',
                 'Y' => 'year',
-                'YY' => ['format', ['y']],
+                'YY' => ['rawFormat', ['y']],
                 'YYYY' => ['getPaddedUnit', ['year', 4]],
                 'YYYYY' => ['getPaddedUnit', ['year', 5]],
                 'YYYYYY' => function (CarbonInterface $date) {
@@ -1895,7 +1896,7 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        $number = strlen($key) > 1 ? $this->$key : $this->format('h');
+        $number = strlen($key) > 1 ? $this->$key : $this->rawFormat('h');
         $translateKey = "alt_numbers.$number";
         $symbol = $this->translate($translateKey);
 
@@ -1927,15 +1928,16 @@ trait Date
     }
 
     /**
-     * @param string $format
+     * @param string      $format
+     * @param string|null $originalFormat provide context if a chunk has been passed alone
      *
      * @return string
      */
-    public function isoFormat(string $format): string
+    public function isoFormat(string $format, string $originalFormat = null): string
     {
         $result = '';
         $length = mb_strlen($format);
-        $originalFormat = $format;
+        $originalFormat = $originalFormat ?: $format;
         $inEscaped = false;
         $formats = null;
         $units = null;
@@ -2014,6 +2016,139 @@ trait Date
         }
 
         return $result;
+    }
+
+    public static function getFormatsToIsoReplacements()
+    {
+        static $replacements = null;
+
+        if ($replacements === null) {
+            $replacements = [
+                'd' => true,
+                'D' => 'ddd',
+                'j' => true,
+                'l' => 'dddd',
+                'N' => true,
+                'S' => function ($date) {
+                    $day = $this->rawFormat('j');
+
+                    return str_replace("$day", '', $date->isoFormat('Do'));
+                },
+                'w' => true,
+                'z' => true,
+                'W' => true,
+                'F' => 'MMMM',
+                'm' => true,
+                'M' => 'MMM',
+                'n' => true,
+                't' => true,
+                'L' => true,
+                'o' => true,
+                'Y' => true,
+                'y' => true,
+                'a' => 'a',
+                'A' => 'A',
+                'B' => true,
+                'g' => true,
+                'G' => true,
+                'h' => true,
+                'H' => true,
+                'i' => true,
+                's' => true,
+                'u' => true,
+                'v' => true,
+                'E' => true,
+                'I' => true,
+                'O' => true,
+                'P' => true,
+                'Z' => true,
+                'c' => true,
+                'r' => true,
+                'U' => true,
+            ];
+        }
+
+        return $replacements;
+    }
+
+    /**
+     * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
+     * but translate words whenever possible (months, day names, etc.) using the current locale.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    public function translatedFormat(string $format): string
+    {
+        $replacements = static::getFormatsToIsoReplacements();
+        $context = '';
+        $isoFormat = '';
+        $length = mb_strlen($format);
+
+        for ($i = 0; $i < $length; $i++) {
+            $char = mb_substr($format, $i, 1);
+
+            if ($char === '\\') {
+                $replacement = mb_substr($format, $i, 2);
+                $isoFormat .= $replacement;
+                $i++;
+
+                continue;
+            }
+
+            if (!isset($replacements[$char])) {
+                $replacement = preg_match('/^[A-Za-z]$/', $char) ? "\\$char" : $char;
+                $isoFormat .= $replacement;
+                $context .= $replacement;
+
+                continue;
+            }
+
+            $replacement = $replacements[$char];
+
+            if ($replacement === true) {
+                static $contextReplacements = null;
+
+                if ($contextReplacements === null) {
+                    $contextReplacements = [
+                        'm' => 'MM',
+                        'd' => 'DD',
+                        'j' => 'D',
+                        'N' => 'e',
+                        'w' => 'e',
+                        'n' => 'M',
+                        'o' => 'YYYY',
+                        'Y' => 'YYYY',
+                        'y' => 'YY',
+                        'g' => 'h',
+                        'G' => 'H',
+                        'h' => 'hh',
+                        'H' => 'HH',
+                        'i' => 'mm',
+                        's' => 'ss',
+                    ];
+                }
+
+                $isoFormat .= '['.$this->rawFormat($char).']';
+                $context .= $contextReplacements[$char] ?? ' ';
+
+                continue;
+            }
+
+            if ($replacement instanceof Closure) {
+                $replacement = '['.$replacement($this).']';
+                $isoFormat .= $replacement;
+                $context .= $replacement;
+
+                continue;
+            }
+
+            $isoFormat .= $replacement;
+            $context .= $replacement;
+        }
+
+        return $this->isoFormat($isoFormat, $context);
     }
 
     /**

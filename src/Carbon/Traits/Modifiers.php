@@ -182,7 +182,7 @@ trait Modifiers
             return $date->day(1);
         }
 
-        return $date->modify('first '.static::$days[$dayOfWeek].' of '.$date->format('F').' '.$date->year);
+        return $date->modify('first '.static::$days[$dayOfWeek].' of '.$date->rawFormat('F').' '.$date->year);
     }
 
     /**
@@ -203,7 +203,7 @@ trait Modifiers
             return $date->day($date->daysInMonth);
         }
 
-        return $date->modify('last '.static::$days[$dayOfWeek].' of '.$date->format('F').' '.$date->year);
+        return $date->modify('last '.static::$days[$dayOfWeek].' of '.$date->rawFormat('F').' '.$date->year);
     }
 
     /**
@@ -220,10 +220,10 @@ trait Modifiers
     public function nthOfMonth($nth, $dayOfWeek)
     {
         $date = $this->copy()->firstOfMonth();
-        $check = $date->format('Y-m');
+        $check = $date->rawFormat('Y-m');
         $date = $date->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $date->format('Y-m') === $check ? $this->modify($date) : false;
+        return $date->rawFormat('Y-m') === $check ? $this->modify($date) : false;
     }
 
     /**
