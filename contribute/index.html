@@ -211,13 +211,11 @@
             })
         ;
 
-        var language = (navigator.language || navigator.userLanguage).split(/[_-]/);
-        var region = (language[1] || '').toUpperCase();
-        language = (language[0] || '').toLowerCase();
+        var language = ((navigator.language || navigator.userLanguage).split(/[_-]/)[0] || '').toLowerCase();
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
-            (language !== 'en' || (region && region !== 'US' && region !== 'GB'))
+            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'vi'].indexOf(language) === -1
         ) {
             $.getJSON('/languages.json', function (languages) {
                 var $help = $('footer .help-translate');
