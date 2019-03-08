@@ -2018,6 +2018,11 @@ trait Date
         return $result;
     }
 
+    /**
+     * List of replacements from date() format to isoFormat().
+     *
+     * @return array
+     */
     public static function getFormatsToIsoReplacements()
     {
         static $replacements = null;
