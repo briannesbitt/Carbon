@@ -692,4 +692,14 @@ class LocalizationTest extends AbstractTestCase
 
         $date->getTranslationMessage('foo');
     }
+
+    public function testTranslateTimeStringTo()
+    {
+        $date = Carbon::parse('2019-07-05')->locale('de');
+        $baseString = $date->isoFormat('LLLL');
+
+        $this->assertSame('Freitag, 5. Juli 2019 00:00', $baseString);
+        $this->assertSame('Friday, 5. July 2019 00:00', $date->translateTimeStringTo($baseString));
+        $this->assertSame('vendredi, 5. juillet 2019 00:00', $date->translateTimeStringTo($baseString, 'fr'));
+    }
 }

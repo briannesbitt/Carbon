@@ -272,4 +272,10 @@ class StringsTest extends AbstractTestCase
 
         $this->assertSame('', $d->isoFormat('MMM'));
     }
+
+    public function testTranslatedFormat()
+    {
+        $this->assertSame('1st', Carbon::parse('01-01-01')->translatedFormat('jS'));
+        $this->assertSame('1er', Carbon::parse('01-01-01')->locale('fr')->translatedFormat('jS'));
+    }
 }

@@ -236,10 +236,16 @@ trait Localization
      * @param string      $timeString time string to translate
      * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
      * @param string|null $to         output locale of the result returned (`"en"` by default)
+     * @param int         $mode       specify what to translate with options:
+     *                                - CarbonInterface::TRANSLATE_ALL (default)
+     *                                - CarbonInterface::TRANSLATE_MONTHS
+     *                                - CarbonInterface::TRANSLATE_DAYS
+     *                                - CarbonInterface::TRANSLATE_UNITS
+     *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null)
+    public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
     {
         $from = $from ?: static::getLocale();
         $to = $to ?: 'en';
@@ -265,6 +271,7 @@ trait Localization
             $messages = $translator->getMessages()[$language];
             $months = $messages['months'];
             $weekdays = $messages['weekdays'];
+            $meridiem = $messages['meridiem'] ?? ['AM', 'PM'];
 
             if ($key === 'from') {
                 foreach (['months', 'weekdays'] as $variable) {
@@ -279,11 +286,11 @@ trait Localization
             }
 
             $$translationKey = array_merge(
-                array_pad($months, 12, '>>DO NOT REPLACE<<'),
-                array_pad($messages['months_short'], 12, '>>DO NOT REPLACE<<'),
-                array_pad($weekdays, 7, '>>DO NOT REPLACE<<'),
-                array_pad($messages['weekdays_short'], 7, '>>DO NOT REPLACE<<'),
-                array_map(function ($unit) use ($messages, $key, $cleanWord) {
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($months, 12, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($messages['months_short'], 12, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($weekdays, 7, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($messages['weekdays_short'], 7, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_UNITS ? array_map(function ($unit) use ($messages, $key, $cleanWord) {
                     $parts = explode('|', $messages[$unit]);
 
                     return $key === 'to'
@@ -297,12 +304,19 @@ trait Localization
                     'hour',
                     'minute',
                     'second',
-                ])
+                ]) : [],
+                $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
+                    if (is_array($meridiem)) {
+                        return $meridiem[$hour < 12 ? 0 : 1];
+                    }
+
+                    return $meridiem($hour, 0, false);
+                }, range(0, 23)) : []
             );
         }
 
         return substr(preg_replace_callback('/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/i', function ($match) use ($fromTranslations, $toTranslations) {
-            list($chunk) = $match;
+            [$chunk] = $match;
 
             foreach ($fromTranslations as $index => $word) {
                 if (preg_match("/^$word\$/i", $chunk)) {
@@ -391,7 +405,7 @@ trait Localization
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
      *
-     * @return string
+     * @return string|string
      */
     public static function getFallbackLocale()
     {

@@ -512,6 +512,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const DIFF_RELATIVE_TO_OTHER = 3;
 
     /**
+     * Translate string options.
+     */
+    public const TRANSLATE_MONTHS = 1;
+    public const TRANSLATE_DAYS = 2;
+    public const TRANSLATE_UNITS = 4;
+    public const TRANSLATE_MERIDIEM = 8;
+    public const TRANSLATE_ALL = self::TRANSLATE_MONTHS | self::TRANSLATE_DAYS | self::TRANSLATE_UNITS | self::TRANSLATE_MERIDIEM;
+
+    /**
      * The day constants.
      */
     public const SUNDAY = 0;
@@ -560,6 +569,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @var string
      */
     public const MOCK_DATETIME_FORMAT = 'Y-m-d H:i:s.u';
+
+    /**
+     * Pattern detection for ->isoFormat and ::createFromIsoFormat.
+     *
+     * @var string
+     */
+    public const ISO_FORMAT_REGEXP = '(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)';
 
     // <methods>
 

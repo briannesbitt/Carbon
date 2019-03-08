@@ -204,4 +204,54 @@ class CreateTest extends AbstractTestCase
         $dt = Carbon::createFromDate(2000, 1, 1, '-4');
         $this->assertSame('-04:00', $dt->tzName);
     }
+
+    public function testParseFromLocale()
+    {
+        $date = Carbon::parseFromLocale('23 Okt 2019', 'de');
+
+        $this->assertSame('Wednesday, October 23, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
+
+        $date = Carbon::parseFromLocale('23 Okt 2019', 'de', 'Europe/Berlin')->locale('de');
+
+        $this->assertSame('Mittwoch, 23. Oktober 2019 00:00 Europe/Berlin', $date->isoFormat('LLLL zz'));
+    }
+
+    public function testCreateFromLocaleFormat()
+    {
+        $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_CN', '2019 四月 4 12,04,21');
+
+        $this->assertSame('Thursday, April 4, 2019 12:04 PM America/Toronto', $date->isoFormat('LLLL zz'));
+
+        $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_TW', '2019 四月 4 12,04,21', 'Asia/Shanghai')->locale('zh');
+
+        $this->assertSame('2019年4月4日星期四 中午 12点04分 Asia/Shanghai', $date->isoFormat('LLLL zz'));
+    }
+
+    public function testCreateFromIsoFormat()
+    {
+        $date = Carbon::createFromIsoFormat('YYYYY MMMM D', '2019 April 4');
+
+        $this->assertSame('Thursday, April 4, 2019 5:41 PM America/Toronto', $date->isoFormat('LLLL zz'));
+    }
+
+    public function testCreateFromIsoFormatException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Format wo not supported for creation.');
+
+        Carbon::createFromIsoFormat('YY D wo', '2019 April 4');
+    }
+
+    public function testCreateFromLocaleIsoFormat()
+    {
+        $date = Carbon::createFromLocaleIsoFormat('YYYY MMMM D HH,mm,ss', 'zh_TW', '2019 四月 4 12,04,21');
+
+        $this->assertSame('Thursday, April 4, 2019 12:04 PM America/Toronto', $date->isoFormat('LLLL zz'));
+
+        $date = Carbon::createFromLocaleIsoFormat('LLL zz', 'zh', '2019年4月4日 下午 2点04分 Asia/Shanghai');
+
+        $this->assertSame('Thursday, April 4, 2019 2:04 PM Asia/Shanghai', $date->isoFormat('LLLL zz'));
+
+        $this->assertSame('2019年4月4日星期四 下午 2点04分 Asia/Shanghai', $date->locale('zh')->isoFormat('LLLL zz'));
+    }
 }

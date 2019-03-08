@@ -1944,6 +1944,7 @@ trait Date
 
         for ($i = 0; $i < $length; $i++) {
             $char = mb_substr($format, $i, 1);
+
             if ($char === '\\') {
                 $result .= mb_substr($format, ++$i, 1);
 
@@ -1969,6 +1970,7 @@ trait Date
             }
 
             $input = mb_substr($format, $i);
+
             if (preg_match('/^(LTS|LT|[Ll]{1,4})/', $input, $match)) {
                 if ($formats === null) {
                     $formats = $this->getIsoFormats();
@@ -1988,13 +1990,15 @@ trait Date
                 $input = $sequence.$rest;
             }
 
-            if (preg_match('/^(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)/', $input, $match)) {
+            if (preg_match('/^'.CarbonInterface::ISO_FORMAT_REGEXP.'/', $input, $match)) {
                 $code = $match[0];
+
                 if ($units === null) {
                     $units = static::getIsoUnits();
                 }
 
                 $sequence = $units[$code] ?? '';
+
                 if ($sequence instanceof Closure) {
                     $sequence = $sequence($this, $originalFormat);
                 } elseif (is_array($sequence)) {
@@ -2006,6 +2010,7 @@ trait Date
                 } elseif (is_string($sequence)) {
                     $sequence = $this->$sequence ?? $code;
                 }
+
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
                 $i += mb_strlen($sequence) - 1;
                 $length = mb_strlen($format);
@@ -2035,7 +2040,7 @@ trait Date
                 'l' => 'dddd',
                 'N' => true,
                 'S' => function ($date) {
-                    $day = $this->rawFormat('j');
+                    $day = $date->rawFormat('j');
 
                     return str_replace("$day", '', $date->isoFormat('Do'));
                 },

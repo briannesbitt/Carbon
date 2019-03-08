@@ -13,7 +13,6 @@ class TestCaseBase extends TestCase
     {
         date_default_timezone_set('UTC');
         Carbon::setLocale(static::LOCALE);
-        $this->languages = ['en', 'fr', 'it', 'ja', 'ru', 'ar'];
 
         // Freeze the time for the test duration
         Carbon::setTestNow(Carbon::now());

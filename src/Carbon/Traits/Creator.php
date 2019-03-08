@@ -15,6 +15,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
+use Carbon\Translator;
 use DateTimeInterface;
 use InvalidArgumentException;
 
@@ -149,6 +150,20 @@ trait Creator
         }
 
         return $function(...func_get_args());
+    }
+
+    /**
+     * Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
+     *
+     * @param string                    $time
+     * @param string                    $locale
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
+    public static function parseFromLocale($time, $locale, $tz = null)
+    {
+        return static::parse(static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
     /**
@@ -518,6 +533,15 @@ trait Creator
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
+        if (preg_match('/(?<!\\\\)(?:\\\\{2})*(a|A)/', $format, $aMatches, PREG_OFFSET_CAPTURE) &&
+            preg_match('/(?<!\\\\)(?:\\\\{2})*(h|g|H|G)/', $format, $hMatches, PREG_OFFSET_CAPTURE) &&
+            $aMatches[1][1] < $hMatches[1][1] &&
+            preg_match('/(am|pm|AM|PM)/', $time)
+        ) {
+            $format = preg_replace('/^(.*)(?<!\\\\)((?:\\\\{2})*)(a|A)(.*)$/U', '$1$2$4 $3', $format);
+            $time = preg_replace('/^(.*)(am|pm|AM|PM)(.*)$/U', '$1$3 $2', $time);
+        }
+
         $function = static::$createFromFormatFunction;
 
         if (!$function) {
@@ -529,6 +553,184 @@ trait Creator
         }
 
         return $function(...func_get_args());
+    }
+
+    /**
+     * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
+     *
+     * @param string                                             $format     Datetime format
+     * @param string                                             $time
+     * @param \DateTimeZone|string|false|null                    $tz         optional timezone
+     * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null)
+    {
+        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(LTS|LT|[Ll]{1,4})/', function ($match) use ($locale, $translator) {
+            [$code] = $match;
+
+            static $formats = null;
+
+            if ($formats === null) {
+                $translator = $translator ?: Translator::get($locale);
+
+                $formats = [
+                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale, 'h:mm A'),
+                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale, 'h:mm:ss A'),
+                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale, 'MM/DD/YYYY'),
+                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale, 'MMMM D, YYYY'),
+                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
+                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+                ];
+            }
+
+            return $formats[$code] ?? preg_replace_callback(
+                '/MMMM|MM|DD|dddd/',
+                function ($code) {
+                    return mb_substr($code[0], 1);
+                },
+                $formats[strtoupper($code)] ?? ''
+            );
+        }, $format);
+
+        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) {
+            [$code] = $match;
+
+            static $replacements = null;
+
+            if ($replacements === null) {
+                $replacements = [
+                    'OD' => 'd',
+                    'OM' => 'M',
+                    'OY' => 'Y',
+                    'OH' => 'G',
+                    'Oh' => 'g',
+                    'Om' => 'i',
+                    'Os' => 's',
+                    'D' => 'd',
+                    'DD' => 'd',
+                    'Do' => 'd',
+                    'd' => '!',
+                    'dd' => '!',
+                    'ddd' => 'D',
+                    'dddd' => 'D',
+                    'DDD' => 'z',
+                    'DDDD' => 'z',
+                    'DDDo' => 'z',
+                    'e' => '!',
+                    'E' => '!',
+                    'H' => 'G',
+                    'HH' => 'H',
+                    'h' => 'g',
+                    'hh' => 'h',
+                    'k' => 'G',
+                    'kk' => 'G',
+                    'hmm' => 'gi',
+                    'hmmss' => 'gis',
+                    'Hmm' => 'Gi',
+                    'Hmmss' => 'Gis',
+                    'm' => 'i',
+                    'mm' => 'i',
+                    'a' => 'a',
+                    'A' => 'a',
+                    's' => 's',
+                    'ss' => 's',
+                    'S' => '*',
+                    'SS' => '*',
+                    'SSS' => '*',
+                    'SSSS' => '*',
+                    'SSSSS' => '*',
+                    'SSSSSS' => 'u',
+                    'SSSSSSS' => 'u*',
+                    'SSSSSSSS' => 'u*',
+                    'SSSSSSSSS' => 'u*',
+                    'M' => 'm',
+                    'MM' => 'm',
+                    'MMM' => 'M',
+                    'MMMM' => 'M',
+                    'Mo' => 'm',
+                    'Q' => '!',
+                    'Qo' => '!',
+                    'G' => '!',
+                    'GG' => '!',
+                    'GGG' => '!',
+                    'GGGG' => '!',
+                    'GGGGG' => '!',
+                    'g' => '!',
+                    'gg' => '!',
+                    'ggg' => '!',
+                    'gggg' => '!',
+                    'ggggg' => '!',
+                    'W' => '!',
+                    'WW' => '!',
+                    'Wo' => '!',
+                    'w' => '!',
+                    'ww' => '!',
+                    'wo' => '!',
+                    'x' => 'U???',
+                    'X' => 'U',
+                    'Y' => 'Y',
+                    'YY' => 'y',
+                    'YYYY' => 'Y',
+                    'YYYYY' => 'Y',
+                    'YYYYYY' => 'Y',
+                    'z' => 'e',
+                    'zz' => 'e',
+                    'Z' => 'e',
+                    'ZZ' => 'e',
+                ];
+            }
+
+            $format = $replacements[$code] ?? '?';
+
+            if ($format === '!') {
+                throw new InvalidArgumentException("Format $code not supported for creation.");
+            }
+
+            return $format;
+        }, $format);
+
+        return static::createFromFormat($format, $time, $tz);
+    }
+
+    /**
+     * Create a Carbon instance from a specific format and a string in a given language.
+     *
+     * @param string                          $format Datetime format
+     * @param string                          $locale
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
+    {
+        return static::createFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
+    }
+
+    /**
+     * Create a Carbon instance from a specific ISO format and a string in a given language.
+     *
+     * @param string                          $format Datetime ISO format
+     * @param string                          $locale
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null)
+    {
+        $time = static::translateTimeString($time, $locale, 'en', CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_MERIDIEM);
+
+        return static::createFromIsoFormat($format, $time, $tz, $locale);
     }
 
     /**
