@@ -188,6 +188,20 @@ trait Options
     protected $localGenericMacros = null;
 
     /**
+     * Function to call instead of format.
+     *
+     * @var string|callable|null
+     */
+    protected $localFormatFunction = null;
+
+    /**
+     * Function to call instead of createFromFormat.
+     *
+     * @var string|callable|null
+     */
+    protected $localCreateFromFormatFunction = null;
+
+    /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
      *             You should rather use the ->settings() method.
      * @see settings
@@ -327,6 +341,8 @@ trait Options
         $this->localSerializer = $settings['toJsonFormat'] ?? null;
         $this->localMacros = $settings['macros'] ?? null;
         $this->localGenericMacros = $settings['genericMacros'] ?? null;
+        $this->localFormatFunction = $settings['formatFunction'] ?? null;
+        $this->localCreateFromFormatFunction = $settings['createFromFormatFunction'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
             $date = $date->locale($settings['locale']);
@@ -357,6 +373,8 @@ trait Options
             'localGenericMacros' => 'genericMacros',
             'locale' => 'locale',
             'tzName' => 'timezone',
+            'localFormatFunction' => 'formatFunction',
+            'localCreateFromFormatFunction' => 'createFromFormatFunction',
         ];
         foreach ($map as $property => $key) {
             $value = $this->$property ?? null;
