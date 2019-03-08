@@ -360,7 +360,7 @@ trait Comparison
         static::expectDateTime($date, 'null');
 
         /* @var CarbonInterface $this */
-        return $this->rawFormat($format) === $date instanceof self ? $date->rawFormat($format) : $date->format($format);
+        return $this->rawFormat($format) === ($date instanceof self ? $date->rawFormat($format) : $date->format($format));
     }
 
     /**
