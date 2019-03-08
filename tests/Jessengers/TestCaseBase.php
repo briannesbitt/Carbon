@@ -9,7 +9,7 @@ class TestCaseBase extends TestCase
 {
     const LOCALE = 'en';
 
-    public function setUp()
+    public function setUp(): void
     {
         date_default_timezone_set('UTC');
         Carbon::setLocale(static::LOCALE);
