@@ -215,6 +215,21 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2019年4月4日星期四 中午 12点04分 Asia/Shanghai', $date->isoFormat('LLLL zz'));
     }
 
+    public function testCreateFromIsoFormat()
+    {
+        $date = Carbon::createFromIsoFormat('!YYYYY MMMM D', '2019 April 4');
+
+        $this->assertSame('Thursday, April 4, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
+    }
+
+    public function testCreateFromIsoFormatException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Format wo not supported for creation.');
+
+        Carbon::createFromIsoFormat('YY D wo', '2019 April 4');
+    }
+
     public function testCreateFromLocaleIsoFormat()
     {
         $date = Carbon::createFromLocaleIsoFormat('YYYY MMMM D HH,mm,ss', 'zh_TW', '2019 四月 4 12,04,21');

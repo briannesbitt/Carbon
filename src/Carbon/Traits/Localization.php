@@ -345,17 +345,28 @@ trait Localization
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
+     * @param string[]    ...$fallbackLocales
      *
      * @return $this|string
      */
-    public function locale(string $locale = null)
+    public function locale(string $locale = null, ...$fallbackLocales)
     {
         if ($locale === null) {
             return $this->getLocalTranslator()->getLocale();
         }
 
         if (!$this->localTranslator || $this->localTranslator->getLocale() !== $locale) {
-            $this->setLocalTranslator(Translator::get($locale));
+            $translator = Translator::get($locale);
+
+            if (!empty($fallbackLocales)) {
+                $translator->setFallbackLocales($fallbackLocales);
+
+                foreach ($fallbackLocales as $fallbackLocale) {
+                    $translator->setMessages($fallbackLocale, Translator::get($fallbackLocale)->getMessages($fallbackLocale));
+                }
+            }
+
+            $this->setLocalTranslator($translator);
         }
 
         return $this;
@@ -397,6 +408,15 @@ trait Localization
 
         if (method_exists($translator, 'setFallbackLocales')) {
             $translator->setFallbackLocales([$locale]);
+
+            if ($translator instanceof Translator) {
+                $preferredLocale = $translator->getLocale();
+                $translator->setMessages($preferredLocale, array_replace_recursive(
+                    $translator->getMessages()[$locale] ?? [],
+                    Translator::get($locale)->getMessages()[$locale] ?? [],
+                    $translator->getMessages($preferredLocale)
+                ));
+            }
         }
     }
 
@@ -405,7 +425,7 @@ trait Localization
      *
      * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
      *
-     * @return string|string
+     * @return string|null
      */
     public static function getFallbackLocale()
     {

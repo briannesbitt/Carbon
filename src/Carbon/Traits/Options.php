@@ -358,7 +358,13 @@ trait Options
         $this->localFormatFunction = $settings['formatFunction'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
-            $date = $date->locale($settings['locale']);
+            $locales = $settings['locale'];
+
+            if (!is_array($locales)) {
+                $locales = [$locales];
+            }
+
+            $date = $date->locale(...$locales);
         }
         if (isset($settings['timezone'])) {
             $date = $date->shiftTimezone($settings['timezone']);

@@ -1394,6 +1394,15 @@ class DiffTest extends AbstractTestCase
         $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(true, false, 2));
     }
 
+    public function testFromNowBackwardCompatibleSyntax()
+    {
+        $date = Carbon::parse('-5 days');
+        $this->assertSame('5 days', $date->fromNow(Carbon::now(), true));
+
+        $date = Carbon::parse('+5 days');
+        $this->assertSame('5 days', $date->fromNow(Carbon::now(), true));
+    }
+
     public function testFrom()
     {
         Carbon::setLocale('en');

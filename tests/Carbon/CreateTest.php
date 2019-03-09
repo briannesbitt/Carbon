@@ -229,9 +229,9 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromIsoFormat()
     {
-        $date = Carbon::createFromIsoFormat('YYYYY MMMM D', '2019 April 4');
+        $date = Carbon::createFromIsoFormat('!YYYYY MMMM D', '2019 April 4');
 
-        $this->assertSame('Thursday, April 4, 2019 5:41 PM America/Toronto', $date->isoFormat('LLLL zz'));
+        $this->assertSame('Thursday, April 4, 2019 12:00 AM America/Toronto', $date->isoFormat('LLLL zz'));
     }
 
     public function testCreateFromIsoFormatException()
