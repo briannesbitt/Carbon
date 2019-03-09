@@ -253,5 +253,9 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('Thursday, April 4, 2019 2:04 PM Asia/Shanghai', $date->isoFormat('LLLL zz'));
 
         $this->assertSame('2019年4月4日星期四 下午 2点04分 Asia/Shanghai', $date->locale('zh')->isoFormat('LLLL zz'));
+
+        $date = Carbon::createFromLocaleIsoFormat('llll', 'fr_CA', 'mar. 24 juil. 2018 08:34');
+
+        $this->assertSame('2018-07-24 08:34', $date->format('Y-m-d H:i'));
     }
 }

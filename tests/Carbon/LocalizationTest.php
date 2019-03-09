@@ -756,6 +756,9 @@ class LocalizationTest extends AbstractTestCase
         ]);
 
         Carbon::setLocale($myDialect);
+
+        $this->assertNull(Carbon::getFallbackLocale());
+
         Carbon::setFallbackLocale($thirdChoice);
 
         $this->assertSame($thirdChoice, Carbon::getFallbackLocale());
@@ -787,6 +790,10 @@ class LocalizationTest extends AbstractTestCase
             'parts' => 2,
             'join' => true,
         ]));
+
+        Carbon::setTranslator(new \Symfony\Component\Translation\IdentityTranslator());
+
+        $this->assertNull(Carbon::getFallbackLocale());
 
         Carbon::setTranslator(new Translator('en'));
     }

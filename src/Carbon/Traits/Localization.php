@@ -324,7 +324,7 @@ trait Localization
                 }
             }
 
-            return $chunk;
+            return $chunk; // @codeCoverageIgnore
         }, " $timeString "), 1, -1);
     }
 
