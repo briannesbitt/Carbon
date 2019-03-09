@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Jessengers;
+namespace Tests\Jenssegers;
 
 use Carbon\Carbon;
 
-class JessengersDate extends Carbon
+class JenssegersDate extends Carbon
 {
     /**
      * Function to call instead of format.

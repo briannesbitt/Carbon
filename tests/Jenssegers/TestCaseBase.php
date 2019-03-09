@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Jessengers;
+namespace Tests\Jenssegers;
 
 use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Jessengers;
+namespace Tests\Jenssegers;
 
 use Carbon\Carbon;
 
@@ -168,5 +168,8 @@ class DateTest extends TestCaseBase
         Carbon::setLocale('de');
         $date = Carbon::translateTimeString('Montag 21 März 2015');
         $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+
+        Carbon::setLocale('xx');
+        $this->assertSame('Foobar', Carbon::translateTimeString('Foobar'));
     }
 }

@@ -267,8 +267,14 @@ trait Localization
         foreach (['from', 'to'] as $key) {
             $language = $$key;
             $translator = Translator::get($language);
+            $translations = $translator->getMessages();
+
+            if (!isset($translations[$language])) {
+                return $timeString;
+            }
+
             $translationKey = $key.'Translations';
-            $messages = $translator->getMessages()[$language];
+            $messages = $translations[$language];
             $months = $messages['months'];
             $weekdays = $messages['weekdays'];
             $meridiem = $messages['meridiem'] ?? ['AM', 'PM'];
