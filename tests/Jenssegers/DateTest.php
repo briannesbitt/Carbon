@@ -169,7 +169,6 @@ class DateTest extends TestCaseBase
         $date = Carbon::translateTimeString('Montag 21 März 2015');
         $this->assertSame('monday 21 march 2015', mb_strtolower($date));
 
-        Carbon::setLocale('xx');
-        $this->assertSame('Foobar', Carbon::translateTimeString('Foobar'));
+        $this->assertSame('Foobar', Carbon::translateTimeString('Foobar', 'xx'));
     }
 }
