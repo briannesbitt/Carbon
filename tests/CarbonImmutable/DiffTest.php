@@ -1336,6 +1336,95 @@ class DiffTest extends AbstractTestCase
         ]));
     }
 
+    public function testFromNow()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now('UTC')->addDays(2)->fromNow());
+        Carbon::setLocale('fr');
+        $this->assertSame('dans 2 jours', Carbon::now('UTC')->addDays(2)->fromNow());
+        Carbon::setLocale('en');
+        $this->assertSame('2 days after', Carbon::now('UTC')->addDays(2)->fromNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
+        $this->assertSame('2d from now', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(true, false, 2));
+    }
+
+    public function testFromNowBackwardCompatibleSyntax()
+    {
+        $date = Carbon::parse('-5 days');
+        $this->assertSame('5 days', $date->fromNow(Carbon::now(), true));
+
+        $date = Carbon::parse('+5 days');
+        $this->assertSame('5 days', $date->fromNow(Carbon::now(), true));
+    }
+
+    public function testFrom()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->from());
+        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->from(null));
+        $this->assertSame('2 days after', Carbon::now()->addDay()->from(Carbon::now()->subDay()));
+        Carbon::setLocale('fr');
+        $this->assertSame('2 jours après', Carbon::now()->addDay()->from(Carbon::now()->subDay()));
+        Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDay()->from(Carbon::now()->subDay(), CarbonInterface::DIFF_RELATIVE_TO_NOW));
+        $this->assertSame('2d after', Carbon::now()->addDay()->addHours(5)->from(Carbon::now()->subDay(), null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->from(Carbon::now()->subDay(), true, false, 2));
+    }
+
+    public function testSince()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->since());
+        $this->assertSame('2 days from now', Carbon::now()->addDays(2)->since(null));
+        $this->assertSame('2 days after', Carbon::now()->addDay()->since(Carbon::now()->subDay()));
+        Carbon::setLocale('fr');
+        $this->assertSame('2 jours après', Carbon::now()->addDay()->since(Carbon::now()->subDay()));
+        Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDay()->since(Carbon::now()->subDay(), CarbonInterface::DIFF_RELATIVE_TO_NOW));
+        $this->assertSame('2d after', Carbon::now()->addDay()->addHours(5)->since(Carbon::now()->subDay(), null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->since(Carbon::now()->subDay(), true, false, 2));
+    }
+
+    public function testToNow()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now('UTC')->addDays(2)->toNow());
+        Carbon::setLocale('fr');
+        $this->assertSame('il y a 2 jours', Carbon::now('UTC')->addDays(2)->toNow());
+        Carbon::setLocale('en');
+        $this->assertSame('2 days before', Carbon::now('UTC')->addDays(2)->toNow(CarbonInterface::DIFF_RELATIVE_TO_OTHER));
+        $this->assertSame('2d ago', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(true, false, 2));
+    }
+
+    public function testTo()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->to());
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->to(null));
+        $this->assertSame('2 days before', Carbon::now()->addDay()->to(Carbon::now()->subDay()));
+        Carbon::setLocale('fr');
+        $this->assertSame('2 jours avant', Carbon::now()->addDay()->to(Carbon::now()->subDay()));
+        Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDay()->to(Carbon::now()->subDay(), CarbonInterface::DIFF_RELATIVE_TO_NOW));
+        $this->assertSame('2d before', Carbon::now()->addDay()->addHours(5)->to(Carbon::now()->subDay(), null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->to(Carbon::now()->subDay(), true, false, 2));
+    }
+
+    public function testUntil()
+    {
+        Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->until());
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->until(null));
+        $this->assertSame('2 days before', Carbon::now()->addDay()->until(Carbon::now()->subDay()));
+        Carbon::setLocale('fr');
+        $this->assertSame('2 jours avant', Carbon::now()->addDay()->until(Carbon::now()->subDay()));
+        Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDay()->until(Carbon::now()->subDay(), CarbonInterface::DIFF_RELATIVE_TO_NOW));
+        $this->assertSame('2d before', Carbon::now()->addDay()->addHours(5)->until(Carbon::now()->subDay(), null, true));
+        $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->until(Carbon::now()->subDay(), true, false, 2));
+    }
+
     public function testDiffWithInvalidType()
     {
         $this->expectException(\InvalidArgumentException::class);

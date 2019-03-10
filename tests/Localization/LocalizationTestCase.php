@@ -318,6 +318,23 @@ abstract class LocalizationTestCase extends AbstractTestCase
 
     const CASES = [];
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (!Carbon::setLocale(static::LOCALE) || Carbon::getLocale() !== static::LOCALE) {
+            throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
+        }
+
+        if (!CarbonImmutable::setLocale(static::LOCALE) || CarbonImmutable::getLocale() !== static::LOCALE) {
+            throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
+        }
+
+        if (!CarbonInterval::setLocale(static::LOCALE) || CarbonInterval::getLocale() !== static::LOCALE) {
+            throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
+        }
+    }
+
     /**
      * @group language
      */
@@ -330,16 +347,6 @@ abstract class LocalizationTestCase extends AbstractTestCase
             /** @var CarbonImmutable $date */
             $date = CarbonImmutable::parse('2018-05-15 20:49:13.881726');
             CarbonImmutable::setTestNow($this->immutableNow = $date);
-
-            if (!Carbon::setLocale(static::LOCALE) || Carbon::getLocale() !== static::LOCALE) {
-                throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
-            }
-            if (!CarbonImmutable::setLocale(static::LOCALE) || CarbonImmutable::getLocale() !== static::LOCALE) {
-                throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
-            }
-            if (!CarbonInterval::setLocale(static::LOCALE) || CarbonInterval::getLocale() !== static::LOCALE) {
-                throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
-            }
 
             foreach (static::TESTS as $index => $test) {
                 foreach ([Carbon::class, CarbonImmutable::class] as $class) {

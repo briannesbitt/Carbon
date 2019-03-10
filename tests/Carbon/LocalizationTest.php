@@ -723,4 +723,101 @@ class LocalizationTest extends AbstractTestCase
 
         $date->getTranslationMessage('foo');
     }
+
+    public function testTranslateTimeStringTo()
+    {
+        $date = Carbon::parse('2019-07-05')->locale('de');
+        $baseString = $date->isoFormat('LLLL');
+
+        $this->assertSame('Freitag, 5. Juli 2019 00:00', $baseString);
+        $this->assertSame('Friday, 5. July 2019 00:00', $date->translateTimeStringTo($baseString));
+        $this->assertSame('vendredi, 5. juillet 2019 00:00', $date->translateTimeStringTo($baseString, 'fr'));
+    }
+
+    public function testFallbackLocales()
+    {
+        // /!\ Used for backward compatibility, please avoid this method
+        // @see testMultiLocales() as preferred method
+
+        $myDialect = 'xx_MY_Dialect';
+        $secondChoice = 'xy_MY_Dialect';
+        $thirdChoice = 'it_CH';
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+
+        $translator->setMessages($myDialect, [
+            'day' => ':count yub yub',
+        ]);
+
+        $translator->setMessages($secondChoice, [
+            'day' => ':count buza',
+            'hour' => ':count ohto',
+        ]);
+
+        Carbon::setLocale($myDialect);
+
+        $this->assertNull(Carbon::getFallbackLocale());
+
+        Carbon::setFallbackLocale($thirdChoice);
+
+        $this->assertSame($thirdChoice, Carbon::getFallbackLocale());
+        $this->assertSame('3 yub yub e 5 ora fa', Carbon::now()->subDays(3)->subHours(5)->ago([
+            'parts' => 2,
+            'join' => true,
+        ]));
+
+        Carbon::setTranslator(new Translator('en'));
+
+        /** @var Translator $translator */
+        $translator = Carbon::getTranslator();
+
+        $translator->setMessages($myDialect, [
+            'day' => ':count yub yub',
+        ]);
+
+        $translator->setMessages($secondChoice, [
+            'day' => ':count buza',
+            'hour' => ':count ohto',
+        ]);
+
+        Carbon::setLocale($myDialect);
+        Carbon::setFallbackLocale($secondChoice);
+        Carbon::setFallbackLocale($thirdChoice);
+
+        $this->assertSame($thirdChoice, Carbon::getFallbackLocale());
+        $this->assertSame('3 yub yub e 5 ohto fa', Carbon::now()->subDays(3)->subHours(5)->ago([
+            'parts' => 2,
+            'join' => true,
+        ]));
+
+        Carbon::setTranslator(new \Symfony\Component\Translation\IdentityTranslator());
+
+        $this->assertNull(Carbon::getFallbackLocale());
+
+        Carbon::setTranslator(new Translator('en'));
+    }
+
+    public function testMultiLocales()
+    {
+        $myDialect = 'xx_MY_Dialect';
+        $secondChoice = 'xy_MY_Dialect';
+        $thirdChoice = 'it_CH';
+
+        Translator::get($myDialect)->setTranslations([
+            'day' => ':count yub yub',
+        ]);
+
+        Translator::get($secondChoice)->setTranslations([
+            'day' => ':count buza',
+            'hour' => ':count ohto',
+        ]);
+
+        $date = Carbon::now()->subDays(3)->subHours(5)->locale($myDialect, $secondChoice, $thirdChoice);
+
+        $this->assertSame('3 yub yub e 5 ohto fa', $date->ago([
+            'parts' => 2,
+            'join' => true,
+        ]));
+    }
 }

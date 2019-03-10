@@ -512,6 +512,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const DIFF_RELATIVE_TO_OTHER = 3;
 
     /**
+     * Translate string options.
+     */
+    public const TRANSLATE_MONTHS = 1;
+    public const TRANSLATE_DAYS = 2;
+    public const TRANSLATE_UNITS = 4;
+    public const TRANSLATE_MERIDIEM = 8;
+    public const TRANSLATE_ALL = self::TRANSLATE_MONTHS | self::TRANSLATE_DAYS | self::TRANSLATE_UNITS | self::TRANSLATE_MERIDIEM;
+
+    /**
      * The day constants.
      */
     public const SUNDAY = 0;
@@ -560,6 +569,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @var string
      */
     public const MOCK_DATETIME_FORMAT = 'Y-m-d H:i:s.u';
+
+    /**
+     * Pattern detection for ->isoFormat and ::createFromIsoFormat.
+     *
+     * @var string
+     */
+    public const ISO_FORMAT_REGEXP = '(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)';
 
     // <methods>
 
@@ -707,6 +723,36 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit);
 
     /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function ago($syntax = null, $short = false, $parts = 1, $options = null);
+
+    /**
      * Modify the current instance to the average of a given instance (default now) and the current instance
      * (second-precision).
      *
@@ -852,6 +898,49 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static|CarbonInterface|false
      */
     public static function createFromFormat($format, $time, $tz = null);
+
+    /**
+     * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
+     *
+     * @param string                                             $format     Datetime format
+     * @param string                                             $time
+     * @param \DateTimeZone|string|false|null                    $tz         optional timezone
+     * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
+     * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null);
+
+    /**
+     * Create a Carbon instance from a specific format and a string in a given language.
+     *
+     * @param string                          $format Datetime format
+     * @param string                          $locale
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromLocaleFormat($format, $locale, $time, $tz = null);
+
+    /**
+     * Create a Carbon instance from a specific ISO format and a string in a given language.
+     *
+     * @param string                          $format Datetime ISO format
+     * @param string                          $locale
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function createFromLocaleIsoFormat($format, $locale, $time, $tz = null);
 
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
@@ -1712,12 +1801,29 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function get($name);
 
     /**
+     * Returns the alternative number if available in the current locale.
+     *
+     * @param string $key date property
+     *
+     * @return string
+     */
+    public function getAltNumber(string $key): string;
+
+    /**
      * Returns the list of internally available locales and already loaded custom locales.
      * (It will ignore custom translator dynamic loading.)
      *
      * @return array
      */
     public static function getAvailableLocales();
+
+    /**
+     * Returns list of Language object for each available locale. This object allow you to get the ISO name, native
+     * name, region and variant of the locale.
+     *
+     * @return Language[]
+     */
+    public static function getAvailableLocalesInfo();
 
     /**
      * Returns list of calendar formats for ISO formatting.
@@ -1734,6 +1840,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return array
      */
     public static function getDays();
+
+    /**
+     * Get the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @return string|null
+     */
+    public static function getFallbackLocale();
+
+    /**
+     * List of replacements from date() format to isoFormat().
+     *
+     * @return array
+     */
+    public static function getFormatsToIsoReplacements();
 
     /**
      * @return int
@@ -2267,11 +2389,12 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function isYesterday();
 
     /**
-     * @param string $format
+     * @param string      $format
+     * @param string|null $originalFormat provide context if a chunk has been passed alone
      *
      * @return string
      */
-    public function isoFormat(string $format): string;
+    public function isoFormat(string $format, string $originalFormat = null): string;
 
     /**
      * Get/set the week number using given first day of week and first
@@ -2385,10 +2508,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
+     * @param string[]    ...$fallbackLocales
      *
      * @return $this|string
      */
-    public function locale(string $locale = null);
+    public function locale(string $locale = null, ...$fallbackLocales);
 
     /**
      * Returns true if the given locale is internally supported and has words for 1-day diff (just now, yesterday, tomorrow).
@@ -2522,6 +2646,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static|CarbonInterface
      */
     public function maximum($date = null);
+
+    /**
+     * Return the meridiem of the current time in the current locale.
+     *
+     * @param bool $isLower if true, returns lowercase variant if available in the current locale.
+     *
+     * @return string
+     */
+    public function meridiem(bool $isLower = false): string;
 
     /**
      * Modify to midday, default to self::$midDayAt
@@ -2723,6 +2856,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function parse($time = null, $tz = null);
 
     /**
+     * Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
+     *
+     * @param string                    $time
+     * @param string                    $locale
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
+    public static function parseFromLocale($time, $locale, $tz = null);
+
+    /**
      * Returns standardized plural of a given singular/plural unit name (in English).
      *
      * @param string $unit
@@ -2756,6 +2900,42 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static|CarbonInterface
      */
     public function previousWeekendDay();
+
+    /**
+     * Create a Carbon instance from a specific format.
+     *
+     * @param string                          $format Datetime format
+     * @param string                          $time
+     * @param \DateTimeZone|string|false|null $tz
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return static|CarbonInterface|false
+     */
+    public static function rawCreateFromFormat($format, $time, $tz = null);
+
+    /**
+     * @see http://php.net/manual/fr/datetime.format.php
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    public function rawFormat($format);
+
+    /**
+     * Create a carbon instance from a string.
+     *
+     * This is an alias for the constructor that allows better fluent syntax
+     * as it allows you to do Carbon::parse('Monday next week')->fn() rather
+     * than (new Carbon('Monday next week'))->fn().
+     *
+     * @param string|null               $time
+     * @param \DateTimeZone|string|null $tz
+     *
+     * @return static|CarbonInterface
+     */
+    public static function rawParse($time = null, $tz = null);
 
     /**
      * Remove all macros and generic macros.
@@ -2904,6 +3084,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static
      */
     public function setDateTimeFrom($date = null);
+
+    /**
+     * Set the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @param string $locale
+     */
+    public static function setFallbackLocale($locale);
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -3396,6 +3585,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function subtract($unit, $value = 1, $overflow = null);
 
     /**
+     * Get the difference in a human readable format in the current locale from current instance to an other
+     * instance given (or now if null given).
+     *
+     * @return string
+     */
+    public function timespan($other = null, $timezone = null);
+
+    /**
      * Set the instance's timestamp.
      *
      * @param int $value
@@ -3856,6 +4053,33 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null): string;
 
     /**
+     * Translate a time string from a locale to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
+     * @param string|null $to         output locale of the result returned (`"en"` by default)
+     * @param int         $mode       specify what to translate with options:
+     *                                - CarbonInterface::TRANSLATE_ALL (default)
+     *                                - CarbonInterface::TRANSLATE_MONTHS
+     *                                - CarbonInterface::TRANSLATE_DAYS
+     *                                - CarbonInterface::TRANSLATE_UNITS
+     *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
+     *
+     * @return string
+     */
+    public static function translateTimeString($timeString, $from = null, $to = null, $mode = 15);
+
+    /**
+     * Translate a time string from the current locale (`$date->locale()`) to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $to         output locale of the result returned ("en" by default)
+     *
+     * @return string
+     */
+    public function translateTimeStringTo($timeString, $to = null);
+
+    /**
      * Translate using translation string or callback available.
      *
      * @param \Symfony\Component\Translation\TranslatorInterface $translator
@@ -3866,6 +4090,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public static function translateWith(\Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
+
+    /**
+     * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
+     * but translate words whenever possible (months, day names, etc.) using the current locale.
+     *
+     * @param string $format
+     *
+     * @return string
+     */
+    public function translatedFormat(string $format): string;
 
     /**
      * Set the timezone or returns the timezone name if no arguments passed.

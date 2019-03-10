@@ -129,6 +129,27 @@ trait Options
     protected static $strictModeEnabled = true;
 
     /**
+     * Function to call instead of format.
+     *
+     * @var string|callable|null
+     */
+    protected static $formatFunction = null;
+
+    /**
+     * Function to call instead of createFromFormat.
+     *
+     * @var string|callable|null
+     */
+    protected static $createFromFormatFunction = null;
+
+    /**
+     * Function to call instead of parse.
+     *
+     * @var string|callable|null
+     */
+    protected static $parseFunction = null;
+
+    /**
      * Indicates if months should be calculated with overflow.
      * Specific setting.
      *
@@ -186,6 +207,13 @@ trait Options
      * @var array|null
      */
     protected $localGenericMacros = null;
+
+    /**
+     * Function to call instead of format.
+     *
+     * @var string|callable|null
+     */
+    protected $localFormatFunction = null;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
@@ -327,9 +355,16 @@ trait Options
         $this->localSerializer = $settings['toJsonFormat'] ?? null;
         $this->localMacros = $settings['macros'] ?? null;
         $this->localGenericMacros = $settings['genericMacros'] ?? null;
+        $this->localFormatFunction = $settings['formatFunction'] ?? null;
         $date = $this;
         if (isset($settings['locale'])) {
-            $date = $date->locale($settings['locale']);
+            $locales = $settings['locale'];
+
+            if (!is_array($locales)) {
+                $locales = [$locales];
+            }
+
+            $date = $date->locale(...$locales);
         }
         if (isset($settings['timezone'])) {
             $date = $date->shiftTimezone($settings['timezone']);
@@ -357,6 +392,7 @@ trait Options
             'localGenericMacros' => 'genericMacros',
             'locale' => 'locale',
             'tzName' => 'timezone',
+            'localFormatFunction' => 'formatFunction',
         ];
         foreach ($map as $property => $key) {
             $value = $this->$property ?? null;

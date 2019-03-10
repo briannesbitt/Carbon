@@ -231,20 +231,148 @@ trait Localization
     }
 
     /**
+     * Translate a time string from a locale to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
+     * @param string|null $to         output locale of the result returned (`"en"` by default)
+     * @param int         $mode       specify what to translate with options:
+     *                                - CarbonInterface::TRANSLATE_ALL (default)
+     *                                - CarbonInterface::TRANSLATE_MONTHS
+     *                                - CarbonInterface::TRANSLATE_DAYS
+     *                                - CarbonInterface::TRANSLATE_UNITS
+     *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
+     *
+     * @return string
+     */
+    public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
+    {
+        $from = $from ?: static::getLocale();
+        $to = $to ?: 'en';
+
+        if ($from === $to) {
+            return $timeString;
+        }
+
+        $cleanWord = function ($word) {
+            $word = str_replace([':count', '%count', ':time'], '', $word);
+            $word = preg_replace('/({\d+(,(\d+|Inf))?}|[\[\]]\d+(,(\d+|Inf))?[\[\]])/', '', $word);
+
+            return trim($word);
+        };
+
+        $fromTranslations = [];
+        $toTranslations = [];
+
+        foreach (['from', 'to'] as $key) {
+            $language = $$key;
+            $translator = Translator::get($language);
+            $translations = $translator->getMessages();
+
+            if (!isset($translations[$language])) {
+                return $timeString;
+            }
+
+            $translationKey = $key.'Translations';
+            $messages = $translations[$language];
+            $months = $messages['months'];
+            $weekdays = $messages['weekdays'];
+            $meridiem = $messages['meridiem'] ?? ['AM', 'PM'];
+
+            if ($key === 'from') {
+                foreach (['months', 'weekdays'] as $variable) {
+                    $list = $messages[$variable.'_standalone'] ?? null;
+
+                    if ($list) {
+                        foreach ($$variable as $index => &$name) {
+                            $name .= '|'.$messages[$variable.'_standalone'][$index];
+                        }
+                    }
+                }
+            }
+
+            $$translationKey = array_merge(
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($months, 12, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($messages['months_short'], 12, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($weekdays, 7, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($messages['weekdays_short'], 7, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_UNITS ? array_map(function ($unit) use ($messages, $key, $cleanWord) {
+                    $parts = explode('|', $messages[$unit]);
+
+                    return $key === 'to'
+                        ? $cleanWord(end($parts))
+                        : '(?:'.implode('|', array_map($cleanWord, $parts)).')';
+                }, [
+                    'year',
+                    'month',
+                    'week',
+                    'day',
+                    'hour',
+                    'minute',
+                    'second',
+                ]) : [],
+                $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
+                    if (is_array($meridiem)) {
+                        return $meridiem[$hour < 12 ? 0 : 1];
+                    }
+
+                    return $meridiem($hour, 0, false);
+                }, range(0, 23)) : []
+            );
+        }
+
+        return substr(preg_replace_callback('/(?<=[\d\s+.\/,_-])('.implode('|', $fromTranslations).')(?=[\d\s+.\/,_-])/i', function ($match) use ($fromTranslations, $toTranslations) {
+            [$chunk] = $match;
+
+            foreach ($fromTranslations as $index => $word) {
+                if (preg_match("/^$word\$/i", $chunk)) {
+                    return $toTranslations[$index];
+                }
+            }
+
+            return $chunk; // @codeCoverageIgnore
+        }, " $timeString "), 1, -1);
+    }
+
+    /**
+     * Translate a time string from the current locale (`$date->locale()`) to an other.
+     *
+     * @param string      $timeString time string to translate
+     * @param string|null $to         output locale of the result returned ("en" by default)
+     *
+     * @return string
+     */
+    public function translateTimeStringTo($timeString, $to = null)
+    {
+        return static::translateTimeString($timeString, $this->getLocalTranslator()->getLocale(), $to);
+    }
+
+    /**
      * Get/set the locale for the current instance.
      *
      * @param string|null $locale
+     * @param string[]    ...$fallbackLocales
      *
      * @return $this|string
      */
-    public function locale(string $locale = null)
+    public function locale(string $locale = null, ...$fallbackLocales)
     {
         if ($locale === null) {
             return $this->getLocalTranslator()->getLocale();
         }
 
         if (!$this->localTranslator || $this->localTranslator->getLocale() !== $locale) {
-            $this->setLocalTranslator(Translator::get($locale));
+            $translator = Translator::get($locale);
+
+            if (!empty($fallbackLocales)) {
+                $translator->setFallbackLocales($fallbackLocales);
+
+                foreach ($fallbackLocales as $fallbackLocale) {
+                    $translator->setMessages($fallbackLocale, Translator::get($fallbackLocale)->getMessages($fallbackLocale));
+                }
+            }
+
+            $this->setLocalTranslator($translator);
         }
 
         return $this;
@@ -271,6 +399,49 @@ trait Localization
     public static function setLocale($locale)
     {
         return static::translator()->setLocale($locale) !== false;
+    }
+
+    /**
+     * Set the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @param string $locale
+     */
+    public static function setFallbackLocale($locale)
+    {
+        $translator = static::getTranslator();
+
+        if (method_exists($translator, 'setFallbackLocales')) {
+            $translator->setFallbackLocales([$locale]);
+
+            if ($translator instanceof Translator) {
+                $preferredLocale = $translator->getLocale();
+                $translator->setMessages($preferredLocale, array_replace_recursive(
+                    $translator->getMessages()[$locale] ?? [],
+                    Translator::get($locale)->getMessages()[$locale] ?? [],
+                    $translator->getMessages($preferredLocale)
+                ));
+            }
+        }
+    }
+
+    /**
+     * Get the fallback locale.
+     *
+     * @see https://symfony.com/doc/current/components/translation.html#fallback-locales
+     *
+     * @return string|null
+     */
+    public static function getFallbackLocale()
+    {
+        $translator = static::getTranslator();
+
+        if (method_exists($translator, 'getFallbackLocales')) {
+            return $translator->getFallbackLocales()[0] ?? null;
+        }
+
+        return null;
     }
 
     /**

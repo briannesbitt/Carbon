@@ -44,5 +44,8 @@
         <testsuite name="language">
             <directory>tests/Language</directory>
         </testsuite>
+        <testsuite name="jenssegers">
+            <directory>tests/Jenssegers</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
