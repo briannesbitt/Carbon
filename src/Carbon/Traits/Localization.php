@@ -241,6 +241,7 @@ trait Localization
      *                                - CarbonInterface::TRANSLATE_MONTHS
      *                                - CarbonInterface::TRANSLATE_DAYS
      *                                - CarbonInterface::TRANSLATE_UNITS
+     *                                - CarbonInterface::TRANSLATE_MERIDIEM
      *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
      *
      * @return string
