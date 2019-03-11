@@ -2915,7 +2915,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function rawCreateFromFormat($format, $time, $tz = null);
 
     /**
-     * @see http://php.net/manual/fr/datetime.format.php
+     * @see https://php.net/manual/en/datetime.format.php
      *
      * @param string $format
      *
@@ -3106,7 +3106,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
      *
-     * @see http://php.net/manual/en/datetime.setisodate.php
+     * @see https://php.net/manual/en/datetime.setisodate.php
      */
     public function setISODate($year, $week, $day = 1);
 
@@ -3169,7 +3169,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
      *
-     * @see http://php.net/manual/en/datetime.settime.php
+     * @see https://php.net/manual/en/datetime.settime.php
      */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0);
 
@@ -3194,7 +3194,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
      *
-     * @see http://php.net/manual/en/datetime.settimestamp.php
+     * @see https://php.net/manual/en/datetime.settimestamp.php
      */
     public function setTimestamp($unixtimestamp);
 

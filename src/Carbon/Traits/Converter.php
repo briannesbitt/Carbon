@@ -63,7 +63,7 @@ trait Converter
     }
 
     /**
-     * @see http://php.net/manual/fr/datetime.format.php
+     * @see https://php.net/manual/en/datetime.format.php
      *
      * @param string $format
      *
@@ -85,7 +85,7 @@ trait Converter
     }
 
     /**
-     * @see http://php.net/manual/fr/datetime.format.php
+     * @see https://php.net/manual/en/datetime.format.php
      *
      * @param string $format
      *
