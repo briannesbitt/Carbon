@@ -368,7 +368,11 @@ trait Localization
                 $translator->setFallbackLocales($fallbackLocales);
 
                 foreach ($fallbackLocales as $fallbackLocale) {
-                    $translator->setMessages($fallbackLocale, Translator::get($fallbackLocale)->getMessages($fallbackLocale));
+                    $messages = Translator::get($fallbackLocale)->getMessages();
+
+                    if (isset($messages[$fallbackLocale])) {
+                        $translator->setMessages($fallbackLocale, $messages[$fallbackLocale]);
+                    }
                 }
             }
 
