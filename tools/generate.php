@@ -112,6 +112,22 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             $history .= historyLine('Method added', $version, $ref);
         }
 
+        $description =  preg_replace(
+            '/@deprecated\s(([^\n]+)(\n [^\n])*)/',
+            '<div class="alert alert-warning">$1</div>',
+            $description
+        );
+        $description = preg_replace(
+            '/\n *\n/',
+            '<br><br>',
+            $description
+        );
+        $description = preg_replace(
+            '/@see\s+(https?:\/\/(\S+))/',
+            'See <a href="$1">$2</a>',
+            $description
+        );
+
         yield [
             'name' => $method,
             'classes' => $classes,
