@@ -1031,6 +1031,12 @@
 
                 $($(event.target).data('slide-down')).slideToggle();
             })
+            .on('click', '[data-toggle]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('toggle')).toggle();
+            })
             .on('click', '[data-session-close]', function (event) {
                 event.preventDefault();
                 event.stopPropagation();

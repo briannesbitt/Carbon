@@ -117,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(10) "Saturday 9"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(10) "Saturday 9"
+var_dump($mutable->isoFormat('dddd D'));             // string(9) "Monday 11"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Monday 11"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(8) "Friday 8"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(10) "Saturday 9"
+var_dump($immutable->isoFormat('dddd D'));           // string(9) "Sunday 10"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Monday 11"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -257,16 +257,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-03-08 06:33:01
+echo $now;                               // 2019-03-10 22:29:21
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2019-03-08 00:00:00
+echo $today;                             // 2019-03-10 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2019-03-09 00:00:00
+echo $tomorrow;                          // 2019-03-11 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2019-03-07 00:00:00
+echo $yesterday;                         // 2019-03-09 00:00:00
 </code></pre>
     </p>
 
@@ -382,7 +382,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 08:33 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 00:29 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -462,7 +462,7 @@ echo Carbon::minValue();                               // '0001-01-01 00:00:00'
 
     <h1 id="api-localization">Localization</h1>
 
-    <p>With Carbon 2, localization changed a lot, 440 new locales
+    <p>With Carbon 2, localization changed a lot, 750 new locales
         are supported and we now embed locale formats, day names, month names, ordinal suffixes, meridiem, week start
         and more. While Carbon 1 provided partial support and relied on third-party like IntlDateFormatter class
         and language packages for advanced translation, you now benefit of a wide internationalization support. You
@@ -532,7 +532,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // mi�rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -624,8 +624,8 @@ var_dump($translator->getLocalesFiles()); // /path/to/af.php, /path/to/ar.php, e
 var_dump($translator->getAvailableLocales()); // af, ar, etc.
 
 // You can also filter files/locales starting with a given prefix:
-echo implode(', ', array_map('basename', $translator->getLocalesFiles('fr'))); // fr.php, fr_BE.php, fr_CA.php, fr_CH.php, fr_FR.php, fr_LU.php
-echo implode(', ', $translator->getAvailableLocales('fr')); // fr, fr_BE, fr_CA, fr_CH, fr_FR, fr_LU
+echo implode(', ', array_map('basename', $translator->getLocalesFiles('fr'))); // fr.php, fr_BE.php, fr_BF.php, fr_BI.php, fr_BJ.php, fr_BL.php, fr_CA.php, fr_CD.php, fr_CF.php, fr_CG.php, fr_CH.php, fr_CI.php, fr_CM.php, fr_DJ.php, fr_DZ.php, fr_FR.php, fr_GA.php, fr_GF.php, fr_GN.php, fr_GP.php, fr_GQ.php, fr_HT.php, fr_KM.php, fr_LU.php, fr_MA.php, fr_MC.php, fr_MF.php, fr_MG.php, fr_ML.php, fr_MQ.php, fr_MR.php, fr_MU.php, fr_NC.php, fr_NE.php, fr_PF.php, fr_PM.php, fr_RE.php, fr_RW.php, fr_SC.php, fr_SN.php, fr_SY.php, fr_TD.php, fr_TG.php, fr_TN.php, fr_VU.php, fr_WF.php, fr_YT.php
+echo implode(', ', $translator->getAvailableLocales('fr')); // fr, fr_BE, fr_BF, fr_BI, fr_BJ, fr_BL, fr_CA, fr_CD, fr_CF, fr_CG, fr_CH, fr_CI, fr_CM, fr_DJ, fr_DZ, fr_FR, fr_GA, fr_GF, fr_GN, fr_GP, fr_GQ, fr_HT, fr_KM, fr_LU, fr_MA, fr_MC, fr_MF, fr_MG, fr_ML, fr_MQ, fr_MR, fr_MU, fr_NC, fr_NE, fr_PF, fr_PM, fr_RE, fr_RW, fr_SC, fr_SN, fr_SY, fr_TD, fr_TG, fr_TN, fr_VU, fr_WF, fr_YT
 </code></pre>
         </p>
 
@@ -709,7 +709,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // mars
 echo "\n";
-echo $date->isoFormat('LLLL');   // vendredi 8 mars 2019 06:33
+echo $date->isoFormat('LLLL');   // dimanche 10 mars 2019 22:29
 </code></pre>
     </p>
 
@@ -740,13 +740,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 06:33
+Aujourd’hui à 22:29
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 6:33 AM
+Today at 10:29 PM
 */
 </code></pre>
     </p>
@@ -773,9 +773,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 08/03 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 10/03 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 08/03 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 10/03 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -849,9 +849,9 @@ echo "\n";
 echo $date->getTranslatedMonthName('MMMM YYYY'); // март
 echo "\n";
 // Short variant
-echo $date->getTranslatedShortMonthName('Do MMM'); // мар.
+echo $date->getTranslatedShortMonthName('Do MMM'); // мар
 echo "\n";
-echo $date->getTranslatedShortMonthName('MMM YYYY'); // март
+echo $date->getTranslatedShortMonthName('MMM YYYY'); // мар
 echo "\n";
 </code></pre>
     </p>
@@ -1504,21 +1504,21 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 6:33 AM
+echo $date->calendar();                                      // Today at 10:29 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 3:33 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:29 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 8:10 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 12:06 PM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 02/28/2019
+echo $date->sub('8 days')->calendar();                       // 03/02/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 9:33 AM
+echo $date->add('1 day 3 hours')->calendar();                // Tuesday at 1:29 AM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 4:56 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 8:52 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 03/16/2019
+echo $date->add('8 days')->calendar();                       // 03/18/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 06:33
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 22:29
 </code></pre>
     </p>
 
@@ -1537,10 +1537,10 @@ echo $date1->calendar($date2, [
 </code></pre>
     </p>
 
-    <p>Here is an overview of the 210 locales (and 513 regional variants) supported by the last
+    <p><a href="#supported-locales" data-toggle="#supported-locales">Click here</a> is an overview of the 281 locales (and 823 regional variants) supported by the last
         Carbon version:</p>
 
-    <table class="info-table" id="supported-locales">
+    <table class="info-table discover-chapter" id="supported-locales">
         <thead>
         <tr>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Locale</div></th>
@@ -1563,8 +1563,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1581,14 +1581,26 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>agq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>agr</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1599,8 +1611,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1611,8 +1623,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1623,8 +1635,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1659,6 +1671,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>asa</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
@@ -1671,8 +1695,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1701,6 +1725,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>bas</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>be</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
@@ -1719,13 +1755,25 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ber</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
-            <td>ber</td>
+            <td>bez</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -1767,8 +1815,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1779,8 +1827,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1881,14 +1929,38 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>ccp</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>ce</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>cgg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1899,8 +1971,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1911,8 +1983,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1923,8 +1995,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -1950,6 +2022,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>cu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -1989,6 +2073,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>dav</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>de</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -1998,6 +2094,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>dje</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -2019,8 +2127,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>dua</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2037,14 +2157,50 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>dyo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>dz</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ebu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ee</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2121,6 +2277,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>ewo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>fa</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
@@ -2139,8 +2307,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2163,8 +2331,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2247,8 +2415,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2281,8 +2449,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
@@ -2301,14 +2469,26 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>guz</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>gv</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2319,8 +2499,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2331,8 +2511,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>haw</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2367,8 +2559,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2403,8 +2595,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2415,8 +2607,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2463,8 +2655,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2487,8 +2679,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ii</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2499,8 +2703,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>in</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2535,8 +2751,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>iw</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2550,6 +2778,30 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>jgo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>jmc</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -2583,8 +2835,68 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>kam</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>kde</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>kea</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>khq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ki</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2601,7 +2913,31 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>kkj</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>kl</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>kln</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -2655,8 +2991,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2667,8 +3003,44 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ksb</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ksf</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ksh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2691,8 +3063,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2706,6 +3078,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>lag</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -2727,8 +3111,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2739,8 +3123,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2751,8 +3135,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>lkt</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2763,8 +3159,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2781,6 +3177,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>lrc</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>lt</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -2789,6 +3197,42 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>lu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>luo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>luy</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2811,8 +3255,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2835,8 +3279,20 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>mas</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2853,7 +3309,43 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>mer</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>mfe</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>mg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>mgh</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -2865,7 +3357,7 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
-            <td>mg</td>
+            <td>mgo</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -2883,8 +3375,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2907,8 +3399,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -2973,6 +3465,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>mo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
             <td>mr</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
@@ -3009,10 +3513,34 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>mua</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>my</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>mzn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3027,13 +3555,37 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>naq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
             <td>nb</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>nd</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3051,8 +3603,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3075,8 +3627,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3087,8 +3639,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3105,6 +3657,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>nmg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>nn</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
@@ -3114,6 +3678,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>nnh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -3147,6 +3723,30 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>nus</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>nyn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
@@ -3171,8 +3771,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3195,8 +3795,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3237,12 +3837,24 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>prg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>ps</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
@@ -3261,14 +3873,26 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>qu</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
             <td>quz</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3279,21 +3903,33 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
             <td>rm</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>rn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -3306,6 +3942,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>rof</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -3327,6 +3975,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>rwk</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
@@ -3339,8 +3999,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3357,7 +4017,31 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>saq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>sat</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>sbp</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3375,8 +4059,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3417,14 +4101,50 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>seh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>ses</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>sg</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>sgs</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3441,14 +4161,26 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>shi</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>shn</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3459,8 +4191,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3519,8 +4251,32 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>smn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>sn</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3531,8 +4287,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3551,8 +4307,8 @@ echo $date1->calendar($date2, [
         <tr>
             <td>sr</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3579,8 +4335,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3615,8 +4371,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3639,13 +4395,25 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
             <td>te</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>teo</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
@@ -3711,8 +4479,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3723,8 +4491,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3735,8 +4503,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3771,8 +4539,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3783,8 +4551,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3795,8 +4563,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3819,8 +4587,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3834,6 +4602,18 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
+        </tr>
+        
+        <tr>
+            <td>twq</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
         </tr>
         
         <tr>
@@ -3921,6 +4701,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>vai</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>ve</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3945,7 +4737,19 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
-            <td>wa</td>
+            <td>vo</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>vun</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
@@ -3957,14 +4761,26 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>wa</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>wae</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -3999,6 +4815,30 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>xog</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
+            <td>yav</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
@@ -4011,8 +4851,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -4030,7 +4870,7 @@ echo $date1->calendar($date2, [
         
         <tr>
             <td>yue</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">❌</td>
             <td class="compatibility-check">✅</td>
@@ -4053,6 +4893,18 @@ echo $date1->calendar($date2, [
         </tr>
         
         <tr>
+            <td>zgh</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
+        </tr>
+        
+        <tr>
             <td>zh</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">❌</td>
@@ -4071,8 +4923,8 @@ echo $date1->calendar($date2, [
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
-            <td class="compatibility-check">❌</td>
-            <td class="compatibility-check">❌</td>
+            <td class="compatibility-check">✅</td>
+            <td class="compatibility-check">✅</td>
             <td class="compatibility-check">✅</td>
         </tr>
         
@@ -4188,7 +5040,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-03-08 06:33:02
+echo Carbon::now();                                    // 2019-03-10 22:29:22
 </code></pre>
     </p>
 
@@ -4378,12 +5230,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(2)
+var_dump(Carbon::now()->get($unit));                         // int(22)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(2)
+var_dump(Carbon::now()->$unit);                              // int(22)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(2)
+var_dump(Carbon::now()->get($unit));                         // int(22)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -4452,8 +5304,8 @@ $ar = CarbonImmutable::now()->locale('ar');
 
 var_dump($en->firstWeekDay);                           // int(0)
 var_dump($en->lastWeekDay);                            // int(6)
-var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2019-03-03 00:00"
-var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2019-03-09 23:59"
+var_dump($en->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2019-03-10 00:00"
+var_dump($en->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2019-03-16 23:59"
 
 echo "-----------\n";
 
@@ -4467,8 +5319,8 @@ echo "-----------\n";
 
 var_dump($ar->firstWeekDay);                           // int(6)
 var_dump($ar->lastWeekDay);                            // int(5)
-var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2019-03-02 00:00"
-var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2019-03-08 23:59"
+var_dump($ar->startOfWeek()->format('Y-m-d H:i'));     // string(16) "2019-03-09 00:00"
+var_dump($ar->endOfWeek()->format('Y-m-d H:i'));       // string(16) "2019-03-15 23:59"
 
 $en = CarbonImmutable::parse('2015-02-05'); // use en_US as default locale
 
@@ -4717,7 +5569,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#2582 (2) {
+  object(Carbon\CarbonTimeZone)#3556 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -4728,7 +5580,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#2582 (12) {
+object(stdClass)#3556 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -4752,7 +5604,7 @@ object(stdClass)#2582 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#2575 (2) {
+  object(Carbon\CarbonTimeZone)#3549 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -4763,7 +5615,7 @@ object(stdClass)#2582 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#2582 (3) {
+object(DateTime)#3556 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -4883,8 +5735,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-03-08 06:33:02
-echo $dt1->maximum();                              // 2019-03-08 06:33:02
+echo $dt1->max();                                  // 2019-03-10 22:29:22
+echo $dt1->maximum();                              // 2019-03-10 22:29:22
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -6060,7 +6912,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // mardi dernier à 07:33
+echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 23:29
 </code></pre>
     </p>
 
@@ -6386,8 +7238,8 @@ Carbon::setUserTimezone('Europe/Berlin');
 echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 13:00
 echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 16:00
 Carbon::setUserTimezone('America/Toronto');
-echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 07:00
-echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 10:00
+echo Carbon::createFromTime(12, 0, 0, 'UTC')->tzFormat('H:i'); // 08:00
+echo Carbon::createFromTime(15, 0, 0, 'UTC')->tzFormat('H:i'); // 11:00
 </code></pre>
     </p>
 
@@ -6892,7 +7744,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2019-03-08, 2019-03-09, 2019-03-10
+echo implode(', ', $days);               // 2019-03-10, 2019-03-11, 2019-03-12
 </code></pre>
     </p>
 
@@ -7440,6 +8292,12 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
                 event.stopPropagation();
 
                 $($(event.target).data('slide-down')).slideToggle();
+            })
+            .on('click', '[data-toggle]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('toggle')).toggle();
             })
             .on('click', '[data-session-close]', function (event) {
                 event.preventDefault();

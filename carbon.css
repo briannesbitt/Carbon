@@ -46,6 +46,10 @@ code {color: #38932c;font-size:90%}
 blockquote, .doc-comment{font-size:15px;color:#656565}
 .class-name, .doc-comment {color: #8f8f8f}
 
+.discover-chapter {
+    display: none;
+}
+
 .extra-helper,
 .old-way {
     display: none;
