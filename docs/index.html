@@ -257,7 +257,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-03-11 10:47:41
+echo $now;                               // 2019-03-11 16:35:12
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2019-03-11 00:00:00
@@ -382,7 +382,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 12:47 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 18:35 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -577,11 +577,32 @@ echo $date1->locale($boringLanguage)->diffForHumans($date2); // [3 BORING DAYS]
 </code></pre>
     </p>
 
+    <p>You can use fallback locales by passing in order multiple ones to <code>locale()</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">\Carbon\Translator::get('xx')->setTranslations([
+    'day' => ':count Xday',
+]);
+\Carbon\Translator::get('xy')->setTranslations([
+    'day' => ':count Yday',
+    'hour' => ':count Yhour',
+]);
+
+$date = Carbon::now()->locale('xx', 'xy', 'es')->sub('3 days 6 hours 40 minutes');
+
+echo $date->ago(['parts' => 3]); // hace 3 Xday 6 Yhour 40 minutos
+</code></pre>
+    </p>
+
+    <p>In the example above, it will try to find translations in "xx" in priority, then in "xy" if missing, then in "es",
+        so here, you get "Xday" from "xx", "Yday" from "xy", and "hace" and "minutos" from "es".</p>
+
     <p>Note that you can also use an other translator with <code>Carbon::setTranslator($custom)</code> as long as the
         given translator implements <a
                 href="http://api.symfony.com/3.1/Symfony/Component/Translation/TranslatorInterface.html"><code>Symfony\Component\Translation\TranslatorInterface</code></a>.
-        And you can get the global default translator using <code>Carbon::getTranslator()</code> but as those method
-        will change the behavior globally (including third-party libraries you may have in your app), it might cause
+        And you can get the global default translator using <code>Carbon::getTranslator()</code> (and <code>Carbon::setFallbackLocale($custom)</code>
+        and <code>Carbon::getFallbackLocale()</code> for the fallback locale, setFallbackLocale can be called multiple times to get multiple fallback locales)
+        but as those method will change the behavior globally (including third-party libraries you may have in your app), it might cause
         unexpected results. You should rather customize translation using custom locales as in the example above.
     </p>
 
@@ -709,7 +730,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // mars
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 11 mars 2019 10:47
+echo $date->isoFormat('LLLL');   // lundi 11 mars 2019 16:35
 </code></pre>
     </p>
 
@@ -740,13 +761,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 10:47
+Aujourd’hui à 16:35
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 10:47 AM
+Today at 4:35 PM
 */
 </code></pre>
     </p>
@@ -823,6 +844,14 @@ echo $date->isoFormat('YYYY [escaped] YYYY'); // 2018 escaped 2018
 </code></pre>
     </p>
 
+    <p>You can also create date from ISO formatted strings:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::createFromIsoFormat('!YYYY-MMMM-D h:mm:ss a', '2019-January-3 6:33:24 pm', 'UTC');
+echo $date->isoFormat('M/D/YY HH:mm'); // 1/3/19 18:33
+</code></pre>
+    </p>
+
     <p><code>->isoFormat</code> use contextualized methods for day names and month names as they can have multiple
         forms in some languages, see the following examples:</p>
 
@@ -852,6 +881,16 @@ echo "\n";
 echo $date->getTranslatedShortMonthName('Do MMM'); // мар
 echo "\n";
 echo $date->getTranslatedShortMonthName('MMM YYYY'); // мар
+echo "\n";
+
+// And so you can force a different context to get those variants:
+echo $date->isoFormat('Do MMMM');        // 16-го марта
+echo "\n";
+echo $date->isoFormat('MMMM YYYY');      // март 2018
+echo "\n";
+echo $date->isoFormat('Do MMMM', 'MMMM YYYY'); // 16-го март
+echo "\n";
+echo $date->isoFormat('MMMM YYYY', 'Do MMMM'); // марта 2018
 echo "\n";
 </code></pre>
     </p>
@@ -1500,25 +1539,35 @@ echo "\n";
         </tbody>
     </table>
 
+    <p>When you use macro-formats with <code>createFromIsoFormat</code> you can specify a locale to select which language
+        the macro-format should be searched in.
+    </p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::createFromIsoFormat('LLLL', 'Monday 11 March 2019 16:28', null, 'fr');
+echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
+</code></pre>
+    </p>
+
     <p>An other usefull translated method is <code>calendar($referenceTime = null, array $formats = []): string</code>:</p>
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 10:47 AM
+echo $date->calendar();                                      // Today at 4:35 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 7:47 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 1:35 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 12:24 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 6:12 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 03/03/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 1:47 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 7:35 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 9:10 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 2:58 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 03/19/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 10:47
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 16:35
 </code></pre>
     </p>
 
@@ -4935,12 +4984,108 @@ echo $date1->calendar($date2, [
         your help is welcome.</p>
 
     <p>Note that if you use Laravel 5.5+, the locale will be automatically set according to current last
-        <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code> and localized
+        <code>App:setLocale</code> execution. So <code>diffForHumans</code>, <code>isoFormat</code>, <code>translatedFormat</code> and localized
         properties such as <code>->dayName</code> or <code>->monthName</code> will be localized transparently.</p>
 
     <p>Each Carbon, CarbonImmutable, CarbonInterval or CarbonPeriod instance is linked by default to a
         <code>Carbon\Translator</code> instance according to its locale set. You can get and/or change it
         using <code>getLocalTranslator()</code>/<code>setLocalTranslator(Translator $translator)</code>.</p>
+
+    <p>If you prefer the <a href="https://php.net/manual/en/function.date.php"><code>date()</code> pattern</a>, you can
+        use <code>translatedFormat()</code> which works like <a href="https://php.net/manual/en/datetime.format.php"><code>format()</code></a>
+        but translate the string using the current locale.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::parse('2018-03-16 15:45')->locale('uk');
+
+echo $date->translatedFormat('g:i a l jS F Y'); // 3:45 дня п’ятниця 16-го березня 2018
+</code></pre>
+    </p>
+
+    <p>Be warned that some letters like <code>W</code> are not supported because they are not safely translatable and
+        <code>translatedFormat</code> offers shorter syntax but less possibilities than <code>isoFormat()</code>.</p>
+
+    <p>You can customize the behavior of the <code>format()</code> method to use any other method or a custom one
+        instead of the native method from the PHP DateTime class:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::parse('2018-03-16 15:45')->locale('ja');
+
+echo $date->format('g:i a l jS F Y');    // 3:45 pm Friday 16th March 2018
+echo "\n";
+
+$date->settings(['formatFunction' => 'translatedFormat']);
+
+echo $date->format('g:i a l jS F Y');    // 3:45 午後 金曜日 16日 3月 2018
+echo "\n";
+
+$date->settings(['formatFunction' => 'isoFormat']);
+
+echo $date->format('LL');                // 2018年3月16日
+echo "\n";
+
+// When you set a custom format() method you still can access the native method using rawFormat()
+echo $date->rawFormat('D');              // Fri
+</code></pre>
+    </p>
+
+    <p>You can translate a string from a language to an other using dates translations available in Carbon:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">echo Carbon::translateTimeString('mercredi 8 juillet', 'fr', 'nl');
+// woensdag 8 juli
+echo "\n";
+
+// You can select translations to use among available constants:
+// - CarbonInterface::TRANSLATE_MONTHS
+// - CarbonInterface::TRANSLATE_DAYS
+// - CarbonInterface::TRANSLATE_UNITS
+// - CarbonInterface::TRANSLATE_MERIDIEM
+// - CarbonInterface::TRANSLATE_ALL (all above)
+// You can combine them with pipes: like below (translate units and days but not months and meridiem):
+echo Carbon::translateTimeString('mercredi 8 juillet + 3 jours', 'fr', 'nl', CarbonInterface::TRANSLATE_DAYS | CarbonInterface::TRANSLATE_UNITS);
+// woensdag 8 juillet + 3 dagen
+</code></pre>
+    </p>
+
+    <p>If input locale is not specified, <code>Carbon::getLocale()</code> is used instead.
+        If output locale is not specified, <code>"en"</code> is used instead.
+        You also can translate using the locale of the instance with:
+    </p>
+
+    <p>
+    <pre class="live-editor"><code class="php">echo Carbon::now()->locale('fr')->translateTimeStringTo('mercredi 8 juillet + 3 jours', 'nl');
+// woensdag 8 juli + 3 dagen
+</code></pre>
+    </p>
+
+    <p>You can use strings in any language directly to create a date object with <code>parseFromLocale</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::parseFromLocale('mercredi 6 mars 2019 + 3 jours', 'fr', 'UTC'); // timezone is optional
+
+echo $date->isoFormat('LLLL'); // Saturday, March 9, 2019 12:00 AM
+</code></pre>
+    </p>
+
+    <p>Or with custom format using <code>createFromLocaleFormat</code>
+        (use the <a href="https://php.net/manual/en/function.date.php"><code>date()</code> pattern</a> for replacements):</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::createFromLocaleFormat('!d/F/y', 'fr', '25/Août/19', 'Europe/Paris'); // timezone is optional
+
+echo $date->isoFormat('LLLL'); // Sunday, August 25, 2019 12:00 AM
+</code></pre>
+    </p>
+
+    <p>The equivalent method using ISO format is <code>createFromLocaleIsoFormat</code>:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$date = Carbon::createFromLocaleIsoFormat('!DD/MMMM/YY', 'fr', '25/Août/19', 'Europe/Paris'); // timezone is optional
+
+echo $date->isoFormat('LLLL'); // Sunday, August 25, 2019 12:00 AM
+</code></pre>
+    </p>
 
     <p>To get some interesting info about languages (such as complete ISO name or native name, region (for
         example to be displayed in a languages selector), you can use <code>getAvailableLocalesInfo</code>.</p>
@@ -5040,7 +5185,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-03-11 10:47:45
+echo Carbon::now();                                    // 2019-03-11 16:35:15
 </code></pre>
     </p>
 
@@ -5230,12 +5375,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(45)
+var_dump(Carbon::now()->get($unit));                         // int(15)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(45)
+var_dump(Carbon::now()->$unit);                              // int(15)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(45)
+var_dump(Carbon::now()->get($unit));                         // int(15)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5569,7 +5714,7 @@ array(12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#3556 (2) {
+  object(Carbon\CarbonTimeZone)#3579 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -5580,7 +5725,7 @@ array(12) {
 
 var_dump($dt->toObject());
 /*
-object(stdClass)#3556 (12) {
+object(stdClass)#3579 (12) {
   ["year"]=>
   int(2019)
   ["month"]=>
@@ -5604,7 +5749,7 @@ object(stdClass)#3556 (12) {
   ["formatted"]=>
   string(19) "2019-02-01 03:45:27"
   ["timezone"]=>
-  object(Carbon\CarbonTimeZone)#3549 (2) {
+  object(Carbon\CarbonTimeZone)#3572 (2) {
     ["timezone_type"]=>
     int(3)
     ["timezone"]=>
@@ -5615,7 +5760,7 @@ object(stdClass)#3556 (12) {
 
 var_dump($dt->toDate()); // Same as $dt->toDateTime()
 /*
-object(DateTime)#3556 (3) {
+object(DateTime)#3579 (3) {
   ["date"]=>
   string(26) "2019-02-01 03:45:27.612584"
   ["timezone_type"]=>
@@ -5735,8 +5880,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-03-11 10:47:45
-echo $dt1->maximum();                              // 2019-03-11 10:47:45
+echo $dt1->max();                                  // 2019-03-11 16:35:15
+echo $dt1->maximum();                              // 2019-03-11 16:35:15
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -6589,8 +6734,17 @@ echo $now->copy()->subHour()->diffForHumans([
         <li><code>since($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of diffForHumans)</li>
         <li><code>to($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (inverse result, swap before and future diff)</li>
         <li><code>until($other = null, $syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to)</li>
-        <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted, now used instead)</li>
+        <li><code>fromNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of from with first argument omitted unless the first argument is a <code>DateTimeInterface</code>, now used instead), for semantic usage: produce an "3 hours from now"-like string with dates in the future</li>
+        <li><code>ago($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of fromNow), for semantic usage: produce an "3 hours ago"-like string with dates in the past</li>
         <li><code>toNow($syntax = null, $short = false, $parts = 1, $options = null)</code> (alias of to with first argument omitted, now used instead)</li>
+        <li><code>timespan($other = null, $timezone = null)</code> calls diffForHumans with options
+            <code>join = ', '</code> (coma-separated),
+            <code>syntax = CarbonInterface::DIFF_ABSOLUTE</code> (no "ago"/"from now"/"before"/"after" wording),
+            <code>options = CarbonInterface::NO_ZERO_DIFF</code> (no "just now"/"yesterday"/"tomorrow" wording),
+            <code>parts = -1</code> (no limits)
+            In this mode, you can't change options but you can pass an optional date to compare with or a
+            string + timezone to parse to get this date.
+        </li>
     </ul>
 
     <h1 id="api-modifiers">Modifiers</h1>
@@ -6912,7 +7066,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 01:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 11:47
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 17:35
 </code></pre>
     </p>
 
