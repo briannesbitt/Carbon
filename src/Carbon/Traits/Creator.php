@@ -163,7 +163,7 @@ trait Creator
      */
     public static function parseFromLocale($time, $locale, $tz = null)
     {
-        return static::parse(static::translateTimeString($time, $locale, 'en'), $tz);
+        return static::rawParse(static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
     /**
@@ -187,7 +187,7 @@ trait Creator
      */
     public static function today($tz = null)
     {
-        return static::parse('today', $tz);
+        return static::rawParse('today', $tz);
     }
 
     /**
@@ -199,7 +199,7 @@ trait Creator
      */
     public static function tomorrow($tz = null)
     {
-        return static::parse('tomorrow', $tz);
+        return static::rawParse('tomorrow', $tz);
     }
 
     /**
@@ -211,7 +211,7 @@ trait Creator
      */
     public static function yesterday($tz = null)
     {
-        return static::parse('yesterday', $tz);
+        return static::rawParse('yesterday', $tz);
     }
 
     /**
@@ -313,7 +313,7 @@ trait Creator
 
         $second = ($second < 10 ? '0' : '').number_format($second, 6);
         /** @var CarbonImmutable|Carbon $instance */
-        $instance = static::createFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
+        $instance = static::rawCreateFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
         if ($fixYear !== null) {
             $instance = $instance->addYears($fixYear);
@@ -481,6 +481,15 @@ trait Creator
      */
     public static function rawCreateFromFormat($format, $time, $tz = null)
     {
+        if (preg_match('/(?<!\\\\)(?:\\\\{2})*(a|A)/', $format, $aMatches, PREG_OFFSET_CAPTURE) &&
+            preg_match('/(?<!\\\\)(?:\\\\{2})*(h|g|H|G)/', $format, $hMatches, PREG_OFFSET_CAPTURE) &&
+            $aMatches[1][1] < $hMatches[1][1] &&
+            preg_match('/(am|pm|AM|PM)/', $time)
+        ) {
+            $format = preg_replace('/^(.*)(?<!\\\\)((?:\\\\{2})*)(a|A)(.*)$/U', '$1$2$4 $3', $format);
+            $time = preg_replace('/^(.*)(am|pm|AM|PM)(.*)$/U', '$1$3 $2', $time);
+        }
+
         // First attempt to create an instance, so that error messages are based on the unmodified format.
         $date = self::createFromFormatAndTimezone($format, $time, $tz);
         $lastErrors = parent::getLastErrors();
@@ -533,15 +542,6 @@ trait Creator
      */
     public static function createFromFormat($format, $time, $tz = null)
     {
-        if (preg_match('/(?<!\\\\)(?:\\\\{2})*(a|A)/', $format, $aMatches, PREG_OFFSET_CAPTURE) &&
-            preg_match('/(?<!\\\\)(?:\\\\{2})*(h|g|H|G)/', $format, $hMatches, PREG_OFFSET_CAPTURE) &&
-            $aMatches[1][1] < $hMatches[1][1] &&
-            preg_match('/(am|pm|AM|PM)/', $time)
-        ) {
-            $format = preg_replace('/^(.*)(?<!\\\\)((?:\\\\{2})*)(a|A)(.*)$/U', '$1$2$4 $3', $format);
-            $time = preg_replace('/^(.*)(am|pm|AM|PM)(.*)$/U', '$1$3 $2', $time);
-        }
-
         $function = static::$createFromFormatFunction;
 
         if (!$function) {
@@ -694,7 +694,7 @@ trait Creator
             return $format;
         }, $format);
 
-        return static::createFromFormat($format, $time, $tz);
+        return static::rawCreateFromFormat($format, $time, $tz);
     }
 
     /**
@@ -711,7 +711,7 @@ trait Creator
      */
     public static function createFromLocaleFormat($format, $locale, $time, $tz = null)
     {
-        return static::createFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
+        return static::rawCreateFromFormat($format, static::translateTimeString($time, $locale, 'en'), $tz);
     }
 
     /**

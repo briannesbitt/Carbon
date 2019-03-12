@@ -40,7 +40,7 @@ trait Timestamp
      */
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
-        return static::createFromFormat('U.u', sprintf('%F', $timestamp / 1000))
+        return static::rawCreateFromFormat('U.u', sprintf('%F', $timestamp / 1000))
             ->setTimezone($tz);
     }
 
