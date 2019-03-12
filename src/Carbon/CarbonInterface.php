@@ -2726,7 +2726,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
      *
-     * @see http://php.net/manual/en/datetime.modify.php
+     * @see https://php.net/manual/en/datetime.modify.php
      */
     public function modify($modify);
 
@@ -4063,6 +4063,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *                                - CarbonInterface::TRANSLATE_MONTHS
      *                                - CarbonInterface::TRANSLATE_DAYS
      *                                - CarbonInterface::TRANSLATE_UNITS
+     *                                - CarbonInterface::TRANSLATE_MERIDIEM
      *                                You can use pipe to group: CarbonInterface::TRANSLATE_MONTHS | CarbonInterface::TRANSLATE_DAYS
      *
      * @return string

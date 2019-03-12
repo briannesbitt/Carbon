@@ -507,7 +507,7 @@ foreach ($carbonMethods as $method) {
             $methodDocBlock = "\n    /**\n".
                 "     * call \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
                 "     *\n".
-                "     * @see http://php.net/manual/en/datetime.$link.php\n".
+                "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';
         }
         $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
