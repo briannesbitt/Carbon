@@ -46,6 +46,7 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
  * - Andrii Ponomarov
  * - alecrabbit
  * - vystepanenko
+ * - AlexWalkerson
  */
 return [
     'year' => ':count рік|:count роки|:count років',
@@ -63,12 +64,12 @@ return [
     'hour' => ':count година|:count години|:count годин',
     'h' => ':count година|:count години|:count годин',
     'a_hour' => '{1}годину|:count година|:count години|:count годин',
-    'minute' => ':count хвилину|:count хвилини|:count хвилин',
-    'min' => ':count хвилину|:count хвилини|:count хвилин',
+    'minute' => ':count хвилина|:count хвилини|:count хвилин',
+    'min' => ':count хвилина|:count хвилини|:count хвилин',
     'a_minute' => '{1}хвилина|:count хвилину|:count хвилини|:count хвилин',
-    'second' => ':count секунду|:count секунди|:count секунд',
-    's' => ':count секунду|:count секунди|:count секунд',
-    'a_second' => '{0,1}кілька секунд|:count секунду|:count секунди|:count секунд',
+    'second' => ':count секунда|:count секунди|:count секунд',
+    's' => ':count секунда|:count секунди|:count секунд',
+    'a_second' => '{1}кілька секунд|:count секунду|:count секунди|:count секунд',
     'ago' => ':time тому',
     'from_now' => 'за :time',
     'after' => ':time після',

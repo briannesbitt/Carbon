@@ -37,6 +37,7 @@ $transformDiff = function ($input) {
  * - Fellzo
  * - andrey-helldar
  * - Pavel Skripkin (psxx)
+ * - AlexWalkerson
  */
 return [
     'year' => ':count год|:count года|:count лет',
