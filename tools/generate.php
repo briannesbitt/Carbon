@@ -33,11 +33,13 @@ function isHistoryUpToDate()
 
     $versions = json_decode(file_get_contents('https://packagist.org/p/nesbot/carbon.json'), true)['packages']['nesbot/carbon'];
     $maxVersion = '1.0.0';
+
     foreach ($versions as $version => $data) {
         if (version_compare($version, $maxVersion) > 0) {
             $maxVersion = $version;
         }
     }
+
     $versionData = $versions[$maxVersion];
 
     return Carbon::parse($versionData['time'])->timestamp < filemtime('history.json');
@@ -77,6 +79,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             $dateClass = get_class($dateTimeObject);
             $rcCarbon = new ReflectionMethod($className, $method);
             $rcDate = new ReflectionMethod($dateClass, $method);
+
             if ($rcCarbon == $rcDate) {
                 $dateClass = trim($dateClass, '/\\');
 
@@ -92,9 +95,11 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 continue;
             }
         }
+
         $history = '';
         $key = "$className::$method";
         $parameters = implode(', ', $parameters ?: []);
+
         if (is_array($globalHistory) && isset($globalHistory[$key])) {
             $ref = implode(', ', reset($globalHistory[$key]) ?: ['']);
             $parameters = $ref;
@@ -111,6 +116,22 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
 
             $history .= historyLine('Method added', $version, $ref);
         }
+
+        $description = preg_replace(
+            '/@deprecated\s(([^\n]+)(\n [^\n])*)/',
+            '<div class="alert alert-warning">$1</div>',
+            $description
+        );
+        $description = preg_replace(
+            '/\n *\n/',
+            '<br><br>',
+            $description
+        );
+        $description = preg_replace(
+            '/@see\s+(https?:\/\/(\S+))/',
+            'See <a href="$1">$2</a>',
+            $description
+        );
 
         yield [
             'name' => $method,

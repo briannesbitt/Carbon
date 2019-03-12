@@ -80,7 +80,7 @@ printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // aut
 $tomorrow = Carbon::now()->addDay();
 $lastWeek = Carbon::now()->subWeek();
 
-// Carbon embed 513 languages:
+// Carbon embed 823 languages:
 echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
 
@@ -154,7 +154,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "^2.15.0"
+        "nesbot/carbon": "^2.16.0"
     }
 }</code></pre></p>
 
@@ -164,7 +164,7 @@ printf("Now: %s", Carbon::now());</code></pre></p>
 
             <p><pre><code class="js">{
     "require": {
-        "nesbot/carbon": "2.15.0 as 1.34.0"
+        "nesbot/carbon": "2.16.0 as 1.34.0"
         "kylekatarnls/laravel-carbon-2": "^1.0.0"
     }
 }</code></pre></p>
@@ -335,6 +335,12 @@ Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
                 event.stopPropagation();
 
                 $($(event.target).data('slide-down')).slideToggle();
+            })
+            .on('click', '[data-toggle]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('toggle')).toggle();
             })
             .on('click', '[data-session-close]', function (event) {
                 event.preventDefault();
