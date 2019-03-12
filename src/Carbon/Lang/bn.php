@@ -53,12 +53,12 @@ return [
     'period_start_date' => ':date থেকে',
     'period_end_date' => ':date পর্যন্ত',
     'formats' => [
-        'LT' => 'A h:mm সময়',
-        'LTS' => 'A h:mm:ss সময়',
-        'L' => 'DD/MM/YYYY',
-        'LL' => 'D MMMM YYYY',
-        'LLL' => 'D MMMM YYYY, A h:mm সময়',
-        'LLLL' => 'dddd, D MMMM YYYY, A h:mm সময়',
+        'LT' => 'A Oh:Om সময়',
+        'LTS' => 'A Oh:Om:Os সময়',
+        'L' => 'OD/OM/OY',
+        'LL' => 'OD MMMM OY',
+        'LLL' => 'OD MMMM OY, A Oh:Om সময়',
+        'LLLL' => 'dddd, OD MMMM OY, A Oh:Om সময়',
     ],
     'calendar' => [
         'sameDay' => '[আজ] LT',
@@ -95,4 +95,5 @@ return [
     'weekdays_standalone' => ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহষ্পতিবার', 'শুক্রবার', 'শনিবার'],
     'weekdays_min_standalone' => ['রঃ', 'সোঃ', 'মঃ', 'বুঃ', 'বৃঃ', 'শুঃ', 'শনি'],
     'months_short_standalone' => ['জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'],
+    'alt_numbers' => ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'],
 ];

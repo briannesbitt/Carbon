@@ -1924,6 +1924,17 @@ trait Date
             return "$start$result";
         }
 
+        if ($number > 9 && $this->translate('alt_numbers.9') !== 'alt_numbers.9') {
+            $result = '';
+            while ($number) {
+                $chunk = $number % 10;
+                $result = $this->translate("alt_numbers.$chunk").$result;
+                $number = floor($number / 10);
+            }
+
+            return $result;
+        }
+
         return $number;
     }
 
