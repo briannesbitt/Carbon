@@ -126,7 +126,7 @@ class RuRuTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 сек. назад',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 минуту назад',
+        '1 минута назад',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 мин. назад',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -196,7 +196,7 @@ class RuRuTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'через 1 сек.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 минуту 1 секунда',
+        '1 минута 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 года 3 мес. 1 дня. 1 сек.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
