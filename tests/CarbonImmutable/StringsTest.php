@@ -277,5 +277,7 @@ class StringsTest extends AbstractTestCase
     {
         $this->assertSame('1st', Carbon::parse('01-01-01')->translatedFormat('jS'));
         $this->assertSame('1er', Carbon::parse('01-01-01')->locale('fr')->translatedFormat('jS'));
+        $this->assertSame('31 мая', Carbon::parse('2019-05-15')->locale('ru')->translatedFormat('t F'));
+        $this->assertSame('5 май', Carbon::parse('2019-05-15')->locale('ru')->translatedFormat('n F'));
     }
 }

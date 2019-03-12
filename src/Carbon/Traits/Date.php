@@ -2124,6 +2124,7 @@ trait Date
                     $contextReplacements = [
                         'm' => 'MM',
                         'd' => 'DD',
+                        't' => 'D',
                         'j' => 'D',
                         'N' => 'e',
                         'w' => 'e',
