@@ -3428,13 +3428,13 @@ class MyDateClass extends Carbon
     }
 }
 
-$date = MyDateClass::parse('20 11 2001')->locale('de');
+$date = MyDateClass::parse('20 12 2001')->locale('de');
 
 )}}
 {{::exec(echo $date->format('jS F y');/*pad(40)*/)}} // {{eval}}
 echo "\n";
 
-{{::lint($date = MyDateClass::createFromLocaleFormat('j F Y', 'pt', '20 fevereiro 2001')->locale('pt');)}}
+{{::lint($date = MyDateClass::createFromFormat('j F Y', 'pt', '20 fevereiro 2001')->locale('pt');)}}
 
 {{::exec(echo $date->format('d/m/Y');/*pad(40)*/)}} // {{eval}}
 echo "\n";
