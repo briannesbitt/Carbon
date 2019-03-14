@@ -8,7 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['𑄢𑄧𑄝𑄨𑄝𑄢𑄴', '𑄥𑄧𑄟𑄴𑄝𑄢𑄴', '𑄟𑄧𑄁𑄉𑄧𑄣𑄴𑄝𑄢𑄴', '𑄝𑄪𑄖𑄴𑄝𑄢𑄴', '𑄝𑄳𑄢𑄨𑄥𑄪𑄛𑄴𑄝𑄢𑄴', '𑄥𑄪𑄇𑄴𑄇𑄮𑄢𑄴𑄝𑄢𑄴', '𑄥𑄧𑄚𑄨𑄝𑄢𑄴'],
     'weekdays_short' => ['𑄢𑄧𑄝𑄨', '𑄥𑄧𑄟𑄴', '𑄟𑄧𑄁𑄉𑄧𑄣𑄴', '𑄝𑄪𑄖𑄴', '𑄝𑄳𑄢𑄨𑄥𑄪𑄛𑄴', '𑄥𑄪𑄇𑄴𑄇𑄮𑄢𑄴', '𑄥𑄧𑄚𑄨'],

@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - Ghorban M. Tavakoly Pablo Saratxaga & Ghorban M. Tavakoly pablo@walon.org & gmt314@yahoo.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],

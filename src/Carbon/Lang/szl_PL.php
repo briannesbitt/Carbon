@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - szl_PL locale Przemyslaw Buczkowski libc-alpha@sourceware.org
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],

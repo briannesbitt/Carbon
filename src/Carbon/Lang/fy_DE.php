@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - information from Kenneth Christiansen Kenneth Christiansen, Pablo Saratxaga kenneth@gnu.org, pablo@mandriva.com
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
