@@ -12,7 +12,8 @@
 /**
  * Authors:
  * - The Debian Project modified by GNU//Linux Malagasy Rado Ramarotafika,Do-Risika RAFIEFERANTSIARONJY rado@linuxmg.org,dourix@free.fr
- */return array_replace_recursive(require __DIR__.'/en.php', [
+ */
+return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],
