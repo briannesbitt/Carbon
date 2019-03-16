@@ -8,7 +8,5 @@
 /build.php export-ignore
 /phpdoc.php export-ignore
 /phpstan.neon export-ignore
-/phpunit.xml.dist export-ignore
-/tests export-ignore
 
 * text=auto eol=lf
