@@ -66,7 +66,7 @@ $ composer require nesbot/carbon
 ```json
 {
     "require": {
-        "nesbot/carbon": "^1.33"
+        "nesbot/carbon": "^2.16"
     }
 }
 ```
