@@ -178,9 +178,9 @@ class CsTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'za 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 sekundu později',
+        'o 1 sekundu později',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 sek. později',
+        'o 1 sek. později',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 sekundu předtím',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)

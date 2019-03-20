@@ -46,7 +46,7 @@ return [
     's' => ':count sek.',
     'ago' => ':time nazpět',
     'from_now' => 'za :time',
-    'after' => ':time později',
+    'after' => 'o :time později',
     'before' => ':time předtím',
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
