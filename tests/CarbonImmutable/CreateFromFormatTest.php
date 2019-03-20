@@ -74,6 +74,16 @@ class CreateFromFormatTest extends AbstractTestCase
         $this->assertSame(254687, $d->micro);
     }
 
+    public function testCreateFromFormatWithTestNow()
+    {
+        Carbon::setTestNow();
+        $nativeDate = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
+        Carbon::setTestNow(Carbon::now());
+        $mockedDate = Carbon::createFromFormat('Y-m-d H:i:s', '1975-05-21 22:32:11');
+
+        $this->assertSame($mockedDate->micro === 0, $nativeDate->micro === 0);
+    }
+
     public function testCreateLastErrorsCanBeAccessedByExtendingClass()
     {
         $this->assertSame([
