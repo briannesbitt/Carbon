@@ -108,7 +108,7 @@ class ZghTest extends LocalizationTestCase
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         '10:00 ⵜⵉⴼⴰⵡⵜ, 10:00 ⵜⵉⴼⴰⵡⵜ',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 ⵜⴰⴷⴳⴳⵯⴰⵜ, 12:00 ⵜⵉⴼⴰⵡⵜ',
+        '12:00 ⵜⴰⴷⴳⴳⵯⴰⵜ, 12:00 ⵜⴰⴷⴳⴳⵯⴰⵜ',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
         '5:00 ⵜⴰⴷⴳⴳⵯⴰⵜ, 5:00 ⵜⴰⴷⴳⴳⵯⴰⵜ',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')

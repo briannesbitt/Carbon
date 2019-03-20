@@ -71,6 +71,6 @@ return [
     'weekdays_short' => ['ⵓⵙⴰ', 'ⵡⴰⵢ', 'ⵓⵙⵉ', 'ⵡⴰⴽ', 'ⵓⴽⵡ', 'ⵓⵙⵉⵎ', 'ⵓⵙⵉⴹ'],
     'weekdays_min' => ['ⵓⵙⴰ', 'ⵡⴰⵢ', 'ⵓⵙⵉ', 'ⵡⴰⴽ', 'ⵓⴽⵡ', 'ⵓⵙⵉⵎ', 'ⵓⵙⵉⴹ'],
     'first_day_of_week' => 1,
-    'day_of_first_week_of_year' => 4,
+    'day_of_first_week_of_year' => 1,
     'list' => [', ', ' ⴷ '],
 ];
