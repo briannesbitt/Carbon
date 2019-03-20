@@ -12,7 +12,15 @@
 /**
  * Authors:
  * - Ghorban M. Tavakoly Pablo Saratxaga & Ghorban M. Tavakoly pablo@walon.org & gmt314@yahoo.com
+ * - SuperManPHP
  */
+$transformDiff = function ($input) {
+    return strtr($input, [
+        'sekunt' => 'sekunt',
+        'hepde' => 'hepde',
+    ]);
+};
+
 return array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
@@ -52,4 +60,17 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'second' => ':count sekunt',
     's' => ':count sekunt',
     'a_second' => ':count sekunt',
+
+    'ago' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' ozal';
+    },
+    'from_now' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' soňra';
+    },
+    'after' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' soň';
+    },
+    'before' => function ($time) use ($transformDiff) {
+        return $transformDiff($time).' öň';
+    },
 ]);

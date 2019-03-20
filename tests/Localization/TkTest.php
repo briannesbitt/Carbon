@@ -118,73 +118,73 @@ class TkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 sekunt ago',
+        '1 sekunt ozal',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 sekunt ago',
+        '1 sekunt ozal',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 sekunt ago',
+        '2 sekunt ozal',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sekunt ago',
+        '2 sekunt ozal',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minut ago',
+        '1 minut ozal',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 minut ago',
+        '1 minut ozal',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minut ago',
+        '2 minut ozal',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 minut ago',
+        '2 minut ozal',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 sagat ago',
+        '1 sagat ozal',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 sagat ago',
+        '1 sagat ozal',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 sagat ago',
+        '2 sagat ozal',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 sagat ago',
+        '2 sagat ozal',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 gün ago',
+        '1 gün ozal',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 gün ago',
+        '1 gün ozal',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 gün ago',
+        '2 gün ozal',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 gün ago',
+        '2 gün ozal',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 hepde ago',
+        '1 hepde ozal',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 hepde ago',
+        '1 hepde ozal',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 hepde ago',
+        '2 hepde ozal',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 hepde ago',
+        '2 hepde ozal',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'aý 1 ago',
+        'aý 1 ozal',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'aý 1 ago',
+        'aý 1 ozal',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'aý 2 ago',
+        'aý 2 ozal',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'aý 2 ago',
+        'aý 2 ozal',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 ýyl ago',
+        '1 ýyl ozal',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 ýyl ago',
+        '1 ýyl ozal',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 ýyl ago',
+        '2 ýyl ozal',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 ýyl ago',
+        '2 ýyl ozal',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sekunt from now',
+        '1 sekunt soňra',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 sekunt from now',
+        '1 sekunt soňra',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 sekunt after',
+        '1 sekunt soň',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 sekunt after',
+        '1 sekunt soň',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 sekunt before',
+        '1 sekunt öň',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sekunt before',
+        '1 sekunt öň',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 sekunt',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
@@ -194,17 +194,17 @@ class TkTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 sekunt',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 sekunt from now',
+        '1 sekunt soňra',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 sekunt',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 ýyl aý 3 1 gün 1 sekunt',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 ýyl from now',
+        '3 ýyl soňra',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'aý 5 ago',
+        'aý 5 ozal',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ýyl aý 3 1 gün 1 sekunt ago',
+        '2 ýyl aý 3 1 gün 1 sekunt ozal',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 hepde 10 sagat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -212,11 +212,11 @@ class TkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 hepde 6 gün',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 hepde and 6 gün from now',
+        '1 hepde and 6 gün soňra',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 hepde 1 sagat',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 sagat from now',
+        '1 sagat soňra',
         // CarbonInterval::days(2)->forHumans()
         '2 gün',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
