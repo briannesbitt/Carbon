@@ -108,7 +108,7 @@
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var liveEditorHost = liveEditorHosts[(new Date()).getTime() > 1551524205472 ? balancingId % liveEditorHosts.length : 2];
+        var liveEditorHost = liveEditorHosts[/^\d+-\d+-2/.test((new Date()).toISOString()) ? 2 : balancingId % liveEditorHosts.length];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
