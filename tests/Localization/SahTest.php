@@ -126,11 +126,11 @@ class SahTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2 сек. назад',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 минута назад',
+        '1 минуту назад',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1 мин. назад',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 минута назад',
+        '2 минуту назад',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2 мин. назад',
         // Carbon::now()->subHours(1)->diffForHumans()
@@ -144,19 +144,19 @@ class SahTest extends LocalizationTestCase
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 день назад',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 дня. назад',
+        '1 д. назад',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 день назад',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 дня. назад',
+        '2 д. назад',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 неделю назад',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 нед назад',
+        '1 нед. назад',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 неделю назад',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 нед назад',
+        '2 нед. назад',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 месяц назад',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -168,11 +168,11 @@ class SahTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 год назад',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 год назад',
+        '1 г. назад',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 год назад',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 год назад',
+        '2 г. назад',
         // Carbon::now()->addSecond()->diffForHumans()
         'через 1 секунду',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -198,13 +198,13 @@ class SahTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 минута 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 год 3 мес. 1 дня. 1 сек.',
+        '2 г. 3 мес. 1 д. 1 сек.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'через 3 год',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 мес. назад',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 год 3 мес. 1 дня. 1 сек. назад',
+        '2 г. 3 мес. 1 д. 1 сек. назад',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 неделя 10 час',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class SahTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 день',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 дня. 3 ч.',
+        '1 д. 3 ч.',
     ];
 }

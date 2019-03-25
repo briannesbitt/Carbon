@@ -8,12 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-$transformDiff = function ($input) {
-    return strtr($input, [
-        'неделя' => 'неделю',
-        'секунда' => 'секунду',
-    ]);
-};
 
 /*
  * Authors:
@@ -38,26 +32,35 @@ $transformDiff = function ($input) {
  * - andrey-helldar
  * - Pavel Skripkin (psxx)
  * - AlexWalkerson
+ * - Vladislav UnsealedOne
  */
+$transformDiff = function ($input) {
+    return strtr($input, [
+        'неделя' => 'неделю',
+        'секунда' => 'секунду',
+        'минута' => 'минуту',
+    ]);
+};
+
 return [
     'year' => ':count год|:count года|:count лет',
-    'y' => ':count год|:count года|:count лет',
+    'y' => ':count г.|:count г.|:count л.',
     'a_year' => '{1}год|:count год|:count года|:count лет',
     'month' => ':count месяц|:count месяца|:count месяцев',
     'm' => ':count мес.',
     'a_month' => '{1}месяц|:count месяц|:count месяца|:count месяцев',
     'week' => ':count неделя|:count недели|:count недель',
-    'w' => ':count нед',
+    'w' => ':count нед.',
     'a_week' => '{1}неделя|:count неделю|:count недели|:count недель',
     'day' => ':count день|:count дня|:count дней',
-    'd' => ':count дня.',
+    'd' => ':count д.',
     'a_day' => '{1}день|:count день|:count дня|:count дней',
     'hour' => ':count час|:count часа|:count часов',
     'h' => ':count ч.',
     'a_hour' => '{1}час|:count час|:count часа|:count часов',
     'minute' => ':count минута|:count минуты|:count минут',
     'min' => ':count мин.',
-    'a_minute' => '{1}минута|:count минуту|:count минуты|:count минут',
+    'a_minute' => '{1}минута|:count минута|:count минуты|:count минут',
     'second' => ':count секунда|:count секунды|:count секунд',
     's' => ':count сек.',
     'a_second' => '{1}несколько секунд|:count секунду|:count секунды|:count секунд',
