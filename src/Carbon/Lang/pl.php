@@ -21,6 +21,7 @@
  * - Jan
  * - Paul
  * - damlys
+ * - Marek marast78
  */
 return [
     'year' => ':count rok|:count lata|:count lat',
@@ -36,6 +37,7 @@ return [
     'minute' => ':count minuta|:count minuty|:count minut',
     'min' => ':countm',
     'second' => ':count sekunda|:count sekundy|:count sekund',
+    'a_second' => '{1}kilka sekund|:count sekunda|:count sekundy|:count sekund',
     's' => ':counts',
     'ago' => ':time temu',
     'from_now' => 'za :time',
