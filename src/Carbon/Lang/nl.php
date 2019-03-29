@@ -31,6 +31,7 @@
  * - JeroenG
  * - RikSomers
  * - proclame
+ * - Rik de Groot (hwdegroot)
  */
 return [
     'year' => ':count jaar|:count jaar',
@@ -38,7 +39,7 @@ return [
     'y' => ':countj',
     'month' => ':count maand|:count maanden',
     'a_month' => 'een maand|:count maanden',
-    'm' => ':countma',
+    'm' => ':countmnd',
     'week' => ':count week|:count weken',
     'a_week' => 'een week|:count weken',
     'w' => ':countw',

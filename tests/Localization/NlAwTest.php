@@ -160,11 +160,11 @@ class NlAwTest extends LocalizationTestCase
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 maand geleden',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1ma geleden',
+        '1mnd geleden',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 maanden geleden',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2ma geleden',
+        '2mnd geleden',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 jaar geleden',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -198,13 +198,13 @@ class NlAwTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuut 1 seconde',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2j 3ma 1d 1s',
+        '2j 3mnd 1d 1s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'over 3 jaar',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5ma geleden',
+        '5mnd geleden',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2j 3ma 1d 1s geleden',
+        '2j 3mnd 1d 1s geleden',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 week 10 uur',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
