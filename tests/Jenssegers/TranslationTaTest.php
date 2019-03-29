@@ -79,6 +79,8 @@ class TranslationTaTest extends TestCaseBase
     /** @test */
     public function it_translates_ago()
     {
+        JenssegersDate::setTestNow('2019-03-27');
+
         $oneAgo = JenssegersDate::parse('-1 second');
         $fiveAgo = JenssegersDate::parse('-5 seconds');
 

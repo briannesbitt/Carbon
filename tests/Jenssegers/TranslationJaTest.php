@@ -147,6 +147,8 @@ class TranslationJaTest extends TestCaseBase
      */
     public function it_can_translate_months_ago()
     {
+        JenssegersDate::setTestNow('2019-03-27');
+
         $oneMonthAgo = JenssegersDate::parse('-1 month');
         $twoMonthsAgo = JenssegersDate::parse('-2 months');
 
