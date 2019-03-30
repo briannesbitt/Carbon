@@ -1,7 +1,7 @@
 # Carbon
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/nesbot/carbon.svg?style=flat-square)](https://packagist.org/packages/nesbot/carbon)
-[![Total Downloads](https://img.shields.io/packagist/dt/nesbot/carbon.svg?style=flat-square)](https://packagist.org/packages/nesbot/carbon)
+[![Latest Stable Version](https://img.shields.io/packagist/v/nesbot/carbon.svg)](https://packagist.org/packages/nesbot/carbon)
+[![Total Downloads](https://shields-staging-pr-3239.herokuapp.com/packagist/dt/nesbot/carbon.svg)](https://packagist.org/packages/nesbot/carbon)
 [![Build Status](https://img.shields.io/travis/briannesbitt/Carbon/master.svg?style=flat-square)](https://travis-ci.org/briannesbitt/Carbon)
 [![StyleCI](https://styleci.io/repos/5724990/shield?style=flat-square)](https://styleci.io/repos/5724990)
 [![codecov.io](https://img.shields.io/codecov/c/github/briannesbitt/Carbon.svg?style=flat-square)](https://codecov.io/github/briannesbitt/Carbon?branch=master)
