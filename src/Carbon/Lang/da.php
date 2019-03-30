@@ -16,6 +16,7 @@
  * - codenhagen
  * - JD Isaacks
  * - Jens Herlevsen
+ * - Ulrik McArdle (mcardle)
  */
 return [
     'year' => ':count år|:count år',
@@ -28,8 +29,8 @@ return [
     'a_week' => 'en uge|:count uger',
     'w' => ':count u.',
     'day' => ':count dag|:count dage',
-    'a_day' => 'en d.',
-    'd' => ':count dag|:count dage',
+    'a_day' => ':count dag|:count dage',
+    'd' => 'en d.',
     'hour' => ':count time|:count timer',
     'a_hour' => 'en time|:count timer',
     'h' => ':count t.',
