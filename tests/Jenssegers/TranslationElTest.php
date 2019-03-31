@@ -34,7 +34,7 @@ class TranslationElTest extends TestCaseBase
         $date = JenssegersDate::parse('-3 weeks');
         $this->assertSame('3 εβδομάδες πριν', $date->ago());
 
-        $date = JenssegersDate::parse('-6 months');
+        $date = JenssegersDate::now()->subMonthsNoOverflow(6);
         $this->assertSame('6 μήνες πριν', $date->ago());
 
         $date = JenssegersDate::parse('-10 years');

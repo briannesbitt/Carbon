@@ -121,11 +121,11 @@ class TranslationTaTest extends TestCaseBase
 
         ///
 
-        $oneAgo = JenssegersDate::parse('-1 month');
-        $fiveAgo = JenssegersDate::parse('-3 months');
+        $oneAgo = JenssegersDate::now()->subMonthNoOverflow();
+        $threeAgo = JenssegersDate::now()->subMonthsNoOverflow(3);
 
         $this->assertEquals('1 மாதம் முன்', $oneAgo->ago());
-        $this->assertEquals('3 மாதங்கள் முன்', $fiveAgo->ago());
+        $this->assertEquals('3 மாதங்கள் முன்', $threeAgo->ago());
 
         ///
 

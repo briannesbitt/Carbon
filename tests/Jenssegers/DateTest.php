@@ -79,7 +79,7 @@ class DateTest extends TestCaseBase
         $date = Carbon::parse('-5 years');
         $this->assertSame('5 years ago', $date->ago());
 
-        $date = Carbon::parse('-5 months');
+        $date = JenssegersDate::now()->subMonthsNoOverflow(5);
         $this->assertSame('5 months ago', $date->ago());
 
         $date = Carbon::parse('-32 days');
@@ -142,7 +142,7 @@ class DateTest extends TestCaseBase
         $date = Carbon::parse('-13 days');
         $this->assertSame('1 week', $date->diffForHumans(null, true));
 
-        $date = Carbon::parse('-3 months');
+        $date = JenssegersDate::now()->subMonthsNoOverflow(3);
         $this->assertSame('3 months', $date->diffForHumans(null, true));
 
         $date = Carbon::parse('-1 week');

@@ -149,8 +149,8 @@ class TranslationJaTest extends TestCaseBase
     {
         JenssegersDate::setTestNow('2019-03-27');
 
-        $oneMonthAgo = JenssegersDate::parse('-1 month');
-        $twoMonthsAgo = JenssegersDate::parse('-2 months');
+        $oneMonthAgo = JenssegersDate::now()->subMonthNoOverflow();
+        $twoMonthsAgo = JenssegersDate::now()->subMonthsNoOverflow(2);
 
         $this->assertEquals('1ヶ月前', $oneMonthAgo->ago());
         $this->assertEquals('2ヶ月前', $twoMonthsAgo->ago());
