@@ -41,6 +41,11 @@ return [
     'from_now' => 'në :time',
     'after' => ':time pas',
     'before' => ':time para',
+    'diff_now' => 'tani',
+    'diff_yesterday' => 'dje',
+    'diff_tomorrow' => 'nesër',
+    'diff_before_yesterday' => 'pardje',
+    'diff_after_tomorrow' => 'pasnesër',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
