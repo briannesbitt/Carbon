@@ -179,6 +179,8 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Set default cascading factors for ->cascade() method.
+     *
      * @param array $cascadeFactors
      */
     public static function setCascadeFactors(array $cascadeFactors)

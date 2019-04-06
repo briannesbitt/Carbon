@@ -83,6 +83,8 @@ trait Localization
     }
 
     /**
+     * Return default humanDiff() options (merged flags as integer).
+     *
      * @return int
      */
     public static function getHumanDiffOptions()

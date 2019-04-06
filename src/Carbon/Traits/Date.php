@@ -1939,6 +1939,8 @@ trait Date
     }
 
     /**
+     * Format in the current language using ISO replacement patterns.
+     *
      * @param string      $format
      * @param string|null $originalFormat provide context if a chunk has been passed alone
      *
