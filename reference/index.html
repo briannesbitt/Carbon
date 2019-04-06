@@ -385,21 +385,20 @@ start of week according to current locale selected and implicitly the end of wee
     <h2><span class="class-name">Carbon::</span>setWeekendDays</h2>
     <code>$days</code>
     <p class="doc-description"><div class="alert alert-warning">To avoid conflict between different third-party libraries, static setters should not be used.</div>You should rather consider week-end is always saturday and sunday, and if you have some custom
-week-end days to handle, give to those days an other name and create a macro for them:<br><br>```
-Carbon::macro('isDayOff', function ($date) {
-return $date->isSunday() || $date->isMonday();
+week-end days to handle, give to those days an other name and create a macro for them:<br><br>
+Set weekend days<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::macro('isDayOff', function ($date) {
+    return $date->isSunday() || $date->isMonday();
 });
 Carbon::macro('isNotDayOff', function ($date) {
-return !$date->isDayOff();
+    return !$date->isDayOff();
 });
 if ($someDate->isDayOff()) ...
 if ($someDate->isNotDayOff()) ...
 // Add 5 not-off days
 $count = 5;
 while ($someDate->isDayOff() || ($count-- > 0)) {
-$someDate->addDay();
-}
-```<br><br>Set weekend days</p>
+    $someDate->addDay();
+}</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.20.0</td><td><code>$days</code></td></tr></table>
 </div>
 
