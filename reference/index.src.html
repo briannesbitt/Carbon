@@ -2,7 +2,7 @@
 <div class="doc-method {{eval(echo $method['classes'];)}}" id="doc-method-{{eval(echo $method['className'];)}}-{{eval(echo $method['name'];)}}">
     <h2><span class="class-name">{{eval(echo $method['className'];)}}::</span>{{eval(echo $method['name'];)}}</h2>
     {{eval(echo $method['prototype'];)}}
-    <p>{{eval(echo $method['description'];)}}</p>
+    <p class="doc-description">{{eval(echo $method['description'];)}}</p>
     {{eval(echo $method['history'];)}}
 </div>
 {{::endEach}}

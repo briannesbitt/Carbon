@@ -118,13 +118,8 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         }
 
         $description = preg_replace(
-            '/@deprecated\s(([^\n]+)(\n [^\n])*)/',
+            '/@deprecated\s(([^\n]+)(\n [^\n])*)\n/',
             '<div class="alert alert-warning">$1</div>',
-            $description
-        );
-        $description = preg_replace(
-            '/\n *\n/',
-            '<br><br>',
             $description
         );
         $description = preg_replace(
@@ -132,13 +127,18 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
             'See <a href="$1">$2</a>',
             $description
         );
+        $description = preg_replace(
+            '/\n *\n/',
+            '<br><br>',
+            trim($description)
+        );
 
         yield [
             'name' => $method,
             'classes' => $classes,
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
             'className' => preg_replace('/^Carbon\\\\/', '', $className),
-            'description' => preg_replace('/\n *\n/', '<br><br>', preg_replace('/@deprecated\s(([^\n]+)(\n [^\n])*)/', '<div class="alert alert-warning">$1</div>', $description)),
+            'description' => $description,
             'history' => "<table class='info-table method-history'>$history</table>",
         ];
     }

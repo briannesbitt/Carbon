@@ -28,6 +28,10 @@ code {color: #38932c;font-size:90%}
     background: #b8f0b5;
 }
 
+.doc-description {
+    white-space: pre-line;
+}
+
 @media (min-width: 1200px) {
     .tidelift {
         position: fixed;
