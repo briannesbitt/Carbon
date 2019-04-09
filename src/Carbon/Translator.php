@@ -365,4 +365,16 @@ class Translator extends Translation\Translator
 
         return false;
     }
+
+    /**
+     * Show locale on var_dump().
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return [
+            'locale' => $this->getLocale(),
+        ];
+    }
 }
