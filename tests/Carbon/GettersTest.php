@@ -311,10 +311,14 @@ class GettersTest extends AbstractTestCase
     {
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->utc);
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->isUtc());
-        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'America/Toronto')->isUTC());
+        /* @var mixed $date */
+        $date = Carbon::createFromDate(2013, 1, 1, 'America/Toronto');
+        $this->assertFalse($date->isUTC());
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->utc);
         $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->isUtc());
-        $this->assertFalse(Carbon::createFromDate(2013, 1, 1, 'Europe/Paris')->isUTC());
+        /* @var mixed $date */
+        $date = Carbon::createFromDate(2013, 1, 1, 'Europe/Paris');
+        $this->assertFalse($date->isUTC());
     }
 
     public function testGetUtcTrue()

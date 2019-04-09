@@ -329,7 +329,7 @@ trait Localization
 
             foreach ($fromTranslations as $index => $word) {
                 if (preg_match("/^$word\$/i", $chunk)) {
-                    return $toTranslations[$index];
+                    return $toTranslations[$index] ?? '';
                 }
             }
 
