@@ -472,15 +472,18 @@ foreach ($carbonMethods as $method) {
             return dumpParameter($method, $parameter);
         }, $function->getParameters()));
         $methodDocBlock = $function->getDocComment() ?: '';
+
         if (substr($method, 0, 2) !== '__' && $function->isStatic()) {
             $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
             $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
             $doc = explode("\n@", $doc, 2);
             $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
             $returnType = $function->getReturnType();
+
             if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
                 $returnType = $match[1];
             }
+
             $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
             $staticMethods[] = [
                 '@method',
@@ -494,12 +497,15 @@ foreach ($carbonMethods as $method) {
                 "$method($parameters)",
                 $doc[0],
             ];
+
             for ($i = 1; $i < count($doc); $i++) {
                 $staticMethods[] = ['', '', '', $doc[$i]];
                 $staticImmutableMethods[] = ['', '', '', $doc[$i]];
             }
         }
+
         $return = $function->getReturnType() ? ': '.$function->getReturnType()->getName() : '';
+
         if (!empty($methodDocBlock)) {
             $methodDocBlock = "\n    $methodDocBlock";
         } elseif (isset($nativeMethods[$method])) {
@@ -510,6 +516,7 @@ foreach ($carbonMethods as $method) {
                 "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';
         }
+
         $methods .= "\n$methodDocBlock\n    public$static function $method($parameters)$return;";
     }
 }
