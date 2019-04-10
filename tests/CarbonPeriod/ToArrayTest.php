@@ -11,6 +11,7 @@
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
 use Tests\CarbonPeriod\Fixtures\CarbonPeriodFactory;
@@ -152,5 +153,25 @@ class ToArrayTest extends AbstractTestCase
         ];
 
         $this->assertSame($expected, $this->standardizeDates($period->toArray()));
+    }
+
+    public function testDebugInfo()
+    {
+        $period = CarbonPeriod::create('2018-05-13 12:00 Asia/Kabul', 'PT1H', 3);
+
+        $expected = [
+            'dateClass' => Carbon::class,
+            'dateInterval' => CarbonInterval::hour(),
+            'filters' => [
+                [
+                    'Carbon\CarbonPeriod::filterRecurrences',
+                    null,
+                ],
+            ],
+            'startDate' => Carbon::parse('2018-05-13 12:00 Asia/Kabul'),
+            'recurrences' => 3,
+        ];
+
+        $this->assertEquals($expected, $period->__debugInfo());
     }
 }

@@ -11,6 +11,7 @@
 namespace Tests\CarbonInterval;
 
 use Carbon\CarbonInterval;
+use Carbon\Translator;
 use Tests\AbstractTestCase;
 
 class GettersTest extends AbstractTestCase
@@ -74,5 +75,27 @@ class GettersTest extends AbstractTestCase
     {
         $ci = CarbonInterval::create(4, 5, 6, 5, 8, 9, 10);
         $this->assertSame(10, $ci->seconds);
+    }
+
+    public function testDebugInfo()
+    {
+        $ci = CarbonInterval::create(4, 0, 6, 5, 0, 9, 10);
+
+        $this->assertSame([
+            'y' => 4,
+            'd' => 47,
+            'i' => 9,
+            's' => 10,
+        ], $ci->__debugInfo());
+
+        $ci->locale('it_IT');
+
+        $this->assertSame([
+            'localTranslator' => Translator::get('it_IT'),
+            'y' => 4,
+            'd' => 47,
+            'i' => 9,
+            's' => 10,
+        ], $ci->__debugInfo());
     }
 }
