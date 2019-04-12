@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+$dir = __DIR__.'/..';
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir .= '/vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    echo 'Autoload not found.';
+    exit(1);
+}
+
+include $dir.'/autoload.php';
+
+Carbon\Upgrade::upgrade();
+
+exit(0);
