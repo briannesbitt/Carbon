@@ -120,91 +120,91 @@ class TrCyTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 saniye önce',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 saniye önce',
+        '1sn önce',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 saniye önce',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 saniye önce',
+        '2sn önce',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 dakika önce',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 dakika önce',
+        '1dk önce',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 dakika önce',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 dakika önce',
+        '2dk önce',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 saat önce',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 saat önce',
+        '1sa önce',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 saat önce',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 saat önce',
+        '2sa önce',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 gün önce',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 gün önce',
+        '1g önce',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 gün önce',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 gün önce',
+        '2g önce',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 hafta önce',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 hafta önce',
+        '1h önce',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 hafta önce',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 hafta önce',
+        '2h önce',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 ay önce',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 ay önce',
+        '1ay önce',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 ay önce',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 ay önce',
+        '2ay önce',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 yıl önce',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 yıl önce',
+        '1yıl önce',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 yıl önce',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 yıl önce',
+        '2yıl önce',
         // Carbon::now()->addSecond()->diffForHumans()
         '1 saniye sonra',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 saniye sonra',
+        '1sn sonra',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 saniye sonra',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 saniye sonra',
+        '1sn sonra',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 saniye önce',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 saniye önce',
+        '1sn önce',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 saniye',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 saniye',
+        '1sn',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 saniye',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 saniye',
+        '2sn',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 saniye sonra',
+        '1sn sonra',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 dakika 1 saniye',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 yıl 3 ay 1 gün 1 saniye',
+        '2yıl 3ay 1g 1sn',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 yıl sonra',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 ay önce',
+        '5ay önce',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 yıl 3 ay 1 gün 1 saniye önce',
+        '2yıl 3ay 1g 1sn önce',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 hafta 10 saat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -220,6 +220,6 @@ class TrCyTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 gün',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 gün 3 saat',
+        '1g 3sa',
     ];
 }
