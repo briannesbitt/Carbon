@@ -54,6 +54,14 @@ class ForHumansTest extends AbstractTestCase
         CarbonInterval::setTranslator($ori);
     }
 
+    public function testDumpTranslator()
+    {
+        $t = new \Carbon\Translator('tr_CY');
+        $this->assertSame([
+            'locale' => 'tr_CY',
+        ], $t->__debugInfo());
+    }
+
     public function testGetLocale()
     {
         CarbonInterval::setLocale('en');
