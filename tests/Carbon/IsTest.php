@@ -291,11 +291,24 @@ class IsTest extends AbstractTestCase
             $dt->modify($year.$dt->format('-m-').'28');
             $this->assertTrue($dt->isCurrentMonth());
         }
+
+        // Not the same year but the same month.
+        $year = '1970';
+        $dt->modify($year.$dt->format('-m-').'01');
+        $this->assertTrue($dt->isCurrentMonth(false));
+        $dt->modify($year.$dt->format('-m-').'28');
+        $this->assertTrue($dt->isCurrentMonth(false));
     }
 
     public function testIsCurrentMonthFalse()
     {
         $this->assertFalse(Carbon::now()->day(15)->subMonth()->isCurrentMonth());
+
+        // Not the same year but the same month.
+        $year = '1970';
+        $dt = Carbon::now();
+        $dt->modify($year.$dt->format('-m-').'01');
+        $this->assertFalse($dt->isCurrentMonth(true));
     }
 
     public function testIsSameMonthTrue()
