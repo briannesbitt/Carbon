@@ -2605,7 +2605,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function isCurrentMonth($ofSameYear = null)
     {
-        return $this->isSameMonth($ofSameYear);
+        return $this->isSameMonth(null, $ofSameYear);
     }
 
     /**
