@@ -16,6 +16,11 @@ class Mixin
 {
     public $timezone = null;
 
+    public function __construct($timezone)
+    {
+        $this->timezone = $timezone;
+    }
+
     public function setUserTimezone()
     {
         $mixin = $this;

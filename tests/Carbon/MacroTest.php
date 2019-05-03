@@ -86,7 +86,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     public function testCarbonIsMixinable()
     {
         include_once __DIR__.'/Fixtures/Mixin.php';
-        $mixin = new Mixin();
+        $mixin = new Mixin('America/New_York');
         Carbon::mixin($mixin);
         Carbon::setUserTimezone('America/Belize');
 
