@@ -1289,7 +1289,7 @@ class DiffTest extends AbstractTestCase
         Carbon::enableHumanDiffOption(Carbon::JUST_NOW);
         $this->assertSame(7, Carbon::getHumanDiffOptions());
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2019, 2, 4, 0, 0, 0, 'UTC');
         $this->assertSame('1 month before', $origin->diffForHumans($comparison, [
             'parts' => 2,
@@ -1299,7 +1299,7 @@ class DiffTest extends AbstractTestCase
             'options' => CarbonInterface::SEQUENTIAL_PARTS_ONLY,
         ]));
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2019, 2, 11, 0, 0, 0, 'UTC');
         $this->assertSame('1 month 1 week before', $origin->diffForHumans($comparison, [
             'parts' => 2,
@@ -1309,7 +1309,7 @@ class DiffTest extends AbstractTestCase
             'options' => CarbonInterface::SEQUENTIAL_PARTS_ONLY,
         ]));
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2019, 2, 12, 0, 0, 0, 'UTC');
         $this->assertSame('1 month 1 week before', $origin->diffForHumans($comparison, [
             'parts' => 2,
@@ -1326,7 +1326,7 @@ class DiffTest extends AbstractTestCase
             'options' => CarbonInterface::SEQUENTIAL_PARTS_ONLY,
         ]));
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2020, 1, 11, 0, 0, 0, 'UTC');
         $this->assertSame('1 year 1 week before', $origin->diffForHumans($comparison, [
             'parts' => 2,
@@ -1336,7 +1336,7 @@ class DiffTest extends AbstractTestCase
             'options' => CarbonInterface::SEQUENTIAL_PARTS_ONLY,
         ]));
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2019, 2, 5, 0, 0, 0, 'UTC');
         $this->assertSame('1 month 1 day before', $origin->diffForHumans($comparison, [
             'parts' => 2,
@@ -1346,7 +1346,7 @@ class DiffTest extends AbstractTestCase
             'options' => CarbonInterface::SEQUENTIAL_PARTS_ONLY,
         ]));
 
-        $origin = Carbon::create(2019, 1, 4, 0, 0, 0 , 'UTC');
+        $origin = Carbon::create(2019, 1, 4, 0, 0, 0, 'UTC');
         $comparison = Carbon::create(2019, 1, 12, 0, 1, 0, 'UTC');
         $this->assertSame('1 week 1 day before', $origin->diffForHumans($comparison, [
             'parts' => 2,
