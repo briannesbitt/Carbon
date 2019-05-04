@@ -496,12 +496,13 @@ use ReflectionException;
 interface CarbonInterface extends DateTimeInterface, JsonSerializable
 {
     /**
-     * Diff wording options.
+     * Diff wording options(expressed in octal).
      */
     public const NO_ZERO_DIFF = 01;
     public const JUST_NOW = 02;
     public const ONE_DAY_WORDS = 04;
     public const TWO_DAY_WORDS = 010;
+    public const SEQUENTIAL_PARTS_ONLY = 020;
 
     /**
      * Diff syntax options.
