@@ -10,6 +10,8 @@
  */
 namespace Tests\Localization;
 
+use Carbon\Carbon;
+
 class PlTest extends LocalizationTestCase
 {
     const LOCALE = 'pl'; // Polish
@@ -222,4 +224,10 @@ class PlTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1d 3g',
     ];
+
+    public function testMonthGenitive()
+    {
+        $this->assertSame('styczeń', Carbon::parse('2019-01-15')->isoFormat('MMMM'));
+        $this->assertSame('15 stycznia', Carbon::parse('2019-01-15')->isoFormat('D MMMM'));
+    }
 }
