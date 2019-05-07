@@ -302,7 +302,7 @@ echo 6;              // 6
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
-            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'vi'].indexOf(language) === -1
+            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi'].indexOf(language) === -1
         ) {
             $.getJSON('/languages.json', function (languages) {
                 var $help = $('footer .help-translate');
