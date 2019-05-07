@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -1597,7 +1598,7 @@ trait Date
      */
     public static function hasRelativeKeywords($time)
     {
-        if (strtotime($time) === false) {
+        if (!$time || strtotime($time) === false) {
             return false;
         }
 

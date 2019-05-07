@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -161,7 +162,7 @@ class CarbonTimeZone extends DateTimeZone
             return $name;
         }
 
-        return @timezone_name_from_abbr(null, $this->getOffset($date ?: Carbon::now($this)), $isDst);
+        return @timezone_name_from_abbr('', @$this->getOffset($date ?: Carbon::now($this)) ?: 0, $isDst);
     }
 
     /**

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -106,7 +107,7 @@ trait Units
         }
 
         /* @var CarbonInterface $this */
-        return $this->setTimestamp($this->getTimestamp() + $value);
+        return $this->setTimestamp((int) ($this->getTimestamp() + $value));
     }
 
     public function subRealUnit($unit, $value = 1)
