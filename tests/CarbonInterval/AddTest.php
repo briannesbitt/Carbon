@@ -114,13 +114,6 @@ class AddTest extends AbstractTestCase
         }
         $interval->add($add);
 
-        if ($interval->hours < 0) {
-            echo "\n\n";
-            var_dump($base, $increment, $expectedResult);
-            echo "\n\n";
-            var_dump($interval->hours, $interval->h, $interval->invert);
-            exit;
-        }
         $this->assertGreaterThanOrEqual(0, $interval->hours);
 
         $actualResult = ($interval->invert ? -1 : 1) * $interval->hours;

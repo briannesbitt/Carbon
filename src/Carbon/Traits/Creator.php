@@ -464,11 +464,11 @@ trait Creator
         // @codeCoverageIgnoreEnd
 
         if ($originalTz === null) {
-            return parent::createFromFormat($format, $time);
+            return parent::createFromFormat($format, "$time");
         }
 
         $tz = is_int($originalTz)
-            ? @timezone_name_from_abbr(null, floatval($originalTz * 3600), 1)
+            ? @timezone_name_from_abbr('', (int) ($originalTz * 3600), 1)
             : $originalTz;
 
         $tz = static::safeCreateDateTimeZone($tz, $originalTz);
@@ -477,7 +477,7 @@ trait Creator
             return false;
         }
 
-        return parent::createFromFormat($format, $time, $tz);
+        return parent::createFromFormat($format, "$time", $tz);
     }
 
     /**

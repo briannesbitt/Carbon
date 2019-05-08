@@ -179,13 +179,13 @@ class IdIdTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'dalam 1dt',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 detik setelah',
+        '1 detik setelahnya',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1dt setelah',
+        '1dt setelahnya',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 detik sebelum',
+        '1 detik sebelumnya',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1dt sebelum',
+        '1dt sebelumnya',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 detik',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

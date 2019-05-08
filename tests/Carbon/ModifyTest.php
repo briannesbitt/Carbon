@@ -207,7 +207,7 @@ class ModifyTest extends AbstractTestCase
 
     public function testAddRealMicrosecondWithLowFloatPrecision()
     {
-        $precision = ini_set('precision', 9);
+        $precision = ini_set('precision', '9');
 
         $a = new Carbon('2014-03-30 00:59:59.999999', 'Europe/London');
         $a->addRealMicrosecond();

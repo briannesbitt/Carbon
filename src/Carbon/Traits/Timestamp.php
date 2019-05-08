@@ -66,7 +66,7 @@ trait Timestamp
      */
     public function timestamp($value)
     {
-        return $this->setTimestamp($value);
+        return $this->setTimestamp((int) $value);
     }
 
     /**

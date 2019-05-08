@@ -115,7 +115,6 @@ class ConstructTest extends AbstractTestCase
         Carbon::useStrictMode(false);
         $timezone = 5;
         $c = new Carbon('2019-02-12 23:00:00', $timezone);
-        var_dump($c);
         $this->assertSame('Atlantic/Azores', $c->tzName);
         Carbon::useStrictMode(true);
     }

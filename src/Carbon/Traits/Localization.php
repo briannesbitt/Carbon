@@ -205,7 +205,7 @@ trait Localization
     {
         $message = static::getTranslationMessageWith($translator, $key, null, $key);
         if ($message instanceof Closure) {
-            return $message(...array_values($parameters));
+            return (string) $message(...array_values($parameters));
         }
 
         if ($number !== null) {
@@ -215,7 +215,7 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        return $translator->transChoice($key, $number, $parameters);
+        return (string) $translator->transChoice($key, $number, $parameters);
     }
 
     /**
