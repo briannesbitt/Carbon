@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -1065,7 +1066,7 @@ trait Date
                     $this->addSecond();
                     $value -= static::MICROSECONDS_PER_SECOND;
                 }
-                $this->modify($this->rawFormat('H:i:s.').str_pad(round($value), 6, '0', STR_PAD_LEFT));
+                $this->modify($this->rawFormat('H:i:s.').str_pad((string) round($value), 6, '0', STR_PAD_LEFT));
                 break;
 
             case 'year':
@@ -1095,7 +1096,7 @@ trait Date
                 return $this->addDays($value - $this->dayOfYear);
 
             case 'timestamp':
-                parent::setTimestamp($value);
+                parent::setTimestamp((int) $value);
                 break;
 
             case 'offset':
@@ -1346,7 +1347,7 @@ trait Date
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
-        return $this->setDate($year, $month, $day)->setTime($hour, $minute, $second, $microseconds);
+        return $this->setDate((int) $year, (int) $month, (int) $day)->setTime((int) $hour, (int) $minute, (int) $second, (int) $microseconds);
     }
 
     /**
@@ -1597,7 +1598,7 @@ trait Date
      */
     public static function hasRelativeKeywords($time)
     {
-        if (strtotime($time) === false) {
+        if (!$time || strtotime($time) === false) {
             return false;
         }
 
@@ -1737,29 +1738,29 @@ trait Date
                 's' => 'second',
                 'ss' => ['getPaddedUnit', ['second']],
                 'S' => function (CarbonInterface $date) {
-                    return strval(floor($date->micro / 100000));
+                    return strval((string) floor($date->micro / 100000));
                 },
                 'SS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 10000), 2, '0', STR_PAD_LEFT);
                 },
                 'SSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 1000), 3, '0', STR_PAD_LEFT);
                 },
                 'SSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 100), 4, '0', STR_PAD_LEFT);
                 },
                 'SSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro / 10), 5, '0', STR_PAD_LEFT);
                 },
                 'SSSSSS' => ['getPaddedUnit', ['micro', 6]],
                 'SSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 10), 7, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 100), 8, '0', STR_PAD_LEFT);
                 },
                 'SSSSSSSSS' => function (CarbonInterface $date) {
-                    return str_pad(floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
+                    return str_pad((string) floor($date->micro * 1000), 9, '0', STR_PAD_LEFT);
                 },
                 'M' => 'month',
                 'MM' => ['rawFormat', ['m']],
@@ -1825,7 +1826,7 @@ trait Date
      */
     public function getPaddedUnit($unit, $length = 2, $padString = '0', $padType = STR_PAD_LEFT)
     {
-        return ($this->$unit < 0 ? '-' : '').str_pad(abs($this->$unit), $length, $padString, $padType);
+        return ($this->$unit < 0 ? '-' : '').str_pad((string) abs($this->$unit), $length, $padString, $padType);
     }
 
     /**
@@ -2025,7 +2026,7 @@ trait Date
                 }
 
                 $format = mb_substr($format, 0, $i).$sequence.mb_substr($format, $i + mb_strlen($code));
-                $i += mb_strlen($sequence) - 1;
+                $i += mb_strlen("$sequence") - 1;
                 $length = mb_strlen($format);
                 $char = $sequence;
             }
@@ -2190,8 +2191,8 @@ trait Date
         $second = $this->getOffset();
         $symbol = $second < 0 ? '-' : '+';
         $minute = abs($second) / static::SECONDS_PER_MINUTE;
-        $hour = str_pad(floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
-        $minute = str_pad($minute % static::MINUTES_PER_HOUR, 2, '0', STR_PAD_LEFT);
+        $hour = str_pad((string) floor($minute / static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
+        $minute = str_pad((string) ($minute % static::MINUTES_PER_HOUR), 2, '0', STR_PAD_LEFT);
 
         return "$symbol$hour$separator$minute";
     }
@@ -2251,7 +2252,7 @@ trait Date
         $dateUnits = ['year', 'month', 'day'];
         if (in_array($unit, $dateUnits)) {
             return $this->setDate(...array_map(function ($name) use ($unit, $value) {
-                return $name === $unit ? $value : $this->$name;
+                return (int) ($name === $unit ? $value : $this->$name);
             }, $dateUnits));
         }
 
@@ -2264,7 +2265,7 @@ trait Date
         }
 
         return $this->setTime(...array_map(function ($name) use ($unit, $value) {
-            return $name === $unit ? $value : $this->$name;
+            return (int) ($name === $unit ? $value : $this->$name);
         }, $units));
     }
 

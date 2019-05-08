@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 /**
  * This file is part of the Carbon package.
@@ -67,7 +68,7 @@ trait Serialization
      */
     public static function fromSerialized($value)
     {
-        $instance = @unserialize($value);
+        $instance = @unserialize("$value");
 
         if (!$instance instanceof static) {
             throw new InvalidArgumentException('Invalid serialized value.');
