@@ -39,6 +39,8 @@ return [
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time内',
+    'after' => ':time后',
+    'before' => ':time前',
     'diff_yesterday' => '昨天',
     'diff_tomorrow' => '明天',
     'formats' => [
