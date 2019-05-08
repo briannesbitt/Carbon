@@ -15,6 +15,7 @@
  * - du
  * - JD Isaacks
  * - Nafies Luthfi
+ * - Raymundus Jati Primanda (mundusjp)
  */
 return [
     'year' => ':count tahun',
@@ -40,8 +41,8 @@ return [
     's' => ':countdt',
     'ago' => ':time yang lalu',
     'from_now' => 'dalam :time',
-    'after' => ':time setelah',
-    'before' => ':time sebelum',
+    'after' => ':time setelahnya',
+    'before' => ':time sebelumnya',
     'formats' => [
         'LT' => 'HH.mm',
         'LTS' => 'HH.mm.ss',
