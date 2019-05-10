@@ -17,63 +17,63 @@ class KaGeTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'ხვალ 12:00 დილის-ზე',
+        'ხვალ, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ შაბათს 12:00 დილის-ზე',
+        'შაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ კვირას 12:00 დილის-ზე',
+        'კვირას, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ ორშაბათს 12:00 დილის-ზე',
+        'შემდეგ ორშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ სამშაბათს 12:00 დილის-ზე',
+        'შემდეგ სამშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'შემდეგ ოთხშაბათს 12:00 დილის-ზე',
+        'შემდეგ ოთხშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'შემდეგ ხუთშაბათს 12:00 დილის-ზე',
+        'შემდეგ ხუთშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'შემდეგ პარასკევს 12:00 დილის-ზე',
+        'შემდეგ პარასკევს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ სამშაბათს 12:00 დილის-ზე',
+        'შემდეგ სამშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ ოთხშაბათს 12:00 დილის-ზე',
+        'შემდეგ ოთხშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ ხუთშაბათს 12:00 დილის-ზე',
+        'შემდეგ ხუთშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ პარასკევს 12:00 დილის-ზე',
+        'შემდეგ პარასკევს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ შაბათს 12:00 დილის-ზე',
+        'შემდეგ შაბათს, 00:00-ზე',
         // Carbon::now()->subDays(2)->calendar()
-        'წინა კვირას 8:49 საღამოს-ზე',
+        'წინა კვირას, 20:49-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'გუშინ 10:00 საღამოს-ზე',
+        'გუშინ, 22:00-ზე',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'დღეს 10:00 დილის-ზე',
+        'დღეს, 10:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'დღეს 2:00 დილის-ზე',
+        'დღეს, 02:00-ზე',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'ხვალ 1:00 დილის-ზე',
+        'ხვალ, 01:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'შემდეგ სამშაბათს 12:00 დილის-ზე',
+        'შემდეგ სამშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'გუშინ 12:00 დილის-ზე',
+        'გუშინ, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'გუშინ 12:00 დილის-ზე',
+        'გუშინ, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა სამშაბათს 12:00 დილის-ზე',
+        'წინა სამშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა ორშაბათს 12:00 დილის-ზე',
+        'წინა ორშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა კვირას 12:00 დილის-ზე',
+        'წინა კვირას, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა შაბათს 12:00 დილის-ზე',
+        'წინა შაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'წინა პარასკევს 12:00 დილის-ზე',
+        'წინა პარასკევს, 00:00-ზე',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'წინა ხუთშაბათს 12:00 დილის-ზე',
+        'წინა ხუთშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'წინა ოთხშაბათს 12:00 დილის-ზე',
+        'წინა ოთხშაბათს, 00:00-ზე',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'წინა პარასკევს 12:00 დილის-ზე',
+        'წინა პარასკევს, 00:00-ზე',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1-ლი 1-ლი 1-ლი 1-ლი 1-ლი',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
@@ -97,130 +97,130 @@ class KaGeTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         'მე-100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 დილის cet',
+        'ღამის 12:00 cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 დილის, 12:00 დილის',
+        'ღამის 12:00, ღამის 12:00',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        '1:30 დილის, 1:30 დილის',
+        'ღამის 01:30, ღამის 01:30',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        '2:00 დილის, 2:00 დილის',
+        'ღამის 02:00, ღამის 02:00',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        '6:00 დილის, 6:00 დილის',
+        'დილის 06:00, დილის 06:00',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         '10:00 დილის, 10:00 დილის',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        '12:00 საღამოს, 12:00 საღამოს',
+        'შუადღის 12:00, შუადღის 12:00',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        '5:00 საღამოს, 5:00 საღამოს',
+        'საღამოს 05:00, საღამოს 05:00',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        '9:30 საღამოს, 9:30 საღამოს',
+        'საღამოს 9:30, საღამოს 9:30',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        '11:00 საღამოს, 11:00 საღამოს',
+        'ღამის 11:00, ღამის 11:00',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'რამდენიმე წამშიში',
+        '1 წამის წინ',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 წამისში',
+        '1 წამის წინ',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 წამშიში',
+        '2 წამის წინ',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 წამისში',
+        '2 წამის წინ',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'წუთშიში',
+        '1 წუთის წინ',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 წუთისში',
+        '1 წუთის წინ',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 წუთშიში',
+        '2 წუთის წინ',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 წუთისში',
+        '2 წუთის წინ',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'საათშიში',
+        '1 საათის წინ',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 საათისში',
+        '1 საათის წინ',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 საათშიში',
+        '2 საათის წინ',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 საათისში',
+        '2 საათის წინ',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'დღეში',
+        '1 დღის წინ',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 დღისში',
+        '1 დღის წინ',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 დღეში',
+        '2 დღის წინ',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 დღისში',
+        '2 დღის წინ',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 კვირისში',
+        '1 კვირის წინ',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 კვირისში',
+        '1 კვირის წინ',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 კვირისში',
+        '2 კვირის წინ',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 კვირისში',
+        '2 კვირის წინ',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'თვეში',
+        '1 თვის წინ',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 თვისში',
+        '1 თვის წინ',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 თვეში',
+        '2 თვის წინ',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 თვისში',
+        '2 თვის წინ',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'წელშიში',
+        '1 წლის წინ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 წლისში',
+        '1 წლის წინ',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 წელშიში',
+        '2 წლის წინ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 წლისში',
+        '2 წლის წინ',
         // Carbon::now()->addSecond()->diffForHumans()
-        'რამდენიმე წამის წინ',
+        '1 წამში',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 წამის',
+        '1 წამში',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'რამდენიმე წამი შემდეგ',
+        '1 წამის შემდეგ',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 წამის შემდეგ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'რამდენიმე წამი უკან',
+        '1 წამი',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 წამის უკან',
+        '1 წამი',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        'რამდენიმე წამი',
+        '1 წამი',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 წამის',
+        '1 წამი',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 წამი',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 წამის',
+        '2 წამი',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 წამის',
+        '1 წამში',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        'წუთი რამდენიმე წამი',
+        '1 წუთი 1 წამი',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 წლის 3 თვის 1 დღის 1 წამის',
+        '2 წელი 3 თვე 1 დღე 1 წამი',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 წლის წინ',
+        '3 წლის შემდეგ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 თვისში',
+        '5 თვის წინ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 წლის 3 თვის 1 დღის 1 წამისში',
+        '2 წლის 3 თვის 1 დღის 1 წამის წინ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 კვირის 10 საათი',
+        '1 კვირა 10 საათი',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 კვირის 6 დღე',
+        '1 კვირა 6 დღე',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 კვირის 6 დღე',
+        '1 კვირა 6 დღე',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 კვირის და 6 დღის წინ',
+        '1 კვირის და 6 დღის შემდეგ',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 კვირის საათი',
+        '2 კვირა 1 საათი',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'საათის წინ',
+        '1 საათში',
         // CarbonInterval::days(2)->forHumans()
         '2 დღე',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 დღის 3 საათის',
+        '1 დღე 3 საათი',
     ];
 }
