@@ -532,7 +532,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miÈrcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miÔøΩrcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // mi√©rcoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -8520,7 +8520,7 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
-            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi'].indexOf(language) === -1
+            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da'].indexOf(language) === -1
         ) {
             $.getJSON('/languages.json', function (languages) {
                 var $help = $('footer .help-translate');
