@@ -97,25 +97,25 @@ class KaTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         'მე-100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        'ღამის 12:00 cet',
+        '12:00 ღამის cet',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        'ღამის 12:00, ღამის 12:00',
+        '12:00 ღამის, 12:00 ღამის',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        'ღამის 01:30, ღამის 01:30',
+        '1:30 ღამის, 1:30 ღამის',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        'ღამის 02:00, ღამის 02:00',
+        '2:00 ღამის, 2:00 ღამის',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        'დილის 06:00, დილის 06:00',
+        '6:00 დილის, 6:00 დილის',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
         '10:00 დილის, 10:00 დილის',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        'შუადღის 12:00, შუადღის 12:00',
+        '12:00 შუადღის, 12:00 შუადღის',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        'საღამოს 05:00, საღამოს 05:00',
+        '5:00 საღამოს, 5:00 საღამოს',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        'საღამოს 9:30, საღამოს 9:30',
+        '9:30 საღამოს, 9:30 საღამოს',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        'ღამის 11:00, ღამის 11:00',
+        '11:00 ღამის, 11:00 ღამის',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
