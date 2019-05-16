@@ -121,91 +121,91 @@ class UkTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         '1 секунда тому',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 секунда тому',
+        '1сек тому',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2 секунди тому',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 секунди тому',
+        '2сек тому',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 хвилина тому',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 хвилина тому',
+        '1хв тому',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2 хвилини тому',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 хвилини тому',
+        '2хв тому',
         // Carbon::now()->subHours(1)->diffForHumans()
         '1 година тому',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 година тому',
+        '1г тому',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2 години тому',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 години тому',
+        '2г тому',
         // Carbon::now()->subDays(1)->diffForHumans()
         '1 день тому',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 день тому',
+        '1д тому',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2 дні тому',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 дні тому',
+        '2д тому',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         '1 тиждень тому',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 тиждень тому',
+        '1т тому',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         '2 тижні тому',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 тижні тому',
+        '2т тому',
         // Carbon::now()->subMonths(1)->diffForHumans()
         '1 місяць тому',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 місяць тому',
+        '1м тому',
         // Carbon::now()->subMonths(2)->diffForHumans()
         '2 місяці тому',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 місяці тому',
+        '2м тому',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 рік тому',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 рік тому',
+        '1р тому',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 роки тому',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 роки тому',
+        '2р тому',
         // Carbon::now()->addSecond()->diffForHumans()
         'за 1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'за 1 секунда',
+        'за 1сек',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 секунда після',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 секунда після',
+        '1сек після',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 секунда до',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 секунда до',
+        '1сек до',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 секунда',
+        '1сек',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 секунди',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 секунди',
+        '2сек',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'за 1 секунда',
+        'за 1сек',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 хвилина 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 роки 3 місяці 1 день 1 секунда',
+        '2р 3м 1д 1сек',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'за 3 роки',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 місяців тому',
+        '5м тому',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 роки 3 місяці 1 день 1 секунда тому',
+        '2р 3м 1д 1сек тому',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 тиждень 10 годин',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -221,6 +221,6 @@ class UkTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 дні',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 день 3 години',
+        '1д 3г',
     ];
 }
