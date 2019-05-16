@@ -15,6 +15,7 @@
  * - Kristoffer Snabb
  * - JD Isaacks
  * - Jens Herlevsen
+ * - Nightpine
  */
 return [
     'year' => ':count år',
@@ -72,7 +73,7 @@ return [
     'months' => ['januari', 'februari', 'mars', 'april', 'maj', 'juni', 'juli', 'augusti', 'september', 'oktober', 'november', 'december'],
     'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
     'weekdays' => ['söndag', 'måndag', 'tisdag', 'onsdag', 'torsdag', 'fredag', 'lördag'],
-    'weekdays_short' => ['sön', 'mån', 'tis', 'ons', 'tor', 'fre', 'lör'],
+    'weekdays_short' => ['sön', 'mån', 'tis', 'ons', 'tors', 'fre', 'lör'],
     'weekdays_min' => ['sö', 'må', 'ti', 'on', 'to', 'fr', 'lö'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
