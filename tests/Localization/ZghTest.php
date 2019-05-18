@@ -169,11 +169,11 @@ class ZghTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         'ⵣⴳ 1 ⵓⵙⴳⴳⵯⴰⵙ',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'ⵣⴳ 1 an',
+        'ⵣⴳ 1 ⵓⵙⴳⴳⵯⴰⵙ',
         // Carbon::now()->subYears(2)->diffForHumans()
         'ⵣⴳ 2 ⵓⵙⴳⴳⵯⴰⵙ',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'ⵣⴳ 2 an',
+        'ⵣⴳ 2 ⵓⵙⴳⴳⵯⴰⵙ',
         // Carbon::now()->addSecond()->diffForHumans()
         'ⴷⴳ 1 ⵜⵙⵉⵏⵜ',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -199,13 +199,13 @@ class ZghTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 ⵜⵓⵙⴷⵉⴷⵜ 1 ⵜⵙⵉⵏⵜ',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 an 3 ⴰⵢⵢⵓⵔⵏ 1 ⵓ 1 ⵜ',
+        '2 ⵓⵙⴳⴳⵯⴰⵙ 3 ⴰⵢⵢⵓⵔⵏ 1 ⵓ 1 ⵜ',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'ⴷⴳ 3 ⵓⵙⴳⴳⵯⴰⵙ',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'ⵣⴳ 5 ⴰⵢⵢⵓⵔⵏ',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'ⵣⴳ 2 an 3 ⴰⵢⵢⵓⵔⵏ 1 ⵓ 1 ⵜ',
+        'ⵣⴳ 2 ⵓⵙⴳⴳⵯⴰⵙ 3 ⴰⵢⵢⵓⵔⵏ 1 ⵓ 1 ⵜ',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 ⵉⵎⴰⵍⴰⵙⵙ 10 ⵜⵙⵔⴰⴳⵜ',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
