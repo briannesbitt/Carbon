@@ -30,8 +30,8 @@ use DateTimeImmutable;
  * @property      int            $timestamp                                                                          seconds since the Unix Epoch
  * @property      string         $englishDayOfWeek                                                                   the day of week in English
  * @property      string         $shortEnglishDayOfWeek                                                              the abbreviated day of week in English
- * @property      string         $englishMonth                                                                       the day of week in English
- * @property      string         $shortEnglishMonth                                                                  the abbreviated day of week in English
+ * @property      string         $englishMonth                                                                       the month in English
+ * @property      string         $shortEnglishMonth                                                                  the abbreviated month in English
  * @property      string         $localeDayOfWeek                                                                    the day of week in current locale LC_TIME
  * @property      string         $shortLocaleDayOfWeek                                                               the abbreviated day of week in current locale LC_TIME
  * @property      string         $localeMonth                                                                        the month in current locale LC_TIME
