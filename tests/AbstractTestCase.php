@@ -71,6 +71,9 @@ abstract class AbstractTestCase extends TestCase
 
         Carbon::setTestNow($this->now = $now);
         CarbonImmutable::setTestNow($this->immutableNow = $immutableNow);
+
+        Carbon::useStrictMode(true);
+        CarbonImmutable::useStrictMode(true);
     }
 
     protected function tearDown(): void

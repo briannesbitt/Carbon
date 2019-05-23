@@ -250,6 +250,13 @@ trait Creator
         return static::create(1, 1, 1, 0, 0, 0);
     }
 
+    private static function assertBetween($unit, $value, $min, $max)
+    {
+        if (static::isStrictModeEnabled() && ($value < $min || $value > $max)) {
+            throw new InvalidArgumentException("$unit must be between $min and $max, $value given");
+        }
+    }
+
     /**
      * Create a new Carbon instance from a specific date and time.
      *
@@ -304,6 +311,12 @@ trait Creator
         $hour = $hour === null ? $getDefault('hour') : $hour;
         $minute = $minute === null ? $getDefault('minute') : $minute;
         $second = (float) ($second === null ? $getDefault('second') : $second);
+
+        self::assertBetween('month', $month, 0, 99);
+        self::assertBetween('day', $day, 0, 99);
+        self::assertBetween('hour', $hour, 0, 99);
+        self::assertBetween('minute', $minute, 0, 99);
+        self::assertBetween('second', $second, 0, 99);
 
         $fixYear = null;
 

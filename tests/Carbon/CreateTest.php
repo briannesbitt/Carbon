@@ -68,9 +68,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateWithInvalidMonth()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'Unexpected data found.'
-        );
+        $this->expectExceptionMessage('month must be between 0 and 99, -5 given');
 
         Carbon::create(null, -5);
     }

@@ -38,10 +38,18 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertSame($d->timestamp, Carbon::create(null, null, null, null, null, null)->timestamp);
     }
 
-    public function testCreateFromDate()
+    public function testCreateFromTime()
     {
         $d = Carbon::createFromTime(23, 5, 21);
         $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
+    }
+
+    public function testCreateFromTimeGreaterThan99()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('second must be between 0 and 99, 100 given');
+
+        Carbon::createFromTime(23, 5, 100);
     }
 
     public function testCreateFromTimeWithHour()
@@ -78,7 +86,7 @@ class CreateFromTimeTest extends AbstractTestCase
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromTime()
+    public function testCreateFromTimeWithTimeZoneOnNow()
     {
         // disable test for now
         // because we need Carbon::now() in Carbon::create() to work with given TZ
