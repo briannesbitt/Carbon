@@ -33,22 +33,23 @@
  * - Petri Kivikangas
  * - Nizar Jouini
  * - Marko Seppae
+ * - Tomi Mynttinen (Pikseli)
  */
 return [
     'year' => ':count vuosi|:count vuotta',
-    'y' => ':count vuosi|:count vuotta',
+    'y' => ':count v',
     'month' => ':count kuukausi|:count kuukautta',
-    'm' => ':count kuukausi|:count kuukautta',
+    'm' => ':count kk',
     'week' => ':count viikko|:count viikkoa',
-    'w' => ':count viikko|:count viikkoa',
+    'w' => ':count vk',
     'day' => ':count päivä|:count päivää',
-    'd' => ':count päivä|:count päivää',
+    'd' => ':count pv',
     'hour' => ':count tunti|:count tuntia',
-    'h' => ':count tunti|:count tuntia',
+    'h' => ':count t',
     'minute' => ':count minuutti|:count minuuttia',
-    'min' => ':count minuutti|:count minuuttia',
+    'min' => ':count min',
     'second' => ':count sekunti|:count sekuntia',
-    's' => ':count sekunti|:count sekuntia',
+    's' => ':count s',
     'ago' => ':time sitten',
     'from_now' => ':time tästä hetkestä',
     'after' => ':time sen jälkeen',
