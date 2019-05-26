@@ -966,7 +966,7 @@ class Carbon extends DateTime implements JsonSerializable
      *
      * @throws \InvalidArgumentException
      *
-     * @return string|int|\DateTimeZone
+     * @return string|int|bool|\DateTimeZone
      */
     public function __get($name)
     {
