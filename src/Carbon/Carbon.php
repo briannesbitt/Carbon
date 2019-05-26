@@ -3741,7 +3741,7 @@ class Carbon extends DateTime implements JsonSerializable
             }
             // Some langs have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
-            $count = isset($count) ? $count : 1;
+
             if ($key !== static::translator()->transChoice($key, $count)) {
                 $time = static::translator()->transChoice($key, $count, array(':count' => $count));
             }
