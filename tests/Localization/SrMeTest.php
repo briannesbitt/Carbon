@@ -151,19 +151,19 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'prije 2 d.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'prije 1 nedelju',
+        'prije 1 nedjelju',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         'prije 1 ned.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'prije 2 nedelje',
+        'prije 2 nedjelje',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         'prije 2 ned.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'prije 1 mesec',
+        'prije 1 mjesec',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         'prije 1 mj.',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'prije 2 meseca',
+        'prije 2 mjeseca',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         'prije 2 mj.',
         // Carbon::now()->subYears(1)->diffForHumans()
@@ -207,15 +207,15 @@ class SrMeTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'prije 2 g. 3 mj. 1 d. 1 sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 nedelja 10 sati',
+        '1 nedjelja 10 sati',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedelja 6 dana',
+        '1 nedjelja 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedelja 6 dana',
+        '1 nedjelja 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'za 1 nedelja i 6 dana',
+        'za 1 nedjelja i 6 dana',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 nedelje 1 sat',
+        '2 nedjelje 1 sat',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'za 1 sat',
         // CarbonInterval::days(2)->forHumans()
