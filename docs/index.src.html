@@ -259,7 +259,7 @@ echo "\n";
     <p>Note 3: The PHP native API allow consider there is a year <code>0</code> between <code>-1</code>
         and <code>1</code> even if it doesn't regarding to Gregorian calendar. That's why years lower than
         1 will throw an exception using <code>createSafe</code>. Check
-        <a href="#doc-method-Carbon-isValid" data-open-doc="isValid">isValid()</a> for year-0 detection.</p>
+        <a href="#doc-method-Carbon-isValid" data-open-doc="Carbon::isValid">isValid()</a> for year-0 detection.</p>
 
     <p>
     <pre><code class="php">Carbon::createFromFormat($format, $time, $tz);</code></pre>
@@ -721,7 +721,7 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 
     <p>What factory actually do is using the method name as static constructor then call <code>settings()</code>
         method which is a way to group in one call settings of locale, timezone, months/year overflow, etc.
-        (<a href="#doc-method-Carbon-settings" data-open-doc="settings">See references for complete list.</a>)</p>
+        (<a href="#doc-method-Carbon-settings" data-open-doc="Carbon::settings">See references for complete list.</a>)</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint($factory = new Factory([

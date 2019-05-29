@@ -965,7 +965,7 @@
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
         var date = (new Date()).toISOString().substr(0, 10);
-        var liveEditorHost = liveEditorHosts[date < '2019-04-02' ? 0 : (/^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length)];
+        var liveEditorHost = liveEditorHosts[date < '2019-06-02' ? 0 : (/^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length)];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
@@ -1024,20 +1024,31 @@
             });
         }
 
-        function openDoc(selection) {
+        function openDocPanel(className, selection) {
+            $('#search-filter').val('');
+            refreshDoc();
+            $('.main-wrapper').addClass('open');
+            $('#doc-method-' + className + '-' + selection)[0].scrollIntoView();
+        }
+
+        function openDoc(event, selection) {
             selection = $.trim(selection);
             if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
+                var options = [];
+
                 $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
                     var element = $('#doc-method-' + className + '-' + selection)[0];
                     if (element) {
-                        $('#search-filter').val('');
-                        refreshDoc();
-                        $('.main-wrapper').addClass('open');
-                        element.scrollIntoView();
-
-                        return false;
+                        options.push([className, selection, element]);
                     }
                 });
+
+                $('#open-doc-menu').remove();
+                console.log(event, options);
+                // $('#search-filter').val('');
+                // refreshDoc();
+                // $('.main-wrapper').addClass('open');
+                // element.scrollIntoView();
             }
         }
 
@@ -1046,7 +1057,9 @@
                 event.preventDefault();
                 event.stopPropagation();
 
-                openDoc($(event.target).data('open-doc'));
+                var method = $(event.target).data('open-doc').split('::');
+
+                openDocPanel(method[0], method[1]);
             })
             .on('click', '[data-slide-down]', function (event) {
                 event.preventDefault();
@@ -1109,7 +1122,7 @@
                         // data.input
                         break;
                     case 'selection':
-                        openDoc(data.selection);
+                        openDoc(event, data.selection);
                         break;
                 }
             }
@@ -1123,10 +1136,10 @@
             $('.main-wrapper').removeClass('open');
         });
 
-        $('code').on('mouseup select dblclick', function () {
+        $('code').on('mouseup select dblclick', function (event) {
             var s = window.getSelection();
             if ((s.anchorOffset || s.anchorOffset === 0) && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
-                openDoc(s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
+                openDoc(event, s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
             }
         });
 
