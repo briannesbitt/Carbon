@@ -9,6 +9,10 @@ if (!file_exists($dir.'/autoload.php')) {
 
 if (!file_exists($dir.'/autoload.php')) {
     $dir = __DIR__.'/../../..';
+
+    if (!file_exists($dir.'/composer/composer')) {
+        shell_exec('composer require --dev composer/composer');
+    }
 }
 
 if (!file_exists($dir.'/autoload.php')) {
