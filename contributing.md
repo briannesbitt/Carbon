@@ -14,6 +14,18 @@ clear as a code chunk with the output you expect from it (for either bug report 
 
 ## Code Contributions
 
+### Where to begin
+
+We use the label **good first issue** to tag issues that could be a good fit for new contributors, see if there are such issues now following this link:
+
+https://github.com/briannesbitt/Carbon/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+
+Else, check the roadmap to see what we plan to do in next releases:
+
+https://github.com/briannesbitt/Carbon/issues/1681
+
+### Develop locally, then submit changes
+
 Fork the [GitHub project](https://github.com/briannesbitt/Carbon) and download it locally:
 
 ```shell
