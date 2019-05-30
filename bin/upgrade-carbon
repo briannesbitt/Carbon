@@ -9,10 +9,6 @@ if (!file_exists($dir.'/autoload.php')) {
 
 if (!file_exists($dir.'/autoload.php')) {
     $dir = __DIR__.'/../../..';
-
-    if (!file_exists($dir.'/composer/composer')) {
-        shell_exec('composer require --dev composer/composer');
-    }
 }
 
 if (!file_exists($dir.'/autoload.php')) {
@@ -20,8 +16,19 @@ if (!file_exists($dir.'/autoload.php')) {
     exit(1);
 }
 
+$composerInstalled = false;
+
+if (!file_exists($dir.'/composer/composer')) {
+    $composerInstalled = true;
+    shell_exec('composer require --dev composer/composer');
+}
+
 include $dir.'/autoload.php';
 
 Carbon\Upgrade::upgrade();
+
+if ($composerInstalled) {
+    shell_exec('composer remove --dev composer/composer');
+}
 
 exit(0);
