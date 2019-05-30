@@ -187,7 +187,7 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 sek. předtím',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 sekundu',
+        '1 sekunda',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -197,7 +197,7 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'za 1 sek.',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minutu 1 sekundu',
+        '1 minuta 1 sekunda',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 roky 3 měs. 1 den 1 sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
@@ -215,9 +215,9 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         'za 1 týden a 6 dní',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 týdny 1 hodinu',
+        '2 týdny 1 hodina',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'za 1 hodinu',
+        'za hodinu',
         // CarbonInterval::days(2)->forHumans()
         '2 dny',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
