@@ -23,7 +23,7 @@
     "bin": ["bin/upgrade-carbon"],
     "require": {
         "php": ">=5.3.9",
-        "kylekatarnls/update-helper": "^1.0",
+        "kylekatarnls/update-helper": "^1.1",
         "symfony/translation": "~2.6 || ~3.0 || ~4.0"
     },
     "require-dev": {
