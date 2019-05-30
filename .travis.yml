@@ -23,13 +23,13 @@ before_install:
   - if [[ $coverage = 'false' && $xdebug = 'true' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
-  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev phpstan/phpstan; fi
-  - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
+  - if [[ $phpstan = 'true' ]]; then travis_retry composer require --dev --no-update phpstan/phpstan; fi
+  - if [[ $setup = 'basic'  ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
+  - if [[ $setup = 'stable' ]]; then COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
     if [[ $setup = 'lowest' ]]; then
-        composer require sebastian/comparator:"~1.2.4" --no-update --dev
-        travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
+        composer require --no-update --dev sebastian/comparator:"~1.2.4"
+        COMPOSER_MEMORY_LIMIT=-1 travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
     fi
 
 script:
