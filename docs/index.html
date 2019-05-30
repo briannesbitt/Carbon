@@ -117,13 +117,13 @@ $modifiedMutable = $mutable->add(1, 'day');
 $modifiedImmutable = CarbonImmutable::now()->add(1, 'day');
 
 var_dump($modifiedMutable === $mutable);             // bool(true)
-var_dump($mutable->isoFormat('dddd D'));             // string(11) "Thursday 30"
-var_dump($modifiedMutable->isoFormat('dddd D'));     // string(11) "Thursday 30"
+var_dump($mutable->isoFormat('dddd D'));             // string(9) "Friday 31"
+var_dump($modifiedMutable->isoFormat('dddd D'));     // string(9) "Friday 31"
 // So it means $mutable and $modifiedMutable are the same object
 // both set to now + 1 day.
 var_dump($modifiedImmutable === $immutable);         // bool(false)
-var_dump($immutable->isoFormat('dddd D'));           // string(12) "Wednesday 29"
-var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(11) "Thursday 30"
+var_dump($immutable->isoFormat('dddd D'));           // string(11) "Thursday 30"
+var_dump($modifiedImmutable->isoFormat('dddd D'));   // string(9) "Friday 31"
 // While $immutable is still set to now and cannot be changed and
 // $modifiedImmutable is a new instance created from $immutable
 // set to now + 1 day.
@@ -257,16 +257,16 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-05-29 13:48:53
+echo $now;                               // 2019-05-30 20:59:55
 echo "\n";
 $today = Carbon::today();
-echo $today;                             // 2019-05-29 00:00:00
+echo $today;                             // 2019-05-30 00:00:00
 echo "\n";
 $tomorrow = Carbon::tomorrow('Europe/London');
-echo $tomorrow;                          // 2019-05-30 00:00:00
+echo $tomorrow;                          // 2019-05-31 00:00:00
 echo "\n";
 $yesterday = Carbon::yesterday();
-echo $yesterday;                         // 2019-05-28 00:00:00
+echo $yesterday;                         // 2019-05-29 00:00:00
 </code></pre>
     </p>
 
@@ -302,7 +302,7 @@ $noonLondonTz = Carbon::createFromTime(12, 0, 0, 'Europe/London');
 $teaTime = Carbon::createFromTimeString('17:00:00', 'Europe/London');
 
 try { Carbon::create(1975, 5, 21, 22, -2, 0); } catch(InvalidArgumentException $x) { echo $x->getMessage(); }
-// A two digit minute could not be found
+// minute must be between 0 and 99, -2 given
 </code></pre>
     </p>
 
@@ -382,7 +382,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:48 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 22:59 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -730,7 +730,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // mai
 echo "\n";
-echo $date->isoFormat('LLLL');   // mercredi 29 mai 2019 13:48
+echo $date->isoFormat('LLLL');   // jeudi 30 mai 2019 20:59
 </code></pre>
     </p>
 
@@ -761,13 +761,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 13:48
+Aujourd’hui à 20:59
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 1:48 PM
+Today at 8:59 PM
 */
 </code></pre>
     </p>
@@ -794,9 +794,9 @@ Carbon::now()->settings([
 ]);
 // Important note: timezone setting calls ->shiftTimezone() and not ->setTimezone(),
 // It means it does not just set the timezone, but shift the time too:
-echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 29/05 9h Asia/Tokyo
+echo Carbon::today()->setTimezone('Asia/Tokyo')->format('d/m G\h e');        // 30/05 9h Asia/Tokyo
 echo "\n";
-echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 29/05 0h Asia/Tokyo
+echo Carbon::today()->shiftTimezone('Asia/Tokyo')->format('d/m G\h e');      // 30/05 0h Asia/Tokyo
 </code></pre>
     </p>
 
@@ -1553,21 +1553,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 1:48 PM
+echo $date->calendar();                                      // Today at 8:59 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 10:48 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 5:59 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Sunday at 3:25 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Monday at 10:36 AM
 echo "\n";
-echo $date->sub('8 days')->calendar();                       // 05/21/2019
+echo $date->sub('8 days')->calendar();                       // 05/22/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 4:48 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 11:59 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Sunday at 12:11 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Monday at 7:22 AM
 echo "\n";
-echo $date->add('8 days')->calendar();                       // 06/06/2019
+echo $date->add('8 days')->calendar();                       // 06/07/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 13:48
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 20:59
 </code></pre>
     </p>
 
@@ -5195,7 +5195,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-05-29 13:48:57
+echo Carbon::now();                                    // 2019-05-30 20:59:56
 </code></pre>
     </p>
 
@@ -5385,12 +5385,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(57)
+var_dump(Carbon::now()->get($unit));                         // int(56)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(57)
+var_dump(Carbon::now()->$unit);                              // int(56)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(57)
+var_dump(Carbon::now()->get($unit));                         // int(56)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5890,8 +5890,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-05-29 13:48:57
-echo $dt1->maximum();                              // 2019-05-29 13:48:57
+echo $dt1->max();                                  // 2019-05-30 20:59:56
+echo $dt1->maximum();                              // 2019-05-30 20:59:56
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7076,7 +7076,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // dimanche dernier à 15:48
+echo Carbon::now()->subDays(3)->formatForUser();           // lundi dernier à 22:59
 </code></pre>
     </p>
 
@@ -7950,7 +7950,7 @@ foreach ($period as $date) {
     $days[] = $date->format('Y-m-d');
 }
 
-echo implode(', ', $days);               // 2019-05-29, 2019-05-30, 2019-05-31
+echo implode(', ', $days);               // 2019-05-30, 2019-05-31, 2019-06-01
 </code></pre>
     </p>
 
@@ -8411,28 +8411,66 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
         var date = (new Date()).toISOString().substr(0, 10);
-        var liveEditorHost = liveEditorHosts[date < '2019-06-02' ? 0 : (/^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length)];
+        var liveEditorHostIndex = /^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length;
+        var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
+        var failures = 0;
 
-        function transformEditor($pre, index, code, token, link) {
+        function failOver(index) {
+            if (index !== liveEditorHostIndex || ++failures >= liveEditorHosts.length) {
+                return;
+            }
+
+            liveEditorHostIndex++;
+            liveEditorHost = liveEditorHosts[liveEditorHostIndex % liveEditorHosts.length];
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+
+            $('[data-href-params]').each(function () {
+                var $link = $(this);
+                $link.prop('href', liveEditorHost + $link.data('href-params'));
+            });
+
+            $('[data-src-params]').each(function () {
+                var $iframe = $(this);
+                $iframe.prop('src', liveEditorHost + $iframe.data('src-params')).data('timeout', timeout);
+            });
+        }
+
+        function transformEditor($pre, index, code, token, link, params) {
             if ($pre.hasClass('live-editor-loading')) {
                 return;
             }
 
             $pre.removeClass('live-editor').addClass('live-editor-loading');
+
             if (!code) {
                 code = $pre.find('code').text();
                 token = 'live-editor-' + index;
-                link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                     encodeURIComponent(code) +
                     '&token=' + token;
-                $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                link = liveEditorHost + params;
+                $('<a href="' + link + '" data-href-params="' + params + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
             }
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+            var hostIndex = liveEditorHostIndex;
             var $iframe = $('<iframe src="' + link +
-                '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                '&embed" data-src-params="' + params +
+                '&embed" data-timeout="' + timeout +
+                '" onerror="failOver(' + hostIndex + ')" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+
+
             (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                clearTimeout($iframe.data('timeout'));
+
                 $iframe.css({
                     opacity: 1,
                     pointerEvents: 'all',
@@ -8449,11 +8487,12 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
                 if (!editorAutoLoad) {
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
                         '&token=' + token;
+                    var link = liveEditorHost + params;
                     $pre.css('cursor', 'pointer').click(function () {
-                        transformEditor($pre, index, code, token, link);
+                        transformEditor($pre, index, code, token, link, params);
                     });
                     $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
 
@@ -8477,7 +8516,7 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
             $('#doc-method-' + className + '-' + selection)[0].scrollIntoView();
         }
 
-        function openDoc(event, selection) {
+        function openDoc(event, selection, token) {
             selection = $.trim(selection);
             if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
                 var options = [];
@@ -8490,11 +8529,35 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
                 });
 
                 $('#open-doc-menu').remove();
-                console.log(event, options);
-                // $('#search-filter').val('');
-                // refreshDoc();
-                // $('.main-wrapper').addClass('open');
-                // element.scrollIntoView();
+                console.log(event, options, token);
+                var $menu = $('.modal-menu');
+
+                if ($menu.length === 0) {
+                    $menu = $('<div class="modal-menu">').appendTo('body');
+                }
+
+                $(document).one('click', function () {
+                    $menu.remove();
+                });
+
+                var pageX = event.pageX | 0;
+                var pageY = event.pageY | 0;
+
+                if (typeof event.pageX === 'undefined') {
+                    var $currentEditor = $('iframe[src*="' + token + '"]');
+                    pageX = $currentEditor.offset().left;
+                    pageY = $currentEditor.offset().top;
+                }
+
+                var modalHeight = options.length * 26 + 10;
+                var scrollTop = $document.scrollTop();
+
+                $menu.css({
+                    left: pageX + 'px',
+                    top: Math.max(scrollTop, pageY - modalHeight) + 'px'
+                }).html(options.map(function (option) {
+                    return '<div class="modal-menu-item" onclick="openDocPanel(\'' + option[0] + '\', \'' + option[1] + '\')">' + option[0] + '::<strong>' + option[1] + '</strong></div>';
+                }).join(''));
             }
         }
 
@@ -8568,7 +8631,7 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
                         // data.input
                         break;
                     case 'selection':
-                        openDoc(event, data.selection);
+                        openDoc(event, data.selection, data.token);
                         break;
                 }
             }

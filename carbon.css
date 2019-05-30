@@ -32,6 +32,26 @@ code {color: #38932c;font-size:90%}
     white-space: pre-line;
 }
 
+.modal-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px 0;
+    border: 1px solid #d8d8d8;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 1px 5px;
+}
+
+.modal-menu-item {
+    line-height: 26px;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.modal-menu-item:hover {
+    background: #b1b1b1;
+}
+
 @media (min-width: 1200px) {
     .tidelift {
         position: fixed;

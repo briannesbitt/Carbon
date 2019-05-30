@@ -108,28 +108,66 @@
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
         var date = (new Date()).toISOString().substr(0, 10);
-        var liveEditorHost = liveEditorHosts[date < '2019-06-02' ? 0 : (/^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length)];
+        var liveEditorHostIndex = /^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length;
+        var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
         var callbacks = {};
         var $document = $(document);
         var editorAutoLoad = false;
+        var failures = 0;
 
-        function transformEditor($pre, index, code, token, link) {
+        function failOver(index) {
+            if (index !== liveEditorHostIndex || ++failures >= liveEditorHosts.length) {
+                return;
+            }
+
+            liveEditorHostIndex++;
+            liveEditorHost = liveEditorHosts[liveEditorHostIndex % liveEditorHosts.length];
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+
+            $('[data-href-params]').each(function () {
+                var $link = $(this);
+                $link.prop('href', liveEditorHost + $link.data('href-params'));
+            });
+
+            $('[data-src-params]').each(function () {
+                var $iframe = $(this);
+                $iframe.prop('src', liveEditorHost + $iframe.data('src-params')).data('timeout', timeout);
+            });
+        }
+
+        function transformEditor($pre, index, code, token, link, params) {
             if ($pre.hasClass('live-editor-loading')) {
                 return;
             }
 
             $pre.removeClass('live-editor').addClass('live-editor-loading');
+
             if (!code) {
                 code = $pre.find('code').text();
                 token = 'live-editor-' + index;
-                link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                     encodeURIComponent(code) +
                     '&token=' + token;
-                $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+                link = liveEditorHost + params;
+                $('<a href="' + link + '" data-href-params="' + params + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
             }
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+            var hostIndex = liveEditorHostIndex;
             var $iframe = $('<iframe src="' + link +
-                '&embed" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+                '&embed" data-src-params="' + params +
+                '&embed" data-timeout="' + timeout +
+                '" onerror="failOver(' + hostIndex + ')" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+
+
             (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                clearTimeout($iframe.data('timeout'));
+
                 $iframe.css({
                     opacity: 1,
                     pointerEvents: 'all',
@@ -146,11 +184,12 @@
                 if (!editorAutoLoad) {
                     var code = $pre.find('code').text();
                     var token = 'live-editor-' + index;
-                    var link = liveEditorHost + '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    var params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
                         encodeURIComponent(code) +
                         '&token=' + token;
+                    var link = liveEditorHost + params;
                     $pre.css('cursor', 'pointer').click(function () {
-                        transformEditor($pre, index, code, token, link);
+                        transformEditor($pre, index, code, token, link, params);
                     });
                     $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
 
@@ -174,7 +213,7 @@
             $('#doc-method-' + className + '-' + selection)[0].scrollIntoView();
         }
 
-        function openDoc(event, selection) {
+        function openDoc(event, selection, token) {
             selection = $.trim(selection);
             if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
                 var options = [];
@@ -187,11 +226,35 @@
                 });
 
                 $('#open-doc-menu').remove();
-                console.log(event, options);
-                // $('#search-filter').val('');
-                // refreshDoc();
-                // $('.main-wrapper').addClass('open');
-                // element.scrollIntoView();
+                console.log(event, options, token);
+                var $menu = $('.modal-menu');
+
+                if ($menu.length === 0) {
+                    $menu = $('<div class="modal-menu">').appendTo('body');
+                }
+
+                $(document).one('click', function () {
+                    $menu.remove();
+                });
+
+                var pageX = event.pageX | 0;
+                var pageY = event.pageY | 0;
+
+                if (typeof event.pageX === 'undefined') {
+                    var $currentEditor = $('iframe[src*="' + token + '"]');
+                    pageX = $currentEditor.offset().left;
+                    pageY = $currentEditor.offset().top;
+                }
+
+                var modalHeight = options.length * 26 + 10;
+                var scrollTop = $document.scrollTop();
+
+                $menu.css({
+                    left: pageX + 'px',
+                    top: Math.max(scrollTop, pageY - modalHeight) + 'px'
+                }).html(options.map(function (option) {
+                    return '<div class="modal-menu-item" onclick="openDocPanel(\'' + option[0] + '\', \'' + option[1] + '\')">' + option[0] + '::<strong>' + option[1] + '</strong></div>';
+                }).join(''));
             }
         }
 
