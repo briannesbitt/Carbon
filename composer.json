@@ -20,11 +20,14 @@
             "homepage": "http://nesbot.com"
         }
     ],
+    "bin": ["bin/upgrade-carbon"],
     "require": {
         "php": ">=5.3.9",
+        "kylekatarnls/update-helper": "^1.1",
         "symfony/translation": "~2.6 || ~3.0 || ~4.0"
     },
     "require-dev": {
+        "composer/composer": "^1.2",
         "friendsofphp/php-cs-fixer": "~2",
         "phpunit/phpunit": "^4.8.35 || ^5.7"
     },
@@ -38,11 +41,6 @@
             "Tests\\": "tests/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.23-dev"
-        }
-    },
     "config": {
         "sort-packages": true
     },
@@ -53,6 +51,15 @@
         ],
         "phpunit": "phpunit --verbose --coverage-clover=coverage.xml",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",
-        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests"
+        "phpstan": "phpstan analyse --configuration phpstan.neon --level 3 src tests",
+        "post-autoload-dump": [
+            "UpdateHelper\\UpdateHelper::check"
+        ],
+        "upgrade-carbon": [
+            "Carbon\\Upgrade::upgrade"
+        ]
+    },
+    "extra": {
+        "update-helper": "Carbon\\Upgrade"
     }
 }
