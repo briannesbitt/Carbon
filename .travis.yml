@@ -74,6 +74,7 @@ matrix:
     - php: 7.1.17
     - php: 7.1.20
     - php: 7.1.24
+    - php: 7.1.28
     - php: 7.1
     - php: 7.1
       env: setup=lowest
@@ -84,12 +85,19 @@ matrix:
     - php: 7.2.3
     - php: 7.2.5
     - php: 7.2.8
+    - php: 7.2.12
+    - php: 7.2.15
     - php: 7.2
     - php: 7.2
       env: setup=lowest
     - php: 7.2
       env: setup=stable
 
+    - php: 7.3.0
+    - php: 7.3.1
+    - php: 7.3.2
+    - php: 7.3.4
+    - php: 7.3.5
     - php: 7.3
       env: xdebug=false
     - php: 7.3
