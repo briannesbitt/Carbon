@@ -183,9 +183,9 @@ class KaTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1 წამის შემდეგ',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 წამი',
+        '1 წამი უკან',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 წამი',
+        '1 წამი უკან',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 წამი',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

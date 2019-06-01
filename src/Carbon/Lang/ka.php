@@ -24,10 +24,10 @@
  */
 return [
     'year' => ':count წელი',
-    'y' => ':count წლის',
+    'y' => ':count წელი',
     'a_year' => '{1}წელი|]1,Inf[:count წელი',
     'month' => ':count თვე',
-    'm' => ':count თვის',
+    'm' => ':count თვე',
     'a_month' => '{1}თვე|]1,Inf[:count თვე',
     'week' => ':count კვირი',
     'w' => ':count კვირი',
@@ -71,7 +71,7 @@ return [
         $time = strtr($time, array_flip($replacements));
         $time = strtr($time, $replacements);
 
-        return $time;
+        return "$time შემდეგ";
     },
     'after' => function ($time) {
         $replacements = [
