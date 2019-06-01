@@ -119,73 +119,73 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 sekundu nazpět',
+        'před 1 sekundou',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 sek. nazpět',
+        'před 1 sek.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 sekundy nazpět',
+        'před 2 sekundoumi',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 sek. nazpět',
+        'před 2 sek.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 minutu nazpět',
+        'před 1 minutou',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 min. nazpět',
+        'před 1 min.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 minuty nazpět',
+        'před 2 minutoumi',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 min. nazpět',
+        'před 2 min.',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 hodinu nazpět',
+        'před 1 hodinou',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 hod. nazpět',
+        'před 1 hod.',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 hodiny nazpět',
+        'před 2 hodinoumi',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 hod. nazpět',
+        'před 2 hod.',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 den nazpět',
+        'před 1 den',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 den nazpět',
+        'před 1 den',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 dny nazpět',
+        'před 2 dny',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 dny nazpět',
+        'před 2 dny',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 týden nazpět',
+        'před 1 týden',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 týd. nazpět',
+        'před 1 týd.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 týdny nazpět',
+        'před 2 týdny',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 týd. nazpět',
+        'před 2 týd.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 měsíc nazpět',
+        'před 1 měsíc',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 měs. nazpět',
+        'před 1 měs.',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 měsíce nazpět',
+        'před 2 měsíce',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 měs. nazpět',
+        'před 2 měs.',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 rok nazpět',
+        'před 1 rok',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 rok nazpět',
+        'před 1 rok',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 roky nazpět',
+        'před 2 roky',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 roky nazpět',
+        'před 2 roky',
         // Carbon::now()->addSecond()->diffForHumans()
         'za 1 sekundu',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'za 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'o 1 sekundu později',
+        'za 1 sekundu',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'o 1 sek. později',
+        'za 1 sek.',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 sekundu předtím',
+        'před 1 sekundou',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 sek. předtím',
+        'před 1 sek.',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 sekunda',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
@@ -203,9 +203,9 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'za 3 roky',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 měs. nazpět',
+        'před 5 měs.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 roky 3 měs. 1 den 1 sek. nazpět',
+        'před 2 roky 3 měs. 1 den 1 sek.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 týden 10 hodin',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

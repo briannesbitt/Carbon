@@ -28,12 +28,26 @@
  * - Tlapi
  * - newman101
  * - Petr Kadlec
+ * - tommaskraus
+ * - Karel Sommer (calvera)
  */
-$transformTime = function ($time) {
-    return strtr($time, [
+$za = function ($time) {
+    return 'za '.strtr($time, [
         'hodina' => 'hodinu',
         'minuta' => 'minutu',
         'sekunda' => 'sekundu',
+    ]);
+};
+
+$pred = function ($time) {
+    $time = preg_replace('/hodiny?(?!\w)/', 'hodinami', $time);
+    $time = preg_replace('/minuty?(?!\w)/', 'minutami', $time);
+    $time = preg_replace('/sekundy?(?!\w)/', 'sekundami', $time);
+
+    return 'před '.strtr($time, [
+        'hodina' => 'hodinou',
+        'minuta' => 'minutou',
+        'sekunda' => 'sekundou',
     ]);
 };
 
@@ -59,18 +73,10 @@ return [
     'second' => ':count sekunda|:count sekundy|:count sekund',
     's' => ':count sek.',
     'a_second' => 'pár sekund|:count sekundy|:count sekund',
-    'ago' => function ($time) use ($transformTime) {
-        return $transformTime($time).' nazpět';
-    },
-    'from_now' => function ($time) use ($transformTime) {
-        return 'za '.$transformTime($time);
-    },
-    'after' => function ($time) use ($transformTime) {
-        return 'o '.$transformTime($time).' později';
-    },
-    'before' => function ($time) use ($transformTime) {
-        return $transformTime($time).' předtím';
-    },
+    'ago' => $pred,
+    'from_now' => $za,
+    'before' => $pred,
+    'after' => $za,
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'months' => ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
