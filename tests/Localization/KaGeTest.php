@@ -398,15 +398,15 @@ class KaGeTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours',
-        '1 კვირი 10 საათი',
+        '1 კვირა 10 საათი',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 კვირი 6 დღე',
+        '1 კვირა 6 დღე',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days',
-        '1 კვირი 6 დღე',
+        '1 კვირა 6 დღე',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now',
@@ -414,7 +414,7 @@ class KaGeTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
-        '2 კვირი 1 საათი',
+        '2 კვირა 1 საათი',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
