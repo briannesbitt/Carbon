@@ -1559,7 +1559,7 @@ class CarbonPeriod implements Iterator, Countable
         $range = $rangeEnd ? static::create($rangeOrRangeStart, $rangeEnd) : $rangeOrRangeStart;
 
         if (!($range instanceof self)) {
-            $range = CarbonPeriod::create($range);
+            $range = static::create($range);
         }
 
         return $this->getEndDate() > $range->getStartDate() && $range->getEndDate() > $this->getStartDate();
