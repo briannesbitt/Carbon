@@ -82,4 +82,23 @@ class InstanceTest extends AbstractTestCase
 
         $this->assertInstanceOf('Carbon\Carbon', $deserialized);
     }
+
+    public function testCast()
+    {
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $myCarbon = $carbon->cast('Tests\\Carbon\\Fixtures\\MyCarbon');
+
+        $this->assertInstanceOf('Tests\\Carbon\\Fixtures\\MyCarbon', $myCarbon);
+    }
+
+    public function testInvalidCast()
+    {
+        $this->expectException('InvalidArgumentException');
+        $this->expectExceptionMessage(
+            'DateTimeZone has not the instance() method needed to cast the date.'
+        );
+
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        $carbon->cast('DateTimeZone');
+    }
 }

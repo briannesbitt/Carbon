@@ -59,4 +59,16 @@ class ArraysTest extends AbstractTestCase
         $this->assertArrayHasKey('formatted', $dtToArray);
         $this->assertSame($dt->format(Carbon::DEFAULT_TO_STRING_FORMAT), $dtToArray['formatted']);
     }
+
+    public function testDebugInfo()
+    {
+        $dt = Carbon::parse('2019-04-09 11:10:10.667952');
+        $debug = $dt->__debugInfo();
+
+        $this->assertSame(array(
+            'date' => '2019-04-09 11:10:10.667952',
+            'timezone_type' => 3,
+            'timezone' => 'America/Toronto',
+        ), $debug);
+    }
 }

@@ -5006,4 +5006,32 @@ class Carbon extends DateTime implements JsonSerializable
 
         return call_user_func_array($macro, $parameters);
     }
+
+    /**
+     * Show truthy properties on var_dump().
+     *
+     * @return array
+     */
+    public function __debugInfo()
+    {
+        return array_filter(get_object_vars($this), function ($var) {
+            return $var;
+        });
+    }
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return object
+     */
+    public function cast($className)
+    {
+        if (!method_exists($className, 'instance')) {
+            throw new \InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+        }
+
+        return $className::instance($this);
+    }
 }
