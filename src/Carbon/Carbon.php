@@ -97,6 +97,7 @@ class Carbon extends DateTime implements JsonSerializable
     /**
      * Number of X in Y.
      */
+    const YEARS_PER_MILLENNIUM = 1000;
     const YEARS_PER_CENTURY = 100;
     const YEARS_PER_DECADE = 10;
     const MONTHS_PER_YEAR = 12;
@@ -2164,6 +2165,20 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Determines if the instance is greater (after) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see gt()
+     *
+     * @return bool
+     */
+    public function isAfter($date)
+    {
+        return $this->gt($date);
+    }
+
+    /**
      * Determines if the instance is greater (after) than or equal to another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
@@ -2211,6 +2226,20 @@ class Carbon extends DateTime implements JsonSerializable
      * @return bool
      */
     public function lessThan($date)
+    {
+        return $this->lt($date);
+    }
+
+    /**
+     * Determines if the instance is less (before) than another
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
+     *
+     * @see lt()
+     *
+     * @return bool
+     */
+    public function isBefore($date)
     {
         return $this->lt($date);
     }
@@ -2270,6 +2299,20 @@ class Carbon extends DateTime implements JsonSerializable
         $date = $this->resolveCarbon($date);
 
         return abs($this->diffInRealSeconds($date, false) + ($date->micro - $this->micro) / 1000000);
+    }
+
+    /**
+     * Determines if the instance is between two others
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     * @param bool                                    $equal Indicates if a > and < comparison should be used or <= or >=
+     *
+     * @return bool
+     */
+    public function isBetween($date1, $date2, $equal = true)
+    {
+        return $this->between($date1, $date2, $equal);
     }
 
     /**
@@ -4368,6 +4411,30 @@ class Carbon extends DateTime implements JsonSerializable
     public function endOfCentury()
     {
         $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
+
+        return $this->setDate($year, 12, 31)->endOfDay();
+    }
+
+    /**
+     * Resets the date to the first day of the century and the time to 00:00:00
+     *
+     * @return static
+     */
+    public function startOfMillennium()
+    {
+        $year = $this->year - ($this->year - 1) % static::YEARS_PER_MILLENNIUM;
+
+        return $this->setDate($year, 1, 1)->startOfDay();
+    }
+
+    /**
+     * Resets the date to end of the century and time to 23:59:59
+     *
+     * @return static
+     */
+    public function endOfMillennium()
+    {
+        $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_MILLENNIUM + static::YEARS_PER_MILLENNIUM;
 
         return $this->setDate($year, 12, 31)->endOfDay();
     }
