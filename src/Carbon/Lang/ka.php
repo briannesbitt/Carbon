@@ -21,6 +21,7 @@
  * - Lasha Dolidze
  * - JD Isaacks
  * - LONGMAN
+ * - Avtandil Kikabidze (akalongman)
  */
 return [
     'year' => ':count წელი',
@@ -46,13 +47,20 @@ return [
     'a_second' => '{1}რამდენიმე წამი|]1,Inf[:count წამი',
     'ago' => function ($time) {
         $replacements = [
-            'წუთი' => 'წუთის',
-            'წამი' => 'წამის',
-            'საათი' => 'საათის',
-            'დღე' => 'დღის',
-            'კვირი' => 'კვირის',
-            'თვე' => 'თვის',
+            // year
             'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირი' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
         ];
         $time = strtr($time, array_flip($replacements));
         $time = strtr($time, $replacements);
@@ -61,34 +69,70 @@ return [
     },
     'from_now' => function ($time) {
         $replacements = [
+            // year
+            'წელი' => 'წელიწადში',
+            // week
+            'კვირი' => 'კვირაში',
+            // day
+            'დღე' => 'დღეში',
+            // month
+            'თვე' => 'თვეში',
+            // hour
+            'საათი' => 'საათში',
+            // minute
+            'წუთი' => 'წუთში',
+            // second
             'წამი' => 'წამში',
-            'საათი' => 'საათის',
-            'დღე' => 'დღის',
-            'კვირი' => 'კვირის',
-            'თვე' => 'თვის',
-            'წელი' => 'წლის',
         ];
         $time = strtr($time, array_flip($replacements));
         $time = strtr($time, $replacements);
 
-        return "$time შემდეგ";
+        return $time;
     },
     'after' => function ($time) {
         $replacements = [
-            'წუთი' => 'წუთის',
-            'წამი' => 'წამის',
-            'საათი' => 'საათის',
-            'დღე' => 'დღის',
-            'კვირი' => 'კვირის',
-            'თვე' => 'თვის',
+            // year
             'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირი' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
         ];
         $time = strtr($time, array_flip($replacements));
         $time = strtr($time, $replacements);
 
         return "$time შემდეგ";
     },
-    'before' => ':time უკან',
+    'before' => function ($time) {
+        $replacements = [
+            // year
+            'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირი' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
+        ];
+        $time = strtr($time, array_flip($replacements));
+        $time = strtr($time, $replacements);
+
+        return "$time უკან";
+    },
     'diff_yesterday' => 'გუშინ',
     'diff_tomorrow' => 'ხვალ',
     'formats' => [
