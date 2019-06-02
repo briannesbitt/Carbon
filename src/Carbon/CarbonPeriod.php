@@ -22,6 +22,7 @@ use Iterator;
 use ReflectionClass;
 use ReflectionMethod;
 use RuntimeException;
+use Throwable;
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
@@ -476,7 +477,7 @@ class CarbonPeriod implements Iterator, Countable
                     is_string($argument) && preg_match('/^(\d.*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i', $argument) ||
                     $argument instanceof DateInterval
                 ) &&
-                $parsed = CarbonInterval::make($argument)
+                $parsed = $this->parseCarbonInterval($argument)
             ) {
                 $this->setDateInterval($parsed);
             } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
@@ -504,6 +505,15 @@ class CarbonPeriod implements Iterator, Countable
 
         if ($this->options === null) {
             $this->setOptions(0);
+        }
+    }
+
+    private function parseCarbonInterval($spec)
+    {
+        try {
+            return @CarbonInterval::make($spec);
+        } catch (Throwable $e) {
+            return false;
         }
     }
 
