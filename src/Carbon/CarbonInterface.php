@@ -2160,6 +2160,32 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function instance($date);
 
     /**
+     * Returns true if the current date matches the given string.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2018')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('Sunday')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('June')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:45')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12h')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3pm')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false
+     * ```
+     *
+     * @param string $tester day name, month name, hour, date, etc. as string
+     *
+     * @return bool
+     */
+    public function is(string $tester);
+
+    /**
      * Determines if the instance is greater (after) than another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date

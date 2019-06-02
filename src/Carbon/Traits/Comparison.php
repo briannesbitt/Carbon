@@ -22,6 +22,7 @@ use InvalidArgumentException;
  *
  * Depends on the following methods:
  *
+ * @method CarbonInterface        copy()
  * @method CarbonInterface        nowWithSameTz()
  * @method static CarbonInterface yesterday($timezone = null)
  * @method static CarbonInterface tomorrow($timezone = null)
@@ -590,5 +591,75 @@ trait Comparison
         }
 
         return false;
+    }
+
+    /**
+     * Returns true if the current date matches the given string.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2018')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('Sunday')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('June')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:45')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12h')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3pm')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false
+     * ```
+     *
+     * @param string $tester day name, month name, hour, date, etc. as string
+     *
+     * @return bool
+     */
+    public function is(string $tester)
+    {
+        $tester = trim($tester);
+
+        if (preg_match('/^\d+$/', $tester)) {
+            return $this->year === intval($tester);
+        }
+
+        if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
+            return $this->isSameMonth(static::parse($tester));
+        }
+
+        if (preg_match('/^\d{1,2}-\d{1,2}$/', $tester)) {
+            return $this->isSameDay(static::parse($this->year.'-'.$tester));
+        }
+
+        $modifier = preg_replace('/(\d)h$/i', '$1:00', $tester);
+
+        /* @var CarbonInterface $max */
+        $median = static::parse('5555-06-15 12:30:30.555555')->modify($modifier);
+        $current = $this->copy();
+        $other = $this->copy()->modify($modifier);
+
+        if (preg_match('/\d:\d{1,2}:\d{1,2}$/', $tester)) {
+            $current = $current->startOfSecond();
+        } elseif (preg_match('/\d:\d{1,2}$/', $tester)) {
+            $current = $current->startOfMinute();
+        } elseif (preg_match('/\d(h|am|pm)$/', $tester)) {
+            $current = $current->startOfHour();
+        } elseif ($median->month === 1) {
+            $current = $current->startOfYear();
+        } elseif ($median->day === 1) {
+            $current = $current->startOfMonth();
+        } elseif ($median->hour === 0) {
+            $current = $current->startOfDay();
+        } elseif ($median->minute === 0) {
+            $current = $current->startOfHour();
+        } elseif ($median->second === 0) {
+            $current = $current->startOfMinute();
+        } elseif ($median->microsecond === 0) {
+            $current = $current->startOfSecond();
+        }
+
+        return $current->eq($other);
     }
 }
