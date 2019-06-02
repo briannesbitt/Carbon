@@ -66,22 +66,24 @@ trait Modifiers
     }
 
     /**
-     * Modify to the next occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the next occurrence of a given modifier such as a day of
+     * the week. If no modifier is provided, modify to the next occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function next($dayOfWeek = null)
+    public function next($modifier = null)
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
+        if ($modifier === null) {
+            $modifier = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('next '.static::$days[$dayOfWeek]);
+        return $this->change(
+            'next '.(is_string($modifier) ? $modifier : static::$days[$modifier])
+        );
     }
 
     /**
@@ -146,22 +148,24 @@ trait Modifiers
     }
 
     /**
-     * Modify to the previous occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the previous occurrence of a given modifier such as a day of
+     * the week. If no dayOfWeek is provided, modify to the previous occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function previous($dayOfWeek = null)
+    public function previous($modifier = null)
     {
-        if ($dayOfWeek === null) {
-            $dayOfWeek = $this->dayOfWeek;
+        if ($modifier === null) {
+            $modifier = $this->dayOfWeek;
         }
 
-        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
+        return $this->change(
+            'last '.(is_string($modifier) ? $modifier : static::$days[$modifier])
+        );
     }
 
     /**
@@ -418,5 +422,31 @@ trait Modifiers
     public function maximum($date = null)
     {
         return $this->max($date);
+    }
+
+    /**
+     * Similar to native modify() method of DateTime but can handle more grammars.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->change('next 2pm');
+     * ```
+     *
+     * @link https://php.net/manual/en/datetime.modify.php
+     *
+     * @param string $modifier
+     *
+     * @return static|CarbonInterface
+     */
+    public function change($modifier)
+    {
+        return $this->modify(preg_replace_callback('/^(next|previous|last)\s+(\d{1,2}(h|am|pm|:\d{1,2}(:\d{1,2})?))$/i', function ($match) {
+            $match[2] = str_replace('h', ':00', $match[2]);
+            $test = $this->copy()->modify($match[2]);
+            $method = $match[1] === 'next' ? 'lt' : 'gt';
+            $match[1] = $test->$method($this) ? $match[1].' day' : 'today';
+
+            return $match[1].' '.$match[2];
+        }, trim($modifier)));
     }
 }

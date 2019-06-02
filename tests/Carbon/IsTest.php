@@ -654,6 +654,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2015, 5, 31)->isSunday());
         $this->assertTrue(Carbon::createFromDate(2015, 6, 21)->isSunday());
         $this->assertTrue(Carbon::now()->subWeek()->previous(Carbon::SUNDAY)->isSunday());
+        $this->assertTrue(Carbon::now()->subWeek()->previous('Sunday')->isSunday());
 
         // True in the future
         $this->assertTrue(Carbon::now()->addWeek()->previous(Carbon::SUNDAY)->isSunday());

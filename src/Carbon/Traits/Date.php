@@ -2360,11 +2360,13 @@ trait Date
         ];
         $sizePattern = implode('|', array_keys($diffSizes));
         $syntaxPattern = implode('|', array_keys($diffSyntaxModes));
+
         if (preg_match("/^(?<size>$sizePattern)(?<syntax>$syntaxPattern)DiffForHumans$/", $method, $match)) {
             $dates = array_filter($parameters, function ($parameter) {
                 return $parameter instanceof DateTimeInterface;
             });
             $other = null;
+
             if (count($dates)) {
                 $key = key($dates);
                 $other = current($dates);
@@ -2375,19 +2377,24 @@ trait Date
         }
 
         $action = substr($method, 0, 4);
+
         if ($action !== 'ceil') {
             $action = substr($method, 0, 5);
         }
+
         if (in_array($action, ['round', 'floor', 'ceil'])) {
             return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
         }
 
         $unit = rtrim($method, 's');
+
         if (substr($unit, 0, 2) === 'is') {
             $word = substr($unit, 2);
+
             if (in_array($word, static::$days)) {
                 return $this->isDayOfWeek($word);
             }
+
             switch ($word) {
                 // @call is Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
                 case 'Utc':
@@ -2407,6 +2414,7 @@ trait Date
 
         $action = substr($unit, 0, 3);
         $overflow = null;
+
         if ($action === 'set') {
             $unit = strtolower(substr($unit, 3));
         }
@@ -2417,6 +2425,7 @@ trait Date
 
         if ($action === 'add' || $action === 'sub') {
             $unit = substr($unit, 3);
+
             if (substr($unit, 0, 4) === 'Real') {
                 $unit = static::singularUnit(substr($unit, 4));
 
@@ -2427,6 +2436,7 @@ trait Date
                 $unit = $match[1];
                 $overflow = $match[2] === 'With';
             }
+
             $unit = static::singularUnit($unit);
         }
 

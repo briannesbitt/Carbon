@@ -17,6 +17,7 @@ use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
 use DateTimeInterface;
+use Exception;
 use InvalidArgumentException;
 
 /**
@@ -126,7 +127,15 @@ trait Creator
             return static::instance($time);
         }
 
-        return new static($time, $tz);
+        try {
+            return new static($time, $tz);
+        } catch (Exception $exception) {
+            try {
+                return static::now($tz)->change($time);
+            } catch (Exception $ignored) {
+                throw $exception;
+            }
+        }
     }
 
     /**
