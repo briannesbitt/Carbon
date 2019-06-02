@@ -146,6 +146,16 @@ class GettersTest extends AbstractTestCase
         $this->assertTrue($range2->overlaps($range1));
     }
 
+    public function testOverlapsCalculated()
+    {
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R2/2019-01-31T10:30:45Z/P2D'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('2018-12-31/2019-02-01'));
+        $this->assertFalse(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R6/2018-12-31/P3D'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R6/2018-12-31/P6D'));
+        $this->assertFalse(CarbonPeriod::create('R6/2018-12-31/P1D')->overlaps('R3/2019-01-05/PT3H'));
+        $this->assertTrue(CarbonPeriod::create('R7/2018-12-31/P1D')->overlaps('R3/2019-01-05/PT3H'));
+    }
+
     public function testOverlapsWithDatesCouple()
     {
         $this->assertTrue(Carbon::parse('2019-01-26')->toPeriod('2019-03-03')->overlaps('2019-02-15', '2019-04-01'));

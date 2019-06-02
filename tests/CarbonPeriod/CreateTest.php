@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonPeriod;
 
+use BadMethodCallException;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
@@ -559,5 +560,13 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('10 years', Carbon::create('2019-01-02')->decadesUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('100 years', Carbon::create('2019-01-02')->centuriesUntil('2019-02-05')->getDateInterval()->forHumans());
         $this->assertSame('1000 years', Carbon::create('2019-01-02')->millenniaUntil('2019-02-05')->getDateInterval()->forHumans());
+    }
+
+    public function testCreateFromCarbonInstanceInvalidMethod()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Method unknownUnitsUntil does not exist.');
+
+        Carbon::create('2019-01-02')->unknownUnitsUntil('2019-02-05');
     }
 }

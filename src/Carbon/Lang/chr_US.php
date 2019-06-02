@@ -23,7 +23,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays_short' => ['ᏆᏍᎬ', 'ᏉᏅᎯ', 'ᏔᎵᏁ', 'ᏦᎢᏁ', 'ᏅᎩᏁ', 'ᏧᎾᎩ', 'ᏈᏕᎾ'],
     'weekdays_min' => ['ᏆᏍᎬ', 'ᏉᏅᎯ', 'ᏔᎵᏁ', 'ᏦᎢᏁ', 'ᏅᎩᏁ', 'ᏧᎾᎩ', 'ᏈᏕᎾ'],
     'day_of_first_week_of_year' => 1,
-    'meridiem' => ['ᏌᎾᎴ', 'ᏒᎯᏱᎢᏗᏢ'],
+    'meridiem' => ['ᏌᎾᎴ', 'ᏒᎯᏱᎢᏗᏢ', 'ꮜꮎꮄ', 'ꮢꭿᏹꭲꮧꮲ'],
 
     'second' => ':count ᏐᎢ', // less reliable
     's' => ':count ᏐᎢ', // less reliable

@@ -132,6 +132,13 @@ class CarbonInterval extends DateInterval
      */
     protected $tzName;
 
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     *
+     * @param \DateTimeZone|string $value
+     *
+     * @return static
+     */
     public function shiftTimezone($tzName)
     {
         $this->tzName = $tzName;
