@@ -348,6 +348,12 @@ foreach ($tags as $tag) {
                         'subReal'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using timestamp).",
                     ];
+                    $autoDocLines[] = [
+                        '@method',
+                        'CarbonPeriod',
+                        $plUnit.'Until($endDate = null, int $factor = 1)',
+                        "Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each $unitName or every X $plUnitName if a factor is given.",
+                    ];
                     break;
                 case 'roundUnit':
                     $unit = $vars->name;

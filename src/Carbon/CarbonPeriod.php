@@ -581,7 +581,7 @@ class CarbonPeriod implements Iterator, Countable
             throw new InvalidArgumentException('Invalid interval.');
         }
 
-        if ($interval->spec() === 'PT0S') {
+        if ($interval->spec() === 'PT0S' && !$interval->f) {
             throw new InvalidArgumentException('Empty interval is not accepted.');
         }
 
@@ -1543,5 +1543,25 @@ class CarbonPeriod implements Iterator, Countable
         $this->timezone = $timezone;
 
         return $this;
+    }
+
+    /**
+     * Returns true if the current period overlaps the given one (if 1 parameter passed)
+     * or the period between 2 dates (if 2 parameters passed).
+     *
+     * @param CarbonPeriod|\DateTimeInterface|Carbon|CarbonImmutable|string $rangeOrRangeStart
+     * @param \DateTimeInterface|Carbon|CarbonImmutable|string|null         $rangeEnd
+     *
+     * @return bool
+     */
+    public function overlaps($rangeOrRangeStart, $rangeEnd = null)
+    {
+        $range = $rangeEnd ? static::create($rangeOrRangeStart, $rangeEnd) : $rangeOrRangeStart;
+
+        if (!($range instanceof CarbonPeriod)) {
+            $range = CarbonPeriod::create($range);
+        }
+
+        return $this->getEndDate() > $range->getStartDate() && $range->getEndDate() > $this->getStartDate();
     }
 }
