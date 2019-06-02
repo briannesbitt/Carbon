@@ -663,6 +663,8 @@ class CarbonInterval extends DateInterval
             $interval = static::instance($interval);
         }
 
+        /* @var static $interval */
+
         return $interval;
     }
 
