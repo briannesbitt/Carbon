@@ -829,6 +829,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function ceilWeek($weekStartsAt = null);
 
     /**
+     * Similar to native modify() method of DateTime but can handle more grammars.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->change('next 2pm');
+     * ```
+     *
+     * @link https://php.net/manual/en/datetime.modify.php
+     *
+     * @param string $modifier
+     *
+     * @return static|CarbonInterface
+     */
+    public function change($modifier);
+
+    /**
      * @alias copy
      *
      * Get a copy of the instance.
@@ -2780,16 +2796,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function ne($date): bool;
 
     /**
-     * Modify to the next occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the next occurrence of a given modifier such as a day of
+     * the week. If no modifier is provided, modify to the next occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function next($dayOfWeek = null);
+    public function next($modifier = null);
 
     /**
      * Go forward to the next weekday.
@@ -2914,16 +2930,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function pluralUnit(string $unit): string;
 
     /**
-     * Modify to the previous occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the previous occurrence of a given modifier such as a day of
+     * the week. If no dayOfWeek is provided, modify to the previous occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function previous($dayOfWeek = null);
+    public function previous($modifier = null);
 
     /**
      * Go backward to the previous weekday.
