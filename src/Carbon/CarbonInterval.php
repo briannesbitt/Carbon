@@ -659,11 +659,9 @@ class CarbonInterval extends DateInterval
             ' and ' => ' ',
         ]));
 
-        if ($interval instanceof DateInterval && !($interval instanceof static)) {
+        if ($interval instanceof DateInterval) {
             $interval = static::instance($interval);
         }
-
-        /* @var static $interval */
 
         return $interval;
     }
