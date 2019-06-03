@@ -638,7 +638,12 @@ trait Comparison
         /* @var CarbonInterface $max */
         $median = static::parse('5555-06-15 12:30:30.555555')->modify($modifier);
         $current = $this->copy();
+        /* @var CarbonInterface $other */
         $other = $this->copy()->modify($modifier);
+
+        if ($current->eq($other)) {
+            return true;
+        }
 
         if (preg_match('/\d:\d{1,2}:\d{1,2}$/', $tester)) {
             $current = $current->startOfSecond();
@@ -646,18 +651,29 @@ trait Comparison
             $current = $current->startOfMinute();
         } elseif (preg_match('/\d(h|am|pm)$/', $tester)) {
             $current = $current->startOfHour();
-        } elseif ($median->month === 1) {
-            $current = $current->startOfYear();
-        } elseif ($median->day === 1) {
+        } elseif (preg_match(
+            '/^(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d+$/i',
+            $tester
+        )) {
             $current = $current->startOfMonth();
-        } elseif ($median->hour === 0) {
-            $current = $current->startOfDay();
-        } elseif ($median->minute === 0) {
-            $current = $current->startOfHour();
-        } elseif ($median->second === 0) {
-            $current = $current->startOfMinute();
-        } elseif ($median->microsecond === 0) {
-            $current = $current->startOfSecond();
+            $other = $other->startOfMonth();
+        } else {
+            $units = [
+                'month' => [1, 'year'],
+                'day' => [1, 'month'],
+                'hour' => [0, 'day'],
+                'minute' => [0, 'hour'],
+                'second' => [0, 'minute'],
+                'microsecond' => [0, 'second'],
+            ];
+
+            foreach ($units as $unit => [$minimum, $startUnit]) {
+                if ($median->$unit === $minimum) {
+                    $current = $current->startOf($startUnit);
+
+                    break;
+                }
+            }
         }
 
         return $current->eq($other);
