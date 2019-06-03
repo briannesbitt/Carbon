@@ -135,7 +135,7 @@ class CarbonInterval extends DateInterval
     /**
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
-     * @param \DateTimeZone|string $value
+     * @param \DateTimeZone|string $tzName
      *
      * @return static
      */

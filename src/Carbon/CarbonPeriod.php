@@ -1530,7 +1530,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
-     * @param \DateTimeZone|string $value
+     * @param \DateTimeZone|string $timezone
      *
      * @return static
      */
