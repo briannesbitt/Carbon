@@ -16,6 +16,7 @@ use UpdateHelper\UpdateHelperInterface;
 class Upgrade implements UpdateHelperInterface
 {
     const ASK_ON_UPDATE = false;
+    const SUGGEST_ON_UPDATE = false;
 
     protected static $laravelLibraries = array(
         'laravel/framework' => '5.8.0',
@@ -35,53 +36,47 @@ class Upgrade implements UpdateHelperInterface
     public function check(UpdateHelper $helper)
     {
         $helper->write(array(
-            '*******************************************',
-            " /!\ Warning, you're using a deprecated",
-            ' ¨¨¨ version of Carbon, we will soon stop',
-            '     providing support and update for 1.x',
-            '     versions, please upgrade to Carbon 2.',
-            '*******************************************',
-            '',
-            'Most features of Carbon 1 are still available in Carbon 2.',
-            'See how to migrate: https://carbon.nesbot.com/docs/#api-carbon-2',
-            '',
+            'Carbon 1 is deprecated, see how to migrate to Carbon 2.',
+            'https://carbon.nesbot.com/docs/#api-carbon-2',
         ));
 
-        $laravelUpdate = array();
+        if (static::SUGGEST_ON_UPDATE || static::ASK_ON_UPDATE || $helper->getIo()->isVerbose()) {
+            $laravelUpdate = array();
 
-        foreach (static::$laravelLibraries as $name => $version) {
-            if ($helper->hasAsDependency($name) && $helper->isDependencyLesserThan($name, $version)) {
-                $laravelUpdate[$name] = $version;
-            }
-        }
-
-        if (count($laravelUpdate)) {
-            $output = array(
-                'Please consider upgrading your Laravel dependencies to be compatible with Carbon 2:',
-            );
-
-            foreach ($laravelUpdate as $name => $version) {
-                $output[] = "  - $name at least to version $version";
+            foreach (static::$laravelLibraries as $name => $version) {
+                if ($helper->hasAsDependency($name) && $helper->isDependencyLesserThan($name, $version)) {
+                    $laravelUpdate[$name] = $version;
+                }
             }
 
-            $output[] = '';
-            $output[] = "If you can't update Laravel, check https://carbon.nesbot.com/ to see how to";
-            $output[] = 'install Carbon 2 using alias version and our adapter kylekatarnls/laravel-carbon-2';
-            $output[] = '';
+            if (count($laravelUpdate)) {
+                $output = array(
+                    '    Please consider upgrading your Laravel dependencies to be compatible with Carbon 2:',
+                );
 
-            $helper->write($output);
-        }
+                foreach ($laravelUpdate as $name => $version) {
+                    $output[] = "      - $name at least to version $version";
+                }
 
-        foreach (static::$otherLibraries as $name => $version) {
-            if ($helper->hasAsDependency($name) && $helper->isDependencyLesserThan($name, $version)) {
-                $helper->write("Please consider upgrading $name at least to $version to be compatible with Carbon 2.\n");
+                $output[] = '';
+                $output[] = "    If you can't update Laravel, check https://carbon.nesbot.com/ to see how to";
+                $output[] = '    install Carbon 2 using alias version and our adapter kylekatarnls/laravel-carbon-2';
+                $output[] = '';
+
+                $helper->write($output);
             }
-        }
 
-        if (static::ASK_ON_UPDATE) {
-            static::askForUpgrade($helper);
+            foreach (static::$otherLibraries as $name => $version) {
+                if ($helper->hasAsDependency($name) && $helper->isDependencyLesserThan($name, $version)) {
+                    $helper->write("    Please consider upgrading $name at least to $version to be compatible with Carbon 2.\n");
+                }
+            }
 
-            return;
+            if (static::ASK_ON_UPDATE) {
+                static::askForUpgrade($helper);
+
+                return;
+            }
         }
 
         $path = implode(DIRECTORY_SEPARATOR, array('.', 'vendor', 'bin', 'upgrade-carbon'));
@@ -91,7 +86,7 @@ class Upgrade implements UpdateHelperInterface
         }
 
         $helper->write(
-            'You can run '.escapeshellarg($path).
+            '    You can run '.escapeshellarg($path).
             ' to get help in updating carbon and other frameworks and libraries that depend on it.'
         );
     }
