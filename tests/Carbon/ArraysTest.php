@@ -64,9 +64,10 @@ class ArraysTest extends AbstractTestCase
     {
         $dt = Carbon::parse('2019-04-09 11:10:10.667952');
         $debug = $dt->__debugInfo();
+        $debug['date'] = preg_replace('/\.\d+$/', '', $debug['date']);
 
         $this->assertSame(array(
-            'date' => '2019-04-09 11:10:10.667952',
+            'date' => '2019-04-09 11:10:10',
             'timezone_type' => 3,
             'timezone' => 'America/Toronto',
         ), $debug);
