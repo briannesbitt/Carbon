@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-use Illuminate\Events\EventDispatcher;
+namespace Tests\Laravel;
+
+use ArrayAccess;
 use Symfony\Component\Translation\Translator;
 
 class App implements ArrayAccess
@@ -17,7 +19,7 @@ class App implements ArrayAccess
     public $translator;
 
     /**
-     * @var EventDispatcher
+     * @var \Illuminate\Events\EventDispatcher
      */
     public $events;
 
@@ -25,7 +27,11 @@ class App implements ArrayAccess
     {
         include_once __DIR__.'/EventDispatcher.php';
         $this->translator = new Translator('de');
-        $this->events = new EventDispatcher();
+    }
+
+    public function setEventDispatcher($dispatcher)
+    {
+        $this->events = $dispatcher;
     }
 
     public static function version($version = null)

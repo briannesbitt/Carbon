@@ -79,6 +79,7 @@ abstract class AbstractTestCase extends TestCase
     protected function tearDown(): void
     {
         date_default_timezone_set($this->saveTz);
+
         Carbon::setTestNow();
         Carbon::resetToStringFormat();
         Carbon::resetMonthsOverflow();
@@ -87,11 +88,12 @@ abstract class AbstractTestCase extends TestCase
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
         $translator->resetMessages();
+
         CarbonImmutable::setTestNow();
         CarbonImmutable::resetToStringFormat();
         CarbonImmutable::resetMonthsOverflow();
         CarbonImmutable::setTranslator(new Translator('en'));
-        Carbon::setLocale('en');
+        CarbonImmutable::setLocale('en');
         /** @var Translator $translator */
         $translator = CarbonImmutable::getTranslator();
         $translator->resetMessages();
