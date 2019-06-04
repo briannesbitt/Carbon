@@ -692,7 +692,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $diff = Carbon::now()->locale('ka')->addWeeks(3)->diffForHumans();
 
-        $this->assertSame('3 კვირაა', $diff);
+        $this->assertSame('3 კვირაში', $diff);
     }
 
     public function testWeekDayMultipleForms()

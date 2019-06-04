@@ -360,7 +360,7 @@ abstract class LocalizationTestCase extends AbstractTestCase
                         $locale = static::LOCALES[$key].' ('.$locale.')';
                     }
 
-                    $this->assertSame($expected, $result, 'In '.$locale.', '.$test.' should return '.$expected);
+                    $this->assertSame($expected, $result, 'In '.$locale.', '.str_replace('Carbon\\', '', $test).' should return '.$expected);
                 }
             }
         });

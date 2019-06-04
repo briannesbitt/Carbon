@@ -21,56 +21,136 @@
  * - Lasha Dolidze
  * - JD Isaacks
  * - LONGMAN
+ * - Avtandil Kikabidze (akalongman)
  */
 return [
-    'year' => '{1}წელი|]1,Inf[:count წელი',
-    'y' => ':count წლის',
-    'month' => '{1}თვე|]1,Inf[:count თვე',
-    'm' => ':count თვის',
-    'week' => ':count კვირის',
-    'w' => ':count კვირის',
-    'day' => '{1}დღე|]1,Inf[:count დღე',
-    'd' => ':count დღის',
-    'hour' => '{1}საათი|]1,Inf[:count საათი',
-    'h' => ':count საათის',
-    'minute' => '{1}წუთი|]1,Inf[:count წუთი',
-    'min' => ':count წუთის',
-    'second' => '{1}რამდენიმე წამი|]1,Inf[:count წამი',
-    's' => ':count წამის',
+    'year' => ':count წელი',
+    'y' => ':count წელი',
+    'a_year' => '{1}წელი|]1,Inf[:count წელი',
+    'month' => ':count თვე',
+    'm' => ':count თვე',
+    'a_month' => '{1}თვე|]1,Inf[:count თვე',
+    'week' => ':count კვირა',
+    'w' => ':count კვირა',
+    'a_week' => '{1}კვირა|]1,Inf[:count კვირა',
+    'day' => ':count დღე',
+    'd' => ':count დღე',
+    'a_day' => '{1}დღე|]1,Inf[:count დღე',
+    'hour' => ':count საათი',
+    'h' => ':count საათი',
+    'a_hour' => '{1}საათი|]1,Inf[:count საათი',
+    'minute' => ':count წუთი',
+    'min' => ':count წუთი',
+    'a_minute' => '{1}წუთი|]1,Inf[:count წუთი',
+    'second' => ':count წამი',
+    's' => ':count წამი',
+    'a_second' => '{1}რამდენიმე წამი|]1,Inf[:count წამი',
     'ago' => function ($time) {
-        return (preg_match('/(წამი|წუთი|საათი|წელი)/', $time) ?
-                preg_replace('/ი$/', 'ში', $time) :
-                $time
-            ).'ში';
+        $replacements = [
+            // year
+            'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირა' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
+        ];
+        $time = strtr($time, array_flip($replacements));
+        $time = strtr($time, $replacements);
+
+        return "$time წინ";
     },
     'from_now' => function ($time) {
-        if (preg_match('/(წამი|წუთი|საათი|დღე|თვე)/', $time)) {
-            return preg_replace('/(ი|ე)$/', 'ის წინ', $time);
-        }
-        if (preg_match('/წელი/', $time)) {
-            return preg_replace('/წელი$/', 'წლის წინ', $time);
-        }
+        $replacements = [
+            // year
+            'წელი' => 'წელიწადში',
+            // week
+            'კვირა' => 'კვირაში',
+            // day
+            'დღე' => 'დღეში',
+            // month
+            'თვე' => 'თვეში',
+            // hour
+            'საათი' => 'საათში',
+            // minute
+            'წუთი' => 'წუთში',
+            // second
+            'წამი' => 'წამში',
+        ];
+        $time = strtr($time, array_flip($replacements));
+        $time = strtr($time, $replacements);
 
-        return preg_replace('/კვირის/', 'კვირაა', $time);
+        return $time;
     },
-    'after' => ':time შემდეგ',
-    'before' => ':time უკან',
+    'after' => function ($time) {
+        $replacements = [
+            // year
+            'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირა' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
+        ];
+        $time = strtr($time, array_flip($replacements));
+        $time = strtr($time, $replacements);
+
+        return "$time შემდეგ";
+    },
+    'before' => function ($time) {
+        $replacements = [
+            // year
+            'წელი' => 'წლის',
+            // month
+            'თვე' => 'თვის',
+            // week
+            'კვირი' => 'კვირის',
+            // day
+            'დღე' => 'დღის',
+            // hour
+            'საათი' => 'საათის',
+            // minute
+            'წუთი' => 'წუთის',
+            // second
+            'წამი' => 'წამის',
+        ];
+        $time = strtr($time, array_flip($replacements));
+        $time = strtr($time, $replacements);
+
+        return "$time უკან";
+    },
     'diff_yesterday' => 'გუშინ',
     'diff_tomorrow' => 'ხვალ',
     'formats' => [
-        'LT' => 'h:mm A',
-        'LTS' => 'h:mm:ss A',
+        'LT' => 'HH:mm',
+        'LTS' => 'HH:mm:ss',
         'L' => 'DD/MM/YYYY',
         'LL' => 'D MMMM YYYY',
-        'LLL' => 'D MMMM YYYY h:mm A',
-        'LLLL' => 'dddd, D MMMM YYYY h:mm A',
+        'LLL' => 'D MMMM YYYY HH:mm',
+        'LLLL' => 'dddd, D MMMM YYYY HH:mm',
     ],
     'calendar' => [
-        'sameDay' => '[დღეს] LT[-ზე]',
-        'nextDay' => '[ხვალ] LT[-ზე]',
-        'nextWeek' => '[შემდეგ] dddd LT[-ზე]',
-        'lastDay' => '[გუშინ] LT[-ზე]',
-        'lastWeek' => '[წინა] dddd LT-ზე',
+        'sameDay' => '[დღეს], LT[-ზე]',
+        'nextDay' => '[ხვალ], LT[-ზე]',
+        'nextWeek' => function (\Carbon\CarbonInterface $current, \Carbon\CarbonInterface $other) {
+            return ($current->isSameWeek($other) ? '' : '[შემდეგ] ').'dddd, LT[-ზე]';
+        },
+        'lastDay' => '[გუშინ], LT[-ზე]',
+        'lastWeek' => '[წინა] dddd, LT-ზე',
         'sameElse' => 'L',
     ],
     'ordinal' => function ($number) {
@@ -94,9 +174,25 @@ return [
     'weekdays_standalone' => ['კვირა', 'ორშაბათი', 'სამშაბათი', 'ოთხშაბათი', 'ხუთშაბათი', 'პარასკევი', 'შაბათი'],
     'weekdays_short' => ['კვი', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'],
     'weekdays_min' => ['კვ', 'ორ', 'სა', 'ოთ', 'ხუ', 'პა', 'შა'],
-    'weekdays_regexp' => '/(წინა|შემდეგ)/',
+    'weekdays_regexp' => '/^([^d].*|.*[^d])$/',
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' და '],
-    'meridiem' => ['დილის', 'საღამოს'],
+    'meridiem' => function ($hour) {
+        if ($hour >= 4) {
+            if ($hour < 11) {
+                return 'დილის';
+            }
+
+            if ($hour < 16) {
+                return 'შუადღის';
+            }
+
+            if ($hour < 22) {
+                return 'საღამოს';
+            }
+        }
+
+        return 'ღამის';
+    },
 ];
