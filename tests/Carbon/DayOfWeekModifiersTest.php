@@ -113,6 +113,9 @@ class DayOfWeekModifiersTest extends AbstractTestCase
     {
         $d = Carbon::createFromDate(1975, 5, 21)->next(Carbon::MONDAY);
         $this->assertCarbon($d, 1975, 5, 26, 0, 0, 0);
+
+        $d = Carbon::createFromDate(1975, 5, 21)->next('Monday');
+        $this->assertCarbon($d, 1975, 5, 26, 0, 0, 0);
     }
 
     public function testNextSaturday()

@@ -829,6 +829,22 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function ceilWeek($weekStartsAt = null);
 
     /**
+     * Similar to native modify() method of DateTime but can handle more grammars.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->change('next 2pm');
+     * ```
+     *
+     * @link https://php.net/manual/en/datetime.modify.php
+     *
+     * @param string $modifier
+     *
+     * @return static|CarbonInterface
+     */
+    public function change($modifier);
+
+    /**
      * @alias copy
      *
      * Get a copy of the instance.
@@ -2160,6 +2176,32 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function instance($date);
 
     /**
+     * Returns true if the current date matches the given string.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2018')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('Sunday')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('June')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:45')); // true
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00')); // false
+     * var_dump(Carbon::parse('2019-06-02 12:23:45')->is('12h')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3pm')); // true
+     * var_dump(Carbon::parse('2019-06-02 15:23:45')->is('3am')); // false
+     * ```
+     *
+     * @param string $tester day name, month name, hour, date, etc. as string
+     *
+     * @return bool
+     */
+    public function is(string $tester);
+
+    /**
      * Determines if the instance is greater (after) than another
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
@@ -2754,16 +2796,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function ne($date): bool;
 
     /**
-     * Modify to the next occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the next occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the next occurrence of a given modifier such as a day of
+     * the week. If no modifier is provided, modify to the next occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function next($dayOfWeek = null);
+    public function next($modifier = null);
 
     /**
      * Go forward to the next weekday.
@@ -2888,16 +2930,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function pluralUnit(string $unit): string;
 
     /**
-     * Modify to the previous occurrence of a given day of the week.
-     * If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week.  Use the supplied constants
+     * Modify to the previous occurrence of a given modifier such as a day of
+     * the week. If no dayOfWeek is provided, modify to the previous occurrence
+     * of the current day of the week. Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param int|null $dayOfWeek
+     * @param string|int|null $modifier
      *
      * @return static|CarbonInterface
      */
-    public function previous($dayOfWeek = null);
+    public function previous($modifier = null);
 
     /**
      * Go backward to the previous weekday.

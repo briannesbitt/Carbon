@@ -878,4 +878,43 @@ class IsTest extends AbstractTestCase
         $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
     }
+
+    public function testIs()
+    {
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2018'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2018-06'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-07'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('06-02'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('06-03'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('05-02'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-03'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-05-02'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2020-06-02'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('Sunday'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('Monday'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('May'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('12:23'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:26'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:23:00'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('12h'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('15h'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('12:00'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('15:00'));
+        $this->assertTrue(Carbon::parse('2019-06-02 15:23:45')->is('3pm'));
+        $this->assertFalse(Carbon::parse('2019-06-02 15:23:45')->is('4pm'));
+        $this->assertFalse(Carbon::parse('2019-06-02 15:23:45')->is('3am'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02 12:23'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-03 12:23'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02 15:23'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('2019-06-02 12:33'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('2 June 2019'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('1 June 2019'));
+        $this->assertTrue(Carbon::parse('2019-06-02 12:23:45')->is('June 2019'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('August 2019'));
+        $this->assertFalse(Carbon::parse('2019-06-02 12:23:45')->is('June 2018'));
+    }
 }
