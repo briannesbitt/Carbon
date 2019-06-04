@@ -28,30 +28,60 @@
  * - Tlapi
  * - newman101
  * - Petr Kadlec
+ * - tommaskraus
+ * - Karel Sommer (calvera)
  */
+$za = function ($time) {
+    return 'za '.strtr($time, [
+        'hodina' => 'hodinu',
+        'minuta' => 'minutu',
+        'sekunda' => 'sekundu',
+    ]);
+};
+
+$pred = function ($time) {
+    $time = strtr($time, [
+        'hodina' => 'hodinou',
+        'minuta' => 'minutou',
+        'sekunda' => 'sekundou',
+    ]);
+    $time = preg_replace('/hodiny?(?!\w)/', 'hodinami', $time);
+    $time = preg_replace('/minuty?(?!\w)/', 'minutami', $time);
+    $time = preg_replace('/sekundy?(?!\w)/', 'sekundami', $time);
+
+    return "před $time";
+};
+
 return [
     'year' => ':count rok|:count roky|:count let',
     'y' => ':count rok|:count roky|:count let',
+    'a_year' => 'rok|:count roky|:count let',
     'month' => ':count měsíc|:count měsíce|:count měsíců',
     'm' => ':count měs.',
+    'a_month' => 'měsíc|:count měsíce|:count měsíců',
     'week' => ':count týden|:count týdny|:count týdnů',
     'w' => ':count týd.',
+    'a_week' => 'týden|:count týdny|:count týdnů',
     'day' => ':count den|:count dny|:count dní',
     'd' => ':count den|:count dny|:count dní',
-    'hour' => ':count hodinu|:count hodiny|:count hodin',
+    'a_day' => 'den|:count dny|:count dní',
+    'hour' => ':count hodina|:count hodiny|:count hodin',
     'h' => ':count hod.',
-    'minute' => ':count minutu|:count minuty|:count minut',
+    'a_hour' => 'hodina|:count hodiny|:count hodin',
+    'minute' => ':count minuta|:count minuty|:count minut',
     'min' => ':count min.',
-    'second' => ':count sekundu|:count sekundy|:count sekund',
+    'a_minute' => 'minuta|:count minuty|:count minut',
+    'second' => ':count sekunda|:count sekundy|:count sekund',
     's' => ':count sek.',
-    'ago' => ':time nazpět',
-    'from_now' => 'za :time',
-    'after' => 'o :time později',
-    'before' => ':time předtím',
+    'a_second' => 'pár sekund|:count sekundy|:count sekund',
+    'ago' => $pred,
+    'from_now' => $za,
+    'before' => $pred,
+    'after' => $za,
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'months' => ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
-    'months_short' => ['led', 'úno', 'bře', 'dub', 'kvě', 'čer', 'čer', 'srp', 'zář', 'říj', 'lis', 'pro'],
+    'months_short' => ['led', 'úno', 'bře', 'dub', 'kvě', 'čvn', 'čvc', 'srp', 'zář', 'říj', 'lis', 'pro'],
     'weekdays' => ['neděle', 'pondělí', 'úterý', 'středa', 'čtvrtek', 'pátek', 'sobota'],
     'weekdays_short' => ['ned', 'pon', 'úte', 'stř', 'čtv', 'pát', 'sob'],
     'weekdays_min' => ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
