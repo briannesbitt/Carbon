@@ -123,7 +123,7 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         'před 1 sek.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'před 2 sekundoumi',
+        'před 2 sekundami',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         'před 2 sek.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
@@ -131,7 +131,7 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         'před 1 min.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'před 2 minutoumi',
+        'před 2 minutami',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         'před 2 min.',
         // Carbon::now()->subHours(1)->diffForHumans()
@@ -139,7 +139,7 @@ class CsCzTest extends LocalizationTestCase
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         'před 1 hod.',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'před 2 hodinoumi',
+        'před 2 hodinami',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         'před 2 hod.',
         // Carbon::now()->subDays(1)->diffForHumans()
