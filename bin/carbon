@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+$dir = __DIR__.'/..';
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../vendor';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    $dir = __DIR__.'/../../..';
+}
+
+if (!file_exists($dir.'/autoload.php')) {
+    echo 'Autoload not found.';
+    exit(1);
+}
+
+$composerInstalled = false;
+
+include $dir.'/autoload.php';
+
+(new \Carbon\Command())(...array_slice($argv, 1));
+
+exit(0);
