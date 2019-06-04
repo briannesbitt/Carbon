@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use DateTime;
 use Tests\AbstractTestCase;
@@ -104,5 +105,73 @@ class GettersTest extends AbstractTestCase
         $period = new CarbonPeriod(new DateTime, new DateTime, $options = CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
 
         $this->assertSame($options, $period->getOptions());
+    }
+
+    public function testOverlaps()
+    {
+        $range1 = CarbonPeriod::create('2019-01-26', '2019-03-03');
+        $range2 = CarbonPeriod::create('2019-02-15', '2019-04-01');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26', '2019-02-13');
+        $range2 = CarbonPeriod::create('2019-02-15', '2019-04-01');
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26', '2019-02-15');
+        $range2 = CarbonPeriod::create('2019-02-15', '2019-04-01');
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26', '2019-02-15 00:00:01');
+        $range2 = CarbonPeriod::create('2019-02-15', '2019-04-01');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26', '2019-02-15 00:00:01');
+        $range2 = CarbonPeriod::create('2019-02-15 00:00:01', '2019-04-01');
+
+        $this->assertFalse($range1->overlaps($range2));
+        $this->assertFalse($range2->overlaps($range1));
+
+        $range1 = CarbonPeriod::create('2019-01-26 10:30:12', '2019-01-26 13:30:12');
+        $range2 = CarbonPeriod::create('2019-01-26 10:30:05', '2019-01-26 13:32:12');
+
+        $this->assertTrue($range1->overlaps($range2));
+        $this->assertTrue($range2->overlaps($range1));
+    }
+
+    public function testOverlapsCalculated()
+    {
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R2/2019-01-31T10:30:45Z/P2D'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('2018-12-31/2019-02-01'));
+        $this->assertFalse(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R6/2018-12-31/P3D'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-27', '2019-02-02')->overlaps('R6/2018-12-31/P6D'));
+        $this->assertFalse(CarbonPeriod::create('R6/2018-12-31/P1D')->overlaps('R3/2019-01-05/PT3H'));
+        $this->assertTrue(CarbonPeriod::create('R7/2018-12-31/P1D')->overlaps('R3/2019-01-05/PT3H'));
+    }
+
+    public function testOverlapsWithDatesCouple()
+    {
+        $this->assertTrue(Carbon::parse('2019-01-26')->toPeriod('2019-03-03')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertTrue(Carbon::parse('2019-02-15')->toPeriod('2019-04-01')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-26', '2019-03-03')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertTrue(CarbonPeriod::create('2019-01-26', '2019-03-03')->overlaps(Carbon::parse('2019-02-15')->toPeriod('2019-04-01')));
+        $this->assertTrue(Carbon::parse('2019-01-26')->toPeriod('2019-03-03')->overlaps(Carbon::parse('2019-02-15'), '2019-04-01'));
+        $this->assertTrue(Carbon::parse('2019-02-15')->toPeriod('2019-04-01')->overlaps('2019-02-15', CarbonImmutable::parse('2019-04-01')));
+        $this->assertTrue(CarbonPeriod::create('2019-01-26', '2019-03-03')->overlaps(new DateTime('2019-02-15'), new DateTime('2019-04-01')));
+
+        $this->assertFalse(Carbon::parse('2018-01-26')->toPeriod('2018-03-03')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertFalse(Carbon::parse('2018-02-15')->toPeriod('2018-04-01')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertFalse(CarbonPeriod::create('2018-01-26', '2018-02-13')->overlaps('2019-02-15', '2019-04-01'));
+        $this->assertFalse(CarbonPeriod::create('2018-01-26', '2018-02-13')->overlaps(Carbon::parse('2019-02-15')->toPeriod('2019-04-01')));
+        $this->assertFalse(Carbon::parse('2018-01-26')->toPeriod('2018-03-03')->overlaps(Carbon::parse('2019-02-15'), '2019-04-01'));
+        $this->assertFalse(Carbon::parse('2018-02-15')->toPeriod('2018-04-01')->overlaps('2019-02-15', CarbonImmutable::parse('2019-04-01')));
+        $this->assertFalse(CarbonPeriod::create('2018-01-26', '2018-02-13')->overlaps(new DateTime('2019-02-15'), new DateTime('2019-04-01')));
     }
 }

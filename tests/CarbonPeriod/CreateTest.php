@@ -11,7 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\CarbonPeriod;
 
+use BadMethodCallException;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use DateInterval;
@@ -98,8 +100,8 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'Invalid ISO 8601 specification:'
+        $this->expectExceptionMessageRegExp(
+            '/(Invalid ISO 8601 specification:|Unknown or bad format)/'
         );
 
         CarbonPeriod::create($iso);
@@ -500,5 +502,71 @@ class CreateTest extends AbstractTestCase
 
         $this->assertEquals(new Carbon($start), $period->getStartDate());
         $this->assertEquals(new Carbon($end), $period->getEndDate());
+    }
+
+    public function testCreateFromCarbonInstances()
+    {
+        $period = Carbon::create('2019-01-02')->toPeriod('2019-02-05');
+
+        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertInstanceOf(Carbon::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertInstanceOf(Carbon::class, $period->getEndDate());
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+
+        $period = Carbon::create('2019-01-02')->range('2019-02-05');
+
+        $this->assertInstanceOf(Carbon::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertInstanceOf(Carbon::class, $period->getEndDate());
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+
+        $period = Carbon::create('2019-01-02')->daysUntil('2019-02-05');
+
+        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertInstanceOf(Carbon::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertInstanceOf(Carbon::class, $period->getEndDate());
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+
+        $period = CarbonImmutable::create('2019-01-02')->daysUntil('2019-02-05');
+
+        $this->assertInstanceOf(CarbonImmutable::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertInstanceOf(CarbonImmutable::class, $period->getEndDate());
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+
+        $period = CarbonImmutable::create('2019-01-02')->daysUntil(Carbon::parse('2019-02-05'));
+
+        $this->assertSame(CarbonImmutable::class, $period->getDateClass());
+        $this->assertInstanceOf(CarbonImmutable::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertInstanceOf(CarbonImmutable::class, $period->getEndDate());
+        $this->assertSame('2019-02-05', $period->getEndDate()->format('Y-m-d'));
+
+        $period = Carbon::create('2019-01-02')->hoursUntil('2019-02-05');
+        $this->assertSame(1, $period->getDateInterval()->totalHours);
+
+        $this->assertSame('1 minute', Carbon::create('2019-01-02')->minutesUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('3 minutes', Carbon::create('2019-01-02')->minutesUntil('2019-02-05', 3)->getDateInterval()->forHumans());
+        $this->assertSame('3 seconds', Carbon::create('2019-01-02')->range('2019-02-05', 3, 'seconds')->getDateInterval()->forHumans());
+        $this->assertSame('1 second', Carbon::create('2019-01-02')->secondsUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame(1, Carbon::create('2019-01-02')->millisecondsUntil('2019-02-05')->getDateInterval()->totalMilliseconds);
+        $this->assertSame(1, Carbon::create('2019-01-02')->microsecondsUntil('2019-02-05')->getDateInterval()->totalMicroseconds);
+        $this->assertSame('1 week', Carbon::create('2019-01-02')->weeksUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('1 month', Carbon::create('2019-01-02')->monthsUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('3 months', Carbon::create('2019-01-02')->quartersUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('1 year', Carbon::create('2019-01-02')->yearsUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('10 years', Carbon::create('2019-01-02')->decadesUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('100 years', Carbon::create('2019-01-02')->centuriesUntil('2019-02-05')->getDateInterval()->forHumans());
+        $this->assertSame('1000 years', Carbon::create('2019-01-02')->millenniaUntil('2019-02-05')->getDateInterval()->forHumans());
+    }
+
+    public function testCreateFromCarbonInstanceInvalidMethod()
+    {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Method unknownUnitsUntil does not exist.');
+
+        Carbon::create('2019-01-02')->unknownUnitsUntil('2019-02-05');
     }
 }

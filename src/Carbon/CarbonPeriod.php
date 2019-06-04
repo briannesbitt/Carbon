@@ -476,7 +476,7 @@ class CarbonPeriod implements Iterator, Countable
                     is_string($argument) && preg_match('/^(\d.*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i', $argument) ||
                     $argument instanceof DateInterval
                 ) &&
-                $parsed = CarbonInterval::make($argument)
+                $parsed = @CarbonInterval::make($argument)
             ) {
                 $this->setDateInterval($parsed);
             } elseif ($this->startDate === null && $parsed = Carbon::make($argument)) {
@@ -571,7 +571,7 @@ class CarbonPeriod implements Iterator, Countable
             throw new InvalidArgumentException('Invalid interval.');
         }
 
-        if ($interval->spec() === 'PT0S') {
+        if ($interval->spec() === 'PT0S' && !$interval->f) {
             throw new InvalidArgumentException('Empty interval is not accepted.');
         }
 
@@ -1129,7 +1129,7 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @param CarbonInterface $date
      *
-     * @return Carbon
+     * @return CarbonInterface
      */
     protected function prepareForReturn(CarbonInterface $date)
     {
@@ -1167,7 +1167,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Return the current date.
      *
-     * @return Carbon|null
+     * @return CarbonInterface|null
      */
     public function current()
     {
@@ -1375,7 +1375,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Return the first date in the date period.
      *
-     * @return Carbon|null
+     * @return CarbonInterface|null
      */
     public function first()
     {
@@ -1387,7 +1387,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Return the last date in the date period.
      *
-     * @return Carbon|null
+     * @return CarbonInterface|null
      */
     public function last()
     {
@@ -1527,11 +1527,54 @@ class CarbonPeriod implements Iterator, Countable
         return $this;
     }
 
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     *
+     * @param \DateTimeZone|string $timezone
+     *
+     * @return static
+     */
     public function shiftTimezone($timezone)
     {
         $this->tzName = $timezone;
         $this->timezone = $timezone;
 
         return $this;
+    }
+
+    /**
+     * Returns the end is set, else calculated from start an recurrences.
+     *
+     * @return CarbonInterface
+     */
+    public function calculateEnd()
+    {
+        if ($end = $this->getEndDate()) {
+            return $end;
+        }
+
+        $dates = iterator_to_array($this);
+
+        return end($dates);
+    }
+
+    /**
+     * Returns true if the current period overlaps the given one (if 1 parameter passed)
+     * or the period between 2 dates (if 2 parameters passed).
+     *
+     * @param CarbonPeriod|\DateTimeInterface|Carbon|CarbonImmutable|string $rangeOrRangeStart
+     * @param \DateTimeInterface|Carbon|CarbonImmutable|string|null         $rangeEnd
+     *
+     * @return bool
+     */
+    public function overlaps($rangeOrRangeStart, $rangeEnd = null)
+    {
+        $range = $rangeEnd ? static::create($rangeOrRangeStart, $rangeEnd) : $rangeOrRangeStart;
+
+        if (!($range instanceof self)) {
+            $range = static::create($range);
+        }
+
+        return $this->calculateEnd() > $range->getStartDate() && $range->calculateEnd() > $this->getStartDate();
     }
 }

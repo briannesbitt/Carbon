@@ -132,6 +132,13 @@ class CarbonInterval extends DateInterval
      */
     protected $tzName;
 
+    /**
+     * Set the instance's timezone from a string or object and add/subtract the offset difference.
+     *
+     * @param \DateTimeZone|string $tzName
+     *
+     * @return static
+     */
     public function shiftTimezone($tzName)
     {
         $this->tzName = $tzName;
@@ -357,6 +364,7 @@ class CarbonInterval extends DateInterval
     {
         $date = new static($this->spec());
         $date->invert = $this->invert;
+        $date->f = $this->f;
 
         return $date;
     }
@@ -476,10 +484,30 @@ class CarbonInterval extends DateInterval
                     break;
             }
             switch ($unit === 'µs' ? 'µs' : strtolower($unit)) {
+                case 'millennia':
+                case 'millennium':
+                    $years += $intValue * CarbonInterface::YEARS_PER_MILLENNIUM;
+                    break;
+
+                case 'century':
+                case 'centuries':
+                    $years += $intValue * CarbonInterface::YEARS_PER_CENTURY;
+                    break;
+
+                case 'decade':
+                case 'decades':
+                    $years += $intValue * CarbonInterface::YEARS_PER_DECADE;
+                    break;
+
                 case 'year':
                 case 'years':
                 case 'y':
                     $years += $intValue;
+                    break;
+
+                case 'quarter':
+                case 'quarters':
+                    $months += $intValue * CarbonInterface::MONTHS_PER_QUARTER;
                     break;
 
                 case 'month':
@@ -619,7 +647,7 @@ class CarbonInterval extends DateInterval
         /** @var static $interval */
         $interval = static::createFromDateString($var);
 
-        return $interval->isEmpty() ? null : $interval;
+        return !$interval || $interval->isEmpty() ? null : $interval;
     }
 
     /**
@@ -633,12 +661,16 @@ class CarbonInterval extends DateInterval
      */
     public static function createFromDateString($time)
     {
-        $interval = parent::createFromDateString($time);
-        if ($interval instanceof DateInterval && !($interval instanceof static)) {
+        $interval = @parent::createFromDateString(strtr($time, [
+            ',' => ' ',
+            ' and ' => ' ',
+        ]));
+
+        if ($interval instanceof DateInterval) {
             $interval = static::instance($interval);
         }
 
-        return static::instance($interval);
+        return $interval;
     }
 
     ///////////////////////////////////////////////////////////////////
