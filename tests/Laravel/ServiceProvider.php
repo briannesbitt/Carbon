@@ -3,16 +3,19 @@ declare(strict_types=1);
 
 namespace Illuminate\Support;
 
+use Illuminate\Events\EventDispatcher;
+use Tests\Laravel\App;
+
 class ServiceProvider
 {
     /**
-     * @var \App
+     * @var App
      */
     public $app;
 
-    public function __construct()
+    public function __construct($dispatcher = null)
     {
-        include_once __DIR__.'/App.php';
-        $this->app = new \App();
+        $this->app = new App();
+        $this->app->setEventDispatcher($dispatcher ?: new EventDispatcher());
     }
 }
