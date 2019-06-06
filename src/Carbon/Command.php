@@ -28,19 +28,22 @@ class Command
             $this->colors = $colors;
         }
 
-        if (function_exists('readline_completion_function')) {
-            readline_completion_function(function ($start) {
-                if (is_array($this->currentCompletion)) {
-                    $length = strlen($start);
+        if (extension_loaded('readline') && function_exists('readline_completion_function')) {
+            readline_completion_function([$this, 'autocomplete']);
+        }
+    }
 
-                    return array_filter($this->currentCompletion, function ($suggestion) use ($length, $start) {
-                        return substr($suggestion, 0, $length) === $start;
-                    });
-                }
+    public function autocomplete(string $start = '')
+    {
+        if (is_array($this->currentCompletion)) {
+            $length = strlen($start);
 
-                return $this->currentCompletion ? $this->currentCompletion($start) : [];
+            return array_filter($this->currentCompletion, function ($suggestion) use ($length, $start) {
+                return substr($suggestion, 0, $length) === $start;
             });
         }
+
+        return $this->currentCompletion ? $this->currentCompletion($start) : [];
     }
 
     protected function colorize(string $text = '', string $color = null)
