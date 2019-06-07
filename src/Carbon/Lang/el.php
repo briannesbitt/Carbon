@@ -17,6 +17,7 @@
  * - Gabriel Monteagudo
  * - JD Isaacks
  * - yiannisdesp
+ * - Ilias Kasmeridis (iliaskasm)
  */
 return [
     'year' => ':count χρόνος|:count χρόνια',
