@@ -1389,7 +1389,7 @@ class CarbonInterval extends DateInterval
             $factor = -$factor;
         }
 
-        $yearPart = floor($this->years * $factor); // Split calculation to prevent imprecision
+        $yearPart = (int) floor($this->years * $factor); // Split calculation to prevent imprecision
 
         if ($yearPart) {
             $this->years -= $yearPart / $factor;
@@ -1411,7 +1411,7 @@ class CarbonInterval extends DateInterval
     /**
      * Divide and cascade current instance by a given divider.
      *
-     * @param float|int $factor
+     * @param float|int $divider
      *
      * @return $this
      */
