@@ -36,20 +36,20 @@ class StringsTest extends AbstractTestCase
         $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toISOString());
         $d = Carbon::create(21975, 12, 25, 14, 15, 16);
         $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toISOString());
-        $d = Carbon::create(-75, 12, 25, 19, 15, 16, 'UTC');
-        $this->assertSame('-000075-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertStringStartsWith('-000075-', $d->toISOString());
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T14:15:16.000000-05:00', $d->toISOString(true));
         $d = Carbon::create(21975, 12, 25, 14, 15, 16);
         $this->assertSame('+021975-12-25T14:15:16.000000-05:00', $d->toISOString(true));
         $d = Carbon::create(-75, 12, 25, 14, 15, 16);
-        $this->assertSame('-000075-12-25T14:15:16.000000-05:00', $d->toISOString(true));
+        $this->assertStringStartsWith('-000075-', $d->toISOString(true));
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toJSON());
         $d = Carbon::create(21975, 12, 25, 14, 15, 16);
         $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toJSON());
-        $d = Carbon::create(-75, 12, 25, 19, 15, 16, 'UTC');
-        $this->assertSame('-000075-12-25T19:15:16.000000Z', $d->toJSON());
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertStringStartsWith('-000075-', $d->toJSON());
         $d = Carbon::create(0);
         $this->assertNull($d->toISOString());
     }
