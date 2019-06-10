@@ -670,7 +670,7 @@ trait Date
     /**
      * Get a copy of the instance.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function copy()
     {
@@ -682,7 +682,7 @@ trait Date
      *
      * Get a copy of the instance.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function clone()
     {
@@ -692,7 +692,7 @@ trait Date
     /**
      * Returns a present instance in the same timezone.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function nowWithSameTz()
     {
@@ -728,7 +728,7 @@ trait Date
      *
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     protected function resolveCarbon($date = null)
     {
@@ -1237,7 +1237,7 @@ trait Date
      *
      * @param int|null $value new value for day of year if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function dayOfYear($value = null)
     {
@@ -1251,7 +1251,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function weekday($value = null)
     {
@@ -1265,7 +1265,7 @@ trait Date
      *
      * @param int|null $value new value for weekday if using as setter.
      *
-     * @return static|CarbonInterface|int
+     * @return static|int
      */
     public function isoWeekday($value = null)
     {
@@ -1281,13 +1281,13 @@ trait Date
      * @param int    $value        new value for the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
         try {
             $original = $this->copy();
-            /** @var CarbonInterface $date */
+            /** @var static $date */
             $date = $this->$valueUnit($value);
             $end = $original->copy()->endOf($overflowUnit);
             $start = $original->copy()->startOf($overflowUnit);
@@ -1310,7 +1310,7 @@ trait Date
      * @param int    $value        amount to add to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function addUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1324,7 +1324,7 @@ trait Date
      * @param int    $value        amount to subtract to the input unit
      * @param string $overflowUnit unit name to not overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function subUnitNoOverflow($valueUnit, $value, $overflowUnit)
     {
@@ -1336,7 +1336,7 @@ trait Date
      *
      * @param int|null $offset
      *
-     * @return int|static|CarbonInterface
+     * @return int|static
      */
     public function utcOffset(int $offset = null)
     {
@@ -1358,7 +1358,7 @@ trait Date
      * @param int $second
      * @param int $microseconds
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
@@ -1370,7 +1370,7 @@ trait Date
      *
      * @param string $time
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setTimeFromTimeString($time)
     {
@@ -1386,7 +1386,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function timezone($value)
     {
@@ -1398,7 +1398,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return CarbonInterface|string
+     * @return static|string
      */
     public function tz($value = null)
     {
@@ -1414,7 +1414,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function setTimezone($value)
     {
@@ -1432,7 +1432,7 @@ trait Date
      *
      * @param \DateTimeZone|string $value
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function shiftTimezone($value)
     {
@@ -1445,7 +1445,7 @@ trait Date
     /**
      * Set the instance's timezone to UTC.
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function utc()
     {
