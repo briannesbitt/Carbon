@@ -1323,7 +1323,15 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Multiply current instance given number of times
+     * Multiply current instance given number of times. times() is naive, it multiplies each unit
+     * (so day can be greater than 31, hour can be greater than 23, etc.) and the result is rounded
+     * separately for each unit.
+     *
+     * Use times() when you want a fast and approximated calculation that does not cascade units.
+     *
+     * For a precise and cascaded calculation,
+     *
+     * @see multiply()
      *
      * @param float|int $factor
      *
@@ -1345,6 +1353,71 @@ class CarbonInterval extends DateInterval
         $this->microseconds = (int) round($this->microseconds * $factor);
 
         return $this;
+    }
+
+    /**
+     * Divide current instance by a given divider. shares() is naive, it divides each unit separately
+     * and the result is rounded for each unit. So 5 hours and 20 minutes shared by 3 becomes 2 hours
+     * and 7 minutes.
+     *
+     * Use shares() when you want a fast and approximated calculation that does not cascade units.
+     *
+     * For a precise and cascaded calculation,
+     *
+     * @see divide()
+     *
+     * @param float|int $divider
+     *
+     * @return $this
+     */
+    public function shares($divider)
+    {
+        return $this->times(1 / $divider);
+    }
+
+    /**
+     * Multiply and cascade current instance by a given factor.
+     *
+     * @param float|int $factor
+     *
+     * @return $this
+     */
+    public function multiply($factor)
+    {
+        if ($factor < 0) {
+            $this->invert = $this->invert ? 0 : 1;
+            $factor = -$factor;
+        }
+
+        $yearPart = floor($this->years * $factor); // Split calculation to prevent imprecision
+
+        if ($yearPart) {
+            $this->years -= $yearPart / $factor;
+        }
+
+        $newInterval = static::__callStatic('years', [$yearPart])->microseconds($this->totalMicroseconds * $factor)->cascade();
+
+        $this->years = $newInterval->years;
+        $this->months = $newInterval->months;
+        $this->dayz = $newInterval->dayz;
+        $this->hours = $newInterval->hours;
+        $this->minutes = $newInterval->minutes;
+        $this->seconds = $newInterval->seconds;
+        $this->microseconds = $newInterval->microseconds;
+
+        return $this;
+    }
+
+    /**
+     * Divide and cascade current instance by a given divider.
+     *
+     * @param float|int $factor
+     *
+     * @return $this
+     */
+    public function divide($divider)
+    {
+        return $this->multiply(1 / $divider);
     }
 
     /**
