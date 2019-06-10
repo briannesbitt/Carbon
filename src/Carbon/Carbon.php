@@ -108,6 +108,8 @@ class Carbon extends DateTime implements JsonSerializable
     const HOURS_PER_DAY = 24;
     const MINUTES_PER_HOUR = 60;
     const SECONDS_PER_MINUTE = 60;
+    const MICROSECONDS_PER_MILLISECOND = 1000;
+    const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
      * RFC7231 DateTime format.
@@ -4243,6 +4245,69 @@ class Carbon extends DateTime implements JsonSerializable
     {
         $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
+
+        return $absolute ? abs($value) : $value;
+    }
+
+    /**
+     * Get the difference in milliseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMilliseconds($date = null, $absolute = true)
+    {
+        return (int) ($this->diffInMicroseconds($date, $absolute) / static::MICROSECONDS_PER_MILLISECOND);
+    }
+
+    /**
+     * Get the difference in milliseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInRealMilliseconds($date = null, $absolute = true)
+    {
+        return (int) ($this->diffInRealMicroseconds($date, $absolute) / static::MICROSECONDS_PER_MILLISECOND);
+    }
+
+    /**
+     * Get the difference in microseconds.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInMicroseconds($date = null, $absolute = true)
+    {
+        $diff = $this->diff($this->resolveCarbon($date));
+        $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
+            $diff->h) * static::MINUTES_PER_HOUR +
+            $diff->i) * static::SECONDS_PER_MINUTE +
+            ($diff->f + $diff->s)) * static::MICROSECONDS_PER_SECOND);
+
+        return $absolute || !$diff->invert ? $value : -$value;
+    }
+
+    /**
+     * Get the difference in microseconds using timestamps.
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param bool                                          $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInRealMicroseconds($date = null, $absolute = true)
+    {
+        /** @var Carbon $date */
+        $date = $this->resolveCarbon($date);
+        $value = ($date->timestamp - $this->timestamp) * static::MICROSECONDS_PER_SECOND +
+            $date->micro - $this->micro;
 
         return $absolute ? abs($value) : $value;
     }
