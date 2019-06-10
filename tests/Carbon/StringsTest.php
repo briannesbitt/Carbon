@@ -37,6 +37,10 @@ class StringsTest extends AbstractTestCase
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(21975, 12, 25, 14, 15, 16);
+        $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertSame('-000075-12-25T19:15:16.000000Z', $d->toISOString());
         $d = Carbon::create(0);
         $this->assertNull($d->toISOString());
     }
