@@ -38,10 +38,13 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(-23, $b->diffInRealHours($a, false));
         $this->assertSame(-23 * 60, $b->diffInRealMinutes($a, false));
         $this->assertSame(-23 * 60 * 60, $b->diffInRealSeconds($a, false));
-        $this->assertSame(-24 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
-        $this->assertSame(-23 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a, false));
-        $this->assertSame(-23 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
-        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+
+        if (version_compare(PHP_VERSION, '7.1.8-dev', '>=')) {
+            $this->assertSame(-24 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
+            $this->assertSame(-23 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a, false));
+            $this->assertSame(-23 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+            $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        }
 
         $a = new Carbon('2014-03-30 00:00:00', 'Europe/London');
         $b = $a->copy();
@@ -49,10 +52,14 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame(-24, $b->diffInRealHours($a, false));
         $this->assertSame(-24 * 60, $b->diffInRealMinutes($a, false));
         $this->assertSame(-24 * 60 * 60, $b->diffInRealSeconds($a, false));
-        $this->assertSame(-25 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
-        $this->assertSame(-24 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a, false));
-        $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
-        $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+
+        if (version_compare(PHP_VERSION, '7.1.8-dev', '>=')) {
+            $this->assertSame(-25 * 60 * 60 * 1000, $b->diffInMilliseconds($a, false));
+            $this->assertSame(-24 * 60 * 60 * 1000, $b->diffInRealMilliseconds($a, false));
+            $this->assertSame(-24 * 60 * 60 * 1000000, $b->diffInRealMicroseconds($a, false));
+            $this->assertSame(-25 * 60 * 60 * 1000000, $b->diffInMicroseconds($a, false));
+        }
+
         $this->assertSame(-25, $b->diffInHours($a, false));
         $b->subRealHours(24);
         $this->assertSame(0, $b->diffInRealHours($a, false));

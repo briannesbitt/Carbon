@@ -4286,10 +4286,11 @@ class Carbon extends DateTime implements JsonSerializable
     public function diffInMicroseconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
+        $micro = isset($diff->f) ? $diff->f : 0;
         $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
-            ($diff->f + $diff->s)) * static::MICROSECONDS_PER_SECOND);
+            ($micro + $diff->s)) * static::MICROSECONDS_PER_SECOND);
 
         return $absolute || !$diff->invert ? $value : -$value;
     }
@@ -4465,6 +4466,233 @@ class Carbon extends DateTime implements JsonSerializable
         }
 
         return static::translator()->trans($transId, array(':time' => $time));
+    }
+
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale.
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * @param Carbon|null $other
+     * @param bool        $absolute removes time difference modifiers ago, after, etc
+     * @param bool        $short    displays short format of time units
+     * @param int         $parts    displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function from($other = null, $absolute = false, $short = false, $parts = 1)
+    {
+        return $this->diffForHumans($other, $absolute, $short, $parts);
+    }
+
+    /**
+     * @alias diffForHumans
+     *
+     * Get the difference in a human readable format in the current locale.
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * @param Carbon|null $other
+     * @param bool        $absolute removes time difference modifiers ago, after, etc
+     * @param bool        $short    displays short format of time units
+     * @param int         $parts    displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function since($other = null, $absolute = false, $short = false, $parts = 1)
+    {
+        return $this->diffForHumans($other, $absolute, $short, $parts);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     *
+     * When comparing a value in the past to default now:
+     * 1 hour from now
+     * 5 months from now
+     *
+     * When comparing a value in the future to default now:
+     * 1 hour ago
+     * 5 months ago
+     *
+     * When comparing a value in the past to another value:
+     * 1 hour after
+     * 5 months after
+     *
+     * When comparing a value in the future to another value:
+     * 1 hour before
+     * 5 months before
+     *
+     * @param Carbon|null $other
+     * @param bool        $absolute removes time difference modifiers ago, after, etc
+     * @param bool        $short    displays short format of time units
+     * @param int         $parts    displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function to($other = null, $absolute = false, $short = false, $parts = 1)
+    {
+        return $this->resolveCarbon($other)->diffForHumans($this, $absolute, $short, $parts);
+    }
+
+    /**
+     * @alias to
+     *
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given (or now if null given) to current instance.
+     *
+     * @param Carbon|null $other
+     * @param bool        $absolute removes time difference modifiers ago, after, etc
+     * @param bool        $short    displays short format of time units
+     * @param int         $parts    displays number of parts in the interval
+     *
+     * @return string
+     */
+    public function until($other = null, $absolute = false, $short = false, $parts = 1)
+    {
+        return $this->to($other, $absolute, $short, $parts);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from current
+     * instance to now.
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single unit)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function fromNow($syntax = null, $short = false, $parts = 1, $options = null)
+    {
+        $other = null;
+
+        if ($syntax instanceof DateTimeInterface) {
+            list($other, $syntax, $short, $parts, $options) = array_pad(func_get_args(), 5, null);
+        }
+
+        return $this->from($other, $syntax, $short, $parts, $options);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function toNow($syntax = null, $short = false, $parts = 1, $options = null)
+    {
+        return $this->to(null, $syntax, $short, $parts, $options);
+    }
+
+    /**
+     * Get the difference in a human readable format in the current locale from an other
+     * instance given to now
+     *
+     * @param int|array $syntax  if array passed, parameters will be extracted from it, the array may contains:
+     *                           - 'syntax' entry (see below)
+     *                           - 'short' entry (see below)
+     *                           - 'parts' entry (see below)
+     *                           - 'options' entry (see below)
+     *                           - 'join' entry determines how to join multiple parts of the string
+     *                           `  - if $join is a string, it's used as a joiner glue
+     *                           `  - if $join is a callable/closure, it get the list of string and should return a string
+     *                           `  - if $join is an array, the first item will be the default glue, and the second item
+     *                           `    will be used instead of the glue for the last item
+     *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
+     *                           `  - if $join is missing, a space will be used as glue
+     *                           if int passed, it add modifiers:
+     *                           Possible values:
+     *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_NOW   add ago/from now modifier
+     *                           - CarbonInterface::DIFF_RELATIVE_TO_OTHER add before/after modifier
+     *                           Default value: CarbonInterface::DIFF_ABSOLUTE
+     * @param bool      $short   displays short format of time units
+     * @param int       $parts   maximum number of parts to display (default value: 1: single part)
+     * @param int       $options human diff options
+     *
+     * @return string
+     */
+    public function ago($syntax = null, $short = false, $parts = 1, $options = null)
+    {
+        $other = null;
+
+        if ($syntax instanceof DateTimeInterface) {
+            list($other, $syntax, $short, $parts, $options) = array_pad(func_get_args(), 5, null);
+        }
+
+        return $this->from($other, $syntax, $short, $parts, $options);
     }
 
     ///////////////////////////////////////////////////////////////////
