@@ -26,7 +26,7 @@ class Mixin
         };
     }
 
-    public function multiply()
+    public function doMultiply()
     {
         $mixin = $this;
 

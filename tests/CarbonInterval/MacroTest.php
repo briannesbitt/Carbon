@@ -126,6 +126,6 @@ class MacroTest extends AbstractTestCaseWithOldNow
         /** @var mixed $interval */
         $interval = CarbonInterval::hours(2);
 
-        $this->assertSame('6 hours', $interval->multiply()->forHumans());
+        $this->assertSame('6 hours', $interval->doMultiply()->forHumans());
     }
 }
