@@ -18,10 +18,40 @@ use Tests\Carbon\Fixtures\MyCarbon;
 
 class StringsTest extends AbstractTestCase
 {
-    public function testToString()
+    public function testToStringCast()
     {
         $d = Carbon::now();
         $this->assertSame(Carbon::now()->toDateTimeString(), ''.$d);
+    }
+
+    public function testToString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('Thu Dec 25 1975 14:15:16 GMT-0500', $d->toString());
+    }
+
+    public function testToISOString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(21975, 12, 25, 14, 15, 16);
+        $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertSame('-000075-12-25T19:15:16.000000Z', $d->toISOString());
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T14:15:16.000000-05:00', $d->toISOString(true));
+        $d = Carbon::create(21975, 12, 25, 14, 15, 16);
+        $this->assertSame('+021975-12-25T14:15:16.000000-05:00', $d->toISOString(true));
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertSame('-000075-12-25T14:15:16.000000-05:00', $d->toISOString(true));
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T19:15:16.000000Z', $d->toJSON());
+        $d = Carbon::create(21975, 12, 25, 14, 15, 16);
+        $this->assertSame('+021975-12-25T19:15:16.000000Z', $d->toJSON());
+        $d = Carbon::create(-75, 12, 25, 14, 15, 16);
+        $this->assertSame('-000075-12-25T19:15:16.000000Z', $d->toJSON());
+        $d = Carbon::create(0);
+        $this->assertNull($d->toISOString());
     }
 
     public function testSetToStringFormatString()
@@ -64,6 +94,12 @@ class StringsTest extends AbstractTestCase
     {
         $d = Carbon::create(1975, 12, 25, 14, 15, 16);
         $this->assertSame('1975-12-25', $d->toDateString());
+    }
+
+    public function testToDateTimeLocalString()
+    {
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $this->assertSame('1975-12-25T14:15:16', $d->toDateTimeLocalString());
     }
 
     public function testToFormattedDateString()

@@ -1918,6 +1918,21 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Format the instance as date and time T-separated with no timezone
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toDateTimeLocalString();
+     * ```
+     *
+     * @return string
+     */
+    public function toDateTimeLocalString()
+    {
+        return $this->format('Y-m-d\TH:i:s');
+    }
+
+    /**
      * Format the instance with day, date and time
      *
      * @return string
@@ -2080,6 +2095,112 @@ class Carbon extends DateTime implements JsonSerializable
             'formatted' => $this->format(self::DEFAULT_TO_STRING_FORMAT),
             'timezone' => $this->timezone,
         );
+    }
+
+    /**
+     * Get default object representation.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toObject());
+     * ```
+     *
+     * @return object
+     */
+    public function toObject()
+    {
+        return (object) $this->toArray();
+    }
+
+    /**
+     * Returns english human readable complete date string.
+     *
+     * @example
+     * ```
+     * echo Carbon::now()->toString();
+     * ```
+     *
+     * @return string
+     */
+    public function toString()
+    {
+        return $this->format('D M j Y H:i:s \G\M\TO');
+    }
+
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z, if $keepOffset truthy, offset will be kept:
+     * 1977-04-22T01:00:00-05:00).
+     *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toISOString() . "\n";
+     * echo Carbon::now('America/Toronto')->toISOString(true) . "\n";
+     * ```
+     *
+     * @param bool $keepOffset Pass true to keep the date offset. Else forced to UTC.
+     *
+     * @return null|string
+     */
+    public function toISOString($keepOffset = false)
+    {
+        if ($this->year === 0) {
+            return null;
+        }
+
+        $year = $this->year < 0 || $this->year > 9999
+            ? ($this->year < 0 ? '-' : '+').str_pad(abs($this->year), 6, '0', STR_PAD_LEFT)
+            : str_pad($this->year, 4, '0', STR_PAD_LEFT);
+        $tz = $keepOffset ? $this->format('P') : 'Z';
+        $date = $keepOffset ? $this : $this->copy()->setTimezone('UTC');
+
+        return $year.$date->format('-m-d\TH:i:s.u').$tz;
+    }
+
+    /**
+     * Return the ISO-8601 string (ex: 1977-04-22T06:00:00Z) with UTC timezone.
+     *
+     * @example
+     * ```
+     * echo Carbon::now('America/Toronto')->toJSON();
+     * ```
+     *
+     * @return null|string
+     */
+    public function toJSON()
+    {
+        return $this->toISOString();
+    }
+
+    /**
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDateTime());
+     * ```
+     *
+     * @return DateTime
+     */
+    public function toDateTime()
+    {
+        return new DateTime($this->format('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
+     * @alias toDateTime
+     *
+     * Return native DateTime PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDate());
+     * ```
+     *
+     * @return DateTime
+     */
+    public function toDate()
+    {
+        return $this->toDateTime();
     }
 
     ///////////////////////////////////////////////////////////////////
