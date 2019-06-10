@@ -2,9 +2,9 @@ parameters:
     ignoreErrors:
         - '#^Call to an undefined static method#'
         - '#^Static call to instance method#'
-        - '#^Method Carbon\\Carbon(Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Call to an undefined method Carbon\\CarbonInterface::isUTC\(\)\.$#'
-        - '#^Call to an undefined method Carbon\\CarbonInterface::unknownUnitsUntil\(\)\.$#'
+        - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
+        - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::isUTC\(\)\.$#'
+        - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::unknownUnitsUntil\(\)\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Laravel/*.php'
