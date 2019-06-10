@@ -21,7 +21,7 @@ class ArraysTest extends AbstractTestCase
         $dt = Carbon::now();
         $dtToObject = $dt->toObject();
 
-        $this->assertInstanceOf(\stdClass::class, $dtToObject);
+        $this->assertInstanceOf('stdClass', $dtToObject);
 
         $this->assertObjectHasAttribute('year', $dtToObject);
         $this->assertSame($dt->year, $dtToObject->year);
