@@ -58,6 +58,20 @@ class MacroTest extends AbstractTestCase
         $this->assertSame(123, CarbonPeriod::create()->foobar());
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method foobar does not exist.
+     */
+    public function testResetMacros()
+    {
+        CarbonPeriod::macro('foobar', function () {
+            return 42;
+        });
+        CarbonPeriod::resetMacros();
+
+        CarbonPeriod::create()->foobar();
+    }
+
     public function testPassPeriodInstanceAfterOptionalParameters()
     {
         CarbonPeriod::macro('formatStartDate', function ($format = 'l, j F Y', $self = null) {

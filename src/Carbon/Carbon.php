@@ -5298,6 +5298,14 @@ class Carbon extends DateTime implements JsonSerializable
     }
 
     /**
+     * Remove all macros.
+     */
+    public static function resetMacros()
+    {
+        static::$localMacros = array();
+    }
+
+    /**
      * Mix another object into the class.
      *
      * @param object $mixin

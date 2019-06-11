@@ -60,6 +60,16 @@ class MacroTest extends AbstractTestCase
         $this->assertTrue(CarbonInterval::day()->otherParameterName());
     }
 
+    public function testResetMacros()
+    {
+        CarbonInterval::macro('twice', function () {
+            return 42;
+        });
+        CarbonInterval::resetMacros();
+
+        $this->assertSame('1 day', CarbonInterval::day()->twice()->forHumans());
+    }
+
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
         $this->requirePhpVersion('5.4.0');

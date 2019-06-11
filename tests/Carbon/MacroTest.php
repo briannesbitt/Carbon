@@ -78,6 +78,20 @@ class MacroTest extends AbstractTestCase
         $this->assertTrue($this->now->otherParameterName());
     }
 
+    /**
+     * @expectedException \BadMethodCallException
+     * @expectedExceptionMessage Method diffFromEaster does not exist.
+     */
+    public function testResetMacros()
+    {
+        Carbon::macro('diffFromEaster', function () {
+            return 42;
+        });
+        Carbon::resetMacros();
+
+        $this->now->diffFromEaster();
+    }
+
     public function testCarbonIsMacroableWhenNotCalledStaticallyUsingThis()
     {
         $this->requirePhpVersion('5.4.0');
