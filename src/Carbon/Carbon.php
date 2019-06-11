@@ -4588,9 +4588,9 @@ class Carbon extends DateTime implements JsonSerializable
      * Get the difference in a human readable format in the current locale from current
      * instance to now.
      *
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
+     * @param bool $absolute removes time difference modifiers ago, after, etc
+     * @param bool $short    displays short format of time units
+     * @param int  $parts    displays number of parts in the interval
      *
      * @return string
      */
@@ -4609,9 +4609,9 @@ class Carbon extends DateTime implements JsonSerializable
      * Get the difference in a human readable format in the current locale from an other
      * instance given to now
      *
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
+     * @param bool $absolute removes time difference modifiers ago, after, etc
+     * @param bool $short    displays short format of time units
+     * @param int  $parts    displays number of parts in the interval
      *
      * @return string
      */
@@ -4624,9 +4624,9 @@ class Carbon extends DateTime implements JsonSerializable
      * Get the difference in a human readable format in the current locale from an other
      * instance given to now
      *
-     * @param bool        $absolute removes time difference modifiers ago, after, etc
-     * @param bool        $short    displays short format of time units
-     * @param int         $parts    displays number of parts in the interval
+     * @param bool $absolute removes time difference modifiers ago, after, etc
+     * @param bool $short    displays short format of time units
+     * @param int  $parts    displays number of parts in the interval
      *
      * @return string
      */
