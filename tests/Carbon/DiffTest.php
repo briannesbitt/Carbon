@@ -1465,6 +1465,8 @@ class DiffTest extends AbstractTestCase
 
     public function testFromNowBackwardCompatibleSyntax()
     {
+        $this->requirePhpVersion('5.5.0');
+
         Carbon::setLocale('en');
 
         $date = Carbon::parse('-5 days');
@@ -1534,6 +1536,8 @@ class DiffTest extends AbstractTestCase
 
     public function testAgo()
     {
+        $this->requirePhpVersion('5.5.0');
+
         Carbon::setLocale('en');
         $this->assertSame('2 days ago', Carbon::now()->subDays(2)->ago());
         $this->assertSame('2 days after', Carbon::now()->addDay()->ago(Carbon::now()->subDay()));
