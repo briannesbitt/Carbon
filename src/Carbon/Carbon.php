@@ -68,6 +68,10 @@ class Carbon extends DateTime implements JsonSerializable
     const ONE_DAY_WORDS = 04;
     const TWO_DAY_WORDS = 010;
 
+    // Substitutes for Carbon 2 modes
+    const DIFF_RELATIVE_TO_NOW = 'relative-to-now';
+    const DIFF_RELATIVE_TO_OTHER = 'relative-to-other';
+
     /**
      * The day constants.
      */
@@ -4362,6 +4366,16 @@ class Carbon extends DateTime implements JsonSerializable
     public function diffForHumans($other = null, $absolute = false, $short = false, $parts = 1)
     {
         $isNow = $other === null;
+        $relativeToNow = $isNow;
+
+        if ($absolute === static::DIFF_RELATIVE_TO_NOW) {
+            $absolute = false;
+            $relativeToNow = true;
+        } elseif ($absolute === static::DIFF_RELATIVE_TO_OTHER) {
+            $absolute = false;
+            $relativeToNow = false;
+        }
+
         $interval = array();
 
         $parts = min(6, max(1, (int) $parts));
@@ -4439,7 +4453,7 @@ class Carbon extends DateTime implements JsonSerializable
 
         $isFuture = $diffInterval->invert === 1;
 
-        $transId = $isNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
+        $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
         if ($parts === 1) {
             if ($isNow && $unit === 'day') {
@@ -4498,6 +4512,10 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function from($other = null, $absolute = false, $short = false, $parts = 1)
     {
+        if (!$other && !$absolute) {
+            $absolute = static::DIFF_RELATIVE_TO_NOW;
+        }
+
         return $this->diffForHumans($other, $absolute, $short, $parts);
     }
 
@@ -4563,6 +4581,10 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function to($other = null, $absolute = false, $short = false, $parts = 1)
     {
+        if (!$other && !$absolute) {
+            $absolute = static::DIFF_RELATIVE_TO_NOW;
+        }
+
         return $this->resolveCarbon($other)->diffForHumans($this, $absolute, $short, $parts);
     }
 

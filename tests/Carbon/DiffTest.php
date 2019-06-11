@@ -1459,6 +1459,7 @@ class DiffTest extends AbstractTestCase
         Carbon::setLocale('fr');
         $this->assertSame('dans 2 jours', Carbon::now('UTC')->addDays(2)->fromNow());
         Carbon::setLocale('en');
+        $this->assertSame('2 days after', Carbon::now('UTC')->addDays(2)->fromNow(Carbon::DIFF_RELATIVE_TO_OTHER));
         $this->assertSame('2d from now', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(null, true));
         $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->fromNow(true, false, 2));
     }
@@ -1485,6 +1486,7 @@ class DiffTest extends AbstractTestCase
         Carbon::setLocale('fr');
         $this->assertSame('2 jours après', Carbon::now()->addDay()->from(Carbon::now()->subDay()));
         Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDay()->from(Carbon::now()->subDay(), Carbon::DIFF_RELATIVE_TO_NOW));
         $this->assertSame('2d after', Carbon::now()->addDay()->addHours(5)->from(Carbon::now()->subDay(), null, true));
         $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->from(Carbon::now()->subDay(), true, false, 2));
     }
@@ -1498,6 +1500,7 @@ class DiffTest extends AbstractTestCase
         Carbon::setLocale('fr');
         $this->assertSame('2 jours après', Carbon::now()->addDay()->since(Carbon::now()->subDay()));
         Carbon::setLocale('en');
+        $this->assertSame('2 days from now', Carbon::now()->addDay()->since(Carbon::now()->subDay(), Carbon::DIFF_RELATIVE_TO_NOW));
         $this->assertSame('2d after', Carbon::now()->addDay()->addHours(5)->since(Carbon::now()->subDay(), null, true));
         $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->since(Carbon::now()->subDay(), true, false, 2));
     }
@@ -1505,14 +1508,12 @@ class DiffTest extends AbstractTestCase
     public function testToNow()
     {
         Carbon::setLocale('en');
-        // /!\ With Carbon 2, it will become: 2 days ago
-        $this->assertSame('2 days before', Carbon::now('UTC')->addDays(2)->toNow());
+        $this->assertSame('2 days ago', Carbon::now('UTC')->addDays(2)->toNow());
         Carbon::setLocale('fr');
-        // /!\ With Carbon 2, it will become: il y a 2 jours
-        $this->assertSame('2 jours avant', Carbon::now('UTC')->addDays(2)->toNow());
+        $this->assertSame('il y a 2 jours', Carbon::now('UTC')->addDays(2)->toNow());
         Carbon::setLocale('en');
-        // /!\ With Carbon 2, it will become: 2d ago
-        $this->assertSame('2d before', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(null, true));
+        $this->assertSame('2 days before', Carbon::now('UTC')->addDays(2)->toNow(Carbon::DIFF_RELATIVE_TO_OTHER));
+        $this->assertSame('2d ago', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(null, true));
 
         $this->assertSame('2 days 5 hours', Carbon::now('UTC')->addDays(2)->addHours(5)->toNow(true, false, 2));
     }
@@ -1520,16 +1521,13 @@ class DiffTest extends AbstractTestCase
     public function testTo()
     {
         Carbon::setLocale('en');
-        // /!\ With Carbon 2, it will become: 2 days ago
-        $this->assertSame('2 days before', Carbon::now()->addDays(2)->to());
-
-        // /!\ With Carbon 2, it will become: 2 days ago
-        $this->assertSame('2 days before', Carbon::now()->addDays(2)->to(null));
-
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->to());
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->to(null));
         $this->assertSame('2 days before', Carbon::now()->addDay()->to(Carbon::now()->subDay()));
         Carbon::setLocale('fr');
         $this->assertSame('2 jours avant', Carbon::now()->addDay()->to(Carbon::now()->subDay()));
         Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDay()->to(Carbon::now()->subDay(), Carbon::DIFF_RELATIVE_TO_NOW));
         $this->assertSame('2d before', Carbon::now()->addDay()->addHours(5)->to(Carbon::now()->subDay(), null, true));
         $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->to(Carbon::now()->subDay(), true, false, 2));
     }
@@ -1546,15 +1544,13 @@ class DiffTest extends AbstractTestCase
     public function testUntil()
     {
         Carbon::setLocale('en');
-        // /!\ With Carbon 2, it will become: 2 days ago
-        $this->assertSame('2 days before', Carbon::now()->addDays(2)->until());
-        // /!\ With Carbon 2, it will become: 2 days ago
-        $this->assertSame('2 days before', Carbon::now()->addDays(2)->until(null));
-
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->until());
+        $this->assertSame('2 days ago', Carbon::now()->addDays(2)->until(null));
         $this->assertSame('2 days before', Carbon::now()->addDay()->until(Carbon::now()->subDay()));
         Carbon::setLocale('fr');
         $this->assertSame('2 jours avant', Carbon::now()->addDay()->until(Carbon::now()->subDay()));
         Carbon::setLocale('en');
+        $this->assertSame('2 days ago', Carbon::now()->addDay()->until(Carbon::now()->subDay(), Carbon::DIFF_RELATIVE_TO_NOW));
         $this->assertSame('2d before', Carbon::now()->addDay()->addHours(5)->until(Carbon::now()->subDay(), null, true));
         $this->assertSame('2 days 5 hours', Carbon::now()->addDay()->addHours(5)->until(Carbon::now()->subDay(), true, false, 2));
     }
