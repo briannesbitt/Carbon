@@ -253,7 +253,7 @@ trait Converter
      */
     public function toIso8601String()
     {
-        return $this->toAtomString();
+        return $this->rawFormat(DateTime::ISO8601);
     }
 
     /**
