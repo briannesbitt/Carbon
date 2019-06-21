@@ -19,7 +19,7 @@ I encountered an issue with the following code:
 echo Carbon::parse('2018-06-01')->subDay()->month;
 ```
 
-Carbon version: **PUT HERE YOUR COMPOSER CARBON VERSION**
+Carbon version: **PUT HERE YOUR CARBON VERSION (exact version, not the range)**
 
 PHP version: **PUT HERE YOUR PHP VERSION**
 
