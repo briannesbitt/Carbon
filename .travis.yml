@@ -58,15 +58,21 @@ matrix:
       env: setup=stable
 
     - php: 5.4
+      dist: trusty
     - php: 5.4
+      dist: trusty
       env: setup=lowest
     - php: 5.4
+      dist: trusty
       env: setup=stable
 
     - php: 5.5
+      dist: trusty
     - php: 5.5
+      dist: trusty
       env: setup=lowest
     - php: 5.5
+      dist: trusty
       env: setup=stable
 
     - php: 5.6.0
