@@ -4125,7 +4125,7 @@ class Carbon extends DateTime implements JsonSerializable
 
         $period = new DatePeriod($start, $ci, $end);
         $values = array_filter(iterator_to_array($period), function ($date) use ($callback) {
-            return call_user_func($callback, Carbon::instance($date));
+            return call_user_func($callback, self::instance($date));
         });
 
         $diff = count($values);
@@ -4143,7 +4143,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function diffInWeekdays($date = null, $absolute = true)
     {
-        return $this->diffInDaysFiltered(function (Carbon $date) {
+        return $this->diffInDaysFiltered(function (self $date) {
             return $date->isWeekday();
         }, $date, $absolute);
     }
@@ -4158,7 +4158,7 @@ class Carbon extends DateTime implements JsonSerializable
      */
     public function diffInWeekendDays($date = null, $absolute = true)
     {
-        return $this->diffInDaysFiltered(function (Carbon $date) {
+        return $this->diffInDaysFiltered(function (self $date) {
             return $date->isWeekend();
         }, $date, $absolute);
     }
