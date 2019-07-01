@@ -589,6 +589,19 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Creates a CarbonInterval from string using a different locale.
+     *
+     * @param string $interval
+     * @param string $locale
+     *
+     * @return static
+     */
+    public static function parseFromLocale($interval, $locale)
+    {
+        return static::fromString(Carbon::translateTimeString($interval, $locale, 'en'));
+    }
+
+    /**
      * Create a CarbonInterval instance from a DateInterval one.  Can not instance
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
