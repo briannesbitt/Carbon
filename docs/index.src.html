@@ -3016,11 +3016,11 @@ Carbon::serializeUsing(null);
 
     <h1 id="api-macro">Macro</h1>
 
-    <p>You may be familiar with the macro concept if you are used to work with Laravel and objects such as <a
+    <p>You may be familiar with the macro concept if you are used to working with Laravel and objects such as <a
             href="https://laravel.com/docs/5.6/responses#response-macros">response</a> or <a
             href="https://laravel.com/docs/5.6/collections#extending-collections">collections</a>. The Carbon <code>macro()</code>
-        works the exact same way than the Laravel MacroableTrait one, it take a method name as first argument and a
-        closure as second. This make the closure action available on all Carbon instance (and also as Carbon static
+        works the exact same way as the Laravel MacroableTrait one, it takes a method name as first argument and a
+        closure as second. This will make the closure action available on all Carbon instances (and also as a Carbon static
         method) as a method with the given name.</p>
 
     <p>
@@ -3109,11 +3109,12 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>Macro starting with <code>get</code> followed by an uppercase letter will automatically provide a dynamic
-        getter, and same for <code>set</code> providing a dynamic setter:</p>
+    <p>A macro starting with <code>get</code> followed by an uppercase letter will automatically provide a dynamic
+        getter whilst a macro starting with <code>set</code> and followed by an uppercase letter will provide a dynamic setter:</p>
 
     <p>
-    <pre class="live-editor"><code class="php">{{::lint(// Let say a school year start 5 months before, so school year 2018 is august 2017 to july 2018,
+
+    <pre class="live-editor"><code class="php">{{::lint(// Let's say a school year starts 5 months before the start of the year, so the school year of 2018 actually begins in August 2017 and ends in July 2018,
 // Then you can create get/set method this way:
 Carbon::macro('setSchoolYear', function ($schoolYear) {
     $this->year = $schoolYear;
@@ -3130,7 +3131,7 @@ Carbon::macro('getSchoolYear', function () {
 return $schoolYear;
 });
 // This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
-// getter and setter for the ->schoolYear property
+// the getter and setter methods for the ->schoolYear property.
 
 $date = Carbon::parse('2016-06-01');
 )}}
@@ -3414,9 +3415,9 @@ Carbon::setUserTimezone('America/Toronto');
     <p><em>Credit: <a href="https://github.com/thiagocordeiro">thiagocordeiro</a> (<a
             href="https://github.com/briannesbitt/Carbon/pull/927">#927</a>).</em></p>
 
-    <p>Macro is the recommended way to add method/behavior to Carbon. But you can still go further by extending the
-        class (at you own risk). If you take this path, we provide some override tools for main methods (parse,
-        format and createFromFormat).
+    <p>Whilst using a macro is the recommended way to add new methods or behaviour to Carbon,
+        you can go further and extend the class itself which allows some alternative ways to
+        override the primary methods; parse, format and createFromFormat.
     </p>
 
     <p>
