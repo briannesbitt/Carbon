@@ -13,7 +13,6 @@ addons:
       - language-pack-sr
       - language-pack-zh-hans
       - language-pack-zh-hant
-      - language-pack-yo
 
 env:
   global:
