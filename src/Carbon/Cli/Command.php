@@ -1,8 +1,8 @@
 <?php
 
-namespace Carbon;
+namespace Carbon\Cli;
 
-class Command
+abstract class Command
 {
     protected $colors = [
         'black' => '0;30',
@@ -37,6 +37,8 @@ class Command
     protected $lastText = '';
 
     protected $currentCompletion = null;
+
+    abstract public function getCommands(): array;
 
     public function __construct(array $colors = null, array $backgrounds = null)
     {
@@ -129,8 +131,8 @@ class Command
         $this->write("\r$text", $color);
     }
 
-    public function __invoke(...$parameters)
+    public function __invoke($command = 'list', ...$parameters)
     {
-        var_dump($parameters);
+
     }
 }

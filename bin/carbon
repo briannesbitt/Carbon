@@ -16,10 +16,6 @@ if (!file_exists($dir.'/autoload.php')) {
     exit(1);
 }
 
-$composerInstalled = false;
-
 include $dir.'/autoload.php';
 
-(new \Carbon\Command())(...array_slice($argv, 1));
-
-exit(0);
+exit((new \Carbon\Cli\CarbonCommand())(...array_slice($argv, 1)) ? 0 : 1);
