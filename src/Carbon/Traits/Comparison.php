@@ -22,6 +22,7 @@ use InvalidArgumentException;
  *
  * Depends on the following methods:
  *
+ * @method CarbonInterface        resolveCarbon($date)
  * @method CarbonInterface        copy()
  * @method CarbonInterface        nowWithSameTz()
  * @method static CarbonInterface yesterday($timezone = null)
@@ -224,6 +225,9 @@ trait Comparison
      */
     public function between($date1, $date2, $equal = true): bool
     {
+        $date1 = $this->resolveCarbon($date1);
+        $date2 = $this->resolveCarbon($date2);
+
         if ($date1->greaterThan($date2)) {
             $temp = $date1;
             $date1 = $date2;
