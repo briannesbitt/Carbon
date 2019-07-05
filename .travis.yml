@@ -1,5 +1,3 @@
-dist: xenial
-
 language: php
 
 cache:
@@ -49,14 +47,6 @@ install:
   - |
     if [[ $setup = 'lowest' ]]; then
         travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
-    fi
-  - |
-    if [[ $laravel = 'true' ]]; then
-      phpenv config-rm xdebug.ini || true
-      echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-      printf "\n" | pecl install -f redis-4.3.0
-      travis_retry composer self-update
-      mysql -e 'CREATE DATABASE forge;'
     fi
 
 script:
