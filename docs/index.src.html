@@ -3618,15 +3618,30 @@ $carbonInterval = CarbonInterval::month();
 </code></pre>
     </p>
 
-    <p>Natively <code>DateInterval</code> add and multiply units separately, so:</p>
+    <p>The add, sub (or subtract), times, shares, multiply and divide methods allow to do proceed intervals
+        calculations:</p>
 
     <p>
     <pre><code class="php">{{::lint(
 $interval = CarbonInterval::make('7h 55m');
 $interval->add(CarbonInterval::make('17h 35m'));
+$interval->subtract(10, 'minutes');
+// add(), sub() and subtract() can take DateInterval, CarbonInterval, interval as string or 2 arguments factor and unit
 $interval->times(3);
 )}}
-{{::exec(echo $interval->forHumans();)}} // {{eval}}
+{{::exec(echo $interval->forHumans();/*pad(66)*/)}} // {{eval}}
+echo "\n";
+{{::lint(
+$interval->shares(7);
+)}}
+{{::exec(echo $interval->forHumans();/*pad(66)*/)}} // {{eval}}
+echo "\n";
+// As you can see add(), times() and shares() operate naively a rounded calculation on each unit
+
+// You also can use multiply() of divide() to cascade units and get precise calculation:
+{{::exec(echo CarbonInterval::make('19h 55m')->multiply(3)->forHumans();/*pad(66)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo CarbonInterval::make('19h 55m')->divide(3)->forHumans();/*pad(66)*/)}} // {{eval}}
 </code></pre>
     </p>
 
