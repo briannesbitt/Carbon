@@ -1922,6 +1922,13 @@ $dt->isSunday();
 $dt->isDayOfWeek(Carbon::SATURDAY); // is a saturday
 $dt->isLastOfMonth(); // is the last day of the month
 
+$dt->is('Sunday');
+$dt->is('June');
+$dt->is('2019');
+$dt->is('12:23');
+$dt->is('2 June 2019');
+$dt->is('06-02');
+
 $dt->isSameDay($dt2); // Same day of same month of same year
 $dt->isCurrentDay();
 $dt->isYesterday();
@@ -2734,6 +2741,11 @@ echo "\n";
     <p>The only one slightly different is the <code>average()</code> function. It moves your instance to the middle date
         between itself and the provided Carbon argument.</p>
 
+    <p>The powerful native <a href="https://www.php.net/manual/en/datetime.modify.php" target="_blank"><code>modify()</code>
+        method of <code>DateTime</code></a> is available untouched. But we also provide an enhanced version of it:
+        <code>change()</code> that allows some additional syntax like <code>"next 3pm"</code> and that is called
+        internally by <code>->next()</code> and <code>->previous()</code>.</p>
+
     <p>
     <pre><code class="php">{{::lint($dt = new Carbon('2012-01-31 15:32:45.654321');)}}
 {{::exec(echo $dt->startOfSecond()->format('s.u');/*pad(50)*/)}} // {{eval}}
@@ -2810,6 +2822,10 @@ echo "\n";
 {{::lint($dt = Carbon::create(2012, 1, 31, 12, 0, 0);)}}
 {{::exec(echo $dt->next(Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
 {{::exec(var_dump($dt->dayOfWeek == Carbon::WEDNESDAY);/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->next('Wednesday');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->next('04:00');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->next('12:00');/*pad(50)*/)}} // {{eval}}
+{{::exec(echo $dt->next('04:00');/*pad(50)*/)}} // {{eval}}
 
 {{::lint($dt = Carbon::create(2012, 1, 1, 12, 0, 0);)}}
 {{::exec(echo $dt->next();/*pad(50)*/)}} // {{eval}}
@@ -3622,7 +3638,7 @@ $carbonInterval = CarbonInterval::month();
         calculations:</p>
 
     <p>
-    <pre><code class="php">{{::lint(
+    <pre class="live-editor"><code class="php">{{::lint(
 $interval = CarbonInterval::make('7h 55m');
 $interval->add(CarbonInterval::make('17h 35m'));
 $interval->subtract(10, 'minutes');
