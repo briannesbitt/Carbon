@@ -3340,11 +3340,11 @@ Carbon::macro('easterDate', function ($year) {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('range', function ($startDate, $endDate) {
+Carbon::macro('datePeriod', function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 });
 )}}
-{{::exec(foreach (Carbon::range(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
+{{::exec(foreach (Carbon::datePeriod(Carbon::createMidnightDate(2019, 3, 28), Carbon::createMidnightDate(2019, 4, 3)) as $date) {
     echo "$date\n";
 })}}
 /*
@@ -3768,6 +3768,31 @@ $period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
 $period = CarbonPeriod::since('2018-04-21')->days(3)->until('2018-04-27');
 // Start from a CarbonInterval:
 $period = CarbonInterval::days(3)->toPeriod('2018-04-21', '2018-04-27');
+// toPeriod can also be called from a Carbon or CarbonImmutable instance:
+$period = Carbon::parse('2018-04-21')->toPeriod('2018-04-27', '3 days'); // pass end and interval
+// interval can be a string, a DateInterval or a CarbonInterval
+// You also can pass 2 arguments: number an string:
+$period = Carbon::parse('2018-04-21')->toPeriod('2018-04-27', 3, 'days');
+// Same as above:
+$period = Carbon::parse('2018-04-21')->range('2018-04-27', 3, 'days'); // Carbon::range is an alias of Carbon::toPeriod
+// Still the same:
+$period = Carbon::parse('2018-04-21')->daysUntil('2018-04-27', 3);
+// By default daysUntil will use a 1-day interval:
+$period = Carbon::parse('2018-04-21')->daysUntil('2018-04-27'); // same as CarbonPeriod::create('2018-04-21', '1 day', '2018-04-27')
+/*
+    microsUntil() or microsecondsUntil() provide the same feature for microseconds intervals
+    millisUntil() or millisecondsUntil() provide the same feature for milliseconds intervals
+    secondsUntil() provides the same feature for seconds intervals
+    minutesUntil() provides the same feature for minutes intervals
+    hoursUntil() provides the same feature for hours intervals
+    weeksUntil() provides the same feature for weeks intervals
+    monthsUntil() provides the same feature for months intervals
+    quartersUntil() provides the same feature for quarters intervals
+    yearsUntil() provides the same feature for years intervals
+    decadesUntil() provides the same feature for decades intervals
+    centuriesUntil() provides the same feature for centuries intervals
+    millenniaUntil() provides the same feature for millennia intervals
+*/
 )}}
 </code></pre>
     </p>
@@ -3874,6 +3899,10 @@ $exclude = $period->getOptions() & CarbonPeriod::EXCLUDE_START_DATE;
 {{::exec(echo $period->getStartDate();/*pad(40)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo $period->getEndDate();/*pad(40)*/)}} // {{eval}}
+// Note than ->getEndDate() will return null when the end is not fixed.
+// For example CarbonPeriod::since('2018-04-21')->times(3) use repetition, so we don't know the end before iteration.
+// Then you can use ->calculateEnd() instead that will use getEndDate() if available and else will execute a complete
+// iteration to calculate the end date.
 echo "\n";
 {{::exec(echo $period->getDateInterval();/*pad(40)*/)}} // {{eval}}
 echo "\n";
@@ -3960,6 +3989,27 @@ $period = CarbonPeriod::create('2010-05-06', '2010-05-25');
 {{::lint($period->excludeStartDate(false);/*pad(40)*/)}} // specify false to include, true or omit to exclude
 {{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
 {{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>You can check 2 periods overlap or not:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$period = CarbonPeriod::create('2010-05-06', '2010-05-25');
+)}}
+
+{{::exec(var_dump($period->overlaps('2010-05-22', '2010-06-03'));/*pad(58)*/)}} // {{eval}}{{::lint(
+$period2 = CarbonPeriod::create('2010-05-22', '2010-05-24');
+)}}
+{{::exec(var_dump($period->overlaps($period2));/*pad(58)*/)}} // {{eval}}
+
+{{::lint(
+$period = CarbonPeriod::create('2010-05-06 12:00', '2010-05-25');
+$start = Carbon::create('2010-05-06 05:00');
+$end = Carbon::create('2010-05-06 11:59');
+)}}
+{{::exec(var_dump($period->overlaps($start, $end));/*pad(58)*/)}} // {{eval}}
 </code></pre>
     </p>
 

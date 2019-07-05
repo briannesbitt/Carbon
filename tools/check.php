@@ -56,7 +56,7 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
         $argumentsCount === 3 && preg_match('/^diffIn[A-Z].*Filtered$/', $method) ||
         $argumentsCount === 3 && preg_match('/^getTranslated(Day|Month)Name$/', $method) ||
         $argumentsCount === 4 && $method === 'diffFiltered' ||
-        $argumentsCount === 2 && preg_match('/^(diff|floatDiff)In[A-Z].*s$/', $method) ||
+        $argumentsCount === 2 && preg_match('/^((diff|floatDiff)In[A-Z].*s|.*Until)$/', $method) ||
         $method === '__set'
     ) {
         $argumentsCount = 0;
