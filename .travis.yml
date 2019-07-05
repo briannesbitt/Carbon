@@ -26,7 +26,6 @@ sudo: false
 
 services:
   - memcached
-  - redis-server
   - mysql
 
 before_install:
