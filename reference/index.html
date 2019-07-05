@@ -484,14 +484,14 @@ locale using setlocale() http://php.net/setlocale.</p>
     <h2><span class="class-name">Carbon::</span>isoFormat</h2>
     <code>string $format, string $originalFormat = NULL</code>
     <p class="doc-description">Format in the current language using ISO replacement patterns.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.1</td><td><code>string $format, string $originalFormat = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $format</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $format, string $originalFormat = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getFormatsToIsoReplacements">
     <h2><span class="class-name">Carbon::</span>getFormatsToIsoReplacements</h2>
     <em>no arguments</em>
     <p class="doc-description">List of replacements from date() format to isoFormat().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translatedFormat">
@@ -499,7 +499,7 @@ locale using setlocale() http://php.net/setlocale.</p>
     <code>string $format</code>
     <p class="doc-description">Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
 but translate words whenever possible (months, day names, etc.) using the current locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>string $format</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>string $format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getOffsetString">
@@ -1019,7 +1019,7 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
     <h2><span class="class-name">Carbon::</span>rawFormat</h2>
     <code>$format</code>
     <p class="doc-description">See <a href="https://php.net/manual/en/datetime.format.php">php.net/manual/en/datetime.format.php</a></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$format</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-__toString">
@@ -1240,7 +1240,7 @@ echo Carbon::now('America/Toronto')->toISOString(true) . "\n";</code></pre></p>
     <p class="doc-description">Create a carbon instance from a string.<br><br>This is an alias for the constructor that allows better fluent syntax
 as it allows you to do Carbon::parse('Monday next week')->fn() rather
 than (new Carbon('Monday next week'))->fn().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$time = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time = NULL, $tz = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-parse">
@@ -1256,7 +1256,7 @@ than (new Carbon('Monday next week'))->fn().</p>
     <h2><span class="class-name">Carbon::</span>parseFromLocale</h2>
     <code>$time, $locale, $tz = NULL</code>
     <p class="doc-description">Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$time, $locale, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time, $locale, $tz = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-now">
@@ -1354,28 +1354,28 @@ will be thrown.</p>
     <h2><span class="class-name">Carbon::</span>rawCreateFromFormat</h2>
     <code>$format, $time, $tz = NULL</code>
     <p class="doc-description">Create a Carbon instance from a specific format.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$format, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromIsoFormat">
     <h2><span class="class-name">Carbon::</span>createFromIsoFormat</h2>
     <code>$format, $time, $tz = NULL, $locale = 'en', $translator = NULL</code>
     <p class="doc-description">Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$format, $time, $tz = NULL, $locale = 'en', $translator = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = NULL, $locale = 'en', $translator = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromLocaleFormat">
     <h2><span class="class-name">Carbon::</span>createFromLocaleFormat</h2>
     <code>$format, $locale, $time, $tz = NULL</code>
     <p class="doc-description">Create a Carbon instance from a specific format and a string in a given language.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromLocaleIsoFormat">
     <h2><span class="class-name">Carbon::</span>createFromLocaleIsoFormat</h2>
     <code>$format, $locale, $time, $tz = NULL</code>
     <p class="doc-description">Create a Carbon instance from a specific ISO format and a string in a given language.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-make">
@@ -1390,7 +1390,7 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <h2><span class="class-name">Carbon::</span>diffAsCarbonInterval</h2>
     <code>$date = NULL, $absolute = true</code>
     <p class="doc-description">Get the difference as a CarbonInterval instance</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.38.4</td><td><code>$date = NULL, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Prototype changed</td><td>1.38.3</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = NULL, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = NULL, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInYears">
@@ -1697,7 +1697,7 @@ instance given to now</p>
     <code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
     <p class="doc-description">Get the difference in a human readable format in the current locale from an other
 instance given to now</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.1</td><td><code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = NULL, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = NULL, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-timespan">
@@ -1705,7 +1705,7 @@ instance given to now</p>
     <code>$other = NULL, $timezone = NULL</code>
     <p class="doc-description">Get the difference in a human readable format in the current locale from current instance to an other
 instance given (or now if null given).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$other = NULL, $timezone = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$other = NULL, $timezone = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-calendar">
@@ -2213,21 +2213,21 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <h2><span class="class-name">Carbon::</span>translateTimeString</h2>
     <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translateTimeStringTo">
     <h2><span class="class-name">Carbon::</span>translateTimeStringTo</h2>
     <code>$timeString, $to = NULL</code>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-locale">
     <h2><span class="class-name">Carbon::</span>locale</h2>
     <code>string $locale = NULL, $fallbackLocales</code>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.1</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getLocale">
@@ -2249,14 +2249,14 @@ Pass 'auto' as locale to use closest language from the current LC_TIME locale.</
     <h2><span class="class-name">Carbon::</span>setFallbackLocale</h2>
     <code>$locale</code>
     <p class="doc-description">Set the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$locale</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$locale</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getFallbackLocale">
     <h2><span class="class-name">Carbon::</span>getFallbackLocale</h2>
     <em>no arguments</em>
     <p class="doc-description">Get the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-executeWithLocale">
@@ -2710,13 +2710,20 @@ and rounded to the next smaller value (caution: 0.5w = 4d)</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$intervalDefinition</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-parseFromLocale">
+    <h2><span class="class-name">CarbonInterval::</span>parseFromLocale</h2>
+    <code>$interval, $locale</code>
+    <p class="doc-description">Creates a CarbonInterval from string using a different locale.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.21.0</td><td><code>$interval, $locale</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-instance">
     <h2><span class="class-name">CarbonInterval::</span>instance</h2>
     <code>DateInterval $di</code>
     <p class="doc-description">Create a CarbonInterval instance from a DateInterval one.  Can not instance
 DateInterval objects created from DateTime::diff() as you can't externally
 set the $days field.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.38.4</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Prototype changed</td><td>1.38.3</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-make">
@@ -3042,7 +3049,7 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <h2><span class="class-name">CarbonInterval::</span>__debugInfo</h2>
     <em>no arguments</em>
     <p class="doc-description">Show truthy properties on var_dump().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.3</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.17.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method deprecated" id="doc-method-CarbonInterval-setHumanDiffOptions">
@@ -3137,21 +3144,21 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <h2><span class="class-name">CarbonInterval::</span>translateTimeString</h2>
     <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateTimeStringTo">
     <h2><span class="class-name">CarbonInterval::</span>translateTimeStringTo</h2>
     <code>$timeString, $to = NULL</code>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-locale">
     <h2><span class="class-name">CarbonInterval::</span>locale</h2>
     <code>string $locale = NULL, $fallbackLocales</code>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.1</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getLocale">
@@ -3173,14 +3180,14 @@ Pass 'auto' as locale to use closest language from the current LC_TIME locale.</
     <h2><span class="class-name">CarbonInterval::</span>setFallbackLocale</h2>
     <code>$locale</code>
     <p class="doc-description">Set the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$locale</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$locale</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getFallbackLocale">
     <h2><span class="class-name">CarbonInterval::</span>getFallbackLocale</h2>
     <em>no arguments</em>
     <p class="doc-description">Get the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-executeWithLocale">
@@ -3714,7 +3721,7 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <h2><span class="class-name">CarbonPeriod::</span>__debugInfo</h2>
     <em>no arguments</em>
     <p class="doc-description">Show truthy properties on var_dump().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.3</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.17.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method deprecated" id="doc-method-CarbonPeriod-setHumanDiffOptions">
@@ -3809,21 +3816,21 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <h2><span class="class-name">CarbonPeriod::</span>translateTimeString</h2>
     <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateTimeStringTo">
     <h2><span class="class-name">CarbonPeriod::</span>translateTimeStringTo</h2>
     <code>$timeString, $to = NULL</code>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-locale">
     <h2><span class="class-name">CarbonPeriod::</span>locale</h2>
     <code>string $locale = NULL, $fallbackLocales</code>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.1</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getLocale">
@@ -3845,14 +3852,14 @@ Pass 'auto' as locale to use closest language from the current LC_TIME locale.</
     <h2><span class="class-name">CarbonPeriod::</span>setFallbackLocale</h2>
     <code>$locale</code>
     <p class="doc-description">Set the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><code>$locale</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$locale</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getFallbackLocale">
     <h2><span class="class-name">CarbonPeriod::</span>getFallbackLocale</h2>
     <em>no arguments</em>
     <p class="doc-description">Get the fallback locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.1</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-executeWithLocale">
@@ -4155,7 +4162,7 @@ languages.</p>
     <h2><span class="class-name">Translator::</span>__debugInfo</h2>
     <em>no arguments</em>
     <p class="doc-description">Show locale on var_dump().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.3</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.17.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setConfigCacheFactory">
@@ -4674,7 +4681,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Carbon::</span>isCurrentMonth</h2>
     <em>no arguments</em>
     <p class="doc-description">Checks if the instance is in the same month as the current moment.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr><tr><td>Prototype changed</td><td>1.38.4</td><td><code>$ofSameYear = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.38.3</td><td><em>no arguments</em></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$ofSameYear = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$ofSameYear = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isNextMonth">
