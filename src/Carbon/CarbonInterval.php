@@ -370,6 +370,16 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function clone()
+    {
+        return $this->copy();
+    }
+
+    /**
      * Provide static helpers to create instances.  Allows CarbonInterval::years(3).
      *
      * Note: This is done using the magic method to allow static and instance methods to
