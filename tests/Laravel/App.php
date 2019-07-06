@@ -11,6 +11,11 @@ class App implements ArrayAccess
     /**
      * @var string
      */
+    protected $locale;
+
+    /**
+     * @var string
+     */
     protected static $version;
 
     /**
@@ -26,7 +31,7 @@ class App implements ArrayAccess
     public function register()
     {
         include_once __DIR__.'/EventDispatcher.php';
-        $this->translator = new Translator('de');
+        $this->translator = new Translator($this->locale = 'de');
     }
 
     public function setEventDispatcher($dispatcher)
@@ -50,8 +55,14 @@ class App implements ArrayAccess
 
     public function setLocale($locale)
     {
+        $this->locale = $locale;
         $this->translator->setLocale($locale);
         $this->events->dispatch(static::getLocaleChangeEventName());
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     public function bound($service)
