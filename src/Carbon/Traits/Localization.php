@@ -26,6 +26,13 @@ use Symfony\Component\Translation\TranslatorInterface;
 trait Localization
 {
     /**
+     * Default locale.
+     *
+     * @var string
+     */
+    protected static $defaultLocale;
+
+    /**
      * Default translator.
      *
      * @var \Symfony\Component\Translation\TranslatorInterface
@@ -101,6 +108,9 @@ trait Localization
     {
         if (static::$translator === null) {
             static::$translator = Translator::get();
+            if (static::$defaultLocale) {
+                static::$translator->setLocale(static::$defaultLocale);
+            }
         }
 
         return static::$translator;
@@ -393,6 +403,19 @@ trait Localization
     public static function getLocale()
     {
         return static::translator()->getLocale();
+    }
+
+    /**
+     * Set the default translator locale.
+     * Pass 'auto' as locale to use closest language from the current LC_TIME locale.
+     *
+     * @param string $locale locale ex. en
+     *
+     * @return void
+     */
+    public static function setDefaultLocale($locale)
+    {
+        static::$defaultLocale = $locale;
     }
 
     /**
