@@ -18,4 +18,4 @@ if (!file_exists($dir.'/autoload.php')) {
 
 include $dir.'/autoload.php';
 
-exit((new \Carbon\Cli\CarbonCommand())(...array_slice($argv, 1)) ? 0 : 1);
+exit((new \Carbon\Cli\Invoker())(...$argv) ? 0 : 1);
