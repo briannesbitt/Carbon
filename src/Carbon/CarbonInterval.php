@@ -1647,6 +1647,7 @@ class CarbonInterval extends DateInterval
         if (!($interval instanceof self)) {
             $interval = self::make($interval);
         }
+
         return $interval === null
             ? false
             : $this->totalMicroseconds === $interval->totalMicroseconds;
