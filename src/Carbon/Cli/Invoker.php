@@ -4,14 +4,19 @@ namespace Carbon\Cli;
 
 class Invoker
 {
-    public function __invoke(...$parameters)
+    const CLI_CLASS_NAME = 'Carbon\\Cli';
+
+    protected function runWithCli(string $className, array $parameters): bool
     {
-        $className = \Carbon\Cli::class;
+        $cli = new $className();
 
-        if (class_exists($className)) {
-            $cli = new $className();
+        return $cli(...$parameters);
+    }
 
-            return $cli(...$parameters);
+    public function __invoke(...$parameters): bool
+    {
+        if (class_exists(self::CLI_CLASS_NAME)) {
+            return $this->runWithCli(self::CLI_CLASS_NAME, $parameters);
         }
 
         shell_exec('composer require carbon-cli/carbon-cli --no-interaction');

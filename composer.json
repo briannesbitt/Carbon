@@ -56,6 +56,9 @@
     "scripts": {
         "test": [
             "@phpunit",
+            "@style-check"
+        ],
+        "style-check": [
             "@phpcs",
             "@phpstan",
             "@phpmd"
