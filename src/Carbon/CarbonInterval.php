@@ -1620,4 +1620,35 @@ class CarbonInterval extends DateInterval
 
         return $result;
     }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see equalTo()
+     *
+     * @return bool
+     */
+    public function eq($interval): bool
+    {
+        return $this->equalTo($interval);
+    }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function equalTo($interval): bool
+    {
+        if (!($interval instanceof self)) {
+            $interval = self::make($interval);
+        }
+        return $interval === null
+            ? false
+            : $this->totalMicroseconds === $interval->totalMicroseconds;
+    }
 }
