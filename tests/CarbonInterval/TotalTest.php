@@ -86,17 +86,21 @@ class TotalTest extends AbstractTestCase
         $totalDays = $interval->totalDays;
         $totalWeeks = $interval->totalWeeks;
         $monthsError = null;
+
         try {
             $interval->totalMonths;
         } catch (\InvalidArgumentException $exception) {
             $monthsError = $exception->getMessage();
         }
+
         $yearsError = null;
+
         try {
             $interval->totalYears;
         } catch (\InvalidArgumentException $exception) {
             $yearsError = $exception->getMessage();
         }
+
         CarbonInterval::setCascadeFactors($cascades);
 
         $this->assertSame(150 * 60 * 60, $totalSeconds);

@@ -531,7 +531,9 @@ class CarbonPeriod implements Iterator, Countable
     {
         if (!is_a($dateClass, CarbonInterface::class, true)) {
             throw new InvalidArgumentException(sprintf(
-                'Given class does not implement %s: %s', CarbonInterface::class, $dateClass
+                'Given class does not implement %s: %s',
+                CarbonInterface::class,
+                $dateClass
             ));
         }
 

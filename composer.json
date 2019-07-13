@@ -56,7 +56,9 @@
     "scripts": {
         "test": [
             "@phpunit",
-            "@phpcs"
+            "@phpcs",
+            "@phpstan",
+            "@phpmd"
         ],
         "phpunit": "phpunit --verbose",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",

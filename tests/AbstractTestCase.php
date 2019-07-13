@@ -239,18 +239,23 @@ abstract class AbstractTestCase extends TestCase
             'fr_FR' => 'French_France',
         ];
         $windowsLocale = $mapping[$locale] ?? null;
+
         if ($windowsLocale) {
             $locales[] = "$windowsLocale.UTF8";
         }
+
         if (setlocale(LC_TIME, ...$locales) === false) {
             $this->markTestSkipped("UTF-8 test need $locale.UTF-8 (a locale with accents).");
         }
+
         $exception = null;
+
         try {
             $func();
         } catch (\Throwable $e) {
             $exception = $e;
         }
+
         setlocale(LC_TIME, $currentLocale);
 
         if ($exception) {

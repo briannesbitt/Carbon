@@ -570,8 +570,7 @@ trait Comparison
             // To ensure we're really testing against our desired format, perform an additional regex validation.
 
             // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
-            $quotedFormat = str_replace('\\\\', '\\',
-                preg_quote($format, '/'));
+            $quotedFormat = str_replace('\\\\', '\\', preg_quote($format, '/'));
 
             // Build the regex string
             $regex = '';
@@ -580,6 +579,7 @@ trait Comparison
                 // We're doing an extra ++$i here to increment the loop by 2.
                 if ($quotedFormat[$i] === '\\') {
                     $regex .= '\\'.$quotedFormat[++$i];
+
                     continue;
                 }
 
