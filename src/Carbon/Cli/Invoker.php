@@ -14,18 +14,10 @@ class Invoker
             return $cli(...$parameters);
         }
 
-        shell_exec('composer require carbon-cli/carbon-cli');
-        shell_exec(__DIR__.'/../../../bin/carbon-completion.bash');
+        shell_exec('composer require carbon-cli/carbon-cli --no-interaction');
 
-        $cli = new $className();
-        $command = $parameters[1] ?? '';
+        echo 'Installation succeeded.';
 
-        if ($command === 'install') {
-            $cli->write('Installation succeeded.');
-
-            return true;
-        }
-
-        return $cli(...$parameters);
+        return true;
     }
 }
