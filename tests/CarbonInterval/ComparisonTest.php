@@ -1,5 +1,5 @@
 <?php
-declare (strict_types = 1);
+declare(strict_types = 1);
 
 /**
  * This file is part of the Carbon package.
@@ -20,6 +20,7 @@ class ComparisonTest extends AbstractTestCase
     public function testEqualToTrue()
     {
         $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->equalTo($oneDay));
         $this->assertTrue($oneDay->eq($oneDay));
         $this->assertTrue($oneDay->eq(CarbonInterval::day()));
         $this->assertTrue($oneDay->eq(new DateInterval('P1D')));
@@ -32,6 +33,7 @@ class ComparisonTest extends AbstractTestCase
     public function testEqualToFalse()
     {
         $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->equalTo(CarbonInterval::hours(24)->microsecond(1)));
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(24)->microsecond(1)));
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
     }
