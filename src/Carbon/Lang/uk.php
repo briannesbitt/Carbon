@@ -158,9 +158,10 @@ return [
 
         $nounCase = preg_match('/(\[(В|в|У|у)\])\s+dddd/', $format)
             ? 'accusative'
-            : (preg_match('/\[?(?:минулої|наступної)?\s*\]\s+dddd/', $format)
-                ? 'genitive'
-                : 'nominative'
+            : (
+                preg_match('/\[?(?:минулої|наступної)?\s*\]\s+dddd/', $format)
+                    ? 'genitive'
+                    : 'nominative'
             );
 
         return $words[$nounCase][$index] ?? null;

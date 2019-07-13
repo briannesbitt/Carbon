@@ -1339,10 +1339,7 @@ class CarbonInterval extends DateInterval
     public function sub($unit, $value = 1)
     {
         if (is_numeric($unit)) {
-            $_unit = $value;
-            $value = $unit;
-            $unit = $_unit;
-            unset($_unit);
+            [$value, $unit] = [$unit, $value];
         }
 
         return $this->add($unit, -floatval($value));

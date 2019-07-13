@@ -115,10 +115,12 @@ matrix:
     - php: nightly
       env:
         - setup=nightly
+        - xdebug=true
     - php: 7.3
       env:
         - setup=stable
         - laravel=true
+        - xdebug=true
   fast_finish: true
   allow_failures:
     - php: 7.3
@@ -128,6 +130,7 @@ matrix:
     - php: nightly
       env:
         - setup=nightly
+        - xdebug=true
 
 notifications:
   slack:

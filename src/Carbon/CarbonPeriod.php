@@ -313,6 +313,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Parse given ISO 8601 string into an array of arguments.
      *
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     *
      * @param string $iso
      *
      * @return array
@@ -458,6 +460,8 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * CarbonPeriod constructor.
+     *
+     * @SuppressWarnings(PHPMD.ElseExpression)
      *
      * @throws InvalidArgumentException
      */

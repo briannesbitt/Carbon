@@ -1057,8 +1057,8 @@ trait Date
         }
 
         if (is_array($name)) {
-            foreach ($name as $_name => $value) {
-                $this->set($_name, $value);
+            foreach ($name as $key => $value) {
+                $this->set($key, $value);
             }
 
             return $this;

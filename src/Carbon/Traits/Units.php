@@ -327,10 +327,7 @@ trait Units
         }
 
         if (is_numeric($unit)) {
-            $_unit = $value;
-            $value = $unit;
-            $unit = $_unit;
-            unset($_unit);
+            [$value, $unit] = [$unit, $value];
         }
 
         return $this->addUnit($unit, -floatval($value), $overflow);
