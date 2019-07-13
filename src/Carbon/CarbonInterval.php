@@ -1297,10 +1297,7 @@ class CarbonInterval extends DateInterval
     public function add($unit, $value = 1)
     {
         if (is_numeric($unit)) {
-            $_unit = $value;
-            $value = $unit;
-            $unit = $_unit;
-            unset($_unit);
+            [$value, $unit] = [$unit, $value];
         }
 
         if (is_string($unit) && !preg_match('/^\s*\d/', $unit)) {

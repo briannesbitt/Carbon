@@ -472,10 +472,7 @@ trait Difference
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
         if (!$ascending) {
-            $_end = $start;
-            $start = $end;
-            $end = $_end;
-            unset($_end);
+            [$start, $end] = [$end, $start];
         }
         $monthsDiff = $start->diffInMonths($end);
         /** @var Carbon|CarbonImmutable $floorEnd */
@@ -510,10 +507,7 @@ trait Difference
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
         if (!$ascending) {
-            $_end = $start;
-            $start = $end;
-            $end = $_end;
-            unset($_end);
+            [$start, $end] = [$end, $start];
         }
         $yearsDiff = $start->diffInYears($end);
         /** @var Carbon|CarbonImmutable $floorEnd */
@@ -602,10 +596,7 @@ trait Difference
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
         if (!$ascending) {
-            $_end = $start;
-            $start = $end;
-            $end = $_end;
-            unset($_end);
+            [$start, $end] = [$end, $start];
         }
         $monthsDiff = $start->diffInMonths($end);
         /** @var Carbon|CarbonImmutable $floorEnd */
@@ -640,10 +631,7 @@ trait Difference
         $ascending = ($start <= $end);
         $sign = $absolute || $ascending ? 1 : -1;
         if (!$ascending) {
-            $_end = $start;
-            $start = $end;
-            $end = $_end;
-            unset($_end);
+            [$start, $end] = [$end, $start];
         }
         $yearsDiff = $start->diffInYears($end);
         /** @var Carbon|CarbonImmutable $floorEnd */

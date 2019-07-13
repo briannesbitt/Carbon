@@ -756,6 +756,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Add a filter to the stack.
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param callable $callback
      * @param string   $name
      *
@@ -774,6 +776,8 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Prepend a filter to the stack.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param callable $callback
      * @param string   $name
@@ -956,6 +960,8 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Recurrences filter callback (limits number of recurrences).
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param \Carbon\Carbon $current
      * @param int            $key

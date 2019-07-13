@@ -10,7 +10,10 @@
         Mess detection rules for Carbon
     </description>
     <rule ref="rulesets/codesize.xml" />
-    <rule ref="rulesets/cleancode.xml" />
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="BooleanArgumentFlag" />
+        <exclude name="StaticAccess" />
+    </rule>
     <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/design.xml" />
     <rule ref="rulesets/naming.xml/ShortVariable">
