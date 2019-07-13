@@ -119,13 +119,13 @@ class FilTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0th',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 ulit ang nakalipas',
+        '1 segundo ang nakalipas',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 ulit ang nakalipas',
+        '1 segundo ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 ulit ang nakalipas',
+        '2 segundo ang nakalipas',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 ulit ang nakalipas',
+        '2 segundo ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1 minuto ang nakalipas',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
@@ -167,45 +167,45 @@ class FilTest extends LocalizationTestCase
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2 buwan ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 gulang ang nakalipas',
+        '1 taon ang nakalipas',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 gulang ang nakalipas',
+        '1 taon ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 gulang ang nakalipas',
+        '2 taon ang nakalipas',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 gulang ang nakalipas',
+        '2 taon ang nakalipas',
         // Carbon::now()->addSecond()->diffForHumans()
-        'sa 1 ulit',
+        'sa 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'sa 1 ulit',
+        'sa 1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 ulit after',
+        '1 segundo pagkatapos',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 ulit after',
+        '1 segundo pagkatapos',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 ulit before',
+        '1 segundo bago',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 ulit before',
+        '1 segundo bago',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 ulit',
+        '1 segundo',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 ulit',
+        '1 segundo',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
-        '2 ulit',
+        '2 segundo',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 ulit',
+        '2 segundo',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'sa 1 ulit',
+        'sa 1 segundo',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 minuto 1 ulit',
+        '1 minuto 1 segundo',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 gulang 3 buwan 1 araw 1 ulit',
+        '2 taon 3 buwan 1 araw 1 segundo',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'sa 3 gulang',
+        'sa 3 taon',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 buwan ang nakalipas',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 gulang 3 buwan 1 araw 1 ulit ang nakalipas',
+        '2 taon 3 buwan 1 araw 1 segundo ang nakalipas',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 linggo 10 oras',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

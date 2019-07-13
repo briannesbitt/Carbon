@@ -19,6 +19,7 @@ class AddTest extends AbstractTestCase
 {
     public function testAddMethod()
     {
+        $date = Carbon::createFromDate(1975);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add(2, 'year')->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('year', 2)->year);
         $this->assertSame(1977, Carbon::createFromDate(1975)->add('2 years')->year);

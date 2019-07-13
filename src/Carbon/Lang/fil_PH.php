@@ -25,9 +25,12 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['N.U.', 'N.H.'],
 
-    'year' => ':count gulang',
-    'y' => ':count gulang',
-    'a_year' => ':count gulang',
+    'before' => ':time bago',
+    'after' => ':time pagkatapos',
+
+    'year' => ':count taon',
+    'y' => ':count taon',
+    'a_year' => ':count taon',
 
     'month' => ':count buwan',
     'm' => ':count buwan',
@@ -49,9 +52,9 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'min' => ':count minuto',
     'a_minute' => ':count minuto',
 
-    'second' => ':count ulit',
-    's' => ':count ulit',
-    'a_second' => ':count ulit',
+    'second' => ':count segundo',
+    's' => ':count segundo',
+    'a_second' => ':count segundo',
 
     'ago' => ':time ang nakalipas',
     'from_now' => 'sa :time',

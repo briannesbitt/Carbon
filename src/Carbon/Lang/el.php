@@ -17,11 +17,12 @@
  * - Gabriel Monteagudo
  * - JD Isaacks
  * - yiannisdesp
+ * - Ilias Kasmeridis (iliaskasm)
  */
 return [
     'year' => ':count χρόνος|:count χρόνια',
     'a_year' => 'ένας χρόνος|:count χρόνια',
-    'y' => ':count χρό.',
+    'y' => ':count χρ.',
     'month' => ':count μήνας|:count μήνες',
     'a_month' => 'ένας μήνας|:count μήνες',
     'm' => ':count μήν.',

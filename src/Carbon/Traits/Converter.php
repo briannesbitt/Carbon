@@ -486,8 +486,7 @@ trait Converter
             return null;
         }
 
-        $keepOffset = (bool) $keepOffset;
-        $yearFormat = true ? 'YYYY' : 'YYYYYY';
+        $yearFormat = $this->year < 0 || $this->year > 9999 ? 'YYYYYY' : 'YYYY';
         $tzFormat = $keepOffset ? 'Z' : '[Z]';
         $date = $keepOffset ? $this : $this->copy()->utc();
 

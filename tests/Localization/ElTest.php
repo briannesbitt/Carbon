@@ -169,11 +169,11 @@ class ElTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 χρόνος πριν',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 χρό. πριν',
+        '1 χρ. πριν',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2 χρόνια πριν',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 χρό. πριν',
+        '2 χρ. πριν',
         // Carbon::now()->addSecond()->diffForHumans()
         'σε 1 δευτερόλεπτο',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -199,13 +199,13 @@ class ElTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 λεπτό 1 δευτερόλεπτο',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 χρό. 3 μήν. 1 μέρ. 1 δευ.',
+        '2 χρ. 3 μήν. 1 μέρ. 1 δευ.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'σε 3 χρόνια',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 μήν. πριν',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 χρό. 3 μήν. 1 μέρ. 1 δευ. πριν',
+        '2 χρ. 3 μήν. 1 μέρ. 1 δευ. πριν',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 10 ώρες',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
