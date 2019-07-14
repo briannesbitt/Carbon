@@ -11,10 +11,12 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Traits\Options;
 use Closure;
 use Countable;
 use DateInterval;
+use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -230,6 +232,76 @@ class CarbonPeriod implements Iterator, Countable
      * @var mixed
      */
     protected $tzName;
+
+    /**
+     * Make a CarbonPeriod instance from given variable if possible.
+     *
+     * @param mixed $var
+     *
+     * @return static|null
+     */
+    public static function make($var)
+    {
+        try {
+            return static::instance($var);
+        } catch (NotAPeriodException $e) {
+            return static::create($var);
+        }
+    }
+
+    /**
+     * Create a new instance from a DatePeriod or CarbonPeriod object.
+     *
+     * @param CarbonPeriod|DatePeriod $period
+     *
+     * @return static
+     */
+    public static function instance($period)
+    {
+        if ($period instanceof self) {
+            return $period->copy();
+        }
+
+        if ($period instanceof DatePeriod) {
+            return new static(
+                $period->start,
+                $period->end ?: $period->recurrences,
+                $period->interval,
+                $period->include_start_date ? 0 : static::EXCLUDE_START_DATE
+            );
+        }
+
+        $class = get_called_class();
+        $type = gettype($period);
+
+        throw new NotAPeriodException(
+            'Argument 1 passed to '.$class.'::'.__METHOD__.'() '.
+            'must be an instance of DatePeriod or '.$class.', '.
+            ($type === 'object' ? 'instance of '.get_class($period) : $type).' given.'
+        );
+    }
+
+    /**
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function copy()
+    {
+        return clone $this;
+    }
+
+    /**
+     * @alias copy
+     *
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function clone()
+    {
+        return clone $this;
+    }
 
     /**
      * Create a new instance.
@@ -1588,5 +1660,46 @@ class CarbonPeriod implements Iterator, Countable
         }
 
         return $this->calculateEnd() > $range->getStartDate() && $range->calculateEnd() > $this->getStartDate();
+    }
+
+    /**
+     * Execute a given function on each date of the period.
+     *
+     * @example
+     * ```
+     * Carbon::create('2020-11-29')->daysUntil('2020-12-24')->forEach(function (Carbon $date) {
+     *   echo $date->diffInDays('2020-12-25')." days before Christmas!\n";
+     * });
+     * ```
+     *
+     * @param callable $callback
+     */
+    public function forEach(callable $callback)
+    {
+        foreach ($this as $date) {
+            $callback($date);
+        }
+    }
+
+    /**
+     * Execute a given function on each date of the period and yield the result of this function.
+     *
+     * @example
+     * ```
+     * $period = Carbon::create('2020-11-29')->daysUntil('2020-12-24');
+     * echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
+     *   return $date->diffInDays('2020-12-25').' days before Christmas!';
+     * })));
+     * ```
+     *
+     * @param callable $callback
+     *
+     * @return \Generator
+     */
+    public function map(callable $callback)
+    {
+        foreach ($this as $date) {
+            yield $callback($date);
+        }
     }
 }

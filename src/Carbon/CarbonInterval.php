@@ -370,6 +370,16 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Get a copy of the instance.
+     *
+     * @return static
+     */
+    public function clone()
+    {
+        return $this->copy();
+    }
+
+    /**
      * Provide static helpers to create instances.  Allows CarbonInterval::years(3).
      *
      * Note: This is done using the magic method to allow static and instance methods to
@@ -1665,5 +1675,35 @@ class CarbonInterval extends DateInterval
         }
 
         return $result;
+    }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see equalTo()
+     *
+     * @return bool
+     */
+    public function eq($interval): bool
+    {
+        return $this->equalTo($interval);
+    }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function equalTo($interval): bool
+    {
+        if (!($interval instanceof self)) {
+            $interval = self::make($interval);
+        }
+
+        return $interval !== null && $this->totalMicroseconds === $interval->totalMicroseconds;
     }
 }
