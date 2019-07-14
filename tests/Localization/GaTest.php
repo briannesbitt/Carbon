@@ -75,19 +75,19 @@ class GaTest extends LocalizationTestCase
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         'Dé hAoine seo caite ag 00:00',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
-        '1na 1na 1na 1na 1na',
+        '1d 1d 1d 1d 1d',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
-        '2na 1na',
+        '2na 1d',
         // Carbon::parse('2018-01-03 00:00:00')->isoFormat('Do wo')
-        '3mh 1na',
+        '3mh 1d',
         // Carbon::parse('2018-01-04 00:00:00')->isoFormat('Do wo')
-        '4mh 1na',
+        '4mh 1d',
         // Carbon::parse('2018-01-05 00:00:00')->isoFormat('Do wo')
-        '5mh 1na',
+        '5mh 1d',
         // Carbon::parse('2018-01-06 00:00:00')->isoFormat('Do wo')
-        '6mh 1na',
+        '6mh 1d',
         // Carbon::parse('2018-01-07 00:00:00')->isoFormat('Do wo')
-        '7mh 1na',
+        '7mh 1d',
         // Carbon::parse('2018-01-11 00:00:00')->isoFormat('Do wo')
         '11mh 2na',
         // Carbon::parse('2018-02-09 00:00:00')->isoFormat('DDDo')

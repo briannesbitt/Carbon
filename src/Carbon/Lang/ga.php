@@ -66,7 +66,7 @@ return [
     'weekdays_short' => ['Dom', 'Lua', 'Mái', 'Céa', 'Déa', 'hAo', 'Sat'],
     'weekdays_min' => ['Do', 'Lu', 'Má', 'Ce', 'Dé', 'hA', 'Sa'],
     'ordinal' => function ($number) {
-        return $number.($number === 1 ? 'd' : $number % 10 === 2 ? 'na' : 'mh');
+        return $number.($number === 1 ? 'd' : ($number % 10 === 2 ? 'na' : 'mh'));
     },
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,

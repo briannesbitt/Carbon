@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use DateTimeInterface;
 
 /**
  * Trait Options.
@@ -411,8 +412,24 @@ trait Options
      */
     public function __debugInfo()
     {
-        return array_filter(get_object_vars($this), function ($var) {
+        $infos = array_filter(get_object_vars($this), function ($var) {
             return $var;
         });
+
+        // @codeCoverageIgnoreStart
+
+        if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {
+            if (!isset($infos['date'])) {
+                $infos['date'] = $this->format(CarbonInterface::MOCK_DATETIME_FORMAT);
+            }
+
+            if (!isset($infos['timezone'])) {
+                $infos['timezone'] = $this->tzName;
+            }
+        }
+
+        // @codeCoverageIgnoreEnd
+
+        return $infos;
     }
 }

@@ -46,6 +46,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('2017-06-26', Carbon::lastMonday()->format('Y-m-d'));
 
         $message = null;
+
         try {
             Carbon::fooBar();
         } catch (\BadMethodCallException $exception) {
@@ -55,6 +56,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $this->assertSame('Method '.Carbon::class.'::fooBar does not exist.', $message);
 
         $message = null;
+
         try {
             $now->barBiz();
         } catch (\BadMethodCallException $exception) {

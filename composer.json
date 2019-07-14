@@ -18,9 +18,14 @@
             "name": "Brian Nesbitt",
             "email": "brian@nesbot.com",
             "homepage": "http://nesbot.com"
+        },
+        {
+            "name": "kylekatarnls",
+            "homepage": "http://github.com/kylekatarnls"
         }
     ],
     "minimum-stability": "dev",
+    "bin": ["bin/carbon"],
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
@@ -51,7 +56,12 @@
     "scripts": {
         "test": [
             "@phpunit",
-            "@phpcs"
+            "@style-check"
+        ],
+        "style-check": [
+            "@phpcs",
+            "@phpstan",
+            "@phpmd"
         ],
         "phpunit": "phpunit --verbose",
         "phpcs": "php-cs-fixer fix -v --diff --dry-run",

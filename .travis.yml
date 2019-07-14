@@ -18,7 +18,7 @@ env:
   global:
     - setup=basic
     - coverage=false
-    - xdebug=true
+    - xdebug=false
     - phpstan=false
     - laravel=false
 
@@ -34,25 +34,26 @@ before_install:
   - if [[ $laravel = 'true' ]]; then printf "\n" | pecl install -f redis; fi
   - if [[ $laravel = 'true' ]]; then travis_retry composer self-update; fi
   - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;'; fi
-  - if [[ $coverage = 'false' && $xdebug = 'true' ]]; then phpenv config-rm xdebug.ini; fi
+  - if [[ $coverage = 'false' && $xdebug = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - composer remove --no-update friendsofphp/php-cs-fixer
   - composer remove --no-update phpmd/phpmd
   - composer remove --no-update squizlabs/php_codesniffer
-  - if [[ $phpstan != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan; fi
+  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer; fi
+  - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester; fi
   - if [[ $setup = 'nightly'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
   - |
     if [[ $setup = 'lowest' ]]; then
-        travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
+      travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable --prefer-lowest
     fi
 
 script:
-  - if [[ $laravel != 'true' && $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
-  - if [[ $laravel != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
-  - if [[ $laravel != 'true' && $phpstan = 'true' ]]; then composer phpstan; fi
+  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
+  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
+  - if [[ $laravel != 'true' && $style_check = 'true' ]]; then composer style-check; fi
   - if [[ $laravel = 'true' ]]; then vendor/bin/multi-tester; fi
 
 after_success:
@@ -97,24 +98,33 @@ matrix:
     - php: 7.3.4
     - php: 7.3.5
     - php: 7.3
-      env: xdebug=false
     - php: 7.3
       env:
-        - xdebug=false
         - setup=lowest
     - php: 7.3
       env:
-        - xdebug=false
+        - xdebug=true
         - setup=stable
         - coverage=true
-        - phpstan=true
     - php: 7.3
       env:
-        - xdebug=false
         - setup=stable
-        - coverage=false
-        - phpstan=false
+        - style_check=true
+    - php: nightly
+      env:
+        - setup=nightly
+        - xdebug=true
+    - php: 7.3
+      env:
+        - setup=stable
         - laravel=true
+        - xdebug=true
+  fast_finish: true
+  allow_failures:
+    - php: 7.3
+      env:
+        - setup=stable
+        - style_check=true
 
 notifications:
   slack:

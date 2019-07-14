@@ -45,6 +45,7 @@ file_put_contents($interface, preg_replace('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\
 include_once __DIR__.'/vendor/autoload.php';
 $trait = __DIR__.'/src/Carbon/Traits/Date.php';
 $code = '';
+
 foreach (glob(__DIR__.'/src/Carbon/Traits/*.php') as $file) {
     $code .= file_get_contents($file);
 }
@@ -88,17 +89,22 @@ function dumpParameter($method, ReflectionParameter $parameter)
 
     $name = $parameter->getName();
     $output = '$'.$name;
+
     if ($parameter->isVariadic()) {
         $output = "...$output";
     }
+
     if ($parameter->getType()) {
         $name = $parameter->getType()->getName();
+
         if (preg_match('/^[A-Z]/', $name)) {
             $name = "\\$name";
         }
+
         $name = preg_replace('/^\\\\Carbon\\\\/', '', $name);
         $output = "$name $output";
     }
+
     if (isset($defaultValues[$method])) {
         if (isset($defaultValues[$method][$name])) {
             $output .= ' = '.dumpValue($defaultValues[$method][$name]);
@@ -106,6 +112,7 @@ function dumpParameter($method, ReflectionParameter $parameter)
 
         return $output;
     }
+
     try {
         if ($parameter->isDefaultValueAvailable()) {
             $output .= ' = '.dumpValue($parameter->getDefaultValue());
@@ -120,7 +127,9 @@ foreach ($tags as $tag) {
     if (is_array($tag)) {
         [$tag, $pattern] = $tag;
     }
+
     $pattern = isset($pattern) ? $pattern : '\S+';
+
     if ($tag === PHP_EOL) {
         $autoDocLines[] = '';
 
@@ -133,14 +142,17 @@ foreach ($tags as $tag) {
         $vars = (object) $match;
         $vars->name = $vars->name ?: $vars->name2;
         $vars->description = $vars->description ?: $vars->description2;
+
         if ($tag === 'mode') {
             if (!isset($modes[$vars->type])) {
                 $modes[$vars->type] = [];
             }
+
             $modes[$vars->type][] = $vars->name;
 
             continue;
         }
+
         if ($tag === 'call') {
             switch ($vars->type) {
                 case 'diffForHumans':
@@ -152,7 +164,9 @@ foreach ($tags as $tag) {
                             "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale. (\$other and \$parts parameters can be swapped.)",
                         ];
                     }
+
                     break;
+
                 case 'isDayOfWeek':
                     $autoDocLines[] = [
                         '@method',
@@ -160,7 +174,9 @@ foreach ($tags as $tag) {
                         'is'.ucFirst($vars->name).'()',
                         'Checks if the instance day is '.unitName(strtolower($vars->name)).'.',
                     ];
+
                     break;
+
                 case 'is':
                     $autoDocLines[] = [
                         '@method',
@@ -168,11 +184,14 @@ foreach ($tags as $tag) {
                         'is'.ucFirst($vars->name).'()',
                         $vars->description,
                     ];
+
                     break;
+
                 case 'isSameUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
                     $method = 'isSame'.ucFirst($unit);
+
                     if (!method_exists(\Carbon\Carbon::class, $method)) {
                         $autoDocLines[] = [
                             '@method',
@@ -181,6 +200,7 @@ foreach ($tags as $tag) {
                             "Checks if the given date is in the same $unitName as the instance. If null passed, compare to now (with the same timezone).",
                         ];
                     }
+
                     $autoDocLines[] = [
                         '@method',
                         'bool',
@@ -199,7 +219,9 @@ foreach ($tags as $tag) {
                         'isLast'.ucFirst($unit).'()',
                         "Checks if the instance is in the same $unitName as the current moment last $unitName.",
                     ];
+
                     break;
+
                 case 'setUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
@@ -228,7 +250,9 @@ foreach ($tags as $tag) {
                         'set'.ucfirst($unit).'(int $value)',
                         "Set current instance $unitName to the given value.",
                     ];
+
                     break;
+
                 case 'addUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
@@ -258,6 +282,7 @@ foreach ($tags as $tag) {
                         'sub'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using date interval).",
                     ];
+
                     if (in_array($unit, [
                         'month',
                         'quarter',
@@ -290,6 +315,7 @@ foreach ($tags as $tag) {
                             'sub'.ucFirst($unit).'WithOverflow()',
                             "Sub one $unitName to the instance (using date interval) with overflow explicitly allowed.",
                         ];
+
                         foreach (['WithoutOverflow', 'WithNoOverflow', 'NoOverflow'] as $alias) {
                             $autoDocLines[] = [
                                 '@method',
@@ -316,9 +342,12 @@ foreach ($tags as $tag) {
                                 "Sub one $unitName to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                         }
+
                         break;
                     }
+
                     break;
+
                 case 'addRealUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
@@ -354,7 +383,9 @@ foreach ($tags as $tag) {
                         $plUnit.'Until($endDate = null, int $factor = 1)',
                         "Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each $unitName or every X $plUnitName if a factor is given.",
                     ];
+
                     break;
+
                 case 'roundUnit':
                     $unit = $vars->name;
                     $unitName = unitName($unit);
@@ -395,6 +426,7 @@ foreach ($tags as $tag) {
                         'ceil'.ucFirst($plUnit).'(float $precision = 1)',
                         "Ceil the current instance $unitName with given precision.",
                     ];
+
                     break;
             }
 
