@@ -66,19 +66,27 @@ class ArraysTest extends AbstractTestCase
         $dt = Carbon::parse('2019-04-09 11:10:10.667952');
         $debug = $dt->__debugInfo();
 
+        // Ignored as not in PHP 8
+        if (isset($debug['timezone_type'])) {
+            unset($debug['timezone_type']);
+        }
+
         $this->assertSame([
             'date' => '2019-04-09 11:10:10.667952',
-            'timezone_type' => 3,
             'timezone' => 'America/Toronto',
         ], $debug);
 
         $dt = Carbon::parse('2019-04-09 11:10:10.667952')->locale('fr_FR');
         $debug = $dt->__debugInfo();
 
+        // Ignored as not in PHP 8
+        if (isset($debug['timezone_type'])) {
+            unset($debug['timezone_type']);
+        }
+
         $this->assertSame([
             'localTranslator' => Translator::get('fr_FR'),
             'date' => '2019-04-09 11:10:10.667952',
-            'timezone_type' => 3,
             'timezone' => 'America/Toronto',
         ], $debug);
     }

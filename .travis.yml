@@ -125,10 +125,6 @@ matrix:
       env:
         - setup=stable
         - style_check=true
-    - php: nightly
-      env:
-        - setup=nightly
-        - xdebug=true
 
 notifications:
   slack:

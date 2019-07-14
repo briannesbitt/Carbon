@@ -650,33 +650,38 @@ trait Comparison
         }
 
         if (preg_match('/\d:\d{1,2}:\d{1,2}$/', $tester)) {
-            $current = $current->startOfSecond();
-        } elseif (preg_match('/\d:\d{1,2}$/', $tester)) {
-            $current = $current->startOfMinute();
-        } elseif (preg_match('/\d(h|am|pm)$/', $tester)) {
-            $current = $current->startOfHour();
-        } elseif (preg_match(
+            return $current->startOfSecond()->eq($other);
+        }
+
+        if (preg_match('/\d:\d{1,2}$/', $tester)) {
+            return $current->startOfMinute()->eq($other);
+        }
+
+        if (preg_match('/\d(h|am|pm)$/', $tester)) {
+            return $current->startOfHour()->eq($other);
+        }
+
+        if (preg_match(
             '/^(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d+$/i',
             $tester
         )) {
-            $current = $current->startOfMonth();
-            $other = $other->startOfMonth();
-        } else {
-            $units = [
-                'month' => [1, 'year'],
-                'day' => [1, 'month'],
-                'hour' => [0, 'day'],
-                'minute' => [0, 'hour'],
-                'second' => [0, 'minute'],
-                'microsecond' => [0, 'second'],
-            ];
+            return $current->startOfMonth()->eq($other->startOfMonth());
+        }
 
-            foreach ($units as $unit => [$minimum, $startUnit]) {
-                if ($median->$unit === $minimum) {
-                    $current = $current->startOf($startUnit);
+        $units = [
+            'month' => [1, 'year'],
+            'day' => [1, 'month'],
+            'hour' => [0, 'day'],
+            'minute' => [0, 'hour'],
+            'second' => [0, 'minute'],
+            'microsecond' => [0, 'second'],
+        ];
 
-                    break;
-                }
+        foreach ($units as $unit => [$minimum, $startUnit]) {
+            if ($median->$unit === $minimum) {
+                $current = $current->startOf($startUnit);
+
+                break;
             }
         }
 

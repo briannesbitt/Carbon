@@ -630,20 +630,20 @@ class CarbonInterval extends DateInterval
      * DateInterval objects created from DateTime::diff() as you can't externally
      * set the $days field.
      *
-     * @param DateInterval $di
+     * @param DateInterval $interval
      *
      * @return static
      */
-    public static function instance(DateInterval $di)
+    public static function instance(DateInterval $interval)
     {
-        $microseconds = $di->f;
-        $instance = new static(static::getDateIntervalSpec($di));
+        $microseconds = $interval->f;
+        $instance = new static(static::getDateIntervalSpec($interval));
         if ($microseconds) {
             $instance->f = $microseconds;
         }
-        $instance->invert = $di->invert;
+        $instance->invert = $interval->invert;
         foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
-            if ($di->$unit < 0) {
+            if ($interval->$unit < 0) {
                 $instance->$unit *= -1;
             }
         }
@@ -1046,6 +1046,16 @@ class CarbonInterval extends DateInterval
         return $this;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     *
+     * @param mixed $syntax
+     * @param mixed $short
+     * @param mixed $parts
+     * @param mixed $options
+     *
+     * @return array
+     */
     protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
         $join = ' ';
@@ -1519,16 +1529,16 @@ class CarbonInterval extends DateInterval
     /**
      * Comparing 2 date intervals.
      *
-     * @param DateInterval $a
-     * @param DateInterval $b
+     * @param DateInterval $first
+     * @param DateInterval $second
      *
      * @return int
      */
-    public static function compareDateIntervals(DateInterval $a, DateInterval $b)
+    public static function compareDateIntervals(DateInterval $first, DateInterval $second)
     {
         $current = Carbon::now();
-        $passed = $current->copy()->add($b);
-        $current->add($a);
+        $passed = $current->copy()->add($second);
+        $current->add($first);
 
         if ($current < $passed) {
             return -1;

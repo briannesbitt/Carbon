@@ -36,7 +36,7 @@ trait Difference
     /**
      * @param DateInterval $diff
      */
-    protected static function fixNegativeMicroseconds(DateInterval $diff)
+    protected static function fixNegativeMicroseconds(CarbonInterval $diff)
     {
         if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0 || $diff->m !== 0 || $diff->y !== 0) {
             $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
