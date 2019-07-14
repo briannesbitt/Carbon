@@ -84,9 +84,11 @@ trait Week
             switch ($date->weekYear(null, $dayOfWeek, $dayOfYear) - $year) {
                 case 1:
                     $date = $date->subWeeks(26);
+
                     break;
                 case -1:
                     $date = $date->addWeeks(26);
+
                     break;
             }
 

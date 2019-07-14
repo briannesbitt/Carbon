@@ -385,6 +385,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Parse given ISO 8601 string into an array of arguments.
      *
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     *
      * @param string $iso
      *
      * @return array
@@ -531,6 +533,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * CarbonPeriod constructor.
      *
+     * @SuppressWarnings(PHPMD.ElseExpression)
+     *
      * @throws InvalidArgumentException
      */
     public function __construct(...$arguments)
@@ -603,7 +607,9 @@ class CarbonPeriod implements Iterator, Countable
     {
         if (!is_a($dateClass, CarbonInterface::class, true)) {
             throw new InvalidArgumentException(sprintf(
-                'Given class does not implement %s: %s', CarbonInterface::class, $dateClass
+                'Given class does not implement %s: %s',
+                CarbonInterface::class,
+                $dateClass
             ));
         }
 
@@ -826,6 +832,8 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Add a filter to the stack.
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     *
      * @param callable $callback
      * @param string   $name
      *
@@ -844,6 +852,8 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Prepend a filter to the stack.
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param callable $callback
      * @param string   $name
@@ -1026,6 +1036,8 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Recurrences filter callback (limits number of recurrences).
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * @param \Carbon\Carbon $current
      * @param int            $key

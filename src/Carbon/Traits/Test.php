@@ -69,17 +69,24 @@ trait Test
         return static::getTestNow() !== null;
     }
 
+    protected static function handleMockTimezone($tz, &$testInstance)
+    {
+        //shift the time according to the given time zone
+        if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
+            $testInstance = $testInstance->setTimezone($tz);
+
+            return $tz;
+        }
+
+        return $testInstance->getTimezone();
+    }
+
     protected static function mockConstructorParameters(&$time, &$tz)
     {
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
         $testInstance = clone static::getTestNow();
 
-        //shift the time according to the given time zone
-        if ($tz !== null && $tz !== static::getTestNow()->getTimezone()) {
-            $testInstance = $testInstance->setTimezone($tz);
-        } else {
-            $tz = $testInstance->getTimezone();
-        }
+        $tz = static::handleMockTimezone($tz, $testInstance);
 
         if (static::hasRelativeKeywords($time)) {
             $testInstance = $testInstance->modify($time);

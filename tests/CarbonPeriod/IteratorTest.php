@@ -522,10 +522,12 @@ class IteratorTest extends AbstractTestCase
         /** @var CarbonPeriod $period */
         $period = CarbonPeriodFactory::withStackFilter()->locale('de');
         $str = '';
+
         foreach ($period as $key => $date) {
             if ($key) {
                 $str .= ', ';
             }
+
             $str .= $date->isoFormat('MMMM dddd');
         }
 
@@ -537,8 +539,10 @@ class IteratorTest extends AbstractTestCase
         /** @var CarbonPeriod $period */
         $period = CarbonPeriodFactory::withStackFilter()->shiftTimezone('America/Toronto');
         $str = null;
+
         foreach ($period as $key => $date) {
             $str = $date->format('H e');
+
             break;
         }
 

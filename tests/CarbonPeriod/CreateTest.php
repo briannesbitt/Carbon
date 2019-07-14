@@ -569,7 +569,9 @@ class CreateTest extends AbstractTestCase
         $this->expectException(BadMethodCallException::class);
         $this->expectExceptionMessage('Method unknownUnitsUntil does not exist.');
 
-        Carbon::create('2019-01-02')->unknownUnitsUntil('2019-02-05');
+        /** @var object $date */
+        $date = Carbon::create('2019-01-02');
+        $date->unknownUnitsUntil('2019-02-05');
     }
 
     public function testInstance()
