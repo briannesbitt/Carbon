@@ -357,7 +357,7 @@ trait Options
         $this->localMacros = $settings['macros'] ?? null;
         $this->localGenericMacros = $settings['genericMacros'] ?? null;
         $this->localFormatFunction = $settings['formatFunction'] ?? null;
-        $date = $this;
+
         if (isset($settings['locale'])) {
             $locales = $settings['locale'];
 
@@ -365,13 +365,14 @@ trait Options
                 $locales = [$locales];
             }
 
-            $date = $date->locale(...$locales);
-        }
-        if (isset($settings['timezone'])) {
-            $date = $date->shiftTimezone($settings['timezone']);
+            $this->locale(...$locales);
         }
 
-        return $date;
+        if (isset($settings['timezone'])) {
+            return $this->shiftTimezone($settings['timezone']);
+        }
+
+        return $this;
     }
 
     /**

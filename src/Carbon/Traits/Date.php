@@ -1102,16 +1102,24 @@ trait Date
                 break;
 
             case 'week':
-                return $this->week($value);
+                $this->week($value);
+
+                break;
 
             case 'isoWeek':
-                return $this->isoWeek($value);
+                $this->isoWeek($value);
+
+                break;
 
             case 'weekYear':
-                return $this->weekYear($value);
+                $this->weekYear($value);
+
+                break;
 
             case 'isoWeekYear':
-                return $this->isoWeekYear($value);
+                $this->isoWeekYear($value);
+
+                break;
 
             case 'dayOfYear':
                 return $this->addDays($value - $this->dayOfYear);

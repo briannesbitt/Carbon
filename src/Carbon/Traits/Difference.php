@@ -34,10 +34,11 @@ use DateTimeInterface;
 trait Difference
 {
     /**
-     * @param DateInterval $diff
+     * @param CarbonInterval $diff
      */
     protected static function fixNegativeMicroseconds(CarbonInterval $diff)
     {
+        // @codeCoverageIgnoreStart
         if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0 || $diff->m !== 0 || $diff->y !== 0) {
             $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
             $diff->s--;
@@ -72,6 +73,7 @@ trait Difference
 
         $diff->f *= -1;
         $diff->invert();
+        // @codeCoverageIgnoreEnd
     }
 
     /**
