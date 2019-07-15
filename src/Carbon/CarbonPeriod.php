@@ -1736,4 +1736,30 @@ class CarbonPeriod implements Iterator, Countable
             && $this->getEndDate()->eq($period->getEndDate())
             && $this->getOptions() === $period->getOptions();
     }
+
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param mixed $period
+     *
+     * @see notEqualTo()
+     *
+     * @return bool
+     */
+    public function ne($period): bool
+    {
+        return $this->notEqualTo($period);
+    }
+
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param mixed $period
+     *
+     * @return bool
+     */
+    public function notEqualTo($period): bool
+    {
+        return !$this->eq($period);
+    }
 }
