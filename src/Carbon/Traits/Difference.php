@@ -325,9 +325,11 @@ trait Difference
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
-        if ($diff->d === 0) {
+
+        if ($diff->days === 0) {
             $diff = static::fixDiffInterval($diff, $absolute);
         }
+
         $value = ((($diff->d * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
