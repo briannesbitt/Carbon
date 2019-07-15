@@ -26,6 +26,8 @@ return [
 
     'ago' => ':timeपूर्वी',
     'from_now' => ':timeमध्ये',
+    'before' => ':timeपूर्वी',
+    'after' => ':timeनंतर',
 
     'diff_yesterday' => 'काल',
     'diff_tomorrow' => 'उद्या',
