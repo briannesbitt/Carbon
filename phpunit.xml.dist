@@ -47,5 +47,8 @@
         <testsuite name="jenssegers">
             <directory>tests/Jenssegers</directory>
         </testsuite>
+        <testsuite name="cli">
+            <directory>tests/Cli</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
