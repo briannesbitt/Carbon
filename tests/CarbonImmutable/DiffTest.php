@@ -1674,4 +1674,25 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(0, $serverTime->diffInSeconds($requestTime));
     }
+
+    public function testNearlyFullDayDiffInSeconds()
+    {
+        $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
+        $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
+
+        // Due to https://bugs.php.net/bug.php?id=77007, this changed in 7.2.12:
+        $expected = version_compare(PHP_VERSION, '7.2.12-dev', '<')
+            ? 86400 // Bad rounding before PHP 7.2.12
+            : 86399; // Exact result since PHP 7.2.12
+
+        $this->assertSame($expected, $d2->diffInSeconds($d1));
+    }
+
+    public function testNearlyFullDayDiffInMicroseconds()
+    {
+        $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
+        $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
+
+        $this->assertSame(86399999999, $d2->diffInMicroseconds($d1));
+    }
 }

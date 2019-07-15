@@ -325,10 +325,12 @@ trait Difference
     public function diffInSeconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
+
         if ($diff->days === 0) {
             $diff = static::fixDiffInterval($diff, $absolute);
         }
-        $value = ((($diff->days * static::HOURS_PER_DAY) +
+
+        $value = ((($diff->d * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
             $diff->s;
@@ -347,7 +349,7 @@ trait Difference
     public function diffInMicroseconds($date = null, $absolute = true)
     {
         $diff = $this->diff($this->resolveCarbon($date));
-        $value = (int) round((((($diff->days * static::HOURS_PER_DAY) +
+        $value = (int) round((((($diff->d * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
             ($diff->f + $diff->s)) * static::MICROSECONDS_PER_SECOND);
