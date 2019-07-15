@@ -2692,6 +2692,13 @@ syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-clone">
+    <h2><span class="class-name">CarbonInterval::</span>clone</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Get a copy of the instance.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-fromString">
     <h2><span class="class-name">CarbonInterval::</span>fromString</h2>
     <code>$intervalDefinition</code>
@@ -2719,11 +2726,11 @@ and rounded to the next smaller value (caution: 0.5w = 4d)</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-instance">
     <h2><span class="class-name">CarbonInterval::</span>instance</h2>
-    <code>DateInterval $di</code>
+    <code>DateInterval $interval</code>
     <p class="doc-description">Create a CarbonInterval instance from a DateInterval one.  Can not instance
 DateInterval objects created from DateTime::diff() as you can't externally
 set the $days field.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.21.0</td><td><code>DateInterval $interval</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>DateInterval $di</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>DateInterval $di, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>DateInterval $di</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-make">
@@ -2909,9 +2916,9 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
 
 <div class="doc-method " id="doc-method-CarbonInterval-compareDateIntervals">
     <h2><span class="class-name">CarbonInterval::</span>compareDateIntervals</h2>
-    <code>DateInterval $a, DateInterval $b</code>
+    <code>DateInterval $first, DateInterval $second</code>
     <p class="doc-description">Comparing 2 date intervals.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $a, DateInterval $b</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.21.0</td><td><code>DateInterval $first, DateInterval $second</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>DateInterval $a, DateInterval $b</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-compare">
@@ -2933,6 +2940,34 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
     <code>$unit</code>
     <p class="doc-description">Get amount of given unit equivalent to the interval.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$unit</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-eq">
+    <h2><span class="class-name">CarbonInterval::</span>eq</h2>
+    <code>$interval</code>
+    <p class="doc-description">Determines if the instance is equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-equalTo">
+    <h2><span class="class-name">CarbonInterval::</span>equalTo</h2>
+    <code>$interval</code>
+    <p class="doc-description">Determines if the instance is equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-ne">
+    <h2><span class="class-name">CarbonInterval::</span>ne</h2>
+    <code>$interval</code>
+    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-notEqualTo">
+    <h2><span class="class-name">CarbonInterval::</span>notEqualTo</h2>
+    <code>$interval</code>
+    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-__wakeup">
@@ -3252,6 +3287,34 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <p class="doc-description">Returns list of Language object for each available locale. This object allow you to get the ISO name, native
 name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-make">
+    <h2><span class="class-name">CarbonPeriod::</span>make</h2>
+    <code>$var</code>
+    <p class="doc-description">Make a CarbonPeriod instance from given variable if possible.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$var</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-instance">
+    <h2><span class="class-name">CarbonPeriod::</span>instance</h2>
+    <code>$period</code>
+    <p class="doc-description">Create a new instance from a DatePeriod or CarbonPeriod object.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-copy">
+    <h2><span class="class-name">CarbonPeriod::</span>copy</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Get a copy of the instance.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-clone">
+    <h2><span class="class-name">CarbonPeriod::</span>clone</h2>
+    <em>no arguments</em>
+    <p class="doc-description">@alias copy<br><br>Get a copy of the instance.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-create">
@@ -3626,6 +3689,53 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
     <p class="doc-description">Returns true if the current period overlaps the given one (if 1 parameter passed)
 or the period between 2 dates (if 2 parameters passed).</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$rangeOrRangeStart, $rangeEnd = NULL</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-forEach">
+    <h2><span class="class-name">CarbonPeriod::</span>forEach</h2>
+    <code>callable $callback</code>
+    <p class="doc-description">Execute a given function on each date of the period.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::create('2020-11-29')->daysUntil('2020-12-24')->forEach(function (Carbon $date) {
+  echo $date->diffInDays('2020-12-25')." days before Christmas!\n";
+});</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>callable $callback</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-map">
+    <h2><span class="class-name">CarbonPeriod::</span>map</h2>
+    <code>callable $callback</code>
+    <p class="doc-description">Execute a given function on each date of the period and yield the result of this function.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">$period = Carbon::create('2020-11-29')->daysUntil('2020-12-24');
+echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
+  return $date->diffInDays('2020-12-25').' days before Christmas!';
+})));</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>callable $callback</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-eq">
+    <h2><span class="class-name">CarbonPeriod::</span>eq</h2>
+    <code>$period</code>
+    <p class="doc-description">Determines if the instance is equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-equalTo">
+    <h2><span class="class-name">CarbonPeriod::</span>equalTo</h2>
+    <code>$period</code>
+    <p class="doc-description">Determines if the instance is equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-ne">
+    <h2><span class="class-name">CarbonPeriod::</span>ne</h2>
+    <code>$period</code>
+    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-notEqualTo">
+    <h2><span class="class-name">CarbonPeriod::</span>notEqualTo</h2>
+    <code>$period</code>
+    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
 </div>
 
 <div class="doc-method deprecated" id="doc-method-CarbonPeriod-useStrictMode">
