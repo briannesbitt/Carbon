@@ -257,7 +257,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-07-15 21:10:05
+echo $now;                               // 2019-07-15 21:20:59
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2019-07-15 00:00:00
@@ -389,7 +389,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 23:10 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 23:20 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -737,7 +737,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // juillet
 echo "\n";
-echo $date->isoFormat('LLLL');   // lundi 15 juillet 2019 21:10
+echo $date->isoFormat('LLLL');   // lundi 15 juillet 2019 21:20
 </code></pre>
     </p>
 
@@ -768,13 +768,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 21:10
+Aujourd’hui à 21:20
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 9:10 PM
+Today at 9:20 PM
 */
 </code></pre>
     </p>
@@ -1560,21 +1560,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 9:10 PM
+echo $date->calendar();                                      // Today at 9:20 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 6:10 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 6:20 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 10:47 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Friday at 10:57 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 07/07/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Wednesday at 12:10 AM
+echo $date->add('1 day 3 hours')->calendar();                // Wednesday at 12:20 AM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 7:33 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Friday at 7:43 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 07/23/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 21:10
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 21:20
 </code></pre>
     </p>
 
@@ -5202,7 +5202,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-07-15 21:10:06
+echo Carbon::now();                                    // 2019-07-15 21:21:00
 </code></pre>
     </p>
 
@@ -5392,12 +5392,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(6)
+var_dump(Carbon::now()->get($unit));                         // int(0)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(6)
+var_dump(Carbon::now()->$unit);                              // int(0)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(6)
+var_dump(Carbon::now()->get($unit));                         // int(0)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5897,8 +5897,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-07-15 21:10:06
-echo $dt1->maximum();                              // 2019-07-15 21:10:06
+echo $dt1->max();                                  // 2019-07-15 21:21:00
+echo $dt1->maximum();                              // 2019-07-15 21:21:00
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7099,7 +7099,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 23:10
+echo Carbon::now()->subDays(3)->formatForUser();           // vendredi dernier à 23:21
 </code></pre>
     </p>
 
@@ -8217,6 +8217,43 @@ echo "\n";
 echo $period->getStartDate();              // 2000-01-01 12:00:00
 echo "\n";
 echo get_class($period->getStartDate());   // Carbon\CarbonImmutable
+</code></pre>
+    </p>
+
+    <p>CarbonPeriod <code>forEach()</code> and <code>map()</code> helper methods:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
+$dates = $period->map(function (Carbon $date) {
+    return $date->format('m-d');
+});
+// Or with PHP 7.4:
+// $dates = $period->map(fn(Carbon $date) => $date->format('m-d'));
+$array = iterator_to_array($dates); // $dates is a iterable \Generator
+var_dump($array);
+echo implode(', ', $array);
+/*
+array(3) {
+  [0]=>
+  string(5) "04-21"
+  [1]=>
+  string(5) "04-24"
+  [2]=>
+  string(5) "04-27"
+}
+04-21, 04-24, 04-27
+*/
+echo "\n";
+
+// Here is what happens under the hood:
+$period->forEach(function (Carbon $date) {
+    echo $date->format('m-d')."\n";
+});
+/*
+04-21
+04-24
+04-27
+*/
 </code></pre>
     </p>
 

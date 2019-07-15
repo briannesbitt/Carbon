@@ -4277,6 +4277,37 @@ echo "\n";
 </code></pre>
     </p>
 
+    <p>CarbonPeriod <code>forEach()</code> and <code>map()</code> helper methods:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$period = CarbonPeriod::create('2018-04-21', '3 days', '2018-04-27');
+)}}
+{{::exec(
+$dates = $period->map(function (Carbon $date) {
+    return $date->format('m-d');
+});
+// Or with PHP 7.4:
+// $dates = $period->map(fn(Carbon $date) => $date->format('m-d'));
+$array = iterator_to_array($dates); // $dates is a iterable \Generator
+var_dump($array);
+echo implode(', ', $array);
+)}}
+/*
+{{eval}}
+*/
+echo "\n";
+
+// Here is what happens under the hood:
+{{::exec(
+$period->forEach(function (Carbon $date) {
+    echo $date->format('m-d')."\n";
+});)}}
+/*
+{{eval}}*/
+</code></pre>
+    </p>
+
     <h1 id="api-timezone">CarbonTimeZone</h1>
 
     <p>Starting with Carbon 2, timezones are now handled with a dedicated class <code>CarbonTimeZone</code>
