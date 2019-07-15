@@ -202,8 +202,10 @@ class Translator extends Translation\Translator
     public function getLocalesFiles($prefix = '')
     {
         $files = [];
+
         foreach ($this->getDirectories() as $directory) {
             $directory = rtrim($directory, '\\/');
+
             foreach (glob("$directory/$prefix*.php") as $file) {
                 $files[] = $file;
             }
@@ -316,7 +318,7 @@ class Translator extends Translation\Translator
         }
 
         if ($locale === 'auto') {
-            $completeLocale = setlocale(LC_TIME, 0);
+            $completeLocale = setlocale(LC_TIME, '0');
             $locale = preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
             $locales = $this->getAvailableLocales($locale);
 

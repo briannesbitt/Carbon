@@ -32,6 +32,9 @@ class ServiceProviderTest extends TestCase
      */
     public function testBoot($dispatcher)
     {
+        // Reset language
+        Carbon::setLocale('en');
+
         include_once __DIR__.'/ServiceProvider.php';
         $service = new ServiceProvider($dispatcher);
 
@@ -47,5 +50,8 @@ class ServiceProviderTest extends TestCase
 
         // Reset language
         Carbon::setLocale('en');
+
+        $service->app->removeService('events');
+        $this->assertNull($service->boot());
     }
 }

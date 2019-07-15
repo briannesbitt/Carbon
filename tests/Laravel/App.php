@@ -90,4 +90,9 @@ class App implements ArrayAccess
     {
         // noop
     }
+
+    public function removeService($offset)
+    {
+        $this->$offset = null;
+    }
 }
