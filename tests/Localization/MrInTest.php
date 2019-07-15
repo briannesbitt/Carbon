@@ -179,13 +179,13 @@ class MrInTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 सेकंदमध्ये',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1 सेकंदनंतर',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1 सेकंदनंतर',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1 सेकंदपूर्वी',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1 सेकंदपूर्वी',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 सेकंद',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
