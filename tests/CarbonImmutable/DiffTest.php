@@ -1674,4 +1674,20 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(0, $serverTime->diffInSeconds($requestTime));
     }
+
+    public function testNearlyFullDayDiffInSeconds()
+    {
+        $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
+        $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
+
+        $this->assertSame(86399, $d2->diffInSeconds($d1));
+    }
+
+    public function testNearlyFullDayDiffInMicroseconds()
+    {
+        $d1 = Carbon::parse('2019-06-15 12:34:56.123456');
+        $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
+
+        $this->assertSame(86399999999, $d2->diffInMicroseconds($d1));
+    }
 }
