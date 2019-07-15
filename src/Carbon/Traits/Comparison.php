@@ -557,6 +557,8 @@ trait Comparison
     /**
      * Checks if the (date)time string is in a given format.
      *
+     * @SuppressWarnings(PHPMD.EmptyCatchBlock)
+     *
      * @param string $date
      * @param string $format
      *

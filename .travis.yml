@@ -106,10 +106,6 @@ matrix:
         - xdebug=true
         - setup=stable
         - coverage=true
-    - php: 7.3
-      env:
-        - setup=stable
-        - style_check=true
     - php: nightly
       env:
         - setup=nightly
@@ -119,8 +115,6 @@ matrix:
         - setup=stable
         - laravel=true
         - xdebug=true
-  fast_finish: true
-  allow_failures:
     - php: 7.3
       env:
         - setup=stable
