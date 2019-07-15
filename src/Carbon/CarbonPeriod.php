@@ -1690,4 +1690,38 @@ class CarbonPeriod implements Iterator, Countable
             yield $callback($date);
         }
     }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param mixed $period
+     *
+     * @see equalTo()
+     *
+     * @return bool
+     */
+    public function eq($period): bool
+    {
+        return $this->equalTo($period);
+    }
+
+    /**
+     * Determines if the instance is equal to another
+     *
+     * @param mixed $period
+     *
+     * @return bool
+     */
+    public function equalTo($period): bool
+    {
+        if (!($period instanceof self)) {
+            $period = self::make($period);
+        }
+
+        return $period !== null
+            && $this->getDateInterval()->eq($period->getDateInterval())
+            && $this->getStartDate()->eq($period->getStartDate())
+            && $this->getEndDate()->eq($period->getEndDate())
+            && $this->getOptions() === $period->getOptions();
+    }
 }
