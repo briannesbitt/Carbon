@@ -32,8 +32,8 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame('en_ISO', $translator->getLocale());
 
         $translator = new Translator('fr');
-        setlocale(LC_ALL, 'en_US', 'en_GB', 'en');
-        setlocale(LC_TIME, 'en_US', 'en_GB', 'en');
+        setlocale(LC_ALL, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
+        setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
         $translator->setLocale('auto');
 
         $this->assertStringStartsWith('en_US', $translator->getLocale());
