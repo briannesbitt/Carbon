@@ -1706,4 +1706,116 @@ class CarbonInterval extends DateInterval
 
         return $interval !== null && $this->totalMicroseconds === $interval->totalMicroseconds;
     }
+
+    /**
+     * Determines if the instance is greater (longer) than another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see greaterThan()
+     *
+     * @return bool
+     */
+    public function gt($interval): bool
+    {
+        return $this->greaterThan($interval);
+    }
+
+    /**
+     * Determines if the instance is greater (longer) than another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function greaterThan($interval): bool
+    {
+        if (!($interval instanceof self)) {
+            $interval = self::make($interval);
+        }
+
+        return $interval !== null && $this->totalMicroseconds > $interval->totalMicroseconds;
+    }
+
+    /**
+     * Determines if the instance is greater (longer) than or equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see greaterThanOrEqualTo()
+     *
+     * @return bool
+     */
+    public function gte($interval): bool
+    {
+        return $this->greaterThanOrEqualTo($interval);
+    }
+
+    /**
+     * Determines if the instance is greater (longer) than or equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function greaterThanOrEqualTo($interval): bool
+    {
+        return $this->greaterThan($interval) || $this->equalTo($interval);
+    }
+
+    /**
+     * Determines if the instance is less (shorter) than another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see lessThan()
+     *
+     * @return bool
+     */
+    public function lt($interval): bool
+    {
+        return $this->lessThan($interval);
+    }
+
+    /**
+     * Determines if the instance is less (shorter) than another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function lessThan($interval): bool
+    {
+        if (!($interval instanceof self)) {
+            $interval = self::make($interval);
+        }
+
+        return $interval !== null && $this->totalMicroseconds < $interval->totalMicroseconds;
+    }
+
+    /**
+     * Determines if the instance is less (shorter) than or equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see lessThanOrEqualTo()
+     *
+     * @return bool
+     */
+    public function lte($interval): bool
+    {
+        return $this->lessThanOrEqualTo($interval);
+    }
+
+    /**
+     * Determines if the instance is less (shorter) than or equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function lessThanOrEqualTo($interval): bool
+    {
+        return $this->lessThan($interval) || $this->equalTo($interval);
+    }
 }

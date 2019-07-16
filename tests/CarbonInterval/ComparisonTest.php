@@ -37,4 +37,100 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(24)->microsecond(1)));
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
     }
+
+    public function testGreaterThanToTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->greaterThan(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertTrue($oneDay->gt(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertTrue($oneDay->gt(new DateInterval('P0DT23H59M59S')));
+        $this->assertTrue($oneDay->gt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+        $this->assertTrue($oneDay->gt('23 hours 59 minutes 59 seconds 999999 microseconds'));
+        $this->assertTrue($oneDay->gt('P0DT23H59M59S'));
+    }
+
+    public function testGreaterThanToFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->greaterThan($oneDay));
+        $this->assertFalse($oneDay->gt($oneDay));
+        $this->assertFalse($oneDay->gt(CarbonInterval::day()));
+        $this->assertFalse($oneDay->gt(CarbonInterval::hours(23)->minutes(60)));
+
+        $this->assertFalse($oneDay->greaterThan(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertFalse($oneDay->gt(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertFalse($oneDay->gt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
+    }
+
+    public function testGreaterThanOrEqualToTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->greaterThanOrEqualTo($oneDay));
+        $this->assertTrue($oneDay->gte($oneDay));
+        $this->assertTrue($oneDay->gte(CarbonInterval::day()));
+        $this->assertTrue($oneDay->gte(CarbonInterval::hours(23)->minutes(60)));
+
+        $this->assertTrue($oneDay->greaterThanOrEqualTo(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertTrue($oneDay->gte(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertTrue($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+    }
+
+    public function testGreaterThanOrEqualToFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->greaterThanOrEqualTo(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertFalse($oneDay->gte(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertFalse($oneDay->gte(new DateInterval('P0DT23H59M61S')));
+        $this->assertFalse($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
+        $this->assertFalse($oneDay->gte('23 hours 59 minutes 59 seconds 59 milliseconds 1001 milliseconds'));
+        $this->assertFalse($oneDay->gte('P0DT23H59M61S'));
+    }
+
+    public function testLessThanToTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->lessThan(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertTrue($oneDay->lt(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertTrue($oneDay->lt(new DateInterval('P0DT23H59M61S')));
+        $this->assertTrue($oneDay->lt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
+        $this->assertTrue($oneDay->lt('23 hours 59 minutes 59 seconds 59 milliseconds 1001 milliseconds'));
+        $this->assertTrue($oneDay->lt('P0DT23H59M61S'));
+    }
+
+    public function testLessThanToFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->lessThan($oneDay));
+        $this->assertFalse($oneDay->lt($oneDay));
+        $this->assertFalse($oneDay->lt(CarbonInterval::day()));
+        $this->assertFalse($oneDay->lt(CarbonInterval::hours(23)->minutes(60)));
+
+        $this->assertFalse($oneDay->lessThan(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertFalse($oneDay->lt(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertFalse($oneDay->lt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+    }
+
+    public function testLessThanOrEqualToTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->lessThanOrEqualTo($oneDay));
+        $this->assertTrue($oneDay->lte($oneDay));
+        $this->assertTrue($oneDay->lte(CarbonInterval::day()));
+        $this->assertTrue($oneDay->lte(CarbonInterval::hours(23)->minutes(60)));
+
+        $this->assertTrue($oneDay->lessThanOrEqualTo(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertTrue($oneDay->lte(CarbonInterval::day()->add(1, 'microseconds')));
+        $this->assertTrue($oneDay->lte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
+    }
+
+    public function testLessThanOrEqualToFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->lessThanOrEqualTo(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertFalse($oneDay->lte(CarbonInterval::day()->sub(1, 'microseconds')));
+        $this->assertFalse($oneDay->lte(new DateInterval('P0DT23H59M59S')));
+        $this->assertFalse($oneDay->lte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+        $this->assertFalse($oneDay->lte('23 hours 59 minutes 59 seconds 999999 microseconds'));
+        $this->assertFalse($oneDay->lte('P0DT23H59M59S'));
+    }
 }
