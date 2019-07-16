@@ -47,6 +47,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->gt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
         $this->assertTrue($oneDay->gt('23 hours 59 minutes 59 seconds 999999 microseconds'));
         $this->assertTrue($oneDay->gt('P0DT23H59M59S'));
+        $this->assertTrue($oneDay->gt('xxx'));
     }
 
     public function testGreaterThanToFalse()
@@ -84,6 +85,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
         $this->assertFalse($oneDay->gte('23 hours 59 minutes 59 seconds 59 milliseconds 1001 milliseconds'));
         $this->assertFalse($oneDay->gte('P0DT23H59M61S'));
+        $this->assertTrue($oneDay->gte('xxx'));
     }
 
     public function testLessThanToTrue()
@@ -108,6 +110,7 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lessThan(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertFalse($oneDay->lt(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertFalse($oneDay->lt(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+        $this->assertFalse($oneDay->lt('xxx'));
     }
 
     public function testLessThanOrEqualToTrue()
@@ -132,5 +135,6 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
         $this->assertFalse($oneDay->lte('23 hours 59 minutes 59 seconds 999999 microseconds'));
         $this->assertFalse($oneDay->lte('P0DT23H59M59S'));
+        $this->assertFalse($oneDay->lte('xxx'));
     }
 }
