@@ -32,22 +32,23 @@
  * - Ričardas
  * - Kirill Chalkin
  * - Rolandas
+ * - Justinas (Gamesh)
  */
 return [
     'year' => ':count metus|:count metus|:count metų',
-    'y' => ':count metus|:count metus|:count metų',
+    'y' => ':count m.',
     'month' => ':count mėnesį|:count mėnesius|:count mėnesių',
-    'm' => ':count mėnesį|:count mėnesius|:count mėnesių',
+    'm' => ':count mėn.',
     'week' => ':count savaitę|:count savaites|:count savaičių',
-    'w' => ':count savaitę|:count savaites|:count savaičių',
+    'w' => ':count sav.',
     'day' => ':count dieną|:count dienas|:count dienų',
-    'd' => ':count dieną|:count dienas|:count dienų',
+    'd' => ':count d.',
     'hour' => ':count valandą|:count valandas|:count valandų',
-    'h' => ':count valandą|:count valandas|:count valandų',
+    'h' => ':count val.',
     'minute' => ':count minutę|:count minutes|:count minučių',
-    'min' => ':count minutę|:count minutes|:count minučių',
+    'min' => ':count min.',
     'second' => ':count sekundę|:count sekundes|:count sekundžių',
-    's' => ':count sekundę|:count sekundes|:count sekundžių',
+    's' => ':count sek.',
     'second_from_now' => ':count sekundės|:count sekundžių|:count sekundžių',
     'minute_from_now' => ':count minutės|:count minučių|:count minučių',
     'hour_from_now' => ':count valandos|:count valandų|:count valandų',
@@ -70,11 +71,11 @@ return [
     'period_interval' => 'kiekvieną :interval',
     'period_start_date' => 'nuo :date',
     'period_end_date' => 'iki :date',
-    'months' => ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis'],
-    'months_short' => ['Sau', 'Vas', 'Kov', 'Bal', 'Geg', 'Bir', 'Lie', 'Rgp', 'Rgs', 'Spa', 'Lap', 'Gru'],
-    'weekdays' => ['Sekmadienis', 'Pirmadienis', 'Antradienis', 'Trečiadienis', 'Ketvirtadienis', 'Penktadienis', 'Šeštadienis'],
-    'weekdays_short' => ['Sek', 'Pir', 'Ant', 'Tre', 'Ket', 'Pen', 'Šeš'],
-    'weekdays_min' => ['Se', 'Pi', 'An', 'Tr', 'Ke', 'Pe', 'Še'],
+    'months' => ['sausis', 'vasaris', 'kovas', 'balandis', 'gegužė', 'birželis', 'liepa', 'rugpjūtis', 'rugsėjis', 'spalis', 'lapkritis', 'gruodis'],
+    'months_short' => ['sau', 'vas', 'kov', 'bal', 'geg', 'bir', 'lie', 'rgp', 'rgs', 'spa', 'lap', 'gru'],
+    'weekdays' => ['sekmadienis', 'pirmadienis', 'antradienis', 'trečiadienis', 'ketvirtadienis', 'penktadienis', 'šeštadienis'],
+    'weekdays_short' => ['sek', 'pir', 'ant', 'tre', 'ket', 'pen', 'šeš'],
+    'weekdays_min' => ['se', 'pi', 'an', 'tr', 'ke', 'pe', 'še'],
     'list' => [', ', ' ir '],
     'formats' => [
         'LT' => 'HH:mm',
