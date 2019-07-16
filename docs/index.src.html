@@ -1768,11 +1768,17 @@ echo get_class($copy).': '.$copy; // Same as MySubClass::instance($dt))}}
 {{::exec(echo $second->tzName;/*pad(50)*/)}} // {{eval}}
 
 {{::exec(var_dump($first->equalTo($second));/*pad(50)*/)}} // {{eval}}
+// equalTo is also available on CarbonInterval and CarbonPeriod
 {{::exec(var_dump($first->notEqualTo($second));/*pad(50)*/)}} // {{eval}}
+// notEqualTo is also available on CarbonInterval and CarbonPeriod
 {{::exec(var_dump($first->greaterThan($second));/*pad(50)*/)}} // {{eval}}
+// greaterThan is also available on CarbonInterval
 {{::exec(var_dump($first->greaterThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+// greaterThanOrEqualTo is also available on CarbonInterval
 {{::exec(var_dump($first->lessThan($second));/*pad(50)*/)}} // {{eval}}
+// lessThan is also available on CarbonInterval
 {{::exec(var_dump($first->lessThanOrEqualTo($second));/*pad(50)*/)}} // {{eval}}
+// lessThanOrEqualTo is also available on CarbonInterval
 
 {{::lint($first->setDateTime(2012, 1, 1, 0, 0, 0);)}}
 {{::lint($second->setDateTime(2012, 1, 1, 0, 0, 0);/*pad(50)*/)}} // Remember tz is 'America/Vancouver'
@@ -3055,6 +3061,11 @@ echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p id="macro-cli">The sad part is IDE will not natively your macro method (no auto-completion for the method
+        <code>diffFromYear</code> in the example above). But it's no longer a problem thanks to our CLI tool:
+        <a href="https://github.com/kylekatarnls/carbon-cli">carbon-cli</a> that allow you to generate IDE
+        helper files for your mixins and macros.</p>
 
     <p id="user-settings">Macros are the perfect tool to output dates with some settings or user preferences.</p>
 
