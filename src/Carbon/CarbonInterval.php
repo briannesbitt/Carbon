@@ -1708,6 +1708,32 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Determines if the instance is not equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @see notEqualTo()
+     *
+     * @return bool
+     */
+    public function ne($interval): bool
+    {
+        return $this->notEqualTo($interval);
+    }
+
+    /**
+     * Determines if the instance is not equal to another
+     *
+     * @param \Carbon\CarbonInterval|DateInterval|mixed $interval
+     *
+     * @return bool
+     */
+    public function notEqualTo($interval): bool
+    {
+        return !$this->eq($interval);
+    }
+
+    /**
      * Determines if the instance is greater (longer) than another
      *
      * @param \Carbon\CarbonInterval|DateInterval|mixed $interval

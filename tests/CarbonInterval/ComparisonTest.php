@@ -38,6 +38,27 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->eq(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
     }
 
+    public function testNotEqualToTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->notEqualTo(CarbonInterval::hours(24)->microsecond(1)));
+        $this->assertTrue($oneDay->ne(CarbonInterval::hours(24)->microsecond(1)));
+        $this->assertTrue($oneDay->ne(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+    }
+
+    public function testNotEqualToFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->notEqualTo($oneDay));
+        $this->assertFalse($oneDay->ne($oneDay));
+        $this->assertFalse($oneDay->ne(CarbonInterval::day()));
+        $this->assertFalse($oneDay->ne(new DateInterval('P1D')));
+        $this->assertFalse($oneDay->ne(CarbonInterval::hours(24)));
+        $this->assertFalse($oneDay->ne(CarbonInterval::hours(23)->minutes(60)));
+        $this->assertFalse($oneDay->ne('24 hours'));
+        $this->assertFalse($oneDay->ne('P1D'));
+    }
+
     public function testGreaterThanToTrue()
     {
         $oneDay = CarbonInterval::day();
@@ -74,6 +95,8 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($oneDay->greaterThanOrEqualTo(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertTrue($oneDay->gte(CarbonInterval::day()->sub(1, 'microseconds')));
         $this->assertTrue($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->microseconds(999999)));
+
+        $this->assertTrue($oneDay->gte('xxx'));
     }
 
     public function testGreaterThanOrEqualToFalse()
@@ -85,7 +108,6 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->gte(CarbonInterval::hours(23)->minutes(59)->seconds(59)->milliseconds(1001)));
         $this->assertFalse($oneDay->gte('23 hours 59 minutes 59 seconds 59 milliseconds 1001 milliseconds'));
         $this->assertFalse($oneDay->gte('P0DT23H59M61S'));
-        $this->assertTrue($oneDay->gte('xxx'));
     }
 
     public function testLessThanToTrue()
