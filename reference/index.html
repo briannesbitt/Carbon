@@ -716,267 +716,344 @@ echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";</
 <div class="doc-method " id="doc-method-Carbon-eq">
     <h2><span class="class-name">Carbon::</span>eq</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is equal to another</p>
+    <p class="doc-description">Determines if the instance is equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->eq('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->eq(Carbon::parse('2018-07-25 12:45:16')); // true
+Carbon::parse('2018-07-25 12:45:16')->eq('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-equalTo">
     <h2><span class="class-name">Carbon::</span>equalTo</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is equal to another</p>
+    <p class="doc-description">Determines if the instance is equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->equalTo('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->equalTo(Carbon::parse('2018-07-25 12:45:16')); // true
+Carbon::parse('2018-07-25 12:45:16')->equalTo('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-ne">
     <h2><span class="class-name">Carbon::</span>ne</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <p class="doc-description">Determines if the instance is not equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->ne('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->ne(Carbon::parse('2018-07-25 12:45:16')); // false
+Carbon::parse('2018-07-25 12:45:16')->ne('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-notEqualTo">
     <h2><span class="class-name">Carbon::</span>notEqualTo</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <p class="doc-description">Determines if the instance is not equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->notEqualTo(Carbon::parse('2018-07-25 12:45:16')); // false
+Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-gt">
     <h2><span class="class-name">Carbon::</span>gt</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is greater (after) than another</p>
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:18'); // true
+Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-greaterThan">
     <h2><span class="class-name">Carbon::</span>greaterThan</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is greater (after) than another</p>
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:18'); // true
+Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isAfter">
     <h2><span class="class-name">Carbon::</span>isAfter</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is greater (after) than another</p>
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:18'); // true
+Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-gte">
     <h2><span class="class-name">Carbon::</span>gte</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is greater (after) than or equal to another</p>
+    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:18'); // true
+Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-greaterThanOrEqualTo">
     <h2><span class="class-name">Carbon::</span>greaterThanOrEqualTo</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is greater (after) than or equal to another</p>
+    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:18'); // true
+Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lt">
     <h2><span class="class-name">Carbon::</span>lt</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is less (before) than another</p>
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:18'); // false
+Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lessThan">
     <h2><span class="class-name">Carbon::</span>lessThan</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is less (before) than another</p>
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:18'); // false
+Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isBefore">
     <h2><span class="class-name">Carbon::</span>isBefore</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is less (before) than another</p>
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:16'); // false
+Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:18'); // false
+Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lte">
     <h2><span class="class-name">Carbon::</span>lte</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is less (before) or equal to another</p>
+    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:18'); // false
+Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lessThanOrEqualTo">
     <h2><span class="class-name">Carbon::</span>lessThanOrEqualTo</h2>
     <code>$date</code>
-    <p class="doc-description">Determines if the instance is less (before) or equal to another</p>
+    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); // true
+Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:18'); // false
+Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-between">
     <h2><span class="class-name">Carbon::</span>between</h2>
     <code>$date1, $date2, $equal = true</code>
-    <p class="doc-description">Determines if the instance is between two others</p>
+    <p class="doc-description">Determines if the instance is between two others<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->between('2018-08-01', '2018-08-20'); // false
+Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // false
+Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', true); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2, $equal = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2, $equal = true</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isBetween">
     <h2><span class="class-name">Carbon::</span>isBetween</h2>
     <code>$date1, $date2, $equal = true</code>
-    <p class="doc-description">Determines if the instance is between two others</p>
+    <p class="doc-description">Determines if the instance is between two others<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->isBetween('2018-07-14', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->isBetween('2018-08-01', '2018-08-20'); // false
+Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // false
+Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', true); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date1, $date2, $equal = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isWeekday">
     <h2><span class="class-name">Carbon::</span>isWeekday</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is a weekday.</p>
+    <p class="doc-description">Determines if the instance is a weekday.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-07-14')->isWeekday(); // false
+Carbon::parse('2019-07-15')->isWeekday(); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isWeekend">
     <h2><span class="class-name">Carbon::</span>isWeekend</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is a weekend day.</p>
+    <p class="doc-description">Determines if the instance is a weekend day.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-07-14')->isWeekend(); // true
+Carbon::parse('2019-07-15')->isWeekend(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isYesterday">
     <h2><span class="class-name">Carbon::</span>isYesterday</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is yesterday.</p>
+    <p class="doc-description">Determines if the instance is yesterday.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::yesterday()->isYesterday(); // true
+Carbon::tomorrow()->isYesterday(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isToday">
     <h2><span class="class-name">Carbon::</span>isToday</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is today.</p>
+    <p class="doc-description">Determines if the instance is today.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::today()->isToday(); // true
+Carbon::tomorrow()->isToday(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isTomorrow">
     <h2><span class="class-name">Carbon::</span>isTomorrow</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is tomorrow.</p>
+    <p class="doc-description">Determines if the instance is tomorrow.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::tomorrow()->isTomorrow(); // true
+Carbon::yesterday()->isTomorrow(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isFuture">
     <h2><span class="class-name">Carbon::</span>isFuture</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is in the future, ie. greater (after) than now.</p>
+    <p class="doc-description">Determines if the instance is in the future, ie. greater (after) than now.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->addHours(5)->isFuture(); // true
+Carbon::now()->subHours(5)->isFuture(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isPast">
     <h2><span class="class-name">Carbon::</span>isPast</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is in the past, ie. less (before) than now.</p>
+    <p class="doc-description">Determines if the instance is in the past, ie. less (before) than now.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->subHours(5)->isPast(); // true
+Carbon::now()->addHours(5)->isPast(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isLeapYear">
     <h2><span class="class-name">Carbon::</span>isLeapYear</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is a leap year.</p>
+    <p class="doc-description">Determines if the instance is a leap year.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2020-01-01')->isLeapYear(); // true
+Carbon::parse('2019-01-01')->isLeapYear(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isLongYear">
     <h2><span class="class-name">Carbon::</span>isLongYear</h2>
     <em>no arguments</em>
-    <p class="doc-description">Determines if the instance is a long year</p>
+    <p class="doc-description">Determines if the instance is a long year<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2015-01-01')->isLongYear(); // true
+Carbon::parse('2016-01-01')->isLongYear(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameAs">
     <h2><span class="class-name">Carbon::</span>isSameAs</h2>
     <code>$format, $date = NULL</code>
-    <p class="doc-description">Compares the formatted values of the two dates.</p>
+    <p class="doc-description">Compares the formatted values of the two dates.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-12-13')); // true
+Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$format, $date = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>$format, Carbon\Carbon $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameUnit">
     <h2><span class="class-name">Carbon::</span>isSameUnit</h2>
     <code>$unit, $date = NULL</code>
-    <p class="doc-description">Determines if the instance is in the current unit given.</p>
+    <p class="doc-description">Determines if the instance is in the current unit given.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // true
+Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $date = NULL</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentUnit">
     <h2><span class="class-name">Carbon::</span>isCurrentUnit</h2>
     <code>$unit</code>
-    <p class="doc-description">Determines if the instance is in the current unit given.</p>
+    <p class="doc-description">Determines if the instance is in the current unit given.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->isCurrentUnit('hour'); // true
+Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameQuarter">
     <h2><span class="class-name">Carbon::</span>isSameQuarter</h2>
     <code>$date = NULL, $ofSameYear = true</code>
-    <p class="doc-description">Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).</p>
+    <p class="doc-description">Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-03-01')); // true
+Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-04-01')); // false
+Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01')); // false
+Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = NULL, $ofSameYear = NULL</code></td></tr><tr><td>Method added</td><td>1.26.4</td><td><code>$date = NULL, $ofSameYear = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMonth">
     <h2><span class="class-name">Carbon::</span>isSameMonth</h2>
     <code>$date = NULL, $ofSameYear = true</code>
-    <p class="doc-description">Checks if the passed in date is in the same month as the instance´s month.<br><br>Note that this defaults to only comparing the month while ignoring the year.
-To test if it is the same exact month of the same year, pass in true as the second parameter.</p>
+    <p class="doc-description">Checks if the passed in date is in the same month as the instance´s month.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-01-01')); // true
+Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-02-01')); // false
+Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01')); // false
+Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = NULL, $ofSameYear = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = NULL, $ofSameYear = false</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = NULL, $ofSameYear = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isDayOfWeek">
     <h2><span class="class-name">Carbon::</span>isDayOfWeek</h2>
     <code>$dayOfWeek</code>
-    <p class="doc-description">Checks if this day is a specific day of the week.</p>
+    <p class="doc-description">Checks if this day is a specific day of the week.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-07-17')->isDayOfWeek(Carbon::WEDNESDAY); // true
+Carbon::parse('2019-07-17')->isDayOfWeek(Carbon::FRIDAY); // false
+Carbon::parse('2019-07-17')->isDayOfWeek('Wednesday'); // true
+Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><code>$dayOfWeek</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isBirthday">
     <h2><span class="class-name">Carbon::</span>isBirthday</h2>
     <code>$date = NULL</code>
-    <p class="doc-description">Check if its the birthday. Compares the date/month values of the two dates.</p>
+    <p class="doc-description">Check if its the birthday. Compares the date/month values of the two dates.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->subYears(5)->isBirthday(); // true
+Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
+Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
+Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr><tr><td>Method added</td><td>1.14.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isLastOfMonth">
     <h2><span class="class-name">Carbon::</span>isLastOfMonth</h2>
     <em>no arguments</em>
-    <p class="doc-description">Check if today is the last day of the Month</p>
+    <p class="doc-description">Check if today is the last day of the Month<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28')->isLastOfMonth(); // true
+Carbon::parse('2019-03-28')->isLastOfMonth(); // false
+Carbon::parse('2019-03-30')->isLastOfMonth(); // false
+Carbon::parse('2019-03-31')->isLastOfMonth(); // true
+Carbon::parse('2019-04-30')->isLastOfMonth(); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isStartOfDay">
     <h2><span class="class-name">Carbon::</span>isStartOfDay</h2>
     <code>$checkMicroseconds = false</code>
-    <p class="doc-description">Check if the instance is start of day / midnight.</p>
+    <p class="doc-description">Check if the instance is start of day / midnight.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 00:00:00')->isStartOfDay(); // true
+Carbon::parse('2019-02-28 00:00:00.999999')->isStartOfDay(); // true
+Carbon::parse('2019-02-28 00:00:01')->isStartOfDay(); // false
+Carbon::parse('2019-02-28 00:00:00.000000')->isStartOfDay(true); // true
+Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$checkMicroseconds = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isEndOfDay">
     <h2><span class="class-name">Carbon::</span>isEndOfDay</h2>
     <code>$checkMicroseconds = false</code>
-    <p class="doc-description">Check if the instance is end of day.</p>
+    <p class="doc-description">Check if the instance is end of day.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(); // true
+Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(); // true
+Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(); // true
+Carbon::parse('2019-02-28 23:59:58.999999')->isEndOfDay(); // false
+Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(true); // true
+Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(true); // false
+Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$checkMicroseconds = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isMidnight">
     <h2><span class="class-name">Carbon::</span>isMidnight</h2>
     <em>no arguments</em>
-    <p class="doc-description">Check if the instance is start of day / midnight.</p>
+    <p class="doc-description">Check if the instance is start of day / midnight.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 00:00:00')->isMidnight(); // true
+Carbon::parse('2019-02-28 00:00:00.999999')->isMidnight(); // true
+Carbon::parse('2019-02-28 00:00:01')->isMidnight(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isMidday">
     <h2><span class="class-name">Carbon::</span>isMidday</h2>
     <em>no arguments</em>
-    <p class="doc-description">Check if the instance is midday.</p>
+    <p class="doc-description">Check if the instance is midday.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-02-28 11:59:59.999999')->isMidday(); // false
+Carbon::parse('2019-02-28 12:00:00')->isMidday(); // true
+Carbon::parse('2019-02-28 12:00:00.999999')->isMidday(); // true
+Carbon::parse('2019-02-28 12:00:01')->isMidday(); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-hasFormat">
     <h2><span class="class-name">Carbon::</span>hasFormat</h2>
     <code>$date, $format</code>
-    <p class="doc-description">Checks if the (date)time string is in a given format.</p>
+    <p class="doc-description">Checks if the (date)time string is in a given format.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::hasFormat('11:12:45', 'h:i:s'); // true
+Carbon::hasFormat('13:12:45', 'h:i:s'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><code>$date, $format</code></td></tr></table>
 </div>
 
