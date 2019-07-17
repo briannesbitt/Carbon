@@ -16,6 +16,7 @@
  * - JD Isaacks
  * - Jens Herlevsen
  * - Nightpine
+ * - Anders Nygren (litemerafrukt)
  */
 return [
     'year' => ':count år',
@@ -23,22 +24,22 @@ return [
     'y' => ':count år',
     'month' => ':count månad|:count månader',
     'a_month' => 'en månad|:count månader',
-    'm' => ':count mån.',
+    'm' => ':count mån',
     'week' => ':count vecka|:count veckor',
     'a_week' => 'en vecka|:count veckor',
-    'w' => ':count v.',
+    'w' => ':count v',
     'day' => ':count dag|:count dagar',
     'a_day' => 'en dag|:count dagar',
-    'd' => ':count d.',
+    'd' => ':count dgr',
     'hour' => ':count timme|:count timmar',
     'a_hour' => 'en timme|:count timmar',
-    'h' => ':count t.',
+    'h' => ':count tim',
     'minute' => ':count minut|:count minuter',
     'a_minute' => 'en minut|:count minuter',
-    'min' => ':count min.',
+    'min' => ':count min',
     'second' => ':count sekund|:count sekunder',
     'a_second' => 'några sekunder|:count sekunder',
-    's' => ':count s.',
+    's' => ':count s',
     'ago' => 'för :time sedan',
     'from_now' => 'om :time',
     'after' => ':time efter',

@@ -121,51 +121,51 @@ class SvFiTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(1)->diffForHumans()
         'för 1 sekund sedan',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'för 1 s. sedan',
+        'för 1 s sedan',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         'för 2 sekunder sedan',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'för 2 s. sedan',
+        'för 2 s sedan',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         'för 1 minut sedan',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'för 1 min. sedan',
+        'för 1 min sedan',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         'för 2 minuter sedan',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'för 2 min. sedan',
+        'för 2 min sedan',
         // Carbon::now()->subHours(1)->diffForHumans()
         'för 1 timme sedan',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'för 1 t. sedan',
+        'för 1 tim sedan',
         // Carbon::now()->subHours(2)->diffForHumans()
         'för 2 timmar sedan',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'för 2 t. sedan',
+        'för 2 tim sedan',
         // Carbon::now()->subDays(1)->diffForHumans()
         'för 1 dag sedan',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'för 1 d. sedan',
+        'för 1 dgr sedan',
         // Carbon::now()->subDays(2)->diffForHumans()
         'för 2 dagar sedan',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'för 2 d. sedan',
+        'för 2 dgr sedan',
         // Carbon::now()->subWeeks(1)->diffForHumans()
         'för 1 vecka sedan',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'för 1 v. sedan',
+        'för 1 v sedan',
         // Carbon::now()->subWeeks(2)->diffForHumans()
         'för 2 veckor sedan',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'för 2 v. sedan',
+        'för 2 v sedan',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'för 1 månad sedan',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'för 1 mån. sedan',
+        'för 1 mån sedan',
         // Carbon::now()->subMonths(2)->diffForHumans()
         'för 2 månader sedan',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'för 2 mån. sedan',
+        'för 2 mån sedan',
         // Carbon::now()->subYears(1)->diffForHumans()
         'för 1 år sedan',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -177,35 +177,35 @@ class SvFiTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans()
         'om 1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'om 1 s.',
+        'om 1 s',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 sekund efter',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 s. efter',
+        '1 s efter',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         '1 sekund före',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 s. före',
+        '1 s före',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 sekund',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 s.',
+        '1 s',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 sekunder',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 s.',
+        '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'om 1 s.',
+        'om 1 s',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 sekund',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 år 3 mån. 1 d. 1 s.',
+        '2 år 3 mån 1 dgr 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'om 3 år',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'för 5 mån. sedan',
+        'för 5 mån sedan',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'för 2 år 3 mån. 1 d. 1 s. sedan',
+        'för 2 år 3 mån 1 dgr 1 s sedan',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 vecka 10 timmar',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -221,6 +221,6 @@ class SvFiTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 dagar',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 d. 3 t.',
+        '1 dgr 3 tim',
     ];
 }
