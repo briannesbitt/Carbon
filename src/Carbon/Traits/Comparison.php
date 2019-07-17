@@ -621,6 +621,14 @@ trait Comparison
     /**
      * Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).
      *
+     * @example
+     * ```
+     * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-03-01')); // true
+     * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-04-01')); // false
+     * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01')); // false
+     * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true
+     * ```
+     *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
      *
@@ -638,8 +646,13 @@ trait Comparison
     /**
      * Checks if the passed in date is in the same month as the instance´s month.
      *
-     * Note that this defaults to only comparing the month while ignoring the year.
-     * To test if it is the same exact month of the same year, pass in true as the second parameter.
+     * @example
+     * ```
+     * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-01-01')); // true
+     * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-02-01')); // false
+     * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01')); // false
+     * Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true
+     * ```
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use the current date.
      * @param bool                                   $ofSameYear Check if it is the same month in the same year.
@@ -653,6 +666,14 @@ trait Comparison
 
     /**
      * Checks if this day is a specific day of the week.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2019-07-17')->isDayOfWeek(Carbon::WEDNESDAY); // true
+     * Carbon::parse('2019-07-17')->isDayOfWeek(Carbon::FRIDAY); // false
+     * Carbon::parse('2019-07-17')->isDayOfWeek('Wednesday'); // true
+     * Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false
+     * ```
      *
      * @param int $dayOfWeek
      *
@@ -670,6 +691,14 @@ trait Comparison
     /**
      * Check if its the birthday. Compares the date/month values of the two dates.
      *
+     * @example
+     * ```
+     * Carbon::now()->subYears(5)->isBirthday(); // true
+     * Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
+     * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
+     * Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false
+     * ```
+     *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date The instance to compare with or null to use current day.
      *
      * @return bool
@@ -682,6 +711,15 @@ trait Comparison
     /**
      * Check if today is the last day of the Month
      *
+     * @example
+     * ```
+     * Carbon::parse('2019-02-28')->isLastOfMonth(); // true
+     * Carbon::parse('2019-03-28')->isLastOfMonth(); // false
+     * Carbon::parse('2019-03-30')->isLastOfMonth(); // false
+     * Carbon::parse('2019-03-31')->isLastOfMonth(); // true
+     * Carbon::parse('2019-04-30')->isLastOfMonth(); // true
+     * ```
+     *
      * @return bool
      */
     public function isLastOfMonth()
@@ -691,6 +729,15 @@ trait Comparison
 
     /**
      * Check if the instance is start of day / midnight.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2019-02-28 00:00:00')->isStartOfDay(); // true
+     * Carbon::parse('2019-02-28 00:00:00.999999')->isStartOfDay(); // true
+     * Carbon::parse('2019-02-28 00:00:01')->isStartOfDay(); // false
+     * Carbon::parse('2019-02-28 00:00:00.000000')->isStartOfDay(true); // true
+     * Carbon::parse('2019-02-28 00:00:00.000012')->isStartOfDay(true); // false
+     * ```
      *
      * @param bool $checkMicroseconds check time at microseconds precision
      *
@@ -707,6 +754,17 @@ trait Comparison
     /**
      * Check if the instance is end of day.
      *
+     * @example
+     * ```
+     * Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(); // true
+     * Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(); // true
+     * Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(); // true
+     * Carbon::parse('2019-02-28 23:59:58.999999')->isEndOfDay(); // false
+     * Carbon::parse('2019-02-28 23:59:59.999999')->isEndOfDay(true); // true
+     * Carbon::parse('2019-02-28 23:59:59.123456')->isEndOfDay(true); // false
+     * Carbon::parse('2019-02-28 23:59:59')->isEndOfDay(true); // false
+     * ```
+     *
      * @param bool $checkMicroseconds check time at microseconds precision
      *
      * @return bool
@@ -722,6 +780,13 @@ trait Comparison
     /**
      * Check if the instance is start of day / midnight.
      *
+     * @example
+     * ```
+     * Carbon::parse('2019-02-28 00:00:00')->isMidnight(); // true
+     * Carbon::parse('2019-02-28 00:00:00.999999')->isMidnight(); // true
+     * Carbon::parse('2019-02-28 00:00:01')->isMidnight(); // false
+     * ```
+     *
      * @return bool
      */
     public function isMidnight()
@@ -731,6 +796,14 @@ trait Comparison
 
     /**
      * Check if the instance is midday.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2019-02-28 11:59:59.999999')->isMidday(); // false
+     * Carbon::parse('2019-02-28 12:00:00')->isMidday(); // true
+     * Carbon::parse('2019-02-28 12:00:00.999999')->isMidday(); // true
+     * Carbon::parse('2019-02-28 12:00:01')->isMidday(); // false
+     * ```
      *
      * @return bool
      */
@@ -742,6 +815,12 @@ trait Comparison
 
     /**
      * Checks if the (date)time string is in a given format.
+     *
+     * @example
+     * ```
+     * Carbon::hasFormat('11:12:45', 'h:i:s'); // true
+     * Carbon::hasFormat('13:12:45', 'h:i:s'); // false
+     * ```
      *
      * @SuppressWarnings(PHPMD.EmptyCatchBlock)
      *
