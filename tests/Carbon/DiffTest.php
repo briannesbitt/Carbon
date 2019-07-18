@@ -1670,4 +1670,12 @@ class DiffTest extends AbstractTestCase
 
         $this->assertSame(86399999999, $d2->diffInMicroseconds($d1));
     }
+
+    public function testExactMonthDiffInSeconds()
+    {
+        $d1 = Carbon::make('2019-01-23 12:00:00');
+        $d2 = Carbon::make('2019-02-23 12:00:00');
+
+        $this->assertSame(2678400, $d2->diffInSeconds($d1));
+    }
 }
