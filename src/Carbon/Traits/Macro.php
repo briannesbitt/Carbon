@@ -156,6 +156,7 @@ trait Macro
             if ($method->isConstructor() || $method->isDestructor()) {
                 continue;
             }
+
             $method->setAccessible(true);
 
             static::macro($method->name, $method->invoke($mixin));
@@ -167,16 +168,15 @@ trait Macro
         $context = null;
         eval('$context = new class() extends '.static::class.' {use '.$trait.';};');
         $className = get_class($context);
+        /** @var \ReflectionMethod[] $methods */
         $methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
 
         foreach ($methods as $method) {
             $closureBase = $method->getClosure($context);
 
             static::macro($method->name, function () use ($closureBase, $className) {
-                $closure = $closureBase->bindTo(isset($this)
-                    ? $this->cast($className)
-                    : $className::now()
-                );
+                $context = isset($this) ? $this->cast($className) : $className::now();
+                $closure = $closureBase->bindTo($context);
 
                 return $closure(...func_get_args());
             });
