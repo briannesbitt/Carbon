@@ -3,6 +3,9 @@ parameters:
         - '#^Call to an undefined static method#'
         - '#^Static call to instance method#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
+        - '#^Using \$this in static method Carbon\\Carbon(Interface|Immutable)?::loadMixinTrait\(\)\.$#'
+        - '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
+        - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::super\(\)\.$#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Laravel/*.php'

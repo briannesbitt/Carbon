@@ -121,7 +121,7 @@ trait Macro
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object $mixin
+     * @param object|string $mixin
      *
      * @throws \ReflectionException
      *
@@ -129,18 +129,9 @@ trait Macro
      */
     public static function mixin($mixin)
     {
-        $methods = (new \ReflectionClass($mixin))->getMethods(
-            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            if ($method->isConstructor() || $method->isDestructor()) {
-                continue;
-            }
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
+        is_string($mixin) && trait_exists($mixin)
+            ? static::loadMixinTrait($mixin)
+            : static::loadMixinClass($mixin);
     }
 
     /**
@@ -153,5 +144,41 @@ trait Macro
     public static function hasMacro($name)
     {
         return isset(static::$globalMacros[$name]);
+    }
+
+    protected static function loadMixinClass($mixin)
+    {
+        $methods = (new \ReflectionClass($mixin))->getMethods(
+            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            if ($method->isConstructor() || $method->isDestructor()) {
+                continue;
+            }
+
+            $method->setAccessible(true);
+
+            static::macro($method->name, $method->invoke($mixin));
+        }
+    }
+
+    protected static function loadMixinTrait($trait)
+    {
+        $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
+        $className = get_class($context);
+        /** @var \ReflectionMethod[] $methods */
+        $methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        foreach ($methods as $method) {
+            $closureBase = $method->getClosure($context);
+
+            static::macro($method->name, function () use ($closureBase, $className) {
+                $context = isset($this) ? $this->cast($className) : $className::now();
+                $closure = $closureBase->bindTo($context);
+
+                return $closure(...func_get_args());
+            });
+        }
     }
 }

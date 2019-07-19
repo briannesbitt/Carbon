@@ -13,6 +13,7 @@ namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
 use Tests\AbstractTestCaseWithOldNow;
+use Tests\Carbon\Fixtures\FooBar;
 use Tests\CarbonImmutable\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCaseWithOldNow
@@ -109,5 +110,14 @@ class MacroTest extends AbstractTestCaseWithOldNow
         /** @var mixed $date */
         $date = Carbon::now();
         $date->nonExistingMacro();
+    }
+
+    public function testTraitMixin()
+    {
+        Carbon::mixin(FooBar::class);
+        Carbon::setTestNow('2019-07-19 00:00:00');
+
+        $this->assertSame('supergirl / Friday / immutable', Carbon::super('girl'));
+        $this->assertSame('superboy / Thursday / immutable', Carbon::parse('2019-07-18')->super('boy'));
     }
 }

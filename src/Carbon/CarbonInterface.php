@@ -3042,7 +3042,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object $mixin
+     * @param object|string $mixin
      *
      * @throws \ReflectionException
      *
