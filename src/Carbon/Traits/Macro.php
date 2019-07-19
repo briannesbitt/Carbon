@@ -121,13 +121,32 @@ trait Macro
      * echo "$previousBlackMoon\n";
      * ```
      *
-     * @param object $mixin
+     * @param object|string $mixin
      *
      * @throws \ReflectionException
      *
      * @return void
      */
     public static function mixin($mixin)
+    {
+        is_string($mixin) && trait_exists($mixin)
+            ? static::loadMixinTrait($mixin)
+            : static::loadMixinClass($mixin);
+    }
+
+    /**
+     * Checks if macro is registered.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public static function hasMacro($name)
+    {
+        return isset(static::$globalMacros[$name]);
+    }
+
+    protected static function loadMixinClass($mixin)
     {
         $methods = (new \ReflectionClass($mixin))->getMethods(
             \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
@@ -143,15 +162,24 @@ trait Macro
         }
     }
 
-    /**
-     * Checks if macro is registered.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public static function hasMacro($name)
+    protected static function loadMixinTrait($trait)
     {
-        return isset(static::$globalMacros[$name]);
+        $context = null;
+        eval('$context = new class() extends '.static::class.' {use '.$trait.';};');
+        $className = get_class($context);
+        $methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
+
+        foreach ($methods as $method) {
+            $closureBase = $method->getClosure($context);
+
+            static::macro($method->name, function () use ($closureBase, $className) {
+                $closure = $closureBase->bindTo(isset($this)
+                    ? $this->cast($className)
+                    : $className::now()
+                );
+
+                return $closure(...func_get_args());
+            });
+        }
     }
 }

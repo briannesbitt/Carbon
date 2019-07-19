@@ -1,0 +1,11 @@
+<?php
+
+namespace Tests\Carbon\Fixtures;
+
+trait FooBar
+{
+    public function super($string)
+    {
+        return 'super'.$string.' / '.$this->format('l').' / '.($this->isMutable() ? 'mutable' : 'immutable');
+    }
+}

@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTime;
 use Tests\AbstractTestCaseWithOldNow;
+use Tests\Carbon\Fixtures\FooBar;
 use Tests\Carbon\Fixtures\Mixin;
 
 class MacroTest extends AbstractTestCaseWithOldNow
@@ -162,5 +163,14 @@ class MacroTest extends AbstractTestCaseWithOldNow
         /** @var mixed $date */
         $date = Carbon::now();
         $date->nonExistingMacro();
+    }
+
+    public function testTraitMixin()
+    {
+        Carbon::mixin(FooBar::class);
+        Carbon::setTestNow('2019-07-19 00:00:00');
+
+        $this->assertSame('supergirl / Friday / mutable', Carbon::super('girl'));
+        $this->assertSame('superboy / Thursday / mutable', Carbon::parse('2019-07-18')->super('boy'));
     }
 }
