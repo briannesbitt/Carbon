@@ -165,8 +165,7 @@ trait Macro
 
     protected static function loadMixinTrait($trait)
     {
-        $context = null;
-        eval('$context = new class() extends '.static::class.' {use '.$trait.';};');
+        $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
         $className = get_class($context);
         /** @var \ReflectionMethod[] $methods */
         $methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);

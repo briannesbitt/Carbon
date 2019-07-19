@@ -26,6 +26,7 @@
     </rule>
     <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/design.xml">
+        <exclude name="EvalExpression" />
         <exclude name="CouplingBetweenObjects" />
     </rule>
     <rule ref="rulesets/design.xml/CouplingBetweenObjects">
