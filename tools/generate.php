@@ -70,7 +70,7 @@ Carbon::macro('getAvailableMacroLocales', function () {
 });
 
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
-    foreach (@methods(false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject)) {
+    foreach (@methods(false, false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject, $info)) {
         $classes = trim(implode(' ', [
             strpos($description, '@deprecated') !== false ? 'deprecated' : '',
         ]));
@@ -84,6 +84,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 $dateClass = trim($dateClass, '/\\');
 
                 yield [
+                    'info' => $info,
                     'name' => $method,
                     'classes' => $classes,
                     'prototype' => '<em>Native PHP method</em>',
@@ -134,6 +135,7 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         );
 
         yield [
+            'info' => $info,
             'name' => $method,
             'classes' => $classes,
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
