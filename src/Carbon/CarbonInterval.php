@@ -697,6 +697,15 @@ class CarbonInterval extends DateInterval
         return !$interval || $interval->isEmpty() ? null : $interval;
     }
 
+    protected function resolveInterval($interval)
+    {
+        if (!($interval instanceof self)) {
+            return self::make($interval);
+        }
+
+        return $interval;
+    }
+
     /**
      * Sets up a DateInterval from the relative parts of the string.
      *
@@ -1700,9 +1709,7 @@ class CarbonInterval extends DateInterval
      */
     public function equalTo($interval): bool
     {
-        if (!($interval instanceof self)) {
-            $interval = self::make($interval);
-        }
+        $interval = $this->resolveInterval($interval);
 
         return $interval !== null && $this->totalMicroseconds === $interval->totalMicroseconds;
     }
@@ -1756,9 +1763,7 @@ class CarbonInterval extends DateInterval
      */
     public function greaterThan($interval): bool
     {
-        if (!($interval instanceof self)) {
-            $interval = self::make($interval);
-        }
+        $interval = $this->resolveInterval($interval);
 
         return $interval === null || $this->totalMicroseconds > $interval->totalMicroseconds;
     }
@@ -1812,9 +1817,7 @@ class CarbonInterval extends DateInterval
      */
     public function lessThan($interval): bool
     {
-        if (!($interval instanceof self)) {
-            $interval = self::make($interval);
-        }
+        $interval = $this->resolveInterval($interval);
 
         return $interval !== null && $this->totalMicroseconds < $interval->totalMicroseconds;
     }
@@ -1843,5 +1846,71 @@ class CarbonInterval extends DateInterval
     public function lessThanOrEqualTo($interval): bool
     {
         return $this->lessThan($interval) || $this->equalTo($interval);
+    }
+
+    /**
+     * Determines if the instance is between two others.
+     *
+     * @example
+     * ```
+     * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(3)); // true
+     * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+     * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2)); // true
+     * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2), false); // false
+     * ```
+     *
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval1
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval2
+     * @param bool                                       $equal Indicates if an equal to comparison should be done
+     *
+     * @return bool
+     */
+    public function between($interval1, $interval2, $equal = true): bool
+    {
+        return $equal
+            ? $this->greaterThanOrEqualTo($interval1) && $this->lessThanOrEqualTo($interval2)
+            : $this->greaterThan($interval1) && $this->lessThan($interval2);
+    }
+
+    /**
+     * Determines if the instance is between two others, bounds excluded.
+     *
+     * @example
+     * ```
+     * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(3)); // true
+     * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+     * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)); // false
+     * ```
+     *
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval1
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval2
+     *
+     * @return bool
+     */
+    public function betweenExcluded($interval1, $interval2): bool
+    {
+        return $this->between($interval1, $interval2, false);
+    }
+
+    /**
+     * Determines if the instance is between two others
+     *
+     * @example
+     * ```
+     * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(3)); // true
+     * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+     * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(2)); // true
+     * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(2), false); // false
+     * ```
+     *
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval1
+     * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval2
+     * @param bool                                       $equal Indicates if an equal to comparison should be done
+     *
+     * @return bool
+     */
+    public function isBetween($interval1, $interval2, $equal = true): bool
+    {
+        return $this->between($interval1, $interval2, $equal);
     }
 }
