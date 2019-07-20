@@ -172,7 +172,9 @@ blockquote, .doc-comment{font-size:15px;color:#656565}
     padding: 15px 0;
 }
 .main-wrapper > aside .search .doc-return {
-    color: #28324b;
+    color: #395aaf;
+    margin: 10px 0;
+    font-weight: bold;
 }
 .main-wrapper > aside .search .doc-method h2 {
     font-size: 20px;
