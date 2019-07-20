@@ -37,6 +37,7 @@ $methods = [];
 
 if ($target === 'current') {
     $sandbox = $arguments[2] ?? null;
+
     if ($sandbox) {
         chdir($sandbox);
     }
@@ -45,21 +46,25 @@ if ($target === 'current') {
 
     loadDependencies();
 
-    foreach (@methods(false) as list($carbonObject, $className, $method, $parameters)) {
+    foreach (@methods(false) as [$carbonObject, $className, $method, $parameters]) {
         if ($parameters === null) {
             $parameters = [];
+
             foreach ((new \ReflectionMethod($carbonObject, $method))->getParameters() as $parameter) {
                 $defaultValue = '';
                 $type = '';
+
                 if ($hint = @$parameter->getType()) {
                     $type = ltrim($hint, '\\').' ';
                 }
+
                 try {
                     if ($parameter->isDefaultValueAvailable()) {
-                        $defaultValue .= ' = '.var_export($parameter->getDefaultValue(), true);
+                        $defaultValue .= ' = '.convertType(var_export($parameter->getDefaultValue(), true));
                     }
                 } catch (\Throwable $e) {
                 }
+
                 $parameters[] = $type.'$'.nameAlias($parameter->getName()).$defaultValue;
             }
         }
@@ -90,21 +95,15 @@ $versions = array_filter(array_map(function ($version) {
 
 usort($versions, 'version_compare');
 
-$classes = [
-    Carbon::class,
-    CarbonInterval::class,
-    CarbonPeriod::class,
-    CarbonTimeZone::class,
-    ServiceProvider::class,
-];
-
 function executeCommand($command)
 {
     $output = '';
     $handle = popen($command, 'r');
+
     while ($chunk = fread($handle, 2096)) {
         $output .= $chunk;
     }
+
     pclose($handle);
 
     return $output;
@@ -119,6 +118,7 @@ function removeDirectory($dir)
     foreach (scandir($dir) as $file) {
         if ($file !== '.' && $file !== '..') {
             $path = $dir.'/'.$file;
+
             if (is_dir($path)) {
                 removeDirectory($path);
 
@@ -135,6 +135,7 @@ function removeDirectory($dir)
 function requireCarbon($branch)
 {
     @unlink('composer.lock');
+
     if (!removeDirectory('vendor')) {
         throw new \ErrorException('Cannot remove vendor directory.');
     }
@@ -164,10 +165,12 @@ function getMethodsOfVersion($version)
     chdir('sandbox');
     $output = requireCarbon($branch);
     chdir('..');
+
     if (strpos($output, 'Installation failed') !== false) {
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
+
     $output = shell_exec('php '.__FILE__.' current '.escapeshellarg('sandbox'));
     file_put_contents(__DIR__.'/cache/methods_of_version_'.$version.'.json', $output);
 
@@ -178,16 +181,20 @@ foreach (array_reverse($versions) as $index => $version) {
     echo round($index * 100 / $count)."% $version\n";
     $output = getMethodsOfVersion($version);
     $data = json_decode($output);
+
     if (!is_array($data) && !is_object($data)) {
         echo "\nError on $version:\n$output\n";
         exit(1);
     }
+
     $data = (array) $data;
+
     if (isset($data['error'])) {
         echo "\nError on $version:\n";
         print_r($data);
         exit(1);
     }
+
     foreach ($data as $method => $parameters) {
         $methods[$method][$version] = $parameters;
     }

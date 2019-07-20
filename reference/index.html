@@ -8,10 +8,10 @@
 
 <div class="doc-method " id="doc-method-Carbon-__construct">
     <h2><span class="class-name">Carbon::</span>__construct</h2>
-    <code>$time = NULL, $tz = NULL</code>
+    <code>$time = null, $tz = null</code>
     <p class="doc-description">Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$time = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$time = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-__wakeup">
@@ -26,7 +26,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>$dump</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">The __set_state handler.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$dump</code></td></tr><tr><td>Prototype changed</td><td>1.24.2</td><td><code>$array</code></td></tr><tr><td>Prototype changed</td><td>1.24.1</td><td><code>$state</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>array $state</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$array</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$dump</code></td></tr><tr><td>Prototype changed</td><td>1.24.2</td><td><code>$array</code></td></tr><tr><td>Prototype changed</td><td>1.24.1</td><td><code>$state</code></td></tr><tr><td>Prototype changed</td><td>1.24.0</td><td><code>array $state</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$array</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>array $array</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromImmutable">
@@ -37,10 +37,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-createFromFormat">
     <h2><span class="class-name">Carbon::</span>createFromFormat</h2>
-    <code>$format, $time, $tz = NULL</code>
+    <code>$format, $time, $tz = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a Carbon instance from a specific format.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.3.0</td><td><code>$format, $time, $tz = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$format, $time, $object = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.3.0</td><td><code>$format, $time, $tz = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$format, $time, $object = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getLastErrors">
@@ -66,18 +66,18 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-add">
     <h2><span class="class-name">Carbon::</span>add</h2>
-    <code>$unit, $value = 1, $overflow = NULL</code>
+    <code>$unit, $value = 1, $overflow = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Add given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->add('hour',&nbsp;3)</code></p><p><code>$date->add(15,&nbsp;'days')</code></p><p><code>$date->add(CarbonInterval::days(4))</code></p></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-sub">
     <h2><span class="class-name">Carbon::</span>sub</h2>
-    <code>$unit, $value = 1, $overflow = NULL</code>
+    <code>$unit, $value = 1, $overflow = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Subtract given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->sub('hour',&nbsp;3)</code></p><p><code>$date->sub(15,&nbsp;'days')</code></p><p><code>$date->sub(CarbonInterval::days(4))</code></p></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTimezone">
@@ -195,74 +195,74 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-set">
     <h2><span class="class-name">Carbon::</span>set</h2>
-    <code>$name, $value = NULL</code>
+    <code>$name, $value = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Set a part of the Carbon object</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$name, $value = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$name, $value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslatedDayName">
     <h2><span class="class-name">Carbon::</span>getTranslatedDayName</h2>
-    <code>$context = NULL, $keySuffix = '', $defaultValue = NULL</code>
+    <code>$context = null, $keySuffix = '', $defaultValue = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the translation of the current week day name (with context for languages with multiple forms).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = NULL, $keySuffix = '', $defaultValue = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = null, $keySuffix = '', $defaultValue = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslatedShortDayName">
     <h2><span class="class-name">Carbon::</span>getTranslatedShortDayName</h2>
-    <code>$context = NULL</code>
+    <code>$context = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the translation of the current short week day name (with context for languages with multiple forms).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslatedMinDayName">
     <h2><span class="class-name">Carbon::</span>getTranslatedMinDayName</h2>
-    <code>$context = NULL</code>
+    <code>$context = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the translation of the current abbreviated week day name (with context for languages with multiple forms).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslatedMonthName">
     <h2><span class="class-name">Carbon::</span>getTranslatedMonthName</h2>
-    <code>$context = NULL, $keySuffix = '', $defaultValue = NULL</code>
+    <code>$context = null, $keySuffix = '', $defaultValue = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the translation of the current month day name (with context for languages with multiple forms).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = NULL, $keySuffix = '', $defaultValue = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = null, $keySuffix = '', $defaultValue = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslatedShortMonthName">
     <h2><span class="class-name">Carbon::</span>getTranslatedShortMonthName</h2>
-    <code>$context = NULL</code>
+    <code>$context = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the translation of the current short month day name (with context for languages with multiple forms).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$context = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-dayOfYear">
     <h2><span class="class-name">Carbon::</span>dayOfYear</h2>
-    <code>$value = NULL</code>
+    <code>$value = null</code>
     <div class="doc-return">returns <code>Carbon|int</code></div>
     <p class="doc-description">Get/set the day of year.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-weekday">
     <h2><span class="class-name">Carbon::</span>weekday</h2>
-    <code>$value = NULL</code>
+    <code>$value = null</code>
     <div class="doc-return">returns <code>Carbon|int</code></div>
     <p class="doc-description">Get/set the weekday from 0 (Sunday) to 6 (Saturday).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isoWeekday">
     <h2><span class="class-name">Carbon::</span>isoWeekday</h2>
-    <code>$value = NULL</code>
+    <code>$value = null</code>
     <div class="doc-return">returns <code>Carbon|int</code></div>
     <p class="doc-description">Get/set the ISO weekday from 1 (Monday) to 7 (Sunday).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setUnitNoOverflow">
@@ -291,10 +291,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-utcOffset">
     <h2><span class="class-name">Carbon::</span>utcOffset</h2>
-    <code>int $offset = NULL</code>
+    <code>int $offset = null</code>
     <div class="doc-return">returns <code>int|Carbon</code></div>
     <p class="doc-description">Returns the minutes offset to UTC if no arguments passed, else set the timezone with given minutes shift passed.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>int $offset = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>int $offset = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setDateTime">
@@ -323,10 +323,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-tz">
     <h2><span class="class-name">Carbon::</span>tz</h2>
-    <code>$value = NULL</code>
+    <code>$value = null</code>
     <div class="doc-return">returns <code>Carbon|string</code></div>
     <p class="doc-description">Set the timezone or returns the timezone name if no arguments passed.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$value = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$value</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$value = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$value</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shiftTimezone">
@@ -347,26 +347,26 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-setDateFrom">
     <h2><span class="class-name">Carbon::</span>setDateFrom</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set the year, month, and date for this instance to that of the passed instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setTimeFrom">
     <h2><span class="class-name">Carbon::</span>setTimeFrom</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set the hour, minute, second and microseconds for this instance to that of the passed instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setDateTimeFrom">
     <h2><span class="class-name">Carbon::</span>setDateTimeFrom</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set the date and time for this instance to that of the passed instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getDays">
@@ -466,18 +466,18 @@ locale using setlocale() http://php.net/setlocale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-getIsoFormats">
     <h2><span class="class-name">Carbon::</span>getIsoFormats</h2>
-    <code>$locale = NULL</code>
+    <code>$locale = null</code>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">Returns list of locale formats for ISO formatting.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getCalendarFormats">
     <h2><span class="class-name">Carbon::</span>getCalendarFormats</h2>
-    <code>$locale = NULL</code>
+    <code>$locale = null</code>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">Returns list of calendar formats for ISO formatting.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getIsoUnits">
@@ -498,10 +498,10 @@ locale using setlocale() http://php.net/setlocale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-ordinal">
     <h2><span class="class-name">Carbon::</span>ordinal</h2>
-    <code>string $key, string $period = NULL</code>
+    <code>string $key, string $period = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Return a property with its ordinal.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $period = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $period = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-meridiem">
@@ -522,10 +522,10 @@ locale using setlocale() http://php.net/setlocale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isoFormat">
     <h2><span class="class-name">Carbon::</span>isoFormat</h2>
-    <code>string $format, string $originalFormat = NULL</code>
+    <code>string $format, string $originalFormat = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Format in the current language using ISO replacement patterns.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $format, string $originalFormat = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $format</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $format, string $originalFormat = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getFormatsToIsoReplacements">
@@ -558,10 +558,10 @@ like "-12:00".</p>
 
 <div class="doc-method " id="doc-method-Carbon-setUnit">
     <h2><span class="class-name">Carbon::</span>setUnit</h2>
-    <code>$unit, $value = NULL</code>
+    <code>$unit, $value = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Set specified unit to new given value.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-singularUnit">
@@ -694,22 +694,22 @@ like "-12:00".</p>
 
 <div class="doc-method " id="doc-method-Carbon-startOfWeek">
     <h2><span class="class-name">Carbon::</span>startOfWeek</h2>
-    <code>$weekStartsAt = NULL</code>
+    <code>$weekStartsAt = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Resets the date to the first day of week (defined in $weekStartsAt) and the time to 00:00:00<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->startOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->startOfWeek(Carbon::SUNDAY) . "\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$weekStartsAt = NULL</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$weekStartsAt = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-endOfWeek">
     <h2><span class="class-name">Carbon::</span>endOfWeek</h2>
-    <code>$weekEndsAt = NULL</code>
+    <code>$weekEndsAt = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Resets the date to end of week (defined in $weekEndsAt) and time to 23:59:59.999999<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->locale('ar')->endOfWeek() . "\n";
 echo Carbon::parse('2018-07-25 12:45:16')->endOfWeek(Carbon::SATURDAY) . "\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$weekEndsAt = NULL</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$weekEndsAt = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-startOfHour">
@@ -928,11 +928,21 @@ Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); 
     <h2><span class="class-name">Carbon::</span>between</h2>
     <code>$date1, $date2, $equal = true</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is between two others<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
+    <p class="doc-description">Determines if the instance is between two others.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
 Carbon::parse('2018-07-25')->between('2018-08-01', '2018-08-20'); // false
 Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // false
 Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', true); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2, $equal = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2, $equal = true</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-betweenExcluded">
+    <h2><span class="class-name">Carbon::</span>betweenExcluded</h2>
+    <code>$date1, $date2</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others, bounds excluded.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
+Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // false</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$date1, $date2</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isBetween">
@@ -1029,20 +1039,20 @@ Carbon::parse('2016-01-01')->isLongYear(); // false</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameAs">
     <h2><span class="class-name">Carbon::</span>isSameAs</h2>
-    <code>$format, $date = NULL</code>
+    <code>$format, $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Compares the formatted values of the two dates.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-12-13')); // true
 Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$format, $date = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>$format, Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$format, $date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>$format, Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameUnit">
     <h2><span class="class-name">Carbon::</span>isSameUnit</h2>
-    <code>$unit, $date = NULL</code>
+    <code>$unit, $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Determines if the instance is in the current unit given.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // true
 Carbon::parse('2018-12-13')->isSameUnit('year', Carbon::parse('2019-12-25')); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentUnit">
@@ -1056,24 +1066,24 @@ Carbon::now()->subHours(2)->isCurrentUnit('hour'); // false</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameQuarter">
     <h2><span class="class-name">Carbon::</span>isSameQuarter</h2>
-    <code>$date = NULL, $ofSameYear = true</code>
+    <code>$date = null, $ofSameYear = true</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the passed in date is in the same quarter as the instance quarter (and year if needed).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-03-01')); // true
 Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2019-04-01')); // false
 Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01')); // false
 Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = NULL, $ofSameYear = NULL</code></td></tr><tr><td>Method added</td><td>1.26.4</td><td><code>$date = NULL, $ofSameYear = false</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = null, $ofSameYear = null</code></td></tr><tr><td>Method added</td><td>1.26.4</td><td><code>$date = null, $ofSameYear = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMonth">
     <h2><span class="class-name">Carbon::</span>isSameMonth</h2>
-    <code>$date = NULL, $ofSameYear = true</code>
+    <code>$date = null, $ofSameYear = true</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the passed in date is in the same month as the instance´s month.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-01-01')); // true
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2019-02-01')); // false
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01')); // false
 Carbon::parse('2019-01-12')->isSameMonth(Carbon::parse('2018-01-01'), false); // true</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = NULL, $ofSameYear = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = NULL, $ofSameYear = false</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = NULL, $ofSameYear = false</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $ofSameYear = true</code></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$date = null, $ofSameYear = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null, $ofSameYear = false</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null, $ofSameYear = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isDayOfWeek">
@@ -1089,13 +1099,13 @@ Carbon::parse('2019-07-17')->isDayOfWeek('Friday'); // false</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-isBirthday">
     <h2><span class="class-name">Carbon::</span>isBirthday</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Check if its the birthday. Compares the date/month values of the two dates.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::now()->subYears(5)->isBirthday(); // true
 Carbon::now()->subYears(5)->subDay()->isBirthday(); // false
 Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-05')); // true
 Carbon::parse('2019-06-05')->isBirthday(Carbon::parse('2001-06-06')); // false</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr><tr><td>Method added</td><td>1.14.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.21.0</td><td><code>Carbon\Carbon $date = null</code></td></tr><tr><td>Method added</td><td>1.14.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isLastOfMonth">
@@ -1430,18 +1440,18 @@ echo Carbon::now('America/Toronto')->toISOString(true) . "\n";</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-toPeriod">
     <h2><span class="class-name">Carbon::</span>toPeriod</h2>
-    <code>$end = NULL, $interval = NULL, $unit = NULL</code>
+    <code>$end = null, $interval = null, $unit = null</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
     <p class="doc-description">Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = NULL, $interval = NULL, $unit = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = null, $interval = null, $unit = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-range">
     <h2><span class="class-name">Carbon::</span>range</h2>
-    <code>$end = NULL, $interval = NULL, $unit = NULL</code>
+    <code>$end = null, $interval = null, $unit = null</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
     <p class="doc-description">Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = NULL, $interval = NULL, $unit = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = null, $interval = null, $unit = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-instance">
@@ -1454,62 +1464,62 @@ echo Carbon::now('America/Toronto')->toISOString(true) . "\n";</code></pre></p>
 
 <div class="doc-method " id="doc-method-Carbon-rawParse">
     <h2><span class="class-name">Carbon::</span>rawParse</h2>
-    <code>$time = NULL, $tz = NULL</code>
+    <code>$time = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a carbon instance from a string.<br><br>This is an alias for the constructor that allows better fluent syntax
 as it allows you to do Carbon::parse('Monday next week')->fn() rather
 than (new Carbon('Monday next week'))->fn().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-parse">
     <h2><span class="class-name">Carbon::</span>parse</h2>
-    <code>$time = NULL, $tz = NULL</code>
+    <code>$time = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a carbon instance from a string.<br><br>This is an alias for the constructor that allows better fluent syntax
 as it allows you to do Carbon::parse('Monday next week')->fn() rather
 than (new Carbon('Monday next week'))->fn().</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$time = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$time = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-parseFromLocale">
     <h2><span class="class-name">Carbon::</span>parseFromLocale</h2>
-    <code>$time, $locale, $tz = NULL</code>
+    <code>$time, $locale, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time, $locale, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time, $locale, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-now">
     <h2><span class="class-name">Carbon::</span>now</h2>
-    <code>$tz = NULL</code>
+    <code>$tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get a Carbon instance for the current date and time.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-today">
     <h2><span class="class-name">Carbon::</span>today</h2>
-    <code>$tz = NULL</code>
+    <code>$tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance for today.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-tomorrow">
     <h2><span class="class-name">Carbon::</span>tomorrow</h2>
-    <code>$tz = NULL</code>
+    <code>$tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance for tomorrow.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-yesterday">
     <h2><span class="class-name">Carbon::</span>yesterday</h2>
-    <code>$tz = NULL</code>
+    <code>$tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance for yesterday.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.1.0</td><td><code>$tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-maxValue">
@@ -1530,89 +1540,89 @@ than (new Carbon('Monday next week'))->fn().</p>
 
 <div class="doc-method " id="doc-method-Carbon-create">
     <h2><span class="class-name">Carbon::</span>create</h2>
-    <code>$year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = NULL</code>
+    <code>$year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a new Carbon instance from a specific date and time.<br><br>If any of $year, $month or $day are set to null their now() values will
 be used.<br><br>If $hour is null it will be set to its now() value and the default
 values for $minute and $second will be their now() values.<br><br>If $hour is not null then the default values for $minute and $second
 will be 0.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$year = NULL, $month = NULL, $day = NULL, $hour = NULL, $minute = NULL, $second = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createSafe">
     <h2><span class="class-name">Carbon::</span>createSafe</h2>
-    <code>$year = NULL, $month = NULL, $day = NULL, $hour = NULL, $minute = NULL, $second = NULL, $tz = NULL</code>
+    <code>$year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a new safe Carbon instance from a specific date and time.<br><br>If any of $year, $month or $day are set to null their now() values will
 be used.<br><br>If $hour is null it will be set to its now() value and the default
 values for $minute and $second will be their now() values.<br><br>If $hour is not null then the default values for $minute and $second
 will be 0.<br><br>If one of the set values is not valid, an \InvalidArgumentException
 will be thrown.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><code>$year = NULL, $month = NULL, $day = NULL, $hour = NULL, $minute = NULL, $second = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><code>$year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromDate">
     <h2><span class="class-name">Carbon::</span>createFromDate</h2>
-    <code>$year = NULL, $month = NULL, $day = NULL, $tz = NULL</code>
+    <code>$year = null, $month = null, $day = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from just a date. The time portion is set to now.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$year = NULL, $month = NULL, $day = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$year = null, $month = null, $day = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createMidnightDate">
     <h2><span class="class-name">Carbon::</span>createMidnightDate</h2>
-    <code>$year = NULL, $month = NULL, $day = NULL, $tz = NULL</code>
+    <code>$year = null, $month = null, $day = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from just a date. The time portion is set to midnight.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><code>$year = NULL, $month = NULL, $day = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><code>$year = null, $month = null, $day = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTime">
     <h2><span class="class-name">Carbon::</span>createFromTime</h2>
-    <code>$hour = 0, $minute = 0, $second = 0, $tz = NULL</code>
+    <code>$hour = 0, $minute = 0, $second = 0, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from just a time. The date portion is set to today.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$hour = 0, $minute = 0, $second = 0, $tz = NULL</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$hour = NULL, $minute = NULL, $second = NULL, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$hour = 0, $minute = 0, $second = 0, $tz = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$hour = null, $minute = null, $second = null, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTimeString">
     <h2><span class="class-name">Carbon::</span>createFromTimeString</h2>
-    <code>$time, $tz = NULL</code>
+    <code>$time, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from a time string. The date portion is set to today.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$time, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-rawCreateFromFormat">
     <h2><span class="class-name">Carbon::</span>rawCreateFromFormat</h2>
-    <code>$format, $time, $tz = NULL</code>
+    <code>$format, $time, $tz = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a Carbon instance from a specific format.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromIsoFormat">
     <h2><span class="class-name">Carbon::</span>createFromIsoFormat</h2>
-    <code>$format, $time, $tz = NULL, $locale = 'en', $translator = NULL</code>
+    <code>$format, $time, $tz = null, $locale = 'en', $translator = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = NULL, $locale = 'en', $translator = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $time, $tz = null, $locale = 'en', $translator = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromLocaleFormat">
     <h2><span class="class-name">Carbon::</span>createFromLocaleFormat</h2>
-    <code>$format, $locale, $time, $tz = NULL</code>
+    <code>$format, $locale, $time, $tz = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a Carbon instance from a specific format and a string in a given language.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromLocaleIsoFormat">
     <h2><span class="class-name">Carbon::</span>createFromLocaleIsoFormat</h2>
-    <code>$format, $locale, $time, $tz = NULL</code>
+    <code>$format, $locale, $time, $tz = null</code>
     <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a Carbon instance from a specific ISO format and a string in a given language.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$format, $locale, $time, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-make">
@@ -1626,258 +1636,258 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 
 <div class="doc-method " id="doc-method-Carbon-diffAsCarbonInterval">
     <h2><span class="class-name">Carbon::</span>diffAsCarbonInterval</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Get the difference as a CarbonInterval instance</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = NULL, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = null, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInYears">
     <h2><span class="class-name">Carbon::</span>diffInYears</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in years</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMonths">
     <h2><span class="class-name">Carbon::</span>diffInMonths</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in months</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInWeeks">
     <h2><span class="class-name">Carbon::</span>diffInWeeks</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in weeks</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInDays">
     <h2><span class="class-name">Carbon::</span>diffInDays</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in days</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInDaysFiltered">
     <h2><span class="class-name">Carbon::</span>diffInDaysFiltered</h2>
-    <code>Closure $callback, $date = NULL, $absolute = true</code>
+    <code>Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in days using a filter closure</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Closure $callback, Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInHoursFiltered">
     <h2><span class="class-name">Carbon::</span>diffInHoursFiltered</h2>
-    <code>Closure $callback, $date = NULL, $absolute = true</code>
+    <code>Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in hours using a filter closure</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Closure $callback, Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffFiltered">
     <h2><span class="class-name">Carbon::</span>diffFiltered</h2>
-    <code>Carbon\CarbonInterval $ci, Closure $callback, $date = NULL, $absolute = true</code>
+    <code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference by the given interval using a filter closure</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInWeekdays">
     <h2><span class="class-name">Carbon::</span>diffInWeekdays</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in weekdays</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInWeekendDays">
     <h2><span class="class-name">Carbon::</span>diffInWeekendDays</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in weekend days using a filter</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInHours">
     <h2><span class="class-name">Carbon::</span>diffInHours</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in hours.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInRealHours">
     <h2><span class="class-name">Carbon::</span>diffInRealHours</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in hours using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMinutes">
     <h2><span class="class-name">Carbon::</span>diffInMinutes</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in minutes.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInRealMinutes">
     <h2><span class="class-name">Carbon::</span>diffInRealMinutes</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in minutes using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInSeconds">
     <h2><span class="class-name">Carbon::</span>diffInSeconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in seconds.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMicroseconds">
     <h2><span class="class-name">Carbon::</span>diffInMicroseconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in microseconds.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMilliseconds">
     <h2><span class="class-name">Carbon::</span>diffInMilliseconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in milliseconds.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInRealSeconds">
     <h2><span class="class-name">Carbon::</span>diffInRealSeconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in seconds using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInRealMicroseconds">
     <h2><span class="class-name">Carbon::</span>diffInRealMicroseconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in microseconds using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInRealMilliseconds">
     <h2><span class="class-name">Carbon::</span>diffInRealMilliseconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in milliseconds using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInSeconds">
     <h2><span class="class-name">Carbon::</span>floatDiffInSeconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in seconds as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInMinutes">
     <h2><span class="class-name">Carbon::</span>floatDiffInMinutes</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in minutes as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInHours">
     <h2><span class="class-name">Carbon::</span>floatDiffInHours</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in hours as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInDays">
     <h2><span class="class-name">Carbon::</span>floatDiffInDays</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in days as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInMonths">
     <h2><span class="class-name">Carbon::</span>floatDiffInMonths</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in months as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInYears">
     <h2><span class="class-name">Carbon::</span>floatDiffInYears</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in year as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealSeconds">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealSeconds</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in seconds as float (microsecond-precision) using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealMinutes">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealMinutes</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in minutes as float (microsecond-precision) using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealHours">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealHours</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in hours as float (microsecond-precision) using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealDays">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealDays</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in days as float (microsecond-precision).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealMonths">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealMonths</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in months as float (microsecond-precision) using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floatDiffInRealYears">
     <h2><span class="class-name">Carbon::</span>floatDiffInRealYears</h2>
-    <code>$date = NULL, $absolute = true</code>
+    <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>float</code></div>
     <p class="doc-description">Get the difference in year as float (microsecond-precision) using timestamps.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = NULL, $absolute = true</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.4.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-secondsSinceMidnight">
@@ -1898,7 +1908,7 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
 
 <div class="doc-method " id="doc-method-Carbon-diffForHumans">
     <h2><span class="class-name">Carbon::</span>diffForHumans</h2>
-    <code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from current instance to an other
 instance given (or now if null given).<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::tomorrow()->diffForHumans() . "\n";
@@ -1906,29 +1916,29 @@ echo Carbon::tomorrow()->diffForHumans(['parts' => 2]) . "\n";
 echo Carbon::tomorrow()->diffForHumans(['parts' => 3, 'join' => true]) . "\n";
 echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday()) . "\n";
 echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]) . "\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.25.0</td><td><code>$other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>Carbon\Carbon $other = NULL, $absolute = false, $short = false</code></td></tr><tr><td>Prototype changed</td><td>1.14.0</td><td><code>Carbon\Carbon $other = NULL, $absolute = false</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $other = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Prototype changed</td><td>1.25.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $other = null, $absolute = false, $short = false, $parts = 1</code></td></tr><tr><td>Prototype changed</td><td>1.22.0</td><td><code>Carbon\Carbon $other = null, $absolute = false, $short = false</code></td></tr><tr><td>Prototype changed</td><td>1.14.0</td><td><code>Carbon\Carbon $other = null, $absolute = false</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $other = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-from">
     <h2><span class="class-name">Carbon::</span>from</h2>
-    <code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">@alias diffForHumans<br><br>Get the difference in a human readable format in the current locale from current instance to an other
 instance given (or now if null given).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-since">
     <h2><span class="class-name">Carbon::</span>since</h2>
-    <code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code>
     <p class="doc-description">@alias diffForHumans<br><br>Get the difference in a human readable format in the current locale from current instance to an other
 instance given (or now if null given).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-to">
     <h2><span class="class-name">Carbon::</span>to</h2>
-    <code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from an other
 instance given (or now if null given) to current instance.<br><br>When comparing a value in the past to default now:
@@ -1940,61 +1950,61 @@ instance given (or now if null given) to current instance.<br><br>When comparing
 5 months after<br><br>When comparing a value in the future to another value:
 1 hour before
 5 months before</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-until">
     <h2><span class="class-name">Carbon::</span>until</h2>
-    <code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">@alias to<br><br>Get the difference in a human readable format in the current locale from an other
 instance given (or now if null given) to current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = NULL, $syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = NULL, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$other = null, $syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$other = null, $absolute = false, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-fromNow">
     <h2><span class="class-name">Carbon::</span>fromNow</h2>
-    <code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from current
 instance to now.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = NULL, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = null, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toNow">
     <h2><span class="class-name">Carbon::</span>toNow</h2>
-    <code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from an other
 instance given to now</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = NULL, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = null, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-ago">
     <h2><span class="class-name">Carbon::</span>ago</h2>
-    <code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code>
+    <code>$syntax = null, $short = false, $parts = 1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from an other
 instance given to now</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>$syntax = NULL, $short = false, $parts = 1, $options = NULL</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = NULL, $short = false, $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>$syntax = null, $short = false, $parts = 1, $options = null</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$absolute = null, $short = false, $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-timespan">
     <h2><span class="class-name">Carbon::</span>timespan</h2>
-    <code>$other = NULL, $timezone = NULL</code>
+    <code>$other = null, $timezone = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference in a human readable format in the current locale from current instance to an other
 instance given (or now if null given).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$other = NULL, $timezone = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$other = null, $timezone = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-calendar">
     <h2><span class="class-name">Carbon::</span>calendar</h2>
-    <code>$referenceTime = NULL, array $formats = array (
+    <code>$referenceTime = null, array $formats = array (
 )</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$referenceTime = NULL, array $formats = array (
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$referenceTime = null, array $formats = array (
 )</code></td></tr></table>
 </div>
 
@@ -2087,13 +2097,13 @@ $date->setTime(13, 0, 0, 0)<br><br>Set midday/noon hour</p>
 
 <div class="doc-method " id="doc-method-Carbon-next">
     <h2><span class="class-name">Carbon::</span>next</h2>
-    <code>$modifier = NULL</code>
+    <code>$modifier = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the next occurrence of a given modifier such as a day of
 the week. If no modifier is provided, modify to the next occurrence
 of the current day of the week. Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.20.0</td><td><code>$modifier = NULL</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.20.0</td><td><code>$modifier = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nextWeekday">
@@ -2130,35 +2140,35 @@ to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
 
 <div class="doc-method " id="doc-method-Carbon-previous">
     <h2><span class="class-name">Carbon::</span>previous</h2>
-    <code>$modifier = NULL</code>
+    <code>$modifier = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the previous occurrence of a given modifier such as a day of
 the week. If no dayOfWeek is provided, modify to the previous occurrence
 of the current day of the week. Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.20.0</td><td><code>$modifier = NULL</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.20.0</td><td><code>$modifier = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-firstOfMonth">
     <h2><span class="class-name">Carbon::</span>firstOfMonth</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the first occurrence of a given day of the week
 in the current month. If no dayOfWeek is provided, modify to the
 first day of the current month.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lastOfMonth">
     <h2><span class="class-name">Carbon::</span>lastOfMonth</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the last occurrence of a given day of the week
 in the current month. If no dayOfWeek is provided, modify to the
 last day of the current month.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nthOfMonth">
@@ -2174,24 +2184,24 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
 
 <div class="doc-method " id="doc-method-Carbon-firstOfQuarter">
     <h2><span class="class-name">Carbon::</span>firstOfQuarter</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the first occurrence of a given day of the week
 in the current quarter. If no dayOfWeek is provided, modify to the
 first day of the current quarter.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lastOfQuarter">
     <h2><span class="class-name">Carbon::</span>lastOfQuarter</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the last occurrence of a given day of the week
 in the current quarter. If no dayOfWeek is provided, modify to the
 last day of the current quarter.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nthOfQuarter">
@@ -2207,24 +2217,24 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
 
 <div class="doc-method " id="doc-method-Carbon-firstOfYear">
     <h2><span class="class-name">Carbon::</span>firstOfYear</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the first occurrence of a given day of the week
 in the current year. If no dayOfWeek is provided, modify to the
 first day of the current year.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-lastOfYear">
     <h2><span class="class-name">Carbon::</span>lastOfYear</h2>
-    <code>$dayOfWeek = NULL</code>
+    <code>$dayOfWeek = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify to the last occurrence of a given day of the week
 in the current year. If no dayOfWeek is provided, modify to the
 last day of the current year.  Use the supplied constants
 to indicate the desired dayOfWeek, ex. static::MONDAY.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><code>$dayOfWeek = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nthOfYear">
@@ -2240,11 +2250,11 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
 
 <div class="doc-method " id="doc-method-Carbon-average">
     <h2><span class="class-name">Carbon::</span>average</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Modify the current instance to the average of a given instance (default now) and the current instance
 (second-precision).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.7.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr><tr><td>Method added</td><td>1.7.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-closest">
@@ -2265,34 +2275,34 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
 
 <div class="doc-method " id="doc-method-Carbon-min">
     <h2><span class="class-name">Carbon::</span>min</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the minimum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr><tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-minimum">
     <h2><span class="class-name">Carbon::</span>minimum</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the minimum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-max">
     <h2><span class="class-name">Carbon::</span>max</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the maximum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr><tr><td>Method added</td><td>1.8.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-maximum">
     <h2><span class="class-name">Carbon::</span>maximum</h2>
-    <code>$date = NULL</code>
+    <code>$date = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Get the maximum instance between a given instance (default now) and the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-change">
@@ -2499,63 +2509,63 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-Carbon-getTranslationMessageWith">
     <h2><span class="class-name">Carbon::</span>getTranslationMessageWith</h2>
-    <code>$translator, string $key, string $locale = NULL, string $default = NULL</code>
+    <code>$translator, string $key, string $locale = null, string $default = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = null, string $default = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTranslationMessage">
     <h2><span class="class-name">Carbon::</span>getTranslationMessage</h2>
-    <code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code>
+    <code>string $key, string $locale = null, string $default = null, $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.8.0</td><td><code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.8.0</td><td><code>string $key, string $locale = null, string $default = null, $translator = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, string $locale = null, string $default = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translateWith">
     <h2><span class="class-name">Carbon::</span>translateWith</h2>
     <code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code>
+), $number = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code></td></tr></table>
+), $number = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translate">
     <h2><span class="class-name">Carbon::</span>translate</h2>
     <code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.8.0</td><td><code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, array $parameters = array (
-), $number = NULL</code></td></tr></table>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $key, array $parameters = array (
+), $number = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translateTimeString">
     <h2><span class="class-name">Carbon::</span>translateTimeString</h2>
-    <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 15</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translateTimeStringTo">
     <h2><span class="class-name">Carbon::</span>translateTimeStringTo</h2>
-    <code>$timeString, $to = NULL</code>
+    <code>$timeString, $to = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-locale">
     <h2><span class="class-name">Carbon::</span>locale</h2>
-    <code>string $locale = NULL, $fallbackLocales</code>
+    <code>string $locale = null, $fallbackLocales</code>
     <div class="doc-return">returns <code>$this|string</code></div>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = null, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getLocale">
@@ -2712,26 +2722,26 @@ name, region and variant of the locale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-roundWeek">
     <h2><span class="class-name">Carbon::</span>roundWeek</h2>
-    <code>$weekStartsAt = NULL</code>
+    <code>$weekStartsAt = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Round the current instance week.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-floorWeek">
     <h2><span class="class-name">Carbon::</span>floorWeek</h2>
-    <code>$weekStartsAt = NULL</code>
+    <code>$weekStartsAt = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Truncate the current instance week.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-ceilWeek">
     <h2><span class="class-name">Carbon::</span>ceilWeek</h2>
-    <code>$weekStartsAt = NULL</code>
+    <code>$weekStartsAt = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Ceil the current instance week.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$weekStartsAt = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-serialize">
@@ -2775,7 +2785,7 @@ name, region and variant of the locale.</p>
 
 <div class="doc-method " id="doc-method-Carbon-setTestNow">
     <h2><span class="class-name">Carbon::</span>setTestNow</h2>
-    <code>$testNow = NULL</code>
+    <code>$testNow = null</code>
     <p class="doc-description">Set a Carbon instance (real or mock) to be returned when a "now"
 instance is created.  The provided instance will be returned
 specifically under the following conditions:
@@ -2785,7 +2795,7 @@ specifically under the following conditions:
 - When a string containing the desired time is passed to Carbon::parse().<br><br>Note the timezone parameter was left out of the examples above and
 has no affect as the mock value will be returned regardless of its value.<br><br>To clear the test instance call this method using the default
 parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = NULL</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $testNow = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.22.0</td><td><code>$testNow = null</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $testNow = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTestNow">
@@ -2808,18 +2818,18 @@ is anything that is not null.</p>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTimestamp">
     <h2><span class="class-name">Carbon::</span>createFromTimestamp</h2>
-    <code>$timestamp, $tz = NULL</code>
+    <code>$timestamp, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from a timestamp.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$timestamp, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$timestamp, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTimestampMs">
     <h2><span class="class-name">Carbon::</span>createFromTimestampMs</h2>
-    <code>$timestamp, $tz = NULL</code>
+    <code>$timestamp, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a Carbon instance from a timestamp in milliseconds.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.23.0</td><td><code>$timestamp, $tz = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.23.0</td><td><code>$timestamp, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-createFromTimestampUTC">
@@ -2888,86 +2898,86 @@ forward while negative $value travels into the past.</p>
 
 <div class="doc-method " id="doc-method-Carbon-addUnit">
     <h2><span class="class-name">Carbon::</span>addUnit</h2>
-    <code>$unit, $value = 1, $overflow = NULL</code>
+    <code>$unit, $value = 1, $overflow = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Add given units to the current instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-subUnit">
     <h2><span class="class-name">Carbon::</span>subUnit</h2>
-    <code>$unit, $value = 1, $overflow = NULL</code>
+    <code>$unit, $value = 1, $overflow = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Subtract given units to the current instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-subtract">
     <h2><span class="class-name">Carbon::</span>subtract</h2>
-    <code>$unit, $value = 1, $overflow = NULL</code>
+    <code>$unit, $value = 1, $overflow = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Subtract given units or interval to the current instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isoWeekYear">
     <h2><span class="class-name">Carbon::</span>isoWeekYear</h2>
-    <code>$year = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$year = null, $dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int|Carbon</code></div>
     <p class="doc-description">Set/get the week number of year using given first day of week and first
 day of year included in the first week. Or use ISO format if no settings
 given.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$year = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$year = null, $dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-weekYear">
     <h2><span class="class-name">Carbon::</span>weekYear</h2>
-    <code>$year = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$year = null, $dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int|Carbon</code></div>
     <p class="doc-description">Set/get the week number of year using given first day of week and first
 day of year included in the first week. Or use US format if no settings
 given (Sunday / Jan 6).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$year = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$year = null, $dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isoWeeksInYear">
     <h2><span class="class-name">Carbon::</span>isoWeeksInYear</h2>
-    <code>$dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the number of weeks of the current week-year using given first day of week and first
 day of year included in the first week. Or use ISO format if no settings
 given.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-weeksInYear">
     <h2><span class="class-name">Carbon::</span>weeksInYear</h2>
-    <code>$dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the number of weeks of the current week-year using given first day of week and first
 day of year included in the first week. Or use US format if no settings
 given (Sunday / Jan 6).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-week">
     <h2><span class="class-name">Carbon::</span>week</h2>
-    <code>$week = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$week = null, $dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int|Carbon</code></div>
     <p class="doc-description">Get/set the week number using given first day of week and first
 day of year included in the first week. Or use US format if no settings
 given (Sunday / Jan 6).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$week = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$week = null, $dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isoWeek">
     <h2><span class="class-name">Carbon::</span>isoWeek</h2>
-    <code>$week = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code>
+    <code>$week = null, $dayOfWeek = null, $dayOfYear = null</code>
     <div class="doc-return">returns <code>int|Carbon</code></div>
     <p class="doc-description">Get/set the week number using given first day of week and first
 day of year included in the first week. Or use ISO format if no settings
 given.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$week = NULL, $dayOfWeek = NULL, $dayOfYear = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$week = null, $dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nextOpenExcludingHolidays">
@@ -3681,9 +3691,9 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-__construct">
     <h2><span class="class-name">CarbonInterval::</span>__construct</h2>
-    <code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL, $microseconds = NULL</code>
+    <code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null</code>
     <p class="doc-description">Create a new CarbonInterval instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL, $microseconds = NULL</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getFactor">
@@ -3744,13 +3754,13 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-create">
     <h2><span class="class-name">CarbonInterval::</span>create</h2>
-    <code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL, $microseconds = NULL</code>
+    <code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Create a new CarbonInterval instance from specific values.
 This is an alias for the constructor that allows better fluent
 syntax as it allows you to do CarbonInterval::create(1)->fn() rather than
 (new CarbonInterval(1))->fn().</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.5.0</td><td><code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL, $microseconds = NULL</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>$years = 1, $months = NULL, $weeks = NULL, $days = NULL, $hours = NULL, $minutes = NULL, $seconds = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.5.0</td><td><code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>$years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-copy">
@@ -3896,14 +3906,14 @@ echo CarbonInterval::days(5)->daysToHours() . "\n";</code></pre></p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-forHumans">
     <h2><span class="class-name">CarbonInterval::</span>forHumans</h2>
-    <code>$syntax = NULL, $short = false, $parts = -1, $options = NULL</code>
+    <code>$syntax = null, $short = false, $parts = -1, $options = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the current interval in a human readable format in the current locale.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo CarbonInterval::fromString('4d 3h 40m')->forHumans() . "\n";
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 2]) . "\n";
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 3, 'join' => true]) . "\n";
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['short' => true]) . "\n";
 echo CarbonInterval::fromString('1d 24h')->forHumans(['join' => ' or ']) . "\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = NULL, $short = false, $parts = -1, $options = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.28.0</td><td><code>$short = false</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = null, $short = false, $parts = -1, $options = null</code></td></tr><tr><td>Prototype changed</td><td>1.28.0</td><td><code>$short = false</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-__toString">
@@ -4134,6 +4144,38 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-between">
+    <h2><span class="class-name">CarbonInterval::</span>between</h2>
+    <code>$interval1, $interval2, $equal = true</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(3)); // true
+CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2)); // true
+CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2), false); // false</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval1, $interval2, $equal = true</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-betweenExcluded">
+    <h2><span class="class-name">CarbonInterval::</span>betweenExcluded</h2>
+    <code>$interval1, $interval2</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others, bounds excluded.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(3)); // true
+CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)); // false</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval1, $interval2</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-isBetween">
+    <h2><span class="class-name">CarbonInterval::</span>isBetween</h2>
+    <code>$interval1, $interval2, $equal = true</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(3)); // true
+CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(2)); // true
+CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(2), false); // false</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval1, $interval2, $equal = true</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-__wakeup">
     <h2><span class="class-name">CarbonInterval::</span>__wakeup</h2>
     <em>Native PHP method</em>
@@ -4318,62 +4360,62 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-CarbonInterval-getTranslationMessageWith">
     <h2><span class="class-name">CarbonInterval::</span>getTranslationMessageWith</h2>
-    <code>$translator, string $key, string $locale = NULL, string $default = NULL</code>
+    <code>$translator, string $key, string $locale = null, string $default = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = null, string $default = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getTranslationMessage">
     <h2><span class="class-name">CarbonInterval::</span>getTranslationMessage</h2>
-    <code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code>
+    <code>string $key, string $locale = null, string $default = null, $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, string $locale = null, string $default = null, $translator = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateWith">
     <h2><span class="class-name">CarbonInterval::</span>translateWith</h2>
     <code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code>
+), $number = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code></td></tr></table>
+), $number = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translate">
     <h2><span class="class-name">CarbonInterval::</span>translate</h2>
     <code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code></td></tr></table>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateTimeString">
     <h2><span class="class-name">CarbonInterval::</span>translateTimeString</h2>
-    <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 15</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateTimeStringTo">
     <h2><span class="class-name">CarbonInterval::</span>translateTimeStringTo</h2>
-    <code>$timeString, $to = NULL</code>
+    <code>$timeString, $to = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-locale">
     <h2><span class="class-name">CarbonInterval::</span>locale</h2>
-    <code>string $locale = NULL, $fallbackLocales</code>
+    <code>string $locale = null, $fallbackLocales</code>
     <div class="doc-return">returns <code>$this|string</code></div>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = null, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-getLocale">
@@ -4530,10 +4572,10 @@ name, region and variant of the locale.</p>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-createFromIso">
     <h2><span class="class-name">CarbonPeriod::</span>createFromIso</h2>
-    <code>$iso, $options = NULL</code>
+    <code>$iso, $options = null</code>
     <div class="doc-return">returns <code>CarbonPeriod</code></div>
     <p class="doc-description">Create CarbonPeriod from ISO 8601 string.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$iso, $options = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$iso, $options = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-macro">
@@ -4646,10 +4688,10 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-toggleOptions">
     <h2><span class="class-name">CarbonPeriod::</span>toggleOptions</h2>
-    <code>$options, $state = NULL</code>
+    <code>$options, $state = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Toggle given options on or off.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$options, $state = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$options, $state = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-excludeStartDate">
@@ -4718,18 +4760,18 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-addFilter">
     <h2><span class="class-name">CarbonPeriod::</span>addFilter</h2>
-    <code>$callback, $name = NULL</code>
+    <code>$callback, $name = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Add a filter to the stack.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$callback, $name = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$callback, $name = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-prependFilter">
     <h2><span class="class-name">CarbonPeriod::</span>prependFilter</h2>
-    <code>$callback, $name = NULL</code>
+    <code>$callback, $name = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Prepend a filter to the stack.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$callback, $name = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$callback, $name = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-removeFilter">
@@ -4782,18 +4824,18 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-setStartDate">
     <h2><span class="class-name">CarbonPeriod::</span>setStartDate</h2>
-    <code>$date, $inclusive = NULL</code>
+    <code>$date, $inclusive = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Change the period start date.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$date, $inclusive = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$date, $inclusive = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-setEndDate">
     <h2><span class="class-name">CarbonPeriod::</span>setEndDate</h2>
-    <code>$date, $inclusive = NULL</code>
+    <code>$date, $inclusive = null</code>
     <div class="doc-return">returns <code>$this</code></div>
     <p class="doc-description">Change the period end date.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$date, $inclusive = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><code>$date, $inclusive = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-valid">
@@ -4924,11 +4966,11 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-overlaps">
     <h2><span class="class-name">CarbonPeriod::</span>overlaps</h2>
-    <code>$rangeOrRangeStart, $rangeEnd = NULL</code>
+    <code>$rangeOrRangeStart, $rangeEnd = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Returns true if the current period overlaps the given one (if 1 parameter passed)
 or the period between 2 dates (if 2 parameters passed).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$rangeOrRangeStart, $rangeEnd = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$rangeOrRangeStart, $rangeEnd = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-forEach">
@@ -5147,62 +5189,62 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getTranslationMessageWith">
     <h2><span class="class-name">CarbonPeriod::</span>getTranslationMessageWith</h2>
-    <code>$translator, string $key, string $locale = NULL, string $default = NULL</code>
+    <code>$translator, string $key, string $locale = null, string $default = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = NULL, string $default = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>$translator, string $key, string $locale = null, string $default = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getTranslationMessage">
     <h2><span class="class-name">CarbonPeriod::</span>getTranslationMessage</h2>
-    <code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code>
+    <code>string $key, string $locale = null, string $default = null, $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns raw translation message for a given key.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, string $locale = NULL, string $default = NULL, $translator = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, string $locale = null, string $default = null, $translator = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateWith">
     <h2><span class="class-name">CarbonPeriod::</span>translateWith</h2>
     <code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code>
+), $number = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = array (
-), $number = NULL</code></td></tr></table>
+), $number = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translate">
     <h2><span class="class-name">CarbonPeriod::</span>translate</h2>
     <code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate using translation string or callback available.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.8.0</td><td><code>string $key, array $parameters = array (
-), $number = NULL, Symfony\Component\Translation\TranslatorInterface $translator = NULL</code></td></tr></table>
+), $number = null, Symfony\Component\Translation\TranslatorInterface $translator = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateTimeString">
     <h2><span class="class-name">CarbonPeriod::</span>translateTimeString</h2>
-    <code>$timeString, $from = NULL, $to = NULL, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 15</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = NULL, $to = NULL, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateTimeStringTo">
     <h2><span class="class-name">CarbonPeriod::</span>translateTimeStringTo</h2>
-    <code>$timeString, $to = NULL</code>
+    <code>$timeString, $to = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from the current locale (`$date->locale()`) to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $to = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-locale">
     <h2><span class="class-name">CarbonPeriod::</span>locale</h2>
-    <code>string $locale = NULL, $fallbackLocales</code>
+    <code>string $locale = null, $fallbackLocales</code>
     <div class="doc-return">returns <code>$this|string</code></div>
     <p class="doc-description">Get/set the locale for the current instance.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = NULL, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.16.0</td><td><code>string $locale = null, $fallbackLocales</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>string $locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getLocale">
@@ -5311,18 +5353,18 @@ name, region and variant of the locale.</p>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">
     <h2><span class="class-name">CarbonTimeZone::</span>__construct</h2>
-    <code>$timezone = NULL</code>
+    <code>$timezone = null</code>
     <p class="doc-description">Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$timezone = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$timezone = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-instance">
     <h2><span class="class-name">CarbonTimeZone::</span>instance</h2>
-    <code>$object = NULL, $objectDump = NULL</code>
+    <code>$object = null, $objectDump = null</code>
     <div class="doc-return">returns <code>false|CarbonTimeZone</code></div>
     <p class="doc-description">Create a CarbonTimeZone from mixed input.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.10.0</td><td><code>$object = NULL, $objectDump = NULL</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>$object = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.10.0</td><td><code>$object = null, $objectDump = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>$object = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-getAbbreviatedName">
@@ -5343,34 +5385,34 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toOffsetName">
     <h2><span class="class-name">CarbonTimeZone::</span>toOffsetName</h2>
-    <code>DateTimeInterface $date = NULL</code>
+    <code>DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the offset as string "sHH:MM" (such as "+00:00" or "-12:30").</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toOffsetTimeZone">
     <h2><span class="class-name">CarbonTimeZone::</span>toOffsetTimeZone</h2>
-    <code>DateTimeInterface $date = NULL</code>
+    <code>DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>CarbonTimeZone</code></div>
     <p class="doc-description">Returns a new CarbonTimeZone object using the offset string instead of region string.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toRegionName">
     <h2><span class="class-name">CarbonTimeZone::</span>toRegionName</h2>
-    <code>DateTimeInterface $date = NULL, $isDst = 1</code>
+    <code>DateTimeInterface $date = null, $isDst = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns the first region string (such as "America/Toronto") that matches the current timezone.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL, $isDst = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = null, $isDst = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-toRegionTimeZone">
     <h2><span class="class-name">CarbonTimeZone::</span>toRegionTimeZone</h2>
-    <code>DateTimeInterface $date = NULL</code>
+    <code>DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>CarbonTimeZone|false</code></div>
     <p class="doc-description">Returns a new CarbonTimeZone object using the region string instead of offset string.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__toString">
@@ -5383,10 +5425,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-create">
     <h2><span class="class-name">CarbonTimeZone::</span>create</h2>
-    <code>$object = NULL</code>
+    <code>$object = null</code>
     <div class="doc-return">returns <code>false|CarbonTimeZone</code></div>
     <p class="doc-description">Create a CarbonTimeZone from mixed input.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$object = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$object = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__wakeup">
@@ -5440,18 +5482,18 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Translator-get">
     <h2><span class="class-name">Translator::</span>get</h2>
-    <code>$locale = NULL</code>
+    <code>$locale = null</code>
     <div class="doc-return">returns <code>Translator</code></div>
     <p class="doc-description">Return a singleton instance of Translator.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-__construct">
     <h2><span class="class-name">Translator::</span>__construct</h2>
-    <code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = NULL, $cacheDir = NULL, $debug = false</code>
+    <code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code>
     <p class="doc-description">Create a new Carbon instance.<br><br>Please see the testing aids section (specifically static::setTestNow())
 for more on the possibility of this constructor returning a test instance.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = NULL, $cacheDir = NULL, $debug = false</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale, Symfony\Component\Translation\Formatter\MessageFormatterInterface $formatter = null, $cacheDir = null, $debug = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getDirectories">
@@ -5489,21 +5531,21 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-Translator-trans">
     <h2><span class="class-name">Translator::</span>trans</h2>
     <code>$id, array $parameters = array (
-), $domain = NULL, $locale = NULL</code>
+), $domain = null, $locale = null</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Returns the translation.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$id, array $parameters = array (
-), $domain = NULL, $locale = NULL</code></td></tr></table>
+), $domain = null, $locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-resetMessages">
     <h2><span class="class-name">Translator::</span>resetMessages</h2>
-    <code>$locale = NULL</code>
+    <code>$locale = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Reset messages of a locale (all locale if no locale passed).
 Remove custom messages and reload initial messages from matching
 file in Lang directory.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-getLocalesFiles">
@@ -5541,11 +5583,11 @@ file in Lang directory.</p>
 
 <div class="doc-method " id="doc-method-Translator-getMessages">
     <h2><span class="class-name">Translator::</span>getMessages</h2>
-    <code>$locale = NULL</code>
+    <code>$locale = null</code>
     <div class="doc-return">returns <code>array</code></div>
     <p class="doc-description">Get messages of a locale, if none given, return all the
 languages.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$locale = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-setLocale">
@@ -5882,7 +5924,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>\DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentYear">
@@ -5946,7 +5988,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>\DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = NULL</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentDay">
@@ -5978,7 +6020,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>\DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentHour">
@@ -6010,7 +6052,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>\DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMinute">
@@ -6042,7 +6084,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <code>\DateTimeInterface $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = NULL</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentSecond">
@@ -6138,7 +6180,7 @@ for more on the possibility of this constructor returning a test instance.</p>
     <em>no arguments</em>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the instance is in the same month as the current moment.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$ofSameYear = NULL</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><em>no arguments</em></td></tr><tr><td>Prototype changed</td><td>1.29.2</td><td><code>$ofSameYear = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isNextMonth">

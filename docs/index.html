@@ -257,7 +257,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-07-20 09:55:55
+echo $now;                               // 2019-07-20 13:35:41
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2019-07-20 00:00:00
@@ -389,7 +389,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 11:55 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:35 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -737,7 +737,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // juillet
 echo "\n";
-echo $date->isoFormat('LLLL');   // samedi 20 juillet 2019 09:55
+echo $date->isoFormat('LLLL');   // samedi 20 juillet 2019 13:35
 </code></pre>
     </p>
 
@@ -768,13 +768,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 09:55
+Aujourd’hui à 13:35
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 9:55 AM
+Today at 1:35 PM
 */
 </code></pre>
     </p>
@@ -1560,21 +1560,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 9:55 AM
+echo $date->calendar();                                      // Today at 1:35 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 6:55 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 10:35 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Tuesday at 11:32 PM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Wednesday at 3:12 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 07/12/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 12:55 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 4:35 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Tuesday at 8:18 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Tuesday at 11:58 PM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 07/28/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 09:55
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 13:35
 </code></pre>
     </p>
 
@@ -5202,7 +5202,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-07-20 09:55:55
+echo Carbon::now();                                    // 2019-07-20 13:35:42
 </code></pre>
     </p>
 
@@ -5392,12 +5392,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(55)
+var_dump(Carbon::now()->get($unit));                         // int(42)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(55)
+var_dump(Carbon::now()->$unit);                              // int(42)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(55)
+var_dump(Carbon::now()->get($unit));                         // int(42)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -5903,8 +5903,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-07-20 09:55:55
-echo $dt1->maximum();                              // 2019-07-20 09:55:55
+echo $dt1->max();                                  // 2019-07-20 13:35:42
+echo $dt1->maximum();                              // 2019-07-20 13:35:42
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7110,7 +7110,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // mercredi dernier à 11:55
+echo Carbon::now()->subDays(3)->formatForUser();           // mercredi dernier à 15:35
 </code></pre>
     </p>
 

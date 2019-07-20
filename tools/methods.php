@@ -94,16 +94,18 @@ function getClasses($excludeMixins = true)
     }
 }
 
-function exportReturnType($type, $className)
+function convertType($type)
 {
-    return convertReturnType($type, $className);
+    return strtr($type, [
+        'NULL' => 'null',
+        'FALSE' => 'false',
+        'TRUE' => 'true'
+    ]);
 }
 
 function convertReturnType($type, $className)
 {
-    if (in_array($type, ['NULL', 'TRUE', 'FALSE'])) {
-        $type = strtolower($type);
-    }
+    $type = convertType($type);
 
     $type = strtr(ltrim($type, '\\'), [
         'self' => $className,
@@ -144,9 +146,11 @@ function methods($excludeNatives = false, $excludeMixins = true)
 
             $records["$className::$method"] = true;
             $rc = new \ReflectionMethod($carbonObject, $method);
+
             if ($invoke) {
                 $rc = new \ReflectionFunction($rc->invoke($carbonObject));
             }
+
             $docComment = ($rc->getDocComment()
                 ?: (method_exists(\Carbon\CarbonImmutable::class, $method)
                     ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
@@ -172,25 +176,33 @@ function methods($excludeNatives = false, $excludeMixins = true)
 
                 if (count($matches[1]) || count($matches[2])) {
                     $docComment .= '<p><strong>Examples:</strong></p>';
+
                     foreach ($matches[2] as $example) {
                         $length = 300;
                         $example = explode("\n", $example);
+
                         foreach ($example as $line) {
                             $trim = ltrim($line);
+
                             if ($trim === '') {
                                 continue;
                             }
+
                             $l = strlen($line) - strlen($trim);
+
                             if ($l < $length) {
                                 $length = $l;
                             }
                         }
+
                         foreach ($example as &$line) {
                             $line = substr($line, $length);
                         }
+
                         $example = implode("\n", $example);
                         $docComment .= '<pre class="live-editor"><code class="php">'.$example.'</code></pre>';
                     }
+
                     foreach ($matches[1] as $example) {
                         $docComment .= '<p><code>'.str_replace(' ', '&nbsp;', $example).'</code></p>';
                     }
@@ -203,7 +215,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 $method,
                 null,
                 $rc->hasReturnType()
-                    ? exportReturnType($rc->getReturnType()->getName(), $className)
+                    ? convertReturnType($rc->getReturnType()->getName(), $className)
                     : $docReturn,
                 $docComment,
                 $dateTimeObject,
@@ -217,8 +229,9 @@ function methods($excludeNatives = false, $excludeMixins = true)
     $dateTimeObject = new \DateTime();
     $rc = new \ReflectionClass($className);
     preg_match_all('/@method\s+(\S+)\s+([^(]+)\(([^)]*)\)\s+(.+)\n/', $rc->getDocComment(), $matches, PREG_SET_ORDER);
+
     foreach ($matches as list($all, $return, $method, $parameters, $description)) {
-        $parameters = trim($parameters);
+        $parameters = convertType(trim($parameters));
 
         if (isset($records["$className::$method"])) {
             continue;
