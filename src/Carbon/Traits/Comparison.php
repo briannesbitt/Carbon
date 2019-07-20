@@ -313,7 +313,7 @@ trait Comparison
     }
 
     /**
-     * Determines if the instance is between two others
+     * Determines if the instance is between two others.
      *
      * @example
      * ```
@@ -345,6 +345,26 @@ trait Comparison
         }
 
         return $this->greaterThan($date1) && $this->lessThan($date2);
+    }
+
+    /**
+     * Determines if the instance is between two others, bounds excluded.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // false
+     * ```
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     *
+     * @return bool
+     */
+    public function betweenExcluded($date1, $date2): bool
+    {
+        return $this->between($date1, $date2, false);
     }
 
     /**
@@ -845,6 +865,7 @@ trait Comparison
 
             // Build the regex string
             $regex = '';
+
             for ($i = 0; $i < strlen($quotedFormat); ++$i) {
                 // Backslash – the next character does not represent a date token so add it on as-is and continue.
                 // We're doing an extra ++$i here to increment the loop by 2.

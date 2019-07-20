@@ -159,4 +159,46 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($oneDay->lte('P0DT23H59M59S'));
         $this->assertFalse($oneDay->lte('xxx'));
     }
+
+    public function testBetweenFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->between(CarbonInterval::days(2), CarbonInterval::days(3)));
+
+        $twoDays = CarbonInterval::hours(48);
+        $this->assertFalse($twoDays->between(CarbonInterval::day(), CarbonInterval::days(2), false));
+    }
+
+    public function testBetweenTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->between(CarbonInterval::hours(12), CarbonInterval::hours(36)));
+
+        $twoDays = CarbonInterval::hours(48);
+        $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(3), false));
+        $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(3), true));
+        $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(3)));
+        $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(2)));
+    }
+
+    public function testBetweenExcludedFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->betweenExcluded(CarbonInterval::days(2), CarbonInterval::days(3)));
+
+        $twoDays = CarbonInterval::hours(48);
+        $this->assertFalse($twoDays->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)));
+    }
+
+    public function testIsBetweenTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->isBetween(CarbonInterval::hours(12), CarbonInterval::hours(36)));
+
+        $twoDays = CarbonInterval::hours(48);
+        $this->assertTrue($twoDays->isBetween(CarbonInterval::day(), CarbonInterval::days(3), false));
+        $this->assertTrue($twoDays->isBetween(CarbonInterval::day(), CarbonInterval::days(3), true));
+        $this->assertTrue($twoDays->isBetween(CarbonInterval::day(), CarbonInterval::days(3)));
+        $this->assertTrue($twoDays->isBetween(CarbonInterval::day(), CarbonInterval::days(2)));
+    }
 }
