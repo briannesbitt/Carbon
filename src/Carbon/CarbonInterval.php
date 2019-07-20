@@ -1861,7 +1861,7 @@ class CarbonInterval extends DateInterval
      *
      * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval1
      * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval2
-     * @param bool                                       $equal Indicates if an equal to comparison should be done
+     * @param bool                                       $equal     Indicates if an equal to comparison should be done
      *
      * @return bool
      */
@@ -1905,7 +1905,7 @@ class CarbonInterval extends DateInterval
      *
      * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval1
      * @param \Carbon\CarbonInterval|\DateInterval|mixed $interval2
-     * @param bool                                       $equal Indicates if an equal to comparison should be done
+     * @param bool                                       $equal     Indicates if an equal to comparison should be done
      *
      * @return bool
      */
