@@ -99,7 +99,7 @@ function convertType($type)
     return strtr($type, [
         'NULL' => 'null',
         'FALSE' => 'false',
-        'TRUE' => 'true'
+        'TRUE' => 'true',
     ]);
 }
 

@@ -2,12 +2,6 @@
 
 namespace ApiHistory;
 
-use Carbon\Carbon;
-use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
-use Carbon\CarbonTimeZone;
-use Carbon\Laravel\ServiceProvider;
-
 include_once __DIR__.'/config.php';
 
 set_time_limit(0);
