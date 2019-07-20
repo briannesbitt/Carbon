@@ -10,10 +10,7 @@ function getMethodsFromObject($object)
         yield $method;
     }
 
-    var_dump(get_class($object));
-    if ($object instanceof MacroExposer) {
-        var_dump($object->__getMacros());
-        exit;
+    if (method_exists($object, '__getMacros')) {
         foreach ($object->__getMacros() as $method => $content) {
             yield $method => $content;
         }
@@ -24,7 +21,9 @@ trait MacroExposer
 {
     public function __getMacros()
     {
-        return static::$globalMacros;
+        $class = get_called_class();
+
+        return $class::$globalMacros;
     }
 }
 
@@ -42,13 +41,12 @@ function getClassesData($excludeMixins = true)
         ];
 
         if (!$excludeMixins && class_exists(\Cmixin\BusinessTime::class)) {
-            \Cmixin\BusinessTime::enable(BusinessTimeCarbon::class);
-
             yield [
-                new BusinessTimeCarbon(),
+                \Cmixin\BusinessTime::enable(BusinessTimeCarbon::class),
                 new \Carbon\Carbon(),
                 \Carbon\Carbon::class,
                 'Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>',
+                new BusinessTimeCarbon(),
             ];
         }
     }
@@ -92,15 +90,36 @@ function getClassesData($excludeMixins = true)
 function getClasses($excludeMixins = true)
 {
     foreach (getClassesData($excludeMixins) as $data) {
-        yield array_pad($data, 4, null);
+        yield array_pad($data, 5, null);
     }
+}
+
+function exportReturnType($type, $className)
+{
+    return convertReturnType($type, $className);
+}
+
+function convertReturnType($type, $className)
+{
+    if (in_array($type, ['NULL', 'TRUE', 'FALSE'])) {
+        $type = strtolower($type);
+    }
+
+    $type = strtr(ltrim($type, '\\'), [
+        'self' => $className,
+        'static' => $className,
+    ]);
+
+    $type = ltrim($type, '\\');
+
+    return preg_replace('/\\|\\\\/', '|', preg_replace('/Carbon\\\\/', '', $type));
 }
 
 function methods($excludeNatives = false, $excludeMixins = true)
 {
     $records = [];
 
-    foreach (getClasses($excludeMixins) as [$carbonObject, $dateTimeObject, $className, $info]) {
+    foreach (getClasses($excludeMixins) as [$carbonObject, $dateTimeObject, $className, $info, $invoke]) {
         $className = $className ?: get_class($carbonObject);
         $dateTimeMethods = get_class_methods($dateTimeObject);
 
@@ -124,17 +143,21 @@ function methods($excludeNatives = false, $excludeMixins = true)
             }
 
             $records["$className::$method"] = true;
-            if ($content) {
-                var_dump($method, $content);
-                exit;
+            $rc = new \ReflectionMethod($carbonObject, $method);
+            if ($invoke) {
+                $rc = new \ReflectionFunction($rc->invoke($carbonObject));
             }
-            $rc = $content ? new \ReflectionFunction($content) : new \ReflectionMethod($carbonObject, $method);
             $docComment = ($rc->getDocComment()
                 ?: (method_exists(\Carbon\CarbonImmutable::class, $method)
                     ? (new \ReflectionMethod(\Carbon\CarbonImmutable::class, $method))->getDocComment()
                     : null
                 )
             ) ?: null;
+
+            $docReturn = preg_match('/@return (\S+)/', $docComment, $returnMatch)
+                ? convertReturnType($returnMatch[1], $className)
+                : null;
+
             if ($docComment) {
                 preg_match_all('/@example[\t ]+([^\n]+)\n/', "$docComment\n", $matches, PREG_PATTERN_ORDER);
                 $matches[2] = [];
@@ -174,7 +197,18 @@ function methods($excludeNatives = false, $excludeMixins = true)
                 }
             }
 
-            yield [$carbonObject, $className, $method, null, $docComment, $dateTimeObject, $info];
+            yield [
+                $carbonObject,
+                $className,
+                $method,
+                null,
+                $rc->hasReturnType()
+                    ? exportReturnType($rc->getReturnType()->getName(), $className)
+                    : $docReturn,
+                $docComment,
+                $dateTimeObject,
+                $info,
+            ];
         }
     }
 
@@ -197,6 +231,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
             $className,
             $method,
             $parameters === '' ? [] : explode(',', $parameters),
+            $return,
             $description,
             $dateTimeObject,
             $info,

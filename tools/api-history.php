@@ -142,7 +142,7 @@ function requireCarbon($branch)
     return executeCommand("composer require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
 }
 
-foreach (methods() as list($carbonObject, $className, $method, $parameters)) {
+foreach (methods() as list($carbonObject, $className, $method)) {
     $methods["$className::$method"] = [];
 }
 
