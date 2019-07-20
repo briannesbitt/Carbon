@@ -70,7 +70,7 @@ Carbon::macro('getAvailableMacroLocales', function () {
 });
 
 Carbon::macro('getAllMethods', function () use ($globalHistory) {
-    foreach (@methods(false) as list($carbonObject, $className, $method, $parameters, $description, $dateTimeObject)) {
+    foreach (@methods(false, false) as [$carbonObject, $className, $method, $parameters, $return, $description, $dateTimeObject, $info]) {
         $classes = trim(implode(' ', [
             strpos($description, '@deprecated') !== false ? 'deprecated' : '',
         ]));
@@ -84,8 +84,10 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
                 $dateClass = trim($dateClass, '/\\');
 
                 yield [
+                    'info' => $info,
                     'name' => $method,
                     'classes' => $classes,
+                    'return' => $return,
                     'prototype' => '<em>Native PHP method</em>',
                     'className' => preg_replace('/^Carbon\\\\/', '', $className),
                     'description' => 'See <a href="http://php.net/manual/en/'.strtolower($dateClass.'.'.$method).'.php">PHP documentation for '.$dateClass.'::'.$method.'</a>',
@@ -134,12 +136,14 @@ Carbon::macro('getAllMethods', function () use ($globalHistory) {
         );
 
         yield [
+            'info' => $info,
             'name' => $method,
             'classes' => $classes,
+            'return' => $return,
             'prototype' => empty($parameters) ? '<em>no arguments</em>' : "<code>$parameters</code>",
             'className' => preg_replace('/^Carbon\\\\/', '', $className),
             'description' => $description,
-            'history' => "<table class='info-table method-history'>$history</table>",
+            'history' => empty($info) ? "<table class='info-table method-history'>$history</table>" : '',
         ];
     }
 });

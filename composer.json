@@ -2,7 +2,8 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
-        "nesbot/carbon": "dev-master"
+        "cmixin/business-time": "dev-master",
+        "nesbot/carbon": "dev-master as 2.22.0"
     },
     "scripts": {
         "check": "@php tools/check.php",

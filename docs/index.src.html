@@ -1834,6 +1834,9 @@ echo get_class($copy).': '.$copy; // Same as MySubClass::instance($dt))}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second));/*pad(75)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->between($first, $second, false));/*pad(75)*/)}} // {{eval}}
 {{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->isBetween($first, $second, false));/*pad(75)*/)}} // {{eval}}
+// Rather than passing false as a third argument, you can use betweenExcluded
+{{::exec(var_dump(Carbon::create(2012, 9, 5, 5)->betweenExcluded($first, $second));/*pad(75)*/)}} // {{eval}}
+// All those methods are also available on CarbonInterval
 </code></pre>
     </p>
 
@@ -3245,30 +3248,9 @@ CarbonPeriod::macro('countWeekdays', function () {
 </code></pre>
     </p>
 
-    <p>Here are some useful macros proposed by the community:</p>
-
-    <p>
-    <pre><code class="php">{{::lint(
-Carbon::macro('isHoliday', function () {
-    return in_array($this->format('d/m'), [
-        '25/12', // Christmas
-        '01/01', // New Year
-        // ...
-    ]);
-});
-)}}
-{{::exec(var_dump(Carbon::createMidnightDate(2012, 12, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::createMidnightDate(2017, 6, 25)->isHoliday());/*pad(65)*/)}} // {{eval}}
-{{::exec(var_dump(Carbon::createMidnightDate(2021, 1, 1)->isHoliday());/*pad(65)*/)}} // {{eval}}
-</code></pre>
-    </p>
-
-    <p><em>Credit: <a href="https://github.com/kylekatarnls">kylekatarnls</a> (<a
-            href="https://github.com/briannesbitt/Carbon/pull/116">#116</a>).</em></p>
-
-    <p>Check <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a> for a more complete business
-        days handler and  <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
-        (extends business-day) to handle both holidays and opening hours.</p>
+    <p>Check <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
+        (that includes <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a>)
+        to handle both holidays and business opening hours with a lot of advanced features.</p>
 
     <p>
     <pre><code class="php">{{::lint(
@@ -3532,6 +3514,10 @@ echo "\n";
 {{::exec(echo $ci;/*pad(54)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p>You can compare intervals the same way than Carbon objects, using <code>equalTo()</code>, <code>notEqualTo()</code>
+        <code>lessThan()</code>, <code>lessThanOrEqualTo()</code>, <code>greaterThan()</code>,
+        <code>greaterThanOrEqualTo()</code>, <code>between()</code>, <code>betweenExcluded()</code>, etc.</p>
 
     <p>Other helpers, but beware the implementation provides helpers to handle weeks but only days are saved. Weeks are
         calculated based on the total days of the current instance.</p>
