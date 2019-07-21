@@ -107,7 +107,7 @@ class Carbon extends \DateTime
     <p>We also provide CarbonImmutable class extending <a
             href="http://www.php.net/manual/en/class.datetimeimmutable.php">DateTimeImmutable</a>.
         The same methods are available on both classes but when you use a modifier on a Carbon
-        instance, it modify it and returns the same instance, when you use it on CarbonImmutable,
+        instance, it modifies and returns the same instance, when you use it on CarbonImmutable,
         it returns a new instances with the new value.</p>
 
     <p>
@@ -539,7 +539,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miÈrcoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miÔøΩrcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // mi√©rcoles 06 enero 2016
 Carbon::setUtf8(false);
