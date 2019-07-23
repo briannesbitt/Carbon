@@ -8,4 +8,9 @@ trait FooBar
     {
         return 'super'.$string.' / '.$this->format('l').' / '.($this->isMutable() ? 'mutable' : 'immutable');
     }
+
+    public function me()
+    {
+        return $this;
+    }
 }

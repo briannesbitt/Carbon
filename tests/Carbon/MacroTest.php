@@ -172,5 +172,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $this->assertSame('supergirl / Friday / mutable', Carbon::super('girl'));
         $this->assertSame('superboy / Thursday / mutable', Carbon::parse('2019-07-18')->super('boy'));
+
+        $this->assertInstanceOf(Carbon::class, Carbon::me());
     }
 }

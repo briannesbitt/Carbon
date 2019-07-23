@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use Closure;
+
 /**
  * Trait Boundaries.
  *
@@ -167,13 +169,11 @@ trait Macro
     {
         $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
         $className = get_class($context);
-        /** @var \ReflectionMethod[] $methods */
-        $methods = (new \ReflectionClass($className))->getMethods(\ReflectionMethod::IS_PUBLIC);
 
-        foreach ($methods as $method) {
-            $closureBase = $method->getClosure($context);
+        foreach (get_class_methods($context) as $name) {
+            $closureBase = Closure::fromCallable([$context, $name]);
 
-            static::macro($method->name, function () use ($closureBase, $className) {
+            static::macro($name, function () use ($closureBase, $className) {
                 $context = isset($this) ? $this->cast($className) : $className::now();
                 $closure = $closureBase->bindTo($context);
 
