@@ -16,8 +16,12 @@ use Tests\AbstractTestCaseWithOldNow;
 
 class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
-    public function testGenericMacro()
+    public function testGenericMacroBinding()
     {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('Not yet implemented for PHP 8.');
+        }
+
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
@@ -30,6 +34,63 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
                 }
 
                 return new static($time);
+            } catch (\Throwable $exception) {
+                if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
+                    throw new \BadMethodCallException('Try next macro', 0, $exception);
+                }
+
+                throw $exception;
+            }
+        });
+
+        /** @var mixed $now */
+        $now = Carbon::now();
+
+        $this->assertSame('2017-07-02', $now->nextSunday()->format('Y-m-d'));
+        $this->assertSame('2017-06-26', Carbon::lastMonday()->format('Y-m-d'));
+
+        $message = null;
+
+        try {
+            Carbon::fooBar();
+        } catch (\BadMethodCallException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        $this->assertSame('Method '.Carbon::class.'::fooBar does not exist.', $message);
+
+        $message = null;
+
+        try {
+            $now->barBiz();
+        } catch (\BadMethodCallException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        $this->assertSame('Method barBiz does not exist.', $message);
+    }
+
+    public function testGenericMacro()
+    {
+        Carbon::genericMacro(function ($method) {
+            $time = preg_replace('/[A-Z]/', ' $0', $method);
+
+            try {
+                if (isset(${'this'})) {
+                    /** @var Carbon $date */
+                    $date = $this;
+
+                    // @TODO allow unbind $this in PHP 8 (see with Laravel team how they plan to handle this in marcos)
+
+                    if (method_exists($date, 'modify')) {
+                        return $date->modify($time);
+                    }
+                }
+
+                // @TODO allow to call new static() in PHP 8
+                // (see with Laravel team how they plan to handle this in marcos)
+
+                return new Carbon($time);
             } catch (\Throwable $exception) {
                 if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
                     throw new \BadMethodCallException('Try next macro', 0, $exception);
