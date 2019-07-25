@@ -148,7 +148,7 @@ trait Macro
         return isset(static::$globalMacros[$name]);
     }
 
-    protected static function loadMixinClass($mixin)
+    private static function loadMixinClass($mixin)
     {
         $methods = (new \ReflectionClass($mixin))->getMethods(
             \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
@@ -165,7 +165,7 @@ trait Macro
         }
     }
 
-    protected static function loadMixinTrait($trait)
+    private static function loadMixinTrait($trait)
     {
         $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
         $className = get_class($context);

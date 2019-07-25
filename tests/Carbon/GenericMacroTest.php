@@ -26,7 +26,9 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
                     /** @var Carbon $date */
                     $date = $this;
 
-                    return $date->modify($time);
+                    if (method_exists($date, 'modify')) {
+                        return $date->modify($time);
+                    }
                 }
 
                 return new static($time);
