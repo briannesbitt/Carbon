@@ -15,6 +15,7 @@
  * - sycuato
  * - bokideckonja
  * - Luo Ning
+ * - William Yang (williamyang233)
  */
 return [
     'year' => ':count年',
@@ -32,7 +33,7 @@ return [
     'second' => ':count秒',
     's' => ':count秒',
     'ago' => ':time前',
-    'from_now' => '距现在:time',
+    'from_now' => ':time后',
     'after' => ':time后',
     'before' => ':time前',
     'diff_yesterday' => '昨天',

@@ -18,6 +18,7 @@
  * - Hossein Jabbari
  * - nimamo
  * - hafezdivandari
+ * - Hassan Pezeshk (hpez)
  */
 return [
     'year' => ':count سال',
