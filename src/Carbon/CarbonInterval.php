@@ -1610,9 +1610,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $unit
      *
-     * @return float
      * @throws InvalidArgumentException
      *
+     * @return float
      */
     public function total($unit)
     {
