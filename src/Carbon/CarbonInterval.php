@@ -738,9 +738,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $name
      *
-     * @return int|float|string
-     *@throws InvalidArgumentException
+     * @throws InvalidArgumentException
      *
+     * @return int|float|string
      */
     public function __get($name)
     {
