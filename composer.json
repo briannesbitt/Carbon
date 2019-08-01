@@ -1,7 +1,7 @@
 {
     "name": "nesbot/carbon",
     "type": "library",
-    "description": "A simple API extension for DateTime.",
+    "description": "A API extension for DateTime that supports 281 different languages.",
     "keywords": [
         "date",
         "time",

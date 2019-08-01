@@ -19,6 +19,7 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use ReflectionException;
+use RuntimeException;
 
 /**
  * A simple API extension for DateTime.
@@ -1050,7 +1051,7 @@ trait Date
     public function set($name, $value = null)
     {
         if ($this->isImmutable()) {
-            throw new \RuntimeException(sprintf(
+            throw new RuntimeException(sprintf(
                 '%s class is immutable.',
                 static::class
             ));

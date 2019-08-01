@@ -738,9 +738,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $name
      *
-     * @throws \InvalidArgumentException
-     *
      * @return int|float|string
+     *@throws InvalidArgumentException
+     *
      */
     public function __get($name)
     {
@@ -796,7 +796,7 @@ class CarbonInterval extends DateInterval
      * @param string $name
      * @param int    $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __set($name, $value)
     {
@@ -1610,9 +1610,9 @@ class CarbonInterval extends DateInterval
      *
      * @param string $unit
      *
-     * @throws \InvalidArgumentException
-     *
      * @return float
+     * @throws InvalidArgumentException
+     *
      */
     public function total($unit)
     {
@@ -1676,7 +1676,7 @@ class CarbonInterval extends DateInterval
         }
 
         if (!$unitFound) {
-            throw new \InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
+            throw new InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
         }
 
         if ($unit === 'weeks') {

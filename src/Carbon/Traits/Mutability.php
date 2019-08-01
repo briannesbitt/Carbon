@@ -12,6 +12,7 @@ namespace Carbon\Traits;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use InvalidArgumentException;
 
 /**
  * Trait Mutability.
@@ -50,7 +51,7 @@ trait Mutability
     public function cast(string $className)
     {
         if (!method_exists($className, 'instance')) {
-            throw new \InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
         }
 
         return $className::instance($this);
