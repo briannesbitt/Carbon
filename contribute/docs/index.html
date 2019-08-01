@@ -343,6 +343,121 @@ echo 6;              // 6
             }
         }
 
+        var $search = $('#main-search-bar');
+
+        if ($search.length) {
+            function search(word) {
+                var list = $('#docs *, #reference *').filter(function (index, element) {
+                    return $(element).find('script').length === 0 && (new RegExp(word, 'i')).test(element.innerText);
+                });
+
+                var copy = list.slice();
+
+                copy.each(function (index, element) {
+                    list = list.filter(function (i, e) {
+                        return e !== element.parentNode;
+                    });
+                });
+
+                var result = [];
+
+                list.each(function (i, e) {
+                    while (e.parentNode && ~['inline', 'table-cell'].indexOf(window.getComputedStyle(e).display)) {
+                        e = e.parentNode;
+                    }
+
+                    if (e !== result[result.length - 1]) {
+                        result.push(e);
+                    }
+                });
+
+                return result;
+            }
+
+            var searchValue = $search.val().trim();
+            var timeout = null;
+
+            $search.on('change input keyup keypress', function () {
+                var newValue = $search.val().trim();
+
+                if (newValue.length === 0) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    $('#search-result').hide();
+                    $('#docs').removeClass('height-squeezed');
+
+                    return;
+                }
+
+                $('#docs').addClass('height-squeezed');
+
+                if (newValue.length < 2) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    $('#search-result').show().html('<p>Type at least 2 letters to start the search.</p>');
+
+                    return;
+                }
+
+                if (searchValue !== newValue) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    searchValue = newValue;
+
+                    $('#search-result').show().html('<p>Searching...</p>');
+
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                        var result = search(searchValue);
+
+                        if (result.length === 0) {
+                            $('#search-result').html('<p>No matches found.</p>');
+
+                            return;
+                        }
+
+                        window.goToSearchResult = function (index) {
+                            if (result[index]) {
+                                var $element = $(result[index]);
+
+                                if ($element.length) {
+                                    if ($element.parents('#reference').length) {
+                                        $('.main-wrapper').addClass('open');
+                                    }
+
+                                    $('#search-result').hide();
+                                    $('#docs').removeClass('height-squeezed');
+                                    $search.val('');
+
+                                    setTimeout(function () {
+                                        $element[0].scrollIntoView();
+                                    }, 1);
+                                }
+                            }
+                        };
+
+                        var html = '';
+
+                        result.slice(0, 50).forEach(function (element, index) {
+                            var $element = $(element);
+
+                            html += $('<div>').append($('<' + ($element.is('code') ? 'pre' : 'p') + ' class="search-result-item" onclick="goToSearchResult(' + index + ');">').text($element.text())).html().replace(new RegExp(searchValue, 'i'), function (word) {
+                                return '<span class="highlight">' + word + '</span>';
+                            });
+                        });
+
+                        $('#search-result').html(html + (result.length > 50 ? '<p>' + (result.length - 50) + ' results omitted, type more to filter results.</p>' : ''));
+                    }, 500);
+                }
+            });
+        }
+
         $(document)
             .on('click', 'a[data-open-doc]', function (event) {
                 event.preventDefault();

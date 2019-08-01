@@ -314,6 +314,36 @@ footer .help-translate {
     display: block !important;
 }
 
+.height-squeezed {
+    height: 0;
+    overflow: hidden;
+}
+
+.v-margin-15 {
+    margin: 15px 0;
+}
+
+.search-result-item {
+    cursor: pointer;
+    border-bottom: 1px solid silver;
+    padding: 4px 0;
+}
+
+pre.search-result-item {
+    background: white;
+    color: black;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+.search-result-item:hover {
+    background: #dae0a7;
+}
+
+.search-result-item .highlight {
+    background: #fcff4c;
+}
+
 @media (max-width: 1600px) {
     html,
     body {
