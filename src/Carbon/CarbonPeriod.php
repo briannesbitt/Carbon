@@ -1704,7 +1704,7 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Determines if the instance is equal to another
+     * Determines if the instance is equal to another.
      *
      * @param mixed $period
      *
@@ -1718,7 +1718,7 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Determines if the instance is equal to another
+     * Determines if the instance is equal to another.
      *
      * @param mixed $period
      *
@@ -1738,7 +1738,7 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Determines if the instance is not equal to another
+     * Determines if the instance is not equal to another.
      *
      * @param mixed $period
      *
@@ -1752,7 +1752,7 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
-     * Determines if the instance is not equal to another
+     * Determines if the instance is not equal to another.
      *
      * @param mixed $period
      *
@@ -1763,51 +1763,121 @@ class CarbonPeriod implements Iterator, Countable
         return !$this->eq($period);
     }
 
+    /**
+     * Determines if the start date is before an other given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function startsBefore($date): bool
     {
         return $this->getStartDate()->lessThan($date);
     }
 
+    /**
+     * Determines if the start date is before or the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function startsBeforeOrAt($date): bool
     {
         return $this->getStartDate()->lessThanOrEqualTo($date);
     }
 
+    /**
+     * Determines if the start date is after an other given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function startsAfter($date): bool
     {
         return $this->getStartDate()->greaterThan($date);
     }
 
+    /**
+     * Determines if the start date is after or the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function startsAfterOrAt($date): bool
     {
         return $this->getStartDate()->greaterThanOrEqualTo($date);
     }
 
+    /**
+     * Determines if the start date is the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function startsAt($date): bool
     {
         return $this->getStartDate()->equalTo($date);
     }
 
+    /**
+     * Determines if the end date is before an other given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function endsBefore($date): bool
     {
         return $this->getEndDate()->lessThan($date);
     }
 
+    /**
+     * Determines if the end date is before or the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function endsBeforeOrAt($date): bool
     {
         return $this->getEndDate()->lessThanOrEqualTo($date);
     }
 
+    /**
+     * Determines if the end date is after an other given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function endsAfter($date): bool
     {
         return $this->getEndDate()->greaterThan($date);
     }
 
+    /**
+     * Determines if the end date is after or the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function endsAfterOrAt($date): bool
     {
         return $this->getEndDate()->greaterThanOrEqualTo($date);
     }
 
+    /**
+     * Determines if the end date is the same as a given date.
+     *
+     * @param mixed $date
+     *
+     * @return bool
+     */
     public function endsAt($date): bool
     {
         return $this->getEndDate()->equalTo($date);

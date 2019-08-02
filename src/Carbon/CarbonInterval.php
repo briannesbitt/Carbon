@@ -177,6 +177,7 @@ class CarbonInterval extends DateInterval
     {
         if (!self::$flipCascadeFactors) {
             self::$flipCascadeFactors = [];
+
             foreach (static::getCascadeFactors() as $to => [$factor, $from]) {
                 self::$flipCascadeFactors[self::standardizeUnit($from)] = [self::standardizeUnit($to), $factor];
             }
