@@ -1762,4 +1762,54 @@ class CarbonPeriod implements Iterator, Countable
     {
         return !$this->eq($period);
     }
+
+    public function startsBefore($date): bool
+    {
+        return $this->getStartDate()->lessThan($date);
+    }
+
+    public function startsBeforeOrAt($date): bool
+    {
+        return $this->getStartDate()->lessThanOrEqualTo($date);
+    }
+
+    public function startsAfter($date): bool
+    {
+        return $this->getStartDate()->greaterThan($date);
+    }
+
+    public function startsAfterOrAt($date): bool
+    {
+        return $this->getStartDate()->greaterThanOrEqualTo($date);
+    }
+
+    public function startsAt($date): bool
+    {
+        return $this->getStartDate()->equalTo($date);
+    }
+
+    public function endsBefore($date): bool
+    {
+        return $this->getEndDate()->lessThan($date);
+    }
+
+    public function endsBeforeOrAt($date): bool
+    {
+        return $this->getEndDate()->lessThanOrEqualTo($date);
+    }
+
+    public function endsAfter($date): bool
+    {
+        return $this->getEndDate()->greaterThan($date);
+    }
+
+    public function endsAfterOrAt($date): bool
+    {
+        return $this->getEndDate()->greaterThanOrEqualTo($date);
+    }
+
+    public function endsAt($date): bool
+    {
+        return $this->getEndDate()->equalTo($date);
+    }
 }
