@@ -12,6 +12,9 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
+use DateInterval;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class RoundTest extends AbstractTestCase
@@ -50,6 +53,40 @@ class RoundTest extends AbstractTestCase
         $this->assertCarbon($dt->copy()->ceil(0.5), 2315, 7, 18, 22, 42, 18, 0);
         $this->assertCarbon($dt->copy()->ceil(0.25), 2315, 7, 18, 22, 42, 17, 750000);
         $this->assertCarbon($dt->copy()->ceil(3.8), 2315, 7, 18, 22, 42, 19, 800000);
+    }
+
+    public function testRoundWithStrings()
+    {
+        $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
+
+        $this->assertCarbon($dt->copy()->round('minute'), 2315, 7, 18, 22, 42, 0, 0);
+        $this->assertCarbon($dt->copy()->floor('5 minutes'), 2315, 7, 18, 22, 40, 0, 0);
+        $this->assertCarbon($dt->copy()->ceil('5 minutes'), 2315, 7, 18, 22, 45, 0, 0);
+    }
+
+    public function testRoundWithStringsException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Rounding is only possible with single unit intervals.');
+
+        Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round('2 hours 5 minutes');
+    }
+
+    public function testRoundWithInterval()
+    {
+        $dt = Carbon::create(2315, 7, 18, 22, 42, 17.643971);
+
+        $this->assertCarbon($dt->copy()->round(CarbonInterval::minute()), 2315, 7, 18, 22, 42, 0, 0);
+        $this->assertCarbon($dt->copy()->floor(CarbonInterval::minutes(5)), 2315, 7, 18, 22, 40, 0, 0);
+        $this->assertCarbon($dt->copy()->ceil(new DateInterval('PT5M')), 2315, 7, 18, 22, 45, 0, 0);
+    }
+
+    public function testRoundWithIntervalException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Rounding is only possible with single unit intervals.');
+
+        Carbon::create(2315, 7, 18, 22, 42, 17.643971)->round(CarbonInterval::day()->minutes(5));
     }
 
     public function testRoundWithBaseUnit()
@@ -121,7 +158,7 @@ class RoundTest extends AbstractTestCase
 
     public function testRoundInvalidArgument()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Unknown unit \'foobar\' to floor'
         );

@@ -11,6 +11,8 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
+use DateInterval;
 use InvalidArgumentException;
 
 /**
@@ -54,9 +56,11 @@ trait Rounding
             'microsecond' => [0, 999999],
         ]);
         $factor = 1;
+
         if (isset($metaUnits[$normalizedUnit])) {
             [$factor, $normalizedUnit] = $metaUnits[$normalizedUnit];
         }
+
         $precision *= $factor;
 
         if (!isset($ranges[$normalizedUnit])) {
@@ -84,10 +88,12 @@ trait Rounding
                 $fraction *= $delta;
                 $arguments[0] += $this->$unit * $factor;
                 $changes[$unit] = round($minimum + ($fraction ? $fraction * call_user_func($function, ($this->$unit - $minimum) / $fraction) : 0));
+
                 // Cannot use modulo as it lose double precision
                 while ($changes[$unit] >= $delta) {
                     $changes[$unit] -= $delta;
                 }
+
                 $fraction -= floor($fraction);
             }
         }
@@ -95,6 +101,7 @@ trait Rounding
         [$value, $minimum] = $arguments;
         /** @var CarbonInterface $result */
         $result = $this->$normalizedUnit(floor(call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
+
         foreach ($changes as $unit => $value) {
             $result = $result->$unit($value);
         }
@@ -138,7 +145,22 @@ trait Rounding
      */
     public function round($precision = 1, $function = 'round')
     {
-        return $this->roundUnit('second', $precision, $function);
+        $unit = 'second';
+
+        if ($precision instanceof DateInterval) {
+            $precision = (string) CarbonInterval::instance($precision);
+        }
+
+        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
+            if (trim($match['other'] ?? '') !== '') {
+                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
+            }
+
+            $precision = (int) ($match['precision'] ?: 1);
+            $unit = $match['unit'];
+        }
+
+        return $this->roundUnit($unit, $precision, $function);
     }
 
     /**
@@ -150,7 +172,7 @@ trait Rounding
      */
     public function floor($precision = 1)
     {
-        return $this->roundUnit('second', $precision, 'floor');
+        return $this->round($precision, 'floor');
     }
 
     /**
@@ -162,7 +184,7 @@ trait Rounding
      */
     public function ceil($precision = 1)
     {
-        return $this->roundUnit('second', $precision, 'ceil');
+        return $this->round($precision, 'ceil');
     }
 
     /**
