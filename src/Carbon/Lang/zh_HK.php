@@ -21,6 +21,7 @@
  * - JD Isaacks
  * - Chris Hemp
  * - shankesgk2
+ * - Daniel Cheung (danvim)
  */
 return [
     'year' => ':count年',
@@ -39,7 +40,7 @@ return [
     'a_second' => '{1}幾秒|]1,Inf[:count秒',
     's' => ':count秒',
     'ago' => ':time前',
-    'from_now' => ':time內',
+    'from_now' => ':time后',
     'after' => ':time后',
     'before' => ':time前',
     'diff_yesterday' => '昨天',

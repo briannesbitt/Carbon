@@ -334,11 +334,11 @@ class ZhHansTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
-        '1秒內',
+        '1秒后',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now',
-        '1秒內',
+        '1秒后',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after',
@@ -374,7 +374,7 @@ class ZhHansTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now',
-        '1秒內',
+        '1秒后',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second',
@@ -386,7 +386,7 @@ class ZhHansTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now',
-        '3年內',
+        '3年后',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago',
@@ -410,7 +410,7 @@ class ZhHansTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now',
-        '1週6天內',
+        '1週6天后',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour',
@@ -418,7 +418,7 @@ class ZhHansTest extends LocalizationTestCase
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now',
-        '1小時內',
+        '1小時后',
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days',
