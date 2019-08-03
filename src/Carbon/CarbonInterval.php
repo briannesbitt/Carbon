@@ -1542,7 +1542,7 @@ class CarbonInterval extends DateInterval
         return $this->times(1 / $divider);
     }
 
-    protected function copyProperties(CarbonInterval $interval, $ignoreSign = false)
+    protected function copyProperties(self $interval, $ignoreSign = false)
     {
         $this->years = $interval->years;
         $this->months = $interval->months;
@@ -2075,7 +2075,7 @@ class CarbonInterval extends DateInterval
         $unit = 'second';
 
         if ($precision instanceof DateInterval) {
-            $precision = (string) CarbonInterval::instance($precision);
+            $precision = (string) self::instance($precision);
         }
 
         if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
