@@ -13,4 +13,9 @@ trait FooBar
     {
         return $this;
     }
+
+    public static function noThis()
+    {
+        return isset(${'this'});
+    }
 }

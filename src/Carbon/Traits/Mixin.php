@@ -13,6 +13,7 @@ namespace Carbon\Traits;
 use Closure;
 use ReflectionClass;
 use ReflectionMethod;
+use Throwable;
 
 /**
  * Trait Boundaries.
@@ -109,7 +110,12 @@ trait Mixin
 
             static::macro($name, function () use ($closureBase, $className) {
                 $context = isset($this) ? $this->cast($className) : new $className();
-                $closure = $closureBase->bindTo($context);
+
+                try {
+                    $closure = $closureBase->bindTo($context);
+                } catch (Throwable $e) {
+                    $closure = $closureBase;
+                }
 
                 return $closure(...func_get_args());
             });
