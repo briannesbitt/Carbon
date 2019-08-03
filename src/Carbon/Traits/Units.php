@@ -177,7 +177,7 @@ trait Units
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return CarbonInterface
+     * @return static|CarbonInterface
      */
     public function add($unit, $value = 1, $overflow = null)
     {
@@ -205,7 +205,7 @@ trait Units
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return CarbonInterface
+     * @return static|CarbonInterface
      */
     public function addUnit($unit, $value = 1, $overflow = null)
     {

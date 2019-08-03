@@ -1770,9 +1770,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function startsBefore($date): bool
+    public function startsBefore($date = null): bool
     {
-        return $this->getStartDate()->lessThan($date);
+        return $this->getStartDate()->lessThan($this->resolveCarbon($date));
     }
 
     /**
@@ -1782,9 +1782,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function startsBeforeOrAt($date): bool
+    public function startsBeforeOrAt($date = null): bool
     {
-        return $this->getStartDate()->lessThanOrEqualTo($date);
+        return $this->getStartDate()->lessThanOrEqualTo($this->resolveCarbon($date));
     }
 
     /**
@@ -1794,9 +1794,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function startsAfter($date): bool
+    public function startsAfter($date = null): bool
     {
-        return $this->getStartDate()->greaterThan($date);
+        return $this->getStartDate()->greaterThan($this->resolveCarbon($date));
     }
 
     /**
@@ -1806,9 +1806,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function startsAfterOrAt($date): bool
+    public function startsAfterOrAt($date = null): bool
     {
-        return $this->getStartDate()->greaterThanOrEqualTo($date);
+        return $this->getStartDate()->greaterThanOrEqualTo($this->resolveCarbon($date));
     }
 
     /**
@@ -1818,9 +1818,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function startsAt($date): bool
+    public function startsAt($date = null): bool
     {
-        return $this->getStartDate()->equalTo($date);
+        return $this->getStartDate()->equalTo($this->resolveCarbon($date));
     }
 
     /**
@@ -1830,9 +1830,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function endsBefore($date): bool
+    public function endsBefore($date = null): bool
     {
-        return $this->getEndDate()->lessThan($date);
+        return $this->calculateEnd()->lessThan($this->resolveCarbon($date));
     }
 
     /**
@@ -1842,9 +1842,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function endsBeforeOrAt($date): bool
+    public function endsBeforeOrAt($date = null): bool
     {
-        return $this->getEndDate()->lessThanOrEqualTo($date);
+        return $this->calculateEnd()->lessThanOrEqualTo($this->resolveCarbon($date));
     }
 
     /**
@@ -1854,9 +1854,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function endsAfter($date): bool
+    public function endsAfter($date = null): bool
     {
-        return $this->getEndDate()->greaterThan($date);
+        return $this->calculateEnd()->greaterThan($this->resolveCarbon($date));
     }
 
     /**
@@ -1866,9 +1866,9 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function endsAfterOrAt($date): bool
+    public function endsAfterOrAt($date = null): bool
     {
-        return $this->getEndDate()->greaterThanOrEqualTo($date);
+        return $this->calculateEnd()->greaterThanOrEqualTo($this->resolveCarbon($date));
     }
 
     /**
@@ -1878,8 +1878,51 @@ class CarbonPeriod implements Iterator, Countable
      *
      * @return bool
      */
-    public function endsAt($date): bool
+    public function endsAt($date = null): bool
     {
-        return $this->getEndDate()->equalTo($date);
+        return $this->calculateEnd()->equalTo($this->resolveCarbon($date));
+    }
+
+    /**
+     * Return true if start date is now or later.
+     *
+     * @return bool
+     */
+    public function isStarted()
+    {
+        return $this->startsBeforeOrAt();
+    }
+
+    /**
+     * Return true if end date is now or later.
+     *
+     * @return bool
+     */
+    public function isEnded()
+    {
+        return $this->endsBeforeOrAt();
+    }
+
+    /**
+     * Return true if now is between start date (included) and end date (excluded).
+     *
+     * @return bool
+     */
+    public function isInProgress()
+    {
+        return $this->isStarted() && !$this->isEnded();
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     *
+     * @return \Carbon\CarbonInterface
+     */
+    protected function resolveCarbon($date = null)
+    {
+        return $this->getStartDate()->nowWithSameTz()->carbonize($date);
     }
 }

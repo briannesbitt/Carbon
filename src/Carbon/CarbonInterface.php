@@ -708,7 +708,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return CarbonInterface
+     * @return static|CarbonInterface
      */
     public function add($unit, $value = 1, $overflow = null);
 
@@ -730,7 +730,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return CarbonInterface
+     * @return static|CarbonInterface
      */
     public function addUnit($unit, $value = 1, $overflow = null);
 
@@ -786,7 +786,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function average($date = null);
 
     /**
-     * Determines if the instance is between two others
+     * Determines if the instance is between two others.
      *
      * @example
      * ```
@@ -805,6 +805,23 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function between($date1, $date2, $equal = true): bool;
 
     /**
+     * Determines if the instance is between two others, bounds excluded.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // false
+     * ```
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     *
+     * @return bool
+     */
+    public function betweenExcluded($date1, $date2): bool;
+
+    /**
      * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
      *
      * @param Carbon|\DateTimeInterface|string|null $referenceTime
@@ -813,6 +830,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public function calendar($referenceTime = null, array $formats = []);
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    public function carbonize($date = null);
 
     /**
      * Cast the current instance into the given class.
