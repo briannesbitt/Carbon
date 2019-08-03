@@ -11,12 +11,12 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Traits\Cast;
+use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
 use InvalidArgumentException;
-use ReflectionClass;
-use ReflectionMethod;
 
 /**
  * A simple API extension for DateInterval.
@@ -165,7 +165,9 @@ use ReflectionMethod;
  */
 class CarbonInterval extends DateInterval
 {
-    use Options;
+    use Options, Cast, Mixin {
+        Mixin::mixin as baseMixin;
+    }
 
     /**
      * Interval spec period designators
@@ -1016,7 +1018,7 @@ class CarbonInterval extends DateInterval
      * echo CarbonInterval::days(5)->daysToHours() . "\n";
      * ```
      *
-     * @param object $mixin
+     * @param object|string $mixin
      *
      * @throws \ReflectionException
      *
@@ -1024,17 +1026,7 @@ class CarbonInterval extends DateInterval
      */
     public static function mixin($mixin)
     {
-        $reflection = new ReflectionClass($mixin);
-
-        $methods = $reflection->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
+        static::baseMixin($mixin);
     }
 
     /**

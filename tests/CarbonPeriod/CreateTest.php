@@ -84,7 +84,7 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame(
             $this->standardizeDates([$from, $to]),
-            $this->standardizeDates([$period->getStartDate(),  $period->getEndDate()])
+            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()])
         );
     }
 
@@ -594,6 +594,29 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(2, $period2->getDateInterval()->d);
         $this->assertSame('2012-07-07', $period2->getEndDate()->format('Y-m-d'));
         $this->assertNotSame($period, $period2);
+    }
+
+    public function testCast()
+    {
+        $period = new class('2012-07-01', CarbonInterval::days(2), '2012-07-07') extends CarbonPeriod {
+            public function foo()
+            {
+                return $this->getStartDate()->format('j').' '.
+                    $this->getDateInterval()->format('%d').' '.
+                    $this->getEndDate()->format('j');
+            }
+        };
+        $subClass = get_class($period);
+
+        $this->assertInstanceOf(CarbonPeriod::class, $period);
+        $this->assertNotSame(CarbonPeriod::class, $subClass);
+        $this->assertSame('1 2 7', $period->foo());
+
+        $period = CarbonPeriod::create('2010-08-24', CarbonInterval::weeks(2), '2012-07-19')
+            ->cast($subClass);
+
+        $this->assertInstanceOf($subClass, $period);
+        $this->assertSame('24 14 19', $period->foo());
     }
 
     public function testMake()
