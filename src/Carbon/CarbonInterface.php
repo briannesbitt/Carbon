@@ -708,7 +708,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function add($unit, $value = 1, $overflow = null);
 
@@ -730,7 +730,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return static|CarbonInterface
+     * @return static
      */
     public function addUnit($unit, $value = 1, $overflow = null);
 
@@ -853,7 +853,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Ceil the current instance second with given precision if specified.
      *
-     * @param float|int $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return CarbonInterface
      */
@@ -1755,7 +1755,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float|int $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return CarbonInterface
      */
@@ -3357,8 +3357,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float|int $precision
-     * @param string    $function
+     * @param float|int|string|\DateInterval|null $precision
+     * @param string                              $function
      *
      * @return CarbonInterface
      */
@@ -3922,7 +3922,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return CarbonInterface
+     * @return static
      */
     public function sub($unit, $value = 1, $overflow = null);
 
@@ -3935,7 +3935,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int       $value
      * @param bool|null $overflow
      *
-     * @return CarbonInterface
+     * @return static
      */
     public function subUnit($unit, $value = 1, $overflow = null);
 
@@ -3959,7 +3959,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int                 $value
      * @param bool|null           $overflow
      *
-     * @return CarbonInterface
+     * @return static
      */
     public function subtract($unit, $value = 1, $overflow = null);
 
