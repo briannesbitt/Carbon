@@ -31,6 +31,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(1000, CarbonInterval::milliseconds(1834)->floor()->totalMilliseconds);
         $this->assertSame(20, CarbonInterval::days(21)->floor('2 days')->totalDays);
         $this->assertSame(18, CarbonInterval::days(21)->floor(CarbonInterval::days(6))->totalDays);
+        $this->assertSame(18, CarbonInterval::days(22)->floorUnit('day', 6)->totalDays);
     }
 
     public function testRound()
@@ -49,6 +50,7 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(24, CarbonInterval::days(21)->round(CarbonInterval::days(6))->totalDays);
         $this->assertSame(22, CarbonInterval::days(22)->round('2 days')->totalDays);
         $this->assertSame(24, CarbonInterval::days(22)->round(CarbonInterval::days(6))->totalDays);
+        $this->assertSame(24, CarbonInterval::days(22)->roundUnit('day', 6)->totalDays);
     }
 
     public function testCeil()
@@ -67,5 +69,6 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame(24, CarbonInterval::days(21)->ceil(CarbonInterval::days(6))->totalDays);
         $this->assertSame(22, CarbonInterval::days(22)->ceil('2 days')->totalDays);
         $this->assertSame(24, CarbonInterval::days(22)->ceil(CarbonInterval::days(6))->totalDays);
+        $this->assertSame(24, CarbonInterval::days(22)->ceilUnit('day', 6)->totalDays);
     }
 }

@@ -59,6 +59,11 @@ class RoundingTest extends AbstractTestCase
 
         $this->assertSame('2019-02-01 12:50:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
+
+        $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817', '2 hours')->floorMinutes(10);
+
+        $this->assertSame('2019-02-01 12:50:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
     }
 
     public function testCeil()
@@ -97,6 +102,11 @@ class RoundingTest extends AbstractTestCase
         $this->assertSame('2019-12-12 03:15:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
 
         $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817', '2 hours')->ceilUnit('minute', 10);
+
+        $this->assertSame('2019-02-01 13:00:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-12-12 03:20:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
+
+        $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817', '2 hours')->ceilMinutes(10);
 
         $this->assertSame('2019-02-01 13:00:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-12-12 03:20:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
@@ -141,5 +151,18 @@ class RoundingTest extends AbstractTestCase
 
         $this->assertSame('2019-02-01 12:50:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
+
+        $period = CarbonPeriod::create('2019-02-01 12:52:23', '2019-12-12 03:12:44.817', '2 hours')->roundMinutes(10);
+
+        $this->assertSame('2019-02-01 12:50:00.000000', $period->getStartDate()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-12-12 03:10:00.000000', $period->getEndDate()->format('Y-m-d H:i:s.u'));
+    }
+
+    public function testRoundCalculatedEnd()
+    {
+        $period = CarbonPeriod::create('2019-02-01 12:52:23.123456', '3 hours')->setRecurrences(3);
+
+        $this->assertSame('2019-02-01 18:00:00.000000', $period->calculateEnd('round')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-02-01 18:52:23.123456', $period->calculateEnd()->format('Y-m-d H:i:s.u'));
     }
 }
