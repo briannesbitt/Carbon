@@ -15,6 +15,8 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Closure;
+use DateInterval;
+use DatePeriod;
 use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
@@ -744,6 +746,27 @@ trait Date
         static::expectDateTime($date, ['null', 'string']);
 
         return $date instanceof self ? $date : static::instance($date);
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    public function carbonize($date = null)
+    {
+        if ($date instanceof DateInterval) {
+            return $this->copy()->add($date);
+        }
+
+        if ($date instanceof DatePeriod || $date instanceof CarbonPeriod) {
+            $date = $date->getStartDate();
+        }
+
+        return $this->resolveCarbon($date);
     }
 
     ///////////////////////////////////////////////////////////////////

@@ -88,4 +88,58 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01', CarbonPeriod::EXCLUDE_START_DATE)));
         $this->assertFalse($period->ne(CarbonPeriod::create('2010-01-01', '2010-02-01')->setOptions(CarbonPeriod::EXCLUDE_START_DATE)));
     }
+
+    public function testStartComparisons()
+    {
+        Carbon::setTestNow('2020-01-01');
+
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonPeriod::create('2019-12-05', '2020-02-01')));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(2)));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(4)));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBeforeOrAt(CarbonInterval::days(4)));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsBefore(CarbonInterval::days(5)));
+
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonPeriod::create('2019-12-05', '2020-02-01')));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(2)));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(4)));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfterOrAt(CarbonInterval::days(4)));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAfter(CarbonInterval::days(5)));
+
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAt('2020-02-01'));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->startsAt('2020-01-05'));
+    }
+
+    public function testEndComparisons()
+    {
+        Carbon::setTestNow('2020-02-05');
+
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2019-12-05', '2020-02-01')));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-02-01', '2020-02-08')));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBeforeOrAt(CarbonPeriod::create('2020-02-01', '2020-02-08')));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonPeriod::create('2020-02-03', '2020-02-08')));
+
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(2)->invert()));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(4)->invert()));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBeforeOrAt(CarbonInterval::days(4)->invert()));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsBefore(CarbonInterval::days(5)->invert()));
+
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2019-12-05', '2020-02-01')));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-01-07', '2020-01-08')));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfterOrAt(CarbonPeriod::create('2020-02-01', '2020-01-08')));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-02-01', '2020-01-08')));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonPeriod::create('2020-02-02', '2020-01-08')));
+
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(2)->invert()));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(4)->invert()));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfterOrAt(CarbonInterval::days(4)->invert()));
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAfter(CarbonInterval::days(5)->invert()));
+
+        $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-02-01'));
+        $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-01-05'));
+    }
 }

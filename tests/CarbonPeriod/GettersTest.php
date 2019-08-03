@@ -174,4 +174,42 @@ class GettersTest extends AbstractTestCase
         $this->assertFalse(Carbon::parse('2018-02-15')->toPeriod('2018-04-01')->overlaps('2019-02-15', CarbonImmutable::parse('2019-04-01')));
         $this->assertFalse(CarbonPeriod::create('2018-01-26', '2018-02-13')->overlaps(new DateTime('2019-02-15'), new DateTime('2019-04-01')));
     }
+
+    public function testIsStarted()
+    {
+        Carbon::setTestNow('2019-08-03 11:47:00');
+
+        $this->assertFalse(CarbonPeriod::create('2019-08-03 11:47:01', '2019-08-03 12:00:00')->isStarted());
+        $this->assertFalse(CarbonPeriod::create('2020-01-01', '2020-07-01')->isStarted());
+        $this->assertTrue(CarbonPeriod::create('2019-08-03 01:00:00', '2019-08-03 09:00:00')->isStarted());
+        $this->assertTrue(CarbonPeriod::create('2019-01-01', '2019-07-01')->isStarted());
+        $this->assertTrue(CarbonPeriod::create('2019-08-01', '2019-08-15')->isStarted());
+        $this->assertTrue(CarbonPeriod::create('2019-08-03 11:47:00', '2019-08-15 11:47:00')->isStarted());
+    }
+
+    public function testIsEnded()
+    {
+        Carbon::setTestNow('2019-08-03 11:47:00');
+
+        $this->assertFalse(CarbonPeriod::create('2019-08-03 11:47:01', '2019-08-03 12:00:00')->isEnded());
+        $this->assertFalse(CarbonPeriod::create('2020-01-01', '2020-07-01')->isEnded());
+        $this->assertFalse(CarbonPeriod::create('2019-08-01', '2019-08-15')->isEnded());
+        $this->assertFalse(CarbonPeriod::create('2019-08-03 11:47:00', '2019-08-15 11:47:00')->isEnded());
+        $this->assertTrue(CarbonPeriod::create('2019-08-03 01:00:00', '2019-08-03 09:00:00')->isEnded());
+        $this->assertTrue(CarbonPeriod::create('2019-01-01', '2019-07-01')->isEnded());
+        $this->assertTrue(CarbonPeriod::create('2019-08-02 11:47:00', '2019-08-03 11:47:00')->isEnded());
+    }
+
+    public function testIsInProgress()
+    {
+        Carbon::setTestNow('2019-08-03 11:47:00');
+
+        $this->assertFalse(CarbonPeriod::create('2019-08-03 11:47:01', '2019-08-03 12:00:00')->isInProgress());
+        $this->assertFalse(CarbonPeriod::create('2020-01-01', '2020-07-01')->isInProgress());
+        $this->assertFalse(CarbonPeriod::create('2019-08-03 01:00:00', '2019-08-03 09:00:00')->isInProgress());
+        $this->assertFalse(CarbonPeriod::create('2019-01-01', '2019-07-01')->isInProgress());
+        $this->assertFalse(CarbonPeriod::create('2019-08-02 11:47:00', '2019-08-03 11:47:00')->isInProgress());
+        $this->assertTrue(CarbonPeriod::create('2019-08-03 11:47:00', '2019-08-15 11:47:00')->isInProgress());
+        $this->assertTrue(CarbonPeriod::create('2019-08-01', '2019-08-15')->isInProgress());
+    }
 }
