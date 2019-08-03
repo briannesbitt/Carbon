@@ -57,6 +57,11 @@ trait Rounding
         ]);
         $factor = 1;
 
+        if ($normalizedUnit === 'week') {
+            $normalizedUnit = 'day';
+            $precision *= static::DAYS_PER_WEEK;
+        }
+
         if (isset($metaUnits[$normalizedUnit])) {
             [$factor, $normalizedUnit] = $metaUnits[$normalizedUnit];
         }
