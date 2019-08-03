@@ -12,7 +12,6 @@ namespace Carbon\Traits;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use InvalidArgumentException;
 
 /**
  * Trait Mutability.
@@ -21,6 +20,8 @@ use InvalidArgumentException;
  */
 trait Mutability
 {
+    use Cast;
+
     /**
      * Returns true if the current class/instance is mutable.
      *
@@ -39,22 +40,6 @@ trait Mutability
     public static function isImmutable()
     {
         return !static::isMutable();
-    }
-
-    /**
-     * Cast the current instance into the given class.
-     *
-     * @param string $className The $className::instance() method will be called to cast the current object.
-     *
-     * @return object
-     */
-    public function cast(string $className)
-    {
-        if (!method_exists($className, 'instance')) {
-            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
-        }
-
-        return $className::instance($this);
     }
 
     /**

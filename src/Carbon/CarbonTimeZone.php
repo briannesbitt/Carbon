@@ -10,12 +10,15 @@
  */
 namespace Carbon;
 
+use Carbon\Traits\Cast;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 
 class CarbonTimeZone extends DateTimeZone
 {
+    use Cast;
+
     public function __construct($timezone = null)
     {
         parent::__construct(static::getDateTimeZoneNameFromMixed($timezone));

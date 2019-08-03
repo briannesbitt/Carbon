@@ -10,10 +10,6 @@
  */
 namespace Carbon\Traits;
 
-use Closure;
-use ReflectionClass;
-use ReflectionMethod;
-
 /**
  * Trait Boundaries.
  *
@@ -34,6 +30,8 @@ use ReflectionMethod;
  */
 trait Macro
 {
+    use Mixin;
+
     /**
      * The registered macros.
      *
@@ -101,44 +99,6 @@ trait Macro
     }
 
     /**
-     * Mix another object into the class.
-     *
-     * @example
-     * ```
-     * Carbon::mixin(new class {
-     *   public function addMoon() {
-     *     return function () {
-     *       return $this->addDays(30);
-     *     };
-     *   }
-     *   public function subMoon() {
-     *     return function () {
-     *       return $this->subDays(30);
-     *     };
-     *   }
-     * });
-     * $fullMoon = Carbon::create('2018-12-22');
-     * $nextFullMoon = $fullMoon->addMoon();
-     * $blackMoon = Carbon::create('2019-01-06');
-     * $previousBlackMoon = $blackMoon->subMoon();
-     * echo "$nextFullMoon\n";
-     * echo "$previousBlackMoon\n";
-     * ```
-     *
-     * @param object|string $mixin
-     *
-     * @throws \ReflectionException
-     *
-     * @return void
-     */
-    public static function mixin($mixin)
-    {
-        is_string($mixin) && trait_exists($mixin)
-            ? static::loadMixinTrait($mixin)
-            : static::loadMixinClass($mixin);
-    }
-
-    /**
      * Checks if macro is registered.
      *
      * @param string $name
@@ -148,39 +108,5 @@ trait Macro
     public static function hasMacro($name)
     {
         return isset(static::$globalMacros[$name]);
-    }
-
-    private static function loadMixinClass($mixin)
-    {
-        $methods = (new ReflectionClass($mixin))->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            if ($method->isConstructor() || $method->isDestructor()) {
-                continue;
-            }
-
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
-    }
-
-    private static function loadMixinTrait($trait)
-    {
-        $context = eval('return new class() extends '.static::class.' {use '.$trait.';};');
-        $className = get_class($context);
-
-        foreach (get_class_methods($context) as $name) {
-            $closureBase = Closure::fromCallable([$context, $name]);
-
-            static::macro($name, function () use ($closureBase, $className) {
-                $context = isset($this) ? $this->cast($className) : $className::now();
-                $closure = $closureBase->bindTo($context);
-
-                return $closure(...func_get_args());
-            });
-        }
     }
 }

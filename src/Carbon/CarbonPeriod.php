@@ -12,6 +12,8 @@ namespace Carbon;
 
 use BadMethodCallException;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Traits\Cast;
+use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use Countable;
@@ -21,8 +23,6 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use Iterator;
-use ReflectionClass;
-use ReflectionMethod;
 use RuntimeException;
 
 /**
@@ -178,7 +178,9 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable
 {
-    use Options;
+    use Options, Cast, Mixin {
+        Mixin::mixin as baseMixin;
+    }
 
     /**
      * Built-in filters.
@@ -336,8 +338,17 @@ class CarbonPeriod implements Iterator, Countable
      */
     public static function instance($period)
     {
-        if ($period instanceof self) {
+        if ($period instanceof static) {
             return $period->copy();
+        }
+
+        if ($period instanceof self) {
+            return new static(
+                $period->getStartDate(),
+                $period->getEndDate() ?: $period->getRecurrences(),
+                $period->getDateInterval(),
+                $period->getOptions()
+            );
         }
 
         if ($period instanceof DatePeriod) {
@@ -562,7 +573,7 @@ class CarbonPeriod implements Iterator, Countable
      * echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);
      * ```
      *
-     * @param object $mixin
+     * @param object|string $mixin
      *
      * @throws \ReflectionException
      *
@@ -570,17 +581,7 @@ class CarbonPeriod implements Iterator, Countable
      */
     public static function mixin($mixin)
     {
-        $reflection = new ReflectionClass($mixin);
-
-        $methods = $reflection->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
-        );
-
-        foreach ($methods as $method) {
-            $method->setAccessible(true);
-
-            static::macro($method->name, $method->invoke($mixin));
-        }
+        static::baseMixin($mixin);
     }
 
     /**
