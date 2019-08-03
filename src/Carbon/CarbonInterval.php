@@ -96,6 +96,12 @@ use ReflectionMethod;
  * @method $this floorMonths(float $precision = 1) Truncate the current instance month with given precision.
  * @method $this ceilMonth(float $precision = 1) Ceil the current instance month with given precision.
  * @method $this ceilMonths(float $precision = 1) Ceil the current instance month with given precision.
+ * @method $this roundWeek(float $precision = 1, string $function = "round") Round the current instance day with given precision using the given function.
+ * @method $this roundWeeks(float $precision = 1, string $function = "round") Round the current instance day with given precision using the given function.
+ * @method $this floorWeek(float $precision = 1) Truncate the current instance day with given precision.
+ * @method $this floorWeeks(float $precision = 1) Truncate the current instance day with given precision.
+ * @method $this ceilWeek(float $precision = 1) Ceil the current instance day with given precision.
+ * @method $this ceilWeeks(float $precision = 1) Ceil the current instance day with given precision.
  * @method $this roundDay(float $precision = 1, string $function = "round") Round the current instance day with given precision using the given function.
  * @method $this roundDays(float $precision = 1, string $function = "round") Round the current instance day with given precision using the given function.
  * @method $this floorDay(float $precision = 1) Truncate the current instance day with given precision.
@@ -2012,9 +2018,9 @@ class CarbonInterval extends DateInterval
     /**
      * Round the current instance at the given unit with given precision if specified and the given function.
      *
-     * @param string    $unit
-     * @param float|int $precision
-     * @param string    $function
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
+     * @param string                              $function
      *
      * @return $this
      */
@@ -2033,8 +2039,8 @@ class CarbonInterval extends DateInterval
     /**
      * Truncate the current instance at the given unit with given precision if specified.
      *
-     * @param string    $unit
-     * @param float|int $precision
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return $this
      */
@@ -2046,8 +2052,8 @@ class CarbonInterval extends DateInterval
     /**
      * Ceil the current instance at the given unit with given precision if specified.
      *
-     * @param string    $unit
-     * @param float|int $precision
+     * @param string                              $unit
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return $this
      */
@@ -2059,8 +2065,8 @@ class CarbonInterval extends DateInterval
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float|int $precision
-     * @param string    $function
+     * @param float|int|string|\DateInterval|null $precision
+     * @param string                              $function
      *
      * @return $this
      */
@@ -2087,7 +2093,7 @@ class CarbonInterval extends DateInterval
     /**
      * Round the current instance second with given precision if specified.
      *
-     * @param float|int $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return $this
      */
@@ -2099,7 +2105,7 @@ class CarbonInterval extends DateInterval
     /**
      * Ceil the current instance second with given precision if specified.
      *
-     * @param float|int $precision
+     * @param float|int|string|\DateInterval|null $precision
      *
      * @return $this
      */
