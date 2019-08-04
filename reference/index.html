@@ -67,7 +67,7 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-Carbon-add">
     <h2><span class="class-name">Carbon::</span>add</h2>
     <code>$unit, $value = 1, $overflow = null</code>
-    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Add given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->add('hour',&nbsp;3)</code></p><p><code>$date->add(15,&nbsp;'days')</code></p><p><code>$date->add(CarbonInterval::days(4))</code></p></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
 </div>
@@ -75,7 +75,7 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-Carbon-sub">
     <h2><span class="class-name">Carbon::</span>sub</h2>
     <code>$unit, $value = 1, $overflow = null</code>
-    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units or interval to the current instance.<p><strong>Examples:</strong></p><p><code>$date->sub('hour',&nbsp;3)</code></p><p><code>$date->sub(15,&nbsp;'days')</code></p><p><code>$date->sub(CarbonInterval::days(4))</code></p></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$interval</code></td></tr></table>
 </div>
@@ -160,6 +160,15 @@ for more on the possibility of this constructor returning a test instance.</p>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Returns a present instance in the same timezone.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-carbonize">
+    <h2><span class="class-name">Carbon::</span>carbonize</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Return the Carbon instance passed through, a now instance in the same timezone
+if null given or parse the input if string given.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-__get">
@@ -2036,6 +2045,14 @@ echo Carbon::yesterday()->hours(11)->userFormat();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.1.0</td><td><code>$macro, $priority = 0</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-hasMacro">
+    <h2><span class="class-name">Carbon::</span>hasMacro</h2>
+    <code>$name</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Checks if macro is registered.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$name</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-mixin">
     <h2><span class="class-name">Carbon::</span>mixin</h2>
     <code>$mixin</code>
@@ -2058,14 +2075,6 @@ $previousBlackMoon = $blackMoon->subMoon();
 echo "$nextFullMoon\n";
 echo "$previousBlackMoon\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$mixin</code></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-hasMacro">
-    <h2><span class="class-name">Carbon::</span>hasMacro</h2>
-    <code>$name</code>
-    <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Checks if macro is registered.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$name</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getMidDayAt">
@@ -2321,14 +2330,6 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-cast">
-    <h2><span class="class-name">Carbon::</span>cast</h2>
-    <code>string $className</code>
-    <div class="doc-return">returns <code>object</code></div>
-    <p class="doc-description">Cast the current instance into the given class.</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.8.0</td><td><code>string $className</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$className</code></td></tr></table>
-</div>
-
 <div class="doc-method " id="doc-method-Carbon-toMutable">
     <h2><span class="class-name">Carbon::</span>toMutable</h2>
     <em>no arguments</em>
@@ -2343,6 +2344,14 @@ Use the supplied constants to indicate the desired dayOfWeek, ex. static::MONDAY
     <div class="doc-return">returns <code>CarbonImmutable</code></div>
     <p class="doc-description">Return a immutable copy of the instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-cast">
+    <h2><span class="class-name">Carbon::</span>cast</h2>
+    <code>string $className</code>
+    <div class="doc-return">returns <code>object</code></div>
+    <p class="doc-description">Cast the current instance into the given class.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.8.0</td><td><code>string $className</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><code>$className</code></td></tr></table>
 </div>
 
 <div class="doc-method deprecated" id="doc-method-Carbon-useStrictMode">
@@ -2899,7 +2908,7 @@ forward while negative $value travels into the past.</p>
 <div class="doc-method " id="doc-method-Carbon-addUnit">
     <h2><span class="class-name">Carbon::</span>addUnit</h2>
     <code>$unit, $value = 1, $overflow = null</code>
-    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Add given units to the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
@@ -2907,7 +2916,7 @@ forward while negative $value travels into the past.</p>
 <div class="doc-method " id="doc-method-Carbon-subUnit">
     <h2><span class="class-name">Carbon::</span>subUnit</h2>
     <code>$unit, $value = 1, $overflow = null</code>
-    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units to the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
@@ -2915,7 +2924,7 @@ forward while negative $value travels into the past.</p>
 <div class="doc-method " id="doc-method-Carbon-subtract">
     <h2><span class="class-name">Carbon::</span>subtract</h2>
     <code>$unit, $value = 1, $overflow = null</code>
-    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units or interval to the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
 </div>
@@ -4176,6 +4185,54 @@ CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval1, $interval2, $equal = true</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-roundUnit">
+    <h2><span class="class-name">CarbonInterval::</span>roundUnit</h2>
+    <code>$unit, $precision = 1, $function = 'round'</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance at the given unit with given precision if specified and the given function.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1, $function = 'round'</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-floorUnit">
+    <h2><span class="class-name">CarbonInterval::</span>floorUnit</h2>
+    <code>$unit, $precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Truncate the current instance at the given unit with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-ceilUnit">
+    <h2><span class="class-name">CarbonInterval::</span>ceilUnit</h2>
+    <code>$unit, $precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Ceil the current instance at the given unit with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-round">
+    <h2><span class="class-name">CarbonInterval::</span>round</h2>
+    <code>$precision = 1, $function = 'round'</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance second with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = 1, $function = 'round'</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-floor">
+    <h2><span class="class-name">CarbonInterval::</span>floor</h2>
+    <code>$precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance second with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = 1</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-ceil">
+    <h2><span class="class-name">CarbonInterval::</span>ceil</h2>
+    <code>$precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Ceil the current instance second with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = 1</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-__wakeup">
     <h2><span class="class-name">CarbonInterval::</span>__wakeup</h2>
     <em>Native PHP method</em>
@@ -4522,6 +4579,38 @@ name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-cast">
+    <h2><span class="class-name">CarbonInterval::</span>cast</h2>
+    <code>string $className</code>
+    <div class="doc-return">returns <code>object</code></div>
+    <p class="doc-description">Cast the current instance into the given class.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>string $className</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-baseMixin">
+    <h2><span class="class-name">CarbonInterval::</span>baseMixin</h2>
+    <code>$mixin</code>
+    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
+  public function addMoon() {
+    return function () {
+      return $this->addDays(30);
+    };
+  }
+  public function subMoon() {
+    return function () {
+      return $this->subDays(30);
+    };
+  }
+});
+$fullMoon = Carbon::create('2018-12-22');
+$nextFullMoon = $fullMoon->addMoon();
+$blackMoon = Carbon::create('2019-01-06');
+$previousBlackMoon = $blackMoon->subMoon();
+echo "$nextFullMoon\n";
+echo "$previousBlackMoon\n";</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonPeriod-make">
     <h2><span class="class-name">CarbonPeriod::</span>make</h2>
     <code>$var</code>
@@ -4720,18 +4809,18 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getStartDate">
     <h2><span class="class-name">CarbonPeriod::</span>getStartDate</h2>
-    <em>no arguments</em>
+    <code>string $rounding = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Get start date of the period.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>string $rounding = null</code></td></tr><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getEndDate">
     <h2><span class="class-name">CarbonPeriod::</span>getEndDate</h2>
-    <em>no arguments</em>
+    <code>string $rounding = null</code>
     <div class="doc-return">returns <code>CarbonInterface|null</code></div>
     <p class="doc-description">Get end date of the period.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>string $rounding = null</code></td></tr><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getRecurrences">
@@ -4756,6 +4845,39 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Returns true if the end date should be excluded.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isStartIncluded">
+    <h2><span class="class-name">CarbonPeriod::</span>isStartIncluded</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Returns true if the start date should be included.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isEndIncluded">
+    <h2><span class="class-name">CarbonPeriod::</span>isEndIncluded</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Returns true if the end date should be included.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-getIncludedStartDate">
+    <h2><span class="class-name">CarbonPeriod::</span>getIncludedStartDate</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <p class="doc-description">Return the start if it's included by option, else return the start + 1 period interval.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-getIncludedEndDate">
+    <h2><span class="class-name">CarbonPeriod::</span>getIncludedEndDate</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonInterface</code></div>
+    <p class="doc-description">Return the end if it's included by option, else return the end - 1 period interval.
+Warning: if the period has no fixed end, this method will iterate the period to calculate it.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-addFilter">
@@ -4911,7 +5033,7 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 <div class="doc-method " id="doc-method-CarbonPeriod-toArray">
     <h2><span class="class-name">CarbonPeriod::</span>toArray</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>array</code></div>
+    <div class="doc-return">returns <code>CarbonInterface[]</code></div>
     <p class="doc-description">Convert the date period into an array without changing current iteration state.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
@@ -4958,10 +5080,10 @@ echo CarbonPeriod::create('2000-01-01', '2000-02-01')->addDays(5)->subDays(3);</
 
 <div class="doc-method " id="doc-method-CarbonPeriod-calculateEnd">
     <h2><span class="class-name">CarbonPeriod::</span>calculateEnd</h2>
-    <em>no arguments</em>
+    <code>string $rounding = null</code>
     <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Returns the end is set, else calculated from start an recurrences.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>string $rounding = null</code></td></tr><tr><td>Method added</td><td>2.20.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-overlaps">
@@ -4997,7 +5119,8 @@ echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
     <h2><span class="class-name">CarbonPeriod::</span>eq</h2>
     <code>$period</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is equal to another</p>
+    <p class="doc-description">Determines if the instance is equal to another.
+Warning: if options differ, instances wil never be equal.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
 </div>
 
@@ -5005,7 +5128,8 @@ echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
     <h2><span class="class-name">CarbonPeriod::</span>equalTo</h2>
     <code>$period</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is equal to another</p>
+    <p class="doc-description">Determines if the instance is equal to another.
+Warning: if options differ, instances wil never be equal.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
 </div>
 
@@ -5013,7 +5137,8 @@ echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
     <h2><span class="class-name">CarbonPeriod::</span>ne</h2>
     <code>$period</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <p class="doc-description">Determines if the instance is not equal to another.
+Warning: if options differ, instances wil never be equal.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
 </div>
 
@@ -5021,8 +5146,218 @@ echo implode("\n", iterator_to_array($period->map(function (Carbon $date) {
     <h2><span class="class-name">CarbonPeriod::</span>notEqualTo</h2>
     <code>$period</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is not equal to another</p>
+    <p class="doc-description">Determines if the instance is not equal to another.
+Warning: if options differ, instances wil never be equal.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$period</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-startsBefore">
+    <h2><span class="class-name">CarbonPeriod::</span>startsBefore</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the start date is before an other given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-startsBeforeOrAt">
+    <h2><span class="class-name">CarbonPeriod::</span>startsBeforeOrAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the start date is before or the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-startsAfter">
+    <h2><span class="class-name">CarbonPeriod::</span>startsAfter</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the start date is after an other given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-startsAfterOrAt">
+    <h2><span class="class-name">CarbonPeriod::</span>startsAfterOrAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the start date is after or the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-startsAt">
+    <h2><span class="class-name">CarbonPeriod::</span>startsAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the start date is the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-endsBefore">
+    <h2><span class="class-name">CarbonPeriod::</span>endsBefore</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the end date is before an other given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-endsBeforeOrAt">
+    <h2><span class="class-name">CarbonPeriod::</span>endsBeforeOrAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the end date is before or the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-endsAfter">
+    <h2><span class="class-name">CarbonPeriod::</span>endsAfter</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the end date is after an other given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-endsAfterOrAt">
+    <h2><span class="class-name">CarbonPeriod::</span>endsAfterOrAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the end date is after or the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-endsAt">
+    <h2><span class="class-name">CarbonPeriod::</span>endsAt</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the end date is the same as a given date.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isStarted">
+    <h2><span class="class-name">CarbonPeriod::</span>isStarted</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if start date is now or later.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isEnded">
+    <h2><span class="class-name">CarbonPeriod::</span>isEnded</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if end date is now or later.
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isInProgress">
+    <h2><span class="class-name">CarbonPeriod::</span>isInProgress</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if now is between start date (included) and end date (excluded).
+(Rather start/end are included by options is ignored.)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-roundUnit">
+    <h2><span class="class-name">CarbonPeriod::</span>roundUnit</h2>
+    <code>$unit, $precision = 1, $function = 'round'</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance at the given unit with given precision if specified and the given function.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1, $function = 'round'</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-floorUnit">
+    <h2><span class="class-name">CarbonPeriod::</span>floorUnit</h2>
+    <code>$unit, $precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Truncate the current instance at the given unit with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-ceilUnit">
+    <h2><span class="class-name">CarbonPeriod::</span>ceilUnit</h2>
+    <code>$unit, $precision = 1</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Ceil the current instance at the given unit with given precision if specified.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$unit, $precision = 1</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-round">
+    <h2><span class="class-name">CarbonPeriod::</span>round</h2>
+    <code>$precision = null, $function = 'round'</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance second with given precision if specified (else period interval is used).</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = null, $function = 'round'</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-floor">
+    <h2><span class="class-name">CarbonPeriod::</span>floor</h2>
+    <code>$precision = null</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Round the current instance second with given precision if specified (else period interval is used).</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-ceil">
+    <h2><span class="class-name">CarbonPeriod::</span>ceil</h2>
+    <code>$precision = null</code>
+    <div class="doc-return">returns <code>$this</code></div>
+    <p class="doc-description">Ceil the current instance second with given precision if specified (else period interval is used).</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$precision = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-jsonSerialize">
+    <h2><span class="class-name">CarbonPeriod::</span>jsonSerialize</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonInterface[]</code></div>
+    <p class="doc-description">Specify data which should be serialized to JSON.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-contains">
+    <h2><span class="class-name">CarbonPeriod::</span>contains</h2>
+    <code>$date = null</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the given date is between start and end.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$date = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-follows">
+    <h2><span class="class-name">CarbonPeriod::</span>follows</h2>
+    <code>$period, $arguments</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the current period follows a given other period (with no overlap).
+For instance, [2019-08-01 -> 2019-08-12] follows [2019-07-29 -> 2019-07-31]
+Note than in this example, follows() would be false if 2019-08-01 or 2019-07-31 was excluded by options.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$period, $arguments</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isFollowedBy">
+    <h2><span class="class-name">CarbonPeriod::</span>isFollowedBy</h2>
+    <code>$period, $arguments</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the given other period follows the current one (with no overlap).
+For instance, [2019-07-29 -> 2019-07-31] is followed by [2019-08-01 -> 2019-08-12]
+Note than in this example, isFollowedBy() would be false if 2019-08-01 or 2019-07-31 was excluded by options.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$period, $arguments</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-isConsecutiveWith">
+    <h2><span class="class-name">CarbonPeriod::</span>isConsecutiveWith</h2>
+    <code>$period, $arguments</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the given period either follows or is followed by the current one.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$period, $arguments</code></td></tr></table>
 </div>
 
 <div class="doc-method deprecated" id="doc-method-CarbonPeriod-useStrictMode">
@@ -5351,6 +5686,38 @@ name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-cast">
+    <h2><span class="class-name">CarbonPeriod::</span>cast</h2>
+    <code>string $className</code>
+    <div class="doc-return">returns <code>object</code></div>
+    <p class="doc-description">Cast the current instance into the given class.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>string $className</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-baseMixin">
+    <h2><span class="class-name">CarbonPeriod::</span>baseMixin</h2>
+    <code>$mixin</code>
+    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
+  public function addMoon() {
+    return function () {
+      return $this->addDays(30);
+    };
+  }
+  public function subMoon() {
+    return function () {
+      return $this->subDays(30);
+    };
+  }
+});
+$fullMoon = Carbon::create('2018-12-22');
+$nextFullMoon = $fullMoon->addMoon();
+$blackMoon = Carbon::create('2019-01-06');
+$previousBlackMoon = $blackMoon->subMoon();
+echo "$nextFullMoon\n";
+echo "$previousBlackMoon\n";</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">
     <h2><span class="class-name">CarbonTimeZone::</span>__construct</h2>
     <code>$timezone = null</code>
@@ -5478,6 +5845,14 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">CarbonTimeZone::</span>listIdentifiers</h2>
     <em>Native PHP method</em>
     <p class="doc-description">See <a href="http://php.net/manual/en/datetimezone.listidentifiers.php">PHP documentation for DateTimeZone::listIdentifiers</a></p>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonTimeZone-cast">
+    <h2><span class="class-name">CarbonTimeZone::</span>cast</h2>
+    <code>string $className</code>
+    <div class="doc-return">returns <code>object</code></div>
+    <p class="doc-description">Cast the current instance into the given class.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>string $className</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Translator-get">
