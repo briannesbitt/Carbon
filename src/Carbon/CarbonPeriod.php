@@ -942,6 +942,39 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
+     * Return the start if it's included by option, else return the start + 1 period interval.
+     *
+     * @return CarbonInterface
+     */
+    public function getIncludedStartDate()
+    {
+        $start = $this->getStartDate();
+
+        if ($this->isStartExcluded()) {
+            return $start->add($this->getDateInterval());
+        }
+
+        return $start;
+    }
+
+    /**
+     * Return the end if it's included by option, else return the end - 1 period interval.
+     * Warning: if the period has no fixed end, this method will iterate the period to calculate it.
+     *
+     * @return CarbonInterface
+     */
+    public function getIncludedEndDate()
+    {
+        $end = $this->calculateEnd();
+
+        if ($this->isStartExcluded()) {
+            return $end->sub($this->getDateInterval());
+        }
+
+        return $end;
+    }
+
+    /**
      * Add a filter to the stack.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -2198,5 +2231,60 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $endMethod = 'endsAfter'.($this->isEndIncluded() ? 'OrAt' : '');
 
         return $this->$startMethod($date) && $this->$endMethod($date);
+    }
+
+    /**
+     * Return true if the current period follows a given other period (with no overlap).
+     * For instance, [2019-08-01 -> 2019-08-12] follows [2019-07-29 -> 2019-07-31]
+     * Note than in this example, follows() would be false if 2019-08-01 or 2019-07-31 was excluded by options.
+     *
+     * @param \Carbon\CarbonPeriod|\DatePeriod|string $period
+     *
+     * @return bool
+     */
+    public function follows($period, ...$arguments): bool
+    {
+        if (!($period instanceof self)) {
+            $period = $period instanceof DatePeriod
+                ? static::instance($period)
+                : static::create($period, ...$arguments);
+        }
+
+        return $this->getIncludedStartDate()->equalTo($period->getIncludedEndDate()->add($period->getDateInterval()));
+    }
+
+    /**
+     * Return true if the given other period follows the current one (with no overlap).
+     * For instance, [2019-07-29 -> 2019-07-31] is followed by [2019-08-01 -> 2019-08-12]
+     * Note than in this example, isFollowedBy() would be false if 2019-08-01 or 2019-07-31 was excluded by options.
+     *
+     * @param \Carbon\CarbonPeriod|\DatePeriod|string $period
+     *
+     * @return bool
+     */
+    public function isFollowedBy($period, ...$arguments): bool
+    {
+        if (!($period instanceof self)) {
+            $period = $period instanceof DatePeriod
+                ? static::instance($period)
+                : static::create($period, ...$arguments);
+        }
+
+        return $period->follows($this);
+    }
+
+    /**
+     * Return true if the given period either follows or is followed by the current one.
+     *
+     * @see follows()
+     * @see isFollowedBy()
+     *
+     * @param \Carbon\CarbonPeriod|\DatePeriod|string $period
+     *
+     * @return bool
+     */
+    public function isConsecutiveWith($period, ...$arguments): bool
+    {
+        return $this->follows($period, ...$arguments) || $this->isFollowedBy($period, ...$arguments);
     }
 }

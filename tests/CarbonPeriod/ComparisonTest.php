@@ -14,7 +14,9 @@ namespace Tests\CarbonPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use DateInterval;
 use DatePeriod;
+use DateTimeImmutable;
 use Tests\AbstractTestCase;
 
 class ComparisonTest extends AbstractTestCase
@@ -160,5 +162,73 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($period->contains('2019-08-02'));
         $this->assertTrue($period->contains('2019-08-09 23:59:59'));
         $this->assertFalse($period->contains('2019-08-10'));
+    }
+
+    public function testConsecutivePeriods()
+    {
+        $july = CarbonPeriod::create('2019-07-29', '2019-07-31');
+        $august = CarbonPeriod::create('2019-08-01', '2019-08-12');
+
+        $this->assertFalse($july->follows($august));
+        $this->assertTrue($august->follows($july));
+
+        $this->assertTrue($july->isFollowedBy($august));
+        $this->assertFalse($august->isFollowedBy($july));
+
+        $this->assertTrue($july->isConsecutiveWith($august));
+        $this->assertTrue($august->isConsecutiveWith($july));
+
+        $this->assertFalse($july->follows('2019-08-01', '2019-08-12'));
+        $this->assertTrue($august->follows('2019-07-29', '2019-07-31'));
+
+        $this->assertTrue($july->isFollowedBy('2019-08-01', '2019-08-12'));
+        $this->assertFalse($august->isFollowedBy('2019-07-29', '2019-07-31'));
+
+        $this->assertTrue($july->isConsecutiveWith('2019-08-01', '2019-08-12'));
+        $this->assertTrue($august->isConsecutiveWith('2019-07-29', '2019-07-31'));
+
+        $july2 = new DatePeriod(
+            new DateTimeImmutable('2019-07-29'),
+            new DateInterval('P1D'),
+            new DateTimeImmutable('2019-07-31')
+        );
+        $august2 = new DatePeriod(
+            new DateTimeImmutable('2019-08-01'),
+            new DateInterval('P1D'),
+            new DateTimeImmutable('2019-08-12')
+        );
+
+        $this->assertFalse($july->follows($august2));
+        $this->assertTrue($august->follows($july2));
+
+        $this->assertTrue($july->isFollowedBy($august2));
+        $this->assertFalse($august->isFollowedBy($july2));
+
+        $this->assertTrue($july->isConsecutiveWith($august2));
+        $this->assertTrue($august->isConsecutiveWith($july2));
+
+        $july = CarbonPeriod::create('2019-07-29', '2019-08-01');
+        $august = CarbonPeriod::create('2019-08-01', '2019-08-12');
+
+        $this->assertFalse($july->follows($august));
+        $this->assertFalse($august->follows($july));
+
+        $this->assertFalse($july->isFollowedBy($august));
+        $this->assertFalse($august->isFollowedBy($july));
+
+        $this->assertFalse($july->isConsecutiveWith($august));
+        $this->assertFalse($august->isConsecutiveWith($july));
+
+        $july = CarbonPeriod::create('2019-07-29', '2019-07-31', CarbonPeriod::EXCLUDE_END_DATE);
+        $august = CarbonPeriod::create('2019-08-01', '2019-08-12', CarbonPeriod::EXCLUDE_START_DATE);
+
+        $this->assertFalse($july->follows($august));
+        $this->assertFalse($august->follows($july));
+
+        $this->assertFalse($july->isFollowedBy($august));
+        $this->assertFalse($august->isFollowedBy($july));
+
+        $this->assertFalse($july->isConsecutiveWith($august));
+        $this->assertFalse($august->isConsecutiveWith($july));
     }
 }
