@@ -2207,6 +2207,25 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
+     * Resolve passed arguments or DatePeriod to a CarbonPeriod object.
+     *
+     * @param mixin $period
+     * @param mixed ...$arguments
+     *
+     * @return static
+     */
+    protected function resolveCarbonPeriod($period, ...$arguments)
+    {
+        if ($period instanceof self) {
+            return $period;
+        }
+
+        return $period instanceof DatePeriod
+            ? static::instance($period)
+            : static::create($period, ...$arguments);
+    }
+
+    /**
      * Specify data which should be serialized to JSON.
      *
      * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -2244,11 +2263,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function follows($period, ...$arguments): bool
     {
-        if (!($period instanceof self)) {
-            $period = $period instanceof DatePeriod
-                ? static::instance($period)
-                : static::create($period, ...$arguments);
-        }
+        $period = $this->resolveCarbonPeriod($period, ...$arguments);
 
         return $this->getIncludedStartDate()->equalTo($period->getIncludedEndDate()->add($period->getDateInterval()));
     }
@@ -2264,11 +2279,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function isFollowedBy($period, ...$arguments): bool
     {
-        if (!($period instanceof self)) {
-            $period = $period instanceof DatePeriod
-                ? static::instance($period)
-                : static::create($period, ...$arguments);
-        }
+        $period = $this->resolveCarbonPeriod($period, ...$arguments);
 
         return $period->follows($this);
     }
