@@ -46,6 +46,6 @@ $rules = array(
 );
 
 return Config::create()->setRules($rules)
-             ->setFinder(Finder::create()->in(__DIR__))
+             ->setFinder(Finder::create()->in(__DIR__.'/src'))
              ->setUsingCache(true)
              ->setRiskyAllowed(true);
