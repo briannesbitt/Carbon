@@ -18,7 +18,6 @@ env:
   global:
     - setup=basic
     - coverage=false
-    - xdebug=false
     - phpstan=false
     - laravel=false
 
@@ -29,12 +28,11 @@ services:
   - mysql
 
 before_install:
-  - if [[ $laravel = 'true' ]]; then phpenv config-rm xdebug.ini || true; fi
+  - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini || true; fi
   - if [[ $laravel = 'true' ]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - if [[ $laravel = 'true' ]]; then printf "\n" | pecl install -f redis; fi
   - if [[ $laravel = 'true' ]]; then travis_retry composer self-update; fi
   - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;'; fi
-  - if [[ $coverage = 'false' && $xdebug = 'false' ]]; then phpenv config-rm xdebug.ini; fi
 
 install:
   - composer remove --no-update friendsofphp/php-cs-fixer
@@ -102,21 +100,17 @@ matrix:
       env: setup=lowest
     - php: 7.3
       env:
-        - xdebug=true
         - setup=stable
         - coverage=true
     - php: 7.4snapshot
       env: setup=lowest
     - php: 7.4snapshot
     - php: nightly
-      env:
-        - setup=nightly
-        - xdebug=true
+      env: setup=nightly
     - php: 7.3
       env:
         - setup=stable
         - laravel=true
-        - xdebug=true
     - php: 7.3
       env:
         - setup=stable
