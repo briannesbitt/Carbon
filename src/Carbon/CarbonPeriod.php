@@ -1899,7 +1899,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             && $this->getDateInterval()->eq($period->getDateInterval())
             && $this->getStartDate()->eq($period->getStartDate())
             && $this->getEndDate()->eq($period->getEndDate())
-            && $this->getOptions() === $period->getOptions();
+            && ($this->getOptions() & (~static::IMMUTABLE)) === ($period->getOptions() & (~static::IMMUTABLE));
     }
 
     /**
