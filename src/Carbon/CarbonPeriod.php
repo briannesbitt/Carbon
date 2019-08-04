@@ -2209,7 +2209,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     /**
      * Resolve passed arguments or DatePeriod to a CarbonPeriod object.
      *
-     * @param mixin $period
+     * @param mixed $period
      * @param mixed ...$arguments
      *
      * @return static
