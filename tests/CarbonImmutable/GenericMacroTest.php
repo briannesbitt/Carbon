@@ -18,10 +18,6 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
     public function testGenericMacroBinding()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
-            $this->markTestSkipped('Not yet implemented for PHP 8.');
-        }
-
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
