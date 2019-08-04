@@ -142,4 +142,23 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-02-01'));
         $this->assertFalse(CarbonPeriod::create('2020-01-05', '2020-02-01')->endsAt('2020-01-05'));
     }
+
+    public function testContains()
+    {
+        $period = CarbonPeriod::create('2019-08-01', '2019-08-10');
+
+        $this->assertFalse($period->contains('2019-07-31 23:59:59'));
+        $this->assertTrue($period->contains('2019-08-01'));
+        $this->assertTrue($period->contains('2019-08-02'));
+        $this->assertTrue($period->contains('2019-08-10'));
+        $this->assertFalse($period->contains('2019-08-10 00:00:01'));
+
+        $period = CarbonPeriod::create('2019-08-01', '2019-08-10', CarbonPeriod::EXCLUDE_START_DATE | CarbonPeriod::EXCLUDE_END_DATE);
+
+        $this->assertFalse($period->contains('2019-08-01'));
+        $this->assertTrue($period->contains('2019-08-01 00:00:01'));
+        $this->assertTrue($period->contains('2019-08-02'));
+        $this->assertTrue($period->contains('2019-08-09 23:59:59'));
+        $this->assertFalse($period->contains('2019-08-10'));
+    }
 }

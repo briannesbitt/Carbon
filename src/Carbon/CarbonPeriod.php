@@ -23,6 +23,7 @@ use DateTime;
 use DateTimeInterface;
 use InvalidArgumentException;
 use Iterator;
+use JsonSerializable;
 use RuntimeException;
 
 /**
@@ -176,7 +177,7 @@ use RuntimeException;
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
  */
-class CarbonPeriod implements Iterator, Countable
+class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
     use Options, Cast, Mixin {
         Mixin::mixin as baseMixin;
@@ -921,6 +922,26 @@ class CarbonPeriod implements Iterator, Countable
     }
 
     /**
+     * Returns true if the start date should be included.
+     *
+     * @return bool
+     */
+    public function isStartIncluded()
+    {
+        return !$this->isStartExcluded();
+    }
+
+    /**
+     * Returns true if the end date should be included.
+     *
+     * @return bool
+     */
+    public function isEndIncluded()
+    {
+        return !$this->isEndExcluded();
+    }
+
+    /**
      * Add a filter to the stack.
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -1516,7 +1537,7 @@ class CarbonPeriod implements Iterator, Countable
     /**
      * Convert the date period into an array without changing current iteration state.
      *
-     * @return array
+     * @return CarbonInterface[]
      */
     public function toArray()
     {
@@ -1814,6 +1835,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the instance is equal to another.
+     * Warning: if options differ, instances wil never be equal.
      *
      * @param mixed $period
      *
@@ -1828,6 +1850,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the instance is equal to another.
+     * Warning: if options differ, instances wil never be equal.
      *
      * @param mixed $period
      *
@@ -1848,6 +1871,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the instance is not equal to another.
+     * Warning: if options differ, instances wil never be equal.
      *
      * @param mixed $period
      *
@@ -1862,6 +1886,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the instance is not equal to another.
+     * Warning: if options differ, instances wil never be equal.
      *
      * @param mixed $period
      *
@@ -1874,6 +1899,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the start date is before an other given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1886,6 +1912,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the start date is before or the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1898,6 +1925,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the start date is after an other given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1910,6 +1938,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the start date is after or the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1922,6 +1951,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the start date is the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1934,6 +1964,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the end date is before an other given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1946,6 +1977,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the end date is before or the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1958,6 +1990,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the end date is after an other given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1970,6 +2003,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the end date is after or the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1982,6 +2016,7 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Determines if the end date is the same as a given date.
+     * (Rather start/end are included by options is ignored.)
      *
      * @param mixed $date
      *
@@ -1994,30 +2029,33 @@ class CarbonPeriod implements Iterator, Countable
 
     /**
      * Return true if start date is now or later.
+     * (Rather start/end are included by options is ignored.)
      *
      * @return bool
      */
-    public function isStarted()
+    public function isStarted(): bool
     {
         return $this->startsBeforeOrAt();
     }
 
     /**
      * Return true if end date is now or later.
+     * (Rather start/end are included by options is ignored.)
      *
      * @return bool
      */
-    public function isEnded()
+    public function isEnded(): bool
     {
         return $this->endsBeforeOrAt();
     }
 
     /**
      * Return true if now is between start date (included) and end date (excluded).
+     * (Rather start/end are included by options is ignored.)
      *
      * @return bool
      */
-    public function isInProgress()
+    public function isInProgress(): bool
     {
         return $this->isStarted() && !$this->isEnded();
     }
@@ -2133,5 +2171,32 @@ class CarbonPeriod implements Iterator, Countable
     protected function resolveCarbon($date = null)
     {
         return $this->getStartDate()->nowWithSameTz()->carbonize($date);
+    }
+
+    /**
+     * Specify data which should be serialized to JSON.
+     *
+     * @link https://php.net/manual/en/jsonserializable.jsonserialize.php
+     *
+     * @return CarbonInterface[]
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    /**
+     * Return true if the given date is between start and end.
+     *
+     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     *
+     * @return bool
+     */
+    public function contains($date = null): bool
+    {
+        $startMethod = 'startsBefore'.($this->isStartIncluded() ? 'OrAt' : '');
+        $endMethod = 'endsAfter'.($this->isEndIncluded() ? 'OrAt' : '');
+
+        return $this->$startMethod($date) && $this->$endMethod($date);
     }
 }
