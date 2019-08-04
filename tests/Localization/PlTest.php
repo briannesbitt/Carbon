@@ -226,7 +226,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago',
-        '1s temu',
+        '1 sek. temu',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago',
@@ -234,7 +234,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago',
-        '2s temu',
+        '2 sek. temu',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago',
@@ -242,7 +242,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago',
-        '1m temu',
+        '1 min. temu',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago',
@@ -250,7 +250,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago',
-        '2m temu',
+        '2 min. temu',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago',
@@ -258,7 +258,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago',
-        '1g temu',
+        '1 godz. temu',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago',
@@ -266,7 +266,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago',
-        '2g temu',
+        '2 godz. temu',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago',
@@ -274,7 +274,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago',
-        '1d temu',
+        '1 d temu',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago',
@@ -282,7 +282,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago',
-        '2d temu',
+        '2 d temu',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago',
@@ -290,7 +290,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago',
-        '1tyg temu',
+        '1 tyg. temu',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago',
@@ -298,7 +298,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago',
-        '2tyg temu',
+        '2 tyg. temu',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago',
@@ -306,7 +306,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago',
-        '1mies temu',
+        '1 mies. temu',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago',
@@ -314,7 +314,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago',
-        '2mies temu',
+        '2 mies. temu',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago',
@@ -322,7 +322,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago',
-        '1r temu',
+        '1 r temu',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago',
@@ -330,7 +330,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago',
-        '2l temu',
+        '2 l temu',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now',
@@ -338,7 +338,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now',
-        'za 1s',
+        'za 1 sek.',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after',
@@ -346,7 +346,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after',
-        '1s po',
+        '1 sek. po',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
@@ -354,7 +354,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
-        '1s przed',
+        '1 sek. przed',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',
@@ -362,7 +362,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s',
-        '1s',
+        '1 sek.',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds',
@@ -370,11 +370,11 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s',
-        '2s',
+        '2 sek.',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now',
-        'za 1s',
+        'za 1 sek.',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second',
@@ -382,7 +382,7 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s',
-        '2l 3mies 1d 1s',
+        '2 l 3 mies. 1 d 1 sek.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now',
@@ -390,11 +390,11 @@ class PlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago',
-        '5mies temu',
+        '5 mies. temu',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago',
-        '2l 3mies 1d 1s temu',
+        '2 l 3 mies. 1 d 1 sek. temu',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours',
@@ -426,6 +426,6 @@ class PlTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h',
-        '1d 3g',
+        '1 d 3 godz.',
     ];
 }
