@@ -612,6 +612,7 @@ class CreateTest extends AbstractTestCase
         $this->assertNotSame(CarbonPeriod::class, $subClass);
         $this->assertSame('1 2 7', $period->foo());
 
+        /** @var object $period */
         $period = CarbonPeriod::create('2010-08-24', CarbonInterval::weeks(2), '2012-07-19')
             ->cast($subClass);
 
