@@ -354,7 +354,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         if ($period instanceof DatePeriod) {
             return new static(
                 $period->start,
-                $period->end ?: $period->recurrences,
+                $period->end ?: ($period->recurrences - 1),
                 $period->interval,
                 $period->include_start_date ? 0 : static::EXCLUDE_START_DATE
             );
@@ -1581,11 +1581,11 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     {
         if (!method_exists($className, 'instance')) {
             if (is_a($className, DatePeriod::class, true)) {
-                return new DatePeriod(
+                return new $className(
                     $this->getStartDate(),
                     $this->getDateInterval(),
-                    $this->getEndDate() ?: $this->getRecurrences(),
-                    $this->getOptions()
+                    $this->getEndDate() ? $this->getIncludedEndDate() : $this->getRecurrences(),
+                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0
                 );
             }
 
@@ -1938,10 +1938,12 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             $period = self::make($period);
         }
 
+        $end = $this->getEndDate();
+
         return $period !== null
             && $this->getDateInterval()->eq($period->getDateInterval())
             && $this->getStartDate()->eq($period->getStartDate())
-            && $this->getEndDate()->eq($period->getEndDate())
+            && ($end ? $end->eq($period->getEndDate()) : $this->getRecurrences() === $period->getRecurrences())
             && ($this->getOptions() & (~static::IMMUTABLE)) === ($period->getOptions() & (~static::IMMUTABLE));
     }
 

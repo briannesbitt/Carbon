@@ -20,6 +20,7 @@ use Carbon\Exceptions\NotAPeriodException;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -101,7 +102,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromInvalidIso8601String($iso)
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageRegExp(
             '/(Invalid ISO 8601 specification:|Unknown or bad format)/'
         );
@@ -324,7 +325,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromInvalidParameters()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Invalid constructor parameters.'
         );
@@ -618,6 +619,15 @@ class CreateTest extends AbstractTestCase
 
         $this->assertInstanceOf($subClass, $period);
         $this->assertSame('24 14 19', $period->foo());
+    }
+
+    public function testBadCast()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('DateTime has not the instance() method needed to cast the date.');
+
+        CarbonPeriod::create('2010-08-24', CarbonInterval::weeks(2), '2012-07-19')
+            ->cast(DateTime::class);
     }
 
     public function testMake()
