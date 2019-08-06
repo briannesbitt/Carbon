@@ -3947,9 +3947,23 @@ echo "\n";
 {{::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{eval}}
 echo "\n";
 
+{{::exec(var_dump($period->isStartIncluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(var_dump($period->isEndIncluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
 echo "\n";
 {{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(echo $period->getIncludedStartDate();/*pad(40)*/)}} // {{eval}}
+// If start is included getIncludedStartDate() = getStartDate()
+// If start is excluded getIncludedStartDate() = getStartDate() + 1 interval
+echo "\n";
+{{::exec(echo $period->getIncludedEndDate();/*pad(40)*/)}} // {{eval}}
+// If end is included getIncludedEndDate() = getEndDate()
+// If end is excluded getIncludedEndDate() = getEndDate() - 1 interval
+// If end is null getIncludedEndDate() = calculateEnd(), it means the period is actually iterated to get the last date
 echo "\n";
 
 {{::exec(echo $period->toString();/*pad(40)*/)}} // {{eval}}
