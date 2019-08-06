@@ -11,7 +11,6 @@
 namespace Carbon;
 
 use BadMethodCallException;
-use Carbon\Traits\Cast;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -165,7 +164,7 @@ use InvalidArgumentException;
  */
 class CarbonInterval extends DateInterval
 {
-    use Options, Cast, Mixin {
+    use Options, Mixin {
         Mixin::mixin as baseMixin;
     }
 
@@ -716,19 +715,16 @@ class CarbonInterval extends DateInterval
         return static::fromString(Carbon::translateTimeString($interval, $locale, 'en'));
     }
 
-    /**
-     * Create a CarbonInterval instance from a DateInterval one.  Can not instance
-     * DateInterval objects created from DateTime::diff() as you can't externally
-     * set the $days field.
-     *
-     * @param DateInterval $interval
-     *
-     * @return static
-     */
-    public static function instance(DateInterval $interval)
+    private static function castIntervalToClass(DateInterval $interval, string $className)
     {
+        $mainClass = DateInterval::class;
+
+        if (!is_a($className, $mainClass, true)) {
+            throw new InvalidArgumentException("$className is not a sub-class of $mainClass.");
+        }
+
         $microseconds = $interval->f;
-        $instance = new static(static::getDateIntervalSpec($interval));
+        $instance = new $className(static::getDateIntervalSpec($interval));
         if ($microseconds) {
             $instance->f = $microseconds;
         }
@@ -740,6 +736,32 @@ class CarbonInterval extends DateInterval
         }
 
         return $instance;
+    }
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return DateInterval
+     */
+    public function cast(string $className)
+    {
+        return self::castIntervalToClass($this, $className);
+    }
+
+    /**
+     * Create a CarbonInterval instance from a DateInterval one.  Can not instance
+     * DateInterval objects created from DateTime::diff() as you can't externally
+     * set the $days field.
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
+    public static function instance(DateInterval $interval)
+    {
+        return self::castIntervalToClass($interval, static::class);
     }
 
     /**
@@ -1369,6 +1391,21 @@ class CarbonInterval extends DateInterval
     public function __toString()
     {
         return $this->forHumans();
+    }
+
+    /**
+     * Return native DateInterval PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonInterval::hours(2)->toDateInterval());
+     * ```
+     *
+     * @return DateInterval
+     */
+    public function toDateInterval()
+    {
+        return self::castIntervalToClass($this, DateInterval::class);
     }
 
     /**

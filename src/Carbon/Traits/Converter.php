@@ -17,6 +17,7 @@ use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Closure;
 use DateTime;
+use DateTimeImmutable;
 
 /**
  * Trait Converter.
@@ -521,6 +522,21 @@ trait Converter
     public function toDateTime()
     {
         return new DateTime($this->rawFormat('Y-m-d H:i:s.u'), $this->getTimezone());
+    }
+
+    /**
+     * Return native toDateTimeImmutable PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDateTimeImmutable());
+     * ```
+     *
+     * @return DateTimeImmutable
+     */
+    public function toDateTimeImmutable()
+    {
+        return new DateTimeImmutable($this->rawFormat('Y-m-d H:i:s.u'), $this->getTimezone());
     }
 
     /**

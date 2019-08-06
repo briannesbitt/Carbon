@@ -12,7 +12,6 @@ namespace Carbon;
 
 use BadMethodCallException;
 use Carbon\Exceptions\NotAPeriodException;
-use Carbon\Traits\Cast;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -179,7 +178,7 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
-    use Options, Cast, Mixin {
+    use Options, Mixin {
         Mixin::mixin as baseMixin;
     }
 
@@ -1569,6 +1568,46 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function spec()
     {
         return $this->toIso8601String();
+    }
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return DatePeriod
+     */
+    public function cast(string $className)
+    {
+        if (!method_exists($className, 'instance')) {
+            if (is_a($className, DatePeriod::class, true)) {
+                return new DatePeriod(
+                    $this->getStartDate(),
+                    $this->getDateInterval(),
+                    $this->getEndDate() ?: $this->getRecurrences(),
+                    $this->getOptions()
+                );
+            }
+
+            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+        }
+
+        return $className::instance($this);
+    }
+
+    /**
+     * Return native DatePeriod PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonPeriod::create('2021-01-05', '2021-02-15')->toDatePeriod());
+     * ```
+     *
+     * @return DatePeriod
+     */
+    public function toDatePeriod()
+    {
+        return $this->cast(DatePeriod::class);
     }
 
     /**
