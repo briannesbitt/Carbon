@@ -313,9 +313,13 @@ class Translator extends Translation\Translator
             return '_'.ucfirst($matches[1]);
         }, strtolower($locale));
 
-        if ($this->getLocale() === $locale) {
+        $previousLocale = $this->getLocale();
+
+        if ($previousLocale === $locale) {
             return true;
         }
+
+        unset(static::$singletons[$previousLocale]);
 
         if ($locale === 'auto') {
             $completeLocale = setlocale(LC_TIME, '0');
