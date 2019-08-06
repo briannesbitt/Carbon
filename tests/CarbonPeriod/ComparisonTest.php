@@ -231,4 +231,34 @@ class ComparisonTest extends AbstractTestCase
         $this->assertFalse($july->isConsecutiveWith($august));
         $this->assertFalse($august->isConsecutiveWith($july));
     }
+
+    public function testConsecutivePeriodsWithExclusion()
+    {
+        $july = CarbonPeriod::create('2019-07-29', '2019-08-01', CarbonPeriod::EXCLUDE_END_DATE);
+        $august = CarbonPeriod::create('2019-07-31', '2019-08-12', CarbonPeriod::EXCLUDE_START_DATE);
+
+        $this->assertFalse($july->follows($august));
+        $this->assertTrue($august->follows($july));
+
+        $this->assertTrue($july->isFollowedBy($august));
+        $this->assertFalse($august->isFollowedBy($july));
+
+        $this->assertTrue($july->isConsecutiveWith($august));
+        $this->assertTrue($august->isConsecutiveWith($july));
+    }
+
+    public function testConsecutivePeriodsWithDynamicEnd()
+    {
+        $july = CarbonPeriod::create('2019-07-29', '1 day', 4);
+        $august = CarbonPeriod::create('2019-08-02', '2019-08-12');
+
+        $this->assertFalse($july->follows($august));
+        $this->assertTrue($august->follows($july));
+
+        $this->assertTrue($july->isFollowedBy($august));
+        $this->assertFalse($august->isFollowedBy($july));
+
+        $this->assertTrue($july->isConsecutiveWith($august));
+        $this->assertTrue($august->isConsecutiveWith($july));
+    }
 }

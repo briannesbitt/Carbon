@@ -965,9 +965,13 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function getIncludedEndDate()
     {
-        $end = $this->calculateEnd();
+        $end = $this->getEndDate();
 
-        if ($this->isStartExcluded()) {
+        if (!$end) {
+            return $this->calculateEnd();
+        }
+
+        if ($this->isEndExcluded()) {
             return $end->sub($this->getDateInterval());
         }
 
