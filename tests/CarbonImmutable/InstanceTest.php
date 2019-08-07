@@ -148,6 +148,7 @@ class InstanceTest extends AbstractTestCase
             }
         });
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        /** @var object $casted */
         $casted = $carbon->cast($class);
 
         $this->assertInstanceOf($class, $casted);
@@ -165,6 +166,7 @@ class InstanceTest extends AbstractTestCase
             }
         });
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        /** @var object $casted */
         $casted = $carbon->cast($class);
 
         $this->assertInstanceOf($class, $casted);
