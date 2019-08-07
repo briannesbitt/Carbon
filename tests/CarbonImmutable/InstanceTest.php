@@ -138,4 +138,40 @@ class InstanceTest extends AbstractTestCase
         $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
         $carbon->cast(DateTimeZone::class);
     }
+
+    public function testChildCast()
+    {
+        $class = get_class(new class extends Carbon {
+            public function foo()
+            {
+                return 42;
+            }
+        });
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        /** @var object $casted */
+        $casted = $carbon->cast($class);
+
+        $this->assertInstanceOf($class, $casted);
+        $this->assertInstanceOf(Carbon::class, $casted);
+        $this->assertSame(42, $casted->foo());
+        $this->assertSame('2017-06-27', $casted->format('Y-m-d'));
+    }
+
+    public function testSiblingCast()
+    {
+        $class = get_class(new class extends DateTime {
+            public function foo()
+            {
+                return 42;
+            }
+        });
+        $carbon = new Carbon('2017-06-27 13:14:15.123456', 'Europe/Paris');
+        /** @var object $casted */
+        $casted = $carbon->cast($class);
+
+        $this->assertInstanceOf($class, $casted);
+        $this->assertInstanceOf(DateTime::class, $casted);
+        $this->assertSame(42, $casted->foo());
+        $this->assertSame('2017-06-27', $casted->format('Y-m-d'));
+    }
 }

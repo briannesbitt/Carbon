@@ -12,7 +12,6 @@ namespace Carbon;
 
 use BadMethodCallException;
 use Carbon\Exceptions\NotAPeriodException;
-use Carbon\Traits\Cast;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -179,7 +178,7 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
-    use Options, Cast, Mixin {
+    use Options, Mixin {
         Mixin::mixin as baseMixin;
     }
 
@@ -355,7 +354,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         if ($period instanceof DatePeriod) {
             return new static(
                 $period->start,
-                $period->end ?: $period->recurrences,
+                $period->end ?: ($period->recurrences - 1),
                 $period->interval,
                 $period->include_start_date ? 0 : static::EXCLUDE_START_DATE
             );
@@ -1572,6 +1571,46 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     }
 
     /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return DatePeriod
+     */
+    public function cast(string $className)
+    {
+        if (!method_exists($className, 'instance')) {
+            if (is_a($className, DatePeriod::class, true)) {
+                return new $className(
+                    $this->getStartDate(),
+                    $this->getDateInterval(),
+                    $this->getEndDate() ? $this->getIncludedEndDate() : $this->getRecurrences(),
+                    $this->isStartExcluded() ? DatePeriod::EXCLUDE_START_DATE : 0
+                );
+            }
+
+            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+        }
+
+        return $className::instance($this);
+    }
+
+    /**
+     * Return native DatePeriod PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonPeriod::create('2021-01-05', '2021-02-15')->toDatePeriod());
+     * ```
+     *
+     * @return DatePeriod
+     */
+    public function toDatePeriod()
+    {
+        return $this->cast(DatePeriod::class);
+    }
+
+    /**
      * Convert the date period into an array without changing current iteration state.
      *
      * @return CarbonInterface[]
@@ -1899,10 +1938,12 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             $period = self::make($period);
         }
 
+        $end = $this->getEndDate();
+
         return $period !== null
             && $this->getDateInterval()->eq($period->getDateInterval())
             && $this->getStartDate()->eq($period->getStartDate())
-            && $this->getEndDate()->eq($period->getEndDate())
+            && ($end ? $end->eq($period->getEndDate()) : $this->getRecurrences() === $period->getRecurrences())
             && ($this->getOptions() & (~static::IMMUTABLE)) === ($period->getOptions() & (~static::IMMUTABLE));
     }
 
