@@ -1947,7 +1947,7 @@ trait Date
     }
 
     /**
-     * Returns the alternative number if available in the current locale.
+     * Returns the alternative number for a given date property if available in the current locale.
      *
      * @param string $key date property
      *
@@ -1955,46 +1955,7 @@ trait Date
      */
     public function getAltNumber(string $key): string
     {
-        $number = strlen($key) > 1 ? $this->$key : $this->rawFormat('h');
-        $translateKey = "alt_numbers.$number";
-        $symbol = $this->translate($translateKey);
-
-        if ($symbol !== $translateKey) {
-            return $symbol;
-        }
-
-        if ($number > 99 && $this->translate('alt_numbers.99') !== 'alt_numbers.99') {
-            $start = '';
-            foreach ([10000, 1000, 100] as $exp) {
-                $key = "alt_numbers_pow.$exp";
-                if ($number >= $exp && $number < $exp * 10 && ($pow = $this->translate($key)) !== $key) {
-                    $unit = floor($number / $exp);
-                    $number -= $unit * $exp;
-                    $start .= ($unit > 1 ? $this->translate("alt_numbers.$unit") : '').$pow;
-                }
-            }
-            $result = '';
-            while ($number) {
-                $chunk = $number % 100;
-                $result = $this->translate("alt_numbers.$chunk").$result;
-                $number = floor($number / 100);
-            }
-
-            return "$start$result";
-        }
-
-        if ($number > 9 && $this->translate('alt_numbers.9') !== 'alt_numbers.9') {
-            $result = '';
-            while ($number) {
-                $chunk = $number % 10;
-                $result = $this->translate("alt_numbers.$chunk").$result;
-                $number = floor($number / 10);
-            }
-
-            return $result;
-        }
-
-        return $number;
+        return $this->translateNumber(strlen($key) > 1 ? $this->$key : $this->rawFormat('h'));
     }
 
     /**
