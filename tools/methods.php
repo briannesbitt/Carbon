@@ -100,6 +100,7 @@ function convertType($type)
         'NULL' => 'null',
         'FALSE' => 'false',
         'TRUE' => 'true',
+        "array (\n)" => '[]',
     ]);
 }
 
