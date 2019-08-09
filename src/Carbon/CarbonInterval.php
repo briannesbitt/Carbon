@@ -1181,6 +1181,7 @@ class CarbonInterval extends DateInterval
     protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
         $join = ' ';
+        $altNumbers = false;
         $aUnit = false;
         if (is_array($syntax)) {
             extract($syntax);
@@ -1210,6 +1211,12 @@ class CarbonInterval extends DateInterval
                 $this->getTranslationMessage('list.1') ?? $default,
             ];
         }
+        if ($altNumbers) {
+            if ($altNumbers !== true) {
+                $language = new Language($this->locale);
+                $altNumbers = in_array($language->getCode(), (array) $altNumbers);
+            }
+        }
         if (is_array($join)) {
             [$default, $last] = $join;
 
@@ -1230,7 +1237,7 @@ class CarbonInterval extends DateInterval
             };
         }
 
-        return [$syntax, $short, $parts, $options, $join, $aUnit];
+        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers];
     }
 
     /**
@@ -1272,7 +1279,7 @@ class CarbonInterval extends DateInterval
      */
     public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        [$syntax, $short, $parts, $options, $join, $aUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
+        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
@@ -1294,25 +1301,25 @@ class CarbonInterval extends DateInterval
             ['value' => $this->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($translator, $aUnit) {
+        $transChoice = function ($short, $unitData) use ($translator, $aUnit, $altNumbers) {
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $this->translate($unitData['unitShort'], [], $count, $translator);
+                $result = $this->translate($unitData['unitShort'], [], $count, $translator, $altNumbers);
 
                 if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             } elseif ($aUnit) {
                 $key = 'a_'.$unitData['unit'];
-                $result = $this->translate($key, [], $count, $translator);
+                $result = $this->translate($key, [], $count, $translator, $altNumbers);
 
                 if ($result !== $key) {
                     return $result;
                 }
             }
 
-            return $this->translate($unitData['unit'], [], $count, $translator);
+            return $this->translate($unitData['unit'], [], $count, $translator, $altNumbers);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1340,7 +1347,7 @@ class CarbonInterval extends DateInterval
             }
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $this->translate($unit, [], $count, $translator);
+            $interval[] = $this->translate($unit, [], $count, $translator, $altNumbers);
         }
 
         // join the interval parts by a space
@@ -1376,7 +1383,7 @@ class CarbonInterval extends DateInterval
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
             if ($key !== $this->translate($key, [], null, $translator)) {
-                $time = $this->translate($key, [], $count, $translator);
+                $time = $this->translate($key, [], $count, $translator, $altNumbers);
             }
         }
 
