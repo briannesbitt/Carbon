@@ -285,7 +285,7 @@ trait Localization
             return $result;
         }
 
-        return $number;
+        return "$number";
     }
 
     /**
