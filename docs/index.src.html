@@ -617,7 +617,13 @@ $date = Carbon::parse('2018-02-25 14:00');
 {{::lint(echo "\n";)}}
 {{::exec(echo $date->locale('af_ZA')->meridiem(true);/*pad(60)*/)}} // {{eval}}
 {{::lint(echo "\n";)}}
+// Some languages has alternative numbers available:
+{{::exec(echo $date->locale('ja_JP')->translateNumber(45);/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+// You can also choose a key linked to a numeric value to translate:
 {{::exec(echo $date->locale('ja_JP')->getAltNumber('day');/*pad(60)*/)}} // {{eval}}
+// Note: translations methods like translateNumber and getAltNumber are available
+// on CarbonInterval and CarbonPeriod too.
 {{::lint(echo "\n";)}}
 {{::exec(echo $date->locale('en_SG')->ordinal('day');/*pad(60)*/)}} // {{eval}}
 {{::lint(echo "\n";)}}
