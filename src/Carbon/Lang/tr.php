@@ -19,6 +19,7 @@
  * - Murat Yüksel
  * - Baran Şengül
  * - Selami (selamialtin)
+ * - TeomanBey
  */
 return [
     'year' => ':count yıl',
