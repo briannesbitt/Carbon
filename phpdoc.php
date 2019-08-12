@@ -549,7 +549,7 @@ foreach ($carbonMethods as $method) {
         } elseif (isset($nativeMethods[$method])) {
             $link = strtolower($method);
             $methodDocBlock = "\n    /**\n".
-                "     * call \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
+                "     * Calls \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
                 "     *\n".
                 "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';
