@@ -79,10 +79,6 @@ class InstanceTest extends AbstractTestCase
         ]);
         $this->assertInstanceOf(Carbon::class, $carbon);
         $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
-
-        /** @var Carbon $carbon */
-        $carbon = Carbon::__set_state(null);
-        $this->assertSame(Carbon::now()->format('Y-m-d H:i:s.u'), $carbon->format('Y-m-d H:i:s.u'));
     }
 
     public function testInstanceStateSetBySetStateString()
