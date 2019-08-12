@@ -82,19 +82,15 @@ trait Serialization
      *
      * @return static
      */
-    public static function __set_state($dump = null)
+    public static function __set_state($dump)
     {
-        if ($dump === null) {
-            return new static();
-        }
-
         if (is_string($dump)) {
             return static::parse($dump);
         }
 
         /** @var \DateTimeInterface $date */
         $date = get_parent_class(static::class) && method_exists(parent::class, '__set_state')
-            ? parent::__set_state($dump)
+            ? parent::__set_state((array) $dump)
             : (object) $dump;
 
         return static::instance($date);
