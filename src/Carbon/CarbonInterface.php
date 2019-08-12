@@ -3492,9 +3492,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function setHumanDiffOptions($humanDiffOptions);
 
     /**
-     * Calls \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
+     * Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.
      *
-     * @see https://php.net/manual/en/datetime.setisodate.php
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     *
+     * @return static
      */
     public function setISODate($year, $week, $day = 1);
 

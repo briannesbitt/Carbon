@@ -1393,6 +1393,8 @@ trait Date
     /**
      * Set the date with gregorian year, month and day numbers.
      *
+     * @see https://php.net/manual/en/datetime.setdate.php
+     *
      * @param int $year
      * @param int $month
      * @param int $day
@@ -1402,6 +1404,22 @@ trait Date
     public function setDate($year, $month, $day)
     {
         return parent::setDate((int) $year, (int) $month, (int) $day);
+    }
+
+    /**
+     * Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.
+     *
+     * @see https://php.net/manual/en/datetime.setisodate.php
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     *
+     * @return static
+     */
+    public function setISODate($year, $week, $day = null)
+    {
+        return parent::setISODate((int) $year, (int) $week, $day === null ? null : (int) $day);
     }
 
     /**
