@@ -13,6 +13,7 @@ namespace Carbon;
 use Closure;
 use DateInterval;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -3432,6 +3433,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the date with gregorian year, month and day numbers.
      *
+     * @see https://php.net/manual/en/datetime.setdate.php
+     *
      * @param int $year
      * @param int $month
      * @param int $day
@@ -3494,8 +3497,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.
      *
+     * @see https://php.net/manual/en/datetime.setisodate.php
+     *
      * @param int $year
-     * @param int $month
+     * @param int $week
      * @param int $day
      *
      * @return static
@@ -3559,9 +3564,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function setTestNow($testNow = null);
 
     /**
-     * Calls \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
+     * Resets the current time of the DateTime object to a different time.
      *
      * @see https://php.net/manual/en/datetime.settime.php
+     *
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
+     *
+     * @return static
      */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0);
 
@@ -3584,9 +3596,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function setTimeFromTimeString($time);
 
     /**
-     * Calls \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
+     * Sets the date and time based on an Unix timestamp.
      *
      * @see https://php.net/manual/en/datetime.settimestamp.php
+     *
+     * @param int $unixtimestamp
+     *
+     * @return static
      */
     public function setTimestamp($unixtimestamp);
 

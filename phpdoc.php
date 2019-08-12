@@ -15,26 +15,8 @@ $tags = [
     ['call', 'diffForHumans'],
 ];
 $nativeMethods = [
-    'format' => 'string',
-    'modify' => 'static',
     'getOffset' => 'int',
     'getTimestamp' => 'int',
-    'setTime' => 'static',
-    'setISODate' => 'static',
-    'setTimestamp' => 'static',
-    'diff' => '\DateInterval',
-];
-$defaultValues = [
-    'diff' => [
-        'absolute' => true,
-    ],
-    'setTime' => [
-        'second' => 0,
-        'microseconds' => 0,
-    ],
-    'setISODate' => [
-        'day' => 1,
-    ],
 ];
 $modes = [];
 $autoDocLines = [];
