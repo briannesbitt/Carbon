@@ -66,6 +66,8 @@ trait Converter
     }
 
     /**
+     * Returns the formatted date string on success or FALSE on failure.
+     *
      * @see https://php.net/manual/en/datetime.format.php
      *
      * @param string $format

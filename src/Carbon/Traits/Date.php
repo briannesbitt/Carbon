@@ -1391,6 +1391,38 @@ trait Date
     }
 
     /**
+     * Set the date with gregorian year, month and day numbers.
+     *
+     * @see https://php.net/manual/en/datetime.setdate.php
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     *
+     * @return static
+     */
+    public function setDate($year, $month, $day)
+    {
+        return parent::setDate((int) $year, (int) $month, (int) $day);
+    }
+
+    /**
+     * Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.
+     *
+     * @see https://php.net/manual/en/datetime.setisodate.php
+     *
+     * @param int $year
+     * @param int $week
+     * @param int $day
+     *
+     * @return static
+     */
+    public function setISODate($year, $week, $day = 1)
+    {
+        return parent::setISODate((int) $year, (int) $week, (int) $day);
+    }
+
+    /**
      * Set the date and time all together.
      *
      * @param int $year
@@ -1405,7 +1437,38 @@ trait Date
      */
     public function setDateTime($year, $month, $day, $hour, $minute, $second = 0, $microseconds = 0)
     {
-        return $this->setDate((int) $year, (int) $month, (int) $day)->setTime((int) $hour, (int) $minute, (int) $second, (int) $microseconds);
+        return $this->setDate($year, $month, $day)->setTime((int) $hour, (int) $minute, (int) $second, (int) $microseconds);
+    }
+
+    /**
+     * Resets the current time of the DateTime object to a different time.
+     *
+     * @see https://php.net/manual/en/datetime.settime.php
+     *
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
+     *
+     * @return static
+     */
+    public function setTime($hour, $minute, $second = 0, $microseconds = 0)
+    {
+        return parent::setTime((int) $hour, (int) $minute, (int) $second, (int) $microseconds);
+    }
+
+    /**
+     * Sets the date and time based on an Unix timestamp.
+     *
+     * @see https://php.net/manual/en/datetime.settimestamp.php
+     *
+     * @param int $unixtimestamp
+     *
+     * @return static
+     */
+    public function setTimestamp($unixtimestamp)
+    {
+        return parent::setTimestamp((int) $unixtimestamp);
     }
 
     /**

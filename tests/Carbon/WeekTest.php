@@ -5401,6 +5401,10 @@ class WeekTest extends AbstractTestCase
         $d->weekYear = 2012;
 
         $this->assertSame('2012-12-30', $d->format('Y-m-d'));
+
+        $d = Carbon::parse('2018-01-01');
+        $d = $d->setISODate(2019, 4, 5);
+        $this->assertSame('2019-01-25', $d->format('Y-m-d'));
     }
 
     public function testWeekday()

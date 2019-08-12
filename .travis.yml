@@ -115,6 +115,9 @@ matrix:
       env:
         - setup=stable
         - style_check=true
+  allow_failures:
+    - php: nightly
+      env: setup=nightly
 
 notifications:
   slack:
