@@ -82,8 +82,12 @@ trait Serialization
      *
      * @return static
      */
-    public static function __set_state($dump)
+    public static function __set_state($dump = null)
     {
+        if ($dump === null) {
+            return new static();
+        }
+
         if (is_string($dump)) {
             return static::parse($dump);
         }

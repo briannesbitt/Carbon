@@ -677,7 +677,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static
      */
-    public static function __set_state($dump);
+    public static function __set_state($dump = null);
 
     /**
      * Returns the list of properties to dump on serialize() called on.
@@ -1123,7 +1123,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function dayOfYear($value = null);
 
     /**
-     * Get the difference as a CarbonInterval instance
+     * Get the difference as a CarbonInterval instance.
+     * Return absolute interval (always positive) unless you pass false to the second argument.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
