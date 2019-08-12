@@ -34,6 +34,7 @@
  * - Nizar Jouini
  * - Marko Seppae
  * - Tomi Mynttinen (Pikseli)
+ * - Petteri (powergrip)
  */
 return [
     'year' => ':count vuosi|:count vuotta',
