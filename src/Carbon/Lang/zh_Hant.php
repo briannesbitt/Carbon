@@ -78,7 +78,26 @@ return [
                 return $number;
         }
     },
-    'meridiem' => ['上午', '下午'],
+    'meridiem' => function ($hour, $minute) {
+        $time = $hour * 100 + $minute;
+        if ($time < 600) {
+            return '凌晨';
+        }
+        if ($time < 900) {
+            return '早上';
+        }
+        if ($time < 1130) {
+            return '上午';
+        }
+        if ($time < 1230) {
+            return '中午';
+        }
+        if ($time < 1800) {
+            return '下午';
+        }
+
+        return '晚上';
+    },
     'months' => ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     'months_short' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'weekdays' => ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],

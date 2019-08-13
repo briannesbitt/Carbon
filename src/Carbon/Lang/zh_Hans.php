@@ -26,18 +26,18 @@
 return [
     'year' => ':count年',
     'y' => ':count年',
-    'month' => ':count個月',
-    'm' => ':count月',
-    'week' => ':count週',
-    'w' => ':count週',
+    'month' => ':count个月',
+    'm' => ':count个月',
+    'week' => ':count周',
+    'w' => ':count周',
     'day' => ':count天',
     'd' => ':count天',
-    'hour' => ':count小時',
-    'h' => ':count小時',
-    'minute' => ':count分鐘',
-    'min' => ':count分鐘',
+    'hour' => ':count小时',
+    'h' => ':count小时',
+    'minute' => ':count分钟',
+    'min' => ':count分钟',
     'second' => ':count秒',
-    'a_second' => '{1}幾秒|]1,Inf[:count秒',
+    'a_second' => '{1}几秒|]1,Inf[:count秒',
     's' => ':count秒',
     'ago' => ':time前',
     'from_now' => ':time后',
@@ -76,11 +76,30 @@ return [
                 return $number;
         }
     },
-    'meridiem' => ['上午', '下午'],
+    'meridiem' => function ($hour, $minute) {
+        $time = $hour * 100 + $minute;
+        if ($time < 600) {
+            return '凌晨';
+        }
+        if ($time < 900) {
+            return '早上';
+        }
+        if ($time < 1130) {
+            return '上午';
+        }
+        if ($time < 1230) {
+            return '中午';
+        }
+        if ($time < 1800) {
+            return '下午';
+        }
+
+        return '晚上';
+    },
     'months' => ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
     'months_short' => ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
     'weekdays' => ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
-    'weekdays_short' => ['週日', '週一', '週二', '週三', '週四', '週五', '週六'],
+    'weekdays_short' => ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
     'weekdays_min' => ['日', '一', '二', '三', '四', '五', '六'],
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
