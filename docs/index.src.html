@@ -617,7 +617,13 @@ $date = Carbon::parse('2018-02-25 14:00');
 {{::lint(echo "\n";)}}
 {{::exec(echo $date->locale('af_ZA')->meridiem(true);/*pad(60)*/)}} // {{eval}}
 {{::lint(echo "\n";)}}
+// Some languages has alternative numbers available:
+{{::exec(echo $date->locale('ja_JP')->translateNumber(45);/*pad(60)*/)}} // {{eval}}
+{{::lint(echo "\n";)}}
+// You can also choose a key linked to a numeric value to translate:
 {{::exec(echo $date->locale('ja_JP')->getAltNumber('day');/*pad(60)*/)}} // {{eval}}
+// Note: translations methods like translateNumber and getAltNumber are available
+// on CarbonInterval and CarbonPeriod too.
 {{::lint(echo "\n";)}}
 {{::exec(echo $date->locale('en_SG')->ordinal('day');/*pad(60)*/)}} // {{eval}}
 {{::lint(echo "\n";)}}
@@ -1750,12 +1756,47 @@ Carbon::resetToStringFormat();
 {{eval}}
 */
 
+// Note than both Carbon and CarbonImmutable can be cast
+// to both DateTime and DateTimeImmutable
+{{::exec(var_dump($dt->toDateTimeImmutable());)}}
+/*
+{{eval}}
+*/
+
 {{::exec(class MySubClass extends Carbon {}
 // MySubClass can be any class implementing CarbonInterface or a public static instance() method.
 
 $copy = $dt->cast(MySubClass::class);
+// Since 2.23.0, cast() can also take as argument any class that extend DateTime or DateTimeImmutable
 
 echo get_class($copy).': '.$copy; // Same as MySubClass::instance($dt))}}
+/*
+{{eval}}
+*/
+</code></pre>
+    </p>
+
+    <p>You can use the method <code>carbonize</code> to transform many things into a <code>Carbon</code>
+        instance based on a given source instance used as reference on need. It returns a new instance.</p>
+
+    <p>
+    <pre><code class="php">{{::lint($dt = Carbon::createFromFormat('Y-m-d H:i:s.u', '2019-02-01 03:45:27.612584', 'Europe/Paris');)}}
+
+// Can take a date string and will apply the timezone from reference object
+{{::exec(var_dump($dt->carbonize('2019-03-21'));)}}
+/*
+{{eval}}
+*/
+
+// If you pass a DatePeriod or CarbonPeriod, it will copy the period start
+{{::exec(var_dump($dt->carbonize(CarbonPeriod::create('2019-12-10', '2020-01-05')));)}}
+/*
+{{eval}}
+*/
+
+// If you pass a DateInterval or CarbonInterval, it will add the interval to
+// the reference object
+{{::exec(var_dump($dt->carbonize(CarbonInterval::days(3)));)}}
 /*
 {{eval}}
 */
@@ -3525,6 +3566,24 @@ echo "\n";
 </code></pre>
     </p>
 
+    <p>And as the opposite you can extract a raw <code>DateInterval</code> from <code>CarbonInterval</code>
+        and even cast it in any class that extends <code>DateInterval</code></p>
+
+    <p>
+    <pre><code class="php">{{::lint($ci = CarbonInterval::days(2);)}}
+{{::lint($di = $ci->toDateInterval();)}}
+{{::exec(echo get_class($di);/*pad(22)*/)}} // '{{eval}}'
+{{::exec(echo $di->d;/*pad(22)*/)}} // {{eval}}
+
+// Your custom class can also extends CarbonInterval
+{{::lint(class CustomDateInterval extends \DateInterval {})}}
+
+{{::lint($di = $ci->cast(\CustomDateInterval::class);)}}
+{{::exec(echo get_class($di);/*pad(22)*/)}} // '{{eval}}'
+{{::exec(echo $di->d;/*pad(22)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>You can compare intervals the same way than Carbon objects, using <code>equalTo()</code>, <code>notEqualTo()</code>
         <code>lessThan()</code>, <code>lessThanOrEqualTo()</code>, <code>greaterThan()</code>,
         <code>greaterThanOrEqualTo()</code>, <code>between()</code>, <code>betweenExcluded()</code>, etc.</p>
@@ -3839,7 +3898,8 @@ $period = Carbon::parse('2018-04-21')->daysUntil('2018-04-27'); // same as Carbo
     <ul>
         <li>start date, end date and optional interval (by default 1 day),</li>
         <li>start date, number of recurrences and optional interval,</li>
-        <li>an ISO 8601 interval specification.</li>
+        <li>an ISO 8601 interval specification,</li>
+        <li>from an other <code>DatePeriod</code> or <code>CarbonPeriod</code> using <code>CarbonPeriod::instance($period)</code>.</li>
     </ul>
 
     <p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings,
@@ -3947,9 +4007,23 @@ echo "\n";
 {{::exec(echo $exclude ? 'exclude' : 'include';/*pad(40)*/)}} // {{eval}}
 echo "\n";
 
+{{::exec(var_dump($period->isStartIncluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(var_dump($period->isEndIncluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
 {{::exec(var_dump($period->isStartExcluded());/*pad(40)*/)}} // {{eval}}
 echo "\n";
 {{::exec(var_dump($period->isEndExcluded());/*pad(40)*/)}} // {{eval}}
+echo "\n";
+
+{{::exec(echo $period->getIncludedStartDate();/*pad(40)*/)}} // {{eval}}
+// If start is included getIncludedStartDate() = getStartDate()
+// If start is excluded getIncludedStartDate() = getStartDate() + 1 interval
+echo "\n";
+{{::exec(echo $period->getIncludedEndDate();/*pad(40)*/)}} // {{eval}}
+// If end is included getIncludedEndDate() = getEndDate()
+// If end is excluded getIncludedEndDate() = getEndDate() - 1 interval
+// If end is null getIncludedEndDate() = calculateEnd(), it means the period is actually iterated to get the last date
 echo "\n";
 
 {{::exec(echo $period->toString();/*pad(40)*/)}} // {{eval}}
@@ -4284,7 +4358,7 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>CarbonPeriod <code>forEach()</code> and <code>map()</code> helper methods:</p>
+    <p>CarbonPeriod has <code>forEach()</code> and <code>map()</code> helper methods:</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
@@ -4314,6 +4388,86 @@ $period->forEach(function (Carbon $date) {
 {{eval}}*/
 </code></pre>
     </p>
+
+    <p>As all other Carbon classes, <code>CarbonPeriod</code> has a <code>cast()</code> method to convert it:</p>
+
+    <p>
+    <pre><code class="php">{{::lint(
+$period = CarbonPeriod::create('2000-01-01 12:00', '3 days 12 hours', '2000-01-15 12:00');
+
+// It would also works if your class extends DatePeriod
+class MyPeriod extends CarbonPeriod {}
+)}}
+
+{{::exec(echo get_class($period->cast(MyPeriod::class));/*pad(42)*/)}} // {{eval}}
+
+// Shortcut to export as raw DatePeriod:
+{{::exec(echo get_class($period->toDatePeriod());/*pad(42)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>You can check if periods follow themselves. Period <strong>A</strong> follows period <strong>B</strong> if
+        the first iteration date of <strong>B</strong> equals to the last iteration date of <strong>A</strong>
+        + the interval of <strong>A</strong>. For example <code>[2019-02-01 => 2019-02-16]</code> follows
+        <code>[2019-01-15 => 2019-01-31]</code> (assuming neither start nor end are excluded via option for those
+        period and assuming those period as a (1 day)-interval.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$a = CarbonPeriod::create('2019-01-15', '2019-01-31');
+$b = CarbonPeriod::create('2019-02-01', '2019-02-16');
+)}}
+
+{{::exec(var_dump($b->follows($a));/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($a->isFollowedBy($b));/*pad(40)*/)}} // {{eval}}
+// ->isConsecutiveWith($period) is true if it either ->follows($period) or ->isFollowedBy($period)
+{{::exec(var_dump($b->isConsecutiveWith($a));/*pad(40)*/)}} // {{eval}}
+{{::exec(var_dump($a->isConsecutiveWith($b));/*pad(40)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The <code>contains()</code> method allow you to check if a date is in the period range.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$period = CarbonPeriod::create('2019-01-15', '2019-01-31');
+)}}
+
+{{::exec(var_dump($period->contains('2019-01-22'));/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>The comparison includes start and end unless you excluded them in the option and as for it
+        concerns <code>contains()</code>, the exclusion only exclude the exact date, so:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$period = CarbonPeriod::create('2019-01-15', '2019-01-31', CarbonPeriod::EXCLUDE_END_DATE);
+)}}
+
+{{::exec(var_dump($period->contains('2019-01-31 00:00:00'));/*pad(50)*/)}} // {{eval}}
+{{::exec(var_dump($period->contains('2019-01-30 23:59:59'));/*pad(50)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>You can use start/end comparisons methods (that ignore exclusions) for more precise
+        comparisons:</p>
+
+    <ul>
+        <li><code>startsAt()</code> start == date</li>
+        <li><code>startsBefore()</code> start < date</li>
+        <li><code>startsBeforeOrAt()</code> start <= date</li>
+        <li><code>startsAfter()</code> start > date</li>
+        <li><code>startsAfterOrAt()</code> start >= date</li>
+        <li><code>endsAt()</code> end == date</li>
+        <li><code>endsBefore()</code> end < date</li>
+        <li><code>endsBeforeOrAt()</code> end <= date</li>
+        <li><code>endsAfter()</code> end > date</li>
+        <li><code>endsAfterOrAt()</code> end >= date</li>
+        <li><code>isStarted()</code> start <= now</li>
+        <li><code>isEnded()</code> end <= now</li>
+        <li><code>isInProgress()</code> started but not ended</li>
+    </ul>
 
     <h1 id="api-timezone">CarbonTimeZone</h1>
 

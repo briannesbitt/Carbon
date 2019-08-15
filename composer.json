@@ -3,7 +3,7 @@
         "php": "^7.1",
         "ext-json": "*",
         "cmixin/business-time": "dev-master",
-        "nesbot/carbon": "dev-master as 2.22.0"
+        "nesbot/carbon": "dev-master as 2.23.0"
     },
     "scripts": {
         "check": "@php tools/check.php",
