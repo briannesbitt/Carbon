@@ -16,19 +16,6 @@ class DateTest extends TestCaseBase
         $this->assertSame(time() - 86400, $date->getTimestamp());
     }
 
-    public function testConstructWithTimezone()
-    {
-        $date = new Carbon('now', 'Europe/Paris');
-        date_default_timezone_set('Europe/Paris');
-        $this->assertSame(time(), $date->getTimestamp());
-
-        date_default_timezone_set('Europe/Brussels');
-
-        $date = new Carbon(null, 'Europe/Paris');
-        date_default_timezone_set('Europe/Paris');
-        $this->assertSame(time(), $date->getTimestamp());
-    }
-
     public function testConstructTimestamp()
     {
         $date = new Carbon(1367186296);
