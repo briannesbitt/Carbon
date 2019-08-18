@@ -181,7 +181,16 @@ class CarbonTimeZone extends DateTimeZone
             return $name;
         }
 
-        return @timezone_name_from_abbr('', @$this->getOffset($date ?: Carbon::now($this)) ?: 0, $isDst);
+        // Integer construction no longer supported since PHP 8
+        // @codeCoverageIgnoreStart
+        try {
+            $offset = @$this->getOffset($date ?: Carbon::now($this)) ?: 0;
+        } catch (\Throwable $e) {
+            $offset = 0;
+        }
+        // @codeCoverageIgnoreEnd
+
+        return @timezone_name_from_abbr('', $offset, $isDst);
     }
 
     /**
