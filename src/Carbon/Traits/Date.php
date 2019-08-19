@@ -14,6 +14,7 @@ use BadMethodCallException;
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
+use Carbon\Exceptions\BadUnitException;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -2550,7 +2551,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (InvalidArgumentException $exception) {
+            } catch (BadUnitException $exception) {
                 // Try next
             }
         }
@@ -2558,7 +2559,7 @@ trait Date
         if (substr($unit, 0, 9) === 'isCurrent') {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (InvalidArgumentException | BadMethodCallException $exception) {
+            } catch (BadUnitException | BadMethodCallException $exception) {
                 // Try macros
             }
         }
@@ -2568,7 +2569,7 @@ trait Date
                 $unit = static::singularUnit(substr($method, 0, -5));
 
                 return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
-            } catch (InvalidArgumentException $exception) {
+            } catch (BadUnitException $exception) {
                 // Try next
             }
         }

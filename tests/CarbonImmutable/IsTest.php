@@ -13,6 +13,7 @@ namespace Tests\CarbonImmutable;
 
 use \DateTime;
 use Carbon\CarbonImmutable as Carbon;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class IsTest extends AbstractTestCase
@@ -657,11 +658,11 @@ class IsTest extends AbstractTestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Expected null, DateTime or DateTimeInterface, string given'
+            'Expected null, string, DateTime or DateTimeInterface, stdClass given'
         );
 
         $current = Carbon::createFromDate(2012, 1, 2);
-        $current->isSameAs('Y-m-d', 'abc');
+        $current->isSameAs('Y-m-d', new stdClass());
     }
 
     public function testIsSunday()
