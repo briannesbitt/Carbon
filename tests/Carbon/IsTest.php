@@ -420,6 +420,13 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($current->isSameDay(Carbon::create(2012, 1, 2, 23, 59, 59)));
     }
 
+    public function testIsSameDayWithString()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameDay('2012-01-02 15:00:25'));
+        $this->assertTrue($current->isSameDay('2012-01-02'));
+    }
+
     public function testIsSameDayTrueWithDateTime()
     {
         $current = Carbon::createFromDate(2012, 1, 2);
