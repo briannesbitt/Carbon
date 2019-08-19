@@ -42,7 +42,7 @@ $carbon = __DIR__.'/src/Carbon/Carbon.php';
 $immutable = __DIR__.'/src/Carbon/CarbonImmutable.php';
 $interface = __DIR__.'/src/Carbon/CarbonInterface.php';
 file_put_contents($interface, preg_replace('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', "$1\n\n    // $3", file_get_contents($interface), 1));
-include_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 $trait = __DIR__.'/src/Carbon/Traits/Date.php';
 $code = '';
 

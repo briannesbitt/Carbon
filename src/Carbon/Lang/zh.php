@@ -17,7 +17,7 @@
  * - Luo Ning
  * - William Yang (williamyang233)
  */
-return array_merge_recursive(include __DIR__.'/zh_Hans.php', [
+return array_merge_recursive(require __DIR__.'/zh_Hans.php', [
     'formats' => [
         'LLL' => 'YYYY年M月D日 A h点mm分',
         'LLLL' => 'YYYY年M月D日dddd A h点mm分',
