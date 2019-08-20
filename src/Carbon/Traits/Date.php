@@ -14,6 +14,7 @@ use BadMethodCallException;
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
+use Carbon\Exceptions\BadUnitException;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -105,35 +106,35 @@ use RuntimeException;
  * @method        bool           isThursday()                                                                        Checks if the instance day is thursday.
  * @method        bool           isFriday()                                                                          Checks if the instance day is friday.
  * @method        bool           isSaturday()                                                                        Checks if the instance day is saturday.
- * @method        bool           isSameYear(\DateTimeInterface $date = null)                                         Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameYear(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentYear()                                                                     Checks if the instance is in the same year as the current moment.
  * @method        bool           isNextYear()                                                                        Checks if the instance is in the same year as the current moment next year.
  * @method        bool           isLastYear()                                                                        Checks if the instance is in the same year as the current moment last year.
- * @method        bool           isSameWeek(\DateTimeInterface $date = null)                                         Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameWeek(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentWeek()                                                                     Checks if the instance is in the same week as the current moment.
  * @method        bool           isNextWeek()                                                                        Checks if the instance is in the same week as the current moment next week.
  * @method        bool           isLastWeek()                                                                        Checks if the instance is in the same week as the current moment last week.
- * @method        bool           isSameDay(\DateTimeInterface $date = null)                                          Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameDay(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)               Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentDay()                                                                      Checks if the instance is in the same day as the current moment.
  * @method        bool           isNextDay()                                                                         Checks if the instance is in the same day as the current moment next day.
  * @method        bool           isLastDay()                                                                         Checks if the instance is in the same day as the current moment last day.
- * @method        bool           isSameHour(\DateTimeInterface $date = null)                                         Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameHour(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentHour()                                                                     Checks if the instance is in the same hour as the current moment.
  * @method        bool           isNextHour()                                                                        Checks if the instance is in the same hour as the current moment next hour.
  * @method        bool           isLastHour()                                                                        Checks if the instance is in the same hour as the current moment last hour.
- * @method        bool           isSameMinute(\DateTimeInterface $date = null)                                       Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMinute(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMinute()                                                                   Checks if the instance is in the same minute as the current moment.
  * @method        bool           isNextMinute()                                                                      Checks if the instance is in the same minute as the current moment next minute.
  * @method        bool           isLastMinute()                                                                      Checks if the instance is in the same minute as the current moment last minute.
- * @method        bool           isSameSecond(\DateTimeInterface $date = null)                                       Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameSecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool           isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool           isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMicro(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)             Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool           isSameMicrosecond(\DateTimeInterface $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMicrosecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)       Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool           isLastMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment last microsecond.
@@ -143,15 +144,15 @@ use RuntimeException;
  * @method        bool           isCurrentQuarter()                                                                  Checks if the instance is in the same quarter as the current moment.
  * @method        bool           isNextQuarter()                                                                     Checks if the instance is in the same quarter as the current moment next quarter.
  * @method        bool           isLastQuarter()                                                                     Checks if the instance is in the same quarter as the current moment last quarter.
- * @method        bool           isSameDecade(\DateTimeInterface $date = null)                                       Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameDecade(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentDecade()                                                                   Checks if the instance is in the same decade as the current moment.
  * @method        bool           isNextDecade()                                                                      Checks if the instance is in the same decade as the current moment next decade.
  * @method        bool           isLastDecade()                                                                      Checks if the instance is in the same decade as the current moment last decade.
- * @method        bool           isSameCentury(\DateTimeInterface $date = null)                                      Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameCentury(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)           Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentCentury()                                                                  Checks if the instance is in the same century as the current moment.
  * @method        bool           isNextCentury()                                                                     Checks if the instance is in the same century as the current moment next century.
  * @method        bool           isLastCentury()                                                                     Checks if the instance is in the same century as the current moment last century.
- * @method        bool           isSameMillennium(\DateTimeInterface $date = null)                                   Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMillennium(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)        Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMillennium()                                                               Checks if the instance is in the same millennium as the current moment.
  * @method        bool           isNextMillennium()                                                                  Checks if the instance is in the same millennium as the current moment next millennium.
  * @method        bool           isLastMillennium()                                                                  Checks if the instance is in the same millennium as the current moment last millennium.
@@ -2550,7 +2551,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (InvalidArgumentException $exception) {
+            } catch (BadUnitException $exception) {
                 // Try next
             }
         }
@@ -2558,7 +2559,7 @@ trait Date
         if (substr($unit, 0, 9) === 'isCurrent') {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (InvalidArgumentException | BadMethodCallException $exception) {
+            } catch (BadUnitException | BadMethodCallException $exception) {
                 // Try macros
             }
         }
