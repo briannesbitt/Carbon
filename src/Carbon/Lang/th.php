@@ -18,6 +18,7 @@
  * - ROKAISAKKON
  * - RO'KAISAKKON
  * - Andreas Möller
+ * - nithisa
  */
 return [
     'year' => ':count ปี',
@@ -32,7 +33,8 @@ return [
     'h' => ':count ชั่วโมง',
     'minute' => ':count นาที',
     'min' => ':count นาที',
-    'second' => '{1}ไม่กี่วินาที|]1,Inf[:count วินาที',
+    'second' => ':count วินาที',
+    'a_second' => '{1}ไม่กี่วินาที|]1,Inf[:count วินาที',
     's' => ':count วินาที',
     'ago' => ':timeที่แล้ว',
     'from_now' => 'อีก :time',
