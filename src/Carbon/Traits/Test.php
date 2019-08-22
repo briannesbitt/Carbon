@@ -84,20 +84,31 @@ trait Test
         return $testInstance->getTimezone();
     }
 
-    protected static function mockConstructorParameters(&$time, &$tz)
+    /**
+     * @param string|\DateTimeZone $tz
+     *
+     * @return \Carbon\CarbonImmutable|\Carbon\Carbon|null
+     */
+    protected static function getMockedTestNow($tz)
     {
-        /** @var Closure|\Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
         $testNow = static::getTestNow();
 
         if ($testNow instanceof Closure) {
+            $realNow = new DateTimeImmutable('now');
             $testNow = $testNow(static::parse(
-                (new DateTimeImmutable('now'))->format('Y-m-d H:i:s.u'),
-                $tz
+                $realNow->format('Y-m-d H:i:s.u'),
+                $tz ?: $realNow->getTimezone()
             ));
         }
+        /* @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $testNow */
 
+        return $testNow;
+    }
+
+    protected static function mockConstructorParameters(&$time, &$tz)
+    {
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
-        $testInstance = clone $testNow;
+        $testInstance = clone static::getMockedTestNow($tz);
 
         $tz = static::handleMockTimezone($tz, $testInstance);
 

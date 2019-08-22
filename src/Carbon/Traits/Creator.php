@@ -542,8 +542,10 @@ trait Creator
         // First attempt to create an instance, so that error messages are based on the unmodified format.
         $date = self::createFromFormatAndTimezone($format, $time, $tz);
         $lastErrors = parent::getLastErrors();
+        /** @var \Carbon\CarbonImmutable|\Carbon\Carbon|null $mock */
+        $mock = static::getMockedTestNow($tz);
 
-        if (($mock = static::getTestNow()) && $date instanceof DateTimeInterface) {
+        if ($mock && $date instanceof DateTimeInterface) {
             // Set timezone from mock if custom timezone was neither given directly nor as a part of format.
             // First let's skip the part that will be ignored by the parser.
             $nonEscaped = '(?<!\\\\)(\\\\{2})*';
@@ -551,7 +553,7 @@ trait Creator
             $nonIgnored = preg_replace("/^.*{$nonEscaped}!/s", '', $format);
 
             if ($tz === null && !preg_match("/{$nonEscaped}[eOPT]/", $nonIgnored)) {
-                $tz = $mock->getTimezone();
+                $tz = clone $mock->getTimezone();
             }
 
             // Set microseconds to zero to match behavior of DateTime::createFromFormat()
