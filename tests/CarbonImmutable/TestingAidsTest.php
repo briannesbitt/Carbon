@@ -80,16 +80,19 @@ class TestingAidsTest extends AbstractTestCase
 
         $this->assertSame('2019-09-21 12:34:56.123456', Carbon::now()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-22 00:00:00.000000', Carbon::create('tomorrow')->format('Y-m-d H:i:s.u'));
 
         $delta = 11111111;
 
         $this->assertSame('2019-09-21 12:35:07.234567', Carbon::now()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-22 00:00:00.000000', Carbon::create('tomorrow')->format('Y-m-d H:i:s.u'));
 
         date_default_timezone_set($tz = 'UTC');
 
         $this->assertSame('2019-09-21 12:35:07.234567', Carbon::now()->format('Y-m-d H:i:s.u'));
         $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-22 00:00:00.000000', Carbon::create('tomorrow')->format('Y-m-d H:i:s.u'));
 
         date_default_timezone_set('America/Toronto');
     }
