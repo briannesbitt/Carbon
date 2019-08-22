@@ -10,6 +10,9 @@
  */
 namespace Carbon\Traits;
 
+use Closure;
+use DateTimeImmutable;
+
 trait Test
 {
     ///////////////////////////////////////////////////////////////////
@@ -40,7 +43,7 @@ trait Test
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param static|string|null $testNow real or mock Carbon instance
+     * @param Closure|static|string|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null)
     {
@@ -51,7 +54,7 @@ trait Test
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return static the current instance used for testing
+     * @return Closure|static the current instance used for testing
      */
     public static function getTestNow()
     {
@@ -83,8 +86,18 @@ trait Test
 
     protected static function mockConstructorParameters(&$time, &$tz)
     {
+        /** @var Closure|\Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
+        $testNow = static::getTestNow();
+
+        if ($testNow instanceof Closure) {
+            $testNow = $testNow(static::parse(
+                (new DateTimeImmutable('now'))->format('Y-m-d H:i:s.u'),
+                $tz
+            ));
+        }
+
         /** @var \Carbon\CarbonImmutable|\Carbon\Carbon $testInstance */
-        $testInstance = clone static::getTestNow();
+        $testInstance = clone $testNow;
 
         $tz = static::handleMockTimezone($tz, $testInstance);
 

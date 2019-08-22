@@ -16,6 +16,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
+use Closure;
 use DateTimeInterface;
 use Exception;
 use InvalidArgumentException;
@@ -266,6 +267,21 @@ trait Creator
         }
     }
 
+    private static function createNowInstance($tz)
+    {
+        if (!static::hasTestNow()) {
+            return static::now($tz);
+        }
+
+        $now = static::getTestNow();
+
+        if ($now instanceof Closure) {
+            return $now(static::now($tz));
+        }
+
+        return $now;
+    }
+
     /**
      * Create a new Carbon instance from a specific date and time.
      *
@@ -299,7 +315,7 @@ trait Creator
         $defaults = null;
         $getDefault = function ($unit) use ($tz, &$defaults) {
             if ($defaults === null) {
-                $now = static::hasTestNow() ? static::getTestNow() : static::now($tz);
+                $now = self::createNowInstance($tz);
 
                 $defaults = array_combine([
                     'year',

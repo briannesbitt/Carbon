@@ -65,6 +65,35 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertEquals($yesterday, Carbon::now());
     }
 
+    public function testNowWithClosureValue()
+    {
+        $date = Carbon::parse('2019-09-21 12:34:56.123456');
+        $delta = 0;
+        $tz = 'America/Toronto';
+
+        Carbon::setTestNow(function (Carbon $now) use (&$date, &$delta, &$tz) {
+            $this->assertSame($tz, $now->tzName);
+            $this->assertInstanceOfCarbon($now);
+
+            return $date->copy()->addMicroseconds($delta);
+        });
+
+        $this->assertSame('2019-09-21 12:34:56.123456', Carbon::now()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+
+        $delta = 11111111;
+
+        $this->assertSame('2019-09-21 12:35:07.234567', Carbon::now()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+
+        date_default_timezone_set($tz = 'UTC');
+
+        $this->assertSame('2019-09-21 12:35:07.234567', Carbon::now()->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2019-09-21 00:00:00.000000', Carbon::today()->format('Y-m-d H:i:s.u'));
+
+        date_default_timezone_set('America/Toronto');
+    }
+
     public function testParseWithTestValueSet()
     {
         $testNow = Carbon::yesterday();
