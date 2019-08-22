@@ -18,6 +18,7 @@
  * - ROKAISAKKON
  * - RO'KAISAKKON
  * - Andreas Möller
+ * - nithisa
  */
 return [
     'year' => ':count ปี',
