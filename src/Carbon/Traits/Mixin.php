@@ -110,12 +110,7 @@ trait Mixin
 
             static::macro($name, function () use ($closureBase, $className) {
                 $context = isset($this) ? $this->cast($className) : new $className();
-
-                try {
-                    $closure = $closureBase->bindTo($context);
-                } catch (Throwable $e) {
-                    $closure = $closureBase;
-                }
+                $closure = $closureBase->bindTo($context);
 
                 return $closure(...func_get_args());
             });
