@@ -335,9 +335,7 @@ trait Comparison
         $date2 = $this->resolveCarbon($date2);
 
         if ($date1->greaterThan($date2)) {
-            $temp = $date1;
-            $date1 = $date2;
-            $date2 = $temp;
+            [$date1, $date2] = [$date2, $date1];
         }
 
         if ($equal) {
