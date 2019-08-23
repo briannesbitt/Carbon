@@ -4,6 +4,7 @@ namespace Carbon\Laravel;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\CarbonPeriod;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Events\EventDispatcher;
@@ -37,6 +38,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $locale = $app->getLocale();
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
+        CarbonPeriod::setLocale($locale);
 
         // @codeCoverageIgnoreStart
         if (class_exists(IlluminateCarbon::class)) {
