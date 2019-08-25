@@ -26,6 +26,7 @@
  * - Gal Jakič
  * - Glavić
  * - Anže Časar
+ * - Lovro Tramšek (Lovro1107)
  */
 return [
     'year' => ':count leto|:count leti|:count leta|:count let',
