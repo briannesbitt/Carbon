@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Carbonite;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Carbon\Factory;
@@ -323,6 +324,7 @@ function compile($src, $dest = null)
             Factory::class,
             FactoryImmutable::class,
             Translator::class,
+            Carbonite::class,
         ]));
     }
 
