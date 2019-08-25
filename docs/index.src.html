@@ -3181,7 +3181,7 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-Class BeerDayCarbonMixin
+class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
@@ -3199,6 +3199,34 @@ Class BeerDayCarbonMixin
 }
 
 Carbon::mixin(new BeerDayCarbonMixin());
+
+$date = Carbon::parse('First saturday of December 2018');
+)}}
+
+{{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Since Carbon 2.23.0, it's also possible to shorten the mixin syntax using traits:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+trait BeerDayCarbonTrait
+{
+    public function nextBeerDay()
+    {
+        return $this->modify('next wednesday');
+    }
+
+    public function previousBeerDay()
+    {
+        return $this->modify('previous wednesday');
+    }
+}
+
+Carbon::mixin(BeerDayCarbonTrait::class);
 
 $date = Carbon::parse('First saturday of December 2018');
 )}}
@@ -3334,7 +3362,7 @@ CarbonPeriod::macro('countWeekdays', function () {
 
     <p>
     <pre><code class="php">{{::lint(
-Class CurrentDaysCarbonMixin
+class CurrentDaysCarbonMixin
 {
     /**
      * Get the all dates of week
@@ -3546,6 +3574,39 @@ echo "\n";
 
 {{::exec(echo $date->format('jS F y');/*pad(40)*/)}} // {{eval}}
 echo "\n";
+</code></pre>
+    </p>
+
+    <p>The following macro allow you to choose a timezone using only the city name (omitting continent).
+        Perfect to make your unit tests more fluent:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(Carbon::macro('goTo', function (string $city) {
+    static $cities = null;
+
+    if ($cities === null) {
+        foreach (DateTimeZone::listIdentifiers() as $identifier) {
+            $chunks = explode('/', $identifier);
+
+            if (isset($chunks[1])) {
+                $id = strtolower(end($chunks));
+                $cities[$id] = $identifier;
+            }
+        }
+    }
+
+    $city = str_replace(' ', '_', strtolower($city));
+
+    if (!isset($cities[$city])) {
+        throw new InvalidArgumentException("$city not found.");
+    }
+
+    return $this->tz($cities[$city]);
+});)}}
+
+{{::exec(echo Carbon::now()->goTo('Chicago')->tzName;/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->goTo('Buenos Aires')->tzName;/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 

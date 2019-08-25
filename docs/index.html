@@ -267,7 +267,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2019-08-25 14:34:50
+echo $now;                               // 2019-08-25 20:57:54
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2019-08-25 00:00:00
@@ -399,7 +399,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 16:34 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 22:57 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -753,7 +753,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // août
 echo "\n";
-echo $date->isoFormat('LLLL');   // dimanche 25 août 2019 14:34
+echo $date->isoFormat('LLLL');   // dimanche 25 août 2019 20:57
 </code></pre>
     </p>
 
@@ -784,13 +784,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 14:34
+Aujourd’hui à 20:57
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 2:34 PM
+Today at 8:57 PM
 */
 </code></pre>
     </p>
@@ -1576,21 +1576,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 2:34 PM
+echo $date->calendar();                                      // Today at 8:57 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 11:34 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 5:57 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 4:11 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 10:34 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 08/17/2019
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 5:34 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 11:57 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 12:57 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 7:20 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 09/02/2019
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 14:34
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 20:57
 </code></pre>
     </p>
 
@@ -5212,7 +5212,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2019-08-25 14:34:52
+echo Carbon::now();                                    // 2019-08-25 20:57:56
 </code></pre>
     </p>
 
@@ -5437,12 +5437,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(52)
+var_dump(Carbon::now()->get($unit));                         // int(56)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(52)
+var_dump(Carbon::now()->$unit);                              // int(56)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(52)
+var_dump(Carbon::now()->get($unit));                         // int(56)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6014,8 +6014,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2019-08-25 14:34:52
-echo $dt1->maximum();                              // 2019-08-25 14:34:52
+echo $dt1->max();                                  // 2019-08-25 20:57:56
+echo $dt1->maximum();                              // 2019-08-25 20:57:56
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7221,14 +7221,14 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 16:34
+echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 22:57
 </code></pre>
     </p>
 
     <p>Macros can also be grouped in classes and be applied with <code>mixin()</code></p>
 
     <p>
-    <pre class="live-editor"><code class="php">Class BeerDayCarbonMixin
+    <pre class="live-editor"><code class="php">class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
@@ -7246,6 +7246,32 @@ echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 1
 }
 
 Carbon::mixin(new BeerDayCarbonMixin());
+
+$date = Carbon::parse('First saturday of December 2018');
+
+echo $date->previousBeerDay();                                                 // 2018-11-28 00:00:00
+echo "\n";
+echo $date->nextBeerDay();                                                     // 2018-12-05 00:00:00
+</code></pre>
+    </p>
+
+    <p>Since Carbon 2.23.0, it's also possible to shorten the mixin syntax using traits:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">trait BeerDayCarbonTrait
+{
+    public function nextBeerDay()
+    {
+        return $this->modify('next wednesday');
+    }
+
+    public function previousBeerDay()
+    {
+        return $this->modify('previous wednesday');
+    }
+}
+
+Carbon::mixin(BeerDayCarbonTrait::class);
 
 $date = Carbon::parse('First saturday of December 2018');
 
@@ -7372,7 +7398,7 @@ echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();  // 21
         to handle both holidays and business opening hours with a lot of advanced features.</p>
 
     <p>
-    <pre><code class="php">Class CurrentDaysCarbonMixin
+    <pre><code class="php">class CurrentDaysCarbonMixin
 {
     /**
      * Get the all dates of week
@@ -7576,6 +7602,39 @@ $date = MyDateClass::rawParse('2001-02-01', 'UTC')->locale('pt');
 
 echo $date->format('jS F y');            // 1º fevereiro 01
 echo "\n";
+</code></pre>
+    </p>
+
+    <p>The following macro allow you to choose a timezone using only the city name (omitting continent).
+        Perfect to make your unit tests more fluent:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">Carbon::macro('goTo', function (string $city) {
+    static $cities = null;
+
+    if ($cities === null) {
+        foreach (DateTimeZone::listIdentifiers() as $identifier) {
+            $chunks = explode('/', $identifier);
+
+            if (isset($chunks[1])) {
+                $id = strtolower(end($chunks));
+                $cities[$id] = $identifier;
+            }
+        }
+    }
+
+    $city = str_replace(' ', '_', strtolower($city));
+
+    if (!isset($cities[$city])) {
+        throw new InvalidArgumentException("$city not found.");
+    }
+
+    return $this->tz($cities[$city]);
+});
+
+echo Carbon::now()->goTo('Chicago')->tzName; // America/Chicago
+echo "\n";
+echo Carbon::now()->goTo('Buenos Aires')->tzName; // America/Argentina/Buenos_Aires
 </code></pre>
     </p>
 
