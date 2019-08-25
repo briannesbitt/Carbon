@@ -27,7 +27,7 @@
  * - Aaron Patterson
  * - Kaspars Bankovskis
  * - Nicolás Hock Isaza
- * - Kavacky
+ * - Viesturs Kavacs (Kavacky)
  * - zakse
  */
 return [
