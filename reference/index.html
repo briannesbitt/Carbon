@@ -54,14 +54,15 @@ for more on the possibility of this constructor returning a test instance.</p>
     <h2><span class="class-name">Carbon::</span>format</h2>
     <code>$format</code>
     <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">See <a href="https://php.net/manual/en/datetime.format.php">php.net/manual/en/datetime.format.php</a></p>
+    <p class="doc-description">Returns the formatted date string on success or FALSE on failure.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$format</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-modify">
     <h2><span class="class-name">Carbon::</span>modify</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.modify.php">PHP documentation for DateTime::modify</a></p>
+    <code>$modify</code>
+    <p class="doc-description">Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$modify</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-add">
@@ -104,26 +105,34 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-setTime">
     <h2><span class="class-name">Carbon::</span>setTime</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.settime.php">PHP documentation for DateTime::setTime</a></p>
+    <code>$hour, $minute, $second = 0, $microseconds = 0</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Resets the current time of the DateTime object to a different time.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$hour, $minute, $second = 0, $microseconds = 0</code></td></tr><tr><td>Prototype changed</td><td>1.15.0</td><td><code>$hour, $minute, $second, $microseconds</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$hour, $minute, $second = 0</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setDate">
     <h2><span class="class-name">Carbon::</span>setDate</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.setdate.php">PHP documentation for DateTime::setDate</a></p>
+    <code>$year, $month, $day</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Set the date with gregorian year, month and day numbers.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$year, $month, $day</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setISODate">
     <h2><span class="class-name">Carbon::</span>setISODate</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.setisodate.php">PHP documentation for DateTime::setISODate</a></p>
+    <code>$year, $week, $day = 1</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$year, $week, $day = 1</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$year, $week, $day</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setTimestamp">
     <h2><span class="class-name">Carbon::</span>setTimestamp</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.settimestamp.php">PHP documentation for DateTime::setTimestamp</a></p>
+    <code>$unixtimestamp</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Sets the date and time based on an Unix timestamp.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><code>$unixtimestamp</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-getTimestamp">
@@ -134,8 +143,11 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-diff">
     <h2><span class="class-name">Carbon::</span>diff</h2>
-    <em>Native PHP method</em>
-    <p class="doc-description">See <a href="http://php.net/manual/en/datetime.diff.php">PHP documentation for DateTime::diff</a></p>
+    <code>$date = null, $absolute = false</code>
+    <div class="doc-return">returns <code>DateInterval</code></div>
+    <p class="doc-description">Get the difference as a DateInterval instance.
+Return relative interval (negative if</p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.23.0</td><td><code>$date = null, $absolute = false</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>$object, $absolute</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-copy">
@@ -1655,7 +1667,8 @@ and recurrences). Throw an exception for invalid format, but otherwise return nu
     <h2><span class="class-name">Carbon::</span>diffAsCarbonInterval</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
-    <p class="doc-description">Get the difference as a CarbonInterval instance</p>
+    <p class="doc-description">Get the difference as a CarbonInterval instance.
+Return absolute interval (always positive) unless you pass false to the second argument.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.35.0</td><td><code>$date = null, $absolute = true, $trimMicroseconds = true</code></td></tr><tr><td>Method added</td><td>1.26.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -2819,7 +2832,7 @@ parameter of null.<br><br>/!\ Use this method for unit tests only.</p>
 <div class="doc-method " id="doc-method-Carbon-getTestNow">
     <h2><span class="class-name">Carbon::</span>getTestNow</h2>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon</code></div>
+    <div class="doc-return">returns <code>Closure|Carbon</code></div>
     <p class="doc-description">Get the Carbon instance (real or mock) to be returned when a "now"
 instance is created.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.3.0</td><td><em>no arguments</em></td></tr></table>
@@ -6327,10 +6340,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameYear">
     <h2><span class="class-name">Carbon::</span>isSameYear</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentYear">
@@ -6359,10 +6372,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameWeek">
     <h2><span class="class-name">Carbon::</span>isSameWeek</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentWeek">
@@ -6391,10 +6404,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDay">
     <h2><span class="class-name">Carbon::</span>isSameDay</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentDay">
@@ -6423,10 +6436,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameHour">
     <h2><span class="class-name">Carbon::</span>isSameHour</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentHour">
@@ -6455,10 +6468,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMinute">
     <h2><span class="class-name">Carbon::</span>isSameMinute</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMinute">
@@ -6487,10 +6500,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameSecond">
     <h2><span class="class-name">Carbon::</span>isSameSecond</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentSecond">
@@ -6519,10 +6532,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicro">
     <h2><span class="class-name">Carbon::</span>isSameMicro</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMicro">
@@ -6551,10 +6564,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicrosecond">
     <h2><span class="class-name">Carbon::</span>isSameMicrosecond</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMicrosecond">
@@ -6631,10 +6644,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDecade">
     <h2><span class="class-name">Carbon::</span>isSameDecade</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentDecade">
@@ -6663,10 +6676,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameCentury">
     <h2><span class="class-name">Carbon::</span>isSameCentury</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentCentury">
@@ -6695,10 +6708,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMillennium">
     <h2><span class="class-name">Carbon::</span>isSameMillennium</h2>
-    <code>\DateTimeInterface $date = null</code>
+    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMillennium">
