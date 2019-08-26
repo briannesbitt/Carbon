@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 namespace Tests\Language;
 
+use Carbon\Carbon;
 use Carbon\Translator;
 use Tests\AbstractTestCase;
 
@@ -40,5 +41,13 @@ class TranslatorTest extends AbstractTestCase
 
         setlocale(LC_ALL, $currentLocaleAll);
         setlocale(LC_TIME, $currentLocale);
+    }
+
+    public function testMethodsPriorities()
+    {
+        Carbon::setLocale('nl');
+        $text = Carbon::parse('2019-08-06')->locale('en')->isoFormat('dddd D MMMM');
+
+        $this->assertSame('Tuesday 6 August', $text);
     }
 }

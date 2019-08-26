@@ -175,9 +175,9 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 v sitten',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sekunti tästä hetkestä',
+        '1 sekunti päästä',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 s tästä hetkestä',
+        '1 s päästä',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         '1 sekunti sen jälkeen',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -195,13 +195,13 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 s',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 s tästä hetkestä',
+        '1 s päästä',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minuutti 1 sekunti',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 v 3 kk 1 pv 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 vuotta tästä hetkestä',
+        '3 vuotta päästä',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kk sitten',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,11 +213,11 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 viikko 6 päivää',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 viikko ja 6 päivää tästä hetkestä',
+        '1 viikko ja 6 päivää päästä',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 viikkoa 1 tunti',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 tunti tästä hetkestä',
+        '1 tunti päästä',
         // CarbonInterval::days(2)->forHumans()
         '2 päivää',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

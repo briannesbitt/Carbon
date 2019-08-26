@@ -199,21 +199,21 @@ class ArYeTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'دقيقة ثانية',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        'سنتين أشهر 3 يوم ثانية',
+        'سنتين 3 أشهر يوم ثانية',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'سنوات 3 من الآن',
+        '3 سنوات من الآن',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'منذ أشهر 5',
+        'منذ 5 أشهر',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'منذ سنتين أشهر 3 يوم ثانية',
+        'منذ سنتين 3 أشهر يوم ثانية',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        'أسبوع ساعات 10',
+        'أسبوع 10 ساعات',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'أسبوع أيام 6',
+        'أسبوع 6 أيام',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        'أسبوع أيام 6',
+        'أسبوع 6 أيام',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'أسبوع و أيام 6 من الآن',
+        'أسبوع و 6 أيام من الآن',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'أسبوعين ساعة',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
@@ -221,6 +221,6 @@ class ArYeTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         'يومين',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        'يوم ساعات 3',
+        'يوم 3 ساعات',
     ];
 }

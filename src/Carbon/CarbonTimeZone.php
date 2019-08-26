@@ -10,15 +10,12 @@
  */
 namespace Carbon;
 
-use Carbon\Traits\Cast;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 
 class CarbonTimeZone extends DateTimeZone
 {
-    use Cast;
-
     public function __construct($timezone = null)
     {
         parent::__construct(static::getDateTimeZoneNameFromMixed($timezone));
@@ -42,6 +39,26 @@ class CarbonTimeZone extends DateTimeZone
     protected static function getDateTimeZoneFromName(&$name)
     {
         return @timezone_open($name = (string) static::getDateTimeZoneNameFromMixed($name));
+    }
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return DateTimeZone
+     */
+    public function cast(string $className)
+    {
+        if (!method_exists($className, 'instance')) {
+            if (is_a($className, DateTimeZone::class, true)) {
+                return new $className($this->getName());
+            }
+
+            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+        }
+
+        return $className::instance($this);
     }
 
     /**
@@ -164,7 +181,16 @@ class CarbonTimeZone extends DateTimeZone
             return $name;
         }
 
-        return @timezone_name_from_abbr('', @$this->getOffset($date ?: Carbon::now($this)) ?: 0, $isDst);
+        // Integer construction no longer supported since PHP 8
+        // @codeCoverageIgnoreStart
+        try {
+            $offset = @$this->getOffset($date ?: Carbon::now($this)) ?: 0;
+        } catch (\Throwable $e) {
+            $offset = 0;
+        }
+        // @codeCoverageIgnoreEnd
+
+        return @timezone_name_from_abbr('', $offset, $isDst);
     }
 
     /**

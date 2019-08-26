@@ -90,7 +90,7 @@ trait Serialization
 
         /** @var \DateTimeInterface $date */
         $date = get_parent_class(static::class) && method_exists(parent::class, '__set_state')
-            ? parent::__set_state($dump)
+            ? parent::__set_state((array) $dump)
             : (object) $dump;
 
         return static::instance($date);

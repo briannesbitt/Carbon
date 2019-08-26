@@ -13,6 +13,7 @@ namespace Carbon;
 use Closure;
 use DateInterval;
 use DateTime;
+use DateTimeImmutable;
 use DateTimeInterface;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -100,35 +101,35 @@ use ReflectionException;
  * @method        bool           isThursday()                                                                        Checks if the instance day is thursday.
  * @method        bool           isFriday()                                                                          Checks if the instance day is friday.
  * @method        bool           isSaturday()                                                                        Checks if the instance day is saturday.
- * @method        bool           isSameYear(\DateTimeInterface $date = null)                                         Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameYear(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentYear()                                                                     Checks if the instance is in the same year as the current moment.
  * @method        bool           isNextYear()                                                                        Checks if the instance is in the same year as the current moment next year.
  * @method        bool           isLastYear()                                                                        Checks if the instance is in the same year as the current moment last year.
- * @method        bool           isSameWeek(\DateTimeInterface $date = null)                                         Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameWeek(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentWeek()                                                                     Checks if the instance is in the same week as the current moment.
  * @method        bool           isNextWeek()                                                                        Checks if the instance is in the same week as the current moment next week.
  * @method        bool           isLastWeek()                                                                        Checks if the instance is in the same week as the current moment last week.
- * @method        bool           isSameDay(\DateTimeInterface $date = null)                                          Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameDay(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)               Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentDay()                                                                      Checks if the instance is in the same day as the current moment.
  * @method        bool           isNextDay()                                                                         Checks if the instance is in the same day as the current moment next day.
  * @method        bool           isLastDay()                                                                         Checks if the instance is in the same day as the current moment last day.
- * @method        bool           isSameHour(\DateTimeInterface $date = null)                                         Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameHour(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentHour()                                                                     Checks if the instance is in the same hour as the current moment.
  * @method        bool           isNextHour()                                                                        Checks if the instance is in the same hour as the current moment next hour.
  * @method        bool           isLastHour()                                                                        Checks if the instance is in the same hour as the current moment last hour.
- * @method        bool           isSameMinute(\DateTimeInterface $date = null)                                       Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMinute(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMinute()                                                                   Checks if the instance is in the same minute as the current moment.
  * @method        bool           isNextMinute()                                                                      Checks if the instance is in the same minute as the current moment next minute.
  * @method        bool           isLastMinute()                                                                      Checks if the instance is in the same minute as the current moment last minute.
- * @method        bool           isSameSecond(\DateTimeInterface $date = null)                                       Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameSecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool           isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool           isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool           isSameMicro(\DateTimeInterface $date = null)                                        Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMicro(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)             Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool           isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool           isSameMicrosecond(\DateTimeInterface $date = null)                                  Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMicrosecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)       Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool           isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool           isLastMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment last microsecond.
@@ -138,15 +139,15 @@ use ReflectionException;
  * @method        bool           isCurrentQuarter()                                                                  Checks if the instance is in the same quarter as the current moment.
  * @method        bool           isNextQuarter()                                                                     Checks if the instance is in the same quarter as the current moment next quarter.
  * @method        bool           isLastQuarter()                                                                     Checks if the instance is in the same quarter as the current moment last quarter.
- * @method        bool           isSameDecade(\DateTimeInterface $date = null)                                       Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameDecade(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentDecade()                                                                   Checks if the instance is in the same decade as the current moment.
  * @method        bool           isNextDecade()                                                                      Checks if the instance is in the same decade as the current moment next decade.
  * @method        bool           isLastDecade()                                                                      Checks if the instance is in the same decade as the current moment last decade.
- * @method        bool           isSameCentury(\DateTimeInterface $date = null)                                      Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameCentury(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)           Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentCentury()                                                                  Checks if the instance is in the same century as the current moment.
  * @method        bool           isNextCentury()                                                                     Checks if the instance is in the same century as the current moment next century.
  * @method        bool           isLastCentury()                                                                     Checks if the instance is in the same century as the current moment last century.
- * @method        bool           isSameMillennium(\DateTimeInterface $date = null)                                   Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool           isSameMillennium(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)        Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool           isCurrentMillennium()                                                               Checks if the instance is in the same millennium as the current moment.
  * @method        bool           isNextMillennium()                                                                  Checks if the instance is in the same millennium as the current moment next millennium.
  * @method        bool           isLastMillennium()                                                                  Checks if the instance is in the same millennium as the current moment last millennium.
@@ -846,7 +847,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $className The $className::instance() method will be called to cast the current object.
      *
-     * @return object
+     * @return DateTimeInterface
      */
     public function cast(string $className);
 
@@ -1122,7 +1123,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function dayOfYear($value = null);
 
     /**
-     * Get the difference as a CarbonInterval instance
+     * Get the difference as a CarbonInterval instance.
+     * Return absolute interval (always positive) unless you pass false to the second argument.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1889,7 +1891,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function get($name);
 
     /**
-     * Returns the alternative number if available in the current locale.
+     * Returns the alternative number for a given date property if available in the current locale.
      *
      * @param string $key date property
      *
@@ -2558,8 +2560,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::parse('2019-06-13')->isSameAs('Y-d', Carbon::parse('2019-06-14')); // false
      * ```
      *
-     * @param string                                 $format date formats to compare.
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date   instance to compare with or null to use current day.
+     * @param string                                        $format date formats to compare.
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date   instance to compare with or null to use current day.
      *
      * @throws \InvalidArgumentException
      *
@@ -2596,8 +2598,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Carbon::parse('2019-01-12')->isSameQuarter(Carbon::parse('2018-03-01'), false); // true
      * ```
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|null $date       The instance to compare with or null to use current day.
-     * @param bool                                   $ofSameYear Check if it is the same month in the same year.
+     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date       The instance to compare with or null to use current day.
+     * @param bool                                          $ofSameYear Check if it is the same month in the same year.
      *
      * @return bool
      */
@@ -3078,7 +3080,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function mixin($mixin);
 
     /**
-     * call \DateTime::modify if mutable or \DateTimeImmutable::modify else.
+     * Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.
      *
      * @see https://php.net/manual/en/datetime.modify.php
      */
@@ -3429,6 +3431,17 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public function set($name, $value = null);
 
+    /**
+     * Set the date with gregorian year, month and day numbers.
+     *
+     * @see https://php.net/manual/en/datetime.setdate.php
+     *
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     *
+     * @return static
+     */
     public function setDate($year, $month, $day);
 
     /**
@@ -3483,9 +3496,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function setHumanDiffOptions($humanDiffOptions);
 
     /**
-     * call \DateTime::setISODate if mutable or \DateTimeImmutable::setISODate else.
+     * Set a date according to the ISO 8601 standard - using weeks and day offsets rather than specific dates.
      *
      * @see https://php.net/manual/en/datetime.setisodate.php
+     *
+     * @param int $year
+     * @param int $week
+     * @param int $day
+     *
+     * @return static
      */
     public function setISODate($year, $week, $day = 1);
 
@@ -3546,9 +3565,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function setTestNow($testNow = null);
 
     /**
-     * call \DateTime::setTime if mutable or \DateTimeImmutable::setTime else.
+     * Resets the current time of the DateTime object to a different time.
      *
      * @see https://php.net/manual/en/datetime.settime.php
+     *
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @param int $microseconds
+     *
+     * @return static
      */
     public function setTime($hour, $minute, $second = 0, $microseconds = 0);
 
@@ -3571,9 +3597,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function setTimeFromTimeString($time);
 
     /**
-     * call \DateTime::setTimestamp if mutable or \DateTimeImmutable::setTimestamp else.
+     * Sets the date and time based on an Unix timestamp.
      *
      * @see https://php.net/manual/en/datetime.settimestamp.php
+     *
+     * @param int $unixtimestamp
+     *
+     * @return static
      */
     public function setTimestamp($unixtimestamp);
 
@@ -4114,6 +4144,18 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function toDateTime();
 
     /**
+     * Return native toDateTimeImmutable PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(Carbon::now()->toDateTimeImmutable());
+     * ```
+     *
+     * @return DateTimeImmutable
+     */
+    public function toDateTimeImmutable();
+
+    /**
      * Format the instance as date and time T-separated with no timezone
      *
      * @example
@@ -4440,7 +4482,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null): string;
+    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
+
+    /**
+     * Returns the alternative number for a given integer if available in the current locale.
+     *
+     * @param int $number
+     *
+     * @return string
+     */
+    public function translateNumber(int $number): string;
 
     /**
      * Translate a time string from a locale to an other.

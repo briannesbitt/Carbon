@@ -425,6 +425,16 @@ trait Modifiers
     }
 
     /**
+     * Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.
+     *
+     * @see https://php.net/manual/en/datetime.modify.php
+     */
+    public function modify($modify)
+    {
+        return parent::modify((string) $modify);
+    }
+
+    /**
      * Similar to native modify() method of DateTime but can handle more grammars.
      *
      * @example

@@ -15,26 +15,8 @@ $tags = [
     ['call', 'diffForHumans'],
 ];
 $nativeMethods = [
-    'format' => 'string',
-    'modify' => 'static',
     'getOffset' => 'int',
     'getTimestamp' => 'int',
-    'setTime' => 'static',
-    'setISODate' => 'static',
-    'setTimestamp' => 'static',
-    'diff' => '\DateInterval',
-];
-$defaultValues = [
-    'diff' => [
-        'absolute' => true,
-    ],
-    'setTime' => [
-        'second' => 0,
-        'microseconds' => 0,
-    ],
-    'setISODate' => [
-        'day' => 1,
-    ],
 ];
 $modes = [];
 $autoDocLines = [];
@@ -196,7 +178,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
-                            $method.'(\DateTimeInterface $date = null)',
+                            $method.'(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)',
                             "Checks if the given date is in the same $unitName as the instance. If null passed, compare to now (with the same timezone).",
                         ];
                     }
@@ -549,7 +531,7 @@ foreach ($carbonMethods as $method) {
         } elseif (isset($nativeMethods[$method])) {
             $link = strtolower($method);
             $methodDocBlock = "\n    /**\n".
-                "     * call \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
+                "     * Calls \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
                 "     *\n".
                 "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';

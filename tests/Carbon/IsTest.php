@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use \DateTime;
 use Carbon\Carbon;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class IsTest extends AbstractTestCase
@@ -419,6 +420,13 @@ class IsTest extends AbstractTestCase
         $this->assertTrue($current->isSameDay(Carbon::create(2012, 1, 2, 23, 59, 59)));
     }
 
+    public function testIsSameDayWithString()
+    {
+        $current = Carbon::createFromDate(2012, 1, 2);
+        $this->assertTrue($current->isSameDay('2012-01-02 15:00:25'));
+        $this->assertTrue($current->isSameDay('2012-01-02'));
+    }
+
     public function testIsSameDayTrueWithDateTime()
     {
         $current = Carbon::createFromDate(2012, 1, 2);
@@ -643,9 +651,12 @@ class IsTest extends AbstractTestCase
     public function testIsSameAsWithInvalidArgument()
     {
         $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage(
+            'Expected null, string, DateTime or DateTimeInterface, stdClass given'
+        );
 
         $current = Carbon::createFromDate(2012, 1, 2);
-        $current->isSameAs('Y-m-d', 'abc');
+        $current->isSameAs('Y-m-d', new stdClass());
     }
 
     public function testIsSunday()

@@ -11,7 +11,6 @@
 namespace Carbon;
 
 use BadMethodCallException;
-use Carbon\Traits\Cast;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -165,7 +164,7 @@ use InvalidArgumentException;
  */
 class CarbonInterval extends DateInterval
 {
-    use Options, Cast, Mixin {
+    use Options, Mixin {
         Mixin::mixin as baseMixin;
     }
 
@@ -716,19 +715,16 @@ class CarbonInterval extends DateInterval
         return static::fromString(Carbon::translateTimeString($interval, $locale, 'en'));
     }
 
-    /**
-     * Create a CarbonInterval instance from a DateInterval one.  Can not instance
-     * DateInterval objects created from DateTime::diff() as you can't externally
-     * set the $days field.
-     *
-     * @param DateInterval $interval
-     *
-     * @return static
-     */
-    public static function instance(DateInterval $interval)
+    private static function castIntervalToClass(DateInterval $interval, string $className)
     {
+        $mainClass = DateInterval::class;
+
+        if (!is_a($className, $mainClass, true)) {
+            throw new InvalidArgumentException("$className is not a sub-class of $mainClass.");
+        }
+
         $microseconds = $interval->f;
-        $instance = new static(static::getDateIntervalSpec($interval));
+        $instance = new $className(static::getDateIntervalSpec($interval));
         if ($microseconds) {
             $instance->f = $microseconds;
         }
@@ -740,6 +736,32 @@ class CarbonInterval extends DateInterval
         }
 
         return $instance;
+    }
+
+    /**
+     * Cast the current instance into the given class.
+     *
+     * @param string $className The $className::instance() method will be called to cast the current object.
+     *
+     * @return DateInterval
+     */
+    public function cast(string $className)
+    {
+        return self::castIntervalToClass($this, $className);
+    }
+
+    /**
+     * Create a CarbonInterval instance from a DateInterval one.  Can not instance
+     * DateInterval objects created from DateTime::diff() as you can't externally
+     * set the $days field.
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
+    public static function instance(DateInterval $interval)
+    {
+        return self::castIntervalToClass($interval, static::class);
     }
 
     /**
@@ -1159,6 +1181,7 @@ class CarbonInterval extends DateInterval
     protected function getForHumansParameters($syntax = null, $short = false, $parts = -1, $options = null)
     {
         $join = ' ';
+        $altNumbers = false;
         $aUnit = false;
 
         if (is_array($syntax)) {
@@ -1195,6 +1218,13 @@ class CarbonInterval extends DateInterval
             ];
         }
 
+        if ($altNumbers) {
+            if ($altNumbers !== true) {
+                $language = new Language($this->locale);
+                $altNumbers = in_array($language->getCode(), (array) $altNumbers);
+            }
+        }
+
         if (is_array($join)) {
             [$default, $last] = $join;
 
@@ -1216,7 +1246,7 @@ class CarbonInterval extends DateInterval
             };
         }
 
-        return [$syntax, $short, $parts, $options, $join, $aUnit];
+        return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers];
     }
 
     /**
@@ -1258,7 +1288,7 @@ class CarbonInterval extends DateInterval
      */
     public function forHumans($syntax = null, $short = false, $parts = -1, $options = null)
     {
-        [$syntax, $short, $parts, $options, $join, $aUnit] = $this->getForHumansParameters($syntax, $short, $parts, $options);
+        [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers] = $this->getForHumansParameters($syntax, $short, $parts, $options);
 
         $interval = [];
         $syntax = (int) ($syntax === null ? CarbonInterface::DIFF_ABSOLUTE : $syntax);
@@ -1280,25 +1310,25 @@ class CarbonInterval extends DateInterval
             ['value' => $this->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($translator, $aUnit) {
+        $transChoice = function ($short, $unitData) use ($translator, $aUnit, $altNumbers) {
             $count = $unitData['value'];
 
             if ($short) {
-                $result = $this->translate($unitData['unitShort'], [], $count, $translator);
+                $result = $this->translate($unitData['unitShort'], [], $count, $translator, $altNumbers);
 
                 if ($result !== $unitData['unitShort']) {
                     return $result;
                 }
             } elseif ($aUnit) {
                 $key = 'a_'.$unitData['unit'];
-                $result = $this->translate($key, [], $count, $translator);
+                $result = $this->translate($key, [], $count, $translator, $altNumbers);
 
                 if ($result !== $key) {
                     return $result;
                 }
             }
 
-            return $this->translate($unitData['unit'], [], $count, $translator);
+            return $this->translate($unitData['unit'], [], $count, $translator, $altNumbers);
         };
 
         foreach ($diffIntervalArray as $diffIntervalData) {
@@ -1326,7 +1356,7 @@ class CarbonInterval extends DateInterval
             }
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
             $unit = $short ? 's' : 'second';
-            $interval[] = $this->translate($unit, [], $count, $translator);
+            $interval[] = $this->translate($unit, [], $count, $translator, $altNumbers);
         }
 
         // join the interval parts by a space
@@ -1362,7 +1392,7 @@ class CarbonInterval extends DateInterval
             // Some languages have special pluralization for past and future tense.
             $key = $unit.'_'.$transId;
             if ($key !== $this->translate($key, [], null, $translator)) {
-                $time = $this->translate($key, [], $count, $translator);
+                $time = $this->translate($key, [], $count, $translator, $altNumbers);
             }
         }
 
@@ -1377,6 +1407,21 @@ class CarbonInterval extends DateInterval
     public function __toString()
     {
         return $this->forHumans();
+    }
+
+    /**
+     * Return native DateInterval PHP object matching the current instance.
+     *
+     * @example
+     * ```
+     * var_dump(CarbonInterval::hours(2)->toDateInterval());
+     * ```
+     *
+     * @return DateInterval
+     */
+    public function toDateInterval()
+    {
+        return self::castIntervalToClass($this, DateInterval::class);
     }
 
     /**
