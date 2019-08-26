@@ -1160,6 +1160,7 @@ class CarbonInterval extends DateInterval
     {
         $join = ' ';
         $aUnit = false;
+
         if (is_array($syntax)) {
             extract($syntax);
         } else {
@@ -1167,20 +1168,25 @@ class CarbonInterval extends DateInterval
                 $parts = $short;
                 $short = false;
             }
+
             if (is_bool($syntax)) {
                 $short = $syntax;
                 $syntax = CarbonInterface::DIFF_ABSOLUTE;
             }
         }
+
         if (is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
+
         if ($parts === -1) {
             $parts = INF;
         }
+
         if (is_null($options)) {
             $options = static::getHumanDiffOptions();
         }
+
         if ($join === true) {
             $default = $this->getTranslationMessage('list.0') ?? $this->getTranslationMessage('list') ?? ' ';
             $join = [
@@ -1188,6 +1194,7 @@ class CarbonInterval extends DateInterval
                 $this->getTranslationMessage('list.1') ?? $default,
             ];
         }
+
         if (is_array($join)) {
             [$default, $last] = $join;
 
@@ -1201,6 +1208,7 @@ class CarbonInterval extends DateInterval
                 return implode($default, $list).$last.$end;
             };
         }
+
         if (is_string($join)) {
             $glue = $join;
             $join = function ($list) use ($glue) {

@@ -17,11 +17,5 @@
  * - shankesgk2
  */
 return array_replace_recursive(require __DIR__.'/zh_Hant.php', [
-    'week' => ':count周',
-    'w' => ':count周',
-    'second' => ':count 秒',
-    'a_second' => '{1}幾秒|]1,Inf[:count 秒',
-    's' => ':count秒',
-    'from_now' => ':time內',
     'after' => ':time后',
 ]);
