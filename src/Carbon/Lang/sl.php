@@ -23,9 +23,10 @@
  * - Aaron Patterson
  * - Nicolás Hock Isaza
  * - Miha Rebernik
- * - Gal Jakič
+ * - Gal Jakič (morpheus7CS)
  * - Glavić
  * - Anže Časar
+ * - Lovro Tramšek (Lovro1107)
  */
 return [
     'year' => ':count leto|:count leti|:count leta|:count let',
@@ -43,12 +44,19 @@ return [
     'second' => ':count sekunda|:count sekundi|:count sekunde|:count sekund',
     's' => ':count sekunda|:count sekundi|:count sekunde|:count sekund',
     'year_ago' => ':count letom|:count leti|:count leti|:count leti',
+    'y_ago' => ':count letom|:count leti|:count leti|:count leti',
     'month_ago' => ':count mesecem|:count meseci|:count meseci|:count meseci',
+    'm_ago' => ':count mesecem|:count meseci|:count meseci|:count meseci',
     'week_ago' => ':count tednom|:count tednoma|:count tedni|:count tedni',
+    'w_ago' => ':count tednom|:count tednoma|:count tedni|:count tedni',
     'day_ago' => ':count dnem|:count dnevoma|:count dnevi|:count dnevi',
+    'd_ago' => ':count dnem|:count dnevoma|:count dnevi|:count dnevi',
     'hour_ago' => ':count uro|:count urama|:count urami|:count urami',
+    'h_ago' => ':count uro|:count urama|:count urami|:count urami',
     'minute_ago' => ':count minuto|:count minutama|:count minutami|:count minutami',
+    'min_ago' => ':count minuto|:count minutama|:count minutami|:count minutami',
     'second_ago' => ':count sekundo|:count sekundama|:count sekundami|:count sekundami',
+    's_ago' => ':count sekundo|:count sekundama|:count sekundami|:count sekundami',
     'ago' => 'pred :time',
     'from_now' => 'čez :time',
     'after' => ':time kasneje',
