@@ -1265,19 +1265,6 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * Call the joiner method for each ":join" pattern.
-     *
-     * @param string   $sentence
-     * @param callable $join
-     *
-     * @return string
-     */
-    protected function replaceJoinerUsing($sentence, $join)
-    {
-        return $join(explode(':join', $sentence));
-    }
-
-    /**
      * Get the current interval in a human readable format in the current locale.
      *
      * @example
@@ -1429,7 +1416,9 @@ class CarbonInterval extends DateInterval
             }
         }
 
-        return $this->translate($transId, array_merge($interpolations, [':time' => $time]), null, $translator);
+        $time = [':time' => $time];
+
+        return $this->translate($transId, array_merge($time, $interpolations, $time), null, $translator);
     }
 
     /**
