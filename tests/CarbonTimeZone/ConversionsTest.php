@@ -14,6 +14,9 @@ namespace Tests\CarbonTimeZone;
 
 use Carbon\Carbon;
 use Carbon\CarbonTimeZone;
+use DateTimeZone;
+use InvalidArgumentException;
+use stdClass;
 use Tests\AbstractTestCase;
 
 class ConversionsTest extends AbstractTestCase
@@ -56,6 +59,33 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('+00:00', (new CarbonTimeZone('UTC'))->toOffsetName());
         $this->assertSame('+02:00', (new CarbonTimeZone('Europe/Paris'))->toOffsetName());
         $this->assertSame('+05:30', (new CarbonTimeZone('Asia/Calcutta'))->toOffsetName());
+    }
+
+    public function testCast()
+    {
+        /** @var DateTimeZone $tz */
+        $tz = (new CarbonTimeZone('America/Toronto'))->cast(DateTimeZone::class);
+
+        $this->assertSame(DateTimeZone::class, get_class($tz));
+        $this->assertSame('America/Toronto', $tz->getName());
+
+        $obj = new class extends CarbonTimeZone {
+        };
+        $class = get_class($obj);
+
+        /** @var DateTimeZone $tz */
+        $tz = (new CarbonTimeZone('America/Toronto'))->cast($class);
+
+        $this->assertSame($class, get_class($tz));
+        $this->assertSame('America/Toronto', $tz->getName());
+    }
+
+    public function testCastException()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('stdClass has not the instance() method needed to cast the date.');
+
+        (new CarbonTimeZone('America/Toronto'))->cast(stdClass::class);
     }
 
     public function testInvalidRegionForOffset()

@@ -60,6 +60,13 @@ class ToArrayTest extends AbstractTestCase
         );
     }
 
+    public function testJsonSerialize()
+    {
+        $result = json_encode(CarbonPeriodFactory::withEvenDaysFilter());
+
+        $this->assertSame('["2012-07-04T04:00:00.000000Z","2012-07-10T04:00:00.000000Z","2012-07-16T04:00:00.000000Z"]', $result);
+    }
+
     public function testCountByMethod()
     {
         $period = CarbonPeriodFactory::withEvenDaysFilter();

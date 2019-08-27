@@ -84,7 +84,7 @@ class Language implements JsonSerializable
     public static function all()
     {
         if (!static::$languagesNames) {
-            static::$languagesNames = include __DIR__.'/List/languages.php';
+            static::$languagesNames = require __DIR__.'/List/languages.php';
         }
 
         return static::$languagesNames;
@@ -98,7 +98,7 @@ class Language implements JsonSerializable
     public static function regions()
     {
         if (!static::$regionsNames) {
-            static::$regionsNames = include __DIR__.'/List/regions.php';
+            static::$regionsNames = require __DIR__.'/List/regions.php';
         }
 
         return static::$regionsNames;
