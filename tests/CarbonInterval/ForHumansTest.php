@@ -200,6 +200,27 @@ class ForHumansTest extends AbstractTestCase
         ]));
     }
 
+    public function testChineseJoin()
+    {
+        $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('zh_Hans');
+        $this->assertSame('1年1个月1天1小时', $interval->forHumans());
+        $this->assertSame('1年1个月1天1小时', $interval->forHumans([
+            'join' => true,
+        ]));
+        $this->assertSame('1 年 1 个月 1 天 1 小时', $interval->forHumans([
+            'join' => false,
+        ]));
+        $this->assertSame('1年1个月1天1小时', $interval->forHumans([
+            'join' => '',
+        ]));
+        $this->assertSame('1 年 1 个月 1 天 1 小时', $interval->forHumans([
+            'join' => ' ',
+        ]));
+        $this->assertSame('1年-1个月-1天-1小时', $interval->forHumans([
+            'join' => '-',
+        ]));
+    }
+
     public function testOptionsAsArray()
     {
         $interval = CarbonInterval::create(1, 1, 0, 1, 1)->locale('fr');

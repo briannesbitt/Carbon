@@ -11,9 +11,9 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
-class ZhTwTest extends LocalizationTestCase
+class ZhHantTwTest extends LocalizationTestCase
 {
-    const LOCALE = 'zh_TW'; // Chinese
+    const LOCALE = 'zh_Hant_TW'; // Chinese
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

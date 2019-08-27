@@ -101,10 +101,16 @@ class LocalizationTest extends AbstractTestCase
         mkdir($directory);
         $translator->setDirectories([$directory]);
 
-        copy(__DIR__.'/../../src/Carbon/Lang/zh.php', "$directory/zh.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/zh_TW.php', "$directory/zh_TW.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/fr.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/fr_CA.php', "$directory/fr_CA.php");
+        $files = [
+            'zh_Hans',
+            'zh',
+            'fr',
+            'fr_CA',
+        ];
+
+        foreach ($files as $file) {
+            copy(__DIR__."/../../src/Carbon/Lang/$file.php", "$directory/$file.php");
+        }
 
         $currentLocale = setlocale(LC_ALL, '0');
         if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
@@ -142,10 +148,11 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('2 seconds ago', $diff);
 
         $translator->setDirectories($directories);
-        unlink("$directory/zh.php");
-        unlink("$directory/zh_TW.php");
-        unlink("$directory/fr.php");
-        unlink("$directory/fr_CA.php");
+
+        foreach ($files as $file) {
+            unlink("$directory/$file.php");
+        }
+
         rmdir($directory);
     }
 
