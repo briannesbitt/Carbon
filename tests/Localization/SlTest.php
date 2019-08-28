@@ -390,11 +390,11 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'pred 5 mesecev',
+        'pred 5 meseci',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'pred 2 leti 3 mesece 1 dan 1 sekunda',
+        'pred 2 leti 3 meseci 1 dnem 1 sekundo',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
