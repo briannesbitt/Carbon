@@ -226,7 +226,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        'pred 1 sekundo',
+        'pred 1 s',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
@@ -234,7 +234,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        'pred 2 sekundama',
+        'pred 2 s',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
@@ -242,7 +242,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        'pred 1 minuto',
+        'pred 1 min.',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
@@ -250,7 +250,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        'pred 2 minutama',
+        'pred 2 min.',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
@@ -258,7 +258,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        'pred 1 uro',
+        'pred 1 h',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
@@ -266,7 +266,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        'pred 2 urama',
+        'pred 2 h',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
@@ -290,7 +290,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago'
-        'pred 1 tednom',
+        'pred 1 ted.',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
@@ -298,7 +298,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
-        'pred 2 tednoma',
+        'pred 2 ted.',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
@@ -306,7 +306,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'pred 1 mesecem',
+        'pred 1 mes.',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -314,7 +314,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        'pred 2 meseci',
+        'pred 2 mes.',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
@@ -334,11 +334,11 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        'čez 1 sekunda',
+        'čez 1 sekundo',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'čez 1 sekunda',
+        'čez 1 s',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
@@ -346,7 +346,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        '1 sekunda kasneje',
+        '1 s kasneje',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
@@ -354,7 +354,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 sekunda prej',
+        '1 s prej',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
@@ -362,7 +362,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 sekunda',
+        '1 s',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -370,11 +370,11 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 sekundi',
+        '2 s',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'čez 1 sekunda',
+        'čez 1 s',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
@@ -382,7 +382,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 leti 3 mesece 1 dan 1 sekunda',
+        '2 leti 3 mes. 1 dan 1 s',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -390,11 +390,11 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'pred 5 meseci',
+        'pred 5 mes.',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'pred 2 leti 3 meseci 1 dnem 1 sekundo',
+        'pred 2 leti 3 mes. 1 dnem 1 s',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -418,7 +418,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
-        'čez 1 ura',
+        'čez 1 uro',
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days'
@@ -426,6 +426,6 @@ class SlTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 dan 3 ure',
+        '1 dan 3 h',
     ];
 }
