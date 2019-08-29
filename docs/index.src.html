@@ -3092,12 +3092,13 @@ Carbon::serializeUsing(null);
 
     <h1 id="api-macro">Macro</h1>
 
-    <p>You may be familiar with the macro concept if you are used to working with Laravel and objects such as <a
-            href="https://laravel.com/docs/5.6/responses#response-macros">response</a> or <a
-            href="https://laravel.com/docs/5.6/collections#extending-collections">collections</a>. The Carbon <code>macro()</code>
-        works the exact same way as the Laravel MacroableTrait one, it takes a method name as first argument and a
-        closure as second. This will make the closure action available on all Carbon instances (and also as a Carbon static
-        method) as a method with the given name.</p>
+    <p>You may be familiar with the macro concept if you are used to working with Laravel and objects such as
+        <a href="https://laravel.com/docs/responses#response-macros">response</a>
+        or <a href="https://laravel.com/docs/collections#extending-collections">collections</a>.
+        Carbon macros works just like the Laravel <code>Macroable</code> Trait.
+
+        Call the <code>Carbon::macro()</code> method with the name of your macro as the first argument
+        and a closure as the second argument. This will make the closure action available on all Carbon instances.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
@@ -3113,6 +3114,23 @@ echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>To register a static macro, pass a static closure to <code>Carbon::macro()</code>.</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+Carbon::macro('maybeFromFormat', static function (string $format, ?string $value): ?Carbon {
+    return $value
+        ? Carbon::createFromFormat($format, $value)
+        : null;
+});
+)}}
+
+{{::exec(echo Carbon::maybeFromFormat('Y-m-d', '2020-01-12');/*pad(78)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::maybeFromFormat('Y-m-d', null);/*pad(78)*/)}} // {{eval}}
 </code></pre>
     </p>
 
