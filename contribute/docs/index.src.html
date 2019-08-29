@@ -1,10 +1,24 @@
 <h1>How to Contribute to this documentation</h1>
 
+The documentation resides in the <a href="https://github.com/briannesbitt/Carbon/tree/gh-pages">gh-pages branch of Carbon</a>.
+
+<ul>
+    <li><a href="https://github.com/briannesbitt/Carbon/fork">Fork Carbon</a></li>
+    <li><code>git clone</code></li>
+    <li><code>git checkout gh-pages</code></li>
+    <li><code>git checkout -b [speaking-new-branch-name]</code></li>
+    <li>Modify <code>.src.html</code> source files</li>
+    <li><code>git commit</code></li>
+    <li><code>git push</code></li>
+    <li>Create a pull request against the <b>gh-pages</b> branch</li>
+</ul>
+
 <p>This documentation use commands to <b>lint</b> sample source codes, <b>execute</b> and inject the
     actual results of examples into a generated doc.</p>
 
 <blockquote>
-    <p>Don't make changes to the <code>[a-z]+.html</code> files directly!!</p>
+    <p>Don't make changes to the <code>[a-z]+.html</code> files directly! We'll generate those files using
+        <code>composer generate</code> before releasing the documentation when releasing a new version.</p>
 </blockquote>
 
 <p>Change the associated <code>[a-z]+.src.html</code> and then use the <code>generate</code> script to generate the
@@ -67,19 +81,3 @@
 <pre><code>echo 12345;          // 12345
 echo 6;              // 6
 </pre></code></p>
-
-<p>Apart from the docs the typical steps can be used to contribute your own improvements.</p>
-
-<ul>
-    <li>Fork</li>
-    <li>Clone</li>
-    <li>PHPUnit</li>
-    <li>Branch</li>
-    <li>PHPUnit</li>
-    <li>Code</li>
-    <li>PHPUnit</li>
-    <li>Commit</li>
-    <li>Push</li>
-    <li>Pull request</li>
-    <li>Relax and play Castle Crashers</li>
-</ul>
