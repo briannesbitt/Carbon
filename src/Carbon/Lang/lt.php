@@ -35,7 +35,7 @@
  * - Justinas (Gamesh)
  */
 return [
-    'year' => ':count metai|:count metai|:count metais',
+    'year' => ':count metai|:count metai|:count metų',
     'y' => ':count m.',
     'month' => ':count mėnuo|:count mėnuo|:count mėnesį',
     'm' => ':count mėn.',
