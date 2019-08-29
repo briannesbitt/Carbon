@@ -87,7 +87,8 @@ return [
 
     'months' => ['sausis', 'vasaris', 'kovas', 'balandis', 'gegužė', 'birželis', 'liepa', 'rugpjūtis', 'rugsėjis', 'spalis', 'lapkritis', 'gruodis'],
     'months_short' => ['sau', 'vas', 'kov', 'bal', 'geg', 'bir', 'lie', 'rgp', 'rgs', 'spa', 'lap', 'gru'],
-    'weekdays' => ['sekmadienis', 'pirmadienis', 'antradienis', 'trečiadienis', 'ketvirtadienis', 'penktadienis', 'šeštadienis'],
+    'weekdays' => ['sekmadienį', 'pirmadienį', 'antradienį', 'trečiadienį', 'ketvirtadienį', 'penktadienį', 'šeštadienį'],
+    'weekdays_standalone' => ['sekmadienis', 'pirmadienis', 'antradienis', 'trečiadienis', 'ketvirtadienis', 'penktadienis', 'šeštadienis'],
     'weekdays_short' => ['sek', 'pir', 'ant', 'tre', 'ket', 'pen', 'šeš'],
     'weekdays_min' => ['se', 'pi', 'an', 'tr', 'ke', 'pe', 'še'],
     'list' => [', ', ' ir '],
@@ -99,5 +100,23 @@ return [
         'LLL' => 'DD MMM HH:mm',
         'LLLL' => 'MMMM DD, YYYY HH:mm',
     ],
+    'calendar' => [
+        'sameDay' => '[Šiandien] LT',
+        'nextDay' => '[Rytoj] LT',
+        'nextWeek' => 'dddd LT',
+        'lastDay' => '[Vakar] LT',
+        'lastWeek' => '[Paskutinį] dddd LT',
+        'sameElse' => 'L',
+    ],
+    'ordinal' => function ($number) {
+        switch ($number) {
+            case 0:
+                return '0-is';
+            case 3:
+                return '3-ias';
+            default:
+                return "$number-as";
+        }
+    },
     'meridiem' => ['priešpiet', 'popiet'],
 ];
