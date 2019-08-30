@@ -47,7 +47,7 @@ return [
     'h' => ':count val.',
     'minute' => ':count minutė|:count minutė|:count minutę',
     'min' => ':count min.',
-    'second' => ':count sekundė|:count sekundes|:count sekundžių',
+    'second' => ':count sekundė|:count sekundės|:count sekundžių',
     's' => ':count sek.',
 
     'year_ago' => ':count metus|:count metus|:count metų',
@@ -65,6 +65,14 @@ return [
     'hour_from_now' => ':count valandos|:count valandų|:count valandų',
     'minute_from_now' => ':count minutės|:count minučių|:count minučių',
     'second_from_now' => ':count sekundės|:count sekundžių|:count sekundžių',
+
+    'year_after' => ':count metų',
+    'month_after' => ':count mėnesio|:count mėnesių|:count mėnesių',
+    'week_after' => ':count savaitės|:count savaičių|:count savaičių',
+    'day_after' => ':count dienos|:count dienų|:count dienų',
+    'hour_after' => ':count valandos|:count valandų|:count valandų',
+    'minute_after' => ':count minutės|:count minučių|:count minučių',
+    'second_after' => ':count sekundės|:count sekundžių|:count sekundžių',
 
     'ago' => 'prieš :time',
     'from_now' => 'už :time',

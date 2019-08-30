@@ -342,7 +342,7 @@ class LtLtTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        'po 1 sekundė',
+        'po 1 sekundės',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
@@ -366,7 +366,7 @@ class LtLtTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
-        '2 sekundes',
+        '2 sekundės',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
