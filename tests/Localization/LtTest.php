@@ -398,7 +398,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
-        '1 savaitė 10 valandą',
+        '1 savaitė 10 valandų',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
@@ -414,7 +414,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
-        '2 savaitė 1 valanda',
+        '2 savaitės 1 valanda',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
