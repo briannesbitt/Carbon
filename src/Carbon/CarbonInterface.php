@@ -2051,7 +2051,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Get the Carbon instance (real or mock) to be returned when a "now"
      * instance is created.
      *
-     * @return static the current instance used for testing
+     * @return Closure|static the current instance used for testing
      */
     public static function getTestNow();
 
@@ -3560,7 +3560,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * /!\ Use this method for unit tests only.
      *
-     * @param static|string|null $testNow real or mock Carbon instance
+     * @param Closure|static|string|null $testNow real or mock Carbon instance
      */
     public static function setTestNow($testNow = null);
 

@@ -10,6 +10,8 @@
  */
 namespace Carbon;
 
+use Closure;
+
 /**
  * A factory to generate Carbon instances with common settings.
  *
@@ -62,7 +64,7 @@ namespace Carbon;
  * @method Carbon                                             getLastErrors()                                                                                                                    {@inheritdoc}
  * @method string                                             getLocale()                                                                                                                        Get the current translator locale.
  * @method int                                                getMidDayAt()                                                                                                                      get midday/noon hour
- * @method Carbon                                             getTestNow()                                                                                                                       Get the Carbon instance (real or mock) to be returned when a "now"
+ * @method Closure|Carbon                                     getTestNow()                                                                                                                       Get the Carbon instance (real or mock) to be returned when a "now"
  *                                                                                                                                                                                               instance is created.
  * @method string                                             getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null)                                 Returns raw translation message for a given key.
  * @method \Symfony\Component\Translation\TranslatorInterface getTranslator()                                                                                                                    Get the default translator instance in use.
