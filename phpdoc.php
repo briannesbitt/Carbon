@@ -27,6 +27,18 @@ file_put_contents($interface, preg_replace('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\
 require_once __DIR__.'/vendor/autoload.php';
 $trait = __DIR__.'/src/Carbon/Traits/Date.php';
 $code = '';
+$overrideTyping = [
+    $carbon => [
+        'createFromImmutable' => ['static static', '\DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
+        'createFromFormat' => ['static static', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
+    ],
+    $immutable => [
+        'createFromMutable' => ['static static', '\DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
+        'createFromFormat' => ['static static', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
+    ],
+];
 
 foreach (glob(__DIR__.'/src/Carbon/Traits/*.php') as $file) {
     $code .= file_get_contents($file);
@@ -468,13 +480,19 @@ function compileDoc($autoDocLines)
     return $autoDoc;
 }
 
-$autoDoc = compileDoc($autoDocLines);
-
 $files = new stdClass();
 
 foreach ([$trait, $carbon, $immutable, $interface] as $file) {
     $content = file_get_contents($file);
-    $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDoc) {
+    $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDocLines, $overrideTyping) {
+        foreach (($overrideTyping[$file] ?? []) as $method => $line) {
+            $line[1] = $method.'('.$line[1].')';
+            array_unshift($line, '@method');
+            $autoDocLines[] = $line;
+        }
+
+        $autoDoc = compileDoc($autoDocLines);
+
         return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
     }, $content, 1);
 }
