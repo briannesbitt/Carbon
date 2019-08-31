@@ -234,6 +234,10 @@ function methods($excludeNatives = false, $excludeMixins = true)
     foreach ($matches as list($all, $return, $method, $parameters, $description)) {
         $parameters = convertType(trim($parameters));
 
+        if (preg_match('/^static\s/', $method)) {
+            continue;
+        }
+
         if (isset($records["$className::$method"])) {
             continue;
         }
