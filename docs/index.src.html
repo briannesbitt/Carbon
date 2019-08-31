@@ -1194,14 +1194,8 @@ $caInfo = Carbon::getAvailableLocalesInfo()['ca'];)}}
     <h1 id="api-testing">Testing Aids</h1>
 
     <p>The testing methods allow you to set a Carbon instance (real or mock) to be returned when a "now" instance is
-        created. The provided instance will be returned specifically under the following conditions:</p>
-
-    <ul>
-        <li>A call to the static now() method, ex. Carbon::now()</li>
-        <li>When a null (or blank string) is passed to the constructor or parse(), ex. new Carbon(null)</li>
-        <li>When the string "now" is passed to the constructor or parse(), ex. new Carbon('now')</li>
-        <li>The given instance will also be used as default relative moment for diff methods</li>
-    </ul>
+        created. The provided instance will be used when retrieving any relative time from Carbon (now, today,
+        yesterday, next month, etc.)</p>
 
     <p>
     <pre><code class="php">{{::lint($knownDate = Carbon::create(2001, 5, 21, 12);/*pad(54)*/)}} // create testing date
@@ -1292,6 +1286,41 @@ $product = new SeasonalProduct(100);
 
     <p>
     <pre><code class="php">{{::exec(echo Carbon::parse('2012-9-5 23:26:11.223', 'Europe/Paris')->timezone->getName();)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p><a href="https://github.com/kylekatarnls/carbonite">See Carbonite for more advanced Carbon testing features.</a></p>
+
+    <p>Carbonite is an additional package you can easily install using composer: <code>composer require --dev kylekatarnls/carbonite</code>
+        then use to travel times in your unit tests as you would tell a story:</p>
+
+    <p>Add <code>use Carbon\Carbonite;</code> import at the top of the file.</p>
+
+    <p>
+    <pre><code class="php">{{::lint($holidays = CarbonPeriod::create('2019-12-23', '2020-01-06', CarbonPeriod::EXCLUDE_END_DATE);
+
+Carbonite::freeze('2019-12-22'); // Freeze the time to a given date)}}
+
+{{::exec(var_dump($holidays->isStarted());/*pad(37)*/)}} // {{eval}}
+
+// Then go to anytime:
+{{::lint(Carbonite::elapse('1 day');)}}
+
+{{::exec(var_dump($holidays->isInProgress());/*pad(37)*/)}} // {{eval}}
+
+{{::lint(Carbonite::jumpTo('2020-01-05 22:00');)}}
+
+{{::exec(var_dump($holidays->isEnded());/*pad(37)*/)}} // {{eval}}
+
+{{::lint(Carbonite::elapse('2 hours');)}}
+
+{{::exec(var_dump($holidays->isEnded());/*pad(37)*/)}} // {{eval}}
+
+{{::lint(Carbonite::rewind('1 microsecond');)}}
+
+{{::exec(var_dump($holidays->isEnded());/*pad(37)*/)}} // {{eval}}
+
+{{::lint(Carbonite::release(); // Release time after each test)}}
 </code></pre>
     </p>
 
@@ -3152,7 +3181,7 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-Class BeerDayCarbonMixin
+class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
@@ -3170,6 +3199,34 @@ Class BeerDayCarbonMixin
 }
 
 Carbon::mixin(new BeerDayCarbonMixin());
+
+$date = Carbon::parse('First saturday of December 2018');
+)}}
+
+{{::exec(echo $date->previousBeerDay();/*pad(78)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo $date->nextBeerDay();/*pad(78)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Since Carbon 2.23.0, it's also possible to shorten the mixin syntax using traits:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+trait BeerDayCarbonTrait
+{
+    public function nextBeerDay()
+    {
+        return $this->modify('next wednesday');
+    }
+
+    public function previousBeerDay()
+    {
+        return $this->modify('previous wednesday');
+    }
+}
+
+Carbon::mixin(BeerDayCarbonTrait::class);
 
 $date = Carbon::parse('First saturday of December 2018');
 )}}
@@ -3305,7 +3362,7 @@ CarbonPeriod::macro('countWeekdays', function () {
 
     <p>
     <pre><code class="php">{{::lint(
-Class CurrentDaysCarbonMixin
+class CurrentDaysCarbonMixin
 {
     /**
      * Get the all dates of week
@@ -3517,6 +3574,39 @@ echo "\n";
 
 {{::exec(echo $date->format('jS F y');/*pad(40)*/)}} // {{eval}}
 echo "\n";
+</code></pre>
+    </p>
+
+    <p>The following macro allow you to choose a timezone using only the city name (omitting continent).
+        Perfect to make your unit tests more fluent:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(Carbon::macro('goTo', function (string $city) {
+    static $cities = null;
+
+    if ($cities === null) {
+        foreach (DateTimeZone::listIdentifiers() as $identifier) {
+            $chunks = explode('/', $identifier);
+
+            if (isset($chunks[1])) {
+                $id = strtolower(end($chunks));
+                $cities[$id] = $identifier;
+            }
+        }
+    }
+
+    $city = str_replace(' ', '_', strtolower($city));
+
+    if (!isset($cities[$city])) {
+        throw new InvalidArgumentException("$city not found.");
+    }
+
+    return $this->tz($cities[$city]);
+});)}}
+
+{{::exec(echo Carbon::now()->goTo('Chicago')->tzName;/*pad(40)*/)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::now()->goTo('Buenos Aires')->tzName;/*pad(40)*/)}} // {{eval}}
 </code></pre>
     </p>
 

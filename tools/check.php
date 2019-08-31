@@ -30,7 +30,7 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
         baseMixin|clone|setISODate |
         getTranslationMessage|getTranslationMessageWith|translateWith|getCalendarFormats|getPaddedUnit|translate|getFormatsToIsoReplacements |
         (use|is)StrictMode(Enabled)? |
-        __(sleep|wakeup|construct|debugInfo) |
+        __(sleep|wakeup|construct|debugInfo|set_state) |
         (floor|ceil|round|sub(tract)?(Real)?|add(Real)?|isCurrent|isLast|isNext|isSame)$upperUnit?((No|With(No)?|Without)Overflow)? |
         (set|get)$upperUnit |
         (startOf|endOf)$upperUnit |
