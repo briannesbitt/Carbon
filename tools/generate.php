@@ -53,11 +53,6 @@ function historyLine($event, $version, $ref)
     return "<tr><td>$event</td><td>$version</td><td>$ref</td></tr>";
 }
 
-if (!isHistoryUpToDate()) {
-    echo "Your history.json is not up to date. You should first run:\nphp tools/api-history.php\n";
-    exit(1);
-}
-
 $globalHistory = @json_decode(file_get_contents('history.json'), JSON_OBJECT_AS_ARRAY);
 
 Carbon::macro('getAvailableMacroLocales', function () {
@@ -403,7 +398,12 @@ genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html')
 genHtml(file_get_contents('contribute/translate/index.src.html'), 'contribute/translate/index.html');
 genHtml(file_get_contents('contribute/translators/index.src.html'), 'contribute/translators/index.o.html');
 genHtml(file_get_contents('contribute/docs/index.src.html'), 'contribute/docs/index.html');
-compile('reference/index.src.html', 'reference/index.html');
+
+if (isHistoryUpToDate()) {
+    compile('reference/index.src.html', 'reference/index.html');
+} else {
+    echo "Your history.json is not up to date. To update the API reference, run:\nphp tools/api-history.php\n";
+}
 
 CarbonInterval::setLocale('en');
 
