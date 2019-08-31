@@ -509,8 +509,20 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromCarbonInstances()
     {
+        $period = Carbon::create('2019-01-02')->toPeriod(7);
+
+        $this->assertSame(24, $period->getDateInterval()->totalHours);
+        $this->assertInstanceOf(Carbon::class, $period->getStartDate());
+        $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));
+        $this->assertNull($period->getEndDate());
+        $this->assertSame(7, $period->getRecurrences());
+        $end = $period->calculateEnd();
+        $this->assertInstanceOf(Carbon::class, $end);
+        $this->assertSame('2019-01-08', $end->format('Y-m-d'));
+
         $period = Carbon::create('2019-01-02')->toPeriod('2019-02-05');
 
+        $this->assertNull($period->getRecurrences());
         $this->assertSame(24, $period->getDateInterval()->totalHours);
         $this->assertInstanceOf(Carbon::class, $period->getStartDate());
         $this->assertSame('2019-01-02', $period->getStartDate()->format('Y-m-d'));

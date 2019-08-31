@@ -561,9 +561,9 @@ trait Converter
     /**
      * Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).
      *
-     * @param \DateTimeInterface|Carbon|CarbonImmutable|null $end      period end date
-     * @param int|\DateInterval|string|null                  $interval period default interval or number of the given $unit
-     * @param string|null                                    $unit     if specified, $interval must be an integer
+     * @param \DateTimeInterface|Carbon|CarbonImmutable|int|null $end      period end date or recurrences count if int
+     * @param int|\DateInterval|string|null                      $interval period default interval or number of the given $unit
+     * @param string|null                                        $unit     if specified, $interval must be an integer
      *
      * @return CarbonPeriod
      */
@@ -579,7 +579,9 @@ trait Converter
             $period->setDateInterval($interval);
         }
 
-        if ($end) {
+        if (is_int($end) || is_string($end) && ctype_digit($end)) {
+            $period->setRecurrences($end);
+        } elseif($end) {
             $period->setEndDate($end);
         }
 
