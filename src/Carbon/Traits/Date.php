@@ -629,6 +629,7 @@ trait Date
     {
         /** @var CarbonTimeZone $timezone */
         $timezone = CarbonTimeZone::instance($object);
+
         if ($timezone && is_int($originalObject ?: $object)) {
             $timezone = $timezone->toRegionTimeZone($this);
         }

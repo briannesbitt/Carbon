@@ -60,6 +60,14 @@ class CreateFromTimestampTest extends AbstractTestCase
         setlocale(LC_ALL, $locale);
     }
 
+    public function testCreateFromTimestampWithTimezone()
+    {
+        $carbon = Carbon::createFromTimestamp('468370800', '+0100');
+
+        $this->assertSame(468370800, $carbon->getTimestamp());
+        $this->assertSame('+01:00', $carbon->tzName);
+    }
+
     public function testCreateFromTimestampUsesDefaultTimezone()
     {
         $d = Carbon::createFromTimestamp(0);
