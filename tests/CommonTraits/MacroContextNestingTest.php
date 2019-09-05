@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
+use Carbon\Traits\Macro;
 use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
