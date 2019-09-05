@@ -15,7 +15,6 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
-use Carbon\Traits\Macro;
 use Tests\AbstractTestCaseWithOldNow;
 
 class MacroContextNestingTest extends AbstractTestCaseWithOldNow
@@ -34,7 +33,7 @@ class MacroContextNestingTest extends AbstractTestCaseWithOldNow
      * @dataProvider getMacroableClasses
      *
      * @param string      $class
-     * @param Macro       $sample
+     * @param mixed       $sample
      * @param string|null $reference
      */
     public function testMacroContextNesting($class, $sample, $reference)
