@@ -3102,11 +3102,12 @@ Carbon::serializeUsing(null);
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-Carbon::macro('diffFromYear', function ($year, $absolute = false, $short = false, $parts = 1) {
-    return $this->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
+Carbon::macro('diffFromYear', static function ($year, $absolute = false, $short = false, $parts = 1) {
+    return self::this()->diffForHumans(Carbon::create($year, 1, 1, 0, 0, 0), $absolute, $short, $parts);
 });
 )}}
 
+// Can be called on Carbon instances: self::this() = current instance ($this)
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019);/*pad(78)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true);/*pad(78)*/)}} // {{eval}}
@@ -3114,25 +3115,22 @@ echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true);/*pad(78)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo Carbon::parse('2020-01-12 12:00:00')->diffFromYear(2019, true, true, 5);/*pad(78)*/)}} // {{eval}}
-</code></pre>
-    </p>
 
-    <p>To register a static macro, pass a static closure to <code>Carbon::macro()</code>.</p>
-
-    <p>
-    <pre class="live-editor"><code class="php">{{::lint(
-Carbon::macro('maybeFromFormat', static function (string $format, ?string $value): ?Carbon {
-    return $value
-        ? Carbon::createFromFormat($format, $value)
-        : null;
-});
-)}}
-
-{{::exec(echo Carbon::maybeFromFormat('Y-m-d', '2020-01-12');/*pad(78)*/)}} // {{eval}}
+// Can also be called statically, in this case self::this() = Carbon::now()
 echo "\n";
-{{::exec(echo Carbon::maybeFromFormat('Y-m-d', null);/*pad(78)*/)}} // {{eval}}
+{{::exec(echo Carbon::diffFromYear(2017);/*pad(78)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p>Note that the closure is preceded by <code>static</code> and uses <code>self::this()</code> (available
+        since version 2.25.0) instead of <code>$this</code>. This is the
+        standard way to create Carbon macros, and this also applies to macros on other classes
+        (<code>CarbonImmutable</code>, <code>CarbonInterval</code> and <code>CarbonInterval</code>).</p>
+
+    <p>By following this pattern you ensure other developers of you team (and future you) can rely safely on the
+        assertion: <code>Carbon::anyMacro()</code> is equivalent to <code>Carbon::now()->anyMacro()</code>.
+        This make the usage of macros consistent and predictable and ensure developers than any macro can
+        be called safely either statically or dynamically.</p>
 
     <p id="macro-cli">The sad part is IDE will not natively your macro method (no auto-completion for the method
         <code>diffFromYear</code> in the example above). But it's no longer a problem thanks to our CLI tool:
@@ -3147,8 +3145,8 @@ echo "\n";
 $userTimezone = 'Europe/Paris';
 $userLanguage = 'fr_FR';
 
-Carbon::macro('formatForUser', function () use ($userTimezone, $userLanguage) {
-    $date = $this->copy()->tz($userTimezone)->locale($userLanguage);
+Carbon::macro('formatForUser', static function () use ($userTimezone, $userLanguage) {
+    $date = self::this()->copy()->tz($userTimezone)->locale($userLanguage);
 
     return $date->calendar(); // or ->isoFormat($customFormat), ->diffForHumans(), etc.
 });
@@ -3174,15 +3172,15 @@ Class BeerDayCarbonMixin
 {
     public function nextBeerDay()
     {
-        return function () {
-            return $this->modify('next wednesday');
+        return static function () {
+            return self::this()->modify('next wednesday');
         };
     }
 
     public function previousBeerDay()
     {
-        return function () {
-            return $this->modify('previous wednesday');
+        return static function () {
+            return self::this()->modify('previous wednesday');
         };
     }
 }
@@ -3215,19 +3213,23 @@ echo "\n";
 
     <pre class="live-editor"><code class="php">{{::lint(// Let's say a school year starts 5 months before the start of the year, so the school year of 2018 actually begins in August 2017 and ends in July 2018,
 // Then you can create get/set method this way:
-Carbon::macro('setSchoolYear', function ($schoolYear) {
-    $this->year = $schoolYear;
-    if ($this->month > 7) {
-        $this->year--;
+Carbon::macro('setSchoolYear', static function ($schoolYear) {
+    $date = self::this();
+    $date->year = $schoolYear;
+
+    if ($date->month > 7) {
+        $date->year--;
     }
 });
-Carbon::macro('getSchoolYear', function () {
-    $schoolYear = $this->year;
-    if ($this->month > 7) {
+Carbon::macro('getSchoolYear', static function () {
+    $date = self::this();
+    $schoolYear = $date->year;
+
+    if ($date->month > 7) {
         $schoolYear++;
     }
 
-return $schoolYear;
+    return $schoolYear;
 });
 // This will make getSchoolYear/setSchoolYear as usual, but get/set prefix will also enable
 // the getter and setter methods for the ->schoolYear property.
@@ -3249,22 +3251,16 @@ $date = Carbon::parse('2016-06-01');
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(
-Carbon::genericMacro(function ($method) {
+Carbon::genericMacro(static function ($method) {
     // As an example we will convert firstMondayOfDecember into first Monday Of December to get strings that
     // DateTime can parse.
     $time = preg_replace('/[A-Z]/', ' $0', $method);
 
     try {
-        // isset($this) means called dynamically like ->myMacro()
-        if (isset($this)) {
-            return $this->modify($time);
-        }
-
-        // else means called statically like ::myMacro()
-        return new static($time);
+        return self::this()->modify($time);
     } catch (\Throwable $exception) {
         if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
-            // When trowhing BadMethodCallException from inside a generic macro will go to next generic macro
+            // When throwing BadMethodCallException from inside a generic macro will go to next generic macro
             // if there are other registered.
             throw new \BadMethodCallException('Try next macro', 0, $exception);
         }
@@ -3292,8 +3288,8 @@ echo "\n";
 
     <p>
     <pre><code class="php">{{::lint(
-CarbonInterval::macro('twice', function () {
-    return $this->times(2);
+CarbonInterval::macro('twice', static function () {
+    return self::this()->times(2);
 });
 )}}
 {{::exec(echo CarbonInterval::day()->twice()->forHumans();/*pad(42)*/)}} // {{eval}}
@@ -3308,8 +3304,8 @@ CarbonInterval::macro('twice', function () {
 
     <p>
     <pre><code class="php">{{::lint(
-CarbonPeriod::macro('countWeekdays', function () {
-    return $this->filter('isWeekday')->count();
+CarbonPeriod::macro('countWeekdays', static function () {
+    return self::this()->filter('isWeekday')->count();
 });
 )}}
 {{::exec(echo CarbonPeriod::create('2017-11-01', '2017-11-30')->countWeekdays();/*pad(72)*/)}} // {{eval}}
@@ -3332,8 +3328,8 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentWeekDays()
     {
-        return function () {
-            $startOfWeek = (isset($this) ? $this : static::now())->startOfWeek()->subDay();
+        return static function () {
+            $startOfWeek = self::this()->startOfWeek()->subDay();
             $weekDays = [];
 
             for ($i = 0; $i < static::DAYS_PER_WEEK; $i++) {
@@ -3351,9 +3347,10 @@ Class CurrentDaysCarbonMixin
      */
     public static function getCurrentMonthDays()
     {
-        return function () {
-            $startOfMonth = (isset($this) ? $this : static::now())->startOfMonth()->subDay();
-            $endOfMonth = (isset($this) ? $this : static::now())->endOfMonth()->format('d');
+        return static function () {
+            $date = self::this();
+            $startOfMonth = $date->copy()->startOfMonth()->subDay();
+            $endOfMonth = $date->copy()->endOfMonth()->format('d');
             $monthDays = [];
 
             for ($i = 0; $i < $endOfMonth; $i++)
@@ -3385,8 +3382,8 @@ function dumpDateList($dates) {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('toAtomStringWithNoTimezone', function () {
-    return $this->format('Y-m-d\TH:i:s');
+Carbon::macro('toAtomStringWithNoTimezone', static function () {
+    return self::this()->format('Y-m-d\TH:i:s');
 });
 )}}
 {{::exec(echo Carbon::parse('2021-06-16 20:08:34')->toAtomStringWithNoTimezone();)}} // {{eval}}
@@ -3398,7 +3395,7 @@ Carbon::macro('toAtomStringWithNoTimezone', function () {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('easterDate', function ($year) {
+Carbon::macro('easterDate', static function ($year) {
     return Carbon::createMidnightDate($year, 3, 21)->addDays(easter_days($year));
 });
 )}}
@@ -3418,7 +3415,7 @@ Carbon::macro('easterDate', function ($year) {
 
     <p>
     <pre><code class="php">{{::lint(
-Carbon::macro('datePeriod', function ($startDate, $endDate) {
+Carbon::macro('datePeriod', static function ($startDate, $endDate) {
     return new DatePeriod($startDate, new DateInterval('P1D'), $endDate);
 });
 )}}
@@ -3448,7 +3445,7 @@ class UserTimezoneCarbonMixin
     {
         $mixin = $this;
 
-        return function ($timezone) use ($mixin) {
+        return static function ($timezone) use ($mixin) {
             $mixin->userTimeZone = $timezone;
         };
     }
@@ -3466,12 +3463,14 @@ class UserTimezoneCarbonMixin
     {
         $mixin = $this;
 
-        return function ($format) use ($mixin) {
+        return static function ($format) use ($mixin) {
+            $date = self::this();
+
             if (!is_null($mixin->userTimeZone)) {
-                $this->timezone($mixin->userTimeZone);
+                $date->timezone($mixin->userTimeZone);
             }
 
-            return $this->format($format);
+            return $date->format($format);
         };
     }
 }
