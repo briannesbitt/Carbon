@@ -18,6 +18,10 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
     public function testGenericMacroBinding()
     {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+            $this->markTestSkipped('Use of $this in macros is deprecated and may not work in PHP 8.');
+        }
+
         Carbon::genericMacro(function ($method) {
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
@@ -72,21 +76,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
             $time = preg_replace('/[A-Z]/', ' $0', $method);
 
             try {
-                if (isset(${'this'})) {
-                    /** @var Carbon $date */
-                    $date = $this;
-
-                    // @TODO allow unbind $this in PHP 8 (see with Laravel team how they plan to handle this in marcos)
-
-                    if (method_exists($date, 'modify')) {
-                        return $date->modify($time);
-                    }
-                }
-
-                // @TODO allow to call new static() in PHP 8
-                // (see with Laravel team how they plan to handle this in marcos)
-
-                return new Carbon($time);
+                return self::this()->modify($time);
             } catch (\Throwable $exception) {
                 if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
                     throw new \BadMethodCallException('Try next macro', 0, $exception);
