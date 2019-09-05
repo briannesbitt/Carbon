@@ -19,6 +19,7 @@
     <testsuites>
         <testsuite name="carbon">
             <directory>tests/Carbon</directory>
+            <directory>tests/CommonTraits</directory>
         </testsuite>
         <testsuite name="immutable">
             <directory>tests/CarbonImmutable</directory>

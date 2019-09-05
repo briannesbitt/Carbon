@@ -2283,13 +2283,15 @@ trait Date
 
     protected static function executeStaticCallable($macro, ...$parameters)
     {
-        if ($macro instanceof Closure) {
-            $macro = @Closure::bind($macro, null, get_called_class());
+        return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
+            if ($macro instanceof Closure) {
+                $boundMacro = @Closure::bind($macro, null, static::class);
+
+                return call_user_func_array($boundMacro ?: $macro, $parameters);
+            }
 
             return call_user_func_array($macro, $parameters);
-        }
-
-        return call_user_func_array($macro, $parameters);
+        });
     }
 
     /**
@@ -2404,7 +2406,9 @@ trait Date
     protected function executeCallable($macro, ...$parameters)
     {
         if ($macro instanceof Closure) {
-            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
         return call_user_func_array($macro, $parameters);
@@ -2575,23 +2579,26 @@ trait Date
             }
         }
 
-        if (!static::hasMacro($method)) {
-            foreach ([$this->localGenericMacros ?: [], static::getGenericMacros()] as $list) {
-                foreach ($list as $callback) {
-                    try {
-                        return $this->executeCallable($callback, $method, ...$parameters);
-                    } catch (BadMethodCallException $exception) {
-                        continue;
+        return static::bindMacroContext($this, function () use (&$method, &$parameters) {
+            if (!static::hasMacro($method)) {
+                foreach ([$this->localGenericMacros ?: [], static::getGenericMacros()] as $list) {
+                    foreach ($list as $callback) {
+                        try {
+                            return $this->executeCallable($callback, $method, ...$parameters);
+                        } catch (BadMethodCallException $exception) {
+                            continue;
+                        }
                     }
                 }
-            }
-            if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                throw new BadMethodCallException("Method $method does not exist.");
+
+                if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
+                    throw new BadMethodCallException("Method $method does not exist.");
+                }
+
+                return null;
             }
 
-            return null;
-        }
-
-        return $this->executeCallable(($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method], ...$parameters);
+            return $this->executeCallable(($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method], ...$parameters);
+        });
     }
 }

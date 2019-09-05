@@ -1076,7 +1076,9 @@ class CarbonInterval extends DateInterval
         $macro = static::$macros[$name];
 
         if ($macro instanceof Closure) {
-            return call_user_func_array($macro->bindTo($this, static::class), $parameters);
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
         return call_user_func_array($macro, $parameters);
@@ -1096,7 +1098,9 @@ class CarbonInterval extends DateInterval
     public function __call($method, $parameters)
     {
         if (static::hasMacro($method)) {
-            return $this->callMacro($method, $parameters);
+            return static::bindMacroContext($this, function () use (&$method, &$parameters) {
+                return $this->callMacro($method, $parameters);
+            });
         }
 
         $action = substr($method, 0, 4);
