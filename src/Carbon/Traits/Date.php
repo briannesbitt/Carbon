@@ -2283,7 +2283,7 @@ trait Date
     protected static function executeStaticCallable($macro, ...$parameters)
     {
         if ($macro instanceof Closure) {
-            return call_user_func_array(Closure::bind($macro, null, get_called_class()), $parameters);
+            return call_user_func_array(Closure::bind($macro, null, static::class), $parameters);
         }
 
         return call_user_func_array($macro, $parameters);
