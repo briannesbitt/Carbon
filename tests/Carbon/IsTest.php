@@ -862,6 +862,8 @@ class IsTest extends AbstractTestCase
     public function testHasFormat()
     {
         $this->assertTrue(Carbon::hasFormat('1975-05-01', 'Y-m-d'));
+        $this->assertTrue(Carbon::hasFormat('12/30/2019', 'm/d/Y'));
+        $this->assertTrue(Carbon::hasFormat('30/12/2019', 'd/m/Y'));
         $this->assertTrue(Carbon::hasFormat('Sun 21st', 'D jS'));
 
         $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', Carbon::ATOM));
@@ -876,6 +878,8 @@ class IsTest extends AbstractTestCase
         // Regex failure
         $this->assertFalse(Carbon::hasFormat('1975-5-1', 'Y-m-d'));
         $this->assertFalse(Carbon::hasFormat('19-05-01', 'Y-m-d'));
+        $this->assertFalse(Carbon::hasFormat('30/12/2019', 'm/d/Y'));
+        $this->assertFalse(Carbon::hasFormat('12/30/2019', 'd/m/Y'));
     }
 
     public function testIsSameFoobar()
