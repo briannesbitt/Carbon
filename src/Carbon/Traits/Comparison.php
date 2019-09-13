@@ -865,7 +865,7 @@ trait Comparison
                 $regex .= strtr($quotedFormat[$i], static::$regexFormats);
             }
 
-            return (bool) preg_match('/^'.$regex.'$/', $date);
+            return (bool) preg_match('/^'.str_replace('/', '\\/', $regex).'$/', $date);
         } catch (InvalidArgumentException $e) {
         }
 
