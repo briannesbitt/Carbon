@@ -8688,9 +8688,7 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
             You still can get the previous behavior using: <pre><code class="php">Carbon::serializeUsing(function ($date) {
     return [
         'date' => $date->toDateTimeString(),
-        'timezone_type' => $date->timezone_type,
-        'timezone' => $date->tzName,
-    ];
+    ] + (array) $date->tz;
 });</code></pre>
         </li>
         <li><code>$date->setToStringFormat()</code> with a closure no longer return a format but a final string. So you can
