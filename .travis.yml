@@ -115,6 +115,8 @@ matrix:
       env:
         - setup=stable
         - style_check=true
+
+    - php: 7.4snapshot
   allow_failures:
     - php: nightly
       env: setup=nightly
