@@ -64,7 +64,7 @@ return [
     'a_day' => '{1}день|:count день|:count дні|:count днів',
     'hour' => ':count година|:count години|:count годин',
     'h' => ':countг',
-    'a_hour' => '{1}годину|:count година|:count години|:count годин',
+    'a_hour' => '{1}година|:count година|:count години|:count годин',
     'minute' => ':count хвилина|:count хвилини|:count хвилин',
     'min' => ':countхв',
     'a_minute' => '{1}хвилина|:count хвилину|:count хвилини|:count хвилин',
