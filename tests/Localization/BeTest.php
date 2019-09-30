@@ -187,7 +187,7 @@ class BeTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1 секунду да',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '1 секунду',
+        '1 секунда',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         '1 секунду',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
@@ -197,7 +197,7 @@ class BeTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         'праз 1 секунду',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1 хвіліну 1 секунду',
+        '1 хвіліна 1 секунда',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 гады 3 месяцы 1 дзень 1 секунду',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
