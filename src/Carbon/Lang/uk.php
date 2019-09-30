@@ -48,6 +48,7 @@ $processHoursFunction = function (\Carbon\CarbonInterface $date, string $format)
  * - vystepanenko
  * - AlexWalkerson
  * - Andre Havryliuk (Andrend)
+ * - Max Datsenko (datsenko-md)
  */
 return [
     'year' => ':count рік|:count роки|:count років',
