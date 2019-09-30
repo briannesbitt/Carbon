@@ -119,7 +119,7 @@ class UkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 секунда тому',
+        '1 секунду тому',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         '1сек тому',
         // Carbon::now()->subSeconds(2)->diffForHumans()
@@ -127,7 +127,7 @@ class UkTest extends LocalizationTestCase
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         '2сек тому',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 хвилина тому',
+        '1 хвилину тому',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         '1хв тому',
         // Carbon::now()->subMinutes(2)->diffForHumans()
@@ -135,7 +135,7 @@ class UkTest extends LocalizationTestCase
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         '2хв тому',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 година тому',
+        '1 годину тому',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1г тому',
         // Carbon::now()->subHours(2)->diffForHumans()
@@ -175,15 +175,15 @@ class UkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2р тому',
         // Carbon::now()->addSecond()->diffForHumans()
-        'за 1 секунда',
+        'за 1 секунду',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         'за 1сек',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '1 секунда після',
+        '1 секунду після',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         '1сек після',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '1 секунда до',
+        '1 секунду до',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         '1сек до',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
