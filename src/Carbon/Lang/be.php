@@ -19,6 +19,7 @@
  * - François B
  * - Serhan Apaydın
  * - JD Isaacks
+ * - AbadonnaAbbys
  */
 return [
     'year' => ':count год|:count гады|:count гадоў',
