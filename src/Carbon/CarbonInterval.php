@@ -1434,7 +1434,9 @@ class CarbonInterval extends DateInterval
                 }
             }
 
-            $time = $handleDeclensions($unit.'_'.$transId, $count) ?: $time;
+            $aTime = $aUnit ? $handleDeclensions('a_'.$unit.'_'.$transId, $count) : null;
+
+            $time = $aTime ?: $handleDeclensions($unit.'_'.$transId, $count) ?: $time;
         }
 
         $time = [':time' => $time];
