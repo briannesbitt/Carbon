@@ -217,7 +217,7 @@ class BeByLatinTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 weeks 1 hour',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 гадзіну from now',
+        'гадзіну from now',
         // CarbonInterval::days(2)->forHumans()
         '2 days',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
