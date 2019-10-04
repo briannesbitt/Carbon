@@ -4751,9 +4751,7 @@ try {
 Carbon::serializeUsing(function ($date) {
     return [
         'date' => $date->toDateTimeString(),
-        'timezone_type' => $date->timezone_type,
-        'timezone' => $date->tzName,
-    ];
+    ] + (array) $date->tz;
 });
 )}}</code></pre>
         </li>
