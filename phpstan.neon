@@ -3,7 +3,7 @@ parameters:
         - '#^Call to an undefined static method#'
         - '#^Static call to instance method#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
-        - '#^Method Carbon\\Carbon(Immutable)?::\w+\(\) should return static\(Carbon\\Carbon(Immutable)?\) but returns Carbon\\CarbonInterface\.#'
+        - '#^Method Carbon\\Carbon(Immutable)?::\w+\(\) should return (\w+\|)*(static|\$this)\(Carbon\\Carbon(Immutable)?\) but returns Carbon\\CarbonInterface\.#'
         - '#^Using \$this in static method Carbon\\Carbon(Interface|Immutable|Interval|Period)?::loadMixinTrait\(\)\.$#'
         - '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
