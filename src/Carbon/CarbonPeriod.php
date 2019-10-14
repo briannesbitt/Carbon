@@ -1003,7 +1003,7 @@ class CarbonPeriod implements Iterator, Countable
      * Returns true when current date is valid, false if it is not, or static::END_ITERATION
      * when iteration should be stopped.
      *
-     * @return bool|static::END_ITERATION
+     * @return bool|string
      */
     protected function validateCurrentDate()
     {
