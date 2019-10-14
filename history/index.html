@@ -179,32 +179,40 @@
             };
         }
 
+        var scrollCheckDebounce = null;
+
         function scrollCheck() {
-            $('.live-editor').each(function (index) {
-                var $pre = $(this);
-                if (!editorAutoLoad) {
-                    var code = $pre.find('code').text();
-                    var token = 'live-editor-' + index;
-                    var params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
-                        encodeURIComponent(code) +
-                        '&token=' + token;
-                    var link = liveEditorHost + params;
-                    $pre.css('cursor', 'pointer').click(function () {
-                        transformEditor($pre, index, code, token, link, params);
-                    });
-                    $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            if (scrollCheckDebounce) {
+                clearTimeout(scrollCheckDebounce);
+            }
 
-                    return;
-                }
+            scrollCheckDebounce = setTimeout(function () {
+                $('.live-editor').each(function (index) {
+                    var $pre = $(this);
+                    if (!editorAutoLoad) {
+                        var code = $pre.find('code').text();
+                        var token = 'live-editor-' + index;
+                        var params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                            encodeURIComponent(code) +
+                            '&token=' + token;
+                        var link = liveEditorHost + params;
+                        $pre.css('cursor', 'pointer').click(function () {
+                            transformEditor($pre, index, code, token, link, params);
+                        });
+                        $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
 
-                var scrollTop = $document.scrollTop();
-                var scrollBottom = scrollTop + $(window).height();
-                var viewMargin = 400;
-                var top = $pre.offset().top;
-                if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
-                    transformEditor($pre, index);
-                }
-            });
+                        return;
+                    }
+
+                    var scrollTop = $document.scrollTop();
+                    var scrollBottom = scrollTop + $(window).height();
+                    var viewMargin = 400;
+                    var top = $pre.offset().top;
+                    if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+                        transformEditor($pre, index);
+                    }
+                });
+            }, 1000);
         }
 
         function openDocPanel(className, selection) {
@@ -227,7 +235,6 @@
                 });
 
                 $('#open-doc-menu').remove();
-                console.log(event, options, token);
                 var $menu = $('.modal-menu');
 
                 if ($menu.length === 0) {
