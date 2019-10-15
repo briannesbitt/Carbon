@@ -18,6 +18,7 @@ use Carbon\CarbonPeriod;
 use Closure;
 use DateTime;
 use DateTimeImmutable;
+use InvalidArgumentException;
 
 /**
  * Trait Converter.
@@ -184,19 +185,39 @@ trait Converter
         return $this->rawFormat('Y-m-d H:i:s');
     }
 
+    public static function getTimeFormatByPrecision($unitPrecision)
+    {
+        switch (static::singularUnit($unitPrecision)) {
+            case 'minute':
+                return 'H:i';
+            case 'second':
+                return 'H:i:s';
+            case 'm':
+            case 'millisecond':
+                return 'H:i:s.v';
+            case 'µ':
+            case 'microsecond':
+                return 'H:i:s.u';
+        }
+
+        throw new InvalidArgumentException('Precision unit expected among: minute, second, millisecond and microsecond.');
+    }
+
     /**
      * Format the instance as date and time T-separated with no timezone
      *
      * @example
      * ```
      * echo Carbon::now()->toDateTimeLocalString();
+     * echo "\n";
+     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
      *
      * @return string
      */
-    public function toDateTimeLocalString()
+    public function toDateTimeLocalString($unitPrecision = 'second')
     {
-        return $this->rawFormat('Y-m-d\TH:i:s');
+        return $this->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision));
     }
 
     /**

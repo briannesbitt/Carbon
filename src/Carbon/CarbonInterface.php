@@ -2055,6 +2055,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public static function getTestNow();
 
+    public static function getTimeFormatByPrecision($unitPrecision);
+
     /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
      *
@@ -4161,11 +4163,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example
      * ```
      * echo Carbon::now()->toDateTimeLocalString();
+     * echo "\n";
+     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
      *
      * @return string
      */
-    public function toDateTimeLocalString();
+    public function toDateTimeLocalString($unitPrecision = 'second');
 
     /**
      * Format the instance as date and time
