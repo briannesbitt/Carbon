@@ -163,11 +163,13 @@ trait Converter
      * echo Carbon::now()->toTimeString();
      * ```
      *
+     * @param string $unitPrecision
+     *
      * @return string
      */
-    public function toTimeString()
+    public function toTimeString($unitPrecision = 'second')
     {
-        return $this->rawFormat('H:i:s');
+        return $this->rawFormat(static::getTimeFormatByPrecision($unitPrecision));
     }
 
     /**
@@ -178,11 +180,13 @@ trait Converter
      * echo Carbon::now()->toDateTimeString();
      * ```
      *
+     * @param string $unitPrecision
+     *
      * @return string
      */
-    public function toDateTimeString()
+    public function toDateTimeString($unitPrecision = 'second')
     {
-        return $this->rawFormat('Y-m-d H:i:s');
+        return $this->rawFormat('Y-m-d '.static::getTimeFormatByPrecision($unitPrecision));
     }
 
     /**
@@ -219,6 +223,8 @@ trait Converter
      * echo "\n";
      * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
+     *
+     * @param string $unitPrecision
      *
      * @return string
      */
@@ -310,11 +316,13 @@ trait Converter
      * echo Carbon::now()->toIso8601ZuluString();
      * ```
      *
+     * @param string $unitPrecision
+     *
      * @return string
      */
-    public function toIso8601ZuluString()
+    public function toIso8601ZuluString($unitPrecision = 'second')
     {
-        return $this->copy()->utc()->rawFormat('Y-m-d\TH:i:s\Z');
+        return $this->copy()->utc()->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision).'\Z');
     }
 
     /**
