@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Factory;
 use DateTime;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\BadIsoCarbon;
 use Tests\Carbon\Fixtures\MyCarbon;
@@ -115,8 +116,22 @@ class StringsTest extends AbstractTestCase
 
     public function testToDateTimeLocalString()
     {
-        $d = Carbon::create(1975, 12, 25, 14, 15, 16);
+        $d = Carbon::create(1975, 12, 25, 14, 15, 16.615342);
         $this->assertSame('1975-12-25T14:15:16', $d->toDateTimeLocalString());
+        $this->assertSame('1975-12-25T14:15', $d->toDateTimeLocalString('minute'));
+        $this->assertSame('1975-12-25T14:15:16', $d->toDateTimeLocalString('second'));
+        $this->assertSame('1975-12-25T14:15:16.615', $d->toDateTimeLocalString('millisecond'));
+        $this->assertSame('1975-12-25T14:15:16.615342', $d->toDateTimeLocalString('µs'));
+
+        $message = null;
+
+        try {
+            $d->toDateTimeLocalString('hour');
+        } catch (InvalidArgumentException $exception) {
+            $message = $exception->getMessage();
+        }
+
+        $this->assertSame('Precision unit expected among: minute, second, millisecond and microsecond.', $message);
     }
 
     public function testToFormattedDateString()
