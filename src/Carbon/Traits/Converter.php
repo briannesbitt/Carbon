@@ -185,6 +185,13 @@ trait Converter
         return $this->rawFormat('Y-m-d H:i:s');
     }
 
+    /**
+     * Return a format from H:i to H:i:s.u according to given unit precision.
+     *
+     * @param string $unitPrecision "minute", "second", "millisecond" or "microsecond"
+     *
+     * @return string
+     */
     public static function getTimeFormatByPrecision($unitPrecision)
     {
         switch (static::singularUnit($unitPrecision)) {
