@@ -849,8 +849,8 @@ Carbon::parse('2018-07-25 12:45:16')->notEqualTo('2018-07-25 12:45:17'); // true
     <h2><span class="class-name">Carbon::</span>gt</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:18'); // true
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:15'); // true
+Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -859,8 +859,8 @@ Carbon::parse('2018-07-25 12:45:16')->gt('2018-07-25 12:45:17'); // false</code>
     <h2><span class="class-name">Carbon::</span>greaterThan</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:18'); // true
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:15'); // true
+Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -869,8 +869,8 @@ Carbon::parse('2018-07-25 12:45:16')->greaterThan('2018-07-25 12:45:17'); // fal
     <h2><span class="class-name">Carbon::</span>isAfter</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:18'); // true
+    <p class="doc-description">Determines if the instance is greater (after) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:15'); // true
+Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date</code></td></tr></table>
 </div>
@@ -879,8 +879,8 @@ Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false</
     <h2><span class="class-name">Carbon::</span>gte</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:16'); // true
-Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:18'); // true
+    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:15'); // true
+Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -889,8 +889,8 @@ Carbon::parse('2018-07-25 12:45:16')->gte('2018-07-25 12:45:17'); // false</code
     <h2><span class="class-name">Carbon::</span>greaterThanOrEqualTo</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:16'); // true
-Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:18'); // true
+    <p class="doc-description">Determines if the instance is greater (after) than or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:15'); // true
+Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:17'); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -899,8 +899,8 @@ Carbon::parse('2018-07-25 12:45:16')->greaterThanOrEqualTo('2018-07-25 12:45:17'
     <h2><span class="class-name">Carbon::</span>lt</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:18'); // false
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:15'); // false
+Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -909,8 +909,8 @@ Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true</code><
     <h2><span class="class-name">Carbon::</span>lessThan</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:18'); // false
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:15'); // false
+Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -919,8 +919,8 @@ Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true</
     <h2><span class="class-name">Carbon::</span>isBefore</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:16'); // false
-Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:18'); // false
+    <p class="doc-description">Determines if the instance is less (before) than another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:15'); // false
+Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:16'); // false
 Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date</code></td></tr></table>
 </div>
@@ -929,8 +929,8 @@ Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true</
     <h2><span class="class-name">Carbon::</span>lte</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:16'); // true
-Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:18'); // false
+    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:15'); // false
+Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
@@ -939,8 +939,8 @@ Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true</code>
     <h2><span class="class-name">Carbon::</span>lessThanOrEqualTo</h2>
     <code>$date</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); // true
-Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:18'); // false
+    <p class="doc-description">Determines if the instance is less (before) or equal to another<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:15'); // false
+Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); // true
 Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
