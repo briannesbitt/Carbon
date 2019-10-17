@@ -2317,8 +2317,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:15'); // true
      * Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:16'); // false
-     * Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:18'); // true
      * Carbon::parse('2018-07-25 12:45:16')->isAfter('2018-07-25 12:45:17'); // false
      * ```
      *
@@ -2335,8 +2335,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:15'); // false
      * Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:16'); // false
-     * Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:18'); // false
      * Carbon::parse('2018-07-25 12:45:16')->isBefore('2018-07-25 12:45:17'); // true
      * ```
      *
@@ -2828,8 +2828,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:15'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:16'); // false
-     * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:18'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lessThan('2018-07-25 12:45:17'); // true
      * ```
      *
@@ -2844,8 +2844,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:15'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:16'); // true
-     * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:18'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); // true
      * ```
      *
@@ -2920,8 +2920,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:15'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:16'); // false
-     * Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:18'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lt('2018-07-25 12:45:17'); // true
      * ```
      *
@@ -2938,8 +2938,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
+     * Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:15'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:16'); // true
-     * Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:18'); // false
      * Carbon::parse('2018-07-25 12:45:16')->lte('2018-07-25 12:45:17'); // true
      * ```
      *
