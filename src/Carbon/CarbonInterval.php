@@ -15,6 +15,7 @@ use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
+use Exception;
 use InvalidArgumentException;
 
 /**
@@ -283,16 +284,16 @@ class CarbonInterval extends DateInterval
     /**
      * Create a new CarbonInterval instance.
      *
-     * @param int $years
-     * @param int $months
-     * @param int $weeks
-     * @param int $days
-     * @param int $hours
-     * @param int $minutes
-     * @param int $seconds
-     * @param int $microseconds
+     * @param int|null $years
+     * @param int|null $months
+     * @param int|null $weeks
+     * @param int|null $days
+     * @param int|null $hours
+     * @param int|null $minutes
+     * @param int|null $seconds
+     * @param int|null $microseconds
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {

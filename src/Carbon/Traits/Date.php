@@ -20,6 +20,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use DateTimeInterface;
+use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
 use RuntimeException;
@@ -602,8 +603,8 @@ trait Date
     /**
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset.
      *
-     * @param \DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
-     * @param \DateTimeZone|string|int|null $objectDump dump of the object for error messages.
+     * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
+     * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
      * @throws \InvalidArgumentException
      *
@@ -618,8 +619,8 @@ trait Date
      * Creates a DateTimeZone from a string, DateTimeZone or integer offset then convert it as region timezone
      * if integer.
      *
-     * @param \DateTimeZone|string|int|null $object
-     * @param \DateTimeZone|string|int|null $originalObject if different
+     * @param DateTimeZone|string|int|null $object
+     * @param DateTimeZone|string|int|null $originalObject if different
      *
      * @throws \InvalidArgumentException
      *
@@ -782,7 +783,7 @@ trait Date
      *
      * @throws InvalidArgumentException|ReflectionException
      *
-     * @return string|int|bool|\DateTimeZone|null
+     * @return string|int|bool|DateTimeZone|null
      */
     public function __get($name)
     {
@@ -796,7 +797,7 @@ trait Date
      *
      * @throws InvalidArgumentException|ReflectionException
      *
-     * @return string|int|bool|\DateTimeZone|null
+     * @return string|int|bool|DateTimeZone|null
      */
     public function get($name)
     {
@@ -1052,7 +1053,7 @@ trait Date
      * Set a part of the Carbon object
      *
      * @param string                   $name
-     * @param string|int|\DateTimeZone $value
+     * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
      *
@@ -1067,7 +1068,7 @@ trait Date
      * Set a part of the Carbon object
      *
      * @param string|array             $name
-     * @param string|int|\DateTimeZone $value
+     * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
      *
@@ -1121,7 +1122,7 @@ trait Date
             case 'hour':
             case 'minute':
             case 'second':
-                [$year, $month, $day, $hour, $minute, $second] = explode('-', $this->rawFormat('Y-n-j-G-i-s'));
+                [$year, $month, $day, $hour, $minute, $second] = array_map('intval', explode('-', $this->rawFormat('Y-n-j-G-i-s')));
                 $$name = $value;
                 $this->setDateTime($year, $month, $day, $hour, $minute, $second);
 
@@ -1492,7 +1493,7 @@ trait Date
     /**
      * @alias setTimezone
      *
-     * @param \DateTimeZone|string $value
+     * @param DateTimeZone|string $value
      *
      * @return static
      */
@@ -1504,7 +1505,7 @@ trait Date
     /**
      * Set the timezone or returns the timezone name if no arguments passed.
      *
-     * @param \DateTimeZone|string $value
+     * @param DateTimeZone|string $value
      *
      * @return static|string
      */
@@ -1520,7 +1521,7 @@ trait Date
     /**
      * Set the instance's timezone from a string or object.
      *
-     * @param \DateTimeZone|string $value
+     * @param DateTimeZone|string $value
      *
      * @return static
      */
@@ -1538,7 +1539,7 @@ trait Date
     /**
      * Set the instance's timezone from a string or object and add/subtract the offset difference.
      *
-     * @param \DateTimeZone|string $value
+     * @param DateTimeZone|string $value
      *
      * @return static
      */
