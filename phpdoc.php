@@ -222,25 +222,25 @@ foreach ($tags as $tag) {
                     $plUnit = pluralize($unit);
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         "$plUnit(int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         "$unit(int \$value)",
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'set'.ucfirst($plUnit).'(int $value)',
                         "Set current instance $unitName to the given value.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'set'.ucfirst($unit).'(int $value)',
                         "Set current instance $unitName to the given value.",
                     ];
@@ -254,25 +254,25 @@ foreach ($tags as $tag) {
                     $plUnitName = pluralize($unitName);
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'add'.ucFirst($plUnit).'(int $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'add'.ucFirst($unit).'()',
                         "Add one $unitName to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'sub'.ucFirst($plUnit).'(int $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using date interval).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'sub'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using date interval).",
                     ];
@@ -287,25 +287,25 @@ foreach ($tags as $tag) {
                     ])) {
                         $autoDocLines[] = [
                             '@method',
-                            'CarbonInterface',
+                            'self',
                             'add'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
                             "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
-                            'CarbonInterface',
+                            'self',
                             'add'.ucFirst($unit).'WithOverflow()',
                             "Add one $unitName to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
-                            'CarbonInterface',
+                            'self',
                             'sub'.ucFirst($plUnit).'WithOverflow(int $value = 1)',
                             "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly allowed.",
                         ];
                         $autoDocLines[] = [
                             '@method',
-                            'CarbonInterface',
+                            'self',
                             'sub'.ucFirst($unit).'WithOverflow()',
                             "Sub one $unitName to the instance (using date interval) with overflow explicitly allowed.",
                         ];
@@ -313,25 +313,25 @@ foreach ($tags as $tag) {
                         foreach (['WithoutOverflow', 'WithNoOverflow', 'NoOverflow'] as $alias) {
                             $autoDocLines[] = [
                                 '@method',
-                                'CarbonInterface',
+                                'self',
                                 'add'.ucFirst($plUnit)."$alias(int \$value = 1)",
                                 "Add $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
-                                'CarbonInterface',
+                                'self',
                                 'add'.ucFirst($unit)."$alias()",
                                 "Add one $unitName to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
-                                'CarbonInterface',
+                                'self',
                                 'sub'.ucFirst($plUnit)."$alias(int \$value = 1)",
                                 "Sub $plUnitName (the \$value count passed in) to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
                             $autoDocLines[] = [
                                 '@method',
-                                'CarbonInterface',
+                                'self',
                                 'sub'.ucFirst($unit)."$alias()",
                                 "Sub one $unitName to the instance (using date interval) with overflow explicitly forbidden.",
                             ];
@@ -349,25 +349,25 @@ foreach ($tags as $tag) {
                     $plUnitName = pluralize($unitName);
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'addReal'.ucFirst($plUnit).'(int $value = 1)',
                         "Add $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'addReal'.ucFirst($unit).'()',
                         "Add one $unitName to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'subReal'.ucFirst($plUnit).'(int $value = 1)',
                         "Sub $plUnitName (the \$value count passed in) to the instance (using timestamp).",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'subReal'.ucFirst($unit).'()',
                         "Sub one $unitName to the instance (using timestamp).",
                     ];
@@ -386,37 +386,37 @@ foreach ($tags as $tag) {
                     $plUnit = pluralize($unit);
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'round'.ucFirst($unit).'(float $precision = 1, string $function = "round")',
                         "Round the current instance $unitName with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'round'.ucFirst($plUnit).'(float $precision = 1, string $function = "round")',
                         "Round the current instance $unitName with given precision using the given function.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'floor'.ucFirst($unit).'(float $precision = 1)',
                         "Truncate the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'floor'.ucFirst($plUnit).'(float $precision = 1)',
                         "Truncate the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'ceil'.ucFirst($unit).'(float $precision = 1)',
                         "Ceil the current instance $unitName with given precision.",
                     ];
                     $autoDocLines[] = [
                         '@method',
-                        'CarbonInterface',
+                        'self',
                         'ceil'.ucFirst($plUnit).'(float $precision = 1)',
                         "Ceil the current instance $unitName with given precision.",
                     ];
@@ -443,15 +443,26 @@ foreach ($tags as $tag) {
     }
 }
 
-function compileDoc($autoDocLines)
+function compileDoc($autoDocLines, $file)
 {
+    $class = 'CarbonInterface';
+
+    if (preg_match('`[\\\\/](Carbon\w*)\.php$`', $file, $match)) {
+        $class = $match[1];
+    }
+
     $autoDoc = '';
     $columnsMaxLengths = [];
-    foreach ($autoDocLines as $line) {
-        if (is_array($line)) {
-            foreach ($line as $column => $text) {
+    foreach ($autoDocLines as &$editableLine) {
+        if (is_array($editableLine)) {
+            if (($editableLine[1] ?? '') === 'self') {
+                $editableLine[1] = $class;
+            }
+
+            foreach ($editableLine as $column => $text) {
                 $length = strlen($text);
                 $max = $columnsMaxLengths[$column] ?? 0;
+
                 if ($length > $max) {
                     $columnsMaxLengths[$column] = $length;
                 }
@@ -491,7 +502,7 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
             $autoDocLines[] = $line;
         }
 
-        $autoDoc = compileDoc($autoDocLines);
+        $autoDoc = compileDoc($autoDocLines, $file);
 
         return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
     }, $content, 1);
@@ -569,7 +580,7 @@ $factories = [
 ];
 
 foreach ($factories as $file => $methods) {
-    $autoDoc = compileDoc($methods);
+    $autoDoc = compileDoc($methods, $file);
     $content = file_get_contents($file);
     $files->$file = preg_replace_callback('/(<autodoc[\s\S]*>)([\s\S]+)(<\/autodoc>)/mU', function ($matches) use ($file, $autoDoc) {
         return $matches[1]."\n *$autoDoc\n *\n * ".$matches[3];
