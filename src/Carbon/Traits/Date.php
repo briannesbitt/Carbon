@@ -1052,7 +1052,7 @@ trait Date
     /**
      * Set a part of the Carbon object
      *
-     * @param string                   $name
+     * @param string                  $name
      * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
@@ -1067,7 +1067,7 @@ trait Date
     /**
      * Set a part of the Carbon object
      *
-     * @param string|array             $name
+     * @param string|array            $name
      * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
