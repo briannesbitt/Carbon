@@ -661,7 +661,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set a part of the Carbon object
      *
-     * @param string                   $name
+     * @param string                  $name
      * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
@@ -3431,7 +3431,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set a part of the Carbon object
      *
-     * @param string|array             $name
+     * @param string|array            $name
      * @param string|int|DateTimeZone $value
      *
      * @throws InvalidArgumentException|ReflectionException
