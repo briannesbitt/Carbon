@@ -1149,7 +1149,9 @@ trait Date
                 break;
 
             case 'dayOfYear':
-                return $this->addDays($value - $this->dayOfYear);
+                $this->addDays($value - $this->dayOfYear);
+
+                return $this;
 
             case 'timestamp':
                 parent::setTimestamp((int) $value);

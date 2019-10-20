@@ -15,6 +15,7 @@ use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionException;
