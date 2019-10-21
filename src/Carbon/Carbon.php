@@ -500,9 +500,9 @@ use DateTime;
  * @method        string         longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)      Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string         shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string         longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        static static  createFromImmutable(\DateTimeImmutable $dateTime)                                     Create a new Carbon object from an immutable date.
- * @method        static static  createFromFormat(string $format, string $time, string|\DateTimeZone $timezone = null) Parse a string into a new Carbon object according to the specified format.
- * @method        static static  __set_state(array $array)                                                             https://php.net/manual/en/datetime.set-state.php
+ * @method        static Carbon  createFromImmutable(\DateTimeImmutable $dateTime)                                     Create a new Carbon object from an immutable date.
+ * @method        static Carbon  createFromFormat(string $format, string $time, string|\DateTimeZone $timezone = null) Parse a string into a new Carbon object according to the specified format.
+ * @method        static Carbon  __set_state(array $array)                                                             https://php.net/manual/en/datetime.set-state.php
  *
  * </autodoc>
  */
