@@ -29,14 +29,14 @@ $trait = __DIR__.'/src/Carbon/Traits/Date.php';
 $code = '';
 $overrideTyping = [
     $carbon => [
-        'createFromImmutable' => ['static static', '\DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
-        'createFromFormat' => ['static static', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
-        '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
+        'createFromImmutable' => ['static Carbon', '\DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
+        'createFromFormat' => ['static Carbon', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        '__set_state' => ['static Carbon', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
     $immutable => [
-        'createFromMutable' => ['static static', '\DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
-        'createFromFormat' => ['static static', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
-        '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
+        'createFromMutable' => ['static CarbonImmutable', '\DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
+        'createFromFormat' => ['static CarbonImmutable', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        '__set_state' => ['static CarbonImmutable', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
 ];
 
