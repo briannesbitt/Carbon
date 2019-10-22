@@ -74,6 +74,11 @@
             "providers": [
                 "Carbon\\Laravel\\ServiceProvider"
             ]
+        },
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
         }
     }
 }
