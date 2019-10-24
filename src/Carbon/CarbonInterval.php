@@ -437,6 +437,21 @@ class CarbonInterval extends DateInterval
     }
 
     /**
+     * Parse a string into a new CarbonInterval object according to the specified format.
+     *
+     * @param string $format
+     * @param string $interval
+     *
+     * @return void
+     */
+    public static function createFromFormat(string $format, string $interval)
+    {
+        return Carbon::createFromFormat('!'.ltrim($format, '!'), $interval, 'UTC')->diffAsCarbonInterval(
+            Carbon::parse('1970-01-01 00:00:00', 'UTC')
+        );
+    }
+
+    /**
      * Get a copy of the instance.
      *
      * @return static
