@@ -3,16 +3,14 @@
 namespace Carbon\PHPStan;
 
 use Carbon\CarbonInterface;
+use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 
-/**
- * @internal
- */
-final class Extension implements MethodsClassReflectionExtension, BrokerAwareExtension
+class MacroExtension implements MethodsClassReflectionExtension
 {
     /**
      * @var \PHPStan\Reflection\Php\PhpMethodReflectionFactory
@@ -22,7 +20,7 @@ final class Extension implements MethodsClassReflectionExtension, BrokerAwareExt
     /**
      * Extension constructor.
      *
-     * @param \PHPStan\Reflection\Php\PhpMethodReflectionFactory $methodReflectionFactory
+     * @param  \PHPStan\Reflection\Php\PhpMethodReflectionFactory  $methodReflectionFactory
      */
     public function __construct(PhpMethodReflectionFactory $methodReflectionFactory)
     {
@@ -34,7 +32,10 @@ final class Extension implements MethodsClassReflectionExtension, BrokerAwareExt
      */
     public function hasMethod(ClassReflection $classReflection, string $methodName): bool
     {
-        if(!$classReflection->implements(CarbonInterface::class)) {
+        if (!in_array(
+            CarbonInterface::class,
+            $classReflection->getInterfaces()
+        )) {
             /** @var CarbonInterface $class */
             $class = $classReflection->getName();
 
@@ -49,7 +50,10 @@ final class Extension implements MethodsClassReflectionExtension, BrokerAwareExt
      */
     public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
     {
-        $property = $classReflection->getProperty('globalMacros');
+        $className = $classReflection->getName();
+        $reflectionClass = new \ReflectionClass($className);
+        $property = $reflectionClass->getProperty('globalMacros');
+
         $property->setAccessible(true);
         $macro = $property->getValue()[$methodName];
 

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Console\Output\BufferedOutput;
-
 class PHPStanTest extends AbstractTestCase
 {
     public function testAnalysesWithoutErrors(): void
@@ -20,11 +17,14 @@ class PHPStanTest extends AbstractTestCase
     {
         $output =  shell_exec(
             'vendor/bin/phpstan'
-            . ' --configuration ' . __DIR__ . '/../../extension.neon'
+            . ' analyse'
+            . ' --configuration="' . __DIR__ . '/../../extension.neon"'
             . ' --no-progress'
             . ' --no-interaction'
-            . ' ' . $file
+            . ' --level=0'
+            . ' "' . $file . '"'
         );
+        var_dump($output);
 
         return $output;
     }

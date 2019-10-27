@@ -51,5 +51,8 @@
         <testsuite name="cli">
             <directory>tests/Cli</directory>
         </testsuite>
+        <testsuite name="phpstan">
+            <directory>tests/PHPStan</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
