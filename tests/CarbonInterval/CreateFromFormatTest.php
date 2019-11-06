@@ -76,40 +76,40 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testMinutes()
     {
-        $ci = CarbonInterval::createFromFormat('i', '1');
+        $ci = CarbonInterval::createFromFormat('i', '01');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 1, 0);
 
-        $ci = CarbonInterval::createFromFormat('i', '2');
+        $ci = CarbonInterval::createFromFormat('i', '02');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 2, 0);
     }
 
     public function testSeconds()
     {
-        $ci = CarbonInterval::createFromFormat('s', '1');
+        $ci = CarbonInterval::createFromFormat('s', '01');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 1);
 
-        $ci = CarbonInterval::createFromFormat('s', '2');
+        $ci = CarbonInterval::createFromFormat('s', '02');
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 2);
     }
 
     public function testMicroseconds()
     {
-        $ci = CarbonInterval::createFromFormat('u', '1');
+        $ci = CarbonInterval::createFromFormat('u', '100000');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 100000);
         $this->assertSame(2, $ci->microseconds);
 
-        $ci = CarbonInterval::createFromFormat('u', '2');
+        $ci = CarbonInterval::createFromFormat('u', '200000');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0, 200000);
     }
 
     public function testAll()
     {
-        $ci = CarbonInterval::createFromFormat('Y-m-d H:i:s.u', '2000-01-02 3:04:05.5');
+        $ci = CarbonInterval::createFromFormat('Y-m-d H:i:s.u', '2000-01-02 3:04:05.500000');
         $this->assertInstanceOfCarbonInterval($ci);
         $this->assertCarbonInterval($ci, 2000, 1, 2, 3, 4, 5, 500000);
     }
