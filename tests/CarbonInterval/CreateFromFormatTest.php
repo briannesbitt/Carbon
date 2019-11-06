@@ -19,15 +19,16 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testDefaults()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Data missing');
         $ci = CarbonInterval::createFromFormat('H:i:s', '');
-        $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 1, 0, 0, 0, 0, 0);
     }
 
     public function testNulls()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Data missing');
         $ci = CarbonInterval::createFromFormat('H:i:s', null);
-        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
     public function testYears()
