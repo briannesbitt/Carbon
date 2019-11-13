@@ -234,7 +234,7 @@ function methods($excludeNatives = false, $excludeMixins = true)
     foreach ($matches as list($all, $return, $method, $parameters, $description)) {
         $parameters = convertType(trim($parameters));
 
-        if (preg_match('/^static\s/', $method)) {
+        if (preg_match('/^(static|Carbon\w*)\s/', $method)) {
             continue;
         }
 
