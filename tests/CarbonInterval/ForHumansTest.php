@@ -245,4 +245,74 @@ class ForHumansTest extends AbstractTestCase
             'options' => CarbonInterface::ONE_DAY_WORDS,
         ]));
     }
+
+    public function testRoundYears()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(11);
+        $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundUp()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(23);
+        $this->assertEquals('3 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundDown()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundDownWhenNextIntervalIsNonSequential()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->minutes(59);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMultipleParts()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->minutes(45)->seconds(59);
+        $this->assertEquals('2 days 46 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundWeeks()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(13);
+        $this->assertEquals('2 weeks', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundWeeksWithMultipleParts()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(13);
+        $this->assertEquals('1 week 6 days', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundOverflowNonSequentialRoundUp()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(35);
+        $this->assertEquals('5 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundOverflowNonSequentialRoundDown()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(37);
+        $this->assertEquals('5 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundCarryOverDoesntMatter()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11)->minutes(59);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
 }

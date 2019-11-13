@@ -1371,10 +1371,28 @@ class CarbonInterval extends DateInterval
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
         };
 
-        foreach ($diffIntervalArray as $diffIntervalData) {
+        foreach ($diffIntervalArray as $index => $diffIntervalData) {
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
+                if ($options & CarbonInterface::ROUND && count($interval) === $parts - 1 && $index < count($diffIntervalArray) - 1) {
+                    $roundValue = 0;
+                    $nextIntervalData = $diffIntervalArray[$index + 1];
+                    if ($nextIntervalData['unit'] === 'month') {
+                        $roundValue = $nextIntervalData['value'] / 12;
+                    } elseif ($nextIntervalData['unit'] === 'week') {
+                        $roundValue = $nextIntervalData['value'] / (365 / 12 / 7);
+                    } elseif ($nextIntervalData['unit'] === 'day') {
+                        $roundValue = $nextIntervalData['value'] / 7;
+                    } elseif ($nextIntervalData['unit'] === 'hour') {
+                        $roundValue = $nextIntervalData['value'] / 24;
+                    } elseif ($nextIntervalData['unit'] === 'minute') {
+                        $roundValue = $nextIntervalData['value'] / 60;
+                    } elseif ($nextIntervalData['unit'] === 'second') {
+                        $roundValue = $nextIntervalData['value'] / 60;
+                    }
+                    $diffIntervalData['value'] += round($roundValue);
+                }
                 $interval[] = $transChoice($short, $diffIntervalData);
             } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && count($interval) > 0) {
                 break;
