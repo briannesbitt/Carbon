@@ -1267,26 +1267,36 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
 
 <div class="doc-method " id="doc-method-Carbon-toTimeString">
     <h2><span class="class-name">Carbon::</span>toTimeString</h2>
-    <em>no arguments</em>
+    <code>$unitPrecision = 'second'</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Format the instance as time<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toTimeString();</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.26.0</td><td><code>$unitPrecision = 'second'</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toDateTimeString">
     <h2><span class="class-name">Carbon::</span>toDateTimeString</h2>
-    <em>no arguments</em>
+    <code>$unitPrecision = 'second'</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Format the instance as date and time<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toDateTimeString();</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.26.0</td><td><code>$unitPrecision = 'second'</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getTimeFormatByPrecision">
+    <h2><span class="class-name">Carbon::</span>getTimeFormatByPrecision</h2>
+    <code>$unitPrecision</code>
+    <div class="doc-return">returns <code>string</code></div>
+    <p class="doc-description">Return a format from H:i to H:i:s.u according to given unit precision.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.26.0</td><td><code>$unitPrecision</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toDateTimeLocalString">
     <h2><span class="class-name">Carbon::</span>toDateTimeLocalString</h2>
-    <em>no arguments</em>
+    <code>$unitPrecision = 'second'</code>
     <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Format the instance as date and time T-separated with no timezone<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toDateTimeLocalString();</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><em>no arguments</em></td></tr></table>
+    <p class="doc-description">Format the instance as date and time T-separated with no timezone<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toDateTimeLocalString();
+echo "\n";
+echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond</code></pre></p>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.26.0</td><td><code>$unitPrecision = 'second'</code></td></tr><tr><td>Method added</td><td>1.39.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toDayDateTimeString">
@@ -1331,10 +1341,10 @@ format.<br><br>Set the default format used when type juggling a Carbon instance 
 
 <div class="doc-method " id="doc-method-Carbon-toIso8601ZuluString">
     <h2><span class="class-name">Carbon::</span>toIso8601ZuluString</h2>
-    <em>no arguments</em>
+    <code>$unitPrecision = 'second'</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Convert the instance to UTC and return as Zulu ISO8601<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::now()->toIso8601ZuluString();</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.24.0</td><td><em>no arguments</em></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.26.0</td><td><code>$unitPrecision = 'second'</code></td></tr><tr><td>Method added</td><td>1.24.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-toRfc850String">
