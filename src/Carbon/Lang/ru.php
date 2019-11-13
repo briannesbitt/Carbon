@@ -76,6 +76,9 @@ return [
     'before' => function ($time) use ($transformDiff) {
         return $transformDiff($time).' до';
     },
+    'diff_now' => 'только что',
+    'diff_yesterday' => 'вчера',
+    'diff_tomorrow' => 'завтра',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
