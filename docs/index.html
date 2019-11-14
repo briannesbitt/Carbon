@@ -549,7 +549,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miï¿½rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -6238,8 +6238,12 @@ echo $dt->subMonths(2);                  // 2016-11-30 00:00:00
 </code></pre>
     </p>
 
+    <p>This will apply for methods <code>addMonth(s)</code>, <code>subMonth(s)</code>, <code>add($x, 'month')</code>,
+        <code>sub($x, 'month')</code> and equivalent quarter methods. But it won't apply for intervals objects or
+        strings like <code>add(CarbonInterval::month())</code> or <code>add('1 month')</code>.</p>
+
     <p>Static helpers exist but are deprecated. If you're sure to need to apply global setting or work with version
-        1 of Carbon, you <a href="#overflow-static-helpers" data-slide-down="#overflow-static-helpers">check the
+        1 of Carbon, <a href="#overflow-static-helpers" data-slide-down="#overflow-static-helpers">check the
             overflow static helpers section</a></p>
 
     <div id="overflow-static-helpers" class="old-way">
