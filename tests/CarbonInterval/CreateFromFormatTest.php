@@ -16,19 +16,18 @@ use Tests\AbstractTestCase;
 
 class CreateFromFormatTest extends AbstractTestCase
 {
-
     public function testDefaults()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Data missing');
-        $ci = CarbonInterval::createFromFormat('H:i:s', '');
+        CarbonInterval::createFromFormat('H:i:s', '');
     }
 
     public function testNulls()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Data missing');
-        $ci = CarbonInterval::createFromFormat('H:i:s', null);
+        CarbonInterval::createFromFormat('H:i:s', null);
     }
 
     public function testYears()
@@ -120,6 +119,6 @@ class CreateFromFormatTest extends AbstractTestCase
         $one = CarbonInterval::createFromFormat('H:i:s', '10:10:10');
         $two = $one->copy()->hours(3)->minutes(3)->seconds(3);
         $this->assertCarbonInterval($one, 0, 0, 0, 10, 10, 10);
-        $this->assertCarbonInterval($two, 0, 0, 0,  3,  3,  3);
+        $this->assertCarbonInterval($two, 0, 0, 0, 3, 3, 3);
     }
 }

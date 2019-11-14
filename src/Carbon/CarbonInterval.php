@@ -444,8 +444,8 @@ class CarbonInterval extends DateInterval
      * echo Carboninterval::createFromFormat('H:i', '1:30');
      * ```
      *
-     * @param string $format
-     * @param string $interval
+     * @param string $format   Format of the $interval input string
+     * @param string $interval Input string to convert into an interval
      *
      * @return static
      */
