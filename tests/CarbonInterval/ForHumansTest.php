@@ -253,6 +253,13 @@ class ForHumansTest extends AbstractTestCase
         $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
     }
 
+    public function testRoundMonths()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::months(2)->weeks(3);
+        $this->assertEquals('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
     public function testRoundUp()
     {
         CarbonInterval::setLocale('en');
@@ -265,6 +272,13 @@ class ForHumansTest extends AbstractTestCase
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::days(2)->hours(11);
         $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMinutes()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11)->minutes(15);
+        $this->assertEquals('2 days 11 hours', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
     }
 
     public function testRoundDownWhenNextIntervalIsNonSequential()

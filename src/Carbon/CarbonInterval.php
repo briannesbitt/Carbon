@@ -1375,24 +1375,28 @@ class CarbonInterval extends DateInterval
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
+
                 if ($options & CarbonInterface::ROUND && count($interval) === $parts - 1 && $index < count($diffIntervalArray) - 1) {
                     $roundValue = 0;
                     $nextIntervalData = $diffIntervalArray[$index + 1];
+
                     if ($nextIntervalData['unit'] === 'month') {
-                        $roundValue = $nextIntervalData['value'] / 12;
+                        $roundValue = $nextIntervalData['value'] / (static::getFactor('months', 'years') ?: Carbon::MONTHS_PER_YEAR);
                     } elseif ($nextIntervalData['unit'] === 'week') {
-                        $roundValue = $nextIntervalData['value'] / (365 / 12 / 7);
+                        $roundValue = $nextIntervalData['value'] / (static::getFactor('weeks', 'months') ?: Carbon::WEEKS_PER_MONTH);
                     } elseif ($nextIntervalData['unit'] === 'day') {
-                        $roundValue = $nextIntervalData['value'] / 7;
+                        $roundValue = $nextIntervalData['value'] / static::getDaysPerWeek();
                     } elseif ($nextIntervalData['unit'] === 'hour') {
-                        $roundValue = $nextIntervalData['value'] / 24;
+                        $roundValue = $nextIntervalData['value'] / static::getHoursPerDay();
                     } elseif ($nextIntervalData['unit'] === 'minute') {
-                        $roundValue = $nextIntervalData['value'] / 60;
+                        $roundValue = $nextIntervalData['value'] / static::getMinutesPerHour();
                     } elseif ($nextIntervalData['unit'] === 'second') {
-                        $roundValue = $nextIntervalData['value'] / 60;
+                        $roundValue = $nextIntervalData['value'] / static::getSecondsPerMinute();
                     }
+
                     $diffIntervalData['value'] += round($roundValue);
                 }
+
                 $interval[] = $transChoice($short, $diffIntervalData);
             } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && count($interval) > 0) {
                 break;
