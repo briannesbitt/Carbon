@@ -295,6 +295,15 @@ class ForHumansTest extends AbstractTestCase
         $this->assertEquals('2 days 46 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
     }
 
+    public function testRoundMultiplePartsGap()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->seconds(59);
+        $this->assertEquals('2 days 59 seconds', $interval->forHumans(['parts' => 2]));
+        $this->assertEquals('2 days 59 seconds', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
     public function testRoundWeeks()
     {
         CarbonInterval::setLocale('en');
