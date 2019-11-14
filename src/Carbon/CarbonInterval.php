@@ -484,13 +484,13 @@ class CarbonInterval extends DateInterval
 
         if (preg_match('/s([,.])([uv])$/', $format, $match)) {
             $interval = explode($match[1], $interval);
-            $i = count($interval) - 1;
-            $interval[$i] = str_pad($interval[$i], $match[2] === 'v' ? 3 : 6, '0');
+            $index = count($interval) - 1;
+            $interval[$index] = str_pad($interval[$index], $match[2] === 'v' ? 3 : 6, '0');
             $interval = implode($match[1], $interval);
         }
 
-        for ($i = 0; $i < $length; $i++) {
-            $expected = mb_substr($format, $i, 1);
+        for ($index = 0; $index < $length; $index++) {
+            $expected = mb_substr($format, $index, 1);
             $nextCharacter = mb_substr($interval, 0, 1);
             $unit = static::$formats[$expected] ?? null;
 
