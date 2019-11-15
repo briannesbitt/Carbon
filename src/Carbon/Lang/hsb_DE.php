@@ -13,7 +13,7 @@
  * Authors:
  * - Information from Michael Wolf Andrzej Krzysztofowicz ankry@mif.pg.gda.pl
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

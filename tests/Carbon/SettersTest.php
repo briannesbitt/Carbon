@@ -453,15 +453,15 @@ class SettersTest extends AbstractTestCase
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
-            $year = mt_rand(2000, 3000);
-            $month = mt_rand(1, 12);
-            $day = mt_rand(1, 28);
-            $hour = mt_rand(0, 23);
-            $minute = mt_rand(0, 59);
-            $second = mt_rand(0, 59);
-            $microsecond = mt_rand(0, 999999);
+            $year = \mt_rand(2000, 3000);
+            $month = \mt_rand(1, 12);
+            $day = \mt_rand(1, 28);
+            $hour = \mt_rand(0, 23);
+            $minute = \mt_rand(0, 59);
+            $second = \mt_rand(0, 59);
+            $microsecond = \mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[\mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -471,10 +471,10 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
-            $value = mt_rand() > 0.5 ?
-                mt_rand(-9999, 9999) :
-                mt_rand(-60, 60);
+            $valueUnit = \array_keys($units)[\mt_rand(0, \count($units) - 1)];
+            $value = \mt_rand() > 0.5 ?
+                \mt_rand(-9999, 9999) :
+                \mt_rand(-60, 60);
 
             $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
             $original = $date->copy();
@@ -488,14 +488,14 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $unit = \ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = $value % $units[$valueUnit];
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
+                (\method_exists($date, "diffInReal$unit") && $$valueUnit - $date->{"diffInReal$unit"}($original, false) === $value) ||
                 $$valueUnit - $date->{"diffIn$unit"}($original, false) === $value
             ) {
                 $results['current']++;
@@ -516,10 +516,10 @@ class SettersTest extends AbstractTestCase
             }
 
             throw new \Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->setUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
+                'Carbon::parse('.\var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                \var_export($original->timezoneName, true).
+                ')->setUnitNoOverflow('.\implode(', ', \array_map(function ($value) {
+                    return \var_export($value, true);
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
@@ -561,15 +561,15 @@ class SettersTest extends AbstractTestCase
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
-            $year = mt_rand(2000, 3000);
-            $month = mt_rand(1, 12);
-            $day = mt_rand(1, 28);
-            $hour = mt_rand(0, 23);
-            $minute = mt_rand(0, 59);
-            $second = mt_rand(0, 59);
-            $microsecond = mt_rand(0, 999999);
+            $year = \mt_rand(2000, 3000);
+            $month = \mt_rand(1, 12);
+            $day = \mt_rand(1, 28);
+            $hour = \mt_rand(0, 23);
+            $minute = \mt_rand(0, 59);
+            $second = \mt_rand(0, 59);
+            $microsecond = \mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[\mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -579,10 +579,10 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
-            $value = mt_rand() > 0.5 ?
-                mt_rand(-9999, 9999) :
-                mt_rand(-60, 60);
+            $valueUnit = \array_keys($units)[\mt_rand(0, \count($units) - 1)];
+            $value = \mt_rand() > 0.5 ?
+                \mt_rand(-9999, 9999) :
+                \mt_rand(-60, 60);
 
             $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
             $original = $date->copy();
@@ -596,14 +596,14 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $unit = \ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = ($$valueUnit + $value) % $units[$valueUnit];
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
+                (\method_exists($date, "diffInReal$unit") && -$date->{"diffInReal$unit"}($original, false) === $value) ||
                 -$date->{"diffIn$unit"}($original, false) === $value
             ) {
                 $results['current']++;
@@ -624,10 +624,10 @@ class SettersTest extends AbstractTestCase
             }
 
             throw new \Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->addUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
+                'Carbon::parse('.\var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                \var_export($original->timezoneName, true).
+                ')->addUnitNoOverflow('.\implode(', ', \array_map(function ($value) {
+                    return \var_export($value, true);
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 
@@ -649,15 +649,15 @@ class SettersTest extends AbstractTestCase
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
-            $year = mt_rand(2000, 3000);
-            $month = mt_rand(1, 12);
-            $day = mt_rand(1, 28);
-            $hour = mt_rand(0, 23);
-            $minute = mt_rand(0, 59);
-            $second = mt_rand(0, 59);
-            $microsecond = mt_rand(0, 999999);
+            $year = \mt_rand(2000, 3000);
+            $month = \mt_rand(1, 12);
+            $day = \mt_rand(1, 28);
+            $hour = \mt_rand(0, 23);
+            $minute = \mt_rand(0, 59);
+            $second = \mt_rand(0, 59);
+            $microsecond = \mt_rand(0, 999999);
             $units = ['millennium', 'century', 'decade', 'year', 'quarter', 'month', 'day', 'hour', 'minute', 'second', 'week'];
-            $overflowUnit = $units[mt_rand(0, count($units) - 1)];
+            $overflowUnit = $units[\mt_rand(0, \count($units) - 1)];
             $units = [
                 'year' => 10,
                 'month' => 12,
@@ -667,10 +667,10 @@ class SettersTest extends AbstractTestCase
                 'second' => 60,
                 'microsecond' => 1000000,
             ];
-            $valueUnit = array_keys($units)[mt_rand(0, count($units) - 1)];
-            $value = mt_rand() > 0.5 ?
-                mt_rand(-9999, 9999) :
-                mt_rand(-60, 60);
+            $valueUnit = \array_keys($units)[\mt_rand(0, \count($units) - 1)];
+            $value = \mt_rand() > 0.5 ?
+                \mt_rand(-9999, 9999) :
+                \mt_rand(-60, 60);
 
             $date = Carbon::create($year, $month, $day, $hour, $minute, $second + $microsecond / 1000000);
             $original = $date->copy();
@@ -684,14 +684,14 @@ class SettersTest extends AbstractTestCase
                 continue;
             }
 
-            $unit = ucfirst(Carbon::pluralUnit($valueUnit));
+            $unit = \ucfirst(Carbon::pluralUnit($valueUnit));
             $modulo = ($$valueUnit - $value) % $units[$valueUnit];
             if ($modulo < 0) {
                 $modulo += $units[$valueUnit];
             }
             if ($date->$valueUnit === $value ||
                 $date->$valueUnit === $modulo ||
-                (method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
+                (\method_exists($date, "diffInReal$unit") && $date->{"diffInReal$unit"}($original, false) === $value) ||
                 $date->{"diffIn$unit"}($original, false) === $value
             ) {
                 $results['current']++;
@@ -712,10 +712,10 @@ class SettersTest extends AbstractTestCase
             }
 
             throw new \Exception('Unhandled result for: '.
-                'Carbon::parse('.var_export($original->format('Y-m-d H:i:s.u'), true).', '.
-                var_export($original->timezoneName, true).
-                ')->subUnitNoOverflow('.implode(', ', array_map(function ($value) {
-                    return var_export($value, true);
+                'Carbon::parse('.\var_export($original->format('Y-m-d H:i:s.u'), true).', '.
+                \var_export($original->timezoneName, true).
+                ')->subUnitNoOverflow('.\implode(', ', \array_map(function ($value) {
+                    return \var_export($value, true);
                 }, [$valueUnit, $value, $overflowUnit])).');'."\nGetting: ".$date->format('Y-m-d H:i:s.u e'));
         }
 

@@ -72,7 +72,7 @@ trait Week
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($year !== null) {
-            $year = (int) round($year);
+            $year = (int) \round($year);
 
             if ($this->weekYear(null, $dayOfWeek, $dayOfYear) === $year) {
                 return $this->copy();
@@ -162,7 +162,7 @@ trait Week
             $endDay += $this->daysInYear;
         }
 
-        return (int) round(($endDay - $startDay) / 7);
+        return (int) \round(($endDay - $startDay) / 7);
     }
 
     /**
@@ -183,7 +183,7 @@ trait Week
         $dayOfYear = $dayOfYear ?? $this->getTranslationMessage('day_of_first_week_of_year') ?? 1;
 
         if ($week !== null) {
-            return $date->addWeeks(round($week) - $this->week(null, $dayOfWeek, $dayOfYear));
+            return $date->addWeeks(\round($week) - $this->week(null, $dayOfWeek, $dayOfYear));
         }
 
         $start = $date->copy()->dayOfYear($dayOfYear)->startOfWeek($dayOfWeek);

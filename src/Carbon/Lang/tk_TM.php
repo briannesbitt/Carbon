@@ -15,13 +15,13 @@
  * - SuperManPHP
  */
 $transformDiff = function ($input) {
-    return strtr($input, [
+    return \strtr($input, [
         'sekunt' => 'sekunt',
         'hepde' => 'hepde',
     ]);
 };
 
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],

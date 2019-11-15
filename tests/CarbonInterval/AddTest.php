@@ -61,7 +61,7 @@ class AddTest extends AbstractTestCase
 
     public function testAddWithRawDiffDateInterval()
     {
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
 
         $date = new \DateTime();
         $diff = $date->diff((clone $date)->modify('3 weeks'));
@@ -71,7 +71,7 @@ class AddTest extends AbstractTestCase
 
     public function testAddWithRawNegativeDiffDateInterval()
     {
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
 
         $date = new \DateTime();
         $diff = $date->diff((clone $date)->modify('-3 weeks'));
@@ -103,12 +103,12 @@ class AddTest extends AbstractTestCase
     public function testAddSign($base, $increment, $expectedResult)
     {
         $interval = new CarbonInterval();
-        $interval->hours(abs($base));
+        $interval->hours(\abs($base));
         if ($base < 0) {
             $interval->invert();
         }
         $add = new CarbonInterval();
-        $add->hours(abs($increment));
+        $add->hours(\abs($increment));
         if ($increment < 0) {
             $add->invert();
         }

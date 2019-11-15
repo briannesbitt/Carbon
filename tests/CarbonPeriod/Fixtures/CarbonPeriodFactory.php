@@ -84,7 +84,7 @@ class CarbonPeriodFactory
         ];
 
         $period->addFilter(function () use (&$stack) {
-            return array_shift($stack);
+            return \array_shift($stack);
         });
 
         return $period;

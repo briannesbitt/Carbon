@@ -16,7 +16,7 @@
  * - Maxime VALY
  * - JD Isaacks
  */
-return array_replace_recursive(require __DIR__.'/fr.php', [
+return \array_replace_recursive(require __DIR__.'/fr.php', [
     'formats' => [
         'L' => 'YYYY-MM-DD',
     ],

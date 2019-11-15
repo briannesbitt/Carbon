@@ -13,7 +13,7 @@
  * Authors:
  * - Sardinian Translators Team Massimeddu Cireddu massimeddu@gmail.com
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD. MM. YY',
     ],

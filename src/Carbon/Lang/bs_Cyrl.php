@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-return array_replace_recursive(require __DIR__.'/bs.php', [
+return \array_replace_recursive(require __DIR__.'/bs.php', [
     'meridiem' => ['пре подне', 'поподне'],
     'weekdays' => ['недјеља', 'понедјељак', 'уторак', 'сриједа', 'четвртак', 'петак', 'субота'],
     'weekdays_short' => ['нед', 'пон', 'уто', 'сри', 'чет', 'пет', 'суб'],

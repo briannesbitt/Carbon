@@ -13,7 +13,7 @@
  * Authors:
  * - Reşat SABIQ tilde.birlik@gmail.com
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD.MM.YYYY',
     ],

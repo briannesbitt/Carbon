@@ -19,8 +19,8 @@ class TranslatorTest extends AbstractTestCase
 {
     public function testSetLocale()
     {
-        $currentLocale = setlocale(LC_TIME, '0');
-        $currentLocaleAll = setlocale(LC_ALL, '0');
+        $currentLocale = \setlocale(LC_TIME, '0');
+        $currentLocaleAll = \setlocale(LC_ALL, '0');
 
         $translator = new Translator('en_FooBar');
         $translator->setLocale('auto');
@@ -33,14 +33,14 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame('en_ISO', $translator->getLocale());
 
         $translator = new Translator('fr');
-        setlocale(LC_ALL, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
-        setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
+        \setlocale(LC_ALL, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
+        \setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
         $translator->setLocale('auto');
 
         $this->assertStringStartsWith('en_US', $translator->getLocale());
 
-        setlocale(LC_ALL, $currentLocaleAll);
-        setlocale(LC_TIME, $currentLocale);
+        \setlocale(LC_ALL, $currentLocaleAll);
+        \setlocale(LC_TIME, $currentLocale);
     }
 
     public function testMethodsPriorities()

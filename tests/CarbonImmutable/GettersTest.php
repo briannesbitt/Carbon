@@ -79,11 +79,11 @@ class GettersTest extends AbstractTestCase
         $now = Carbon::getTestNow();
         Carbon::setTestNow(null);
 
-        $start = microtime(true);
-        usleep(10000);
+        $start = \microtime(true);
+        \usleep(10000);
         $d = Carbon::now();
-        usleep(10000);
-        $end = microtime(true);
+        \usleep(10000);
+        $end = \microtime(true);
         $microTime = $d->getTimestamp() + $d->micro / 1000000;
 
         $this->assertGreaterThan($start, $microTime);
@@ -156,7 +156,7 @@ class GettersTest extends AbstractTestCase
     public function testGetAgeWithRealAge()
     {
         $d = Carbon::createFromDate(1975, 5, 21);
-        $age = intval(substr((string) (intval(date('Ymd')) - intval(date('Ymd', $d->timestamp))), 0, -4));
+        $age = \intval(\substr((string) (\intval(\date('Ymd')) - \intval(\date('Ymd', $d->timestamp))), 0, -4));
 
         $this->assertSame($age, $d->age);
     }

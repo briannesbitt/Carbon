@@ -27,7 +27,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $events = $this->app['events'];
 
         if ($this->isEventDispatcher($events)) {
-            $events->listen(class_exists('Illuminate\Foundation\Events\LocaleUpdated') ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
+            $events->listen(\class_exists('Illuminate\Foundation\Events\LocaleUpdated') ? 'Illuminate\Foundation\Events\LocaleUpdated' : 'locale.changed', function () use ($service) {
                 $service->updateLocale();
             });
         }
@@ -35,7 +35,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function updateLocale()
     {
-        $app = $this->app && method_exists($this->app, 'getLocale') ? $this->app : app('translator');
+        $app = $this->app && \method_exists($this->app, 'getLocale') ? $this->app : app('translator');
         $locale = $app->getLocale();
         Carbon::setLocale($locale);
         CarbonImmutable::setLocale($locale);
@@ -43,11 +43,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         CarbonInterval::setLocale($locale);
 
         // @codeCoverageIgnoreStart
-        if (class_exists(IlluminateCarbon::class)) {
+        if (\class_exists(IlluminateCarbon::class)) {
             IlluminateCarbon::setLocale($locale);
         }
 
-        if (class_exists(Date::class)) {
+        if (\class_exists(Date::class)) {
             try {
                 $root = Date::getFacadeRoot();
                 $root->setLocale($locale);

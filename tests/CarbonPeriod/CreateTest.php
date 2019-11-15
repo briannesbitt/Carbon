@@ -30,7 +30,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromIso8601String($arguments, $expected)
     {
-        [$iso, $options] = array_pad($arguments, 2, null);
+        [$iso, $options] = \array_pad($arguments, 2, null);
 
         $period = CarbonPeriod::create($iso, $options);
 
@@ -127,7 +127,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromStartDateAndEndDate($arguments, $expected)
     {
-        [$start, $end, $options] = array_pad($arguments, 3, null);
+        [$start, $end, $options] = \array_pad($arguments, 3, null);
 
         $start = Carbon::parse($start);
         $end = Carbon::parse($end);
@@ -183,7 +183,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromStartDateAndIntervalAndEndDate($arguments, $expected)
     {
-        [$start, $interval, $end, $options] = array_pad($arguments, 4, null);
+        [$start, $interval, $end, $options] = \array_pad($arguments, 4, null);
 
         $start = Carbon::parse($start);
         $interval = CarbonInterval::create($interval);
@@ -240,7 +240,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromStartDateAndIntervalAndRecurrences($arguments, $expected)
     {
-        [$start, $interval, $recurrences, $options] = array_pad($arguments, 4, null);
+        [$start, $interval, $recurrences, $options] = \array_pad($arguments, 4, null);
 
         $start = Carbon::parse($start);
         $interval = CarbonInterval::create($interval);
@@ -272,7 +272,7 @@ class CreateTest extends AbstractTestCase
      */
     public function testCreateFromStartDateAndRecurrences($arguments, $expected)
     {
-        [$start, $recurrences, $options] = array_pad($arguments, 4, null);
+        [$start, $recurrences, $options] = \array_pad($arguments, 4, null);
 
         $start = Carbon::parse($start);
 
@@ -330,7 +330,7 @@ class CreateTest extends AbstractTestCase
             'Invalid constructor parameters.'
         );
 
-        call_user_func_array('Carbon\CarbonPeriod::create', func_get_args());
+        \call_user_func_array('Carbon\CarbonPeriod::create', \func_get_args());
     }
 
     public function provideInvalidParameters()
@@ -619,7 +619,7 @@ class CreateTest extends AbstractTestCase
                     $this->getEndDate()->format('j');
             }
         };
-        $subClass = get_class($period);
+        $subClass = \get_class($period);
 
         $this->assertInstanceOf(CarbonPeriod::class, $period);
         $this->assertNotSame(CarbonPeriod::class, $subClass);

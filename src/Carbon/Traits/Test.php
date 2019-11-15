@@ -47,7 +47,7 @@ trait Test
      */
     public static function setTestNow($testNow = null)
     {
-        static::$testNow = is_string($testNow) ? static::parse($testNow) : $testNow;
+        static::$testNow = \is_string($testNow) ? static::parse($testNow) : $testNow;
     }
 
     /**

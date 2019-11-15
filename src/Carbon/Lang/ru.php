@@ -35,7 +35,7 @@
  * - Vladislav UnsealedOne
  */
 $transformDiff = function ($input) {
-    return strtr($input, [
+    return \strtr($input, [
         'неделя' => 'неделю',
         'секунда' => 'секунду',
         'минута' => 'минуту',

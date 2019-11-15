@@ -65,7 +65,7 @@ class NowAndOtherStaticHelpersTest extends AbstractTestCase
     public function testToday()
     {
         $dt = Carbon::today();
-        $this->assertSame(date('Y-m-d 00:00:00'), $dt->toDateTimeString());
+        $this->assertSame(\date('Y-m-d 00:00:00'), $dt->toDateTimeString());
     }
 
     public function testTodayWithTimezone()

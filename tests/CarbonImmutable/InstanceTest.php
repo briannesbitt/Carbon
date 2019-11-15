@@ -93,7 +93,7 @@ class InstanceTest extends AbstractTestCase
     public function testDeserializationOccursCorrectly()
     {
         $carbon = new Carbon('2017-06-27 13:14:15.000000');
-        $serialized = 'return '.var_export($carbon, true).';';
+        $serialized = 'return '.\var_export($carbon, true).';';
         $deserialized = eval($serialized);
 
         $this->assertInstanceOf(Carbon::class, $deserialized);
@@ -141,7 +141,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testChildCast()
     {
-        $class = get_class(new class extends Carbon {
+        $class = \get_class(new class extends Carbon {
             public function foo()
             {
                 return 42;
@@ -159,7 +159,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testSiblingCast()
     {
-        $class = get_class(new class extends DateTime {
+        $class = \get_class(new class extends DateTime {
             public function foo()
             {
                 return 42;

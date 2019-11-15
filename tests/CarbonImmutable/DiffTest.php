@@ -399,7 +399,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInHoursWithTimezones()
     {
-        date_default_timezone_set('Africa/Algiers');
+        \date_default_timezone_set('Africa/Algiers');
         Carbon::setTestNow();
 
         $dtToronto = Carbon::create(2012, 1, 1, 0, 0, 0, 'America/Toronto');
@@ -408,7 +408,7 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(3, $dtVancouver->diffInHours($dtToronto), 'Midnight in Toronto is 3 hours from midnight in Vancouver');
 
         $dtToronto = Carbon::createFromDate(2012, 1, 1, 'America/Toronto');
-        sleep(2);
+        \sleep(2);
         $dtVancouver = Carbon::createFromDate(2012, 1, 1, 'America/Vancouver');
 
         $this->assertSame(0, $dtVancouver->diffInHours($dtToronto) % 24);
@@ -1536,7 +1536,7 @@ class DiffTest extends AbstractTestCase
 
     public function testFloatDiff()
     {
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
 
         $this->assertSame(8986.665965, Carbon::parse('2018-03-31 23:55:12.321456')->floatDiffInSeconds(Carbon::parse('2018-04-01 02:24:58.987421')));
 
@@ -1579,7 +1579,7 @@ class DiffTest extends AbstractTestCase
 
     public function testFloatDiffWithRealUnits()
     {
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
 
         $this->assertSame(1.0006944444444443, Carbon::parse('2018-12-01 00:00')->floatDiffInRealDays(Carbon::parse('2018-12-02 00:01')));
 
@@ -1681,7 +1681,7 @@ class DiffTest extends AbstractTestCase
         $d2 = Carbon::parse('2019-06-16 12:34:56.123455');
 
         // Due to https://bugs.php.net/bug.php?id=77007, this changed in 7.2.12:
-        $expected = version_compare(PHP_VERSION, '7.2.12-dev', '<')
+        $expected = \version_compare(PHP_VERSION, '7.2.12-dev', '<')
             ? 86400 // Bad rounding before PHP 7.2.12
             : 86399; // Exact result since PHP 7.2.12
 

@@ -41,7 +41,7 @@ trait Difference
     protected static function fixNegativeMicroseconds(CarbonInterval $diff)
     {
         if ($diff->s !== 0 || $diff->i !== 0 || $diff->h !== 0 || $diff->d !== 0 || $diff->m !== 0 || $diff->y !== 0) {
-            $diff->f = (round($diff->f * 1000000) + 1000000) / 1000000;
+            $diff->f = (\round($diff->f * 1000000) + 1000000) / 1000000;
             $diff->s--;
 
             if ($diff->s < 0) {
@@ -95,7 +95,7 @@ trait Difference
             $diff->h = 0;
             $diff->i = 0;
             $diff->s = 0;
-            $diff->f = (1000000 - round($diff->f * 1000000)) / 1000000;
+            $diff->f = (1000000 - \round($diff->f * 1000000)) / 1000000;
             $diff->invert();
         } elseif ($diff->f < 0) {
             static::fixNegativeMicroseconds($diff);
@@ -364,7 +364,7 @@ trait Difference
     public function diffInMicroseconds($date = null, $absolute = true)
     {
         $diff = $this->diff($date);
-        $value = (int) round(((((($diff->m || $diff->y ? $diff->days : $diff->d) * static::HOURS_PER_DAY) +
+        $value = (int) \round(((((($diff->m || $diff->y ? $diff->days : $diff->d) * static::HOURS_PER_DAY) +
             $diff->h) * static::MINUTES_PER_HOUR +
             $diff->i) * static::SECONDS_PER_MINUTE +
             ($diff->f + $diff->s)) * static::MICROSECONDS_PER_SECOND);
@@ -399,7 +399,7 @@ trait Difference
         $date = $this->resolveCarbon($date);
         $value = $date->getTimestamp() - $this->getTimestamp();
 
-        return $absolute ? abs($value) : $value;
+        return $absolute ? \abs($value) : $value;
     }
 
     /**
@@ -417,7 +417,7 @@ trait Difference
         $value = ($date->timestamp - $this->timestamp) * static::MICROSECONDS_PER_SECOND +
             $date->micro - $this->micro;
 
-        return $absolute ? abs($value) : $value;
+        return $absolute ? \abs($value) : $value;
     }
 
     /**
@@ -484,7 +484,7 @@ trait Difference
     {
         $hoursDiff = $this->floatDiffInHours($date, $absolute);
 
-        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + \fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
 
     /**
@@ -608,7 +608,7 @@ trait Difference
     {
         $hoursDiff = $this->floatDiffInRealHours($date, $absolute);
 
-        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
+        return ($hoursDiff < 0 ? -1 : 1) * $this->diffInDays($date) + \fmod($hoursDiff, static::HOURS_PER_DAY) / static::HOURS_PER_DAY;
     }
 
     /**
@@ -745,21 +745,21 @@ trait Difference
     public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null)
     {
         /* @var CarbonInterface $this */
-        if (is_array($other)) {
-            $other['syntax'] = array_key_exists('syntax', $other) ? $other['syntax'] : $syntax;
+        if (\is_array($other)) {
+            $other['syntax'] = \array_key_exists('syntax', $other) ? $other['syntax'] : $syntax;
             $syntax = $other;
             $other = $syntax['other'] ?? null;
         }
 
         $intSyntax = &$syntax;
-        if (is_array($syntax)) {
+        if (\is_array($syntax)) {
             $syntax['syntax'] = $syntax['syntax'] ?? null;
             $intSyntax = &$syntax['syntax'];
         }
         $intSyntax = (int) ($intSyntax === null ? static::DIFF_RELATIVE_AUTO : $intSyntax);
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
-        $parts = min(7, max(1, (int) $parts));
+        $parts = \min(7, \max(1, (int) $parts));
 
         return $this->diffAsCarbonInterval($other, false)
             ->setLocalTranslator($this->getLocalTranslator())
@@ -945,7 +945,7 @@ trait Difference
         $other = null;
 
         if ($syntax instanceof DateTimeInterface) {
-            [$other, $syntax, $short, $parts, $options] = array_pad(func_get_args(), 5, null);
+            [$other, $syntax, $short, $parts, $options] = \array_pad(\func_get_args(), 5, null);
         }
 
         return $this->from($other, $syntax, $short, $parts, $options);
@@ -1017,7 +1017,7 @@ trait Difference
         $other = null;
 
         if ($syntax instanceof DateTimeInterface) {
-            [$other, $syntax, $short, $parts, $options] = array_pad(func_get_args(), 5, null);
+            [$other, $syntax, $short, $parts, $options] = \array_pad(\func_get_args(), 5, null);
         }
 
         return $this->from($other, $syntax, $short, $parts, $options);
@@ -1069,11 +1069,11 @@ trait Difference
                 )
             )
         );
-        $format = array_merge($this->getCalendarFormats(), $formats)[$format];
+        $format = \array_merge($this->getCalendarFormats(), $formats)[$format];
         if ($format instanceof Closure) {
             $format = $format($current, $other) ?? '';
         }
 
-        return $this->isoFormat(strval($format));
+        return $this->isoFormat(\strval($format));
     }
 }

@@ -62,8 +62,8 @@ return [
             // second
             'წამი' => 'წამის',
         ];
-        $time = strtr($time, array_flip($replacements));
-        $time = strtr($time, $replacements);
+        $time = \strtr($time, \array_flip($replacements));
+        $time = \strtr($time, $replacements);
 
         return "$time წინ";
     },
@@ -84,8 +84,8 @@ return [
             // second
             'წამი' => 'წამში',
         ];
-        $time = strtr($time, array_flip($replacements));
-        $time = strtr($time, $replacements);
+        $time = \strtr($time, \array_flip($replacements));
+        $time = \strtr($time, $replacements);
 
         return $time;
     },
@@ -106,8 +106,8 @@ return [
             // second
             'წამი' => 'წამის',
         ];
-        $time = strtr($time, array_flip($replacements));
-        $time = strtr($time, $replacements);
+        $time = \strtr($time, \array_flip($replacements));
+        $time = \strtr($time, $replacements);
 
         return "$time შემდეგ";
     },
@@ -128,8 +128,8 @@ return [
             // second
             'წამი' => 'წამის',
         ];
-        $time = strtr($time, array_flip($replacements));
-        $time = strtr($time, $replacements);
+        $time = \strtr($time, \array_flip($replacements));
+        $time = \strtr($time, $replacements);
 
         return "$time უკან";
     },

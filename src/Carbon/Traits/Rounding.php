@@ -51,7 +51,7 @@ trait Rounding
             'millisecond' => [1000, 'microsecond'],
         ];
         $normalizedUnit = static::singularUnit($unit);
-        $ranges = array_merge(static::getRangesByUnit(), [
+        $ranges = \array_merge(static::getRangesByUnit(), [
             // @call roundUnit
             'microsecond' => [0, 999999],
         ]);
@@ -81,7 +81,7 @@ trait Rounding
         foreach ($ranges as $unit => [$minimum, $maximum]) {
             if ($normalizedUnit === $unit) {
                 $arguments = [$this->$unit, $minimum];
-                $fraction = $precision - floor($precision);
+                $fraction = $precision - \floor($precision);
                 $found = true;
 
                 continue;
@@ -92,20 +92,20 @@ trait Rounding
                 $factor /= $delta;
                 $fraction *= $delta;
                 $arguments[0] += $this->$unit * $factor;
-                $changes[$unit] = round($minimum + ($fraction ? $fraction * call_user_func($function, ($this->$unit - $minimum) / $fraction) : 0));
+                $changes[$unit] = \round($minimum + ($fraction ? $fraction * \call_user_func($function, ($this->$unit - $minimum) / $fraction) : 0));
 
                 // Cannot use modulo as it lose double precision
                 while ($changes[$unit] >= $delta) {
                     $changes[$unit] -= $delta;
                 }
 
-                $fraction -= floor($fraction);
+                $fraction -= \floor($fraction);
             }
         }
 
         [$value, $minimum] = $arguments;
         /** @var CarbonInterface $result */
-        $result = $this->$normalizedUnit(floor(call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
+        $result = $this->$normalizedUnit(\floor(\call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
 
         foreach ($changes as $unit => $value) {
             $result = $result->$unit($value);
@@ -156,8 +156,8 @@ trait Rounding
             $precision = (string) CarbonInterval::instance($precision);
         }
 
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
+        if (\is_string($precision) && \preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
+            if (\trim($match['other'] ?? '') !== '') {
                 throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
             }
 

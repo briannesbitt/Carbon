@@ -13,7 +13,7 @@
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory    bug-glibc-locales@gnu.org
  */
-return array_replace_recursive(require __DIR__.'/zh.php', [
+return \array_replace_recursive(require __DIR__.'/zh.php', [
     'formats' => [
         'L' => 'YYYY年MM月DD日',
     ],

@@ -23,7 +23,7 @@
  * - JD Isaacks
  * - Raphael Amorim
  */
-return array_replace_recursive(require __DIR__.'/es.php', [
+return \array_replace_recursive(require __DIR__.'/es.php', [
     'diff_before_yesterday' => 'anteayer',
     'formats' => [
         'LT' => 'h:mm A',

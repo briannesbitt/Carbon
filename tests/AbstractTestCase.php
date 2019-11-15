@@ -55,9 +55,9 @@ abstract class AbstractTestCase extends TestCase
     protected function setUp(): void
     {
         //save current timezone
-        $this->saveTz = date_default_timezone_get();
+        $this->saveTz = \date_default_timezone_get();
 
-        date_default_timezone_set('America/Toronto');
+        \date_default_timezone_set('America/Toronto');
 
         /** @var Carbon $now */
         $now = $this->oldNow
@@ -78,7 +78,7 @@ abstract class AbstractTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        date_default_timezone_set($this->saveTz);
+        \date_default_timezone_set($this->saveTz);
 
         Carbon::setTestNow();
         Carbon::resetToStringFormat();
@@ -233,7 +233,7 @@ abstract class AbstractTestCase extends TestCase
 
     public function wrapWithUtf8LcTimeLocale($locale, Closure $func)
     {
-        $currentLocale = setlocale(LC_TIME, '0');
+        $currentLocale = \setlocale(LC_TIME, '0');
         $locales = ["$locale.UTF-8"];
         $mapping = [
             'fr_FR' => 'French_France',
@@ -244,7 +244,7 @@ abstract class AbstractTestCase extends TestCase
             $locales[] = "$windowsLocale.UTF8";
         }
 
-        if (setlocale(LC_TIME, ...$locales) === false) {
+        if (\setlocale(LC_TIME, ...$locales) === false) {
             $this->markTestSkipped("UTF-8 test need $locale.UTF-8 (a locale with accents).");
         }
 
@@ -256,7 +256,7 @@ abstract class AbstractTestCase extends TestCase
             $exception = $e;
         }
 
-        setlocale(LC_TIME, $currentLocale);
+        \setlocale(LC_TIME, $currentLocale);
 
         if ($exception) {
             throw $exception;
@@ -277,7 +277,7 @@ abstract class AbstractTestCase extends TestCase
         foreach ($dates as $date) {
             if ($date instanceof DateTime) {
                 $date = Carbon::instance($date);
-            } elseif (is_string($date)) {
+            } elseif (\is_string($date)) {
                 $date = Carbon::parse($date);
             }
 

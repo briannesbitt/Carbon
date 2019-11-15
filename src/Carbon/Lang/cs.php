@@ -32,7 +32,7 @@
  * - Karel Sommer (calvera)
  */
 $za = function ($time) {
-    return 'za '.strtr($time, [
+    return 'za '.\strtr($time, [
         'hodina' => 'hodinu',
         'minuta' => 'minutu',
         'sekunda' => 'sekundu',
@@ -40,14 +40,14 @@ $za = function ($time) {
 };
 
 $pred = function ($time) {
-    $time = strtr($time, [
+    $time = \strtr($time, [
         'hodina' => 'hodinou',
         'minuta' => 'minutou',
         'sekunda' => 'sekundou',
     ]);
-    $time = preg_replace('/hodiny?(?!\w)/', 'hodinami', $time);
-    $time = preg_replace('/minuty?(?!\w)/', 'minutami', $time);
-    $time = preg_replace('/sekundy?(?!\w)/', 'sekundami', $time);
+    $time = \preg_replace('/hodiny?(?!\w)/', 'hodinami', $time);
+    $time = \preg_replace('/minuty?(?!\w)/', 'minutami', $time);
+    $time = \preg_replace('/sekundy?(?!\w)/', 'sekundami', $time);
 
     return "před $time";
 };

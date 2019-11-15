@@ -59,7 +59,7 @@ class IteratorTest extends AbstractTestCase
             $this->assertSame($key, $period->key());
         }
 
-        $this->assertSame(array_keys($keys), $keys);
+        $this->assertSame(\array_keys($keys), $keys);
     }
 
     public function testElementsInLoopAreAlwaysValid()
@@ -112,7 +112,7 @@ class IteratorTest extends AbstractTestCase
      */
     public function testIterateBackwards($arguments, $expected)
     {
-        $period = call_user_func_array('Carbon\CarbonPeriod::create', $arguments);
+        $period = \call_user_func_array('Carbon\CarbonPeriod::create', $arguments);
 
         $interval = new CarbonInterval('P3D');
         $interval->invert = 1;
@@ -193,7 +193,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($current->toDateString() === '2012-07-16') {
                 $period->setEndDate($current);
@@ -204,7 +204,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertFalse($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -222,7 +222,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($recurrences < 4) {
                 $period->setRecurrences(++$recurrences);
@@ -233,7 +233,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertTrue($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -253,7 +253,7 @@ class IteratorTest extends AbstractTestCase
         $newStart = new Carbon('2012-07-03');
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             if ($current < $newStart) {
                 $period->setStartDate($newStart);
@@ -264,7 +264,7 @@ class IteratorTest extends AbstractTestCase
                 $this->assertTrue($period->valid());
             }
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -283,7 +283,7 @@ class IteratorTest extends AbstractTestCase
         $results = [];
 
         foreach ($period as $key => $current) {
-            $results[] = sprintf('%s => %s', $key, $current->toDateString());
+            $results[] = \sprintf('%s => %s', $key, $current->toDateString());
 
             $period->setDateInterval('P3D');
 
@@ -292,7 +292,7 @@ class IteratorTest extends AbstractTestCase
             $this->assertEquals($current, $period->current());
             $this->assertTrue($period->valid());
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }
@@ -343,7 +343,7 @@ class IteratorTest extends AbstractTestCase
 
             $period->next();
 
-            if (count($results) >= $this->iterationLimit) {
+            if (\count($results) >= $this->iterationLimit) {
                 $this->fail('Infinite loop detected when traversing the period.');
             }
         }

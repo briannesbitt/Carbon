@@ -16,7 +16,7 @@
  * - Chris Cartlidge
  * - JD Isaacks
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'from_now' => 'in :time',
     'formats' => [
         'LT' => 'HH:mm',

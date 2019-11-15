@@ -30,7 +30,7 @@ class IterationMethodsTest extends AbstractTestCase
 
     public function testMap()
     {
-        $result = iterator_to_array(Carbon::create('2020-12-22')->daysUntil('2020-12-24')->map(function (Carbon $date) {
+        $result = \iterator_to_array(Carbon::create('2020-12-22')->daysUntil('2020-12-24')->map(function (Carbon $date) {
             return $date->diffInDays('2020-12-25').' days before Christmas!';
         }));
 

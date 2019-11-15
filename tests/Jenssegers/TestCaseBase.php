@@ -12,7 +12,7 @@ class TestCaseBase extends TestCase
 
     public function setUp(): void
     {
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
         Carbon::setLocale(static::LOCALE);
 
         // Freeze the time for the test duration

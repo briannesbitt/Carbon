@@ -20,10 +20,10 @@ class SetDateAndTimeFromTest extends AbstractTestCase
     {
         $source = Carbon::now();
         $target = $source->copy()
-            ->addDays(rand(1, 6))
-            ->addHours(rand(1, 23))
-            ->addMinutes(rand(1, 59))
-            ->addSeconds(rand(1, 59));
+            ->addDays(\rand(1, 6))
+            ->addHours(\rand(1, 23))
+            ->addMinutes(\rand(1, 59))
+            ->addSeconds(\rand(1, 59));
 
         $this->assertCarbon(
             $target->copy()->setDateFrom($source),
@@ -40,10 +40,10 @@ class SetDateAndTimeFromTest extends AbstractTestCase
     {
         $source = Carbon::now();
         $target = $source->copy()
-            ->addDays(rand(1, 6))
-            ->addHours(rand(1, 23))
-            ->addMinutes(rand(1, 59))
-            ->addSeconds(rand(1, 59));
+            ->addDays(\rand(1, 6))
+            ->addHours(\rand(1, 23))
+            ->addMinutes(\rand(1, 59))
+            ->addSeconds(\rand(1, 59));
 
         $this->assertCarbon(
             $target->copy()->setTimeFrom($source),

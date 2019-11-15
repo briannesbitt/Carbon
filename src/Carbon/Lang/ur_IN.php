@@ -13,7 +13,7 @@
  * Authors:
  * - Red Hat, Pune    bug-glibc-locales@gnu.org
  */
-return array_replace_recursive(require __DIR__.'/ur.php', [
+return \array_replace_recursive(require __DIR__.'/ur.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],

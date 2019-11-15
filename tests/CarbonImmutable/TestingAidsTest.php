@@ -96,7 +96,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('America/Toronto', $date->tzName);
         $this->assertSame('2018-06-15 12:35:00.000000', $date->format('Y-m-d H:i:s.u'));
 
-        date_default_timezone_set('UTC');
+        \date_default_timezone_set('UTC');
 
         $date = Carbon::now();
         $this->assertSame('UTC', $date->tzName);
@@ -111,7 +111,7 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('UTC', $date->tzName);
         $this->assertSame('2018-06-15 16:35:00.000000', $date->format('Y-m-d H:i:s.u'));
 
-        date_default_timezone_set('America/Toronto');
+        \date_default_timezone_set('America/Toronto');
     }
 
     public function testParseWithTestValueSet()

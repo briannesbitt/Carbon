@@ -29,7 +29,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     public function testCarbonIsMacroableWhenNotCalledDynamically()
     {
         Carbon::macro('easterDays', function ($year = 2019) {
-            return easter_days($year);
+            return \easter_days($year);
         });
 
         /** @var mixed $now */
@@ -54,7 +54,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
             return $date->diff(
                 Carbon::create($year, 3, 21)
                     ->setTimezone($date->getTimezone())
-                    ->addDays(easter_days($year))
+                    ->addDays(\easter_days($year))
                     ->endOfDay()
             );
         });
@@ -68,7 +68,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
     public function testCarbonIsMacroableWhenCalledStatically()
     {
         Carbon::macro('easterDate', function ($year) {
-            return Carbon::create($year, 3, 21)->addDays(easter_days($year));
+            return Carbon::create($year, 3, 21)->addDays(\easter_days($year));
         });
 
         $this->assertSame('05/04', Carbon::easterDate(2015)->format('d/m'));

@@ -15,7 +15,7 @@ class Invoker
 
     public function __invoke(...$parameters): bool
     {
-        if (class_exists(self::CLI_CLASS_NAME)) {
+        if (\class_exists(self::CLI_CLASS_NAME)) {
             return $this->runWithCli(self::CLI_CLASS_NAME, $parameters);
         }
 

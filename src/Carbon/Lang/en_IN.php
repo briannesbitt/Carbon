@@ -13,7 +13,7 @@
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory  bug-glibc-locales@gnu.org
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -119,10 +119,10 @@ class Translator extends Translation\Translator
      */
     public function removeDirectory(string $directory)
     {
-        $search = rtrim(strtr($directory, '\\', '/'), '/');
+        $search = \rtrim(\strtr($directory, '\\', '/'), '/');
 
-        return $this->setDirectories(array_filter($this->getDirectories(), function ($item) use ($search) {
-            return rtrim(strtr($item, '\\', '/'), '/') !== $search;
+        return $this->setDirectories(\array_filter($this->getDirectories(), function ($item) use ($search) {
+            return \rtrim(\strtr($item, '\\', '/'), '/') !== $search;
         }));
     }
 
@@ -154,8 +154,8 @@ class Translator extends Translation\Translator
             // @codeCoverageIgnoreEnd
 
             return $format(
-                ...array_values($parameters),
-                ...array_fill(0, max(0, $count - count($parameters)), null)
+                ...\array_values($parameters),
+                ...\array_fill(0, \max(0, $count - \count($parameters)), null)
             );
         }
 
@@ -180,8 +180,8 @@ class Translator extends Translation\Translator
         }
 
         foreach ($this->getDirectories() as $directory) {
-            $directory = rtrim($directory, '\\/');
-            if (file_exists($filename = "$directory/$locale.php")) {
+            $directory = \rtrim($directory, '\\/');
+            if (\file_exists($filename = "$directory/$locale.php")) {
                 $this->messages[$locale] = require $filename;
                 $this->addResource('array', $this->messages[$locale], $locale);
 
@@ -204,14 +204,14 @@ class Translator extends Translation\Translator
         $files = [];
 
         foreach ($this->getDirectories() as $directory) {
-            $directory = rtrim($directory, '\\/');
+            $directory = \rtrim($directory, '\\/');
 
-            foreach (glob("$directory/$prefix*.php") as $file) {
+            foreach (\glob("$directory/$prefix*.php") as $file) {
                 $files[] = $file;
             }
         }
 
-        return array_unique($files);
+        return \array_unique($files);
     }
 
     /**
@@ -226,10 +226,10 @@ class Translator extends Translation\Translator
     {
         $locales = [];
         foreach ($this->getLocalesFiles($prefix) as $file) {
-            $locales[] = substr($file, strrpos($file, '/') + 1, -4);
+            $locales[] = \substr($file, \strrpos($file, '/') + 1, -4);
         }
 
-        return array_unique(array_merge($locales, array_keys($this->messages)));
+        return \array_unique(\array_merge($locales, \array_keys($this->messages)));
     }
 
     /**
@@ -260,7 +260,7 @@ class Translator extends Translation\Translator
     {
         $this->loadMessagesFromFile($locale);
         $this->addResource('array', $messages, $locale);
-        $this->messages[$locale] = array_merge(
+        $this->messages[$locale] = \array_merge(
             isset($this->messages[$locale]) ? $this->messages[$locale] : [],
             $messages
         );
@@ -302,16 +302,16 @@ class Translator extends Translation\Translator
      */
     public function setLocale($locale)
     {
-        $locale = preg_replace_callback('/[-_]([a-z]{2,})/', function ($matches) {
+        $locale = \preg_replace_callback('/[-_]([a-z]{2,})/', function ($matches) {
             // _2-letters or YUE is a region, _3+-letters is a variant
-            $upper = strtoupper($matches[1]);
+            $upper = \strtoupper($matches[1]);
 
-            if ($upper === 'YUE' || $upper === 'ISO' || strlen($upper) < 3) {
+            if ($upper === 'YUE' || $upper === 'ISO' || \strlen($upper) < 3) {
                 return "_$upper";
             }
 
-            return '_'.ucfirst($matches[1]);
-        }, strtolower($locale));
+            return '_'.\ucfirst($matches[1]);
+        }, \strtolower($locale));
 
         $previousLocale = $this->getLocale();
 
@@ -322,14 +322,14 @@ class Translator extends Translation\Translator
         unset(static::$singletons[$previousLocale]);
 
         if ($locale === 'auto') {
-            $completeLocale = setlocale(LC_TIME, '0');
-            $locale = preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
+            $completeLocale = \setlocale(LC_TIME, '0');
+            $locale = \preg_replace('/^([^_.-]+).*$/', '$1', $completeLocale);
             $locales = $this->getAvailableLocales($locale);
 
-            $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
+            $completeLocaleChunks = \preg_split('/[_.-]+/', $completeLocale);
 
             $getScore = function ($language) use ($completeLocaleChunks) {
-                $chunks = preg_split('/[_.-]+/', $language);
+                $chunks = \preg_split('/[_.-]+/', $language);
                 $score = 0;
 
                 foreach ($completeLocaleChunks as $index => $chunk) {
@@ -339,7 +339,7 @@ class Translator extends Translation\Translator
                         continue;
                     }
 
-                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                    if (\strtolower($chunks[$index]) === \strtolower($chunk)) {
                         $score += 10;
                     }
                 }
@@ -347,7 +347,7 @@ class Translator extends Translation\Translator
                 return $score;
             };
 
-            usort($locales, function ($first, $second) use ($getScore) {
+            \usort($locales, function ($first, $second) use ($getScore) {
                 $first = $getScore($first);
                 $second = $getScore($second);
 
@@ -362,8 +362,8 @@ class Translator extends Translation\Translator
         }
 
         // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
-        if (strpos($locale, '_') !== false &&
-            $this->loadMessagesFromFile($macroLocale = preg_replace('/^([^_]+).*$/', '$1', $locale))
+        if (\strpos($locale, '_') !== false &&
+            $this->loadMessagesFromFile($macroLocale = \preg_replace('/^([^_]+).*$/', '$1', $locale))
         ) {
             parent::setLocale($macroLocale);
         }

@@ -52,7 +52,7 @@ trait Serialization
      */
     public function serialize()
     {
-        return serialize($this);
+        return \serialize($this);
     }
 
     /**
@@ -66,7 +66,7 @@ trait Serialization
      */
     public static function fromSerialized($value)
     {
-        $instance = @unserialize("$value");
+        $instance = @\unserialize("$value");
 
         if (!$instance instanceof static) {
             throw new InvalidArgumentException('Invalid serialized value.');
@@ -84,12 +84,12 @@ trait Serialization
      */
     public static function __set_state($dump)
     {
-        if (is_string($dump)) {
+        if (\is_string($dump)) {
             return static::parse($dump);
         }
 
         /** @var \DateTimeInterface $date */
-        $date = get_parent_class(static::class) && method_exists(parent::class, '__set_state')
+        $date = \get_parent_class(static::class) && \method_exists(parent::class, '__set_state')
             ? parent::__set_state((array) $dump)
             : (object) $dump;
 
@@ -117,7 +117,7 @@ trait Serialization
      */
     public function __wakeup()
     {
-        if (get_parent_class() && method_exists(parent::class, '__wakeup')) {
+        if (\get_parent_class() && \method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
         if (isset($this->dumpLocale)) {
@@ -135,9 +135,9 @@ trait Serialization
     {
         $serializer = $this->localSerializer ?? static::$serializer;
         if ($serializer) {
-            return is_string($serializer)
+            return \is_string($serializer)
                 ? $this->rawFormat($serializer)
-                : call_user_func($serializer, $this);
+                : \call_user_func($serializer, $this);
         }
 
         return $this->toJSON();

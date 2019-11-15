@@ -82,7 +82,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'next '.(is_string($modifier) ? $modifier : static::$days[$modifier])
+            'next '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
         );
     }
 
@@ -164,7 +164,7 @@ trait Modifiers
         }
 
         return $this->change(
-            'last '.(is_string($modifier) ? $modifier : static::$days[$modifier])
+            'last '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
         );
     }
 
@@ -450,13 +450,13 @@ trait Modifiers
      */
     public function change($modifier)
     {
-        return $this->modify(preg_replace_callback('/^(next|previous|last)\s+(\d{1,2}(h|am|pm|:\d{1,2}(:\d{1,2})?))$/i', function ($match) {
-            $match[2] = str_replace('h', ':00', $match[2]);
+        return $this->modify(\preg_replace_callback('/^(next|previous|last)\s+(\d{1,2}(h|am|pm|:\d{1,2}(:\d{1,2})?))$/i', function ($match) {
+            $match[2] = \str_replace('h', ':00', $match[2]);
             $test = $this->copy()->modify($match[2]);
             $method = $match[1] === 'next' ? 'lt' : 'gt';
             $match[1] = $test->$method($this) ? $match[1].' day' : 'today';
 
             return $match[1].' '.$match[2];
-        }, trim($modifier)));
+        }, \trim($modifier)));
     }
 }

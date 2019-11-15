@@ -13,7 +13,7 @@
  * Authors:
  * - J.Yogaraj 94-777-315206 yogaraj.ubuntu@gmail.com
  */
-return array_replace_recursive(require __DIR__.'/ta.php', [
+return \array_replace_recursive(require __DIR__.'/ta.php', [
     'formats' => [
         'L' => 'D/M/YY',
     ],

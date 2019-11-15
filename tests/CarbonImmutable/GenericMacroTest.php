@@ -18,12 +18,12 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
     public function testGenericMacroBinding()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+        if (\version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
             $this->markTestSkipped('Use of $this in macros is deprecated and may not work in PHP 8.');
         }
 
         Carbon::genericMacro(function ($method) {
-            $time = preg_replace('/[A-Z]/', ' $0', $method);
+            $time = \preg_replace('/[A-Z]/', ' $0', $method);
 
             try {
                 if (isset(${'this'})) {
@@ -35,7 +35,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
 
                 return new static($time);
             } catch (\Throwable $exception) {
-                if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
+                if (\stripos($exception->getMessage(), 'Failed to parse') !== false) {
                     throw new \BadMethodCallException('Try next macro', 0, $exception);
                 }
 
@@ -73,12 +73,12 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
     public function testGenericMacro()
     {
         Carbon::genericMacro(function ($method) {
-            $time = preg_replace('/[A-Z]/', ' $0', $method);
+            $time = \preg_replace('/[A-Z]/', ' $0', $method);
 
             try {
                 return self::this()->modify($time);
             } catch (\Throwable $exception) {
-                if (stripos($exception->getMessage(), 'Failed to parse') !== false) {
+                if (\stripos($exception->getMessage(), 'Failed to parse') !== false) {
                     throw new \BadMethodCallException('Try next macro', 0, $exception);
                 }
 
@@ -116,21 +116,21 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
     public function testGenericMacroPriority()
     {
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (\substr($method, 0, 8) !== 'myPrefix') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'first';
         });
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (\substr($method, 0, 8) !== 'myPrefix') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'second';
         }, 1);
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 8) !== 'myPrefix') {
+            if (\substr($method, 0, 8) !== 'myPrefix') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
@@ -152,21 +152,21 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
     public function testLocalGenericMacroPriority()
     {
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (\substr($method, 0, 3) !== 'mlp') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'first';
         });
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (\substr($method, 0, 3) !== 'mlp') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
             return 'second';
         }, 1);
         Carbon::genericMacro(function ($method) {
-            if (substr($method, 0, 3) !== 'mlp') {
+            if (\substr($method, 0, 3) !== 'mlp') {
                 throw new \BadMethodCallException('Try next macro', 0);
             }
 
@@ -180,14 +180,14 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
         $date = Carbon::now()->settings([
             'genericMacros' => [
                 function ($method) {
-                    if (substr($method, 0, 3) !== 'mlp') {
+                    if (\substr($method, 0, 3) !== 'mlp') {
                         throw new \BadMethodCallException('Try next macro', 0);
                     }
 
                     return 'local-first';
                 },
                 function ($method) {
-                    if (substr($method, 0, 3) !== 'mlp') {
+                    if (\substr($method, 0, 3) !== 'mlp') {
                         throw new \BadMethodCallException('Try next macro', 0);
                     }
 

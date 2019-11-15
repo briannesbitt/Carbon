@@ -248,7 +248,7 @@ class CarbonInterval extends DateInterval
 
     private static function standardizeUnit($unit)
     {
-        $unit = rtrim($unit, 'sz').'s';
+        $unit = \rtrim($unit, 'sz').'s';
 
         return $unit === 'days' ? 'dayz' : $unit;
     }
@@ -299,7 +299,7 @@ class CarbonInterval extends DateInterval
     {
         $spec = $years;
 
-        if (!is_string($spec) || floatval($years) || preg_match('/^[0-9.]/', $years)) {
+        if (!\is_string($spec) || \floatval($years) || \preg_match('/^[0-9.]/', $years)) {
             $spec = static::PERIOD_PREFIX;
 
             $spec .= $years > 0 ? $years.static::PERIOD_YEARS : '';
@@ -326,7 +326,7 @@ class CarbonInterval extends DateInterval
 
         parent::__construct($spec);
 
-        if (!is_null($microseconds)) {
+        if (!\is_null($microseconds)) {
             $this->f = $microseconds / Carbon::MICROSECONDS_PER_SECOND;
         }
     }
@@ -473,9 +473,9 @@ class CarbonInterval extends DateInterval
      */
     public static function __callStatic($method, $parameters)
     {
-        $arg = count($parameters) === 0 ? 1 : $parameters[0];
+        $arg = \count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
+        switch (Carbon::singularUnit(\rtrim($method, 'z'))) {
             case 'year':
                 return new static($arg);
 
@@ -511,7 +511,7 @@ class CarbonInterval extends DateInterval
         }
 
         if (Carbon::isStrictModeEnabled()) {
-            throw new BadMethodCallException(sprintf("Unknown fluent constructor '%s'.", $method));
+            throw new BadMethodCallException(\sprintf("Unknown fluent constructor '%s'.", $method));
         }
 
         return null;
@@ -560,14 +560,14 @@ class CarbonInterval extends DateInterval
         $microseconds = 0;
 
         $pattern = '/(\d+(?:\.\d+)?)\h*([^\d\h]*)/i';
-        preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
+        \preg_match_all($pattern, $intervalDefinition, $parts, PREG_SET_ORDER);
 
-        while ([$part, $value, $unit] = array_shift($parts)) {
-            $intValue = intval($value);
-            $fraction = floatval($value) - $intValue;
+        while ([$part, $value, $unit] = \array_shift($parts)) {
+            $intValue = \intval($value);
+            $fraction = \floatval($value) - $intValue;
 
             // Fix calculation precision
-            switch (round($fraction, 6)) {
+            switch (\round($fraction, 6)) {
                 case 1:
                     $fraction = 0;
                     $intValue++;
@@ -579,7 +579,7 @@ class CarbonInterval extends DateInterval
                     break;
             }
 
-            switch ($unit === 'µs' ? 'µs' : strtolower($unit)) {
+            switch ($unit === 'µs' ? 'µs' : \strtolower($unit)) {
                 case 'millennia':
                 case 'millennium':
                     $years += $intValue * CarbonInterface::YEARS_PER_MILLENNIUM;
@@ -680,7 +680,7 @@ class CarbonInterval extends DateInterval
                     $milliseconds += $intValue;
 
                     if ($fraction) {
-                        $microseconds += round($fraction * static::getMicrosecondsPerMillisecond());
+                        $microseconds += \round($fraction * static::getMicrosecondsPerMillisecond());
                     }
 
                     break;
@@ -695,7 +695,7 @@ class CarbonInterval extends DateInterval
 
                 default:
                     throw new InvalidArgumentException(
-                        sprintf('Invalid part %s in definition %s', $part, $intervalDefinition)
+                        \sprintf('Invalid part %s in definition %s', $part, $intervalDefinition)
                     );
             }
         }
@@ -720,7 +720,7 @@ class CarbonInterval extends DateInterval
     {
         $mainClass = DateInterval::class;
 
-        if (!is_a($className, $mainClass, true)) {
+        if (!\is_a($className, $mainClass, true)) {
             throw new InvalidArgumentException("$className is not a sub-class of $mainClass.");
         }
 
@@ -781,17 +781,17 @@ class CarbonInterval extends DateInterval
             return static::instance($var);
         }
 
-        if (!is_string($var)) {
+        if (!\is_string($var)) {
             return null;
         }
 
-        $var = trim($var);
+        $var = \trim($var);
 
-        if (preg_match('/^P[T0-9]/', $var)) {
+        if (\preg_match('/^P[T0-9]/', $var)) {
             return new static($var);
         }
 
-        if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
+        if (\preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
             return static::fromString($var);
         }
 
@@ -821,7 +821,7 @@ class CarbonInterval extends DateInterval
      */
     public static function createFromDateString($time)
     {
-        $interval = @parent::createFromDateString(strtr($time, [
+        $interval = @parent::createFromDateString(\strtr($time, [
             ',' => ' ',
             ' and ' => ' ',
         ]));
@@ -848,8 +848,8 @@ class CarbonInterval extends DateInterval
      */
     public function __get($name)
     {
-        if (substr($name, 0, 5) === 'total') {
-            return $this->total(substr($name, 5));
+        if (\substr($name, 0, 5) === 'total') {
+            return $this->total(\substr($name, 5));
         }
 
         switch ($name) {
@@ -873,14 +873,14 @@ class CarbonInterval extends DateInterval
 
             case 'milli':
             case 'milliseconds':
-                return (int) floor(round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
+                return (int) \floor(\round($this->f * Carbon::MICROSECONDS_PER_SECOND) / Carbon::MICROSECONDS_PER_MILLISECOND);
 
             case 'micro':
             case 'microseconds':
-                return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND);
+                return (int) \round($this->f * Carbon::MICROSECONDS_PER_SECOND);
 
             case 'weeks':
-                return (int) floor($this->d / static::getDaysPerWeek());
+                return (int) \floor($this->d / static::getDaysPerWeek());
 
             case 'daysExcludeWeeks':
             case 'dayzExcludeWeeks':
@@ -890,7 +890,7 @@ class CarbonInterval extends DateInterval
                 return $this->getLocalTranslator()->getLocale();
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new InvalidArgumentException(\sprintf("Unknown getter '%s'", $name));
         }
     }
 
@@ -904,7 +904,7 @@ class CarbonInterval extends DateInterval
      */
     public function __set($name, $value)
     {
-        switch (Carbon::singularUnit(rtrim($name, 'z'))) {
+        switch (Carbon::singularUnit(\rtrim($name, 'z'))) {
             case 'year':
                 $this->y = $value;
 
@@ -954,7 +954,7 @@ class CarbonInterval extends DateInterval
 
             default:
                 if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                    throw new InvalidArgumentException(\sprintf("Unknown setter '%s'", $name));
                 }
 
                 $this->$name = $value;
@@ -1079,10 +1079,10 @@ class CarbonInterval extends DateInterval
         if ($macro instanceof Closure) {
             $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
 
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
+            return \call_user_func_array($boundMacro ?: $macro, $parameters);
         }
 
-        return call_user_func_array($macro, $parameters);
+        return \call_user_func_array($macro, $parameters);
     }
 
     /**
@@ -1104,19 +1104,19 @@ class CarbonInterval extends DateInterval
             });
         }
 
-        $action = substr($method, 0, 4);
+        $action = \substr($method, 0, 4);
 
         if ($action !== 'ceil') {
-            $action = substr($method, 0, 5);
+            $action = \substr($method, 0, 5);
         }
 
-        if (in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
+        if (\in_array($action, ['round', 'floor', 'ceil'])) {
+            return $this->{$action.'Unit'}(\substr($method, \strlen($action)), ...$parameters);
         }
 
-        $arg = count($parameters) === 0 ? 1 : $parameters[0];
+        $arg = \count($parameters) === 0 ? 1 : $parameters[0];
 
-        switch (Carbon::singularUnit(rtrim($method, 'z'))) {
+        switch (Carbon::singularUnit(\rtrim($method, 'z'))) {
             case 'year':
                 $this->years = $arg;
 
@@ -1166,7 +1166,7 @@ class CarbonInterval extends DateInterval
 
             default:
                 if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-                    throw new BadMethodCallException(sprintf("Unknown fluent setter '%s'", $method));
+                    throw new BadMethodCallException(\sprintf("Unknown fluent setter '%s'", $method));
                 }
         }
 
@@ -1191,21 +1191,21 @@ class CarbonInterval extends DateInterval
         $altNumbers = false;
         $aUnit = false;
 
-        if (is_array($syntax)) {
-            extract($syntax);
+        if (\is_array($syntax)) {
+            \extract($syntax);
         } else {
-            if (is_int($short)) {
+            if (\is_int($short)) {
                 $parts = $short;
                 $short = false;
             }
 
-            if (is_bool($syntax)) {
+            if (\is_bool($syntax)) {
                 $short = $syntax;
                 $syntax = CarbonInterface::DIFF_ABSOLUTE;
             }
         }
 
-        if (is_null($syntax)) {
+        if (\is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
         }
 
@@ -1213,7 +1213,7 @@ class CarbonInterval extends DateInterval
             $parts = INF;
         }
 
-        if (is_null($options)) {
+        if (\is_null($options)) {
             $options = static::getHumanDiffOptions();
         }
 
@@ -1229,11 +1229,11 @@ class CarbonInterval extends DateInterval
         if ($altNumbers) {
             if ($altNumbers !== true) {
                 $language = new Language($this->locale);
-                $altNumbers = in_array($language->getCode(), (array) $altNumbers);
+                $altNumbers = \in_array($language->getCode(), (array) $altNumbers);
             }
         }
 
-        if (is_array($join)) {
+        if (\is_array($join)) {
             [$default, $last] = $join;
 
             if ($default !== ' ') {
@@ -1241,24 +1241,24 @@ class CarbonInterval extends DateInterval
             }
 
             $join = function ($list) use ($default, $last) {
-                if (count($list) < 2) {
-                    return implode('', $list);
+                if (\count($list) < 2) {
+                    return \implode('', $list);
                 }
 
-                $end = array_pop($list);
+                $end = \array_pop($list);
 
-                return implode($default, $list).$last.$end;
+                return \implode($default, $list).$last.$end;
             };
         }
 
-        if (is_string($join)) {
+        if (\is_string($join)) {
             if ($join !== ' ') {
                 $optionalSpace = '';
             }
 
             $glue = $join;
             $join = function ($list) use ($glue) {
-                return implode($glue, $list);
+                return \implode($glue, $list);
             };
         }
 
@@ -1376,17 +1376,17 @@ class CarbonInterval extends DateInterval
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
                 $interval[] = $transChoice($short, $diffIntervalData);
-            } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && count($interval) > 0) {
+            } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && \count($interval) > 0) {
                 break;
             }
 
             // break the loop after we get the required number of parts in array
-            if (count($interval) >= $parts) {
+            if (\count($interval) >= $parts) {
                 break;
             }
         }
 
-        if (count($interval) === 0) {
+        if (\count($interval) === 0) {
             if ($relativeToNow && $options & CarbonInterface::JUST_NOW) {
                 $key = 'diff_now';
                 $translation = $this->translate($key, $interpolations, null, $translator);
@@ -1442,7 +1442,7 @@ class CarbonInterval extends DateInterval
 
         $time = [':time' => $time];
 
-        return $this->translate($transId, array_merge($time, $interpolations, $time), null, $translator);
+        return $this->translate($transId, \array_merge($time, $interpolations, $time), null, $translator);
     }
 
     /**
@@ -1518,11 +1518,11 @@ class CarbonInterval extends DateInterval
      */
     public function add($unit, $value = 1)
     {
-        if (is_numeric($unit)) {
+        if (\is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
         }
 
-        if (is_string($unit) && !preg_match('/^\s*\d/', $unit)) {
+        if (\is_string($unit) && !\preg_match('/^\s*\d/', $unit)) {
             $unit = "$value $unit";
             $value = 1;
         }
@@ -1560,11 +1560,11 @@ class CarbonInterval extends DateInterval
      */
     public function sub($unit, $value = 1)
     {
-        if (is_numeric($unit)) {
+        if (\is_numeric($unit)) {
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->add($unit, -floatval($value));
+        return $this->add($unit, -\floatval($value));
     }
 
     /**
@@ -1602,13 +1602,13 @@ class CarbonInterval extends DateInterval
             $factor = -$factor;
         }
 
-        $this->years = (int) round($this->years * $factor);
-        $this->months = (int) round($this->months * $factor);
-        $this->dayz = (int) round($this->dayz * $factor);
-        $this->hours = (int) round($this->hours * $factor);
-        $this->minutes = (int) round($this->minutes * $factor);
-        $this->seconds = (int) round($this->seconds * $factor);
-        $this->microseconds = (int) round($this->microseconds * $factor);
+        $this->years = (int) \round($this->years * $factor);
+        $this->months = (int) \round($this->months * $factor);
+        $this->dayz = (int) \round($this->dayz * $factor);
+        $this->hours = (int) \round($this->hours * $factor);
+        $this->minutes = (int) \round($this->minutes * $factor);
+        $this->seconds = (int) \round($this->seconds * $factor);
+        $this->microseconds = (int) \round($this->microseconds * $factor);
 
         return $this;
     }
@@ -1664,7 +1664,7 @@ class CarbonInterval extends DateInterval
             $factor = -$factor;
         }
 
-        $yearPart = (int) floor($this->years * $factor); // Split calculation to prevent imprecision
+        $yearPart = (int) \floor($this->years * $factor); // Split calculation to prevent imprecision
 
         if ($yearPart) {
             $this->years -= $yearPart / $factor;
@@ -1699,16 +1699,16 @@ class CarbonInterval extends DateInterval
      */
     public static function getDateIntervalSpec(DateInterval $interval)
     {
-        $date = array_filter([
-            static::PERIOD_YEARS => abs($interval->y),
-            static::PERIOD_MONTHS => abs($interval->m),
-            static::PERIOD_DAYS => abs($interval->d),
+        $date = \array_filter([
+            static::PERIOD_YEARS => \abs($interval->y),
+            static::PERIOD_MONTHS => \abs($interval->m),
+            static::PERIOD_DAYS => \abs($interval->d),
         ]);
 
-        $time = array_filter([
-            static::PERIOD_HOURS => abs($interval->h),
-            static::PERIOD_MINUTES => abs($interval->i),
-            static::PERIOD_SECONDS => abs($interval->s),
+        $time = \array_filter([
+            static::PERIOD_HOURS => \abs($interval->h),
+            static::PERIOD_MINUTES => \abs($interval->i),
+            static::PERIOD_SECONDS => \abs($interval->s),
         ]);
 
         $specString = static::PERIOD_PREFIX;
@@ -1717,7 +1717,7 @@ class CarbonInterval extends DateInterval
             $specString .= $value.$key;
         }
 
-        if (count($time) > 0) {
+        if (\count($time) > 0) {
             $specString .= static::PERIOD_TIME_PREFIX;
             foreach ($time as $key => $value) {
                 $specString .= $value.$key;
@@ -1808,11 +1808,11 @@ class CarbonInterval extends DateInterval
      */
     public function total($unit)
     {
-        $realUnit = $unit = strtolower($unit);
+        $realUnit = $unit = \strtolower($unit);
 
-        if (in_array($unit, ['days', 'weeks'])) {
+        if (\in_array($unit, ['days', 'weeks'])) {
             $realUnit = 'dayz';
-        } elseif (!in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
+        } elseif (!\in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
             throw new InvalidArgumentException("Unknown unit '$unit'.");
         }
 
@@ -2169,8 +2169,8 @@ class CarbonInterval extends DateInterval
             $precision = (string) self::instance($precision);
         }
 
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
+        if (\is_string($precision) && \preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
+            if (\trim($match['other'] ?? '') !== '') {
                 throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
             }
 

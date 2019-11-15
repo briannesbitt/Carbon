@@ -41,8 +41,8 @@ class CreateFromTimestampTest extends AbstractTestCase
         $d = Carbon::createFromTimestampMs($timestamp);
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
 
-        $locale = setlocale(LC_ALL, '0');
-        setlocale(LC_ALL, 'fr_FR.UTF-8');
+        $locale = \setlocale(LC_ALL, '0');
+        \setlocale(LC_ALL, 'fr_FR.UTF-8');
 
         $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
         $d = Carbon::createFromTimestampMs($timestamp);
@@ -57,7 +57,7 @@ class CreateFromTimestampTest extends AbstractTestCase
         $d = Carbon::createFromTimestampMs($timestamp);
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
 
-        setlocale(LC_ALL, $locale);
+        \setlocale(LC_ALL, $locale);
     }
 
     public function testCreateFromTimestampWithTimezone()

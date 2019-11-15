@@ -21,8 +21,8 @@ trait Cast
      */
     public function cast(string $className)
     {
-        if (!method_exists($className, 'instance')) {
-            if (is_a($className, DateTimeInterface::class, true)) {
+        if (!\method_exists($className, 'instance')) {
+            if (\is_a($className, DateTimeInterface::class, true)) {
                 return new $className($this->rawFormat('Y-m-d H:i:s.u'), $this->getTimezone());
             }
 

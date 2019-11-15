@@ -13,7 +13,7 @@
  * Authors:
  * - Free Software Foundation, Inc.    bug-glibc-locales@gnu.org
  */
-return array_replace_recursive(require __DIR__.'/fy.php', [
+return \array_replace_recursive(require __DIR__.'/fy.php', [
     'formats' => [
         'L' => 'DD-MM-YY',
     ],

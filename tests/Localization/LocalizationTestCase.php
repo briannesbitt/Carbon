@@ -351,16 +351,16 @@ abstract class LocalizationTestCase extends AbstractTestCase
 
             foreach (static::TESTS as $index => $test) {
                 foreach ([Carbon::class, CarbonImmutable::class] as $class) {
-                    $test = str_replace('{class}', $class, $test);
+                    $test = \str_replace('{class}', $class, $test);
                     $result = eval("use Carbon\CarbonInterval; return $test;");
                     $expected = static::CASES[$index];
                     $locale = static::LOCALE;
-                    $key = preg_replace('/^([^_]+)_.*$/', '$1', static::LOCALE);
+                    $key = \preg_replace('/^([^_]+)_.*$/', '$1', static::LOCALE);
                     if (isset(static::LOCALES[$key])) {
                         $locale = static::LOCALES[$key].' ('.$locale.')';
                     }
 
-                    $this->assertSame($expected, $result, 'In '.$locale.', '.str_replace('Carbon\\', '', $test).' should return '.$expected);
+                    $this->assertSame($expected, $result, 'In '.$locale.', '.\str_replace('Carbon\\', '', $test).' should return '.$expected);
                 }
             }
         });

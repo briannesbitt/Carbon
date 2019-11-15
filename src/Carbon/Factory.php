@@ -258,7 +258,7 @@ class Factory
 
     public function mergeSettings(array $settings)
     {
-        $this->settings = array_merge($this->settings, $settings);
+        $this->settings = \array_merge($this->settings, $settings);
 
         return $this;
     }

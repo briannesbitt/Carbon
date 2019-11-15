@@ -251,7 +251,7 @@ class FilterTest extends AbstractTestCase
             return $wasCalled = true;
         });
 
-        iterator_to_array($period);
+        \iterator_to_array($period);
 
         $this->assertTrue($wasCalled);
     }
@@ -273,7 +273,7 @@ class FilterTest extends AbstractTestCase
             return false;
         });
 
-        iterator_to_array($period);
+        \iterator_to_array($period);
     }
 
     public function testRemoveBuildInFilters()

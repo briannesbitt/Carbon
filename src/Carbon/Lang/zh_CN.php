@@ -21,7 +21,7 @@
  * - Chris Hemp
  * - shankesgk2
  */
-return array_merge(require __DIR__.'/zh.php', [
+return \array_merge(require __DIR__.'/zh.php', [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

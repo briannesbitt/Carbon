@@ -17,7 +17,7 @@
  * - Luo Ning
  * - William Yang (williamyang233)
  */
-return array_merge(require __DIR__.'/zh_Hans.php', [
+return \array_merge(require __DIR__.'/zh_Hans.php', [
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

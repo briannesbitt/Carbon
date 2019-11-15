@@ -24,10 +24,10 @@ class InvokerTest extends AbstractTestCase
             $lastCommand = $command;
         };
 
-        ob_start();
+        \ob_start();
         $return = $invoker('file', 'install', $exec);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        $contents = \ob_get_contents();
+        \ob_end_clean();
 
         $this->assertSame('composer require carbon-cli/carbon-cli --no-interaction', $lastCommand);
         $this->assertSame('Installation succeeded.', $contents);
@@ -38,10 +38,10 @@ class InvokerTest extends AbstractTestCase
         $invoker = new Invoker();
         $lastCommand = null;
 
-        ob_start();
+        \ob_start();
         $return = $invoker('file', 'install', $exec);
-        $contents = ob_get_contents();
-        ob_end_clean();
+        $contents = \ob_get_contents();
+        \ob_end_clean();
 
         $this->assertNull($lastCommand);
         $this->assertSame('', $contents);

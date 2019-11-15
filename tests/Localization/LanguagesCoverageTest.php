@@ -17,15 +17,15 @@ class LanguagesCoverageTest extends AbstractTestCase
 {
     public function testAllLanguagesAreTested()
     {
-        $languages = glob(__DIR__.'/../../src/Carbon/Lang/*.php');
-        $tests = array_map(function ($file) {
-            return strtolower(substr(basename($file), 0, -8));
-        }, glob(__DIR__.'/*Test.php'));
+        $languages = \glob(__DIR__.'/../../src/Carbon/Lang/*.php');
+        $tests = \array_map(function ($file) {
+            return \strtolower(\substr(\basename($file), 0, -8));
+        }, \glob(__DIR__.'/*Test.php'));
         $tester = $this;
-        $missingLanguages = array_filter($languages, function ($language) use ($tester, $tests) {
-            $file = basename($language);
-            $covered = in_array(
-                str_replace(['_', '-', '@'], '', strtolower(substr($file, 0, -4))),
+        $missingLanguages = \array_filter($languages, function ($language) use ($tester, $tests) {
+            $file = \basename($language);
+            $covered = \in_array(
+                \str_replace(['_', '-', '@'], '', \strtolower(\substr($file, 0, -4))),
                 $tests
             );
             $tester->assertTrue($covered, "Expect $file language file to be covered.");

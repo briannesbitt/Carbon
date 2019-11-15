@@ -38,7 +38,7 @@ trait Timestamp
      */
     public static function createFromTimestampMs($timestamp, $tz = null)
     {
-        return static::rawCreateFromFormat('U.u', sprintf('%F', $timestamp / 1000))
+        return static::rawCreateFromFormat('U.u', \sprintf('%F', $timestamp / 1000))
             ->setTimezone($tz);
     }
 
@@ -86,7 +86,7 @@ trait Timestamp
      */
     public function getPreciseTimestamp($precision = 6)
     {
-        return round($this->rawFormat('Uu') / pow(10, 6 - $precision));
+        return \round($this->rawFormat('Uu') / \pow(10, 6 - $precision));
     }
 
     /**

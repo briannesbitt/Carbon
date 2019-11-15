@@ -32,7 +32,7 @@ class SerializationTest extends AbstractTestCase
     {
         $dt = Carbon::create(2016, 2, 1, 13, 20, 25);
         $this->assertSame($this->serialized, $dt->serialize());
-        $this->assertSame($this->serialized, serialize($dt));
+        $this->assertSame($this->serialized, \serialize($dt));
     }
 
     public function testFromUnserialized()
@@ -40,15 +40,15 @@ class SerializationTest extends AbstractTestCase
         $dt = Carbon::fromSerialized($this->serialized);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
 
-        $dt = unserialize($this->serialized);
+        $dt = \unserialize($this->serialized);
         $this->assertCarbon($dt, 2016, 2, 1, 13, 20, 25);
     }
 
     public function testSerialization()
     {
-        $this->assertEquals(Carbon::now(), unserialize(serialize(Carbon::now())));
+        $this->assertEquals(Carbon::now(), \unserialize(\serialize(Carbon::now())));
         $dt = Carbon::parse('2018-07-11 18:30:11.654321', 'Europe/Paris')->locale('fr_FR');
-        $copy = unserialize(serialize($dt));
+        $copy = \unserialize(\serialize($dt));
         $this->assertSame('fr_FR', $copy->locale);
         $this->assertSame('mercredi 18:30:11.654321', $copy->tz('Europe/Paris')->isoFormat('dddd HH:mm:ss.SSSSSS'));
     }

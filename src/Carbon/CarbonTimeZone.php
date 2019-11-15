@@ -32,15 +32,15 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function getDateTimeZoneNameFromMixed($timezone)
     {
-        if (is_null($timezone)) {
-            return date_default_timezone_get();
+        if (\is_null($timezone)) {
+            return \date_default_timezone_get();
         }
 
-        if (is_string($timezone)) {
-            $timezone = preg_replace('/^\s*([+-]\d+)(\d{2})\s*$/', '$1:$2', $timezone);
+        if (\is_string($timezone)) {
+            $timezone = \preg_replace('/^\s*([+-]\d+)(\d{2})\s*$/', '$1:$2', $timezone);
         }
 
-        if (is_numeric($timezone)) {
+        if (\is_numeric($timezone)) {
             return static::parseNumericTimezone($timezone);
         }
 
@@ -49,7 +49,7 @@ class CarbonTimeZone extends DateTimeZone
 
     protected static function getDateTimeZoneFromName(&$name)
     {
-        return @timezone_open($name = (string) static::getDateTimeZoneNameFromMixed($name));
+        return @\timezone_open($name = (string) static::getDateTimeZoneNameFromMixed($name));
     }
 
     /**
@@ -61,8 +61,8 @@ class CarbonTimeZone extends DateTimeZone
      */
     public function cast(string $className)
     {
-        if (!method_exists($className, 'instance')) {
-            if (is_a($className, DateTimeZone::class, true)) {
+        if (!\method_exists($className, 'instance')) {
+            if (\is_a($className, DateTimeZone::class, true)) {
                 return new $className($this->getName());
             }
 
@@ -152,13 +152,13 @@ class CarbonTimeZone extends DateTimeZone
      */
     public function toOffsetName(DateTimeInterface $date = null)
     {
-        $minutes = floor($this->getOffset($date ?: Carbon::now($this)) / 60);
+        $minutes = \floor($this->getOffset($date ?: Carbon::now($this)) / 60);
 
-        $hours = floor($minutes / 60);
+        $hours = \floor($minutes / 60);
 
-        $minutes = str_pad((string) (abs($minutes) % 60), 2, '0', STR_PAD_LEFT);
+        $minutes = \str_pad((string) (\abs($minutes) % 60), 2, '0', STR_PAD_LEFT);
 
-        return ($hours < 0 ? '-' : '+').str_pad((string) abs($hours), 2, '0', STR_PAD_LEFT).":$minutes";
+        return ($hours < 0 ? '-' : '+').\str_pad((string) \abs($hours), 2, '0', STR_PAD_LEFT).":$minutes";
     }
 
     /**
@@ -186,7 +186,7 @@ class CarbonTimeZone extends DateTimeZone
     public function toRegionName(DateTimeInterface $date = null, $isDst = 1)
     {
         $name = $this->getName();
-        $firstChar = substr($name, 0, 1);
+        $firstChar = \substr($name, 0, 1);
 
         if ($firstChar !== '+' && $firstChar !== '-') {
             return $name;
@@ -201,7 +201,7 @@ class CarbonTimeZone extends DateTimeZone
         }
         // @codeCoverageIgnoreEnd
 
-        return @timezone_name_from_abbr('', $offset, $isDst);
+        return @\timezone_name_from_abbr('', $offset, $isDst);
     }
 
     /**

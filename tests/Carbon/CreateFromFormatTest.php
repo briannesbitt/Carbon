@@ -64,7 +64,7 @@ class CreateFromFormatTest extends AbstractTestCase
 
     public function testCreateFromFormatWithMillisecondsMerged()
     {
-        if (version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
+        if (\version_compare(PHP_VERSION, '7.3.0-dev', '<')) {
             $this->markTestSkipped('Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.');
         }
 

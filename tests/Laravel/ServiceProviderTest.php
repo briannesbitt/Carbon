@@ -16,11 +16,11 @@ class ServiceProviderTest extends TestCase
 {
     public function getDispatchers()
     {
-        if (!class_exists(Dispatcher::class)) {
+        if (!\class_exists(Dispatcher::class)) {
             include_once __DIR__.'/Dispatcher.php';
         }
 
-        if (!class_exists(EventDispatcher::class)) {
+        if (!\class_exists(EventDispatcher::class)) {
             include_once __DIR__.'/EventDispatcher.php';
         }
 

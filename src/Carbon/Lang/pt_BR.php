@@ -27,7 +27,7 @@
  * - Paulo Freitas
  * - Sebastian Thierer
  */
-return array_replace_recursive(require __DIR__.'/pt.php', [
+return \array_replace_recursive(require __DIR__.'/pt.php', [
     'period_recurrences' => 'uma|:count vez',
     'period_interval' => 'toda :interval',
     'formats' => [

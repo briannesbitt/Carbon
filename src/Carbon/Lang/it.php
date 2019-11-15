@@ -45,7 +45,7 @@ return [
     's' => ':count sec.',
     'ago' => ':time fa',
     'from_now' => function ($time) {
-        return (preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
+        return (\preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
     },
     'after' => ':time dopo',
     'before' => ':time prima',

@@ -13,7 +13,7 @@ class DateTest extends TestCaseBase
         $this->assertSame(1359590400, $date->getTimestamp());
 
         $date = new Carbon('1 day ago');
-        $this->assertSame(time() - 86400, $date->getTimestamp());
+        $this->assertSame(\time() - 86400, $date->getTimestamp());
     }
 
     public function testConstructTimestamp()
@@ -151,11 +151,11 @@ class DateTest extends TestCaseBase
     {
         Carbon::setLocale('ru');
         $date = Carbon::translateTimeString('понедельник 21 март 2015');
-        $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+        $this->assertSame('monday 21 march 2015', \mb_strtolower($date));
 
         Carbon::setLocale('de');
         $date = Carbon::translateTimeString('Montag 21 März 2015');
-        $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+        $this->assertSame('monday 21 march 2015', \mb_strtolower($date));
 
         $this->assertSame('Foobar', Carbon::translateTimeString('Foobar', 'xx'));
     }

@@ -27,7 +27,7 @@ return [
     'minute' => 'wa’ tup|:count tup',
     'second' => 'puS lup|:count lup',
     'ago' => function ($time) {
-        $output = strtr($time, [
+        $output = \strtr($time, [
             'jaj' => 'Hu’',
             'jar' => 'wen',
             'DIS' => 'ben',
@@ -36,7 +36,7 @@ return [
         return $output === $time ? "$time ret" : $output;
     },
     'from_now' => function ($time) {
-        $output = strtr($time, [
+        $output = \strtr($time, [
             'jaj' => 'leS',
             'jar' => 'waQ',
             'DIS' => 'nem',

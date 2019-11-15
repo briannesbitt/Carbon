@@ -35,7 +35,7 @@ return [
     'a_second' => 'пӗр-ик ҫеккунт|:count ҫеккунт',
     'ago' => ':time каялла',
     'from_now' => function ($time) {
-        return $time.(preg_match('/сехет$/', $time) ? 'рен' : (preg_match('/ҫул/', $time) ? 'тан' : 'ран'));
+        return $time.(\preg_match('/сехет$/', $time) ? 'рен' : (\preg_match('/ҫул/', $time) ? 'тан' : 'ран'));
     },
     'diff_yesterday' => 'Ӗнер',
     'diff_tomorrow' => 'Ыран',

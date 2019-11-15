@@ -13,7 +13,7 @@
  * Authors:
  * - Valery Timiriliyev Valery Timiriliyev timiriliyev@gmail.com
  */
-return array_replace_recursive(require __DIR__.'/ru.php', [
+return \array_replace_recursive(require __DIR__.'/ru.php', [
     'formats' => [
         'L' => 'YYYY.MM.DD',
     ],

@@ -45,49 +45,49 @@ class LocalizationTest extends AbstractTestCase
 
     public function testSetLocaleToAuto()
     {
-        $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
+        $currentLocale = \setlocale(LC_ALL, '0');
+        if (\setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
         }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('fr_FR', $locale);
         $this->assertSame('il y a 2 secondes', $diff);
 
-        if (setlocale(LC_ALL, 'ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar') === false) {
+        if (\setlocale(LC_ALL, 'ar_AE.UTF-8', 'ar_AE.utf8', 'ar_AE', 'ar') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need ar_AE.UTF-8.');
         }
-        rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php');
+        \rename(__DIR__.'/../../src/Carbon/Lang/ar_AE.php', __DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php');
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
-        rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
+        \setlocale(LC_ALL, $currentLocale);
+        \rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
 
         $this->assertSame('ar', $locale);
         $this->assertSame('منذ ثانيتين', $diff);
 
-        if (setlocale(LC_ALL, 'sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr') === false) {
+        if (\setlocale(LC_ALL, 'sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need sr_ME.UTF-8.');
         }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('sr_ME', $locale);
         $this->assertSame('prije 2 sekunde', $diff);
 
-        if (setlocale(LC_ALL, 'zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh') === false) {
+        if (\setlocale(LC_ALL, 'zh_TW.UTF-8', 'zh_TW.utf8', 'zh_TW', 'zh') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need zh_TW.UTF-8.');
         }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('zh_TW', $locale);
         $this->assertSame('2秒前', $diff);
@@ -97,8 +97,8 @@ class LocalizationTest extends AbstractTestCase
         $translator->resetMessages();
         $translator->setLocale('en');
         $directories = $translator->getDirectories();
-        $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
-        mkdir($directory);
+        $directory = \sys_get_temp_dir().'/carbon'.\mt_rand(0, 9999999);
+        \mkdir($directory);
         $translator->setDirectories([$directory]);
 
         $files = [
@@ -109,40 +109,40 @@ class LocalizationTest extends AbstractTestCase
         ];
 
         foreach ($files as $file) {
-            copy(__DIR__."/../../src/Carbon/Lang/$file.php", "$directory/$file.php");
+            \copy(__DIR__."/../../src/Carbon/Lang/$file.php", "$directory/$file.php");
         }
 
-        $currentLocale = setlocale(LC_ALL, '0');
-        if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
+        $currentLocale = \setlocale(LC_ALL, '0');
+        if (\setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
         }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('fr', $locale);
         $this->assertSame('il y a 2 secondes', $diff);
 
-        if (setlocale(LC_ALL, 'zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh') === false) {
+        if (\setlocale(LC_ALL, 'zh_CN.UTF-8', 'zh_CN.utf8', 'zh_CN', 'zh') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need zh_CN.UTF-8.');
         }
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('zh', $locale);
         $this->assertSame('2秒前', $diff);
 
-        if (setlocale(LC_ALL, 'yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo') === false) {
+        if (\setlocale(LC_ALL, 'yo_NG.UTF-8', 'yo_NG.utf8', 'yo_NG', 'yo') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need yo_NG.UTF-8.');
         }
         Carbon::setLocale('en');
         Carbon::setLocale('auto');
         $locale = Carbon::getLocale();
         $diff = Carbon::now()->subSeconds(2)->diffForHumans();
-        setlocale(LC_ALL, $currentLocale);
+        \setlocale(LC_ALL, $currentLocale);
 
         $this->assertSame('en', $locale);
         $this->assertSame('2 seconds ago', $diff);
@@ -150,10 +150,10 @@ class LocalizationTest extends AbstractTestCase
         $translator->setDirectories($directories);
 
         foreach ($files as $file) {
-            unlink("$directory/$file.php");
+            \unlink("$directory/$file.php");
         }
 
-        rmdir($directory);
+        \rmdir($directory);
     }
 
     /**
@@ -412,7 +412,7 @@ class LocalizationTest extends AbstractTestCase
 
         $translator->setTranslations([
             'before' => function ($time) {
-                return '['.strtoupper($time).']';
+                return '['.\strtoupper($time).']';
             },
         ]);
 
@@ -507,10 +507,10 @@ class LocalizationTest extends AbstractTestCase
 
     public function testAddAndRemoveDirectory()
     {
-        $directory = sys_get_temp_dir().'/carbon'.mt_rand(0, 9999999);
-        mkdir($directory);
-        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/foo.php");
-        copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/bar.php");
+        $directory = \sys_get_temp_dir().'/carbon'.\mt_rand(0, 9999999);
+        \mkdir($directory);
+        \copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/foo.php");
+        \copy(__DIR__.'/../../src/Carbon/Lang/fr.php', "$directory/bar.php");
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -557,10 +557,10 @@ class LocalizationTest extends AbstractTestCase
             'year' => 'foo',
             'y' => 'foo',
         ];
-        $withShortHourOnlyLocale = 'zz_'.ucfirst(strtolower('withShortHourOnly'));
-        $withShortUnitLocale = 'zz_'.ucfirst(strtolower('withShortUnit'));
-        $withoutShortUnitLocale = 'zz_'.ucfirst(strtolower('withoutShortUnit'));
-        $withSameShortUnitLocale = 'zz_'.ucfirst(strtolower('withSameShortUnit'));
+        $withShortHourOnlyLocale = 'zz_'.\ucfirst(\strtolower('withShortHourOnly'));
+        $withShortUnitLocale = 'zz_'.\ucfirst(\strtolower('withShortUnit'));
+        $withoutShortUnitLocale = 'zz_'.\ucfirst(\strtolower('withoutShortUnit'));
+        $withSameShortUnitLocale = 'zz_'.\ucfirst(\strtolower('withSameShortUnit'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -587,8 +587,8 @@ class LocalizationTest extends AbstractTestCase
         $withoutDiffSyntax = [
             'year' => 'foo',
         ];
-        $withDiffSyntaxLocale = 'zz_'.ucfirst(strtolower('withDiffSyntax'));
-        $withoutDiffSyntaxLocale = 'zz_'.ucfirst(strtolower('withoutDiffSyntax'));
+        $withDiffSyntaxLocale = 'zz_'.\ucfirst(\strtolower('withDiffSyntax'));
+        $withoutDiffSyntaxLocale = 'zz_'.\ucfirst(\strtolower('withoutDiffSyntax'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -613,8 +613,8 @@ class LocalizationTest extends AbstractTestCase
         $withoutOneDayWords = [
             'year' => 'foo',
         ];
-        $withOneDayWordsLocale = 'zz_'.ucfirst(strtolower('withOneDayWords'));
-        $withoutOneDayWordsLocale = 'zz_'.ucfirst(strtolower('withoutOneDayWords'));
+        $withOneDayWordsLocale = 'zz_'.\ucfirst(\strtolower('withOneDayWords'));
+        $withoutOneDayWordsLocale = 'zz_'.\ucfirst(\strtolower('withoutOneDayWords'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -635,8 +635,8 @@ class LocalizationTest extends AbstractTestCase
         $withoutTwoDayWords = [
             'year' => 'foo',
         ];
-        $withTwoDayWordsLocale = 'zz_'.ucfirst(strtolower('withTwoDayWords'));
-        $withoutTwoDayWordsLocale = 'zz_'.ucfirst(strtolower('withoutTwoDayWords'));
+        $withTwoDayWordsLocale = 'zz_'.\ucfirst(\strtolower('withTwoDayWords'));
+        $withoutTwoDayWordsLocale = 'zz_'.\ucfirst(\strtolower('withoutTwoDayWords'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -659,8 +659,8 @@ class LocalizationTest extends AbstractTestCase
         $withoutPeriodSyntax = [
             'year' => 'foo',
         ];
-        $withPeriodSyntaxLocale = 'zz_'.ucfirst(strtolower('withPeriodSyntax'));
-        $withoutPeriodSyntaxLocale = 'zz_'.ucfirst(strtolower('withoutPeriodSyntax'));
+        $withPeriodSyntaxLocale = 'zz_'.\ucfirst(\strtolower('withPeriodSyntax'));
+        $withoutPeriodSyntaxLocale = 'zz_'.\ucfirst(\strtolower('withoutPeriodSyntax'));
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -675,7 +675,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testGetAvailableLocales()
     {
-        $this->assertCount(count(glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
+        $this->assertCount(\count(\glob(__DIR__.'/../../src/Carbon/Lang/*.php')), Carbon::getAvailableLocales());
 
         /** @var Translator $translator */
         $translator = Carbon::getTranslator();
@@ -689,7 +689,7 @@ class LocalizationTest extends AbstractTestCase
     public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
-        $this->assertCount(count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
+        $this->assertCount(\count(Carbon::getAvailableLocales()), Carbon::getAvailableLocalesInfo());
         $this->assertArrayHasKey('en', $infos);
         $this->assertInstanceOf(Language::class, $infos['en']);
         $this->assertSame('English', $infos['en']->getIsoName());

@@ -76,7 +76,7 @@ trait Mixin
      */
     public static function mixin($mixin)
     {
-        is_string($mixin) && trait_exists($mixin)
+        \is_string($mixin) && \trait_exists($mixin)
             ? static::loadMixinTrait($mixin)
             : static::loadMixinClass($mixin);
     }
@@ -110,10 +110,10 @@ trait Mixin
     {
         $baseClass = static::class;
         $context = eval('return new class() extends '.$baseClass.' {use '.$trait.';};');
-        $className = get_class($context);
+        $className = \get_class($context);
 
-        foreach (get_class_methods($context) as $name) {
-            if (method_exists($baseClass, $name)) {
+        foreach (\get_class_methods($context) as $name) {
+            if (\method_exists($baseClass, $name)) {
                 continue;
             }
 
@@ -128,7 +128,7 @@ trait Mixin
                     $closure = $closureBase;
                 }
 
-                return $closure(...func_get_args());
+                return $closure(...\func_get_args());
             });
         }
     }
@@ -155,7 +155,7 @@ trait Mixin
             $exception = $throwable;
         }
 
-        array_pop(static::$macroContextStack);
+        \array_pop(static::$macroContextStack);
 
         if ($exception) {
             throw $exception;
@@ -171,6 +171,6 @@ trait Mixin
      */
     protected static function this()
     {
-        return end(static::$macroContextStack) ?: new static();
+        return \end(static::$macroContextStack) ?: new static();
     }
 }

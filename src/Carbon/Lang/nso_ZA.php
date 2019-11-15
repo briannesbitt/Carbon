@@ -13,7 +13,7 @@
  * Authors:
  * - Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
  */
-return array_replace_recursive(require __DIR__.'/en.php', [
+return \array_replace_recursive(require __DIR__.'/en.php', [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],

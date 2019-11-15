@@ -361,7 +361,7 @@ trait Options
         if (isset($settings['locale'])) {
             $locales = $settings['locale'];
 
-            if (!is_array($locales)) {
+            if (!\is_array($locales)) {
                 $locales = [$locales];
             }
 
@@ -413,7 +413,7 @@ trait Options
      */
     public function __debugInfo()
     {
-        $infos = array_filter(get_object_vars($this), function ($var) {
+        $infos = \array_filter(\get_object_vars($this), function ($var) {
             return $var;
         });
 

@@ -416,7 +416,7 @@ trait Comparison
      */
     public function isWeekend()
     {
-        return in_array($this->dayOfWeek, static::$weekendDays);
+        return \in_array($this->dayOfWeek, static::$weekendDays);
     }
 
     /**
@@ -623,7 +623,7 @@ trait Comparison
      */
     public function isCurrentUnit($unit)
     {
-        return $this->{'isSame'.ucfirst($unit)}();
+        return $this->{'isSame'.\ucfirst($unit)}();
     }
 
     /**
@@ -687,8 +687,8 @@ trait Comparison
      */
     public function isDayOfWeek($dayOfWeek)
     {
-        if (is_string($dayOfWeek) && defined($constant = static::class.'::'.strtoupper($dayOfWeek))) {
-            $dayOfWeek = constant($constant);
+        if (\is_string($dayOfWeek) && \defined($constant = static::class.'::'.\strtoupper($dayOfWeek))) {
+            $dayOfWeek = \constant($constant);
         }
 
         return $this->dayOfWeek === $dayOfWeek;
@@ -847,12 +847,12 @@ trait Comparison
             // To ensure we're really testing against our desired format, perform an additional regex validation.
 
             // Preg quote, but remove escaped backslashes since we'll deal with escaped characters in the format string.
-            $quotedFormat = str_replace('\\\\', '\\', preg_quote($format, '/'));
+            $quotedFormat = \str_replace('\\\\', '\\', \preg_quote($format, '/'));
 
             // Build the regex string
             $regex = '';
 
-            for ($i = 0; $i < strlen($quotedFormat); ++$i) {
+            for ($i = 0; $i < \strlen($quotedFormat); ++$i) {
                 // Backslash – the next character does not represent a date token so add it on as-is and continue.
                 // We're doing an extra ++$i here to increment the loop by 2.
                 if ($quotedFormat[$i] === '\\') {
@@ -862,10 +862,10 @@ trait Comparison
                     continue;
                 }
 
-                $regex .= strtr($quotedFormat[$i], static::$regexFormats);
+                $regex .= \strtr($quotedFormat[$i], static::$regexFormats);
             }
 
-            return (bool) preg_match('/^'.str_replace('/', '\\/', $regex).'$/', $date);
+            return (bool) \preg_match('/^'.\str_replace('/', '\\/', $regex).'$/', $date);
         } catch (InvalidArgumentException $e) {
         }
 
@@ -898,21 +898,21 @@ trait Comparison
      */
     public function is(string $tester)
     {
-        $tester = trim($tester);
+        $tester = \trim($tester);
 
-        if (preg_match('/^\d+$/', $tester)) {
-            return $this->year === intval($tester);
+        if (\preg_match('/^\d+$/', $tester)) {
+            return $this->year === \intval($tester);
         }
 
-        if (preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
+        if (\preg_match('/^\d{3,}-\d{1,2}$/', $tester)) {
             return $this->isSameMonth(static::parse($tester));
         }
 
-        if (preg_match('/^\d{1,2}-\d{1,2}$/', $tester)) {
+        if (\preg_match('/^\d{1,2}-\d{1,2}$/', $tester)) {
             return $this->isSameDay(static::parse($this->year.'-'.$tester));
         }
 
-        $modifier = preg_replace('/(\d)h$/i', '$1:00', $tester);
+        $modifier = \preg_replace('/(\d)h$/i', '$1:00', $tester);
 
         /* @var CarbonInterface $max */
         $median = static::parse('5555-06-15 12:30:30.555555')->modify($modifier);
@@ -924,19 +924,19 @@ trait Comparison
             return true;
         }
 
-        if (preg_match('/\d:\d{1,2}:\d{1,2}$/', $tester)) {
+        if (\preg_match('/\d:\d{1,2}:\d{1,2}$/', $tester)) {
             return $current->startOfSecond()->eq($other);
         }
 
-        if (preg_match('/\d:\d{1,2}$/', $tester)) {
+        if (\preg_match('/\d:\d{1,2}$/', $tester)) {
             return $current->startOfMinute()->eq($other);
         }
 
-        if (preg_match('/\d(h|am|pm)$/', $tester)) {
+        if (\preg_match('/\d(h|am|pm)$/', $tester)) {
             return $current->startOfHour()->eq($other);
         }
 
-        if (preg_match(
+        if (\preg_match(
             '/^(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d+$/i',
             $tester
         )) {

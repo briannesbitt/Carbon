@@ -187,10 +187,10 @@ class TranslationTest extends TestCaseBase
     {
         JenssegersDate::setLocale('ru');
         $date = JenssegersDate::translateTimeString('понедельник 21 март 2015');
-        $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+        $this->assertSame('monday 21 march 2015', \mb_strtolower($date));
 
         JenssegersDate::setLocale('de');
         $date = JenssegersDate::translateTimeString('Montag 21 März 2015');
-        $this->assertSame('monday 21 march 2015', mb_strtolower($date));
+        $this->assertSame('monday 21 march 2015', \mb_strtolower($date));
     }
 }

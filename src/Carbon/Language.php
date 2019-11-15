@@ -61,12 +61,12 @@ class Language implements JsonSerializable
 
     public function __construct(string $id)
     {
-        $this->id = str_replace('-', '_', $id);
-        $parts = explode('_', $this->id);
+        $this->id = \str_replace('-', '_', $id);
+        $parts = \explode('_', $this->id);
         $this->code = $parts[0];
 
         if (isset($parts[1])) {
-            if (!preg_match('/^[A-Z]+$/', $parts[1])) {
+            if (!\preg_match('/^[A-Z]+$/', $parts[1])) {
                 $this->variant = $parts[1];
                 $parts[1] = $parts[2] ?? null;
             }
@@ -250,7 +250,7 @@ class Language implements JsonSerializable
     {
         $name = $this->getFullIsoName();
 
-        return trim(strstr($name, ',', true) ?: $name);
+        return \trim(\strstr($name, ',', true) ?: $name);
     }
 
     /**
@@ -262,7 +262,7 @@ class Language implements JsonSerializable
     {
         $name = $this->getFullNativeName();
 
-        return trim(strstr($name, ',', true) ?: $name);
+        return \trim(\strstr($name, ',', true) ?: $name);
     }
 
     /**
