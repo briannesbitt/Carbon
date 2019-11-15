@@ -1449,7 +1449,7 @@ class CarbonInterval extends DateInterval
 
         if ($method) {
             while (
-                count($values = $intervalValues->getNonZeroValues()) > $parts &&
+                count($intervalValues->getNonZeroValues()) > $parts &&
                 ($count = count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
             ) {
                 $intervalValues = $this->copy()->roundUnit($keys[$count - 2], 1, $method);
