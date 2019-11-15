@@ -175,7 +175,7 @@ class FiTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 v sitten',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sekunti päästä',
+        '1 sekunnin päästä',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 s päästä',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
@@ -217,7 +217,7 @@ class FiTest extends LocalizationTestCase
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 viikkoa 1 tunti',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 tunti päästä',
+        '1 tunnin päästä',
         // CarbonInterval::days(2)->forHumans()
         '2 päivää',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
