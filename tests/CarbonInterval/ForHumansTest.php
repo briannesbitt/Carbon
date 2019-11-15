@@ -337,5 +337,17 @@ class ForHumansTest extends AbstractTestCase
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::days(2)->hours(11)->minutes(59);
         $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(780);
+        $this->assertEquals('3 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
+        $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::FLOOR]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(1);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::CEIL]));
     }
 }

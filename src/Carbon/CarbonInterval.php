@@ -1289,164 +1289,21 @@ class CarbonInterval extends DateInterval
         return null;
     }
 
-    /**
-     * Round the current instance at the given unit with given precision if specified and the given function.
-     *
-     * @param string|int $unit
-     * @param float|int  $precision
-     * @param string     $function
-     *
-     * @return CarbonInterface
-     */
-    public function roundUnit($unit, $precision = 1, $function = 'round')
+    protected static function getRoundingMethodFromOptions(int $options): ?string
     {
-        $metaUnits = [
-            'millennium' => [Carbon::YEARS_PER_MILLENNIUM, 'year'],
-            'century' => [Carbon::YEARS_PER_CENTURY, 'year'],
-            'decade' => [Carbon::YEARS_PER_DECADE, 'year'],
-            'quarter' => [Carbon::MONTHS_PER_QUARTER, 'month'],
-            'millisecond' => [1000, 'microsecond'],
-        ];
-        $normalizedUnit = Carbon::singularUnit($unit);
-        $ranges = array_merge(Carbon::getRangesByUnit(), [
-            // @call roundUnit
-            'microsecond' => [0, 999999],
-        ]);
-        $factor = 1;
-
-        if ($normalizedUnit === 'week') {
-            $normalizedUnit = 'day';
-            $precision *= Carbon::DAYS_PER_WEEK;
+        if ($options & CarbonInterface::ROUND) {
+            return 'round';
         }
 
-        if (isset($metaUnits[$normalizedUnit])) {
-            [$factor, $normalizedUnit] = $metaUnits[$normalizedUnit];
+        if ($options & CarbonInterface::CEIL) {
+            return 'ceil';
         }
 
-        $precision *= $factor;
-
-        if (!isset($ranges[$normalizedUnit])) {
-            throw new InvalidArgumentException("Unknown unit '$unit' to floor");
+        if ($options & CarbonInterface::FLOOR) {
+            return 'floor';
         }
 
-        $found = false;
-        $fraction = 0;
-        $arguments = null;
-        $factor = $this->year < 0 ? -1 : 1;
-        $changes = [];
-
-        foreach ($ranges as $unit => [$minimum, $maximum]) {
-            if ($normalizedUnit === $unit) {
-                $arguments = [$this->$unit, $minimum];
-                $fraction = $precision - floor($precision);
-                $found = true;
-
-                continue;
-            }
-
-            if ($found) {
-                $delta = $maximum + 1 - $minimum;
-                $factor /= $delta;
-                $fraction *= $delta;
-                $arguments[0] += $this->$unit * $factor;
-                $changes[$unit] = round($minimum + ($fraction ? $fraction * call_user_func($function, ($this->$unit - $minimum) / $fraction) : 0));
-
-                // Cannot use modulo as it lose double precision
-                while ($changes[$unit] >= $delta) {
-                    $changes[$unit] -= $delta;
-                }
-
-                $fraction -= floor($fraction);
-            }
-        }
-
-        [$value, $minimum] = $arguments;
-        /** @var CarbonInterface $result */
-        $result = $this->$normalizedUnit(floor(call_user_func($function, ($value - $minimum) / $precision) * $precision + $minimum));
-
-        foreach ($changes as $unit => $value) {
-            $result = $result->$unit($value);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Truncate the current instance at the given unit with given precision if specified.
-     *
-     * @param string    $unit
-     * @param float|int $precision
-     *
-     * @return CarbonInterface
-     */
-    public function floorUnit($unit, $precision = 1)
-    {
-        return $this->roundUnit($unit, $precision, 'floor');
-    }
-
-    /**
-     * Ceil the current instance at the given unit with given precision if specified.
-     *
-     * @param string    $unit
-     * @param float|int $precision
-     *
-     * @return CarbonInterface
-     */
-    public function ceilUnit($unit, $precision = 1)
-    {
-        return $this->roundUnit($unit, $precision, 'ceil');
-    }
-
-    /**
-     * Round the current instance second with given precision if specified.
-     *
-     * @param float|int|string|\DateInterval|null $precision
-     * @param string                              $function
-     *
-     * @return CarbonInterface
-     */
-    public function round($precision = 1, $function = 'round')
-    {
-        $unit = 'second';
-
-        if ($precision instanceof DateInterval) {
-            $precision = (string) static::instance($precision);
-        }
-
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
-                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
-            }
-
-            $precision = (int) ($match['precision'] ?: 1);
-            $unit = $match['unit'];
-        }
-
-        return $this->roundUnit($unit, $precision, $function);
-    }
-
-    /**
-     * Round the current instance second with given precision if specified.
-     *
-     * @param float|int|string|\DateInterval|null $precision
-     *
-     * @return CarbonInterface
-     */
-    public function floor($precision = 1)
-    {
-        return $this->round($precision, 'floor');
-    }
-
-    /**
-     * Ceil the current instance second with given precision if specified.
-     *
-     * @param float|int|string|\DateInterval|null $precision
-     *
-     * @return CarbonInterface
-     */
-    public function ceil($precision = 1)
-    {
-        return $this->round($precision, 'ceil');
+        return null;
     }
 
     /**
@@ -1587,7 +1444,17 @@ class CarbonInterval extends DateInterval
             return null;
         };
 
-        $intervalValues = $options & CarbonInterface::ROUND ? $this->copy() : $this;
+        $intervalValues = $this;
+        $method = static::getRoundingMethodFromOptions($options);
+
+        if ($method) {
+            while (
+                count($values = $intervalValues->getNonZeroValues()) > $parts &&
+                ($count = count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
+            ) {
+                $intervalValues = $this->copy()->roundUnit($keys[$count - 2], 1, $method);
+            }
+        }
 
         $diffIntervalArray = [
             ['value' => $intervalValues->years,            'unit' => 'year',   'unitShort' => 'y'],
@@ -1619,20 +1486,10 @@ class CarbonInterval extends DateInterval
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
         };
 
-        foreach ($diffIntervalArray as $index => $diffIntervalData) {
+        foreach ($diffIntervalArray as $diffIntervalData) {
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
                 $count = $diffIntervalData['value'];
-
-                if ($options & CarbonInterface::ROUND && count($interval) === $parts - 1 && $index < count($diffIntervalArray) - 1) {
-                    $nextIntervalData = $diffIntervalArray[$index + 1];
-                    $factor = static::getRoundFactor($nextIntervalData['unit']);
-
-                    if ($factor !== null) {
-                        $diffIntervalData['value'] += round($nextIntervalData['value'] / $factor);
-                    }
-                }
-
                 $interval[] = $transChoice($short, $diffIntervalData);
             } elseif ($options & CarbonInterface::SEQUENTIAL_PARTS_ONLY && count($interval) > 0) {
                 break;
@@ -1794,6 +1651,7 @@ class CarbonInterval extends DateInterval
         if ($value !== 1) {
             $interval->times($value);
         }
+
         $sign = ($this->invert === 1) !== ($interval->invert === 1) ? -1 : 1;
         $this->years += $interval->y * $sign;
         $this->months += $interval->m * $sign;

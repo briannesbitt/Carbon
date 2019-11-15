@@ -521,6 +521,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const TWO_DAY_WORDS = 010;
     public const SEQUENTIAL_PARTS_ONLY = 020;
     public const ROUND = 040;
+    public const FLOOR = 0100;
+    public const CEIL = 0200;
 
     /**
      * Diff syntax options.
