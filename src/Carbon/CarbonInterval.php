@@ -1269,6 +1269,26 @@ class CarbonInterval extends DateInterval
         return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations];
     }
 
+    protected static function getRoundFactor(string $unit): ?float
+    {
+        switch ($unit) {
+            case 'month':
+                return static::getFactor('months', 'years') ?: Carbon::MONTHS_PER_YEAR;
+            case 'week':
+                return static::getFactor('weeks', 'months') ?: Carbon::WEEKS_PER_MONTH;
+            case 'day':
+                return static::getDaysPerWeek();
+            case 'hour':
+                return static::getHoursPerDay();
+            case 'minute':
+                return static::getMinutesPerHour();
+            case 'second':
+                return static::getSecondsPerMinute();
+        }
+
+        return null;
+    }
+
     /**
      * Get the current interval in a human readable format in the current locale.
      *
@@ -1377,24 +1397,12 @@ class CarbonInterval extends DateInterval
                 $count = $diffIntervalData['value'];
 
                 if ($options & CarbonInterface::ROUND && count($interval) === $parts - 1 && $index < count($diffIntervalArray) - 1) {
-                    $roundValue = 0;
                     $nextIntervalData = $diffIntervalArray[$index + 1];
+                    $factor = static::getRoundFactor($nextIntervalData['unit']);
 
-                    if ($nextIntervalData['unit'] === 'month') {
-                        $roundValue = $nextIntervalData['value'] / (static::getFactor('months', 'years') ?: Carbon::MONTHS_PER_YEAR);
-                    } elseif ($nextIntervalData['unit'] === 'week') {
-                        $roundValue = $nextIntervalData['value'] / (static::getFactor('weeks', 'months') ?: Carbon::WEEKS_PER_MONTH);
-                    } elseif ($nextIntervalData['unit'] === 'day') {
-                        $roundValue = $nextIntervalData['value'] / static::getDaysPerWeek();
-                    } elseif ($nextIntervalData['unit'] === 'hour') {
-                        $roundValue = $nextIntervalData['value'] / static::getHoursPerDay();
-                    } elseif ($nextIntervalData['unit'] === 'minute') {
-                        $roundValue = $nextIntervalData['value'] / static::getMinutesPerHour();
-                    } elseif ($nextIntervalData['unit'] === 'second') {
-                        $roundValue = $nextIntervalData['value'] / static::getSecondsPerMinute();
+                    if ($factor !== null) {
+                        $diffIntervalData['value'] += round($nextIntervalData['value'] / $factor);
                     }
-
-                    $diffIntervalData['value'] += round($roundValue);
                 }
 
                 $interval[] = $transChoice($short, $diffIntervalData);
