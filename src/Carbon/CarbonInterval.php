@@ -1269,26 +1269,6 @@ class CarbonInterval extends DateInterval
         return [$syntax, $short, $parts, $options, $join, $aUnit, $altNumbers, $interpolations];
     }
 
-    protected static function getRoundFactor(string $unit): ?float
-    {
-        switch ($unit) {
-            case 'month':
-                return static::getFactor('months', 'years') ?: Carbon::MONTHS_PER_YEAR;
-            case 'week':
-                return static::getFactor('weeks', 'months') ?: (Carbon::DAYS_PER_YEAR / Carbon::MONTHS_PER_YEAR / static::getDaysPerWeek());
-            case 'day':
-                return static::getDaysPerWeek();
-            case 'hour':
-                return static::getHoursPerDay();
-            case 'minute':
-                return static::getMinutesPerHour();
-            case 'second':
-                return static::getSecondsPerMinute();
-        }
-
-        return null;
-    }
-
     protected static function getRoundingMethodFromOptions(int $options): ?string
     {
         if ($options & CarbonInterface::ROUND) {

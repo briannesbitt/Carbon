@@ -350,4 +350,9 @@ class ForHumansTest extends AbstractTestCase
         $interval = CarbonInterval::days(2)->minutes(59)->seconds(1);
         $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::CEIL]));
     }
+
+    public function testGetValuesSequence()
+    {
+        $this->assertSame([], CarbonInterval::days(0)->getValuesSequence());
+    }
 }
