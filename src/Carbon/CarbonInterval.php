@@ -1314,13 +1314,13 @@ class CarbonInterval extends DateInterval
     public function toArray()
     {
         return [
-            'years'        => $this->years,
-            'months'       => $this->months,
-            'weeks'        => $this->weeks,
-            'days'         => $this->daysExcludeWeeks,
-            'hours'        => $this->hours,
-            'minutes'      => $this->minutes,
-            'seconds'      => $this->seconds,
+            'years' => $this->years,
+            'months' => $this->months,
+            'weeks' => $this->weeks,
+            'days' => $this->daysExcludeWeeks,
+            'hours' => $this->hours,
+            'minutes' => $this->minutes,
+            'seconds' => $this->seconds,
             'microseconds' => $this->microseconds,
         ];
     }
