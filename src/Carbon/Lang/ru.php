@@ -33,6 +33,7 @@
  * - Pavel Skripkin (psxx)
  * - AlexWalkerson
  * - Vladislav UnsealedOne
+ * - dima-bzz
  */
 $transformDiff = function ($input) {
     return strtr($input, [
