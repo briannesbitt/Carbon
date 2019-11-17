@@ -344,11 +344,18 @@ class ForHumansTest extends AbstractTestCase
         $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
         $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
 
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(1);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::CEIL]));
+
         $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
         $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::FLOOR]));
 
-        $interval = CarbonInterval::days(2)->minutes(59)->seconds(1);
-        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::CEIL]));
+        // Floor is not the default behavior, see the difference below:
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(62);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::FLOOR]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(62);
+        $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2]));
     }
 
     public function testGetValuesSequence()
