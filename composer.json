@@ -70,6 +70,9 @@
         "phpdoc": "php phpdoc.php"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Carbon\\Laravel\\ServiceProvider"
