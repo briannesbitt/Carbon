@@ -80,6 +80,8 @@ return [
     'diff_now' => 'только что',
     'diff_yesterday' => 'вчера',
     'diff_tomorrow' => 'завтра',
+    'diff_before_yesterday' => 'позавчера',
+    'diff_after_tomorrow' => 'послезавтра',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',
