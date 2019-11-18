@@ -8,9 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number > 1 ? 1 : 0;
-}, 'tzl');
+// @codeCoverageIgnoreStart
+if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
+    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+        return $number > 1 ? 1 : 0;
+    }, 'tzl');
+}
+// @codeCoverageIgnoreEnd
 
 return [
     'year' => ':count ar|:count ars',

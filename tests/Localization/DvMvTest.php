@@ -232,7 +232,15 @@ class DvMvTest extends LocalizationTestCase
         $translator->setTranslations([
             'a' => 'a|b',
         ]);
-        $this->assertSame('a', $translator->transChoice('a', 1));
-        $this->assertSame('b', $translator->transChoice('a', 2));
+
+        if (method_exists($translator, 'transChoice')) {
+            $this->assertSame('a', $translator->transChoice('a', 1));
+            $this->assertSame('b', $translator->transChoice('a', 2));
+
+            return;
+        }
+
+        $this->assertSame('a', $translator->trans('a', ['%count%' => 1]));
+        $this->assertSame('b', $translator->trans('a', ['%count%' => 2]));
     }
 }

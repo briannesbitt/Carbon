@@ -18,6 +18,13 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
+if (!interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')) {
+    class_alias(
+        'Symfony\\Contracts\\Translation\\TranslatorInterface',
+        'Symfony\\Component\\Translation\\TranslatorInterface'
+    );
+}
+
 /**
  * Trait Localization.
  *
@@ -214,7 +221,13 @@ trait Localization
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        return (string) $translator->transChoice($key, $number, $parameters);
+        // @codeCoverageIgnoreStart
+        if (method_exists($translator, 'transChoice')) {
+            return (string)$translator->transChoice($key, $number, $parameters);
+        }
+
+        return (string)$translator->trans($key, $parameters);
+        // @codeCoverageIgnoreEnd
     }
 
     /**
