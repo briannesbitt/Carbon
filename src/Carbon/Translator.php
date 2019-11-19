@@ -27,7 +27,7 @@ class Translator extends Translation\Translator
     /**
      * List of custom localized messages.
      *
-     * @var string[]
+     * @var array
      */
     protected $messages = [];
 

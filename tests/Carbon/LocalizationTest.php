@@ -312,7 +312,7 @@ class LocalizationTest extends AbstractTestCase
     public function testSetLocale($locale)
     {
         $this->assertTrue(Carbon::setLocale($locale));
-        $this->assertSame($locale, Carbon::getLocale());
+        $this->assertTrue($this->areSameLocales($locale, Carbon::getLocale()));
     }
 
     /**
@@ -329,8 +329,8 @@ class LocalizationTest extends AbstractTestCase
 
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
-        $this->assertSame($locale, $t->getLocale());
-        $this->assertSame($locale, Carbon::now()->locale());
+        $this->assertTrue($this->areSameLocales($locale, $t->getLocale()));
+        $this->assertTrue($this->areSameLocales($locale, Carbon::now()->locale()));
         Carbon::setTranslator($ori);
     }
 

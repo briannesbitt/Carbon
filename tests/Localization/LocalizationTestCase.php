@@ -14,8 +14,6 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
-use Carbon\Translator;
-use ReflectionProperty;
 use Tests\AbstractTestCase;
 
 abstract class LocalizationTestCase extends AbstractTestCase
@@ -320,22 +318,6 @@ abstract class LocalizationTestCase extends AbstractTestCase
     ];
 
     const CASES = [];
-
-    protected function areSameLocales($a, $b)
-    {
-        static $aliases = null;
-
-        if ($aliases === null) {
-            $property = new ReflectionProperty(Translator::class, 'aliases');
-            $property->setAccessible(true);
-            $aliases = $property->getValue(Translator::get());
-        }
-
-        $a = $aliases[$a] ?? $a;
-        $b = $aliases[$b] ?? $b;
-
-        return $a === $b;
-    }
 
     protected function setUp(): void
     {
