@@ -323,15 +323,15 @@ abstract class LocalizationTestCase extends AbstractTestCase
     {
         parent::setUp();
 
-        if (!Carbon::setLocale(static::LOCALE) || Carbon::getLocale() !== static::LOCALE) {
+        if (!Carbon::setLocale(static::LOCALE) || !$this->areSameLocales(Carbon::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
 
-        if (!CarbonImmutable::setLocale(static::LOCALE) || CarbonImmutable::getLocale() !== static::LOCALE) {
+        if (!CarbonImmutable::setLocale(static::LOCALE) || !$this->areSameLocales(CarbonImmutable::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
 
-        if (!CarbonInterval::setLocale(static::LOCALE) || CarbonInterval::getLocale() !== static::LOCALE) {
+        if (!CarbonInterval::setLocale(static::LOCALE) || !$this->areSameLocales(CarbonInterval::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
     }

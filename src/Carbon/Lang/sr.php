@@ -30,7 +30,7 @@ return [
     'd' => ':count d.',
     'hour' => ':count sat|:count sata|:count sati',
     'h' => ':count č.',
-    'minute' => ':count minut|:count minuta |:count minuta',
+    'minute' => ':count minut|:count minuta|:count minuta',
     'min' => ':count min.',
     'second' => ':count sekund|:count sekunde|:count sekunde',
     's' => ':count sek.',
@@ -63,32 +63,32 @@ return [
         'nextWeek' => function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
-                    return '[у недељу у] LT';
+                    return '[u nedelju u] LT';
                 case 3:
-                    return '[у среду у] LT';
+                    return '[u sredu u] LT';
                 case 6:
-                    return '[у суботу у] LT';
+                    return '[u subotu u] LT';
                 default:
-                    return '[у] dddd [у] LT';
+                    return '[u] dddd [u] LT';
             }
         },
         'lastDay' => '[juče u] LT',
         'lastWeek' => function (\Carbon\CarbonInterface $date) {
             switch ($date->dayOfWeek) {
                 case 0:
-                    return '[прошле недеље у] LT';
+                    return '[prošle nedelje u] LT';
                 case 1:
-                    return '[прошлог понедељка у] LT';
+                    return '[prošlog ponedeljka u] LT';
                 case 2:
-                    return '[прошлог уторка у] LT';
+                    return '[prošlog utorka u] LT';
                 case 3:
-                    return '[прошле среде у] LT';
+                    return '[prošle srede u] LT';
                 case 4:
-                    return '[прошлог четвртка у] LT';
+                    return '[prošlog četvrtka u] LT';
                 case 5:
-                    return '[прошлог петка у] LT';
+                    return '[prošlog petka u] LT';
                 default:
-                    return '[прошле суботе у] LT';
+                    return '[prošle subote u] LT';
             }
         },
         'sameElse' => 'L',
@@ -102,5 +102,4 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 1,
     'list' => [', ', ' i '],
-    'meridiem' => ['пре подне', 'по подне'],
 ];

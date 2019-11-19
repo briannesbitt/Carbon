@@ -38,8 +38,8 @@ install:
   - composer remove --no-update friendsofphp/php-cs-fixer
   - composer remove --no-update phpmd/phpmd
   - composer remove --no-update squizlabs/php_codesniffer
-  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer; fi
-  - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester; fi
+  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev; fi
+  - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev; fi
   - if [[ $setup = 'nightly'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi

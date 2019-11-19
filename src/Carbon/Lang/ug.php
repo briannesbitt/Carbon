@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'ug');
 
 /*
  * Authors:
@@ -19,13 +16,13 @@
  * - yasinn
  */
 return [
-    'year' => 'بىر يىل|:count يىل',
-    'month' => 'بىر ئاي|:count ئاي',
-    'week' => 'بىر ھەپتە|:count ھەپتە',
-    'day' => 'بىر كۈن|:count كۈن',
-    'hour' => 'بىر سائەت|:count سائەت',
-    'minute' => 'بىر مىنۇت|:count مىنۇت',
-    'second' => 'نەچچە سېكونت|:count سېكونت',
+    'year' => '{1}'.'بىر يىل'.'|:count '.'يىل',
+    'month' => '{1}'.'بىر ئاي'.'|:count '.'ئاي',
+    'week' => '{1}'.'بىر ھەپتە'.'|:count '.'ھەپتە',
+    'day' => '{1}'.'بىر كۈن'.'|:count '.'كۈن',
+    'hour' => '{1}'.'بىر سائەت'.'|:count '.'سائەت',
+    'minute' => '{1}'.'بىر مىنۇت'.'|:count '.'مىنۇت',
+    'second' => '{1}'.'نەچچە سېكونت'.'|:count '.'سېكونت',
     'ago' => ':time بۇرۇن',
     'from_now' => ':time كېيىن',
     'formats' => [

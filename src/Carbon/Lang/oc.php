@@ -13,9 +13,13 @@
  * Authors:
  * - Quentí
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number == 1 ? 0 : 1;
-}, 'oc');
+// @codeCoverageIgnoreStart
+if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
+    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+        return $number == 1 ? 0 : 1;
+    }, 'oc');
+}
+// @codeCoverageIgnoreEnd
 
 return [
     'year' => ':count an|:count ans',
