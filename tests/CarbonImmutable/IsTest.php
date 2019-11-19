@@ -878,7 +878,7 @@ class IsTest extends AbstractTestCase
         $this->assertTrue(Carbon::hasFormat('30/12/2019', 'd/m/Y'));
         $this->assertTrue(Carbon::hasFormat('Sun 21st', 'D jS'));
 
-        $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', Carbon::ATOM));
+        $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', DateTime::ATOM));
         $this->assertTrue(Carbon::hasFormat('Y-01-30\\', '\\Y-m-d\\\\'));
 
         if (version_compare(PHP_VERSION, '7.3.0-dev', '>=')) {
