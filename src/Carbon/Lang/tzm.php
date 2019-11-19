@@ -8,13 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-// @codeCoverageIgnoreStart
-if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
-    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-        return $number === 1 ? 0 : 1;
-    }, 'tzm');
-}
-// @codeCoverageIgnoreEnd
 
 /*
  * Authors:
@@ -22,13 +15,13 @@ if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
  * - JD Isaacks
  */
 return [
-    'year' => 'ⴰⵙⴳⴰⵙ|:count ⵉⵙⴳⴰⵙⵏ',
-    'month' => 'ⴰⵢoⵓⵔ|:count ⵉⵢⵢⵉⵔⵏ',
+    'year' => '{1}ⴰⵙⴳⴰⵙ|:count ⵉⵙⴳⴰⵙⵏ',
+    'month' => '{1}ⴰⵢoⵓⵔ|:count ⵉⵢⵢⵉⵔⵏ',
     'week' => ':count ⵉⵎⴰⵍⴰⵙⵙ',
-    'day' => 'ⴰⵙⵙ|:count oⵙⵙⴰⵏ',
-    'hour' => 'ⵙⴰⵄⴰ|:count ⵜⴰⵙⵙⴰⵄⵉⵏ',
-    'minute' => 'ⵎⵉⵏⵓⴺ|:count ⵎⵉⵏⵓⴺ',
-    'second' => 'ⵉⵎⵉⴽ|:count ⵉⵎⵉⴽ',
+    'day' => '{1}ⴰⵙⵙ|:count oⵙⵙⴰⵏ',
+    'hour' => '{1}ⵙⴰⵄⴰ|:count ⵜⴰⵙⵙⴰⵄⵉⵏ',
+    'minute' => '{1}ⵎⵉⵏⵓⴺ|:count ⵎⵉⵏⵓⴺ',
+    'second' => '{1}ⵉⵎⵉⴽ|:count ⵉⵎⵉⴽ',
     'ago' => 'ⵢⴰⵏ :time',
     'from_now' => 'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ :time',
     'formats' => [

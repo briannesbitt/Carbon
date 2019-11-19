@@ -8,13 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-// @codeCoverageIgnoreStart
-if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
-    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-        return $number === 1 ? 0 : 1;
-    }, 'tet');
-}
-// @codeCoverageIgnoreEnd
 
 /*
  * Authors:
@@ -23,19 +16,19 @@ if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
  */
 return [
     'year' => 'tinan :count',
-    'a_year' => 'tinan ida|tinan :count',
+    'a_year' => '{1}tinan ida|tinan :count',
     'month' => 'fulan :count',
-    'a_month' => 'fulan ida|fulan :count',
+    'a_month' => '{1}fulan ida|fulan :count',
     'week' => 'semana :count',
-    'a_week' => 'semana ida|semana :count',
+    'a_week' => '{1}semana ida|semana :count',
     'day' => 'loron :count',
-    'a_day' => 'loron ida|loron :count',
+    'a_day' => '{1}loron ida|loron :count',
     'hour' => 'oras :count',
-    'a_hour' => 'oras ida|oras :count',
+    'a_hour' => '{1}oras ida|oras :count',
     'minute' => 'minutu :count',
-    'a_minute' => 'minutu ida|minutu :count',
+    'a_minute' => '{1}minutu ida|minutu :count',
     'second' => 'segundu :count',
-    'a_second' => 'segundu balun|segundu :count',
+    'a_second' => '{1}segundu balun|segundu :count',
     'ago' => ':time liuba',
     'from_now' => 'iha :time',
     'diff_yesterday' => 'Horiseik',

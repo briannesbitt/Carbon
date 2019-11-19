@@ -225,22 +225,4 @@ class DvMvTest extends LocalizationTestCase
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         '1 ދުވަސް 3 ގަޑި',
     ];
-
-    public function testPlural()
-    {
-        $translator = Translator::get('dv_MV');
-        $translator->setTranslations([
-            'a' => 'a|b',
-        ]);
-
-        if (method_exists($translator, 'transChoice')) {
-            $this->assertSame('a', $translator->transChoice('a', 1));
-            $this->assertSame('b', $translator->transChoice('a', 2));
-
-            return;
-        }
-
-        $this->assertSame('a', $translator->trans('a', ['%count%' => 1]));
-        $this->assertSame('b', $translator->trans('a', ['%count%' => 2]));
-    }
 }
