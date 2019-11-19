@@ -11,6 +11,7 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Exceptions\ParseErrorException;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -194,6 +195,29 @@ class CarbonInterval extends DateInterval
     protected static $cascadeFactors;
 
     /**
+     * @var array
+     */
+    protected static $formats = [
+        'y' => 'y',
+        'Y' => 'y',
+        'o' => 'y',
+        'm' => 'm',
+        'n' => 'm',
+        'W' => 'weeks',
+        'd' => 'd',
+        'j' => 'd',
+        'z' => 'd',
+        'h' => 'h',
+        'g' => 'h',
+        'H' => 'h',
+        'G' => 'h',
+        'i' => 'i',
+        's' => 's',
+        'u' => 'micro',
+        'v' => 'milli',
+    ];
+
+    /**
      * @var array|null
      */
     private static $flipCascadeFactors;
@@ -293,7 +317,7 @@ class CarbonInterval extends DateInterval
      * @param int|null $seconds
      * @param int|null $microseconds
      *
-     * @throws Exception
+     * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
@@ -429,11 +453,78 @@ class CarbonInterval extends DateInterval
      * @param int $seconds
      * @param int $microseconds
      *
+     * @throws Exception when the interval_spec (passed as $years) cannot be parsed as an interval.
+     *
      * @return static
      */
     public static function create($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
         return new static($years, $months, $weeks, $days, $hours, $minutes, $seconds, $microseconds);
+    }
+
+    /**
+     * Parse a string into a new CarbonInterval object according to the specified format.
+     *
+     * @example
+     * ```
+     * echo Carboninterval::createFromFormat('H:i', '1:30');
+     * ```
+     *
+     * @param string $format   Format of the $interval input string
+     * @param string $interval Input string to convert into an interval
+     *
+     * @throws Exception when the $interval cannot be parsed as an interval.
+     *
+     * @return static
+     */
+    public static function createFromFormat(string $format, ?string $interval)
+    {
+        $instance = new static(0);
+        $length = mb_strlen($format);
+
+        if (preg_match('/s([,.])([uv])$/', $format, $match)) {
+            $interval = explode($match[1], $interval);
+            $index = count($interval) - 1;
+            $interval[$index] = str_pad($interval[$index], $match[2] === 'v' ? 3 : 6, '0');
+            $interval = implode($match[1], $interval);
+        }
+
+        for ($index = 0; $index < $length; $index++) {
+            $expected = mb_substr($format, $index, 1);
+            $nextCharacter = mb_substr($interval, 0, 1);
+            $unit = static::$formats[$expected] ?? null;
+
+            if ($unit) {
+                if (!preg_match('/^-?\d+/', $interval, $match)) {
+                    throw new ParseErrorException('number', $nextCharacter);
+                }
+
+                $interval = mb_substr($interval, mb_strlen($match[0]));
+                $instance->$unit += intval($match[0]);
+
+                continue;
+            }
+
+            if ($nextCharacter !== $expected) {
+                throw new ParseErrorException(
+                    "'$expected'",
+                    $nextCharacter,
+                    'Allowed substitutes for interval formats are '.implode(', ', array_keys(static::$formats))."\n".
+                    'See https://www.php.net/manual/en/function.date.php for their meaning'
+                );
+            }
+
+            $interval = mb_substr($interval, 1);
+        }
+
+        if ($interval !== '') {
+            throw new ParseErrorException(
+                'end of string',
+                $interval
+            );
+        }
+
+        return $instance;
     }
 
     /**
