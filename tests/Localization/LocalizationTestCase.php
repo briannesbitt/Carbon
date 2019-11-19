@@ -14,6 +14,8 @@ namespace Tests\Localization;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
+use Carbon\Translator;
+use ReflectionProperty;
 use Tests\AbstractTestCase;
 
 abstract class LocalizationTestCase extends AbstractTestCase
@@ -319,19 +321,35 @@ abstract class LocalizationTestCase extends AbstractTestCase
 
     const CASES = [];
 
+    protected function areSameLocales($a, $b)
+    {
+        static $aliases = null;
+
+        if ($aliases === null) {
+            $property = new ReflectionProperty(Translator::class, 'aliases');
+            $property->setAccessible(true);
+            $aliases = $property->getValue(Translator::get());
+        }
+
+        $a = $aliases[$a] ?? $a;
+        $b = $aliases[$b] ?? $b;
+
+        return $a === $b;
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        if (!Carbon::setLocale(static::LOCALE) || Carbon::getLocale() !== static::LOCALE) {
+        if (!Carbon::setLocale(static::LOCALE) || !$this->areSameLocales(Carbon::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
 
-        if (!CarbonImmutable::setLocale(static::LOCALE) || CarbonImmutable::getLocale() !== static::LOCALE) {
+        if (!CarbonImmutable::setLocale(static::LOCALE) || !$this->areSameLocales(CarbonImmutable::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
 
-        if (!CarbonInterval::setLocale(static::LOCALE) || CarbonInterval::getLocale() !== static::LOCALE) {
+        if (!CarbonInterval::setLocale(static::LOCALE) || !$this->areSameLocales(CarbonInterval::getLocale(), static::LOCALE)) {
             throw new \InvalidArgumentException('Locale '.static::LOCALE.' not found');
         }
     }

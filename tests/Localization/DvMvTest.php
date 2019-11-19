@@ -11,8 +11,6 @@ declare(strict_types=1);
  */
 namespace Tests\Localization;
 
-use Carbon\Translator;
-
 class DvMvTest extends LocalizationTestCase
 {
     const LOCALE = 'dv_MV'; // Divehi

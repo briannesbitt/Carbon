@@ -222,12 +222,12 @@ trait Localization
         }
 
         // @codeCoverageIgnoreStart
-        if (method_exists($translator, 'transChoice')) {
-            return (string)$translator->transChoice($key, $number, $parameters);
-        }
-
-        return (string)$translator->trans($key, $parameters);
+        $choice = method_exists($translator, 'transChoice')
+            ? $translator->transChoice($key, $number, $parameters)
+            : $translator->trans($key, $parameters);
         // @codeCoverageIgnoreEnd
+
+        return (string) $choice;
     }
 
     /**
