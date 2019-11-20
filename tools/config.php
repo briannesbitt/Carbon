@@ -1,7 +1,8 @@
 <?php
 
+[, $alias] = explode(' as ', json_decode(file_get_contents(__DIR__.'/../composer.json'), true)['require']['nesbot/carbon']);
 const MASTER_BRANCH = 'dev-master';
-const MASTER_VERSION = '2.27.0';
+define('MASTER_VERSION', $alias);
 const BLACKLIST = [
     '1.23.1',
     '1.23.2',

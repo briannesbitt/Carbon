@@ -2782,13 +2782,39 @@ echo "\n";
     <p>If the argument is omitted or set to <code>null</code>, only <code>Carbon::NO_ZERO_DIFF</code> is enabled.
         Available options are:</p>
 
-    <ul>
+    <ul id="diff-for-humans-flag-options">
+        <li><code>Carbon::ROUND</code> / <code>Carbon::CEIL</code> / <code>Carbon::FLOOR</code> (none by default):
+            only one of the 3 can be used at a time (other are ignored) and it requires <code>'parts'</code> to be set.
+            By default, once the diff has as parts as <code>'parts'</code> setting requested and omit all remaining
+            units.
+            <ul>
+                <li>If <code>Carbon::ROUND</code> is enabled, the remaining units are summed and if they are
+                    <strong>&gt;= 0.5</strong> of the last unit of the diff, this unit will be rounded to the
+                    upper value.</li>
+                <li>If <code>Carbon::CEIL</code> is enabled, the remaining units are summed and if they are
+                    <strong>&gt; 0</strong> of the last unit of the diff, this unit will be rounded to the
+                    upper value.</li>
+                <li>If <code>Carbon::FLOOR</code> is enabled, the last diff unit is rounded down. It makes no
+                    difference from the default behavior for <code>diffForHumans()</code> as the interval
+                    can't have overflow, but this option may be needed when used with
+                    <code>CarbonInterval::forHumans()</code> (and unchecked intervals that may have 60 minutes or more,
+                    24 hours or more, etc.). For example:
+                    <code>CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1])</code> returns
+                    <code>"1 hour"</code> while
+                    <code>CarbonInterval::make('1 hour and 67 minutes')->forHumans(['parts' => 1, 'options' => Carbon::FLOOR])</code>
+                    returns <code>"2 hours"</code>.</li>
+            </ul>
+        </li>
         <li><code>Carbon::NO_ZERO_DIFF</code> (enabled by default): turns empty diff into 1 second</li>
         <li><code>Carbon::JUST_NOW</code> disabled by default): turns diff from now to now into "just now"</li>
         <li><code>Carbon::ONE_DAY_WORDS</code> (disabled by default): turns "1 day from now/ago" to "yesterday/tomorrow"
         </li>
         <li><code>Carbon::TWO_DAY_WORDS</code> (disabled by default): turns "2 days from now/ago" to "before
             yesterday/after
+        </li>
+        <li><code>Carbon::SEQUENTIAL_PARTS_ONLY</code> (disabled by default): will keep only the first sequence of
+            units of the interval, for example if the diff would have been "2 weeks 1 day 34 minutes 12 seconds"
+            as day and minute are not consecutive units, you will get: "2 weeks 1 day".
         </li>
     </ul>
 
@@ -3361,6 +3387,7 @@ CarbonInterval::macro('twice', static function () {
 
     <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
         <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
+        <a href="#diff-for-humans-options">See <code>Carbon::diffForHumans()</code> options.</a>
     </p>
 
     <p>
@@ -3956,6 +3983,33 @@ usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 )}}
 
 {{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Dump interval values as an array with:</p>
+
+    <p>
+    <pre><code class="php">{{::lint(
+$interval = CarbonInterval::months(2)->hours(12)->seconds(50);
+)}}
+
+// All the values:
+{{::exec(print_r($interval->toArray());)}}
+/*
+{{eval}}
+*/
+
+// Values sequence from the biggest to the smallest non-zero ones:
+{{::exec(print_r($interval->getValuesSequence());)}}
+/*
+{{eval}}
+*/
+
+// Non-zero values:
+{{::exec(print_r($interval->getNonZeroValues());)}}
+/*
+{{eval}}
+*/
 </code></pre>
     </p>
 
