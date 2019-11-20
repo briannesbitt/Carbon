@@ -70,10 +70,10 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
         if (!empty($matches[0])) {
             foreach ($matches[0] as $data) {
                 if (preg_match('/^(
-                [^"\'\\(\\)]+ |
+                [^"\'()]+ |
                 "(?:\\\\[\\S\\s]|[^"\\\\])*" |
                 \'(?:\\\\[\\S\\s]|[^\'\\\\])*\' |
-                (\\(([^\\(\\)\'"]+|(?1))*\\)) |
+                (\\(([^()\'"]+|(?1))*\\)) |
             )*\)/x', substr($documentation, $data[1] + strlen($data[0])), $match)) {
                     $argumentsString = substr($match[0], 0, -1);
                     $argumentsString = preg_replace('/(
@@ -81,10 +81,10 @@ foreach (methods(true) as list($carbonObject, $className, $method, $parameters))
                         \'(?:\\\\[\\S\\s]|[^\'\\\\])*\'
                     )*/x', '', $argumentsString);
                     $argumentsString = preg_replace('/(\\(
-                        (\\[([^\\[\\]\'"]+|(?1))*\\]) |
-                        (\\(([^\\(\\)\'"]+|(?1))*\\)) |
-                        (\\{([^\\{\\}\'"]+|(?1))*\\}) |
-                        [^\\{\\}\\(\\)\\[\\]\'"]+
+                        (\\[([^\\[\\]\'"]+|(?1))*]) |
+                        (\\(([^()\'"]+|(?1))*\\)) |
+                        ({([^{}\'"]+|(?1))*}) |
+                        [^{}()\\[\\]\'"]+
                     \\))*/x', '', $argumentsString);
                     $count = count(explode(',', $argumentsString));
                     if ($count > $coveredArgs) {

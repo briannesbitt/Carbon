@@ -3649,6 +3649,9 @@ class CarbonInterval extends \DateInterval
 
     <p>
     <pre class="live-editor"><code class="php">{{::exec(
+echo CarbonInterval::createFromFormat('H:i:s', '10:20:00');/*pad(54)*/)}} // {{eval}}
+echo "\n";
+{{::exec(
 echo CarbonInterval::year();/*pad(54)*/)}} // {{eval}}
 echo "\n";
 {{::exec(echo CarbonInterval::months(3);/*pad(54)*/)}} // {{eval}}
