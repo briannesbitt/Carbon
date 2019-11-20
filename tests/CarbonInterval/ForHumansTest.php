@@ -251,6 +251,8 @@ class ForHumansTest extends AbstractTestCase
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::years(2)->months(11);
         $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::years(2)->months(5)->days(70);
+        $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
     }
 
     public function testRoundMonths()
