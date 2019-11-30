@@ -44,7 +44,7 @@ trait Boundaries
      */
     public function startOfDay()
     {
-        return $this->setTime(0, 0, 0, 0);
+        return $this->setTime(0, 0, 0, 0)->copy();
     }
 
     /**
@@ -59,7 +59,7 @@ trait Boundaries
      */
     public function endOfDay()
     {
-        return $this->setTime(static::HOURS_PER_DAY - 1, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
+        return $this->setTime(static::HOURS_PER_DAY - 1, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1)->copy();
     }
 
     /**
@@ -74,7 +74,7 @@ trait Boundaries
      */
     public function startOfMonth()
     {
-        return $this->setDate($this->year, $this->month, 1)->startOfDay();
+        return $this->setDate($this->year, $this->month, 1)->startOfDay()->copy();
     }
 
     /**
@@ -89,7 +89,7 @@ trait Boundaries
      */
     public function endOfMonth()
     {
-        return $this->setDate($this->year, $this->month, $this->daysInMonth)->endOfDay();
+        return $this->setDate($this->year, $this->month, $this->daysInMonth)->endOfDay()->copy();
     }
 
     /**
@@ -106,7 +106,7 @@ trait Boundaries
     {
         $month = ($this->quarter - 1) * static::MONTHS_PER_QUARTER + 1;
 
-        return $this->setDate($this->year, $month, 1)->startOfDay();
+        return $this->setDate($this->year, $month, 1)->startOfDay()->copy();
     }
 
     /**
@@ -121,7 +121,7 @@ trait Boundaries
      */
     public function endOfQuarter()
     {
-        return $this->startOfQuarter()->addMonths(static::MONTHS_PER_QUARTER - 1)->endOfMonth();
+        return $this->startOfQuarter()->addMonths(static::MONTHS_PER_QUARTER - 1)->endOfMonth()->copy();
     }
 
     /**
@@ -136,7 +136,7 @@ trait Boundaries
      */
     public function startOfYear()
     {
-        return $this->setDate($this->year, 1, 1)->startOfDay();
+        return $this->setDate($this->year, 1, 1)->startOfDay()->copy();
     }
 
     /**
@@ -151,7 +151,7 @@ trait Boundaries
      */
     public function endOfYear()
     {
-        return $this->setDate($this->year, 12, 31)->endOfDay();
+        return $this->setDate($this->year, 12, 31)->endOfDay()->copy();
     }
 
     /**
@@ -168,7 +168,7 @@ trait Boundaries
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE;
 
-        return $this->setDate($year, 1, 1)->startOfDay();
+        return $this->setDate($year, 1, 1)->startOfDay()->copy();
     }
 
     /**
@@ -185,7 +185,7 @@ trait Boundaries
     {
         $year = $this->year - $this->year % static::YEARS_PER_DECADE + static::YEARS_PER_DECADE - 1;
 
-        return $this->setDate($year, 12, 31)->endOfDay();
+        return $this->setDate($year, 12, 31)->endOfDay()->copy();
     }
 
     /**
@@ -202,7 +202,7 @@ trait Boundaries
     {
         $year = $this->year - ($this->year - 1) % static::YEARS_PER_CENTURY;
 
-        return $this->setDate($year, 1, 1)->startOfDay();
+        return $this->setDate($year, 1, 1)->startOfDay()->copy();
     }
 
     /**
@@ -219,7 +219,7 @@ trait Boundaries
     {
         $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_CENTURY + static::YEARS_PER_CENTURY;
 
-        return $this->setDate($year, 12, 31)->endOfDay();
+        return $this->setDate($year, 12, 31)->endOfDay()->copy();
     }
 
     /**
@@ -236,7 +236,7 @@ trait Boundaries
     {
         $year = $this->year - ($this->year - 1) % static::YEARS_PER_MILLENNIUM;
 
-        return $this->setDate($year, 1, 1)->startOfDay();
+        return $this->setDate($year, 1, 1)->startOfDay()->copy();
     }
 
     /**
@@ -253,7 +253,7 @@ trait Boundaries
     {
         $year = $this->year - 1 - ($this->year - 1) % static::YEARS_PER_MILLENNIUM + static::YEARS_PER_MILLENNIUM;
 
-        return $this->setDate($year, 12, 31)->endOfDay();
+        return $this->setDate($year, 12, 31)->endOfDay()->copy();
     }
 
     /**
@@ -277,7 +277,7 @@ trait Boundaries
             $date = $date->subDay();
         }
 
-        return $date->startOfDay();
+        return $date->startOfDay()->copy();
     }
 
     /**
@@ -301,7 +301,7 @@ trait Boundaries
             $date = $date->addDay();
         }
 
-        return $date->endOfDay();
+        return $date->endOfDay()->copy();
     }
 
     /**
@@ -316,7 +316,7 @@ trait Boundaries
      */
     public function startOfHour()
     {
-        return $this->setTime($this->hour, 0, 0, 0);
+        return $this->setTime($this->hour, 0, 0, 0)->copy();
     }
 
     /**
@@ -331,7 +331,7 @@ trait Boundaries
      */
     public function endOfHour()
     {
-        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
+        return $this->setTime($this->hour, static::MINUTES_PER_HOUR - 1, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1)->copy();
     }
 
     /**
@@ -346,7 +346,7 @@ trait Boundaries
      */
     public function startOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, 0, 0);
+        return $this->setTime($this->hour, $this->minute, 0, 0)->copy();
     }
 
     /**
@@ -361,7 +361,7 @@ trait Boundaries
      */
     public function endOfMinute()
     {
-        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1);
+        return $this->setTime($this->hour, $this->minute, static::SECONDS_PER_MINUTE - 1, static::MICROSECONDS_PER_SECOND - 1)->copy();
     }
 
     /**
@@ -378,7 +378,7 @@ trait Boundaries
      */
     public function startOfSecond()
     {
-        return $this->setTime($this->hour, $this->minute, $this->second, 0);
+        return $this->setTime($this->hour, $this->minute, $this->second, 0)->copy();
     }
 
     /**
@@ -395,7 +395,7 @@ trait Boundaries
      */
     public function endOfSecond()
     {
-        return $this->setTime($this->hour, $this->minute, $this->second, static::MICROSECONDS_PER_SECOND - 1);
+        return $this->setTime($this->hour, $this->minute, $this->second, static::MICROSECONDS_PER_SECOND - 1)->copy();
     }
 
     /**
