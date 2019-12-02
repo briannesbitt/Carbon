@@ -3110,7 +3110,7 @@ $dt = Carbon::__set_state(json_decode($json, true));
 </code></pre>
     </p>
 
-    <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
+    <p>You can use <code>settings(['toJsonFormat' => $format])</code> to customize the serialization.</p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint(

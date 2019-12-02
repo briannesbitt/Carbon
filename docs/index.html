@@ -549,7 +549,7 @@ echo $french; // dans 11 mois
         <pre><code class="php">setlocale(LC_TIME, 'Spanish');
 $dt = Carbon::create(2016, 01, 06, 00, 00, 00);
 Carbon::setUtf8(false);
-echo $dt->formatLocalized('%A %d %B %Y');          // miércoles 06 enero 2016
+echo $dt->formatLocalized('%A %d %B %Y');          // miï¿½rcoles 06 enero 2016
 Carbon::setUtf8(true);
 echo $dt->formatLocalized('%A %d %B %Y');          // miÃ©rcoles 06 enero 2016
 Carbon::setUtf8(false);
@@ -7144,7 +7144,7 @@ echo $dt->format('Y-m-d\TH:i:s.uP T');
 </code></pre>
     </p>
 
-    <p>You can use <code>serializeUsing()</code> to customize the serialization.</p>
+    <p>You can use <code>settings(['toJsonFormat' => $format])</code> to customize the serialization.</p>
 
     <p>
     <pre class="live-editor"><code class="php">$dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow')->settings([
