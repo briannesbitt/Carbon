@@ -851,6 +851,10 @@ trait Date
             'localeMonth' => '%B',
             // @property string the abbreviated month in current locale LC_TIME
             'shortLocaleMonth' => '%b',
+            // @property-read string $timezoneAbbreviatedName the current timezone abbreviated name
+            'timezoneAbbreviatedName' => 'T',
+            // @property-read string $tzAbbrName alias of $timezoneAbbreviatedName
+            'tzAbbrName' => 'T',
         ];
 
         switch (true) {
@@ -1012,11 +1016,6 @@ trait Date
             // @property-read string $tzName alias of $timezoneName
             case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
-
-            // @property-read string $timezoneAbbreviatedName the current timezone abbreviated name
-            // @property-read string $tzAbbrName alias of $timezoneAbbreviatedName
-            case $name === 'timezoneAbbreviatedName' || $name === 'tzAbbrName':
-                return CarbonTimeZone::instance($this->getTimezone())->getAbbr($this->dst);
 
             // @property-read string locale of the current instance
             case $name === 'locale':
@@ -1930,7 +1929,7 @@ trait Date
                 'YYYYYY' => function (CarbonInterface $date) {
                     return ($date->year < 0 ? '' : '+').$date->getPaddedUnit('year', 6);
                 },
-                'z' => 'tzAbbrName',
+                'z' => ['rawFormat', ['T']],
                 'zz' => 'tzName',
                 'Z' => ['getOffsetString', []],
                 'ZZ' => ['getOffsetString', ['']],
