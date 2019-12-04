@@ -177,8 +177,8 @@ class PlPlTest extends LocalizationTestCase
         '100.',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        // '12:00 am cet',
-        '12:00 przed południem cet',
+        // '12:00 am CET',
+        '12:00 przed południem CET',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 AM, 12:00 am',
