@@ -106,5 +106,13 @@ class CreateFromTimestampTest extends AbstractTestCase
             '2019-11-03T01:00:00-05:00',
             Carbon::createFromTimestamp(1572757200 + 3600, 'America/New_York')->toIso8601String()
         );
+        $this->assertSame(
+            '2019-11-03T01:00:00-04:00',
+            Carbon::createFromTimestampMs(1572757200000, 'America/New_York')->toIso8601String()
+        );
+        $this->assertSame(
+            '2019-11-03T01:00:00-05:00',
+            Carbon::createFromTimestampMs(1572757200000 + 3600000, 'America/New_York')->toIso8601String()
+        );
     }
 }

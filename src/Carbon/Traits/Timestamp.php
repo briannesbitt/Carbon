@@ -10,7 +10,6 @@
  */
 namespace Carbon\Traits;
 
-use Carbon\CarbonInterface;
 use DateTime;
 
 /**
@@ -35,7 +34,7 @@ trait Timestamp
             $date->setTimezone($tz);
         }
 
-        return (new static($date->format(CarbonInterface::ATOM)))->tz($tz);
+        return (new static($date->format(DateTime::ATOM)))->tz($tz);
     }
 
     /**
