@@ -383,9 +383,8 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(
             [
                 '2018-10-28 01:30:00 +02:00',
-                // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
-                '2018-10-28 02:00:00 +01:00',
-                '2018-10-28 02:30:00 +01:00',
+                '2018-10-28 02:00:00 +02:00',
+                '2018-10-28 02:30:00 +02:00',
                 '2018-10-28 02:00:00 +01:00',
                 '2018-10-28 02:30:00 +01:00',
                 '2018-10-28 03:00:00 +01:00',
