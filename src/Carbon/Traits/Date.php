@@ -1528,13 +1528,7 @@ trait Date
      */
     public function setTimezone($value)
     {
-        /** @var static $date */
-        $date = parent::setTimezone(static::safeCreateDateTimeZone($value));
-        // https://bugs.php.net/bug.php?id=72338
-        // just workaround on this bug
-        $date->getTimestamp();
-
-        return $date;
+        return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
     /**
