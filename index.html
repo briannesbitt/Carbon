@@ -593,7 +593,7 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
-            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da', 'nl', 'cs', 'ka'].indexOf(language) === -1
+            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da', 'nl', 'cs', 'ka', 'hr', 'gl', 'bg', 'tr'].indexOf(language) === -1
         ) {
             $.getJSON('/languages.json', function (languages) {
                 var $help = $('footer .help-translate');
