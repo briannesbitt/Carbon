@@ -102,9 +102,9 @@ matrix:
       env:
         - setup=stable
         - coverage=true
-    - php: 7.4snapshot
+    - php: 7.4
       env: setup=lowest
-    - php: 7.4snapshot
+    - php: 7.4
     - php: nightly
       env: setup=nightly
     - php: 7.3
