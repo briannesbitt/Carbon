@@ -6142,8 +6142,8 @@
                     "1": "l’année prochaine",
                     "-1": "l’année dernière"
                 },
-                "P": "one{Il y a # an}other{Il y a # ans}",
-                "F": "one{Dans # an}other{Dans # ans}"
+                "P": "one{il y a # an}other{il y a # ans}",
+                "F": "one{dans # an}other{dans # ans}"
             },
             "SHORT": {
                 "R": {
@@ -6990,8 +6990,8 @@
                     "1": "अगला माह",
                     "-1": "पिछला माह"
                 },
-                "P": "one{# माह पहले}other{# माह पहले}",
-                "F": "one{# माह में}other{# माह में}"
+                "P": "one{# माह पहले}other{# महीने पहले}",
+                "F": "one{# माह में}other{# महीने में}"
             }
         },
         "QUARTER": {
