@@ -426,6 +426,6 @@ class ScrTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 d. 3 č.'
+        '1 d. 3 č.',
     ];
 }
