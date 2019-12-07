@@ -45,6 +45,9 @@ return [
     's' => ':count сек.',
     'ago' => ':time мурун',
     'from_now' => ':time ичинде',
+    'diff_now' => 'азыр',
+    'diff_yesterday' => 'кечээ',
+    'diff_tomorrow' => 'эртең',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

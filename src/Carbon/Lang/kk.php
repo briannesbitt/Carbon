@@ -43,6 +43,9 @@ return [
     'from_now' => ':time ішінде',
     'after' => ':time кейін',
     'before' => ':time бұрын',
+    'diff_now' => 'қазір',
+    'diff_yesterday' => 'кеше',
+    'diff_tomorrow' => 'ертең',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

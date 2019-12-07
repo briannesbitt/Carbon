@@ -40,6 +40,7 @@ return [
     's' => ':count సెక.',
     'ago' => ':time క్రితం',
     'from_now' => ':time లో',
+    'diff_now' => 'ప్రస్తుతం',
     'diff_yesterday' => 'నిన్న',
     'diff_tomorrow' => 'రేపు',
     'formats' => [

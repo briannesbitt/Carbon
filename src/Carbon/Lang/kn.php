@@ -26,6 +26,7 @@ return [
     'second' => '{1}ಕೆಲವು ಕ್ಷಣಗಳು|]1,Inf[:count ಸೆಕೆಂಡುಗಳು',
     'ago' => ':time ಹಿಂದೆ',
     'from_now' => ':time ನಂತರ',
+    'diff_now' => 'ಈಗ',
     'diff_yesterday' => 'ನಿನ್ನೆ',
     'diff_tomorrow' => 'ನಾಳೆ',
     'formats' => [

@@ -26,6 +26,9 @@ if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
  * - Miroslav Matkovic (mikki021)
  */
 return [
+    'diff_now' => 'sada',
+    'diff_yesterday' => 'juče',
+    'diff_tomorrow' => 'sutra',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

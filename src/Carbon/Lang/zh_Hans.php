@@ -43,6 +43,7 @@ return [
     'from_now' => ':time后',
     'after' => ':time后',
     'before' => ':time前',
+    'diff_now' => '现在',
     'diff_yesterday' => '昨天',
     'diff_tomorrow' => '明天',
     'formats' => [

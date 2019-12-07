@@ -39,6 +39,7 @@ return [
     'from_now' => ':time ներկա պահից',
     'after' => ':time հետո',
     'before' => ':time առաջ',
+    'diff_now' => 'հիմա',
     'diff_yesterday' => 'երեկ',
     'diff_tomorrow' => 'վաղը',
     'formats' => [

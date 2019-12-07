@@ -45,6 +45,9 @@ return [
     'from_now' => ':time dari sekarang',
     'after' => ':time setelahnya',
     'before' => ':time sebelumnya',
+    'diff_now' => 'sekarang',
+    'diff_yesterday' => 'kemarin',
+    'diff_tomorrow' => 'besok',
     'formats' => [
         'LT' => 'HH.mm',
         'LTS' => 'HH.mm.ss',

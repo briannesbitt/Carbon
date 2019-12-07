@@ -61,6 +61,9 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'list' => [', ', ' a '],
+    'diff_now' => 'teraz',
+    'diff_yesterday' => 'včera',
+    'diff_tomorrow' => 'zajtra',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

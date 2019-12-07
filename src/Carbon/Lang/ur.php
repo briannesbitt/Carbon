@@ -58,6 +58,9 @@ return [
     'from_now' => ':time بعد',
     'after' => ':time بعد',
     'before' => ':time پہلے',
+    'diff_now' => 'اب',
+    'diff_yesterday' => 'گزشتہ کل',
+    'diff_tomorrow' => 'آئندہ کل',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
