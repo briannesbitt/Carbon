@@ -86,6 +86,9 @@ return [
     'weekdays_short' => ['ned', 'pon', 'úte', 'stř', 'čtv', 'pát', 'sob'],
     'weekdays_min' => ['ne', 'po', 'út', 'st', 'čt', 'pá', 'so'],
     'list' => [', ', ' a '],
+    'diff_now' => 'nyní',
+    'diff_yesterday' => 'včera',
+    'diff_tomorrow' => 'zítra',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

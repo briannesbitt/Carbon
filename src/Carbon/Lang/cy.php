@@ -34,8 +34,9 @@ return [
     'from_now' => 'mewn :time',
     'after' => ':time ar ôl',
     'before' => ':time o\'r blaen',
-    'diff_yesterday' => 'Ddoe',
-    'diff_tomorrow' => 'Yfory',
+    'diff_now' => 'nawr',
+    'diff_yesterday' => 'ddoe',
+    'diff_tomorrow' => 'yfory',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

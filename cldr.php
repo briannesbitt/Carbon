@@ -71,7 +71,7 @@ foreach ($workList as $locale) {
         $carbonData = include $carbonFile;
         if (!isset($carbonData['diff_now'], $carbonData['diff_yesterday'], $carbonData['diff_tomorrow'])) {
             $contents = file_get_contents($carbonFile);
-            $glue = '\'diff_yesterday\' => [';
+            $glue = '\'diff_yesterday\' => ';
             $chunks = explode($glue, $contents, 2);
 
             if (count($chunks) !== 2) {
@@ -97,7 +97,7 @@ foreach ($workList as $locale) {
 
                 file_put_contents($carbonFile, implode($glue, $chunks));
             } else {
-                echo "$locale cannot be autofixed.";
+                echo "$locale cannot be autofixed.\n";
             }
         }
     }
@@ -131,8 +131,8 @@ foreach ($workList as $locale) {
     $stats[$locale] = $ratio;
 
     if ($ratio < 1) {
-        file_put_contents('log/'.$locale.'.md', $fileContent);
-        break;
+        //file_put_contents('log/'.$locale.'.md', $fileContent);
+        //break;
     }
 }
 
