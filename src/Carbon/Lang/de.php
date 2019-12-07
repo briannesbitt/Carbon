@@ -55,7 +55,7 @@ return [
 
     'diff_now' => 'Gerade eben',
     'diff_yesterday' => 'Gestern',
-    'diff_tomorrow' => 'Heute',
+    'diff_tomorrow' => 'Morgen',
     'diff_before_yesterday' => 'Vorgestern',
     'diff_after_tomorrow' => 'Übermorgen',
 

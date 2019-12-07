@@ -12,7 +12,7 @@ $cldr = [];
 function calendarContainsWord(Carbon $date, string $word): bool
 {
     $word = mb_strtolower($word);
-    $calendar =  mb_strtolower($date->calendar());
+    $calendar = mb_strtolower($date->calendar());
 
     return preg_match('/(?<!\w)'.preg_quote($word).'(?!\w)/', $calendar) ||
         in_array($word, preg_split('/[\s,.;-]+/', $calendar));
@@ -24,16 +24,20 @@ $count = count($input);
 
 $stats = [];
 
-function standardize($word) {
+function standardize($word, $locale) {
     $word = mb_strtolower($word);
-    $synonyms = [
+    $word = preg_replace('/^(.*) from now$/', 'in $1', $word);
+    $word = preg_replace('/^(.*) më parë$/', 'në $1', $word);
+
+    return strtr($word, [
         "à l'instant" => 'maintenant',
         'just now' => 'now',
         'proprio ora' => 'ora',
         'upravo sada' => 'sada',
-    ];
-
-    return $synonyms[$word] ?? $word;
+        'ahora mismo' => 'ahora',
+        'jetzt' => 'gerade eben',
+        'dentro de' => substr($locale, 0, 2) === 'pt' ? 'em' : 'en',
+    ]);
 }
 
 $workList = include 'worklist.php';
@@ -46,9 +50,9 @@ foreach ($workList as $locale) {
 
     $fileContent = '# '.$locale."\n\n| M | Key | CLDR | Carbon |\n|---|---|---|---|\n";
 
-    $addResult = function ($key, $cldr, $carbon, $value = 1) use (&$note, &$results, &$fileContent) {
+    $addResult = function ($key, $cldr, $carbon, $value = 1) use (&$note, &$results, &$fileContent, $locale) {
         $results += $value;
-        $success = standardize($cldr) === standardize($carbon);
+        $success = standardize($cldr, $locale) === standardize($carbon, $locale);
         $check = $success ? '✓' : '❌';
 
         $fileContent .= "| $check | $key | $cldr | $carbon |\n";
@@ -66,6 +70,17 @@ foreach ($workList as $locale) {
     ] = $value['DAY']['LONG']['R'];
 
     $carbonFile = __DIR__.'/src/Carbon/Lang/'.$locale.'.php';
+    $carbonData = file_exists($carbonFile) ? (include $carbonFile) : ['calendar' => []];
+    $hasCalendar = isset($carbonData['calendar']);
+    /*
+    $aliases = [
+        'in' => 'id',
+        'or' => 'or_IN',
+        'mo' => 'ro',
+        'zh_TW' => 'zh_Hant',
+        'zh_HK' => 'zh_Hant',
+    ];
+    $carbonFile = __DIR__.'/src/Carbon/Lang/'.($aliases[$locale] ?? $locale).'.php';
 
     if (file_exists($carbonFile)) {
         $carbonData = include $carbonFile;
@@ -101,13 +116,14 @@ foreach ($workList as $locale) {
             }
         }
     }
+    // */
 
     $addResult('now', $value['SECOND']['LONG']['R']['0'], mb_strtolower(Carbon::translateWith(Translator::get($locale), 'diff_now')));
 
-    $addResult('cal_yes', 'yc', calendarContainsWord(Carbon::yesterday(), $yesterday) ? 'yc' : 'KO');
+    $addResult('cal_yes', 'yc', calendarContainsWord(Carbon::yesterday(), $yesterday) ? 'yc' : 'KO', $hasCalendar ? 1 : 0);
     $addResult('yesterday', $yesterday, Carbon::translateWith(Translator::get($locale), 'diff_yesterday'));
 
-    $addResult('cal_tom', 'tc', calendarContainsWord(Carbon::tomorrow(), $tomorrow) ? 'tc' : 'KO');
+    $addResult('cal_tom', 'tc', calendarContainsWord(Carbon::tomorrow(), $tomorrow) ? 'tc' : 'KO', $hasCalendar ? 1 : 0);
     $addResult('tomorrow', $tomorrow, Carbon::translateWith(Translator::get($locale), 'diff_tomorrow'));
 
     foreach (['day', 'hour', 'minute', 'month', 'second', 'week', 'year'] as $unit) {
@@ -128,11 +144,20 @@ foreach ($workList as $locale) {
     }
 
     $ratio = $note / $results;
+    $handledLanguages = [
+        'ko',
+        'sq',
+    ];
+
+    if (in_array($locale, $handledLanguages)) {
+        $ratio = 1;
+    }
+
     $stats[$locale] = $ratio;
 
     if ($ratio < 1) {
-        //file_put_contents('log/'.$locale.'.md', $fileContent);
-        //break;
+        file_put_contents('log/'.$locale.'.md', $fileContent);
+        break;
     }
 }
 
@@ -141,7 +166,7 @@ arsort($stats, SORT_NUMERIC);
 foreach ($stats as $locale => $ratio) {
     if ($ratio < 1) {
         echo "$locale: ";
-        echo number_format($ratio * 100, 1, '.', ' ') . '%';
+        echo number_format($ratio * 100, 1, '.', ' ').'%';
         echo "\n";
     }
 }
