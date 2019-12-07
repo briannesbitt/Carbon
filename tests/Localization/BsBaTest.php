@@ -151,13 +151,13 @@ class BsBaTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         'prije 2 dana',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'prije 1 nedjelja',
+        'prije 1 sedmice',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'prije 1 nedjelja',
+        'prije 1 sedmice',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'prije 2 nedjelje',
+        'prije 2 sedmicu',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'prije 2 nedjelje',
+        'prije 2 sedmicu',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'prije 1 mjesec',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -207,15 +207,15 @@ class BsBaTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         'prije 2 godine 3 mjeseca 1 dan 1 sekund',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 10 sati',
+        '1 sedmice 10 sati',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 6 dana',
+        '1 sedmice 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 nedjelja 6 dana',
+        '1 sedmice 6 dana',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'za 1 nedjelja i 6 dana',
+        'za 1 sedmice i 6 dana',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 nedjelje 1 sat',
+        '2 sedmicu 1 sat',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'za 1 sat',
         // CarbonInterval::days(2)->forHumans()
