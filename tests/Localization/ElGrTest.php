@@ -13,7 +13,7 @@ namespace Tests\Localization;
 
 class ElGrTest extends LocalizationTestCase
 {
-    const LOCALE = 'el_GR'; // Greek
+    const LOCALE = 'el_GR'; // Greek (modern)
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))

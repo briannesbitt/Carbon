@@ -37,6 +37,9 @@ return [
     'from_now' => ':time dari sekarang',
     'after' => ':time selepas',
     'before' => ':time sebelum',
+    'diff_now' => 'sekarang',
+    'diff_yesterday' => 'semalam',
+    'diff_tomorrow' => 'esok',
     'formats' => [
         'LT' => 'HH.mm',
         'LTS' => 'HH.mm.ss',

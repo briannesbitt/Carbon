@@ -45,6 +45,9 @@ return [
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time før',
+    'diff_now' => 'nu',
+    'diff_yesterday' => 'i går',
+    'diff_tomorrow' => 'i morgen',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

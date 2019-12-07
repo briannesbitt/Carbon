@@ -36,6 +36,9 @@ return [
     'from_now' => 'בעוד :time מעכשיו',
     'after' => 'אחרי :time',
     'before' => 'לפני :time',
+    'diff_now' => 'עכשיו',
+    'diff_yesterday' => 'אתמול',
+    'diff_tomorrow' => 'מחר',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

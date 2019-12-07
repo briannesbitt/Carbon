@@ -28,6 +28,9 @@ return [
     's' => ':count seg.',
     'ago' => ':time ang nakalipas',
     'from_now' => 'sa loob ng :time',
+    'diff_now' => 'ngayon',
+    'diff_yesterday' => 'kahapon',
+    'diff_tomorrow' => 'bukas',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

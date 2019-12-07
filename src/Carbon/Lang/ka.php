@@ -133,6 +133,7 @@ return [
 
         return "$time უკან";
     },
+    'diff_now' => 'ახლა',
     'diff_yesterday' => 'გუშინ',
     'diff_tomorrow' => 'ხვალ',
     'formats' => [

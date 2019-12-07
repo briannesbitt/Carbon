@@ -41,6 +41,9 @@ return [
     'from_now' => ':time baadaye',
     'after' => ':time baada',
     'before' => ':time kabla',
+    'diff_now' => 'sasa hivi',
+    'diff_yesterday' => 'jana',
+    'diff_tomorrow' => 'kesho',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

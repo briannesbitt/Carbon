@@ -47,6 +47,7 @@ return [
     'from_now' => 'za :time',
     'after' => ':time poslije',
     'before' => ':time prije',
+    'diff_now' => 'sad',
     'diff_yesterday' => 'jučer',
     'diff_tomorrow' => 'sutra',
     'diff_before_yesterday' => 'prekjučer',

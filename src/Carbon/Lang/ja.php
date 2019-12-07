@@ -41,6 +41,7 @@ return [
     'from_now' => ':time後',
     'after' => ':time後',
     'before' => ':time前',
+    'diff_now' => '今',
     'diff_yesterday' => '昨日',
     'diff_tomorrow' => '明日',
     'formats' => [

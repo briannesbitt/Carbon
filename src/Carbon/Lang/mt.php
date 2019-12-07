@@ -30,6 +30,9 @@ return [
     's' => 'sek.|:count sek.|:count sek.|:count sek.',
     'ago' => ':time ilu',
     'from_now' => 'f’ :time',
+    'diff_now' => 'issa',
+    'diff_yesterday' => 'lbieraħ',
+    'diff_tomorrow' => 'għada',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

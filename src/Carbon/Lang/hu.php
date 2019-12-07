@@ -84,6 +84,9 @@ return [
     'weekdays_short' => ['vas', 'hét', 'kedd', 'sze', 'csüt', 'pén', 'szo'],
     'weekdays_min' => ['v', 'h', 'k', 'sze', 'cs', 'p', 'sz'],
     'ordinal' => ':number.',
+    'diff_now' => 'most',
+    'diff_yesterday' => 'tegnap',
+    'diff_tomorrow' => 'holnap',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

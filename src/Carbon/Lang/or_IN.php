@@ -14,6 +14,9 @@
  * - IBM AP Linux Technology Center, Yamato Software Laboratory    bug-glibc@gnu.org
  */
 return [
+    'diff_now' => 'ବର୍ତ୍ତମାନ',
+    'diff_yesterday' => 'ଗତକାଲି',
+    'diff_tomorrow' => 'ଆସନ୍ତାକାଲି',
     'formats' => [
         'LT' => 'Oh:Om A',
         'LTS' => 'Oh:Om:Os A',

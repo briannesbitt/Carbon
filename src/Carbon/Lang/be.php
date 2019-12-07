@@ -92,6 +92,9 @@ return [
     'from_now' => 'праз :time',
     'after' => ':time пасля',
     'before' => ':time да',
+    'diff_now' => 'цяпер',
+    'diff_yesterday' => 'учора',
+    'diff_tomorrow' => 'заўтра',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

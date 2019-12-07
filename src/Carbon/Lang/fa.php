@@ -45,6 +45,9 @@ return [
     'from_now' => ':time دیگر',
     'after' => ':time پس از',
     'before' => ':time پیش از',
+    'diff_now' => 'اکنون',
+    'diff_yesterday' => 'دیروز',
+    'diff_tomorrow' => 'فردا',
     'formats' => [
         'LT' => 'OH:Om',
         'LTS' => 'OH:Om:Os',

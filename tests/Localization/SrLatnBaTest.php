@@ -222,7 +222,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'
-        'pre 1 sekund',
+        'pre 1 sekundu',
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
@@ -230,7 +230,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
-        'pre 2 sekund',
+        'pre 2 sekundu',
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
@@ -334,7 +334,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        'za 1 sekund',
+        'za 1 sekundu',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
@@ -342,7 +342,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        'nakon 1 sekund',
+        'nakon 1 sekundu',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
@@ -350,7 +350,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        'pre 1 sekund',
+        'pre 1 sekundu',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
@@ -358,7 +358,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
-        '1 sekund',
+        '1 sekundu',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
@@ -366,7 +366,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
-        '2 sekund',
+        '2 sekundu',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
@@ -378,7 +378,7 @@ class SrLatnBaTest extends LocalizationTestCase
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
-        '1 minut 1 sekund',
+        '1 minut 1 sekundu',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'

@@ -13,7 +13,7 @@ namespace Tests\Localization;
 
 class SiLkTest extends LocalizationTestCase
 {
-    const LOCALE = 'si_LK'; // Sinhalese
+    const LOCALE = 'si_LK'; // Sinhala
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -155,9 +155,9 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         'සතියක්කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'සති 2 යිකට පෙර',
+        'සති 2කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'සති 2 යිකට පෙර',
+        'සති 2කට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans()
         'මාසයකට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
@@ -213,9 +213,9 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'සතියක් දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'සතියක් දින 6කින්',
+        'සතියක් දින 6න්',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        'සති 2 යි පැය',
+        'සති 2 පැය',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         'පැයකින්',
         // CarbonInterval::days(2)->forHumans()

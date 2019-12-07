@@ -47,6 +47,11 @@ return [
     'from_now' => ':time sonra',
     'after' => ':time sonra',
     'before' => ':time önce',
+    'diff_now' => 'şimdi',
+    'diff_yesterday' => 'dün',
+    'diff_tomorrow' => 'yarın',
+    'diff_before_yesterday' => 'evvelsi gün',
+    'diff_after_tomorrow' => 'öbür gün',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -45,6 +45,9 @@ return [
     'from_now' => 'σε :time',
     'after' => ':time μετά',
     'before' => ':time πριν',
+    'diff_now' => 'τώρα',
+    'diff_yesterday' => 'χθες',
+    'diff_tomorrow' => 'αύριο',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

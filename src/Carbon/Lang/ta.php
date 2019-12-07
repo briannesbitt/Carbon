@@ -39,6 +39,7 @@ return [
     's' => ':count விநா.',
     'ago' => ':time முன்',
     'from_now' => ':time இல்',
+    'diff_now' => 'இப்போது',
     'diff_yesterday' => 'நேற்று',
     'diff_tomorrow' => 'நாளை',
     'formats' => [

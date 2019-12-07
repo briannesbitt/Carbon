@@ -18,7 +18,7 @@ class GenericMacroTest extends AbstractTestCaseWithOldNow
 {
     public function testGenericMacroBinding()
     {
-        if (version_compare(PHP_VERSION, '8.0.0-dev', '<')) {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
             $this->markTestSkipped('Use of $this in macros is deprecated and may not work in PHP 8.');
         }
 

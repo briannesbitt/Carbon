@@ -43,6 +43,9 @@ return [
     'from_now' => 'след :time',
     'after' => 'след :time',
     'before' => 'преди :time',
+    'diff_now' => 'сега',
+    'diff_yesterday' => 'вчера',
+    'diff_tomorrow' => 'утре',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

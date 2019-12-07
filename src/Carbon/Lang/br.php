@@ -32,6 +32,9 @@ return [
     'a_second' => '{1}un nebeud segondennoù|[0,Inf[:count eilenn',
     'ago' => ':time \'zo',
     'from_now' => 'a-benn :time',
+    'diff_now' => 'bremañ',
+    'diff_yesterday' => 'decʼh',
+    'diff_tomorrow' => 'warcʼhoazh',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -13,7 +13,7 @@ namespace Tests\Localization;
 
 class ShTest extends LocalizationTestCase
 {
-    const LOCALE = 'sh'; // SerboCroatian
+    const LOCALE = 'sh'; // Serbo Croatian
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
@@ -226,7 +226,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        'pre 1 sekund',
+        'pre 1 s.',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
@@ -234,7 +234,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        'pre 2 sekunde',
+        'pre 2 s.',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
@@ -242,7 +242,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        'pre 1 minut',
+        'pre 1 min.',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
@@ -250,23 +250,23 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        'pre 2 minuta',
+        'pre 2 min.',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
-        'pre 1 čas',
+        'pre 1 sat',
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        'pre 1 čas',
+        'pre 1 č.',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
-        'pre 2 časa',
+        'pre 2 sata',
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        'pre 2 časa',
+        'pre 2 č.',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
@@ -274,7 +274,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        'pre 1 dan',
+        'pre 1 d.',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
@@ -282,7 +282,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
-        'pre 2 dana',
+        'pre 2 d.',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago'
@@ -290,7 +290,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago'
-        'pre 1 nedelja',
+        'pre 1 n.',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
@@ -298,7 +298,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
-        'pre 2 nedelje',
+        'pre 2 n.',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
@@ -306,7 +306,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'pre 1 mesec',
+        'pre 1 m.',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
@@ -314,7 +314,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        'pre 2 meseca',
+        'pre 2 m.',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
@@ -322,7 +322,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago'
-        'pre 1 godina',
+        'pre 1 g.',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
@@ -330,7 +330,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago'
-        'pre 2 godine',
+        'pre 2 g.',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
@@ -338,7 +338,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'za 1 sekund',
+        'za 1 s.',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
@@ -346,7 +346,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        'nakon 1 sekund',
+        'nakon 1 s.',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
@@ -354,7 +354,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 sekund raniјe',
+        '1 s. raniјe',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
@@ -362,7 +362,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 sekund',
+        '1 s.',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
@@ -370,11 +370,11 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 sekunde',
+        '2 s.',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'za 1 sekund',
+        'za 1 s.',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
@@ -382,7 +382,7 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 godine 3 meseca 1 dan 1 sekund',
+        '2 g. 3 m. 1 d. 1 s.',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -390,15 +390,15 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'pre 5 meseci',
+        'pre 5 m.',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'pre 2 godine 3 meseca 1 dan 1 sekund',
+        'pre 2 g. 3 m. 1 d. 1 s.',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
-        '1 nedelja 10 časova',
+        '1 nedelja 10 sati',
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         // '1 week 6 days'
@@ -414,11 +414,11 @@ class ShTest extends LocalizationTestCase
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
-        '2 nedelje 1 čas',
+        '2 nedelje 1 sat',
 
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         // 'an hour from now'
-        'za 1 čas',
+        'za 1 sat',
 
         // CarbonInterval::days(2)->forHumans()
         // '2 days'
@@ -426,6 +426,6 @@ class ShTest extends LocalizationTestCase
 
         // CarbonInterval::create('P1DT3H')->forHumans(true)
         // '1d 3h'
-        '1 dan 3 časa',
+        '1 d. 3 č.',
     ];
 }
