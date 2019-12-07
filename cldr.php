@@ -24,20 +24,34 @@ $count = count($input);
 
 $stats = [];
 
-foreach (json_decode(file_get_contents('cldr.json'), true) as $key => $value) {
+function standardize($word) {
+    $word = mb_strtolower($word);
+    $synonyms = [
+        "à l'instant" => 'maintenant',
+        'just now' => 'now',
+        'proprio ora' => 'ora',
+        'upravo sada' => 'sada',
+    ];
+
+    return $synonyms[$word] ?? $word;
+}
+
+$workList = include 'worklist.php';
+$cldrData = json_decode(file_get_contents('cldr.json'), true);
+
+foreach ($workList as $locale) {
     $note = 0;
     $results = 0;
-    $locale = preg_replace('/^RelativeDateTimeSymbols_/', '', $key);
-    $file = fopen('log/'.$locale.'.md', 'w');
+    $value = $cldrData['RelativeDateTimeSymbols_'.$locale];
 
-    fwrite($file, '# '.$locale."\n\n| M | Key | CLDR | Carbon |\n|---|---|---|---|\n");
+    $fileContent = '# '.$locale."\n\n| M | Key | CLDR | Carbon |\n|---|---|---|---|\n";
 
-    $addResult = function ($key, $cldr, $carbon, $value = 1) use (&$note, &$results, &$file) {
+    $addResult = function ($key, $cldr, $carbon, $value = 1) use (&$note, &$results, &$fileContent) {
         $results += $value;
-        $success = mb_strtolower($cldr) === mb_strtolower($carbon);
+        $success = standardize($cldr) === standardize($carbon);
         $check = $success ? '✓' : '❌';
 
-        fwrite($file, "| $check | $key | $cldr | $carbon |\n");
+        $fileContent .= "| $check | $key | $cldr | $carbon |\n";
 
         if ($success) {
             $note += $value;
@@ -50,6 +64,43 @@ foreach (json_decode(file_get_contents('cldr.json'), true) as $key => $value) {
         '0' => $today,
         '1' => $tomorrow,
     ] = $value['DAY']['LONG']['R'];
+
+    $carbonFile = __DIR__.'/src/Carbon/Lang/'.$locale.'.php';
+
+    if (file_exists($carbonFile)) {
+        $carbonData = include $carbonFile;
+        if (!isset($carbonData['diff_now'], $carbonData['diff_yesterday'], $carbonData['diff_tomorrow'])) {
+            $contents = file_get_contents($carbonFile);
+            $glue = '\'diff_yesterday\' => [';
+            $chunks = explode($glue, $contents, 2);
+
+            if (count($chunks) !== 2) {
+                $glue = '\'formats\' => [';
+                $chunks = explode($glue, $contents, 2);
+            }
+
+            if (count($chunks) !== 2) {
+                $glue = "\n];";
+                $chunks = explode($glue, $contents, 2);
+            }
+
+            if (count($chunks) === 2) {
+                if (!isset($carbonData['diff_now'])) {
+                    $chunks[0] .= "'diff_now' => ".var_export($value['SECOND']['LONG']['R']['0'], true).",\n    ";
+                }
+                if (!isset($carbonData['diff_yesterday'])) {
+                    $chunks[0] .= "'diff_yesterday' => ".var_export($yesterday, true).",\n    ";
+                }
+                if (!isset($carbonData['diff_tomorrow'])) {
+                    $chunks[0] .= "'diff_tomorrow' => ".var_export($tomorrow, true).",\n    ";
+                }
+
+                file_put_contents($carbonFile, implode($glue, $chunks));
+            } else {
+                echo "$locale cannot be autofixed.";
+            }
+        }
+    }
 
     $addResult('now', $value['SECOND']['LONG']['R']['0'], mb_strtolower(Carbon::translateWith(Translator::get($locale), 'diff_now')));
 
@@ -76,18 +127,23 @@ foreach (json_decode(file_get_contents('cldr.json'), true) as $key => $value) {
             ]));
     }
 
-    fclose($file);
-
     $ratio = $note / $results;
     $stats[$locale] = $ratio;
+
+    if ($ratio < 1) {
+        file_put_contents('log/'.$locale.'.md', $fileContent);
+        break;
+    }
 }
 
 arsort($stats, SORT_NUMERIC);
 
 foreach ($stats as $locale => $ratio) {
-    echo "$locale: ";
-    echo number_format($ratio * 100, 1, '.', ' ') . '%';
-    echo "\n";
+    if ($ratio < 1) {
+        echo "$locale: ";
+        echo number_format($ratio * 100, 1, '.', ' ') . '%';
+        echo "\n";
+    }
 }
 
 echo number_format(array_sum($stats) * 100 / $count, 1, '.', ' ').'%';
