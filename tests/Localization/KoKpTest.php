@@ -151,19 +151,19 @@ class KoKpTest extends LocalizationTestCase
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         '2일 전',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1주일 전',
+        '1주 전',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         '1주일 전',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2주일 전',
+        '2주 전',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2주일 전',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1달 전',
+        '1개월 전',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         '1개월 전',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2달 전',
+        '2개월 전',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         '2개월 전',
         // Carbon::now()->subYears(1)->diffForHumans()
@@ -207,15 +207,15 @@ class KoKpTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2년 3개월 1일 1초 전',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1주일 10시간',
+        '1주 10시간',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1주일 6일',
+        '1주 6일',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1주일 6일',
+        '1주 6일',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1주일 6일 후',
+        '1주 6일 후',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2주일 1시간',
+        '2주 1시간',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
         '한시간 후',
         // CarbonInterval::days(2)->forHumans()
