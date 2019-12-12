@@ -68,16 +68,13 @@ trait Creator
             static::mockConstructorParameters($time, $tz);
         }
 
-        /** @var CarbonTimeZone $timezone */
-        $timezone = $this->autoDetectTimeZone($tz, $originalTz);
-
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
         if (strpos((string) .1, '.') === false) {
             $locale = setlocale(LC_NUMERIC, '0');
             setlocale(LC_NUMERIC, 'C');
         }
 
-        parent::__construct($time ?: 'now', $timezone);
+        parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
 
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);
@@ -309,7 +306,7 @@ trait Creator
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         if (is_string($year) && !is_numeric($year)) {
-            return static::parse($year, $tz);
+            return static::parse($year, $tz ?: $month);
         }
 
         $defaults = null;
