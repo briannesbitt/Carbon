@@ -68,6 +68,8 @@ use RuntimeException;
  * @property-read int             $daysInMonth                                                                        number of days in the given month
  * @property-read string          $latinMeridiem                                                                      "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
  * @property-read string          $latinUpperMeridiem                                                                 "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
+ * @property-read string          $timezoneAbbreviatedName                                                            the current timezone abbreviated name
+ * @property-read string          $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string          $dayName                                                                            long name of weekday translated according to Carbon locale, in english if no translation available for current language
  * @property-read string          $shortDayName                                                                       short name of weekday translated according to Carbon locale, in english if no translation available for current language
  * @property-read string          $minDayName                                                                         very short name of weekday translated according to Carbon locale, in english if no translation available for current language
@@ -92,8 +94,6 @@ use RuntimeException;
  * @property-read bool            $utc                                                                                checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string          $timezoneName                                                                       the current timezone name
  * @property-read string          $tzName                                                                             alias of $timezoneName
- * @property-read string          $timezoneAbbreviatedName                                                            the current timezone abbreviated name
- * @property-read string          $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string          $locale                                                                             locale of the current instance
  *
  * @method        bool            isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
@@ -613,29 +613,6 @@ trait Date
     protected static function safeCreateDateTimeZone($object, $objectDump = null)
     {
         return CarbonTimeZone::instance($object, $objectDump);
-    }
-
-    /**
-     * Creates a DateTimeZone from a string, DateTimeZone or integer offset then convert it as region timezone
-     * if integer.
-     *
-     * @param DateTimeZone|string|int|null $object
-     * @param DateTimeZone|string|int|null $originalObject if different
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return CarbonTimeZone|false
-     */
-    protected function autoDetectTimeZone($object, $originalObject = null)
-    {
-        /** @var CarbonTimeZone $timezone */
-        $timezone = CarbonTimeZone::instance($object);
-
-        if ($timezone && is_int($originalObject ?: $object)) {
-            $timezone = $timezone->toRegionTimeZone($this);
-        }
-
-        return $timezone;
     }
 
     /**

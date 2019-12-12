@@ -13,11 +13,11 @@ namespace Carbon\Traits;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
 use Closure;
 use DateTimeInterface;
+use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
 
@@ -45,16 +45,14 @@ trait Creator
      * Please see the testing aids section (specifically static::setTestNow())
      * for more on the possibility of this constructor returning a test instance.
      *
-     * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string|null              $time
+     * @param DateTimeZone|string|null $tz
      */
     public function __construct($time = null, $tz = null)
     {
         if (is_int($time)) {
             $time = "@$time";
         }
-
-        $originalTz = $tz;
 
         // If the class has a test now set and we are trying to create a now()
         // instance then override as required
@@ -68,16 +66,13 @@ trait Creator
             static::mockConstructorParameters($time, $tz);
         }
 
-        /** @var CarbonTimeZone $timezone */
-        $timezone = $this->autoDetectTimeZone($tz, $originalTz);
-
         // Work-around for PHP bug https://bugs.php.net/bug.php?id=67127
         if (strpos((string) .1, '.') === false) {
             $locale = setlocale(LC_NUMERIC, '0');
             setlocale(LC_NUMERIC, 'C');
         }
 
-        parent::__construct($time ?: 'now', $timezone);
+        parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
 
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);
@@ -117,8 +112,8 @@ trait Creator
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string|null              $time
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -146,8 +141,8 @@ trait Creator
      * as it allows you to do Carbon::parse('Monday next week')->fn() rather
      * than (new Carbon('Monday next week'))->fn().
      *
-     * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string|null              $time
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -169,9 +164,9 @@ trait Creator
     /**
      * Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).
      *
-     * @param string                    $time
-     * @param string                    $locale
-     * @param \DateTimeZone|string|null $tz
+     * @param string                   $time
+     * @param string                   $locale
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -183,7 +178,7 @@ trait Creator
     /**
      * Get a Carbon instance for the current date and time.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -195,7 +190,7 @@ trait Creator
     /**
      * Create a Carbon instance for today.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -207,7 +202,7 @@ trait Creator
     /**
      * Create a Carbon instance for tomorrow.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -219,7 +214,7 @@ trait Creator
     /**
      * Create a Carbon instance for yesterday.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -294,13 +289,13 @@ trait Creator
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * @param int|null                  $year
-     * @param int|null                  $month
-     * @param int|null                  $day
-     * @param int|null                  $hour
-     * @param int|null                  $minute
-     * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param int|null                 $hour
+     * @param int|null                 $minute
+     * @param int|null                 $second
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -309,7 +304,7 @@ trait Creator
     public static function create($year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null)
     {
         if (is_string($year) && !is_numeric($year)) {
-            return static::parse($year, $tz);
+            return static::parse($year, $tz ?: (is_string($month) || $month instanceof DateTimeZone ? $month : null));
         }
 
         $defaults = null;
@@ -379,13 +374,13 @@ trait Creator
      * If one of the set values is not valid, an \InvalidArgumentException
      * will be thrown.
      *
-     * @param int|null                  $year
-     * @param int|null                  $month
-     * @param int|null                  $day
-     * @param int|null                  $hour
-     * @param int|null                  $minute
-     * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param int|null                 $hour
+     * @param int|null                 $minute
+     * @param int|null                 $second
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
@@ -423,10 +418,10 @@ trait Creator
     /**
      * Create a Carbon instance from just a date. The time portion is set to now.
      *
-     * @param int|null                  $year
-     * @param int|null                  $month
-     * @param int|null                  $day
-     * @param \DateTimeZone|string|null $tz
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -440,10 +435,10 @@ trait Creator
     /**
      * Create a Carbon instance from just a date. The time portion is set to midnight.
      *
-     * @param int|null                  $year
-     * @param int|null                  $month
-     * @param int|null                  $day
-     * @param \DateTimeZone|string|null $tz
+     * @param int|null                 $year
+     * @param int|null                 $month
+     * @param int|null                 $day
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -455,10 +450,10 @@ trait Creator
     /**
      * Create a Carbon instance from just a time. The date portion is set to today.
      *
-     * @param int|null                  $hour
-     * @param int|null                  $minute
-     * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param int|null                 $hour
+     * @param int|null                 $minute
+     * @param int|null                 $second
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -472,8 +467,8 @@ trait Creator
     /**
      * Create a Carbon instance from a time string. The date portion is set to today.
      *
-     * @param string                    $time
-     * @param \DateTimeZone|string|null $tz
+     * @param string                   $time
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -485,9 +480,9 @@ trait Creator
     }
 
     /**
-     * @param string                          $format     Datetime format
-     * @param string                          $time
-     * @param \DateTimeZone|string|false|null $originalTz
+     * @param string                         $format     Datetime format
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $originalTz
      *
      * @return \DateTimeInterface|false
      */
@@ -520,9 +515,9 @@ trait Creator
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                          $format Datetime format
-     * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param string                         $format Datetime format
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -587,9 +582,9 @@ trait Creator
     /**
      * Create a Carbon instance from a specific format.
      *
-     * @param string                          $format Datetime format
-     * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param string                         $format Datetime format
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -615,7 +610,7 @@ trait Creator
      *
      * @param string                                             $format     Datetime format
      * @param string                                             $time
-     * @param \DateTimeZone|string|false|null                    $tz         optional timezone
+     * @param DateTimeZone|string|false|null                     $tz         optional timezone
      * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
      * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
      *
@@ -755,10 +750,10 @@ trait Creator
     /**
      * Create a Carbon instance from a specific format and a string in a given language.
      *
-     * @param string                          $format Datetime format
-     * @param string                          $locale
-     * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param string                         $format Datetime format
+     * @param string                         $locale
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -772,10 +767,10 @@ trait Creator
     /**
      * Create a Carbon instance from a specific ISO format and a string in a given language.
      *
-     * @param string                          $format Datetime ISO format
-     * @param string                          $locale
-     * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param string                         $format Datetime ISO format
+     * @param string                         $locale
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
