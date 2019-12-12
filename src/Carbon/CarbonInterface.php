@@ -63,6 +63,8 @@ use ReflectionException;
  * @property-read int             $daysInMonth                                                                        number of days in the given month
  * @property-read string          $latinMeridiem                                                                      "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
  * @property-read string          $latinUpperMeridiem                                                                 "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
+ * @property-read string          $timezoneAbbreviatedName                                                            the current timezone abbreviated name
+ * @property-read string          $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string          $dayName                                                                            long name of weekday translated according to Carbon locale, in english if no translation available for current language
  * @property-read string          $shortDayName                                                                       short name of weekday translated according to Carbon locale, in english if no translation available for current language
  * @property-read string          $minDayName                                                                         very short name of weekday translated according to Carbon locale, in english if no translation available for current language
@@ -87,8 +89,6 @@ use ReflectionException;
  * @property-read bool            $utc                                                                                checks if the timezone is UTC, true if UTC, false otherwise
  * @property-read string          $timezoneName                                                                       the current timezone name
  * @property-read string          $tzName                                                                             alias of $timezoneName
- * @property-read string          $timezoneAbbreviatedName                                                            the current timezone abbreviated name
- * @property-read string          $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
  * @property-read string          $locale                                                                             locale of the current instance
  *
  * @method        bool            isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
@@ -632,7 +632,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * for more on the possibility of this constructor returning a test instance.
      *
      * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      */
     public function __construct($time = null, $tz = null);
 
@@ -944,7 +944,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                  $hour
      * @param int|null                  $minute
      * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -958,7 +958,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                  $year
      * @param int|null                  $month
      * @param int|null                  $day
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -971,7 +971,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string                          $format Datetime format
      * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -984,7 +984,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string                                             $format     Datetime format
      * @param string                                             $time
-     * @param \DateTimeZone|string|false|null                    $tz         optional timezone
+     * @param DateTimeZone|string|false|null                    $tz         optional timezone
      * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
      * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
      *
@@ -1000,7 +1000,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                          $format Datetime format
      * @param string                          $locale
      * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -1014,7 +1014,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                          $format Datetime ISO format
      * @param string                          $locale
      * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -1028,7 +1028,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                  $hour
      * @param int|null                  $minute
      * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -1040,7 +1040,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Create a Carbon instance from a time string. The date portion is set to today.
      *
      * @param string                    $time
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \InvalidArgumentException
      *
@@ -1083,7 +1083,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                  $year
      * @param int|null                  $month
      * @param int|null                  $day
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -1110,7 +1110,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                  $hour
      * @param int|null                  $minute
      * @param int|null                  $second
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
      *
@@ -3163,7 +3163,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get a Carbon instance for the current date and time.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -3233,7 +3233,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * than (new Carbon('Monday next week'))->fn().
      *
      * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -3244,7 +3244,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string                    $time
      * @param string                    $locale
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -3301,7 +3301,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string                          $format Datetime format
      * @param string                          $time
-     * @param \DateTimeZone|string|false|null $tz
+     * @param DateTimeZone|string|false|null $tz
      *
      * @throws InvalidArgumentException
      *
@@ -3326,7 +3326,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * than (new Carbon('Monday next week'))->fn().
      *
      * @param string|null               $time
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -4481,7 +4481,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance for today.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -4490,7 +4490,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance for tomorrow.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
@@ -4735,7 +4735,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance for yesterday.
      *
-     * @param \DateTimeZone|string|null $tz
+     * @param DateTimeZone|string|null $tz
      *
      * @return static
      */
