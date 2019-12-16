@@ -37,7 +37,7 @@ class TranslatorTest extends AbstractTestCase
         setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
         $translator->setLocale('auto');
 
-        $this->assertStringStartsWith('en_US', $translator->getLocale());
+        $this->assertStringStartsWith('en', $translator->getLocale());
 
         setlocale(LC_ALL, $currentLocaleAll);
         setlocale(LC_TIME, $currentLocale);
