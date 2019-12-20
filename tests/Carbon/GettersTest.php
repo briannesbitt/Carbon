@@ -195,11 +195,11 @@ class GettersTest extends AbstractTestCase
         if (setlocale(LC_ALL, 'fr_FR.UTF-8', 'fr_FR.utf8', 'fr_FR', 'fr') === false) {
             $this->markTestSkipped('testSetLocaleToAuto test need fr_FR.UTF-8.');
         }
-        $d = Carbon::create(2012, 2, 6, 7, 8, 9);
+        $d = Carbon::create(2019, 7, 15, 7, 8, 9);
         $this->assertSame('lundi', $d->localeDayOfWeek);
         $this->assertSame('lun.', $d->shortLocaleDayOfWeek);
-        $this->assertSame('février', $d->localeMonth);
-        $this->assertSame('févr.', $d->shortLocaleMonth);
+        $this->assertSame('juillet', $d->localeMonth);
+        $this->assertSame('juil.', $d->shortLocaleMonth);
         setlocale(LC_ALL, $currentLocale);
     }
 
