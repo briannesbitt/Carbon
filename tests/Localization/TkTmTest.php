@@ -159,13 +159,13 @@ class TkTmTest extends LocalizationTestCase
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         '2 hepde ozal',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'aý 1 ozal',
+        '1 aý ozal',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'aý 1 ozal',
+        '1 aý ozal',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'aý 2 ozal',
+        '2 aý ozal',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'aý 2 ozal',
+        '2 aý ozal',
         // Carbon::now()->subYears(1)->diffForHumans()
         '1 ýyl ozal',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
@@ -199,13 +199,13 @@ class TkTmTest extends LocalizationTestCase
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 minut 1 sekunt',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 ýyl aý 3 1 gün 1 sekunt',
+        '2 ýyl 3 aý 1 gün 1 sekunt',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 ýyl soňra',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'aý 5 ozal',
+        '5 aý ozal',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 ýyl aý 3 1 gün 1 sekunt ozal',
+        '2 ýyl 3 aý 1 gün 1 sekunt ozal',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 hepde 10 sagat',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
