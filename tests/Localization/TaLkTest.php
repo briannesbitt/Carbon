@@ -179,13 +179,13 @@ class TaLkTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 விநா. இல்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1 சில விநாடிகள் பின்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1 விநா. பின்',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1 சில விநாடிகள் முன்',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1 விநா. முன்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 சில விநாடிகள்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
