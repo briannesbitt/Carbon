@@ -112,8 +112,8 @@
         var sessStorage = window.sessionStorage || {};
         var storage = window.localStorage || {};
         var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
-        var date = (new Date()).toISOString().substr(0, 10);
-        var liveEditorHostIndex = /^\d+-\d+-2/.test(date) ? 2 : balancingId % liveEditorHosts.length;
+        var date = Math.floor((new Date()).getTime() / 172800000);
+        var liveEditorHostIndex = date < 9131 ? 1 : date % 3;
         var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
         var callbacks = {};
         var $document = $(document);
