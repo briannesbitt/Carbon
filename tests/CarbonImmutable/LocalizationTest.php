@@ -31,6 +31,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testGetTranslator()
     {
+        /** @var Translator $t */
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -38,6 +39,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testResetTranslator()
     {
+        /** @var Translator $t */
         $t = MyCarbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -327,6 +329,7 @@ class LocalizationTest extends AbstractTestCase
         $t->addLoader('array', new ArrayLoader());
         Carbon::setTranslator($t);
 
+        /** @var Translator $t */
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertTrue($this->areSameLocales($locale, $t->getLocale()));

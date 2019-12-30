@@ -996,7 +996,7 @@ trait Date
 
             // @property-read string locale of the current instance
             case $name === 'locale':
-                return $this->getLocalTranslator()->getLocale();
+                return $this->getTranslatorLocale();
 
             default:
                 if (static::hasMacro($macro = 'get'.ucfirst($name))) {

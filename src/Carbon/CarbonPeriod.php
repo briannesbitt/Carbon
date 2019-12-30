@@ -1446,7 +1446,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         $this->key = 0;
         $this->current = call_user_func([$this->dateClass, 'make'], $this->startDate);
         $settings = $this->getSettings();
-        $locale = $this->getLocalTranslator()->getLocale();
+        $locale = $this->getTranslatorLocale();
         if ($locale) {
             $settings['locale'] = $locale;
         }
