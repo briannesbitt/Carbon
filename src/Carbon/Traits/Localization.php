@@ -11,6 +11,7 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
+use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
 use Closure;
@@ -692,16 +693,20 @@ trait Localization
     }
 
     /**
-     * Throw an error (native PHP exception) if passed object is not LocaleAwareInterface.
+     * Throw an error if passed object is not LocaleAwareInterface.
      *
      * @param LocaleAwareInterface|null $translator
      *
      * @return LocaleAwareInterface|null
      */
-    protected static function getLocaleAwareTranslator($translator = null): ?LocaleAwareInterface
+    protected static function getLocaleAwareTranslator($translator = null)
     {
         if (func_num_args() === 0) {
             $translator = static::translator();
+        }
+
+        if ($translator && !($translator instanceof LocaleAwareInterface || method_exists($translator, 'getLocale'))) {
+            throw new NotLocaleAwareException($translator);
         }
 
         return $translator;
