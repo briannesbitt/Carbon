@@ -540,19 +540,19 @@ trait Date
      */
     protected static $days = [
         // @call isDayOfWeek
-        self::SUNDAY => 'Sunday',
+        CarbonInterface::SUNDAY => 'Sunday',
         // @call isDayOfWeek
-        self::MONDAY => 'Monday',
+        CarbonInterface::MONDAY => 'Monday',
         // @call isDayOfWeek
-        self::TUESDAY => 'Tuesday',
+        CarbonInterface::TUESDAY => 'Tuesday',
         // @call isDayOfWeek
-        self::WEDNESDAY => 'Wednesday',
+        CarbonInterface::WEDNESDAY => 'Wednesday',
         // @call isDayOfWeek
-        self::THURSDAY => 'Thursday',
+        CarbonInterface::THURSDAY => 'Thursday',
         // @call isDayOfWeek
-        self::FRIDAY => 'Friday',
+        CarbonInterface::FRIDAY => 'Friday',
         // @call isDayOfWeek
-        self::SATURDAY => 'Saturday',
+        CarbonInterface::SATURDAY => 'Saturday',
     ];
 
     /**
@@ -996,7 +996,7 @@ trait Date
 
             // @property-read string locale of the current instance
             case $name === 'locale':
-                return $this->getLocalTranslator()->getLocale();
+                return $this->getTranslatorLocale();
 
             default:
                 if (static::hasMacro($macro = 'get'.ucfirst($name))) {

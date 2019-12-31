@@ -28,6 +28,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testGetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -36,6 +37,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testResetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $t = MyCarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -44,11 +46,13 @@ class ForHumansTest extends AbstractTestCase
 
     public function testSetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $ori = CarbonInterval::getTranslator();
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
         CarbonInterval::setTranslator($t);
 
+        /** @var \Carbon\Translator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('fr', $t->getLocale());
