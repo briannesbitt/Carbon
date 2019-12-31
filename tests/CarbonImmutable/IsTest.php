@@ -294,7 +294,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsCurrentQuarterFalse()
     {
+        Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::now()->subQuarter()->isCurrentQuarter());
+        Carbon::resetMonthsOverflow();
     }
 
     public function testIsSameQuarterTrue()
@@ -309,14 +311,22 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameQuarterFalse()
     {
+        Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::now()->isSameQuarter(Carbon::now()->subQuarter()));
+        Carbon::resetMonthsOverflow();
     }
 
     public function testIsSameQuarterFalseWithDateTime()
     {
+        $now = Carbon::now();
         $dt = new DateTime();
         $dt->modify((Carbon::MONTHS_PER_QUARTER * -1).' month');
-        $this->assertFalse(Carbon::now()->isSameQuarter($dt));
+
+        if ($dt->format('d') !== $now->format('d')) {
+            $dt->modify('last day of previous month');
+        }
+
+        $this->assertFalse($now->isSameQuarter($dt));
     }
 
     public function testIsSameQuarterAndYearTrue()
