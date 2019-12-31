@@ -15,6 +15,7 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use ReflectionMethod;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
@@ -666,13 +667,22 @@ class LocalizationTest extends AbstractTestCase
             $this->markTestSkipped('In Symfony < 4, NotLocaleAwareException will never been thrown.');
         }
 
+        $parameters = (new ReflectionMethod(TranslatorInterface::class, 'trans'))->getParameters();
+
         /** @var TranslatorInterface $translator */
-        $translator = new class implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
-            {
-                return 'x';
-            }
-        };
+        $translator = $parameters[0]->getType()->getName() === 'string'
+            ? (new class implements TranslatorInterface {
+                public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
+                {
+                    return 'x';
+                }
+            })
+            : (new class implements TranslatorInterface {
+                public function trans($id, array $parameters = [], $domain = null, $locale = null)
+                {
+                    return 'x';
+                }
+            });
 
         Carbon::setTranslator($translator);
 
