@@ -978,7 +978,7 @@ class CarbonInterval extends DateInterval
                 return $this->d % static::getDaysPerWeek();
 
             case 'locale':
-                return $this->getLocalTranslator()->getLocale();
+                return $this->getTranslatorLocale();
 
             default:
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));

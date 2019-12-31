@@ -12,12 +12,15 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use ReflectionMethod;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -31,6 +34,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testGetTranslator()
     {
+        /** @var Translator $t */
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -38,6 +42,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function testResetTranslator()
     {
+        /** @var Translator $t */
         $t = MyCarbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -327,6 +332,7 @@ class LocalizationTest extends AbstractTestCase
         $t->addLoader('array', new ArrayLoader());
         Carbon::setTranslator($t);
 
+        /** @var Translator $t */
         $t = Carbon::getTranslator();
         $this->assertNotNull($t);
         $this->assertTrue($this->areSameLocales($locale, $t->getLocale()));
@@ -684,6 +690,37 @@ class LocalizationTest extends AbstractTestCase
 
         Carbon::setTranslator(new \Symfony\Component\Translation\Translator('en'));
         $this->assertSame(['en'], Carbon::getAvailableLocales());
+    }
+
+    public function testNotLocaleAwareException()
+    {
+        if (method_exists(TranslatorInterface::class, 'getLocale')) {
+            $this->markTestSkipped('In Symfony < 4, NotLocaleAwareException will never been thrown.');
+        }
+
+        $parameters = (new ReflectionMethod(TranslatorInterface::class, 'trans'))->getParameters();
+
+        /** @var TranslatorInterface $translator */
+        $translator = $parameters[0]->getType()->getName() === 'string'
+            ? (new class implements TranslatorInterface {
+                public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
+                {
+                    return 'x';
+                }
+            })
+            : (new class implements TranslatorInterface {
+                public function trans($id, array $parameters = [], $domain = null, $locale = null)
+                {
+                    return 'x';
+                }
+            });
+
+        Carbon::setTranslator($translator);
+
+        $this->expectException(NotLocaleAwareException::class);
+        $this->expectExceptionMessage(get_class($translator).' does neither implements Symfony\\Contracts\\Translation\\LocaleAwareInterface nor getLocale() method.');
+
+        Carbon::now()->locale();
     }
 
     public function testGetAvailableLocalesInfo()
