@@ -689,7 +689,9 @@ trait Localization
             $translator = $this->getLocalTranslator();
         }
 
-        return $translator && $translator instanceof LocaleAwareInterface ? $translator->getLocale() : null;
+        $translator = static::getLocaleAwareTranslator($translator);
+
+        return $translator ? $translator->getLocale() : null;
     }
 
     /**
