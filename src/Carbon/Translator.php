@@ -190,9 +190,10 @@ class Translator extends Translation\Translator
         }
 
         foreach ($this->getDirectories() as $directory) {
-            $directory = rtrim($directory, '\\/');
-            if (file_exists($filename = "$directory/$locale.php")) {
-                $this->messages[$locale] = require $filename;
+            $data = @include sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+
+            if ($data !== false) {
+                $this->messages[$locale] = $data;
                 $this->addResource('array', $this->messages[$locale], $locale);
 
                 return true;
