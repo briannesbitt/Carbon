@@ -13,7 +13,6 @@ namespace Carbon\Traits;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Translator;
 use Closure;
