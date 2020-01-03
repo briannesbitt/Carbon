@@ -41,7 +41,7 @@ return [
     'second' => ':count δευτερόλεπτο|:count δευτερόλεπτα',
     'a_second' => 'λίγα δευτερόλεπτα|:count δευτερόλεπτα',
     's' => ':count δευ.',
-    'ago' => ':time πριν',
+    'ago' => 'πριν :time',
     'from_now' => 'σε :time',
     'after' => ':time μετά',
     'before' => ':time πριν',

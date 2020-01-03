@@ -119,61 +119,61 @@ class ElCyTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0η',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '1 δευτερόλεπτο πριν',
+        'πριν 1 δευτερόλεπτο',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 δευ. πριν',
+        'πριν 1 δευ.',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        '2 δευτερόλεπτα πριν',
+        'πριν 2 δευτερόλεπτα',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 δευ. πριν',
+        'πριν 2 δευ.',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        '1 λεπτό πριν',
+        'πριν 1 λεπτό',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 λεπ. πριν',
+        'πριν 1 λεπ.',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        '2 λεπτά πριν',
+        'πριν 2 λεπτά',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 λεπ. πριν',
+        'πριν 2 λεπ.',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '1 ώρα πριν',
+        'πριν 1 ώρα',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 ώρα πριν',
+        'πριν 1 ώρα',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ώρες πριν',
+        'πριν 2 ώρες',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 ώρες πριν',
+        'πριν 2 ώρες',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '1 μέρα πριν',
+        'πριν 1 μέρα',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 μέρ. πριν',
+        'πριν 1 μέρ.',
         // Carbon::now()->subDays(2)->diffForHumans()
-        '2 μέρες πριν',
+        'πριν 2 μέρες',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 μέρ. πριν',
+        'πριν 2 μέρ.',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 εβδομάδα πριν',
+        'πριν 1 εβδομάδα',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 εβδ. πριν',
+        'πριν 1 εβδ.',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 εβδομάδες πριν',
+        'πριν 2 εβδομάδες',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 εβδ. πριν',
+        'πριν 2 εβδ.',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '1 μήνας πριν',
+        'πριν 1 μήνας',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 μήν. πριν',
+        'πριν 1 μήν.',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2 μήνες πριν',
+        'πριν 2 μήνες',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 μήν. πριν',
+        'πριν 2 μήν.',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '1 χρόνος πριν',
+        'πριν 1 χρόνος',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 χρ. πριν',
+        'πριν 1 χρ.',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 χρόνια πριν',
+        'πριν 2 χρόνια',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 χρ. πριν',
+        'πριν 2 χρ.',
         // Carbon::now()->addSecond()->diffForHumans()
         'σε 1 δευτερόλεπτο',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
@@ -203,9 +203,9 @@ class ElCyTest extends LocalizationTestCase
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         'σε 3 χρόνια',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 μήν. πριν',
+        'πριν 5 μήν.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 χρ. 3 μήν. 1 μέρ. 1 δευ. πριν',
+        'πριν 2 χρ. 3 μήν. 1 μέρ. 1 δευ.',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         '1 εβδομάδα 10 ώρες',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
