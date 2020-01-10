@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Information from Michael Wolf    bug-glibc-locales@gnu.org
  */

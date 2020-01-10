@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Kamusi Project Martin Benjamin locales@kamusi.org
  */

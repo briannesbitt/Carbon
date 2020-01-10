@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Reshat Sabiq tatar.iqtelif.i18n@gmail.com
  */

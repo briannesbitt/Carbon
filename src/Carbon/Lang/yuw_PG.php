@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Information from native speakers Hannah Sarvasy nungon.localization@gmail.com
  */

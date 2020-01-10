@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - PeshSajSoft Ltd. Vyacheslav Kileev slavakileev@yandex.ru
  */

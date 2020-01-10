@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - IBM AP Linux Technology Center, Yamato Software Laboratory    bug-glibc@gnu.org
  */
