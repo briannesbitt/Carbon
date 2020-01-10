@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - The Debian project Christian Perrier bubulle@debian.org
  */

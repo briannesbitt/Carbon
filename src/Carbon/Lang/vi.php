@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - Andre Polykanine A.K.A. Menelion Elensúlë

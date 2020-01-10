@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Free Software Foundation, Inc.    bug-glibc-locales@gnu.org
  */

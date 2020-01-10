@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Greek Debian Translation Team    bug-glibc@gnu.org
  */

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - somosazucar.org    libc-alpha@sourceware.org
  */

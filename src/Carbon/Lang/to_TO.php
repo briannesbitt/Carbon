@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - International Components for Unicode    akhilesh.k@samsung.com
  */

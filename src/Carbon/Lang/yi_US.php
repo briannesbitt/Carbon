@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - http://www.uyip.org/ Pablo Saratxaga pablo@mandrakesoft.com
  */

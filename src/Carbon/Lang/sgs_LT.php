@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Arnas Udovičius bug-glibc-locales@gnu.org
  */

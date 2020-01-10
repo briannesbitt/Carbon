@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - information from native speaker Pablo Saratxaga pablo@mandrakesoft.com
  */

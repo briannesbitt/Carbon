@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Softaragones Jordi Mallach Pérez, Juan Pablo Martínez bug-glibc-locales@gnu.org, softaragones@softaragones.org
  */

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - ubuntu Myanmar LoCo Team http://www.ubuntu-mm.net Bone Pyae Sone bone.burma@mail.com
  */

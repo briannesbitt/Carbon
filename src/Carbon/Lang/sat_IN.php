@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Red Hat Pune    libc-alpha@sourceware.org
  */

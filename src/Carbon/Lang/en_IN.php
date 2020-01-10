@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - IBM Globalization Center of Competency, Yamato Software Laboratory  bug-glibc-locales@gnu.org
  */
