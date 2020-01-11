@@ -29,6 +29,7 @@
  * - Nicolás Hock Isaza
  * - Viesturs Kavacs (Kavacky)
  * - zakse
+ * - Janis Eglitis (janiseglitis)
  */
 return [
     'year' => '0 gadiem|:count gads|:count gadiem',
