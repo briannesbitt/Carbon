@@ -51,9 +51,13 @@ trait Creator
     public function __construct($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
-            $date = static::instance($time);
+            if ($tz !== null) {
+                $time->setTimezone(static::safeCreateDateTimeZone($tz));
+            } else {
+                $tz = $time->getTimezone();
+            }
 
-            return $tz === null ? $date : $date->tz($tz);
+            $time = $time->format('Y-m-d H:i:s.u');
         }
 
         if (is_int($time)) {
