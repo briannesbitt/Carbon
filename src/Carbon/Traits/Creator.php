@@ -50,6 +50,12 @@ trait Creator
      */
     public function __construct($time = null, $tz = null)
     {
+        if ($time instanceof DateTimeInterface) {
+            $date = static::instance($time);
+
+            return $tz === null ? $date : $date->tz($tz);
+        }
+
         if (is_int($time)) {
             $time = "@$time";
         }
