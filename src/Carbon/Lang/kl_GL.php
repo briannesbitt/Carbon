@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Danish Standards Association    bug-glibc-locales@gnu.org
  */

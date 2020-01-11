@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - RockET Systems Emani Fakaotimanava-Lui emani@niue.nu
  */

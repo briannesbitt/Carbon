@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Thanks to André Silva : https://github.com/askpt
  */
 

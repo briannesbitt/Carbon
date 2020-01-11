@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Red Hat, Pune    bug-glibc-locales@gnu.org
  */

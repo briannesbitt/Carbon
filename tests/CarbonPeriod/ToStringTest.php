@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\CarbonInterval;
 use Carbon\CarbonPeriod;
 use Tests\AbstractTestCase;
@@ -146,6 +147,25 @@ class ToStringTest extends AbstractTestCase
         $this->assertSame(
             '2015-09-30T00:00:00-04:00/P3DT5H/2015-10-03T00:00:00-04:00',
             $period->spec()
+        );
+    }
+
+    public function testStartOfWeekForPeriod()
+    {
+        $sunday = CarbonImmutable::parse('2019-12-01');
+
+        $period = CarbonPeriod::create($sunday->startOfWeek(), '1 week', $sunday->endOfWeek())->toArray();
+
+        $formattedSunday = $sunday->startOfWeek()->format('Y-m-d H:i:s');
+
+        $this->assertSame(
+            '2019-11-25 00:00:00',
+            $formattedSunday
+        );
+
+        $this->assertSame(
+            $formattedSunday,
+            $period[0]->toImmutable()->startOfWeek()->format('Y-m-d H:i:s')
         );
     }
 }

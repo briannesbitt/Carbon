@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Gastaldi    alessio.gastaldi@libero.it
  */

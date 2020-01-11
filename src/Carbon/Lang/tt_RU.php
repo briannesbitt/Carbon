@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Rinat Norkin Pablo Saratxaga, Rinat Norkin pablo@mandrakesoft.com, rinat@taif.ru
  */

@@ -138,6 +138,16 @@ trait Localization
     }
 
     /**
+     * Return true if the current instance has its own translator.
+     *
+     * @return bool
+     */
+    public function hasLocalTranslator()
+    {
+        return isset($this->localTranslator);
+    }
+
+    /**
      * Get the translator of the current instance or the default if none set.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface

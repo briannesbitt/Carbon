@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Pular-Fulfulde.org Ibrahima Sarr admin@pulaar-fulfulde.org
  */

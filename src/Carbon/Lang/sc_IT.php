@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Sardinian Translators Team Massimeddu Cireddu massimeddu@gmail.com
  */

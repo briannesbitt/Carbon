@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Sugar Labs // OLPC sugarlabs.org libc-alpha@sourceware.org
  */

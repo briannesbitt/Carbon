@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - RFC 2319    bug-glibc-locales@gnu.org
  */

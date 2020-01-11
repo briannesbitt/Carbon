@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - sr_YU, sr_CS locale Danilo Segan bug-glibc-locales@gnu.org
  */

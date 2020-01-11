@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - J.Yogaraj 94-777-315206 yogaraj.ubuntu@gmail.com
  */

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Fedora Project Nik Kalach nikka@fedoraproject.org
  */
