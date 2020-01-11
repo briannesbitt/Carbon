@@ -51,12 +51,7 @@ trait Creator
     public function __construct($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
-            if ($tz !== null) {
-                $time->setTimezone(static::safeCreateDateTimeZone($tz));
-            } else {
-                $tz = $time->getTimezone();
-            }
-
+            $tz = $this->constructTimezoneFromDateTime($time);
             $time = $time->format('Y-m-d H:i:s.u');
         }
 
@@ -92,9 +87,32 @@ trait Creator
     }
 
     /**
+     * Get timezone from a datetime instance.
+     *
+     * @param DateTimeInterface        $date
+     * @param DateTimeZone|string|null $tz
+     *
+     * @return DateTimeZone
+     */
+    private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz)
+    {
+        if ($tz !== null) {
+            $safeTz = static::safeCreateDateTimeZone($tz);
+
+            if ($safeTz) {
+                $date->setTimezone($safeTz);
+            }
+
+            return $tz;
+        }
+
+        return $date->getTimezone();
+    }
+
+    /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTimeInterface $date
+     * @param DateTimeInterface $date
      *
      * @return static
      */
