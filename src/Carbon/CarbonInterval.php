@@ -321,6 +321,14 @@ class CarbonInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
+        if ($years instanceof DateInterval) {
+            parent::__construct(static::getDateIntervalSpec($years));
+            $this->f = $years->f;
+            static::copyNegativeUnits($years, $this);
+
+            return;
+        }
+
         $spec = $years;
 
         if (!is_string($spec) || floatval($years) || preg_match('/^[0-9.]/', $years)) {
@@ -817,17 +825,25 @@ class CarbonInterval extends DateInterval
 
         $microseconds = $interval->f;
         $instance = new $className(static::getDateIntervalSpec($interval));
+
         if ($microseconds) {
             $instance->f = $microseconds;
         }
-        $instance->invert = $interval->invert;
-        foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
-            if ($interval->$unit < 0) {
-                $instance->$unit *= -1;
-            }
-        }
+
+        static::copyNegativeUnits($interval, $instance);
 
         return $instance;
+    }
+
+    private static function copyNegativeUnits(DateInterval $from, DateInterval $to)
+    {
+        $to->invert = $from->invert;
+
+        foreach (['y', 'm', 'd', 'h', 'i', 's'] as $unit) {
+            if ($from->$unit < 0) {
+                $to->$unit *= -1;
+            }
+        }
     }
 
     /**
