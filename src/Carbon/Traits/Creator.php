@@ -51,8 +51,7 @@ trait Creator
     public function __construct($time = null, $tz = null)
     {
         if ($time instanceof DateTimeInterface) {
-            $tz = $this->constructTimezoneFromDateTime($time);
-            $time = $time->format('Y-m-d H:i:s.u');
+            $time = $this->constructTimezoneFromDateTime($time, $tz)->format('Y-m-d H:i:s.u');
         }
 
         if (is_int($time)) {
@@ -92,7 +91,7 @@ trait Creator
      * @param DateTimeInterface        $date
      * @param DateTimeZone|string|null $tz
      *
-     * @return DateTimeZone
+     * @return DateTimeInterface
      */
     private function constructTimezoneFromDateTime(DateTimeInterface $date, &$tz)
     {
@@ -100,13 +99,15 @@ trait Creator
             $safeTz = static::safeCreateDateTimeZone($tz);
 
             if ($safeTz) {
-                $date->setTimezone($safeTz);
+                return $date->setTimezone($safeTz);
             }
 
-            return $tz;
+            return $date;
         }
 
-        return $date->getTimezone();
+        $tz = $date->getTimezone();
+
+        return $date;
     }
 
     /**
