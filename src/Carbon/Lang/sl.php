@@ -27,6 +27,7 @@
  * - Glavić
  * - Anže Časar
  * - Lovro Tramšek (Lovro1107)
+ * - burut13
  */
 return [
     'year' => ':count leto|:count leti|:count leta|:count let',
@@ -42,6 +43,7 @@ return [
     'minute' => ':count minuta|:count minuti|:count minute|:count minut',
     'min' => ':count min.',
     'second' => ':count sekunda|:count sekundi|:count sekunde|:count sekund',
+    'a_second' => '{1}nekaj sekund|:count sekunda|:count sekundi|:count sekunde|:count sekund',
     's' => ':count s',
 
     'year_ago' => ':count letom|:count leti|:count leti|:count leti',
@@ -110,11 +112,11 @@ return [
         },
         'sameElse' => 'L',
     ],
-    'months' => ['Januar', 'Februar', 'Marec', 'April', 'Maj', 'Junij', 'Julij', 'Avgust', 'September', 'Oktober', 'November', 'December'],
-    'months_short' => ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
-    'weekdays' => ['Nedelja', 'Ponedeljek', 'Torek', 'Sreda', 'Četrtek', 'Petek', 'Sobota'],
-    'weekdays_short' => ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
-    'weekdays_min' => ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'],
+    'months' => ['januar', 'februar', 'marec', 'april', 'maj', 'junij', 'julij', 'avgust', 'september', 'oktober', 'november', 'december'],
+    'months_short' => ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'avg', 'sep', 'okt', 'nov', 'dec'],
+    'weekdays' => ['nedelja', 'ponedeljek', 'torek', 'sreda', 'četrtek', 'petek', 'sobota'],
+    'weekdays_short' => ['ned', 'pon', 'tor', 'sre', 'čet', 'pet', 'sob'],
+    'weekdays_min' => ['ne', 'po', 'to', 'sr', 'če', 'pe', 'so'],
     'list' => [', ', ' in '],
     'meridiem' => ['dopoldan', 'popoldan'],
 ];
