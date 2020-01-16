@@ -162,6 +162,7 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testLocalMacroProperties()
     {
+        /** @var mixed $date */
         $date = Carbon::parse('2016-06-01')->settings([
             'macros' => [
                 'setSchoolYear' => function ($schoolYear) {
