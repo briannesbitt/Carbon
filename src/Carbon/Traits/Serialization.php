@@ -120,6 +120,7 @@ trait Serialization
         if (get_parent_class() && method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
+
         if (isset($this->dumpLocale)) {
             $this->locale($this->dumpLocale);
             $this->dumpLocale = null;
