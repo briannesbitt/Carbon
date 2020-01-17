@@ -40,6 +40,13 @@ trait Creator
     protected static $lastErrors;
 
     /**
+     * True when parent::__construct has been called.
+     *
+     * @var bool
+     */
+    protected $constructed = false;
+
+    /**
      * Create a new Carbon instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
@@ -73,6 +80,7 @@ trait Creator
         }
 
         parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
+        $this->constructed = true;
 
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);

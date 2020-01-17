@@ -1067,6 +1067,12 @@ trait Date
             return $this;
         }
 
+        if (!$this->constructed && in_array($name, ['timezone_type', 'timezone', 'date'])) {
+            $this->$name = $value;
+
+            return $this;
+        }
+
         switch ($name) {
             case 'milliseconds':
             case 'millisecond':
@@ -1152,6 +1158,11 @@ trait Date
             case 'timezone':
             case 'tz':
                 $this->setTimezone($value);
+
+                break;
+
+            case 'date':
+                $this->modify($value);
 
                 break;
 
