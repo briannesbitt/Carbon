@@ -1037,6 +1037,12 @@ trait Date
      */
     public function __set($name, $value)
     {
+        if (!$this->constructed && in_array($name, ['timezone_type', 'timezone', 'date'])) {
+            $this->$name = $value;
+
+            return;
+        }
+
         $this->set($name, $value);
     }
 
@@ -1063,12 +1069,6 @@ trait Date
             foreach ($name as $key => $value) {
                 $this->set($key, $value);
             }
-
-            return $this;
-        }
-
-        if (!$this->constructed && in_array($name, ['timezone_type', 'timezone', 'date'])) {
-            $this->$name = $value;
 
             return $this;
         }
