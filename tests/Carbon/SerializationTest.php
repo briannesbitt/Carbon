@@ -78,4 +78,17 @@ class SerializationTest extends AbstractTestCase
 
         Carbon::fromSerialized($value);
     }
+
+    public function testNewInstanceWithoutConstructor()
+    {
+        $d = (new \ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
+
+        $d->date = '1990-01-17 10:28:07';
+        $d->timezone_type = 3;
+        $d->timezone = 'US/Pacific';
+
+        $x = unserialize(serialize($d));
+
+        $this->assertSame('1990-01-17 10:28:07', $x->format('Y-m-d h:i:s'));
+    }
 }

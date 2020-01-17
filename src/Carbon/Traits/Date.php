@@ -525,6 +525,7 @@ trait Date
     use Macro;
     use Modifiers;
     use Mutability;
+    use ObjectInitialisation;
     use Options;
     use Rounding;
     use Serialization;
@@ -1039,6 +1040,10 @@ trait Date
      */
     public function __set($name, $value)
     {
+        if (!$this->isDateTimeInitialised) {
+            $this->$name = $value;
+            return;
+        }
         $this->set($name, $value);
     }
 
