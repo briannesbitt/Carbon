@@ -14,7 +14,7 @@ namespace Carbon\Traits;
 trait ObjectInitialisation
 {
     /**
-     * @var bool
+     * @var string
      */
-    protected $isDateTimeInitialised = false;
+    protected $isDateTimeInitialised = null;
 }

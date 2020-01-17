@@ -1040,11 +1040,11 @@ trait Date
      */
     public function __set($name, $value)
     {
-        if (!$this->isDateTimeInitialised) {
-            $this->$name = $value;
-            return;
+        if ($this->isDateTimeInitialised === spl_object_hash($this)) {
+            $this->set($name, $value);
         }
-        $this->set($name, $value);
+
+        $this->$name = $value;
     }
 
     /**

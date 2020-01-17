@@ -76,7 +76,7 @@ trait Creator
 
         parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
 
-        $this->isDateTimeInitialised = true;
+        $this->isDateTimeInitialised = spl_object_hash($this);
 
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);
