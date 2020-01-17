@@ -1040,7 +1040,7 @@ trait Date
      */
     public function __set($name, $value)
     {
-        if ($this->isDateTimeInitialised === spl_object_hash($this)) {
+        if ($this->constructedObjectId === spl_object_hash($this)) {
             $this->set($name, $value);
         }
 

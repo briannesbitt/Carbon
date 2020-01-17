@@ -16,5 +16,5 @@ trait ObjectInitialisation
     /**
      * @var string
      */
-    protected $isDateTimeInitialised = null;
+    protected $constructedObjectId = null;
 }
