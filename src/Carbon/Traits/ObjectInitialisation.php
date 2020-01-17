@@ -10,11 +10,12 @@
  */
 namespace Carbon\Traits;
 
-
 trait ObjectInitialisation
 {
     /**
+     * True when parent::__construct has been called.
+     *
      * @var bool
      */
-    protected $isDateTimeInitialised = false;
+    protected $constructed = false;
 }
