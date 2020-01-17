@@ -32,6 +32,8 @@ use InvalidArgumentException;
  */
 trait Creator
 {
+    use ObjectInitialisation;
+
     /**
      * The errors that can occur.
      *
@@ -81,6 +83,8 @@ trait Creator
 
         parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
         $this->constructed = true;
+
+        $this->isDateTimeInitialised = true;
 
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);

@@ -31,6 +31,8 @@ use InvalidArgumentException;
  */
 trait Serialization
 {
+    use ObjectInitialisation;
+
     /**
      * The custom Carbon JSON serializer.
      *
