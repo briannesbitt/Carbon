@@ -81,15 +81,6 @@ class SerializationTest extends AbstractTestCase
         Carbon::fromSerialized($value);
     }
 
-    public function testDateSet()
-    {
-        $d = Carbon::parse('200-06-25 00:00:00');
-
-        $d->date = '1990-01-17 10:28:07';
-
-        $this->assertSame('1990-01-17 10:28:07', $d->format('Y-m-d h:i:s'));
-    }
-
     public function testDateSerializationReflectionCompatibility()
     {
         $d = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
