@@ -301,7 +301,8 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
 
-        foreach ($date as $_) {}
+        foreach ($date as $_) {
+        }
 
         $date->cleanupDumpProperties()->timezone = 'UTC';
 
