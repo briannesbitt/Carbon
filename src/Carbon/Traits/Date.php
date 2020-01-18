@@ -525,6 +525,7 @@ trait Date
     use Macro;
     use Modifiers;
     use Mutability;
+    use ObjectInitialisation;
     use Options;
     use Rounding;
     use Serialization;
@@ -999,8 +1000,10 @@ trait Date
                 return $this->getTranslatorLocale();
 
             default:
-                if (static::hasMacro($macro = 'get'.ucfirst($name))) {
-                    return $this->$macro();
+                $macro = $this->getLocalMacro('get'.ucfirst($name));
+
+                if ($macro) {
+                    return $this->executeCallableWithContext($macro);
                 }
 
                 throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
@@ -1037,7 +1040,13 @@ trait Date
      */
     public function __set($name, $value)
     {
-        $this->set($name, $value);
+        if ($this->constructedObjectId === spl_object_hash($this)) {
+            $this->set($name, $value);
+
+            return;
+        }
+
+        $this->$name = $value;
     }
 
     /**
@@ -1156,8 +1165,10 @@ trait Date
                 break;
 
             default:
-                if (static::hasMacro($macro = 'set'.ucfirst($name))) {
-                    $this->$macro($value);
+                $macro = $this->getLocalMacro('set'.ucfirst($name));
+
+                if ($macro) {
+                    $this->executeCallableWithContext($macro, $value);
 
                     break;
                 }
@@ -2387,6 +2398,13 @@ trait Date
         return call_user_func_array($macro, $parameters);
     }
 
+    protected function executeCallableWithContext($macro, ...$parameters)
+    {
+        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
+            return $this->executeCallable($macro, ...$parameters);
+        });
+    }
+
     protected static function getGenericMacros()
     {
         foreach (static::$globalGenericMacros as $list) {
@@ -2538,7 +2556,7 @@ trait Date
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
             } catch (BadUnitException | BadMethodCallException $exception) {
-                // Try macros
+                // Try next
             }
         }
 
@@ -2548,12 +2566,14 @@ trait Date
 
                 return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
             } catch (InvalidArgumentException $exception) {
-                // Try next
+                // Try macros
             }
         }
 
         return static::bindMacroContext($this, function () use (&$method, &$parameters) {
-            if (!static::hasMacro($method)) {
+            $macro = $this->getLocalMacro($method);
+
+            if (!$macro) {
                 foreach ([$this->localGenericMacros ?: [], static::getGenericMacros()] as $list) {
                     foreach ($list as $callback) {
                         try {
@@ -2571,7 +2591,7 @@ trait Date
                 return null;
             }
 
-            return $this->executeCallable(($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method], ...$parameters);
+            return $this->executeCallable($macro, ...$parameters);
         });
     }
 }

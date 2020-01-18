@@ -417,6 +417,10 @@ trait Options
             return $var;
         });
 
+        if (isset($infos['constructedObjectId'])) {
+            unset($infos['constructedObjectId']);
+        }
+
         // @codeCoverageIgnoreStart
 
         if ($this instanceof CarbonInterface || $this instanceof DateTimeInterface) {

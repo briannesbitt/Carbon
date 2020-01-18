@@ -31,6 +31,8 @@ use InvalidArgumentException;
  */
 trait Serialization
 {
+    use ObjectInitialisation;
+
     /**
      * The custom Carbon JSON serializer.
      *
@@ -120,6 +122,9 @@ trait Serialization
         if (get_parent_class() && method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
+
+        $this->constructedObjectId = spl_object_hash($this);
+
         if (isset($this->dumpLocale)) {
             $this->locale($this->dumpLocale);
             $this->dumpLocale = null;
