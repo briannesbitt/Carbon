@@ -234,47 +234,6 @@ class SettersTest extends AbstractTestCase
         $d->timezone = 'sdf';
     }
 
-    public function testTimeZoneOfUnserialized()
-    {
-        $date = new Carbon('2020-01-01', 'America/Vancouver');
-
-        $date = unserialize(serialize($date));
-
-        $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
-
-        $date->timezone = 'UTC';
-
-        $this->assertSame('UTC', $date->getTimezone()->getName());
-
-        $date = new Carbon('2020-01-01', 'America/Vancouver');
-
-        $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
-
-        var_export($date, true);
-
-        $date->timezone = 'UTC';
-
-        $this->assertSame('UTC', $date->getTimezone()->getName());
-
-        $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
-
-        foreach ($date as $_) {}
-
-        $date->timezone = 'UTC';
-
-        $this->assertSame('UTC', $date->getTimezone()->getName());
-
-        $date = new Carbon('2020-01-01', 'America/Vancouver');
-
-        $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
-
-        get_object_vars($date);
-
-        $date->timezone = 'UTC';
-
-        $this->assertSame('UTC', $date->getTimezone()->getName());
-    }
-
     public function testTimezoneWithInvalidTimezoneSetter()
     {
         $this->expectException(\InvalidArgumentException::class);

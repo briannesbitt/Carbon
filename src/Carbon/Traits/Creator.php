@@ -86,6 +86,14 @@ trait Creator
     }
 
     /**
+     * Update constructedObjectId on cloned.
+     */
+    public function __clone()
+    {
+        $this->constructedObjectId = spl_object_hash($this);
+    }
+
+    /**
      * Create a Carbon instance from a DateTime one.
      *
      * @param \DateTimeInterface $date

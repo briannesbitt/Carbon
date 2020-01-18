@@ -257,13 +257,35 @@ class SettersTest extends AbstractTestCase
     {
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
-        $date = unserialize(serialize($date));
+        $new = unserialize(serialize($date));
+
+        $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
+
+        $date->cleanupDumpProperties()->timezone = 'UTC';
+
+        $this->assertSame('UTC', $date->getTimezone()->getName());
+
+        $this->assertSame('America/Vancouver', $new->getTimezone()->getName());
+
+        $new->timezone = 'UTC';
+
+        $this->assertSame('UTC', $new->getTimezone()->getName());
+
+        $date = new Carbon('2020-01-01', 'America/Vancouver');
+
+        $new = clone $date;
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
 
         $date->timezone = 'UTC';
 
         $this->assertSame('UTC', $date->getTimezone()->getName());
+
+        $this->assertSame('America/Vancouver', $new->getTimezone()->getName());
+
+        $new->timezone = 'UTC';
+
+        $this->assertSame('UTC', $new->getTimezone()->getName());
 
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
@@ -271,15 +293,17 @@ class SettersTest extends AbstractTestCase
 
         var_export($date, true);
 
-        $date->timezone = 'UTC';
+        $date->cleanupDumpProperties()->timezone = 'UTC';
 
         $this->assertSame('UTC', $date->getTimezone()->getName());
+
+        $date = new Carbon('2020-01-01', 'America/Vancouver');
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
 
         foreach ($date as $_) {}
 
-        $date->timezone = 'UTC';
+        $date->cleanupDumpProperties()->timezone = 'UTC';
 
         $this->assertSame('UTC', $date->getTimezone()->getName());
 
@@ -289,7 +313,7 @@ class SettersTest extends AbstractTestCase
 
         get_object_vars($date);
 
-        $date->timezone = 'UTC';
+        $date->cleanupDumpProperties()->timezone = 'UTC';
 
         $this->assertSame('UTC', $date->getTimezone()->getName());
     }
