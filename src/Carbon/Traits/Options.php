@@ -417,8 +417,8 @@ trait Options
             return $var;
         });
 
-        if (isset($infos['constructed'])) {
-            unset($infos['constructed']);
+        if (isset($infos['constructedObjectId'])) {
+            unset($infos['constructedObjectId']);
         }
 
         // @codeCoverageIgnoreStart
