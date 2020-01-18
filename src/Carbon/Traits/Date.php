@@ -1042,6 +1042,7 @@ trait Date
     {
         if ($this->constructedObjectId === spl_object_hash($this)) {
             $this->set($name, $value);
+            return;
         }
 
         $this->$name = $value;
