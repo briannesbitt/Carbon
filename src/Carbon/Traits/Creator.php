@@ -32,6 +32,8 @@ use InvalidArgumentException;
  */
 trait Creator
 {
+    use ObjectInitialisation;
+
     /**
      * The errors that can occur.
      *
@@ -74,11 +76,21 @@ trait Creator
 
         parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
 
+        $this->constructedObjectId = spl_object_hash($this);
+
         if (isset($locale)) {
             setlocale(LC_NUMERIC, $locale);
         }
 
         static::setLastErrors(parent::getLastErrors());
+    }
+
+    /**
+     * Update constructedObjectId on cloned.
+     */
+    public function __clone()
+    {
+        $this->constructedObjectId = spl_object_hash($this);
     }
 
     /**

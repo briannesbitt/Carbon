@@ -525,6 +525,7 @@ trait Date
     use Macro;
     use Modifiers;
     use Mutability;
+    use ObjectInitialisation;
     use Options;
     use Rounding;
     use Serialization;
@@ -1039,7 +1040,13 @@ trait Date
      */
     public function __set($name, $value)
     {
-        $this->set($name, $value);
+        if ($this->constructedObjectId === spl_object_hash($this)) {
+            $this->set($name, $value);
+
+            return;
+        }
+
+        $this->$name = $value;
     }
 
     /**
