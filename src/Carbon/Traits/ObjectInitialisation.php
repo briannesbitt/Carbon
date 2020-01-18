@@ -15,7 +15,7 @@ trait ObjectInitialisation
     /**
      * True when parent::__construct has been called.
      *
-     * @var bool
+     * @var string
      */
-    protected $constructed = false;
+    protected $constructedObjectId = null;
 }

@@ -1040,13 +1040,13 @@ trait Date
      */
     public function __set($name, $value)
     {
-        if (!$this->constructed && in_array($name, ['timezone_type', 'timezone', 'date'])) {
-            $this->$name = $value;
+        if ($this->constructedObjectId === spl_object_hash($this)) {
+            $this->set($name, $value);
 
             return;
         }
 
-        $this->set($name, $value);
+        $this->$name = $value;
     }
 
     /**

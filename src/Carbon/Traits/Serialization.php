@@ -123,7 +123,7 @@ trait Serialization
             parent::__wakeup();
         }
 
-        $this->constructed = true;
+        $this->constructedObjectId = spl_object_hash($this);
 
         if (isset($this->dumpLocale)) {
             $this->locale($this->dumpLocale);
