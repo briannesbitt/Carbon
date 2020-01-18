@@ -271,8 +271,10 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('UTC', $new->getTimezone()->getName());
 
+        /** @var mixed $date */
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
+        /** @var mixed $new */
         $new = clone $date;
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
@@ -301,7 +303,10 @@ class SettersTest extends AbstractTestCase
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
 
-        foreach ($date as $_) {
+        /** @var array $array */
+        $array = $date;
+
+        foreach ($array as $_) {
         }
 
         $date->cleanupDumpProperties()->timezone = 'UTC';
