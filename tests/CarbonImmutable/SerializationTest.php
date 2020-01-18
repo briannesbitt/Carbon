@@ -111,9 +111,19 @@ class SerializationTest extends AbstractTestCase
             $properties[$property->getName()] = $property;
         }
 
-        $properties['date']->setValue($target, '1990-01-17 10:28:07');
-        $properties['timezone_type']->setValue($target, 3);
-        $properties['timezone']->setValue($target, 'US/Pacific');
+        $setValue = function ($key, $value) use (&$properties, &$target) {
+            if (isset($properties[$key])) {
+                $properties[$key]->setValue($target, $value);
+
+                return;
+            }
+
+            $target->$key = $value;
+        };
+
+        $setValue('date', '1990-01-17 10:28:07');
+        $setValue('timezone_type', 3);
+        $setValue('timezone', 'US/Pacific');
 
         $date = unserialize(serialize($target));
 
