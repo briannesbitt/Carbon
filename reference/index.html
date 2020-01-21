@@ -1493,6 +1493,13 @@ echo Carbon::now('America/Toronto')->toISOString(true) . "\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.20.0</td><td><code>$end = null, $interval = null, $unit = null</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-__clone">
+    <h2><span class="class-name">Carbon::</span>__clone</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Update constructedObjectId on cloned.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-instance">
     <h2><span class="class-name">Carbon::</span>instance</h2>
     <code>$date</code>
@@ -2078,8 +2085,32 @@ echo Carbon::yesterday()->hours(11)->userFormat();</code></pre></p>
     <h2><span class="class-name">Carbon::</span>hasMacro</h2>
     <code>$name</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Checks if macro is registered.</p>
+    <p class="doc-description">Checks if macro is registered globally.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getMacro">
+    <h2><span class="class-name">Carbon::</span>getMacro</h2>
+    <code>$name</code>
+    <div class="doc-return">returns <code>callable|null</code></div>
+    <p class="doc-description">Get the raw callable macro registered globally for a given name.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><code>$name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-hasLocalMacro">
+    <h2><span class="class-name">Carbon::</span>hasLocalMacro</h2>
+    <code>$name</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Checks if macro is registered globally or locally.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><code>$name</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getLocalMacro">
+    <h2><span class="class-name">Carbon::</span>getLocalMacro</h2>
+    <code>$name</code>
+    <div class="doc-return">returns <code>callable|null</code></div>
+    <p class="doc-description">Get the raw callable macro registered globally or locally for a given name.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><code>$name</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-mixin">
@@ -2529,6 +2560,14 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <table class='info-table method-history'><tr><td>Method added</td><td>1.18.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-hasLocalTranslator">
+    <h2><span class="class-name">Carbon::</span>hasLocalTranslator</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the current instance has its own translator.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-getLocalTranslator">
     <h2><span class="class-name">Carbon::</span>getLocalTranslator</h2>
     <em>no arguments</em>
@@ -2822,6 +2861,17 @@ name, region and variant of the locale.</p>
     <code>$callback</code>
     <p class="doc-description"><div class="alert alert-warning">To avoid conflict between different third-party libraries, static setters should not be used.</div>You should rather transform Carbon object before the serialization.<br><br>JSON serialize all Carbon instances using the given callback.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.26.0</td><td><code>$callback</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-cleanupDumpProperties">
+    <h2><span class="class-name">Carbon::</span>cleanupDumpProperties</h2>
+    <em>no arguments</em>
+    <p class="doc-description">Cleanup properties attached to the public scope of DateTime when a dump of the date is requested.
+foreach ($date as $_) {}
+serializer($date)
+var_export($date)
+get_object_vars($date)</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-setTestNow">
@@ -4480,6 +4530,14 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <table class='info-table method-history'><tr><td>Method added</td><td>1.18.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-hasLocalTranslator">
+    <h2><span class="class-name">CarbonInterval::</span>hasLocalTranslator</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the current instance has its own translator.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-CarbonInterval-getLocalTranslator">
     <h2><span class="class-name">CarbonInterval::</span>getLocalTranslator</h2>
     <em>no arguments</em>
@@ -5597,6 +5655,14 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
     <code>Symfony\Component\Translation\TranslatorInterface $translator</code>
     <p class="doc-description">Set the default translator instance to use.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>Symfony\Component\Translation\TranslatorInterface $translator</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonPeriod-hasLocalTranslator">
+    <h2><span class="class-name">CarbonPeriod::</span>hasLocalTranslator</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Return true if the current instance has its own translator.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.29.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-getLocalTranslator">

@@ -766,6 +766,21 @@ echo "\n";
 </code></pre>
     </p>
 
+    <p><code>settings()</code> also allow to pass local macros:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::exec($date = Carbon::parse('Today 12:34:56')->settings([
+    'macros' => [
+        'lastSecondDigit' => function () { return self::this()->second % 10; },
+    ],
+]);
+
+echo $date->lastSecondDigit();/*pad(54)*/)}} // {{eval}}
+{{::exec(var_dump($date->hasLocalMacro('lastSecondDigit'));/*pad(54)*/)}} // {{eval}}
+// You can also retrieve the macro closure using ->getLocalMacro('lastSecondDigit')
+</code></pre>
+    </p>
+
     <p>Factory settings can be changed afterward with <code>setSettings(array $settings)</code> or to merge
         new settings with existing ones <code>mergeSettings(array $settings)</code> and the class to generate
         can be initialized as the second argument of the construct then changed later with
@@ -1468,9 +1483,16 @@ $dt->setTimestamp(169957925);
 $dt->timestamp(169957925);
 
 // Set the timezone via DateTimeZone instance or string
-$dt->timezone = new DateTimeZone('Europe/London');
-$dt->timezone = 'Europe/London';
+$dt->tz = new DateTimeZone('Europe/London');
 $dt->tz = 'Europe/London';
+
+// The ->timezone is also available for backward compatibility but
+// it will be overridden by native php DateTime class as soon as
+// the object is dump (passed foreach, serialize, var_export, clone, etc.)
+// making the Carbon setter inefficient, if it happen, you can cleanup
+// those overridden properties by calling ->cleanupDumpProperties() on
+// the instance, but we rather recommend to simply use ->tz instead
+// of ->timezone everywhere.
 
 // verbose way:
 $dt->setYear(2001);
@@ -3280,7 +3302,8 @@ echo "\n";
 </code></pre>
     </p>
 
-    <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code></p>
+    <p>You can check if a macro (mixin included) is available with <code>hasMacro()</code> and retrieve the
+    macro closure with <code>getMacro()</code></p>
 
     <p>
     <pre class="live-editor"><code class="php">{{::exec(var_dump(Carbon::hasMacro('previousBeerDay'));/*pad(78)*/)}} // {{eval}}
