@@ -626,6 +626,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function __callStatic($method, $parameters);
 
     /**
+     * Update constructedObjectId on cloned.
+     */
+    public function __clone();
+
+    /**
      * Create a new Carbon instance.
      *
      * Please see the testing aids section (specifically static::setTestNow())
@@ -901,6 +906,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function change($modifier);
 
     /**
+     * Cleanup properties attached to the public scope of DateTime when a dump of the date is requested.
+     * foreach ($date as $_) {}
+     * serializer($date)
+     * var_export($date)
+     * get_object_vars($date)
+     */
+    public function cleanupDumpProperties();
+
+    /**
      * @alias copy
      *
      * Get a copy of the instance.
@@ -1061,7 +1075,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
      *
-     * @param int                       $timestamp
+     * @param float                     $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static
@@ -1981,6 +1995,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function getLastErrors();
 
     /**
+     * Get the raw callable macro registered globally or locally for a given name.
+     *
+     * @param string $name
+     *
+     * @return callable|null
+     */
+    public function getLocalMacro($name);
+
+    /**
      * Get the translator of the current instance or the default if none set.
      *
      * @return \Symfony\Component\Translation\TranslatorInterface
@@ -1993,6 +2016,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return string
      */
     public static function getLocale();
+
+    /**
+     * Get the raw callable macro registered globally for a given name.
+     *
+     * @param string $name
+     *
+     * @return callable|null
+     */
+    public static function getMacro($name);
 
     /**
      * get midday/noon hour
@@ -2257,7 +2289,23 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public static function hasFormat($date, $format);
 
     /**
-     * Checks if macro is registered.
+     * Checks if macro is registered globally or locally.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasLocalMacro($name);
+
+    /**
+     * Return true if the current instance has its own translator.
+     *
+     * @return bool
+     */
+    public function hasLocalTranslator();
+
+    /**
+     * Checks if macro is registered globally.
      *
      * @param string $name
      *

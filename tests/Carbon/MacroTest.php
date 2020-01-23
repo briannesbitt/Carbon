@@ -119,15 +119,18 @@ class MacroTest extends AbstractTestCaseWithOldNow
             $date = $this;
 
             $date->year = $schoolYear;
+
             if ($date->month > 7) {
                 $date->year--;
             }
         });
+
         Carbon::macro('getSchoolYear', function () {
             /** @var CarbonInterface $date */
             $date = $this;
 
             $schoolYear = $date->year;
+
             if ($date->month > 7) {
                 $schoolYear++;
             }
@@ -148,11 +151,84 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
         $date->schoolYear++;
 
+        $this->assertSame(2018, $date->schoolYear);
+
         $this->assertSame('2017-09-01', $date->format('Y-m-d'));
 
         $date->schoolYear = 2020;
 
         $this->assertSame('2019-09-01', $date->format('Y-m-d'));
+    }
+
+    public function testLocalMacroProperties()
+    {
+        /** @var mixed $date */
+        $date = Carbon::parse('2016-06-01')->settings([
+            'macros' => [
+                'setSchoolYear' => function ($schoolYear) {
+                    /** @var CarbonInterface $date */
+                    $date = $this;
+
+                    $date->year = $schoolYear;
+
+                    if ($date->month > 7) {
+                        $date->year--;
+                    }
+                },
+                'getSchoolYear' => function () {
+                    /** @var CarbonInterface $date */
+                    $date = $this;
+
+                    $schoolYear = $date->year;
+
+                    if ($date->month > 7) {
+                        $schoolYear++;
+                    }
+
+                    return $schoolYear;
+                },
+            ],
+        ]);
+
+        $this->assertTrue($date->hasLocalMacro('getSchoolYear'));
+        $this->assertFalse(Carbon::now()->hasLocalMacro('getSchoolYear'));
+        $this->assertFalse(Carbon::hasMacro('getSchoolYear'));
+
+        $this->assertSame(2016, $date->schoolYear);
+
+        $date->addMonths(3);
+
+        $this->assertSame(2017, $date->schoolYear);
+
+        $date->schoolYear++;
+
+        $this->assertSame(2018, $date->schoolYear);
+
+        $this->assertSame('2017-09-01', $date->format('Y-m-d'));
+
+        $date->schoolYear = 2020;
+
+        $this->assertSame('2019-09-01', $date->format('Y-m-d'));
+    }
+
+    public function testMacroOverridingMethod()
+    {
+        Carbon::macro('setDate', function ($dateString) {
+            /** @var CarbonInterface $date */
+            $date = $this;
+
+            $date->modify($dateString);
+        });
+
+        /** @var mixed $date */
+        $date = Carbon::parse('2016-06-01 11:25:36');
+        $date->date = '1997-08-26 04:13:56';
+
+        $this->assertSame('1997-08-26 04:13:56', $date->format('Y-m-d H:i:s'));
+
+        $date->setDate(2001, 4, 13);
+
+        $this->assertSame('2001-04-13 04:13:56', $date->format('Y-m-d H:i:s'));
     }
 
     public function testCarbonRaisesExceptionWhenStaticMacroIsNotFound()

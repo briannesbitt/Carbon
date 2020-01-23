@@ -22,51 +22,51 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Saturday at 12:00 AM'
-        'Sobota ob 0:00',
+        'sobota ob 0:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Sunday at 12:00 AM'
-        'Nedelja ob 0:00',
+        'nedelja ob 0:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Monday at 12:00 AM'
-        'Ponedeljek ob 0:00',
+        'ponedeljek ob 0:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'Torek ob 0:00',
+        'torek ob 0:00',
 
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
         // 'Wednesday at 12:00 AM'
-        'Sreda ob 0:00',
+        'sreda ob 0:00',
 
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
         // 'Thursday at 12:00 AM'
-        'Četrtek ob 0:00',
+        'četrtek ob 0:00',
 
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
         // 'Friday at 12:00 AM'
-        'Petek ob 0:00',
+        'petek ob 0:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'Torek ob 0:00',
+        'torek ob 0:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Wednesday at 12:00 AM'
-        'Sreda ob 0:00',
+        'sreda ob 0:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Thursday at 12:00 AM'
-        'Četrtek ob 0:00',
+        'četrtek ob 0:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Friday at 12:00 AM'
-        'Petek ob 0:00',
+        'petek ob 0:00',
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Saturday at 12:00 AM'
-        'Sobota ob 0:00',
+        'sobota ob 0:00',
 
         // Carbon::now()->subDays(2)->calendar()
         // 'Last Sunday at 8:49 PM'
@@ -90,7 +90,7 @@ class SlTest extends LocalizationTestCase
 
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
         // 'Tuesday at 12:00 AM'
-        'Torek ob 0:00',
+        'torek ob 0:00',
 
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
         // 'Yesterday at 12:00 AM'

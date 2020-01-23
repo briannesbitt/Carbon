@@ -12,6 +12,10 @@ declare(strict_types=1);
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use DateTime;
+use ReflectionClass;
+use ReflectionObject;
+use ReflectionProperty;
 use Tests\AbstractTestCase;
 
 class SerializationTest extends AbstractTestCase
@@ -73,5 +77,56 @@ class SerializationTest extends AbstractTestCase
         );
 
         Carbon::fromSerialized($value);
+    }
+
+    public function testDateSerializationReflectionCompatibility()
+    {
+        $reflection = (new ReflectionClass(DateTime::class))->newInstanceWithoutConstructor();
+
+        $reflection->date = '1990-01-17 10:28:07';
+        $reflection->timezone_type = 3;
+        $reflection->timezone = 'US/Pacific';
+
+        $date = unserialize(serialize($reflection));
+
+        $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
+
+        $reflection = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
+
+        $reflection->date = '1990-01-17 10:28:07';
+        $reflection->timezone_type = 3;
+        $reflection->timezone = 'US/Pacific';
+
+        $date = unserialize(serialize($reflection));
+
+        $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
+
+        $reflection = new ReflectionObject(Carbon::parse('1990-01-17 10:28:07'));
+        $target = (new ReflectionClass(Carbon::class))->newInstanceWithoutConstructor();
+        /** @var ReflectionProperty[] $properties */
+        $properties = [];
+
+        foreach ($reflection->getProperties() as $property) {
+            $property->setAccessible(true);
+            $properties[$property->getName()] = $property;
+        }
+
+        $setValue = function ($key, $value) use (&$properties, &$target) {
+            if (isset($properties[$key])) {
+                $properties[$key]->setValue($target, $value);
+
+                return;
+            }
+
+            $target->$key = $value;
+        };
+
+        $setValue('date', '1990-01-17 10:28:07');
+        $setValue('timezone_type', 3);
+        $setValue('timezone', 'US/Pacific');
+
+        $date = unserialize(serialize($target));
+
+        $this->assertSame('1990-01-17 10:28:07', $date->format('Y-m-d h:i:s'));
     }
 }

@@ -47,6 +47,12 @@ foreach ($tags as $tag) {
     shell_exec("git checkout tags/$tag -b $branch");
     $phpVersion = version_compare($tag, '2.0.0-dev', '<') ? '5.3.9' : '7.1.8';
     shell_exec("composer config platform.php $phpVersion");
+    shell_exec('composer remove friendsofphp/php-cs-fixer --dev');
+    shell_exec('composer remove kylekatarnls/multi-tester --dev');
+    shell_exec('composer remove phpmd/phpmd --dev');
+    shell_exec('composer remove phpstan/phpstan --dev');
+    shell_exec('composer remove phpunit/phpunit --dev');
+    shell_exec('composer remove squizlabs/php_codesniffer --dev');
     shell_exec('composer update --no-interaction --no-dev --optimize-autoloader');
     $zip = new ZipArchive();
 

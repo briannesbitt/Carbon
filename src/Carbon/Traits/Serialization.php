@@ -31,12 +31,21 @@ use InvalidArgumentException;
  */
 trait Serialization
 {
+    use ObjectInitialisation;
+
     /**
      * The custom Carbon JSON serializer.
      *
      * @var callable|null
      */
     protected static $serializer;
+
+    /**
+     * List of key to use for dump/serialization.
+     *
+     * @var string[]
+     */
+    protected $dumpProperties = ['date', 'timezone_type', 'timezone'];
 
     /**
      * Locale to dump comes here before serialization.
@@ -103,7 +112,8 @@ trait Serialization
      */
     public function __sleep()
     {
-        $properties = ['date', 'timezone_type', 'timezone'];
+        $properties = $this->dumpProperties;
+
         if ($this->localTranslator ?? null) {
             $properties[] = 'dumpLocale';
             $this->dumpLocale = $this->locale ?? null;
@@ -120,10 +130,15 @@ trait Serialization
         if (get_parent_class() && method_exists(parent::class, '__wakeup')) {
             parent::__wakeup();
         }
+
+        $this->constructedObjectId = spl_object_hash($this);
+
         if (isset($this->dumpLocale)) {
             $this->locale($this->dumpLocale);
             $this->dumpLocale = null;
         }
+
+        $this->cleanupDumpProperties();
     }
 
     /**
@@ -156,5 +171,23 @@ trait Serialization
     public static function serializeUsing($callback)
     {
         static::$serializer = $callback;
+    }
+
+    /**
+     * Cleanup properties attached to the public scope of DateTime when a dump of the date is requested.
+     * foreach ($date as $_) {}
+     * serializer($date)
+     * var_export($date)
+     * get_object_vars($date)
+     */
+    public function cleanupDumpProperties()
+    {
+        foreach ($this->dumpProperties as $property) {
+            if (isset($this->$property)) {
+                unset($this->$property);
+            }
+        }
+
+        return $this;
     }
 }
