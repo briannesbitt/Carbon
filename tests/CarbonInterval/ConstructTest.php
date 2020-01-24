@@ -30,6 +30,20 @@ class ConstructTest extends AbstractTestCase
         $this->assertSame('P1Y2M3D', $ci->spec());
     }
 
+    public function testConstructWithDateInterval()
+    {
+        $ci = new CarbonInterval(new DateInterval('P1Y2M3D'));
+        $this->assertSame('P1Y2M3D', $ci->spec());
+        $interval = new DateInterval('P1Y2M3D');
+        $interval->m = -6;
+        $interval->invert = 1;
+        $ci = new CarbonInterval($interval);
+        $this->assertSame(1, $ci->y);
+        $this->assertSame(-6, $ci->m);
+        $this->assertSame(3, $ci->d);
+        $this->assertSame(1, $ci->invert);
+    }
+
     public function testDefaults()
     {
         $ci = new CarbonInterval();

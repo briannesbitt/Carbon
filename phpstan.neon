@@ -10,6 +10,7 @@ parameters:
         - '#Class Symfony\\Component\\Translation\\IdentityTranslator does not have a constructor and must be instantiated without any parameters\.#'
         - '#Instantiated class Symfony\\Component\\Translation\\MessageSelector not found\.#'
         - '#Call to static method set\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.#'
+        - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
     excludes_analyse:
         - '*/src/Carbon/Laravel/ServiceProvider.php'
         - '*/tests/Laravel/*.php'
