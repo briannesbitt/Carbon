@@ -12,6 +12,7 @@ namespace Carbon;
 
 use BadMethodCallException;
 use Carbon\Exceptions\ParseErrorException;
+use Carbon\Traits\Converter;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -166,6 +167,9 @@ use InvalidArgumentException;
  */
 class CarbonInterval extends DateInterval
 {
+    use Converter {
+        Converter::__toString as converterToString;
+    }
     use Options, Mixin {
         Mixin::mixin as baseMixin;
     }
@@ -1654,7 +1658,7 @@ class CarbonInterval extends DateInterval
      */
     public function __toString()
     {
-        return $this->forHumans();
+        return $this->localToStringFormat ? static::converterToString() : $this->forHumans();
     }
 
     /**
