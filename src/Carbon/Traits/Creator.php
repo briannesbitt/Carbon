@@ -78,7 +78,7 @@ trait Creator
             setlocale(LC_NUMERIC, 'C');
         }
 
-        parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz));
+        parent::__construct($time ?: 'now', static::safeCreateDateTimeZone($tz) ?: null);
 
         $this->constructedObjectId = spl_object_hash($this);
 
