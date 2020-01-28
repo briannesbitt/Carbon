@@ -49,7 +49,7 @@ class ConstructTest extends AbstractTestCase
 
         $this->assertSame('2009-09-09 02:09:09 Europe/Paris', $c->format('Y-m-d H:i:s e'));
 
-        Carbon::useStrictMode(false);
+        \Carbon\Carbon::useStrictMode(false);
 
         $c = new Carbon(new DateTime('2009-09-09 09:09:09', new DateTimeZone('Asia/Tokyo')), '¤¤ Incorrect Timezone ¤¤');
 
