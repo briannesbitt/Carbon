@@ -1654,7 +1654,7 @@ class CarbonInterval extends DateInterval
      */
     public function __toString()
     {
-        return $this->forHumans();
+        return $this->localToStringFormat ? $this->format($this->localToStringFormat) : $this->forHumans();
     }
 
     /**
