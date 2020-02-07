@@ -1153,7 +1153,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffAsCarbonInterval($date = null, $absolute = true);
 
     /**
-     * Get the difference by the given interval using a filter closure
+     * Get the difference by the given interval using a filter closure.
      *
      * @param CarbonInterval                                         $ci       An interval to traverse by
      * @param Closure                                                $callback
@@ -1208,7 +1208,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffForHumans($other = null, $syntax = null, $short = false, $parts = 1, $options = null);
 
     /**
-     * Get the difference in days
+     * Get the difference in days rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1218,7 +1218,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInDays($date = null, $absolute = true);
 
     /**
-     * Get the difference in days using a filter closure
+     * Get the difference in days using a filter closure rounded down.
      *
      * @param Closure                                                $callback
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -1229,7 +1229,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInDaysFiltered(\Closure $callback, $date = null, $absolute = true);
 
     /**
-     * Get the difference in hours.
+     * Get the difference in hours rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1239,7 +1239,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInHours($date = null, $absolute = true);
 
     /**
-     * Get the difference in hours using a filter closure
+     * Get the difference in hours using a filter closure rounded down.
      *
      * @param Closure                                                $callback
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -1260,7 +1260,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInMicroseconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in milliseconds.
+     * Get the difference in milliseconds rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1270,7 +1270,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInMilliseconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in minutes.
+     * Get the difference in minutes rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1280,7 +1280,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInMinutes($date = null, $absolute = true);
 
     /**
-     * Get the difference in months
+     * Get the difference in months rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1290,7 +1290,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInMonths($date = null, $absolute = true);
 
     /**
-     * Get the difference in hours using timestamps.
+     * Get the difference in hours rounded down using timestamps.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1310,7 +1310,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInRealMicroseconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in milliseconds using timestamps.
+     * Get the difference in milliseconds rounded down using timestamps.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1320,7 +1320,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInRealMilliseconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in minutes using timestamps.
+     * Get the difference in minutes rounded down using timestamps.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1340,7 +1340,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInRealSeconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in seconds.
+     * Get the difference in seconds rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1350,7 +1350,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInSeconds($date = null, $absolute = true);
 
     /**
-     * Get the difference in weekdays
+     * Get the difference in weekdays rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1360,7 +1360,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInWeekdays($date = null, $absolute = true);
 
     /**
-     * Get the difference in weekend days using a filter
+     * Get the difference in weekend days using a filter rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -1370,7 +1370,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInWeekendDays($date = null, $absolute = true);
 
     /**
-     * Get the difference in weeks
+     * Get the difference in weeks rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
      * @param bool                                                   $absolute Get the absolute of the difference
@@ -2333,7 +2333,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance from a DateTime one.
      *
-     * @param \DateTimeInterface $date
+     * @param DateTimeInterface $date
      *
      * @return static
      */

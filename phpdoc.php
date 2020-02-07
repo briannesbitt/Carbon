@@ -529,6 +529,10 @@ foreach ($carbonMethods as $method) {
             $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
             $returnType = $function->getReturnType();
 
+            if ($returnType instanceof ReflectionNamedType) {
+                $returnType = $returnType->getName();
+            }
+
             if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
                 $returnType = $match[1];
             }
