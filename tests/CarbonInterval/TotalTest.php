@@ -70,6 +70,23 @@ class TotalTest extends AbstractTestCase
         $this->assertSame(12312, $interval->totalMilliseconds);
     }
 
+    public function testTotalsWithCustomFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [8, 'hours'],
+            'week' => [5, 'days'],
+        ]);
+
+        $this->assertSame(1, CarbonInterval::make('1d')->totalDays);
+        $this->assertSame(5, CarbonInterval::make('1w')->totalDays);
+        $this->assertSame(2, CarbonInterval::make('1w')->totalWeeks);
+
+        CarbonInterval::setCascadeFactors($factors);
+    }
+
     public function testGetTotalsViaGettersWithCustomFactors()
     {
         $cascades = CarbonInterval::getCascadeFactors();
