@@ -2033,14 +2033,29 @@ class CarbonInterval extends DateInterval
         $cumulativeFactor = 0;
         $unitFound = false;
         $factors = static::getFlipCascadeFactors();
+        $daysPerWeek = static::getDaysPerWeek();
+
+        $values = [
+            'years' => $this->years,
+            'months' => $this->months,
+            'weeks' => (int) floor($this->d / $daysPerWeek),
+            'dayz' => (int) ($this->d % $daysPerWeek),
+            'hours' => $this->hours,
+            'minutes' => $this->minutes,
+            'seconds' => $this->seconds,
+            'milliseconds' => (int) floor($this->microseconds / Carbon::MICROSECONDS_PER_MILLISECOND),
+            'microseconds' => (int) ($this->microseconds % Carbon::MICROSECONDS_PER_MILLISECOND),
+        ];
+
+        if (isset($factors['dayz']) && $factors['dayz'][0] !== 'weeks') {
+            $values['dayz'] += $values['weeks'] * $daysPerWeek;
+            $values['weeks'] = 0;
+        }
 
         foreach ($factors as $source => [$target, $factor]) {
             if ($source === $realUnit) {
                 $unitFound = true;
-                $value = $this->$source;
-                if ($source === 'microseconds' && isset($factors['milliseconds'])) {
-                    $value %= Carbon::MICROSECONDS_PER_MILLISECOND;
-                }
+                $value = $values[$source];
                 $result += $value;
                 $cumulativeFactor = 1;
             }
@@ -2062,22 +2077,18 @@ class CarbonInterval extends DateInterval
 
             if ($cumulativeFactor) {
                 $cumulativeFactor *= $factor;
-                $result += $this->$target * $cumulativeFactor;
+                $result += $values[$target] * $cumulativeFactor;
 
                 continue;
             }
 
-            $value = $this->$source;
-
-            if ($source === 'microseconds' && isset($factors['milliseconds'])) {
-                $value %= Carbon::MICROSECONDS_PER_MILLISECOND;
-            }
+            $value = $values[$source];
 
             $result = ($result + $value) / $factor;
         }
 
         if (isset($target) && !$cumulativeFactor) {
-            $result += $this->$target;
+            $result += $values[$target];
         }
 
         if (!$unitFound) {
@@ -2085,7 +2096,7 @@ class CarbonInterval extends DateInterval
         }
 
         if ($unit === 'weeks') {
-            return $result / static::getDaysPerWeek();
+            return $result / $daysPerWeek;
         }
 
         return $result;
