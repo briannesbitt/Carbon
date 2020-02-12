@@ -410,7 +410,7 @@ class SrCyrlBaTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'за 1 недеља и 6 дана',
+        'за 1 недељу и 6 дана',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'

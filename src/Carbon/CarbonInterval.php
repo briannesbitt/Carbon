@@ -1553,7 +1553,7 @@ class CarbonInterval extends DateInterval
             ['value' => $intervalValues->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
+        $transChoice = function ($short, $unitData) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
             $count = $unitData['value'];
 
             if ($short) {
@@ -1568,6 +1568,10 @@ class CarbonInterval extends DateInterval
                 if ($result !== null) {
                     return $result;
                 }
+            }
+
+            if (!$absolute) {
+                return $handleDeclensions($unitData['unit'], $count);
             }
 
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
@@ -1637,9 +1641,9 @@ class CarbonInterval extends DateInterval
                 }
             }
 
-            $aTime = $aUnit ? $handleDeclensions('a_'.$unit.'_'.$transId, $count) : null;
+            $aTime = $aUnit ? $handleDeclensions('a_'.$unit, $count) : null;
 
-            $time = $aTime ?: $handleDeclensions($unit.'_'.$transId, $count) ?: $time;
+            $time = $aTime ?: $handleDeclensions($unit, $count) ?: $time;
         }
 
         $time = [':time' => $time];

@@ -8,7 +8,7 @@ require __DIR__.'/vendor/autoload.php';
 
 $scores = [];
 $available = CarbonImmutable::getAvailableLocales();
-$available = ['cs', 'de', 'or'];
+$available = ['he', 'da'];
 $debug = count($available) < 5;
 
 class NoWeekInterval extends CarbonInterval
@@ -94,7 +94,7 @@ foreach ($available as $locale) {
         $elements[$values['@attributes']['type']] = $values;
     }
 
-    $units = in_array($locale, ['zh', 'hy', 'hi'])
+    $units = in_array($locale, ['zh', 'hy', 'hi', 'sq'])
         ? []
         : ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
 

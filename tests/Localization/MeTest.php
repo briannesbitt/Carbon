@@ -386,7 +386,7 @@ class MeTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
-        'za 3 godina',
+        'za 3 godinu',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'

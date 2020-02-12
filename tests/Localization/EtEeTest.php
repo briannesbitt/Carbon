@@ -201,7 +201,7 @@ class EtEeTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 aastat 3 kuud 1 päev 1 sekund',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 aastat pärast',
+        '3 aasta pärast',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kuud tagasi',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)

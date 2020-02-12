@@ -201,7 +201,7 @@ class DeAtTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 J. 3 Mon. 1 Tg. 1 Sek.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'in 3 Jahre',
+        'in 3 Jahren',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'vor 5 Mon.',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,7 +213,7 @@ class DeAtTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 Woche 6 Tage',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'in 1 Woche und 6 Tage',
+        'in 1 Woche und 6 Tagen',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 Wochen 1 Stunde',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
