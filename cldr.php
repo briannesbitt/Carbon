@@ -1,20 +1,80 @@
 <?php
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Carbon\CarbonInterval;
 
 require __DIR__.'/vendor/autoload.php';
 
-CarbonImmutable::setTestNow(CarbonImmutable::now());
 $scores = [];
-$avaiable = CarbonImmutable::getAvailableLocales();
+$available = CarbonImmutable::getAvailableLocales();
+$available = ['cs', 'de', 'or'];
+$debug = count($available) < 5;
 
-foreach ($avaiable as $locale) {
+class NoWeekInterval extends CarbonInterval
+{
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'weeks':
+                return 0;
+            case 'daysExcludeWeeks':
+                return $this->totalDays;
+            default:
+                return parent::__get($name);
+        }
+    }
+}
+
+function handleDiff(array &$stat, string $locale, string $time, string $unit, string $cldrExpected, CarbonInterval $carbonActual) {
+    global $debug;
+    $carbonActual = $carbonActual->locale($locale)->forHumans(CarbonInterface::DIFF_RELATIVE_TO_NOW);
+    $stat[] = $cldrExpected === $carbonActual ? 1 : 0;
+
+    if ($debug && $cldrExpected !== $carbonActual) {
+        echo "\n$locale $time $unit\ncldr:   $cldrExpected\ncarbon: $carbonActual\n";
+    }
+}
+
+function getInterval(string $unit): CarbonInterval {
+    if ($unit === 'day') {
+        return NoWeekInterval::$unit(99);
+    }
+
+    return CarbonInterval::$unit(99);
+}
+
+$colors = [
+    'black'        => '0;30',
+    'dark_gray'    => '1;30',
+    'blue'         => '0;34',
+    'light_blue'   => '1;34',
+    'green'        => '0;32',
+    'light_green'  => '1;32',
+    'cyan'         => '0;36',
+    'light_cyan'   => '1;36',
+    'red'          => '0;31',
+    'light_red'    => '1;31',
+    'purple'       => '0;35',
+    'light_purple' => '1;35',
+    'brown'        => '0;33',
+    'yellow'       => '1;33',
+    'light_gray'   => '0;37',
+    'white'        => '1;37',
+];
+
+function color($color, $text) {
+    global $colors;
+
+    return "\033[{$colors[$color]}m{$text}\033[0m";
+}
+
+foreach ($available as $locale) {
     if (!file_exists(__DIR__.'/cldr/common/main/'.$locale.'.xml')) {
         continue;
     }
 
     $stat = [];
-    $now = CarbonImmutable::now()->locale($locale);
     $cldr = simplexml_load_file(__DIR__.'/cldr/common/main/'.$locale.'.xml');
 
     if (!$cldr) {
@@ -34,7 +94,11 @@ foreach ($avaiable as $locale) {
         $elements[$values['@attributes']['type']] = $values;
     }
 
-    foreach (['year', 'month', 'week', 'day', 'hour', 'minute', 'second'] as $unit) {
+    $units = in_array($locale, ['zh', 'hy', 'hi'])
+        ? []
+        : ['year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
+
+    foreach ($units as $unit) {
         $times = [];
 
         if (!isset($elements[$unit]['relativeTime'])) {
@@ -60,13 +124,25 @@ foreach ($avaiable as $locale) {
         }
 
         if (isset($times['future']['other'])) {
-            $text = str_replace('{0}', '99', $times['future']['other']);
-            $stat[] = $text === $now->addUnit($unit, 99)->diffForHumans() ? 1 : 0;
+            handleDiff(
+                $stat,
+                $locale,
+                'future',
+                $unit,
+                str_replace('{0}', '99', $times['future']['other']),
+                getInterval($unit)->invert()
+            );
         }
 
         if (isset($times['past']['other'])) {
-            $text = str_replace('{0}', '99', $times['past']['other']);
-            $stat[] = $text === $now->subUnit($unit,99)->diffForHumans() ? 1 : 0;
+            handleDiff(
+                $stat,
+                $locale,
+                'past',
+                $unit,
+                str_replace('{0}', '99', $times['past']['other']),
+                getInterval($unit)
+            );
         }
     }
 
@@ -74,7 +150,9 @@ foreach ($avaiable as $locale) {
         $scores[$locale] = array_sum($stat) * 100 / $count;
     }
 
-    echo '.';
+    if (!$debug) {
+        echo '.';
+    }
 }
 
 echo "\n\n";
@@ -82,5 +160,5 @@ echo "\n\n";
 arsort($scores);
 
 foreach ($scores as $locale => $score) {
-    echo str_pad($locale, 12, ' ', STR_PAD_RIGHT).round($score, 1)."\n";
+    echo color($score === 100 ? 'light_green' : 'light_red', str_pad($locale, 12, ' ', STR_PAD_RIGHT).round($score, 1)."\n");
 }
