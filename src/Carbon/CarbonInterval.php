@@ -1280,6 +1280,29 @@ class CarbonInterval extends DateInterval
         return $this;
     }
 
+    protected function getForHumansInitialVariables($syntax, $short)
+    {
+        if (is_array($syntax)) {
+            return $syntax;
+        }
+
+        if (is_int($short)) {
+            return [
+                'parts' => $short,
+                'short' => false,
+            ];
+        }
+
+        if (is_bool($syntax)) {
+            return [
+                'short' => $syntax,
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            ];
+        }
+
+        return [];
+    }
+
     /**
      * @SuppressWarnings(PHPMD.ElseExpression)
      *
@@ -1297,20 +1320,7 @@ class CarbonInterval extends DateInterval
         $join = $default === '' ? '' : ' ';
         $altNumbers = false;
         $aUnit = false;
-
-        if (is_array($syntax)) {
-            extract($syntax);
-        } else {
-            if (is_int($short)) {
-                $parts = $short;
-                $short = false;
-            }
-
-            if (is_bool($syntax)) {
-                $short = $syntax;
-                $syntax = CarbonInterface::DIFF_ABSOLUTE;
-            }
-        }
+        extract($this->getForHumansInitialVariables($syntax, $short));
 
         if (is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
