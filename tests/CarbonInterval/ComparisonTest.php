@@ -181,6 +181,21 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue($twoDays->between(CarbonInterval::day(), CarbonInterval::days(2)));
     }
 
+    public function testBetweenIncludedFalse()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertFalse($oneDay->betweenIncluded(CarbonInterval::days(2), CarbonInterval::days(3)));
+    }
+
+    public function testBetweenIncludedTrue()
+    {
+        $oneDay = CarbonInterval::day();
+        $this->assertTrue($oneDay->betweenIncluded(CarbonInterval::hours(12), CarbonInterval::hours(36)));
+
+        $twoDays = CarbonInterval::hours(48);
+        $this->assertTrue($twoDays->betweenIncluded(CarbonInterval::day(), CarbonInterval::days(2)));
+    }
+
     public function testBetweenExcludedFalse()
     {
         $oneDay = CarbonInterval::day();
