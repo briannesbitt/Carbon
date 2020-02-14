@@ -799,12 +799,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Determines if the instance is between two others.
      *
+     * The third argument allow you to specify if bounds are included or not (true by default)
+     * but for when you including/excluding bounds may produce different results in your application,
+     * we recommend to use the explicit methods ->betweenIncluded() or ->betweenExcluded() instead.
+     *
      * @example
      * ```
      * Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
      * Carbon::parse('2018-07-25')->between('2018-08-01', '2018-08-20'); // false
-     * Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // false
-     * Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', true); // true
+     * Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // false
      * ```
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
@@ -831,6 +835,23 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return bool
      */
     public function betweenExcluded($date1, $date2): bool;
+
+    /**
+     * Determines if the instance is between two others, bounds included.
+     *
+     * @example
+     * ```
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
+     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // true
+     * ```
+     *
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
+     * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
+     *
+     * @return bool
+     */
+    public function betweenIncluded($date1, $date2): bool;
 
     /**
      * Returns either the close date "Friday 15h30", or a calendar date "10/09/2017" is farthest than 7 days from now.
