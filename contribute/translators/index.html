@@ -311,6 +311,8 @@
     
         <li>Greek Debian Translation Team    bug-glibc@gnu.org</li>
     
+        <li>Guntars</li>
+    
         <li>Guo Xiang Tan</li>
     
         <li>Halwest Manguri</li>
@@ -1348,7 +1350,14 @@
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
-            ['en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da', 'nl', 'cs', 'ka', 'hr', 'gl', 'bg', 'tr'].indexOf(language) === -1
+            [
+                'af', 'smn', 'si', 'sk', 'sl', 'id', 'ia', 'hy', 'hu', 'ja', 'sn', 'haw',
+                'en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da', 'nl',
+                'cs', 'ka', 'hr', 'gl', 'bg', 'tr', 'sq', 'sr', 'fo', 'fi', 'sv', 'bs',
+                'eu', 'or', 'mzn', 'mt', 'ms', 'mk', 'mgo', 'om', 'lt', 'lb', 'kea', 'pl',
+                'am', 'ko', 'rm', 'rw', 'fa', 'et', 'uz', 'ur', 'az', 'ca', 'sw', 'vai',
+                'yue', 'zh', 'chr', 'nb', 'ee', 'ug', 'el', 'cy', 'to', 'eo'
+            ].indexOf(language) === -1
         ) {
             $.getJSON('/languages.json', function (languages) {
                 var $help = $('footer .help-translate');

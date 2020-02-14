@@ -701,7 +701,7 @@ like "-12:00".</p>
     <h2><span class="class-name">Carbon::</span>startOfMillennium</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Resets the date to the first day of the century and the time to 00:00:00<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->startOfMillennium();</code></pre></p>
+    <p class="doc-description">Resets the date to the first day of the millennium and the time to 00:00:00<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->startOfMillennium();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -709,7 +709,7 @@ like "-12:00".</p>
     <h2><span class="class-name">Carbon::</span>endOfMillennium</h2>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon</code></div>
-    <p class="doc-description">Resets the date to end of the century and time to 23:59:59.999999<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->endOfMillennium();</code></pre></p>
+    <p class="doc-description">Resets the date to end of the millennium and time to 23:59:59.999999<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">echo Carbon::parse('2018-07-25 12:45:16')->endOfMillennium();</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -949,10 +949,12 @@ Carbon::parse('2018-07-25 12:45:16')->lessThanOrEqualTo('2018-07-25 12:45:17'); 
     <h2><span class="class-name">Carbon::</span>between</h2>
     <code>$date1, $date2, $equal = true</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is between two others.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
+    <p class="doc-description">Determines if the instance is between two others.<br><br>The third argument allow you to specify if bounds are included or not (true by default)
+but for when you including/excluding bounds may produce different results in your application,
+we recommend to use the explicit methods ->betweenIncluded() or ->betweenExcluded() instead.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->between('2018-07-14', '2018-08-01'); // true
 Carbon::parse('2018-07-25')->between('2018-08-01', '2018-08-20'); // false
-Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // false
-Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', true); // true</code></pre></p>
+Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2, $equal = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2, $equal = true</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true</code></td></tr></table>
 </div>
 
@@ -1701,7 +1703,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInMonths</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in months</p>
+    <p class="doc-description">Get the difference in months rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1709,7 +1711,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInWeeks</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in weeks</p>
+    <p class="doc-description">Get the difference in weeks rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1717,7 +1719,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInDays</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in days</p>
+    <p class="doc-description">Get the difference in days rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1725,7 +1727,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInDaysFiltered</h2>
     <code>Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in days using a filter closure</p>
+    <p class="doc-description">Get the difference in days using a filter closure rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1733,7 +1735,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInHoursFiltered</h2>
     <code>Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in hours using a filter closure</p>
+    <p class="doc-description">Get the difference in hours using a filter closure rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1741,7 +1743,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffFiltered</h2>
     <code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference by the given interval using a filter closure</p>
+    <p class="doc-description">Get the difference by the given interval using a filter closure.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, $date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><code>Carbon\CarbonInterval $ci, Closure $callback, Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1749,7 +1751,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInWeekdays</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in weekdays</p>
+    <p class="doc-description">Get the difference in weekdays rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1757,7 +1759,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInWeekendDays</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in weekend days using a filter</p>
+    <p class="doc-description">Get the difference in weekend days using a filter rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.12.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1765,7 +1767,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInHours</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in hours.</p>
+    <p class="doc-description">Get the difference in hours rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1773,7 +1775,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInRealHours</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in hours using timestamps.</p>
+    <p class="doc-description">Get the difference in hours rounded down using timestamps.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1781,7 +1783,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInMinutes</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in minutes.</p>
+    <p class="doc-description">Get the difference in minutes rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1789,7 +1791,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInRealMinutes</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in minutes using timestamps.</p>
+    <p class="doc-description">Get the difference in minutes rounded down using timestamps.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.25.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1797,7 +1799,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInSeconds</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in seconds.</p>
+    <p class="doc-description">Get the difference in seconds rounded down.</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1813,7 +1815,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInMilliseconds</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in milliseconds.</p>
+    <p class="doc-description">Get the difference in milliseconds rounded down.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -1837,7 +1839,7 @@ Return absolute interval (always positive) unless you pass false to the second a
     <h2><span class="class-name">Carbon::</span>diffInRealMilliseconds</h2>
     <code>$date = null, $absolute = true</code>
     <div class="doc-return">returns <code>int</code></div>
-    <p class="doc-description">Get the difference in milliseconds using timestamps.</p>
+    <p class="doc-description">Get the difference in milliseconds rounded down using timestamps.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
@@ -4288,7 +4290,9 @@ and 7 minutes.<br><br>Use shares() when you want a fast and approximated calcula
     <h2><span class="class-name">CarbonInterval::</span>between</h2>
     <code>$interval1, $interval2, $equal = true</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is between two others.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(3)); // true
+    <p class="doc-description">Determines if the instance is between two others.<br><br>The third argument allow you to specify if bounds are included or not (true by default)
+but for when you including/excluding bounds may produce different results in your application,
+we recommend to use the explicit methods ->betweenIncluded() or ->betweenExcluded() instead.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(3)); // true
 CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::hours(36)); // false
 CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2)); // true
 CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2), false); // false</code></pre></p>

@@ -118,6 +118,7 @@ class Carbon extends \DateTime
     <pre class="live-editor"><code class="php">{{::lint($carbon = new Carbon();/*pad(40)*/)}} // equivalent to Carbon::now()
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
+{{::lint($carbon = new Carbon(new DateTime('first day of January 2008'), new DateTimeZone('America/Vancouver'));)}} // equivalent to previous instance
 </code></pre>
     </p>
 
@@ -3783,6 +3784,14 @@ CarbonInterval::fromString('2m 15s'); // or abbreviated)}}
 </code></pre>
     </p>
 
+    <p>Or create it from an other <code>DateInterval</code> / <code>CarbonInterval</code> object.</p>
+
+    <p>
+    <pre><code class="php">{{::lint($ci = new CarbonInterval(new DateInterval('P1Y2M3D'));}}
+{{::exec(var_dump($ci->isEmpty());)}} // {{eval}}
+</code></pre>
+    </p>
+
     <p>Note that month abbreviate "mo" to distinguish from minutes and the whole syntax is not case sensitive.</p>
 
     <p>It also has a handy <code>forHumans()</code>, which is mapped as the <code>__toString()</code> implementation,
@@ -4087,7 +4096,8 @@ $period = Carbon::parse('2018-04-21')->daysUntil('2018-04-27'); // same as Carbo
         <li>start date, end date and optional interval (by default 1 day),</li>
         <li>start date, number of recurrences and optional interval,</li>
         <li>an ISO 8601 interval specification,</li>
-        <li>from an other <code>DatePeriod</code> or <code>CarbonPeriod</code> using <code>CarbonPeriod::instance($period)</code>.</li>
+        <li>from an other <code>DatePeriod</code> or <code>CarbonPeriod</code> using
+            <code>CarbonPeriod::instance($period)</code> or simply using <code>new CarbonPeriod($period)</code>.</li>
     </ul>
 
     <p>Dates can be given as DateTime/Carbon instances, absolute strings like "2007-10-15 15:00" or relative strings,
@@ -4512,7 +4522,7 @@ CarbonPeriod::interval(...) == CarbonPeriod::create()->setDateInterval(...);
 CarbonPeriod::invert() == CarbonPeriod::create()->invertDateInterval();
 // "year", "months", "month", "weeks", "week", "days", "dayz", "day",
 // "hours", "hour", "minutes", "minute", "seconds", "second":
-CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(new CarbonInterval::hours(5));
+CarbonPeriod::hours(5) == CarbonPeriod::create()->setDateInterval(CarbonInterval::hours(5));
 </code></pre>
     </p>
 
