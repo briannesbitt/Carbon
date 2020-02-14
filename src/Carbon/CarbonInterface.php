@@ -3914,7 +3914,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function startOfHour();
 
     /**
-     * Resets the date to the first day of the century and the time to 00:00:00
+     * Resets the date to the first day of the millennium and the time to 00:00:00
      *
      * @example
      * ```
