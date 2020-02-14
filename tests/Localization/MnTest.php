@@ -201,7 +201,7 @@ class MnTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 жил 3 сар 1 өдөр 1с',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'одоогоос 3 жил',
+        'одоогоос 3 жилийн дараа',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 сарн өмнө',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,7 +213,7 @@ class MnTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 долоо хоног 6 өдөр',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'одоогоос 1 долоо хоног, 6 өдөр',
+        'одоогоос 1 долоо хоног, 6 хоногийн дараа',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 долоо хоног 1 цаг',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

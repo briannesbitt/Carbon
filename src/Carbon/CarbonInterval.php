@@ -1280,9 +1280,30 @@ class CarbonInterval extends DateInterval
         return $this;
     }
 
+    protected function getForHumansInitialVariables($syntax, $short)
+    {
+        if (is_array($syntax)) {
+            return $syntax;
+        }
+
+        if (is_int($short)) {
+            return [
+                'parts' => $short,
+                'short' => false,
+            ];
+        }
+
+        if (is_bool($syntax)) {
+            return [
+                'short' => $syntax,
+                'syntax' => CarbonInterface::DIFF_ABSOLUTE,
+            ];
+        }
+
+        return [];
+    }
+
     /**
-     * @SuppressWarnings(PHPMD.ElseExpression)
-     *
      * @param mixed $syntax
      * @param mixed $short
      * @param mixed $parts
@@ -1297,20 +1318,7 @@ class CarbonInterval extends DateInterval
         $join = $default === '' ? '' : ' ';
         $altNumbers = false;
         $aUnit = false;
-
-        if (is_array($syntax)) {
-            extract($syntax);
-        } else {
-            if (is_int($short)) {
-                $parts = $short;
-                $short = false;
-            }
-
-            if (is_bool($syntax)) {
-                $short = $syntax;
-                $syntax = CarbonInterface::DIFF_ABSOLUTE;
-            }
-        }
+        extract($this->getForHumansInitialVariables($syntax, $short));
 
         if (is_null($syntax)) {
             $syntax = CarbonInterface::DIFF_ABSOLUTE;
@@ -1553,7 +1561,7 @@ class CarbonInterval extends DateInterval
             ['value' => $intervalValues->seconds,          'unit' => 'second', 'unitShort' => 's'],
         ];
 
-        $transChoice = function ($short, $unitData) use ($handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
+        $transChoice = function ($short, $unitData) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {
             $count = $unitData['value'];
 
             if ($short) {
@@ -1568,6 +1576,10 @@ class CarbonInterval extends DateInterval
                 if ($result !== null) {
                     return $result;
                 }
+            }
+
+            if (!$absolute) {
+                return $handleDeclensions($unitData['unit'], $count);
             }
 
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
@@ -1637,9 +1649,9 @@ class CarbonInterval extends DateInterval
                 }
             }
 
-            $aTime = $aUnit ? $handleDeclensions('a_'.$unit.'_'.$transId, $count) : null;
+            $aTime = $aUnit ? $handleDeclensions('a_'.$unit, $count) : null;
 
-            $time = $aTime ?: $handleDeclensions($unit.'_'.$transId, $count) ?: $time;
+            $time = $aTime ?: $handleDeclensions($unit, $count) ?: $time;
         }
 
         $time = [':time' => $time];

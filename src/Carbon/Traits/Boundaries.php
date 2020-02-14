@@ -223,7 +223,7 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to the first day of the century and the time to 00:00:00
+     * Resets the date to the first day of the millennium and the time to 00:00:00
      *
      * @example
      * ```
@@ -240,7 +240,7 @@ trait Boundaries
     }
 
     /**
-     * Resets the date to end of the century and time to 23:59:59.999999
+     * Resets the date to end of the millennium and time to 23:59:59.999999
      *
      * @example
      * ```
