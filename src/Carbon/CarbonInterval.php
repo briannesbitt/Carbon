@@ -1304,8 +1304,6 @@ class CarbonInterval extends DateInterval
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ElseExpression)
-     *
      * @param mixed $syntax
      * @param mixed $short
      * @param mixed $parts
