@@ -19,6 +19,7 @@ use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
 
 if (!interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')) {
     class_alias(
@@ -238,9 +239,9 @@ trait Localization
         }
 
         // @codeCoverageIgnoreStart
-        $choice = method_exists($translator, 'transChoice')
-            ? $translator->transChoice($key, $number, $parameters)
-            : $translator->trans($key, $parameters);
+        $choice = $translator instanceof ContractsTranslatorInterface
+            ? $translator->trans($key, $parameters)
+            : $translator->transChoice($key, $number, $parameters);
         // @codeCoverageIgnoreEnd
 
         return (string) $choice;
