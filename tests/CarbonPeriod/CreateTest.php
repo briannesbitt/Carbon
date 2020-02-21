@@ -110,9 +110,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageRegExp(
-            '/(Invalid ISO 8601 specification:|Unknown or bad format)/'
-        );
+        $this->expectExceptionMessage("Invalid ISO 8601 specification: $iso");
 
         CarbonPeriod::create($iso);
     }
