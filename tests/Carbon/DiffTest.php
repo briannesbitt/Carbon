@@ -64,19 +64,19 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffInQuartersPositive()
     {
-        $dt = Carbon::createFromDate(2000, 1 , 1);
+        $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInQuarters($dt->copy()->addQuarter()->addDay()));
     }
 
     public function testDiffInQuartersNegativeWithSign()
     {
-        $dt = Carbon::createFromDate(2000, 1 , 1);
+        $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(-4, $dt->diffInQuarters($dt->copy()->subQuarters(4), false));
     }
 
     public function testDiffInQuartersNegativeWithNoSign()
     {
-        $dt = Carbon::createFromDate(2000, 1 , 1);
+        $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(4, $dt->diffInQuarters($dt->copy()->subQuarters(4)));
     }
 
