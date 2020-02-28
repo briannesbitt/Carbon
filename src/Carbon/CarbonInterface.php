@@ -1401,6 +1401,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInWeeks($date = null, $absolute = true);
 
     /**
+     * Get the difference in quarters rounded down.
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInQuarters($date = null, $absolute = true);
+
+    /**
      * Get the difference in years
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date

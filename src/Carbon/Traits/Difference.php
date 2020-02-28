@@ -151,6 +151,19 @@ trait Difference
     }
 
     /**
+     * Get the difference in quarters rounded down.
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInQuarters($date = null, $absolute = true)
+    {
+        return (int) ($this->diffInMonths($date, $absolute) / static::MONTHS_PER_QUARTER);
+    }
+
+    /**
      * Get the difference in months rounded down.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
