@@ -26,6 +26,11 @@ class TranslationElTest extends TestCaseBase
 
     public function testAgoTranslated()
     {
+        // Ago test can't work on February 29th
+        if (JenssegersDate::now()->format('m-d') === '02-29') {
+            JenssegersDate::setTestNow(JenssegersDate::now()->subDay());
+        }
+
         $date = JenssegersDate::parse('-21 hours');
         $this->assertSame('πριν 21 ώρες', $date->ago());
 
