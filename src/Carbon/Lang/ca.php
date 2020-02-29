@@ -98,7 +98,7 @@ return [
     'months' => ['de gener', 'de febrer', 'de març', 'd\'abril', 'de maig', 'de juny', 'de juliol', 'd\'agost', 'de setembre', 'd\'octubre', 'de novembre', 'de desembre'],
     'months_standalone' => ['gener', 'febrer', 'març', 'abril', 'maig', 'juny', 'juliol', 'agost', 'setembre', 'octubre', 'novembre', 'desembre'],
     'months_short' => ['gen.', 'febr.', 'març', 'abr.', 'maig', 'juny', 'jul.', 'ag.', 'set.', 'oct.', 'nov.', 'des.'],
-    'months_regexp' => '/D[oD]?[\s,]+MMMM?/',
+    'months_regexp' => '/(D[oD]?[\s,]+MMMM?L{2,4}|l{2,4})/',
     'weekdays' => ['diumenge', 'dilluns', 'dimarts', 'dimecres', 'dijous', 'divendres', 'dissabte'],
     'weekdays_short' => ['dg.', 'dl.', 'dt.', 'dc.', 'dj.', 'dv.', 'ds.'],
     'weekdays_min' => ['dg', 'dl', 'dt', 'dc', 'dj', 'dv', 'ds'],

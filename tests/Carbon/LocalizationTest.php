@@ -868,4 +868,12 @@ class LocalizationTest extends AbstractTestCase
             'join' => true,
         ]));
     }
+
+    public function testStandAloneMonthsInLLLFormat()
+    {
+        $this->assertSame(
+            '29 февраля 2020 г., 12:24',
+            Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL')
+        );
+    }
 }
