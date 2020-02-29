@@ -62,6 +62,37 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()->addMonths(7)));
     }
 
+    public function testDiffInQuartersPositive()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(1, $dt->diffInQuarters($dt->copy()->addQuarter()->addDay()));
+    }
+
+    public function testDiffInQuartersNegativeWithSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(-4, $dt->diffInQuarters($dt->copy()->subQuarters(4), false));
+    }
+
+    public function testDiffInQuartersNegativeWithNoSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(4, $dt->diffInQuarters($dt->copy()->subQuarters(4)));
+    }
+
+    public function testDiffInQuartersVsDefaultNow()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(4, Carbon::now()->subYear()->diffInQuarters());
+        });
+    }
+
+    public function testDiffInQuartersEnsureIsTruncated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(1, $dt->diffInQuarters($dt->copy()->addQuarter()->addDays(12)));
+    }
+
     public function testDiffInMonthsPositive()
     {
         $dt = Carbon::createFromDate(2000, 1, 1);

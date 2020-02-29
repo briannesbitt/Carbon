@@ -201,7 +201,7 @@ class EtTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 aastat 3 kuud 1 päev 1 sekund',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 aastat pärast',
+        '3 aasta pärast',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kuud tagasi',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,7 +213,7 @@ class EtTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 nädal 6 päeva',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 nädal ja 6 päeva pärast',
+        '1 nädala ja 6 päeva pärast',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 nädalat 1 tund',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

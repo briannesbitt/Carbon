@@ -74,6 +74,7 @@ return [
     'second' => ':count sekunda|:count sekundy|:count sekund',
     's' => ':count sek.',
     'a_second' => 'pár sekund|:count sekundy|:count sekund',
+
     'month_ago' => ':count měsícem|:count měsíci|:count měsíci',
     'a_month_ago' => 'měsícem|:count měsíci|:count měsíci',
     'day_ago' => ':count dnem|:count dny|:count dny',
@@ -83,6 +84,17 @@ return [
     'year_ago' => ':count rokem|:count roky|:count lety',
     'y_ago' => ':count rok.|:count rok.|:count let.',
     'a_year_ago' => 'rokem|:count roky|:count lety',
+
+    'month_before' => ':count měsícem|:count měsíci|:count měsíci',
+    'a_month_before' => 'měsícem|:count měsíci|:count měsíci',
+    'day_before' => ':count dnem|:count dny|:count dny',
+    'a_day_before' => 'dnem|:count dny|:count dny',
+    'week_before' => ':count týdnem|:count týdny|:count týdny',
+    'a_week_before' => 'týdnem|:count týdny|:count týdny',
+    'year_before' => ':count rokem|:count roky|:count lety',
+    'y_before' => ':count rok.|:count rok.|:count let.',
+    'a_year_before' => 'rokem|:count roky|:count lety',
+
     'ago' => $pred,
     'from_now' => $za,
     'before' => $pred,

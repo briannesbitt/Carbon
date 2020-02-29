@@ -201,7 +201,7 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 v 3 kk 1 pv 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 vuotta päästä',
+        '3 vuoden päästä',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kk sitten',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,7 +213,7 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 viikko 6 päivää',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 viikko ja 6 päivää päästä',
+        '1 viikon ja 6 päivän päästä',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 viikkoa 1 tunti',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

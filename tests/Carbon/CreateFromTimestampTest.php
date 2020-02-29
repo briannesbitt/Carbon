@@ -64,7 +64,9 @@ class CreateFromTimestampTest extends AbstractTestCase
         $this->assertCarbon($d, 1975, 5, 21, 22, 32, 5, 321000);
 
         $locale = setlocale(LC_ALL, '0');
-        setlocale(LC_ALL, 'fr_FR.UTF-8');
+        if (setlocale(LC_ALL, 'fr_FR.UTF-8') === false) {
+            $this->markTestSkipped('testComaDecimalSeparatorLocale test need fr_FR.UTF-8.');
+        }
 
         $timestamp = Carbon::create(1975, 5, 21, 22, 32, 5)->timestamp * 1000 + 321;
         $d = Carbon::createFromTimestampMs($timestamp);
