@@ -189,17 +189,17 @@ class HuHuTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 másodperc',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 másodperccel',
+        '1 másodperc',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2 másodperc',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 másodperccel',
+        '2 másodperc',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         '1 másodperc múlva',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         '1 perc 1 másodperc',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 évvel 3 hónappal 1 nappal 1 másodperccel',
+        '2 év 3 hónap 1 nap 1 másodperc',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3 év múlva',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
@@ -221,6 +221,6 @@ class HuHuTest extends LocalizationTestCase
         // CarbonInterval::days(2)->forHumans()
         '2 nap',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 nappal 3 órával',
+        '1 nap 3 óra',
     ];
 }

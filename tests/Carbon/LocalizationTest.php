@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
@@ -874,6 +875,19 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(
             '29 февраля 2020 г., 12:24',
             Carbon::parse('2020-02-29 12:24:00')->locale('ru_RU')->isoFormat('LLL')
+        );
+    }
+
+    public function testAgoDeclension()
+    {
+        $this->assertSame(
+            'година',
+            CarbonInterval::hour()->locale('uk')->forHumans(['aUnit' => true])
+        );
+
+        $this->assertSame(
+            'годину тому',
+            Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
         );
     }
 }
