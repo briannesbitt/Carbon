@@ -1521,13 +1521,15 @@ class CarbonInterval extends DateInterval
         /** @var \Symfony\Component\Translation\Translator $translator */
         $translator = $this->getLocalTranslator();
 
-        $handleDeclensions = function ($unit, $count) use ($interpolations, $transId, $translator, $altNumbers) {
-            // Some languages have special pluralization for past and future tense.
-            $key = $unit.'_'.$transId;
-            $result = $this->translate($key, $interpolations, $count, $translator, $altNumbers);
+        $handleDeclensions = function ($unit, $count) use ($interpolations, $transId, $translator, $altNumbers, $absolute) {
+            if (!$absolute) {
+                // Some languages have special pluralization for past and future tense.
+                $key = $unit.'_'.$transId;
+                $result = $this->translate($key, $interpolations, $count, $translator, $altNumbers);
 
-            if ($result !== $key) {
-                return $result;
+                if ($result !== $key) {
+                    return $result;
+                }
             }
 
             $result = $this->translate($unit, $interpolations, $count, $translator, $altNumbers);
