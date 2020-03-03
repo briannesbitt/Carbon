@@ -15,5 +15,10 @@
  * - Timo
  * - Michael Hohl
  * - Namoshek
+ * - Bernhard Baumrock (BernhardBaumrock)
  */
-return require __DIR__.'/de.php';
+return array_replace_recursive(require __DIR__.'/de.php', [
+    'months' => [
+        0 => 'Jänner',
+    ],
+]);

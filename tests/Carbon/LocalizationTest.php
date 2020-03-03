@@ -890,4 +890,27 @@ class LocalizationTest extends AbstractTestCase
             Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
         );
     }
+
+    public function testAustriaGermanJanuary()
+    {
+        $this->assertSame(
+            'Jänner',
+            Carbon::parse('2020-01-15')->locale('de_AT')->monthName
+        );
+
+        $this->assertSame(
+            'Januar',
+            Carbon::parse('2020-01-15')->locale('de')->monthName
+        );
+
+        $this->assertSame(
+            'Februar',
+            Carbon::parse('2020-02-15')->locale('de_AT')->monthName
+        );
+
+        $this->assertSame(
+            'Februar',
+            Carbon::parse('2020-02-15')->locale('de')->monthName
+        );
+    }
 }
