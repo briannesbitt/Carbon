@@ -958,6 +958,16 @@ Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // fals
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date1, $date2, $equal = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $dt1, self $dt2, $equal = true</code></td></tr><tr><td>Method added</td><td>1.3.0</td><td><code>Carbon\Carbon $dt1, Carbon\Carbon $dt2, $equal = true</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-betweenIncluded">
+    <h2><span class="class-name">Carbon::</span>betweenIncluded</h2>
+    <code>$date1, $date2</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others, bounds included.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
+Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // true</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.31.0</td><td><code>$date1, $date2</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-betweenExcluded">
     <h2><span class="class-name">Carbon::</span>betweenExcluded</h2>
     <code>$date1, $date2</code>
@@ -1697,6 +1707,14 @@ Return absolute interval (always positive) unless you pass false to the second a
     <div class="doc-return">returns <code>int</code></div>
     <p class="doc-description">Get the difference in years</p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>1.24.0</td><td><code>$date = null, $absolute = true</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>self $date = null, $absolute = true</code></td></tr><tr><td>Method added</td><td>1.0.0</td><td><code>Carbon\Carbon $date = null, $absolute = true</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInQuarters">
+    <h2><span class="class-name">Carbon::</span>diffInQuarters</h2>
+    <code>$date = null, $absolute = true</code>
+    <div class="doc-return">returns <code>int</code></div>
+    <p class="doc-description">Get the difference in quarters rounded down.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.31.0</td><td><code>$date = null, $absolute = true</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-diffInMonths">
@@ -4297,6 +4315,16 @@ CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::hours(
 CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2)); // true
 CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2), false); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.22.0</td><td><code>$interval1, $interval2, $equal = true</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-betweenIncluded">
+    <h2><span class="class-name">CarbonInterval::</span>betweenIncluded</h2>
+    <code>$interval1, $interval2</code>
+    <div class="doc-return">returns <code>bool</code></div>
+    <p class="doc-description">Determines if the instance is between two others, bounds excluded.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(3)); // true
+CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::hours(36)); // false
+CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)); // true</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.31.0</td><td><code>$interval1, $interval2</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-betweenExcluded">
