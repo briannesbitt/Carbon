@@ -32,7 +32,7 @@ before_install:
   - if [[ $laravel = 'true' ]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - if [[ $laravel = 'true' ]]; then printf "\n" | pecl install -f redis; fi
   - if [[ $laravel = 'true' ]]; then travis_retry composer self-update; fi
-  - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;'; fi
+  - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;' && mysql -u root -e "CREATE USER 'forge'@'localhost';" && mysql -u root -e "GRANT ALL ON forge.* TO 'forge'@'localhost';"; fi
 
 install:
   - composer remove --no-update friendsofphp/php-cs-fixer
