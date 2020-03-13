@@ -407,11 +407,14 @@ if (isHistoryUpToDate()) {
 
 CarbonInterval::setLocale('en');
 
-compile('index.o.html', 'index.html');
-unlink('index.o.html');
+$directories = [
+    '',
+    'docs/',
+    'laravel/',
+    'contribute/translators/',
+];
 
-compile('docs/index.o.html', 'docs/index.html');
-unlink('docs/index.o.html');
-
-compile('contribute/translators/index.o.html', 'contribute/translators/index.html');
-unlink('contribute/translators/index.o.html');
+foreach ($directories as $directory) {
+    compile($directory.'index.o.html', $directory.'index.html');
+    unlink($directory.'index.o.html');
+}

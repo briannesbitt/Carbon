@@ -1,0 +1,62 @@
+<h1 id="best-practices">Best practices</h1>
+
+<p></p>
+
+<h1 id="configuration">Configuration</h1>
+
+<p>SQL engines are capable to store date-time millisecond to nanosecond precision, but by default Laravel comes
+with second-precision.</p>
+<p>For instance, if you use MySQL, you should extend <code>MySqlGrammar</code> to change the date format:</p>
+
+<pre><code class="php">namespace App\Database\Query\Grammars;
+
+class MySqlGrammar extends \Illuminate\Database\Query\Grammars\MySqlGrammar
+{
+    public function getDateFormat()
+    {
+        return 'Y-m-d H:i:s.u';
+    }
+}</code></pre>
+
+<pre><code class="php">class AppServiceProvider extends ServiceProvider
+{
+    /**
+    * Bootstrap any application services.
+    *
+    * @return void
+    */
+    public function boot()
+    {
+        DB::connection()->setQueryGrammar(new \App\Database\Query\Grammars\MySqlGrammar);
+    }</code></pre>
+
+<p>Then to be properly stored this precision, add the precision attribute (6 for 6-digits length decimal part) in
+migrations, for instance the default migration of users would become to store the microseconds precision:</p>
+
+<pre><code class="php">Schema::create('users', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->string('email')->unique();
+    $table->timestamp('email_verified_at', 6)->nullable();
+    $table->string('password');
+    $table->rememberToken();
+    $table->timestamps(6);
+});</code></pre>
+
+<p>If the migration has already been ran, use an update:</p>
+
+<pre><code class="php">Schema::table('users', function (Blueprint $table) {
+    $table->timestamp('created_at', 6)->nullable();
+    $table->timestamp('updated_at', 6)->nullable();
+});</code></pre>
+
+<nav>
+    <div class="col-md-3">
+        <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
+            <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
+                <li><a href="#best-practices">Best practices</a></li>
+                <li><a href="#configuration">Configuration</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>

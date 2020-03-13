@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+        <title>Carbon - A simple PHP API extension for DateTime.</title>
+        <meta name="description" content="Carbon - A simple PHP API extension for DateTime.">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night.min.css">
+        <link href="/carbon.css?v=2019-08-01-21-40" rel="stylesheet">
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r;
+                i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-27020320-3', 'auto');
+            ga('send', 'pageview');
+
+        </script>
+    </head>
+    <body data-spy="scroll" data-target="#affix-nav">
+
+    <div class="main-wrapper">
+        <aside id="reference">
+            <div class="search-wrapper">
+                <div class="search-bar">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <input type="text" class="form-control" placeholder="Search" id="search-filter">
+                    </div>
+                    <button class="close">&lt;</button>
+                </div>
+                <div class="search"></div>
+            </div>
+        </aside>
+        <section>
+            <nav class="navbar navbar-default navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                                aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/"><img src="/logo.png" alt="Carbon" width="159" height="50"></a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/#gettingstarted">Getting Started</a></li>
+                            <li><a href="/docs/">Docs</a></li>
+                            <li><a href="#reference">Reference</a></li>
+                            <li><a href="/history/">History</a></li>
+                            <li><a href="/contribute/">Contribute</a></li>
+                            <li><a href="//github.com/briannesbitt/carbon">GitHub</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            
+
+            <div class="container page">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="history-slot"></div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="help-translate">
+            <a href="#" class="close" data-session-close="footer .help-translate">✖</a>
+            Do you speak <strong>#{language}</strong>? You can help Carbon to
+            <a href="/contribute/translate/">improve its translations</a>!<br>
+            No coding skills needed, <a href="/contribute/translate/">go to translation tool</a>.
+        </div>
+        <div id="codefund"></div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script>
+
+        var liveEditorHosts = [
+            'https://try-carbon.herokuapp.com/',
+            'https://try-carbon-lib.herokuapp.com/',
+            'https://try-carbon-package.herokuapp.com/'
+        ];
+        var sessStorage = window.sessionStorage || {};
+        var storage = window.localStorage || {};
+        var balancingId = storage.balancingId || (storage.balancingId = Math.floor(Math.random() * 1024));
+        var date = Math.floor((new Date()).getTime() / 172800000);
+        var liveEditorHostIndex = date < 9131 ? 1 : date % 3;
+        var liveEditorHost = liveEditorHosts[liveEditorHostIndex];
+        var callbacks = {};
+        var $document = $(document);
+        var editorAutoLoad = false;
+        var failures = 0;
+
+        function failOver(index) {
+            if (index !== liveEditorHostIndex || ++failures >= liveEditorHosts.length) {
+                return;
+            }
+
+            liveEditorHostIndex++;
+            liveEditorHost = liveEditorHosts[liveEditorHostIndex % liveEditorHosts.length];
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+
+            $('[data-href-params]').each(function () {
+                var $link = $(this);
+                $link.prop('href', liveEditorHost + $link.data('href-params'));
+            });
+
+            $('[data-src-params]').each(function () {
+                var $iframe = $(this);
+                $iframe.prop('src', liveEditorHost + $iframe.data('src-params')).data('timeout', timeout);
+            });
+        }
+
+        function transformEditor($pre, index, code, token, link, params) {
+            if ($pre.hasClass('live-editor-loading')) {
+                return;
+            }
+
+            $pre.removeClass('live-editor').addClass('live-editor-loading');
+
+            if (!code) {
+                code = $pre.find('code').text();
+                token = 'live-editor-' + index;
+                params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                    encodeURIComponent(code) +
+                    '&token=' + token;
+                link = liveEditorHost + params;
+                $('<a href="' + link + '" data-href-params="' + params + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+            }
+
+            var timeout = setTimeout(function () {
+                failOver(hostIndex);
+            }, 10000);
+            var hostIndex = liveEditorHostIndex;
+            var $iframe = $('<iframe src="' + link +
+                '&embed" data-src-params="' + params +
+                '&embed" data-timeout="' + timeout +
+                '" onerror="failOver(' + hostIndex + ')" style="width: 100%; border: none; opacity: 0; pointer-events: none; position: absolute;"></iframe>').insertAfter($pre);
+
+
+            (callbacks[token] || (callbacks[token] = {})).ready = function () {
+                clearTimeout($iframe.data('timeout'));
+
+                $iframe.css({
+                    opacity: 1,
+                    pointerEvents: 'all',
+                    position: '',
+                    height: $pre.outerHeight() + 'px'
+                });
+                $pre.hide();
+            };
+        }
+
+        var scrollCheckDebounce = null;
+
+        function scrollCheck() {
+            if (scrollCheckDebounce) {
+                clearTimeout(scrollCheckDebounce);
+            }
+
+            scrollCheckDebounce = setTimeout(function () {
+                $('.live-editor').each(function (index) {
+                    var $pre = $(this);
+                    if (!editorAutoLoad) {
+                        var code = $pre.find('code').text();
+                        var token = 'live-editor-' + index;
+                        var params = '?hide-output-gutter&output-left-padding=10&theme=tomorrow_night&border=none&radius=4&v-padding=15&input=' +
+                            encodeURIComponent(code) +
+                            '&token=' + token;
+                        var link = liveEditorHost + params;
+                        $pre.css('cursor', 'pointer').click(function () {
+                            transformEditor($pre, index, code, token, link, params);
+                        });
+                        $('<a href="' + link + '" target="_blank" class="live-editor-new-window"><i class="glyphicon glyphicon-new-window"></i></a>').insertBefore($pre);
+
+                        return;
+                    }
+
+                    var scrollTop = $document.scrollTop();
+                    var scrollBottom = scrollTop + $(window).height();
+                    var viewMargin = 400;
+                    var top = $pre.offset().top;
+                    if (top + $pre.outerHeight() + viewMargin > scrollTop && top - viewMargin < scrollBottom) {
+                        transformEditor($pre, index);
+                    }
+                });
+            }, 1000);
+        }
+
+        function openDocPanel(className, selection) {
+            $('#search-filter').val('');
+            refreshDoc();
+            $('.main-wrapper').addClass('open');
+            $('#doc-method-' + className + '-' + selection)[0].scrollIntoView();
+        }
+
+        function openDoc(event, selection, token) {
+            selection = $.trim(selection);
+            if (/^[a-zA-Z0-9_-]+$/.test(selection)) {
+                var options = [];
+
+                $.each(['Carbon', 'CarbonInterval', 'CarbonPeriod'], function (index, className) {
+                    var element = $('#doc-method-' + className + '-' + selection)[0];
+                    if (element) {
+                        options.push([className, selection, element]);
+                    }
+                });
+
+                $('#open-doc-menu').remove();
+                var $menu = $('.modal-menu');
+
+                if ($menu.length === 0) {
+                    $menu = $('<div class="modal-menu">').appendTo('body');
+                }
+
+                $(document).one('click', function () {
+                    $menu.remove();
+                });
+
+                var pageX = event.pageX | 0;
+                var pageY = event.pageY | 0;
+
+                if (typeof event.pageX === 'undefined') {
+                    var $currentEditor = $('iframe[src*="' + token + '"]');
+                    pageX = $currentEditor.offset().left;
+                    pageY = $currentEditor.offset().top;
+                }
+
+                var modalHeight = options.length * 26 + 10;
+                var scrollTop = $document.scrollTop();
+
+                $menu.css({
+                    left: pageX + 'px',
+                    top: Math.max(scrollTop, pageY - modalHeight) + 'px'
+                }).html(options.map(function (option) {
+                    return '<div class="modal-menu-item" onclick="openDocPanel(\'' + option[0] + '\', \'' + option[1] + '\')">' + option[0] + '::<strong>' + option[1] + '</strong></div>';
+                }).join(''));
+            }
+        }
+
+        var $search = $('#main-search-bar');
+
+        if ($search.length) {
+            function search(word) {
+                var list = $('#docs *, #reference *').filter(function (index, element) {
+                    return $(element).find('script').length === 0 && (new RegExp(word, 'i')).test(element.innerText);
+                });
+
+                var copy = list.slice();
+
+                copy.each(function (index, element) {
+                    list = list.filter(function (i, e) {
+                        return e !== element.parentNode;
+                    });
+                });
+
+                var result = [];
+
+                list.each(function (i, e) {
+                    while (e.parentNode && ~['inline', 'table-cell'].indexOf(window.getComputedStyle(e).display)) {
+                        e = e.parentNode;
+                    }
+
+                    if (e !== result[result.length - 1]) {
+                        result.push(e);
+                    }
+                });
+
+                return result;
+            }
+
+            var searchValue = $search.val().trim();
+            var timeout = null;
+
+            $search.on('change input keyup keypress', function () {
+                var newValue = $search.val().trim();
+
+                if (newValue.length === 0) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    $('#search-result').hide();
+                    $('#docs').removeClass('height-squeezed');
+
+                    return;
+                }
+
+                $('#docs').addClass('height-squeezed');
+
+                if (newValue.length < 2) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    $('#search-result').show().html('<p>Type at least 2 letters to start the search.</p>');
+
+                    return;
+                }
+
+                if (searchValue !== newValue) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                    }
+
+                    searchValue = newValue;
+
+                    $('#search-result').show().html('<p>Searching...</p>');
+
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                        var result = search(searchValue);
+
+                        if (result.length === 0) {
+                            $('#search-result').html('<p>No matches found.</p>');
+
+                            return;
+                        }
+
+                        window.goToSearchResult = function (index) {
+                            if (result[index]) {
+                                var $element = $(result[index]);
+
+                                if ($element.length) {
+                                    if ($element.parents('#reference').length) {
+                                        $('.main-wrapper').addClass('open');
+                                    }
+
+                                    $('#search-result').hide();
+                                    $('#docs').removeClass('height-squeezed');
+                                    $search.val('');
+
+                                    setTimeout(function () {
+                                        $element[0].scrollIntoView();
+                                    }, 1);
+                                }
+                            }
+                        };
+
+                        var html = '';
+
+                        result.slice(0, 50).forEach(function (element, index) {
+                            var $element = $(element);
+
+                            html += $('<div>').append($('<' + ($element.is('code') ? 'pre' : 'p') + ' class="search-result-item" onclick="goToSearchResult(' + index + ');">').text($element.text())).html().replace(new RegExp(searchValue, 'i'), function (word) {
+                                return '<span class="highlight">' + word + '</span>';
+                            });
+                        });
+
+                        $('#search-result').html(html + (result.length > 50 ? '<p>' + (result.length - 50) + ' results omitted, type more to filter results.</p>' : ''));
+                    }, 500);
+                }
+            });
+        }
+
+        $(document)
+            .on('click', 'a[data-open-doc]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                var method = $(event.target).data('open-doc').split('::');
+
+                openDocPanel(method[0], method[1]);
+            })
+            .on('click', '[data-slide-down]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('slide-down')).slideToggle();
+            })
+            .on('click', '[data-toggle]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                $($(event.target).data('toggle')).toggle();
+            })
+            .on('click', '[data-session-close]', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var key = $(event.target).data('session-close');
+                sessStorage['closed-' + key] = '1';
+
+                $(key).slideUp(200);
+            })
+        ;
+
+        var language = ((navigator.language || navigator.userLanguage).split(/[_-]/)[0] || '').toLowerCase();
+
+        if (!sessStorage['closed-footer .help-translate'] &&
+            location.href.indexOf('contribute/translate') === -1 &&
+            [
+                'af', 'smn', 'si', 'sk', 'sl', 'id', 'ia', 'hy', 'hu', 'ja', 'sn', 'haw',
+                'en', 'fr', 'it', 'es', 'pt', 'de', 'ro', 'ru', 'vi', 'ar', 'da', 'nl',
+                'cs', 'ka', 'hr', 'gl', 'bg', 'tr', 'sq', 'sr', 'fo', 'fi', 'sv', 'bs',
+                'eu', 'or', 'mzn', 'mt', 'ms', 'mk', 'mgo', 'om', 'lt', 'lb', 'kea', 'pl',
+                'am', 'ko', 'rm', 'rw', 'fa', 'et', 'uz', 'ur', 'az', 'ca', 'sw', 'vai',
+                'yue', 'zh', 'chr', 'nb', 'ee', 'ug', 'el', 'cy', 'to', 'eo'
+            ].indexOf(language) === -1
+        ) {
+            $.getJSON('/languages.json', function (languages) {
+                var $help = $('footer .help-translate');
+                $help.html($help.html().replace('#{language}', (languages[language] || {}).isoName || language)).show();
+            });
+        }
+
+        function refreshDoc() {
+            var search = $('#search-filter').val().toLowerCase();
+            $('.doc-method').each(function () {
+                var $method = $(this);
+                $method[~$method.find('h2:first').text().toLowerCase().indexOf(search) ? 'show' : 'hide']();
+            });
+        }
+
+        $('#search-filter').on('keyup change input', refreshDoc);
+
+        window.addEventListener('message', function (event) {
+            var data = event.data;
+            if (typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            if (data && data.sender === 'try-carbon') {
+                switch (data.event) {
+                    case 'ready':
+                        var callback = (callbacks[data.token] || {})[data.event];
+                        if (typeof callback === 'function') {
+                            callback();
+                        }
+                        break;
+                    case 'input':
+                        // data.input
+                        break;
+                    case 'selection':
+                        openDoc(event, data.selection, data.token);
+                        break;
+                }
+            }
+        });
+
+        scrollCheck();
+        $document.scroll(scrollCheck);
+        $('.search').scroll(scrollCheck);
+
+        $('.search-wrapper .close').click(function () {
+            $('.main-wrapper').removeClass('open');
+        });
+
+        $('code').on('mouseup select dblclick', function (event) {
+            var s = window.getSelection();
+            if ((s.anchorOffset || s.anchorOffset === 0) && s.focusOffset && s.anchorOffset + 1 < s.focusOffset) {
+                openDoc(event, s.anchorNode.wholeText.substring(s.anchorOffset, s.focusOffset));
+            }
+        });
+
+        $('[href="#reference"]').click(function (event) {
+            event.preventDefault();
+            if ($('.main-wrapper').toggleClass('open').hasClass('open')) {
+                $('#search-filter').focus();
+            }
+        });
+
+        function objEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i< keys.length; i++) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
+        function reserveEach(obj, callback) {
+            var keys = Object.keys(obj);
+            for (var i = keys.length - 1; i >= 0; i--) {
+                callback(keys[i], obj[keys[i]]);
+            }
+        }
+
+        $(function () {
+            $.ajax('/reference/', {
+                success: function (data) {
+                    $('.search').html(data).find('.live-editor code').each(function (index, block) {
+                        hljs.highlightBlock(block);
+                    });
+                },
+            });
+            $('.history-slot').each(function () {
+                var $slot = $(this);
+                var primaryList = {};
+                var releases = {};
+
+                function processHistory(data) {
+                    $.each(data, function () {
+                        primaryList[this.created_at] = this;
+                    });
+                }
+
+                $.getJSON('/releases.json').then(function (data) {
+                    processHistory(data);
+
+                    return $.getJSON('https://api.github.com/repos/briannesbitt/Carbon/releases');
+                }).then(function (data) {
+                    processHistory(data);
+
+                    Object.keys(primaryList).sort().reverse().forEach(function (key) {
+                        var item = primaryList[key];
+                        var name = item.tag_name;
+                        if (/^\d+\.\d+\.\d/.test(name)) {
+                            var major = name.replace(/^(\d+)\..*$/, '$1');
+                            var minor = name.replace(/^(\d+\.\d+)\..*$/, '$1');
+                            var list = releases[major] || (releases[major] = {});
+                            var subList = list[minor] || (list[minor] = {});
+                            subList[name] = item;
+                        }
+                    });
+
+                    var html = '';
+                    reserveEach(releases, function (major, list) {
+                        html += '<h1 class="history-major-title"><a href="#" data-history-major="' + major + '">Carbon ' + major + '</a></h1><div class="history-major-group history-major-' + major + ' hidden">';
+                        objEach(list, function (minor, subList) {
+                            html += '<h2 class="history-minor-title">' + minor + '.*</h2><div class="history-minor-group">';
+                            objEach(subList, function (version, release) {
+                                if (release.assets && release.assets.length) {
+                                    release.asset_url = release.assets[0].browser_download_url;
+                                }
+                                html +=
+                                    '<h3>' +
+                                        version + '' +
+                                        '<small class="release-date" title="' + (new Date(release.created_at)).toLocaleTimeString() + '">' + (new Date(release.created_at)).toLocaleDateString() + '</small>' +
+                                        (release.asset_url
+                                            ? '<a href="' + release.asset_url + '" class="btn btn-default download-release"><i class="glyphicon glyphicon-save"></i> Download</a>'
+                                            : ''
+                                        ) +
+                                    '</h3>' +
+                                    '<div class="version-description">' + ('\n' + release.body).replace(/(\n- [^\n]*)+/g, function (all) {
+                                        return '<ul>' + all.replace(/\n- ([^\n]*)/g, '<li>$1</li>') + '</ul>';
+                                    }).replace(/^\s+/, '').replace(/\s+$/, '').replace(/\n/g, '<br>').replace(/(https?:\/\/\S+)/g, '<a href="$1" target="_blank">$1</a>') + '</div>'
+                                ;
+                            });
+                            html += '</div>';
+                        });
+                        html += '</div>';
+                    });
+                    $slot.html(html).find('.history-major-group').hide().removeClass('hidden');
+                });
+            });
+            $(document).on('click', '[data-history-major]', function (event) {
+                $('.history-major-' + $(this).data('history-major')).slideToggle();
+                event.preventDefault();
+                event.stopPropagation();
+            });
+        });
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//piwik.selfbuild.fr/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', '23']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    
+    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
+</body>
+</html>
