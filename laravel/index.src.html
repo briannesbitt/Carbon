@@ -1,14 +1,29 @@
 <h1 id="best-practices">Best practices</h1>
 
-<p></p>
+<p>As soon as you need to store a date (with or without time), you should store a full datetime.
+Even if it sounds like you don't need the time, timezone or anything more than the day-precision
+for a date such as <code>2020-07-26</code> but July the 26th is not the same day for everyone.
+July 26th start</p>
+
+<p>Best practices when handling dates summarized in one sentence is: "Don't be stingy!"</p>
+
+<p>When you're about to store a date like <code>2020-07-26</code>, it sounds like you don't need the time, timezone or
+anything more than the day-precision. But first, this extra-precision does not cost much: 5 bytes.</p>
+
+<p>You might be thinking all that complex stuff is not for you because your app is simple or different.
+But it's not different, and it will be simple only following standards.</p>
 
 <h1 id="configuration">Configuration</h1>
 
 <p>SQL engines are capable to store date-time millisecond to nanosecond precision, but by default Laravel comes
 with second-precision.</p>
+
 <p>For instance, if you use MySQL, you should extend <code>MySqlGrammar</code> to change the date format:</p>
 
-<pre><code class="php">namespace App\Database\Query\Grammars;
+<pre><code class="php">&lt;?php
+// app/Database/Query/Grammars/MySqlGrammar.php
+
+namespace App\Database\Query\Grammars;
 
 class MySqlGrammar extends \Illuminate\Database\Query\Grammars\MySqlGrammar
 {
@@ -17,6 +32,8 @@ class MySqlGrammar extends \Illuminate\Database\Query\Grammars\MySqlGrammar
         return 'Y-m-d H:i:s.u';
     }
 }</code></pre>
+
+<p>Then edit the boot method of <strong>app/Providers/AppServiceProvider.php</strong>:</p>
 
 <pre><code class="php">class AppServiceProvider extends ServiceProvider
 {
