@@ -1,17 +1,39 @@
 <h1 id="best-practices">Best practices</h1>
 
+<h2>Time precision</h2>
+
 <p>As soon as you need to store a date (with or without time), you should store a full datetime.
 Even if it sounds like you don't need the time, timezone or anything more than the day-precision
 for a date such as <code>2020-07-26</code> but July the 26th is not the same day for everyone.
-July 26th start</p>
+July 26th is a precise period from 07-26 00:00:00 to 07-26 23:59:59.999... But if a person in
+New York says 26th July, a person in Auckland talking about the same period would consider
+it's 07-26 16:00:00 to 07-27 15:59:59.999... This means if you store only year-month-day dates,
+your app can only work in 1 timezone and will never be compatible with any other timezone.</p>
 
-<p>Best practices when handling dates summarized in one sentence is: "Don't be stingy!"</p>
+<p>The same way, you won't be able to re-use any date-related component of your app in any
+multi-timezones contexts. Nowadays, it make absolutely no sense to work on a mono-timezone
+basis. You're 99.99% sure someday your app or a part of your app will be used in more than
+1 timezone, so you will need at least to add hour-minute to store worldwide day-precision
+(because some timezone have shifts like +4:30 or +8:45), so since you're there, there's
+no point to be stingy, you can also store second and then have a standard storing of any
+moment no matter the precision you want.</p>
 
-<p>When you're about to store a date like <code>2020-07-26</code>, it sounds like you don't need the time, timezone or
-anything more than the day-precision. But first, this extra-precision does not cost much: 5 bytes.</p>
+<p>Last, when it comes to precise sorting or you want to take the 3 first people that sent
+a request, you will be embarrassed if you see 5 times the same datetime in your log because
+people sent requests in the same second.</p>
 
-<p>You might be thinking all that complex stuff is not for you because your app is simple or different.
-But it's not different, and it will be simple only following standards.</p>
+<p>So, store the maximum precision your engine can (microseconds with PHP and MySQL
+for instance) and forget it.</p>
+
+<p>On the long term, this will free your mind, stop worrying about what precision you
+got, if you compare 2 moments, you will always have precise difference. Then if you want
+to round or truncate a difference, or display in a particular timezone, you still can
+because you have the complete data, while if you decide to store less data, it will be
+to late to change your mind later regarding existing data.</p>
+
+<h2>Localization</h2>
+
+<p>TODO: UTC</p>
 
 <h1 id="configuration">Configuration</h1>
 
