@@ -391,12 +391,24 @@ function compile($src, $dest = null)
 
 file_put_contents('languages.json', json_encode(Language::all()));
 
-genHtml(file_get_contents('index.src.html'), 'index.o.html', compile('jumbotron.src.html'));
-genHtml(file_get_contents('docs/index.src.html'), 'docs/index.o.html');
+$directories = [
+    '',
+    'docs/',
+    'laravel/',
+    'contribute/translators/',
+];
+
+foreach ($directories as $directory) {
+    genHtml(
+        file_get_contents($directory.'index.src.html'),
+        $directory.'index.o.html',
+        $directory === '' ? compile('jumbotron.src.html') : ''
+    );
+}
+
 genHtml(file_get_contents('history/index.src.html'), 'history/index.html');
 genHtml(file_get_contents('contribute/index.src.html'), 'contribute/index.html');
 genHtml(file_get_contents('contribute/translate/index.src.html'), 'contribute/translate/index.html');
-genHtml(file_get_contents('contribute/translators/index.src.html'), 'contribute/translators/index.o.html');
 genHtml(file_get_contents('contribute/docs/index.src.html'), 'contribute/docs/index.html');
 
 if (isHistoryUpToDate()) {
@@ -406,13 +418,6 @@ if (isHistoryUpToDate()) {
 }
 
 CarbonInterval::setLocale('en');
-
-$directories = [
-    '',
-    'docs/',
-    'laravel/',
-    'contribute/translators/',
-];
 
 foreach ($directories as $directory) {
     compile($directory.'index.o.html', $directory.'index.html');
