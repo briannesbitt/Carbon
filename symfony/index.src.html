@@ -55,6 +55,21 @@
     because you have the complete data, while if you decide to store less data, it will be
     to late to change your mind later regarding existing data.</p>
 
+<p>You can customize the precision from ORM annotations:</p>
+
+<pre><code class="php">/**
+ * @ORM\Column(type="datetime", precision=7)
+ */
+private $created_at;</code></pre>
+
+<p>But for consistency, we recommend to set it rather globally and use the maximum precision
+    allowed by your DB engine(s).</p>
+
+<p><code>DateTimeImmutableType</code> and <code>DateTimeType</code> comes with microseconds
+    precision (6) as default value used if precision is not set or set to 0. If you want to
+    increase/decrease it, you can call <code>\Carbon\Doctrine\DateTimeDefaultPrecision::set(7)</code>
+    from <code>registerBundles()</code> in <strong>src/Kernel.php</strong>,</p>
+
 <h1 id="localization">Localization</h1>
 
 <p>When storing a datetime, you should also consider the location where this moment is
@@ -135,7 +150,7 @@
 <p>You can check your default timezone running the PHP function <code>date_default_timezone_get()</code>.
     If it's not <code>'UTC'</code> in any of your environment, you should use
     <code>date_default_timezone_set('UTC')</code> in some global place like <code>registerBundles()</code>
-    in <strong>Kernel.php</strong> to ensure it's always UTC.</p>
+    in <strong>src/Kernel.php</strong> to ensure it's always UTC.</p>
 
 <p><a href="/docs">Continue to read more with the documentation.</a></p>
 
