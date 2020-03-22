@@ -10,9 +10,7 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use DateTimeInterface;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
-use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 trait CarbonType
 {
@@ -23,13 +21,20 @@ trait CarbonType
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        if ($fieldDeclaration['version'] ?? false) {
-            return 'TIMESTAMP';
+        $precision = $fieldDeclaration['precision'] ?: DateTimeDefaultPrecision::get();
+        $type = parent::getSQLDeclaration($fieldDeclaration, $platform);
+
+        if (!$precision) {
+            return $type;
         }
 
-        return $platform instanceof PostgreSqlPlatform
-            ? 'TIMESTAMP(6) WITHOUT TIME ZONE'
-            : 'DATETIME(6)';
+        if (strpos($type, '(') !== false) {
+            return preg_replace('/\(\d+\)/', "($precision)", $type);
+        }
+
+        list($before, $after) = explode(' ', "$type ");
+
+        return trim("$before($precision) $after");
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
