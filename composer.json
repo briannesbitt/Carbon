@@ -33,6 +33,7 @@
         "symfony/translation": "^3.4 || ^4.0 || ^5.0"
     },
     "require-dev": {
+        "doctrine/orm": "^2.7",
         "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
         "kylekatarnls/multi-tester": "^1.1",
         "phpmd/phpmd": "^2.8",
