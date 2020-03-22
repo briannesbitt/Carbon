@@ -395,6 +395,7 @@ $directories = [
     '',
     'docs/',
     'laravel/',
+    'symfony/',
     'contribute/translators/',
 ];
 
