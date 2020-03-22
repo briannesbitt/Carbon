@@ -37,6 +37,9 @@ trait CarbonType
         return trim("$before($precision) $after");
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if ($value === null || $value instanceof CarbonInterface) {
@@ -63,6 +66,9 @@ trait CarbonType
         return $date;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {
@@ -80,6 +86,9 @@ trait CarbonType
         );
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;
