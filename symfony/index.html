@@ -72,198 +72,184 @@
                 </div>
             </nav>
 
-            <div class="jumbotron">
-    <div class="container">
-        <h1>A simple PHP API extension for DateTime.</h1>
-        <pre><code class="php">printf("Right now is %s", Carbon::now()->toDateTimeString());
-printf("Right now in Vancouver is %s", Carbon::now('America/Vancouver')); // automatically converted to string
-$tomorrow = Carbon::now()->addDay();
-$lastWeek = Carbon::now()->subWeek();
-
-// Carbon embed 822 languages:
-echo $tomorrow->locale('fr')->isoFormat('dddd, MMMM Do YYYY, h:mm');
-echo $tomorrow->locale('ar')->isoFormat('dddd, MMMM Do YYYY, h:mm');
-
-$officialDate = Carbon::now()->toRfc2822String();
-
-$howOldAmI = Carbon::createFromDate(1975, 5, 21)->age;
-
-$noonTodayLondonTime = Carbon::createFromTime(12, 0, 0, 'Europe/London');
-
-$internetWillBlowUpOn = Carbon::create(2038, 01, 19, 3, 14, 7, 'GMT');
-
-if (Carbon::now()->isWeekend()) {
-    echo 'Party!';
-}
-echo Carbon::now()->subMinutes(2)->diffForHumans(); // '2 minutes ago'
-
-// Want to know more about diffForHumans? Double-click on the method name!
-</code></pre>
-    </div>
-</div>
-
+            
 
             <div class="container page">
                 <div class="row">
-                    <div class="col-md-12">
-                        <a class="tidelift" href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs" target="_blank">
-    <img src="/tidelift.png">
-    GET PROFESSIONAL SUPPORT FOR CARBON
-</a>
+                    <div class="col-md-9">
+                        <h1 id="installation">Installation</h1>
 
-<ul class="list-inline">
-    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://img.shields.io/packagist/v/nesbot/carbon.svg?style=flat-square"></a></li>
-    <li><a href="https://packagist.org/packages/nesbot/carbon"><img src="https://img.shields.io/packagist/dt/nesbot/carbon.svg?style=flat-square"></a></li>
-    <li><a href="https://travis-ci.org/briannesbitt/Carbon"><img src="https://img.shields.io/travis/briannesbitt/Carbon/master.svg?style=flat-square"></a></li>
-    <li><a href="https://styleci.io/repos/5724990"><img src="https://styleci.io/repos/5724990/shield?style=flat-square"></a></li>
-    <li><a href="https://codecov.io/github/briannesbitt/Carbon?branch=master"><img src="https://img.shields.io/codecov/c/github/briannesbitt/Carbon.svg?style=flat-square"></a></li>
-    <li><a href="https://github.com/phpstan/phpstan"><img src="https://img.shields.io/badge/PHPStan-enabled-44CC11.svg?longCache=true&style=flat-square"></a></li>
-    <li><a href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=readme"><img src="https://tidelift.com/badges/github/briannesbitt/Carbon"></a></li>
-</ul>
+<p>Use composer from your Symfony project root directory to install Carbon:</p>
 
-<h1 id="gettingstarted">Getting Started</h1>
+<pre><code>composer require nesbot/carbon</code></pre>
 
-<p>1.x is compatible with PHP 5.3+.<br>2.x version requires PHP 7.1.8+.</p>
+<h1 id="orm-configuration">ORM configuration</h1>
 
-<h3>Installing</h3>
-<p>The easiest and recommended method to install Carbon is via <a href="http://getcomposer.org/">composer</a>.</p>
+<p>Since its version 2.32.0, Carbon provides Doctrine types pre-configuration.</p>
 
-<p>If you're using Laravel, Carbon is provided out of the box. You may now check
-    <a href="/laravel">our Laravel configuration and best-practices recommendations</a>.</p>
+<p>Add Carbon to datetime types in <strong>config/packages/doctrine.yaml</strong>:</p>
 
-<p>If you're using Symfony, you may check <a href="/symfony">our Symfony configuration and best-practices
-    recommendations</a>.</p>
+<pre><code class="yaml">doctrine:
+    dbal:
+        types:
+            datetime_immutable: \Carbon\Symfony\DateTimeImmutableType
+            datetime: \Carbon\Symfony\DateTimeType</code></pre>
 
-<div role="tabpanel">
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#withcomposer" role="tab" data-toggle="tab">With composer</a></li>
-        <li role="presentation"><a href="#nocomposer" role="tab" data-toggle="tab">Direct download</a></li>
-    </ul>
+<p>Now when you will add a field in an ORM entity with the type <strong>datetime</strong>
+    or <strong>datetime_immutable</strong> (recommended) it will automatically enhance those
+    properties with <strong>Carbon</strong> methods.</p>
 
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="withcomposer">
-            <p></p>
-            <p>Use the following command to install with composer.</p>
+<p>As Carbon is mostly compatible with DateTime, it should not break anything and you're
+    still able to retrieve the raw DateTime object using <code>->toDateTime()</code> or
+    <code>->toDateTimeImmutable()</code>.</p>
 
-            <p><pre><code>composer require nesbot/carbon</code></pre></p>
+<p>It also allow you to store microseconds in your database (see below why it's important).</p>
 
-            <p>This will automatically get the latest version and configure a <code>composer.json</code> file.</p>
+<h1 id="time-precision">Time precision</h1>
 
-            <p><pre><code class="php">&lt;?php
-require 'vendor/autoload.php';
+<p>As soon as you need to store a date (with or without time), you should store a full datetime.
+    Even if it sounds like you don't need the time, timezone or anything more than the day-precision
+    for a date such as <code>2020-07-26</code> but July the 26th is not the same day for everyone.
+    July 26th is a precise period from 07-26 00:00:00 to 07-26 23:59:59.999... But if a person in
+    New York says 26th July, a person in Auckland talking about the same period would consider
+    it's 07-26 16:00:00 to 07-27 15:59:59.999... This means if you store only year-month-day dates,
+    your app can only work in 1 timezone and will never be compatible with any other timezone.</p>
 
-use Carbon\Carbon;
+<p>The same way, you won't be able to re-use any date-related component of your app in any
+    multi-timezones contexts. Nowadays, it make absolutely no sense to work on a mono-timezone
+    basis. You're 99.99% sure someday your app or a part of your app will be used in more than
+    1 timezone, so you will need at least to add hour-minute to store worldwide day-precision
+    (because some timezone have shifts like +4:30 or +8:45), so since you're there, there's
+    no point to be stingy, you can also store second and then have a standard storing of any
+    moment no matter the precision you want.</p>
 
-printf("Now: %s", Carbon::now());</code></pre></p>
+<p>Last, when it comes to precise sorting or you want to take the 3 first people that sent
+    a request, you will be embarrassed if you see 5 times the same datetime in your log because
+    people sent requests in the same second.</p>
 
-            <p>If you wish you can create the following <code>composer.json</code> file and run <code>composer install</code> to install it.</p>
+<p>So, store the maximum precision your engine can (microseconds with PHP and MySQL
+    for instance) and forget it.</p>
 
-            <p><pre><code class="js">{
-    "require": {
-        "nesbot/carbon": "^2.32.0"
-    }
-}</code></pre></p>
+<p>On the long term, this will free your mind, stop worrying about what precision you
+    got, if you compare 2 moments, you will always have precise difference. Then if you want
+    to round or truncate a difference, or display in a particular timezone, you still can
+    because you have the complete data, while if you decide to store less data, it will be
+    to late to change your mind later regarding existing data.</p>
 
-            <p>Carbon 2 is officially supported by Laravel since the version 5.8, if you want to use it on a lower version, you can follow those steps:</p>
+<p>You can customize the precision from ORM annotations:</p>
 
-            <p>Set explicitly the Carbon version and add the adapter in your <strong>composer.json</strong>:</p>
+<pre><code class="php">/**
+ * @ORM\Column(type="datetime", precision=7)
+ */
+private $created_at;</code></pre>
 
-            <p><pre><code class="js">{
-    "require": {
-        "nesbot/carbon": "2.32.0 as 1.39.0"
-        "kylekatarnls/laravel-carbon-2": "^1.0.0"
-    }
-}</code></pre></p>
+<p>But for consistency, we recommend to set it rather globally and use the maximum precision
+    allowed by your DB engine(s).</p>
 
-            <p>Use 1.25.0 alias for Laravel 5.6, 1.39.0 for other versions as each version of Laravel has its own range of Carbon compatibility, you have to take 2.32.0
-                as the real used version, then pick an alias among versions Laravel supports. You may have other dependencies with other Carbon restrictions. If so,
-                we cannot ensure Carbon 2 will works with them as Carbon 1 did, but you can still try an other version alias. To be sure an alias will be compatible
-                with all of your current dependencies, you can choose the version of Carbon you have before upgrading to Carbon 2 using <code>composer show nesbot/carbon</code>.</p>
+<p><code>DateTimeImmutableType</code> and <code>DateTimeType</code> comes with microseconds
+    precision (6) as default value used if precision is not set or set to 0. If you want to
+    increase/decrease it, you can call <code>\Carbon\Doctrine\DateTimeDefaultPrecision::set(7)</code>
+    from <code>registerBundles()</code> in <strong>src/Kernel.php</strong>,</p>
 
-            <p>Then update your dependencies by running.</p>
+<h1 id="localization">Localization</h1>
 
-            <p><pre><code>$ composer update</code></pre></p>
+<p>When storing a datetime, you should also consider the location where this moment is
+    considered, you can store it with any timezone. If a user buy an airplane flight
+    ticket, you may want to display departure time (with origin timezone), arrival
+    time (with destination timezone) and let's say also online check-in deadline and
+    order time (with current browser timezone).</p>
 
-        </div>
-        <div role="tabpanel" class="tab-pane" id="nocomposer">
-            <p></p>
-            <p>Why are you not using <a href="http://getcomposer.org/">composer</a>?</p>
-            <p>Download the last release (or any other you want) here: <a href="https://github.com/briannesbitt/Carbon/releases">releases</a>.</p>
-            <p>Release package is the asset named <strong>Carbon-x.y.z.zip</strong> where <strong>x.y.z</strong> is the version number.</p>
-            <p>Extract the zip in a directory in your project, then require the <strong>autoload.php</strong> file to make any Carbon class available:</p>
+<p>Here you can distinguish dates to be considered in a fixed timezone (departure
+    and arrival) and the ones that can actually be displayed in any timezone.</p>
 
-            <p><pre><code class="php">&lt;?php
-require 'path/to/Carbon/autoload.php';
+<p>Let's see the departure/arrival first. You may be tempted to just store date
+    considered in each airport. So flying from Reykjavik (‏KEF)‏ to Athènes (‏ATH)‏, you
+    can get 2020-11-04 10:00 and 2020-11-04 14:00, this would allow you to display
+    the raw data: 10:00 (REK) -&gt; 14:00 (ATH), great. But now to calculate the
+    flight duration, you will need to convert one or the other to get the diff
+    because the flight is 6-hour and not 4-hour long. And even more tricky, let's
+    now output the 5 next flights. You have mixed timezones in your DB (database),
+    so you can't rely on the DB optimizations to sort and limit the result. You can't
+    even now which flight already took off or not without converting every date
+    in a reference timezone. That's a shame.</p>
 
-use Carbon\Carbon;
-use Carbon\CarbonInterval;
+<p>That's why, in your DB, <strong>every dates</strong> should be stored in
+    the same timezone. This way, you can sort, compare, sub/add with no conversion.</p>
 
-printf("Now: %s", Carbon::now());
+<h2>Which timezone to choose?</h2>
 
-printf("1 day: %s", CarbonInterval::day()->forHumans());</code></pre></p>
+<p>Many businesses/organizations made the mistake of taking their business or server
+    location as the reference timezone. You should think bigger! Someday you may move your
+    server, become an international company, or you may simply want to reuse a part
+    of your app or your DB. Then the timezone your originally picked will make
+    absolutely no sense, and if you have to merge with an other DB, it will no longer
+    be consistent.</p>
 
-            <p>Those packages contain <strong>symfony/translation</strong> to make <code>diffForHumans</code> method vailable in different languages.</p>
-            <p>Install with composer is still a better option since it allows you to get the <strong>symfony/translation</strong> (and possible future dependencies) version that suit the best your PHP version and keep the whole think up-to-date via <code>composer update</code> command.</p>
-        </div>
-    </div>
-</div>
+<p>Even worse, if you choose a timezone with DST as reference (USA, Europe, etc.)
+    then you will have calculation errors (for instance, the given flight above will
+    give you 5 or 7 hours instead of 6 when there is a DST change in your reference
+    timezone during the flight).</p>
 
-<h3>Learn More</h3>
-Looks good so far.  What do I do next? Read the <a href="/docs">API docs</a>.
+<h2>UTC is the reference</h2>
 
-<h2>Author</h2>
+<p>The worldwide time system standard is UTC, it defines each timezone from
+    GMT (Greenwich Mean Time) +/- a given time shift. So to maximize your compatibility
+    and avoid painful issues, use <code>'UTC'</code> as the default timezone of
+    your app and to store any moment in your DB or any other storage.</p>
 
-<address>
-  <strong>Brian Nesbitt</strong><br>
-  <a href="http://nesbot.com">http://nesbot.com</a><br>
-  <a href="https://twitter.com/NesbittBrian">https://twitter.com/NesbittBrian</a>
-</address>
+<p>This is also the timezone you should choose for your APIs. For instance, in
+    a JSON API, a date should looks like <code>"2020-03-19T08:44:40.593Z"</code>,
+    Browser will understand <code>Z</code> as Zulu timezone (an other synonym for
+    <code>GMT+0</code> or <code>UTC+0</code>) and for instance, if you call
+    <code>new Date("2020-03-19T08:44:40.593Z")</code> in Paris, you'll get
+    <code>Thu Mar 19 2020 09:44:40 GMT+0100 (Central European Standard Time)</code>,
+    if you call it in New York:
+    <code>Thu Mar 19 2020 04:44:40 GMT-0400 (Eastern Daylight Time)</code>.
+    This would actually be the better way for check-in deadline and
+    order time in the example above.</p>
 
-<h2>Maintainer</h2>
+<p>This actually means you will convert dates to an other timezone server-side
+    very rarely, only if you have to display it in a view.</p>
 
-<address>
-    <strong>kylekatarnls</strong><br>
-    <a href="https://github.com/kylekatarnls">https://github.com/kylekatarnls</a>
-</address>
+<p>In the previous example, the timezone could be calculated from airport
+    localization, if you need a fixed timezone but don't have the needed data
+    stored to retrieve it, then you should simply add a <code>text</code> column
+    in your DB table to store <code>"Europe/Paris"</code> or <code>"America/New_York"</code>.
+    Use the city timezones and not the shift (like <code>UTC+08</code>) else
+    you won't be able to know which DST rules to apply if you have to modify the
+    date or calculate a new date based on the first one.</p>
 
-<h2>Contributors</h2>
+<p>Last, you don't need to store a timezone string for each timezone-fixed date,
+    you should apply the logic relation/grouping according to your need. For instance,
+    if you want to send e-mails with dates to your users, you can't access the browsers
+    when sending mails so you have to pick a timezone, you can use the last known
+    timezone of the user (supposing you update some users table field with the
+    browser timezone when a user log in your app). In this case, you obviously don't
+    need to store the timezone for each stored date, you can simply save one and reuse
+    it for every dates in all e-mails for a given user.</p>
 
-<a href="https://github.com/briannesbitt/Carbon/graphs/contributors" target="_blank"><img src="https://opencollective.com/Carbon/contributors.svg?width=890&button=false" /></a>
+<p>You can check your default timezone running the PHP function <code>date_default_timezone_get()</code>.
+    If it's not <code>'UTC'</code> in any of your environment, you should use
+    <code>date_default_timezone_set('UTC')</code> in some global place like <code>registerBundles()</code>
+    in <strong>src/Kernel.php</strong> to ensure it's always UTC.</p>
 
-<h2>Translators</h2>
+<p><a href="/docs">Continue to read more with the documentation.</a></p>
 
-<a href="/contribute/translators/" rel="nofollow">Thanks to people helping us to translate Carbon in so many languages</a>
 
-<h2>Sponsors</h2>
 
-Our sponsors make our engagement stronger and sustain the development and maintenance, a big thank you to them. 🙏<br>
-Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
-<a href="https://opencollective.com/Carbon#sponsor">Become a sponsor</a>
-
-<div style="padding: 8px 16px; margin: 10px 0; border-radius: 2px; background: #d3d3d3">
-    <a href="https://tidelift.com/subscription/pkg/packagist-nesbot-carbon?utm_source=packagist-nesbot-carbon&utm_medium=referral&utm_campaign=docs" target="_blank"><img src="/tidelift-brand.png" width="256" height="64"></a>
-    <a href="https://opencollective.com/Carbon/sponsor/0/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/0/avatar.svg"></a>
-    <a href="https://opencollective.com/Carbon/sponsor/1/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/1/avatar.svg"></a>
-    <a href="https://opencollective.com/Carbon/sponsor/2/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/2/avatar.svg"></a>
-    <a href="https://opencollective.com/Carbon/sponsor/3/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/3/avatar.svg"></a>
-    <a href="https://opencollective.com/Carbon/sponsor/4/website" target="_blank"><img src="https://opencollective.com/Carbon/sponsor/4/avatar.svg"></a>
-</div>
-
-<h2>Backers</h2>
-
-Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#backer">Become a backer</a>
-
-<div style="padding: 8px 16px; margin: 10px 0; border-radius: 2px; background: #d3d3d3">
-    <a href="https://opencollective.com/Carbon#backers" target="_blank"><img src="https://opencollective.com/Carbon/backers.svg?width=890"></a>
-</div>
-
-<h2>License</h2>
-<p>Carbon is licensed under the MIT License - see the <code>LICENSE</code> file for details.</p>
-
-<h2>Why the name Carbon?</h2>
-<p>Read about <a href="http://en.wikipedia.org/wiki/Radiocarbon_dating">Carbon Dating</a>.</p>
                     </div>
                     
+    <div class="col-md-3">
+        <div id="affix-nav" class="hidden-print hidden-xs hidden-sm affix">
+            <ul class="nav sidenav" data-spy="affix" data-offset-top="10">
+                <li><a href="#installation">Installation</a></li>
+                <li><a href="#orm-configuration">ORM configuration<</a></li>
+                <li><a href="#time-precision">Time precision</a></li>
+                <li><a href="#localization">Localization</a></li>
+            </ul>
+        </div>
+    </div>
+
                 </div>
             </div>
         </section>

@@ -134,7 +134,7 @@ function requireCarbon($branch)
         throw new \ErrorException('Cannot remove vendor directory.');
     }
 
-    return executeCommand("composer require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
+    return executeCommand("php ../composer.phar require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
 }
 
 foreach (methods() as list($carbonObject, $className, $method)) {
