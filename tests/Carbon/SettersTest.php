@@ -524,7 +524,7 @@ class SettersTest extends AbstractTestCase
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
-            $year = mt_rand(2000, 3000);
+            $year = mt_rand(2000, 2500);
             $month = mt_rand(1, 12);
             $day = mt_rand(1, 28);
             $hour = mt_rand(0, 23);
@@ -720,7 +720,7 @@ class SettersTest extends AbstractTestCase
         ];
 
         for ($i = 0; $i < static::SET_UNIT_NO_OVERFLOW_SAMPLE; $i++) {
-            $year = mt_rand(2000, 3000);
+            $year = mt_rand(2000, 2500);
             $month = mt_rand(1, 12);
             $day = mt_rand(1, 28);
             $hour = mt_rand(0, 23);
