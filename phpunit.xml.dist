@@ -13,6 +13,7 @@
     <filter>
         <whitelist>
             <directory>src/Carbon</directory>
+            <directory suffix=".php">src/Carbon/Doctrine</directory>
         </whitelist>
     </filter>
 
