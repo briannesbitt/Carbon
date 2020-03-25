@@ -52,8 +52,7 @@ trait CarbonType
             return $class::instance($value);
         }
 
-        $date = $class::createFromFormat('Y-m-d H:i:s.u', $value)
-            ?: $class::instance(date_create($value));
+        $date = $class::parse($value);
 
         if (!$date) {
             throw ConversionException::conversionFailedFormat(
