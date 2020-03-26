@@ -23,6 +23,7 @@
  * - Max Melentiev
  * - Juanito Fatas
  * - Alisher Ulugbekov
+ * - Ergashev Adizbek
  */
 return [
     'year' => ':count йил',
@@ -48,8 +49,8 @@ return [
     's' => ':count с',
     'ago' => ':time олдин',
     'from_now' => 'Якин :time ичида',
-    'after' => ':time пас аз он',
-    'before' => ':time пеш аз он',
+    'after' => ':time дан кейин',
+    'before' => ':time олдин',
     'diff_now' => 'ҳозир',
     'diff_yesterday' => 'Кеча',
     'diff_tomorrow' => 'Эртага',
