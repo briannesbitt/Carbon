@@ -84,12 +84,4 @@ trait CarbonType
             ['null', 'DateTime']
         );
     }
-
-    /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
-    {
-        return true;
-    }
 }
