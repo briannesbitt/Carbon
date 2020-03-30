@@ -6,9 +6,9 @@
  */
 namespace Carbon\Doctrine;
 
-use Doctrine\DBAL\Types\VarDateTimeImmutableType;
+use Doctrine\DBAL\Types\VarDateTimeType;
 
-class DateTimeType extends VarDateTimeImmutableType
+class DateTimeType extends VarDateTimeType
 {
     use CarbonType;
 }
