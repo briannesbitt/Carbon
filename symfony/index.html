@@ -92,8 +92,8 @@
 <pre><code class="yaml">doctrine:
     dbal:
         types:
-            datetime_immutable: \Carbon\Symfony\DateTimeImmutableType
-            datetime: \Carbon\Symfony\DateTimeType</code></pre>
+            datetime_immutable: \Carbon\Doctrine\DateTimeImmutableType
+            datetime: \Carbon\Doctrine\DateTimeType</code></pre>
 
 <p>Now when you will add a field in an ORM entity with the type <strong>datetime</strong>
     or <strong>datetime_immutable</strong> (recommended) it will automatically enhance those
