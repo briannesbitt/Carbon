@@ -354,9 +354,9 @@ trait Comparison
      *
      * @example
      * ```
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-07-14', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-08-01', '2018-08-20'); // false
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-07-25', '2018-08-01'); // true
      * ```
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
