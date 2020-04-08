@@ -1610,6 +1610,7 @@ class CarbonInterval extends DateInterval
             // break the loop after we have reached the minimum unit
             if (in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']])) {
                 $fallbackUnit = [$diffIntervalData['unit'], $diffIntervalData['unitShort']];
+
                 break;
             }
         }
