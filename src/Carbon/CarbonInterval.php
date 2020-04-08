@@ -1495,7 +1495,7 @@ class CarbonInterval extends DateInterval
      *                           `  - if $join is true, it will be guessed from the locale ('list' translation file entry)
      *                           `  - if $join is missing, a space will be used as glue
      *                           - 'minimumUnit' entry determines the smallest unit of time to display can be long or
-     *                             short form of the units, e.g. 'hour' or 'h' (default value: s)
+     *                           `  short form of the units, e.g. 'hour' or 'h' (default value: s)
      *                           if int passed, it add modifiers:
      *                           Possible values:
      *                           - CarbonInterface::DIFF_ABSOLUTE          no modifiers
