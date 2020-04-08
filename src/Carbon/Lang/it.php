@@ -43,6 +43,9 @@ return [
     'second' => ':count secondo|:count secondi',
     'a_second' => 'alcuni secondi|:count secondi',
     's' => ':count sec.',
+    'millisecond' => ':count millisecondo|:count millisecondi',
+    'a_millisecond' => 'un millisecondo|:count millisecondi',
+    'ms' => ':countms',
     'ago' => ':time fa',
     'from_now' => function ($time) {
         return (preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
