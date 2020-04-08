@@ -109,12 +109,6 @@ class ConversionsTest extends AbstractTestCase
     {
         $summer = Carbon::parse('2020-06-15');
         $winter = Carbon::parse('2018-12-20');
-        $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toOffsetName());
-        $this->assertSame('-04:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName());
-        $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toRegionTimeZone()->toOffsetName());
-        $this->assertSame('-05:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName($winter));
-        $this->assertSame('-06:00', (new CarbonTimeZone(-5))->toRegionTimeZone($winter)->toOffsetName($winter));
-        $this->assertSame('+00:00', (new CarbonTimeZone('UTC'))->toOffsetName());
         $this->assertSame('+02:00', (new CarbonTimeZone('Europe/Paris'))->toOffsetName());
         $this->assertSame('+05:30', (new CarbonTimeZone('Asia/Calcutta'))->toOffsetName());
         $this->assertSame('+13:45', CarbonTimeZone::create('Pacific/Chatham')->toOffsetName($winter));
