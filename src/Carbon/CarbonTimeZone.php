@@ -154,7 +154,7 @@ class CarbonTimeZone extends DateTimeZone
     {
         $minutes = floor($this->getOffset($date ?: Carbon::now($this)) / 60);
 
-        $hours = floor($minutes / 60);
+        $hours = (int) ($minutes / 60);
 
         $minutes = str_pad((string) (abs($minutes) % 60), 2, '0', STR_PAD_LEFT);
 
