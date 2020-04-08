@@ -54,9 +54,6 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame('Tuesday 6 August', $text);
     }
 
-    /**
-     * @group d
-     */
     public function testCompareChunkLists()
     {
         $method = new ReflectionMethod(Translator::class, 'compareChunkLists');
