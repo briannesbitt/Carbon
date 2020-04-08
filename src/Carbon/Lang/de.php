@@ -40,7 +40,7 @@ return [
     'a_second' => 'ein paar Sekunden|:count Sekunden',
     's' => ':count Sek.',
     'millisecond' => ':count Millisekunde|:count Millisekunde',
-    'a_millisecond' => 'ein paar Millisekunde|:count Millisekunde',
+    'a_millisecond' => 'eine Millisekunde|:count Millisekunde',
     'ms' => ':countms',
     'ago' => 'vor :time',
     'from_now' => 'in :time',

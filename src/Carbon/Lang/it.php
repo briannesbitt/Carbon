@@ -43,8 +43,8 @@ return [
     'second' => ':count secondo|:count secondi',
     'a_second' => 'alcuni secondi|:count secondi',
     's' => ':count sec.',
-    'millisecond' => '{1}:count millisecondo|{0}:count millisecondi|]1,Inf[:count millisecondi',
-    'a_millisecond' => '{1}pochi millisecondi|{0}:count millisecondi|]1,Inf[:count millisecondi',
+    'millisecond' => ':count millisecondo|:count millisecondi',
+    'a_millisecond' => 'un millisecondo|:count millisecondi',
     'ms' => ':countms',
     'ago' => ':time fa',
     'from_now' => function ($time) {
