@@ -368,4 +368,25 @@ class ForHumansTest extends AbstractTestCase
     {
         $this->assertSame([], CarbonInterval::days(0)->getValuesSequence());
     }
+
+    public function testMinimumIntervalUnitDefault()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        $this->assertEquals('1 second', $interval->forHumans(['parts' => 3]));
+    }
+
+    public function testMinimumIntervalUnitHours()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 hour 1 second 114 milliseconds');
+        $this->assertEquals('1 hour', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour']));
+    }
+
+    public function testMinimumIntervalUnitMillisecondsShort()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        $this->assertEquals('1s 114ms', $interval->forHumans(['parts' => 3, 'short' => true, 'minimumUnit' => 'ms']));
+    }
 }
