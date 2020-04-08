@@ -20,6 +20,7 @@
  * - JD Isaacks
  * - Sebastian Thierer
  * - Fastfuel
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count an|:count ans',

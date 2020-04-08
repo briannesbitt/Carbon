@@ -25,6 +25,7 @@
  * - Sebastian Thierer
  * - quinterocesar
  * - Daniel Commesse Liévanos (danielcommesse)
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count año|:count años',

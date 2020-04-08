@@ -13,6 +13,7 @@
  * Authors:
  * - Milos Sakovic
  * - Paul
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => '{1}:count year|{0}:count years|]1,Inf[:count years',

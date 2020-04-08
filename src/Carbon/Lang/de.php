@@ -16,6 +16,7 @@
  * - dennisoderwald
  * - Timo
  * - Karag2006
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count Jahr|:count Jahre',

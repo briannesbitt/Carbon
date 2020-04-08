@@ -20,6 +20,7 @@
  * - Francesco Marasco
  * - Tizianoz93
  * - Davide Casiraghi (davide-casiraghi)
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count anno|:count anni',
