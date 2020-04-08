@@ -13,7 +13,9 @@
     <filter>
         <whitelist>
             <directory>src/Carbon</directory>
-            <directory suffix=".php">src/Carbon/Doctrine</directory>
+            <exclude>
+                <directory suffix=".php">src/Carbon/Doctrine</directory>
+            </exclude>
         </whitelist>
     </filter>
 

@@ -48,9 +48,6 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionTimeZone($date)->getName());
     }
 
-    /**
-     * @group i
-     */
     public function testToOffsetName()
     {
         $summer = Carbon::parse('2020-06-15');
@@ -69,7 +66,6 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('-02:30', CarbonTimeZone::createFromMinuteOffset(-150)->toOffsetName());
         $this->assertSame('-08:45', CarbonTimeZone::create('-8:45')->toOffsetName());
         $this->assertSame('-09:30', CarbonTimeZone::create('Pacific/Marquesas')->toOffsetName());
-
     }
 
     public function testCast()

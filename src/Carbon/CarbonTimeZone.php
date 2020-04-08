@@ -247,7 +247,7 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Create a CarbonTimeZone from int/float hour offset.
      *
-     * @param float|int $hourOffset
+     * @param float $hourOffset number of hour of the timezone shift (can be decimal).
      *
      * @return false|static
      */
@@ -259,7 +259,7 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Create a CarbonTimeZone from int/float minute offset.
      *
-     * @param float|int $hourOffset
+     * @param float $minuteOffset number of total minutes of the timezone shift.
      *
      * @return false|static
      */
@@ -271,7 +271,7 @@ class CarbonTimeZone extends DateTimeZone
     /**
      * Convert a total minutes offset into a standardized timezone offset string.
      *
-     * @param float $minutes
+     * @param float $minutes number of total minutes of the timezone shift.
      *
      * @return string
      */
