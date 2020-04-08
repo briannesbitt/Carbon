@@ -253,7 +253,7 @@ class CarbonTimeZone extends DateTimeZone
      */
     public static function createFromHourOffset(float $hourOffset)
     {
-        return static::createFromMinuteOffset($hourOffset * 60);
+        return static::createFromMinuteOffset($hourOffset * Carbon::MINUTES_PER_HOUR);
     }
 
     /**
