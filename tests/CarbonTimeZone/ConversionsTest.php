@@ -48,7 +48,64 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionTimeZone($date)->getName());
     }
 
-    public function testToOffsetName()
+    public function dataProviderToOffsetName()
+    {
+        return [
+            // timezone - number
+            ['2018-12-20', '-05:00', -5],
+            ['2018-06-20', '-05:00', -5],
+            // timezone - use offset
+            ['2018-12-20', '-05:00', '-05:00'],
+            ['2018-06-20', '-05:00', '-05:00'],
+            // timezone - by name - with daylight time
+            ['2018-12-20', '-05:00', 'America/Toronto'],
+            ['2018-06-20', '-04:00', 'America/Toronto'],
+            // timezone - by name - without daylight time
+            ['2018-12-20', '+03:00', 'Asia/Baghdad'],
+            ['2018-06-20', '+03:00', 'Asia/Baghdad'],
+            // timezone - no full hour - the same time
+            ['2018-12-20', '-09:30', 'Pacific/Marquesas'],
+            ['2018-06-20', '-09:30', 'Pacific/Marquesas'],
+            // timezone - no full hour -
+            ['2018-12-20', '-03:30', 'America/St_Johns'],
+            ['2018-06-20', '-02:30', 'America/St_Johns'],
+            // timezone - no full hour +
+            ['2018-12-20', '+13:45', 'Pacific/Chatham'],
+            ['2018-06-20', '+12:45', 'Pacific/Chatham'],
+            // timezone - UTC
+            ['2018-12-20', '+00:00', 'UTC'],
+            ['2018-06-20', '+00:00', 'UTC'],
+        ];
+    }
+
+    /**
+     * @param string     $date
+     * @param string     $expectedOffset
+     * @param string|int $timezone
+     * @dataProvider dataProviderToOffsetName
+     */
+    public function testToOffsetName($date, $expectedOffset, $timezone)
+    {
+        Carbon::setTestNow(Carbon::parse($date));
+        $offset = (new CarbonTimeZone($timezone))->toOffsetName();
+
+        $this->assertEquals($expectedOffset, $offset);
+    }
+
+    /**
+     * @param string     $date
+     * @param string     $expectedOffset
+     * @param string|int $timezone
+     * @dataProvider dataProviderToOffsetName
+     */
+    public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
+    {
+        $offset = (new CarbonTimeZone($timezone))->toOffsetName(Carbon::parse($date));
+
+        $this->assertEquals($expectedOffset, $offset);
+    }
+
+    public function testToOffsetNameFromDifferentCreationMethods()
     {
         $summer = Carbon::parse('2020-06-15');
         $winter = Carbon::parse('2018-12-20');
