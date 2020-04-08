@@ -369,24 +369,33 @@ class ForHumansTest extends AbstractTestCase
         $this->assertSame([], CarbonInterval::days(0)->getValuesSequence());
     }
 
-    public function testMinimumIntervalUnitDefault()
+    public function testMinimumUnitDefault()
     {
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::fromString('1 second 114 milliseconds');
         $this->assertEquals('1 second', $interval->forHumans(['parts' => 3]));
     }
 
-    public function testMinimumIntervalUnitHours()
+    public function testMinimumUnitHours()
     {
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::fromString('1 hour 1 second 114 milliseconds');
         $this->assertEquals('1 hour', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour']));
     }
 
-    public function testMinimumIntervalUnitMillisecondsShort()
+    public function testMinimumUnitMillisecondsShort()
     {
         CarbonInterval::setLocale('en');
         $interval = CarbonInterval::fromString('1 second 114 milliseconds');
         $this->assertEquals('1s 114ms', $interval->forHumans(['parts' => 3, 'short' => true, 'minimumUnit' => 'ms']));
+    }
+
+    public function testMinimumUnitNoInterval()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        // Test with and without NO_ZERO_DIFF
+        $this->assertEquals('1 hour', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour', 'options' => CarbonInterface::NO_ZERO_DIFF]));
+        $this->assertEquals('0 hours', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour', 'options' => 0]));
     }
 }

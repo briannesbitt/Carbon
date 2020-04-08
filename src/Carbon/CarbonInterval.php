@@ -1592,6 +1592,7 @@ class CarbonInterval extends DateInterval
             return $this->translate($unitData['unit'], $interpolations, $count, $translator, $altNumbers);
         };
 
+        $fallbackUnit = ['second', 's'];
         foreach ($diffIntervalArray as $diffIntervalData) {
             if ($diffIntervalData['value'] > 0) {
                 $unit = $short ? $diffIntervalData['unitShort'] : $diffIntervalData['unit'];
@@ -1608,6 +1609,7 @@ class CarbonInterval extends DateInterval
 
             // break the loop after we have reached the minimum unit
             if (in_array($minimumUnit, [$diffIntervalData['unit'], $diffIntervalData['unitShort']])) {
+                $fallbackUnit = [$diffIntervalData['unit'], $diffIntervalData['unitShort']];
                 break;
             }
         }
@@ -1623,7 +1625,7 @@ class CarbonInterval extends DateInterval
             }
 
             $count = $options & CarbonInterface::NO_ZERO_DIFF ? 1 : 0;
-            $unit = $short ? 's' : 'second';
+            $unit = $fallbackUnit[$short ? 1 : 0];
             $interval[] = $this->translate($unit, $interpolations, $count, $translator, $altNumbers);
         }
 
