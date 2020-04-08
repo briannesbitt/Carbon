@@ -152,13 +152,9 @@ class CarbonTimeZone extends DateTimeZone
      */
     public function toOffsetName(DateTimeInterface $date = null)
     {
-        $minutes = floor($this->getOffset($date ?: Carbon::now($this)) / 60);
-
-        $hours = floor($minutes / 60);
-
-        $minutes = str_pad((string) (abs($minutes) % 60), 2, '0', STR_PAD_LEFT);
-
-        return ($hours < 0 ? '-' : '+').str_pad((string) abs($hours), 2, '0', STR_PAD_LEFT).":$minutes";
+        return static::getOffsetNameFromMinuteOffset(
+            $this->getOffset($date ?: Carbon::now($this)) / 60
+        );
     }
 
     /**
@@ -246,5 +242,47 @@ class CarbonTimeZone extends DateTimeZone
     public static function create($object = null)
     {
         return static::instance($object);
+    }
+
+    /**
+     * Create a CarbonTimeZone from int/float hour offset.
+     *
+     * @param float|int $hourOffset
+     *
+     * @return false|static
+     */
+    public static function createFromHourOffset(float $hourOffset)
+    {
+        return static::createFromMinuteOffset($hourOffset * 60);
+    }
+
+    /**
+     * Create a CarbonTimeZone from int/float minute offset.
+     *
+     * @param float|int $hourOffset
+     *
+     * @return false|static
+     */
+    public static function createFromMinuteOffset(float $minuteOffset)
+    {
+        return static::instance(static::getOffsetNameFromMinuteOffset($minuteOffset));
+    }
+
+    /**
+     * Convert a total minutes offset into a standardized timezone offset string.
+     *
+     * @param float $minutes
+     *
+     * @return string
+     */
+    public static function getOffsetNameFromMinuteOffset(float $minutes): string
+    {
+        $minutes = round($minutes);
+        $unsignedMinutes = abs($minutes);
+
+        return ($minutes < 0 ? '-' : '+').
+            str_pad((string) floor($unsignedMinutes / 60), 2, '0', STR_PAD_LEFT).
+            ':'.
+            str_pad((string) ($unsignedMinutes % 60), 2, '0', STR_PAD_LEFT);
     }
 }

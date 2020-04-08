@@ -48,17 +48,28 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionTimeZone($date)->getName());
     }
 
+    /**
+     * @group i
+     */
     public function testToOffsetName()
     {
+        $summer = Carbon::parse('2020-06-15');
+        $winter = Carbon::parse('2018-12-20');
         $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toOffsetName());
         $this->assertSame('-04:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName());
         $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toRegionTimeZone()->toOffsetName());
-        $date = Carbon::parse('2018-12-20');
-        $this->assertSame('-05:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName($date));
-        $this->assertSame('-06:00', (new CarbonTimeZone(-5))->toRegionTimeZone($date)->toOffsetName($date));
+        $this->assertSame('-05:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName($winter));
+        $this->assertSame('-06:00', (new CarbonTimeZone(-5))->toRegionTimeZone($winter)->toOffsetName($winter));
         $this->assertSame('+00:00', (new CarbonTimeZone('UTC'))->toOffsetName());
         $this->assertSame('+02:00', (new CarbonTimeZone('Europe/Paris'))->toOffsetName());
         $this->assertSame('+05:30', (new CarbonTimeZone('Asia/Calcutta'))->toOffsetName());
+        $this->assertSame('+13:45', CarbonTimeZone::create('Pacific/Chatham')->toOffsetName($winter));
+        $this->assertSame('+12:00', CarbonTimeZone::create('Pacific/Auckland')->toOffsetName($summer));
+        $this->assertSame('-05:15', CarbonTimeZone::createFromHourOffset(-5.25)->toOffsetName());
+        $this->assertSame('-02:30', CarbonTimeZone::createFromMinuteOffset(-150)->toOffsetName());
+        $this->assertSame('-08:45', CarbonTimeZone::create('-8:45')->toOffsetName());
+        $this->assertSame('-09:30', CarbonTimeZone::create('Pacific/Marquesas')->toOffsetName());
+
     }
 
     public function testCast()
