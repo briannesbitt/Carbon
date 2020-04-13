@@ -72,7 +72,7 @@ class LocalizationTest extends AbstractTestCase
         setlocale(LC_ALL, $currentLocale);
         rename(__DIR__.'/../../src/Carbon/Lang/disabled_ar_AE.php', __DIR__.'/../../src/Carbon/Lang/ar_AE.php');
 
-        $this->assertSame('ar', $locale);
+        $this->assertStringStartsWith('ar', $locale);
         $this->assertSame('منذ ثانيتين', $diff);
 
         if (setlocale(LC_ALL, 'sr_ME.UTF-8', 'sr_ME.utf8', 'sr_ME', 'sr') === false) {
