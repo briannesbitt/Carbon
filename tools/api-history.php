@@ -134,7 +134,10 @@ function requireCarbon($branch)
         throw new \ErrorException('Cannot remove vendor directory.');
     }
 
-    return executeCommand("php ../composer.phar require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
+    $path = realpath(__DIR__.'/../composer.phar');
+    $path = $path ? "php $path" : 'composer';
+
+    return executeCommand("$path require --no-interaction --ignore-platform-reqs --prefer-dist nesbot/carbon:$branch 2>&1");
 }
 
 foreach (methods() as list($carbonObject, $className, $method)) {
@@ -166,7 +169,10 @@ function getMethodsOfVersion($version)
     }
 
     $output = shell_exec('php '.__FILE__.' current '.escapeshellarg('sandbox'));
-    file_put_contents(__DIR__.'/cache/methods_of_version_'.$version.'.json', $output);
+
+    if (!empty($output)) {
+        file_put_contents(__DIR__.'/cache/methods_of_version_'.$version.'.json', $output);
+    }
 
     return $output;
 }
