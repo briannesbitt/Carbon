@@ -23,7 +23,7 @@ use InvalidArgumentException;
  * Depends on the following methods:
  *
  * @method CarbonInterface copy()
- * @method CarbonInterface startOfWeek()
+ * @method CarbonInterface startOfWeek(int $weekStartsAt = null)
  */
 trait Rounding
 {
