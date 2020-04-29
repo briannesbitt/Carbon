@@ -4746,6 +4746,13 @@ echo "\n";
     <pre class="live-editor"><code class="php">{{::lint(
 $tz = CarbonTimeZone::create('+03:00'); // full string
 $tz = CarbonTimeZone::create(3); // or hour integer short way
+
+$tz = CarbonTimeZone::createFromHourOffset(3); // explicit method rather type-based detection is even better
+$tz = CarbonTimeZone::createFromMinuteOffset(180); // the equivalent in minute unit
+
+// Both above rely on the static minute-to-string offset converter also available as:
+$tzString = CarbonTimeZone::getOffsetNameFromMinuteOffset(180);
+$tz = CarbonTimeZone::create($tzString);
 )}}
 
 {{::exec(echo $tz->getName();/*pad(36)*/)}} // {{eval}}
