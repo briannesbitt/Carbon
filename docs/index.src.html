@@ -1006,6 +1006,7 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
         <thead>
         <tr>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Locale</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Language</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Diff syntax</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">1-day diff</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">2-days diff</div></th>
@@ -1020,6 +1021,7 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
         {{locale::each(Carbon::getAvailableMacroLocales())}}
         <tr>
             <td>{{eval(echo $locale;)}}</td>
+            <td>{{eval(echo (new \Carbon\Language($locale))->getIsoName();)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
