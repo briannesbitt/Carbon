@@ -20,6 +20,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Trait Creator.
@@ -655,11 +656,11 @@ trait Creator
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
      *
-     * @param string                                             $format     Datetime format
-     * @param string                                             $time
-     * @param DateTimeZone|string|false|null                     $tz         optional timezone
-     * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
+     * @param string                         $format     Datetime format
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz         optional timezone
+     * @param string|null                    $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
+     * @param TranslatorInterface            $translator optional custom translator to use for macro-formats
      *
      * @throws InvalidArgumentException
      *

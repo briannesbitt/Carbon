@@ -17,16 +17,8 @@ use Carbon\Translator;
 use Closure;
 use InvalidArgumentException;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
-use Symfony\Contracts\Translation\TranslatorInterface as ContractsTranslatorInterface;
-
-if (!interface_exists('Symfony\\Component\\Translation\\TranslatorInterface')) {
-    class_alias(
-        'Symfony\\Contracts\\Translation\\TranslatorInterface',
-        'Symfony\\Component\\Translation\\TranslatorInterface'
-    );
-}
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Trait Localization.
@@ -38,14 +30,14 @@ trait Localization
     /**
      * Default translator.
      *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected static $translator;
 
     /**
      * Specific translator of the current instance.
      *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected $localTranslator;
 
@@ -105,7 +97,7 @@ trait Localization
     /**
      * Initialize the default translator instance if necessary.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     protected static function translator()
     {
@@ -119,7 +111,7 @@ trait Localization
     /**
      * Get the default translator instance in use.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public static function getTranslator()
     {
@@ -129,7 +121,7 @@ trait Localization
     /**
      * Set the default translator instance to use.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return void
      */
@@ -151,7 +143,7 @@ trait Localization
     /**
      * Get the translator of the current instance or the default if none set.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public function getLocalTranslator()
     {
@@ -161,7 +153,7 @@ trait Localization
     /**
      * Set the translator for the current instance.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return $this
      */
@@ -175,10 +167,10 @@ trait Localization
     /**
      * Returns raw translation message for a given key.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
+     * @param TranslatorInterface $translator the translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
      *
      * @return string
      */
@@ -202,10 +194,10 @@ trait Localization
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
+     * @param TranslatorInterface $translator an optional translator to use
      *
      * @return string
      */
@@ -217,16 +209,17 @@ trait Localization
     /**
      * Translate using translation string or callback available.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
+     * @param TranslatorInterface $translator
+     * @param string              $key
+     * @param array               $parameters
+     * @param null                $number
      *
      * @return string
      */
     public static function translateWith(TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string
     {
         $message = static::getTranslationMessageWith($translator, $key, null, $key);
+
         if ($message instanceof Closure) {
             return (string) $message(...array_values($parameters));
         }
@@ -234,26 +227,21 @@ trait Localization
         if ($number !== null) {
             $parameters['%count%'] = $number;
         }
+
         if (isset($parameters['%count%'])) {
             $parameters[':count'] = $parameters['%count%'];
         }
 
-        // @codeCoverageIgnoreStart
-        $choice = $translator instanceof ContractsTranslatorInterface
-            ? $translator->trans($key, $parameters)
-            : $translator->transChoice($key, $number, $parameters);
-        // @codeCoverageIgnoreEnd
-
-        return (string) $choice;
+        return (string) $translator->trans($key, $parameters);
     }
 
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string              $key
+     * @param array               $parameters
+     * @param null                $number
+     * @param TranslatorInterface $translator
      *
      * @return string
      */

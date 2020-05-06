@@ -841,9 +841,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @example
      * ```
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
-     * Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-07-14', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-08-01', '2018-08-20'); // false
+     * Carbon::parse('2018-07-25')->betweenIncluded('2018-07-25', '2018-08-01'); // true
      * ```
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
@@ -1017,11 +1017,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Create a Carbon instance from a specific ISO format (same replacements as ->isoFormat()).
      *
-     * @param string                                             $format     Datetime format
-     * @param string                                             $time
-     * @param DateTimeZone|string|false|null                     $tz         optional timezone
-     * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
+     * @param string                         $format     Datetime format
+     * @param string                         $time
+     * @param DateTimeZone|string|false|null $tz         optional timezone
+     * @param string|null                    $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
+     * @param TranslatorInterface            $translator optional custom translator to use for macro-formats
      *
      * @throws InvalidArgumentException
      *
@@ -1311,6 +1311,16 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function diffInMonths($date = null, $absolute = true);
 
     /**
+     * Get the difference in quarters rounded down.
+     *
+     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
+     * @param bool                                                   $absolute Get the absolute of the difference
+     *
+     * @return int
+     */
+    public function diffInQuarters($date = null, $absolute = true);
+
+    /**
      * Get the difference in hours rounded down using timestamps.
      *
      * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
@@ -1399,16 +1409,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return int
      */
     public function diffInWeeks($date = null, $absolute = true);
-
-    /**
-     * Get the difference in quarters rounded down.
-     *
-     * @param \Carbon\CarbonInterface|\DateTimeInterface|string|null $date
-     * @param bool                                                   $absolute Get the absolute of the difference
-     *
-     * @return int
-     */
-    public function diffInQuarters($date = null, $absolute = true);
 
     /**
      * Get the difference in years
@@ -2037,7 +2037,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the translator of the current instance or the default if none set.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public function getLocalTranslator();
 
@@ -2184,10 +2184,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator an optional translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
+     * @param TranslatorInterface $translator an optional translator to use
      *
      * @return string
      */
@@ -2196,10 +2196,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Returns raw translation message for a given key.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator the translator to use
-     * @param string                                             $key        key to find
-     * @param string|null                                        $locale     current locale used if null
-     * @param string|null                                        $default    default value if translation returns the key
+     * @param TranslatorInterface $translator the translator to use
+     * @param string              $key        key to find
+     * @param string|null         $locale     current locale used if null
+     * @param string|null         $default    default value if translation returns the key
      *
      * @return string
      */
@@ -2208,7 +2208,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Get the default translator instance in use.
      *
-     * @return \Symfony\Component\Translation\TranslatorInterface
+     * @return TranslatorInterface
      */
     public static function getTranslator();
 
@@ -2439,8 +2439,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * ```
      * Carbon::parse('2018-07-25')->isBetween('2018-07-14', '2018-08-01'); // true
      * Carbon::parse('2018-07-25')->isBetween('2018-08-01', '2018-08-20'); // false
-     * Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // false
-     * Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', true); // true
+     * Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // true
+     * Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', false); // false
      * ```
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
@@ -3604,11 +3604,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the translator for the current instance.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return $this
      */
-    public function setLocalTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public function setLocalTranslator(\Symfony\Contracts\Translation\TranslatorInterface $translator);
 
     /**
      * Set the current translator locale and indicate if the source locale file exists.
@@ -3726,11 +3726,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the default translator instance to use.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param TranslatorInterface $translator
      *
      * @return void
      */
-    public static function setTranslator(\Symfony\Component\Translation\TranslatorInterface $translator);
+    public static function setTranslator(\Symfony\Contracts\Translation\TranslatorInterface $translator);
 
     /**
      * Set specified unit to new given value.
@@ -4578,14 +4578,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
+     * @param string              $key
+     * @param array               $parameters
+     * @param null                $number
+     * @param TranslatorInterface $translator
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Component\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
+    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
 
     /**
      * Returns the alternative number for a given integer if available in the current locale.
@@ -4627,14 +4627,14 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param \Symfony\Component\Translation\TranslatorInterface $translator
-     * @param string                                             $key
-     * @param array                                              $parameters
-     * @param null                                               $number
+     * @param TranslatorInterface $translator
+     * @param string              $key
+     * @param array               $parameters
+     * @param null                $number
      *
      * @return string
      */
-    public static function translateWith(\Symfony\Component\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
+    public static function translateWith(\Symfony\Contracts\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
 
     /**
      * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)

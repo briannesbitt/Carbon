@@ -13,14 +13,12 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
-use Carbon\Exceptions\NotLocaleAwareException;
 use Carbon\Language;
 use Carbon\Translator;
+use InvalidArgumentException;
 use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\Translation\TranslatorInterface;
 use Tests\AbstractTestCase;
 use Tests\Carbon\Fixtures\MyCarbon;
 
@@ -692,27 +690,6 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame(['en'], Carbon::getAvailableLocales());
     }
 
-    public function testNotLocaleAwareException()
-    {
-        if (method_exists(TranslatorInterface::class, 'getLocale')) {
-            $this->markTestSkipped('In Symfony < 5, NotLocaleAwareException will never been thrown.');
-        }
-
-        $translator = new class implements TranslatorInterface {
-            public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
-            {
-                return 'x';
-            }
-        };
-
-        Carbon::setTranslator($translator);
-
-        $this->expectException(NotLocaleAwareException::class);
-        $this->expectExceptionMessage(get_class($translator).' does neither implements Symfony\\Contracts\\Translation\\LocaleAwareInterface nor getLocale() method.');
-
-        Carbon::now()->locale();
-    }
-
     public function testGetAvailableLocalesInfo()
     {
         $infos = Carbon::getAvailableLocalesInfo();
@@ -747,17 +724,14 @@ class LocalizationTest extends AbstractTestCase
 
     public function testTranslationCustomWithCustomTranslator()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Translator does not implement Symfony\Component\Translation\TranslatorInterface '.
+            'Translator does not implement Symfony\Contracts\Translation\TranslatorInterface '.
             'and Symfony\Component\Translation\TranslatorBagInterface.'
         );
 
         $date = Carbon::create(2018, 1, 1, 0, 0, 0);
-        $date->setLocalTranslator(class_exists(MessageSelector::class)
-            ? new IdentityTranslator(new MessageSelector())
-            : new IdentityTranslator()
-        );
+        $date->setLocalTranslator(new IdentityTranslator());
 
         $date->getTranslationMessage('foo');
     }
