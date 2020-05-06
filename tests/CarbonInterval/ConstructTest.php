@@ -48,7 +48,7 @@ class ConstructTest extends AbstractTestCase
     {
         $ci = new CarbonInterval();
         $this->assertInstanceOfCarbonInterval($ci);
-        $this->assertCarbonInterval($ci, 1, 0, 0, 0, 0, 0);
+        $this->assertCarbonInterval($ci, 0, 0, 0, 0, 0, 0);
     }
 
     public function testNulls()

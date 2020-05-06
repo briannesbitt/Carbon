@@ -21,11 +21,17 @@ class SpecTest extends AbstractTestCase
     {
         $ci = new CarbonInterval(0, 0, 0, 0, 0, 0, 0);
         $this->assertSame('PT0S', $ci->spec());
+        $ci = new CarbonInterval();
+        $this->assertSame('PT0S', $ci->spec());
+        $ci = CarbonInterval::create();
+        $this->assertSame('PT0S', $ci->spec());
     }
 
     public function testYearInterval()
     {
-        $ci = new CarbonInterval();
+        $ci = new CarbonInterval(1);
+        $this->assertSame('P1Y', $ci->spec());
+        $ci = CarbonInterval::create(1);
         $this->assertSame('P1Y', $ci->spec());
     }
 
