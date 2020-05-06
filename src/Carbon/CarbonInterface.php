@@ -19,6 +19,7 @@ use DateTimeZone;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Common interface for Carbon and CarbonImmutable.

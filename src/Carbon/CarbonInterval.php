@@ -18,6 +18,7 @@ use Closure;
 use DateInterval;
 use Exception;
 use InvalidArgumentException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * A simple API extension for DateInterval.
@@ -185,7 +186,7 @@ class CarbonInterval extends DateInterval
     /**
      * A translator to ... er ... translate stuff
      *
-     * @var \Symfony\Component\Translation\TranslatorInterface
+     * @var TranslatorInterface
      */
     protected static $translator;
 
@@ -1522,7 +1523,7 @@ class CarbonInterval extends DateInterval
         $isFuture = $this->invert === 1;
         $transId = $relativeToNow ? ($isFuture ? 'from_now' : 'ago') : ($isFuture ? 'after' : 'before');
 
-        /** @var \Symfony\Component\Translation\Translator $translator */
+        /** @var Translator $translator */
         $translator = $this->getLocalTranslator();
 
         $handleDeclensions = function ($unit, $count) use ($interpolations, $transId, $translator, $altNumbers, $absolute) {
