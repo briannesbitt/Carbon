@@ -46,7 +46,7 @@ trait Localization
      *
      * @var int
      */
-    protected static $humanDiffOptions = CarbonInterface::NO_ZERO_DIFF;
+    protected static $humanDiffOptions = 0;
 
     /**
      * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.

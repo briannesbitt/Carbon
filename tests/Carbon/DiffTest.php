@@ -544,7 +544,7 @@ class DiffTest extends AbstractTestCase
     public function testDiffForHumansNowAndSecond()
     {
         $this->wrapWithTestNow(function () {
-            $this->assertSame('1 second ago', Carbon::now()->diffForHumans());
+            $this->assertSame('0 seconds ago', Carbon::now()->diffForHumans());
         });
     }
 
@@ -553,7 +553,7 @@ class DiffTest extends AbstractTestCase
         $vanNow = Carbon::now('America/Vancouver');
         $hereNow = $vanNow->copy()->setTimezone(Carbon::now()->tz);
         $this->wrapWithTestNow(function () use ($vanNow) {
-            $this->assertSame('1 second ago', $vanNow->diffForHumans());
+            $this->assertSame('0 seconds ago', $vanNow->diffForHumans());
         }, $hereNow);
     }
 
@@ -1308,10 +1308,10 @@ class DiffTest extends AbstractTestCase
         $this->assertSame(8, Carbon::TWO_DAY_WORDS);
 
         $options = Carbon::getHumanDiffOptions();
-        $this->assertSame(1, $options);
+        $this->assertSame(0, $options);
 
         $date = Carbon::create(2018, 3, 12, 2, 5, 6, 'UTC');
-        $this->assertSame('1 second before', $date->diffForHumans($date));
+        $this->assertSame('0 seconds before', $date->diffForHumans($date));
 
         Carbon::setHumanDiffOptions(0);
         $this->assertSame(0, Carbon::getHumanDiffOptions());

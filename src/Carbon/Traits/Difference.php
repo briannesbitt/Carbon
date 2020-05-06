@@ -1051,7 +1051,6 @@ trait Difference
         return $this->diffForHumans($other, [
             'join' => ', ',
             'syntax' => CarbonInterface::DIFF_ABSOLUTE,
-            'options' => CarbonInterface::NO_ZERO_DIFF,
             'parts' => -1,
         ]);
     }
