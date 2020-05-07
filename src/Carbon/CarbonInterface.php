@@ -16,6 +16,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use Exception;
 use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionException;
@@ -982,7 +983,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -996,7 +997,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -1066,7 +1067,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -1078,7 +1079,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                   $time
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return static
      */
@@ -1121,6 +1122,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
+     * @throws Exception
+     *
      * @return static
      */
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null);
@@ -1148,7 +1151,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
+     * @throws Exception
      *
      * @return static|false
      */
@@ -3066,6 +3069,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param mixed $var
      *
+     * @throws Exception
+     *
      * @return static|null
      */
     public static function make($var);
@@ -3315,6 +3320,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
      *
+     * @throws Exception
+     *
      * @return static
      */
     public static function parse($time = null, $tz = null);
@@ -3325,6 +3332,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                   $time
      * @param string                   $locale
      * @param DateTimeZone|string|null $tz
+     *
+     * @throws Exception
      *
      * @return static
      */
@@ -3407,6 +3416,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
+     *
+     * @throws Exception
      *
      * @return static
      */
