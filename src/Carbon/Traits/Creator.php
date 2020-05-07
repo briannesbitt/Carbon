@@ -162,6 +162,8 @@ trait Creator
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
      *
+     * @throws Exception
+     *
      * @return static
      */
     public static function rawParse($time = null, $tz = null)
@@ -173,11 +175,13 @@ trait Creator
         try {
             return new static($time, $tz);
         } catch (Exception $exception) {
-            try {
-                return static::now($tz)->change($time);
-            } catch (Exception $ignored) {
+            $date = @static::now($tz)->change($time);
+
+            if (!$date) {
                 throw $exception;
             }
+
+            return $date;
         }
     }
 
@@ -190,6 +194,8 @@ trait Creator
      *
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
+     *
+     * @throws Exception
      *
      * @return static
      */
@@ -214,6 +220,8 @@ trait Creator
      * @param string                   $time
      * @param string                   $locale
      * @param DateTimeZone|string|null $tz
+     *
+     * @throws Exception
      *
      * @return static
      */
@@ -344,7 +352,7 @@ trait Creator
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -429,7 +437,7 @@ trait Creator
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \Carbon\Exceptions\InvalidDateException|\InvalidArgumentException
+     * @throws Exception
      *
      * @return static|false
      */
@@ -470,7 +478,7 @@ trait Creator
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -487,6 +495,8 @@ trait Creator
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
+     * @throws Exception
+     *
      * @return static
      */
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null)
@@ -502,7 +512,7 @@ trait Creator
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws Exception|InvalidArgumentException
      *
      * @return static
      */
@@ -517,7 +527,7 @@ trait Creator
      * @param string                   $time
      * @param DateTimeZone|string|null $tz
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return static
      */
@@ -531,7 +541,7 @@ trait Creator
      * @param string                         $time
      * @param DateTimeZone|string|false|null $originalTz
      *
-     * @return \DateTimeInterface|false
+     * @return DateTimeInterface|false
      */
     private static function createFromFormatAndTimezone($format, $time, $originalTz)
     {
@@ -837,6 +847,8 @@ trait Creator
      * and recurrences). Throw an exception for invalid format, but otherwise return null.
      *
      * @param mixed $var
+     *
+     * @throws Exception
      *
      * @return static|null
      */
