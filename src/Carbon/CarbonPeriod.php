@@ -12,6 +12,7 @@ namespace Carbon;
 
 use BadMethodCallException;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -178,9 +179,11 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
-    use Options, Mixin {
+    use IntervalRounding;
+    use Mixin {
         Mixin::mixin as baseMixin;
     }
+    use Options;
 
     /**
      * Built-in filters.
@@ -1743,14 +1746,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             });
         }
 
-        $action = substr($method, 0, 4);
+        $roundedValue = $this->callRoundMethod($method, $parameters);
 
-        if ($action !== 'ceil') {
-            $action = substr($method, 0, 5);
-        }
-
-        if (in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
+        if ($roundedValue !== null) {
+            return $roundedValue;
         }
 
         $first = count($parameters) >= 1 ? $parameters[0] : null;

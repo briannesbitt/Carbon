@@ -15,6 +15,7 @@ use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
 use Carbon\Exceptions\BadUnitException;
+use Carbon\Exceptions\UnknownMethodException;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -24,6 +25,7 @@ use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
 use RuntimeException;
+use Throwable;
 
 /**
  * A simple API extension for DateTime.
@@ -522,6 +524,7 @@ trait Date
     use Converter;
     use Creator;
     use Difference;
+    use IntervalRounding;
     use Macro;
     use Modifiers;
     use Mutability;
@@ -2284,9 +2287,9 @@ trait Date
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @throws \BadMethodCallException
-     *
      * @return mixed
+     * @throws BadMethodCallException
+     *
      */
     public static function __callStatic($method, $parameters)
     {
@@ -2417,10 +2420,10 @@ trait Date
     /**
      * Dynamically handle calls to the class.
      *
-     * @param string $method     magic method name called
-     * @param array  $parameters parameters list
+     * @param string $method magic method name called
+     * @param array $parameters parameters list
      *
-     * @throws \BadMethodCallException|\ReflectionException
+     * @throws UnknownMethodException|BadMethodCallException|ReflectionException|Throwable
      *
      * @return mixed
      */
@@ -2460,14 +2463,10 @@ trait Date
             return $this->diffForHumans($other, $diffSyntaxModes[$match['syntax']], $diffSizes[$match['size']], ...$parameters);
         }
 
-        $action = substr($method, 0, 4);
+        $roundedValue = $this->callRoundMethod($method, $parameters);
 
-        if ($action !== 'ceil') {
-            $action = substr($method, 0, 5);
-        }
-
-        if (in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
+        if ($roundedValue !== null) {
+            return $roundedValue;
         }
 
         $unit = rtrim($method, 's');
@@ -2585,7 +2584,7 @@ trait Date
                 }
 
                 if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                    throw new BadMethodCallException("Method $method does not exist.");
+                    throw new UnknownMethodException($method);
                 }
 
                 return null;

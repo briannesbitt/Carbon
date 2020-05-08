@@ -11,19 +11,19 @@
 namespace Carbon\Exceptions;
 
 use Exception;
-use InvalidArgumentException as BaseInvalidArgumentException;
+use BadMethodCallException as BaseBadMethodCallException;
 
-class BadUnitException extends BaseInvalidArgumentException implements InvalidArgumentException
+class BadFluentConstructorException extends BaseBadMethodCallException implements BadMethodCallException
 {
     /**
      * Constructor.
      *
-     * @param string         $unit
+     * @param string         $method
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct($unit, $code = 0, Exception $previous = null)
+    public function __construct($method, $code = 0, Exception $previous = null)
     {
-        parent::__construct("Bad comparison unit: '$unit'", $code, $previous);
+        parent::__construct(sprintf("Unknown fluent constructor '%s'.", $method), $code, $previous);
     }
 }
