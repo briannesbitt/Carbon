@@ -9,9 +9,9 @@ namespace Carbon\Doctrine;
 use Carbon\CarbonImmutable;
 use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
-class DateTimeImmutableType extends VarDateTimeImmutableType
+class DateTimeImmutableType extends VarDateTimeImmutableType implements CarbonDoctrineType
 {
-    use CarbonType;
+    use CarbonTypeConverter;
 
     protected function getCarbonClassName(): string
     {
