@@ -31,13 +31,13 @@ return [
     'a_minute' => '{1}මිනිත්තුවක්|මිනිත්තු :count',
     'second' => '{1}තත්පර 1|තත්පර :count',
     'a_second' => '{1}තත්පර කිහිපයකට|තත්පර :count',
-    'ago' => ':timeකට පෙර',
+    'ago' => ':time කට පෙර',
     'from_now' => function ($time) {
         if (preg_match('/දින \d+/', $time)) {
-            return $time.'න්';
+            return $time.' න්';
         }
 
-        return $time.'කින්';
+        return $time.' කින්';
     },
     'before' => ':time කට පෙර',
     'after' => function ($time) {
