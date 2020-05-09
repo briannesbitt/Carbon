@@ -13,9 +13,9 @@ namespace Tests\Doctrine;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Carbon\Doctrine\CarbonDoctrineType;
 use Carbon\Doctrine\CarbonImmutableType;
 use Carbon\Doctrine\CarbonType;
-use Carbon\Doctrine\CarbonTypeConverter;
 use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
@@ -38,9 +38,9 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string              $name
-     * @param string              $class
-     * @param CarbonTypeConverter $type
+     * @param string             $name
+     * @param string             $class
+     * @param CarbonDoctrineType $type
      *
      * @dataProvider getTypes
      */
@@ -75,9 +75,9 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string              $name
-     * @param string              $class
-     * @param CarbonTypeConverter $type
+     * @param string             $name
+     * @param string             $class
+     * @param CarbonDoctrineType $type
      *
      * @dataProvider getTypes
      */
@@ -99,9 +99,9 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string              $name
-     * @param string              $class
-     * @param CarbonTypeConverter $type
+     * @param string             $name
+     * @param string             $class
+     * @param CarbonDoctrineType $type
      *
      * @dataProvider getTypes
      *
@@ -119,9 +119,9 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string              $name
-     * @param string              $class
-     * @param CarbonTypeConverter $type
+     * @param string             $name
+     * @param string             $class
+     * @param CarbonDoctrineType $type
      *
      * @dataProvider getTypes
      */
@@ -135,9 +135,9 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string              $name
-     * @param string              $class
-     * @param CarbonTypeConverter $type
+     * @param string             $name
+     * @param string             $class
+     * @param CarbonDoctrineType $type
      *
      * @dataProvider getTypes
      *
