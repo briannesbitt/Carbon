@@ -16,6 +16,7 @@
  * - dennisoderwald
  * - Timo
  * - Karag2006
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count Jahr|:count Jahre',
@@ -39,6 +40,9 @@ return [
     'second' => ':count Sekunde|:count Sekunden',
     'a_second' => 'ein paar Sekunden|:count Sekunden',
     's' => ':count Sek.',
+    'millisecond' => ':count Millisekunde|:count Millisekunde',
+    'a_millisecond' => 'eine Millisekunde|:count Millisekunde',
+    'ms' => ':countms',
     'ago' => 'vor :time',
     'from_now' => 'in :time',
     'after' => ':time später',

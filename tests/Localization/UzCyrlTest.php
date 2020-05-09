@@ -222,167 +222,167 @@ class UzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subSeconds(1)->diffForHumans()
         // '1 second ago'
-        'Бир неча 1 фурсат олдин',
+        '1 сония аввал',
 
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
         // '1s ago'
-        'Бир неча 1 ф олдин',
+        '1 с аввал',
 
         // Carbon::now()->subSeconds(2)->diffForHumans()
         // '2 seconds ago'
-        'Бир неча 2 фурсат олдин',
+        '2 сония аввал',
 
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
         // '2s ago'
-        'Бир неча 2 ф олдин',
+        '2 с аввал',
 
         // Carbon::now()->subMinutes(1)->diffForHumans()
         // '1 minute ago'
-        'Бир неча 1 дакика олдин',
+        '1 дақиқа аввал',
 
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
         // '1m ago'
-        'Бир неча 1 д олдин',
+        '1 д аввал',
 
         // Carbon::now()->subMinutes(2)->diffForHumans()
         // '2 minutes ago'
-        'Бир неча 2 дакика олдин',
+        '2 дақиқа аввал',
 
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
         // '2m ago'
-        'Бир неча 2 д олдин',
+        '2 д аввал',
 
         // Carbon::now()->subHours(1)->diffForHumans()
         // '1 hour ago'
-        'Бир неча 1 соат олдин',
+        '1 соат аввал',
 
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         // '1h ago'
-        'Бир неча 1 с олдин',
+        '1 с аввал',
 
         // Carbon::now()->subHours(2)->diffForHumans()
         // '2 hours ago'
-        'Бир неча 2 соат олдин',
+        '2 соат аввал',
 
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         // '2h ago'
-        'Бир неча 2 с олдин',
+        '2 с аввал',
 
         // Carbon::now()->subDays(1)->diffForHumans()
         // '1 day ago'
-        'Бир неча 1 кун олдин',
+        '1 кун аввал',
 
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
         // '1d ago'
-        'Бир неча 1 к олдин',
+        '1 к аввал',
 
         // Carbon::now()->subDays(2)->diffForHumans()
         // '2 days ago'
-        'Бир неча 2 кун олдин',
+        '2 кун аввал',
 
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
         // '2d ago'
-        'Бир неча 2 к олдин',
+        '2 к аввал',
 
         // Carbon::now()->subWeeks(1)->diffForHumans()
         // '1 week ago'
-        'Бир неча 1 ҳафта олдин',
+        '1 ҳафта аввал',
 
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
         // '1w ago'
-        'Бир неча 1 ҳ олдин',
+        '1 ҳ аввал',
 
         // Carbon::now()->subWeeks(2)->diffForHumans()
         // '2 weeks ago'
-        'Бир неча 2 ҳафта олдин',
+        '2 ҳафта аввал',
 
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
         // '2w ago'
-        'Бир неча 2 ҳ олдин',
+        '2 ҳ аввал',
 
         // Carbon::now()->subMonths(1)->diffForHumans()
         // '1 month ago'
-        'Бир неча 1 ой олдин',
+        '1 ой аввал',
 
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
         // '1mo ago'
-        'Бир неча 1 о олдин',
+        '1 о аввал',
 
         // Carbon::now()->subMonths(2)->diffForHumans()
         // '2 months ago'
-        'Бир неча 2 ой олдин',
+        '2 ой аввал',
 
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
         // '2mos ago'
-        'Бир неча 2 о олдин',
+        '2 о аввал',
 
         // Carbon::now()->subYears(1)->diffForHumans()
         // '1 year ago'
-        'Бир неча 1 йил олдин',
+        '1 йил аввал',
 
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         // '1yr ago'
-        'Бир неча 1 й олдин',
+        '1 й аввал',
 
         // Carbon::now()->subYears(2)->diffForHumans()
         // '2 years ago'
-        'Бир неча 2 йил олдин',
+        '2 йил аввал',
 
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         // '2yrs ago'
-        'Бир неча 2 й олдин',
+        '2 й аввал',
 
         // Carbon::now()->addSecond()->diffForHumans()
         // '1 second from now'
-        'Якин 1 фурсат ичида',
+        'Якин 1 сония ичида',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         // '1s from now'
-        'Якин 1 ф ичида',
+        'Якин 1 с ичида',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         // '1 second after'
-        '1 фурсат пас аз он',
+        '1 сониядан кейин',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
         // '1s after'
-        '1 ф пас аз он',
+        '1 сдан кейин',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before'
-        '1 фурсат пеш аз он',
+        '1 сония олдин',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before'
-        '1 ф пеш аз он',
+        '1 с олдин',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second'
-        '1 фурсат',
+        '1 сония',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
         // '1s'
-        '1 ф',
+        '1 с',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         // '2 seconds'
-        '2 фурсат',
+        '2 сония',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         // '2s'
-        '2 ф',
+        '2 с',
 
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
         // '1s from now'
-        'Якин 1 ф ичида',
+        'Якин 1 с ичида',
 
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         // '1 minute 1 second'
-        '1 дакика 1 фурсат',
+        '1 дақиқа 1 сония',
 
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         // '2yrs 3mos 1d 1s'
-        '2 й 3 о 1 к 1 ф',
+        '2 й 3 о 1 к 1 с',
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
@@ -390,11 +390,11 @@ class UzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
-        'Бир неча 5 о олдин',
+        '5 о аввал',
 
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         // '2yrs 3mos 1d 1s ago'
-        'Бир неча 2 й 3 о 1 к 1 ф олдин',
+        '2 й 3 о 1 к 1 с аввал',
 
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         // '1 week 10 hours'
@@ -410,7 +410,7 @@ class UzCyrlTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'Якин 1 ҳафта va 6 кун ичида',
+        'Якин 1 ҳафта ва 6 кун ичида',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
@@ -420,11 +420,11 @@ class UzCyrlTest extends LocalizationTestCase
         // 'an hour from now'
         'Якин бир соат ичида',
 
-        // CarbonInterval::days(2)->forHumans()
+        // CarbonInterваl::days(2)->forHumans()
         // '2 days'
         '2 кун',
 
-        // CarbonInterval::create('P1DT3H')->forHumans(true)
+        // CarbonInterваl::create('P1DT3H')->forHumans(true)
         // '1d 3h'
         '1 к 3 с',
     ];

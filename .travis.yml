@@ -50,7 +50,7 @@ install:
 
 script:
   - if [[ $laravel != 'true' && $style_check != 'true' && $coverage = 'true' ]]; then vendor/bin/phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
-  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
+  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage != 'true' ]]; then vendor/bin/phpunit --verbose; fi
   - if [[ $laravel != 'true' && $style_check = 'true' ]]; then composer style-check; fi
   - if [[ $laravel = 'true' ]]; then vendor/bin/multi-tester; fi
 

@@ -340,33 +340,11 @@ class Translator extends Translation\Translator
             $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
 
             $getScore = function ($language) use ($completeLocaleChunks) {
-                $chunks = preg_split('/[_.-]+/', $language);
-                $score = 0;
-
-                foreach ($completeLocaleChunks as $index => $chunk) {
-                    if (!isset($chunks[$index])) {
-                        $score++;
-
-                        continue;
-                    }
-
-                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
-                        $score += 10;
-                    }
-                }
-
-                return $score;
+                return static::compareChunkLists($completeLocaleChunks, preg_split('/[_.-]+/', $language));
             };
 
             usort($locales, function ($first, $second) use ($getScore) {
-                $first = $getScore($first);
-                $second = $getScore($second);
-
-                if ($first === $second) {
-                    return 0;
-                }
-
-                return $first < $second ? 1 : -1;
+                return $getScore($second) <=> $getScore($first);
             });
 
             $locale = $locales[0];
@@ -402,5 +380,24 @@ class Translator extends Translation\Translator
         return [
             'locale' => $this->getLocale(),
         ];
+    }
+
+    private static function compareChunkLists($referenceChunks, $chunks)
+    {
+        $score = 0;
+
+        foreach ($referenceChunks as $index => $chunk) {
+            if (!isset($chunks[$index])) {
+                $score++;
+
+                continue;
+            }
+
+            if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                $score += 10;
+            }
+        }
+
+        return $score;
     }
 }
