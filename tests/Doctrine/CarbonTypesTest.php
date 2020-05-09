@@ -16,9 +16,11 @@ use Carbon\CarbonImmutable;
 use Carbon\Doctrine\CarbonImmutableType;
 use Carbon\Doctrine\CarbonType;
 use Carbon\Doctrine\CarbonTypeConverter;
+use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
 use DateTimeImmutable;
+use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Types\ConversionException;
 use Tests\AbstractTestCase;
@@ -44,12 +46,32 @@ class CarbonTypesTest extends AbstractTestCase
      */
     public function testGetSQLDeclaration(string $name, string $class, $type)
     {
+        $precision = DateTimeDefaultPrecision::get();
+        $this->assertSame(6, $precision);
+
         $this->assertSame('DATETIME(3)', $type->getSQLDeclaration([
             'precision' => 3,
         ], new MySQL57Platform()));
+
+        $this->assertSame('TIMESTAMP(6)', $type->getSQLDeclaration([
+            'precision' => null,
+        ], new DB2Platform()));
+
         $this->assertSame('DATETIME(6)', $type->getSQLDeclaration([
             'precision' => null,
         ], new MySQL57Platform()));
+
+        DateTimeDefaultPrecision::set(9);
+        $this->assertSame('DATETIME(9)', $type->getSQLDeclaration([
+            'precision' => null,
+        ], new MySQL57Platform()));
+
+        DateTimeDefaultPrecision::set(0);
+        $this->assertSame('DATETIME', $type->getSQLDeclaration([
+            'precision' => null,
+        ], new MySQL57Platform()));
+
+        DateTimeDefaultPrecision::set($precision);
     }
 
     /**
