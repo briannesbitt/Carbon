@@ -103,6 +103,15 @@
     still able to retrieve the raw DateTime object using <code>->toDateTime()</code> or
     <code>->toDateTimeImmutable()</code>.</p>
 
+<p>It's still possible to use carbon types keeping original datetime/datetime_immutable types
+    using:</p>
+
+<pre><code class="yaml">doctrine:
+    dbal:
+        types:
+            carbon_immutable: \Carbon\Doctrine\CarbonImmutableType
+            carbon: \Carbon\Doctrine\CarbonType</code></pre>
+
 <p>It also allow you to store microseconds in your database (see below why it's important).</p>
 
 <h1 id="time-precision">Time precision</h1>
