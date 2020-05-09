@@ -962,9 +962,9 @@ Carbon::parse('2018-07-25')->between('2018-07-25', '2018-08-01', false); // fals
     <h2><span class="class-name">Carbon::</span>betweenIncluded</h2>
     <code>$date1, $date2</code>
     <div class="doc-return">returns <code>bool</code></div>
-    <p class="doc-description">Determines if the instance is between two others, bounds included.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->betweenExcluded('2018-07-14', '2018-08-01'); // true
-Carbon::parse('2018-07-25')->betweenExcluded('2018-08-01', '2018-08-20'); // false
-Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // true</code></pre></p>
+    <p class="doc-description">Determines if the instance is between two others, bounds included.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->betweenIncluded('2018-07-14', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->betweenIncluded('2018-08-01', '2018-08-20'); // false
+Carbon::parse('2018-07-25')->betweenIncluded('2018-07-25', '2018-08-01'); // true</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.31.0</td><td><code>$date1, $date2</code></td></tr></table>
 </div>
 
@@ -984,8 +984,8 @@ Carbon::parse('2018-07-25')->betweenExcluded('2018-07-25', '2018-08-01'); // fal
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Determines if the instance is between two others<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::parse('2018-07-25')->isBetween('2018-07-14', '2018-08-01'); // true
 Carbon::parse('2018-07-25')->isBetween('2018-08-01', '2018-08-20'); // false
-Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // false
-Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', true); // true</code></pre></p>
+Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01'); // true
+Carbon::parse('2018-07-25')->isBetween('2018-07-25', '2018-08-01', false); // false</code></pre></p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.39.0</td><td><code>$date1, $date2, $equal = true</code></td></tr></table>
 </div>
 
@@ -3312,7 +3312,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <h2><span class="class-name">Carbon::</span>nextBusinessDay</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>bool</code></div>
+    <div class="doc-return">returns <code>CarbonInterface|Carbon|CarbonImmutable</code></div>
     <p class="doc-description">Sets the date to the next business day (neither a weekend day nor a holiday).</p>
 </div>
 
@@ -3320,7 +3320,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <h2><span class="class-name">Carbon::</span>currentOrNextBusinessDay</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>bool</code></div>
+    <div class="doc-return">returns <code>CarbonInterface|Carbon|CarbonImmutable</code></div>
     <p class="doc-description">Sets the date to the current or next business day (neither a weekend day nor a holiday).</p>
 </div>
 
@@ -3328,7 +3328,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <h2><span class="class-name">Carbon::</span>previousBusinessDay</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>bool</code></div>
+    <div class="doc-return">returns <code>CarbonInterface|Carbon|CarbonImmutable</code></div>
     <p class="doc-description">Sets the date to the next business day (neither a weekend day nor a holiday).</p>
 </div>
 
@@ -3336,7 +3336,7 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <h2><span class="class-name">Carbon::</span>currentOrPreviousBusinessDay</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>bool</code></div>
+    <div class="doc-return">returns <code>CarbonInterface|Carbon|CarbonImmutable</code></div>
     <p class="doc-description">Sets the date to the current or next business day (neither a weekend day nor a holiday).</p>
 </div>
 
@@ -4064,7 +4064,8 @@ from the biggest non-zero one the the smallest non-zero one.</p>
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 2]) . "\n";
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['parts' => 3, 'join' => true]) . "\n";
 echo CarbonInterval::fromString('4d 3h 40m')->forHumans(['short' => true]) . "\n";
-echo CarbonInterval::fromString('1d 24h')->forHumans(['join' => ' or ']) . "\n";</code></pre></p>
+echo CarbonInterval::fromString('1d 24h')->forHumans(['join' => ' or ']) . "\n";
+echo CarbonInterval::fromString('1d 24h')->forHumans(['minimumUnit' => 'hour']) . "\n";</code></pre></p>
     <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.0.0</td><td><code>$syntax = null, $short = false, $parts = -1, $options = null</code></td></tr><tr><td>Prototype changed</td><td>1.28.0</td><td><code>$short = false</code></td></tr><tr><td>Method added</td><td>1.18.0</td><td><em>no arguments</em></td></tr></table>
 </div>
 
@@ -5991,6 +5992,30 @@ for more on the possibility of this constructor returning a test instance.</p>
     <div class="doc-return">returns <code>false|CarbonTimeZone</code></div>
     <p class="doc-description">Create a CarbonTimeZone from mixed input.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$object = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonTimeZone-createFromHourOffset">
+    <h2><span class="class-name">CarbonTimeZone::</span>createFromHourOffset</h2>
+    <code>float $hourOffset</code>
+    <div class="doc-return">returns <code>false|CarbonTimeZone</code></div>
+    <p class="doc-description">Create a CarbonTimeZone from int/float hour offset.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.33.0</td><td><code>float $hourOffset</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonTimeZone-createFromMinuteOffset">
+    <h2><span class="class-name">CarbonTimeZone::</span>createFromMinuteOffset</h2>
+    <code>float $minuteOffset</code>
+    <div class="doc-return">returns <code>false|CarbonTimeZone</code></div>
+    <p class="doc-description">Create a CarbonTimeZone from int/float minute offset.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.33.0</td><td><code>float $minuteOffset</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonTimeZone-getOffsetNameFromMinuteOffset">
+    <h2><span class="class-name">CarbonTimeZone::</span>getOffsetNameFromMinuteOffset</h2>
+    <code>float $minutes</code>
+    <div class="doc-return">returns <code>string</code></div>
+    <p class="doc-description">Convert a total minutes offset into a standardized timezone offset string.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.33.0</td><td><code>float $minutes</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__wakeup">
