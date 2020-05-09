@@ -119,65 +119,65 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0 වැනි',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        'තත්පර 1කට පෙර',
+        'තත්පර 1 කට පෙර',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        'තත්පර 1කට පෙර',
+        'තත්පර 1 කට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans()
-        'තත්පර 2කට පෙර',
+        'තත්පර 2 කට පෙර',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        'තත්පර 2කට පෙර',
+        'තත්පර 2 කට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans()
-        'මිනිත්තු 1කට පෙර',
+        'මිනිත්තු 1 කට පෙර',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        'මිනිත්තු 1කට පෙර',
+        'මිනිත්තු 1 කට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans()
-        'මිනිත්තු 2කට පෙර',
+        'මිනිත්තු 2 කට පෙර',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        'මිනිත්තු 2කට පෙර',
+        'මිනිත්තු 2 කට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans()
-        'පැය 1කට පෙර',
+        'පැය 1 කට පෙර',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        'පැය 1කට පෙර',
+        'පැය 1 කට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans()
-        'පැය 2කට පෙර',
+        'පැය 2 කට පෙර',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        'පැය 2කට පෙර',
+        'පැය 2 කට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans()
-        'දින 1කට පෙර',
+        'දින 1 කට පෙර',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        'දින 1කට පෙර',
+        'දින 1 කට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans()
-        'දින 2කට පෙර',
+        'දින 2 කට පෙර',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        'දින 2කට පෙර',
+        'දින 2 කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        'සති 1කට පෙර',
+        'සති 1 කට පෙර',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        'සති 1කට පෙර',
+        'සති 1 කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        'සති 2කට පෙර',
+        'සති 2 කට පෙර',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        'සති 2කට පෙර',
+        'සති 2 කට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        'මාස 1කට පෙර',
+        'මාස 1 කට පෙර',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        'මාස 1කට පෙර',
+        'මාස 1 කට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        'මාස 2කට පෙර',
+        'මාස 2 කට පෙර',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        'මාස 2කට පෙර',
+        'මාස 2 කට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans()
-        'වසර 1කට පෙර',
+        'වසර 1 කට පෙර',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        'වසර 1කට පෙර',
+        'වසර 1 කට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans()
-        'වසර 2කට පෙර',
+        'වසර 2 කට පෙර',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        'වසර 2කට පෙර',
+        'වසර 2 කට පෙර',
         // Carbon::now()->addSecond()->diffForHumans()
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -195,17 +195,17 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         'තත්පර 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'මිනිත්තු 1 තත්පර 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'වසර 2 මාස 3 දින 1 තත්පර 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'වසර 3කින්',
+        'වසර 3 කින්',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        'මාස 5කට පෙර',
+        'මාස 5 කට පෙර',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        'වසර 2 මාස 3 දින 1 තත්පර 1කට පෙර',
+        'වසර 2 මාස 3 දින 1 තත්පර 1 කට පෙර',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
         'සති 1 පැය 10',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
@@ -213,11 +213,11 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'සති 1 දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'සති 1 දින 6න්',
+        'සති 1 දින 6 න්',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'සති 2 පැය 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'පැයක්කින්',
+        'පැයක් කින්',
         // CarbonInterval::days(2)->forHumans()
         'දින 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
