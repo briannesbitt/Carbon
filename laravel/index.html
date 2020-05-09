@@ -602,6 +602,12 @@ it in the <strong>config/app.php</strong> file:</p>
             })
         ;
 
+        var $anchor = location.hash && $('[data-toggle="' + location.hash + '"]');
+
+        if ($anchor && $anchor.length) {
+            $anchor.click()[0].scrollIntoView();
+        }
+
         var language = ((navigator.language || navigator.userLanguage).split(/[_-]/)[0] || '').toLowerCase();
 
         if (!sessStorage['closed-footer .help-translate'] &&

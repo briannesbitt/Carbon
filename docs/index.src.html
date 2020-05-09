@@ -999,13 +999,14 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
 </code></pre>
     </p>
 
-    <p><a href="#supported-locales" data-toggle="#supported-locales">Click here</a> is an overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
+    <p><a href="#supported-locales" data-toggle="#supported-locales">Click here</a> to get an overview of the {{eval(echo count(Carbon::getAvailableMacroLocales());)}} locales (and {{eval(echo count(Carbon::getAvailableLocales());)}} regional variants) supported by the last
         Carbon version:</p>
 
     <table class="info-table discover-chapter" id="supported-locales">
         <thead>
         <tr>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Locale</div></th>
+            <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Language</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">Diff syntax</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">1-day diff</div></th>
             <th><div style="writing-mode: vertical-lr; white-space: nowrap;">2-days diff</div></th>
@@ -1020,6 +1021,7 @@ $date2 = CarbonImmutable::parse('2018-01-02 8:00:00');)}}
         {{locale::each(Carbon::getAvailableMacroLocales())}}
         <tr>
             <td>{{eval(echo $locale;)}}</td>
+            <td>{{eval(echo (new \Carbon\Language($locale))->getIsoName();)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffSyntax($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffOneDayWords($locale) ? '✅' : '❌';)}}</td>
             <td class="compatibility-check">{{eval(echo Carbon::localeHasDiffTwoDayWords($locale) ? '✅' : '❌';)}}</td>
@@ -4746,6 +4748,13 @@ echo "\n";
     <pre class="live-editor"><code class="php">{{::lint(
 $tz = CarbonTimeZone::create('+03:00'); // full string
 $tz = CarbonTimeZone::create(3); // or hour integer short way
+
+$tz = CarbonTimeZone::createFromHourOffset(3); // explicit method rather type-based detection is even better
+$tz = CarbonTimeZone::createFromMinuteOffset(180); // the equivalent in minute unit
+
+// Both above rely on the static minute-to-string offset converter also available as:
+$tzString = CarbonTimeZone::getOffsetNameFromMinuteOffset(180);
+$tz = CarbonTimeZone::create($tzString);
 )}}
 
 {{::exec(echo $tz->getName();/*pad(36)*/)}} // {{eval}}
