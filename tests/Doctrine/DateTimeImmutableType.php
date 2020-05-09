@@ -11,7 +11,7 @@ use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 class DateTimeImmutableType extends VarDateTimeImmutableType
 {
-    use CarbonTypeConverter;
+    use CarbonTypesTest;
 
     protected function getCarbonClassName(): string
     {

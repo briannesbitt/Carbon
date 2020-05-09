@@ -10,5 +10,7 @@ use Doctrine\DBAL\Types\VarDateTimeType;
 
 class DateTimeType extends VarDateTimeType
 {
-    use CarbonTypeConverter;
+    use CarbonTypesTest;
+
+    protected $withSQLCommentHintRequired = false;
 }

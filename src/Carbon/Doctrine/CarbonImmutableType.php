@@ -8,14 +8,14 @@ namespace Carbon\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
-class CarbonType extends DateTimeType
+class CarbonImmutableType extends DateTimeImmutableType
 {
     /**
      * {@inheritdoc}
      */
     public function getName()
     {
-        return 'carbon';
+        return 'carbon_immutable';
     }
 
     /**
