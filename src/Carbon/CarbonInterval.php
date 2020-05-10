@@ -10,7 +10,6 @@
  */
 namespace Carbon;
 
-use BadMethodCallException;
 use Carbon\Exceptions\BadFluentConstructorException;
 use Carbon\Exceptions\BadFluentSetterException;
 use Carbon\Exceptions\ParseErrorException;
@@ -884,32 +883,42 @@ class CarbonInterval extends DateInterval
      * Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
      * and recurrences). Throw an exception for invalid format, but otherwise return null.
      *
-     * @param mixed $var
+     * @param mixed|int|DateInterval|string|null $interval interval or number of the given $unit
+     * @param string|null                        $unit     if specified, $interval must be an integer
      *
      * @return static|null
      */
-    public static function make($var)
+    public static function make($interval, $unit = null)
     {
-        if ($var instanceof DateInterval) {
-            return static::instance($var);
+        if ($unit) {
+            $interval = "$interval ".Carbon::pluralUnit($unit);
         }
 
-        if (!is_string($var)) {
+        if ($interval instanceof DateInterval) {
+            return static::instance($interval);
+        }
+
+        if (!is_string($interval)) {
             return null;
         }
 
-        $var = trim($var);
+        return static::makeFromString($interval);
+    }
 
-        if (preg_match('/^P[T0-9]/', $var)) {
-            return new static($var);
+    protected static function makeFromString(string $interval)
+    {
+        $interval = trim($interval);
+
+        if (preg_match('/^P[T0-9]/', $interval)) {
+            return new static($interval);
         }
 
-        if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $var)) {
-            return static::fromString($var);
+        if (preg_match('/^(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+$/i', $interval)) {
+            return static::fromString($interval);
         }
 
         /** @var static $interval */
-        $interval = static::createFromDateString($var);
+        $interval = static::createFromDateString($interval);
 
         return !$interval || $interval->isEmpty() ? null : $interval;
     }
@@ -1204,8 +1213,8 @@ class CarbonInterval extends DateInterval
      * Note: This is done using the magic method to allow static and instance methods to
      *       have the same names.
      *
-     * @param string $method magic method name called
-     * @param array $parameters parameters list
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
      *
      * @throws BadFluentSetterException|Throwable
      *
@@ -2144,9 +2153,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see equalTo()
+     * @see equalTo()
      *
+     * @return bool
      */
     public function eq($interval): bool
     {
@@ -2172,9 +2181,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see notEqualTo()
+     * @see notEqualTo()
      *
+     * @return bool
      */
     public function ne($interval): bool
     {
@@ -2198,9 +2207,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see greaterThan()
+     * @see greaterThan()
      *
+     * @return bool
      */
     public function gt($interval): bool
     {
@@ -2226,9 +2235,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see greaterThanOrEqualTo()
+     * @see greaterThanOrEqualTo()
      *
+     * @return bool
      */
     public function gte($interval): bool
     {
@@ -2252,9 +2261,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see lessThan()
+     * @see lessThan()
      *
+     * @return bool
      */
     public function lt($interval): bool
     {
@@ -2280,9 +2289,9 @@ class CarbonInterval extends DateInterval
      *
      * @param CarbonInterval|DateInterval|mixed $interval
      *
-     * @return bool
-     *@see lessThanOrEqualTo()
+     * @see lessThanOrEqualTo()
      *
+     * @return bool
      */
     public function lte($interval): bool
     {
@@ -2308,12 +2317,7 @@ class CarbonInterval extends DateInterval
      * but for when you including/excluding bounds may produce different results in your application,
      * we recommend to use the explicit methods ->betweenIncluded() or ->betweenExcluded() instead.
      *
-     * @param CarbonInterval|DateInterval|mixed $interval1
-     * @param CarbonInterval|DateInterval|mixed $interval2
-     * @param bool                                       $equal     Indicates if an equal to comparison should be done
-     *
-     * @return bool
-     *@example
+     * @example
      * ```
      * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(3)); // true
      * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::hours(36)); // false
@@ -2321,6 +2325,11 @@ class CarbonInterval extends DateInterval
      * CarbonInterval::hours(48)->between(CarbonInterval::day(), CarbonInterval::days(2), false); // false
      * ```
      *
+     * @param CarbonInterval|DateInterval|mixed $interval1
+     * @param CarbonInterval|DateInterval|mixed $interval2
+     * @param bool                              $equal     Indicates if an equal to comparison should be done
+     *
+     * @return bool
      */
     public function between($interval1, $interval2, $equal = true): bool
     {
@@ -2332,17 +2341,17 @@ class CarbonInterval extends DateInterval
     /**
      * Determines if the instance is between two others, bounds excluded.
      *
-     * @param CarbonInterval|DateInterval|mixed $interval1
-     * @param CarbonInterval|DateInterval|mixed $interval2
-     *
-     * @return bool
-     *@example
+     * @example
      * ```
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(3)); // true
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::hours(36)); // false
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)); // true
      * ```
      *
+     * @param CarbonInterval|DateInterval|mixed $interval1
+     * @param CarbonInterval|DateInterval|mixed $interval2
+     *
+     * @return bool
      */
     public function betweenIncluded($interval1, $interval2): bool
     {
@@ -2352,17 +2361,17 @@ class CarbonInterval extends DateInterval
     /**
      * Determines if the instance is between two others, bounds excluded.
      *
-     * @param CarbonInterval|DateInterval|mixed $interval1
-     * @param CarbonInterval|DateInterval|mixed $interval2
-     *
-     * @return bool
-     *@example
+     * @example
      * ```
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(3)); // true
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::hours(36)); // false
      * CarbonInterval::hours(48)->betweenExcluded(CarbonInterval::day(), CarbonInterval::days(2)); // false
      * ```
      *
+     * @param CarbonInterval|DateInterval|mixed $interval1
+     * @param CarbonInterval|DateInterval|mixed $interval2
+     *
+     * @return bool
      */
     public function betweenExcluded($interval1, $interval2): bool
     {
@@ -2372,12 +2381,7 @@ class CarbonInterval extends DateInterval
     /**
      * Determines if the instance is between two others
      *
-     * @param CarbonInterval|DateInterval|mixed $interval1
-     * @param CarbonInterval|DateInterval|mixed $interval2
-     * @param bool                              $equal     Indicates if an equal to comparison should be done
-     *
-     * @return bool
-     *@example
+     * @example
      * ```
      * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(3)); // true
      * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::hours(36)); // false
@@ -2385,6 +2389,11 @@ class CarbonInterval extends DateInterval
      * CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days(2), false); // false
      * ```
      *
+     * @param CarbonInterval|DateInterval|mixed $interval1
+     * @param CarbonInterval|DateInterval|mixed $interval2
+     * @param bool                              $equal     Indicates if an equal to comparison should be done
+     *
+     * @return bool
      */
     public function isBetween($interval1, $interval2, $equal = true): bool
     {

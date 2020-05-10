@@ -10,8 +10,8 @@
  */
 namespace Carbon\Exceptions;
 
-use Exception;
 use BadMethodCallException as BaseBadMethodCallException;
+use Exception;
 
 class BadFluentConstructorException extends BaseBadMethodCallException implements BadMethodCallException
 {

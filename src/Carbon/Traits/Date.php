@@ -2287,9 +2287,9 @@ trait Date
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @return mixed
      * @throws BadMethodCallException
      *
+     * @return mixed
      */
     public static function __callStatic($method, $parameters)
     {
@@ -2420,8 +2420,8 @@ trait Date
     /**
      * Dynamically handle calls to the class.
      *
-     * @param string $method magic method name called
-     * @param array $parameters parameters list
+     * @param string $method     magic method name called
+     * @param array  $parameters parameters list
      *
      * @throws UnknownMethodException|BadMethodCallException|ReflectionException|Throwable
      *
