@@ -527,7 +527,6 @@ trait Date
     use Converter;
     use Creator;
     use Difference;
-    use IntervalRounding;
     use Macro;
     use Modifiers;
     use Mutability;

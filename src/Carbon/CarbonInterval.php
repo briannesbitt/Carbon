@@ -25,7 +25,6 @@ use Carbon\Traits\Options;
 use Closure;
 use DateInterval;
 use Exception;
-use InvalidArgumentException;
 use ReflectionException;
 use Throwable;
 
@@ -805,7 +804,7 @@ class CarbonInterval extends DateInterval
                     break;
 
                 default:
-                    throw new InvalidArgumentException(
+                    throw new InvalidIntervalException(
                         sprintf('Invalid part %s in definition %s', $part, $intervalDefinition)
                     );
             }
@@ -1795,7 +1794,7 @@ class CarbonInterval extends DateInterval
         $interval = static::make($unit);
 
         if (!$interval) {
-            throw new InvalidArgumentException('This type of data cannot be added/subtracted.');
+            throw new InvalidIntervalException('This type of data cannot be added/subtracted.');
         }
 
         if ($value !== 1) {
@@ -2472,22 +2471,7 @@ class CarbonInterval extends DateInterval
      */
     public function round($precision = 1, $function = 'round')
     {
-        $unit = 'second';
-
-        if ($precision instanceof DateInterval) {
-            $precision = (string) self::instance($precision);
-        }
-
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
-                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
-            }
-
-            $precision = (int) ($match['precision'] ?: 1);
-            $unit = $match['unit'];
-        }
-
-        return $this->roundUnit($unit, $precision, $function);
+        return $this->roundWith($precision, $function);
     }
 
     /**

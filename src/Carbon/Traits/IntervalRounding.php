@@ -10,6 +10,10 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidIntervalException;
+use DateInterval;
+
 /**
  * Trait to call rounding methods to interval or the interval of a period.
  */
@@ -28,5 +32,25 @@ trait IntervalRounding
         }
 
         return null;
+    }
+
+    protected function roundWith($precision, $function)
+    {
+        $unit = 'second';
+
+        if ($precision instanceof DateInterval) {
+            $precision = (string) CarbonInterval::instance($precision);
+        }
+
+        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
+            if (trim($match['other'] ?? '') !== '') {
+                throw new InvalidIntervalException('Rounding is only possible with single unit intervals.');
+            }
+
+            $precision = (int) ($match['precision'] ?: 1);
+            $unit = $match['unit'];
+        }
+
+        return $this->roundUnit($unit, $precision, $function);
     }
 }

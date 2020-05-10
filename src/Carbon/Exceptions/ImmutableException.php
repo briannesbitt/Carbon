@@ -18,7 +18,7 @@ class ImmutableException extends BaseRuntimeException implements RuntimeExceptio
     /**
      * Constructor.
      *
-     * @param string         $value the immutable type/value
+     * @param string         $value    the immutable type/value
      * @param int            $code
      * @param Exception|null $previous
      */

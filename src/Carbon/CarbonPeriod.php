@@ -2219,22 +2219,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function round($precision = null, $function = 'round')
     {
-        $unit = 'second';
-
-        if ($precision === null || $precision instanceof DateInterval) {
-            $precision = (string) ($precision === null ? $this->getDateInterval() : CarbonInterval::instance($precision));
-        }
-
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
-                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
-            }
-
-            $precision = (int) ($match['precision'] ?: 1);
-            $unit = $match['unit'];
-        }
-
-        return $this->roundUnit($unit, $precision, $function);
+        return $this->roundWith($precision ?? (string) $this->getDateInterval(), $function);
     }
 
     /**

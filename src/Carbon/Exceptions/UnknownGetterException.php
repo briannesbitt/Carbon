@@ -10,15 +10,15 @@
  */
 namespace Carbon\Exceptions;
 
-use BadMethodCallException as BaseBadMethodCallException;
 use Exception;
+use InvalidArgumentException as BaseInvalidArgumentException;
 
-class UnknownGetterException extends BaseBadMethodCallException implements BadMethodCallException
+class UnknownGetterException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
     /**
      * Constructor.
      *
-     * @param string         $name getter name
+     * @param string         $name     getter name
      * @param int            $code
      * @param Exception|null $previous
      */
