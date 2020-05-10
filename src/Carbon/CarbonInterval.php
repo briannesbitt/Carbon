@@ -12,7 +12,13 @@ namespace Carbon;
 
 use Carbon\Exceptions\BadFluentConstructorException;
 use Carbon\Exceptions\BadFluentSetterException;
+use Carbon\Exceptions\InvalidCastException;
+use Carbon\Exceptions\InvalidIntervalException;
 use Carbon\Exceptions\ParseErrorException;
+use Carbon\Exceptions\UnitNotConfiguredException;
+use Carbon\Exceptions\UnknownGetterException;
+use Carbon\Exceptions\UnknownSetterException;
+use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
@@ -20,6 +26,7 @@ use Closure;
 use DateInterval;
 use Exception;
 use InvalidArgumentException;
+use ReflectionException;
 use Throwable;
 
 /**
@@ -825,7 +832,7 @@ class CarbonInterval extends DateInterval
         $mainClass = DateInterval::class;
 
         if (!is_a($className, $mainClass, true)) {
-            throw new InvalidArgumentException("$className is not a sub-class of $mainClass.");
+            throw new InvalidCastException("$className is not a sub-class of $mainClass.");
         }
 
         $microseconds = $interval->f;
@@ -964,7 +971,7 @@ class CarbonInterval extends DateInterval
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException
+     * @throws UnknownGetterException
      *
      * @return int|float|string
      */
@@ -1012,7 +1019,7 @@ class CarbonInterval extends DateInterval
                 return $this->getTranslatorLocale();
 
             default:
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new UnknownGetterException($name);
         }
     }
 
@@ -1022,7 +1029,7 @@ class CarbonInterval extends DateInterval
      * @param string $name
      * @param int    $value
      *
-     * @throws InvalidArgumentException
+     * @throws UnknownSetterException
      */
     public function __set($name, $value)
     {
@@ -1076,7 +1083,7 @@ class CarbonInterval extends DateInterval
 
             default:
                 if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                    throw new UnknownSetterException($name);
                 }
 
                 $this->$name = $value;
@@ -1165,7 +1172,7 @@ class CarbonInterval extends DateInterval
      *
      * @param object|string $mixin
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      *
      * @return void
      */
@@ -2061,7 +2068,7 @@ class CarbonInterval extends DateInterval
      *
      * @param string $unit
      *
-     * @throws InvalidArgumentException
+     * @throws UnknownUnitException|UnitNotConfiguredException
      *
      * @return float
      */
@@ -2072,7 +2079,7 @@ class CarbonInterval extends DateInterval
         if (in_array($unit, ['days', 'weeks'])) {
             $realUnit = 'dayz';
         } elseif (!in_array($unit, ['microseconds', 'milliseconds', 'seconds', 'minutes', 'hours', 'dayz', 'months', 'years'])) {
-            throw new InvalidArgumentException("Unknown unit '$unit'.");
+            throw new UnknownUnitException($unit);
         }
 
         $result = 0;
@@ -2138,7 +2145,7 @@ class CarbonInterval extends DateInterval
         }
 
         if (!$unitFound) {
-            throw new InvalidArgumentException("Unit $unit have no configuration to get total from other units.");
+            throw new UnitNotConfiguredException($unit);
         }
 
         if ($unit === 'weeks') {

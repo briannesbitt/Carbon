@@ -160,7 +160,7 @@ class RoundTest extends AbstractTestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Unknown unit \'foobar\' to floor'
+            'Unknown unit \'foobar\'.'
         );
 
         Carbon::now()->roundUnit('foobar');

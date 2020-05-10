@@ -13,17 +13,17 @@ namespace Carbon\Exceptions;
 use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 
-class BadUnitException extends BaseInvalidArgumentException implements InvalidArgumentException
+class InvalidTimeZoneException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
     /**
      * Constructor.
      *
-     * @param string         $unit
+     * @param string         $message
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct($unit, $code = 0, Exception $previous = null)
+    public function __construct($message, $code = 0, Exception $previous = null)
     {
-        parent::__construct("Bad comparison unit: '$unit'", $code, $previous);
+        parent::__construct($message, $code, $previous);
     }
 }

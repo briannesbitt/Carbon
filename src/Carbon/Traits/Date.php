@@ -14,8 +14,12 @@ use BadMethodCallException;
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
-use Carbon\Exceptions\BadUnitException;
+use Carbon\Exceptions\BadComparisonUnitException;
+use Carbon\Exceptions\ImmutableException;
+use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
+use Carbon\Exceptions\UnknownSetterException;
+use Carbon\Exceptions\UnknownUnitException;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -24,7 +28,6 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
-use RuntimeException;
 use Throwable;
 
 /**
@@ -1009,7 +1012,7 @@ trait Date
                     return $this->executeCallableWithContext($macro);
                 }
 
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new UnknownGetterException($name);
         }
     }
 
@@ -1065,10 +1068,7 @@ trait Date
     public function set($name, $value = null)
     {
         if ($this->isImmutable()) {
-            throw new RuntimeException(sprintf(
-                '%s class is immutable.',
-                static::class
-            ));
+            throw new ImmutableException(sprintf('%s class', static::class));
         }
 
         if (is_array($name)) {
@@ -1177,7 +1177,7 @@ trait Date
                 }
 
                 if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                    throw new UnknownSetterException($name);
                 }
 
                 $this->$name = $value;
@@ -1337,7 +1337,7 @@ trait Date
 
             return $date;
         } catch (BadMethodCallException | ReflectionException $exception) {
-            throw new InvalidArgumentException("Unknown unit '$valueUnit'", 0, $exception);
+            throw new UnknownUnitException($valueUnit, 0, $exception);
         }
     }
 
@@ -2302,11 +2302,7 @@ trait Date
                 }
             }
             if (static::isStrictModeEnabled()) {
-                throw new BadMethodCallException(sprintf(
-                    'Method %s::%s does not exist.',
-                    static::class,
-                    $method
-                ));
+                throw new UnknownMethodException(sprintf('%s::%s', static::class, $method));
             }
 
             return null;
@@ -2546,7 +2542,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (BadUnitException $exception) {
+            } catch (BadComparisonUnitException $exception) {
                 // Try next
             }
         }
@@ -2554,7 +2550,7 @@ trait Date
         if (substr($unit, 0, 9) === 'isCurrent') {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (BadUnitException | BadMethodCallException $exception) {
+            } catch (BadComparisonUnitException | BadMethodCallException $exception) {
                 // Try next
             }
         }

@@ -12,8 +12,9 @@ namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidIntervalException;
+use Carbon\Exceptions\UnknownUnitException;
 use DateInterval;
-use InvalidArgumentException;
 
 /**
  * Trait Rounding.
@@ -69,7 +70,7 @@ trait Rounding
         $precision *= $factor;
 
         if (!isset($ranges[$normalizedUnit])) {
-            throw new InvalidArgumentException("Unknown unit '$unit' to floor");
+            throw new UnknownUnitException($unit);
         }
 
         $found = false;
@@ -158,7 +159,7 @@ trait Rounding
 
         if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
             if (trim($match['other'] ?? '') !== '') {
-                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
+                throw new InvalidIntervalException('Rounding is only possible with single unit intervals.');
             }
 
             $precision = (int) ($match['precision'] ?: 1);
