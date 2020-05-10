@@ -381,10 +381,10 @@ trait Localization
             }
 
             $$translationKey = array_merge(
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($months, 12, '>>DO NOT REPLACE<<') : [],
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? array_pad($messages['months_short'], 12, '>>DO NOT REPLACE<<') : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($weekdays, 7, '>>DO NOT REPLACE<<') : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? array_pad($messages['weekdays_short'], 7, '>>DO NOT REPLACE<<') : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, 12, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'], 12, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, 7, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'], 7, $timeString) : [],
                 $mode & CarbonInterface::TRANSLATE_UNITS ? array_map(function ($unit) use ($messages, $key, $cleanWord) {
                     $parts = explode('|', $messages[$unit]);
 
@@ -421,6 +421,24 @@ trait Localization
 
             return $chunk; // @codeCoverageIgnore
         }, " $timeString "), 1, -1);
+    }
+
+    private static function getTranslationArray($translation, $length, $timeString)
+    {
+        $filler = '>>DO NOT REPLACE<<';
+
+        if (is_array($translation)) {
+            return array_pad($translation, $length, $filler);
+        }
+
+        $list = [];
+        $date = static::now();
+
+        for ($i = 0; $i < $length; $i++) {
+            $list[] = $translation($date, $timeString, $i) ?? $filler;
+        }
+
+        return $list;
     }
 
     /**
