@@ -10,6 +10,7 @@
  */
 namespace Carbon\Traits;
 
+use Carbon\Exceptions\InvalidFormatException;
 use InvalidArgumentException;
 
 /**
@@ -69,7 +70,7 @@ trait Serialization
      *
      * @param string $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -78,7 +79,7 @@ trait Serialization
         $instance = @unserialize("$value");
 
         if (!$instance instanceof static) {
-            throw new InvalidArgumentException('Invalid serialized value.');
+            throw new InvalidFormatException("Invalid serialized value: $value");
         }
 
         return $instance;

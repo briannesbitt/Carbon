@@ -79,6 +79,8 @@ class CarbonTimeZone extends DateTimeZone
      * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
      * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
+     * @throws InvalidTimeZoneException
+     *
      * @return false|static
      */
     public static function instance($object = null, $objectDump = null)

@@ -12,6 +12,8 @@ namespace Carbon;
 
 use Carbon\Exceptions\InvalidCastException;
 use Carbon\Exceptions\InvalidIntervalException;
+use Carbon\Exceptions\InvalidPeriodDateException;
+use Carbon\Exceptions\InvalidPeriodParameterException;
 use Carbon\Exceptions\NotACarbonClassException;
 use Carbon\Exceptions\NotAPeriodException;
 use Carbon\Exceptions\UnknownMethodException;
@@ -504,7 +506,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start, $part))) {
                 $end = $part;
             } else {
-                throw new InvalidArgumentException("Invalid ISO 8601 specification: $iso.");
+                throw new InvalidPeriodParameterException("Invalid ISO 8601 specification: $iso.");
             }
 
             $result[] = $parsed;
@@ -669,7 +671,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             } elseif ($this->options === null && (is_int($argument) || $argument === null)) {
                 $this->setOptions($argument);
             } else {
-                throw new InvalidArgumentException('Invalid constructor parameters.');
+                throw new InvalidPeriodParameterException('Invalid constructor parameters.');
             }
         }
 
@@ -803,7 +805,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setOptions($options)
     {
         if (!is_int($options) && !is_null($options)) {
-            throw new InvalidArgumentException('Invalid options.');
+            throw new InvalidPeriodParameterException('Invalid options.');
         }
 
         $this->options = $options ?: 0;
@@ -1186,7 +1188,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setRecurrences($recurrences)
     {
         if (!is_numeric($recurrences) && !is_null($recurrences) || $recurrences < 0) {
-            throw new InvalidArgumentException('Invalid number of recurrences.');
+            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
         }
 
         if ($recurrences === null) {
@@ -1229,14 +1231,14 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param DateTime|DateTimeInterface|string $date
      * @param bool|null                         $inclusive
      *
-     * @throws \InvalidArgumentException
-     *
      * @return $this
+     * @throws InvalidPeriodDateException
+     *
      */
     public function setStartDate($date, $inclusive = null)
     {
         if (!$date = call_user_func([$this->dateClass, 'make'], $date)) {
-            throw new InvalidArgumentException('Invalid start date.');
+            throw new InvalidPeriodDateException('Invalid start date.');
         }
 
         $this->startDate = $date;
@@ -1261,7 +1263,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setEndDate($date, $inclusive = null)
     {
         if (!is_null($date) && !$date = call_user_func([$this->dateClass, 'make'], $date)) {
-            throw new InvalidArgumentException('Invalid end date.');
+            throw new InvalidPeriodDateException('Invalid end date.');
         }
 
         if (!$date) {
