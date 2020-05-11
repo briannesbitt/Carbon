@@ -12,7 +12,9 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\OutOfRangeException;
 use DateTimeZone;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class CreateTest extends AbstractTestCase
@@ -67,10 +69,27 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidMonth()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('month must be between 0 and 99, -5 given');
 
         Carbon::create(null, -5);
+    }
+
+    public function testOutOfRangeException()
+    {
+        $error = null;
+
+        try {
+            Carbon::create(null, -5);
+        } catch (OutOfRangeException $exception) {
+            $error = $exception;
+        }
+
+        $this->assertInstanceOf(OutOfRangeException::class, $error);
+        $this->assertSame('month', $error->getUnit());
+        $this->assertSame(-5, $error->getValue());
+        $this->assertSame(0, $error->getMin());
+        $this->assertSame(99, $error->getMax());
     }
 
     public function testCreateWithInvalidMonthNonStrictMode()
@@ -96,7 +115,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidDay()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Carbon::create(null, null, -4);
     }
@@ -117,7 +136,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidHour()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Carbon::create(null, null, null, -1);
     }
@@ -136,7 +155,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidMinute()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Carbon::create(2011, 1, 1, 0, -2, 0);
     }
@@ -155,7 +174,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidSecond()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Carbon::create(null, null, null, null, null, -2);
     }
@@ -190,7 +209,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidTimezoneOffset()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Carbon::createFromDate(2000, 1, 1, -28236);
     }
@@ -243,7 +262,7 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateFromIsoFormatException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Format wo not supported for creation.');
 
         Carbon::createFromIsoFormat('YY D wo', '2019 April 4');
