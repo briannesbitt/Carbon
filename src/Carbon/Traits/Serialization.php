@@ -11,7 +11,6 @@
 namespace Carbon\Traits;
 
 use Carbon\Exceptions\InvalidFormatException;
-use InvalidArgumentException;
 
 /**
  * Trait Serialization.

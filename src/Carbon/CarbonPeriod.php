@@ -1231,9 +1231,9 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param DateTime|DateTimeInterface|string $date
      * @param bool|null                         $inclusive
      *
-     * @return $this
      * @throws InvalidPeriodDateException
      *
+     * @return $this
      */
     public function setStartDate($date, $inclusive = null)
     {
