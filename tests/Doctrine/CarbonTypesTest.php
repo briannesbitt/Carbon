@@ -13,7 +13,6 @@ namespace Tests\Doctrine;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Carbon\Doctrine\CarbonDoctrineType;
 use Carbon\Doctrine\CarbonImmutableType;
 use Carbon\Doctrine\CarbonType;
 use Carbon\Doctrine\DateTimeDefaultPrecision;
@@ -31,7 +30,7 @@ class CarbonTypesTest extends AbstractTestCase
 {
     public static function setUpBeforeClass(): void
     {
-        foreach(static::getTypes() as [$name, , $typeClass]) {
+        foreach (static::getTypes() as [$name, , $typeClass]) {
             Type::hasType($name)
                 ? Type::overrideType($name, $typeClass)
                 : Type::addType($name, $typeClass);
