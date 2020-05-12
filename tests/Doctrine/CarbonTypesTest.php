@@ -20,32 +20,45 @@ use Carbon\Doctrine\DateTimeDefaultPrecision;
 use Carbon\Doctrine\DateTimeImmutableType;
 use Carbon\Doctrine\DateTimeType;
 use DateTimeImmutable;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\DB2Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Types\ConversionException;
+use Doctrine\DBAL\Types\Type;
 use Tests\AbstractTestCase;
 
 class CarbonTypesTest extends AbstractTestCase
 {
-    public function getTypes()
+    public static function setUpBeforeClass(): void
+    {
+        foreach(static::getTypes() as [$name, , $typeClass]) {
+            Type::hasType($name)
+                ? Type::overrideType($name, $typeClass)
+                : Type::addType($name, $typeClass);
+        }
+    }
+
+    public static function getTypes()
     {
         return [
-            ['datetime', Carbon::class, new DateTimeType()],
-            ['datetime_immutable', CarbonImmutable::class, new DateTimeImmutableType()],
-            ['carbon', Carbon::class, new CarbonType()],
-            ['carbon_immutable', CarbonImmutable::class, new CarbonImmutableType()],
+            ['datetime', Carbon::class, DateTimeType::class, false],
+            ['datetime_immutable', CarbonImmutable::class, DateTimeImmutableType::class, true],
+            ['carbon', Carbon::class, CarbonType::class, true],
+            ['carbon_immutable', CarbonImmutable::class, CarbonImmutableType::class, true],
         ];
     }
 
     /**
-     * @param string             $name
-     * @param string             $class
-     * @param CarbonDoctrineType $type
+     * @param string $name
      *
      * @dataProvider getTypes
+     *
+     * @throws DBALException
      */
-    public function testGetSQLDeclaration(string $name, string $class, $type)
+    public function testGetSQLDeclaration(string $name)
     {
+        $type = Type::getType($name);
+
         $precision = DateTimeDefaultPrecision::get();
         $this->assertSame(6, $precision);
 
@@ -75,14 +88,17 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string             $name
-     * @param string             $class
-     * @param CarbonDoctrineType $type
+     * @param string $name
+     * @param string $class
      *
      * @dataProvider getTypes
+     *
+     * @throws DBALException
      */
-    public function testConvertToPHPValue(string $name, string $class, $type)
+    public function testConvertToPHPValue(string $name, string $class)
     {
+        $type = Type::getType($name);
+
         $this->assertNull($type->convertToPHPValue(null, new MySQL57Platform()));
 
         $date = $type->convertToPHPValue(Carbon::parse('2020-06-23 18:47'), new MySQL57Platform());
@@ -99,15 +115,14 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string             $name
-     * @param string             $class
-     * @param CarbonDoctrineType $type
+     * @param string $name
+     * @param string $class
      *
      * @dataProvider getTypes
      *
-     * @throws ConversionException
+     * @throws ConversionException|DBALException
      */
-    public function testConvertToPHPValueFailure(string $name, string $class, $type)
+    public function testConvertToPHPValueFailure(string $name, string $class)
     {
         $this->expectException(ConversionException::class);
         $this->expectExceptionMessage(
@@ -115,18 +130,20 @@ class CarbonTypesTest extends AbstractTestCase
             "Expected format: Y-m-d H:i:s.u or any format supported by $class::parse()"
         );
 
-        $type->convertToPHPValue('2020-0776-23 18:47', new MySQL57Platform());
+        Type::getType($name)->convertToPHPValue('2020-0776-23 18:47', new MySQL57Platform());
     }
 
     /**
-     * @param string             $name
-     * @param string             $class
-     * @param CarbonDoctrineType $type
+     * @param string $name
      *
      * @dataProvider getTypes
+     *
+     * @throws DBALException
      */
-    public function testConvertToDatabaseValue(string $name, string $class, $type)
+    public function testConvertToDatabaseValue(string $name)
     {
+        $type = Type::getType($name);
+
         $this->assertNull($type->convertToDatabaseValue(null, new MySQL57Platform()));
         $this->assertSame(
             '2020-06-23 18:47:00.000000',
@@ -135,15 +152,13 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
-     * @param string             $name
-     * @param string             $class
-     * @param CarbonDoctrineType $type
+     * @param string $name
      *
      * @dataProvider getTypes
      *
-     * @throws ConversionException
+     * @throws ConversionException|DBALException
      */
-    public function testConvertToDatabaseValueFailure(string $name, string $class, $type)
+    public function testConvertToDatabaseValueFailure(string $name)
     {
         $this->expectException(ConversionException::class);
         $this->expectExceptionMessage(
@@ -151,14 +166,23 @@ class CarbonTypesTest extends AbstractTestCase
             'Expected one of the following types: null, DateTime, Carbon'
         );
 
-        $type->convertToDatabaseValue([2020, 06, 23], new MySQL57Platform());
+        Type::getType($name)->convertToDatabaseValue([2020, 06, 23], new MySQL57Platform());
     }
 
-    public function testRequiresSQLCommentHint()
+    /**
+     * @param string $name
+     * @param string $class
+     * @param string $typeClass
+     * @param bool   $hintRequired
+     *
+     * @dataProvider getTypes
+     *
+     * @throws DBALException
+     */
+    public function testRequiresSQLCommentHint(string $name, string $class, string $typeClass, bool $hintRequired)
     {
-        $this->assertFalse((new DateTimeType())->requiresSQLCommentHint(new MySQL57Platform()));
-        $this->assertTrue((new DateTimeImmutableType())->requiresSQLCommentHint(new MySQL57Platform()));
-        $this->assertTrue((new CarbonType())->requiresSQLCommentHint(new MySQL57Platform()));
-        $this->assertTrue((new CarbonImmutableType())->requiresSQLCommentHint(new MySQL57Platform()));
+        $type = Type::getType($name);
+
+        $this->assertSame($hintRequired, $type->requiresSQLCommentHint(new MySQL57Platform()));
     }
 }
