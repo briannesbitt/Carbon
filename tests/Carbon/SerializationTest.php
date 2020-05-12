@@ -13,6 +13,7 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use DateTime;
+use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionObject;
 use ReflectionProperty;
@@ -75,9 +76,9 @@ class SerializationTest extends AbstractTestCase
      */
     public function testFromUnserializedWithInvalidValue($value)
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Invalid serialized value.'
+            "Invalid serialized value: $value"
         );
 
         Carbon::fromSerialized($value);

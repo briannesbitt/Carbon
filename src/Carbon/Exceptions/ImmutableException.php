@@ -11,19 +11,19 @@
 namespace Carbon\Exceptions;
 
 use Exception;
-use InvalidArgumentException as BaseInvalidArgumentException;
+use RuntimeException as BaseRuntimeException;
 
-class NotAPeriodException extends BaseInvalidArgumentException implements InvalidArgumentException
+class ImmutableException extends BaseRuntimeException implements RuntimeException
 {
     /**
      * Constructor.
      *
-     * @param string         $message
+     * @param string         $value    the immutable type/value
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct($message, $code = 0, Exception $previous = null)
+    public function __construct($value, $code = 0, Exception $previous = null)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct("$value is immutable.", $code, $previous);
     }
 }

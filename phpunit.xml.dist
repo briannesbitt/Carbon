@@ -39,6 +39,9 @@
         <testsuite name="laravel">
             <directory>tests/Laravel</directory>
         </testsuite>
+        <testsuite name="doctrine">
+            <directory>tests/Doctrine</directory>
+        </testsuite>
         <testsuite name="factory">
             <directory>tests/Factory</directory>
         </testsuite>

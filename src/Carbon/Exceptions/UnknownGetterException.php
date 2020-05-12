@@ -13,20 +13,17 @@ namespace Carbon\Exceptions;
 use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 
-class ParseErrorException extends BaseInvalidArgumentException implements InvalidArgumentException
+class UnknownGetterException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
     /**
      * Constructor.
      *
-     * @param string         $expected
-     * @param string         $actual
+     * @param string         $name     getter name
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct($expected, $actual, $help = '', $code = 0, Exception $previous = null)
+    public function __construct($name, $code = 0, Exception $previous = null)
     {
-        $actual = $actual === '' ? 'data is missing' : "get '$actual'";
-
-        parent::__construct(trim("Format expected $expected but $actual\n$help"), $code, $previous);
+        parent::__construct("Unknown getter '$name'", $code, $previous);
     }
 }

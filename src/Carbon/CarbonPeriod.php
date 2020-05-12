@@ -10,8 +10,15 @@
  */
 namespace Carbon;
 
-use BadMethodCallException;
+use Carbon\Exceptions\InvalidCastException;
+use Carbon\Exceptions\InvalidIntervalException;
+use Carbon\Exceptions\InvalidPeriodDateException;
+use Carbon\Exceptions\InvalidPeriodParameterException;
+use Carbon\Exceptions\NotACarbonClassException;
 use Carbon\Exceptions\NotAPeriodException;
+use Carbon\Exceptions\UnknownMethodException;
+use Carbon\Exceptions\UnreachableException;
+use Carbon\Traits\IntervalRounding;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -23,7 +30,6 @@ use DateTimeInterface;
 use InvalidArgumentException;
 use Iterator;
 use JsonSerializable;
-use RuntimeException;
 
 /**
  * Substitution of DatePeriod with some modifications and many more features.
@@ -178,9 +184,11 @@ use RuntimeException;
  */
 class CarbonPeriod implements Iterator, Countable, JsonSerializable
 {
-    use Options, Mixin {
+    use IntervalRounding;
+    use Mixin {
         Mixin::mixin as baseMixin;
     }
+    use Options;
 
     /**
      * Built-in filters.
@@ -498,7 +506,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             } elseif ($end === null && $parsed = Carbon::make(static::addMissingParts($start, $part))) {
                 $end = $part;
             } else {
-                throw new InvalidArgumentException("Invalid ISO 8601 specification: $iso.");
+                throw new InvalidPeriodParameterException("Invalid ISO 8601 specification: $iso.");
             }
 
             $result[] = $parsed;
@@ -663,7 +671,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             } elseif ($this->options === null && (is_int($argument) || $argument === null)) {
                 $this->setOptions($argument);
             } else {
-                throw new InvalidArgumentException('Invalid constructor parameters.');
+                throw new InvalidPeriodParameterException('Invalid constructor parameters.');
             }
         }
 
@@ -705,11 +713,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setDateClass(string $dateClass)
     {
         if (!is_a($dateClass, CarbonInterface::class, true)) {
-            throw new InvalidArgumentException(sprintf(
-                'Given class does not implement %s: %s',
-                CarbonInterface::class,
-                $dateClass
-            ));
+            throw new NotACarbonClassException($dateClass);
         }
 
         $this->dateClass = $dateClass;
@@ -738,18 +742,18 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      *
      * @param DateInterval|string $interval
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidIntervalException
      *
      * @return $this
      */
     public function setDateInterval($interval)
     {
         if (!$interval = CarbonInterval::make($interval)) {
-            throw new InvalidArgumentException('Invalid interval.');
+            throw new InvalidIntervalException('Invalid interval.');
         }
 
         if ($interval->spec() === 'PT0S' && !$interval->f) {
-            throw new InvalidArgumentException('Empty interval is not accepted.');
+            throw new InvalidIntervalException('Empty interval is not accepted.');
         }
 
         $this->dateInterval = $interval;
@@ -801,7 +805,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setOptions($options)
     {
         if (!is_int($options) && !is_null($options)) {
-            throw new InvalidArgumentException('Invalid options.');
+            throw new InvalidPeriodParameterException('Invalid options.');
         }
 
         $this->options = $options ?: 0;
@@ -1184,7 +1188,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setRecurrences($recurrences)
     {
         if (!is_numeric($recurrences) && !is_null($recurrences) || $recurrences < 0) {
-            throw new InvalidArgumentException('Invalid number of recurrences.');
+            throw new InvalidPeriodParameterException('Invalid number of recurrences.');
         }
 
         if ($recurrences === null) {
@@ -1227,14 +1231,14 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      * @param DateTime|DateTimeInterface|string $date
      * @param bool|null                         $inclusive
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidPeriodDateException
      *
      * @return $this
      */
     public function setStartDate($date, $inclusive = null)
     {
         if (!$date = call_user_func([$this->dateClass, 'make'], $date)) {
-            throw new InvalidArgumentException('Invalid start date.');
+            throw new InvalidPeriodDateException('Invalid start date.');
         }
 
         $this->startDate = $date;
@@ -1259,7 +1263,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     public function setEndDate($date, $inclusive = null)
     {
         if (!is_null($date) && !$date = call_user_func([$this->dateClass, 'make'], $date)) {
-            throw new InvalidArgumentException('Invalid end date.');
+            throw new InvalidPeriodDateException('Invalid end date.');
         }
 
         if (!$date) {
@@ -1518,7 +1522,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             $this->validationResult = null;
 
             if (++$attempts > static::NEXT_MAX_ATTEMPTS) {
-                throw new RuntimeException('Could not find next valid date.');
+                throw new UnreachableException('Could not find next valid date.');
             }
         } while ($this->validateCurrentDate() === false);
     }
@@ -1610,7 +1614,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
                 );
             }
 
-            throw new InvalidArgumentException("$className has not the instance() method needed to cast the date.");
+            throw new InvalidCastException("$className has not the instance() method needed to cast the date.");
         }
 
         return $className::instance($this);
@@ -1743,14 +1747,10 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             });
         }
 
-        $action = substr($method, 0, 4);
+        $roundedValue = $this->callRoundMethod($method, $parameters);
 
-        if ($action !== 'ceil') {
-            $action = substr($method, 0, 5);
-        }
-
-        if (in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
+        if ($roundedValue !== null) {
+            return $roundedValue;
         }
 
         $first = count($parameters) >= 1 ? $parameters[0] : null;
@@ -1828,7 +1828,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         }
 
         if ($this->localStrictModeEnabled ?? Carbon::isStrictModeEnabled()) {
-            throw new BadMethodCallException("Method $method does not exist.");
+            throw new UnknownMethodException($method);
         }
 
         return $this;
@@ -2221,22 +2221,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
      */
     public function round($precision = null, $function = 'round')
     {
-        $unit = 'second';
-
-        if ($precision === null || $precision instanceof DateInterval) {
-            $precision = (string) ($precision === null ? $this->getDateInterval() : CarbonInterval::instance($precision));
-        }
-
-        if (is_string($precision) && preg_match('/^\s*(?<precision>\d+)?\s*(?<unit>\w+)(?<other>\W.*)?$/', $precision, $match)) {
-            if (trim($match['other'] ?? '') !== '') {
-                throw new InvalidArgumentException('Rounding is only possible with single unit intervals.');
-            }
-
-            $precision = (int) ($match['precision'] ?: 1);
-            $unit = $match['unit'];
-        }
-
-        return $this->roundUnit($unit, $precision, $function);
+        return $this->roundWith($precision ?? (string) $this->getDateInterval(), $function);
     }
 
     /**

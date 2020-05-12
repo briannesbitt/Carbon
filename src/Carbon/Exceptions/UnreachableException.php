@@ -11,9 +11,9 @@
 namespace Carbon\Exceptions;
 
 use Exception;
-use InvalidArgumentException as BaseInvalidArgumentException;
+use RuntimeException as BaseRuntimeException;
 
-class NotAPeriodException extends BaseInvalidArgumentException implements InvalidArgumentException
+class UnreachableException extends BaseRuntimeException implements RuntimeException
 {
     /**
      * Constructor.
