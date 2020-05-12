@@ -729,6 +729,13 @@ class LocalizationTest extends AbstractTestCase
         $this->assertSame('3 კვირაში', $diff);
     }
 
+    public function testSinhaleseSpecialAfterTranslation()
+    {
+        $diff = Carbon::now()->locale('si')->addDays(3)->diffForHumans(Carbon::now());
+
+        $this->assertSame('දින 3 න්', $diff);
+    }
+
     public function testWeekDayMultipleForms()
     {
         $date = Carbon::parse('2018-10-10')->locale('ru');
