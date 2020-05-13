@@ -26,8 +26,8 @@ use Closure;
 use DateInterval;
 use Exception;
 use ReflectionException;
-use Throwable;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Throwable;
 
 /**
  * A simple API extension for DateInterval.
