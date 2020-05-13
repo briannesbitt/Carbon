@@ -10,20 +10,20 @@
  */
 namespace Carbon\Exceptions;
 
+use BadMethodCallException as BaseBadMethodCallException;
 use Exception;
-use InvalidArgumentException as BaseInvalidArgumentException;
 
-class NotAPeriodException extends BaseInvalidArgumentException implements InvalidArgumentException
+class UnknownMethodException extends BaseBadMethodCallException implements BadMethodCallException
 {
     /**
      * Constructor.
      *
-     * @param string         $message
+     * @param string         $method
      * @param int            $code
      * @param Exception|null $previous
      */
-    public function __construct($message, $code = 0, Exception $previous = null)
+    public function __construct($method, $code = 0, Exception $previous = null)
     {
-        parent::__construct($message, $code, $previous);
+        parent::__construct("Method $method does not exist.", $code, $previous);
     }
 }

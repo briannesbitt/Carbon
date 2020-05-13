@@ -13,9 +13,6 @@
     <filter>
         <whitelist>
             <directory>src/Carbon</directory>
-            <exclude>
-                <directory suffix=".php">src/Carbon/Doctrine</directory>
-            </exclude>
         </whitelist>
     </filter>
 
@@ -41,6 +38,9 @@
         </testsuite>
         <testsuite name="laravel">
             <directory>tests/Laravel</directory>
+        </testsuite>
+        <testsuite name="doctrine">
+            <directory>tests/Doctrine</directory>
         </testsuite>
         <testsuite name="factory">
             <directory>tests/Factory</directory>
