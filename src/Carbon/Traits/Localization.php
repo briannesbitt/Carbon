@@ -186,7 +186,8 @@ trait Localization
     {
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
-                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'.'
+                'Translator does not implement '.TranslatorInterface::class.' and '.TranslatorBagInterface::class.'. '.
+                (is_object($translator) ? get_class($translator) : gettype($translator)).' has been given.'
             );
         }
 
