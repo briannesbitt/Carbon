@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['kentuwei', 'manteke', 'tusteke', 'lelai', 'tasteke', 'pelaiteke', 'sateteke'],
     'weekdays_short' => ['ken', 'man', 'tus', 'lel', 'tas', 'pel', 'sat'],
     'weekdays_min' => ['ken', 'man', 'tus', 'lel', 'tas', 'pel', 'sat'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     // Too unreliable

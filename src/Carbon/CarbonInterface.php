@@ -601,6 +601,13 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      */
     public const ISO_FORMAT_REGEXP = '(O[YMDHhms]|[Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|YYYYYY|YYYYY|YYYY|YY?|g{1,5}|G{1,5}|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?)';
 
+    /**
+     * Default locale (language and region).
+     *
+     * @var string
+     */
+    public const DEFAULT_LOCALE = 'en';
+
     // <methods>
 
     /**
@@ -1029,7 +1036,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return static|false
      */
-    public static function createFromIsoFormat($format, $time, $tz = null, $locale = 'en', $translator = null);
+    public static function createFromIsoFormat($format, $time, $tz = null, $locale = self::DEFAULT_LOCALE, $translator = null);
 
     /**
      * Create a Carbon instance from a specific format and a string in a given language.

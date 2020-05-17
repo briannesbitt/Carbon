@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Sxetspesq̓t', 'Spetkesq̓t', 'Selesq̓t', 'Skellesq̓t', 'Smesesq̓t', 'Stselkstesq̓t', 'Stqmekstesq̓t'],
     'weekdays_short' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
     'weekdays_min' => ['Sxe', 'Spe', 'Sel', 'Ske', 'Sme', 'Sts', 'Stq'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => ':count sqlélten', // less reliable

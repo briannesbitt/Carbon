@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Axad', 'Isniin', 'Salaaso', 'Arbaco', 'Khamiis', 'Jimco', 'Sabti'],
     'weekdays_short' => ['Axd', 'Isn', 'Sal', 'Arb', 'Kha', 'Jim', 'Sab'],
     'weekdays_min' => ['Axd', 'Isn', 'Sal', 'Arb', 'Kha', 'Jim', 'Sab'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['subaxnimo', 'galabnimo'],
 ]);

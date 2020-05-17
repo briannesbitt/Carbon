@@ -326,7 +326,7 @@ trait Localization
     public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
     {
         $from = $from ?: static::getLocale();
-        $to = $to ?: 'en';
+        $to = $to ?: CarbonInterface::DEFAULT_LOCALE;
 
         if ($from === $to) {
             return $timeString;

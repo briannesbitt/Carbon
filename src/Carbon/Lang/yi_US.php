@@ -22,6 +22,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['זונטיק', 'מאָנטיק', 'דינסטיק', 'מיטװאָך', 'דאָנערשטיק', 'פֿרײַטיק', 'שבת'],
     'weekdays_short' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
     'weekdays_min' => ['זונ\'', 'מאָנ\'', 'דינ\'', 'מיט\'', 'דאָנ\'', 'פֿרײַ\'', 'שבת'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
 
     'year' => ':count יאר',

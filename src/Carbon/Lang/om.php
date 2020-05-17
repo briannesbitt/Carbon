@@ -27,6 +27,7 @@ return array_replace_recursive(require __DIR__.'/en.php', [
     'weekdays' => ['Dilbata', 'Wiixata', 'Qibxata', 'Roobii', 'Kamiisa', 'Jimaata', 'Sanbata'],
     'weekdays_short' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
     'weekdays_min' => ['Dil', 'Wix', 'Qib', 'Rob', 'Kam', 'Jim', 'San'],
+    'first_day_of_week' => 0,
     'day_of_first_week_of_year' => 1,
     'meridiem' => ['WD', 'WB'],
 

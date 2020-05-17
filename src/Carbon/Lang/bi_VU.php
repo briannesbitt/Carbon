@@ -14,6 +14,7 @@
  * - Samsung Electronics Co., Ltd.    akhilesh.k@samsung.com & maninder1.s@samsung.com
  */
 return array_replace_recursive(require __DIR__.'/en.php', [
+    'first_day_of_week' => 0,
     'formats' => [
         'L' => 'dddd DD MMM YYYY',
     ],
