@@ -11,6 +11,7 @@
 namespace Carbon;
 
 use BadMethodCallException;
+use Carbon\Exceptions\BadComparisonUnitException;
 use Carbon\Exceptions\ImmutableException;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\Exceptions\InvalidFormatException;
