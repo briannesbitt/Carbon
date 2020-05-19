@@ -415,4 +415,39 @@ class DayOfWeekModifiersTest extends AbstractTestCase
         $d = Carbon::create(2016, 7, 17)->previousWeekendDay();
         $this->assertCarbon($d, 2016, 7, 16);
     }
+
+    public function testWeekStartAndEndWithAutoMode()
+    {
+        $this->assertSame('Monday', Carbon::now()->startOfWeek()->dayName);
+
+        Carbon::setWeekStartsAt('auto');
+
+        $this->assertSame('Sunday', Carbon::now()->startOfWeek()->dayName);
+        Carbon::setLocale('en_UM');
+        $this->assertSame('Sunday', Carbon::now()->startOfWeek()->dayName);
+        Carbon::setLocale('en_US');
+        $this->assertSame('Sunday', Carbon::now()->startOfWeek()->dayName);
+        Carbon::setLocale('en');
+        $this->assertSame('Sunday', Carbon::now()->startOfWeek()->dayName);
+        Carbon::setLocale('es_US');
+        $this->assertSame('domingo', Carbon::now()->startOfWeek()->dayName);
+        Carbon::setLocale('en_GB');
+        $this->assertSame('Monday', Carbon::now()->startOfWeek()->dayName);
+
+        Carbon::setWeekEndsAt('auto');
+
+        Carbon::setLocale('en_UM');
+        $this->assertSame('Saturday', Carbon::now()->endOfWeek()->dayName);
+        Carbon::setLocale('en_US');
+        $this->assertSame('Saturday', Carbon::now()->endOfWeek()->dayName);
+        Carbon::setLocale('en');
+        $this->assertSame('Saturday', Carbon::now()->endOfWeek()->dayName);
+        Carbon::setLocale('es_US');
+        $this->assertSame('sábado', Carbon::now()->endOfWeek()->dayName);
+        Carbon::setLocale('en_GB');
+        $this->assertSame('Sunday', Carbon::now()->endOfWeek()->dayName);
+
+        Carbon::setWeekStartsAt(Carbon::MONDAY);
+        Carbon::setWeekEndsAt(Carbon::SUNDAY);
+    }
 }

@@ -1612,6 +1612,13 @@ trait Date
      */
     public static function getWeekStartsAt()
     {
+        if (static::$weekStartsAt === static::WEEK_START_DAY) {
+            return (int) static::getTranslationMessageWith(
+                static::getTranslator(),
+                'first_day_of_week'
+            );
+        }
+
         return static::$weekStartsAt;
     }
 
@@ -1623,13 +1630,13 @@ trait Date
      *
      * Set the first day of week
      *
-     * @param int $day week start day
+     * @param int|string $day week start day (or 'auto' to get the first day of week from Carbon::getLocale() culture).
      *
      * @return void
      */
     public static function setWeekStartsAt($day)
     {
-        static::$weekStartsAt = max(0, (7 + $day) % 7);
+        static::$weekStartsAt = $day === static::WEEK_START_DAY ? $day : max(0, (7 + $day) % 7);
     }
 
     /**
@@ -1639,6 +1646,13 @@ trait Date
      */
     public static function getWeekEndsAt()
     {
+        if (static::$weekStartsAt === static::WEEK_START_DAY) {
+            return (int) (static::DAYS_PER_WEEK - 1 + static::getTranslationMessageWith(
+                static::getTranslator(),
+                'first_day_of_week'
+            )) % static::DAYS_PER_WEEK;
+        }
+
         return static::$weekEndsAt;
     }
 
@@ -1650,13 +1664,14 @@ trait Date
      *
      * Set the last day of week
      *
-     * @param int $day
+     * @param int|string $day week end day (or 'auto' to get the day before the first day of week
+     *                        from Carbon::getLocale() culture).
      *
      * @return void
      */
     public static function setWeekEndsAt($day)
     {
-        static::$weekEndsAt = max(0, (7 + $day) % 7);
+        static::$weekEndsAt = $day === static::WEEK_START_DAY ? $day : max(0, (7 + $day) % 7);
     }
 
     /**

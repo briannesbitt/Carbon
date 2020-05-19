@@ -579,6 +579,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const MICROSECONDS_PER_SECOND = 1000000;
 
     /**
+     * Special settings to get the start of week from current locale culture.
+     */
+    public const WEEK_START_DAY = 'auto';
+
+    /**
      * RFC7231 DateTime format.
      *
      * @var string
