@@ -10,16 +10,22 @@
  */
 namespace Carbon;
 
+use BadMethodCallException;
+use Carbon\Exceptions\ImmutableException;
+use Carbon\Exceptions\InvalidDateException;
+use Carbon\Exceptions\InvalidFormatException;
+use Carbon\Exceptions\UnknownGetterException;
+use Carbon\Exceptions\UnknownMethodException;
+use Carbon\Exceptions\UnknownSetterException;
 use Closure;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
-use Exception;
-use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionException;
+use Throwable;
 
 /**
  * Common interface for Carbon and CarbonImmutable.
@@ -608,7 +614,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @throws \BadMethodCallException|\ReflectionException
+     * @throws UnknownMethodException|BadMethodCallException|ReflectionException|Throwable
      *
      * @return mixed
      */
@@ -620,7 +626,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      *
      * @return mixed
      */
@@ -639,6 +645,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
+     *
+     * @throws InvalidFormatException
      */
     public function __construct($time = null, $tz = null);
 
@@ -654,7 +662,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownGetterException
      *
      * @return string|int|bool|DateTimeZone|null
      */
@@ -675,7 +683,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                  $name
      * @param string|int|DateTimeZone $value
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownSetterException|ReflectionException
      *
      * @return void
      */
@@ -868,7 +876,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
-     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     * @param Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|DateTimeInterface|string|null $date
      *
      * @return static
      */
@@ -982,7 +990,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception|InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -996,7 +1004,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception|InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -1009,7 +1017,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static|false
      */
@@ -1024,7 +1032,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null                                        $locale     locale to be used for LTS, LT, LL, LLL, etc. macro-formats (en by fault, unneeded if no such macro-format in use)
      * @param \Symfony\Component\Translation\TranslatorInterface $translator optional custom translator to use for macro-formats
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static|false
      */
@@ -1038,7 +1046,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static|false
      */
@@ -1052,7 +1060,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static|false
      */
@@ -1066,7 +1074,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception|InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -1078,7 +1086,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                   $time
      * @param DateTimeZone|string|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -1121,7 +1129,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $day
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -1139,7 +1147,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * If $hour is not null then the default values for $minute and $second
      * will be 0.
      *
-     * If one of the set values is not valid, an \InvalidArgumentException
+     * If one of the set values is not valid, an InvalidDateException
      * will be thrown.
      *
      * @param int|null                 $year
@@ -1150,7 +1158,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param int|null                 $second
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception
+     * @throws InvalidDateException
      *
      * @return static|false
      */
@@ -1916,7 +1924,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $value
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -1937,7 +1945,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownGetterException
      *
      * @return string|int|bool|DateTimeZone|null
      */
@@ -2482,7 +2490,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param string $unit The unit to test.
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      *
      * @return bool
      */
@@ -2659,8 +2667,6 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                                        $format date formats to compare.
      * @param \Carbon\Carbon|\DateTimeInterface|string|null $date   instance to compare with or null to use current day.
      *
-     * @throws \InvalidArgumentException
-     *
      * @return bool
      */
     public function isSameAs($format, $date = null);
@@ -2713,7 +2719,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                                 $unit singular unit string
      * @param \Carbon\Carbon|\DateTimeInterface|null $date instance to compare with or null to use current day.
      *
-     * @throws \InvalidArgumentException
+     * @throws BadComparisonUnitException
      *
      * @return bool
      */
@@ -3068,7 +3074,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @param mixed $var
      *
-     * @throws Exception
+     * @throws InvalidFormatException
      *
      * @return static|null
      */
@@ -3319,7 +3325,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -3332,7 +3338,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                   $locale
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -3391,7 +3397,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string                         $time
      * @param DateTimeZone|string|false|null $tz
      *
-     * @throws InvalidArgumentException
+     * @throws InvalidFormatException
      *
      * @return static|false
      */
@@ -3416,7 +3422,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null              $time
      * @param DateTimeZone|string|null $tz
      *
-     * @throws Exception
+     * @throws InvalidFormatException
      *
      * @return static
      */
@@ -3529,7 +3535,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|array            $name
      * @param string|int|DateTimeZone $value
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws ImmutableException|UnknownSetterException
      *
      * @return $this
      */
@@ -3551,7 +3557,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the year, month, and date for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     * @param Carbon|DateTimeInterface $date now if null
      *
      * @return static
      */
@@ -3575,7 +3581,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the date and time for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date
+     * @param Carbon|DateTimeInterface $date
      *
      * @return static
      */
@@ -3685,7 +3691,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Set the hour, minute, second and microseconds for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     * @param Carbon|DateTimeInterface $date now if null
      *
      * @return static
      */
