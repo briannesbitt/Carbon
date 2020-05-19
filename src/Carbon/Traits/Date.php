@@ -1612,7 +1612,7 @@ trait Date
      */
     public static function getWeekStartsAt()
     {
-        if (static::$weekStartsAt === static::WEEK_START_DAY) {
+        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
             return (int) static::getTranslationMessageWith(
                 static::getTranslator(),
                 'first_day_of_week'
@@ -1636,7 +1636,7 @@ trait Date
      */
     public static function setWeekStartsAt($day)
     {
-        static::$weekStartsAt = $day === static::WEEK_START_DAY ? $day : max(0, (7 + $day) % 7);
+        static::$weekStartsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
     }
 
     /**
@@ -1646,7 +1646,7 @@ trait Date
      */
     public static function getWeekEndsAt()
     {
-        if (static::$weekStartsAt === static::WEEK_START_DAY) {
+        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
             return (int) (static::DAYS_PER_WEEK - 1 + static::getTranslationMessageWith(
                 static::getTranslator(),
                 'first_day_of_week'
@@ -1671,7 +1671,7 @@ trait Date
      */
     public static function setWeekEndsAt($day)
     {
-        static::$weekEndsAt = $day === static::WEEK_START_DAY ? $day : max(0, (7 + $day) % 7);
+        static::$weekEndsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
     }
 
     /**

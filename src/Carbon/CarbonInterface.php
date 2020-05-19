@@ -581,7 +581,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Special settings to get the start of week from current locale culture.
      */
-    public const WEEK_START_DAY = 'auto';
+    public const WEEK_DAY_AUTO = 'auto';
 
     /**
      * RFC7231 DateTime format.
@@ -3793,7 +3793,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Set the last day of week
      *
-     * @param int $day
+     * @param int|string $day week end day (or 'auto' to get the day before the first day of week
+     *                        from Carbon::getLocale() culture).
      *
      * @return void
      */
@@ -3807,7 +3808,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * Set the first day of week
      *
-     * @param int $day week start day
+     * @param int|string $day week start day (or 'auto' to get the first day of week from Carbon::getLocale() culture).
      *
      * @return void
      */
