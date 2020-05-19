@@ -1605,6 +1605,14 @@ trait Date
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
+    private static function getFirstDayOfWeek(): int
+    {
+        return (int) static::getTranslationMessageWith(
+            static::getTranslator(),
+            'first_day_of_week'
+        );
+    }
+
     /**
      * Get the first day of week
      *
@@ -1613,10 +1621,7 @@ trait Date
     public static function getWeekStartsAt()
     {
         if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
-            return (int) static::getTranslationMessageWith(
-                static::getTranslator(),
-                'first_day_of_week'
-            );
+            return static::getFirstDayOfWeek();
         }
 
         return static::$weekStartsAt;
@@ -1647,10 +1652,7 @@ trait Date
     public static function getWeekEndsAt()
     {
         if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
-            return (int) (static::DAYS_PER_WEEK - 1 + static::getTranslationMessageWith(
-                static::getTranslator(),
-                'first_day_of_week'
-            )) % static::DAYS_PER_WEEK;
+            return (int) (static::DAYS_PER_WEEK - 1 + static::getFirstDayOfWeek()) % static::DAYS_PER_WEEK;
         }
 
         return static::$weekEndsAt;
