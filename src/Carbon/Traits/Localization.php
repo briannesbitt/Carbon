@@ -172,9 +172,9 @@ trait Localization
      * @param string|null         $locale     current locale used if null
      * @param string|null         $default    default value if translation returns the key
      *
-     * @return string
+     * @return string|Closure|null
      */
-    public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null)
+    public static function getTranslationMessageWith($translator, string $key, ?string $locale = null, ?string $default = null)
     {
         if (!($translator instanceof TranslatorBagInterface && $translator instanceof TranslatorInterface)) {
             throw new InvalidTypeException(
@@ -323,7 +323,7 @@ trait Localization
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
+    public static function translateTimeString(string $timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL): string
     {
         $from = $from ?: static::getLocale();
         $to = $to ?: CarbonInterface::DEFAULT_LOCALE;
@@ -370,10 +370,10 @@ trait Localization
             }
 
             $$translationKey = array_merge(
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, 12, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'], 12, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, 7, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'], 7, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($months, static::MONTHS_PER_YEAR, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'], static::MONTHS_PER_YEAR, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, static::DAYS_PER_WEEK, $timeString) : [],
+                $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'], static::DAYS_PER_WEEK, $timeString) : [],
                 $mode & CarbonInterface::TRANSLATE_UNITS ? array_map(function ($unit) use ($messages, $key, $cleanWord) {
                     $parts = explode('|', $messages[$unit]);
 

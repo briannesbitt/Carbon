@@ -23,6 +23,7 @@ use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownMethodException;
 use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
+use Carbon\Translator;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -115,35 +116,35 @@ use Throwable;
  * @method        bool            isThursday()                                                                        Checks if the instance day is thursday.
  * @method        bool            isFriday()                                                                          Checks if the instance day is friday.
  * @method        bool            isSaturday()                                                                        Checks if the instance day is saturday.
- * @method        bool            isSameYear(Carbon|DateTimeInterface|string|null $date = null)              Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameYear(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentYear()                                                                     Checks if the instance is in the same year as the current moment.
  * @method        bool            isNextYear()                                                                        Checks if the instance is in the same year as the current moment next year.
  * @method        bool            isLastYear()                                                                        Checks if the instance is in the same year as the current moment last year.
- * @method        bool            isSameWeek(Carbon|DateTimeInterface|string|null $date = null)              Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameWeek(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentWeek()                                                                     Checks if the instance is in the same week as the current moment.
  * @method        bool            isNextWeek()                                                                        Checks if the instance is in the same week as the current moment next week.
  * @method        bool            isLastWeek()                                                                        Checks if the instance is in the same week as the current moment last week.
- * @method        bool            isSameDay(Carbon|DateTimeInterface|string|null $date = null)               Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameDay(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)               Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentDay()                                                                      Checks if the instance is in the same day as the current moment.
  * @method        bool            isNextDay()                                                                         Checks if the instance is in the same day as the current moment next day.
  * @method        bool            isLastDay()                                                                         Checks if the instance is in the same day as the current moment last day.
- * @method        bool            isSameHour(Carbon|DateTimeInterface|string|null $date = null)              Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameHour(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentHour()                                                                     Checks if the instance is in the same hour as the current moment.
  * @method        bool            isNextHour()                                                                        Checks if the instance is in the same hour as the current moment next hour.
  * @method        bool            isLastHour()                                                                        Checks if the instance is in the same hour as the current moment last hour.
- * @method        bool            isSameMinute(Carbon|DateTimeInterface|string|null $date = null)            Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameMinute(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentMinute()                                                                   Checks if the instance is in the same minute as the current moment.
  * @method        bool            isNextMinute()                                                                      Checks if the instance is in the same minute as the current moment next minute.
  * @method        bool            isLastMinute()                                                                      Checks if the instance is in the same minute as the current moment last minute.
- * @method        bool            isSameSecond(Carbon|DateTimeInterface|string|null $date = null)            Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameSecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
  * @method        bool            isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
  * @method        bool            isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool            isSameMicro(Carbon|DateTimeInterface|string|null $date = null)             Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameMicro(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)             Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
  * @method        bool            isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool            isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool            isSameMicrosecond(Carbon|DateTimeInterface|string|null $date = null)       Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameMicrosecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)       Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
  * @method        bool            isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
  * @method        bool            isLastMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment last microsecond.
@@ -153,15 +154,15 @@ use Throwable;
  * @method        bool            isCurrentQuarter()                                                                  Checks if the instance is in the same quarter as the current moment.
  * @method        bool            isNextQuarter()                                                                     Checks if the instance is in the same quarter as the current moment next quarter.
  * @method        bool            isLastQuarter()                                                                     Checks if the instance is in the same quarter as the current moment last quarter.
- * @method        bool            isSameDecade(Carbon|DateTimeInterface|string|null $date = null)            Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameDecade(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentDecade()                                                                   Checks if the instance is in the same decade as the current moment.
  * @method        bool            isNextDecade()                                                                      Checks if the instance is in the same decade as the current moment next decade.
  * @method        bool            isLastDecade()                                                                      Checks if the instance is in the same decade as the current moment last decade.
- * @method        bool            isSameCentury(Carbon|DateTimeInterface|string|null $date = null)           Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameCentury(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)           Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentCentury()                                                                  Checks if the instance is in the same century as the current moment.
  * @method        bool            isNextCentury()                                                                     Checks if the instance is in the same century as the current moment next century.
  * @method        bool            isLastCentury()                                                                     Checks if the instance is in the same century as the current moment last century.
- * @method        bool            isSameMillennium(Carbon|DateTimeInterface|string|null $date = null)        Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isSameMillennium(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)        Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
  * @method        bool            isCurrentMillennium()                                                               Checks if the instance is in the same millennium as the current moment.
  * @method        bool            isNextMillennium()                                                                  Checks if the instance is in the same millennium as the current moment next millennium.
  * @method        bool            isLastMillennium()                                                                  Checks if the instance is in the same millennium as the current moment last millennium.
@@ -512,14 +513,14 @@ use Throwable;
  * @method        CarbonInterface floorMicroseconds(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
  * @method        CarbonInterface ceilMicrosecond(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
  * @method        CarbonInterface ceilMicroseconds(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
- * @method        string          shortAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeDiffForHumans(DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeDiffForHumans(DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
  */
@@ -689,52 +690,6 @@ trait Date
     public function nowWithSameTz()
     {
         return static::now($this->getTimezone());
-    }
-
-    /**
-     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
-     *
-     * @param mixed        $date
-     * @param string|array $other
-     *
-     * @throws InvalidTypeException
-     */
-    protected static function expectDateTime($date, $other = [])
-    {
-        $message = 'Expected ';
-        foreach ((array) $other as $expect) {
-            $message .= "$expect, ";
-        }
-
-        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
-            throw new InvalidTypeException(
-                $message.'DateTime or DateTimeInterface, '.
-                (is_object($date) ? get_class($date) : gettype($date)).' given'
-            );
-        }
-    }
-
-    /**
-     * Return the Carbon instance passed through, a now instance in the same timezone
-     * if null given or parse the input if string given.
-     *
-     * @param Carbon|DateTimeInterface|string|null $date
-     *
-     * @return static
-     */
-    protected function resolveCarbon($date = null)
-    {
-        if (!$date) {
-            return $this->nowWithSameTz();
-        }
-
-        if (is_string($date)) {
-            return static::parse($date, $this->getTimezone());
-        }
-
-        static::expectDateTime($date, ['null', 'string']);
-
-        return $date instanceof self ? $date : static::instance($date);
     }
 
     /**
@@ -917,11 +872,11 @@ trait Date
 
             // @property-read int 0 through 6
             case $name === 'firstWeekDay':
-                return $this->localTranslator ? ($this->getTranslationMessage('first_day_of_week') ?? 0) : static::getWeekStartsAt();
+                return (int) $this->getTranslationMessage('first_day_of_week');
 
             // @property-read int 0 through 6
             case $name === 'lastWeekDay':
-                return $this->localTranslator ? (($this->getTranslationMessage('first_day_of_week') ?? 0) + static::DAYS_PER_WEEK - 1) % static::DAYS_PER_WEEK : static::getWeekEndsAt();
+                return (int) static::weekRotate($this->getTranslationMessage('first_day_of_week'), - 1);
 
             // @property int 1 through 366
             case $name === 'dayOfYear':
@@ -1188,26 +1143,6 @@ trait Date
         return $this;
     }
 
-    protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
-    {
-        $key = $baseKey.$keySuffix;
-        $standaloneKey = "${key}_standalone";
-        $baseTranslation = $this->getTranslationMessage($key);
-
-        if ($baseTranslation instanceof Closure) {
-            return $baseTranslation($this, $context, $subKey) ?: $defaultValue;
-        }
-
-        if (
-            $this->getTranslationMessage("$standaloneKey.$subKey") &&
-            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
-        ) {
-            $key = $standaloneKey;
-        }
-
-        return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
-    }
-
     /**
      * Get the translation of the current week day name (with context for languages with multiple forms).
      *
@@ -1295,7 +1230,7 @@ trait Date
      */
     public function weekday($value = null)
     {
-        $dayOfWeek = ($this->dayOfWeek + 7 - intval($this->getTranslationMessage('first_day_of_week') ?? 0)) % 7;
+        $dayOfWeek = static::weekRotate($this->dayOfWeek, -$this->getTranslationMessage('first_day_of_week'));
 
         return is_null($value) ? $dayOfWeek : $this->addDays($value - $dayOfWeek);
     }
@@ -1606,57 +1541,28 @@ trait Date
     ///////////////////////////////////////////////////////////////////
 
     /**
-     * Get the first day of week
+     * Get the first day of week.
      *
      * @return int
      */
-    public static function getWeekStartsAt()
+    public static function getWeekStartsAt(?string $locale = null): int
     {
-        return static::$weekStartsAt;
+        return static::getTranslationMessageWith(
+            $locale ? Translator::get($locale) : static::getTranslator(),
+            'first_day_of_week'
+        );
     }
 
     /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekEndsAt optional parameter instead when using endOfWeek method. You can also use the
-     *             'first_day_of_week' locale setting to change the start of week according to current locale
-     *             selected and implicitly the end of week.
+     * Get the last day of week.
      *
-     * Set the first day of week
-     *
-     * @param int $day week start day
-     *
-     * @return void
-     */
-    public static function setWeekStartsAt($day)
-    {
-        static::$weekStartsAt = max(0, (7 + $day) % 7);
-    }
-
-    /**
-     * Get the last day of week
+     * @param string $locale local to consider the last day of week.
      *
      * @return int
      */
-    public static function getWeekEndsAt()
+    public static function getWeekEndsAt(?string $locale = null): int
     {
-        return static::$weekEndsAt;
-    }
-
-    /**
-     * @deprecated To avoid conflict between different third-party libraries, static setters should not be used.
-     *             Use $weekStartsAt optional parameter instead when using startOfWeek, floorWeek, ceilWeek
-     *             or roundWeek method. You can also use the 'first_day_of_week' locale setting to change the
-     *             start of week according to current locale selected and implicitly the end of week.
-     *
-     * Set the last day of week
-     *
-     * @param int $day
-     *
-     * @return void
-     */
-    public static function setWeekEndsAt($day)
-    {
-        static::$weekEndsAt = max(0, (7 + $day) % 7);
+        return static::weekRotate(static::getWeekStartsAt($locale), -1);
     }
 
     /**
@@ -1769,12 +1675,12 @@ trait Date
     public function getIsoFormats($locale = null)
     {
         return [
-            'LT' => $this->getTranslationMessage('formats.LT', $locale, 'h:mm A'),
-            'LTS' => $this->getTranslationMessage('formats.LTS', $locale, 'h:mm:ss A'),
-            'L' => $this->getTranslationMessage('formats.L', $locale, 'MM/DD/YYYY'),
-            'LL' => $this->getTranslationMessage('formats.LL', $locale, 'MMMM D, YYYY'),
-            'LLL' => $this->getTranslationMessage('formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
-            'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+            'LT' => $this->getTranslationMessage('formats.LT', $locale),
+            'LTS' => $this->getTranslationMessage('formats.LTS', $locale),
+            'L' => $this->getTranslationMessage('formats.L', $locale),
+            'LL' => $this->getTranslationMessage('formats.LL', $locale),
+            'LLL' => $this->getTranslationMessage('formats.LLL', $locale),
+            'LLLL' => $this->getTranslationMessage('formats.LLLL', $locale),
         ];
     }
 
@@ -2270,19 +2176,6 @@ trait Date
         return "$symbol$hour$separator$minute";
     }
 
-    protected static function executeStaticCallable($macro, ...$parameters)
-    {
-        return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
-            if ($macro instanceof Closure) {
-                $boundMacro = @Closure::bind($macro, null, static::class);
-
-                return call_user_func_array($boundMacro ?: $macro, $parameters);
-            }
-
-            return call_user_func_array($macro, $parameters);
-        });
-    }
-
     /**
      * Dynamically handle calls to the class.
      *
@@ -2386,33 +2279,6 @@ trait Date
         }
 
         return "${unit}s";
-    }
-
-    protected function executeCallable($macro, ...$parameters)
-    {
-        if ($macro instanceof Closure) {
-            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
-
-            return call_user_func_array($boundMacro ?: $macro, $parameters);
-        }
-
-        return call_user_func_array($macro, $parameters);
-    }
-
-    protected function executeCallableWithContext($macro, ...$parameters)
-    {
-        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
-            return $this->executeCallable($macro, ...$parameters);
-        });
-    }
-
-    protected static function getGenericMacros()
-    {
-        foreach (static::$globalGenericMacros as $list) {
-            foreach ($list as $macro) {
-                yield $macro;
-            }
-        }
     }
 
     /**
@@ -2590,5 +2456,116 @@ trait Date
 
             return $this->executeCallable($macro, ...$parameters);
         });
+    }
+
+    /**
+     * Throws an exception if the given object is not a DateTime and does not implement DateTimeInterface.
+     *
+     * @param mixed        $date
+     * @param string|array $other
+     *
+     * @throws InvalidTypeException
+     */
+    protected static function expectDateTime($date, $other = [])
+    {
+        $message = 'Expected ';
+        foreach ((array) $other as $expect) {
+            $message .= "$expect, ";
+        }
+
+        if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
+            throw new InvalidTypeException(
+                $message.'DateTime or DateTimeInterface, '.
+                (is_object($date) ? get_class($date) : gettype($date)).' given'
+            );
+        }
+    }
+
+    /**
+     * Return the Carbon instance passed through, a now instance in the same timezone
+     * if null given or parse the input if string given.
+     *
+     * @param Carbon|DateTimeInterface|string|null $date
+     *
+     * @return static
+     */
+    protected function resolveCarbon($date = null)
+    {
+        if (!$date) {
+            return $this->nowWithSameTz();
+        }
+
+        if (is_string($date)) {
+            return static::parse($date, $this->getTimezone());
+        }
+
+        static::expectDateTime($date, ['null', 'string']);
+
+        return $date instanceof self ? $date : static::instance($date);
+    }
+
+    protected static function weekRotate(int $day, int $rotation): int
+    {
+        return (static::DAYS_PER_WEEK + $rotation % static::DAYS_PER_WEEK + $day) % static::DAYS_PER_WEEK;
+    }
+
+    protected function executeCallable($macro, ...$parameters)
+    {
+        if ($macro instanceof Closure) {
+            $boundMacro = @$macro->bindTo($this, static::class) ?: @$macro->bindTo(null, static::class);
+
+            return call_user_func_array($boundMacro ?: $macro, $parameters);
+        }
+
+        return call_user_func_array($macro, $parameters);
+    }
+
+    protected function executeCallableWithContext($macro, ...$parameters)
+    {
+        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
+            return $this->executeCallable($macro, ...$parameters);
+        });
+    }
+
+    protected static function getGenericMacros()
+    {
+        foreach (static::$globalGenericMacros as $list) {
+            foreach ($list as $macro) {
+                yield $macro;
+            }
+        }
+    }
+
+    protected static function executeStaticCallable($macro, ...$parameters)
+    {
+        return static::bindMacroContext(null, function () use (&$macro, &$parameters) {
+            if ($macro instanceof Closure) {
+                $boundMacro = @Closure::bind($macro, null, static::class);
+
+                return call_user_func_array($boundMacro ?: $macro, $parameters);
+            }
+
+            return call_user_func_array($macro, $parameters);
+        });
+    }
+
+    protected function getTranslatedFormByRegExp($baseKey, $keySuffix, $context, $subKey, $defaultValue)
+    {
+        $key = $baseKey.$keySuffix;
+        $standaloneKey = "${key}_standalone";
+        $baseTranslation = $this->getTranslationMessage($key);
+
+        if ($baseTranslation instanceof Closure) {
+            return $baseTranslation($this, $context, $subKey) ?: $defaultValue;
+        }
+
+        if (
+            $this->getTranslationMessage("$standaloneKey.$subKey") &&
+            (!$context || ($regExp = $this->getTranslationMessage("${baseKey}_regexp")) && !preg_match($regExp, $context))
+        ) {
+            $key = $standaloneKey;
+        }
+
+        return $this->getTranslationMessage("$key.$subKey", null, $defaultValue);
     }
 }

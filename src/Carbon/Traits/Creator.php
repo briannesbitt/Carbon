@@ -694,12 +694,12 @@ trait Creator
                 $translator = $translator ?: Translator::get($locale);
 
                 $formats = [
-                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale, 'h:mm A'),
-                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale, 'h:mm:ss A'),
-                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale, 'MM/DD/YYYY'),
-                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale, 'MMMM D, YYYY'),
-                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale, 'MMMM D, YYYY h:mm A'),
-                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale, 'dddd, MMMM D, YYYY h:mm A'),
+                    'LT' => static::getTranslationMessageWith($translator, 'formats.LT', $locale),
+                    'LTS' => static::getTranslationMessageWith($translator, 'formats.LTS', $locale),
+                    'L' => static::getTranslationMessageWith($translator, 'formats.L', $locale),
+                    'LL' => static::getTranslationMessageWith($translator, 'formats.LL', $locale),
+                    'LLL' => static::getTranslationMessageWith($translator, 'formats.LLL', $locale),
+                    'LLLL' => static::getTranslationMessageWith($translator, 'formats.LLLL', $locale),
                 ];
             }
 

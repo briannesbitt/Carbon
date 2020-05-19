@@ -34,20 +34,6 @@ trait Options
     public static $PHPIntSize = PHP_INT_SIZE;
 
     /**
-     * First day of week.
-     *
-     * @var int
-     */
-    protected static $weekStartsAt = CarbonInterface::MONDAY;
-
-    /**
-     * Last day of week.
-     *
-     * @var int
-     */
-    protected static $weekEndsAt = CarbonInterface::SUNDAY;
-
-    /**
      * Days of weekend.
      *
      * @var array

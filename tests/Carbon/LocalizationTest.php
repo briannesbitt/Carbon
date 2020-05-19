@@ -24,12 +24,6 @@ use Tests\Carbon\Fixtures\MyCarbon;
 
 class LocalizationTest extends AbstractTestCase
 {
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        Carbon::setLocale('en');
-    }
-
     public function testGetTranslator()
     {
         /** @var Translator $t */

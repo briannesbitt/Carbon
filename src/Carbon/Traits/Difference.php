@@ -765,10 +765,12 @@ trait Difference
         }
 
         $intSyntax = &$syntax;
+
         if (is_array($syntax)) {
             $syntax['syntax'] = $syntax['syntax'] ?? null;
             $intSyntax = &$syntax['syntax'];
         }
+
         $intSyntax = (int) ($intSyntax === null ? static::DIFF_RELATIVE_AUTO : $intSyntax);
         $intSyntax = $intSyntax === static::DIFF_RELATIVE_AUTO && $other === null ? static::DIFF_RELATIVE_TO_NOW : $intSyntax;
 
@@ -1070,12 +1072,12 @@ trait Difference
         /** @var CarbonInterface $other */
         $other = $this->resolveCarbon($referenceTime)->copy()->setTimezone($this->getTimezone())->startOfDay();
         $diff = $other->diffInDays($current, false);
-        $format = $diff < -6 ? 'sameElse' : (
+        $format = $diff <= -static::DAYS_PER_WEEK ? 'sameElse' : (
             $diff < -1 ? 'lastWeek' : (
                 $diff < 0 ? 'lastDay' : (
                     $diff < 1 ? 'sameDay' : (
                         $diff < 2 ? 'nextDay' : (
-                            $diff < 7 ? 'nextWeek' : 'sameElse'
+                            $diff < static::DAYS_PER_WEEK ? 'nextWeek' : 'sameElse'
                         )
                     )
                 )

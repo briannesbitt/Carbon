@@ -273,6 +273,7 @@ trait Boundaries
     public function startOfWeek($weekStartsAt = null)
     {
         $date = $this;
+
         while ($date->dayOfWeek !== ($weekStartsAt ?? $this->firstWeekDay)) {
             $date = $date->subDay();
         }
