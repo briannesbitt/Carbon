@@ -97,25 +97,25 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100 වැනි',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        'පෙ.ව. 12:00 CET',
+        '12:00 පෙ.ව. CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
-        'පෙරවරු 12:00, පෙ.ව. 12:00',
+        '12:00 පෙරවරු, 12:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
-        'පෙරවරු 1:30, පෙ.ව. 1:30',
+        '1:30 පෙරවරු, 1:30 පෙ.ව.',
         // Carbon::parse('2018-02-10 02:00:00')->isoFormat('h:mm A, h:mm a')
-        'පෙරවරු 2:00, පෙ.ව. 2:00',
+        '2:00 පෙරවරු, 2:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 06:00:00')->isoFormat('h:mm A, h:mm a')
-        'පෙරවරු 6:00, පෙ.ව. 6:00',
+        '6:00 පෙරවරු, 6:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 10:00:00')->isoFormat('h:mm A, h:mm a')
-        'පෙරවරු 10:00, පෙ.ව. 10:00',
+        '10:00 පෙරවරු, 10:00 පෙ.ව.',
         // Carbon::parse('2018-02-10 12:00:00')->isoFormat('h:mm A, h:mm a')
-        'පස්වරු 12:00, ප.ව. 12:00',
+        '12:00 පස්වරු, 12:00 ප.ව.',
         // Carbon::parse('2018-02-10 17:00:00')->isoFormat('h:mm A, h:mm a')
-        'පස්වරු 5:00, ප.ව. 5:00',
+        '5:00 පස්වරු, 5:00 ප.ව.',
         // Carbon::parse('2018-02-10 21:30:00')->isoFormat('h:mm A, h:mm a')
-        'පස්වරු 9:30, ප.ව. 9:30',
+        '9:30 පස්වරු, 9:30 ප.ව.',
         // Carbon::parse('2018-02-10 23:00:00')->isoFormat('h:mm A, h:mm a')
-        'පස්වරු 11:00, ප.ව. 11:00',
+        '11:00 පස්වරු, 11:00 ප.ව.',
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0 වැනි',
         // Carbon::now()->subSeconds(1)->diffForHumans()
@@ -175,13 +175,13 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         'වසර 2කට පෙර',
         // Carbon::now()->addSecond()->diffForHumans()
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         'තත්පර 1කට පෙර',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
@@ -195,13 +195,13 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         'තත්පර 2',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'තත්පර 1කින්',
+        'තත්පර 1 කින්',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'මිනිත්තු 1 තත්පර 1',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         'වසර 2 මාස 3 දින 1 තත්පර 1',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'වසර 3කින්',
+        'වසර 3 කින්',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         'මාස 5කට පෙර',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,11 +213,11 @@ class SiLkTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'සති 1 දින 6',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'සති 1 දින 6න්',
+        'සති 1 දින 6 න්',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         'සති 2 පැය 1',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'පැයකින්',
+        'පැය 1 කින්',
         // CarbonInterval::days(2)->forHumans()
         'දින 2',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

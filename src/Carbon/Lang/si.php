@@ -18,15 +18,15 @@
  */
 return [
     'year' => '{1}වසර 1|වසර :count',
-    'a_year' => '{1}වසරක්|වසර :count',
+    'a_year' => '{1}වසර 1|වසර :count',
     'month' => '{1}මාස 1|මාස :count',
-    'a_month' => '{1}මාසයක්|මාස :count',
+    'a_month' => '{1}මාස 1|මාස :count',
     'week' => '{1}සති 1|සති :count',
-    'a_week' => '{1}සතියක්|සති :count',
+    'a_week' => '{1}සති 1|සති :count',
     'day' => '{1}දින 1|දින :count',
     'a_day' => '{1}දිනක්|දින :count',
     'hour' => '{1}පැය 1|පැය :count',
-    'a_hour' => '{1}පැයක්|පැය :count',
+    'a_hour' => '{1}පැය 1|පැය :count',
     'minute' => '{1}මිනිත්තු 1|මිනිත්තු :count',
     'a_minute' => '{1}මිනිත්තුවක්|මිනිත්තු :count',
     'second' => '{1}තත්පර 1|තත්පර :count',
@@ -37,15 +37,15 @@ return [
             return $time.' න්';
         }
 
-        return $time.'කින්';
+        return $time.' කින්';
     },
     'before' => ':timeකට පෙර',
     'after' => function ($time) {
         if (preg_match('/දින \d+/', $time)) {
-            return $time.'න්';
+            return $time.' න්';
         }
 
-        return $time.'කින්';
+        return $time.' කින්';
     },
     'diff_now' => 'දැන්',
     'diff_yesterday' => 'ඊයේ',
