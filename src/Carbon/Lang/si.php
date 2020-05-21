@@ -62,7 +62,7 @@ return [
         'sameDay' => '[අද] LT[ට]',
         'nextDay' => '[හෙට] LT[ට]',
         'nextWeek' => 'dddd LT[ට]',
-        'lastDay' => '[ඊයේ] L T[ට]',
+        'lastDay' => '[ඊයේ] LT[ට]',
         'lastWeek' => '[පසුගිය] dddd LT[ට]',
         'sameElse' => 'L',
     ],
