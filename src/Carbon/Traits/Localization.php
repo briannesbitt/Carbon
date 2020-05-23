@@ -397,6 +397,8 @@ trait Localization
                     'month',
                     'week',
                     'day',
+                    'diff_tomorrow',
+                    'diff_yesterday',
                     'hour',
                     'minute',
                     'second',
