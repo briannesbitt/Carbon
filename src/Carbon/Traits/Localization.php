@@ -386,7 +386,11 @@ trait Localization
                 $mode & CarbonInterface::TRANSLATE_MONTHS ? static::getTranslationArray($messages['months_short'], 12, $timeString) : [],
                 $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($weekdays, 7, $timeString) : [],
                 $mode & CarbonInterface::TRANSLATE_DAYS ? static::getTranslationArray($messages['weekdays_short'], 7, $timeString) : [],
-                $mode & CarbonInterface::TRANSLATE_UNITS ? array_map(function ($unit) use ($messages, $key, $cleanWord) {
+                $mode & CarbonInterface::TRANSLATE_UNITS ? array_filter(array_map(function ($unit) use ($messages, $key, $cleanWord) {
+                    if (!isset($messages[$unit])) {
+                        return null;
+                    }
+
                     $parts = explode('|', $messages[$unit]);
 
                     return $key === 'to'
@@ -400,7 +404,9 @@ trait Localization
                     'hour',
                     'minute',
                     'second',
-                ]) : [],
+                ]), function ($value) {
+                    return $value !== null;
+                }) : [],
                 $mode & CarbonInterface::TRANSLATE_MERIDIEM ? array_map(function ($hour) use ($meridiem) {
                     if (is_array($meridiem)) {
                         return $meridiem[$hour < 12 ? 0 : 1];
