@@ -233,5 +233,22 @@ class ModifyTest extends AbstractTestCase
         $this->assertSame('2019-06-01 14:00:00', Carbon::parse('previous 14h')->format('Y-m-d H:i:s'));
         $this->assertSame('2019-06-03 09:00:00', Carbon::parse('next 9am')->format('Y-m-d H:i:s'));
         $this->assertSame('2019-06-02 09:00:00', Carbon::parse('previous 9am')->format('Y-m-d H:i:s'));
+
+        $this->assertSame(
+            '2019-06-04 00:00:00',
+            Carbon::parse('after tomorrow')->format('Y-m-d H:i:s')
+        );
+        $this->assertSame(
+            '2000-01-27 00:00:00',
+            Carbon::parse('2000-01-25')->change('after tomorrow')->format('Y-m-d H:i:s')
+        );
+        $this->assertSame(
+            '2019-05-31 00:00:00',
+            Carbon::parse('before yesterday')->format('Y-m-d H:i:s')
+        );
+        $this->assertSame(
+            '2000-01-23 00:00:00',
+            Carbon::parse('2000-01-25')->change('before yesterday')->format('Y-m-d H:i:s')
+        );
     }
 }
