@@ -272,13 +272,12 @@ trait Boundaries
      */
     public function startOfWeek($weekStartsAt = null)
     {
-        $date = $this;
-
-        while ($date->dayOfWeek !== ($weekStartsAt ?? $this->firstWeekDay)) {
-            $date = $date->subDay();
-        }
-
-        return $date->startOfDay();
+        return $this
+            ->subDays(
+                (static::DAYS_PER_WEEK + $this->dayOfWeek - ($weekStartsAt ?? $this->firstWeekDay)) %
+                static::DAYS_PER_WEEK
+            )
+            ->startOfDay();
     }
 
     /**
@@ -297,12 +296,12 @@ trait Boundaries
      */
     public function endOfWeek($weekEndsAt = null)
     {
-        $date = $this;
-        while ($date->dayOfWeek !== ($weekEndsAt ?? $this->lastWeekDay)) {
-            $date = $date->addDay();
-        }
-
-        return $date->endOfDay();
+        return $this
+            ->addDays(
+                (static::DAYS_PER_WEEK - $this->dayOfWeek + ($weekEndsAt ?? $this->lastWeekDay)) %
+                static::DAYS_PER_WEEK
+            )
+            ->endOfDay();
     }
 
     /**
