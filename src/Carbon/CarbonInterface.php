@@ -2226,7 +2226,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null         $locale     current locale used if null
      * @param string|null         $default    default value if translation returns the key
      *
-     * @return string
+     * @return string|Closure|null
      */
     public static function getTranslationMessageWith($translator, string $key, string $locale = null, string $default = null);
 
@@ -4590,7 +4590,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false);
+    public function translate(string $key, array $parameters = [], $number = null, \Symfony\Contracts\Translation\TranslatorInterface $translator = null, bool $altNumbers = false): string;
 
     /**
      * Returns the alternative number for a given integer if available in the current locale.
@@ -4639,7 +4639,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function translateWith(\Symfony\Contracts\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null);
+    public static function translateWith(\Symfony\Contracts\Translation\TranslatorInterface $translator, string $key, array $parameters = [], $number = null): string;
 
     /**
      * Format as ->format() do (using date replacements patterns from http://php.net/manual/fr/function.date.php)
