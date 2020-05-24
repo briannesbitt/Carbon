@@ -235,22 +235,22 @@ class CreateTest extends AbstractTestCase
 
         $this->assertSame($dateToday->format('Y-m-d'), $dateTest->format('Y-m-d'));
 
-        $date = date('Y-m-d', strtotime($dateToday. ' + 1 days'));
+        $date = date('Y-m-d', strtotime($dateToday.' + 1 days'));
         $dateTest = Carbon::parseFromLocale('demain', 'fr');
 
         $this->assertSame($date, $dateTest->format('Y-m-d'));
 
-        $date = date('Y-m-d', strtotime($dateToday. ' + 2 days'));
+        $date = date('Y-m-d', strtotime($dateToday.' + 2 days'));
         $dateTest = Carbon::parseFromLocale('après-demain', 'fr');
 
         $this->assertSame($date, $dateTest->format('Y-m-d'));
 
-        $date = date('Y-m-d', strtotime($dateToday. ' - 1 days'));
+        $date = date('Y-m-d', strtotime($dateToday.' - 1 days'));
         $dateTest = Carbon::parseFromLocale('hier', 'fr');
 
         $this->assertSame($date, $dateTest->format('Y-m-d'));
 
-        $date = date('Y-m-d', strtotime($dateToday. ' - 2 days'));
+        $date = date('Y-m-d', strtotime($dateToday.' - 2 days'));
         $dateTest = Carbon::parseFromLocale('avant-hier', 'fr');
 
         $this->assertSame($date, $dateTest->format('Y-m-d'));
