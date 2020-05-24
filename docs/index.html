@@ -274,7 +274,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2020-05-24 19:06:00
+echo $now;                               // 2020-05-24 19:08:55
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2020-05-24 00:00:00
@@ -406,7 +406,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:06 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 21:08 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -760,7 +760,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // mai
 echo "\n";
-echo $date->isoFormat('LLLL');   // dimanche 24 mai 2020 19:06
+echo $date->isoFormat('LLLL');   // dimanche 24 mai 2020 19:08
 </code></pre>
     </p>
 
@@ -791,13 +791,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 19:06
+Aujourd’hui à 19:08
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 7:06 PM
+Today at 7:08 PM
 */
 </code></pre>
     </p>
@@ -1598,21 +1598,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 7:06 PM
+echo $date->calendar();                                      // Today at 7:08 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:06 PM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 4:08 PM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 8:43 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Thursday at 8:45 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 05/16/2020
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:06 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 10:08 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 5:29 AM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Thursday at 5:31 AM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 06/01/2020
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:06
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 19:08
 </code></pre>
     </p>
 
@@ -5371,7 +5371,7 @@ echo $date->isoFormat('LLLL'); // Saturday, March 9, 2019 12:00 AM
 </code></pre>
     </p>
 
-    <p>This can understand "today", "today at 8:00", "yesterday", "after tomorrow", etc. in the given language.</p>
+    <p>You can also use "today", "today at 8:00", "yesterday", "after tomorrow", etc. equivalents in the given language.</p>
 
     <p>Or with custom format using <code>createFromLocaleFormat</code>
         (use the <a href="https://php.net/manual/en/function.date.php"><code>date()</code> pattern</a> for replacements):</p>
@@ -5494,7 +5494,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2020-05-24 19:06:01
+echo Carbon::now();                                    // 2020-05-24 19:08:57
 </code></pre>
     </p>
 
@@ -5719,12 +5719,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(2)
+var_dump(Carbon::now()->get($unit));                         // int(57)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(2)
+var_dump(Carbon::now()->$unit);                              // int(57)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(2)
+var_dump(Carbon::now()->get($unit));                         // int(57)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6159,7 +6159,7 @@ var_dump($dt->carbonize('2019-03-21'));
 /*
 object(Carbon\Carbon)#3415 (16) {
   ["constructedObjectId":protected]=>
-  string(32) "000000000af96de900000000379a476f"
+  string(32) "00000000563f522b000000007213a883"
   ["localMonthsOverflow":protected]=>
   NULL
   ["localYearsOverflow":protected]=>
@@ -6205,7 +6205,7 @@ var_dump($dt->carbonize(CarbonPeriod::create('2019-12-10', '2020-01-05')));
 /*
 object(Carbon\Carbon)#3410 (16) {
   ["constructedObjectId":protected]=>
-  string(32) "000000000af96dec00000000379a476f"
+  string(32) "00000000563f522e000000007213a883"
   ["localMonthsOverflow":protected]=>
   NULL
   ["localYearsOverflow":protected]=>
@@ -6252,7 +6252,7 @@ var_dump($dt->carbonize(CarbonInterval::days(3)));
 /*
 object(Carbon\Carbon)#3415 (16) {
   ["constructedObjectId":protected]=>
-  string(32) "000000000af96de900000000379a476f"
+  string(32) "00000000563f522b000000007213a883"
   ["localMonthsOverflow":protected]=>
   NULL
   ["localYearsOverflow":protected]=>
@@ -6403,8 +6403,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2020-05-24 19:06:02
-echo $dt1->maximum();                              // 2020-05-24 19:06:02
+echo $dt1->max();                                  // 2020-05-24 19:08:57
+echo $dt1->maximum();                              // 2020-05-24 19:08:57
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7654,7 +7654,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 21:06
+echo Carbon::now()->subDays(3)->formatForUser();           // jeudi dernier à 21:08
 </code></pre>
     </p>
 
