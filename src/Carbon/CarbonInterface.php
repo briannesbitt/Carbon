@@ -4629,7 +4629,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @param string|null $from       input locale of the $timeString parameter (`Carbon::getLocale()` by default)
      * @param string|null $to         output locale of the result returned (`"en"` by default)
      * @param int         $mode       specify what to translate with options:
-     *                                - CarbonInterface::TRANSLATE_ALL (default)
+     *                                - self::TRANSLATE_ALL (default)
      *                                - CarbonInterface::TRANSLATE_MONTHS
      *                                - CarbonInterface::TRANSLATE_DAYS
      *                                - CarbonInterface::TRANSLATE_UNITS
