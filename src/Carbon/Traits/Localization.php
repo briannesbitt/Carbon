@@ -337,6 +337,7 @@ trait Localization
      */
     public static function translateTimeString($timeString, $from = null, $to = null, $mode = CarbonInterface::TRANSLATE_ALL)
     {
+        // Fallback source and destination locales
         $from = $from ?: static::getLocale();
         $to = $to ?: 'en';
 
@@ -344,8 +345,12 @@ trait Localization
             return $timeString;
         }
 
+        // Standardize apostrophe
+        $timeString = strtr($timeString, ['’' => "'"]);
+
         $cleanWord = function ($word) {
             $word = str_replace([':count', '%count', ':time'], '', $word);
+            $word = strtr($word, ['’' => "'"]);
             $word = preg_replace('/({\d+(,(\d+|Inf))?}|[\[\]]\d+(,(\d+|Inf))?[\[\]])/', '', $word);
 
             return trim($word);
