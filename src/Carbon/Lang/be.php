@@ -93,8 +93,12 @@ return [
     'after' => ':time пасля',
     'before' => ':time да',
     'diff_now' => 'цяпер',
+    'diff_today' => 'Сёння',
+    'diff_today_regexp' => 'Сёння(?:\\s+ў)?',
     'diff_yesterday' => 'учора',
+    'diff_yesterday_regexp' => 'Учора(?:\\s+ў)?',
     'diff_tomorrow' => 'заўтра',
+    'diff_tomorrow_regexp' => 'Заўтра(?:\\s+ў)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

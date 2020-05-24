@@ -42,8 +42,12 @@ return [
     'after' => ':time na',
     'before' => ':time voor',
     'diff_now' => 'Nou',
+    'diff_today' => 'Vandag',
+    'diff_today_regexp' => 'Vandag(?:\\s+om)?',
     'diff_yesterday' => 'Gister',
+    'diff_yesterday_regexp' => 'Gister(?:\\s+om)?',
     'diff_tomorrow' => 'Môre',
+    'diff_tomorrow_regexp' => 'Môre(?:\\s+om)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

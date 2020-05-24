@@ -46,6 +46,7 @@ return [
     'after' => ':time পরে',
     'before' => ':time আগে',
     'diff_now' => 'এখন',
+    'diff_today' => 'আজ',
     'diff_yesterday' => 'গতকাল',
     'diff_tomorrow' => 'আগামীকাল',
     'period_recurrences' => ':count বার|:count বার',

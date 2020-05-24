@@ -41,8 +41,12 @@ return [
     'after' => ':timeหลังจากนี้',
     'before' => ':timeก่อน',
     'diff_now' => 'ขณะนี้',
+    'diff_today' => 'วันนี้',
+    'diff_today_regexp' => 'วันนี้(?:\\s+เวลา)?',
     'diff_yesterday' => 'เมื่อวาน',
+    'diff_yesterday_regexp' => 'เมื่อวานนี้(?:\\s+เวลา)?',
     'diff_tomorrow' => 'พรุ่งนี้',
+    'diff_tomorrow_regexp' => 'พรุ่งนี้(?:\\s+เวลา)?',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

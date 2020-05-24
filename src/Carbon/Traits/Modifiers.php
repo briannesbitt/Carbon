@@ -458,6 +458,7 @@ trait Modifiers
 
             return $match[1].' '.$match[2];
         }, strtr(trim($modifier), [
+            ' at ' => ' ',
             'just now' => 'now',
             'after tomorrow' => 'tomorrow +1 day',
             'before yesterday' => 'yesterday -1 day',

@@ -40,6 +40,7 @@ return [
     'after' => ':time հետո',
     'before' => ':time առաջ',
     'diff_now' => 'հիմա',
+    'diff_today' => 'այսօր',
     'diff_yesterday' => 'երեկ',
     'diff_tomorrow' => 'վաղը',
     'formats' => [

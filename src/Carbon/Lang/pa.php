@@ -26,6 +26,7 @@ return [
     'ago' => ':time ਪਿਛਲੇ',
     'from_now' => ':time ਵਿੱਚ',
     'diff_now' => 'ਹੁਣ',
+    'diff_today' => 'ਅਜ',
     'diff_yesterday' => 'ਕਲ',
     'diff_tomorrow' => 'ਕਲ',
     'formats' => [

@@ -25,7 +25,11 @@ return [
     'ago' => 'wenteka nga :time',
     'from_now' => 'nga :time',
     'diff_yesterday' => 'Itolo',
+    'diff_yesterday_regexp' => 'Itolo(?:\\s+nga)?',
+    'diff_today' => 'Namuhla',
+    'diff_today_regexp' => 'Namuhla(?:\\s+nga)?',
     'diff_tomorrow' => 'Kusasa',
+    'diff_tomorrow_regexp' => 'Kusasa(?:\\s+nga)?',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

@@ -29,8 +29,11 @@ return [
     'ago' => ':time ang nakalipas',
     'from_now' => 'sa loob ng :time',
     'diff_now' => 'ngayon',
+    'diff_today' => 'ngayong',
+    'diff_today_regexp' => 'ngayong(?:\\s+araw)?',
     'diff_yesterday' => 'kahapon',
     'diff_tomorrow' => 'bukas',
+    'diff_tomorrow_regexp' => 'Bukas(?:\\s+ng)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

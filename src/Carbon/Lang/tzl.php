@@ -29,7 +29,11 @@ return [
     'from_now' => 'osprei :time',
 
     'diff_yesterday' => 'ieiri',
+    'diff_yesterday_regexp' => 'ieiri(?:\\s+à)?',
+    'diff_today' => 'oxhi',
+    'diff_today_regexp' => 'oxhi(?:\\s+à)?',
     'diff_tomorrow' => 'demà',
+    'diff_tomorrow_regexp' => 'demà(?:\\s+à)?',
 
     'formats' => [
         'LT' => 'HH.mm',
