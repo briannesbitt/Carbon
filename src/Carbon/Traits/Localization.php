@@ -771,7 +771,7 @@ trait Localization
                 return '>>DO NOT REPLACE<<';
             }
 
-            $parts = explode('|', static::handleTranslationClosure($message));
+            $parts = explode('|', $message);
 
             return $key === 'to'
                 ? static::cleanWordFromTranslationString(end($parts))
@@ -804,21 +804,5 @@ trait Localization
         }
 
         return $list;
-    }
-
-    /**
-     * Trigger $translation with a now() instance if $translation is a closure, else return $translation as is.
-     *
-     * @param string|array|Closure $translation
-     *
-     * @return string|array
-     */
-    private static function handleTranslationClosure($translation)
-    {
-        if ($translation instanceof Closure) {
-            return $translation(static::now());
-        }
-
-        return $translation;
     }
 }
