@@ -13,7 +13,6 @@ namespace Tests\Carbon;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\OutOfRangeException;
-use Carbon\Translator;
 use DateTimeZone;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
