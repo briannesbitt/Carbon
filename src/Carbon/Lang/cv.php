@@ -35,6 +35,7 @@ return [
         return $time.(preg_match('/сехет$/', $time) ? 'рен' : (preg_match('/ҫул/', $time) ? 'тан' : 'ран'));
     },
     'diff_yesterday' => 'Ӗнер',
+    'diff_today' => 'Паян',
     'diff_tomorrow' => 'Ыран',
     'formats' => [
         'LT' => 'HH:mm',

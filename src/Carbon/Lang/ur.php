@@ -59,8 +59,12 @@ return [
     'after' => ':time بعد',
     'before' => ':time پہلے',
     'diff_now' => 'اب',
+    'diff_today' => 'آج',
+    'diff_today_regexp' => 'آج(?:\\s+بوقت)?',
     'diff_yesterday' => 'گزشتہ کل',
+    'diff_yesterday_regexp' => 'گذشتہ(?:\\s+روز)?(?:\\s+بوقت)?',
     'diff_tomorrow' => 'آئندہ کل',
+    'diff_tomorrow_regexp' => 'کل(?:\\s+بوقت)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

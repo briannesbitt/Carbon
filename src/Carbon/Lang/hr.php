@@ -48,8 +48,12 @@ return [
     'after' => ':time poslije',
     'before' => ':time prije',
     'diff_now' => 'sad',
+    'diff_today' => 'danas',
+    'diff_today_regexp' => 'danas(?:\\s+u)?',
     'diff_yesterday' => 'jučer',
+    'diff_yesterday_regexp' => 'jučer(?:\\s+u)?',
     'diff_tomorrow' => 'sutra',
+    'diff_tomorrow_regexp' => 'sutra(?:\\s+u)?',
     'diff_before_yesterday' => 'prekjučer',
     'diff_after_tomorrow' => 'prekosutra',
     'formats' => [

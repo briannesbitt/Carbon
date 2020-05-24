@@ -57,8 +57,12 @@ return [
     'after' => ':time después',
     'before' => ':time antes',
     'diff_now' => 'ahora mismo',
+    'diff_today' => 'hoy',
+    'diff_today_regexp' => 'hoy(?:\\s+a)?(?:\\s+las)?',
     'diff_yesterday' => 'ayer',
+    'diff_yesterday_regexp' => 'ayer(?:\\s+a)?(?:\\s+las)?',
     'diff_tomorrow' => 'mañana',
+    'diff_tomorrow_regexp' => 'mañana(?:\\s+a)?(?:\\s+las)?',
     'diff_before_yesterday' => 'antier',
     'diff_after_tomorrow' => 'pasado mañana',
     'formats' => [

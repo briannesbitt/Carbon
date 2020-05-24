@@ -54,8 +54,12 @@ return [
 
     // @TODO add shakl to translations below
     'diff_now' => 'الآن',
+    'diff_today' => 'اليوم',
+    'diff_today_regexp' => 'اليوم(?:\\s+عند)?(?:\\s+الساعة)?',
     'diff_yesterday' => 'أمس',
+    'diff_yesterday_regexp' => 'أمس(?:\\s+عند)?(?:\\s+الساعة)?',
     'diff_tomorrow' => 'غداً',
+    'diff_tomorrow_regexp' => 'غدًا(?:\\s+عند)?(?:\\s+الساعة)?',
     'diff_before_yesterday' => 'قبل الأمس',
     'diff_after_tomorrow' => 'بعد غد',
     'period_recurrences' => implode('|', ['{0}مرة', '{1}مرة', '{2}:count مرتين', ']2,11[:count مرات', ']10,Inf[:count مرة']),

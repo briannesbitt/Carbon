@@ -35,6 +35,7 @@ return [
     'after' => ':timeनंतर',
 
     'diff_now' => 'आत्ता',
+    'diff_today' => 'आज',
     'diff_yesterday' => 'काल',
     'diff_tomorrow' => 'उद्या',
 

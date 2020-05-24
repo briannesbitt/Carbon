@@ -46,8 +46,12 @@ return [
     'after' => ':time پس از',
     'before' => ':time پیش از',
     'diff_now' => 'اکنون',
+    'diff_today' => 'امروز',
+    'diff_today_regexp' => 'امروز(?:\\s+ساعت)?',
     'diff_yesterday' => 'دیروز',
+    'diff_yesterday_regexp' => 'دیروز(?:\\s+ساعت)?',
     'diff_tomorrow' => 'فردا',
+    'diff_tomorrow_regexp' => 'فردا(?:\\s+ساعت)?',
     'formats' => [
         'LT' => 'OH:Om',
         'LTS' => 'OH:Om:Os',

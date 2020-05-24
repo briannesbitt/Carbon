@@ -43,6 +43,7 @@ return [
     'before' => ':time முன்',
     'after' => ':time பின்',
     'diff_now' => 'இப்போது',
+    'diff_today' => 'இன்று',
     'diff_yesterday' => 'நேற்று',
     'diff_tomorrow' => 'நாளை',
     'formats' => [

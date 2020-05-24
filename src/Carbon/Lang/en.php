@@ -45,6 +45,7 @@ return [
     'after' => ':time after',
     'before' => ':time before',
     'diff_now' => 'just now',
+    'diff_today' => 'today',
     'diff_yesterday' => 'yesterday',
     'diff_tomorrow' => 'tomorrow',
     'diff_before_yesterday' => 'before yesterday',

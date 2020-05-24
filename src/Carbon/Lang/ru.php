@@ -78,8 +78,12 @@ return [
         return $transformDiff($time).' до';
     },
     'diff_now' => 'только что',
+    'diff_today' => 'Сегодня,',
+    'diff_today_regexp' => 'Сегодня,(?:\\s+в)?',
     'diff_yesterday' => 'вчера',
+    'diff_yesterday_regexp' => 'Вчера,(?:\\s+в)?',
     'diff_tomorrow' => 'завтра',
+    'diff_tomorrow_regexp' => 'Завтра,(?:\\s+в)?',
     'diff_before_yesterday' => 'позавчера',
     'diff_after_tomorrow' => 'послезавтра',
     'formats' => [

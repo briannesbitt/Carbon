@@ -39,7 +39,11 @@ return [
     'ago' => 'maŋit :time',
     'from_now' => ':time geažes',
     'diff_yesterday' => 'ikte',
+    'diff_yesterday_regexp' => 'ikte(?:\\s+ti)?',
+    'diff_today' => 'otne',
+    'diff_today_regexp' => 'otne(?:\\s+ti)?',
     'diff_tomorrow' => 'ihttin',
+    'diff_tomorrow_regexp' => 'ihttin(?:\\s+ti)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

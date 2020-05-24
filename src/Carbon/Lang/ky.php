@@ -46,8 +46,12 @@ return [
     'ago' => ':time мурун',
     'from_now' => ':time ичинде',
     'diff_now' => 'азыр',
+    'diff_today' => 'Бүгүн',
+    'diff_today_regexp' => 'Бүгүн(?:\\s+саат)?',
     'diff_yesterday' => 'кечээ',
+    'diff_yesterday_regexp' => 'Кече(?:\\s+саат)?',
     'diff_tomorrow' => 'эртең',
+    'diff_tomorrow_regexp' => 'Эртең(?:\\s+саат)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

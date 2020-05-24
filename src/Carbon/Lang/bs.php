@@ -38,8 +38,12 @@ return [
     'after' => 'nakon :time',
     'before' => ':time ranije',
     'diff_now' => 'sada',
+    'diff_today' => 'danas',
+    'diff_today_regexp' => 'danas(?:\\s+u)?',
     'diff_yesterday' => 'jučer',
+    'diff_yesterday_regexp' => 'jučer(?:\\s+u)?',
     'diff_tomorrow' => 'sutra',
+    'diff_tomorrow_regexp' => 'sutra(?:\\s+u)?',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

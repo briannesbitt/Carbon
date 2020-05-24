@@ -47,6 +47,7 @@ return [
     'after' => ':time 후',
     'before' => ':time 전',
     'diff_now' => '지금',
+    'diff_today' => '오늘',
     'diff_yesterday' => '어제',
     'diff_tomorrow' => '내일',
     'formats' => [

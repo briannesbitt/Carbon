@@ -32,7 +32,11 @@ return [
     'ago' => 'yan :time',
     'from_now' => 'dadkh s yan :time',
     'diff_yesterday' => 'assant',
+    'diff_yesterday_regexp' => 'assant(?:\\s+g)?',
+    'diff_today' => 'asdkh',
+    'diff_today_regexp' => 'asdkh(?:\\s+g)?',
     'diff_tomorrow' => 'aska',
+    'diff_tomorrow_regexp' => 'aska(?:\\s+g)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
