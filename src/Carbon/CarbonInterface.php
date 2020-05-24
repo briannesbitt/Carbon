@@ -547,7 +547,8 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public const TRANSLATE_DAYS = 2;
     public const TRANSLATE_UNITS = 4;
     public const TRANSLATE_MERIDIEM = 8;
-    public const TRANSLATE_ALL = self::TRANSLATE_MONTHS | self::TRANSLATE_DAYS | self::TRANSLATE_UNITS | self::TRANSLATE_MERIDIEM;
+    public const TRANSLATE_DIFF = 0x10;
+    public const TRANSLATE_ALL = self::TRANSLATE_MONTHS | self::TRANSLATE_DAYS | self::TRANSLATE_UNITS | self::TRANSLATE_MERIDIEM | self::TRANSLATE_DIFF;
 
     /**
      * The day constants.
