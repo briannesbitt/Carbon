@@ -52,6 +52,7 @@ return [
     'after' => ':time après',
     'before' => ':time avant',
     'diff_now' => 'à l\'instant',
+    'diff_today' => 'ajourd\'hui',
     'diff_yesterday' => 'hier',
     'diff_tomorrow' => 'demain',
     'diff_before_yesterday' => 'avant-hier',
