@@ -4585,10 +4585,11 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param string              $key
-     * @param array               $parameters
-     * @param null                $number
-     * @param TranslatorInterface $translator
+     * @param string              $key        key to find
+     * @param array               $parameters replacement parameters
+     * @param int|float|null      $number     number if plural
+     * @param TranslatorInterface $translator an optional translator to use
+     * @param bool                $altNumbers pass true to use alternative numbers
      *
      * @return string
      */
@@ -4634,10 +4635,10 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     /**
      * Translate using translation string or callback available.
      *
-     * @param TranslatorInterface $translator
-     * @param string              $key
-     * @param array               $parameters
-     * @param null                $number
+     * @param TranslatorInterface $translator an optional translator to use
+     * @param string              $key        key to find
+     * @param array               $parameters replacement parameters
+     * @param int|float|null      $number     number if plural
      *
      * @return string
      */
