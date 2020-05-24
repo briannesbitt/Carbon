@@ -24,6 +24,12 @@ return [
     'second' => '{1}ⵉⵎⵉⴽ|:count ⵉⵎⵉⴽ',
     'ago' => 'ⵢⴰⵏ :time',
     'from_now' => 'ⴷⴰⴷⵅ ⵙ ⵢⴰⵏ :time',
+    'diff_today' => 'ⴰⵙⴷⵅ',
+    'diff_yesterday' => 'ⴰⵚⴰⵏⵜ',
+    'diff_yesterday_regexp' => 'ⴰⵚⴰⵏⵜ(?:\\s+ⴴ)?',
+    'diff_tomorrow' => 'ⴰⵙⴽⴰ',
+    'diff_tomorrow_regexp' => 'ⴰⵙⴽⴰ(?:\\s+ⴴ)?',
+    'diff_today_regexp' => 'ⴰⵙⴷⵅ(?:\\s+ⴴ)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

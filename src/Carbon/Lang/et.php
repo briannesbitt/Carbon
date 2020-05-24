@@ -60,6 +60,7 @@ return [
     'first_day_of_week' => 1,
     'day_of_first_week_of_year' => 4,
     'diff_now' => 'nüüd',
+    'diff_today' => 'täna',
     'diff_yesterday' => 'eile',
     'diff_tomorrow' => 'homme',
     'diff_before_yesterday' => 'üleeile',

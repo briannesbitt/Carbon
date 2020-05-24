@@ -817,14 +817,14 @@ class CarbonInterval extends DateInterval
     /**
      * Creates a CarbonInterval from string using a different locale.
      *
-     * @param string $interval
-     * @param string $locale
+     * @param string      $interval interval string in the given language (may also contain English).
+     * @param string|null $locale   if locale is null or not specified, current global locale will be used instead.
      *
      * @return static
      */
-    public static function parseFromLocale($interval, $locale)
+    public static function parseFromLocale($interval, $locale = null)
     {
-        return static::fromString(Carbon::translateTimeString($interval, $locale, CarbonInterface::DEFAULT_LOCALE));
+        return static::fromString(Carbon::translateTimeString($interval, $locale ?: static::getLocale(), CarbonInterface::DEFAULT_LOCALE));
     }
 
     private static function castIntervalToClass(DateInterval $interval, string $className)

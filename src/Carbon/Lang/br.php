@@ -33,8 +33,12 @@ return [
     'ago' => ':time \'zo',
     'from_now' => 'a-benn :time',
     'diff_now' => 'bremañ',
+    'diff_today' => 'Hiziv',
+    'diff_today_regexp' => 'Hiziv(?:\\s+da)?',
     'diff_yesterday' => 'decʼh',
+    'diff_yesterday_regexp' => 'Dec\'h(?:\\s+da)?',
     'diff_tomorrow' => 'warcʼhoazh',
+    'diff_tomorrow_regexp' => 'Warc\'hoazh(?:\\s+da)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

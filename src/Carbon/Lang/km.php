@@ -36,8 +36,12 @@ return [
     'after' => 'នៅ​ក្រោយ :time',
     'before' => 'នៅ​មុន :time',
     'diff_now' => 'ឥឡូវ',
+    'diff_today' => 'ថ្ងៃនេះ',
+    'diff_today_regexp' => 'ថ្ងៃនេះ(?:\\s+ម៉ោង)?',
     'diff_yesterday' => 'ម្សិលមិញ',
+    'diff_yesterday_regexp' => 'ម្សិលមិញ(?:\\s+ម៉ោង)?',
     'diff_tomorrow' => 'ថ្ងៃ​ស្អែក',
+    'diff_tomorrow_regexp' => 'ស្អែក(?:\\s+ម៉ោង)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

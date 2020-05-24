@@ -27,6 +27,7 @@ return [
     'ago' => ':time ಹಿಂದೆ',
     'from_now' => ':time ನಂತರ',
     'diff_now' => 'ಈಗ',
+    'diff_today' => 'ಇಂದು',
     'diff_yesterday' => 'ನಿನ್ನೆ',
     'diff_tomorrow' => 'ನಾಳೆ',
     'formats' => [

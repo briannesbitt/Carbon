@@ -35,6 +35,7 @@ return [
     'after' => ':time geroago',
     'before' => ':time lehenago',
     'diff_now' => 'orain',
+    'diff_today' => 'gaur',
     'diff_yesterday' => 'atzo',
     'diff_tomorrow' => 'bihar',
     'formats' => [

@@ -219,6 +219,19 @@ class CreateTest extends AbstractTestCase
         $this->assertSame('2019-06-23', $date->format('Y-m-d'));
     }
 
+    public function testParseFromLocaleWithDefaultLocale()
+    {
+        Carbon::setLocale('fr');
+
+        $date = Carbon::parseFromLocale('Dimanche');
+
+        $this->assertSame('dimanche', $date->dayName);
+
+        $date = Carbon::parseFromLocale('Lundi');
+
+        $this->assertSame('lundi', $date->dayName);
+    }
+
     public function testCreateFromLocaleFormat()
     {
         $date = Carbon::createFromLocaleFormat('Y M d H,i,s', 'zh_CN', '2019 四月 4 12,04,21');

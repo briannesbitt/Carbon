@@ -50,6 +50,7 @@ return [
     'ago' => ':time اڳ',
     'from_now' => ':time پوء',
     'diff_yesterday' => 'ڪالهه',
+    'diff_today' => 'اڄ',
     'diff_tomorrow' => 'سڀاڻي',
     'formats' => [
         'LT' => 'HH:mm',

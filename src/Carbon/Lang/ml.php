@@ -31,6 +31,7 @@ return [
     'ago' => ':time മുൻപ്',
     'from_now' => ':time കഴിഞ്ഞ്',
     'diff_now' => 'ഇപ്പോൾ',
+    'diff_today' => 'ഇന്ന്',
     'diff_yesterday' => 'ഇന്നലെ',
     'diff_tomorrow' => 'നാളെ',
     'formats' => [

@@ -32,7 +32,11 @@ return [
     'ago' => ':time liuba',
     'from_now' => 'iha :time',
     'diff_yesterday' => 'Horiseik',
+    'diff_yesterday_regexp' => 'Horiseik(?:\\s+iha)?',
+    'diff_today' => 'Ohin',
+    'diff_today_regexp' => 'Ohin(?:\\s+iha)?',
     'diff_tomorrow' => 'Aban',
+    'diff_tomorrow_regexp' => 'Aban(?:\\s+iha)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

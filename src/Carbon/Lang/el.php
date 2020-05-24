@@ -46,8 +46,12 @@ return [
     'after' => ':time μετά',
     'before' => ':time πριν',
     'diff_now' => 'τώρα',
+    'diff_today' => 'Σήμερα',
+    'diff_today_regexp' => 'Σήμερα(?:\\s+{})?',
     'diff_yesterday' => 'χθες',
+    'diff_yesterday_regexp' => 'Χθες(?:\\s+{})?',
     'diff_tomorrow' => 'αύριο',
+    'diff_tomorrow_regexp' => 'Αύριο(?:\\s+{})?',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

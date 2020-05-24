@@ -32,7 +32,11 @@ return [
     'ago' => ':time kọjá',
     'from_now' => 'ní :time',
     'diff_yesterday' => 'Àna',
+    'diff_yesterday_regexp' => 'Àna(?:\\s+ni)?',
+    'diff_today' => 'Ònì',
+    'diff_today_regexp' => 'Ònì(?:\\s+ni)?',
     'diff_tomorrow' => 'Ọ̀la',
+    'diff_tomorrow_regexp' => 'Ọ̀la(?:\\s+ni)?',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

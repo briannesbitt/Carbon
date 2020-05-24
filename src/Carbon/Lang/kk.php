@@ -44,8 +44,12 @@ return [
     'after' => ':time кейін',
     'before' => ':time бұрын',
     'diff_now' => 'қазір',
+    'diff_today' => 'Бүгін',
+    'diff_today_regexp' => 'Бүгін(?:\\s+сағат)?',
     'diff_yesterday' => 'кеше',
+    'diff_yesterday_regexp' => 'Кеше(?:\\s+сағат)?',
     'diff_tomorrow' => 'ертең',
+    'diff_tomorrow_regexp' => 'Ертең(?:\\s+сағат)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

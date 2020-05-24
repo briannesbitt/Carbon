@@ -33,6 +33,12 @@ return [
     'a_second' => 'nokre sekund|:count sekund',
     'ago' => ':time sidan',
     'from_now' => 'om :time',
+    'diff_today' => 'I dag',
+    'diff_yesterday' => 'I går',
+    'diff_yesterday_regexp' => 'I går(?:\\s+klokka)?',
+    'diff_tomorrow' => 'I morgon',
+    'diff_tomorrow_regexp' => 'I morgon(?:\\s+klokka)?',
+    'diff_today_regexp' => 'I dag(?:\\s+klokka)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

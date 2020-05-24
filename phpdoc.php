@@ -71,6 +71,10 @@ function dumpValue($value)
         return 'null';
     }
 
+    if ($value === \Carbon\CarbonInterface::TRANSLATE_ALL) {
+        return 'CarbonInterface::TRANSLATE_ALL';
+    }
+
     $value = preg_replace('/^array\s*\(\s*\)$/', '[]', var_export($value, true));
     $value = preg_replace('/^array\s*\(([\s\S]+)\)$/', '[$1]', $value);
 
@@ -578,9 +582,11 @@ foreach ($carbonMethods as $method) {
     }
 }
 
-$files->$interface = preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
+$files->$interface = strtr(preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
     return $matches[1]."$methods\n\n    // ".$matches[3];
-}, $files->$interface, 1);
+}, $files->$interface, 1), [
+    'CarbonInterface::TRANSLATE_ALL' => 'self::TRANSLATE_ALL',
+]);
 
 $factories = [
     __DIR__.'/src/Carbon/Factory.php' => $staticMethods,

@@ -35,8 +35,12 @@ return [
     'after' => ':time ar ôl',
     'before' => ':time o\'r blaen',
     'diff_now' => 'nawr',
+    'diff_today' => 'Heddiw',
+    'diff_today_regexp' => 'Heddiw(?:\\s+am)?',
     'diff_yesterday' => 'ddoe',
+    'diff_yesterday_regexp' => 'Ddoe(?:\\s+am)?',
     'diff_tomorrow' => 'yfory',
+    'diff_tomorrow_regexp' => 'Yfory(?:\\s+am)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
