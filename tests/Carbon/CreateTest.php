@@ -227,32 +227,32 @@ class CreateTest extends AbstractTestCase
     {
         $dateToday = Carbon::parseFromLocale('now', 'en');
         $dateTest = Carbon::parseFromLocale('à l\'instant', 'fr');
-        
+
         $this->assertSame($dateToday->format('Y-m-d H:m:s'), $dateTest->format('Y-m-d H:m:s'));
 
         $dateToday = Carbon::parseFromLocale('today', 'en');
         $dateTest = Carbon::parseFromLocale('ajourd\'hui', 'fr');
-        
+
         $this->assertSame($dateToday->format('Y-m-d'), $dateTest->format('Y-m-d'));
-       
+
         $date = date('Y-m-d', strtotime($dateToday. ' + 1 days'));
         $dateTest = Carbon::parseFromLocale('demain', 'fr');
-        
+
         $this->assertSame($date, $dateTest->format('Y-m-d'));
-       
+
         $date = date('Y-m-d', strtotime($dateToday. ' + 2 days'));
         $dateTest = Carbon::parseFromLocale('après-demain', 'fr');
-        
+
         $this->assertSame($date, $dateTest->format('Y-m-d'));
 
         $date = date('Y-m-d', strtotime($dateToday. ' - 1 days'));
         $dateTest = Carbon::parseFromLocale('hier', 'fr');
-        
+
         $this->assertSame($date, $dateTest->format('Y-m-d'));
-        
+
         $date = date('Y-m-d', strtotime($dateToday. ' - 2 days'));
         $dateTest = Carbon::parseFromLocale('avant-hier', 'fr');
-        
+
         $this->assertSame($date, $dateTest->format('Y-m-d'));
 
         $date = Carbon::parseFromLocale('23 Okt 2019', 'de');
@@ -270,7 +270,6 @@ class CreateTest extends AbstractTestCase
         $date = Carbon::parseFromLocale('23 červen 2019', 'cs');
 
         $this->assertSame('2019-06-23', $date->format('Y-m-d'));
-      
     }
 
     public function testCreateFromLocaleFormat()
