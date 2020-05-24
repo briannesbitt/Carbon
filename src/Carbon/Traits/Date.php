@@ -876,7 +876,7 @@ trait Date
 
             // @property-read int 0 through 6
             case $name === 'lastWeekDay':
-                return (int) static::weekRotate($this->getTranslationMessage('first_day_of_week'), - 1);
+                return (int) static::weekRotate($this->getTranslationMessage('first_day_of_week'), -1);
 
             // @property int 1 through 366
             case $name === 'dayOfYear':

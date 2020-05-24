@@ -87,6 +87,10 @@ function cleanClassName($name)
         $name = "\\$name";
     }
 
+    if ($name === '\\Symfony\\Contracts\\Translation\\TranslatorInterface') {
+        return 'TranslatorInterface';
+    }
+
     return preg_replace('/^\\\\(DateTime(?:Immutable)?|Interface|Zone|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
 }
 
