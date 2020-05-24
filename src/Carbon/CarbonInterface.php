@@ -4638,7 +4638,7 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      *
      * @return string
      */
-    public static function translateTimeString($timeString, $from = null, $to = null, $mode = 15);
+    public static function translateTimeString($timeString, $from = null, $to = null, $mode = self::TRANSLATE_ALL);
 
     /**
      * Translate a time string from the current locale (`$date->locale()`) to an other.
