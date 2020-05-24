@@ -46,8 +46,12 @@ return [
     'after' => ':time setelahnya',
     'before' => ':time sebelumnya',
     'diff_now' => 'sekarang',
+    'diff_today' => 'Hari',
+    'diff_today_regexp' => 'Hari(?:\\s+ini)?(?:\\s+pukul)?',
     'diff_yesterday' => 'kemarin',
+    'diff_yesterday_regexp' => 'Kemarin(?:\\s+pukul)?',
     'diff_tomorrow' => 'besok',
+    'diff_tomorrow_regexp' => 'Besok(?:\\s+pukul)?',
     'formats' => [
         'LT' => 'HH.mm',
         'LTS' => 'HH.mm.ss',

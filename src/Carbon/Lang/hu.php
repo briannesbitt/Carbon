@@ -85,6 +85,7 @@ return [
     'weekdays_min' => ['v', 'h', 'k', 'sze', 'cs', 'p', 'sz'],
     'ordinal' => ':number.',
     'diff_now' => 'most',
+    'diff_today' => 'ma',
     'diff_yesterday' => 'tegnap',
     'diff_tomorrow' => 'holnap',
     'formats' => [

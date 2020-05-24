@@ -40,8 +40,12 @@ return [
     'after' => ':time tar éis',
     'before' => ':time roimh',
     'diff_now' => 'anois',
+    'diff_today' => 'Inniu',
+    'diff_today_regexp' => 'Inniu(?:\\s+ag)?',
     'diff_yesterday' => 'inné',
+    'diff_yesterday_regexp' => 'Inné(?:\\s+aig)?',
     'diff_tomorrow' => 'amárach',
+    'diff_tomorrow_regexp' => 'Amárach(?:\\s+ag)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

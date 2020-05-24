@@ -68,8 +68,12 @@ return [
     'before' => ':time prej',
 
     'diff_now' => 'ravnokar',
+    'diff_today' => 'danes',
+    'diff_today_regexp' => 'danes(?:\\s+ob)?',
     'diff_yesterday' => 'včeraj',
+    'diff_yesterday_regexp' => 'včeraj(?:\\s+ob)?',
     'diff_tomorrow' => 'jutri',
+    'diff_tomorrow_regexp' => 'jutri(?:\\s+ob)?',
     'diff_before_yesterday' => 'predvčerajšnjim',
     'diff_after_tomorrow' => 'pojutrišnjem',
 

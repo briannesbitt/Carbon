@@ -23,6 +23,12 @@ return [
     'second' => '{1}якчанд сония|:count сония',
     'ago' => ':time пеш',
     'from_now' => 'баъди :time',
+    'diff_today' => 'Имрӯз',
+    'diff_yesterday' => 'Дирӯз',
+    'diff_yesterday_regexp' => 'Дирӯз(?:\\s+соати)?',
+    'diff_tomorrow' => 'Пагоҳ',
+    'diff_tomorrow_regexp' => 'Пагоҳ(?:\\s+соати)?',
+    'diff_today_regexp' => 'Имрӯз(?:\\s+соати)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -83,8 +83,11 @@ return [
     'day_of_first_week_of_year' => 4,
 
     'diff_now' => 'ką tik',
+    'diff_today' => 'Šiandien',
     'diff_yesterday' => 'vakar',
+    'diff_yesterday_regexp' => 'Vakar',
     'diff_tomorrow' => 'rytoj',
+    'diff_tomorrow_regexp' => 'Rytoj',
     'diff_before_yesterday' => 'užvakar',
     'diff_after_tomorrow' => 'poryt',
 

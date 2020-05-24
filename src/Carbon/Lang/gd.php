@@ -39,7 +39,11 @@ return [
     'ago' => 'bho chionn :time',
     'from_now' => 'ann an :time',
     'diff_yesterday' => 'An-dè',
+    'diff_yesterday_regexp' => 'An-dè(?:\\s+aig)?',
+    'diff_today' => 'An-diugh',
+    'diff_today_regexp' => 'An-diugh(?:\\s+aig)?',
     'diff_tomorrow' => 'A-màireach',
+    'diff_tomorrow_regexp' => 'A-màireach(?:\\s+aig)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

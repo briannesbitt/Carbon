@@ -33,7 +33,11 @@ return [
     'ago' => ':time i mua',
     'from_now' => 'i roto i :time',
     'diff_yesterday' => 'inanahi',
+    'diff_yesterday_regexp' => 'inanahi(?:\\s+i)?',
+    'diff_today' => 'i teie',
+    'diff_today_regexp' => 'i teie(?:\\s+mahana,)?(?:\\s+i)?',
     'diff_tomorrow' => 'apopo',
+    'diff_tomorrow_regexp' => 'apopo(?:\\s+i)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -42,6 +42,9 @@ return [
     'after' => ':timedan keyin',
     'before' => ':time oldin',
     'diff_yesterday' => 'Kecha',
+    'diff_yesterday_regexp' => 'Kecha(?:\\s+soat)?',
+    'diff_today' => 'Bugun',
+    'diff_today_regexp' => 'Bugun(?:\\s+soat)?',
     'diff_tomorrow' => 'Ertaga',
     'formats' => [
         'LT' => 'HH:mm',

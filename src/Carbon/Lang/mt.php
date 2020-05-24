@@ -31,8 +31,12 @@ return [
     'ago' => ':time ilu',
     'from_now' => 'f’ :time',
     'diff_now' => 'issa',
+    'diff_today' => 'Illum',
+    'diff_today_regexp' => 'Illum(?:\\s+fil-)?',
     'diff_yesterday' => 'lbieraħ',
+    'diff_yesterday_regexp' => 'Il-bieraħ(?:\\s+fil-)?',
     'diff_tomorrow' => 'għada',
+    'diff_tomorrow_regexp' => 'Għada(?:\\s+fil-)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -25,6 +25,11 @@ return [
     'second' => '{1}'.'نەچچە سېكونت'.'|:count '.'سېكونت',
     'ago' => ':time بۇرۇن',
     'from_now' => ':time كېيىن',
+    'diff_today' => 'بۈگۈن',
+    'diff_yesterday' => 'تۆنۈگۈن',
+    'diff_tomorrow' => 'ئەتە',
+    'diff_tomorrow_regexp' => 'ئەتە(?:\\s+سائەت)?',
+    'diff_today_regexp' => 'بۈگۈن(?:\\s+سائەت)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

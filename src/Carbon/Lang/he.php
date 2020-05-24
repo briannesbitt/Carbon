@@ -37,8 +37,12 @@ return [
     'after' => 'אחרי :time',
     'before' => 'לפני :time',
     'diff_now' => 'עכשיו',
+    'diff_today' => 'היום',
+    'diff_today_regexp' => 'היום(?:\\s+ב־)?',
     'diff_yesterday' => 'אתמול',
+    'diff_yesterday_regexp' => 'אתמול(?:\\s+ב־)?',
     'diff_tomorrow' => 'מחר',
+    'diff_tomorrow_regexp' => 'מחר(?:\\s+ב־)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
