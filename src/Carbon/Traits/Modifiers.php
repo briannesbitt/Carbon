@@ -457,6 +457,10 @@ trait Modifiers
             $match[1] = $test->$method($this) ? $match[1].' day' : 'today';
 
             return $match[1].' '.$match[2];
-        }, trim($modifier)));
+        }, strtr(trim($modifier), [
+            'just now' => 'now',
+            'after tomorrow' => 'tomorrow +1 day',
+            'before yesterday' => 'yesterday -1 day',
+        ])));
     }
 }
