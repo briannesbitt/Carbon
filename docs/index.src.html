@@ -1118,10 +1118,14 @@ echo "\n";
 
     <p>
     <pre class="live-editor"><code class="php">{{::lint($date = Carbon::parseFromLocale('mercredi 6 mars 2019 + 3 jours', 'fr', 'UTC');)}} // timezone is optional
+// 'fr' stands for French but can be replaced with any locale code.
+// if you don't pass the locale parameter, Carbon::getLocale() (current global locale) is used.
 
 {{::exec(echo $date->isoFormat('LLLL');)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p>You can also use "today", "today at 8:00", "yesterday", "after tomorrow", etc. equivalents in the given language.</p>
 
     <p>Or with custom format using <code>createFromLocaleFormat</code>
         (use the <a href="https://php.net/manual/en/function.date.php"><code>date()</code> pattern</a> for replacements):</p>
@@ -3828,10 +3832,17 @@ $carbonInterval = CarbonInterval::month();
 )}}
 {{::exec(echo CarbonInterval::make($dateInterval)->forHumans();/*pad(60)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::make($carbonInterval)->forHumans();/*pad(60)*/)}} // {{eval}}
+{{::exec(echo CarbonInterval::make(5, 'days')->forHumans();/*pad(60)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::make('PT3H')->forHumans();/*pad(60)*/)}} // {{eval}}
 {{::exec(echo CarbonInterval::make('1h 15m')->forHumans();/*pad(60)*/)}} // {{eval}}
 // forHumans has many options, since version 2.9.0, the recommended way is to pass them as an associative array:
 {{::exec(echo CarbonInterval::make('1h 15m')->forHumans(['short' => true]);/*pad(60)*/)}} // {{eval}}
+
+// You can create interval from a string in any language:
+{{::exec(echo CarbonInterval::parseFromLocale('3 jours et 2 heures', 'fr');/*pad(60)*/)}} // {{eval}}
+// 'fr' stands for French but can be replaced with any locale code.
+// if you don't pass the locale parameter, Carbon::getLocale() (current global locale) is used.
+
 {{::lint($interval = CarbonInterval::make('1h 15m 45s');)}}
 {{::exec(echo $interval->forHumans(['join' => true]);/*pad(60)*/)}} // {{eval}}
 {{::lint($esInterval = CarbonInterval::make('1h 15m 45s');)}}
