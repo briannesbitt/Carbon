@@ -1542,10 +1542,10 @@ than (new Carbon('Monday next week'))->fn().</p>
 
 <div class="doc-method " id="doc-method-Carbon-parseFromLocale">
     <h2><span class="class-name">Carbon::</span>parseFromLocale</h2>
-    <code>$time, $locale, $tz = null</code>
+    <code>$time, $locale = null, $tz = null</code>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Create a carbon instance from a localized string (in French, Japanese, Arabic, etc.).</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$time, $locale, $tz = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.35.0</td><td><code>$time, $locale = null, $tz = null</code></td></tr><tr><td>Method added</td><td>2.16.0</td><td><code>$time, $locale, $tz = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-now">
@@ -1614,7 +1614,7 @@ will be 0.</p>
     <p class="doc-description">Create a new safe Carbon instance from a specific date and time.<br><br>If any of $year, $month or $day are set to null their now() values will
 be used.<br><br>If $hour is null it will be set to its now() value and the default
 values for $minute and $second will be their now() values.<br><br>If $hour is not null then the default values for $minute and $second
-will be 0.<br><br>If one of the set values is not valid, an \InvalidArgumentException
+will be 0.<br><br>If one of the set values is not valid, an InvalidDateException
 will be thrown.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>1.22.0</td><td><code>$year = null, $month = null, $day = null, $hour = null, $minute = null, $second = null, $tz = null</code></td></tr></table>
 </div>
@@ -2646,10 +2646,10 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-Carbon-translateTimeString">
     <h2><span class="class-name">Carbon::</span>translateTimeString</h2>
-    <code>$timeString, $from = null, $to = null, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 31</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.35.0</td><td><code>$timeString, $from = null, $to = null, $mode = 31</code></td></tr><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-translateTimeStringTo">
@@ -3091,70 +3091,6 @@ given.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$week = null, $dayOfWeek = null, $dayOfYear = null</code></td></tr></table>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-nextOpenExcludingHolidays">
-    <h2><span class="class-name">Carbon::</span>nextOpenExcludingHolidays</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-nextBusinessOpen">
-    <h2><span class="class-name">Carbon::</span>nextBusinessOpen</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-previousOpenExcludingHolidays">
-    <h2><span class="class-name">Carbon::</span>previousOpenExcludingHolidays</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-previousBusinessOpen">
-    <h2><span class="class-name">Carbon::</span>previousBusinessOpen</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-nextCloseIncludingHolidays">
-    <h2><span class="class-name">Carbon::</span>nextCloseIncludingHolidays</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-nextBusinessClose">
-    <h2><span class="class-name">Carbon::</span>nextBusinessClose</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-previousCloseIncludingHolidays">
-    <h2><span class="class-name">Carbon::</span>previousCloseIncludingHolidays</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-previousBusinessClose">
-    <h2><span class="class-name">Carbon::</span>previousBusinessClose</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
-</div>
-
 <div class="doc-method " id="doc-method-Carbon-normalizeDay">
     <h2><span class="class-name">Carbon::</span>normalizeDay</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
@@ -3226,6 +3162,15 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
     <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getTernaryMethod">
+    <h2><span class="class-name">Carbon::</span>getTernaryMethod</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-addBusinessDays">
@@ -3609,64 +3554,370 @@ or false if it's not a holiday.</p>
     <p class="doc-description">Store a first variable as Carbon instance into the second variable if the first one is a date.</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentDayOpeningHours">
-    <h2><span class="class-name">Carbon::</span>getCurrentDayOpeningHours</h2>
+<div class="doc-method " id="doc-method-Carbon-setMaxIteration">
+    <h2><span class="class-name">Carbon::</span>setMaxIteration</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>Spatie\OpeningHours\OpeningHoursForDay</code></div>
-    <p class="doc-description">Get OpeningHoursForDay instance of the current instance or class.</p>
+    <p class="doc-description">Set the maximum of loop turns to run before throwing an exception where trying to add
+or subtract open/closed time.</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRanges">
-    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRanges</h2>
+<div class="doc-method " id="doc-method-Carbon-getMaxIteration">
+    <h2><span class="class-name">Carbon::</span>getMaxIteration</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
-    <div class="doc-return">returns <code>Spatie\OpeningHours\TimeRange[]</code></div>
-    <p class="doc-description">Get open time ranges as array of TimeRange instances that matches the current date and time.</p>
+    <div class="doc-return">returns <code>int</code></div>
+    <p class="doc-description">Get the maximum of loop turns to run before throwing an exception where trying to add
+or subtract open/closed time.</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRange">
-    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRange</h2>
-    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
-    <em>no arguments</em>
-    <div class="doc-return">returns <code>Spatie\OpeningHours\TimeRange|bool</code></div>
-    <p class="doc-description">Get current open time range as TimeRange instance or false if closed.</p>
-</div>
-
-<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRangeStart">
-    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRangeStart</h2>
+<div class="doc-method " id="doc-method-Carbon-applyBusinessInterval">
+    <h2><span class="class-name">Carbon::</span>applyBusinessInterval</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
-return a date, then convert it into a Carbon/sub-class instance.</p>
+    <p class="doc-description">Shift current time with a given interval taking into account only open time
+(if $open is true) or only closed time (if $open is false).</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRangeEnd">
-    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRangeEnd</h2>
+<div class="doc-method " id="doc-method-Carbon-addBusinessInterval">
+    <h2><span class="class-name">Carbon::</span>addBusinessInterval</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
-return a date, then convert it into a Carbon/sub-class instance.</p>
+    <p class="doc-description">Add the given interval taking into account only open time
+(if $open is true) or only closed time (if $open is false).</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentBusinessTimeRangeStart">
-    <h2><span class="class-name">Carbon::</span>getCurrentBusinessTimeRangeStart</h2>
+<div class="doc-method " id="doc-method-Carbon-subBusinessInterval">
+    <h2><span class="class-name">Carbon::</span>subBusinessInterval</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
-return a date, then convert it into a Carbon/sub-class instance.</p>
+    <p class="doc-description">Add the given interval taking into account only open time
+(if $open is true) or only closed time (if $open is false).</p>
 </div>
 
-<div class="doc-method " id="doc-method-Carbon-getCurrentBusinessOpenTimeRangeEnd">
-    <h2><span class="class-name">Carbon::</span>getCurrentBusinessOpenTimeRangeEnd</h2>
+<div class="doc-method " id="doc-method-Carbon-addOpenTime">
+    <h2><span class="class-name">Carbon::</span>addOpenTime</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
-    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
-return a date, then convert it into a Carbon/sub-class instance.</p>
+    <p class="doc-description">Add the given interval taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subOpenTime">
+    <h2><span class="class-name">Carbon::</span>subOpenTime</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given interval taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addClosedTime">
+    <h2><span class="class-name">Carbon::</span>addClosedTime</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Add the given interval taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subClosedTime">
+    <h2><span class="class-name">Carbon::</span>subClosedTime</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given interval taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addOpenMinutes">
+    <h2><span class="class-name">Carbon::</span>addOpenMinutes</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Add the given number of minutes taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subOpenMinutes">
+    <h2><span class="class-name">Carbon::</span>subOpenMinutes</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given number of minutes taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addClosedMinutes">
+    <h2><span class="class-name">Carbon::</span>addClosedMinutes</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Add the given number of minutes taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subClosedMinutes">
+    <h2><span class="class-name">Carbon::</span>subClosedMinutes</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given number of minutes taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addOpenHours">
+    <h2><span class="class-name">Carbon::</span>addOpenHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Add the given number of hours taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subOpenHours">
+    <h2><span class="class-name">Carbon::</span>subOpenHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given number of hours taking into account only open time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-addClosedHours">
+    <h2><span class="class-name">Carbon::</span>addClosedHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Add the given number of hours taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-subClosedHours">
+    <h2><span class="class-name">Carbon::</span>subClosedHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Subtract the given number of hours taking into account only closed time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrNextOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>closedOrNextOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrNextBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>closedOrNextBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrPreviousBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>closedOrPreviousBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrPreviousOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>closedOrPreviousOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrNextOpen">
+    <h2><span class="class-name">Carbon::</span>closedOrNextOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-closedOrPreviousOpen">
+    <h2><span class="class-name">Carbon::</span>closedOrPreviousOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>currentOrNextOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>currentOrNextBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>currentOrNextCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextBusinessClose">
+    <h2><span class="class-name">Carbon::</span>currentOrNextBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousBusinessClose">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextOpen">
+    <h2><span class="class-name">Carbon::</span>currentOrNextOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousOpen">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrNextClose">
+    <h2><span class="class-name">Carbon::</span>currentOrNextClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-currentOrPreviousClose">
+    <h2><span class="class-name">Carbon::</span>currentOrPreviousClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-nextOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>nextOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-nextBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>nextBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-previousOpenExcludingHolidays">
+    <h2><span class="class-name">Carbon::</span>previousOpenExcludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-previousBusinessOpen">
+    <h2><span class="class-name">Carbon::</span>previousBusinessOpen</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-nextCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>nextCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-nextBusinessClose">
+    <h2><span class="class-name">Carbon::</span>nextBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-previousCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>previousCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-previousBusinessClose">
+    <h2><span class="class-name">Carbon::</span>previousBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Loop on the current instance (or now if called statically) with a given method until it's not an holiday.</p>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isOpenOn">
@@ -3770,6 +4021,120 @@ return a date, then convert it into a Carbon/sub-class instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-previousClose">
     <h2><span class="class-name">Carbon::</span>previousClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrNextCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>openOrNextCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrNextBusinessClose">
+    <h2><span class="class-name">Carbon::</span>openOrNextBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrPreviousCloseIncludingHolidays">
+    <h2><span class="class-name">Carbon::</span>openOrPreviousCloseIncludingHolidays</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrPreviousBusinessClose">
+    <h2><span class="class-name">Carbon::</span>openOrPreviousBusinessClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrNextClose">
+    <h2><span class="class-name">Carbon::</span>openOrNextClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-openOrPreviousClose">
+    <h2><span class="class-name">Carbon::</span>openOrPreviousClose</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
+else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentDayOpeningHours">
+    <h2><span class="class-name">Carbon::</span>getCurrentDayOpeningHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Spatie\OpeningHours\OpeningHoursForDay</code></div>
+    <p class="doc-description">Get OpeningHoursForDay instance of the current instance or class.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRanges">
+    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRanges</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Spatie\OpeningHours\TimeRange[]</code></div>
+    <p class="doc-description">Get open time ranges as array of TimeRange instances that matches the current date and time.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRange">
+    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRange</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Spatie\OpeningHours\TimeRange|bool</code></div>
+    <p class="doc-description">Get current open time range as TimeRange instance or false if closed.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRangeStart">
+    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRangeStart</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentOpenTimeRangeEnd">
+    <h2><span class="class-name">Carbon::</span>getCurrentOpenTimeRangeEnd</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentBusinessTimeRangeStart">
+    <h2><span class="class-name">Carbon::</span>getCurrentBusinessTimeRangeStart</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
+    <p class="doc-description">Get a closure to be executed on OpeningHours on the current instance (or now if called globally) that should
+return a date, then convert it into a Carbon/sub-class instance.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-getCurrentBusinessOpenTimeRangeEnd">
+    <h2><span class="class-name">Carbon::</span>getCurrentBusinessOpenTimeRangeEnd</h2>
     <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
     <em>no arguments</em>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
@@ -3919,10 +4284,10 @@ and rounded to the next smaller value (caution: 0.5w = 4d)</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-parseFromLocale">
     <h2><span class="class-name">CarbonInterval::</span>parseFromLocale</h2>
-    <code>$interval, $locale</code>
+    <code>$interval, $locale = null</code>
     <div class="doc-return">returns <code>CarbonInterval</code></div>
     <p class="doc-description">Creates a CarbonInterval from string using a different locale.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.21.0</td><td><code>$interval, $locale</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.35.0</td><td><code>$interval, $locale = null</code></td></tr><tr><td>Method added</td><td>2.21.0</td><td><code>$interval, $locale</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-cast">
@@ -3945,11 +4310,11 @@ set the $days field.</p>
 
 <div class="doc-method " id="doc-method-CarbonInterval-make">
     <h2><span class="class-name">CarbonInterval::</span>make</h2>
-    <code>$var</code>
+    <code>$interval, $unit = null</code>
     <div class="doc-return">returns <code>CarbonInterval|null</code></div>
     <p class="doc-description">Make a CarbonInterval instance from given variable if possible.<br><br>Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
 and recurrences). Throw an exception for invalid format, but otherwise return null.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>1.28.0</td><td><code>$var</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.0</td><td><code>$interval, $unit = null</code></td></tr><tr><td>Method added</td><td>1.28.0</td><td><code>$var</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-createFromDateString">
@@ -4417,6 +4782,30 @@ CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days
     <p class="doc-description">See <a href="http://php.net/manual/en/dateinterval.format.php">PHP documentation for DateInterval::format</a></p>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonInterval-baseMixin">
+    <h2><span class="class-name">CarbonInterval::</span>baseMixin</h2>
+    <code>$mixin</code>
+    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
+  public function addMoon() {
+    return function () {
+      return $this->addDays(30);
+    };
+  }
+  public function subMoon() {
+    return function () {
+      return $this->subDays(30);
+    };
+  }
+});
+$fullMoon = Carbon::create('2018-12-22');
+$nextFullMoon = $fullMoon->addMoon();
+$blackMoon = Carbon::create('2019-01-06');
+$previousBlackMoon = $blackMoon->subMoon();
+echo "$nextFullMoon\n";
+echo "$previousBlackMoon\n";</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
+</div>
+
 <div class="doc-method deprecated" id="doc-method-CarbonInterval-useStrictMode">
     <h2><span class="class-name">CarbonInterval::</span>useStrictMode</h2>
     <code>$strictModeEnabled = true</code>
@@ -4629,10 +5018,10 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateTimeString">
     <h2><span class="class-name">CarbonInterval::</span>translateTimeString</h2>
-    <code>$timeString, $from = null, $to = null, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 31</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.35.0</td><td><code>$timeString, $from = null, $to = null, $mode = 31</code></td></tr><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-translateTimeStringTo">
@@ -4753,30 +5142,6 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <p class="doc-description">Returns list of Language object for each available locale. This object allow you to get the ISO name, native
 name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-CarbonInterval-baseMixin">
-    <h2><span class="class-name">CarbonInterval::</span>baseMixin</h2>
-    <code>$mixin</code>
-    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
-  public function addMoon() {
-    return function () {
-      return $this->addDays(30);
-    };
-  }
-  public function subMoon() {
-    return function () {
-      return $this->subDays(30);
-    };
-  }
-});
-$fullMoon = Carbon::create('2018-12-22');
-$nextFullMoon = $fullMoon->addMoon();
-$blackMoon = Carbon::create('2019-01-06');
-$previousBlackMoon = $blackMoon->subMoon();
-echo "$nextFullMoon\n";
-echo "$previousBlackMoon\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-make">
@@ -5544,6 +5909,30 @@ Note than in this example, isFollowedBy() would be false if 2019-08-01 or 2019-0
     <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$period, $arguments</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-CarbonPeriod-baseMixin">
+    <h2><span class="class-name">CarbonPeriod::</span>baseMixin</h2>
+    <code>$mixin</code>
+    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
+  public function addMoon() {
+    return function () {
+      return $this->addDays(30);
+    };
+  }
+  public function subMoon() {
+    return function () {
+      return $this->subDays(30);
+    };
+  }
+});
+$fullMoon = Carbon::create('2018-12-22');
+$nextFullMoon = $fullMoon->addMoon();
+$blackMoon = Carbon::create('2019-01-06');
+$previousBlackMoon = $blackMoon->subMoon();
+echo "$nextFullMoon\n";
+echo "$previousBlackMoon\n";</code></pre></p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
+</div>
+
 <div class="doc-method deprecated" id="doc-method-CarbonPeriod-useStrictMode">
     <h2><span class="class-name">CarbonPeriod::</span>useStrictMode</h2>
     <code>$strictModeEnabled = true</code>
@@ -5756,10 +6145,10 @@ are available for quarters, years, decade, centuries, millennia (singular and pl
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateTimeString">
     <h2><span class="class-name">CarbonPeriod::</span>translateTimeString</h2>
-    <code>$timeString, $from = null, $to = null, $mode = 15</code>
+    <code>$timeString, $from = null, $to = null, $mode = 31</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Translate a time string from a locale to an other.</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.35.0</td><td><code>$timeString, $from = null, $to = null, $mode = 31</code></td></tr><tr><td>Method added</td><td>2.16.0</td><td><code>$timeString, $from = null, $to = null, $mode = 15</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonPeriod-translateTimeStringTo">
@@ -5880,30 +6269,6 @@ Support is considered enabled if the 4 sentences are translated in the given loc
     <p class="doc-description">Returns list of Language object for each available locale. This object allow you to get the ISO name, native
 name, region and variant of the locale.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.1</td><td><em>no arguments</em></td></tr></table>
-</div>
-
-<div class="doc-method " id="doc-method-CarbonPeriod-baseMixin">
-    <h2><span class="class-name">CarbonPeriod::</span>baseMixin</h2>
-    <code>$mixin</code>
-    <p class="doc-description">Mix another object into the class.<p><strong>Examples:</strong></p><pre class="live-editor"><code class="php">Carbon::mixin(new class {
-  public function addMoon() {
-    return function () {
-      return $this->addDays(30);
-    };
-  }
-  public function subMoon() {
-    return function () {
-      return $this->subDays(30);
-    };
-  }
-});
-$fullMoon = Carbon::create('2018-12-22');
-$nextFullMoon = $fullMoon->addMoon();
-$blackMoon = Carbon::create('2019-01-06');
-$previousBlackMoon = $blackMoon->subMoon();
-echo "$nextFullMoon\n";
-echo "$previousBlackMoon\n";</code></pre></p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.23.0</td><td><code>$mixin</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonTimeZone-__construct">
@@ -6500,10 +6865,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameYear">
     <h2><span class="class-name">Carbon::</span>isSameYear</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date = null</code></td></tr><tr><td>Method added</td><td>1.22.0</td><td><code>Carbon\Carbon $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentYear">
@@ -6532,10 +6897,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameWeek">
     <h2><span class="class-name">Carbon::</span>isSameWeek</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentWeek">
@@ -6564,10 +6929,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDay">
     <h2><span class="class-name">Carbon::</span>isSameDay</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Prototype changed</td><td>1.27.0</td><td><code>$date = null</code></td></tr><tr><td>Prototype changed</td><td>1.23.0</td><td><code>$date</code></td></tr><tr><td>Method added</td><td>1.11.0</td><td><code>Carbon\Carbon $date</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentDay">
@@ -6596,10 +6961,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameHour">
     <h2><span class="class-name">Carbon::</span>isSameHour</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentHour">
@@ -6628,10 +6993,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMinute">
     <h2><span class="class-name">Carbon::</span>isSameMinute</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMinute">
@@ -6660,10 +7025,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameSecond">
     <h2><span class="class-name">Carbon::</span>isSameSecond</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr><tr><td>Method added</td><td>1.27.0</td><td><code>$date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentSecond">
@@ -6692,10 +7057,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicro">
     <h2><span class="class-name">Carbon::</span>isSameMicro</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMicro">
@@ -6724,10 +7089,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMicrosecond">
     <h2><span class="class-name">Carbon::</span>isSameMicrosecond</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMicrosecond">
@@ -6804,10 +7169,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameDecade">
     <h2><span class="class-name">Carbon::</span>isSameDecade</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentDecade">
@@ -6836,10 +7201,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameCentury">
     <h2><span class="class-name">Carbon::</span>isSameCentury</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentCentury">
@@ -6868,10 +7233,10 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-isSameMillennium">
     <h2><span class="class-name">Carbon::</span>isSameMillennium</h2>
-    <code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code>
+    <code>Carbon|DateTimeInterface|string|null $date = null</code>
     <div class="doc-return">returns <code>bool</code></div>
     <p class="doc-description">Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).</p>
-    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>Carbon|DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Prototype changed</td><td>2.24.0</td><td><code>\Carbon\Carbon|\DateTimeInterface|string|null $date = null</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $date = null</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-isCurrentMillennium">
@@ -9676,64 +10041,64 @@ for more on the possibility of this constructor returning a test instance.</p>
 
 <div class="doc-method " id="doc-method-Carbon-shortAbsoluteDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortAbsoluteDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longAbsoluteDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longAbsoluteDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeToNowDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeToNowDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeToNowDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeToNowDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-shortRelativeToOtherDiffForHumans">
     <h2><span class="class-name">Carbon::</span>shortRelativeToOtherDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-longRelativeToOtherDiffForHumans">
     <h2><span class="class-name">Carbon::</span>longRelativeToOtherDiffForHumans</h2>
-    <code>\DateTimeInterface $other = null,  int $parts = 1</code>
+    <code>DateTimeInterface $other = null,  int $parts = 1</code>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)</p>
-    <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
+    <table class='info-table method-history'><tr><td>Prototype changed</td><td>2.34.2</td><td><code>DateTimeInterface $other = null,  int $parts = 1</code></td></tr><tr><td>Method added</td><td>2.0.0</td><td><code>\DateTimeInterface $other = null,  int $parts = 1</code></td></tr></table>
 </div>
