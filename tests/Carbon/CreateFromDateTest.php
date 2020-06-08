@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use DateTimeImmutable;
 use DateTimeZone;
 use Tests\AbstractTestCase;
 
@@ -59,5 +60,13 @@ class CreateFromDateTest extends AbstractTestCase
         $d = Carbon::createFromDate(1975, 5, 21, new DateTimeZone('Europe/London'));
         $this->assertCarbon($d, 1975, 5, 21);
         $this->assertSame('Europe/London', $d->tzName);
+    }
+
+    public function testCreateFromImmutable()
+    {
+        $dateTimeImmutable = new DateTimeImmutable('2020-01-01');
+        $d = Carbon::createFromImmutable($dateTimeImmutable);
+        $this->assertCarbon($d, 2020, 1, 1);
+        $this->assertSame(true, $d->isMutable());
     }
 }

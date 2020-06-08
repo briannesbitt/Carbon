@@ -11,6 +11,7 @@
 namespace Carbon;
 
 use Carbon\Traits\Date;
+use Carbon\Traits\Mutable;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
@@ -509,7 +510,7 @@ use DateTimeZone;
  */
 class Carbon extends DateTime implements CarbonInterface
 {
-    use Date;
+    use Date, Mutable;
 
     /**
      * Returns true if the current class/instance is mutable.
