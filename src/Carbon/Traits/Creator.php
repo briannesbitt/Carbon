@@ -515,7 +515,8 @@ trait Creator
 
     /**
      * Create a Carbon instance from a DateTimeImmutable object.
-     * @param  DateTimeImmutable  $dateTime
+     *
+     * @param DateTimeImmutable $dateTime
      *
      * @return static
      */

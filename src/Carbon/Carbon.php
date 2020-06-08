@@ -12,7 +12,6 @@ namespace Carbon;
 
 use Carbon\Traits\Date;
 use DateTime;
-use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 
