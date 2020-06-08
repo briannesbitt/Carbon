@@ -18,6 +18,7 @@ use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\OutOfRangeException;
 use Carbon\Translator;
 use Closure;
+use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use Exception;
@@ -510,6 +511,17 @@ trait Creator
     public static function createMidnightDate($year = null, $month = null, $day = null, $tz = null)
     {
         return static::create($year, $month, $day, 0, 0, 0, $tz);
+    }
+
+    /**
+     * Create a Carbon instance from a DateTimeImmutable object.
+     * @param  DateTimeImmutable  $dateTime
+     *
+     * @return static
+     */
+    public static function createFromImmutable(DateTimeImmutable $dateTime)
+    {
+        return static::instance($dateTime);
     }
 
     /**
