@@ -9,7 +9,7 @@ trait Immutable
     /**
      * Create a Carbon instance from a DateTimeImmutable object.
      *
-     * @param  DateTime  $dateTime
+     * @param DateTime $dateTime
      *
      * @return static
      */
