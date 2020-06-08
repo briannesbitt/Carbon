@@ -64,9 +64,9 @@ class CreateFromDateTest extends AbstractTestCase
 
     public function testCreateFromMutable()
     {
-        $dateTime = new DateTime('2020-01-01');
+        $dateTime = new DateTime('2021-01-01');
         $d = Carbon::createFromMutable($dateTime);
-        $this->assertCarbon($d, 2020, 1, 1);
+        $this->assertCarbon($d, 2021, 1, 1);
         $this->assertSame(false, $d->isMutable());
     }
 }
