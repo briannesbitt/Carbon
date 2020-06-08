@@ -62,7 +62,7 @@ class CreateFromDateTest extends AbstractTestCase
         $this->assertSame('Europe/London', $d->tzName);
     }
 
-    public function testCreateFromImmutable()
+    public function testCreateFromMutable()
     {
         $dateTime = new DateTime('2020-01-01');
         $d = Carbon::createFromMutable($dateTime);
