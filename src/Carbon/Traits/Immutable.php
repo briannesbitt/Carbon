@@ -7,7 +7,7 @@ use DateTime;
 trait Immutable
 {
     /**
-     * Create a Carbon instance from a DateTimeImmutable object.
+     * Create a Carbon instance from a DateTime object.
      *
      * @param DateTime $dateTime
      *
