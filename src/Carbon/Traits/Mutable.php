@@ -13,7 +13,7 @@ trait Mutable
      *
      * @return static
      */
-    public static function createFromImmutable(DateTimeImmutable $dateTime)
+    public static function createFromImmutable($dateTime)
     {
         return static::instance($dateTime);
     }
