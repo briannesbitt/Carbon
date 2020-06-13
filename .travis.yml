@@ -98,6 +98,8 @@ matrix:
       env:
         - setup=stable
         - laravel=true
+        - REDIS_HOST=127.0.0.1
+        - REDIS_PORT=6379
     - php: 7.3
       env:
         - setup=stable
@@ -107,6 +109,8 @@ matrix:
       env:
         - setup=stable
         - laravel=true
+        - REDIS_HOST=127.0.0.1
+        - REDIS_PORT=6379
 
 notifications:
   slack:
