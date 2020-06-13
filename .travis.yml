@@ -102,11 +102,6 @@ matrix:
       env:
         - setup=stable
         - style_check=true
-  allow_failures:
-    - php: 7.3
-      env:
-        - setup=stable
-        - laravel=true
 
 notifications:
   slack:
