@@ -26,6 +26,7 @@ sudo: false
 services:
   - memcached
   - mysql
+  - redis
 
 before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini || true; fi
