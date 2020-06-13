@@ -5,4 +5,4 @@ laravel/framework:
     reference: master
   install:
     - composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
-    - echo -e "\nREDIS_HOST=localhost\nREDIS_PORT=6379" >> .env
+    - echo -e "\nREDIS_HOST=127.0.0.1\nREDIS_PORT=6379" >> .env
