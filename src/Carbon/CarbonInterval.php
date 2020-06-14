@@ -20,6 +20,7 @@ use Carbon\Exceptions\UnknownGetterException;
 use Carbon\Exceptions\UnknownSetterException;
 use Carbon\Exceptions\UnknownUnitException;
 use Carbon\Traits\IntervalRounding;
+use Carbon\Traits\IntervalStep;
 use Carbon\Traits\Mixin;
 use Carbon\Traits\Options;
 use Closure;
@@ -173,9 +174,10 @@ use Throwable;
  * @method $this ceilMicrosecond(float $precision = 1) Ceil the current instance microsecond with given precision.
  * @method $this ceilMicroseconds(float $precision = 1) Ceil the current instance microsecond with given precision.
  */
-class CarbonInterval extends DateInterval
+class CarbonInterval extends DateInterval implements CarbonConverterInterface
 {
     use IntervalRounding;
+    use IntervalStep;
     use Mixin {
         Mixin::mixin as baseMixin;
     }
@@ -332,6 +334,11 @@ class CarbonInterval extends DateInterval
      */
     public function __construct($years = 1, $months = null, $weeks = null, $days = null, $hours = null, $minutes = null, $seconds = null, $microseconds = null)
     {
+        if ($years instanceof Closure) {
+            $this->step = $years;
+            $years = null;
+        }
+
         if ($years instanceof DateInterval) {
             parent::__construct(static::getDateIntervalSpec($years));
             $this->f = $years->f;
@@ -556,6 +563,7 @@ class CarbonInterval extends DateInterval
         $date = new static($this->spec());
         $date->invert = $this->invert;
         $date->f = $this->f;
+        $date->step = $this->step;
 
         return $date;
     }
@@ -841,6 +849,10 @@ class CarbonInterval extends DateInterval
             $instance->f = $microseconds;
         }
 
+        if ($interval instanceof self && is_a($className, self::class, true)) {
+            $instance->setStep($interval->getStep());
+        }
+
         static::copyNegativeUnits($interval, $instance);
 
         return $instance;
@@ -889,8 +901,8 @@ class CarbonInterval extends DateInterval
      * Always return a new instance. Parse only strings and only these likely to be intervals (skip dates
      * and recurrences). Throw an exception for invalid format, but otherwise return null.
      *
-     * @param mixed|int|DateInterval|string|null $interval interval or number of the given $unit
-     * @param string|null                        $unit     if specified, $interval must be an integer
+     * @param mixed|int|DateInterval|string|Closure|null $interval interval or number of the given $unit
+     * @param string|null                                $unit     if specified, $interval must be an integer
      *
      * @return static|null
      */
@@ -902,6 +914,10 @@ class CarbonInterval extends DateInterval
 
         if ($interval instanceof DateInterval) {
             return static::instance($interval);
+        }
+
+        if ($interval instanceof Closure) {
+            return new static($interval);
         }
 
         if (!is_string($interval)) {
