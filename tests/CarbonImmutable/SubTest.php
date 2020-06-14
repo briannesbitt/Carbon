@@ -47,7 +47,7 @@ class SubTest extends AbstractTestCase
         )->year);
         $this->assertTrue($lastNegated);
         /** @var CarbonInterval $interval */
-        $interval = include __DIR__².'/../Fixtures/dynamicInterval.php';
+        $interval = include __DIR__.'/../Fixtures/dynamicInterval.php';
         $date = Carbon::parse('2020-06-08')->sub($interval);
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame('2020-05-31', $date->format('Y-m-d'));
