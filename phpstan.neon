@@ -16,3 +16,4 @@ parameters:
         - '*/tests/Laravel/*.php'
         - '*/tests/Cli/*.php'
         - '*/tests/CarbonPeriod/Fixtures/filters.php'
+        - '*/tests/Fixtures/dynamicInterval.php'

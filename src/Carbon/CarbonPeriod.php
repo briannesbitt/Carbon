@@ -658,8 +658,12 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
         foreach ($arguments as $argument) {
             if ($this->dateInterval === null &&
                 (
-                    is_string($argument) && preg_match('/^(\d.*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i', $argument) ||
-                    $argument instanceof DateInterval
+                    is_string($argument) && preg_match(
+                        '/^(\d(\d(?![\/-])|[^\d\/-]([\/-])?)*|P[T0-9].*|(?:\h*\d+(?:\.\d+)?\h*[a-z]+)+)$/i',
+                        $argument
+                    ) ||
+                    $argument instanceof DateInterval ||
+                    $argument instanceof Closure
                 ) &&
                 $parsed = @CarbonInterval::make($argument)
             ) {
@@ -754,7 +758,7 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
             throw new InvalidIntervalException('Invalid interval.');
         }
 
-        if ($interval->spec() === 'PT0S' && !$interval->f) {
+        if ($interval->spec() === 'PT0S' && !$interval->f && !$interval->getStep()) {
             throw new InvalidIntervalException('Empty interval is not accepted.');
         }
 

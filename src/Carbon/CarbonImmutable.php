@@ -11,7 +11,6 @@
 namespace Carbon;
 
 use Carbon\Traits\Date;
-use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
@@ -503,7 +502,6 @@ use DateTimeZone;
  * @method        string                 longRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)      Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string                 shortRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  * @method        string                 longRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        static CarbonImmutable createFromMutable(DateTime $dateTime)                                                Create a new CarbonImmutable object from an immutable date.
  * @method        static CarbonImmutable createFromFormat(string $format, string $time, string|DateTimeZone $timezone = null) Parse a string into a new CarbonImmutable object according to the specified format.
  * @method        static CarbonImmutable __set_state(array $array)                                                            https://php.net/manual/en/datetime.set-state.php
  *
