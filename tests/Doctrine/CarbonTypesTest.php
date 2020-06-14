@@ -48,6 +48,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      *
      * @dataProvider getTypes
@@ -87,6 +89,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      * @param string $class
      *
@@ -114,6 +118,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      * @param string $class
      *
@@ -133,6 +139,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      *
      * @dataProvider getTypes
@@ -151,6 +159,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      *
      * @dataProvider getTypes
@@ -169,6 +179,8 @@ class CarbonTypesTest extends AbstractTestCase
     }
 
     /**
+     * @group doctrine
+     *
      * @param string $name
      * @param string $class
      * @param string $typeClass
