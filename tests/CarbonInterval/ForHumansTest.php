@@ -408,7 +408,7 @@ class ForHumansTest extends AbstractTestCase
             $interval->locale('fr')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
         );
         $this->assertEquals(
-            'eine Minute, 38 Sekunden und 756 Millisekunde',
+            'eine Minute, 38 Sekunden und 756 Millisekunden',
             $interval->locale('de')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
         );
     }
