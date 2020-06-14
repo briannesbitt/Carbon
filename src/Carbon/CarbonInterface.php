@@ -731,9 +731,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example $date->add(15, 'days')
      * @example $date->add(CarbonInterval::days(4))
      *
-     * @param string|DateInterval $unit
-     * @param int                 $value
-     * @param bool|null           $overflow
+     * @param string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param int                                                  $value
+     * @param bool|null                                            $overflow
      *
      * @return static
      */
@@ -3399,6 +3399,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
     public function range($end = null, $interval = null, $unit = null);
 
     /**
+     * Call native PHP DateTime/DateTimeImmutable add() method.
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
+    public function rawAdd(DateInterval $interval);
+
+    /**
      * Create a Carbon instance from a specific format.
      *
      * @param string                         $format Datetime format
@@ -3435,6 +3444,15 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @return static
      */
     public static function rawParse($time = null, $tz = null);
+
+    /**
+     * Call native PHP DateTime/DateTimeImmutable sub() method.
+     *
+     * @param DateInterval $interval
+     *
+     * @return static
+     */
+    public function rawSub(DateInterval $interval);
 
     /**
      * Remove all macros and generic macros.
@@ -4067,9 +4085,9 @@ interface CarbonInterface extends DateTimeInterface, JsonSerializable
      * @example $date->sub(15, 'days')
      * @example $date->sub(CarbonInterval::days(4))
      *
-     * @param string|DateInterval $unit
-     * @param int                 $value
-     * @param bool|null           $overflow
+     * @param string|DateInterval|Closure|CarbonConverterInterface $unit
+     * @param int                                                  $value
+     * @param bool|null                                            $overflow
      *
      * @return static
      */

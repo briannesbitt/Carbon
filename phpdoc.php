@@ -87,7 +87,7 @@ function cleanClassName($name)
         $name = "\\$name";
     }
 
-    return preg_replace('/^\\\\(DateTime(?:Immutable)?|Interface|Zone|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
+    return preg_replace('/^\\\\(Date(?:Time(?:Immutable|Interface|Zone)?|Interval)|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
 }
 
 function dumpParameter($method, ReflectionParameter $parameter)
