@@ -42,6 +42,7 @@ use Throwable;
  * @property int $seconds Total seconds of the current interval.
  * @property int $microseconds Total microseconds of the current interval.
  * @property int $milliseconds Total microseconds of the current interval.
+ * @property int $microExcludeMilli Remaining microseconds without the milliseconds.
  * @property-read int $dayzExcludeWeeks Total days remaining in the final week of the current instance (days % 7).
  * @property-read int $daysExcludeWeeks alias of dayzExcludeWeeks
  * @property-read float $totalYears Number of years equivalent to the interval.
@@ -1007,6 +1008,9 @@ class CarbonInterval extends DateInterval
             case 'microseconds':
                 return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND);
 
+            case 'microExcludeMilli':
+                return (int) round($this->f * Carbon::MICROSECONDS_PER_SECOND) % Carbon::MICROSECONDS_PER_MILLISECOND;
+
             case 'weeks':
                 return (int) floor($this->d / static::getDaysPerWeek());
 
@@ -1579,14 +1583,15 @@ class CarbonInterval extends DateInterval
         }
 
         $diffIntervalArray = [
-            ['value' => $intervalValues->years,            'unit' => 'year',        'unitShort' => 'y'],
-            ['value' => $intervalValues->months,           'unit' => 'month',       'unitShort' => 'm'],
-            ['value' => $intervalValues->weeks,            'unit' => 'week',        'unitShort' => 'w'],
-            ['value' => $intervalValues->daysExcludeWeeks, 'unit' => 'day',         'unitShort' => 'd'],
-            ['value' => $intervalValues->hours,            'unit' => 'hour',        'unitShort' => 'h'],
-            ['value' => $intervalValues->minutes,          'unit' => 'minute',      'unitShort' => 'min'],
-            ['value' => $intervalValues->seconds,          'unit' => 'second',      'unitShort' => 's'],
-            ['value' => $intervalValues->milliseconds,     'unit' => 'millisecond', 'unitShort' => 'ms'],
+            ['value' => $intervalValues->years,             'unit' => 'year',        'unitShort' => 'y'],
+            ['value' => $intervalValues->months,            'unit' => 'month',       'unitShort' => 'm'],
+            ['value' => $intervalValues->weeks,             'unit' => 'week',        'unitShort' => 'w'],
+            ['value' => $intervalValues->daysExcludeWeeks,  'unit' => 'day',         'unitShort' => 'd'],
+            ['value' => $intervalValues->hours,             'unit' => 'hour',        'unitShort' => 'h'],
+            ['value' => $intervalValues->minutes,           'unit' => 'minute',      'unitShort' => 'min'],
+            ['value' => $intervalValues->seconds,           'unit' => 'second',      'unitShort' => 's'],
+            ['value' => $intervalValues->milliseconds,      'unit' => 'millisecond', 'unitShort' => 'ms'],
+            ['value' => $intervalValues->microExcludeMilli, 'unit' => 'microsecond', 'unitShort' => 'µs'],
         ];
 
         $transChoice = function ($short, $unitData) use ($absolute, $handleDeclensions, $translator, $aUnit, $altNumbers, $interpolations) {

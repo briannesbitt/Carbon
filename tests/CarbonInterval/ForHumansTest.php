@@ -390,6 +390,16 @@ class ForHumansTest extends AbstractTestCase
         $this->assertEquals('1s 114ms', $interval->forHumans(['parts' => 3, 'short' => true, 'minimumUnit' => 'ms']));
     }
 
+    public function testMinimumUnitMicroseconds()
+    {
+        CarbonInterval::setLocale('fr');
+        $interval = CarbonInterval::fromString('1s 114ms 584µs');
+        $this->assertEquals(
+            '1 seconde, 114 millisecondes et 584 microsecondes',
+            $interval->forHumans(['parts' => 3, 'join' => true, 'minimumUnit' => 'µs'])
+        );
+    }
+
     public function testMinimumUnitMillisecondsInFrenchAndGerman()
     {
         $interval = CarbonInterval::fromString('98756 milliseconds')->cascade();
