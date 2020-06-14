@@ -28,7 +28,7 @@ class SubTest extends AbstractTestCase
             function (DateTimeImmutable $date, bool $negated = false) use (&$lastNegated): DateTimeImmutable {
                 $lastNegated = $negated;
 
-                return new DateTimeImmutable($date->format('Y-m-d H:i:s') . ' - 2 years');
+                return new DateTimeImmutable($date->format('Y-m-d H:i:s').' - 2 years');
             }
         );
         $this->assertInstanceOf(Carbon::class, $date);
@@ -42,12 +42,12 @@ class SubTest extends AbstractTestCase
             function (DateTimeImmutable $date, bool $negated = false) use (&$lastNegated): DateTimeImmutable {
                 $lastNegated = $negated;
 
-                return new DateTimeImmutable($date->format('Y-m-d H:i:s') . ' - 2 years');
+                return new DateTimeImmutable($date->format('Y-m-d H:i:s').' - 2 years');
             }
         )->year);
         $this->assertTrue($lastNegated);
         /** @var CarbonInterval $interval */
-        $interval = include __DIR__ . '/../Fixtures/dynamicInterval.php';
+        $interval = include __DIR__².'/../Fixtures/dynamicInterval.php';
         $date = Carbon::parse('2020-06-08')->sub($interval);
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame('2020-05-31', $date->format('Y-m-d'));
