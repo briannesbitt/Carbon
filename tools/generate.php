@@ -26,6 +26,17 @@ use Carbon\FactoryImmutable;
 use Carbon\Language;
 use Carbon\Translator;
 
+function carbonDocVarDump()
+{
+    call_user_func_array('var_dump', array_map(function ($value) {
+        if (is_object($value) && method_exists($value, '__debugInfo')) {
+            return $value->__debugInfo();
+        }
+
+        return $value;
+    }, func_get_args()));
+}
+
 function isHistoryUpToDate()
 {
     if (!file_exists('history.json')) {
@@ -265,7 +276,9 @@ function evaluateCode(&$__state, $__code)
         unset($__key);
         unset($__value);
         try {
-            $lastResult = eval($__code);
+            $lastResult = eval(strtr($__code, [
+                'var_dump' => 'carbonDocVarDump',
+            ]));
         } catch (Throwable $e) {
             echo "$__code\n\n";
 
