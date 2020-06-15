@@ -125,6 +125,12 @@ class Carbon extends \DateTime
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
 {{::lint($carbon = new Carbon(new DateTime('first day of January 2008'), new DateTimeZone('America/Vancouver'));)}} // equivalent to previous instance
+// You can create Carbon or CarbonImmutable instance from:
+//   - string representation
+//   - integer timestamp
+//   - DateTimeInterface instance (that includes DateTime, DateTimeImmutable or an other Carbon instance)
+// All those are available right in the constructor, other creator methods can be found
+// in the "Reference" panel searching for "create".
 </code></pre>
     </p>
 
