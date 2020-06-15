@@ -59,4 +59,12 @@ return [
     'formats' => [
         'L' => 'DD/MM/YYYY',
     ],
+    'calendar' => [
+        'sameDay' => '[Maanta markay tahay] LT',
+        'nextDay' => '[Beri markay tahay] LT',
+        'nextWeek' => 'dddd [markay tahay] LT',
+        'lastDay' => '[Shalay markay ahayd] LT',
+        'lastWeek' => '[Hore] dddd [Markay ahayd] LT',
+        'sameElse' => 'L',
+    ],
 ];
