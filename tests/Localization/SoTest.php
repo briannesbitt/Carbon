@@ -17,63 +17,63 @@ class SoTest extends LocalizationTestCase
 
     const CASES = [
         // Carbon::parse('2018-01-04 00:00:00')->addDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Tomorrow at 12:00 AM',
+        'Beri markay tahay 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Sabti at 12:00 AM',
+        'Sabti markay tahay 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Axad at 12:00 AM',
+        'Axad markay tahay 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Isniin at 12:00 AM',
+        'Isniin markay tahay 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Talaada at 12:00 AM',
+        'Talaada markay tahay 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Arbaca at 12:00 AM',
+        'Arbaca markay tahay 12:00 AM',
         // Carbon::parse('2018-01-05 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-05 00:00:00'))
-        'Khamiis at 12:00 AM',
+        'Khamiis markay tahay 12:00 AM',
         // Carbon::parse('2018-01-06 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-06 00:00:00'))
-        'Jimce at 12:00 AM',
+        'Jimce markay tahay 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Talaada at 12:00 AM',
+        'Talaada markay tahay 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(3)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Arbaca at 12:00 AM',
+        'Arbaca markay tahay 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(4)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Khamiis at 12:00 AM',
+        'Khamiis markay tahay 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(5)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Jimce at 12:00 AM',
+        'Jimce markay tahay 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(6)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Sabti at 12:00 AM',
+        'Sabti markay tahay 12:00 AM',
         // Carbon::now()->subDays(2)->calendar()
-        'Last Axad at 8:49 PM',
+        'Hore Axad Markay ahayd 8:49 PM',
         // Carbon::parse('2018-01-04 00:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 10:00 PM',
+        'Shalay markay ahayd 10:00 PM',
         // Carbon::parse('2018-01-04 12:00:00')->subHours(2)->calendar(Carbon::parse('2018-01-04 12:00:00'))
-        'Today at 10:00 AM',
+        'Maanta markay tahay 10:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Today at 2:00 AM',
+        'Maanta markay tahay 2:00 AM',
         // Carbon::parse('2018-01-04 23:00:00')->addHours(2)->calendar(Carbon::parse('2018-01-04 23:00:00'))
-        'Tomorrow at 1:00 AM',
+        'Beri markay tahay 1:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->addDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Talaada at 12:00 AM',
+        'Talaada markay tahay 12:00 AM',
         // Carbon::parse('2018-01-08 00:00:00')->subDay()->calendar(Carbon::parse('2018-01-08 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Shalay markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(1)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Yesterday at 12:00 AM',
+        'Shalay markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Talaada at 12:00 AM',
+        'Hore Talaada Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(3)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Isniin at 12:00 AM',
+        'Hore Isniin Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(4)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Axad at 12:00 AM',
+        'Hore Axad Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(5)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Sabti at 12:00 AM',
+        'Hore Sabti Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-04 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-04 00:00:00'))
-        'Last Jimce at 12:00 AM',
+        'Hore Jimce Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-03 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-03 00:00:00'))
-        'Last Khamiis at 12:00 AM',
+        'Hore Khamiis Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-02 00:00:00')->subDays(6)->calendar(Carbon::parse('2018-01-02 00:00:00'))
-        'Last Arbaca at 12:00 AM',
+        'Hore Arbaca Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-07 00:00:00')->subDays(2)->calendar(Carbon::parse('2018-01-07 00:00:00'))
-        'Last Jimce at 12:00 AM',
+        'Hore Jimce Markay ahayd 12:00 AM',
         // Carbon::parse('2018-01-01 00:00:00')->isoFormat('Qo Mo Do Wo wo')
         '1 1 1 1 1',
         // Carbon::parse('2018-01-02 00:00:00')->isoFormat('Do wo')
