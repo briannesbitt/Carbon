@@ -57,7 +57,8 @@ final class Macro implements BuiltinMethodReflection
      *
      * @param string $className
      * @phpstan-param class-string $className
-     * @param string $methodName
+     *
+     * @param string             $methodName
      * @param ReflectionFunction $reflectionFunction
      */
     public function __construct(string $className, string $methodName, ReflectionFunction $reflectionFunction)
