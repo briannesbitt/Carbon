@@ -11,10 +11,18 @@
 namespace Carbon\Traits;
 
 use BadMethodCallException;
+use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonPeriod;
 use Carbon\CarbonTimeZone;
-use Carbon\Exceptions\BadUnitException;
+use Carbon\Exceptions\BadComparisonUnitException;
+use Carbon\Exceptions\ImmutableException;
+use Carbon\Exceptions\InvalidTimeZoneException;
+use Carbon\Exceptions\InvalidTypeException;
+use Carbon\Exceptions\UnknownGetterException;
+use Carbon\Exceptions\UnknownMethodException;
+use Carbon\Exceptions\UnknownSetterException;
+use Carbon\Exceptions\UnknownUnitException;
 use Closure;
 use DateInterval;
 use DatePeriod;
@@ -23,7 +31,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
 use ReflectionException;
-use RuntimeException;
+use Throwable;
 
 /**
  * A simple API extension for DateTime.
@@ -39,479 +47,479 @@ use RuntimeException;
  * @property      int             $second
  * @property      int             $micro
  * @property      int             $microsecond
- * @property      int             $timestamp                                                                          seconds since the Unix Epoch
- * @property      string          $englishDayOfWeek                                                                   the day of week in English
- * @property      string          $shortEnglishDayOfWeek                                                              the abbreviated day of week in English
- * @property      string          $englishMonth                                                                       the month in English
- * @property      string          $shortEnglishMonth                                                                  the abbreviated month in English
- * @property      string          $localeDayOfWeek                                                                    the day of week in current locale LC_TIME
- * @property      string          $shortLocaleDayOfWeek                                                               the abbreviated day of week in current locale LC_TIME
- * @property      string          $localeMonth                                                                        the month in current locale LC_TIME
- * @property      string          $shortLocaleMonth                                                                   the abbreviated month in current locale LC_TIME
+ * @property      int             $timestamp                                                                         seconds since the Unix Epoch
+ * @property      string          $englishDayOfWeek                                                                  the day of week in English
+ * @property      string          $shortEnglishDayOfWeek                                                             the abbreviated day of week in English
+ * @property      string          $englishMonth                                                                      the month in English
+ * @property      string          $shortEnglishMonth                                                                 the abbreviated month in English
+ * @property      string          $localeDayOfWeek                                                                   the day of week in current locale LC_TIME
+ * @property      string          $shortLocaleDayOfWeek                                                              the abbreviated day of week in current locale LC_TIME
+ * @property      string          $localeMonth                                                                       the month in current locale LC_TIME
+ * @property      string          $shortLocaleMonth                                                                  the abbreviated month in current locale LC_TIME
  * @property      int             $milliseconds
  * @property      int             $millisecond
  * @property      int             $milli
- * @property      int             $week                                                                               1 through 53
- * @property      int             $isoWeek                                                                            1 through 53
- * @property      int             $weekYear                                                                           year according to week format
- * @property      int             $isoWeekYear                                                                        year according to ISO week format
- * @property      int             $dayOfYear                                                                          1 through 366
- * @property      int             $age                                                                                does a diffInYears() with default parameters
- * @property      int             $offset                                                                             the timezone offset in seconds from UTC
- * @property      int             $offsetMinutes                                                                      the timezone offset in minutes from UTC
- * @property      int             $offsetHours                                                                        the timezone offset in hours from UTC
- * @property      CarbonTimeZone  $timezone                                                                           the current timezone
- * @property      CarbonTimeZone  $tz                                                                                 alias of $timezone
- * @property-read int             $dayOfWeek                                                                          0 (for Sunday) through 6 (for Saturday)
- * @property-read int             $dayOfWeekIso                                                                       1 (for Monday) through 7 (for Sunday)
- * @property-read int             $weekOfYear                                                                         ISO-8601 week number of year, weeks starting on Monday
- * @property-read int             $daysInMonth                                                                        number of days in the given month
- * @property-read string          $latinMeridiem                                                                      "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
- * @property-read string          $latinUpperMeridiem                                                                 "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
- * @property-read string          $dayName                                                                            long name of weekday translated according to Carbon locale, in english if no translation available for current language
- * @property-read string          $shortDayName                                                                       short name of weekday translated according to Carbon locale, in english if no translation available for current language
- * @property-read string          $minDayName                                                                         very short name of weekday translated according to Carbon locale, in english if no translation available for current language
- * @property-read string          $monthName                                                                          long name of month translated according to Carbon locale, in english if no translation available for current language
- * @property-read string          $shortMonthName                                                                     short name of month translated according to Carbon locale, in english if no translation available for current language
- * @property-read string          $meridiem                                                                           lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
- * @property-read string          $upperMeridiem                                                                      uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
- * @property-read int             $noZeroHour                                                                         current hour from 1 to 24
- * @property-read int             $weeksInYear                                                                        51 through 53
- * @property-read int             $isoWeeksInYear                                                                     51 through 53
- * @property-read int             $weekOfMonth                                                                        1 through 5
- * @property-read int             $weekNumberInMonth                                                                  1 through 5
- * @property-read int             $firstWeekDay                                                                       0 through 6
- * @property-read int             $lastWeekDay                                                                        0 through 6
- * @property-read int             $daysInYear                                                                         365 or 366
- * @property-read int             $quarter                                                                            the quarter of this instance, 1 - 4
- * @property-read int             $decade                                                                             the decade of this instance
- * @property-read int             $century                                                                            the century of this instance
- * @property-read int             $millennium                                                                         the millennium of this instance
- * @property-read bool            $dst                                                                                daylight savings time indicator, true if DST, false otherwise
- * @property-read bool            $local                                                                              checks if the timezone is local, true if local, false otherwise
- * @property-read bool            $utc                                                                                checks if the timezone is UTC, true if UTC, false otherwise
- * @property-read string          $timezoneName                                                                       the current timezone name
- * @property-read string          $tzName                                                                             alias of $timezoneName
- * @property-read string          $timezoneAbbreviatedName                                                            the current timezone abbreviated name
- * @property-read string          $tzAbbrName                                                                         alias of $timezoneAbbreviatedName
- * @property-read string          $locale                                                                             locale of the current instance
+ * @property      int             $week                                                                              1 through 53
+ * @property      int             $isoWeek                                                                           1 through 53
+ * @property      int             $weekYear                                                                          year according to week format
+ * @property      int             $isoWeekYear                                                                       year according to ISO week format
+ * @property      int             $dayOfYear                                                                         1 through 366
+ * @property      int             $age                                                                               does a diffInYears() with default parameters
+ * @property      int             $offset                                                                            the timezone offset in seconds from UTC
+ * @property      int             $offsetMinutes                                                                     the timezone offset in minutes from UTC
+ * @property      int             $offsetHours                                                                       the timezone offset in hours from UTC
+ * @property      CarbonTimeZone  $timezone                                                                          the current timezone
+ * @property      CarbonTimeZone  $tz                                                                                alias of $timezone
+ * @property-read int             $dayOfWeek                                                                         0 (for Sunday) through 6 (for Saturday)
+ * @property-read int             $dayOfWeekIso                                                                      1 (for Monday) through 7 (for Sunday)
+ * @property-read int             $weekOfYear                                                                        ISO-8601 week number of year, weeks starting on Monday
+ * @property-read int             $daysInMonth                                                                       number of days in the given month
+ * @property-read string          $latinMeridiem                                                                     "am"/"pm" (Ante meridiem or Post meridiem latin lowercase mark)
+ * @property-read string          $latinUpperMeridiem                                                                "AM"/"PM" (Ante meridiem or Post meridiem latin uppercase mark)
+ * @property-read string          $timezoneAbbreviatedName                                                           the current timezone abbreviated name
+ * @property-read string          $tzAbbrName                                                                        alias of $timezoneAbbreviatedName
+ * @property-read string          $dayName                                                                           long name of weekday translated according to Carbon locale, in english if no translation available for current language
+ * @property-read string          $shortDayName                                                                      short name of weekday translated according to Carbon locale, in english if no translation available for current language
+ * @property-read string          $minDayName                                                                        very short name of weekday translated according to Carbon locale, in english if no translation available for current language
+ * @property-read string          $monthName                                                                         long name of month translated according to Carbon locale, in english if no translation available for current language
+ * @property-read string          $shortMonthName                                                                    short name of month translated according to Carbon locale, in english if no translation available for current language
+ * @property-read string          $meridiem                                                                          lowercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
+ * @property-read string          $upperMeridiem                                                                     uppercase meridiem mark translated according to Carbon locale, in latin if no translation available for current language
+ * @property-read int             $noZeroHour                                                                        current hour from 1 to 24
+ * @property-read int             $weeksInYear                                                                       51 through 53
+ * @property-read int             $isoWeeksInYear                                                                    51 through 53
+ * @property-read int             $weekOfMonth                                                                       1 through 5
+ * @property-read int             $weekNumberInMonth                                                                 1 through 5
+ * @property-read int             $firstWeekDay                                                                      0 through 6
+ * @property-read int             $lastWeekDay                                                                       0 through 6
+ * @property-read int             $daysInYear                                                                        365 or 366
+ * @property-read int             $quarter                                                                           the quarter of this instance, 1 - 4
+ * @property-read int             $decade                                                                            the decade of this instance
+ * @property-read int             $century                                                                           the century of this instance
+ * @property-read int             $millennium                                                                        the millennium of this instance
+ * @property-read bool            $dst                                                                               daylight savings time indicator, true if DST, false otherwise
+ * @property-read bool            $local                                                                             checks if the timezone is local, true if local, false otherwise
+ * @property-read bool            $utc                                                                               checks if the timezone is UTC, true if UTC, false otherwise
+ * @property-read string          $timezoneName                                                                      the current timezone name
+ * @property-read string          $tzName                                                                            alias of $timezoneName
+ * @property-read string          $locale                                                                            locale of the current instance
  *
- * @method        bool            isUtc()                                                                             Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
- * @method        bool            isLocal()                                                                           Check if the current instance has non-UTC timezone.
- * @method        bool            isValid()                                                                           Check if the current instance is a valid date.
- * @method        bool            isDST()                                                                             Check if the current instance is in a daylight saving time.
- * @method        bool            isSunday()                                                                          Checks if the instance day is sunday.
- * @method        bool            isMonday()                                                                          Checks if the instance day is monday.
- * @method        bool            isTuesday()                                                                         Checks if the instance day is tuesday.
- * @method        bool            isWednesday()                                                                       Checks if the instance day is wednesday.
- * @method        bool            isThursday()                                                                        Checks if the instance day is thursday.
- * @method        bool            isFriday()                                                                          Checks if the instance day is friday.
- * @method        bool            isSaturday()                                                                        Checks if the instance day is saturday.
- * @method        bool            isSameYear(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentYear()                                                                     Checks if the instance is in the same year as the current moment.
- * @method        bool            isNextYear()                                                                        Checks if the instance is in the same year as the current moment next year.
- * @method        bool            isLastYear()                                                                        Checks if the instance is in the same year as the current moment last year.
- * @method        bool            isSameWeek(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentWeek()                                                                     Checks if the instance is in the same week as the current moment.
- * @method        bool            isNextWeek()                                                                        Checks if the instance is in the same week as the current moment next week.
- * @method        bool            isLastWeek()                                                                        Checks if the instance is in the same week as the current moment last week.
- * @method        bool            isSameDay(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)               Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentDay()                                                                      Checks if the instance is in the same day as the current moment.
- * @method        bool            isNextDay()                                                                         Checks if the instance is in the same day as the current moment next day.
- * @method        bool            isLastDay()                                                                         Checks if the instance is in the same day as the current moment last day.
- * @method        bool            isSameHour(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)              Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentHour()                                                                     Checks if the instance is in the same hour as the current moment.
- * @method        bool            isNextHour()                                                                        Checks if the instance is in the same hour as the current moment next hour.
- * @method        bool            isLastHour()                                                                        Checks if the instance is in the same hour as the current moment last hour.
- * @method        bool            isSameMinute(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentMinute()                                                                   Checks if the instance is in the same minute as the current moment.
- * @method        bool            isNextMinute()                                                                      Checks if the instance is in the same minute as the current moment next minute.
- * @method        bool            isLastMinute()                                                                      Checks if the instance is in the same minute as the current moment last minute.
- * @method        bool            isSameSecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentSecond()                                                                   Checks if the instance is in the same second as the current moment.
- * @method        bool            isNextSecond()                                                                      Checks if the instance is in the same second as the current moment next second.
- * @method        bool            isLastSecond()                                                                      Checks if the instance is in the same second as the current moment last second.
- * @method        bool            isSameMicro(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)             Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentMicro()                                                                    Checks if the instance is in the same microsecond as the current moment.
- * @method        bool            isNextMicro()                                                                       Checks if the instance is in the same microsecond as the current moment next microsecond.
- * @method        bool            isLastMicro()                                                                       Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool            isSameMicrosecond(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)       Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentMicrosecond()                                                              Checks if the instance is in the same microsecond as the current moment.
- * @method        bool            isNextMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment next microsecond.
- * @method        bool            isLastMicrosecond()                                                                 Checks if the instance is in the same microsecond as the current moment last microsecond.
- * @method        bool            isCurrentMonth()                                                                    Checks if the instance is in the same month as the current moment.
- * @method        bool            isNextMonth()                                                                       Checks if the instance is in the same month as the current moment next month.
- * @method        bool            isLastMonth()                                                                       Checks if the instance is in the same month as the current moment last month.
- * @method        bool            isCurrentQuarter()                                                                  Checks if the instance is in the same quarter as the current moment.
- * @method        bool            isNextQuarter()                                                                     Checks if the instance is in the same quarter as the current moment next quarter.
- * @method        bool            isLastQuarter()                                                                     Checks if the instance is in the same quarter as the current moment last quarter.
- * @method        bool            isSameDecade(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)            Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentDecade()                                                                   Checks if the instance is in the same decade as the current moment.
- * @method        bool            isNextDecade()                                                                      Checks if the instance is in the same decade as the current moment next decade.
- * @method        bool            isLastDecade()                                                                      Checks if the instance is in the same decade as the current moment last decade.
- * @method        bool            isSameCentury(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)           Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentCentury()                                                                  Checks if the instance is in the same century as the current moment.
- * @method        bool            isNextCentury()                                                                     Checks if the instance is in the same century as the current moment next century.
- * @method        bool            isLastCentury()                                                                     Checks if the instance is in the same century as the current moment last century.
- * @method        bool            isSameMillennium(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)        Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
- * @method        bool            isCurrentMillennium()                                                               Checks if the instance is in the same millennium as the current moment.
- * @method        bool            isNextMillennium()                                                                  Checks if the instance is in the same millennium as the current moment next millennium.
- * @method        bool            isLastMillennium()                                                                  Checks if the instance is in the same millennium as the current moment last millennium.
- * @method        CarbonInterface years(int $value)                                                                   Set current instance year to the given value.
- * @method        CarbonInterface year(int $value)                                                                    Set current instance year to the given value.
- * @method        CarbonInterface setYears(int $value)                                                                Set current instance year to the given value.
- * @method        CarbonInterface setYear(int $value)                                                                 Set current instance year to the given value.
- * @method        CarbonInterface months(int $value)                                                                  Set current instance month to the given value.
- * @method        CarbonInterface month(int $value)                                                                   Set current instance month to the given value.
- * @method        CarbonInterface setMonths(int $value)                                                               Set current instance month to the given value.
- * @method        CarbonInterface setMonth(int $value)                                                                Set current instance month to the given value.
- * @method        CarbonInterface days(int $value)                                                                    Set current instance day to the given value.
- * @method        CarbonInterface day(int $value)                                                                     Set current instance day to the given value.
- * @method        CarbonInterface setDays(int $value)                                                                 Set current instance day to the given value.
- * @method        CarbonInterface setDay(int $value)                                                                  Set current instance day to the given value.
- * @method        CarbonInterface hours(int $value)                                                                   Set current instance hour to the given value.
- * @method        CarbonInterface hour(int $value)                                                                    Set current instance hour to the given value.
- * @method        CarbonInterface setHours(int $value)                                                                Set current instance hour to the given value.
- * @method        CarbonInterface setHour(int $value)                                                                 Set current instance hour to the given value.
- * @method        CarbonInterface minutes(int $value)                                                                 Set current instance minute to the given value.
- * @method        CarbonInterface minute(int $value)                                                                  Set current instance minute to the given value.
- * @method        CarbonInterface setMinutes(int $value)                                                              Set current instance minute to the given value.
- * @method        CarbonInterface setMinute(int $value)                                                               Set current instance minute to the given value.
- * @method        CarbonInterface seconds(int $value)                                                                 Set current instance second to the given value.
- * @method        CarbonInterface second(int $value)                                                                  Set current instance second to the given value.
- * @method        CarbonInterface setSeconds(int $value)                                                              Set current instance second to the given value.
- * @method        CarbonInterface setSecond(int $value)                                                               Set current instance second to the given value.
- * @method        CarbonInterface millis(int $value)                                                                  Set current instance millisecond to the given value.
- * @method        CarbonInterface milli(int $value)                                                                   Set current instance millisecond to the given value.
- * @method        CarbonInterface setMillis(int $value)                                                               Set current instance millisecond to the given value.
- * @method        CarbonInterface setMilli(int $value)                                                                Set current instance millisecond to the given value.
- * @method        CarbonInterface milliseconds(int $value)                                                            Set current instance millisecond to the given value.
- * @method        CarbonInterface millisecond(int $value)                                                             Set current instance millisecond to the given value.
- * @method        CarbonInterface setMilliseconds(int $value)                                                         Set current instance millisecond to the given value.
- * @method        CarbonInterface setMillisecond(int $value)                                                          Set current instance millisecond to the given value.
- * @method        CarbonInterface micros(int $value)                                                                  Set current instance microsecond to the given value.
- * @method        CarbonInterface micro(int $value)                                                                   Set current instance microsecond to the given value.
- * @method        CarbonInterface setMicros(int $value)                                                               Set current instance microsecond to the given value.
- * @method        CarbonInterface setMicro(int $value)                                                                Set current instance microsecond to the given value.
- * @method        CarbonInterface microseconds(int $value)                                                            Set current instance microsecond to the given value.
- * @method        CarbonInterface microsecond(int $value)                                                             Set current instance microsecond to the given value.
- * @method        CarbonInterface setMicroseconds(int $value)                                                         Set current instance microsecond to the given value.
- * @method        CarbonInterface setMicrosecond(int $value)                                                          Set current instance microsecond to the given value.
- * @method        CarbonInterface addYears(int $value = 1)                                                            Add years (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addYear()                                                                           Add one year to the instance (using date interval).
- * @method        CarbonInterface subYears(int $value = 1)                                                            Sub years (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subYear()                                                                           Sub one year to the instance (using date interval).
- * @method        CarbonInterface addYearsWithOverflow(int $value = 1)                                                Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addYearWithOverflow()                                                               Add one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subYearsWithOverflow(int $value = 1)                                                Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subYearWithOverflow()                                                               Sub one year to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addYearsWithoutOverflow(int $value = 1)                                             Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addYearWithoutOverflow()                                                            Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearsWithoutOverflow(int $value = 1)                                             Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearWithoutOverflow()                                                            Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addYearsWithNoOverflow(int $value = 1)                                              Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addYearWithNoOverflow()                                                             Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearsWithNoOverflow(int $value = 1)                                              Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearWithNoOverflow()                                                             Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addYearsNoOverflow(int $value = 1)                                                  Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addYearNoOverflow()                                                                 Add one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearsNoOverflow(int $value = 1)                                                  Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subYearNoOverflow()                                                                 Sub one year to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonths(int $value = 1)                                                           Add months (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMonth()                                                                          Add one month to the instance (using date interval).
- * @method        CarbonInterface subMonths(int $value = 1)                                                           Sub months (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMonth()                                                                          Sub one month to the instance (using date interval).
- * @method        CarbonInterface addMonthsWithOverflow(int $value = 1)                                               Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addMonthWithOverflow()                                                              Add one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subMonthsWithOverflow(int $value = 1)                                               Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subMonthWithOverflow()                                                              Sub one month to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addMonthsWithoutOverflow(int $value = 1)                                            Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonthWithoutOverflow()                                                           Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthsWithoutOverflow(int $value = 1)                                            Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthWithoutOverflow()                                                           Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonthsWithNoOverflow(int $value = 1)                                             Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonthWithNoOverflow()                                                            Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthsWithNoOverflow(int $value = 1)                                             Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthWithNoOverflow()                                                            Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonthsNoOverflow(int $value = 1)                                                 Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMonthNoOverflow()                                                                Add one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthsNoOverflow(int $value = 1)                                                 Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMonthNoOverflow()                                                                Sub one month to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDays(int $value = 1)                                                             Add days (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addDay()                                                                            Add one day to the instance (using date interval).
- * @method        CarbonInterface subDays(int $value = 1)                                                             Sub days (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subDay()                                                                            Sub one day to the instance (using date interval).
- * @method        CarbonInterface addHours(int $value = 1)                                                            Add hours (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addHour()                                                                           Add one hour to the instance (using date interval).
- * @method        CarbonInterface subHours(int $value = 1)                                                            Sub hours (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subHour()                                                                           Sub one hour to the instance (using date interval).
- * @method        CarbonInterface addMinutes(int $value = 1)                                                          Add minutes (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMinute()                                                                         Add one minute to the instance (using date interval).
- * @method        CarbonInterface subMinutes(int $value = 1)                                                          Sub minutes (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMinute()                                                                         Sub one minute to the instance (using date interval).
- * @method        CarbonInterface addSeconds(int $value = 1)                                                          Add seconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addSecond()                                                                         Add one second to the instance (using date interval).
- * @method        CarbonInterface subSeconds(int $value = 1)                                                          Sub seconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subSecond()                                                                         Sub one second to the instance (using date interval).
- * @method        CarbonInterface addMillis(int $value = 1)                                                           Add milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMilli()                                                                          Add one millisecond to the instance (using date interval).
- * @method        CarbonInterface subMillis(int $value = 1)                                                           Sub milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMilli()                                                                          Sub one millisecond to the instance (using date interval).
- * @method        CarbonInterface addMilliseconds(int $value = 1)                                                     Add milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMillisecond()                                                                    Add one millisecond to the instance (using date interval).
- * @method        CarbonInterface subMilliseconds(int $value = 1)                                                     Sub milliseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMillisecond()                                                                    Sub one millisecond to the instance (using date interval).
- * @method        CarbonInterface addMicros(int $value = 1)                                                           Add microseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMicro()                                                                          Add one microsecond to the instance (using date interval).
- * @method        CarbonInterface subMicros(int $value = 1)                                                           Sub microseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMicro()                                                                          Sub one microsecond to the instance (using date interval).
- * @method        CarbonInterface addMicroseconds(int $value = 1)                                                     Add microseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMicrosecond()                                                                    Add one microsecond to the instance (using date interval).
- * @method        CarbonInterface subMicroseconds(int $value = 1)                                                     Sub microseconds (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMicrosecond()                                                                    Sub one microsecond to the instance (using date interval).
- * @method        CarbonInterface addMillennia(int $value = 1)                                                        Add millennia (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addMillennium()                                                                     Add one millennium to the instance (using date interval).
- * @method        CarbonInterface subMillennia(int $value = 1)                                                        Sub millennia (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subMillennium()                                                                     Sub one millennium to the instance (using date interval).
- * @method        CarbonInterface addMillenniaWithOverflow(int $value = 1)                                            Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addMillenniumWithOverflow()                                                         Add one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subMillenniaWithOverflow(int $value = 1)                                            Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subMillenniumWithOverflow()                                                         Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addMillenniaWithoutOverflow(int $value = 1)                                         Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMillenniumWithoutOverflow()                                                      Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniaWithoutOverflow(int $value = 1)                                         Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniumWithoutOverflow()                                                      Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMillenniaWithNoOverflow(int $value = 1)                                          Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMillenniumWithNoOverflow()                                                       Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniaWithNoOverflow(int $value = 1)                                          Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniumWithNoOverflow()                                                       Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMillenniaNoOverflow(int $value = 1)                                              Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addMillenniumNoOverflow()                                                           Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniaNoOverflow(int $value = 1)                                              Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subMillenniumNoOverflow()                                                           Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturies(int $value = 1)                                                        Add centuries (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addCentury()                                                                        Add one century to the instance (using date interval).
- * @method        CarbonInterface subCenturies(int $value = 1)                                                        Sub centuries (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subCentury()                                                                        Sub one century to the instance (using date interval).
- * @method        CarbonInterface addCenturiesWithOverflow(int $value = 1)                                            Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addCenturyWithOverflow()                                                            Add one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subCenturiesWithOverflow(int $value = 1)                                            Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subCenturyWithOverflow()                                                            Sub one century to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addCenturiesWithoutOverflow(int $value = 1)                                         Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturyWithoutOverflow()                                                         Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturiesWithoutOverflow(int $value = 1)                                         Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturyWithoutOverflow()                                                         Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturiesWithNoOverflow(int $value = 1)                                          Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturyWithNoOverflow()                                                          Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturiesWithNoOverflow(int $value = 1)                                          Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturyWithNoOverflow()                                                          Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturiesNoOverflow(int $value = 1)                                              Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addCenturyNoOverflow()                                                              Add one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturiesNoOverflow(int $value = 1)                                              Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subCenturyNoOverflow()                                                              Sub one century to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecades(int $value = 1)                                                          Add decades (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addDecade()                                                                         Add one decade to the instance (using date interval).
- * @method        CarbonInterface subDecades(int $value = 1)                                                          Sub decades (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subDecade()                                                                         Sub one decade to the instance (using date interval).
- * @method        CarbonInterface addDecadesWithOverflow(int $value = 1)                                              Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addDecadeWithOverflow()                                                             Add one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subDecadesWithOverflow(int $value = 1)                                              Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subDecadeWithOverflow()                                                             Sub one decade to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addDecadesWithoutOverflow(int $value = 1)                                           Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecadeWithoutOverflow()                                                          Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadesWithoutOverflow(int $value = 1)                                           Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadeWithoutOverflow()                                                          Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecadesWithNoOverflow(int $value = 1)                                            Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecadeWithNoOverflow()                                                           Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadesWithNoOverflow(int $value = 1)                                            Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadeWithNoOverflow()                                                           Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecadesNoOverflow(int $value = 1)                                                Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addDecadeNoOverflow()                                                               Add one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadesNoOverflow(int $value = 1)                                                Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subDecadeNoOverflow()                                                               Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuarters(int $value = 1)                                                         Add quarters (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addQuarter()                                                                        Add one quarter to the instance (using date interval).
- * @method        CarbonInterface subQuarters(int $value = 1)                                                         Sub quarters (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subQuarter()                                                                        Sub one quarter to the instance (using date interval).
- * @method        CarbonInterface addQuartersWithOverflow(int $value = 1)                                             Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addQuarterWithOverflow()                                                            Add one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subQuartersWithOverflow(int $value = 1)                                             Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface subQuarterWithOverflow()                                                            Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
- * @method        CarbonInterface addQuartersWithoutOverflow(int $value = 1)                                          Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuarterWithoutOverflow()                                                         Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuartersWithoutOverflow(int $value = 1)                                          Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuarterWithoutOverflow()                                                         Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuartersWithNoOverflow(int $value = 1)                                           Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuarterWithNoOverflow()                                                          Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuartersWithNoOverflow(int $value = 1)                                           Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuarterWithNoOverflow()                                                          Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuartersNoOverflow(int $value = 1)                                               Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addQuarterNoOverflow()                                                              Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuartersNoOverflow(int $value = 1)                                               Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface subQuarterNoOverflow()                                                              Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
- * @method        CarbonInterface addWeeks(int $value = 1)                                                            Add weeks (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addWeek()                                                                           Add one week to the instance (using date interval).
- * @method        CarbonInterface subWeeks(int $value = 1)                                                            Sub weeks (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subWeek()                                                                           Sub one week to the instance (using date interval).
- * @method        CarbonInterface addWeekdays(int $value = 1)                                                         Add weekdays (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface addWeekday()                                                                        Add one weekday to the instance (using date interval).
- * @method        CarbonInterface subWeekdays(int $value = 1)                                                         Sub weekdays (the $value count passed in) to the instance (using date interval).
- * @method        CarbonInterface subWeekday()                                                                        Sub one weekday to the instance (using date interval).
- * @method        CarbonInterface addRealMicros(int $value = 1)                                                       Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMicro()                                                                      Add one microsecond to the instance (using timestamp).
- * @method        CarbonInterface subRealMicros(int $value = 1)                                                       Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMicro()                                                                      Sub one microsecond to the instance (using timestamp).
- * @method        CarbonPeriod    microsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        CarbonInterface addRealMicroseconds(int $value = 1)                                                 Add microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMicrosecond()                                                                Add one microsecond to the instance (using timestamp).
- * @method        CarbonInterface subRealMicroseconds(int $value = 1)                                                 Sub microseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMicrosecond()                                                                Sub one microsecond to the instance (using timestamp).
- * @method        CarbonPeriod    microsecondsUntil($endDate = null, int $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
- * @method        CarbonInterface addRealMillis(int $value = 1)                                                       Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMilli()                                                                      Add one millisecond to the instance (using timestamp).
- * @method        CarbonInterface subRealMillis(int $value = 1)                                                       Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMilli()                                                                      Sub one millisecond to the instance (using timestamp).
- * @method        CarbonPeriod    millisUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        CarbonInterface addRealMilliseconds(int $value = 1)                                                 Add milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMillisecond()                                                                Add one millisecond to the instance (using timestamp).
- * @method        CarbonInterface subRealMilliseconds(int $value = 1)                                                 Sub milliseconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMillisecond()                                                                Sub one millisecond to the instance (using timestamp).
- * @method        CarbonPeriod    millisecondsUntil($endDate = null, int $factor = 1)                                 Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
- * @method        CarbonInterface addRealSeconds(int $value = 1)                                                      Add seconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealSecond()                                                                     Add one second to the instance (using timestamp).
- * @method        CarbonInterface subRealSeconds(int $value = 1)                                                      Sub seconds (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealSecond()                                                                     Sub one second to the instance (using timestamp).
- * @method        CarbonPeriod    secondsUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
- * @method        CarbonInterface addRealMinutes(int $value = 1)                                                      Add minutes (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMinute()                                                                     Add one minute to the instance (using timestamp).
- * @method        CarbonInterface subRealMinutes(int $value = 1)                                                      Sub minutes (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMinute()                                                                     Sub one minute to the instance (using timestamp).
- * @method        CarbonPeriod    minutesUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
- * @method        CarbonInterface addRealHours(int $value = 1)                                                        Add hours (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealHour()                                                                       Add one hour to the instance (using timestamp).
- * @method        CarbonInterface subRealHours(int $value = 1)                                                        Sub hours (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealHour()                                                                       Sub one hour to the instance (using timestamp).
- * @method        CarbonPeriod    hoursUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
- * @method        CarbonInterface addRealDays(int $value = 1)                                                         Add days (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealDay()                                                                        Add one day to the instance (using timestamp).
- * @method        CarbonInterface subRealDays(int $value = 1)                                                         Sub days (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealDay()                                                                        Sub one day to the instance (using timestamp).
- * @method        CarbonPeriod    daysUntil($endDate = null, int $factor = 1)                                         Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
- * @method        CarbonInterface addRealWeeks(int $value = 1)                                                        Add weeks (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealWeek()                                                                       Add one week to the instance (using timestamp).
- * @method        CarbonInterface subRealWeeks(int $value = 1)                                                        Sub weeks (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealWeek()                                                                       Sub one week to the instance (using timestamp).
- * @method        CarbonPeriod    weeksUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
- * @method        CarbonInterface addRealMonths(int $value = 1)                                                       Add months (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMonth()                                                                      Add one month to the instance (using timestamp).
- * @method        CarbonInterface subRealMonths(int $value = 1)                                                       Sub months (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMonth()                                                                      Sub one month to the instance (using timestamp).
- * @method        CarbonPeriod    monthsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
- * @method        CarbonInterface addRealQuarters(int $value = 1)                                                     Add quarters (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealQuarter()                                                                    Add one quarter to the instance (using timestamp).
- * @method        CarbonInterface subRealQuarters(int $value = 1)                                                     Sub quarters (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealQuarter()                                                                    Sub one quarter to the instance (using timestamp).
- * @method        CarbonPeriod    quartersUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
- * @method        CarbonInterface addRealYears(int $value = 1)                                                        Add years (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealYear()                                                                       Add one year to the instance (using timestamp).
- * @method        CarbonInterface subRealYears(int $value = 1)                                                        Sub years (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealYear()                                                                       Sub one year to the instance (using timestamp).
- * @method        CarbonPeriod    yearsUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
- * @method        CarbonInterface addRealDecades(int $value = 1)                                                      Add decades (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealDecade()                                                                     Add one decade to the instance (using timestamp).
- * @method        CarbonInterface subRealDecades(int $value = 1)                                                      Sub decades (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealDecade()                                                                     Sub one decade to the instance (using timestamp).
- * @method        CarbonPeriod    decadesUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
- * @method        CarbonInterface addRealCenturies(int $value = 1)                                                    Add centuries (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealCentury()                                                                    Add one century to the instance (using timestamp).
- * @method        CarbonInterface subRealCenturies(int $value = 1)                                                    Sub centuries (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealCentury()                                                                    Sub one century to the instance (using timestamp).
- * @method        CarbonPeriod    centuriesUntil($endDate = null, int $factor = 1)                                    Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
- * @method        CarbonInterface addRealMillennia(int $value = 1)                                                    Add millennia (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface addRealMillennium()                                                                 Add one millennium to the instance (using timestamp).
- * @method        CarbonInterface subRealMillennia(int $value = 1)                                                    Sub millennia (the $value count passed in) to the instance (using timestamp).
- * @method        CarbonInterface subRealMillennium()                                                                 Sub one millennium to the instance (using timestamp).
- * @method        CarbonPeriod    millenniaUntil($endDate = null, int $factor = 1)                                    Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
- * @method        CarbonInterface roundYear(float $precision = 1, string $function = "round")                         Round the current instance year with given precision using the given function.
- * @method        CarbonInterface roundYears(float $precision = 1, string $function = "round")                        Round the current instance year with given precision using the given function.
- * @method        CarbonInterface floorYear(float $precision = 1)                                                     Truncate the current instance year with given precision.
- * @method        CarbonInterface floorYears(float $precision = 1)                                                    Truncate the current instance year with given precision.
- * @method        CarbonInterface ceilYear(float $precision = 1)                                                      Ceil the current instance year with given precision.
- * @method        CarbonInterface ceilYears(float $precision = 1)                                                     Ceil the current instance year with given precision.
- * @method        CarbonInterface roundMonth(float $precision = 1, string $function = "round")                        Round the current instance month with given precision using the given function.
- * @method        CarbonInterface roundMonths(float $precision = 1, string $function = "round")                       Round the current instance month with given precision using the given function.
- * @method        CarbonInterface floorMonth(float $precision = 1)                                                    Truncate the current instance month with given precision.
- * @method        CarbonInterface floorMonths(float $precision = 1)                                                   Truncate the current instance month with given precision.
- * @method        CarbonInterface ceilMonth(float $precision = 1)                                                     Ceil the current instance month with given precision.
- * @method        CarbonInterface ceilMonths(float $precision = 1)                                                    Ceil the current instance month with given precision.
- * @method        CarbonInterface roundDay(float $precision = 1, string $function = "round")                          Round the current instance day with given precision using the given function.
- * @method        CarbonInterface roundDays(float $precision = 1, string $function = "round")                         Round the current instance day with given precision using the given function.
- * @method        CarbonInterface floorDay(float $precision = 1)                                                      Truncate the current instance day with given precision.
- * @method        CarbonInterface floorDays(float $precision = 1)                                                     Truncate the current instance day with given precision.
- * @method        CarbonInterface ceilDay(float $precision = 1)                                                       Ceil the current instance day with given precision.
- * @method        CarbonInterface ceilDays(float $precision = 1)                                                      Ceil the current instance day with given precision.
- * @method        CarbonInterface roundHour(float $precision = 1, string $function = "round")                         Round the current instance hour with given precision using the given function.
- * @method        CarbonInterface roundHours(float $precision = 1, string $function = "round")                        Round the current instance hour with given precision using the given function.
- * @method        CarbonInterface floorHour(float $precision = 1)                                                     Truncate the current instance hour with given precision.
- * @method        CarbonInterface floorHours(float $precision = 1)                                                    Truncate the current instance hour with given precision.
- * @method        CarbonInterface ceilHour(float $precision = 1)                                                      Ceil the current instance hour with given precision.
- * @method        CarbonInterface ceilHours(float $precision = 1)                                                     Ceil the current instance hour with given precision.
- * @method        CarbonInterface roundMinute(float $precision = 1, string $function = "round")                       Round the current instance minute with given precision using the given function.
- * @method        CarbonInterface roundMinutes(float $precision = 1, string $function = "round")                      Round the current instance minute with given precision using the given function.
- * @method        CarbonInterface floorMinute(float $precision = 1)                                                   Truncate the current instance minute with given precision.
- * @method        CarbonInterface floorMinutes(float $precision = 1)                                                  Truncate the current instance minute with given precision.
- * @method        CarbonInterface ceilMinute(float $precision = 1)                                                    Ceil the current instance minute with given precision.
- * @method        CarbonInterface ceilMinutes(float $precision = 1)                                                   Ceil the current instance minute with given precision.
- * @method        CarbonInterface roundSecond(float $precision = 1, string $function = "round")                       Round the current instance second with given precision using the given function.
- * @method        CarbonInterface roundSeconds(float $precision = 1, string $function = "round")                      Round the current instance second with given precision using the given function.
- * @method        CarbonInterface floorSecond(float $precision = 1)                                                   Truncate the current instance second with given precision.
- * @method        CarbonInterface floorSeconds(float $precision = 1)                                                  Truncate the current instance second with given precision.
- * @method        CarbonInterface ceilSecond(float $precision = 1)                                                    Ceil the current instance second with given precision.
- * @method        CarbonInterface ceilSeconds(float $precision = 1)                                                   Ceil the current instance second with given precision.
- * @method        CarbonInterface roundMillennium(float $precision = 1, string $function = "round")                   Round the current instance millennium with given precision using the given function.
- * @method        CarbonInterface roundMillennia(float $precision = 1, string $function = "round")                    Round the current instance millennium with given precision using the given function.
- * @method        CarbonInterface floorMillennium(float $precision = 1)                                               Truncate the current instance millennium with given precision.
- * @method        CarbonInterface floorMillennia(float $precision = 1)                                                Truncate the current instance millennium with given precision.
- * @method        CarbonInterface ceilMillennium(float $precision = 1)                                                Ceil the current instance millennium with given precision.
- * @method        CarbonInterface ceilMillennia(float $precision = 1)                                                 Ceil the current instance millennium with given precision.
- * @method        CarbonInterface roundCentury(float $precision = 1, string $function = "round")                      Round the current instance century with given precision using the given function.
- * @method        CarbonInterface roundCenturies(float $precision = 1, string $function = "round")                    Round the current instance century with given precision using the given function.
- * @method        CarbonInterface floorCentury(float $precision = 1)                                                  Truncate the current instance century with given precision.
- * @method        CarbonInterface floorCenturies(float $precision = 1)                                                Truncate the current instance century with given precision.
- * @method        CarbonInterface ceilCentury(float $precision = 1)                                                   Ceil the current instance century with given precision.
- * @method        CarbonInterface ceilCenturies(float $precision = 1)                                                 Ceil the current instance century with given precision.
- * @method        CarbonInterface roundDecade(float $precision = 1, string $function = "round")                       Round the current instance decade with given precision using the given function.
- * @method        CarbonInterface roundDecades(float $precision = 1, string $function = "round")                      Round the current instance decade with given precision using the given function.
- * @method        CarbonInterface floorDecade(float $precision = 1)                                                   Truncate the current instance decade with given precision.
- * @method        CarbonInterface floorDecades(float $precision = 1)                                                  Truncate the current instance decade with given precision.
- * @method        CarbonInterface ceilDecade(float $precision = 1)                                                    Ceil the current instance decade with given precision.
- * @method        CarbonInterface ceilDecades(float $precision = 1)                                                   Ceil the current instance decade with given precision.
- * @method        CarbonInterface roundQuarter(float $precision = 1, string $function = "round")                      Round the current instance quarter with given precision using the given function.
- * @method        CarbonInterface roundQuarters(float $precision = 1, string $function = "round")                     Round the current instance quarter with given precision using the given function.
- * @method        CarbonInterface floorQuarter(float $precision = 1)                                                  Truncate the current instance quarter with given precision.
- * @method        CarbonInterface floorQuarters(float $precision = 1)                                                 Truncate the current instance quarter with given precision.
- * @method        CarbonInterface ceilQuarter(float $precision = 1)                                                   Ceil the current instance quarter with given precision.
- * @method        CarbonInterface ceilQuarters(float $precision = 1)                                                  Ceil the current instance quarter with given precision.
- * @method        CarbonInterface roundMillisecond(float $precision = 1, string $function = "round")                  Round the current instance millisecond with given precision using the given function.
- * @method        CarbonInterface roundMilliseconds(float $precision = 1, string $function = "round")                 Round the current instance millisecond with given precision using the given function.
- * @method        CarbonInterface floorMillisecond(float $precision = 1)                                              Truncate the current instance millisecond with given precision.
- * @method        CarbonInterface floorMilliseconds(float $precision = 1)                                             Truncate the current instance millisecond with given precision.
- * @method        CarbonInterface ceilMillisecond(float $precision = 1)                                               Ceil the current instance millisecond with given precision.
- * @method        CarbonInterface ceilMilliseconds(float $precision = 1)                                              Ceil the current instance millisecond with given precision.
- * @method        CarbonInterface roundMicrosecond(float $precision = 1, string $function = "round")                  Round the current instance microsecond with given precision using the given function.
- * @method        CarbonInterface roundMicroseconds(float $precision = 1, string $function = "round")                 Round the current instance microsecond with given precision using the given function.
- * @method        CarbonInterface floorMicrosecond(float $precision = 1)                                              Truncate the current instance microsecond with given precision.
- * @method        CarbonInterface floorMicroseconds(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
- * @method        CarbonInterface ceilMicrosecond(float $precision = 1)                                               Ceil the current instance microsecond with given precision.
- * @method        CarbonInterface ceilMicroseconds(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
- * @method        string          shortAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longAbsoluteDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeToNowDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          shortRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
- * @method        string          longRelativeToOtherDiffForHumans(\DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        bool            isUtc()                                                                            Check if the current instance has UTC timezone. (Both isUtc and isUTC cases are valid.)
+ * @method        bool            isLocal()                                                                          Check if the current instance has non-UTC timezone.
+ * @method        bool            isValid()                                                                          Check if the current instance is a valid date.
+ * @method        bool            isDST()                                                                            Check if the current instance is in a daylight saving time.
+ * @method        bool            isSunday()                                                                         Checks if the instance day is sunday.
+ * @method        bool            isMonday()                                                                         Checks if the instance day is monday.
+ * @method        bool            isTuesday()                                                                        Checks if the instance day is tuesday.
+ * @method        bool            isWednesday()                                                                      Checks if the instance day is wednesday.
+ * @method        bool            isThursday()                                                                       Checks if the instance day is thursday.
+ * @method        bool            isFriday()                                                                         Checks if the instance day is friday.
+ * @method        bool            isSaturday()                                                                       Checks if the instance day is saturday.
+ * @method        bool            isSameYear(Carbon|DateTimeInterface|string|null $date = null)                      Checks if the given date is in the same year as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentYear()                                                                    Checks if the instance is in the same year as the current moment.
+ * @method        bool            isNextYear()                                                                       Checks if the instance is in the same year as the current moment next year.
+ * @method        bool            isLastYear()                                                                       Checks if the instance is in the same year as the current moment last year.
+ * @method        bool            isSameWeek(Carbon|DateTimeInterface|string|null $date = null)                      Checks if the given date is in the same week as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentWeek()                                                                    Checks if the instance is in the same week as the current moment.
+ * @method        bool            isNextWeek()                                                                       Checks if the instance is in the same week as the current moment next week.
+ * @method        bool            isLastWeek()                                                                       Checks if the instance is in the same week as the current moment last week.
+ * @method        bool            isSameDay(Carbon|DateTimeInterface|string|null $date = null)                       Checks if the given date is in the same day as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentDay()                                                                     Checks if the instance is in the same day as the current moment.
+ * @method        bool            isNextDay()                                                                        Checks if the instance is in the same day as the current moment next day.
+ * @method        bool            isLastDay()                                                                        Checks if the instance is in the same day as the current moment last day.
+ * @method        bool            isSameHour(Carbon|DateTimeInterface|string|null $date = null)                      Checks if the given date is in the same hour as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentHour()                                                                    Checks if the instance is in the same hour as the current moment.
+ * @method        bool            isNextHour()                                                                       Checks if the instance is in the same hour as the current moment next hour.
+ * @method        bool            isLastHour()                                                                       Checks if the instance is in the same hour as the current moment last hour.
+ * @method        bool            isSameMinute(Carbon|DateTimeInterface|string|null $date = null)                    Checks if the given date is in the same minute as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentMinute()                                                                  Checks if the instance is in the same minute as the current moment.
+ * @method        bool            isNextMinute()                                                                     Checks if the instance is in the same minute as the current moment next minute.
+ * @method        bool            isLastMinute()                                                                     Checks if the instance is in the same minute as the current moment last minute.
+ * @method        bool            isSameSecond(Carbon|DateTimeInterface|string|null $date = null)                    Checks if the given date is in the same second as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentSecond()                                                                  Checks if the instance is in the same second as the current moment.
+ * @method        bool            isNextSecond()                                                                     Checks if the instance is in the same second as the current moment next second.
+ * @method        bool            isLastSecond()                                                                     Checks if the instance is in the same second as the current moment last second.
+ * @method        bool            isSameMicro(Carbon|DateTimeInterface|string|null $date = null)                     Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentMicro()                                                                   Checks if the instance is in the same microsecond as the current moment.
+ * @method        bool            isNextMicro()                                                                      Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method        bool            isLastMicro()                                                                      Checks if the instance is in the same microsecond as the current moment last microsecond.
+ * @method        bool            isSameMicrosecond(Carbon|DateTimeInterface|string|null $date = null)               Checks if the given date is in the same microsecond as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentMicrosecond()                                                             Checks if the instance is in the same microsecond as the current moment.
+ * @method        bool            isNextMicrosecond()                                                                Checks if the instance is in the same microsecond as the current moment next microsecond.
+ * @method        bool            isLastMicrosecond()                                                                Checks if the instance is in the same microsecond as the current moment last microsecond.
+ * @method        bool            isCurrentMonth()                                                                   Checks if the instance is in the same month as the current moment.
+ * @method        bool            isNextMonth()                                                                      Checks if the instance is in the same month as the current moment next month.
+ * @method        bool            isLastMonth()                                                                      Checks if the instance is in the same month as the current moment last month.
+ * @method        bool            isCurrentQuarter()                                                                 Checks if the instance is in the same quarter as the current moment.
+ * @method        bool            isNextQuarter()                                                                    Checks if the instance is in the same quarter as the current moment next quarter.
+ * @method        bool            isLastQuarter()                                                                    Checks if the instance is in the same quarter as the current moment last quarter.
+ * @method        bool            isSameDecade(Carbon|DateTimeInterface|string|null $date = null)                    Checks if the given date is in the same decade as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentDecade()                                                                  Checks if the instance is in the same decade as the current moment.
+ * @method        bool            isNextDecade()                                                                     Checks if the instance is in the same decade as the current moment next decade.
+ * @method        bool            isLastDecade()                                                                     Checks if the instance is in the same decade as the current moment last decade.
+ * @method        bool            isSameCentury(Carbon|DateTimeInterface|string|null $date = null)                   Checks if the given date is in the same century as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentCentury()                                                                 Checks if the instance is in the same century as the current moment.
+ * @method        bool            isNextCentury()                                                                    Checks if the instance is in the same century as the current moment next century.
+ * @method        bool            isLastCentury()                                                                    Checks if the instance is in the same century as the current moment last century.
+ * @method        bool            isSameMillennium(Carbon|DateTimeInterface|string|null $date = null)                Checks if the given date is in the same millennium as the instance. If null passed, compare to now (with the same timezone).
+ * @method        bool            isCurrentMillennium()                                                              Checks if the instance is in the same millennium as the current moment.
+ * @method        bool            isNextMillennium()                                                                 Checks if the instance is in the same millennium as the current moment next millennium.
+ * @method        bool            isLastMillennium()                                                                 Checks if the instance is in the same millennium as the current moment last millennium.
+ * @method        CarbonInterface years(int $value)                                                                  Set current instance year to the given value.
+ * @method        CarbonInterface year(int $value)                                                                   Set current instance year to the given value.
+ * @method        CarbonInterface setYears(int $value)                                                               Set current instance year to the given value.
+ * @method        CarbonInterface setYear(int $value)                                                                Set current instance year to the given value.
+ * @method        CarbonInterface months(int $value)                                                                 Set current instance month to the given value.
+ * @method        CarbonInterface month(int $value)                                                                  Set current instance month to the given value.
+ * @method        CarbonInterface setMonths(int $value)                                                              Set current instance month to the given value.
+ * @method        CarbonInterface setMonth(int $value)                                                               Set current instance month to the given value.
+ * @method        CarbonInterface days(int $value)                                                                   Set current instance day to the given value.
+ * @method        CarbonInterface day(int $value)                                                                    Set current instance day to the given value.
+ * @method        CarbonInterface setDays(int $value)                                                                Set current instance day to the given value.
+ * @method        CarbonInterface setDay(int $value)                                                                 Set current instance day to the given value.
+ * @method        CarbonInterface hours(int $value)                                                                  Set current instance hour to the given value.
+ * @method        CarbonInterface hour(int $value)                                                                   Set current instance hour to the given value.
+ * @method        CarbonInterface setHours(int $value)                                                               Set current instance hour to the given value.
+ * @method        CarbonInterface setHour(int $value)                                                                Set current instance hour to the given value.
+ * @method        CarbonInterface minutes(int $value)                                                                Set current instance minute to the given value.
+ * @method        CarbonInterface minute(int $value)                                                                 Set current instance minute to the given value.
+ * @method        CarbonInterface setMinutes(int $value)                                                             Set current instance minute to the given value.
+ * @method        CarbonInterface setMinute(int $value)                                                              Set current instance minute to the given value.
+ * @method        CarbonInterface seconds(int $value)                                                                Set current instance second to the given value.
+ * @method        CarbonInterface second(int $value)                                                                 Set current instance second to the given value.
+ * @method        CarbonInterface setSeconds(int $value)                                                             Set current instance second to the given value.
+ * @method        CarbonInterface setSecond(int $value)                                                              Set current instance second to the given value.
+ * @method        CarbonInterface millis(int $value)                                                                 Set current instance millisecond to the given value.
+ * @method        CarbonInterface milli(int $value)                                                                  Set current instance millisecond to the given value.
+ * @method        CarbonInterface setMillis(int $value)                                                              Set current instance millisecond to the given value.
+ * @method        CarbonInterface setMilli(int $value)                                                               Set current instance millisecond to the given value.
+ * @method        CarbonInterface milliseconds(int $value)                                                           Set current instance millisecond to the given value.
+ * @method        CarbonInterface millisecond(int $value)                                                            Set current instance millisecond to the given value.
+ * @method        CarbonInterface setMilliseconds(int $value)                                                        Set current instance millisecond to the given value.
+ * @method        CarbonInterface setMillisecond(int $value)                                                         Set current instance millisecond to the given value.
+ * @method        CarbonInterface micros(int $value)                                                                 Set current instance microsecond to the given value.
+ * @method        CarbonInterface micro(int $value)                                                                  Set current instance microsecond to the given value.
+ * @method        CarbonInterface setMicros(int $value)                                                              Set current instance microsecond to the given value.
+ * @method        CarbonInterface setMicro(int $value)                                                               Set current instance microsecond to the given value.
+ * @method        CarbonInterface microseconds(int $value)                                                           Set current instance microsecond to the given value.
+ * @method        CarbonInterface microsecond(int $value)                                                            Set current instance microsecond to the given value.
+ * @method        CarbonInterface setMicroseconds(int $value)                                                        Set current instance microsecond to the given value.
+ * @method        CarbonInterface setMicrosecond(int $value)                                                         Set current instance microsecond to the given value.
+ * @method        CarbonInterface addYears(int $value = 1)                                                           Add years (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addYear()                                                                          Add one year to the instance (using date interval).
+ * @method        CarbonInterface subYears(int $value = 1)                                                           Sub years (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subYear()                                                                          Sub one year to the instance (using date interval).
+ * @method        CarbonInterface addYearsWithOverflow(int $value = 1)                                               Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addYearWithOverflow()                                                              Add one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subYearsWithOverflow(int $value = 1)                                               Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subYearWithOverflow()                                                              Sub one year to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addYearsWithoutOverflow(int $value = 1)                                            Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addYearWithoutOverflow()                                                           Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearsWithoutOverflow(int $value = 1)                                            Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearWithoutOverflow()                                                           Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addYearsWithNoOverflow(int $value = 1)                                             Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addYearWithNoOverflow()                                                            Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearsWithNoOverflow(int $value = 1)                                             Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearWithNoOverflow()                                                            Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addYearsNoOverflow(int $value = 1)                                                 Add years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addYearNoOverflow()                                                                Add one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearsNoOverflow(int $value = 1)                                                 Sub years (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subYearNoOverflow()                                                                Sub one year to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonths(int $value = 1)                                                          Add months (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMonth()                                                                         Add one month to the instance (using date interval).
+ * @method        CarbonInterface subMonths(int $value = 1)                                                          Sub months (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMonth()                                                                         Sub one month to the instance (using date interval).
+ * @method        CarbonInterface addMonthsWithOverflow(int $value = 1)                                              Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addMonthWithOverflow()                                                             Add one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subMonthsWithOverflow(int $value = 1)                                              Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subMonthWithOverflow()                                                             Sub one month to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addMonthsWithoutOverflow(int $value = 1)                                           Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonthWithoutOverflow()                                                          Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthsWithoutOverflow(int $value = 1)                                           Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthWithoutOverflow()                                                          Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonthsWithNoOverflow(int $value = 1)                                            Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonthWithNoOverflow()                                                           Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthsWithNoOverflow(int $value = 1)                                            Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthWithNoOverflow()                                                           Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonthsNoOverflow(int $value = 1)                                                Add months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMonthNoOverflow()                                                               Add one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthsNoOverflow(int $value = 1)                                                Sub months (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMonthNoOverflow()                                                               Sub one month to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDays(int $value = 1)                                                            Add days (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addDay()                                                                           Add one day to the instance (using date interval).
+ * @method        CarbonInterface subDays(int $value = 1)                                                            Sub days (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subDay()                                                                           Sub one day to the instance (using date interval).
+ * @method        CarbonInterface addHours(int $value = 1)                                                           Add hours (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addHour()                                                                          Add one hour to the instance (using date interval).
+ * @method        CarbonInterface subHours(int $value = 1)                                                           Sub hours (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subHour()                                                                          Sub one hour to the instance (using date interval).
+ * @method        CarbonInterface addMinutes(int $value = 1)                                                         Add minutes (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMinute()                                                                        Add one minute to the instance (using date interval).
+ * @method        CarbonInterface subMinutes(int $value = 1)                                                         Sub minutes (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMinute()                                                                        Sub one minute to the instance (using date interval).
+ * @method        CarbonInterface addSeconds(int $value = 1)                                                         Add seconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addSecond()                                                                        Add one second to the instance (using date interval).
+ * @method        CarbonInterface subSeconds(int $value = 1)                                                         Sub seconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subSecond()                                                                        Sub one second to the instance (using date interval).
+ * @method        CarbonInterface addMillis(int $value = 1)                                                          Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMilli()                                                                         Add one millisecond to the instance (using date interval).
+ * @method        CarbonInterface subMillis(int $value = 1)                                                          Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMilli()                                                                         Sub one millisecond to the instance (using date interval).
+ * @method        CarbonInterface addMilliseconds(int $value = 1)                                                    Add milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMillisecond()                                                                   Add one millisecond to the instance (using date interval).
+ * @method        CarbonInterface subMilliseconds(int $value = 1)                                                    Sub milliseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMillisecond()                                                                   Sub one millisecond to the instance (using date interval).
+ * @method        CarbonInterface addMicros(int $value = 1)                                                          Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMicro()                                                                         Add one microsecond to the instance (using date interval).
+ * @method        CarbonInterface subMicros(int $value = 1)                                                          Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMicro()                                                                         Sub one microsecond to the instance (using date interval).
+ * @method        CarbonInterface addMicroseconds(int $value = 1)                                                    Add microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMicrosecond()                                                                   Add one microsecond to the instance (using date interval).
+ * @method        CarbonInterface subMicroseconds(int $value = 1)                                                    Sub microseconds (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMicrosecond()                                                                   Sub one microsecond to the instance (using date interval).
+ * @method        CarbonInterface addMillennia(int $value = 1)                                                       Add millennia (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addMillennium()                                                                    Add one millennium to the instance (using date interval).
+ * @method        CarbonInterface subMillennia(int $value = 1)                                                       Sub millennia (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subMillennium()                                                                    Sub one millennium to the instance (using date interval).
+ * @method        CarbonInterface addMillenniaWithOverflow(int $value = 1)                                           Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addMillenniumWithOverflow()                                                        Add one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subMillenniaWithOverflow(int $value = 1)                                           Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subMillenniumWithOverflow()                                                        Sub one millennium to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addMillenniaWithoutOverflow(int $value = 1)                                        Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMillenniumWithoutOverflow()                                                     Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniaWithoutOverflow(int $value = 1)                                        Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniumWithoutOverflow()                                                     Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMillenniaWithNoOverflow(int $value = 1)                                         Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMillenniumWithNoOverflow()                                                      Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniaWithNoOverflow(int $value = 1)                                         Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniumWithNoOverflow()                                                      Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMillenniaNoOverflow(int $value = 1)                                             Add millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addMillenniumNoOverflow()                                                          Add one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniaNoOverflow(int $value = 1)                                             Sub millennia (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subMillenniumNoOverflow()                                                          Sub one millennium to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturies(int $value = 1)                                                       Add centuries (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addCentury()                                                                       Add one century to the instance (using date interval).
+ * @method        CarbonInterface subCenturies(int $value = 1)                                                       Sub centuries (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subCentury()                                                                       Sub one century to the instance (using date interval).
+ * @method        CarbonInterface addCenturiesWithOverflow(int $value = 1)                                           Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addCenturyWithOverflow()                                                           Add one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subCenturiesWithOverflow(int $value = 1)                                           Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subCenturyWithOverflow()                                                           Sub one century to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addCenturiesWithoutOverflow(int $value = 1)                                        Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturyWithoutOverflow()                                                        Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturiesWithoutOverflow(int $value = 1)                                        Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturyWithoutOverflow()                                                        Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturiesWithNoOverflow(int $value = 1)                                         Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturyWithNoOverflow()                                                         Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturiesWithNoOverflow(int $value = 1)                                         Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturyWithNoOverflow()                                                         Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturiesNoOverflow(int $value = 1)                                             Add centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addCenturyNoOverflow()                                                             Add one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturiesNoOverflow(int $value = 1)                                             Sub centuries (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subCenturyNoOverflow()                                                             Sub one century to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecades(int $value = 1)                                                         Add decades (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addDecade()                                                                        Add one decade to the instance (using date interval).
+ * @method        CarbonInterface subDecades(int $value = 1)                                                         Sub decades (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subDecade()                                                                        Sub one decade to the instance (using date interval).
+ * @method        CarbonInterface addDecadesWithOverflow(int $value = 1)                                             Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addDecadeWithOverflow()                                                            Add one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subDecadesWithOverflow(int $value = 1)                                             Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subDecadeWithOverflow()                                                            Sub one decade to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addDecadesWithoutOverflow(int $value = 1)                                          Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecadeWithoutOverflow()                                                         Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadesWithoutOverflow(int $value = 1)                                          Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadeWithoutOverflow()                                                         Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecadesWithNoOverflow(int $value = 1)                                           Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecadeWithNoOverflow()                                                          Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadesWithNoOverflow(int $value = 1)                                           Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadeWithNoOverflow()                                                          Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecadesNoOverflow(int $value = 1)                                               Add decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addDecadeNoOverflow()                                                              Add one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadesNoOverflow(int $value = 1)                                               Sub decades (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subDecadeNoOverflow()                                                              Sub one decade to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuarters(int $value = 1)                                                        Add quarters (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addQuarter()                                                                       Add one quarter to the instance (using date interval).
+ * @method        CarbonInterface subQuarters(int $value = 1)                                                        Sub quarters (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subQuarter()                                                                       Sub one quarter to the instance (using date interval).
+ * @method        CarbonInterface addQuartersWithOverflow(int $value = 1)                                            Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addQuarterWithOverflow()                                                           Add one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subQuartersWithOverflow(int $value = 1)                                            Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface subQuarterWithOverflow()                                                           Sub one quarter to the instance (using date interval) with overflow explicitly allowed.
+ * @method        CarbonInterface addQuartersWithoutOverflow(int $value = 1)                                         Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuarterWithoutOverflow()                                                        Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuartersWithoutOverflow(int $value = 1)                                         Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuarterWithoutOverflow()                                                        Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuartersWithNoOverflow(int $value = 1)                                          Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuarterWithNoOverflow()                                                         Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuartersWithNoOverflow(int $value = 1)                                          Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuarterWithNoOverflow()                                                         Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuartersNoOverflow(int $value = 1)                                              Add quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addQuarterNoOverflow()                                                             Add one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuartersNoOverflow(int $value = 1)                                              Sub quarters (the $value count passed in) to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface subQuarterNoOverflow()                                                             Sub one quarter to the instance (using date interval) with overflow explicitly forbidden.
+ * @method        CarbonInterface addWeeks(int $value = 1)                                                           Add weeks (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addWeek()                                                                          Add one week to the instance (using date interval).
+ * @method        CarbonInterface subWeeks(int $value = 1)                                                           Sub weeks (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subWeek()                                                                          Sub one week to the instance (using date interval).
+ * @method        CarbonInterface addWeekdays(int $value = 1)                                                        Add weekdays (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface addWeekday()                                                                       Add one weekday to the instance (using date interval).
+ * @method        CarbonInterface subWeekdays(int $value = 1)                                                        Sub weekdays (the $value count passed in) to the instance (using date interval).
+ * @method        CarbonInterface subWeekday()                                                                       Sub one weekday to the instance (using date interval).
+ * @method        CarbonInterface addRealMicros(int $value = 1)                                                      Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMicro()                                                                     Add one microsecond to the instance (using timestamp).
+ * @method        CarbonInterface subRealMicros(int $value = 1)                                                      Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMicro()                                                                     Sub one microsecond to the instance (using timestamp).
+ * @method        CarbonPeriod    microsUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
+ * @method        CarbonInterface addRealMicroseconds(int $value = 1)                                                Add microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMicrosecond()                                                               Add one microsecond to the instance (using timestamp).
+ * @method        CarbonInterface subRealMicroseconds(int $value = 1)                                                Sub microseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMicrosecond()                                                               Sub one microsecond to the instance (using timestamp).
+ * @method        CarbonPeriod    microsecondsUntil($endDate = null, int $factor = 1)                                Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each microsecond or every X microseconds if a factor is given.
+ * @method        CarbonInterface addRealMillis(int $value = 1)                                                      Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMilli()                                                                     Add one millisecond to the instance (using timestamp).
+ * @method        CarbonInterface subRealMillis(int $value = 1)                                                      Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMilli()                                                                     Sub one millisecond to the instance (using timestamp).
+ * @method        CarbonPeriod    millisUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
+ * @method        CarbonInterface addRealMilliseconds(int $value = 1)                                                Add milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMillisecond()                                                               Add one millisecond to the instance (using timestamp).
+ * @method        CarbonInterface subRealMilliseconds(int $value = 1)                                                Sub milliseconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMillisecond()                                                               Sub one millisecond to the instance (using timestamp).
+ * @method        CarbonPeriod    millisecondsUntil($endDate = null, int $factor = 1)                                Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millisecond or every X milliseconds if a factor is given.
+ * @method        CarbonInterface addRealSeconds(int $value = 1)                                                     Add seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealSecond()                                                                    Add one second to the instance (using timestamp).
+ * @method        CarbonInterface subRealSeconds(int $value = 1)                                                     Sub seconds (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealSecond()                                                                    Sub one second to the instance (using timestamp).
+ * @method        CarbonPeriod    secondsUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each second or every X seconds if a factor is given.
+ * @method        CarbonInterface addRealMinutes(int $value = 1)                                                     Add minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMinute()                                                                    Add one minute to the instance (using timestamp).
+ * @method        CarbonInterface subRealMinutes(int $value = 1)                                                     Sub minutes (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMinute()                                                                    Sub one minute to the instance (using timestamp).
+ * @method        CarbonPeriod    minutesUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each minute or every X minutes if a factor is given.
+ * @method        CarbonInterface addRealHours(int $value = 1)                                                       Add hours (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealHour()                                                                      Add one hour to the instance (using timestamp).
+ * @method        CarbonInterface subRealHours(int $value = 1)                                                       Sub hours (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealHour()                                                                      Sub one hour to the instance (using timestamp).
+ * @method        CarbonPeriod    hoursUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each hour or every X hours if a factor is given.
+ * @method        CarbonInterface addRealDays(int $value = 1)                                                        Add days (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealDay()                                                                       Add one day to the instance (using timestamp).
+ * @method        CarbonInterface subRealDays(int $value = 1)                                                        Sub days (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealDay()                                                                       Sub one day to the instance (using timestamp).
+ * @method        CarbonPeriod    daysUntil($endDate = null, int $factor = 1)                                        Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each day or every X days if a factor is given.
+ * @method        CarbonInterface addRealWeeks(int $value = 1)                                                       Add weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealWeek()                                                                      Add one week to the instance (using timestamp).
+ * @method        CarbonInterface subRealWeeks(int $value = 1)                                                       Sub weeks (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealWeek()                                                                      Sub one week to the instance (using timestamp).
+ * @method        CarbonPeriod    weeksUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each week or every X weeks if a factor is given.
+ * @method        CarbonInterface addRealMonths(int $value = 1)                                                      Add months (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMonth()                                                                     Add one month to the instance (using timestamp).
+ * @method        CarbonInterface subRealMonths(int $value = 1)                                                      Sub months (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMonth()                                                                     Sub one month to the instance (using timestamp).
+ * @method        CarbonPeriod    monthsUntil($endDate = null, int $factor = 1)                                      Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each month or every X months if a factor is given.
+ * @method        CarbonInterface addRealQuarters(int $value = 1)                                                    Add quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealQuarter()                                                                   Add one quarter to the instance (using timestamp).
+ * @method        CarbonInterface subRealQuarters(int $value = 1)                                                    Sub quarters (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealQuarter()                                                                   Sub one quarter to the instance (using timestamp).
+ * @method        CarbonPeriod    quartersUntil($endDate = null, int $factor = 1)                                    Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each quarter or every X quarters if a factor is given.
+ * @method        CarbonInterface addRealYears(int $value = 1)                                                       Add years (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealYear()                                                                      Add one year to the instance (using timestamp).
+ * @method        CarbonInterface subRealYears(int $value = 1)                                                       Sub years (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealYear()                                                                      Sub one year to the instance (using timestamp).
+ * @method        CarbonPeriod    yearsUntil($endDate = null, int $factor = 1)                                       Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each year or every X years if a factor is given.
+ * @method        CarbonInterface addRealDecades(int $value = 1)                                                     Add decades (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealDecade()                                                                    Add one decade to the instance (using timestamp).
+ * @method        CarbonInterface subRealDecades(int $value = 1)                                                     Sub decades (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealDecade()                                                                    Sub one decade to the instance (using timestamp).
+ * @method        CarbonPeriod    decadesUntil($endDate = null, int $factor = 1)                                     Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each decade or every X decades if a factor is given.
+ * @method        CarbonInterface addRealCenturies(int $value = 1)                                                   Add centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealCentury()                                                                   Add one century to the instance (using timestamp).
+ * @method        CarbonInterface subRealCenturies(int $value = 1)                                                   Sub centuries (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealCentury()                                                                   Sub one century to the instance (using timestamp).
+ * @method        CarbonPeriod    centuriesUntil($endDate = null, int $factor = 1)                                   Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each century or every X centuries if a factor is given.
+ * @method        CarbonInterface addRealMillennia(int $value = 1)                                                   Add millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface addRealMillennium()                                                                Add one millennium to the instance (using timestamp).
+ * @method        CarbonInterface subRealMillennia(int $value = 1)                                                   Sub millennia (the $value count passed in) to the instance (using timestamp).
+ * @method        CarbonInterface subRealMillennium()                                                                Sub one millennium to the instance (using timestamp).
+ * @method        CarbonPeriod    millenniaUntil($endDate = null, int $factor = 1)                                   Return an iterable period from current date to given end (string, DateTime or Carbon instance) for each millennium or every X millennia if a factor is given.
+ * @method        CarbonInterface roundYear(float $precision = 1, string $function = "round")                        Round the current instance year with given precision using the given function.
+ * @method        CarbonInterface roundYears(float $precision = 1, string $function = "round")                       Round the current instance year with given precision using the given function.
+ * @method        CarbonInterface floorYear(float $precision = 1)                                                    Truncate the current instance year with given precision.
+ * @method        CarbonInterface floorYears(float $precision = 1)                                                   Truncate the current instance year with given precision.
+ * @method        CarbonInterface ceilYear(float $precision = 1)                                                     Ceil the current instance year with given precision.
+ * @method        CarbonInterface ceilYears(float $precision = 1)                                                    Ceil the current instance year with given precision.
+ * @method        CarbonInterface roundMonth(float $precision = 1, string $function = "round")                       Round the current instance month with given precision using the given function.
+ * @method        CarbonInterface roundMonths(float $precision = 1, string $function = "round")                      Round the current instance month with given precision using the given function.
+ * @method        CarbonInterface floorMonth(float $precision = 1)                                                   Truncate the current instance month with given precision.
+ * @method        CarbonInterface floorMonths(float $precision = 1)                                                  Truncate the current instance month with given precision.
+ * @method        CarbonInterface ceilMonth(float $precision = 1)                                                    Ceil the current instance month with given precision.
+ * @method        CarbonInterface ceilMonths(float $precision = 1)                                                   Ceil the current instance month with given precision.
+ * @method        CarbonInterface roundDay(float $precision = 1, string $function = "round")                         Round the current instance day with given precision using the given function.
+ * @method        CarbonInterface roundDays(float $precision = 1, string $function = "round")                        Round the current instance day with given precision using the given function.
+ * @method        CarbonInterface floorDay(float $precision = 1)                                                     Truncate the current instance day with given precision.
+ * @method        CarbonInterface floorDays(float $precision = 1)                                                    Truncate the current instance day with given precision.
+ * @method        CarbonInterface ceilDay(float $precision = 1)                                                      Ceil the current instance day with given precision.
+ * @method        CarbonInterface ceilDays(float $precision = 1)                                                     Ceil the current instance day with given precision.
+ * @method        CarbonInterface roundHour(float $precision = 1, string $function = "round")                        Round the current instance hour with given precision using the given function.
+ * @method        CarbonInterface roundHours(float $precision = 1, string $function = "round")                       Round the current instance hour with given precision using the given function.
+ * @method        CarbonInterface floorHour(float $precision = 1)                                                    Truncate the current instance hour with given precision.
+ * @method        CarbonInterface floorHours(float $precision = 1)                                                   Truncate the current instance hour with given precision.
+ * @method        CarbonInterface ceilHour(float $precision = 1)                                                     Ceil the current instance hour with given precision.
+ * @method        CarbonInterface ceilHours(float $precision = 1)                                                    Ceil the current instance hour with given precision.
+ * @method        CarbonInterface roundMinute(float $precision = 1, string $function = "round")                      Round the current instance minute with given precision using the given function.
+ * @method        CarbonInterface roundMinutes(float $precision = 1, string $function = "round")                     Round the current instance minute with given precision using the given function.
+ * @method        CarbonInterface floorMinute(float $precision = 1)                                                  Truncate the current instance minute with given precision.
+ * @method        CarbonInterface floorMinutes(float $precision = 1)                                                 Truncate the current instance minute with given precision.
+ * @method        CarbonInterface ceilMinute(float $precision = 1)                                                   Ceil the current instance minute with given precision.
+ * @method        CarbonInterface ceilMinutes(float $precision = 1)                                                  Ceil the current instance minute with given precision.
+ * @method        CarbonInterface roundSecond(float $precision = 1, string $function = "round")                      Round the current instance second with given precision using the given function.
+ * @method        CarbonInterface roundSeconds(float $precision = 1, string $function = "round")                     Round the current instance second with given precision using the given function.
+ * @method        CarbonInterface floorSecond(float $precision = 1)                                                  Truncate the current instance second with given precision.
+ * @method        CarbonInterface floorSeconds(float $precision = 1)                                                 Truncate the current instance second with given precision.
+ * @method        CarbonInterface ceilSecond(float $precision = 1)                                                   Ceil the current instance second with given precision.
+ * @method        CarbonInterface ceilSeconds(float $precision = 1)                                                  Ceil the current instance second with given precision.
+ * @method        CarbonInterface roundMillennium(float $precision = 1, string $function = "round")                  Round the current instance millennium with given precision using the given function.
+ * @method        CarbonInterface roundMillennia(float $precision = 1, string $function = "round")                   Round the current instance millennium with given precision using the given function.
+ * @method        CarbonInterface floorMillennium(float $precision = 1)                                              Truncate the current instance millennium with given precision.
+ * @method        CarbonInterface floorMillennia(float $precision = 1)                                               Truncate the current instance millennium with given precision.
+ * @method        CarbonInterface ceilMillennium(float $precision = 1)                                               Ceil the current instance millennium with given precision.
+ * @method        CarbonInterface ceilMillennia(float $precision = 1)                                                Ceil the current instance millennium with given precision.
+ * @method        CarbonInterface roundCentury(float $precision = 1, string $function = "round")                     Round the current instance century with given precision using the given function.
+ * @method        CarbonInterface roundCenturies(float $precision = 1, string $function = "round")                   Round the current instance century with given precision using the given function.
+ * @method        CarbonInterface floorCentury(float $precision = 1)                                                 Truncate the current instance century with given precision.
+ * @method        CarbonInterface floorCenturies(float $precision = 1)                                               Truncate the current instance century with given precision.
+ * @method        CarbonInterface ceilCentury(float $precision = 1)                                                  Ceil the current instance century with given precision.
+ * @method        CarbonInterface ceilCenturies(float $precision = 1)                                                Ceil the current instance century with given precision.
+ * @method        CarbonInterface roundDecade(float $precision = 1, string $function = "round")                      Round the current instance decade with given precision using the given function.
+ * @method        CarbonInterface roundDecades(float $precision = 1, string $function = "round")                     Round the current instance decade with given precision using the given function.
+ * @method        CarbonInterface floorDecade(float $precision = 1)                                                  Truncate the current instance decade with given precision.
+ * @method        CarbonInterface floorDecades(float $precision = 1)                                                 Truncate the current instance decade with given precision.
+ * @method        CarbonInterface ceilDecade(float $precision = 1)                                                   Ceil the current instance decade with given precision.
+ * @method        CarbonInterface ceilDecades(float $precision = 1)                                                  Ceil the current instance decade with given precision.
+ * @method        CarbonInterface roundQuarter(float $precision = 1, string $function = "round")                     Round the current instance quarter with given precision using the given function.
+ * @method        CarbonInterface roundQuarters(float $precision = 1, string $function = "round")                    Round the current instance quarter with given precision using the given function.
+ * @method        CarbonInterface floorQuarter(float $precision = 1)                                                 Truncate the current instance quarter with given precision.
+ * @method        CarbonInterface floorQuarters(float $precision = 1)                                                Truncate the current instance quarter with given precision.
+ * @method        CarbonInterface ceilQuarter(float $precision = 1)                                                  Ceil the current instance quarter with given precision.
+ * @method        CarbonInterface ceilQuarters(float $precision = 1)                                                 Ceil the current instance quarter with given precision.
+ * @method        CarbonInterface roundMillisecond(float $precision = 1, string $function = "round")                 Round the current instance millisecond with given precision using the given function.
+ * @method        CarbonInterface roundMilliseconds(float $precision = 1, string $function = "round")                Round the current instance millisecond with given precision using the given function.
+ * @method        CarbonInterface floorMillisecond(float $precision = 1)                                             Truncate the current instance millisecond with given precision.
+ * @method        CarbonInterface floorMilliseconds(float $precision = 1)                                            Truncate the current instance millisecond with given precision.
+ * @method        CarbonInterface ceilMillisecond(float $precision = 1)                                              Ceil the current instance millisecond with given precision.
+ * @method        CarbonInterface ceilMilliseconds(float $precision = 1)                                             Ceil the current instance millisecond with given precision.
+ * @method        CarbonInterface roundMicrosecond(float $precision = 1, string $function = "round")                 Round the current instance microsecond with given precision using the given function.
+ * @method        CarbonInterface roundMicroseconds(float $precision = 1, string $function = "round")                Round the current instance microsecond with given precision using the given function.
+ * @method        CarbonInterface floorMicrosecond(float $precision = 1)                                             Truncate the current instance microsecond with given precision.
+ * @method        CarbonInterface floorMicroseconds(float $precision = 1)                                            Truncate the current instance microsecond with given precision.
+ * @method        CarbonInterface ceilMicrosecond(float $precision = 1)                                              Ceil the current instance microsecond with given precision.
+ * @method        CarbonInterface ceilMicroseconds(float $precision = 1)                                             Ceil the current instance microsecond with given precision.
+ * @method        string          shortAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longAbsoluteDiffForHumans(DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Absolute' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeDiffForHumans(DateTimeInterface $other = null, int $parts = 1)        Get the difference (short format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeDiffForHumans(DateTimeInterface $other = null, int $parts = 1)         Get the difference (long format, 'Relative' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)   Get the difference (short format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeToNowDiffForHumans(DateTimeInterface $other = null, int $parts = 1)    Get the difference (long format, 'RelativeToNow' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          shortRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1) Get the difference (short format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
+ * @method        string          longRelativeToOtherDiffForHumans(DateTimeInterface $other = null, int $parts = 1)  Get the difference (long format, 'RelativeToOther' mode) in a human readable format in the current locale. ($other and $parts parameters can be swapped.)
  *
  * </autodoc>
  */
@@ -525,6 +533,7 @@ trait Date
     use Macro;
     use Modifiers;
     use Mutability;
+    use ObjectInitialisation;
     use Options;
     use Rounding;
     use Serialization;
@@ -540,19 +549,19 @@ trait Date
      */
     protected static $days = [
         // @call isDayOfWeek
-        self::SUNDAY => 'Sunday',
+        CarbonInterface::SUNDAY => 'Sunday',
         // @call isDayOfWeek
-        self::MONDAY => 'Monday',
+        CarbonInterface::MONDAY => 'Monday',
         // @call isDayOfWeek
-        self::TUESDAY => 'Tuesday',
+        CarbonInterface::TUESDAY => 'Tuesday',
         // @call isDayOfWeek
-        self::WEDNESDAY => 'Wednesday',
+        CarbonInterface::WEDNESDAY => 'Wednesday',
         // @call isDayOfWeek
-        self::THURSDAY => 'Thursday',
+        CarbonInterface::THURSDAY => 'Thursday',
         // @call isDayOfWeek
-        self::FRIDAY => 'Friday',
+        CarbonInterface::FRIDAY => 'Friday',
         // @call isDayOfWeek
-        self::SATURDAY => 'Saturday',
+        CarbonInterface::SATURDAY => 'Saturday',
     ];
 
     /**
@@ -606,36 +615,13 @@ trait Date
      * @param DateTimeZone|string|int|null $object     original value to get CarbonTimeZone from it.
      * @param DateTimeZone|string|int|null $objectDump dump of the object for error messages.
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidTimeZoneException
      *
      * @return CarbonTimeZone|false
      */
     protected static function safeCreateDateTimeZone($object, $objectDump = null)
     {
         return CarbonTimeZone::instance($object, $objectDump);
-    }
-
-    /**
-     * Creates a DateTimeZone from a string, DateTimeZone or integer offset then convert it as region timezone
-     * if integer.
-     *
-     * @param DateTimeZone|string|int|null $object
-     * @param DateTimeZone|string|int|null $originalObject if different
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return CarbonTimeZone|false
-     */
-    protected function autoDetectTimeZone($object, $originalObject = null)
-    {
-        /** @var CarbonTimeZone $timezone */
-        $timezone = CarbonTimeZone::instance($object);
-
-        if ($timezone && is_int($originalObject ?: $object)) {
-            $timezone = $timezone->toRegionTimeZone($this);
-        }
-
-        return $timezone;
     }
 
     /**
@@ -711,7 +697,7 @@ trait Date
      * @param mixed        $date
      * @param string|array $other
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidTypeException
      */
     protected static function expectDateTime($date, $other = [])
     {
@@ -721,7 +707,7 @@ trait Date
         }
 
         if (!$date instanceof DateTime && !$date instanceof DateTimeInterface) {
-            throw new InvalidArgumentException(
+            throw new InvalidTypeException(
                 $message.'DateTime or DateTimeInterface, '.
                 (is_object($date) ? get_class($date) : gettype($date)).' given'
             );
@@ -732,7 +718,7 @@ trait Date
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface|string|null $date
+     * @param Carbon|DateTimeInterface|string|null $date
      *
      * @return static
      */
@@ -755,7 +741,7 @@ trait Date
      * Return the Carbon instance passed through, a now instance in the same timezone
      * if null given or parse the input if string given.
      *
-     * @param \Carbon\Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|\DateTimeInterface|string|null $date
+     * @param Carbon|\Carbon\CarbonPeriod|\Carbon\CarbonInterval|\DateInterval|\DatePeriod|DateTimeInterface|string|null $date
      *
      * @return static
      */
@@ -781,7 +767,7 @@ trait Date
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownGetterException
      *
      * @return string|int|bool|DateTimeZone|null
      */
@@ -795,7 +781,7 @@ trait Date
      *
      * @param string $name
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownGetterException
      *
      * @return string|int|bool|DateTimeZone|null
      */
@@ -851,6 +837,10 @@ trait Date
             'localeMonth' => '%B',
             // @property string the abbreviated month in current locale LC_TIME
             'shortLocaleMonth' => '%b',
+            // @property-read string $timezoneAbbreviatedName the current timezone abbreviated name
+            'timezoneAbbreviatedName' => 'T',
+            // @property-read string $tzAbbrName alias of $timezoneAbbreviatedName
+            'tzAbbrName' => 'T',
         ];
 
         switch (true) {
@@ -1013,21 +1003,18 @@ trait Date
             case $name === 'timezoneName' || $name === 'tzName':
                 return $this->getTimezone()->getName();
 
-            // @property-read string $timezoneAbbreviatedName the current timezone abbreviated name
-            // @property-read string $tzAbbrName alias of $timezoneAbbreviatedName
-            case $name === 'timezoneAbbreviatedName' || $name === 'tzAbbrName':
-                return CarbonTimeZone::instance($this->getTimezone())->getAbbr($this->dst);
-
             // @property-read string locale of the current instance
             case $name === 'locale':
-                return $this->getLocalTranslator()->getLocale();
+                return $this->getTranslatorLocale();
 
             default:
-                if (static::hasMacro($macro = 'get'.ucfirst($name))) {
-                    return $this->$macro();
+                $macro = $this->getLocalMacro('get'.ucfirst($name));
+
+                if ($macro) {
+                    return $this->executeCallableWithContext($macro);
                 }
 
-                throw new InvalidArgumentException(sprintf("Unknown getter '%s'", $name));
+                throw new UnknownGetterException($name);
         }
     }
 
@@ -1042,7 +1029,7 @@ trait Date
     {
         try {
             $this->__get($name);
-        } catch (InvalidArgumentException | ReflectionException $e) {
+        } catch (UnknownGetterException | ReflectionException $e) {
             return false;
         }
 
@@ -1055,13 +1042,19 @@ trait Date
      * @param string                  $name
      * @param string|int|DateTimeZone $value
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws UnknownSetterException|ReflectionException
      *
      * @return void
      */
     public function __set($name, $value)
     {
-        $this->set($name, $value);
+        if ($this->constructedObjectId === spl_object_hash($this)) {
+            $this->set($name, $value);
+
+            return;
+        }
+
+        $this->$name = $value;
     }
 
     /**
@@ -1070,17 +1063,14 @@ trait Date
      * @param string|array            $name
      * @param string|int|DateTimeZone $value
      *
-     * @throws InvalidArgumentException|ReflectionException
+     * @throws ImmutableException|UnknownSetterException
      *
      * @return $this
      */
     public function set($name, $value = null)
     {
         if ($this->isImmutable()) {
-            throw new RuntimeException(sprintf(
-                '%s class is immutable.',
-                static::class
-            ));
+            throw new ImmutableException(sprintf('%s class', static::class));
         }
 
         if (is_array($name)) {
@@ -1180,14 +1170,16 @@ trait Date
                 break;
 
             default:
-                if (static::hasMacro($macro = 'set'.ucfirst($name))) {
-                    $this->$macro($value);
+                $macro = $this->getLocalMacro('set'.ucfirst($name));
+
+                if ($macro) {
+                    $this->executeCallableWithContext($macro, $value);
 
                     break;
                 }
 
                 if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                    throw new InvalidArgumentException(sprintf("Unknown setter '%s'", $name));
+                    throw new UnknownSetterException($name);
                 }
 
                 $this->$name = $value;
@@ -1347,7 +1339,7 @@ trait Date
 
             return $date;
         } catch (BadMethodCallException | ReflectionException $exception) {
-            throw new InvalidArgumentException("Unknown unit '$valueUnit'", 0, $exception);
+            throw new UnknownUnitException($valueUnit, 0, $exception);
         }
     }
 
@@ -1529,13 +1521,7 @@ trait Date
      */
     public function setTimezone($value)
     {
-        /** @var static $date */
-        $date = parent::setTimezone(static::safeCreateDateTimeZone($value));
-        // https://bugs.php.net/bug.php?id=72338
-        // just workaround on this bug
-        $date->getTimestamp();
-
-        return $date;
+        return parent::setTimezone(static::safeCreateDateTimeZone($value));
     }
 
     /**
@@ -1566,7 +1552,7 @@ trait Date
     /**
      * Set the year, month, and date for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     * @param Carbon|DateTimeInterface $date now if null
      *
      * @return static
      */
@@ -1580,7 +1566,7 @@ trait Date
     /**
      * Set the hour, minute, second and microseconds for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date now if null
+     * @param Carbon|DateTimeInterface $date now if null
      *
      * @return static
      */
@@ -1594,7 +1580,7 @@ trait Date
     /**
      * Set the date and time for this instance to that of the passed instance.
      *
-     * @param \Carbon\Carbon|\DateTimeInterface $date
+     * @param Carbon|DateTimeInterface $date
      *
      * @return static
      */
@@ -1619,6 +1605,14 @@ trait Date
     /////////////////////// WEEK SPECIAL DAYS /////////////////////////
     ///////////////////////////////////////////////////////////////////
 
+    private static function getFirstDayOfWeek(): int
+    {
+        return (int) static::getTranslationMessageWith(
+            static::getTranslator(),
+            'first_day_of_week'
+        );
+    }
+
     /**
      * Get the first day of week
      *
@@ -1626,6 +1620,10 @@ trait Date
      */
     public static function getWeekStartsAt()
     {
+        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
+            return static::getFirstDayOfWeek();
+        }
+
         return static::$weekStartsAt;
     }
 
@@ -1637,13 +1635,13 @@ trait Date
      *
      * Set the first day of week
      *
-     * @param int $day week start day
+     * @param int|string $day week start day (or 'auto' to get the first day of week from Carbon::getLocale() culture).
      *
      * @return void
      */
     public static function setWeekStartsAt($day)
     {
-        static::$weekStartsAt = max(0, (7 + $day) % 7);
+        static::$weekStartsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
     }
 
     /**
@@ -1653,6 +1651,10 @@ trait Date
      */
     public static function getWeekEndsAt()
     {
+        if (static::$weekStartsAt === static::WEEK_DAY_AUTO) {
+            return (int) (static::DAYS_PER_WEEK - 1 + static::getFirstDayOfWeek()) % static::DAYS_PER_WEEK;
+        }
+
         return static::$weekEndsAt;
     }
 
@@ -1664,13 +1666,14 @@ trait Date
      *
      * Set the last day of week
      *
-     * @param int $day
+     * @param int|string $day week end day (or 'auto' to get the day before the first day of week
+     *                        from Carbon::getLocale() culture).
      *
      * @return void
      */
     public static function setWeekEndsAt($day)
     {
-        static::$weekEndsAt = max(0, (7 + $day) % 7);
+        static::$weekEndsAt = $day === static::WEEK_DAY_AUTO ? $day : max(0, (7 + $day) % 7);
     }
 
     /**
@@ -1930,7 +1933,7 @@ trait Date
                 'YYYYYY' => function (CarbonInterface $date) {
                     return ($date->year < 0 ? '' : '+').$date->getPaddedUnit('year', 6);
                 },
-                'z' => 'tzAbbrName',
+                'z' => ['rawFormat', ['T']],
                 'zz' => 'tzName',
                 'Z' => ['getOffsetString', []],
                 'ZZ' => ['getOffsetString', ['']],
@@ -2303,7 +2306,7 @@ trait Date
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @throws \BadMethodCallException
+     * @throws BadMethodCallException
      *
      * @return mixed
      */
@@ -2318,11 +2321,7 @@ trait Date
                 }
             }
             if (static::isStrictModeEnabled()) {
-                throw new BadMethodCallException(sprintf(
-                    'Method %s::%s does not exist.',
-                    static::class,
-                    $method
-                ));
+                throw new UnknownMethodException(sprintf('%s::%s', static::class, $method));
             }
 
             return null;
@@ -2417,6 +2416,13 @@ trait Date
         return call_user_func_array($macro, $parameters);
     }
 
+    protected function executeCallableWithContext($macro, ...$parameters)
+    {
+        return static::bindMacroContext($this, function () use (&$macro, &$parameters) {
+            return $this->executeCallable($macro, ...$parameters);
+        });
+    }
+
     protected static function getGenericMacros()
     {
         foreach (static::$globalGenericMacros as $list) {
@@ -2432,7 +2438,7 @@ trait Date
      * @param string $method     magic method name called
      * @param array  $parameters parameters list
      *
-     * @throws \BadMethodCallException|\ReflectionException
+     * @throws UnknownMethodException|BadMethodCallException|ReflectionException|Throwable
      *
      * @return mixed
      */
@@ -2472,14 +2478,10 @@ trait Date
             return $this->diffForHumans($other, $diffSyntaxModes[$match['syntax']], $diffSizes[$match['size']], ...$parameters);
         }
 
-        $action = substr($method, 0, 4);
+        $roundedValue = $this->callRoundMethod($method, $parameters);
 
-        if ($action !== 'ceil') {
-            $action = substr($method, 0, 5);
-        }
-
-        if (in_array($action, ['round', 'floor', 'ceil'])) {
-            return $this->{$action.'Unit'}(substr($method, strlen($action)), ...$parameters);
+        if ($roundedValue !== null) {
+            return $roundedValue;
         }
 
         $unit = rtrim($method, 's');
@@ -2559,7 +2561,7 @@ trait Date
         if ($sixFirstLetters === 'isSame') {
             try {
                 return $this->isSameUnit(strtolower(substr($unit, 6)), ...$parameters);
-            } catch (BadUnitException $exception) {
+            } catch (BadComparisonUnitException $exception) {
                 // Try next
             }
         }
@@ -2567,8 +2569,8 @@ trait Date
         if (substr($unit, 0, 9) === 'isCurrent') {
             try {
                 return $this->isCurrentUnit(strtolower(substr($unit, 9)));
-            } catch (BadUnitException | BadMethodCallException $exception) {
-                // Try macros
+            } catch (BadComparisonUnitException | BadMethodCallException $exception) {
+                // Try next
             }
         }
 
@@ -2578,12 +2580,14 @@ trait Date
 
                 return $this->range($parameters[0] ?? $this, $parameters[1] ?? 1, $unit);
             } catch (InvalidArgumentException $exception) {
-                // Try next
+                // Try macros
             }
         }
 
         return static::bindMacroContext($this, function () use (&$method, &$parameters) {
-            if (!static::hasMacro($method)) {
+            $macro = $this->getLocalMacro($method);
+
+            if (!$macro) {
                 foreach ([$this->localGenericMacros ?: [], static::getGenericMacros()] as $list) {
                     foreach ($list as $callback) {
                         try {
@@ -2595,13 +2599,13 @@ trait Date
                 }
 
                 if ($this->localStrictModeEnabled ?? static::isStrictModeEnabled()) {
-                    throw new BadMethodCallException("Method $method does not exist.");
+                    throw new UnknownMethodException($method);
                 }
 
                 return null;
             }
 
-            return $this->executeCallable(($this->localMacros ?? [])[$method] ?? static::$globalMacros[$method], ...$parameters);
+            return $this->executeCallable($macro, ...$parameters);
         });
     }
 }

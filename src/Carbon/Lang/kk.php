@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'kk');
 
 /*
  * Authors:
@@ -22,30 +19,37 @@
  */
 return [
     'year' => ':count жыл',
-    'a_year' => 'бір жыл|:count жыл',
+    'a_year' => '{1}бір жыл|:count жыл',
     'y' => ':count ж.',
     'month' => ':count ай',
-    'a_month' => 'бір ай|:count ай',
+    'a_month' => '{1}бір ай|:count ай',
     'm' => ':count ай',
     'week' => ':count апта',
-    'a_week' => 'бір апта',
+    'a_week' => '{1}бір апта',
     'w' => ':count ап.',
     'day' => ':count күн',
-    'a_day' => 'бір күн|:count күн',
+    'a_day' => '{1}бір күн|:count күн',
     'd' => ':count к.',
     'hour' => ':count сағат',
-    'a_hour' => 'бір сағат|:count сағат',
+    'a_hour' => '{1}бір сағат|:count сағат',
     'h' => ':count са.',
     'minute' => ':count минут',
-    'a_minute' => 'бір минут|:count минут',
+    'a_minute' => '{1}бір минут|:count минут',
     'min' => ':count м.',
     'second' => ':count секунд',
-    'a_second' => 'бірнеше секунд|:count секунд',
+    'a_second' => '{1}бірнеше секунд|:count секунд',
     's' => ':count се.',
     'ago' => ':time бұрын',
     'from_now' => ':time ішінде',
     'after' => ':time кейін',
     'before' => ':time бұрын',
+    'diff_now' => 'қазір',
+    'diff_today' => 'Бүгін',
+    'diff_today_regexp' => 'Бүгін(?:\\s+сағат)?',
+    'diff_yesterday' => 'кеше',
+    'diff_yesterday_regexp' => 'Кеше(?:\\s+сағат)?',
+    'diff_tomorrow' => 'ертең',
+    'diff_tomorrow_regexp' => 'Ертең(?:\\s+сағат)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

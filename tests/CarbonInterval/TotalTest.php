@@ -16,7 +16,8 @@ class TotalTest extends AbstractTestCase
     {
         $this->assertSame(
             $expected,
-            CarbonInterval::fromString($spec)->total($unit)
+            CarbonInterval::fromString($spec)->total($unit),
+            "$spec as $unit did not get the expected total"
         );
     }
 
@@ -31,6 +32,8 @@ class TotalTest extends AbstractTestCase
             ['235s',               'minutes', 235 / 60],
             ['3h 14m 235s',        'minutes', 3 * 60 + 14 + 235 / 60],
             ['27h 150m 4960s',     'hours',   27 + (150 + 4960 / 60) / 60],
+            ['1w',                 'days',    7],
+            ['2w 15d',             'weeks',   29 / 7],
             ['5mo 54d 185h 7680m', 'days',    5 * 4 * 7 + 54 + (185 + 7680 / 60) / 24],
             ['4y 2mo',             'days',    (4 * 12 + 2) * 4 * 7],
             ['165d',               'weeks',   165 / 7],
@@ -68,6 +71,23 @@ class TotalTest extends AbstractTestCase
 
         $this->assertSame(12312000, $interval->totalMicroseconds);
         $this->assertSame(12312, $interval->totalMilliseconds);
+    }
+
+    public function testTotalsWithCustomFactors()
+    {
+        $factors = CarbonInterval::getCascadeFactors();
+        CarbonInterval::setCascadeFactors([
+            'minute' => [60, 'seconds'],
+            'hour' => [60, 'minutes'],
+            'day' => [8, 'hours'],
+            'week' => [5, 'days'],
+        ]);
+
+        $this->assertSame(1, CarbonInterval::make('1d')->totalDays);
+        $this->assertSame(5, CarbonInterval::make('1w')->totalDays);
+        $this->assertSame(1, CarbonInterval::make('1w')->totalWeeks);
+
+        CarbonInterval::setCascadeFactors($factors);
     }
 
     public function testGetTotalsViaGettersWithCustomFactors()

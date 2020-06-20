@@ -24,17 +24,20 @@
             "homepage": "http://github.com/kylekatarnls"
         }
     ],
+    "prefer-stable": true,
     "minimum-stability": "dev",
     "bin": ["bin/carbon"],
     "require": {
         "php": "^7.1.8 || ^8.0",
         "ext-json": "*",
-        "symfony/translation": "^3.4 || ^4.0"
+        "symfony/polyfill-mbstring": "^1.0",
+        "symfony/translation": "^3.4 || ^4.0 || ^5.0"
     },
     "require-dev": {
+        "doctrine/orm": "^2.7",
         "friendsofphp/php-cs-fixer": "^2.14 || ^3.0",
-        "kylekatarnls/multi-tester": "^1.1",
-        "phpmd/phpmd": "dev-php-7.1-compatibility",
+        "kylekatarnls/multi-tester": "^2.0",
+        "phpmd/phpmd": "^2.8",
         "phpstan/phpstan": "^0.11",
         "phpunit/phpunit": "^7.5 || ^8.0",
         "squizlabs/php_codesniffer": "^3.4"
@@ -70,6 +73,10 @@
         "phpdoc": "php phpdoc.php"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev",
+            "dev-3.x": "3.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Carbon\\Laravel\\ServiceProvider"

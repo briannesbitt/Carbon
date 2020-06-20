@@ -8,10 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'dv');
-
 $months = [
     'ޖެނުއަރީ',
     'ފެބްރުއަރީ',
@@ -44,24 +40,25 @@ $weekdays = [
  */
 return [
     'year' => ':count '.'އަހަރު',
-    'a_year' => 'އަހަރެއް'.'|:count '.'އަހަރު',
+    'a_year' => '{1}'.'އަހަރެއް'.'|:count '.'އަހަރު',
     'month' => ':count '.'މަސް',
-    'a_month' => 'މަހެއް'.'|:count '.'މަސް',
+    'a_month' => '{1}'.'މަހެއް'.'|:count '.'މަސް',
     'week' => ':count '.'ހަފްތާ',
-    'a_week' => 'ސިކުންތުކޮޅެއް'.'|:count '.'ހަފްތާ',
+    'a_week' => '{1}'.'ސިކުންތުކޮޅެއް'.'|:count '.'ހަފްތާ',
     'day' => ':count '.'ދުވަސް',
-    'a_day' => 'ދުވަހެއް'.'|:count '.'ދުވަސް',
+    'a_day' => '{1}'.'ދުވަހެއް'.'|:count '.'ދުވަސް',
     'hour' => ':count '.'ގަޑިއިރު',
-    'a_hour' => 'ގަޑިއިރެއް'.'|:count '.'ގަޑިއިރު',
+    'a_hour' => '{1}'.'ގަޑިއިރެއް'.'|:count '.'ގަޑިއިރު',
     'minute' => ':count '.'މިނިޓު',
-    'a_minute' => 'މިނިޓެއް'.'|:count '.'މިނިޓު',
+    'a_minute' => '{1}'.'މިނިޓެއް'.'|:count '.'މިނިޓު',
     'second' => ':count '.'ސިކުންތު',
-    'a_second' => 'ސިކުންތުކޮޅެއް'.'|:count '.'ސިކުންތު',
+    'a_second' => '{1}'.'ސިކުންތުކޮޅެއް'.'|:count '.'ސިކުންތު',
     'ago' => 'ކުރިން :time',
     'from_now' => 'ތެރޭގައި :time',
     'after' => ':time ފަހުން',
     'before' => ':time ކުރި',
     'diff_yesterday' => 'އިއްޔެ',
+    'diff_today' => 'މިއަދު',
     'diff_tomorrow' => 'މާދަމާ',
     'formats' => [
         'LT' => 'HH:mm',

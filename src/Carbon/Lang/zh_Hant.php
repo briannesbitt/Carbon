@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Adam
  * - monkeycon
@@ -45,6 +45,8 @@ return [
     'from_now' => ':time後',
     'after' => ':time後',
     'before' => ':time前',
+    'diff_now' => '現在',
+    'diff_today' => '今天',
     'diff_yesterday' => '昨天',
     'diff_tomorrow' => '明天',
     'formats' => [

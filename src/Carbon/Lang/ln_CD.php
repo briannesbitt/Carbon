@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Ubuntu René Manassé GALEKWA renemanasse@gmail.com
  */

@@ -13,8 +13,15 @@
  * Authors:
  * - Milos Sakovic
  * - Paul
+ * - Pete Scopes (pdscopes)
  */
 return [
+    /*
+     * {1}, {0} and ]1,Inf[ are not needed as it's the default for English pluralization.
+     * But as some languages are using en.php as a fallback, it's better to specify it
+     * explicitly so those languages also fallback to English pluralization when a unit
+     * is missing.
+     */
     'year' => '{1}:count year|{0}:count years|]1,Inf[:count years',
     'a_year' => '{1}a year|{0}:count years|]1,Inf[:count years',
     'y' => '{1}:countyr|{0}:countyrs|]1,Inf[:countyrs',
@@ -36,11 +43,18 @@ return [
     'second' => '{1}:count second|{0}:count seconds|]1,Inf[:count seconds',
     'a_second' => '{1}a few seconds|{0}:count seconds|]1,Inf[:count seconds',
     's' => ':counts',
+    'millisecond' => '{1}:count millisecond|{0}:count milliseconds|]1,Inf[:count milliseconds',
+    'a_millisecond' => '{1}a millisecond|{0}:count milliseconds|]1,Inf[:count milliseconds',
+    'ms' => ':countms',
+    'microsecond' => '{1}:count microsecond|{0}:count microseconds|]1,Inf[:count microseconds',
+    'a_microsecond' => '{1}a microsecond|{0}:count microseconds|]1,Inf[:count microseconds',
+    'µs' => ':countµs',
     'ago' => ':time ago',
     'from_now' => ':time from now',
     'after' => ':time after',
     'before' => ':time before',
     'diff_now' => 'just now',
+    'diff_today' => 'today',
     'diff_yesterday' => 'yesterday',
     'diff_tomorrow' => 'tomorrow',
     'diff_before_yesterday' => 'before yesterday',

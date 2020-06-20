@@ -29,13 +29,13 @@ $trait = __DIR__.'/src/Carbon/Traits/Date.php';
 $code = '';
 $overrideTyping = [
     $carbon => [
-        'createFromImmutable' => ['static Carbon', '\DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
-        'createFromFormat' => ['static Carbon', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        // 'createFromImmutable' => ['static Carbon', 'DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
+        'createFromFormat' => ['static Carbon', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
         '__set_state' => ['static Carbon', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
     $immutable => [
-        'createFromMutable' => ['static CarbonImmutable', '\DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
-        'createFromFormat' => ['static CarbonImmutable', 'string $format, string $time, string|\DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        // 'createFromMutable' => ['static CarbonImmutable', 'DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
+        'createFromFormat' => ['static CarbonImmutable', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
         '__set_state' => ['static CarbonImmutable', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
 ];
@@ -71,10 +71,23 @@ function dumpValue($value)
         return 'null';
     }
 
+    if ($value === \Carbon\CarbonInterface::TRANSLATE_ALL) {
+        return 'CarbonInterface::TRANSLATE_ALL';
+    }
+
     $value = preg_replace('/^array\s*\(\s*\)$/', '[]', var_export($value, true));
     $value = preg_replace('/^array\s*\(([\s\S]+)\)$/', '[$1]', $value);
 
     return $value;
+}
+
+function cleanClassName($name)
+{
+    if (preg_match('/^[A-Z]/', $name)) {
+        $name = "\\$name";
+    }
+
+    return preg_replace('/^\\\\(Date(?:Time(?:Immutable|Interface|Zone)?|Interval)|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
 }
 
 function dumpParameter($method, ReflectionParameter $parameter)
@@ -89,13 +102,8 @@ function dumpParameter($method, ReflectionParameter $parameter)
     }
 
     if ($parameter->getType()) {
-        $name = $parameter->getType()->getName();
+        $name = cleanClassName($parameter->getType()->getName());
 
-        if (preg_match('/^[A-Z]/', $name)) {
-            $name = "\\$name";
-        }
-
-        $name = preg_replace('/^\\\\Carbon\\\\/', '', $name);
         $output = "$name $output";
     }
 
@@ -154,7 +162,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'string',
-                            "$mode{$vars->name}DiffForHumans(\DateTimeInterface \$other = null, int \$parts = 1)",
+                            "$mode{$vars->name}DiffForHumans(DateTimeInterface \$other = null, int \$parts = 1)",
                             "Get the difference ($mode format, '{$vars->name}' mode) in a human readable format in the current locale. (\$other and \$parts parameters can be swapped.)",
                         ];
                     }
@@ -190,7 +198,7 @@ foreach ($tags as $tag) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
-                            $method.'(\Carbon\Carbon|\DateTimeInterface|string|null $date = null)',
+                            $method.'(Carbon|DateTimeInterface|string|null $date = null)',
                             "Checks if the given date is in the same $unitName as the instance. If null passed, compare to now (with the same timezone).",
                         ];
                     }
@@ -529,6 +537,10 @@ foreach ($carbonMethods as $method) {
             $doc = preg_split('/(\r\n|\r|\n)/', trim($doc[0]));
             $returnType = $function->getReturnType();
 
+            if ($returnType instanceof ReflectionNamedType) {
+                $returnType = $returnType->getName();
+            }
+
             if (!$returnType && preg_match('/\*\s*@returns?\s+(\S+)/', $methodDocBlock, $match)) {
                 $returnType = $match[1];
             }
@@ -560,7 +572,7 @@ foreach ($carbonMethods as $method) {
         } elseif (isset($nativeMethods[$method])) {
             $link = strtolower($method);
             $methodDocBlock = "\n    /**\n".
-                "     * Calls \DateTime::$method if mutable or \DateTimeImmutable::$method else.\n".
+                "     * Calls DateTime::$method if mutable or DateTimeImmutable::$method else.\n".
                 "     *\n".
                 "     * @see https://php.net/manual/en/datetime.$link.php\n".
                 '     */';
@@ -570,9 +582,11 @@ foreach ($carbonMethods as $method) {
     }
 }
 
-$files->$interface = preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
+$files->$interface = strtr(preg_replace_callback('/(\/\/ <methods[\s\S]*>)([\s\S]+)(<\/methods>)/mU', function ($matches) use ($methods) {
     return $matches[1]."$methods\n\n    // ".$matches[3];
-}, $files->$interface, 1);
+}, $files->$interface, 1), [
+    'CarbonInterface::TRANSLATE_ALL' => 'self::TRANSLATE_ALL',
+]);
 
 $factories = [
     __DIR__.'/src/Carbon/Factory.php' => $staticMethods,

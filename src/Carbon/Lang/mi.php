@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'mi');
 
 /*
  * Authors:
@@ -20,23 +17,27 @@
  */
 return [
     'year' => ':count tau',
-    'a_year' => 'he tau|:count tau',
+    'a_year' => '{1}he tau|:count tau',
     'month' => ':count marama',
-    'a_month' => 'he marama|:count marama',
+    'a_month' => '{1}he marama|:count marama',
     'week' => ':count wiki',
-    'a_week' => 'he wiki|:count wiki',
+    'a_week' => '{1}he wiki|:count wiki',
     'day' => ':count ra',
-    'a_day' => 'he ra|:count ra',
+    'a_day' => '{1}he ra|:count ra',
     'hour' => ':count haora',
-    'a_hour' => 'te haora|:count haora',
+    'a_hour' => '{1}te haora|:count haora',
     'minute' => ':count meneti',
-    'a_minute' => 'he meneti|:count meneti',
+    'a_minute' => '{1}he meneti|:count meneti',
     'second' => ':count hēkona',
-    'a_second' => 'te hēkona ruarua|:count hēkona',
+    'a_second' => '{1}te hēkona ruarua|:count hēkona',
     'ago' => ':time i mua',
     'from_now' => 'i roto i :time',
     'diff_yesterday' => 'inanahi',
+    'diff_yesterday_regexp' => 'inanahi(?:\\s+i)?',
+    'diff_today' => 'i teie',
+    'diff_today_regexp' => 'i teie(?:\\s+mahana,)?(?:\\s+i)?',
     'diff_tomorrow' => 'apopo',
+    'diff_tomorrow_regexp' => 'apopo(?:\\s+i)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

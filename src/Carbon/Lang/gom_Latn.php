@@ -24,6 +24,9 @@ return [
     'second' => ':count second',
     's' => ':counts',
 
+    'diff_today' => 'Aiz',
+    'diff_yesterday' => 'Kal',
+    'diff_tomorrow' => 'Faleam',
     'formats' => [
         'LT' => 'A h:mm [vazta]',
         'LTS' => 'A h:mm:ss [vazta]',

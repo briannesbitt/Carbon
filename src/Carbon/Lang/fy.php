@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - Tim Fish
@@ -40,7 +40,11 @@ return [
     'ago' => ':time lyn',
     'from_now' => 'oer :time',
     'diff_yesterday' => 'juster',
+    'diff_yesterday_regexp' => 'juster(?:\\s+om)?',
+    'diff_today' => 'hjoed',
+    'diff_today_regexp' => 'hjoed(?:\\s+om)?',
     'diff_tomorrow' => 'moarn',
+    'diff_tomorrow_regexp' => 'moarn(?:\\s+om)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

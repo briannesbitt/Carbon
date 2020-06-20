@@ -97,7 +97,7 @@ class KoTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100일',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 오전 cet',
+        '12:00 오전 CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 오전, 12:00 오전',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -119,108 +119,108 @@ class KoTest extends LocalizationTestCase
         // Carbon::parse('2018-01-01 00:00:00')->ordinal('hour')
         '0',
         // Carbon::now()->subSeconds(1)->diffForHumans()
-        '몇 초 전',
+        '1초 전',
         // Carbon::now()->subSeconds(1)->diffForHumans(null, false, true)
-        '1 초 전',
+        '1초 전',
         // Carbon::now()->subSeconds(2)->diffForHumans()
         '2초 전',
         // Carbon::now()->subSeconds(2)->diffForHumans(null, false, true)
-        '2 초 전',
+        '2초 전',
         // Carbon::now()->subMinutes(1)->diffForHumans()
         '1분 전',
         // Carbon::now()->subMinutes(1)->diffForHumans(null, false, true)
-        '1 분 전',
+        '1분 전',
         // Carbon::now()->subMinutes(2)->diffForHumans()
         '2분 전',
         // Carbon::now()->subMinutes(2)->diffForHumans(null, false, true)
-        '2 분 전',
+        '2분 전',
         // Carbon::now()->subHours(1)->diffForHumans()
-        '한 시간 전',
+        '1시간 전',
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
-        '1 시간 전',
+        '1시간 전',
         // Carbon::now()->subHours(2)->diffForHumans()
         '2시간 전',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
-        '2 시간 전',
+        '2시간 전',
         // Carbon::now()->subDays(1)->diffForHumans()
-        '하루 전',
+        '1일 전',
         // Carbon::now()->subDays(1)->diffForHumans(null, false, true)
-        '1 일 전',
+        '1일 전',
         // Carbon::now()->subDays(2)->diffForHumans()
         '2일 전',
         // Carbon::now()->subDays(2)->diffForHumans(null, false, true)
-        '2 일 전',
+        '2일 전',
         // Carbon::now()->subWeeks(1)->diffForHumans()
-        '1 주일 전',
+        '1주 전',
         // Carbon::now()->subWeeks(1)->diffForHumans(null, false, true)
-        '1 주일 전',
+        '1주일 전',
         // Carbon::now()->subWeeks(2)->diffForHumans()
-        '2 주일 전',
+        '2주 전',
         // Carbon::now()->subWeeks(2)->diffForHumans(null, false, true)
-        '2 주일 전',
+        '2주일 전',
         // Carbon::now()->subMonths(1)->diffForHumans()
-        '한 달 전',
+        '1개월 전',
         // Carbon::now()->subMonths(1)->diffForHumans(null, false, true)
-        '1 개월 전',
+        '1개월 전',
         // Carbon::now()->subMonths(2)->diffForHumans()
-        '2달 전',
+        '2개월 전',
         // Carbon::now()->subMonths(2)->diffForHumans(null, false, true)
-        '2 개월 전',
+        '2개월 전',
         // Carbon::now()->subYears(1)->diffForHumans()
-        '일 년 전',
+        '1년 전',
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
-        '1 년 전',
+        '1년 전',
         // Carbon::now()->subYears(2)->diffForHumans()
         '2년 전',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
-        '2 년 전',
+        '2년 전',
         // Carbon::now()->addSecond()->diffForHumans()
-        '몇 초 후',
+        '1초 후',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        '1 초 후',
+        '1초 후',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        '몇 초 이후',
+        '1초 후',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        '1 초 이후',
+        '1초 후',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        '몇 초 이전',
+        '1초 전',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        '1 초 이전',
+        '1초 전',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
-        '몇 초',
+        '1초',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)
-        '1 초',
+        '1초',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true)
         '2초',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
-        '2 초',
+        '2초',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        '1 초 후',
+        '1초 후',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
-        '1분 몇 초',
+        '1분 1초',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
-        '2 년 3 개월 1 일 1 초',
+        '2년 3개월 1일 1초',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         '3년 후',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
-        '5 개월 전',
+        '5개월 전',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
-        '2 년 3 개월 1 일 1 초 전',
+        '2년 3개월 1일 1초 전',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 주일 10시간',
+        '1주 10시간',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 주일 6일',
+        '1주 6일',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
-        '1 주일 6일',
+        '1주 6일',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 주일 6일 후',
+        '1주 6일 후',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
-        '2 주일 한 시간',
+        '2주 1시간',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '한 시간 후',
+        '한시간 후',
         // CarbonInterval::days(2)->forHumans()
         '2일',
         // CarbonInterval::create('P1DT3H')->forHumans(true)
-        '1 일 3 시간',
+        '1일 3시간',
     ];
 }

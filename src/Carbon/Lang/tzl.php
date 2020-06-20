@@ -8,23 +8,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number > 1 ? 1 : 0;
-}, 'tzl');
 
 return [
-    'year' => ':count ar|:count ars',
-    'y' => ':count ar|:count ars',
-    'month' => ':count mes|:count mesen',
-    'm' => ':count mes|:count mesen',
-    'week' => ':count seifetziua|:count seifetziuas',
-    'w' => ':count seifetziua|:count seifetziuas',
-    'day' => ':count ziua|:count ziuas',
-    'd' => ':count ziua|:count ziuas',
-    'hour' => ':count þora|:count þoras',
-    'h' => ':count þora|:count þoras',
-    'minute' => ':count míut|:count míuts',
-    'min' => ':count míut|:count míuts',
+    'year' => '[0,1]:count ar|:count ars',
+    'y' => '[0,1]:count ar|:count ars',
+    'month' => '[0,1]:count mes|:count mesen',
+    'm' => '[0,1]:count mes|:count mesen',
+    'week' => '[0,1]:count seifetziua|:count seifetziuas',
+    'w' => '[0,1]:count seifetziua|:count seifetziuas',
+    'day' => '[0,1]:count ziua|:count ziuas',
+    'd' => '[0,1]:count ziua|:count ziuas',
+    'hour' => '[0,1]:count þora|:count þoras',
+    'h' => '[0,1]:count þora|:count þoras',
+    'minute' => '[0,1]:count míut|:count míuts',
+    'min' => '[0,1]:count míut|:count míuts',
     'second' => ':count secunds',
     's' => ':count secunds',
 
@@ -32,7 +29,11 @@ return [
     'from_now' => 'osprei :time',
 
     'diff_yesterday' => 'ieiri',
+    'diff_yesterday_regexp' => 'ieiri(?:\\s+à)?',
+    'diff_today' => 'oxhi',
+    'diff_today_regexp' => 'oxhi(?:\\s+à)?',
     'diff_tomorrow' => 'demà',
+    'diff_tomorrow_regexp' => 'demà(?:\\s+à)?',
 
     'formats' => [
         'LT' => 'HH.mm',

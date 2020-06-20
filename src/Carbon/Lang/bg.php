@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - François B
@@ -43,6 +43,13 @@ return [
     'from_now' => 'след :time',
     'after' => 'след :time',
     'before' => 'преди :time',
+    'diff_now' => 'сега',
+    'diff_today' => 'Днес',
+    'diff_today_regexp' => 'Днес(?:\\s+в)?',
+    'diff_yesterday' => 'вчера',
+    'diff_yesterday_regexp' => 'Вчера(?:\\s+в)?',
+    'diff_tomorrow' => 'утре',
+    'diff_tomorrow_regexp' => 'Утре(?:\\s+в)?',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

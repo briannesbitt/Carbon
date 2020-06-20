@@ -58,12 +58,22 @@ class DateTest extends TestCaseBase
 
     public function testAge()
     {
+        // Age test can't work on February 29th
+        if (Carbon::now()->format('m-d') === '02-29') {
+            Carbon::setTestNow(Carbon::now()->subDay());
+        }
+
         $date = Carbon::parse('-5 years');
         $this->assertSame(5, $date->age);
     }
 
     public function testAgo()
     {
+        // Ago test can't work on February 29th
+        if (Carbon::now()->format('m-d') === '02-29') {
+            Carbon::setTestNow(Carbon::now()->subDay());
+        }
+
         $date = Carbon::parse('-5 years');
         $this->assertSame('5 years ago', $date->ago());
 
@@ -118,6 +128,11 @@ class DateTest extends TestCaseBase
 
     public function testDiffForHumans()
     {
+        // Diff for humans test can't work on February 29th
+        if (Carbon::now()->format('m-d') === '02-29') {
+            Carbon::setTestNow(Carbon::now()->subDay());
+        }
+
         $date = Carbon::parse('-5 years');
         $this->assertSame('5 years ago', $date->diffForHumans());
 

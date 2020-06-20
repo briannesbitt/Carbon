@@ -97,7 +97,7 @@ class EtEeTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 enne lõunat cet',
+        '12:00 enne lõunat CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 enne lõunat, 12:00 enne lõunat',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -201,7 +201,7 @@ class EtEeTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 aastat 3 kuud 1 päev 1 sekund',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 aastat pärast',
+        '3 aasta pärast',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kuud tagasi',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,7 +213,7 @@ class EtEeTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 nädal 6 päeva',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 nädal ja 6 päeva pärast',
+        '1 nädala ja 6 päeva pärast',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 nädalat 1 tund',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])

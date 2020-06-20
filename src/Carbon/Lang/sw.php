@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - leyluj
  * - Josh Soref
@@ -41,6 +41,12 @@ return [
     'from_now' => ':time baadaye',
     'after' => ':time baada',
     'before' => ':time kabla',
+    'diff_now' => 'sasa hivi',
+    'diff_today' => 'leo',
+    'diff_today_regexp' => 'leo(?:\\s+saa)?',
+    'diff_yesterday' => 'jana',
+    'diff_tomorrow' => 'kesho',
+    'diff_tomorrow_regexp' => 'kesho(?:\\s+saa)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

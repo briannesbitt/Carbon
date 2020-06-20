@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'tlh');
 
 /*
  * Authors:
@@ -19,13 +16,13 @@
  * - Dominika
  */
 return [
-    'year' => 'wa’ DIS|:count DIS',
-    'month' => 'wa’ jar|:count jar',
-    'week' => 'wa’ hogh|:count hogh',
-    'day' => 'wa’ jaj|:count jaj',
-    'hour' => 'wa’ rep|:count rep',
-    'minute' => 'wa’ tup|:count tup',
-    'second' => 'puS lup|:count lup',
+    'year' => '{1}wa’ DIS|:count DIS',
+    'month' => '{1}wa’ jar|:count jar',
+    'week' => '{1}wa’ hogh|:count hogh',
+    'day' => '{1}wa’ jaj|:count jaj',
+    'hour' => '{1}wa’ rep|:count rep',
+    'minute' => '{1}wa’ tup|:count tup',
+    'second' => '{1}puS lup|:count lup',
     'ago' => function ($time) {
         $output = strtr($time, [
             'jaj' => 'Hu’',
@@ -45,6 +42,7 @@ return [
         return $output === $time ? "$time pIq" : $output;
     },
     'diff_yesterday' => 'wa’Hu’',
+    'diff_today' => 'DaHjaj',
     'diff_tomorrow' => 'wa’leS',
     'formats' => [
         'LT' => 'HH:mm',

@@ -26,20 +26,21 @@ sudo: false
 services:
   - memcached
   - mysql
+  - redis
 
 before_install:
   - if [[ $coverage = 'false' ]]; then phpenv config-rm xdebug.ini || true; fi
   - if [[ $laravel = 'true' ]]; then echo "extension = memcached.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
   - if [[ $laravel = 'true' ]]; then printf "\n" | pecl install -f redis; fi
   - if [[ $laravel = 'true' ]]; then travis_retry composer self-update; fi
-  - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;'; fi
+  - if [[ $laravel = 'true' ]]; then mysql -e 'CREATE DATABASE forge;' && mysql -u root -e "CREATE USER 'forge'@'localhost';" && mysql -u root -e "GRANT ALL ON forge.* TO 'forge'@'localhost';"; fi
 
 install:
   - composer remove --no-update friendsofphp/php-cs-fixer
   - composer remove --no-update phpmd/phpmd
   - composer remove --no-update squizlabs/php_codesniffer
-  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer; fi
-  - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester; fi
+  - if [[ $style_check != 'true' ]]; then travis_retry composer remove --no-update phpstan/phpstan phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction --dev; fi
+  - if [[ $laravel != 'true' ]]; then travis_retry composer remove --no-update kylekatarnls/multi-tester --no-interaction --dev; fi
   - if [[ $setup = 'nightly'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --ignore-platform-reqs; fi
   - if [[ $setup = 'basic'  ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest; fi
   - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-dist --no-interaction --no-suggest --prefer-stable; fi
@@ -49,8 +50,8 @@ install:
     fi
 
 script:
-  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage = 'true' ]]; then phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
-  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage != 'true' ]]; then composer phpunit; fi
+  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage = 'true' ]]; then vendor/bin/phpunit --verbose --coverage-clover=coverage.xml --coverage-text; fi
+  - if [[ $laravel != 'true' && $style_check != 'true' && $coverage != 'true' ]]; then vendor/bin/phpunit --verbose; fi
   - if [[ $laravel != 'true' && $style_check = 'true' ]]; then composer style-check; fi
   - if [[ $laravel = 'true' ]]; then vendor/bin/multi-tester; fi
 
@@ -65,12 +66,6 @@ branches:
 matrix:
   include:
     - php: 7.1.8
-    - php: 7.1.9
-    - php: 7.1.11
-    - php: 7.1.15
-    - php: 7.1.17
-    - php: 7.1.20
-    - php: 7.1.24
     - php: 7.1.28
     - php: 7.1
     - php: 7.1
@@ -79,10 +74,6 @@ matrix:
       env: setup=stable
 
     - php: 7.2.0
-    - php: 7.2.3
-    - php: 7.2.5
-    - php: 7.2.8
-    - php: 7.2.12
     - php: 7.2.15
     - php: 7.2
     - php: 7.2
@@ -91,9 +82,6 @@ matrix:
       env: setup=stable
 
     - php: 7.3.0
-    - php: 7.3.1
-    - php: 7.3.2
-    - php: 7.3.4
     - php: 7.3.5
     - php: 7.3
     - php: 7.3
@@ -102,22 +90,21 @@ matrix:
       env:
         - setup=stable
         - coverage=true
-    - php: 7.4snapshot
+    - php: 7.4
       env: setup=lowest
-    - php: 7.4snapshot
+    - php: 7.4
     - php: nightly
       env: setup=nightly
     - php: 7.3
       env:
         - setup=stable
         - laravel=true
+        - REDIS_HOST=127.0.0.1
+        - REDIS_PORT=6379
     - php: 7.3
       env:
         - setup=stable
         - style_check=true
-  allow_failures:
-    - php: nightly
-      env: setup=nightly
 
 notifications:
   slack:

@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'se');
 
 /*
  * Authors:
@@ -18,31 +15,35 @@
  * - Karamell
  */
 return [
-    'year' => ':count jahki|:count jagit',
-    'a_year' => 'okta jahki|:count jagit',
+    'year' => '{1}:count jahki|:count jagit',
+    'a_year' => '{1}okta jahki|:count jagit',
     'y' => ':count j.',
-    'month' => ':count mánnu|:count mánut',
-    'a_month' => 'okta mánnu|:count mánut',
+    'month' => '{1}:count mánnu|:count mánut',
+    'a_month' => '{1}okta mánnu|:count mánut',
     'm' => ':count mán.',
-    'week' => ':count vahkku|:count vahkku',
-    'a_week' => 'okta vahkku|:count vahkku',
+    'week' => '{1}:count vahkku|:count vahkku',
+    'a_week' => '{1}okta vahkku|:count vahkku',
     'w' => ':count v.',
-    'day' => ':count beaivi|:count beaivvit',
-    'a_day' => 'okta beaivi|:count beaivvit',
+    'day' => '{1}:count beaivi|:count beaivvit',
+    'a_day' => '{1}okta beaivi|:count beaivvit',
     'd' => ':count b.',
-    'hour' => ':count diimmu|:count diimmut',
-    'a_hour' => 'okta diimmu|:count diimmut',
+    'hour' => '{1}:count diimmu|:count diimmut',
+    'a_hour' => '{1}okta diimmu|:count diimmut',
     'h' => ':count d.',
-    'minute' => ':count minuhta|:count minuhtat',
-    'a_minute' => 'okta minuhta|:count minuhtat',
+    'minute' => '{1}:count minuhta|:count minuhtat',
+    'a_minute' => '{1}okta minuhta|:count minuhtat',
     'min' => ':count min.',
-    'second' => ':count sekunddat|:count sekunddat',
-    'a_second' => 'moadde sekunddat|:count sekunddat',
+    'second' => '{1}:count sekunddat|:count sekunddat',
+    'a_second' => '{1}moadde sekunddat|:count sekunddat',
     's' => ':count s.',
     'ago' => 'maŋit :time',
     'from_now' => ':time geažes',
     'diff_yesterday' => 'ikte',
+    'diff_yesterday_regexp' => 'ikte(?:\\s+ti)?',
+    'diff_today' => 'otne',
+    'diff_today_regexp' => 'otne(?:\\s+ti)?',
     'diff_tomorrow' => 'ihttin',
+    'diff_tomorrow_regexp' => 'ihttin(?:\\s+ti)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

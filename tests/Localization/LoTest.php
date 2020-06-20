@@ -97,7 +97,7 @@ class LoTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         'ທີ່100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 ຕອນເຊົ້າ cet',
+        '12:00 ຕອນເຊົ້າ CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 ຕອນເຊົ້າ, 12:00 ຕອນເຊົ້າ',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')

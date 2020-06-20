@@ -97,7 +97,7 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 aamupäivä cet',
+        '12:00 aamupäivä CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 aamupäivä, 12:00 aamupäivä',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -175,7 +175,7 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 v sitten',
         // Carbon::now()->addSecond()->diffForHumans()
-        '1 sekunti päästä',
+        '1 sekunnin päästä',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 s päästä',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
@@ -201,7 +201,7 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 v 3 kk 1 pv 1 s',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        '3 vuotta päästä',
+        '3 vuoden päästä',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 kk sitten',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,11 +213,11 @@ class FiFiTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 viikko 6 päivää',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        '1 viikko ja 6 päivää päästä',
+        '1 viikon ja 6 päivän päästä',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 viikkoa 1 tunti',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        '1 tunti päästä',
+        '1 tunnin päästä',
         // CarbonInterval::days(2)->forHumans()
         '2 päivää',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

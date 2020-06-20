@@ -106,8 +106,12 @@ return [
     'after' => ':time після',
     'before' => ':time до',
     'diff_now' => 'щойно',
+    'diff_today' => 'Сьогодні',
+    'diff_today_regexp' => 'Сьогодні(?:\\s+о)?',
     'diff_yesterday' => 'вчора',
+    'diff_yesterday_regexp' => 'Вчора(?:\\s+о)?',
     'diff_tomorrow' => 'завтра',
+    'diff_tomorrow_regexp' => 'Завтра(?:\\s+о)?',
     'diff_before_yesterday' => 'позавчора',
     'diff_after_tomorrow' => 'післязавтра',
     'period_recurrences' => 'один раз|:count рази|:count разів',
@@ -178,7 +182,7 @@ return [
     'months' => ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня', 'жовтня', 'листопада', 'грудня'],
     'months_standalone' => ['січень', 'лютий', 'березень', 'квітень', 'травень', 'червень', 'липень', 'серпень', 'вересень', 'жовтень', 'листопад', 'грудень'],
     'months_short' => ['січ', 'лют', 'бер', 'кві', 'тра', 'чер', 'лип', 'сер', 'вер', 'жов', 'лис', 'гру'],
-    'months_regexp' => '/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/',
+    'months_regexp' => '/(D[oD]?(\[[^\[\]]*\]|\s)+MMMM?|L{2,4}|l{2,4})/',
     'weekdays' => function (\Carbon\CarbonInterface $date, $format, $index) {
         static $words = [
             'nominative' => ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'п’ятниця', 'субота'],

@@ -87,6 +87,13 @@ class CreateTest extends AbstractTestCase
             $this->standardizeDates([$from, $to]),
             $this->standardizeDates([$period->getStartDate(), $period->getEndDate()])
         );
+
+        $period = new CarbonPeriod($iso);
+
+        $this->assertSame(
+            $this->standardizeDates([$from, $to]),
+            $this->standardizeDates([$period->getStartDate(), $period->getEndDate()])
+        );
     }
 
     public function providePartialIso8601String()
@@ -103,9 +110,7 @@ class CreateTest extends AbstractTestCase
     public function testCreateFromInvalidIso8601String($iso)
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageRegExp(
-            '/(Invalid ISO 8601 specification:|Unknown or bad format)/'
-        );
+        $this->expectExceptionMessage("Invalid ISO 8601 specification: $iso");
 
         CarbonPeriod::create($iso);
     }
@@ -383,9 +388,8 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(
             [
                 '2018-10-28 01:30:00 +02:00',
-                // Note: it would be logical if the two following offsets were +02:00 as it is still DST.
-                '2018-10-28 02:00:00 +01:00',
-                '2018-10-28 02:30:00 +01:00',
+                '2018-10-28 02:00:00 +02:00',
+                '2018-10-28 02:30:00 +02:00',
                 '2018-10-28 02:00:00 +01:00',
                 '2018-10-28 02:30:00 +01:00',
                 '2018-10-28 03:00:00 +01:00',
@@ -589,11 +593,13 @@ class CreateTest extends AbstractTestCase
 
     public function testInstance()
     {
-        $period = CarbonPeriod::instance(new DatePeriod(
+        $source = new DatePeriod(
             Carbon::parse('2012-07-01'),
             CarbonInterval::days(2),
             Carbon::parse('2012-07-07')
-        ));
+        );
+
+        $period = CarbonPeriod::instance($source);
 
         $this->assertInstanceOf(CarbonPeriod::class, $period);
         $this->assertSame('2012-07-01', $period->getStartDate()->format('Y-m-d'));
@@ -607,6 +613,22 @@ class CreateTest extends AbstractTestCase
         $this->assertSame(2, $period2->getDateInterval()->d);
         $this->assertSame('2012-07-07', $period2->getEndDate()->format('Y-m-d'));
         $this->assertNotSame($period, $period2);
+
+        $period3 = new CarbonPeriod($source);
+
+        $this->assertInstanceOf(CarbonPeriod::class, $period3);
+        $this->assertSame('2012-07-01', $period3->getStartDate()->format('Y-m-d'));
+        $this->assertSame(2, $period3->getDateInterval()->d);
+        $this->assertSame('2012-07-07', $period3->getEndDate()->format('Y-m-d'));
+        $this->assertNotSame($period, $period3);
+
+        $period4 = new CarbonPeriod($period);
+
+        $this->assertInstanceOf(CarbonPeriod::class, $period4);
+        $this->assertSame('2012-07-01', $period4->getStartDate()->format('Y-m-d'));
+        $this->assertSame(2, $period4->getDateInterval()->d);
+        $this->assertSame('2012-07-07', $period4->getEndDate()->format('Y-m-d'));
+        $this->assertNotSame($period, $period4);
     }
 
     public function testCast()

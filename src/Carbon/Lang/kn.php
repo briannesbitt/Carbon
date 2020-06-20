@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - MOHAN M U
@@ -26,6 +26,8 @@ return [
     'second' => '{1}ಕೆಲವು ಕ್ಷಣಗಳು|]1,Inf[:count ಸೆಕೆಂಡುಗಳು',
     'ago' => ':time ಹಿಂದೆ',
     'from_now' => ':time ನಂತರ',
+    'diff_now' => 'ಈಗ',
+    'diff_today' => 'ಇಂದು',
     'diff_yesterday' => 'ನಿನ್ನೆ',
     'diff_tomorrow' => 'ನಾಳೆ',
     'formats' => [

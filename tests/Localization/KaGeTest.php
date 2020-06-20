@@ -177,8 +177,8 @@ class KaGeTest extends LocalizationTestCase
         'მე-100',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        // '12:00 am cet',
-        '12:00 ღამის cet',
+        // '12:00 am CET',
+        '12:00 ღამის CET',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 AM, 12:00 am',
@@ -350,11 +350,11 @@ class KaGeTest extends LocalizationTestCase
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
         // '1 second before',
-        '1 წამის უკან',
+        '1 წამით ადრე',
 
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
         // '1s before',
-        '1 წამის უკან',
+        '1 წამით ადრე',
 
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         // '1 second',

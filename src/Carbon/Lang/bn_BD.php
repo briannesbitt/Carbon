@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Ankur Group, http://www.ankurbangla.org, http://www.bengalinux.org Taneem Ahmed, Jamil Ahmed taneem@bengalinux.org, jamil@bengalinux.org
  */

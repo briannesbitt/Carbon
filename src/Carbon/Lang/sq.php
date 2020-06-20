@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - JD Isaacks
@@ -42,8 +42,12 @@ return [
     'after' => ':time pas',
     'before' => ':time para',
     'diff_now' => 'tani',
+    'diff_today' => 'Sot',
+    'diff_today_regexp' => 'Sot(?:\\s+në)?',
     'diff_yesterday' => 'dje',
+    'diff_yesterday_regexp' => 'Dje(?:\\s+në)?',
     'diff_tomorrow' => 'nesër',
+    'diff_tomorrow_regexp' => 'Nesër(?:\\s+në)?',
     'diff_before_yesterday' => 'pardje',
     'diff_after_tomorrow' => 'pasnesër',
     'formats' => [

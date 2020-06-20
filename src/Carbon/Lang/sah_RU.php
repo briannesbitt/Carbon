@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Valery Timiriliyev Valery Timiriliyev timiriliyev@gmail.com
  */

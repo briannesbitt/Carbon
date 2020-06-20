@@ -26,20 +26,25 @@ class TranslationElTest extends TestCaseBase
 
     public function testAgoTranslated()
     {
+        // Ago test can't work on February 29th
+        if (JenssegersDate::now()->format('m-d') === '02-29') {
+            JenssegersDate::setTestNow(JenssegersDate::now()->subDay());
+        }
+
         $date = JenssegersDate::parse('-21 hours');
-        $this->assertSame('21 ώρες πριν', $date->ago());
+        $this->assertSame('πριν 21 ώρες', $date->ago());
 
         $date = JenssegersDate::parse('-5 days');
-        $this->assertSame('5 μέρες πριν', $date->ago());
+        $this->assertSame('πριν 5 μέρες', $date->ago());
 
         $date = JenssegersDate::parse('-3 weeks');
-        $this->assertSame('3 εβδομάδες πριν', $date->ago());
+        $this->assertSame('πριν 3 εβδομάδες', $date->ago());
 
         $date = JenssegersDate::now()->subMonthsNoOverflow(6);
-        $this->assertSame('6 μήνες πριν', $date->ago());
+        $this->assertSame('πριν 6 μήνες', $date->ago());
 
         $date = JenssegersDate::parse('-10 years');
-        $this->assertSame('10 χρόνια πριν', $date->ago());
+        $this->assertSame('πριν 10 χρόνια', $date->ago());
     }
 
     public function testFormatDeclensions()

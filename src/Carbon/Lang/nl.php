@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Roy
  * - Stephan
@@ -60,8 +60,12 @@ return [
     'after' => ':time later',
     'before' => ':time eerder',
     'diff_now' => 'nu',
+    'diff_today' => 'vandaag',
+    'diff_today_regexp' => 'vandaag(?:\\s+om)?',
     'diff_yesterday' => 'gisteren',
+    'diff_yesterday_regexp' => 'gisteren(?:\\s+om)?',
     'diff_tomorrow' => 'morgen',
+    'diff_tomorrow_regexp' => 'morgen(?:\\s+om)?',
     'diff_after_tomorrow' => 'overmorgen',
     'diff_before_yesterday' => 'eergisteren',
     'period_recurrences' => ':count keer',

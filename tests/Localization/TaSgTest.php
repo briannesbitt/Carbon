@@ -97,7 +97,7 @@ class TaSgTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100வது',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 மு.ப cet',
+        '12:00 மு.ப CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 மு.ப, 12:00 மு.ப',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -179,13 +179,13 @@ class TaSgTest extends LocalizationTestCase
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
         '1 விநா. இல்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
-        'after',
+        '1 சில விநாடிகள் பின்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
-        'after',
+        '1 விநா. பின்',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond())
-        'before',
+        '1 சில விநாடிகள் முன்',
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond(), false, true)
-        'before',
+        '1 விநா. முன்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true)
         '1 சில விநாடிகள்',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), true, true)

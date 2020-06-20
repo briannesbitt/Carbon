@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'ss');
 
 /*
  * Authors:
@@ -18,17 +15,21 @@
  * - Nicolai Davies
  */
 return [
-    'year' => 'umnyaka|:count iminyaka',
-    'month' => 'inyanga|:count tinyanga',
-    'week' => ':count liviki|:count emaviki',
-    'day' => 'lilanga|:count emalanga',
-    'hour' => 'lihora|:count emahora',
-    'minute' => 'umzuzu|:count emizuzu',
-    'second' => 'emizuzwana lomcane|:count mzuzwana',
+    'year' => '{1}umnyaka|:count iminyaka',
+    'month' => '{1}inyanga|:count tinyanga',
+    'week' => '{1}:count liviki|:count emaviki',
+    'day' => '{1}lilanga|:count emalanga',
+    'hour' => '{1}lihora|:count emahora',
+    'minute' => '{1}umzuzu|:count emizuzu',
+    'second' => '{1}emizuzwana lomcane|:count mzuzwana',
     'ago' => 'wenteka nga :time',
     'from_now' => 'nga :time',
     'diff_yesterday' => 'Itolo',
+    'diff_yesterday_regexp' => 'Itolo(?:\\s+nga)?',
+    'diff_today' => 'Namuhla',
+    'diff_today_regexp' => 'Namuhla(?:\\s+nga)?',
     'diff_tomorrow' => 'Kusasa',
+    'diff_tomorrow_regexp' => 'Kusasa(?:\\s+nga)?',
     'formats' => [
         'LT' => 'h:mm A',
         'LTS' => 'h:mm:ss A',

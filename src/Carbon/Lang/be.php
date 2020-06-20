@@ -8,9 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return ((1 == $number % 10) && (11 != $number % 100)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
-}, 'be');
+// @codeCoverageIgnoreStart
+if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
+    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+        return ((1 == $number % 10) && (11 != $number % 100)) ? 0 : ((($number % 10 >= 2) && ($number % 10 <= 4) && (($number % 100 < 10) || ($number % 100 >= 20))) ? 1 : 2);
+    }, 'be');
+}
+// @codeCoverageIgnoreEnd
 
 /*
  * Authors:
@@ -88,6 +92,13 @@ return [
     'from_now' => 'праз :time',
     'after' => ':time пасля',
     'before' => ':time да',
+    'diff_now' => 'цяпер',
+    'diff_today' => 'Сёння',
+    'diff_today_regexp' => 'Сёння(?:\\s+ў)?',
+    'diff_yesterday' => 'учора',
+    'diff_yesterday_regexp' => 'Учора(?:\\s+ў)?',
+    'diff_tomorrow' => 'заўтра',
+    'diff_tomorrow_regexp' => 'Заўтра(?:\\s+ў)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',
@@ -143,7 +154,7 @@ return [
     'months' => ['студзеня', 'лютага', 'сакавіка', 'красавіка', 'траўня', 'чэрвеня', 'ліпеня', 'жніўня', 'верасня', 'кастрычніка', 'лістапада', 'снежня'],
     'months_standalone' => ['студзень', 'люты', 'сакавік', 'красавік', 'травень', 'чэрвень', 'ліпень', 'жнівень', 'верасень', 'кастрычнік', 'лістапад', 'снежань'],
     'months_short' => ['студ', 'лют', 'сак', 'крас', 'трав', 'чэрв', 'ліп', 'жнів', 'вер', 'каст', 'ліст', 'снеж'],
-    'months_regexp' => '/D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/',
+    'months_regexp' => '/(DD?o?\.?(\[[^\[\]]*\]|\s)+MMMM?|L{2,4}|l{2,4})/',
     'weekdays' => ['нядзелю', 'панядзелак', 'аўторак', 'сераду', 'чацвер', 'пятніцу', 'суботу'],
     'weekdays_standalone' => ['нядзеля', 'панядзелак', 'аўторак', 'серада', 'чацвер', 'пятніца', 'субота'],
     'weekdays_short' => ['нд', 'пн', 'ат', 'ср', 'чц', 'пт', 'сб'],

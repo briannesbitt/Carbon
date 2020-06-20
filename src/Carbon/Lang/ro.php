@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - JD Isaacks
@@ -42,8 +42,13 @@ return [
     'from_now' => 'peste :time',
     'after' => 'peste :time',
     'before' => 'acum :time',
+    'diff_now' => 'acum',
+    'diff_today' => 'azi',
+    'diff_today_regexp' => 'azi(?:\\s+la)?',
     'diff_yesterday' => 'ieri',
+    'diff_yesterday_regexp' => 'ieri(?:\\s+la)?',
     'diff_tomorrow' => 'mâine',
+    'diff_tomorrow_regexp' => 'mâine(?:\\s+la)?',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Ash
  * - François B
@@ -20,6 +20,7 @@
  * - Francesco Marasco
  * - Tizianoz93
  * - Davide Casiraghi (davide-casiraghi)
+ * - Pete Scopes (pdscopes)
  */
 return [
     'year' => ':count anno|:count anni',
@@ -43,6 +44,12 @@ return [
     'second' => ':count secondo|:count secondi',
     'a_second' => 'alcuni secondi|:count secondi',
     's' => ':count sec.',
+    'millisecond' => ':count millisecondo|:count millisecondi',
+    'a_millisecond' => 'un millisecondo|:count millisecondi',
+    'ms' => ':countms',
+    'microsecond' => ':count microsecondo|:count microsecondi',
+    'a_microsecond' => 'un microsecondo|:count microsecondi',
+    'µs' => ':countµs',
     'ago' => ':time fa',
     'from_now' => function ($time) {
         return (preg_match('/^[0-9].+$/', $time) ? 'tra' : 'in')." $time";
@@ -50,8 +57,12 @@ return [
     'after' => ':time dopo',
     'before' => ':time prima',
     'diff_now' => 'proprio ora',
+    'diff_today' => 'Oggi',
+    'diff_today_regexp' => 'Oggi(?:\\s+alle)?',
     'diff_yesterday' => 'ieri',
+    'diff_yesterday_regexp' => 'Ieri(?:\\s+alle)?',
     'diff_tomorrow' => 'domani',
+    'diff_tomorrow_regexp' => 'Domani(?:\\s+alle)?',
     'diff_before_yesterday' => 'l\'altro ieri',
     'diff_after_tomorrow' => 'dopodomani',
     'period_interval' => 'ogni :interval',

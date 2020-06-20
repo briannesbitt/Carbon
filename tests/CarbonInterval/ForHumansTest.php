@@ -28,6 +28,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testGetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -36,6 +37,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testResetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $t = MyCarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('en', $t->getLocale());
@@ -44,11 +46,13 @@ class ForHumansTest extends AbstractTestCase
 
     public function testSetTranslator()
     {
+        /** @var \Carbon\Translator $t */
         $ori = CarbonInterval::getTranslator();
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
         CarbonInterval::setTranslator($t);
 
+        /** @var \Carbon\Translator $t */
         $t = CarbonInterval::getTranslator();
         $this->assertNotNull($t);
         $this->assertSame('fr', $t->getLocale());
@@ -244,5 +248,177 @@ class ForHumansTest extends AbstractTestCase
             'syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW,
             'options' => CarbonInterface::ONE_DAY_WORDS,
         ]));
+    }
+
+    public function testRoundYears()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(11);
+        $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+        $interval = CarbonInterval::years(2)->months(5)->days(70);
+        $this->assertEquals('3 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMonths()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::months(2)->weeks(3);
+        $this->assertEquals('3 months', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundUp()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(23);
+        $this->assertEquals('3 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundDown()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMinutes()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11)->minutes(15);
+        $this->assertEquals('2 days 11 hours', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundDownWhenNextIntervalIsNonSequential()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->minutes(59);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMultipleParts()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->minutes(45)->seconds(59);
+        $this->assertEquals('2 days 46 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundMultiplePartsGap()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->seconds(59);
+        $this->assertEquals('2 days 59 seconds', $interval->forHumans(['parts' => 2]));
+        $this->assertEquals('2 days 59 seconds', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundWeeks()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(13);
+        $this->assertEquals('2 weeks', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundWeeksWithMultipleParts()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(13);
+        $this->assertEquals('1 week 6 days', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundOverflowNonSequentialRoundUp()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(35);
+        $this->assertEquals('5 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundOverflowNonSequentialRoundDown()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::years(2)->months(37);
+        $this->assertEquals('5 years', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+    }
+
+    public function testRoundCarryOverDoesntMatter()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::days(2)->hours(11)->minutes(59);
+        $this->assertEquals('2 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(780);
+        $this->assertEquals('3 days', $interval->forHumans(['parts' => 1, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::ROUND]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(1);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::CEIL]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(58);
+        $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::FLOOR]));
+
+        // Floor is not the default behavior, see the difference below:
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(62);
+        $this->assertEquals('2 days 1 hour', $interval->forHumans(['parts' => 2, 'options' => CarbonInterface::FLOOR]));
+
+        $interval = CarbonInterval::days(2)->minutes(59)->seconds(62);
+        $this->assertEquals('2 days 59 minutes', $interval->forHumans(['parts' => 2]));
+    }
+
+    public function testGetValuesSequence()
+    {
+        $this->assertSame([], CarbonInterval::days(0)->getValuesSequence());
+    }
+
+    public function testMinimumUnitDefault()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        $this->assertEquals('1 second', $interval->forHumans(['parts' => 3]));
+    }
+
+    public function testMinimumUnitHours()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 hour 1 second 114 milliseconds');
+        $this->assertEquals('1 hour', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour']));
+    }
+
+    public function testMinimumUnitMillisecondsShort()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        $this->assertEquals('1s 114ms', $interval->forHumans(['parts' => 3, 'short' => true, 'minimumUnit' => 'ms']));
+    }
+
+    public function testMinimumUnitMicroseconds()
+    {
+        CarbonInterval::setLocale('fr');
+        $interval = CarbonInterval::fromString('1s 114ms 584µs');
+        $this->assertEquals(
+            '1 seconde, 114 millisecondes et 584 microsecondes',
+            $interval->forHumans(['parts' => 3, 'join' => true, 'minimumUnit' => 'µs'])
+        );
+    }
+
+    public function testMinimumUnitMillisecondsInFrenchAndGerman()
+    {
+        $interval = CarbonInterval::fromString('98756 milliseconds')->cascade();
+        $this->assertEquals(
+            'une minute, 38 secondes et 756 millisecondes',
+            $interval->locale('fr')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
+        );
+        $this->assertEquals(
+            'eine Minute, 38 Sekunden und 756 Millisekunden',
+            $interval->locale('de')->forHumans(['parts' => 3, 'minimumUnit' => 'ms', 'join' => true, 'aUnit' => true])
+        );
+    }
+
+    public function testMinimumUnitNoInterval()
+    {
+        CarbonInterval::setLocale('en');
+        $interval = CarbonInterval::fromString('1 second 114 milliseconds');
+        // Test with and without NO_ZERO_DIFF
+        $this->assertEquals('1 hour', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour', 'options' => CarbonInterface::NO_ZERO_DIFF]));
+        $this->assertEquals('0 hours', $interval->forHumans(['parts' => 3, 'minimumUnit' => 'hour', 'options' => 0]));
     }
 }

@@ -263,7 +263,9 @@ class IsTest extends AbstractTestCase
 
     public function testIsCurrentQuarterFalse()
     {
+        Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::now()->subQuarter()->isCurrentQuarter());
+        Carbon::resetMonthsOverflow();
     }
 
     public function testIsSameQuarterTrue()
@@ -278,14 +280,22 @@ class IsTest extends AbstractTestCase
 
     public function testIsSameQuarterFalse()
     {
+        Carbon::useMonthsOverflow(false);
         $this->assertFalse(Carbon::now()->isSameQuarter(Carbon::now()->subQuarter()));
+        Carbon::resetMonthsOverflow();
     }
 
     public function testIsSameQuarterFalseWithDateTime()
     {
+        $now = Carbon::now();
         $dt = new DateTime();
         $dt->modify((Carbon::MONTHS_PER_QUARTER * -1).' month');
-        $this->assertFalse(Carbon::now()->isSameQuarter($dt));
+
+        if ($dt->format('d') !== $now->format('d')) {
+            $dt->modify('last day of previous month');
+        }
+
+        $this->assertFalse($now->isSameQuarter($dt));
     }
 
     public function testIsSameQuarterAndYearTrue()
@@ -868,6 +878,11 @@ class IsTest extends AbstractTestCase
 
         $this->assertTrue(Carbon::hasFormat('2000-07-01T00:00:00+00:00', Carbon::ATOM));
         $this->assertTrue(Carbon::hasFormat('Y-01-30\\', '\\Y-m-d\\\\'));
+
+        if (version_compare(PHP_VERSION, '7.3.0-dev', '>=')) {
+            // Due to https://bugs.php.net/bug.php?id=75577, proper "v" format support can only works from PHP 7.3.0.
+            $this->assertTrue(Carbon::hasFormat('2012-12-04 22:59.32130', 'Y-m-d H:s.vi'));
+        }
 
         // Format failure
         $this->assertFalse(Carbon::hasFormat('1975-05-01', 'd m Y'));

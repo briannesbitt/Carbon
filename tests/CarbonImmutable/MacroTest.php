@@ -20,6 +20,10 @@ class MacroTest extends AbstractTestCaseWithOldNow
 {
     public function testCarbonIsMacroableWhenNotCalledDynamically()
     {
+        if (!function_exists('easter_days')) {
+            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
+        }
+
         Carbon::macro('easterDays', function ($year = 2019) {
             return easter_days($year);
         });
@@ -39,6 +43,10 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonIsMacroableWhenNotCalledDynamicallyUsingThis()
     {
+        if (!function_exists('easter_days')) {
+            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
+        }
+
         Carbon::macro('diffFromEaster', function ($year) {
             /** @var Carbon $date */
             $date = $this;
@@ -59,6 +67,10 @@ class MacroTest extends AbstractTestCaseWithOldNow
 
     public function testCarbonIsMacroableWhenCalledStatically()
     {
+        if (!function_exists('easter_days')) {
+            $this->markTestSkipped('This test requires ext-calendar to be enabled.');
+        }
+
         Carbon::macro('easterDate', function ($year) {
             return Carbon::create($year, 3, 21)->addDays(easter_days($year));
         });

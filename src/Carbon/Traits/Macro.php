@@ -86,7 +86,7 @@ trait Macro
     }
 
     /**
-     * Checks if macro is registered.
+     * Checks if macro is registered globally.
      *
      * @param string $name
      *
@@ -95,5 +95,41 @@ trait Macro
     public static function hasMacro($name)
     {
         return isset(static::$globalMacros[$name]);
+    }
+
+    /**
+     * Get the raw callable macro registered globally for a given name.
+     *
+     * @param string $name
+     *
+     * @return callable|null
+     */
+    public static function getMacro($name)
+    {
+        return static::$globalMacros[$name] ?? null;
+    }
+
+    /**
+     * Checks if macro is registered globally or locally.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasLocalMacro($name)
+    {
+        return ($this->localMacros && isset($this->localMacros[$name])) || static::hasMacro($name);
+    }
+
+    /**
+     * Get the raw callable macro registered globally or locally for a given name.
+     *
+     * @param string $name
+     *
+     * @return callable|null
+     */
+    public function getLocalMacro($name)
+    {
+        return ($this->localMacros ?? [])[$name] ?? static::getMacro($name);
     }
 }

@@ -8,40 +8,43 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'uz');
 
 /*
  * Authors:
  * - Josh Soref
  * - Rasulbek
+ * - Ilyosjon Kamoldinov (ilyosjon09)
  */
 return [
     'year' => ':count yil',
-    'a_year' => 'bir yil|:count yil',
+    'a_year' => '{1}bir yil|:count yil',
     'y' => ':count y',
     'month' => ':count oy',
-    'a_month' => 'bir oy|:count oy',
+    'a_month' => '{1}bir oy|:count oy',
     'm' => ':count o',
     'week' => ':count hafta',
-    'a_week' => 'bir hafta|:count hafta',
+    'a_week' => '{1}bir hafta|:count hafta',
     'w' => ':count h',
     'day' => ':count kun',
-    'a_day' => 'bir kun|:count kun',
+    'a_day' => '{1}bir kun|:count kun',
     'd' => ':count k',
     'hour' => ':count soat',
-    'a_hour' => 'bir soat|:count soat',
+    'a_hour' => '{1}bir soat|:count soat',
     'h' => ':count soat',
     'minute' => ':count daqiqa',
-    'a_minute' => 'bir daqiqa|:count daqiqa',
+    'a_minute' => '{1}bir daqiqa|:count daqiqa',
     'min' => ':count d',
     'second' => ':count soniya',
-    'a_second' => 'soniya|:count soniya',
+    'a_second' => '{1}soniya|:count soniya',
     's' => ':count son.',
-    'ago' => 'Bir necha :time oldin',
+    'ago' => ':time avval',
     'from_now' => 'Yaqin :time ichida',
+    'after' => ':timedan keyin',
+    'before' => ':time oldin',
     'diff_yesterday' => 'Kecha',
+    'diff_yesterday_regexp' => 'Kecha(?:\\s+soat)?',
+    'diff_today' => 'Bugun',
+    'diff_today_regexp' => 'Bugun(?:\\s+soat)?',
     'diff_tomorrow' => 'Ertaga',
     'formats' => [
         'LT' => 'HH:mm',

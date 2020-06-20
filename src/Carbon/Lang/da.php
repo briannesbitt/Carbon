@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Rune Mønnike
  * - François B
@@ -45,6 +45,13 @@ return [
     'from_now' => 'om :time',
     'after' => ':time efter',
     'before' => ':time før',
+    'diff_now' => 'nu',
+    'diff_today' => 'i dag',
+    'diff_today_regexp' => 'i dag(?:\\s+kl.)?',
+    'diff_yesterday' => 'i går',
+    'diff_yesterday_regexp' => 'i går(?:\\s+kl.)?',
+    'diff_tomorrow' => 'i morgen',
+    'diff_tomorrow_regexp' => 'i morgen(?:\\s+kl.)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

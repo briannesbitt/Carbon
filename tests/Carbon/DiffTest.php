@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
 use Closure;
+use Exception;
+use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
 class DiffTest extends AbstractTestCase
@@ -60,6 +62,37 @@ class DiffTest extends AbstractTestCase
     {
         $dt = Carbon::createFromDate(2000, 1, 1);
         $this->assertSame(1, $dt->diffInYears($dt->copy()->addYear()->addMonths(7)));
+    }
+
+    public function testDiffInQuartersPositive()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(1, $dt->diffInQuarters($dt->copy()->addQuarter()->addDay()));
+    }
+
+    public function testDiffInQuartersNegativeWithSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(-4, $dt->diffInQuarters($dt->copy()->subQuarters(4), false));
+    }
+
+    public function testDiffInQuartersNegativeWithNoSign()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(4, $dt->diffInQuarters($dt->copy()->subQuarters(4)));
+    }
+
+    public function testDiffInQuartersVsDefaultNow()
+    {
+        $this->wrapWithTestNow(function () {
+            $this->assertSame(4, Carbon::now()->subYear()->diffInQuarters());
+        });
+    }
+
+    public function testDiffInQuartersEnsureIsTruncated()
+    {
+        $dt = Carbon::createFromDate(2000, 1, 1);
+        $this->assertSame(1, $dt->diffInQuarters($dt->copy()->addQuarter()->addDays(12)));
     }
 
     public function testDiffInMonthsPositive()
@@ -1474,7 +1507,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffWithInvalidType()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Expected null, string, DateTime or DateTimeInterface, integer given'
         );
@@ -1484,7 +1517,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffWithInvalidObject()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
             'Expected null, string, DateTime or DateTimeInterface, Carbon\CarbonInterval given'
         );
@@ -1494,7 +1527,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage(
             'Failed to parse time string (2018-04-13-08:00:00) at position 16'
         );

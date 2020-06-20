@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Akademe ya Luganda Kizito Birabwa kompyuta@kizito.uklinux.net
  */

@@ -11,16 +11,16 @@
 namespace Carbon\Exceptions;
 
 use Exception;
-use InvalidArgumentException;
+use InvalidArgumentException as BaseInvalidArgumentException;
 
-class NotAPeriodException extends InvalidArgumentException
+class NotAPeriodException extends BaseInvalidArgumentException implements InvalidArgumentException
 {
     /**
      * Constructor.
      *
-     * @param string          $message
-     * @param int             $code
-     * @param \Exception|null $previous
+     * @param string         $message
+     * @param int            $code
+     * @param Exception|null $previous
      */
     public function __construct($message, $code = 0, Exception $previous = null)
     {

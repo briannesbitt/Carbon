@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Sashko Todorov
  * - Josh Soref
@@ -45,6 +45,13 @@ return [
     'from_now' => 'после :time',
     'after' => 'по :time',
     'before' => 'пред :time',
+    'diff_now' => 'сега',
+    'diff_today' => 'Денес',
+    'diff_today_regexp' => 'Денес(?:\\s+во)?',
+    'diff_yesterday' => 'вчера',
+    'diff_yesterday_regexp' => 'Вчера(?:\\s+во)?',
+    'diff_tomorrow' => 'утре',
+    'diff_tomorrow_regexp' => 'Утре(?:\\s+во)?',
     'formats' => [
         'LT' => 'H:mm',
         'LTS' => 'H:mm:ss',

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Zuza Software Foundation (Translate.org.za) Dwayne Bailey dwayne@translate.org.za
  */

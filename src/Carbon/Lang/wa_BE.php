@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Djan SACRE Pablo Saratxaga pablo@mandrakesoft.com
  */

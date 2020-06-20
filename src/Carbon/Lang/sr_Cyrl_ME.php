@@ -41,8 +41,12 @@ return [
     'week_ago' => '{1}:count недјељу|{2,3,4}:count недјеље|[0,Inf[:count недјеља',
 
     'diff_now' => 'управо сада',
+    'diff_today' => 'данас',
+    'diff_today_regexp' => 'данас(?:\\s+у)?',
     'diff_yesterday' => 'јуче',
+    'diff_yesterday_regexp' => 'јуче(?:\\s+у)?',
     'diff_tomorrow' => 'сутра',
+    'diff_tomorrow_regexp' => 'сутра(?:\\s+у)?',
     'diff_before_yesterday' => 'прекјуче',
     'diff_after_tomorrow' => 'прекосјутра',
     'formats' => [

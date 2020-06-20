@@ -8,9 +8,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'cv');
 
 /*
  * Authors:
@@ -20,24 +17,25 @@
  */
 return [
     'year' => ':count ҫул',
-    'a_year' => 'пӗр ҫул|:count ҫул',
+    'a_year' => '{1}пӗр ҫул|:count ҫул',
     'month' => ':count уйӑх',
-    'a_month' => 'пӗр уйӑх|:count уйӑх',
+    'a_month' => '{1}пӗр уйӑх|:count уйӑх',
     'week' => ':count эрне',
-    'a_week' => 'пӗр эрне|:count эрне',
+    'a_week' => '{1}пӗр эрне|:count эрне',
     'day' => ':count кун',
-    'a_day' => 'пӗр кун|:count кун',
+    'a_day' => '{1}пӗр кун|:count кун',
     'hour' => ':count сехет',
-    'a_hour' => 'пӗр сехет|:count сехет',
+    'a_hour' => '{1}пӗр сехет|:count сехет',
     'minute' => ':count минут',
-    'a_minute' => 'пӗр минут|:count минут',
+    'a_minute' => '{1}пӗр минут|:count минут',
     'second' => ':count ҫеккунт',
-    'a_second' => 'пӗр-ик ҫеккунт|:count ҫеккунт',
+    'a_second' => '{1}пӗр-ик ҫеккунт|:count ҫеккунт',
     'ago' => ':time каялла',
     'from_now' => function ($time) {
         return $time.(preg_match('/сехет$/', $time) ? 'рен' : (preg_match('/ҫул/', $time) ? 'тан' : 'ран'));
     },
     'diff_yesterday' => 'Ӗнер',
+    'diff_today' => 'Паян',
     'diff_tomorrow' => 'Ыран',
     'formats' => [
         'LT' => 'HH:mm',

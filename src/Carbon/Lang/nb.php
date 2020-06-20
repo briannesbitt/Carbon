@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - François B
  * - Alexander Tømmerås
@@ -43,8 +43,12 @@ return [
     'after' => ':time etter',
     'before' => ':time før',
     'diff_now' => 'akkurat nå',
+    'diff_today' => 'i dag',
+    'diff_today_regexp' => 'i dag(?:\\s+kl.)?',
     'diff_yesterday' => 'i går',
+    'diff_yesterday_regexp' => 'i går(?:\\s+kl.)?',
     'diff_tomorrow' => 'i morgen',
+    'diff_tomorrow_regexp' => 'i morgen(?:\\s+kl.)?',
     'diff_before_yesterday' => 'i forgårs',
     'diff_after_tomorrow' => 'i overmorgen',
     'period_recurrences' => 'en gang|:count ganger',

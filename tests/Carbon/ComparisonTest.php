@@ -149,6 +149,26 @@ class ComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::createFromDate(2000, 1, 15)->betweenExcluded('2000-01-01', '2000-01-31'));
     }
 
+    public function testBetweenIncludedTrue()
+    {
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31)));
+
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(new DateTime('2000-01-01'), new DateTime('2000-01-31')));
+
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded('2000-01-15', '2000-01-31'));
+
+        $this->assertTrue(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded('2000-01-01', '2000-01-15'));
+    }
+
+    public function testBetweenIncludedFalse()
+    {
+        $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(Carbon::createFromDate(2000, 1, 16), Carbon::createFromDate(2000, 1, 31)));
+
+        $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded(new DateTime('2000-01-16'), new DateTime('2000-01-31')));
+
+        $this->assertFalse(Carbon::createMidnightDate(2000, 1, 15)->betweenIncluded('2000-01-16', '2000-01-31'));
+    }
+
     public function testBetweenEqualFalse()
     {
         $this->assertFalse(Carbon::createFromDate(1999, 12, 31)->between(Carbon::createFromDate(2000, 1, 1), Carbon::createFromDate(2000, 1, 31), true));
@@ -220,6 +240,13 @@ class ComparisonTest extends AbstractTestCase
     public function testIsBirthday()
     {
         $dt = Carbon::now();
+
+        // Birthday test can't work on February 29th
+        if ($dt->format('m-d') === '02-29') {
+            Carbon::setTestNow($dt->subDay());
+            $dt = Carbon::now();
+        }
+
         $aBirthday = $dt->subYear();
         $this->assertTrue($aBirthday->isBirthday());
         $notABirthday = $dt->subDay();

@@ -19,6 +19,7 @@ use Carbon\Translator;
 use Closure;
 use DateTime;
 use PHPUnit\Framework\TestCase;
+use ReflectionProperty;
 
 abstract class AbstractTestCase extends TestCase
 {
@@ -285,5 +286,21 @@ abstract class AbstractTestCase extends TestCase
         }
 
         return $result;
+    }
+
+    protected function areSameLocales($a, $b)
+    {
+        static $aliases = null;
+
+        if ($aliases === null) {
+            $property = new ReflectionProperty(Translator::class, 'aliases');
+            $property->setAccessible(true);
+            $aliases = $property->getValue(Translator::get());
+        }
+
+        $a = $aliases[$a] ?? $a;
+        $b = $aliases[$b] ?? $b;
+
+        return $a === $b;
     }
 }

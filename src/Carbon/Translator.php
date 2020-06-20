@@ -34,7 +34,7 @@ class Translator extends Translation\Translator
     /**
      * List of custom directories that contain translation files.
      *
-     * @var array
+     * @var string[]
      */
     protected $directories = [];
 
@@ -44,6 +44,16 @@ class Translator extends Translation\Translator
      * @var bool
      */
     protected $initializing = false;
+
+    /**
+     * List of locales aliases.
+     *
+     * @var string[]
+     */
+    protected $aliases = [
+        'me' => 'sr_Latn_ME',
+        'scr' => 'sh',
+    ];
 
     /**
      * Return a singleton instance of Translator.
@@ -180,9 +190,10 @@ class Translator extends Translation\Translator
         }
 
         foreach ($this->getDirectories() as $directory) {
-            $directory = rtrim($directory, '\\/');
-            if (file_exists($filename = "$directory/$locale.php")) {
-                $this->messages[$locale] = require $filename;
+            $data = @include sprintf('%s/%s.php', rtrim($directory, '\\/'), $locale);
+
+            if ($data !== false) {
+                $this->messages[$locale] = $data;
                 $this->addResource('array', $this->messages[$locale], $locale);
 
                 return true;
@@ -329,36 +340,18 @@ class Translator extends Translation\Translator
             $completeLocaleChunks = preg_split('/[_.-]+/', $completeLocale);
 
             $getScore = function ($language) use ($completeLocaleChunks) {
-                $chunks = preg_split('/[_.-]+/', $language);
-                $score = 0;
-
-                foreach ($completeLocaleChunks as $index => $chunk) {
-                    if (!isset($chunks[$index])) {
-                        $score++;
-
-                        continue;
-                    }
-
-                    if (strtolower($chunks[$index]) === strtolower($chunk)) {
-                        $score += 10;
-                    }
-                }
-
-                return $score;
+                return static::compareChunkLists($completeLocaleChunks, preg_split('/[_.-]+/', $language));
             };
 
             usort($locales, function ($first, $second) use ($getScore) {
-                $first = $getScore($first);
-                $second = $getScore($second);
-
-                if ($first === $second) {
-                    return 0;
-                }
-
-                return $first < $second ? 1 : -1;
+                return $getScore($second) <=> $getScore($first);
             });
 
             $locale = $locales[0];
+        }
+
+        if (isset($this->aliases[$locale])) {
+            $locale = $this->aliases[$locale];
         }
 
         // If subtag (ex: en_CA) first load the macro (ex: en) to have a fallback
@@ -387,5 +380,24 @@ class Translator extends Translation\Translator
         return [
             'locale' => $this->getLocale(),
         ];
+    }
+
+    private static function compareChunkLists($referenceChunks, $chunks)
+    {
+        $score = 0;
+
+        foreach ($referenceChunks as $index => $chunk) {
+            if (!isset($chunks[$index])) {
+                $score++;
+
+                continue;
+            }
+
+            if (strtolower($chunks[$index]) === strtolower($chunk)) {
+                $score += 10;
+            }
+        }
+
+        return $score;
     }
 }

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Rwanda Steve Murphy murf@e-tools.com
  */

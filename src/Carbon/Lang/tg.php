@@ -8,24 +8,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number === 1 ? 0 : 1;
-}, 'tg');
 
 /*
  * Authors:
  * - Orif N. Jr
  */
 return [
-    'year' => 'як сол|:count сол',
-    'month' => 'як моҳ|:count моҳ',
-    'week' => 'як ҳафта|:count ҳафта',
-    'day' => 'як рӯз|:count рӯз',
-    'hour' => 'як соат|:count соат',
-    'minute' => 'як дақиқа|:count дақиқа',
-    'second' => 'якчанд сония|:count сония',
+    'year' => '{1}як сол|:count сол',
+    'month' => '{1}як моҳ|:count моҳ',
+    'week' => '{1}як ҳафта|:count ҳафта',
+    'day' => '{1}як рӯз|:count рӯз',
+    'hour' => '{1}як соат|:count соат',
+    'minute' => '{1}як дақиқа|:count дақиқа',
+    'second' => '{1}якчанд сония|:count сония',
     'ago' => ':time пеш',
     'from_now' => 'баъди :time',
+    'diff_today' => 'Имрӯз',
+    'diff_yesterday' => 'Дирӯз',
+    'diff_yesterday_regexp' => 'Дирӯз(?:\\s+соати)?',
+    'diff_tomorrow' => 'Пагоҳ',
+    'diff_tomorrow_regexp' => 'Пагоҳ(?:\\s+соати)?',
+    'diff_today_regexp' => 'Имрӯз(?:\\s+соати)?',
     'formats' => [
         'LT' => 'HH:mm',
         'LTS' => 'HH:mm:ss',

@@ -97,7 +97,7 @@ class MsSgTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 a cet',
+        '12:00 a CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 a, 12:00 a',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -175,9 +175,9 @@ class MsSgTest extends LocalizationTestCase
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 tahun yang lepas',
         // Carbon::now()->addSecond()->diffForHumans()
-        'dalam beberapa saat',
+        'beberapa saat dari sekarang',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true)
-        'dalam 1 saat',
+        '1 saat dari sekarang',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now())
         'beberapa saat selepas',
         // Carbon::now()->addSecond()->diffForHumans(Carbon::now(), false, true)
@@ -195,13 +195,13 @@ class MsSgTest extends LocalizationTestCase
         // Carbon::now()->diffForHumans(Carbon::now()->addSecond()->addSecond(), true, true)
         '2 saat',
         // Carbon::now()->addSecond()->diffForHumans(null, false, true, 1)
-        'dalam 1 saat',
+        '1 saat dari sekarang',
         // Carbon::now()->addMinute()->addSecond()->diffForHumans(null, true, false, 2)
         'seminit beberapa saat',
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 tahun 3 bulan 1 hari 1 saat',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'dalam 3 tahun',
+        '3 tahun dari sekarang',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 bulan yang lepas',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
@@ -213,11 +213,11 @@ class MsSgTest extends LocalizationTestCase
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         'seminggu 6 hari',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
-        'dalam seminggu dan 6 hari',
+        'seminggu dan 6 hari dari sekarang',
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         '2 minggu sejam',
         // Carbon::now()->addHour()->diffForHumans(["aUnit" => true])
-        'dalam sejam',
+        'sejam dari sekarang',
         // CarbonInterval::days(2)->forHumans()
         '2 hari',
         // CarbonInterval::create('P1DT3H')->forHumans(true)

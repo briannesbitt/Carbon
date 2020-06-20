@@ -13,6 +13,7 @@ namespace Tests\Language;
 
 use Carbon\Carbon;
 use Carbon\Translator;
+use ReflectionMethod;
 use Tests\AbstractTestCase;
 
 class TranslatorTest extends AbstractTestCase
@@ -33,11 +34,13 @@ class TranslatorTest extends AbstractTestCase
         $this->assertSame('en_ISO', $translator->getLocale());
 
         $translator = new Translator('fr');
-        setlocale(LC_ALL, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
-        setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en');
+        if (setlocale(LC_ALL, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en') === false ||
+            setlocale(LC_TIME, 'en_US.UTF-8', 'en_US.utf8', 'en_US', 'en_GB', 'en') === false) {
+            $this->markTestSkipped('testSetLocale test need en_US.UTF-8.');
+        }
         $translator->setLocale('auto');
 
-        $this->assertStringStartsWith('en_US', $translator->getLocale());
+        $this->assertStringStartsWith('en', $translator->getLocale());
 
         setlocale(LC_ALL, $currentLocaleAll);
         setlocale(LC_TIME, $currentLocale);
@@ -49,5 +52,16 @@ class TranslatorTest extends AbstractTestCase
         $text = Carbon::parse('2019-08-06')->locale('en')->isoFormat('dddd D MMMM');
 
         $this->assertSame('Tuesday 6 August', $text);
+    }
+
+    public function testCompareChunkLists()
+    {
+        $method = new ReflectionMethod(Translator::class, 'compareChunkLists');
+        $method->setAccessible(true);
+        $this->assertSame(20, $method->invoke(null, ['a', 'b'], ['a', 'b']));
+        $this->assertSame(10, $method->invoke(null, ['a', 'b'], ['a', 'c']));
+        $this->assertSame(10, $method->invoke(null, ['a'], ['a', 'c']));
+        $this->assertSame(11, $method->invoke(null, ['a', 'b'], ['a']));
+        $this->assertSame(10, $method->invoke(null, ['a'], ['a']));
     }
 }

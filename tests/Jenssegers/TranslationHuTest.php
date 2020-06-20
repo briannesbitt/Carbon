@@ -45,7 +45,7 @@ class TranslationHuTest extends TestCaseBase
         $date = JenssegersDate::now()->subMonthsNoOverflow(6);
         $this->assertSame('6 hónapja', $date->ago());
 
-        $date = JenssegersDate::parse('-10 years');
+        $date = JenssegersDate::now()->subYearsNoOverflow(10);
         $this->assertSame('10 éve', $date->ago());
     }
 
@@ -102,7 +102,7 @@ class TranslationHuTest extends TestCaseBase
         $date = JenssegersDate::now()->subMonthsNoOverflow(6);
         $this->assertSame('6 hónappal korábban', $date->ago(JenssegersDate::now()));
 
-        $date = JenssegersDate::parse('-10 years');
+        $date = JenssegersDate::now()->subYearsNoOverflow(10);
         $this->assertSame('10 évvel korábban', $date->ago(JenssegersDate::now()));
     }
 

@@ -97,7 +97,7 @@ class AfTest extends LocalizationTestCase
         // Carbon::parse('2018-04-10 00:00:00')->isoFormat('DDDo')
         '100ste',
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        '12:00 vm cet',
+        '12:00 vm CET',
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         '12:00 VM, 12:00 vm',
         // Carbon::parse('2018-02-10 01:30:00')->isoFormat('h:mm A, h:mm a')
@@ -139,7 +139,7 @@ class AfTest extends LocalizationTestCase
         // Carbon::now()->subHours(1)->diffForHumans(null, false, true)
         '1 u. gelede',
         // Carbon::now()->subHours(2)->diffForHumans()
-        '2 ure gelede',
+        '2 uur gelede',
         // Carbon::now()->subHours(2)->diffForHumans(null, false, true)
         '2 u. gelede',
         // Carbon::now()->subDays(1)->diffForHumans()
@@ -171,7 +171,7 @@ class AfTest extends LocalizationTestCase
         // Carbon::now()->subYears(1)->diffForHumans(null, false, true)
         '1 j. gelede',
         // Carbon::now()->subYears(2)->diffForHumans()
-        '2 jare gelede',
+        '2 jaar gelede',
         // Carbon::now()->subYears(2)->diffForHumans(null, false, true)
         '2 j. gelede',
         // Carbon::now()->addSecond()->diffForHumans()
@@ -201,13 +201,13 @@ class AfTest extends LocalizationTestCase
         // Carbon::now()->addYears(2)->addMonths(3)->addDay()->addSecond()->diffForHumans(null, true, true, 4)
         '2 j. 3 maa. 1 d. 1 s.',
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
-        'oor 3 jare',
+        'oor 3 jaar',
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         '5 maa. gelede',
         // Carbon::now()->subYears(2)->subMonths(3)->subDay()->subSecond()->diffForHumans(null, null, true, 4)
         '2 j. 3 maa. 1 d. 1 s. gelede',
         // Carbon::now()->addWeek()->addHours(10)->diffForHumans(null, true, false, 2)
-        '1 week 10 ure',
+        '1 week 10 uur',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)
         '1 week 6 dae',
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(null, true, false, 2)

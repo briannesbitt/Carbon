@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-/**
+/*
  * Authors:
  * - Josh Soref
  * - Kaushik Thanki
@@ -34,6 +34,8 @@ return [
     'from_now' => ':time મા',
     'after' => ':time પછી',
     'before' => ':time પહેલા',
+    'diff_now' => 'હમણાં',
+    'diff_today' => 'આજ',
     'diff_yesterday' => 'ગઇકાલે',
     'diff_tomorrow' => 'કાલે',
     'formats' => [

@@ -37,6 +37,8 @@ class ConversionsTest extends AbstractTestCase
         $this->assertFalse((new CarbonTimeZone(-15))->toRegionName());
         $date = Carbon::parse('2018-12-20');
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionName($date));
+        $date = Carbon::parse('2020-06-11T12:30:00-02:30');
+        $this->assertSame('America/St_Johns', $date->getTimezone()->toRegionName($date));
     }
 
     public function testToRegionTimeZone()
@@ -48,17 +50,75 @@ class ConversionsTest extends AbstractTestCase
         $this->assertSame('America/Chicago', (new CarbonTimeZone('America/Toronto'))->toOffsetTimeZone($date)->toRegionTimeZone($date)->getName());
     }
 
-    public function testToOffsetName()
+    public function dataProviderToOffsetName()
     {
-        $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toOffsetName());
-        $this->assertSame('-04:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName());
-        $this->assertSame('-05:00', (new CarbonTimeZone(-5))->toRegionTimeZone()->toOffsetName());
-        $date = Carbon::parse('2018-12-20');
-        $this->assertSame('-05:00', (new CarbonTimeZone('America/Toronto'))->toOffsetName($date));
-        $this->assertSame('-06:00', (new CarbonTimeZone(-5))->toRegionTimeZone($date)->toOffsetName($date));
-        $this->assertSame('+00:00', (new CarbonTimeZone('UTC'))->toOffsetName());
+        return [
+            // timezone - number
+            ['2018-12-20', '-05:00', -5],
+            ['2018-06-20', '-05:00', -5],
+            // timezone - use offset
+            ['2018-12-20', '-05:00', '-05:00'],
+            ['2018-06-20', '-05:00', '-05:00'],
+            // timezone - by name - with daylight time
+            ['2018-12-20', '-05:00', 'America/Toronto'],
+            ['2018-06-20', '-04:00', 'America/Toronto'],
+            // timezone - by name - without daylight time
+            ['2018-12-20', '+03:00', 'Asia/Baghdad'],
+            ['2018-06-20', '+03:00', 'Asia/Baghdad'],
+            // timezone - no full hour - the same time
+            ['2018-12-20', '-09:30', 'Pacific/Marquesas'],
+            ['2018-06-20', '-09:30', 'Pacific/Marquesas'],
+            // timezone - no full hour -
+            ['2018-12-20', '-03:30', 'America/St_Johns'],
+            ['2018-06-20', '-02:30', 'America/St_Johns'],
+            // timezone - no full hour +
+            ['2018-12-20', '+13:45', 'Pacific/Chatham'],
+            ['2018-06-20', '+12:45', 'Pacific/Chatham'],
+            // timezone - UTC
+            ['2018-12-20', '+00:00', 'UTC'],
+            ['2018-06-20', '+00:00', 'UTC'],
+        ];
+    }
+
+    /**
+     * @param string     $date
+     * @param string     $expectedOffset
+     * @param string|int $timezone
+     * @dataProvider dataProviderToOffsetName
+     */
+    public function testToOffsetName($date, $expectedOffset, $timezone)
+    {
+        Carbon::setTestNow(Carbon::parse($date));
+        $offset = (new CarbonTimeZone($timezone))->toOffsetName();
+
+        $this->assertEquals($expectedOffset, $offset);
+    }
+
+    /**
+     * @param string     $date
+     * @param string     $expectedOffset
+     * @param string|int $timezone
+     * @dataProvider dataProviderToOffsetName
+     */
+    public function testToOffsetNameDateAsParam($date, $expectedOffset, $timezone)
+    {
+        $offset = (new CarbonTimeZone($timezone))->toOffsetName(Carbon::parse($date));
+
+        $this->assertEquals($expectedOffset, $offset);
+    }
+
+    public function testToOffsetNameFromDifferentCreationMethods()
+    {
+        $summer = Carbon::parse('2020-06-15');
+        $winter = Carbon::parse('2018-12-20');
         $this->assertSame('+02:00', (new CarbonTimeZone('Europe/Paris'))->toOffsetName());
         $this->assertSame('+05:30', (new CarbonTimeZone('Asia/Calcutta'))->toOffsetName());
+        $this->assertSame('+13:45', CarbonTimeZone::create('Pacific/Chatham')->toOffsetName($winter));
+        $this->assertSame('+12:00', CarbonTimeZone::create('Pacific/Auckland')->toOffsetName($summer));
+        $this->assertSame('-05:15', CarbonTimeZone::createFromHourOffset(-5.25)->toOffsetName());
+        $this->assertSame('-02:30', CarbonTimeZone::createFromMinuteOffset(-150)->toOffsetName());
+        $this->assertSame('-08:45', CarbonTimeZone::create('-8:45')->toOffsetName());
+        $this->assertSame('-09:30', CarbonTimeZone::create('Pacific/Marquesas')->toOffsetName());
     }
 
     public function testCast()

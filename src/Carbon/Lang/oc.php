@@ -13,9 +13,13 @@
  * Authors:
  * - Quentí
  */
-\Symfony\Component\Translation\PluralizationRules::set(function ($number) {
-    return $number == 1 ? 0 : 1;
-}, 'oc');
+// @codeCoverageIgnoreStart
+if (class_exists('Symfony\\Component\\Translation\\PluralizationRules')) {
+    \Symfony\Component\Translation\PluralizationRules::set(function ($number) {
+        return $number == 1 ? 0 : 1;
+    }, 'oc');
+}
+// @codeCoverageIgnoreEnd
 
 return [
     'year' => ':count an|:count ans',
@@ -44,8 +48,12 @@ return [
     'after' => ':time aprèp',
     'before' => ':time abans',
     'diff_now' => 'ara meteis',
+    'diff_today' => 'Uèi',
+    'diff_today_regexp' => 'Uèi(?:\\s+a)?',
     'diff_yesterday' => 'ièr',
+    'diff_yesterday_regexp' => 'Ièr(?:\\s+a)?',
     'diff_tomorrow' => 'deman',
+    'diff_tomorrow_regexp' => 'Deman(?:\\s+a)?',
     'diff_before_yesterday' => 'ièr delà',
     'diff_after_tomorrow' => 'deman passat',
     'period_recurrences' => ':count còp|:count còps',

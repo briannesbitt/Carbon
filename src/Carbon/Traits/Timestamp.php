@@ -10,6 +10,8 @@
  */
 namespace Carbon\Traits;
 
+use DateTime;
+
 /**
  * Trait Timestamp.
  */
@@ -25,13 +27,20 @@ trait Timestamp
      */
     public static function createFromTimestamp($timestamp, $tz = null)
     {
-        return static::today($tz)->setTimestamp((int) $timestamp);
+        $date = new DateTime('@'.((int) $timestamp));
+        $tz = static::safeCreateDateTimeZone($tz);
+
+        if ($tz) {
+            $date->setTimezone($tz);
+        }
+
+        return (new static($date->format(DateTime::ATOM)))->tz($tz);
     }
 
     /**
      * Create a Carbon instance from a timestamp in milliseconds.
      *
-     * @param int                       $timestamp
+     * @param float                     $timestamp
      * @param \DateTimeZone|string|null $tz
      *
      * @return static

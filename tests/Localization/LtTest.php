@@ -177,8 +177,8 @@ class LtTest extends LocalizationTestCase
         '100-as',
 
         // Carbon::parse('2018-02-10 00:00:00', 'Europe/Paris')->isoFormat('h:mm a z')
-        // '12:00 am cet'
-        '12:00 priešpiet cet',
+        // '12:00 am CET'
+        '12:00 priešpiet CET',
 
         // Carbon::parse('2018-02-10 00:00:00')->isoFormat('h:mm A, h:mm a')
         // '12:00 AM, 12:00 am'
@@ -386,7 +386,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addYears(3)->diffForHumans(null, null, false, 4)
         // '3 years from now'
-        'už 3 metai',
+        'už 3 metų',
 
         // Carbon::now()->subMonths(5)->diffForHumans(null, null, true, 4)
         // '5mos ago'
@@ -410,7 +410,7 @@ class LtTest extends LocalizationTestCase
 
         // Carbon::now()->addWeek()->addDays(6)->diffForHumans(["join" => true, "parts" => 2])
         // '1 week and 6 days from now'
-        'už 1 savaitė ir 6 dienos',
+        'už 1 savaitės ir 6 dienų',
 
         // Carbon::now()->addWeeks(2)->addHour()->diffForHumans(null, true, false, 2)
         // '2 weeks 1 hour'
