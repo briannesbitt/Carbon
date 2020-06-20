@@ -5,17 +5,13 @@ parameters:
         - tests
     ignoreErrors:
         - '#^Call to an undefined static method#'
-        - '#^Call to an undefined method .*::foo\(\)\.$#'
-        - '#^Static call to instance method#'
+        - '#^Call to an undefined method .*::(foo|foobar|this)\(\)\.$#'
         - '#^Unsafe usage of new static\(\)\.#'
         - '#^Method Carbon\\Carbon(Interface|Immutable)?::(add|sub)[A-Z][A-Za-z]+\(\) invoked with 1 parameter, 0 required\.#'
         - '#^Using \$this in static method Carbon\\Carbon(Interface|Immutable|Interval|Period)?::loadMixinTrait\(\)\.$#'
         - '#^Variable \$this in isset\(\) always exists and is not nullable\.$#'
         - '#^Call to an undefined method Carbon\\Carbon(Interface|Immutable)?::(super|noThis)\(\)\.$#'
-        - '#Class Symfony\\Component\\Translation\\MessageSelector not found\.#'
         - '#Class Symfony\\Component\\Translation\\IdentityTranslator does not have a constructor and must be instantiated without any parameters\.#'
-        - '#Instantiated class Symfony\\Component\\Translation\\MessageSelector not found\.#'
-        - '#Call to static method set\(\) on an unknown class Symfony\\Component\\Translation\\PluralizationRules\.#'
         - '#Call to an undefined method DateTimeInterface::setTimezone\(\)\.#'
         - '#should return (\S*)static\(Carbon\\CarbonPeriod\) but returns Carbon\\CarbonPeriod\.$#'
         - '#should return (\S*)static\(Carbon\\Carbon\) but returns Carbon\\Carbon(Interface)?\.$#'

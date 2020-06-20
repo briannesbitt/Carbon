@@ -7,18 +7,21 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
+use PHPStan\Type\TypehintHelper;
+use ReflectionClass;
+use ReflectionFunction;
 
-class MacroExtension implements MethodsClassReflectionExtension
+final class MacroExtension implements MethodsClassReflectionExtension
 {
     /**
-     * @var \PHPStan\Reflection\Php\PhpMethodReflectionFactory
+     * @var PhpMethodReflectionFactory
      */
     protected $methodReflectionFactory;
 
     /**
      * Extension constructor.
      *
-     * @param \PHPStan\Reflection\Php\PhpMethodReflectionFactory $methodReflectionFactory
+     * @param PhpMethodReflectionFactory $methodReflectionFactory
      */
     public function __construct(PhpMethodReflectionFactory $methodReflectionFactory)
     {
@@ -49,16 +52,30 @@ class MacroExtension implements MethodsClassReflectionExtension
     public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
     {
         $className = $classReflection->getName();
-        $reflectionClass = new \ReflectionClass($className);
+        $reflectionClass = new ReflectionClass($className);
         $property = $reflectionClass->getProperty('globalMacros');
 
         $property->setAccessible(true);
         $macro = $property->getValue()[$methodName];
-
-        return new Macro(
+        $builtinMacro = new Macro(
             $classReflection->getName(),
             $methodName,
-            new \ReflectionFunction($macro)
+            new ReflectionFunction($macro)
+        );
+
+        return $this->methodReflectionFactory->create(
+            $classReflection,
+            null,
+            $builtinMacro,
+            $classReflection->getActiveTemplateTypeMap(),
+            [],
+            TypehintHelper::decideTypeFromReflection($builtinMacro->getReturnType()),
+            null,
+            null,
+            $builtinMacro->isDeprecated()->yes(),
+            $builtinMacro->isInternal(),
+            $builtinMacro->isFinal(),
+            $builtinMacro->getDocComment()
         );
     }
 }
