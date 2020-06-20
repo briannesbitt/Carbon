@@ -138,7 +138,7 @@ final class Macro implements BuiltinMethodReflection
     /**
      * {@inheritdoc}
      */
-    public function getDocComment()
+    public function getDocComment(): ?string
     {
         return $this->reflectionFunction->getDocComment();
     }
