@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\PHPStan;
 
-class PHPStanTest extends AbstractTestCase
+use Tests\AbstractTestCase;
+
+class FeaturesTest extends AbstractTestCase
 {
     protected $phpStanPreviousDirectory = '.';
 

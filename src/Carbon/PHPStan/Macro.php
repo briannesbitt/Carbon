@@ -51,8 +51,8 @@ final class Macro implements BuiltinMethodReflection
     /**
      * Macro constructor.
      *
-     * @param string $className
-     * @param string $methodName
+     * @param string             $className
+     * @param string             $methodName
      * @param ReflectionFunction $reflectionFunction
      */
     public function __construct(string $className, string $methodName, ReflectionFunction $reflectionFunction)

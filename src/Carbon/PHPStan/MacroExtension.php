@@ -3,12 +3,10 @@
 namespace Carbon\PHPStan;
 
 use Carbon\CarbonInterface;
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\BrokerAwareExtension;
-use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
+use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 
 class MacroExtension implements MethodsClassReflectionExtension
 {
@@ -20,7 +18,7 @@ class MacroExtension implements MethodsClassReflectionExtension
     /**
      * Extension constructor.
      *
-     * @param  \PHPStan\Reflection\Php\PhpMethodReflectionFactory  $methodReflectionFactory
+     * @param \PHPStan\Reflection\Php\PhpMethodReflectionFactory $methodReflectionFactory
      */
     public function __construct(PhpMethodReflectionFactory $methodReflectionFactory)
     {
