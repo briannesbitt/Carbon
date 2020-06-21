@@ -3420,11 +3420,6 @@ CarbonInterval::macro('twice', static function () {
 </code></pre>
     </p>
 
-    <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
-        <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
-        <a href="#diff-for-humans-options">See <code>Carbon::diffForHumans()</code> options.</a>
-    </p>
-
     <p>
     <pre><code class="php">{{::lint(
 CarbonPeriod::macro('countWeekdays', static function () {
@@ -3435,6 +3430,20 @@ CarbonPeriod::macro('countWeekdays', static function () {
 {{::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p id="phpstan-support">We provide a PHPStan extension out of the box so it can understand macros and mixins.</p>
+
+    <p>If you're using Laravel, you should consider using <a href="https://github.com/nunomaduro/larastan">larastan</a>
+        which provides a complete support of Laravel features in PHPStan (including Carbon macros).
+        Else you can install <strong>phpstan/extension-installer</strong> if you don't have it:</p>
+
+    <pre><code>composer require --dev phpstan/phpstan phpstan/extension-installer</code></pre>
+
+    <p>Then add the file where your Carbon macros and mixins are defined in the <strong>bootstrapFiles</strong> entry:</p>
+
+    <pre><code class="yaml">parameters:
+    bootstrapFiles:
+        - config/bootstrap.php</code></pre>
 
     <p>Check <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
         (that includes <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a>)
@@ -3818,6 +3827,11 @@ CarbonInterval::setLocale('fr');)}}
 {{::exec(echo CarbonInterval::hour()->seconds(3);/*pad(54)*/)}} // {{eval}}
 {{::lint(CarbonInterval::setLocale('en');)}}
 </code></pre>
+    </p>
+
+    <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
+        <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
+        <a href="#diff-for-humans-options">See <code>Carbon::diffForHumans()</code> options.</a>
     </p>
 
     <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>

@@ -3007,6 +3007,14 @@ forward while negative $value travels into the past.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit</code></td></tr></table>
 </div>
 
+<div class="doc-method " id="doc-method-Carbon-rawAdd">
+    <h2><span class="class-name">Carbon::</span>rawAdd</h2>
+    <code>DateInterval $interval</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Call native PHP DateTime/DateTimeImmutable add() method.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><code>DateInterval $interval</code></td></tr></table>
+</div>
+
 <div class="doc-method " id="doc-method-Carbon-addUnit">
     <h2><span class="class-name">Carbon::</span>addUnit</h2>
     <code>$unit, $value = 1, $overflow = null</code>
@@ -3021,6 +3029,14 @@ forward while negative $value travels into the past.</p>
     <div class="doc-return">returns <code>Carbon</code></div>
     <p class="doc-description">Subtract given units to the current instance.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.0.0</td><td><code>$unit, $value = 1, $overflow = null</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-rawSub">
+    <h2><span class="class-name">Carbon::</span>rawSub</h2>
+    <code>DateInterval $interval</code>
+    <div class="doc-return">returns <code>Carbon</code></div>
+    <p class="doc-description">Call native PHP DateTime/DateTimeImmutable sub() method.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><code>DateInterval $interval</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-subtract">
@@ -3854,6 +3870,51 @@ else return the result of $method called on it.</p>
     <div class="doc-return">returns <code>Carbon|CarbonImmutable|CarbonInterface</code></div>
     <p class="doc-description">Get a method that return current date-time if $testMethod applied on it return true,
 else return the result of $method called on it.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInBusinessUnit">
+    <h2><span class="class-name">Carbon::</span>diffInBusinessUnit</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonInterval|float</code></div>
+    <p class="doc-description">Return an interval/count of given unit with open/closed business time between the current date and an other
+given date.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffAsBusinessInterval">
+    <h2><span class="class-name">Carbon::</span>diffAsBusinessInterval</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>CarbonInterval</code></div>
+    <p class="doc-description">Return an interval with open/closed business time between the current date and an other
+given date.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInBusinessSeconds">
+    <h2><span class="class-name">Carbon::</span>diffInBusinessSeconds</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Return a number of seconds with open/closed business time between the current date and an other
+given date.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInBusinessMinutes">
+    <h2><span class="class-name">Carbon::</span>diffInBusinessMinutes</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Return a number of minutes with open/closed business time between the current date and an other
+given date.</p>
+</div>
+
+<div class="doc-method " id="doc-method-Carbon-diffInBusinessHours">
+    <h2><span class="class-name">Carbon::</span>diffInBusinessHours</h2>
+    <div class="doc-info">Requires <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a></div>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>float</code></div>
+    <p class="doc-description">Return a number of hours with open/closed business time between the current date and an other
+given date.</p>
 </div>
 
 <div class="doc-method " id="doc-method-Carbon-nextOpenExcludingHolidays">
@@ -4780,6 +4841,29 @@ CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days
     <em>Native PHP method</em>
     <div class="doc-return">returns <code>string</code></div>
     <p class="doc-description">See <a href="http://php.net/manual/en/dateinterval.format.php">PHP documentation for DateInterval::format</a></p>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-getStep">
+    <h2><span class="class-name">CarbonInterval::</span>getStep</h2>
+    <em>no arguments</em>
+    <div class="doc-return">returns <code>Closure</code></div>
+    <p class="doc-description">Get the dynamic step in use.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><em>no arguments</em></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-setStep">
+    <h2><span class="class-name">CarbonInterval::</span>setStep</h2>
+    <code>Closure $step</code>
+    <p class="doc-description">Set a step to apply instead of a fixed interval to get the new date.<br><br>Or pass null to switch to fixed interval.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><code>Closure $step</code></td></tr></table>
+</div>
+
+<div class="doc-method " id="doc-method-CarbonInterval-convertDate">
+    <h2><span class="class-name">CarbonInterval::</span>convertDate</h2>
+    <code>DateTimeInterface $dateTime, bool $negated = false</code>
+    <div class="doc-return">returns <code>DateTimeInterface</code></div>
+    <p class="doc-description">Take a date and apply either the step if set, or the current interval else.<br><br>The interval/step is applied negatively (typically subtraction instead of addition) if $negated is true.</p>
+    <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><code>DateTimeInterface $dateTime, bool $negated = false</code></td></tr></table>
 </div>
 
 <div class="doc-method " id="doc-method-CarbonInterval-baseMixin">
@@ -6330,8 +6414,9 @@ for more on the possibility of this constructor returning a test instance.</p>
 <div class="doc-method " id="doc-method-CarbonTimeZone-toRegionName">
     <h2><span class="class-name">CarbonTimeZone::</span>toRegionName</h2>
     <code>DateTimeInterface $date = null, $isDst = 1</code>
-    <div class="doc-return">returns <code>string</code></div>
-    <p class="doc-description">Returns the first region string (such as "America/Toronto") that matches the current timezone.</p>
+    <div class="doc-return">returns <code>string|false</code></div>
+    <p class="doc-description">Returns the first region string (such as "America/Toronto") that matches the current timezone or
+false if no match is found.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.10.0</td><td><code>DateTimeInterface $date = null, $isDst = 1</code></td></tr></table>
 </div>
 
