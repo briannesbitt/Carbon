@@ -25,9 +25,7 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithoutErrors(): void
     {
-        if ($this->analyze(__DIR__.'/Fixture.php') === 0) {
-            $this->assertTrue(true);
-        }
+        $this->assertStringContainsString('[OK] No errors', $this->analyze(__DIR__.'/Fixture.php'));
     }
 
     private function analyze(string $file)
@@ -41,7 +39,6 @@ class FeaturesTest extends AbstractTestCase
             '--level=0',
             escapeshellarg(realpath($file)),
         ]));
-        var_dump($output);
 
         return $output;
     }
