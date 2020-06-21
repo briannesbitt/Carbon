@@ -125,6 +125,12 @@ class Carbon extends \DateTime
 {{::lint($carbon = new Carbon('first day of January 2008', 'America/Vancouver');)}}
 {{::exec(echo get_class($carbon);/*pad(40)*/)}} // '{{eval}}'
 {{::lint($carbon = new Carbon(new DateTime('first day of January 2008'), new DateTimeZone('America/Vancouver'));)}} // equivalent to previous instance
+// You can create Carbon or CarbonImmutable instance from:
+//   - string representation
+//   - integer timestamp
+//   - DateTimeInterface instance (that includes DateTime, DateTimeImmutable or an other Carbon instance)
+// All those are available right in the constructor, other creator methods can be found
+// in the "Reference" panel searching for "create".
 </code></pre>
     </p>
 
@@ -3128,7 +3134,7 @@ $dt = 'O:13:"Carbon\Carbon":3:{s:4:"date";s:26:"2012-12-25 20:30:00.000000";s:13
         PHP JSON extension. It should have no impact as this extension is bundled by default with PHP. If the extension
         is disabled, be aware you will be locked on 2.3. But you still can use <code>--ignore-platform-reqs</code> on composer
         update/install to upgrade then polyfill the missing <code>JsonSerializable</code> interface by including
-        <a href="https://github.com/briannesbitt/Carbon/blob/version-2.3/src/JsonSerializable.php" target="_blank">JsonSerializable.php</a>.
+        <a href="https://github.com/briannesbitt/Carbon/blob/2.3.0/src/JsonSerializable.php" target="_blank">JsonSerializable.php</a>.
     </p>
 
     <p>
@@ -3161,7 +3167,7 @@ $dt = Carbon::create(2012, 12, 25, 20, 30, 00, 'Europe/Moscow')->settings([
 </code></pre>
     </p>
 
-    <p>If you wan to apply this globally, first consider using factory, else or i you use Carbon 1 you can use:</p>
+    <p>If you want to apply this globally, first consider using factory, else or if you use Carbon 1 you can use:</p>
 
     <p>
     <pre><code class="php">{{::lint(
@@ -3179,7 +3185,7 @@ Carbon::serializeUsing(null);
 </code></pre>
     </p>
 
-    <p>The <code>jsonSerialize()</code> method allow you to call the function given to
+    <p>The <code>jsonSerialize()</code> method allows you to call the function given to
         <code>Carbon::serializeUsing()</code> or the result of <code>toJson()</code> if no custom
         serialization specified.</p>
 
@@ -3218,16 +3224,16 @@ echo "\n";
     <p>Note that the closure is preceded by <code>static</code> and uses <code>self::this()</code> (available
         since version 2.25.0) instead of <code>$this</code>. This is the
         standard way to create Carbon macros, and this also applies to macros on other classes
-        (<code>CarbonImmutable</code>, <code>CarbonInterval</code> and <code>CarbonInterval</code>).</p>
+        (<code>CarbonImmutable</code>, <code>CarbonInterval</code> and <code>CarbonPeriod</code>).</p>
 
     <p>By following this pattern you ensure other developers of you team (and future you) can rely safely on the
         assertion: <code>Carbon::anyMacro()</code> is equivalent to <code>Carbon::now()->anyMacro()</code>.
-        This make the usage of macros consistent and predictable and ensure developers than any macro can
+        This makes the usage of macros consistent and predictable and ensures developers that any macro can
         be called safely either statically or dynamically.</p>
 
     <p id="macro-cli">The sad part is IDE will not natively your macro method (no auto-completion for the method
         <code>diffFromYear</code> in the example above). But it's no longer a problem thanks to our CLI tool:
-        <a href="https://github.com/kylekatarnls/carbon-cli">carbon-cli</a> that allow you to generate IDE
+        <a href="https://github.com/kylekatarnls/carbon-cli">carbon-cli</a> that allows you to generate IDE
         helper files for your mixins and macros.</p>
 
     <p id="user-settings">Macros are the perfect tool to output dates with some settings or user preferences.</p>
