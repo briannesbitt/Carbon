@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Carbon\PHPStan;
 
 use Closure;
-use ErrorException;
 use PHPStan\Reflection\Php\BuiltinMethodReflection;
 use PHPStan\TrinaryLogic;
 use ReflectionClass;
@@ -14,6 +13,7 @@ use ReflectionMethod;
 use ReflectionParameter;
 use ReflectionType;
 use stdClass;
+use Throwable;
 
 final class Macro implements BuiltinMethodReflection
 {
@@ -74,7 +74,7 @@ final class Macro implements BuiltinMethodReflection
                 $closure = $this->reflectionFunction->getClosure();
                 $boundClosure = Closure::bind($closure, new stdClass);
                 $this->static = (!$boundClosure || (new \ReflectionFunction($boundClosure))->getClosureThis() === null);
-            } catch (ErrorException $e) {
+            } catch (Throwable $e) {
                 $this->static = true;
             }
         }
@@ -137,18 +137,6 @@ final class Macro implements BuiltinMethodReflection
     }
 
     /**
-     * Set the is static value.
-     *
-     * @param bool $static
-     *
-     * @return void
-     */
-    public function setStatic(bool $static): void
-    {
-        $this->static = $static;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getDocComment(): ?string
@@ -178,18 +166,6 @@ final class Macro implements BuiltinMethodReflection
     public function getParameters(): array
     {
         return $this->parameters;
-    }
-
-    /**
-     * Set the parameters value.
-     *
-     * @param ReflectionParameter[] $parameters
-     *
-     * @return void
-     */
-    public function setParameters(array $parameters): void
-    {
-        $this->parameters = $parameters;
     }
 
     /**
