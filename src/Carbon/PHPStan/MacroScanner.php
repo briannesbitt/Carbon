@@ -13,6 +13,7 @@ final class MacroScanner
      *
      * @param CarbonInterface $class
      * @phpstan-param class-string $class
+     *
      * @param string $methodName
      *
      * @return bool
@@ -27,6 +28,7 @@ final class MacroScanner
      *
      * @param CarbonInterface $class
      * @phpstan-param class-string $class
+     *
      * @param string $methodName
      *
      * @throws ReflectionException
