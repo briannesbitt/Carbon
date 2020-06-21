@@ -176,12 +176,24 @@ class CarbonPeriod implements Iterator, Countable, JsonSerializable
     const END_ITERATION = 'Carbon\CarbonPeriod::endIteration';
 
     /**
-     * Available options.
+     * Exclude start date from iteration.
      *
      * @var int
      */
     const EXCLUDE_START_DATE = 1;
+
+    /**
+     * Exclude end date from iteration.
+     *
+     * @var int
+     */
     const EXCLUDE_END_DATE = 2;
+
+    /**
+     * Yield CarbonImmutable instances.
+     *
+     * @var int
+     */
     const IMMUTABLE = 4;
 
     /**
