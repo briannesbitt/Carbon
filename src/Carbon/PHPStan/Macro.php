@@ -50,7 +50,7 @@ final class Macro implements BuiltinMethodReflection
      *
      * @var bool
      */
-    private $isStatic = false;
+    private $static = false;
 
     /**
      * Macro constructor.
@@ -76,7 +76,7 @@ final class Macro implements BuiltinMethodReflection
                 // The closure can be bound so it was not explicitly marked as static
             } catch (ErrorException $e) {
                 // The closure was explicitly marked as static
-                $this->isStatic = true;
+                $this->static = true;
             }
         }
     }
@@ -134,19 +134,19 @@ final class Macro implements BuiltinMethodReflection
      */
     public function isStatic(): bool
     {
-        return $this->isStatic;
+        return $this->static;
     }
 
     /**
      * Set the is static value.
      *
-     * @param bool $isStatic
+     * @param bool $static
      *
      * @return void
      */
-    public function setIsStatic(bool $isStatic): void
+    public function setStatic(bool $static): void
     {
-        $this->isStatic = $isStatic;
+        $this->static = $static;
     }
 
     /**

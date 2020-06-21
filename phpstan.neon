@@ -3,6 +3,8 @@ parameters:
     paths:
         - src
         - tests
+    parallel:
+        processTimeout: 300.0
     ignoreErrors:
         - '#^Call to an undefined static method#'
         - '#^Call to an undefined method .*::(foo|foobar|this)\(\)\.$#'

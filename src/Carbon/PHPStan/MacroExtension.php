@@ -33,17 +33,10 @@ final class MacroExtension implements MethodsClassReflectionExtension
      */
     public function hasMethod(ClassReflection $classReflection, string $methodName): bool
     {
-        if (!in_array(
-            CarbonInterface::class,
-            $classReflection->getInterfaces()
-        )) {
-            /** @var CarbonInterface $class */
-            $class = $classReflection->getName();
+        /** @var CarbonInterface $class */
+        $class = $classReflection->getName();
 
-            return $class::hasMacro($methodName);
-        }
-
-        return false;
+        return is_a($class, CarbonInterface::class, true) && $class::hasMacro($methodName);
     }
 
     /**
