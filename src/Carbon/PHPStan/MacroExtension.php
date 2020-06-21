@@ -2,15 +2,17 @@
 
 namespace Carbon\PHPStan;
 
-use Carbon\CarbonInterface;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Type\TypehintHelper;
-use ReflectionClass;
-use ReflectionFunction;
 
+/**
+ * Class MacroExtension.
+ *
+ * @codeCoverageIgnore Pure PHPStan wrapper.
+ */
 final class MacroExtension implements MethodsClassReflectionExtension
 {
     /**
@@ -19,12 +21,18 @@ final class MacroExtension implements MethodsClassReflectionExtension
     protected $methodReflectionFactory;
 
     /**
+     * @var MacroScanner
+     */
+    protected $scanner;
+
+    /**
      * Extension constructor.
      *
      * @param PhpMethodReflectionFactory $methodReflectionFactory
      */
     public function __construct(PhpMethodReflectionFactory $methodReflectionFactory)
     {
+        $this->scanner = new MacroScanner();
         $this->methodReflectionFactory = $methodReflectionFactory;
     }
 
@@ -33,10 +41,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
      */
     public function hasMethod(ClassReflection $classReflection, string $methodName): bool
     {
-        /** @var CarbonInterface $class */
-        $class = $classReflection->getName();
-
-        return is_a($class, CarbonInterface::class, true) && $class::hasMacro($methodName);
+        return $this->scanner->hasMethod($classReflection->getName(), $methodName);
     }
 
     /**
@@ -44,17 +49,7 @@ final class MacroExtension implements MethodsClassReflectionExtension
      */
     public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
     {
-        $className = $classReflection->getName();
-        $reflectionClass = new ReflectionClass($className);
-        $property = $reflectionClass->getProperty('globalMacros');
-
-        $property->setAccessible(true);
-        $macro = $property->getValue()[$methodName];
-        $builtinMacro = new Macro(
-            $classReflection->getName(),
-            $methodName,
-            new ReflectionFunction($macro)
-        );
+        $builtinMacro = $this->scanner->getMethod($classReflection->getName(), $methodName);
 
         return $this->methodReflectionFactory->create(
             $classReflection,

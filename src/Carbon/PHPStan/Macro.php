@@ -32,9 +32,9 @@ final class Macro implements BuiltinMethodReflection
     private $methodName;
 
     /**
-     * The reflection function.
+     * The reflection function/method.
      *
-     * @var ReflectionFunction
+     * @var ReflectionFunction|ReflectionMethod
      */
     private $reflectionFunction;
 
@@ -58,14 +58,16 @@ final class Macro implements BuiltinMethodReflection
      * @param string $className
      * @phpstan-param class-string $className
      *
-     * @param string             $methodName
-     * @param ReflectionFunction $reflectionFunction
+     * @param string   $methodName
+     * @param callable $macro
      */
-    public function __construct(string $className, string $methodName, ReflectionFunction $reflectionFunction)
+    public function __construct(string $className, string $methodName, $macro)
     {
         $this->className = $className;
         $this->methodName = $methodName;
-        $this->reflectionFunction = $reflectionFunction;
+        $this->reflectionFunction = is_array($macro)
+            ? new ReflectionMethod($macro[0], $macro[1])
+            : new ReflectionFunction($macro);
         $this->parameters = $this->reflectionFunction->getParameters();
 
         if ($this->reflectionFunction->isClosure()) {
@@ -73,7 +75,7 @@ final class Macro implements BuiltinMethodReflection
                 /** @var Closure $closure */
                 $closure = $this->reflectionFunction->getClosure();
                 $boundClosure = Closure::bind($closure, new stdClass);
-                $this->static = (!$boundClosure || (new \ReflectionFunction($boundClosure))->getClosureThis() === null);
+                $this->static = (!$boundClosure || (new ReflectionFunction($boundClosure))->getClosureThis() === null);
             } catch (Throwable $e) {
                 $this->static = true;
             }
@@ -197,7 +199,10 @@ final class Macro implements BuiltinMethodReflection
      */
     public function isDeprecated(): TrinaryLogic
     {
-        return TrinaryLogic::createFromBoolean($this->reflectionFunction->isDeprecated());
+        return TrinaryLogic::createFromBoolean(
+            $this->reflectionFunction->isDeprecated() ||
+            preg_match('/@deprecated/i', $this->getDocComment() ?: '')
+        );
     }
 
     /**
@@ -221,6 +226,8 @@ final class Macro implements BuiltinMethodReflection
      */
     public function getReflection(): ?ReflectionMethod
     {
-        return null;
+        return $this->reflectionFunction instanceof ReflectionMethod
+            ? $this->reflectionFunction
+            : null;
     }
 }
