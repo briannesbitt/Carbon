@@ -25,6 +25,10 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithoutErrors(): void
     {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
+            $this->markTestSkipped('PHPStan is not ready for PHP 8.');
+        }
+
         $this->assertStringContainsString(
             '[OK] No errors',
             $this->analyze(__DIR__.'/Fixture.php')
@@ -33,6 +37,10 @@ class FeaturesTest extends AbstractTestCase
 
     public function testAnalysesWithAnError(): void
     {
+        if (version_compare(PHP_VERSION, '8.0.0-dev', '>=')) {
+            $this->markTestSkipped('PHPStan is not ready for PHP 8.');
+        }
+
         $this->assertStringContainsString(
             '17     Static call to instance method Carbon\Carbon::foo().',
             $this->analyze(__DIR__.'/BadFixture.php')
