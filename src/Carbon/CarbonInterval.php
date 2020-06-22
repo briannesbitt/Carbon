@@ -58,44 +58,25 @@ use Throwable;
  * @property-read float $totalMicroseconds Number of microseconds equivalent to the interval.
  * @property-read string $locale locale of the current instance
  *
- * @method static CarbonInterval years($years = 1) Create instance specifying a number of years.
+ * @method static CarbonInterval years($years = 1) Create instance specifying a number of years or modify the number of years if called on an instance.
  * @method static CarbonInterval year($years = 1) Alias for years()
- * @method static CarbonInterval months($months = 1) Create instance specifying a number of months.
+ * @method static CarbonInterval months($months = 1) Create instance specifying a number of months or modify the number of months if called on an instance.
  * @method static CarbonInterval month($months = 1) Alias for months()
- * @method static CarbonInterval weeks($weeks = 1) Create instance specifying a number of weeks.
+ * @method static CarbonInterval weeks($weeks = 1) Create instance specifying a number of weeks or modify the number of weeks if called on an instance.
  * @method static CarbonInterval week($weeks = 1) Alias for weeks()
- * @method static CarbonInterval days($days = 1) Create instance specifying a number of days.
+ * @method static CarbonInterval days($days = 1) Create instance specifying a number of days or modify the number of days if called on an instance.
  * @method static CarbonInterval dayz($days = 1) Alias for days()
  * @method static CarbonInterval day($days = 1) Alias for days()
- * @method static CarbonInterval hours($hours = 1) Create instance specifying a number of hours.
+ * @method static CarbonInterval hours($hours = 1) Create instance specifying a number of hours or modify the number of hours if called on an instance.
  * @method static CarbonInterval hour($hours = 1) Alias for hours()
- * @method static CarbonInterval minutes($minutes = 1) Create instance specifying a number of minutes.
+ * @method static CarbonInterval minutes($minutes = 1) Create instance specifying a number of minutes or modify the number of minutes if called on an instance.
  * @method static CarbonInterval minute($minutes = 1) Alias for minutes()
- * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds.
+ * @method static CarbonInterval seconds($seconds = 1) Create instance specifying a number of seconds or modify the number of seconds if called on an instance.
  * @method static CarbonInterval second($seconds = 1) Alias for seconds()
- * @method static CarbonInterval milliseconds($milliseconds = 1) Create instance specifying a number of milliseconds.
+ * @method static CarbonInterval milliseconds($milliseconds = 1) Create instance specifying a number of milliseconds or modify the number of milliseconds if called on an instance.
  * @method static CarbonInterval millisecond($milliseconds = 1) Alias for milliseconds()
- * @method static CarbonInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds.
+ * @method static CarbonInterval microseconds($microseconds = 1) Create instance specifying a number of microseconds or modify the number of microseconds if called on an instance.
  * @method static CarbonInterval microsecond($microseconds = 1) Alias for microseconds()
- * @method $this years($years = 1) Set the years portion of the current interval.
- * @method $this year($years = 1) Alias for years().
- * @method $this months($months = 1) Set the months portion of the current interval.
- * @method $this month($months = 1) Alias for months().
- * @method $this weeks($weeks = 1) Set the weeks portion of the current interval.  Will overwrite dayz value.
- * @method $this week($weeks = 1) Alias for weeks().
- * @method $this days($days = 1) Set the days portion of the current interval.
- * @method $this dayz($days = 1) Alias for days().
- * @method $this day($days = 1) Alias for days().
- * @method $this hours($hours = 1) Set the hours portion of the current interval.
- * @method $this hour($hours = 1) Alias for hours().
- * @method $this minutes($minutes = 1) Set the minutes portion of the current interval.
- * @method $this minute($minutes = 1) Alias for minutes().
- * @method $this seconds($seconds = 1) Set the seconds portion of the current interval.
- * @method $this second($seconds = 1) Alias for seconds().
- * @method $this milliseconds($seconds = 1) Set the seconds portion of the current interval.
- * @method $this millisecond($seconds = 1) Alias for seconds().
- * @method $this microseconds($seconds = 1) Set the seconds portion of the current interval.
- * @method $this microsecond($seconds = 1) Alias for seconds().
  * @method $this roundYear(float $precision = 1, string $function = "round") Round the current instance year with given precision using the given function.
  * @method $this roundYears(float $precision = 1, string $function = "round") Round the current instance year with given precision using the given function.
  * @method $this floorYear(float $precision = 1) Truncate the current instance year with given precision.
