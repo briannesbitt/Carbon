@@ -276,9 +276,11 @@ function evaluateCode(&$__state, $__code)
         unset($__key);
         unset($__value);
         try {
-            $lastResult = eval(strtr($__code, [
+            $lastResult = strtr(eval(strtr($__code, [
                 'var_dump' => 'carbonDocVarDump',
-            ]));
+            ])), [
+                'carbonDocVarDump' => 'var_dump',
+            ]);
         } catch (Throwable $e) {
             echo "$__code\n\n";
 

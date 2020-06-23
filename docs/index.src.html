@@ -3437,11 +3437,23 @@ CarbonPeriod::macro('countWeekdays', static function () {
 </code></pre>
     </p>
 
-    <p id="phpstan-support">We provide a PHPStan extension out of the box so it can understand macros and mixins.</p>
+    <p id="phpstan-support">We provide a PHPStan extension out of the box you can include in your
+        <strong>phpstan.neon</strong>:</p>
 
-    <p>If you're using Laravel, you should consider using <a href="https://github.com/nunomaduro/larastan">larastan</a>
+    <p>
+    <pre><code class="yaml">includes:
+    - vendor/nesbot/carbon/extension.neon
+parameters:
+    bootstrapFiles:
+        # You will also need to add here the file
+        # that enable your macros and mixins:
+        - config/bootstrap.php</code></pre>
+    </p>
+
+    <p>If you're using Laravel, you can consider using <a href="https://github.com/nunomaduro/larastan">larastan</a>
         which provides a complete support of Laravel features in PHPStan (including Carbon macros).
-        Else you can install <strong>phpstan/extension-installer</strong> if you don't have it:</p>
+        Alternatively to include the neon file, you can install
+        <strong>phpstan/extension-installer</strong>:</p>
 
     <pre><code>composer require --dev phpstan/phpstan phpstan/extension-installer</code></pre>
 
