@@ -2095,12 +2095,13 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
     <h1 id="api-addsub">Addition and Subtraction</h1>
 
     <p>The default DateTime provides a couple of different methods for easily adding and subtracting time. There is
-        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>modify()</code> takes a <i>magical</i>
+        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>change()</code> is an enhanced version
+        of <code>modify()</code> that can take <i>magical</i>
         date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
-        while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so
-        obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>). Hopefully
-        using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.
-        But of course I don't make you choose since the base class functions are still available.</p>
+        while <code>add()</code> and <code>sub()</code> can take the same the same kind of string, intervals (
+        <code>DateInterval</code> or <code>CarbonInterval</code>) or
+        count+unit parameters. But you can still access the native methods of <code>DateTime</code> class using
+        <code>rawAdd()</code> and <code>rawSub()</code>.</p>
 
     <p>
     <pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}

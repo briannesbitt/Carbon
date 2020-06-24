@@ -276,11 +276,9 @@ function evaluateCode(&$__state, $__code)
         unset($__key);
         unset($__value);
         try {
-            $lastResult = strtr(eval(strtr($__code, [
+            $lastResult = eval(strtr($__code, [
                 'var_dump' => 'carbonDocVarDump',
-            ])), [
-                'carbonDocVarDump' => 'var_dump',
-            ]);
+            ]));
         } catch (Throwable $e) {
             echo "$__code\n\n";
 
@@ -399,7 +397,9 @@ function compile($src, $dest = null)
     }
 
     // allow for escaping a command
-    $code = trim(str_replace('\{\{', '{{', $code))."\n";
+    $code = strtr(trim(str_replace('\{\{', '{{', $code))."\n", [
+        'carbonDocVarDump' => 'var_dump',
+    ]);
 
     return $dest ? file_put_contents($dest, $code) : $code;
 }
