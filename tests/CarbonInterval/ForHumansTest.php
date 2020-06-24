@@ -46,7 +46,7 @@ class ForHumansTest extends AbstractTestCase
 
     public function testSetTranslator()
     {
-        /** @var \Carbon\Translator $t */
+        /** @var \Carbon\Translator $ori */
         $ori = CarbonInterval::getTranslator();
         $t = new Translator('fr');
         $t->addLoader('array', new ArrayLoader());
