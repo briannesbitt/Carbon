@@ -58,19 +58,20 @@ trait IntervalStep
      *
      * @return CarbonInterface
      */
-    public function convertDate(DateTimeInterface $dateTime, bool $negated = false): DateTimeInterface
+    public function convertDate(DateTimeInterface $dateTime, bool $negated = false): CarbonInterface
     {
-        if ($this->step) {
-            return ($this->step)($dateTime, $negated);
-        }
+        /** @var CarbonInterface $carbonDate */
+        $carbonDate = $dateTime instanceof CarbonInterface ? $dateTime : $this->resolveCarbon($dateTime);
 
-        $dateTime = $dateTime instanceof CarbonInterface ? $dateTime : $this->resolveCarbon($dateTime);
+        if ($this->step) {
+            return $carbonDate->setDateTimeFrom(($this->step)($carbonDate->copy(), $negated));
+        }
 
         if ($negated) {
-            return $dateTime->rawSub($this);
+            return $carbonDate->rawSub($this);
         }
 
-        return $dateTime->rawAdd($this);
+        return $carbonDate->rawAdd($this);
     }
 
     /**

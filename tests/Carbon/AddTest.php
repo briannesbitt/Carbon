@@ -36,9 +36,11 @@ class AddTest extends AbstractTestCase
         $this->assertFalse($lastNegated);
         /** @var CarbonInterval $interval */
         $interval = include __DIR__.'/../Fixtures/dynamicInterval.php';
-        $date = Carbon::parse('2020-06-04')->add($interval);
+        $originalDate = Carbon::parse('2020-06-04');
+        $date = $originalDate->add($interval);
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame('2020-06-08', $date->format('Y-m-d'));
+        $this->assertSame($date, $originalDate);
         $date = Carbon::parse('2020-06-23')->add($interval);
         $this->assertInstanceOf(Carbon::class, $date);
         $this->assertSame('2020-07-16', $date->format('Y-m-d'));
