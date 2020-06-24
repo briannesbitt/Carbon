@@ -1599,7 +1599,7 @@ than (new Carbon('Monday next week'))->fn().</p>
 <div class="doc-method " id="doc-method-Carbon-create">
     <h2><span class="class-name">Carbon::</span>create</h2>
     <code>$year = 0, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0, $tz = null</code>
-    <div class="doc-return">returns <code>Carbon</code></div>
+    <div class="doc-return">returns <code>Carbon|false</code></div>
     <p class="doc-description">Create a new Carbon instance from a specific date and time.<br><br>If any of $year, $month or $day are set to null their now() values will
 be used.<br><br>If $hour is null it will be set to its now() value and the default
 values for $minute and $second will be their now() values.<br><br>If $hour is not null then the default values for $minute and $second
@@ -4861,7 +4861,7 @@ CarbonInterval::hours(48)->isBetween(CarbonInterval::day(), CarbonInterval::days
 <div class="doc-method " id="doc-method-CarbonInterval-convertDate">
     <h2><span class="class-name">CarbonInterval::</span>convertDate</h2>
     <code>DateTimeInterface $dateTime, bool $negated = false</code>
-    <div class="doc-return">returns <code>DateTimeInterface</code></div>
+    <div class="doc-return">returns <code>CarbonInterface</code></div>
     <p class="doc-description">Take a date and apply either the step if set, or the current interval else.<br><br>The interval/step is applied negatively (typically subtraction instead of addition) if $negated is true.</p>
     <table class='info-table method-history'><tr><td>Method added</td><td>2.36.0</td><td><code>DateTimeInterface $dateTime, bool $negated = false</code></td></tr></table>
 </div>

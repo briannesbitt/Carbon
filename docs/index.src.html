@@ -2098,8 +2098,8 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
         <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>change()</code> is an enhanced version
         of <code>modify()</code> that can take <i>magical</i>
         date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
-        while <code>add()</code> and <code>sub()</code> can take the same the same kind of string, intervals (
-        <code>DateInterval</code> or <code>CarbonInterval</code>) or
+        while <code>add()</code> and <code>sub()</code> can take the same the same kind of string, intervals
+        (<code>DateInterval</code> or <code>CarbonInterval</code>) or
         count+unit parameters. But you can still access the native methods of <code>DateTime</code> class using
         <code>rawAdd()</code> and <code>rawSub()</code>.</p>
 
@@ -4066,6 +4066,46 @@ usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 )}}
 
 {{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Alternatively to fixed intervals, Dynamic intervals can be described with a function to step from a date
+    to an other date:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $negated): DateTime {
+    // $negated is true when a subtraction is requested, false when an addition is requested
+    return $negated
+        ? $date->subWeekday()
+        : $date->addWeekday();
+});
+)}}
+
+{{::exec(echo Carbon::parse('Wednesday')->sub($weekDayInterval)->dayName;)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::parse('Friday')->add($weekDayInterval)->dayName;)}} // {{eval}}
+echo "\n";
+
+{{::exec(foreach (Carbon::parse('2020-06-01')->range('2020-06-17', $weekDayInterval) as $date) {
+    // every week day
+    echo ' '.$date->day;
+})}}
+//{{eval}}
+</code></pre>
+    </p>
+
+    <p>You can access and modify the closure step definition using <code>getStep()</code> and <code>setStep()</code>
+    (the setter can take <code>null</code> to remove it so it becomes a simple fixed interval. And as long as the
+    interval has a step, it will take the precedence over all fixed units it contains.</p>
+
+    <p>You can call <code>convertDate()</code> to apply the current dynamic or static interval to a date
+    (<code>DateTime</code>, <code>Carbon</code> or immutable ones) positively (or negatively passing
+    <code>true</code> as a second argument):</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo $weekDayInterval->convertDate(new DateTime('Wednesday'), true)->dayName;)}} // {{eval}}
+{{::exec(echo $weekDayInterval->convertDate(new DateTime('Friday'))->dayName;)}} // {{eval}}
 </code></pre>
     </p>
 
