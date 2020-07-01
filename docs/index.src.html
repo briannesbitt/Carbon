@@ -2095,12 +2095,13 @@ $dt->isMidday(); // check if hour is 12:00:00 (or other midday hour set with Car
     <h1 id="api-addsub">Addition and Subtraction</h1>
 
     <p>The default DateTime provides a couple of different methods for easily adding and subtracting time. There is
-        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>modify()</code> takes a <i>magical</i>
+        <code>modify()</code>, <code>add()</code> and <code>sub()</code>. <code>change()</code> is an enhanced version
+        of <code>modify()</code> that can take <i>magical</i>
         date/time format string, <code>'last day of next month'</code>, that it parses and applies the modification
-        while <code>add()</code> and <code>sub()</code> expect a <code>DateInterval</code> instance that's not so
-        obvious, (e.g. <code>new \DateInterval('P6YT5M')</code> would mean <em>6 years and 5 minutes</em>). Hopefully
-        using these fluent functions will be more clear and easier to read after not seeing your code for a few weeks.
-        But of course I don't make you choose since the base class functions are still available.</p>
+        while <code>add()</code> and <code>sub()</code> can take the same the same kind of string, intervals
+        (<code>DateInterval</code> or <code>CarbonInterval</code>) or
+        count+unit parameters. But you can still access the native methods of <code>DateTime</code> class using
+        <code>rawAdd()</code> and <code>rawSub()</code>.</p>
 
     <p>
     <pre><code class="php">{{::lint($dt = Carbon::create(2012, 1, 31, 0);)}}
@@ -3426,11 +3427,6 @@ CarbonInterval::macro('twice', static function () {
 </code></pre>
     </p>
 
-    <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
-        <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
-        <a href="#diff-for-humans-options">See <code>Carbon::diffForHumans()</code> options.</a>
-    </p>
-
     <p>
     <pre><code class="php">{{::lint(
 CarbonPeriod::macro('countWeekdays', static function () {
@@ -3441,6 +3437,32 @@ CarbonPeriod::macro('countWeekdays', static function () {
 {{::exec(echo CarbonPeriod::create('2017-12-01', '2017-12-31')->countWeekdays();/*pad(72)*/)}} // {{eval}}
 </code></pre>
     </p>
+
+    <p id="phpstan-support">We provide a PHPStan extension out of the box you can include in your
+        <strong>phpstan.neon</strong>:</p>
+
+    <p>
+    <pre><code class="yaml">includes:
+    - vendor/nesbot/carbon/extension.neon
+parameters:
+    bootstrapFiles:
+        # You will also need to add here the file
+        # that enable your macros and mixins:
+        - config/bootstrap.php</code></pre>
+    </p>
+
+    <p>If you're using Laravel, you can consider using <a href="https://github.com/nunomaduro/larastan">larastan</a>
+        which provides a complete support of Laravel features in PHPStan (including Carbon macros).
+        Alternatively to include the neon file, you can install
+        <strong>phpstan/extension-installer</strong>:</p>
+
+    <pre><code>composer require --dev phpstan/phpstan phpstan/extension-installer</code></pre>
+
+    <p>Then add the file where your Carbon macros and mixins are defined in the <strong>bootstrapFiles</strong> entry:</p>
+
+    <pre><code class="yaml">parameters:
+    bootstrapFiles:
+        - config/bootstrap.php</code></pre>
 
     <p>Check <a href="https://github.com/kylekatarnls/business-time">cmixin/business-time</a>
         (that includes <a href="https://github.com/kylekatarnls/business-day">cmixin/business-day</a>)
@@ -3826,6 +3848,11 @@ CarbonInterval::setLocale('fr');)}}
 </code></pre>
     </p>
 
+    <p><code>forHumans($syntax, $short, $parts, $options)</code> allow the same option arguments as
+        <code>Carbon::diffForHumans()</code> except <code>$parts</code> is set to -1 (no limit) by default.
+        <a href="#diff-for-humans-options">See <code>Carbon::diffForHumans()</code> options.</a>
+    </p>
+
     <p>As you can see, you can change the locale of the string using <code>CarbonInterval::setLocale('fr')</code>.</p>
 
     <p>As for Carbon, you can use the make method to return a new instance of CarbonInterval from other interval or
@@ -4039,6 +4066,46 @@ usort($list, ['Carbon\CarbonInterval', 'compareDateIntervals']);
 )}}
 
 {{::exec(echo implode(', ', $list);/*pad(62)*/)}} // {{eval}}
+</code></pre>
+    </p>
+
+    <p>Alternatively to fixed intervals, Dynamic intervals can be described with a function to step from a date
+    to an other date:</p>
+
+    <p>
+    <pre class="live-editor"><code class="php">{{::lint(
+$weekDayInterval = new CarbonInterval(function (CarbonInterface $date, bool $negated): DateTime {
+    // $negated is true when a subtraction is requested, false when an addition is requested
+    return $negated
+        ? $date->subWeekday()
+        : $date->addWeekday();
+});
+)}}
+
+{{::exec(echo Carbon::parse('Wednesday')->sub($weekDayInterval)->dayName;)}} // {{eval}}
+echo "\n";
+{{::exec(echo Carbon::parse('Friday')->add($weekDayInterval)->dayName;)}} // {{eval}}
+echo "\n";
+
+{{::exec(foreach (Carbon::parse('2020-06-01')->range('2020-06-17', $weekDayInterval) as $date) {
+    // every week day
+    echo ' '.$date->day;
+})}}
+//{{eval}}
+</code></pre>
+    </p>
+
+    <p>You can access and modify the closure step definition using <code>getStep()</code> and <code>setStep()</code>
+    (the setter can take <code>null</code> to remove it so it becomes a simple fixed interval. And as long as the
+    interval has a step, it will take the precedence over all fixed units it contains.</p>
+
+    <p>You can call <code>convertDate()</code> to apply the current dynamic or static interval to a date
+    (<code>DateTime</code>, <code>Carbon</code> or immutable ones) positively (or negatively passing
+    <code>true</code> as a second argument):</p>
+
+    <p>
+    <pre><code class="php">{{::exec(echo $weekDayInterval->convertDate(new DateTime('Wednesday'), true)->dayName;)}} // {{eval}}
+{{::exec(echo $weekDayInterval->convertDate(new DateTime('Friday'))->dayName;)}} // {{eval}}
 </code></pre>
     </p>
 
