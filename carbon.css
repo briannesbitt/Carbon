@@ -281,6 +281,16 @@ footer {
     bottom: 0;
     left: 0;
     right: 0;
+    background: #d8d8d8;
+    padding: 5px;
+    box-shadow: 0 0 2px gray;
+}
+
+.available-slot {
+    line-height: 2em;
+}
+
+footer .help-translate {
     background: #a4e69c;
     color: #363636;
     transition: .2s background;
@@ -307,11 +317,6 @@ footer .help-translate {
     display: none;
     padding: 6px;
     text-align: center;
-}
-
-#codefund .cf-wrapper {
-    position: static !important;
-    display: block !important;
 }
 
 .height-squeezed {
@@ -346,15 +351,6 @@ pre.search-result-item {
 
 .country-language {
     display: none;
-}
-
-footer {
-    background: #d8d8d8;
-    padding: 5px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
 }
 
 @media (max-width: 1600px) {
