@@ -564,6 +564,8 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
             });
         }
 
+        var locale = navigator.language || navigator.userLanguage || '';
+
         $(document)
             .on('click', 'a[data-open-doc]', function (event) {
                 event.preventDefault();
@@ -601,7 +603,7 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
             $anchor.click()[0].scrollIntoView();
         }
 
-        var language = ((navigator.language || navigator.userLanguage).split(/[_-]/)[0] || '').toLowerCase();
+        var language = (locale.split(/[_-]/)[0] || '').toLowerCase();
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
@@ -656,6 +658,12 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
         scrollCheck();
         $document.scroll(scrollCheck);
         $('.search').scroll(scrollCheck);
+
+        var country = locale.toLowerCase().replace(/^[a-z]+[_-]/, '');
+
+        if (country) {
+            $('.' + country + '-country-only').show();
+        }
 
         $('.search-wrapper .close').click(function () {
             $('.main-wrapper').removeClass('open');
@@ -780,6 +788,14 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
         })();
     </script>
     
-    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
+    <footer>
+        <div class="country-language fr-country-only">
+            <a href="https://www.ovnicap.com/blog/limoges-developpeur-se-full-stack-php-limoges">
+                <span style="background: #7AC35F; padding: 2px 4px; margin-right: 8px;">Offre d'emploi</span>
+                Développeur PHP dans un centre R&D à Limoges
+            </a>
+        </div>
+        <a href="https://carbon.selfbuild.fr/ads.php">Display your add here!</a>
+    </footer>
 </body>
 </html>

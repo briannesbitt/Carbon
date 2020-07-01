@@ -385,6 +385,8 @@
             });
         }
 
+        var locale = navigator.language || navigator.userLanguage || '';
+
         $(document)
             .on('click', 'a[data-open-doc]', function (event) {
                 event.preventDefault();
@@ -422,7 +424,7 @@
             $anchor.click()[0].scrollIntoView();
         }
 
-        var language = ((navigator.language || navigator.userLanguage).split(/[_-]/)[0] || '').toLowerCase();
+        var language = (locale.split(/[_-]/)[0] || '').toLowerCase();
 
         if (!sessStorage['closed-footer .help-translate'] &&
             location.href.indexOf('contribute/translate') === -1 &&
@@ -477,6 +479,12 @@
         scrollCheck();
         $document.scroll(scrollCheck);
         $('.search').scroll(scrollCheck);
+
+        var country = locale.toLowerCase().replace(/^[a-z]+[_-]/, '');
+
+        if (country) {
+            $('.' + country + '-country-only').show();
+        }
 
         $('.search-wrapper .close').click(function () {
             $('.main-wrapper').removeClass('open');
@@ -852,6 +860,14 @@
         })
     ;
 </script>
-    <script src="https://codefund.app/properties/151/funder.js" async="async"></script>
+    <footer>
+        <div class="country-language fr-country-only">
+            <a href="https://www.ovnicap.com/blog/limoges-developpeur-se-full-stack-php-limoges">
+                <span style="background: #7AC35F; padding: 2px 4px; margin-right: 8px;">Offre d'emploi</span>
+                Développeur PHP dans un centre R&D à Limoges
+            </a>
+        </div>
+        <a href="https://carbon.selfbuild.fr/ads.php">Display your add here!</a>
+    </footer>
 </body>
 </html>

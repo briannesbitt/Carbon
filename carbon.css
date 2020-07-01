@@ -344,6 +344,19 @@ pre.search-result-item {
     background: #fcff4c;
 }
 
+.country-language {
+    display: none;
+}
+
+footer {
+    background: #d8d8d8;
+    padding: 5px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 @media (max-width: 1600px) {
     html,
     body {
