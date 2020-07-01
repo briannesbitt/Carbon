@@ -700,6 +700,17 @@ Thank you to all our backers! 🙏 <a href="https://opencollective.com/Carbon#ba
         }
 
         $(function () {
+            var country = locale.toLowerCase().replace(/^[a-z]+[_-]/, '');
+
+            if (country) {
+                $('.' + country + '-country-only').show();
+            }
+
+            $('footer').css(
+                'padding-right',
+                (document.body.offsetWidth - (document.body.scrollWidth || document.body.clientWidth) + 'px')
+            );
+
             $.ajax('/reference/', {
                 success: function (data) {
                     $('.search').html(data).find('.live-editor code').each(function (index, block) {

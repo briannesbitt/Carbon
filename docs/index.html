@@ -280,7 +280,7 @@ if (strtotime($string) === false) {
 
     <p>
     <pre class="live-editor"><code class="php">$now = Carbon::now();
-echo $now;                               // 2020-07-01 12:32:59
+echo $now;                               // 2020-07-01 13:02:06
 echo "\n";
 $today = Carbon::today();
 echo $today;                             // 2020-07-01 00:00:00
@@ -412,7 +412,7 @@ echo $dt->diffInYears($dt->copy()->addYear());  // 1
 // 19:15 in Johannesburg
 echo 'Meeting starts at '.$meeting->format('H:i').' in Johannesburg.';                  // Meeting starts at 19:15 in Johannesburg.
 // now in Johannesburg
-echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 14:32 right now in Johannesburg.
+echo "It's ".$meeting->nowWithSameTz()->format('H:i').' right now in Johannesburg.';    // It's 15:02 right now in Johannesburg.
 </code></pre>
     </p>
 
@@ -766,7 +766,7 @@ echo $date->diffForHumans();     // il y a 1 seconde
 echo "\n";
 echo $date->monthName;           // juillet
 echo "\n";
-echo $date->isoFormat('LLLL');   // mercredi 1 juillet 2020 12:32
+echo $date->isoFormat('LLLL');   // mercredi 1 juillet 2020 13:02
 </code></pre>
     </p>
 
@@ -797,13 +797,13 @@ $notificationForJohn = $johnDateFactory->make($gameStart)->isoFormat('lll')."\n"
 echo $toDisplay;
 /*
 15 juin 2018 12:34
-Aujourd’hui à 12:32
+Aujourd’hui à 13:02
 */
 
 echo $notificationForJohn;
 /*
 Jun 15, 2018 12:34 PM
-Today at 12:32 PM
+Today at 1:02 PM
 */
 </code></pre>
     </p>
@@ -1604,21 +1604,21 @@ echo $date->isoFormat('M/D/YY HH:mm'); // 3/11/19 16:28
 
     <p>
     <pre class="live-editor"><code class="php">$date = CarbonImmutable::now();
-echo $date->calendar();                                      // Today at 12:32 PM
+echo $date->calendar();                                      // Today at 1:02 PM
 echo "\n";
-echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 9:32 AM
+echo $date->sub('1 day 3 hours')->calendar();                // Yesterday at 10:02 AM
 echo "\n";
-echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Sunday at 2:09 AM
+echo $date->sub('3 days 10 hours 23 minutes')->calendar();   // Last Sunday at 2:39 AM
 echo "\n";
 echo $date->sub('8 days')->calendar();                       // 06/23/2020
 echo "\n";
-echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 3:32 PM
+echo $date->add('1 day 3 hours')->calendar();                // Tomorrow at 4:02 PM
 echo "\n";
-echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 10:55 PM
+echo $date->add('3 days 10 hours 23 minutes')->calendar();   // Saturday at 11:25 PM
 echo "\n";
 echo $date->add('8 days')->calendar();                       // 07/09/2020
 echo "\n";
-echo $date->locale('fr')->calendar();                        // Aujourd’hui à 12:32
+echo $date->locale('fr')->calendar();                        // Aujourd’hui à 13:02
 </code></pre>
     </p>
 
@@ -5500,7 +5500,7 @@ echo Carbon::create(2001, 4, 21, 12)->diffForHumans(); // 1 month ago
 var_dump(Carbon::hasTestNow());                        // bool(true)
 Carbon::setTestNow();                                  // clear the mock
 var_dump(Carbon::hasTestNow());                        // bool(false)
-echo Carbon::now();                                    // 2020-07-01 12:33:00
+echo Carbon::now();                                    // 2020-07-01 13:02:07
 </code></pre>
     </p>
 
@@ -5725,12 +5725,12 @@ echo "\n";
 
 // You can get any property dynamically too:
 $unit = 'second';
-var_dump(Carbon::now()->get($unit));                         // int(0)
+var_dump(Carbon::now()->get($unit));                         // int(7)
 // equivalent to:
-var_dump(Carbon::now()->$unit);                              // int(0)
+var_dump(Carbon::now()->$unit);                              // int(7)
 // If you have plural unit name, use singularUnit()
 $unit = Carbon::singularUnit('seconds');
-var_dump(Carbon::now()->get($unit));                         // int(0)
+var_dump(Carbon::now()->get($unit));                         // int(7)
 // Prefer using singularUnit() because some plurals are not the word with S:
 var_dump(Carbon::pluralUnit('century'));                     // string(9) "centuries"
 var_dump(Carbon::pluralUnit('millennium'));                  // string(9) "millennia"
@@ -6304,8 +6304,8 @@ echo $dt1->maximum($dt2);                          // 2014-01-30 00:00:00
 
 // now is the default param
 $dt1 = Carbon::createMidnightDate(2000, 1, 1);
-echo $dt1->max();                                  // 2020-07-01 12:33:00
-echo $dt1->maximum();                              // 2020-07-01 12:33:00
+echo $dt1->max();                                  // 2020-07-01 13:02:07
+echo $dt1->maximum();                              // 2020-07-01 13:02:07
 
 // Remember min and max PHP native function work fine with dates too:
 echo max(Carbon::create('2002-03-15'), Carbon::create('2003-01-07'), Carbon::create('2002-08-25')); // 2003-01-07 00:00:00
@@ -7556,7 +7556,7 @@ echo Carbon::parse($dateString, 'UTC')->formatForUser();   // 23/01/2010
 echo "\n";
 echo Carbon::tomorrow()->formatForUser();                  // Demain à 02:00
 echo "\n";
-echo Carbon::now()->subDays(3)->formatForUser();           // dimanche dernier à 14:33
+echo Carbon::now()->subDays(3)->formatForUser();           // dimanche dernier à 15:02
 </code></pre>
     </p>
 
@@ -9684,6 +9684,17 @@ echo $error;                         // Unknown or bad timezone (["dummy","array
         }
 
         $(function () {
+            var country = locale.toLowerCase().replace(/^[a-z]+[_-]/, '');
+
+            if (country) {
+                $('.' + country + '-country-only').show();
+            }
+
+            $('footer').css(
+                'padding-right',
+                (document.body.offsetWidth - (document.body.scrollWidth || document.body.clientWidth) + 'px')
+            );
+
             $.ajax('/reference/', {
                 success: function (data) {
                     $('.search').html(data).find('.live-editor code').each(function (index, block) {
